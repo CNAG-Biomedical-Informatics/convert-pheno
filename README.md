@@ -1,6 +1,6 @@
 # NAME
 
-**UNDER DEVELOPMENT** This is script is under development.
+**UNDER DEVELOPMENT**
 
 **WARNING** DO NOT TRY THIS AT HOME
 
@@ -53,11 +53,7 @@ _NB:_If the input file consists of is a JSON array the output file will also be 
 # HOW TO RUN PHENO-CONVERT
 
 The script runs on command-line Linux (tested on Debian-based distribution). Perl 5 is installed by default on Linux, 
-but you might need to manually install a few CPAN modules.
-
-    * JSON::XS
-    * Path::Tiny
-    * Term::ANSIColor
+but we will install a few CPAN modules with `cpanminus`.
 
 First we install cpanminus (with sudo privileges):
 
@@ -65,7 +61,7 @@ First we install cpanminus (with sudo privileges):
 
 Then the modules:
 
-    $ cpanm --sudo JSON::XS Path::Tiny Term::ANSIColor
+    $ cpanm --sudo --installdeps .
 
 For executing pheno-convert you will need:
 

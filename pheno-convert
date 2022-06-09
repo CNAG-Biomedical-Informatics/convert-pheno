@@ -205,10 +205,10 @@ sub program_header {
     my $version = shift;
     my $str     = <<EOF;
 ****************************************
-*  Beacon v2 Reference Implementation  *
-*             - PHX2BFF -              *      
-*           Version: $version             *
-*   (C) 2021-2022 Manuel Rueda, PhD    *
+*  Phenotypic Data Model Convert Tool  *
+*          - PHENO-CONVERT -           *
+*          Version: $version             *
+*      (C) 2022 Manuel Rueda, PhD     *
 *    GNU General Public License v3     *
 ****************************************
 EOF
@@ -217,7 +217,7 @@ EOF
 
 =head1 NAME
 
-B<UNDER DEVELOPMENT> This is script is under development.
+B<UNDER DEVELOPMENT>
 
 B<WARNING> DO NOT TRY THIS AT HOME
 
@@ -270,11 +270,7 @@ I<NB:>If the input file consists of is a JSON array the output file will also be
 =head1 HOW TO RUN PHENO-CONVERT
 
 The script runs on command-line Linux (tested on Debian-based distribution). Perl 5 is installed by default on Linux, 
-but you might need to manually install a few CPAN modules.
-
-    * JSON::XS
-    * Path::Tiny
-    * Term::ANSIColor
+but we will install a few CPAN modules with C<cpanminus>.
 
 First we install cpanminus (with sudo privileges):
 
@@ -282,7 +278,7 @@ First we install cpanminus (with sudo privileges):
 
 Then the modules:
 
-   $ cpanm --sudo JSON::XS Path::Tiny Term::ANSIColor
+   $ cpanm --sudo --installdeps .
 
 For executing pheno-convert you will need:
 
