@@ -1,10 +1,12 @@
 # NAME
 
-A script that converts Phenopackets PXF (JSON) to BFF (JSON)
+**UNDER DEVELOPMENT**
+
+A script that converts Common Data Models formats
 
 # SYNOPSIS
 
-pxf2bff -i <\*.json> \[-options\]
+pheno-convert -i <\*.json> \[-options\]
 
      Arguments:                       
        -i|input                       Phenopackets JSON files
@@ -19,19 +21,13 @@ pxf2bff -i <\*.json> \[-options\]
 
 # CITATION
 
-The author requests that any published work which utilizes Beacon includes a cite to the the following reference:
-
-Rueda, M, Ariosa R. "Beacon v2 Reference Implementation: a software for federated discovery of genomic and phenoclinic data". _Submitted_.
+To be defined.
 
 # SUMMARY
 
-A script that converts Phenopackets PXF (JSON) to BFF (JSON).
+A script that converts Common Data Models formats
 
-Note that PXF contain one individual per file (1 JSON document), whereas BFF (majoritarily) contain multiple inviduals per file (JSON array of documentsa). Thus, the input should be PXF JSON from, say, the same dataset, and the output will be a unique `individuals.json` file.
-
-_NB:_ The script was created to parse [RD\_Connect synthetic data](https://ega-archive.org/datasets/EGAD00001008392). See examples in the `in` and `out` directories. The script is **UNTESTED** for other PXFs.
-
-# HOW TO RUN PXF2BFF
+# HOW TO RUN PHENO-CONVERT
 
 The script runs on command-line Linux (tested on Debian-based distribution). Perl 5 is installed by default on Linux, 
 but you might need to manually install a few CPAN modules.
@@ -48,7 +44,7 @@ Then the modules:
 
     $ cpanm --sudo JSON::XS Path::Tiny Term::ANSIColor
 
-For executing pxf2bff you will need:
+For executing pheno-convert you will need:
 
 - Input file(s):
 
@@ -56,11 +52,11 @@ For executing pxf2bff you will need:
 
 **Examples:**
 
-    $ ./pxf2bff -i in/*json -o out
+    $ ./pheno-convert -i in/*json -o out
 
-    $ $path/pxf2bff -i file.json --out-dir my_bff_outdir
+    $ $path/pheno-convert -i file.json --out-dir my_bff_outdir
 
-    $ $path/pxf2bff -i my_indir/*json -o my_bff_outdir 
+    $ $path/pheno-convert -i my_indir/*json -o my_bff_outdir 
 
 ## COMMON ERRORS AND SOLUTIONS
 
@@ -72,11 +68,11 @@ For executing pxf2bff you will need:
 
 # AUTHOR 
 
-Written by Manuel Rueda, PhD. Info about CRG can be found at [https://www.crg.eu](https://www.crg.eu).
+Written by Manuel Rueda, PhD. Info about CNAG can be found at [https://www.cnag.crg.eu](https://www.cnag.crg.eu).
 
 # REPORTING BUGS
 
-Report bugs or comments to <manuel.rueda@crg.eu>.
+Report bugs or comments to <manuel.rueda@cnag.crg.eu>.
 
 # COPYRIGHT
 
