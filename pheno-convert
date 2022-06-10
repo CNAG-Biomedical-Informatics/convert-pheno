@@ -265,7 +265,7 @@ To be defined.
 
 A script that converts Common Data Models formats.
 
-I<NB:>If the input file consists of is a JSON array the output file will also be a JSON array.
+I<NB:> If the input file consists of is a JSON array the output file will also be a JSON array.
 
 =head1 HOW TO RUN PHENO-CONVERT
 
@@ -279,6 +279,14 @@ First we install cpanminus (with sudo privileges):
 Then the modules:
 
    $ cpanm --sudo --installdeps .
+
+If you prefer to have the dependencies in a "virtual environment" you can use carton
+
+   $ cpanm --sudo Carton
+
+Then, we can install our dependencies
+
+   $ carton install
 
 For executing pheno-convert you will need:
 
@@ -298,6 +306,7 @@ B<Examples:>
 
    $ $path/pheno-convert -ibff individuals.json -opxf phenopackets.json
 
+   $ carton exec -- $path/pheno-convert -ibff individuals.json -opxf phenopackets.json # If using Carton
 
 =head2 COMMON ERRORS AND SOLUTIONS
 

@@ -48,7 +48,7 @@ To be defined.
 
 A script that converts Common Data Models formats.
 
-_NB:_If the input file consists of is a JSON array the output file will also be a JSON array.
+_NB:_ If the input file consists of is a JSON array the output file will also be a JSON array.
 
 # HOW TO RUN PHENO-CONVERT
 
@@ -63,6 +63,14 @@ Then the modules:
 
     $ cpanm --sudo --installdeps .
 
+If you prefer to have the dependencies in a "virtual environment" you can use carton
+
+    $ cpanm --sudo Carton
+
+Then, we can install our dependencies
+
+    $ carton install
+
 For executing pheno-convert you will need:
 
 - Input file(s):
@@ -76,6 +84,8 @@ For executing pheno-convert you will need:
     $ $path/pheno-convert -ipxf file.json -obff individuals.json --out-dir my_bff_outdir
 
     $ $path/pheno-convert -ibff individuals.json -opxf phenopackets.json
+
+    $ carton exec -- $path/pheno-convert -ibff individuals.json -opxf phenopackets.json # If using Carton
 
 ## COMMON ERRORS AND SOLUTIONS
 
