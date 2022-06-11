@@ -46,7 +46,7 @@ To be defined.
 
 # SUMMARY
 
-A script that converts Common Data Models formats.
+A script that interconverts phenotypic data between different Common Data Models formats.
 
 _NB:_ If the input file consists of is a JSON array the output file will also be a JSON array.
 
@@ -63,11 +63,11 @@ Then the modules:
 
     $ cpanm --sudo --installdeps .
 
-If you prefer to have the dependencies in a "virtual environment" you can use carton
+If you prefer to have the dependencies in a "virtual environment" (i.e., install the CPAN modules in the directory of the application) we recommend using the module `Carton`.
 
     $ cpanm --sudo Carton
 
-Then, we can install our dependencies
+Then, we can install our dependencies:
 
     $ carton install
 

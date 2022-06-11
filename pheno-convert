@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 #
-#   A script that converts Common Data Models formats
+#   A script that interconverts phenotypic data between different CDM formats
 #
 #   Last Modified: Jun/09/2022
 #
@@ -263,7 +263,7 @@ To be defined.
 
 =head1 SUMMARY
 
-A script that converts Common Data Models formats.
+A script that interconverts phenotypic data between different Common Data Models formats.
 
 I<NB:> If the input file consists of is a JSON array the output file will also be a JSON array.
 
@@ -280,11 +280,11 @@ Then the modules:
 
    $ cpanm --sudo --installdeps .
 
-If you prefer to have the dependencies in a "virtual environment" you can use carton
+If you prefer to have the dependencies in a "virtual environment" (i.e., install the CPAN modules in the directory of the application) we recommend using the module C<Carton>.
 
    $ cpanm --sudo Carton
 
-Then, we can install our dependencies
+Then, we can install our dependencies:
 
    $ carton install
 
