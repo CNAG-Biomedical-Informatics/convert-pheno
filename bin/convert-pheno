@@ -206,7 +206,7 @@ sub program_header {
     my $str     = <<EOF;
 ****************************************
 *  Phenotypic Data Model Convert Tool  *
-*          - PHENO-CONVERT -           *
+*          - CONVERT-PHENO -           *
 *          Version: $version             *
 *      (C) 2022 Manuel Rueda, PhD     *
 *    GNU General Public License v3     *
@@ -263,7 +263,8 @@ To be defined.
 
 =head1 SUMMARY
 
-A script that interconverts phenotypic data between different Common Data Models formats.
+A script that uses Convert::Pheno to interconverts phenotypic data between different CDM formats
+
 
 I<NB:> If the input file consists of is a JSON array the output file will also be a JSON array.
 
