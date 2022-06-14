@@ -4,11 +4,11 @@
 
 **WARNING** DO NOT TRY THIS AT HOME
 
-A script that converts Common Data Models formats
+A script that uses Convert::Pheno to interconverts phenotypic data between different CDM formats
 
 # SYNOPSIS
 
-pheno-convert \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-options\]
+convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-options\]
 
      Arguments:                       
        -i|input
@@ -71,7 +71,7 @@ Then, we can install our dependencies:
 
     $ carton install
 
-For executing pheno-convert you will need:
+For executing convert-pheno you will need:
 
 - Input file(s):
 
@@ -79,13 +79,13 @@ For executing pheno-convert you will need:
 
 **Examples:**
 
-    $ ./pheno-convert -ipxf in/*json -obff individuals.json
+    $ ./convert-pheno -ipxf in/*json -obff individuals.json
 
-    $ $path/pheno-convert -ipxf file.json -obff individuals.json --out-dir my_bff_outdir
+    $ $path/convert-pheno -ipxf file.json -obff individuals.json --out-dir my_bff_outdir
 
-    $ $path/pheno-convert -ibff individuals.json -opxf phenopackets.json
+    $ $path/convert-pheno -ibff individuals.json -opxf phenopackets.json
 
-    $ carton exec -- $path/pheno-convert -ibff individuals.json -opxf phenopackets.json # If using Carton
+    $ carton exec -- $path/convert-pheno -ibff individuals.json -opxf phenopackets.json # If using Carton
 
 ## COMMON ERRORS AND SOLUTIONS
 
