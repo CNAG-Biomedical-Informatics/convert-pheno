@@ -2,7 +2,7 @@
 #
 #   A script that interconverts phenotypic data between different CDM formats
 #
-#   Last Modified: Jun/09/2022
+#   Last Modified: Jun/15/2022
 #
 #   Version 2.0.0
 #
@@ -23,6 +23,8 @@
 #
 #   If this program helps you in your research, please cite.
 
+package main;
+
 use strict;
 use warnings;
 use feature qw(say);
@@ -32,173 +34,63 @@ use Pod::Usage;
 use Data::Dumper;
 use JSON::XS;
 use File::Spec::Functions qw(catdir catfile);
+use FindBin               qw($Bin);
+use lib "$Bin/../lib";
 use Path::Tiny;
 use Term::ANSIColor qw(:constants);
+use Convert::Pheno;
 $Data::Dumper::Sortkeys = 1;
 
 my $debug   = 0;
 my $verbose = 0;
 
-##### Main #####
-phenoconvert();
-################
-exit;
+# Defining a few variables
+my $version = '0.0.0b';
+my $out_dir = '.';
+my $individuals_json = 'individuals.json';
 
-sub phenoconvert {
+# Reading arguments
+GetOptions(
+    'ipxf=s{1,}'    => \my @in_files,                             # array
+    'obff=s'        => \$individuals_json,                        # string
+    'out-dir|o=s'   => \$out_dir,                                 # string
+    'help|?'        => \my $help,                                 # flag
+    'man'           => \my $man,                                  # flag
+    'debug=i'       => \$debug,                                   # integer
+    'verbose'       => \$verbose,                                 # flag
+    'version|v'     => sub { say "$0 Version $version"; exit; }
+) or pod2usage(2);
+pod2usage(1)                              if $help;
+pod2usage( -verbose => 2, -exitval => 0 ) if $man;
+pod2usage(
+    -message => "Please specify a valid input file(s) -i <*json>\n",
+    -exitval => 1
+) unless (@in_files);
+pod2usage(
+    -message => "Please specify a valid directory for --out-dir\n",
+    -exitval => 1
+) if ( !-d $out_dir );
 
-    # Defining a few variables
-    my $version = '0.0.0b';
-    my $out_dir = '.';
+# Defining a few more variables
+my $individuals_file = catfile( $out_dir, $individuals_json);
 
-    # Reading arguments
-    GetOptions(
-        'input|i=s{1,}' => \my @in_files,                             # array
-        'out-dir|o=s'   => \$out_dir,                                 # string
-        'help|?'        => \my $help,                                 # flag
-        'man'           => \my $man,                                  # flag
-        'debug=i'       => \$debug,                                   # integer
-        'verbose'       => \$verbose,                                 # flag
-        'version|v'     => sub { say "$0 Version $version"; exit; }
-    ) or pod2usage(2);
-    pod2usage(1)                              if $help;
-    pod2usage( -verbose => 2, -exitval => 0 ) if $man;
-    pod2usage(
-        -message => "Please specify a valid input file(s) -i <*json>\n",
-        -exitval => 1
-    ) unless (@in_files);
-    pod2usage(
-        -message => "Please specify a valid directory for --out-dir\n",
-        -exitval => 1
-    ) if ( !-d $out_dir );
+# Start printing to STDOUT
+say BOLD CYAN program_header($version);
 
-    # Define a few more variables
-    my $individuals_file = catfile( $out_dir, 'individuals.json' );
-
-    # Start printing to STDOUT
-    say BOLD CYAN program_header($version);
-
-    #############################
-    # START DATA TRANSFORMATION #
-    #############################
-    my $individuals = [];
-    for my $file (@in_files) {
-        say BOLD BLUE "==== Processing: <$file> ====", RESET;
-        push @{$individuals}, map_phenoconvert($file);
-    }
-    say BOLD GREEN "Writing <$individuals_file> file\n";
-    write_json( $individuals_file, $individuals );
-    ###########################
-    # END DATA TRANSFORMATION #
-    ###########################
-    return 1;
+#############################
+# START DATA TRANSFORMATION #
+#############################
+my $individuals = [];
+for my $file (@in_files) {
+    say BOLD BLUE "==== Processing: <$file> ====", RESET;
+    my $convert = Convert::Pheno->new( { pxf_file => $file } );
+    push @{$individuals}, $convert->map_pxf2bff;
 }
-
-sub map_phenoconvert {
-
-    my $pxf_file = shift;
-    my $data     = read_json($pxf_file);
-
-    # Get cursors for 1D terms
-    my $interpretation = $data->{interpretation};
-    my $phenopacket    = $data->{phenopacket};
-
-    ####################################
-    # START MAPPING TO BEACON V2 TERMS #
-    ####################################
-
-    # NB1: In general, we'll only load terms that exist
-    # NB2: In PXF some terms are = []
-    my $individual;
-
-    # ========
-    # diseases
-    # ========
-    $individual->{diseases} =
-      [ map { $_ = { "diseaseCode" => $_->{term} } }
-          @{ $phenopacket->{diseases} } ]
-      if exists $phenopacket->{diseases};
-
-    # ==
-    # id
-    # ==
-    $individual->{id} = $phenopacket->{subject}{id}
-      if exists $phenopacket->{subject}{id};
-
-    # ====
-    # info
-    # ====
-
-    # **** $data->{phenopacket} ****
-    $individual->{info}{phenopacket}{dateOfBirth} =
-      $phenopacket->{subject}{dateOfBirth};
-    for my $term (qw (dateOfBirth genes meta_data variants)) {
-        $individual->{info}{phenopacket}{$term} = $phenopacket->{$term}
-          if exists $phenopacket->{$term};
-    }
-
-    # **** $data->{interpretation} ****
-    $individual->{info}{interpretation}{phenopacket}{meta_data} =
-      $interpretation->{phenopacket}{meta_data};
-
-    # <diseases> and <phenotypicFeatures> are identical to those of $data->{phenopacket}{diseases,phenotypicFeatures}
-    for my $term (
-        qw (diagnosis diseases resolutionStatus phenotypicFeatures genes variants)
-      )
-    {
-        $individual->{info}{interpretation}{$term} = $interpretation->{$term}
-          if exists $interpretation->{$term};
-    }
-
-    # ==================
-    # phenotypicFeatures
-    # ==================
-    $individual->{phenotypicFeatures} = [
-        map {
-            $_ = {
-                "excluded" =>
-                  ( exists $_->{negated} ? JSON::XS::true : JSON::XS::false ),
-                "featureType" => $_->{type}
-            }
-        } @{ $phenopacket->{phenotypicFeatures} }
-      ]
-      if exists $phenopacket->{phenotypicFeatures};
-
-    # ===
-    # sex
-    # ===
-    $individual->{sex} = map_sex( $phenopacket->{subject}{sex} )
-      if exists $phenopacket->{subject}{sex};
-
-    ##################################
-    # END MAPPING TO BEACON V2 TERMS #
-    ##################################
-
-    # print Dumper $individual;
-    return $individual;
-}
-
-sub map_sex {
-
-    my $str = lc(shift);
-    my %sex = ( male => 'NCIT:C20197', female => 'NCIT:C16576' );
-    return { "id" => "$sex{$str}", "label" => "$str" };
-}
-
-sub read_json {
-
-    my $json_file = shift;
-    my $str       = path($json_file)->slurp_utf8;
-    my $json      = decode_json($str);           # Decode to Perl data structure
-    return $json;
-}
-
-sub write_json {
-
-    my ( $file, $json_array ) = @_;
-    my $json = JSON::XS->new->utf8->canonical->pretty->encode($json_array);
-    path($file)->spew_utf8($json);
-    return 1;
-}
+say BOLD GREEN "Writing <$individuals_file> file\n";
+write_json( $individuals_file, $individuals );
+###########################
+# END DATA TRANSFORMATION #
+###########################
 
 sub program_header {
 
