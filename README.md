@@ -2,29 +2,25 @@
 
 **UNDER DEVELOPMENT**
 
-**WARNING** DO NOT TRY THIS AT HOME
-
-A script that uses Convert::Pheno to interconverts phenotypic data between different CDM formats
+convert-pheno - A Perl script to interconvert phenotypic data between different CDM formats
 
 # SYNOPSIS
 
 convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-options\]
 
      Arguments:                       
-       -i|input
-            Formats:  
-              -ipxf                   Phenopackets JSON file(s)
-              -ibff                   Beacon v2 JSON filei (JSON array)
+       -input-type:  
+             -ipxf                    Phenopackets JSON file(s)
+             -ibff                    Beacon v2 JSON file (JSON array)
 
             (Wish-list)
              #-iomop                  OMOP-CDM csv file
              #-icdisc                 CDISC csv file
              #-ifhir                  FHIR csv file
              #-iredcap                RedCap csv file
-       -o|output
-            Formats:  
-              -opxf                   Phenopackets JSON file (JSON array)
-              -obff                   Beacon v2 JSON file (JSON array)
+       -output-type;
+             -opxf                    Phenopackets JSON file (JSON array)
+             -obff                    Beacon v2 JSON file (JSON array)
 
              (Wish-list)
              #-oomop                  OMOP-CDM csv file
@@ -40,13 +36,17 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
        -verbose                       Verbosity on
      
 
+# DESCRIPTION
+
+convert-pheno  is a commandline frontend to the module Convert::Pheno.
+
 # CITATION
 
 To be defined.
 
 # SUMMARY
 
-A script that interconverts phenotypic data between different Common Data Models formats.
+A script that uses Convert::Pheno to interconverts phenotypic data between different CDM formats
 
 _NB:_ If the input file consists of is a JSON array the output file will also be a JSON array.
 
