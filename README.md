@@ -2,7 +2,7 @@
 
 **UNDER DEVELOPMENT**
 
-convert-pheno - A Perl script to interconvert phenotypic data between different CDM formats
+convert-pheno - A script to interconvert phenotypic data between different CDM formats
 
 # SYNOPSIS
 
