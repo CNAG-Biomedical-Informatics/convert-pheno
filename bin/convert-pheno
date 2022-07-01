@@ -2,7 +2,7 @@
 #
 #   A script that interconverts phenotypic data between different CDM formats
 #
-#   Last Modified: Jun/15/2022
+#   Last Modified: Jul/01/2022
 #
 #   Version 2.0.0
 #
@@ -58,6 +58,7 @@ GetOptions(
     'man'           => \my $man,                                  # flag
     'debug=i'       => \$debug,                                   # integer
     'verbose'       => \$verbose,                                 # flag
+    'no-color|nc'   => \my $no_color,                             # flag
     'version|v'     => sub { say "$0 Version $version"; exit; }
 ) or pod2usage(2);
 pod2usage(1)                              if $help;
@@ -70,6 +71,9 @@ pod2usage(
     -message => "Please specify a valid directory for --out-dir\n",
     -exitval => 1
 ) if ( !-d $out_dir );
+
+# Turning color off if argument <--no-color>
+$ENV{'ANSI_COLORS_DISABLED'} = 1 if $no_color;
 
 # Defining a few more variables
 my $individuals_file = catfile( $out_dir, $individuals_json);
@@ -143,6 +147,7 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
        -man                           Full documentation
        -debug                         Print debugging (from 1 to 5, being 5 max)
        -verbose                       Verbosity on
+       -nc|-no-color                  Don't print colors to STDOUT
      
 =head1 DESCRIPTION
 
