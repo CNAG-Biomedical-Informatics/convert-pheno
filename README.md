@@ -11,7 +11,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
         Arguments:                       
           -input-type:  
                 -ipxf                    Phenopackets JSON file(s)
-                -ibff                    Beacon v2 JSON file (JSON array)
+                -ibff                    Beacon v2 JSON file
                 -iredcap                 RedCap csv file
 
                (Wish-list)
@@ -20,8 +20,8 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
                 #-ifhir                  FHIR csv file
 
           -output-type;
-                -opxf                    Phenopackets JSON file (JSON array)
-                -obff                    Beacon v2 JSON file (JSON array)
+                -opxf                    Phenopacket JSON file
+                -obff                    Beacon v2 JSON file
 
                 (Wish-list)
                 #-oomop                  OMOP-CDM csv file
