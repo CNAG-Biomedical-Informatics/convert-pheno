@@ -3,19 +3,24 @@ package Convert::Pheno;
 use strict;
 use warnings;
 use autodie;
+use feature qw(say);
+use Data::Dumper;
 use JSON::XS;
 use Path::Tiny;
+use File::Basename;
+use Text::CSV_XS;
+use Scalar::Util qw(looks_like_number);
 
-use constant DEVEL_MODE   => 0;
+use constant DEVEL_MODE => 0;
 use vars qw{
   $VERSION
   @ISA
   @EXPORT
 };
- 
+
 @ISA    = qw( Exporter );
 @EXPORT = qw( &write_json );
- 
+
 sub new {
 
     my ( $class, $self ) = @_;
@@ -26,8 +31,7 @@ sub new {
 sub pxf2bff {
 
     my $self = shift;
-    my $in_file = $self->{in_file};
-    my $data = read_json( $in_file ); 
+    my $data = read_json( $self->{in_file} );
 
     # Get cursors for 1D terms
     my $interpretation = $data->{interpretation};
@@ -109,10 +113,118 @@ sub pxf2bff {
     return $individual;
 }
 
+sub bff2pxf {
+    die "Under development";
+}
+
+sub redcap2bff {
+
+    my $self    = shift;
+    my $in_file = $self->{in_file};
+
+    # Define split record separator
+    my @exts = qw(.csv .tsv .txt);
+    my ( undef, undef, $ext ) = fileparse( $in_file, @exts );
+
+    #########################################
+    #     START READING CSV|TSV|TXT FILE    #
+    #########################################
+    open my $fh_in, '<:encoding(utf8)', $in_file;
+
+    # We'll read the header to assess separators in <txt> files
+    chomp( my $tmp_header = <$fh_in> );
+
+    # Defining separator
+    my $separator =
+        $ext eq '.csv' ? ';'
+      : $ext eq '.tsv' ? "\t"
+      :                  ' ';
+
+    # Defining variables
+    my $data = [];                  #AoH
+    my $csv  = Text::CSV_XS->new(
+        {
+            binary    => 1,
+            auto_diag => 1,
+            sep_char  => $separator
+        }
+    );
+
+    # Loading header fields into $header
+    $csv->parse($tmp_header);
+    my $header = [ $csv->fields() ];
+
+    # Now proceed with the rest of the file
+    while ( my $row = $csv->getline($fh_in) ) {
+
+        # We store the data as an AoH $data
+        my $tmp_hash;
+        for my $i ( 0 .. $#{$header} ) {
+            $tmp_hash->{ $header->[$i] } = $row->[$i];
+        }
+        push @$data, $tmp_hash;
+    }
+
+    close $fh_in;
+    #########################################
+    #     END READING CSV|TSV|TXT FILE      #
+    #########################################
+
+    # Now we start the mapping to Beacon v2
+
+    my $individuals;
+    for my $element (@$data) {
+
+        ####################################
+        # START MAPPING TO BEACON V2 TERMS #
+        ####################################
+
+        my $individual;
+
+        # ========
+        # diseases
+        # ========
+        $individual->{diseases} = [
+            {
+                "diseaseCode" => {
+                    id    => 'ICD10:K51.90',
+                    label => 'Inflamatory Bowel Disease'
+                }
+            }
+        ];
+
+        # ==
+        # id
+        # ==
+        $individual->{id} = $element->{first_name}
+          if ( exists $element->{first_name} && $element->{first_name} );
+
+        # ===
+        # sex
+        # ===
+        #print Dumper $data;
+        $individual->{sex} = map_sex( $element->{sex} )
+          if ( exists $element->{sex} && $element->{sex} );
+
+        ##################################
+        # END MAPPING TO BEACON V2 TERMS #
+        ##################################
+        push @{$individuals}, $individual;
+    }
+
+    return $individuals;
+
+}
+
 sub map_sex {
 
     my $str = lc(shift);
-    my %sex = ( male => 'NCIT:C20197', female => 'NCIT:C16576' );
+    my %sex = (
+        male   => 'NCIT:C20197',
+        female => 'NCIT:C16576',
+        '2'    => 'NCIT:C20197',
+        '1'    => 'NCIT:C16576'
+    );
     return { "id" => "$sex{$str}", "label" => "$str" };
 }
 

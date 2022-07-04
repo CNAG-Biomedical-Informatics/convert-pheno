@@ -92,6 +92,7 @@ my $input = {
     : $out_bff ? catfile( $out_dir, $out_bff )
     :            catfile( $out_dir, 'individuals.json' )
 };
+my $method = $input->{in_type} . '2' . $input->{out_type};
 
 #print Dumper $input and die;
 # Start printing to STDOUT
@@ -103,9 +104,8 @@ say BOLD CYAN program_header($version);
 
 print BOLD BLUE program_body( $input->{in_type}, $input->{out_type},
     $input->{in_file} );
-print BOLD GREEN "Writing <$input->{out_file}> file\n";
+say BOLD GREEN "Writing <$input->{out_file}> file\n";
 my $convert = Convert::Pheno->new($input);
-my $method  = $input->{in_type} . '2' . $input->{out_type};
 write_json( $input->{out_file}, $convert->$method );
 
 ###########################
