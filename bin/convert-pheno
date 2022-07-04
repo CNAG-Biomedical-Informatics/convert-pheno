@@ -2,7 +2,7 @@
 #
 #   A script that interconverts phenotypic data between different CDM formats
 #
-#   Last Modified: Jul/01/2022
+#   Last Modified: Jul/04/2022
 #
 #   Version 2.0.0
 #
@@ -47,26 +47,28 @@ my $verbose = 0;
 # Defining a few variables
 my $version = '0.0.0b';
 my $out_dir = '.';
-my $individuals_json = 'individuals.json';
 
 # Reading arguments
 GetOptions(
-    'ipxf=s{1,}'    => \my @in_files,                             # array
-    'obff=s'        => \$individuals_json,                        # string
-    'out-dir|o=s'   => \$out_dir,                                 # string
-    'help|?'        => \my $help,                                 # flag
-    'man'           => \my $man,                                  # flag
-    'debug=i'       => \$debug,                                   # integer
-    'verbose'       => \$verbose,                                 # flag
-    'no-color|nc'   => \my $no_color,                             # flag
-    'version|v'     => sub { say "$0 Version $version"; exit; }
+    'ipxf=s'      => \my $in_pxf,                               # array
+    'ibff|s'      => \my $in_bff,                               # string
+    'iredcap=s'   => \my $in_redcap,                            # string
+    'obff=s'      => \my $out_bff,                              # string
+    'opxf=s'      => \my $out_pxf,                              # string
+    'out-dir=s'   => \$out_dir,                                 # string
+    'help|?'      => \my $help,                                 # flag
+    'man'         => \my $man,                                  # flag
+    'debug=i'     => \$debug,                                   # integer
+    'verbose'     => \$verbose,                                 # flag
+    'no-color|nc' => \my $no_color,                             # flag
+    'version|v'   => sub { say "$0 Version $version"; exit; }
 ) or pod2usage(2);
 pod2usage(1)                              if $help;
 pod2usage( -verbose => 2, -exitval => 0 ) if $man;
 pod2usage(
     -message => "Please specify a valid input file(s) -i <*json>\n",
     -exitval => 1
-) unless (@in_files);
+) unless ( $in_pxf || $in_bff || $in_redcap );
 pod2usage(
     -message => "Please specify a valid directory for --out-dir\n",
     -exitval => 1
@@ -75,26 +77,51 @@ pod2usage(
 # Turning color off if argument <--no-color>
 $ENV{'ANSI_COLORS_DISABLED'} = 1 if $no_color;
 
-# Defining a few more variables
-my $individuals_file = catfile( $out_dir, $individuals_json);
+# Defining input as a hash ref
+my $input = {
+      in_type => $in_pxf ? 'pxf'
+    : $in_bff    ? 'bff'
+    : $in_redcap ? 'redcap'
+    : 'bff',
+    out_type => $out_pxf ? 'pxf' : $out_bff ? 'bff' : 'bff',
+    in_file => $in_pxf ? $in_pxf
+    : $in_bff    ? $in_bff
+    : $in_redcap ? $in_redcap
+    : 'individuals.json',
+    out_file => $out_pxf ? catfile( $out_dir, $out_pxf )
+    : $out_bff ? catfile( $out_dir, $out_bff )
+    :            catfile( $out_dir, 'individuals.json' )
+};
 
+#print Dumper $input and die;
 # Start printing to STDOUT
 say BOLD CYAN program_header($version);
 
 #############################
 # START DATA TRANSFORMATION #
 #############################
-my $individuals = [];
-for my $file (@in_files) {
-    say BOLD BLUE "==== Processing: <$file> ====", RESET;
-    my $convert = Convert::Pheno->new( { pxf_file => $file } );
-    push @{$individuals}, $convert->map_pxf2bff;
-}
-say BOLD GREEN "Writing <$individuals_file> file\n";
-write_json( $individuals_file, $individuals );
+
+print BOLD BLUE program_body( $input->{in_type}, $input->{out_type},
+    $input->{in_file} );
+print BOLD GREEN "Writing <$input->{out_file}> file\n";
+my $convert = Convert::Pheno->new($input);
+my $method  = $input->{in_type} . '2' . $input->{out_type};
+write_json( $input->{out_file}, $convert->$method );
+
 ###########################
 # END DATA TRANSFORMATION #
 ###########################
+
+sub program_body {
+
+    my ( $in_type, $out_type, $file ) = @_;
+    my $msg = <<EOF;
+==== INPUT: <$in_type> OUTPUT: <$out_type> ====
+==== Processing: <$file> ====
+EOF
+    return $msg;
+
+}
 
 sub program_header {
 
@@ -104,7 +131,7 @@ sub program_header {
 *  Phenotypic Data Model Convert Tool  *
 *          - CONVERT-PHENO -           *
 *          Version: $version             *
-*      (C) 2022 Manuel Rueda, PhD     *
+*      (C) 2022 Manuel Rueda, PhD      *
 *    GNU General Public License v3     *
 ****************************************
 EOF
@@ -125,21 +152,20 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
        -input-type:  
              -ipxf                    Phenopackets JSON file(s)
              -ibff                    Beacon v2 JSON file (JSON array)
+             -iredcap                 RedCap csv file
 
             (Wish-list)
              #-iomop                  OMOP-CDM csv file
              #-icdisc                 CDISC csv file
              #-ifhir                  FHIR csv file
-             #-iredcap                RedCap csv file
+
        -output-type;
              -opxf                    Phenopackets JSON file (JSON array)
              -obff                    Beacon v2 JSON file (JSON array)
 
              (Wish-list)
              #-oomop                  OMOP-CDM csv file
-             #-ocdisc                 CDISC csv file
-             #-ofhir                  FHIR csv file
-             #-oredcap                RedCap csv file
+
 
      Options:
        -out-dir                       Output (existing) directory
@@ -148,6 +174,7 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
        -debug                         Print debugging (from 1 to 5, being 5 max)
        -verbose                       Verbosity on
        -nc|-no-color                  Don't print colors to STDOUT
+ #     -to-array                      Write all data to a JSON array (instead of objects)
      
 =head1 DESCRIPTION
 
@@ -161,8 +188,6 @@ To be defined.
 
 A script that uses Convert::Pheno to interconverts phenotypic data between different CDM formats
 
-
-I<NB:> If the input file consists of is a JSON array the output file will also be a JSON array.
 
 =head1 HOW TO RUN PHENO-CONVERT
 
@@ -191,17 +216,17 @@ For executing convert-pheno you will need:
 
 =item Input file(s):
       
-A list of Phenopackets JSON files (normally from the same dataset). Note that PXFs only contain ONE individual per file.
+A file on once of the accepted formats.
 
 =back
 
 B<Examples:>
 
-   $ ./convert-pheno -ipxf in/*json -obff individuals.json
+   $ ./convert-pheno -ipxf phenopackets.json -obff individuals.json
 
    $ $path/convert-pheno -ipxf file.json -obff individuals.json --out-dir my_bff_outdir
 
-   $ $path/convert-pheno -ibff individuals.json -opxf phenopackets.json
+   $ $path/convert-pheno -iredcap redcap.csv -opxf phenopackets.json
 
    $ carton exec -- $path/convert-pheno -ibff individuals.json -opxf phenopackets.json # If using Carton
 

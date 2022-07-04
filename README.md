@@ -8,34 +8,34 @@ convert-pheno - A script to interconvert phenotypic data between different CDM f
 
 convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-options\]
 
-     Arguments:                       
-       -input-type:  
-             -ipxf                    Phenopackets JSON file(s)
-             -ibff                    Beacon v2 JSON file (JSON array)
+        Arguments:                       
+          -input-type:  
+                -ipxf                    Phenopackets JSON file(s)
+                -ibff                    Beacon v2 JSON file (JSON array)
+                -iredcap                 RedCap csv file
 
-            (Wish-list)
-             #-iomop                  OMOP-CDM csv file
-             #-icdisc                 CDISC csv file
-             #-ifhir                  FHIR csv file
-             #-iredcap                RedCap csv file
-       -output-type;
-             -opxf                    Phenopackets JSON file (JSON array)
-             -obff                    Beacon v2 JSON file (JSON array)
+               (Wish-list)
+                #-iomop                  OMOP-CDM csv file
+                #-icdisc                 CDISC csv file
+                #-ifhir                  FHIR csv file
 
-             (Wish-list)
-             #-oomop                  OMOP-CDM csv file
-             #-ocdisc                 CDISC csv file
-             #-ofhir                  FHIR csv file
-             #-oredcap                RedCap csv file
+          -output-type;
+                -opxf                    Phenopackets JSON file (JSON array)
+                -obff                    Beacon v2 JSON file (JSON array)
 
-     Options:
-       -out-dir                       Output (existing) directory
-       -h|help                        Brief help message
-       -man                           Full documentation
-       -debug                         Print debugging (from 1 to 5, being 5 max)
-       -verbose                       Verbosity on
-       -nc|-no-color                  Don't print colors to STDOUT
-     
+                (Wish-list)
+                #-oomop                  OMOP-CDM csv file
+
+
+        Options:
+          -out-dir                       Output (existing) directory
+          -h|help                        Brief help message
+          -man                           Full documentation
+          -debug                         Print debugging (from 1 to 5, being 5 max)
+          -verbose                       Verbosity on
+          -nc|-no-color                  Don't print colors to STDOUT
+    #     -to-array                      Write all data to a JSON array (instead of objects)
+        
 
 # DESCRIPTION
 
@@ -48,8 +48,6 @@ To be defined.
 # SUMMARY
 
 A script that uses Convert::Pheno to interconverts phenotypic data between different CDM formats
-
-_NB:_ If the input file consists of is a JSON array the output file will also be a JSON array.
 
 # HOW TO RUN PHENO-CONVERT
 
@@ -76,15 +74,15 @@ For executing convert-pheno you will need:
 
 - Input file(s):
 
-    A list of Phenopackets JSON files (normally from the same dataset). Note that PXFs only contain ONE individual per file.
+    A file on once of the accepted formats.
 
 **Examples:**
 
-    $ ./convert-pheno -ipxf in/*json -obff individuals.json
+    $ ./convert-pheno -ipxf phenopackets.json -obff individuals.json
 
     $ $path/convert-pheno -ipxf file.json -obff individuals.json --out-dir my_bff_outdir
 
-    $ $path/convert-pheno -ibff individuals.json -opxf phenopackets.json
+    $ $path/convert-pheno -iredcap redcap.csv -opxf phenopackets.json
 
     $ carton exec -- $path/convert-pheno -ibff individuals.json -opxf phenopackets.json # If using Carton
 

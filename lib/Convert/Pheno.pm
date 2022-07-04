@@ -23,10 +23,11 @@ sub new {
     return $self;
 }
 
-sub map_pxf2bff {
+sub pxf2bff {
 
     my $self = shift;
-    my $data = read_json( $self->{pxf_file} );
+    my $in_file = $self->{in_file};
+    my $data = read_json( $in_file ); 
 
     # Get cursors for 1D terms
     my $interpretation = $data->{interpretation};
