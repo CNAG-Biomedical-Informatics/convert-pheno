@@ -132,6 +132,7 @@ sub redcap2bff {
     #########################################
     #     START READING CSV|TSV|TXT FILE    #
     #########################################
+
     open my $fh_in, '<:encoding(utf8)', $in_file;
 
     # We'll read the header to assess separators in <txt> files
@@ -169,18 +170,19 @@ sub redcap2bff {
     }
 
     close $fh_in;
+
     #########################################
     #     END READING CSV|TSV|TXT FILE      #
     #########################################
 
-    # Now we start the mapping to Beacon v2
+    # ===================================== #
+
+    ####################################
+    # START MAPPING TO BEACON V2 TERMS #
+    ####################################
 
     my $individuals;
     for my $element (@$data) {
-
-        ####################################
-        # START MAPPING TO BEACON V2 TERMS #
-        ####################################
 
         my $individual;
 
@@ -207,12 +209,12 @@ sub redcap2bff {
         # ===
         $individual->{sex} = map_sex( $rcd->{sex}{_labels}{ $element->{sex} } )
           if ( exists $element->{sex} && $element->{sex} );
-
-        ##################################
-        # END MAPPING TO BEACON V2 TERMS #
-        ##################################
         push @{$individuals}, $individual;
     }
+
+    ##################################
+    # END MAPPING TO BEACON V2 TERMS #
+    ##################################
 
     return $individuals;
 
@@ -255,6 +257,7 @@ sub load_redcap_dictionary {
     #########################################
     #     START READING CSV|TSV|TXT FILE    #
     #########################################
+
     open my $fh_in, '<:encoding(utf8)', $in_file;
 
     # We'll read the header to assess separators in <txt> files
@@ -308,6 +311,11 @@ sub load_redcap_dictionary {
     }
 
     close $fh_in;
+
+    #######################################
+    #     END READING CSV|TSV|TXT FILE    #
+    #######################################
+
     return $data;
 }
 
