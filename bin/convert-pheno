@@ -61,6 +61,7 @@ GetOptions(
     'debug=i'     => \$debug,                                   # integer
     'verbose'     => \$verbose,                                 # flag
     'no-color|nc' => \my $no_color,                             # flag
+    'redcap-dictionary|rcd=s' => \my $redcap_dictionary,        # stringº
     'version|v'   => sub { say "$0 Version $version"; exit; }
 ) or pod2usage(2);
 pod2usage(1)                              if $help;
@@ -73,6 +74,10 @@ pod2usage(
     -message => "Please specify a valid directory for --out-dir\n",
     -exitval => 1
 ) if ( !-d $out_dir );
+pod2usage(
+    -message => "Please specify a valid RedCap dictionary --rcd\n",
+    -exitval => 1
+) if (  $in_redcap && ! $redcap_dictionary );
 
 # Turning color off if argument <--no-color>
 $ENV{'ANSI_COLORS_DISABLED'} = 1 if $no_color;
@@ -90,7 +95,8 @@ my $input = {
     : 'individuals.json',
     out_file => $out_pxf ? catfile( $out_dir, $out_pxf )
     : $out_bff ? catfile( $out_dir, $out_bff )
-    :            catfile( $out_dir, 'individuals.json' )
+    :            catfile( $out_dir, 'individuals.json' ),
+    redcap_dictionary => $redcap_dictionary
 };
 my $method = $input->{in_type} . '2' . $input->{out_type};
 
