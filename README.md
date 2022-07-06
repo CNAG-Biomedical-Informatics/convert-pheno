@@ -10,21 +10,21 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
 
         Arguments:                       
           -input-type:  
-                -ipxf                    Phenopackets JSON file(s)
+                -ipxf                    Phenopacket JSON file
                 -ibff                    Beacon v2 JSON file
-                -iredcap                 RedCap csv file
+                -iredcap                 RedCap CSV file
 
                (Wish-list)
-                #-iomop                  OMOP-CDM csv file
-                #-icdisc                 CDISC csv file
-                #-ifhir                  FHIR csv file
+                #-iomop                  OMOP-CDM CSV file
+                #-icdisc                 CDISC CSV file
+                #-ifhir                  FHIR CSV file
 
           -output-type;
                 -opxf                    Phenopacket JSON file
                 -obff                    Beacon v2 JSON file
 
                 (Wish-list)
-                #-oomop                  OMOP-CDM csv file
+                #-oomop                  OMOP-CDM CSV file
 
 
         Options:
@@ -34,13 +34,13 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
           -debug                         Print debugging (from 1 to 5, being 5 max)
           -verbose                       Verbosity on
           -nc|-no-color                  Don't print colors to STDOUT
-          -rcd|redcap-dictionary         Dictionary file (csv) exported from RedCap
+          -rcd|redcap-dictionary         Dictionary file (CSV) exported from RedCap
     #     -to-array                      Write all data to a JSON array (instead of objects)
         
 
 # DESCRIPTION
 
-convert-pheno  is a commandline frontend to the module Convert::Pheno.
+convert-pheno  is a command-line frontend to the module Convert::Pheno.
 
 # CITATION
 

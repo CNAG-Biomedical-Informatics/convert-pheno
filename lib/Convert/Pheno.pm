@@ -48,6 +48,7 @@ sub pxf2bff {
     # ========
     # diseases
     # ========
+
     $individual->{diseases} =
       [ map { $_ = { "diseaseCode" => $_->{term} } }
           @{ $phenopacket->{diseases} } ]
@@ -56,6 +57,7 @@ sub pxf2bff {
     # ==
     # id
     # ==
+
     $individual->{id} = $phenopacket->{subject}{id}
       if exists $phenopacket->{subject}{id};
 
@@ -87,6 +89,7 @@ sub pxf2bff {
     # ==================
     # phenotypicFeatures
     # ==================
+
     $individual->{phenotypicFeatures} = [
         map {
             $_ = {
@@ -102,6 +105,7 @@ sub pxf2bff {
     # ===
     # sex
     # ===
+
     $individual->{sex} = map_sex( $phenopacket->{subject}{sex} )
       if exists $phenopacket->{subject}{sex};
 
@@ -122,7 +126,7 @@ sub redcap2bff {
     my $self    = shift;
     my $in_file = $self->{in_file};
 
-    # Load ReadCap dictionary
+    # Load ReadCap CSV dictionary
     my $rcd = load_redcap_dictionary( $self->{'redcap_dictionary'} );
 
     # Define split record separator
@@ -140,7 +144,7 @@ sub redcap2bff {
 
     # Defining separator
     my $separator =
-        $ext eq '.csv' ? ';'
+        $ext eq '.csv' ? ';' # Note we don't use comma but semicolon
       : $ext eq '.tsv' ? "\t"
       :                  ' ';
 
@@ -175,7 +179,7 @@ sub redcap2bff {
     #     END READING CSV|TSV|TXT FILE      #
     #########################################
 
-    # ===================================== #
+    # =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*= #
 
     ####################################
     # START MAPPING TO BEACON V2 TERMS #
@@ -201,12 +205,14 @@ sub redcap2bff {
         # ==
         # id
         # ==
+
         $individual->{id} = $element->{first_name}
           if ( exists $element->{first_name} && $element->{first_name} );
 
         # ===
         # sex
         # ===
+
         $individual->{sex} = map_sex( $rcd->{sex}{_labels}{ $element->{sex} } )
           if ( exists $element->{sex} && $element->{sex} );
         push @{$individuals}, $individual;
