@@ -488,6 +488,8 @@ sub map_exposures {
 sub map_surgery {
 
     my $str     = shift;
+
+    # This is an ad hoc solution for 3TR. In the future we will use DB (SQLite) calls
     my %surgery = (
         map { $_ => 'NCIT:C15257' } ( 'ileostomy', 'ileostoma' ),
         'colonic resection'          => 'NCIT:C158758',
