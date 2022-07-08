@@ -141,63 +141,13 @@ sub bff2pxf {
 
 sub redcap2bff {
 
-    my $self    = shift;
-    my $in_file = $self->{in_file};
+    my $self = shift;
 
-    # Load ReadCap CSV dictionary
+    # Read data from REDCap export
+    my $data = read_redcap_export( $self->{in_file} );
+
+    # Load (or read) REDCap CSV dictionary
     my $rcd = load_redcap_dictionary( $self->{'redcap_dictionary'} );
-
-    # Define split record separator
-    my @exts = qw(.csv .tsv .txt);
-    my ( undef, undef, $ext ) = fileparse( $in_file, @exts );
-
-    #########################################
-    #     START READING CSV|TSV|TXT FILE    #
-    #########################################
-
-    open my $fh_in, '<:encoding(utf8)', $in_file;
-
-    # We'll read the header to assess separators in <txt> files
-    chomp( my $tmp_header = <$fh_in> );
-
-    # Defining separator
-    my $separator = $ext eq '.csv'
-      ? ';'    # Note we don't use comma but semicolon
-      : $ext eq '.tsv' ? "\t"
-      :                  ' ';
-
-    # Defining variables
-    my $data = [];                  #AoH
-    my $csv  = Text::CSV_XS->new(
-        {
-            binary    => 1,
-            auto_diag => 1,
-            sep_char  => $separator
-        }
-    );
-
-    # Loading header fields into $header
-    $csv->parse($tmp_header);
-    my $header = [ $csv->fields() ];
-
-    # Now proceed with the rest of the file
-    while ( my $row = $csv->getline($fh_in) ) {
-
-        # We store the data as an AoH $data
-        my $tmp_hash;
-        for my $i ( 0 .. $#{$header} ) {
-            $tmp_hash->{ $header->[$i] } = $row->[$i];
-        }
-        push @$data, $tmp_hash;
-    }
-
-    close $fh_in;
-
-    #########################################
-    #     END READING CSV|TSV|TXT FILE      #
-    #########################################
-
-    # =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*= #
 
     ####################################
     # START MAPPING TO BEACON V2 TERMS #
@@ -290,20 +240,24 @@ sub redcap2bff {
         #my @surgeries = map { $_ = 'surgery_details___' . $_ } ( 1 .. 8, 99 );
         my %surgery = ();
         for ( 1 .. 8, 99 ) {
-            $surgery{ 'surgery_details__' . $_ } =
+            $surgery{ 'surgery_details___' . $_ } =
               $rcd->{surgery_details}{_labels}{$_};
         }
         for my $procedure ( qw(endoscopy_performed intestinal_surgery),
             keys %surgery )
         {
-            my $intervention;
-            $intervention->{ageAtProcedure} = undef;
-            $intervention->{bodySite} =
-              { id => 'NCIT:C12736', label => 'intestine' };
-            $intervention->{dateOfProcedure} = undef;
-            $intervention->{procedureCode} = map_surgery( $surgery{$procedure} )
-              if $surgery{$procedure};
-            push @{ $individual->{interventionsOrProcedures} }, $intervention;
+            if ( $participant->{$procedure} ) {
+                my $intervention;
+                $intervention->{ageAtProcedure} = undef;
+                $intervention->{bodySite} =
+                  { id => 'NCIT:C12736', label => 'intestine' };
+                $intervention->{dateOfProcedure} = undef;
+                $intervention->{procedureCode} =
+                  map_surgery( $surgery{$procedure} )
+                  if $surgery{$procedure};
+                push @{ $individual->{interventionsOrProcedures} },
+                  $intervention;
+            }
         }
 
         # =============
@@ -342,14 +296,76 @@ sub redcap2bff {
     ##################################
 
     return $individuals;
-
 }
 
-###########################
-###########################
-#  LOAD REDCAP DICTIONARY #
-###########################
-###########################
+######################
+######################
+# READ REDCAP EXPORT #
+######################
+######################
+
+sub read_redcap_export {
+
+    my $in_file = shift;
+
+    # Define split record separator
+    my @exts = qw(.csv .tsv .txt);
+    my ( undef, undef, $ext ) = fileparse( $in_file, @exts );
+
+    #########################################
+    #     START READING CSV|TSV|TXT FILE    #
+    #########################################
+
+    open my $fh_in, '<:encoding(utf8)', $in_file;
+
+    # We'll read the header to assess separators in <txt> files
+    chomp( my $tmp_header = <$fh_in> );
+
+    # Defining separator
+    my $separator = $ext eq '.csv'
+      ? ';'    # Note we don't use comma but semicolon
+      : $ext eq '.tsv' ? "\t"
+      :                  ' ';
+
+    # Defining variables
+    my $data = [];                  #AoH
+    my $csv  = Text::CSV_XS->new(
+        {
+            binary    => 1,
+            auto_diag => 1,
+            sep_char  => $separator
+        }
+    );
+
+    # Loading header fields into $header
+    $csv->parse($tmp_header);
+    my $header = [ $csv->fields() ];
+
+    # Now proceed with the rest of the file
+    while ( my $row = $csv->getline($fh_in) ) {
+
+        # We store the data as an AoH $data
+        my $tmp_hash;
+        for my $i ( 0 .. $#{$header} ) {
+            $tmp_hash->{ $header->[$i] } = $row->[$i];
+        }
+        push @$data, $tmp_hash;
+    }
+
+    close $fh_in;
+
+    #########################################
+    #     END READING CSV|TSV|TXT FILE      #
+    #########################################
+
+    return $data;
+}
+
+##########################
+##########################
+# LOAD REDCAP DICTIONARY #
+##########################
+##########################
 
 sub load_redcap_dictionary {
 
@@ -487,7 +503,7 @@ sub map_exposures {
 
 sub map_surgery {
 
-    my $str     = shift;
+    my $str = shift;
 
     # This is an ad hoc solution for 3TR. In the future we will use DB (SQLite) calls
     my %surgery = (
