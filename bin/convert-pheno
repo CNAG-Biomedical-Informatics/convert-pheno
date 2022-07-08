@@ -41,9 +41,6 @@ use Term::ANSIColor qw(:constants);
 use Convert::Pheno;
 $Data::Dumper::Sortkeys = 1;
 
-my $debug   = 0;
-my $verbose = 0;
-
 # Defining a few variables
 my $version = '0.0.0b';
 my $out_dir = '.';
@@ -58,8 +55,8 @@ GetOptions(
     'out-dir=s'   => \$out_dir,                                 # string
     'help|?'      => \my $help,                                 # flag
     'man'         => \my $man,                                  # flag
-    'debug=i'     => \$debug,                                   # integer
-    'verbose'     => \$verbose,                                 # flag
+    'debug=i'     => \my $debug,                                # integer
+    'verbose'     => \my $verbose,                              # flag
     'no-color|nc' => \my $no_color,                             # flag
     'redcap-dictionary|rcd=s' => \my $redcap_dictionary,        # stringº
     'version|v'   => sub { say "$0 Version $version"; exit; }
@@ -96,7 +93,9 @@ my $input = {
     out_file => $out_pxf ? catfile( $out_dir, $out_pxf )
     : $out_bff ? catfile( $out_dir, $out_bff )
     :            catfile( $out_dir, 'individuals.json' ),
-    redcap_dictionary => $redcap_dictionary
+    redcap_dictionary => $redcap_dictionary,
+    debug => $debug,
+    verbose => $verbose
 };
 my $method = $input->{in_type} . '2' . $input->{out_type};
 
@@ -158,7 +157,7 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
        -input-type:  
              -ipxf                    Phenopacket JSON file
              -ibff                    Beacon v2 JSON file
-             -iredcap                 RedCap CSV file
+             -iredcap                 REDCap CSV file
 
             (Wish-list)
              #-iomop                  OMOP-CDM CSV file
@@ -180,7 +179,7 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
        -debug                         Print debugging (from 1 to 5, being 5 max)
        -verbose                       Verbosity on
        -nc|-no-color                  Don't print colors to STDOUT
-       -rcd|redcap-dictionary         Dictionary file (CSV) exported from RedCap
+       -rcd|redcap-dictionary         Dictionary file (CSV) exported from REDCap
  #     -to-array                      Write all data to a JSON array (instead of objects)
      
 =head1 DESCRIPTION
@@ -222,7 +221,7 @@ For executing convert-pheno you will need:
 
 =item Input file(s):
       
-A file on once of the accepted formats.
+A text file in one of the accepted formats.
 
 =back
 

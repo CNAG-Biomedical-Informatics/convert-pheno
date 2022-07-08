@@ -143,8 +143,8 @@ sub redcap2bff {
     chomp( my $tmp_header = <$fh_in> );
 
     # Defining separator
-    my $separator =
-        $ext eq '.csv' ? ';' # Note we don't use comma but semicolon
+    my $separator = $ext eq '.csv'
+      ? ';'    # Note we don't use comma but semicolon
       : $ext eq '.tsv' ? "\t"
       :                  ' ';
 
@@ -185,14 +185,20 @@ sub redcap2bff {
     # START MAPPING TO BEACON V2 TERMS #
     ####################################
 
+    # Data structure (hashref) for all individuals
     my $individuals;
-    for my $element (@$data) {
 
+    for my $participant (@$data) {
+
+        print Dumper $participant if $self->{debug};
+
+        # Data structure (hashref) for each individual
         my $individual;
 
         # ========
         # diseases
         # ========
+
         $individual->{diseases} = [
             {
                 "diseaseCode" => {
@@ -202,20 +208,69 @@ sub redcap2bff {
             }
         ];
 
+        # =========
+        # ethnicity
+        # =========
+
+        #print Dumper $participant and die;
+        $individual->{ethnicity} = map_ethnicity(
+            $rcd->{ethnicity}{_labels}{ $participant->{ethnicity} } )
+          if ( exists $participant->{ethnicity}
+            && $participant->{ethnicity} ne '' );    # Note that the value can be zero
+
+        # =========
+        # exposures
+        # =========
+
+        # ================
+        # geographicOrigin
+        # ================
+
         # ==
         # id
         # ==
 
-        $individual->{id} = $element->{first_name}
-          if ( exists $element->{first_name} && $element->{first_name} );
+        $individual->{id} = $participant->{first_name}
+          if ( exists $participant->{first_name}
+            && $participant->{first_name} );
+
+        # ====
+        # info
+        # ====
+
+        # =========================
+        # interventionsOrProcedures
+        # =========================
+
+        # =============
+        # karyotypicSex
+        # =============
+
+        # ========
+        # measures
+        # ========
+
+        # =========
+        # pedigrees
+        # =========
+
+        # ==================
+        # phenotypicFeatures
+        # ==================
 
         # ===
         # sex
         # ===
 
-        $individual->{sex} = map_sex( $rcd->{sex}{_labels}{ $element->{sex} } )
-          if ( exists $element->{sex} && $element->{sex} );
+        $individual->{sex} =
+          map_sex( $rcd->{sex}{_labels}{ $participant->{sex} } )
+          if ( exists $participant->{sex} && $participant->{sex} );
         push @{$individuals}, $individual;
+
+        # ==========
+        # treatments
+        # ==========
+
     }
 
     ##################################
@@ -224,6 +279,16 @@ sub redcap2bff {
 
     return $individuals;
 
+}
+
+sub map_ethnicity {
+
+    my $str       = shift;
+    my %ethnicity = (
+        caucasian => 'NCIT:C41261',
+        white     => 'NCIT:C41261'
+    );
+    return { id => $ethnicity{ lc($str) }, label => $str };
 }
 
 sub map_sex {
@@ -324,5 +389,4 @@ sub load_redcap_dictionary {
 
     return $data;
 }
-
 1;

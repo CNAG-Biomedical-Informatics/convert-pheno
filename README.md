@@ -12,7 +12,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
           -input-type:  
                 -ipxf                    Phenopacket JSON file
                 -ibff                    Beacon v2 JSON file
-                -iredcap                 RedCap CSV file
+                -iredcap                 REDCap CSV file
 
                (Wish-list)
                 #-iomop                  OMOP-CDM CSV file
@@ -34,7 +34,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
           -debug                         Print debugging (from 1 to 5, being 5 max)
           -verbose                       Verbosity on
           -nc|-no-color                  Don't print colors to STDOUT
-          -rcd|redcap-dictionary         Dictionary file (CSV) exported from RedCap
+          -rcd|redcap-dictionary         Dictionary file (CSV) exported from REDCap
     #     -to-array                      Write all data to a JSON array (instead of objects)
         
 
@@ -75,7 +75,7 @@ For executing convert-pheno you will need:
 
 - Input file(s):
 
-    A file on once of the accepted formats.
+    A text file in one of the accepted formats.
 
 **Examples:**
 
