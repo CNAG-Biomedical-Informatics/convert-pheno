@@ -28,6 +28,12 @@ sub new {
     return $self;
 }
 
+############
+############
+#  PXF2BFF #
+############
+############
+
 sub pxf2bff {
 
     my $self = shift;
@@ -117,9 +123,21 @@ sub pxf2bff {
     return $individual;
 }
 
+############
+############
+#  BFF2PXF #
+############
+############
+
 sub bff2pxf {
     die "Under development";
 }
+
+###############
+###############
+#  REDCAP2BFF #
+###############
+###############
 
 sub redcap2bff {
 
@@ -222,25 +240,71 @@ sub redcap2bff {
         # exposures
         # =========
 
+        $individual->{exposures} = [];
+        for my $agent (qw(alcohol)) {
+            my $exposure;
+
+            #$exposure->{ageAtExposure} = undef;
+            #$exposure->{date}          = '2010-07-10';
+            #$exposure->{duration}      = 'P32Y6M1D';
+            $exposure->{exposureCode} = map_exposures($agent);
+            $exposure->{quantity}{unit} = {
+                "id"    => $participant->{alcohol},
+                "label" => $rcd->{alcohol}{_labels}{ $participant->{alcohol} }
+            };
+            $exposure->{quantity}{value} = undef;
+            push @{ $individual->{exposures} }, $exposure;
+        }
+
         # ================
         # geographicOrigin
         # ================
+
+        #$invididual->{geographicOrigin} = undef;
 
         # ==
         # id
         # ==
 
-        $individual->{id} = $participant->{first_name}
-          if ( exists $participant->{first_name}
-            && $participant->{first_name} );
+        #$individual->{id} = $participant->{first_name}
+        #  if ( exists $participant->{first_name}
+        #    && $participant->{first_name} );
+        $individual->{id} = $participant->{ids_complete}
+          if $participant->{ids_complete};
 
         # ====
         # info
         # ====
 
+        for (qw(study_id redcap_event_name dob)) {
+            $individual->{info}{$_} = $participant->{$_}
+              if exists $participant->{$_};
+        }
+
         # =========================
         # interventionsOrProcedures
         # =========================
+
+        $individual->{interventionsOrProcedures} = [];
+
+        #my @surgeries = map { $_ = 'surgery_details___' . $_ } ( 1 .. 8, 99 );
+        my %surgery = ();
+        for ( 1 .. 8, 99 ) {
+            $surgery{ 'surgery_details__' . $_ } =
+              $rcd->{surgery_details}{_labels}{$_};
+        }
+        for my $procedure ( qw(endoscopy_performed intestinal_surgery),
+            keys %surgery )
+        {
+            my $intervention;
+            $intervention->{ageAtProcedure} = undef;
+            $intervention->{bodySite} =
+              { id => 'NCIT:C12736', label => 'intestine' };
+            $intervention->{dateOfProcedure} = undef;
+            $intervention->{procedureCode} = map_surgery( $surgery{$procedure} )
+              if $surgery{$procedure};
+            push @{ $individual->{interventionsOrProcedures} }, $intervention;
+        }
 
         # =============
         # karyotypicSex
@@ -281,41 +345,11 @@ sub redcap2bff {
 
 }
 
-sub map_ethnicity {
-
-    my $str       = shift;
-    my %ethnicity = (
-        caucasian => 'NCIT:C41261',
-        white     => 'NCIT:C41261'
-    );
-    return { id => $ethnicity{ lc($str) }, label => $str };
-}
-
-sub map_sex {
-
-    my $str = shift;
-    my %sex = (
-        male   => 'NCIT:C20197',
-        female => 'NCIT:C16576'
-    );
-    return { id => $sex{ lc($str) }, label => $str };
-}
-
-sub read_json {
-
-    my $json_file = shift;
-    my $str       = path($json_file)->slurp_utf8;
-    my $json      = decode_json($str);              # Decode to Perl data structure
-    return $json;
-}
-
-sub write_json {
-
-    my ( $file, $json_array ) = @_;
-    my $json = JSON::XS->new->utf8->canonical->pretty->encode($json_array);
-    path($file)->spew_utf8($json);
-    return 1;
-}
+###########################
+###########################
+#  LOAD REDCAP DICTIONARY #
+###########################
+###########################
 
 sub load_redcap_dictionary {
 
@@ -389,4 +423,81 @@ sub load_redcap_dictionary {
 
     return $data;
 }
+
+########################
+########################
+#  SUBROUTINES FOR I/O #
+########################
+########################
+
+sub read_json {
+
+    my $json_file = shift;
+    my $str       = path($json_file)->slurp_utf8;
+    my $json      = decode_json($str);              # Decode to Perl data structure
+    return $json;
+}
+
+sub write_json {
+
+    my ( $file, $json_array ) = @_;
+    my $json = JSON::XS->new->utf8->canonical->pretty->encode($json_array);
+    path($file)->spew_utf8($json);
+    return 1;
+}
+
+############################
+############################
+#  SUBROUTINES FOR MAPPING #
+############################
+############################
+
+sub map_ethnicity {
+
+    my $str       = shift;
+    my %ethnicity = ( map { $_ => 'NCIT:C41261' } ( 'caucasian', 'white' ) );
+
+    # 1, Caucasian | 2, Hispanic | 3, Asian | 4, African/African-American | 5, Indigenous American | 6, Mixed | 9, Other";
+    return { id => $ethnicity{ lc($str) }, label => $str };
+}
+
+sub map_sex {
+
+    my $str = shift;
+    my %sex = (
+        male   => 'NCIT:C20197',
+        female => 'NCIT:C16576'
+    );
+    return { id => $sex{ lc($str) }, label => $str };
+}
+
+sub map_exposures {
+
+    my $str      = shift;
+    my $exposure = {
+        cigarretes => {
+            cigarettes_days                => 'NCIT: C127064',
+            'Years Have Smoked Cigarettes' => 'NCIT:C127063',
+            packyears                      => 'NCIT: C73993'
+        },
+        alcohol => { id => 'NCIT:C16273', label => 'alcohol comsumption' }
+    };
+    return $exposure->{$str};
+}
+
+sub map_surgery {
+
+    my $str     = shift;
+    my %surgery = (
+        map { $_ => 'NCIT:C15257' } ( 'ileostomy', 'ileostoma' ),
+        'colonic resection'          => 'NCIT:C158758',
+        colostoma                    => 'NA',
+        hemicolectomy                => 'NCIT:C86074',
+        'ileal/ileocoecalr esection' => 'NCIT:C158758',
+        'perianal fistula surgery'   => 'NCIT:C60785',
+        strictureplasty              => 'NCIT:C157993'
+    );
+    return { id => $surgery{ lc($str) }, label => $str };
+}
+
 1;
