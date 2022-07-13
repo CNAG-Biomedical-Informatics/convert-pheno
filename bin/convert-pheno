@@ -2,11 +2,13 @@
 #
 #   A script that interconverts phenotypic data between different CDM formats
 #
+#   This file is part of Convert-Pheno
+#
 #   Last Modified: Jul/04/2022
 #
-#   Version 2.0.0
+#   Version 0.0.0b
 #
-#   Copyright (C) 2022 Manuel Rueda, PhD (manuel.rueda@cnag.crg.eu)
+#   Copyright (C) 2022 Manuel Rueda (manuel.rueda@cnag.crg.eu)
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -47,19 +49,19 @@ my $out_dir = '.';
 
 # Reading arguments
 GetOptions(
-    'ipxf=s'      => \my $in_pxf,                               # array
-    'ibff|s'      => \my $in_bff,                               # string
-    'iredcap=s'   => \my $in_redcap,                            # string
-    'obff=s'      => \my $out_bff,                              # string
-    'opxf=s'      => \my $out_pxf,                              # string
-    'out-dir=s'   => \$out_dir,                                 # string
-    'help|?'      => \my $help,                                 # flag
-    'man'         => \my $man,                                  # flag
-    'debug=i'     => \my $debug,                                # integer
-    'verbose'     => \my $verbose,                              # flag
-    'no-color|nc' => \my $no_color,                             # flag
-    'redcap-dictionary|rcd=s' => \my $redcap_dictionary,        # stringº
-    'version|v'   => sub { say "$0 Version $version"; exit; }
+    'ipxf=s'                  => \my $in_pxf,                               # array
+    'ibff|s'                  => \my $in_bff,                               # string
+    'iredcap=s'               => \my $in_redcap,                            # string
+    'obff=s'                  => \my $out_bff,                              # string
+    'opxf=s'                  => \my $out_pxf,                              # string
+    'out-dir=s'               => \$out_dir,                                 # string
+    'help|?'                  => \my $help,                                 # flag
+    'man'                     => \my $man,                                  # flag
+    'debug=i'                 => \my $debug,                                # integer
+    'verbose'                 => \my $verbose,                              # flag
+    'no-color|nc'             => \my $no_color,                             # flag
+    'redcap-dictionary|rcd=s' => \my $redcap_dictionary,                    # stringº
+    'version|v'               => sub { say "$0 Version $version"; exit; }
 ) or pod2usage(2);
 pod2usage(1)                              if $help;
 pod2usage( -verbose => 2, -exitval => 0 ) if $man;
@@ -74,7 +76,7 @@ pod2usage(
 pod2usage(
     -message => "Please specify a valid RedCap dictionary --rcd\n",
     -exitval => 1
-) if (  $in_redcap && ! $redcap_dictionary );
+) if ( $in_redcap && !$redcap_dictionary );
 
 # Turning color off if argument <--no-color>
 $ENV{'ANSI_COLORS_DISABLED'} = 1 if $no_color;
@@ -92,30 +94,40 @@ my $input = {
     : 'individuals.json',
     out_file => $out_pxf ? catfile( $out_dir, $out_pxf )
     : $out_bff ? catfile( $out_dir, $out_bff )
-    :            catfile( $out_dir, 'individuals.json' ),
+    : catfile( $out_dir, 'individuals.json' ),
     redcap_dictionary => $redcap_dictionary,
-    debug => $debug,
-    verbose => $verbose
+    debug             => $debug,
+    verbose           => $verbose
 };
-my $method = $input->{in_type} . '2' . $input->{out_type};
-
-#print Dumper $input and die;
-# Start printing to STDOUT
-say BOLD CYAN program_header($version);
+print Dumper $input if $debug;
 
 #############################
 # START DATA TRANSFORMATION #
 #############################
 
-print BOLD BLUE program_body( $input->{in_type}, $input->{out_type},
-    $input->{in_file} );
-say BOLD GREEN "Writing <$input->{out_file}> file\n";
-my $convert = Convert::Pheno->new($input);
-write_json( $input->{out_file}, $convert->$method );
+convert($input);
 
 ###########################
 # END DATA TRANSFORMATION #
 ###########################
+
+sub convert {
+
+    my $input = shift;
+
+    # Start printing to STDOUT
+    say BOLD CYAN program_header($version);
+    print BOLD BLUE program_body( $input->{in_type}, $input->{out_type},
+        $input->{in_file} );
+    say BOLD GREEN "Writing <$input->{out_file}> file\n";
+
+    # Creating object
+    my $convert = Convert::Pheno->new($input);
+    
+    # Writing file after running $method
+    my $method = $input->{in_type} . '2' . $input->{out_type};
+    write_json( $input->{out_file}, $convert->$method );
+}
 
 sub program_body {
 
@@ -184,7 +196,7 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
      
 =head1 DESCRIPTION
 
-convert-pheno  is a command-line frontend to the module Convert::Pheno.
+C<convert-pheno> is a command-line frontend to the module L<Convert::Pheno>.
 
 =head1 CITATION
 
