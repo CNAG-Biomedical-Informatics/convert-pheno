@@ -101,6 +101,9 @@ my $input = {
 };
 print Dumper $input if $debug;
 
+# Start printing to STDOUT
+say BOLD CYAN program_header($version);
+
 #############################
 # START DATA TRANSFORMATION #
 #############################
@@ -115,8 +118,6 @@ sub convert {
 
     my $input = shift;
 
-    # Start printing to STDOUT
-    say BOLD CYAN program_header($version);
     print BOLD BLUE program_body( $input->{in_type}, $input->{out_type},
         $input->{in_file} );
     say BOLD GREEN "Writing <$input->{out_file}> file\n";

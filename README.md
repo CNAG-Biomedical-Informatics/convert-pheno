@@ -40,7 +40,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
 
 # DESCRIPTION
 
-convert-pheno  is a command-line frontend to the module Convert::Pheno.
+`convert-pheno` is a command-line frontend to the module [Convert::Pheno](https://metacpan.org/pod/Convert%3A%3APheno).
 
 # CITATION
 
