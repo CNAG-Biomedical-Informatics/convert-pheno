@@ -4,12 +4,27 @@ use strict;
 use warnings;
 use autodie;
 use feature qw(say);
+use FindBin qw($Bin);
+use File::Spec::Functions qw(catdir catfile);
 use Data::Dumper;
+use DBI;
 use JSON::XS;
 use Path::Tiny;
 use File::Basename;
 use Text::CSV_XS;
 use Scalar::Util qw(looks_like_number);
+
+=head1 NAME
+  
+=head1 SYNOPSIS
+  
+=head1 DESCRIPTION
+
+=head1 AUTHOR
+
+=head1 METHODS
+
+=cut
 
 use constant DEVEL_MODE => 0;
 use vars qw{
@@ -480,11 +495,14 @@ sub map_ethnicity {
 sub map_sex {
 
     my $str = shift;
-    my %sex = (
-        male   => 'NCIT:C20197',
-        female => 'NCIT:C16576'
-    );
-    return { id => $sex{ lc($str) }, label => $str };
+    my $ontology = 'ncit';
+    #my %sex = (
+    #    male   => 'NCIT:C20197',
+    #    female => 'NCIT:C16576'
+    #);
+    #return { id => $sex{ lc($str) }, label => $str };
+    my ($id, $label)  = get_query_SQLite($str, $ontology);
+    return { id => $id, label => $label, _label => $str };
 }
 
 sub map_exposures {
@@ -504,18 +522,75 @@ sub map_exposures {
 sub map_surgery {
 
     my $str = shift;
+    my $ontology = 'ncit';
 
     # This is an ad hoc solution for 3TR. In the future we will use DB (SQLite) calls
-    my %surgery = (
-        map { $_ => 'NCIT:C15257' } ( 'ileostomy', 'ileostoma' ),
-        'colonic resection'          => 'NCIT:C158758',
-        colostoma                    => 'NA',
-        hemicolectomy                => 'NCIT:C86074',
-        'ileal/ileocoecalr esection' => 'NCIT:C158758',
-        'perianal fistula surgery'   => 'NCIT:C60785',
-        strictureplasty              => 'NCIT:C157993'
+    #my %surgery = (
+    #    map { $_ => 'NCIT:C15257' } ( 'ileostomy', 'ileostoma' ),
+    #    'colonic resection'          => 'NCIT:C158758',
+    #    colostoma                    => 'NA',
+    #    hemicolectomy                => 'NCIT:C86074',
+    #    'ileal/ileocoecalr esection' => 'NCIT:C158758',
+    #    'perianal fistula surgery'   => 'NCIT:C60785',
+    #    strictureplasty              => 'NCIT:C157993'
+    #);
+    #return { id => $surgery{ lc($str) }, label => $str };
+    my ($id, $label) = get_query_SQLite($str, $ontology);
+    return { id => $id, label => $str, _label => $str }
+}
+
+#######################
+#######################
+#  SUBROUTINES FOR DB #
+#######################
+#######################
+
+sub get_query_SQLite {
+
+    my ($query, $ontology )  = @_;
+    my $db = uc($ontology) . '_table';
+    my $dbfile = catfile($Bin, '../db', "$ontology.db");
+    my $field  = 'exact';
+    my $user   = '';
+    my $passwd = '';
+    my $dsn    = "dbi:SQLite:dbname=$dbfile";
+    my $dbh    = DBI->connect(
+        $dsn, $user, $passwd,
+        {
+            PrintError       => 0,
+            RaiseError       => 1,
+            AutoCommit       => 1,
+            FetchHashKeyName => 'NAME_lc',
+        }
     );
-    return { id => $surgery{ lc($str) }, label => $str };
+
+    my %query = (
+         partial => qq(SELECT * FROM $db WHERE preferred_label LIKE ? || '%' COLLATE NOCASE),
+        #partial => qq(SELECT * FROM $db WHERE instr("preferred_label", ? COLLATE NOCASE) > 1),
+        exact    => qq(SELECT * FROM $db WHERE preferred_label = ? COLLATE NOCASE)
+
+        #       rs       => 'select * FROM ExAC WHERE rs =  ? COLLATE NOCASE',
+        #unknown => "select * from $db like ?"
+    );
+
+    my $sth = $dbh->prepare(<<SQL);
+$query{$field}
+SQL
+
+    # Excute query
+    $sth->execute($query);
+
+    my $code = 'NCIT:NA';
+    my $preferred_label = 'NA';
+    while ( my $row = $sth->fetchrow_arrayref) {
+        #print Dumper $row;
+        $code = 'NCIT:' . $row->[1];
+        $preferred_label = $row->[0];
+    }
+    $sth->finish();
+    $dbh->disconnect();
+
+    return ($code, $preferred_label);
 }
 
 1;
