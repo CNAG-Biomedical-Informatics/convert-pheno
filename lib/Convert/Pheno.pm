@@ -127,7 +127,7 @@ sub pxf2bff {
     # sex
     # ===
 
-    $individual->{sex} = map_sex( $phenopacket->{subject}{sex} )
+    $individual->{sex} = map_db( $phenopacket->{subject}{sex} )
       if exists $phenopacket->{subject}{sex};
 
     ##################################
@@ -268,7 +268,7 @@ sub redcap2bff {
                   { id => 'NCIT:C12736', label => 'intestine' };
                 $intervention->{dateOfProcedure} = undef;
                 $intervention->{procedureCode} =
-                  map_surgery( $surgery{$procedure} )
+                  map_db( $surgery{$procedure} )
                   if $surgery{$procedure};
                 push @{ $individual->{interventionsOrProcedures} },
                   $intervention;
@@ -296,7 +296,7 @@ sub redcap2bff {
         # ===
 
         $individual->{sex} =
-          map_sex( $rcd->{sex}{_labels}{ $participant->{sex} } )
+          map_db( $rcd->{sex}{_labels}{ $participant->{sex} } )
           if ( exists $participant->{sex} && $participant->{sex} );
         push @{$individuals}, $individual;
 
@@ -492,17 +492,23 @@ sub map_ethnicity {
     return { id => $ethnicity{ lc($str) }, label => $str };
 }
 
-sub map_sex {
+sub map_db {
 
     my $str = shift;
     my $ontology = 'ncit';
-    #my %sex = (
-    #    male   => 'NCIT:C20197',
-    #    female => 'NCIT:C16576'
-    #);
-    #return { id => $sex{ lc($str) }, label => $str };
     my ($id, $label)  = get_query_SQLite($str, $ontology);
+    # id and label come from <db> _label is the original string (can change on partial matches)
     return { id => $id, label => $label, _label => $str };
+
+    #my %surgery = (
+    #    map { $_ => 'NCIT:C15257' } ( 'ileostomy', 'ileostoma' ),
+    #    'colonic resection'          => 'NCIT:C158758',
+    #    colostoma                    => 'NA',
+    #    hemicolectomy                => 'NCIT:C86074',
+    #    'ileal/ileocoecalr esection' => 'NCIT:C158758',
+    #    'perianal fistula surgery'   => 'NCIT:C60785',
+    #    strictureplasty              => 'NCIT:C157993'
+    #);
 }
 
 sub map_exposures {
@@ -517,26 +523,6 @@ sub map_exposures {
         alcohol => { id => 'NCIT:C16273', label => 'alcohol comsumption' }
     };
     return $exposure->{$str};
-}
-
-sub map_surgery {
-
-    my $str = shift;
-    my $ontology = 'ncit';
-
-    # This is an ad hoc solution for 3TR. In the future we will use DB (SQLite) calls
-    #my %surgery = (
-    #    map { $_ => 'NCIT:C15257' } ( 'ileostomy', 'ileostoma' ),
-    #    'colonic resection'          => 'NCIT:C158758',
-    #    colostoma                    => 'NA',
-    #    hemicolectomy                => 'NCIT:C86074',
-    #    'ileal/ileocoecalr esection' => 'NCIT:C158758',
-    #    'perianal fistula surgery'   => 'NCIT:C60785',
-    #    strictureplasty              => 'NCIT:C157993'
-    #);
-    #return { id => $surgery{ lc($str) }, label => $str };
-    my ($id, $label) = get_query_SQLite($str, $ontology);
-    return { id => $id, label => $str, _label => $str }
 }
 
 #######################
@@ -586,6 +572,7 @@ SQL
         #print Dumper $row;
         $code = 'NCIT:' . $row->[1];
         $preferred_label = $row->[0];
+        last if $field eq 'exact' # Note that sometime we get more than one
     }
     $sth->finish();
     $dbh->disconnect();
