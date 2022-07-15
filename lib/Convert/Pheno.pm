@@ -3,8 +3,8 @@ package Convert::Pheno;
 use strict;
 use warnings;
 use autodie;
-use feature qw(say);
-use FindBin qw($Bin);
+use feature               qw(say);
+use FindBin               qw($Bin);
 use File::Spec::Functions qw(catdir catfile);
 use Data::Dumper;
 use DBI;
@@ -127,7 +127,8 @@ sub pxf2bff {
     # sex
     # ===
 
-    $individual->{sex} = map_db( $phenopacket->{subject}{sex}, $self->{print_hidden_labels} )
+    $individual->{sex} =
+      map_db( $phenopacket->{subject}{sex}, $self->{print_hidden_labels} )
       if exists $phenopacket->{subject}{sex};
 
     ##################################
@@ -182,14 +183,16 @@ sub redcap2bff {
         # diseases
         # ========
 
-        $individual->{diseases} = [
-            {
-                "diseaseCode" => {
-                    id    => 'ICD10:K51.90',
-                    label => 'Inflamatory Bowel Disease'
-                }
-            }
-        ];
+        $individual->{diseases} = [];
+        my %condition = ( 'Inflamatory Bowel Disease' => 'ICD10:K51.90' );
+        for my $condition ( keys %condition ) {
+            my $disease;
+            $disease->{diseaseCode} = {
+                id    => $condition{$condition},
+                label => $condition
+            };
+            push @{ $individual->{diseases} }, $disease;
+        }
 
         # =========
         # ethnicity
@@ -268,7 +271,7 @@ sub redcap2bff {
                   { id => 'NCIT:C12736', label => 'intestine' };
                 $intervention->{dateOfProcedure} = undef;
                 $intervention->{procedureCode} =
-                  map_db( $surgery{$procedure} , $self->{print_hidden_labels})
+                  map_db( $surgery{$procedure}, $self->{print_hidden_labels} )
                   if $surgery{$procedure};
                 push @{ $individual->{interventionsOrProcedures} },
                   $intervention;
@@ -291,19 +294,54 @@ sub redcap2bff {
         # phenotypicFeatures
         # ==================
 
+        $individual->{phenotypicFeatures} = [];
+        my @phenotypicFeatures = qw ( a b c);
+        for my $disease (@phenotypicFeatures) {
+            my $phenotypicFeature;
+            $phenotypicFeature->{evidence} = undef;    # P32Y6M1D
+            $phenotypicFeature->{excluded} =
+              { Quantity => { unit => { id => '', label => '' }, value => '' }
+              };
+            $phenotypicFeature->{featureType} = [];
+            $phenotypicFeature->{modifiers}   = { id => '', label => '' };
+            $phenotypicFeature->{notes}       = { id => '', label => '' };
+            $phenotypicFeature->{onset}       = { id => '', label => '' };
+            $phenotypicFeature->{resolution}  = { id => '', label => '' };
+            $phenotypicFeature->{severity}    = { id => '', label => '' };
+
+            # Add to array
+            push @{ $individual->{phenotypicFeatures} }, $phenotypicFeature;
+        }
+
         # ===
         # sex
         # ===
 
         $individual->{sex} =
-          map_db( $rcd->{sex}{_labels}{ $participant->{sex} } , $self->{print_hidden_labels})
+          map_db( $rcd->{sex}{_labels}{ $participant->{sex} },
+            $self->{print_hidden_labels} )
           if ( exists $participant->{sex} && $participant->{sex} );
-        push @{$individuals}, $individual;
 
         # ==========
         # treatments
         # ==========
 
+        $individual->{treatments} = [];
+        map_db( $rcd->{sex}{_labels}{ $participant->{sex} },
+            $self->{print_hidden_labels} );
+        my @drugs = qw (budesonide prednisolona asa);
+        for my $drug (@drugs) {
+            my $treatment;
+            $treatment->{ageAtOnset} = undef;    # P32Y6M1D
+            $treatment->{cumulativeDose} =
+              { Quantity => { unit => { id => '', label => '' }, value => '' }
+              };
+            $treatment->{doseIntervals}         = [];
+            $treatment->{routeOfAdministration} = { id => '', label => '' };
+            $treatment->{treatmentCode}         = { id => '', label => '' };
+            push @{ $individual->{treatments} }, $treatment;
+        }
+        push @{$individuals}, $individual;
     }
 
     ##################################
@@ -494,21 +532,14 @@ sub map_ethnicity {
 
 sub map_db {
 
-    my ($str, $print_hidden_labels) = @_;
+    my ( $str, $print_hidden_labels ) = @_;
     my $ontology = 'ncit';
-    my ($id, $label)  = get_query_SQLite($str, $ontology);
-    # id and label come from <db> _label is the original string (can change on partial matches)
-    return $print_hidden_labels ? { id => $id, label => $label, _label => $str } : { id => $id, label => $label};
+    my ( $id, $label ) = get_query_SQLite( $str, $ontology );
 
-    #my %surgery = (
-    #    map { $_ => 'NCIT:C15257' } ( 'ileostomy', 'ileostoma' ),
-    #    'colonic resection'          => 'NCIT:C158758',
-    #    colostoma                    => 'NA',
-    #    hemicolectomy                => 'NCIT:C86074',
-    #    'ileal/ileocoecalr esection' => 'NCIT:C158758',
-    #    'perianal fistula surgery'   => 'NCIT:C60785',
-    #    strictureplasty              => 'NCIT:C157993'
-    #);
+    # id and label come from <db> _label is the original string (can change on partial matches)
+    return $print_hidden_labels
+      ? { id => $id, label => $label, _label => $str }
+      : { id => $id, label => $label };
 }
 
 sub map_exposures {
@@ -520,7 +551,7 @@ sub map_exposures {
             'Years Have Smoked Cigarettes' => 'NCIT:C127063',
             packyears                      => 'NCIT: C73993'
         },
-        alcohol => { id => 'NCIT:C16273', label => 'alcohol comsumption' }
+        alcohol => { id => 'NCIT:C16273', label => 'alcohol consumption' }
     };
     return $exposure->{$str};
 }
@@ -533,9 +564,9 @@ sub map_exposures {
 
 sub get_query_SQLite {
 
-    my ($query, $ontology )  = @_;
-    my $db = uc($ontology) . '_table';
-    my $dbfile = catfile($Bin, '../db', "$ontology.db");
+    my ( $query, $ontology ) = @_;
+    my $db     = uc($ontology) . '_table';
+    my $dbfile = catfile( $Bin, '../db', "$ontology.db" );
     my $field  = 'exact';
     my $user   = '';
     my $passwd = '';
@@ -551,12 +582,14 @@ sub get_query_SQLite {
     );
 
     my %query = (
-         partial => qq(SELECT * FROM $db WHERE preferred_label LIKE ? || '%' COLLATE NOCASE),
-        #partial => qq(SELECT * FROM $db WHERE instr("preferred_label", ? COLLATE NOCASE) > 1),
-        exact    => qq(SELECT * FROM $db WHERE preferred_label = ? COLLATE NOCASE)
+        partial =>
+qq(SELECT * FROM $db WHERE preferred_label LIKE ? || '%' COLLATE NOCASE),
 
-        #       rs       => 'select * FROM ExAC WHERE rs =  ? COLLATE NOCASE',
-        #unknown => "select * from $db like ?"
+        #partial => qq(SELECT * FROM $db WHERE instr("preferred_label", ? COLLATE NOCASE) > 1),
+        exact => qq(SELECT * FROM $db WHERE preferred_label = ? COLLATE NOCASE)
+
+          #       rs       => 'select * FROM ExAC WHERE rs =  ? COLLATE NOCASE',
+          #unknown => "select * from $db like ?"
     );
 
     my $sth = $dbh->prepare(<<SQL);
@@ -566,18 +599,19 @@ SQL
     # Excute query
     $sth->execute($query);
 
-    my $code = 'NCIT:NA';
+    my $code            = 'NCIT:NA';
     my $preferred_label = 'NA';
-    while ( my $row = $sth->fetchrow_arrayref) {
+    while ( my $row = $sth->fetchrow_arrayref ) {
+
         #print Dumper $row;
-        $code = 'NCIT:' . $row->[1];
+        $code            = 'NCIT:' . $row->[1];
         $preferred_label = $row->[0];
-        last if $field eq 'exact' # Note that sometime we get more than one
+        last if $field eq 'exact'    # Note that sometime we get more than one
     }
     $sth->finish();
     $dbh->disconnect();
 
-    return ($code, $preferred_label);
+    return ( $code, $preferred_label );
 }
 
 1;
