@@ -82,8 +82,8 @@ pod2usage(
 # Turning color off if argument <--no-color>
 $ENV{'ANSI_COLORS_DISABLED'} = 1 if $no_color;
 
-# Defining input as a hash ref
-my $input = {
+# Defining data as a hashref
+my $data = {
       in_type => $in_pxf ? 'pxf'
     : $in_bff    ? 'bff'
     : $in_redcap ? 'redcap'
@@ -101,7 +101,7 @@ my $input = {
     debug               => $debug,
     verbose             => $verbose
 };
-print Dumper $input if $debug;
+print Dumper $data if $debug;
 
 # Start printing to STDOUT
 say BOLD CYAN program_header($version) if $verbose;
@@ -110,7 +110,7 @@ say BOLD CYAN program_header($version) if $verbose;
 # START DATA TRANSFORMATION #
 #############################
 
-convert($input);
+convert($data);
 
 ###########################
 # END DATA TRANSFORMATION #
@@ -118,20 +118,20 @@ convert($input);
 
 sub convert {
 
-    my $input = shift;
+    my $l_data = shift;
 
     if ($verbose) {
-        print BOLD BLUE program_body( $input->{in_type}, $input->{out_type},
-            $input->{in_file} );
-        say BOLD GREEN "Writing <$input->{out_file}> file\n";
+        print BOLD BLUE program_body( $l_data->{in_type}, $l_data->{out_type},
+            $l_data->{in_file} );
+        say BOLD GREEN "Writing <$l_data->{out_file}> file\n";
     }
 
     # Creating object
-    my $convert = Convert::Pheno->new($input);
+    my $convert = Convert::Pheno->new($l_data);
 
     # Writing file after running $method
-    my $method = $input->{in_type} . '2' . $input->{out_type};
-    write_json( $input->{out_file}, $convert->$method );
+    my $method = $l_data->{in_type} . '2' . $l_data->{out_type};
+    write_json( $l_data->{out_file}, $convert->$method );
 }
 
 sub program_body {
