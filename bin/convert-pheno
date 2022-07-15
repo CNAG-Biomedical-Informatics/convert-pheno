@@ -60,7 +60,8 @@ GetOptions(
     'debug=i'                 => \my $debug,                                # integer
     'verbose'                 => \my $verbose,                              # flag
     'no-color|nc'             => \my $no_color,                             # flag
-    'redcap-dictionary|rcd=s' => \my $redcap_dictionary,                    # stringº
+    'redcap-dictionary|rcd=s' => \my $redcap_dictionary,                    # string
+    'print-hidden-labels|phl' => \my $print_hidden_labels,                  # flag 
     'version|v'               => sub { say "$0 Version $version"; exit; }
 ) or pod2usage(2);
 pod2usage(1)                              if $help;
@@ -96,6 +97,7 @@ my $input = {
     : $out_bff ? catfile( $out_dir, $out_bff )
     : catfile( $out_dir, 'individuals.json' ),
     redcap_dictionary => $redcap_dictionary,
+    print_hidden_labels => $print_hidden_labels,
     debug             => $debug,
     verbose           => $verbose
 };
@@ -193,6 +195,7 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
        -verbose                       Verbosity on
        -nc|-no-color                  Don't print colors to STDOUT
        -rcd|redcap-dictionary         Dictionary file (CSV) exported from REDCap
+       -phl|print-hidden-labels       Print original values (before DB mapping) of text fields <_labels>
  #     -to-array                      Write all data to a JSON array (instead of objects)
      
 =head1 DESCRIPTION

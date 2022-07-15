@@ -127,7 +127,7 @@ sub pxf2bff {
     # sex
     # ===
 
-    $individual->{sex} = map_db( $phenopacket->{subject}{sex} )
+    $individual->{sex} = map_db( $phenopacket->{subject}{sex}, $self->{print_hidden_labels} )
       if exists $phenopacket->{subject}{sex};
 
     ##################################
@@ -268,7 +268,7 @@ sub redcap2bff {
                   { id => 'NCIT:C12736', label => 'intestine' };
                 $intervention->{dateOfProcedure} = undef;
                 $intervention->{procedureCode} =
-                  map_db( $surgery{$procedure} )
+                  map_db( $surgery{$procedure} , $self->{print_hidden_labels})
                   if $surgery{$procedure};
                 push @{ $individual->{interventionsOrProcedures} },
                   $intervention;
@@ -296,7 +296,7 @@ sub redcap2bff {
         # ===
 
         $individual->{sex} =
-          map_db( $rcd->{sex}{_labels}{ $participant->{sex} } )
+          map_db( $rcd->{sex}{_labels}{ $participant->{sex} } , $self->{print_hidden_labels})
           if ( exists $participant->{sex} && $participant->{sex} );
         push @{$individuals}, $individual;
 
@@ -331,10 +331,10 @@ sub read_redcap_export {
     #     START READING CSV|TSV|TXT FILE    #
     #########################################
 
-    open my $fh_in, '<:encoding(utf8)', $in_file;
+    open my $fh, '<:encoding(utf8)', $in_file;
 
     # We'll read the header to assess separators in <txt> files
-    chomp( my $tmp_header = <$fh_in> );
+    chomp( my $tmp_header = <$fh> );
 
     # Defining separator
     my $separator = $ext eq '.csv'
@@ -357,7 +357,7 @@ sub read_redcap_export {
     my $header = [ $csv->fields() ];
 
     # Now proceed with the rest of the file
-    while ( my $row = $csv->getline($fh_in) ) {
+    while ( my $row = $csv->getline($fh) ) {
 
         # We store the data as an AoH $data
         my $tmp_hash;
@@ -367,7 +367,7 @@ sub read_redcap_export {
         push @$data, $tmp_hash;
     }
 
-    close $fh_in;
+    close $fh;
 
     #########################################
     #     END READING CSV|TSV|TXT FILE      #
@@ -394,10 +394,10 @@ sub load_redcap_dictionary {
     #     START READING CSV|TSV|TXT FILE    #
     #########################################
 
-    open my $fh_in, '<:encoding(utf8)', $in_file;
+    open my $fh, '<:encoding(utf8)', $in_file;
 
     # We'll read the header to assess separators in <txt> files
-    chomp( my $tmp_header = <$fh_in> );
+    chomp( my $tmp_header = <$fh> );
 
     # Defining separator
     my $separator =
@@ -420,7 +420,7 @@ sub load_redcap_dictionary {
     my $header = [ $csv->fields() ];
 
     # Now proceed with the rest of the file
-    while ( my $row = $csv->getline($fh_in) ) {
+    while ( my $row = $csv->getline($fh) ) {
 
         # We store the data as an AoH $data
         my $tmp_hash;
@@ -446,7 +446,7 @@ sub load_redcap_dictionary {
         $data->{$key} = $tmp_hash;
     }
 
-    close $fh_in;
+    close $fh;
 
     #######################################
     #     END READING CSV|TSV|TXT FILE    #
@@ -494,11 +494,11 @@ sub map_ethnicity {
 
 sub map_db {
 
-    my $str = shift;
+    my ($str, $print_hidden_labels) = @_;
     my $ontology = 'ncit';
     my ($id, $label)  = get_query_SQLite($str, $ontology);
     # id and label come from <db> _label is the original string (can change on partial matches)
-    return { id => $id, label => $label, _label => $str };
+    return $print_hidden_labels ? { id => $id, label => $label, _label => $str } : { id => $id, label => $label};
 
     #my %surgery = (
     #    map { $_ => 'NCIT:C15257' } ( 'ileostomy', 'ileostoma' ),
