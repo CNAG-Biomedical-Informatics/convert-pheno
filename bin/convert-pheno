@@ -4,7 +4,7 @@
 #
 #   This file is part of Convert-Pheno
 #
-#   Last Modified: Jul/04/2022
+#   Last Modified: Jul/15/2022
 #
 #   Version 0.0.0b
 #
@@ -61,7 +61,7 @@ GetOptions(
     'verbose'                 => \my $verbose,                              # flag
     'no-color|nc'             => \my $no_color,                             # flag
     'redcap-dictionary|rcd=s' => \my $redcap_dictionary,                    # string
-    'print-hidden-labels|phl' => \my $print_hidden_labels,                  # flag 
+    'print-hidden-labels|phl' => \my $print_hidden_labels,                  # flag
     'version|v'               => sub { say "$0 Version $version"; exit; }
 ) or pod2usage(2);
 pod2usage(1)                              if $help;
@@ -96,15 +96,15 @@ my $input = {
     out_file => $out_pxf ? catfile( $out_dir, $out_pxf )
     : $out_bff ? catfile( $out_dir, $out_bff )
     : catfile( $out_dir, 'individuals.json' ),
-    redcap_dictionary => $redcap_dictionary,
+    redcap_dictionary   => $redcap_dictionary,
     print_hidden_labels => $print_hidden_labels,
-    debug             => $debug,
-    verbose           => $verbose
+    debug               => $debug,
+    verbose             => $verbose
 };
 print Dumper $input if $debug;
 
 # Start printing to STDOUT
-say BOLD CYAN program_header($version);
+say BOLD CYAN program_header($version) if $verbose;
 
 #############################
 # START DATA TRANSFORMATION #
@@ -120,13 +120,15 @@ sub convert {
 
     my $input = shift;
 
-    print BOLD BLUE program_body( $input->{in_type}, $input->{out_type},
-        $input->{in_file} );
-    say BOLD GREEN "Writing <$input->{out_file}> file\n";
+    if ($verbose) {
+        print BOLD BLUE program_body( $input->{in_type}, $input->{out_type},
+            $input->{in_file} );
+        say BOLD GREEN "Writing <$input->{out_file}> file\n";
+    }
 
     # Creating object
     my $convert = Convert::Pheno->new($input);
-    
+
     # Writing file after running $method
     my $method = $input->{in_type} . '2' . $input->{out_type};
     write_json( $input->{out_file}, $convert->$method );
@@ -140,7 +142,6 @@ sub program_body {
 ==== Processing: <$file> ====
 EOF
     return $msg;
-
 }
 
 sub program_header {
