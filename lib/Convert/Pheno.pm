@@ -43,6 +43,8 @@ sub new {
     return $self;
 }
 
+# NB: In general, we'll only display terms that exist and have content
+
 ############
 ############
 #  PXF2BFF #
@@ -62,8 +64,7 @@ sub pxf2bff {
     # START MAPPING TO BEACON V2 TERMS #
     ####################################
 
-    # NB1: In general, we'll only load terms that exist
-    # NB2: In PXF some terms are = []
+    # NB: In PXF some terms are = []
     my $individual;
 
     # ========
@@ -165,6 +166,8 @@ sub redcap2bff {
     # Load (or read) REDCap CSV dictionary
     my $rcd = load_redcap_dictionary( $self->{'redcap_dictionary'} );
 
+    print Dumper $rcd if ( $self->{debug} && $self->{debug} > 1 );
+
     ####################################
     # START MAPPING TO BEACON V2 TERMS #
     ####################################
@@ -209,13 +212,13 @@ sub redcap2bff {
         # =========
 
         $individual->{exposures} = [];
-        for my $agent (qw(alcohol)) {
+        for my $element (qw(alcohol)) {
             my $exposure;
 
-            #$exposure->{ageAtExposure} = undef;
-            #$exposure->{date}          = '2010-07-10';
-            #$exposure->{duration}      = 'P32Y6M1D';
-            $exposure->{exposureCode} = map_exposures($agent);
+            $exposure->{ageAtExposure}  = undef;
+            $exposure->{date}           = undef;                     #'2010-07-10';
+            $exposure->{duration}       = undef;                     # 'P32Y6M1D';
+            $exposure->{exposureCode}   = map_exposures($element);
             $exposure->{quantity}{unit} = {
                 "id"    => $participant->{alcohol},
                 "label" => $rcd->{alcohol}{_labels}{ $participant->{alcohol} }
@@ -228,7 +231,7 @@ sub redcap2bff {
         # geographicOrigin
         # ================
 
-        #$invididual->{geographicOrigin} = undef;
+        $individual->{geographicOrigin} = undef;
 
         # ==
         # id
@@ -261,18 +264,18 @@ sub redcap2bff {
             $surgery{ 'surgery_details___' . $_ } =
               $rcd->{surgery_details}{_labels}{$_};
         }
-        for my $procedure ( qw(endoscopy_performed intestinal_surgery),
+        for my $element ( qw(endoscopy_performed intestinal_surgery),
             keys %surgery )
         {
-            if ( $participant->{$procedure} ) {
+            if ( $participant->{$element} ) {
                 my $intervention;
                 $intervention->{ageAtProcedure} = undef;
                 $intervention->{bodySite} =
                   { id => 'NCIT:C12736', label => 'intestine' };
                 $intervention->{dateOfProcedure} = undef;
                 $intervention->{procedureCode} =
-                  map_db( $surgery{$procedure}, $self->{print_hidden_labels} )
-                  if $surgery{$procedure};
+                  map_db( $surgery{$element}, $self->{print_hidden_labels} )
+                  if $surgery{$element};
                 push @{ $individual->{interventionsOrProcedures} },
                   $intervention;
             }
@@ -286,9 +289,43 @@ sub redcap2bff {
         # measures
         # ========
 
+        $individual->{measures} = [];
+        my @measures = (qw ( a b c));
+        for my $element (@measures) {
+            my $measure;
+            $measure->{assayCode} = undef;    # P32Y6M1D
+            $measure->{date} =
+              { Quantity => { unit => { id => '', label => '' }, value => '' }
+              };
+            $measure->{measurementValue}  = [];
+            $measure->{notes}             = { id => '', label => '' };
+            $measure->{observationMoment} = { id => '', label => '' };
+            $measure->{procedure}         = { id => '', label => '' };
+
+            # Add to array
+            push @{ $individual->{measures} }, $measure;
+
+        }
+
         # =========
         # pedigrees
         # =========
+
+        $individual->{pedigrees} = [];
+
+        # disease, id, members, numSubjects
+        my @pedigrees = (qw ( a b c));
+        for my $element (@pedigrees) {
+            my $pedigree;
+            $pedigree->{disease}     = {};      # P32Y6M1D
+            $pedigree->{id}          = undef;
+            $pedigree->{members}     = [];
+            $pedigree->{numSubjects} = 0;
+
+            # Add to array
+            push @{ $individual->{pedigrees} }, $pedigree;
+
+        }
 
         # ==================
         # phenotypicFeatures
@@ -296,7 +333,7 @@ sub redcap2bff {
 
         $individual->{phenotypicFeatures} = [];
         my @phenotypicFeatures = qw ( a b c);
-        for my $disease (@phenotypicFeatures) {
+        for my $element (@phenotypicFeatures) {
             my $phenotypicFeature;
             $phenotypicFeature->{evidence} = undef;    # P32Y6M1D
             $phenotypicFeature->{excluded} =
@@ -327,11 +364,23 @@ sub redcap2bff {
         # ==========
 
         $individual->{treatments} = [];
-        map_db( $rcd->{sex}{_labels}{ $participant->{sex} },
-            $self->{print_hidden_labels} );
-        my @drugs = qw (budesonide prednisolona asa);
-        for my $drug (@drugs) {
+        my @drugs = qw (budesonide_oral budesonide_rectal prednisolone);    #prednisolone asa);
+
+        #
+        #        '_labels' => {
+        #                                                       '1' => 'never treated',
+        #                                                       '2' => 'former treatment',
+        #                                                       '3' => 'current treatment'
+        #                                                     }
+
+        for my $element (@drugs) {
             my $treatment;
+
+            my $tmp_var = $element . '_status';
+            $treatment->{info} = {
+                drug   => $element,
+                status => $rcd->{$tmp_var}{_labels}{ $participant->{$tmp_var} }
+            };    # ***** INTERNAL FIELD
             $treatment->{ageAtOnset} = undef;    # P32Y6M1D
             $treatment->{cumulativeDose} =
               { Quantity => { unit => { id => '', label => '' }, value => '' }
