@@ -132,7 +132,9 @@ sub pxf2bff {
         {
             label       => $phenopacket->{subject}{sex},
             ontology    => 'ncit',
-            labels_true => $self->{print_hidden_labels}
+            labels_true => $self->{print_hidden_labels},
+
+            #            dbh => $dbh_ncit
         }
     ) if exists $phenopacket->{subject}{sex};
 
@@ -172,6 +174,10 @@ sub redcap2bff {
 
     print Dumper $rcd if ( $self->{debug} && $self->{debug} > 1 );
 
+    # Open connection to SQLlite databases ONCE
+    my $sqlites = [qw(ncit icd10)];
+    my $dbh = open_connection_SQLite($sqlites);
+
     ####################################
     # START MAPPING TO BEACON V2 TERMS #
     ####################################
@@ -192,16 +198,20 @@ sub redcap2bff {
 
         $individual->{diseases} = [];
         my %disease = ( 'Inflamatory Bowel Disease' => 'ICD10:K51.90' );
+
         #my @diseases = ('Unspecified asthma, uncomplicated', 'Inflamatory Bowel Disease', "Crohn's disease, unspecified, without complications");
-        my @diseases = ('Unspecified asthma, uncomplicated', 'Inflamatory Bowel Disease');
-        for my $element ( @diseases ) {
+        my @diseases =
+          ( 'Unspecified asthma, uncomplicated', 'Inflamatory Bowel Disease' );
+        for my $element (@diseases) {
             my $disease;
             if ( $element ne 'Inflamatory Bowel Disease' ) {
                 $disease->{diseaseCode} = map_db(
                     {
                         label       => $element,
-                        ontology    => 'icd10', # ICD-10 ontology (term must be precise)
-                        labels_true => $self->{print_hidden_labels}
+                        ontology    => 'icd10',                        # ICD-10 ontology (term must be precise)
+                        labels_true => $self->{print_hidden_labels},
+                        dbh          => $dbh->{icd10}
+
                     }
                 );
             }
@@ -294,7 +304,8 @@ sub redcap2bff {
                     {
                         label       => $surgery{$element},
                         ontology    => 'ncit',
-                        labels_true => $self->{print_hidden_labels}
+                        labels_true => $self->{print_hidden_labels},
+                        dbh          => $dbh->{ncit}
                     }
                 ) if $surgery{$element};
                 push @{ $individual->{interventionsOrProcedures} },
@@ -379,7 +390,9 @@ sub redcap2bff {
             {
                 label       => $rcd->{sex}{_labels}{ $participant->{sex} },
                 ontology    => 'ncit',
-                labels_true => $self->{print_hidden_labels}
+                labels_true => $self->{print_hidden_labels},
+                dbh          => $dbh->{ncit}
+
             }
         ) if ( exists $participant->{sex} && $participant->{sex} );
 
@@ -420,6 +433,9 @@ sub redcap2bff {
     ##################################
     # END MAPPING TO BEACON V2 TERMS #
     ##################################
+
+    # Close connections ONCE
+    close_connection_SQLite($dbh);
 
     return $individuals;
 }
@@ -609,7 +625,10 @@ sub map_db {
     my $str                 = $arg->{label};
     my $ontology            = $arg->{ontology};
     my $print_hidden_labels = $arg->{labels_true};
-    my ( $id, $label ) = get_query_SQLite( $str, $ontology );
+    my $dbh                 = $arg->{dbh};
+
+    # Perform query
+    my ( $id, $label ) = get_query_SQLite( $dbh, $str, $ontology );
 
     # id and label come from <db> _label is the original string (can change on partial matches)
     return $print_hidden_labels
@@ -637,16 +656,29 @@ sub map_exposures {
 #######################
 #######################
 
-sub get_query_SQLite {
+sub open_connection_SQLite {
 
-    my ( $query, $ontology ) = @_;
-    my $db     = uc($ontology) . '_table';
-    my $dbfile = catfile( $Bin, '../db', "$ontology.db" );
-    my $field  = 'exact_match';
-    my $user   = '';
-    my $passwd = '';
-    my $dsn    = "dbi:SQLite:dbname=$dbfile";
-    my $dbh    = DBI->connect(
+    my $sqlites = shift;
+    my $dbh;
+    $dbh->{$_} = open_db_SQLite($_) for (@$sqlites);
+    return $dbh;
+}
+
+sub close_connection_SQLite {
+    
+    my $dbh = shift;
+    close_db_SQLite($dbh->{$_}) for (keys %{$dbh});
+    return 1;
+}
+
+sub open_db_SQLite {
+
+    my $ontology = shift;
+    my $dbfile   = catfile( $Bin, '../db', "$ontology.db" );
+    my $user     = '';
+    my $passwd   = '';
+    my $dsn      = "dbi:SQLite:dbname=$dbfile";
+    my $dbh      = DBI->connect(
         $dsn, $user, $passwd,
         {
             PrintError       => 0,
@@ -656,6 +688,21 @@ sub get_query_SQLite {
         }
     );
 
+    return $dbh;
+}
+
+sub close_db_SQLite {
+
+    my $dbh = shift;
+    $dbh->disconnect();
+    return 1;
+}
+
+sub get_query_SQLite {
+
+    my ( $dbh, $query, $ontology ) = @_;
+    my $field = 'exact_match';
+    my $db    = uc($ontology) . '_table';
     my %query = (
         contains =>
           qq(SELECT * FROM $db WHERE label LIKE '%' || ? || '%' COLLATE NOCASE),
@@ -683,7 +730,6 @@ SQL
         last if $field eq 'exact_match';    # Note that sometimes we get more than one
     }
     $sth->finish();
-    $dbh->disconnect();
 
     return ( $id, $label );
 }
