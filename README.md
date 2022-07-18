@@ -41,7 +41,9 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
 
 # DESCRIPTION
 
-`convert-pheno` is a command-line frontend to the module [Convert::Pheno](https://metacpan.org/pod/Convert%3A%3APheno).
+`convert-pheno` is a command-line front-end to the CPAN's module [Convert::Pheno](https://metacpan.org/pod/Convert%3A%3APheno).
+
+The module will be uploaded to CPAN once ready.
 
 # CITATION
 
@@ -49,7 +51,7 @@ To be defined.
 
 # SUMMARY
 
-A script that uses Convert::Pheno to interconverts phenotypic data between different CDM formats
+A script that uses [Convert::Pheno](https://metacpan.org/pod/Convert%3A%3APheno) to interconvert phenotypic data between different CDM formats
 
 # HOW TO RUN PHENO-CONVERT
 
@@ -71,6 +73,8 @@ If you prefer to have the dependencies in a "virtual environment" (i.e., install
 Then, we can install our dependencies:
 
     $ carton install
+
+We will be adding a `Dockerfile` to create a containerized version with [Alpine Linux](https://www.alpinelinux.org/)
 
 For executing convert-pheno you will need:
 

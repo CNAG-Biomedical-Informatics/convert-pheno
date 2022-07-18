@@ -2,7 +2,7 @@
 #
 #   A script that interconverts phenotypic data between different CDM formats
 #
-#   This file is part of Convert-Pheno
+#   This file is part of Convert::Pheno
 #
 #   Last Modified: Jul/15/2022
 #
@@ -201,7 +201,9 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
      
 =head1 DESCRIPTION
 
-C<convert-pheno> is a command-line frontend to the module L<Convert::Pheno>.
+C<convert-pheno> is a command-line front-end to the CPAN's module L<Convert::Pheno>.
+
+The module will be uploaded to CPAN once ready.
 
 =head1 CITATION
 
@@ -209,7 +211,7 @@ To be defined.
 
 =head1 SUMMARY
 
-A script that uses Convert::Pheno to interconverts phenotypic data between different CDM formats
+A script that uses L<Convert::Pheno> to interconvert phenotypic data between different CDM formats
 
 =head1 HOW TO RUN PHENO-CONVERT
 
@@ -231,6 +233,10 @@ If you prefer to have the dependencies in a "virtual environment" (i.e., install
 Then, we can install our dependencies:
 
    $ carton install
+
+
+We will be adding a C<Dockerfile> to create a containerized version with L<Alpine Linux|https://www.alpinelinux.org/>
+
 
 For executing convert-pheno you will need:
 
