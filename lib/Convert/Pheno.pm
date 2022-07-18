@@ -435,8 +435,9 @@ sub redcap2bff {
     ##################################
 
     # Close connections ONCE
-    close_connection_SQLite($dbh);
+    close_connection_SQLite($dbh, $sqlites);
 
+    # Caution with the RAM (we store all in memory)
     return $individuals;
 }
 
@@ -666,8 +667,8 @@ sub open_connection_SQLite {
 
 sub close_connection_SQLite {
     
-    my $dbh = shift;
-    close_db_SQLite($dbh->{$_}) for (keys %{$dbh});
+    my ($dbh, $sqlites)  = @_;
+    close_db_SQLite($dbh->{$_}) for (@$sqlites);
     return 1;
 }
 
