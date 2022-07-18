@@ -1,0 +1,11 @@
+# NCIT
+Version Released        Uploaded        Downloads
+22.06d (Parsed, Indexed, Metrics, Annotator)    06/30/2022      06/30/2022      OWL | CSV | RDF/XML | Diff
+
+https://bioportal.bioontology.org/ontologies/NCIT
+
+# ICD-10
+ICD-10 are created with XML. I looked for an alternative in CSV.
+wget https://raw.githubusercontent.com/k4m1113/ICD-10-CSV/master/codes.csv
+mv codes.csv icd_codes.csv
+dos2unix icd_codes.csv

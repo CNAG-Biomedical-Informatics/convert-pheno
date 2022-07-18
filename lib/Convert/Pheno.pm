@@ -128,9 +128,13 @@ sub pxf2bff {
     # sex
     # ===
 
-    $individual->{sex} =
-      map_db( $phenopacket->{subject}{sex}, $self->{print_hidden_labels} )
-      if exists $phenopacket->{subject}{sex};
+    $individual->{sex} = map_db(
+        {
+            label       => $phenopacket->{subject}{sex},
+            ontology    => 'ncit',
+            labels_true => $self->{print_hidden_labels}
+        }
+    ) if exists $phenopacket->{subject}{sex};
 
     ##################################
     # END MAPPING TO BEACON V2 TERMS #
@@ -187,13 +191,26 @@ sub redcap2bff {
         # ========
 
         $individual->{diseases} = [];
-        my %condition = ( 'Inflamatory Bowel Disease' => 'ICD10:K51.90' );
-        for my $condition ( keys %condition ) {
+        my %disease = ( 'Inflamatory Bowel Disease' => 'ICD10:K51.90' );
+        #my @diseases = ('Unspecified asthma, uncomplicated', 'Inflamatory Bowel Disease', "Crohn's disease, unspecified, without complications");
+        my @diseases = ('Unspecified asthma, uncomplicated', 'Inflamatory Bowel Disease');
+        for my $element ( @diseases ) {
             my $disease;
-            $disease->{diseaseCode} = {
-                id    => $condition{$condition},
-                label => $condition
-            };
+            if ( $element ne 'Inflamatory Bowel Disease' ) {
+                $disease->{diseaseCode} = map_db(
+                    {
+                        label       => $element,
+                        ontology    => 'icd10', # ICD-10 ontology (term must be precise)
+                        labels_true => $self->{print_hidden_labels}
+                    }
+                );
+            }
+            else {
+                $disease->{diseaseCode} = {
+                    id    => $disease{$element},
+                    label => $element
+                };
+            }
             push @{ $individual->{diseases} }, $disease;
         }
 
@@ -220,8 +237,8 @@ sub redcap2bff {
             $exposure->{duration}       = undef;                     # 'P32Y6M1D';
             $exposure->{exposureCode}   = map_exposures($element);
             $exposure->{quantity}{unit} = {
-                "id"    => $participant->{alcohol},
-                "label" => $rcd->{alcohol}{_labels}{ $participant->{alcohol} }
+                id    => $participant->{alcohol},
+                label => $rcd->{alcohol}{_labels}{ $participant->{alcohol} }
             };
             $exposure->{quantity}{value} = undef;
             push @{ $individual->{exposures} }, $exposure;
@@ -273,9 +290,13 @@ sub redcap2bff {
                 $intervention->{bodySite} =
                   { id => 'NCIT:C12736', label => 'intestine' };
                 $intervention->{dateOfProcedure} = undef;
-                $intervention->{procedureCode} =
-                  map_db( $surgery{$element}, $self->{print_hidden_labels} )
-                  if $surgery{$element};
+                $intervention->{procedureCode}   = map_db(
+                    {
+                        label       => $surgery{$element},
+                        ontology    => 'ncit',
+                        labels_true => $self->{print_hidden_labels}
+                    }
+                ) if $surgery{$element};
                 push @{ $individual->{interventionsOrProcedures} },
                   $intervention;
             }
@@ -354,10 +375,13 @@ sub redcap2bff {
         # sex
         # ===
 
-        $individual->{sex} =
-          map_db( $rcd->{sex}{_labels}{ $participant->{sex} },
-            $self->{print_hidden_labels} )
-          if ( exists $participant->{sex} && $participant->{sex} );
+        $individual->{sex} = map_db(
+            {
+                label       => $rcd->{sex}{_labels}{ $participant->{sex} },
+                ontology    => 'ncit',
+                labels_true => $self->{print_hidden_labels}
+            }
+        ) if ( exists $participant->{sex} && $participant->{sex} );
 
         # ==========
         # treatments
@@ -581,8 +605,10 @@ sub map_ethnicity {
 
 sub map_db {
 
-    my ( $str, $print_hidden_labels ) = @_;
-    my $ontology = 'ncit';
+    my $arg                 = shift;
+    my $str                 = $arg->{label};
+    my $ontology            = $arg->{ontology};
+    my $print_hidden_labels = $arg->{labels_true};
     my ( $id, $label ) = get_query_SQLite( $str, $ontology );
 
     # id and label come from <db> _label is the original string (can change on partial matches)
@@ -616,7 +642,7 @@ sub get_query_SQLite {
     my ( $query, $ontology ) = @_;
     my $db     = uc($ontology) . '_table';
     my $dbfile = catfile( $Bin, '../db', "$ontology.db" );
-    my $field  = 'exact';
+    my $field  = 'exact_match';
     my $user   = '';
     my $passwd = '';
     my $dsn    = "dbi:SQLite:dbname=$dbfile";
@@ -631,14 +657,13 @@ sub get_query_SQLite {
     );
 
     my %query = (
-        partial =>
-qq(SELECT * FROM $db WHERE preferred_label LIKE ? || '%' COLLATE NOCASE),
-
-        #partial => qq(SELECT * FROM $db WHERE instr("preferred_label", ? COLLATE NOCASE) > 1),
-        exact => qq(SELECT * FROM $db WHERE preferred_label = ? COLLATE NOCASE)
-
-          #       rs       => 'select * FROM ExAC WHERE rs =  ? COLLATE NOCASE',
-          #unknown => "select * from $db like ?"
+        contains =>
+          qq(SELECT * FROM $db WHERE label LIKE '%' || ? || '%' COLLATE NOCASE),
+        contains_word =>
+qq(SELECT * FROM $db WHERE label LIKE '% ' || ? || ' %' COLLATE NOCASE),
+        exact_match => qq(SELECT * FROM $db WHERE label = ? COLLATE NOCASE),
+        begins_with =>
+          qq(SELECT * FROM $db WHERE label LIKE ? || '%' COLLATE NOCASE)
     );
 
     my $sth = $dbh->prepare(<<SQL);
@@ -648,19 +673,19 @@ SQL
     # Excute query
     $sth->execute($query);
 
-    my $code            = 'NCIT:NA';
-    my $preferred_label = 'NA';
+    # Parse query
+    $ontology = uc($ontology);
+    my $id    = $ontology . ':NA';
+    my $label = 'NA';
     while ( my $row = $sth->fetchrow_arrayref ) {
-
-        #print Dumper $row;
-        $code            = 'NCIT:' . $row->[1];
-        $preferred_label = $row->[0];
-        last if $field eq 'exact'    # Note that sometime we get more than one
+        $id    = $ontology . ':' . $row->[1];
+        $label = $row->[0];
+        last if $field eq 'exact_match';    # Note that sometimes we get more than one
     }
     $sth->finish();
     $dbh->disconnect();
 
-    return ( $code, $preferred_label );
+    return ( $id, $label );
 }
 
 1;
