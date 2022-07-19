@@ -74,7 +74,7 @@ Then, we can install our dependencies:
 
     $ carton install
 
-We will be adding a `Dockerfile` to create a containerized version with [Alpine Linux](https://www.alpinelinux.org/)
+We will be adding a `Dockerfile` to create a containerized version soon.
 
 For executing convert-pheno you will need:
 

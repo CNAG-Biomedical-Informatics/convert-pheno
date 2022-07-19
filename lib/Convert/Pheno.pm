@@ -175,8 +175,8 @@ sub redcap2bff {
     print Dumper $rcd if ( $self->{debug} && $self->{debug} > 1 );
 
     # Open connection to SQLlite databases ONCE
-    my $sqlites = [qw(ncit icd10)];
-    my $dbh = open_connection_SQLite($sqlites);
+    my @sqlites = qw(ncit icd10);
+    my $dbh = open_connection_SQLite(\@sqlites);
 
     ####################################
     # START MAPPING TO BEACON V2 TERMS #
@@ -435,7 +435,7 @@ sub redcap2bff {
     ##################################
 
     # Close connections ONCE
-    close_connection_SQLite($dbh, $sqlites);
+    close_connection_SQLite($dbh, \@sqlites);
 
     # Caution with the RAM (we store all in memory)
     return $individuals;
@@ -659,6 +659,7 @@ sub map_exposures {
 
 sub open_connection_SQLite {
 
+    # Opening the DB once (instead that on each call) improves speed ~15%
     my $sqlites = shift;
     my $dbh;
     $dbh->{$_} = open_db_SQLite($_) for (@$sqlites);
