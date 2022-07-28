@@ -4,7 +4,7 @@
 #
 #   This file is part of Convert::Pheno
 #
-#   Last Modified: Jul/15/2022
+#   Last Modified: Jul/28/2022
 #
 #   Version 0.0.0b
 #
@@ -213,7 +213,27 @@ To be defined.
 
 A script that uses L<Convert::Pheno> to interconvert phenotypic data between different CDM formats
 
-=head1 HOW TO RUN PHENO-CONVERT
+=head1 INSTALLATION
+
+=head2 Containerized
+
+Please download the C<Dockerfile> from the repo
+
+   $ wget https://raw.githubusercontent.com/mrueda/Convert-Pheno/main/Dockerfile
+
+And then run:
+
+   $ docker build -t cnag/convert_pheno:latest .
+
+To run the container (detached) execute:
+
+   $ docker run -tid --name convert-pheno cnag/convert_pheno:latest
+
+To enter:
+
+   $ docker exec -ti convert-pheno bash
+
+=head2 Non containerized
 
 The script runs on command-line Linux (tested on Debian-based distribution). Perl 5 is installed by default on Linux, 
 but we will install a few CPAN modules with C<cpanminus>.
@@ -235,8 +255,7 @@ Then, we can install our dependencies:
    $ carton install
 
 
-We will be adding a C<Dockerfile> to create a containerized version soon.
-
+=head1 HOW TO RUN PHENO-CONVERT
 
 For executing convert-pheno you will need:
 
