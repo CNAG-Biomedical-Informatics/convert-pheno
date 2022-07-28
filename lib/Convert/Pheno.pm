@@ -178,6 +178,24 @@ sub redcap2bff {
     my @sqlites = qw(ncit icd10);
     my $dbh = open_connection_SQLite(\@sqlites);
 
+    ##############################
+    # <Variable> names in REDCap #
+    ##############################
+    #
+    # REDCap does not enforce any particular "Variable" name.
+    # Extracted from https://www.ctsi.ufl.edu/wordpress/files/2019/02/Project-Creation-User-Guide.pdf
+    # ---
+    # "Variable Names: Variable names are critical in the data analysis process. If you export your data to a
+    # statistical software program, the variable names are what you or your statistician will use to conduct
+    # the analysis"
+    #
+    # "We always recommend reviewing your variable names with a statistician or whoever will be
+    # analyzing your data. This is especially important if this is the first time you are building a
+    # database"
+    #---
+    # If "Variable" names are not consensuated, then we need to do the mapping manually "a posteriori".
+    # This is what we are attempting here:
+   
     ####################################
     # START MAPPING TO BEACON V2 TERMS #
     ####################################
@@ -200,8 +218,8 @@ sub redcap2bff {
         my %disease = ( 'Inflamatory Bowel Disease' => 'ICD10:K51.90' );
 
         #my @diseases = ('Unspecified asthma, uncomplicated', 'Inflamatory Bowel Disease', "Crohn's disease, unspecified, without complications");
-        my @diseases =
-          ( 'Unspecified asthma, uncomplicated', 'Inflamatory Bowel Disease' );
+        my @diseases = ('Inflamatory Bowel Disease');
+          #( 'Unspecified asthma, uncomplicated', 'Inflamatory Bowel Disease' );
         for my $element (@diseases) {
             my $disease;
             if ( $element ne 'Inflamatory Bowel Disease' ) {
@@ -335,7 +353,7 @@ sub redcap2bff {
             $measure->{procedure}         = { id => '', label => '' };
 
             # Add to array
-            push @{ $individual->{measures} }, $measure;
+            #push @{ $individual->{measures} }, $measure; # SWITCHED OFF on 072622
 
         }
 
@@ -355,7 +373,7 @@ sub redcap2bff {
             $pedigree->{numSubjects} = 0;
 
             # Add to array
-            push @{ $individual->{pedigrees} }, $pedigree;
+            #push @{ $individual->{pedigrees} }, $pedigree; # SWITCHED OFF on 072622
 
         }
 
@@ -379,7 +397,7 @@ sub redcap2bff {
             $phenotypicFeature->{severity}    = { id => '', label => '' };
 
             # Add to array
-            push @{ $individual->{phenotypicFeatures} }, $phenotypicFeature;
+            #push @{ $individual->{phenotypicFeatures} }, $phenotypicFeature; # SWITCHED OFF on 072622
         }
 
         # ===
