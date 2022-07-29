@@ -217,7 +217,7 @@ A script that uses L<Convert::Pheno> to interconvert phenotypic data between dif
 
 =head2 Containerized
 
-Please download the C<Dockerfile> from the repo
+Please download the C<Dockerfile> from the repo:
 
    $ wget https://raw.githubusercontent.com/mrueda/Convert-Pheno/main/Dockerfile
 
@@ -227,7 +227,7 @@ And then run:
 
 To run the container (detached) execute:
 
-   $ docker run -tid --name convert-pheno cnag/convert_pheno:latest
+   $ docker run -tid --name convert-pheno cnag/convert-pheno:latest
 
 To enter:
 
@@ -269,7 +269,7 @@ A text file in one of the accepted formats.
 
 B<Examples:>
 
-   $ ./convert-pheno -ipxf phenopackets.json -obff individuals.json
+   $ bin/convert-pheno -ipxf phenopackets.json -obff individuals.json
 
    $ $path/convert-pheno -ipxf file.json -obff individuals.json --out-dir my_bff_outdir
 

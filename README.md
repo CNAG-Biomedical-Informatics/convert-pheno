@@ -57,7 +57,7 @@ A script that uses [Convert::Pheno](https://metacpan.org/pod/Convert%3A%3APheno)
 
 ## Containerized
 
-Please download the `Dockerfile` from the repo
+Please download the `Dockerfile` from the repo:
 
     $ wget https://raw.githubusercontent.com/mrueda/Convert-Pheno/main/Dockerfile
 
@@ -67,7 +67,7 @@ And then run:
 
 To run the container (detached) execute:
 
-    $ docker run -tid --name convert-pheno cnag/convert_pheno:latest
+    $ docker run -tid --name convert-pheno cnag/convert-pheno:latest
 
 To enter:
 
@@ -104,7 +104,7 @@ For executing convert-pheno you will need:
 
 **Examples:**
 
-    $ ./convert-pheno -ipxf phenopackets.json -obff individuals.json
+    $ bin/convert-pheno -ipxf phenopackets.json -obff individuals.json
 
     $ $path/convert-pheno -ipxf file.json -obff individuals.json --out-dir my_bff_outdir
 

@@ -4,8 +4,8 @@ FROM ubuntu
 MAINTAINER Manuel Rueda <manuel.rueda@cnag.crg.eu>
 
 # Install Linux tools
-RUN DEBIAN_FRONTEND=noninteractive apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install gcc make git cpanminus perl-doc vim sudo
+RUN apt-get update && \
+    apt-get -y install gcc make git cpanminus perl-doc vim sudo
 
 # Download app
 WORKDIR /usr/share/
