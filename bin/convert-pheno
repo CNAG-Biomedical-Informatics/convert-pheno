@@ -82,6 +82,11 @@ pod2usage(
 # Turning color off if argument <--no-color>
 $ENV{'ANSI_COLORS_DISABLED'} = 1 if $no_color;
 
+# Defining $out_file
+my $out_file =  $out_pxf ? catfile( $out_dir, $out_pxf )
+    : $out_bff ? catfile( $out_dir, $out_bff )
+    : catfile( $out_dir, 'individuals.json' );
+
 # Defining data as a hashref
 my $data = {
       in_type => $in_pxf ? 'pxf'
@@ -89,13 +94,11 @@ my $data = {
     : $in_redcap ? 'redcap'
     : 'bff',
     out_type => $out_pxf ? 'pxf' : $out_bff ? 'bff' : 'bff',
+    in_textfile => 1,
     in_file => $in_pxf ? $in_pxf
     : $in_bff    ? $in_bff
     : $in_redcap ? $in_redcap
     : 'individuals.json',
-    out_file => $out_pxf ? catfile( $out_dir, $out_pxf )
-    : $out_bff ? catfile( $out_dir, $out_bff )
-    : catfile( $out_dir, 'individuals.json' ),
     redcap_dictionary   => $redcap_dictionary,
     print_hidden_labels => $print_hidden_labels,
     debug               => $debug,
@@ -110,7 +113,7 @@ say BOLD CYAN program_header($version) if $verbose;
 # START DATA TRANSFORMATION #
 #############################
 
-convert($data);
+convert($data, $out_file);
 
 ###########################
 # END DATA TRANSFORMATION #
@@ -118,20 +121,22 @@ convert($data);
 
 sub convert {
 
-    my $l_data = shift;
+    my ($l_data, $o_file) = @_;
 
     if ($verbose) {
         print BOLD BLUE program_body( $l_data->{in_type}, $l_data->{out_type},
             $l_data->{in_file} );
-        say BOLD GREEN "Writing <$l_data->{out_file}> file\n";
+        say BOLD GREEN "Writing <$o_file> file\n";
     }
 
     # Creating object
     my $convert = Convert::Pheno->new($l_data);
 
-    # Writing file after running $method
+    # Running $method
     my $method = $l_data->{in_type} . '2' . $l_data->{out_type};
-    write_json( $l_data->{out_file}, $convert->$method );
+
+    # Writing file 
+    write_json( { filename => $o_file, data => $convert->$method } );
 }
 
 sub program_body {

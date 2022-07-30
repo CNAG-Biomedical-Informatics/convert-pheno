@@ -54,7 +54,9 @@ sub new {
 sub pxf2bff {
 
     my $self = shift;
-    my $data = read_json( $self->{in_file} );
+
+    # Load the input data as Perl data structure
+    my $data = $self->{in_textfile} ? read_json( $self->{in_file} ) : $self->{in_file};
 
     # Get cursors for 1D terms
     my $interpretation = $data->{interpretation};
@@ -617,7 +619,9 @@ sub read_json {
 
 sub write_json {
 
-    my ( $file, $json_array ) = @_;
+    my $arg = shift;
+    my $file = $arg->{filename};
+    my $json_array = $arg->{data};
     my $json = JSON::XS->new->utf8->canonical->pretty->encode($json_array);
     path($file)->spew_utf8($json);
     return 1;
