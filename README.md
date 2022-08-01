@@ -105,13 +105,13 @@ For executing convert-pheno you will need:
 
 **Examples:**
 
-    bin/convert-pheno -ipxf phenopackets.json -obff individuals.json
+    $ bin/convert-pheno -ipxf phenopackets.json -obff individuals.json
 
-    $path/convert-pheno -ipxf file.json -obff individuals.json --out-dir my_bff_outdir
+    $ $path/convert-pheno -ipxf file.json -obff individuals.json --out-dir my_bff_outdir
 
-    $path/convert-pheno -iredcap redcap.csv -opxf phenopackets.json --redcap-dictionary redcap_dict.csv
+    $ $path/convert-pheno -iredcap redcap.csv -opxf phenopackets.json --redcap-dictionary redcap_dict.csv
 
-    carton exec -- $path/convert-pheno -ibff individuals.json -opxf phenopackets.json # If using Carton
+    $ carton exec -- $path/convert-pheno -ibff individuals.json -opxf phenopackets.json # If using Carton
 
 ## COMMON ERRORS AND SOLUTIONS
 

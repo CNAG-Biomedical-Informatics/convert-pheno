@@ -14,6 +14,10 @@ use Path::Tiny;
 use File::Basename;
 use Text::CSV_XS;
 use Scalar::Util qw(looks_like_number);
+use Sys::Hostname;
+use Cwd qw(cwd abs_path);
+use POSIX        qw(strftime);
+use Time::HiRes  qw/gettimeofday/;
 
 use constant DEVEL_MODE => 0;
 use vars qw{
@@ -23,7 +27,8 @@ use vars qw{
 };
 
 @ISA    = qw( Exporter );
-@EXPORT = qw( &write_json &write_yaml );
+@EXPORT = qw( $VERSION &write_json &write_yaml );
+$VERSION = '0.0.0b';
 
 sub new {
 
@@ -45,7 +50,8 @@ sub pxf2bff {
     my $self = shift;
 
     # Load the input data as Perl data structure
-    my $data = $self->{in_textfile} ? read_json( $self->{in_file} ) : $self->{in_file};
+    my $data =
+      $self->{in_textfile} ? read_json( $self->{in_file} ) : $self->{in_file};
 
     # Get cursors for 1D terms
     my $interpretation = $data->{interpretation};
@@ -144,7 +150,44 @@ sub pxf2bff {
 ############
 
 sub bff2pxf {
-    die "Under development";
+
+    my $self = shift;
+
+    # Setting a few variables
+    my $user     = $ENV{LOGNAME} || $ENV{USER} || getpwuid($<);
+    chomp( my $ncpuhost = qx{/usr/bin/nproc} ) // 1;
+    $ncpuhost = 0 + $ncpuhost;    # coercing it to be a number
+
+    my $info = { user => $user, ncpuhost => $ncpuhost, cwd => cwd, hostname => hostname, 'Convert-Pheno' => $VERSION };
+    #####################
+    # Under development #
+    #####################
+
+    # Insert {"phenopacket": { "meta_data"} in both ARRAY (missing: and single document)
+    my $resources = [
+          { id =>  "ICD10",
+          name =>  "International Statistical Classification of Diseases and Related Health Problems 10th Revision",
+          url =>  "https://icd.who.int/browse10/2019/en#",
+          version => "2019",
+          namespacePrefix => "ICD-10"
+          #iriPrefix => "http://purl.obolibrary.org/obo/HP_"
+          }, {
+          id =>  "NCIT",
+          name =>  "NCI Thesaurus",
+          url =>  " http://purl.obolibrary.org/obo/ncit.owl",
+          version => "22.03d",
+          namespacePrefix => "NCIT"
+          }];
+    my $meta_data = { created => iso8601(),resources => $resources, _info => $info };
+    my $data =
+      ref $self eq 'ARRAY'
+      ? [ map { $_->{meta_data} = $meta_data; { phenopacket => $_ } } @{$self} ]
+      : { phenopacket => $self };
+
+    # Please fix this !!
+    #$self->{meta_data} = $meta_data ; { phenopacket => $self };
+
+    return $data;
 }
 
 ###############
@@ -167,7 +210,7 @@ sub redcap2bff {
 
     # Open connection to SQLlite databases ONCE
     my @sqlites = qw(ncit icd10);
-    my $dbh = open_connection_SQLite(\@sqlites);
+    my $dbh     = open_connection_SQLite( \@sqlites );
 
     ##############################
     # <Variable> names in REDCap #
@@ -186,7 +229,7 @@ sub redcap2bff {
     #---
     # If "Variable" names are not consensuated, then we need to do the mapping manually "a posteriori".
     # This is what we are attempting here:
-   
+
     ####################################
     # START MAPPING TO BEACON V2 TERMS #
     ####################################
@@ -210,7 +253,8 @@ sub redcap2bff {
 
         #my @diseases = ('Unspecified asthma, uncomplicated', 'Inflamatory Bowel Disease', "Crohn's disease, unspecified, without complications");
         my @diseases = ('Inflamatory Bowel Disease');
-          #( 'Unspecified asthma, uncomplicated', 'Inflamatory Bowel Disease' );
+
+        #( 'Unspecified asthma, uncomplicated', 'Inflamatory Bowel Disease' );
         for my $element (@diseases) {
             my $disease;
             if ( $element ne 'Inflamatory Bowel Disease' ) {
@@ -219,7 +263,7 @@ sub redcap2bff {
                         label       => $element,
                         ontology    => 'icd10',                        # ICD-10 ontology (term must be precise)
                         labels_true => $self->{print_hidden_labels},
-                        dbh          => $dbh->{icd10}
+                        dbh         => $dbh->{icd10}
 
                     }
                 );
@@ -314,7 +358,7 @@ sub redcap2bff {
                         label       => $surgery{$element},
                         ontology    => 'ncit',
                         labels_true => $self->{print_hidden_labels},
-                        dbh          => $dbh->{ncit}
+                        dbh         => $dbh->{ncit}
                     }
                 ) if $surgery{$element};
                 push @{ $individual->{interventionsOrProcedures} },
@@ -400,7 +444,7 @@ sub redcap2bff {
                 label       => $rcd->{sex}{_labels}{ $participant->{sex} },
                 ontology    => 'ncit',
                 labels_true => $self->{print_hidden_labels},
-                dbh          => $dbh->{ncit}
+                dbh         => $dbh->{ncit}
 
             }
         ) if ( exists $participant->{sex} && $participant->{sex} );
@@ -444,10 +488,29 @@ sub redcap2bff {
     ##################################
 
     # Close connections ONCE
-    close_connection_SQLite($dbh, \@sqlites);
+    close_connection_SQLite( $dbh, \@sqlites );
 
     # Caution with the RAM (we store all in memory)
     return $individuals;
+}
+
+###############
+###############
+#  REDCAP2PXF #
+###############
+###############
+
+sub redcap2pxf {
+
+    my $self = shift;
+
+    # First iteration: redcap2bff
+    my $bff = redcap2bff($self);
+
+    # Second iteration: bff2pxf
+    my $pxf = bff2pxf($bff);
+
+    return $pxf;
 }
 
 ######################
@@ -608,8 +671,8 @@ sub read_json {
 
 sub write_json {
 
-    my $arg = shift;
-    my $file = $arg->{filename};
+    my $arg        = shift;
+    my $file       = $arg->{filename};
     my $json_array = $arg->{data};
     my $json = JSON::XS->new->utf8->canonical->pretty->encode($json_array);
     path($file)->spew_utf8($json);
@@ -618,13 +681,12 @@ sub write_json {
 
 sub write_yaml {
 
-    my $arg = shift;
-    my $file = $arg->{filename};
+    my $arg        = shift;
+    my $file       = $arg->{filename};
     my $json_array = $arg->{data};
     DumpFile( $file, $json_array );
     return 1;
 }
-
 
 ############################
 ############################
@@ -672,6 +734,12 @@ sub map_exposures {
     return $exposure->{$str};
 }
 
+sub iso8601 {
+
+    my ( $s, $f ) = split( /\./, gettimeofday );
+    return strftime( '%Y-%m-%dT%H:%M:%S.' . $f . '%z', localtime($s) );
+}
+
 #######################
 #######################
 #  SUBROUTINES FOR DB #
@@ -688,9 +756,9 @@ sub open_connection_SQLite {
 }
 
 sub close_connection_SQLite {
-    
-    my ($dbh, $sqlites)  = @_;
-    close_db_SQLite($dbh->{$_}) for (@$sqlites);
+
+    my ( $dbh, $sqlites ) = @_;
+    close_db_SQLite( $dbh->{$_} ) for (@$sqlites);
     return 1;
 }
 
