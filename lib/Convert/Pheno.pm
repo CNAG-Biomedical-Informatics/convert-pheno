@@ -15,9 +15,9 @@ use File::Basename;
 use Text::CSV_XS;
 use Scalar::Util qw(looks_like_number);
 use Sys::Hostname;
-use Cwd qw(cwd abs_path);
-use POSIX        qw(strftime);
-use Time::HiRes  qw/gettimeofday/;
+use Cwd         qw(cwd abs_path);
+use POSIX       qw(strftime);
+use Time::HiRes qw/gettimeofday/;
 
 use constant DEVEL_MODE => 0;
 use vars qw{
@@ -26,8 +26,8 @@ use vars qw{
   @EXPORT
 };
 
-@ISA    = qw( Exporter );
-@EXPORT = qw( $VERSION &write_json &write_yaml );
+@ISA     = qw( Exporter );
+@EXPORT  = qw( $VERSION &write_json &write_yaml );
 $VERSION = '0.0.0b';
 
 sub new {
@@ -49,9 +49,16 @@ sub pxf2bff {
 
     my $self = shift;
 
-    # Load the input data as Perl data structure
-    my $data =
-      $self->{in_textfile} ? read_json( $self->{in_file} ) : $self->{in_file};
+    # Get the name of the subroutine (ofuscated...I know)
+    my $current_sub = (split(/::/,(caller(0))[3]))[-1];
+
+    # array_dispatcher will deal with JSON arrays
+    return array_dispatcher($self, $current_sub) ;
+}
+
+sub do_pxf2bff {
+
+    my ( $self, $data ) = @_;
 
     # Get cursors for 1D terms
     my $interpretation = $data->{interpretation};
@@ -152,42 +159,62 @@ sub pxf2bff {
 sub bff2pxf {
 
     my $self = shift;
+    
+    # Get the name of the subroutine (ofuscated...I know)
+    my $current_sub = (split(/::/,(caller(0))[3]))[-1];
+
+    # array_dispatcher will deal with JSON arrays
+    return array_dispatcher($self, $current_sub) ;
+}
+
+sub do_bff2pxf {
+
+    my ($self, $data) = @_;
 
     # Setting a few variables
-    my $user     = $ENV{LOGNAME} || $ENV{USER} || getpwuid($<);
+    my $user = $ENV{LOGNAME} || $ENV{USER} || getpwuid($<);
     chomp( my $ncpuhost = qx{/usr/bin/nproc} ) // 1;
     $ncpuhost = 0 + $ncpuhost;    # coercing it to be a number
 
-    my $info = { user => $user, ncpuhost => $ncpuhost, cwd => cwd, hostname => hostname, 'Convert-Pheno' => $VERSION };
+    my $info = {
+        user            => $user,
+        ncpuhost        => $ncpuhost,
+        cwd             => cwd,
+        hostname        => hostname,
+        'Convert-Pheno' => $VERSION
+    };
     #####################
     # Under development #
     #####################
 
-    # Insert {"phenopacket": { "meta_data"} in both ARRAY (missing: and single document)
+    # Insert {"phenopacket": { "meta_data"}} in both ARRAY (missing: and single document)
     my $resources = [
-          { id =>  "ICD10",
-          name =>  "International Statistical Classification of Diseases and Related Health Problems 10th Revision",
-          url =>  "https://icd.who.int/browse10/2019/en#",
-          version => "2019",
-          namespacePrefix => "ICD-10"
-          #iriPrefix => "http://purl.obolibrary.org/obo/HP_"
-          }, {
-          id =>  "NCIT",
-          name =>  "NCI Thesaurus",
-          url =>  " http://purl.obolibrary.org/obo/ncit.owl",
-          version => "22.03d",
-          namespacePrefix => "NCIT"
-          }];
-    my $meta_data = { created => iso8601(),resources => $resources, _info => $info };
-    my $data =
-      ref $self eq 'ARRAY'
-      ? [ map { $_->{meta_data} = $meta_data; { phenopacket => $_ } } @{$self} ]
-      : { phenopacket => $self };
+        {
+            id   => "ICD10",
+            name =>
+"International Statistical Classification of Diseases and Related Health Problems 10th Revision",
+            url             => "https://icd.who.int/browse10/2019/en#",
+            version         => "2019",
+            namespacePrefix => "ICD-10"
 
-    # Please fix this !!
-    #$self->{meta_data} = $meta_data ; { phenopacket => $self };
+              #iriPrefix => "http://purl.obolibrary.org/obo/HP_"
+        },
+        {
+            id              => "NCIT",
+            name            => "NCI Thesaurus",
+            url             => " http://purl.obolibrary.org/obo/ncit.owl",
+            version         => "22.03d",
+            namespacePrefix => "NCIT"
+        }
+    ];
+    my $meta_data =
+      { created => iso8601(), resources => $resources, _info => $info };
 
-    return $data;
+    $data->{meta_data} = $meta_data;
+    $data->{interpretation} = { phenopacket => {}};
+    my $out = { phenopacket => $data };
+
+    return $out;
 }
 
 ###############
@@ -505,10 +532,13 @@ sub redcap2pxf {
     my $self = shift;
 
     # First iteration: redcap2bff
-    my $bff = redcap2bff($self);
+    my $bff = redcap2bff($self);    # array
 
-    # Second iteration: bff2pxf
-    my $pxf = bff2pxf($bff);
+    # Second iteration: bff2pxf 
+    my $pxf;
+    for ( @{$bff} ) {
+            push @{$pxf}, do_bff2pxf(undef, $_);
+        }
 
     return $pxf;
 }
@@ -823,6 +853,37 @@ SQL
     $sth->finish();
 
     return ( $id, $label );
+}
+
+######################
+######################
+#  MISCELLANEA SUBS  #
+######################
+######################
+
+sub array_dispatcher  {
+
+    my ($self, $method)  = @_;
+
+     # Load the input data as Perl data structure
+    my $in_data = $self->{in_textfile} ? read_json( $self->{in_file} ) : $self->{in_file};
+
+    # Define the methods to call
+    my %func = ( pxf2bff => \&do_pxf2bff, bff2pxf => \&do_bff2pxf);
+
+    # Proceed depending if we have an ARRAY or not
+    my $out_data;
+    if ( ref $in_data eq 'ARRAY' ) {
+        say "$method: ARRAY" if $self->{debug};
+        for ( @{$in_data} ) {
+            push @{$out_data}, $func{$method}->($self, $_);
+        }
+    }
+    else {
+        say "$method: NOT ARRAY" if $self->{debug};
+        $out_data = $func{$method}->($self, $_);
+    }
+    return $out_data;
 }
 
 1;

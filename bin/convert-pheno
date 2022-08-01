@@ -47,8 +47,8 @@ my $format = 'json';
 
 # Reading arguments
 GetOptions(
-    'ipxf=s'                  => \my $in_pxf,                               # array
-    'ibff|s'                  => \my $in_bff,                               # string
+    'ipxf=s'                  => \my $in_pxf,                               # string
+    'ibff=s'                  => \my $in_bff,                               # string
     'iredcap=s'               => \my $in_redcap,                            # string
     'obff=s'                  => \my $out_bff,                              # string
     'opxf=s'                  => \my $out_pxf,                              # string
@@ -215,7 +215,6 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
        -format                        Output format for the text file [>json|yaml]
        -rcd|redcap-dictionary         Dictionary file (CSV) exported from REDCap
        -phl|print-hidden-labels       Print original values (before DB mapping) of text fields <_labels>
- #     -to-array                      Write all data to a JSON array (instead of objects)
      
 =head1 DESCRIPTION
 
