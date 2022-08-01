@@ -8,6 +8,7 @@ use FindBin               qw($Bin);
 use File::Spec::Functions qw(catdir catfile);
 use Data::Dumper;
 use DBI;
+use YAML::XS qw(LoadFile DumpFile);
 use JSON::XS;
 use Path::Tiny;
 use File::Basename;
@@ -34,7 +35,7 @@ use vars qw{
 };
 
 @ISA    = qw( Exporter );
-@EXPORT = qw( &write_json );
+@EXPORT = qw( &write_json &write_yaml );
 
 sub new {
 
@@ -626,6 +627,16 @@ sub write_json {
     path($file)->spew_utf8($json);
     return 1;
 }
+
+sub write_yaml {
+
+    my $arg = shift;
+    my $file = $arg->{filename};
+    my $json_array = $arg->{data};
+    DumpFile( $file, $json_array );
+    return 1;
+}
+
 
 ############################
 ############################

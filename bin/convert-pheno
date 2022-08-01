@@ -4,7 +4,7 @@
 #
 #   This file is part of Convert::Pheno
 #
-#   Last Modified: Jul/28/2022
+#   Last Modified: Aug/01/2022
 #
 #   Version 0.0.0b
 #
@@ -34,11 +34,9 @@ use autodie;
 use Getopt::Long;
 use Pod::Usage;
 use Data::Dumper;
-use JSON::XS;
 use File::Spec::Functions qw(catdir catfile);
 use FindBin               qw($Bin);
 use lib "$Bin/../lib";
-use Path::Tiny;
 use Term::ANSIColor qw(:constants);
 use Convert::Pheno;
 $Data::Dumper::Sortkeys = 1;
@@ -46,6 +44,7 @@ $Data::Dumper::Sortkeys = 1;
 # Defining a few variables
 my $version = '0.0.0b';
 my $out_dir = '.';
+my $format = 'json';
 
 # Reading arguments
 GetOptions(
@@ -59,6 +58,7 @@ GetOptions(
     'man'                     => \my $man,                                  # flag
     'debug=i'                 => \my $debug,                                # integer
     'verbose'                 => \my $verbose,                              # flag
+    'format=s'                => \$format,                                  # string
     'no-color|nc'             => \my $no_color,                             # flag
     'redcap-dictionary|rcd=s' => \my $redcap_dictionary,                    # string
     'print-hidden-labels|phl' => \my $print_hidden_labels,                  # flag
@@ -75,7 +75,7 @@ pod2usage(
     -exitval => 1
 ) if ( !-d $out_dir );
 pod2usage(
-    -message => "Please specify a valid RedCap dictionary --rcd\n",
+    -message => "Please specify a valid REDCap dictionary --rcd\n",
     -exitval => 1
 ) if ( $in_redcap && !$redcap_dictionary );
 
@@ -83,9 +83,10 @@ pod2usage(
 $ENV{'ANSI_COLORS_DISABLED'} = 1 if $no_color;
 
 # Defining $out_file
-my $out_file =  $out_pxf ? catfile( $out_dir, $out_pxf )
-    : $out_bff ? catfile( $out_dir, $out_bff )
-    : catfile( $out_dir, 'individuals.json' );
+my $out_file =
+    $out_pxf ? catfile( $out_dir, $out_pxf )
+  : $out_bff ? catfile( $out_dir, $out_bff )
+  :            catfile( $out_dir, 'individuals.json' );
 
 # Defining data as a hashref
 my $data = {
@@ -93,9 +94,9 @@ my $data = {
     : $in_bff    ? 'bff'
     : $in_redcap ? 'redcap'
     : 'bff',
-    out_type => $out_pxf ? 'pxf' : $out_bff ? 'bff' : 'bff',
+    out_type    => $out_pxf ? 'pxf' : $out_bff ? 'bff' : 'bff',
     in_textfile => 1,
-    in_file => $in_pxf ? $in_pxf
+    in_file     => $in_pxf ? $in_pxf
     : $in_bff    ? $in_bff
     : $in_redcap ? $in_redcap
     : 'individuals.json',
@@ -113,7 +114,7 @@ say BOLD CYAN program_header($version) if $verbose;
 # START DATA TRANSFORMATION #
 #############################
 
-convert($data, $out_file);
+convert( $out_file, $data );
 
 ###########################
 # END DATA TRANSFORMATION #
@@ -121,7 +122,7 @@ convert($data, $out_file);
 
 sub convert {
 
-    my ($l_data, $o_file) = @_;
+    my ( $o_file, $l_data ) = @_;
 
     if ($verbose) {
         print BOLD BLUE program_body( $l_data->{in_type}, $l_data->{out_type},
@@ -135,18 +136,8 @@ sub convert {
     # Running $method
     my $method = $l_data->{in_type} . '2' . $l_data->{out_type};
 
-    # Writing file 
-    write_json( { filename => $o_file, data => $convert->$method } );
-}
-
-sub program_body {
-
-    my ( $in_type, $out_type, $file ) = @_;
-    my $msg = <<EOF;
-==== INPUT: <$in_type> OUTPUT: <$out_type> ====
-==== Processing: <$file> ====
-EOF
-    return $msg;
+    # Writing file
+    dump_file( { filename => $o_file, data => $convert->$method, format => $format } );
 }
 
 sub program_header {
@@ -163,6 +154,28 @@ sub program_header {
 EOF
     return $str;
 }
+
+sub program_body {
+
+    my ( $in_type, $out_type, $file ) = @_;
+    my $msg = <<EOF;
+==== INPUT: <$in_type> OUTPUT: <$out_type> ====
+==== Processing: <$file> ====
+EOF
+    return $msg;
+}
+
+sub dump_file {
+
+ my $arg = shift;
+ if ($arg->{format} eq 'json') { 
+     write_json( { filename => $arg->{filename}, data => $arg->{data} } );
+ } else {
+     write_yaml( { filename => $arg->{filename}, data => $arg->{data} } );
+ }
+return 1;
+}
+
 
 =head1 NAME
 
@@ -200,6 +213,7 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
        -debug                         Print debugging (from 1 to 5, being 5 max)
        -verbose                       Verbosity on
        -nc|-no-color                  Don't print colors to STDOUT
+       -format                        Output format for the text file [>json|yaml]
        -rcd|redcap-dictionary         Dictionary file (CSV) exported from REDCap
        -phl|print-hidden-labels       Print original values (before DB mapping) of text fields <_labels>
  #     -to-array                      Write all data to a JSON array (instead of objects)

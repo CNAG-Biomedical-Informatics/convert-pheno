@@ -34,6 +34,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
           -debug                         Print debugging (from 1 to 5, being 5 max)
           -verbose                       Verbosity on
           -nc|-no-color                  Don't print colors to STDOUT
+          -format                        Output format for the text file [>json|yaml]
           -rcd|redcap-dictionary         Dictionary file (CSV) exported from REDCap
           -phl|print-hidden-labels       Print original values (before DB mapping) of text fields <_labels>
     #     -to-array                      Write all data to a JSON array (instead of objects)
