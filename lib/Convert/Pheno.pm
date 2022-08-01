@@ -15,18 +15,6 @@ use File::Basename;
 use Text::CSV_XS;
 use Scalar::Util qw(looks_like_number);
 
-=head1 NAME
-  
-=head1 SYNOPSIS
-  
-=head1 DESCRIPTION
-
-=head1 AUTHOR
-
-=head1 METHODS
-
-=cut
-
 use constant DEVEL_MODE => 0;
 use vars qw{
   $VERSION
@@ -770,3 +758,41 @@ SQL
 }
 
 1;
+
+=head1 NAME
+
+Convert::Pheno -  Interconvert phenotypic data between different CDM formats
+  
+=head1 SYNOPSIS
+
+ use Convert::Pheno;
+
+ # Create a new object
+ 
+ my $convert = Convert::Pheno->new($input);
+ 
+ # Apply a method 
+ 
+ my $data = $convert->redcap2bff;
+
+=head1 DESCRIPTION
+
+=head1 AUTHOR
+
+Written by Manuel Rueda, PhD. Info about CNAG can be found at L<https://www.cnag.crg.eu>.
+
+=head1 METHODS
+
+=head2 COMMON ERRORS AND SOLUTIONS
+
+ * Error message: Foo
+   Solution: Bar
+
+ * Error message: Foo
+   Solution: Bar
+
+=head1 COPYRIGHT
+
+This PERL file is copyrighted. See the LICENSE file included in this distribution.
+
+=cut

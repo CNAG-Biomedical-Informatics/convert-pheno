@@ -60,19 +60,19 @@ A script that uses [Convert::Pheno](https://metacpan.org/pod/Convert%3A%3APheno)
 
 Please download the `Dockerfile` from the repo:
 
-    $ wget https://raw.githubusercontent.com/mrueda/Convert-Pheno/main/Dockerfile
+    wget https://raw.githubusercontent.com/mrueda/Convert-Pheno/main/Dockerfile
 
 And then run:
 
-    $ docker build -t cnag/convert_pheno:latest .
+    docker build -t cnag/convert_pheno:latest .
 
 To run the container (detached) execute:
 
-    $ docker run -tid --name convert-pheno cnag/convert-pheno:latest
+    docker run -tid --name convert-pheno cnag/convert-pheno:latest
 
 To enter:
 
-    $ docker exec -ti convert-pheno bash
+    docker exec -ti convert-pheno bash
 
 ## Non containerized
 
@@ -81,19 +81,19 @@ but we will install a few CPAN modules with `cpanminus`.
 
 First we install cpanminus (with sudo privileges):
 
-    $ sudo apt-get install cpanminus
+    sudo apt-get install cpanminus
 
 Then the modules:
 
-    $ cpanm --sudo --installdeps .
+    cpanm --sudo --installdeps .
 
 If you prefer to have the dependencies in a "virtual environment" (i.e., install the CPAN modules in the directory of the application) we recommend using the module `Carton`.
 
-    $ cpanm --sudo Carton
+    cpanm --sudo Carton
 
 Then, we can install our dependencies:
 
-    $ carton install
+    carton install
 
 # HOW TO RUN PHENO-CONVERT
 
@@ -105,13 +105,13 @@ For executing convert-pheno you will need:
 
 **Examples:**
 
-    $ bin/convert-pheno -ipxf phenopackets.json -obff individuals.json
+    bin/convert-pheno -ipxf phenopackets.json -obff individuals.json
 
-    $ $path/convert-pheno -ipxf file.json -obff individuals.json --out-dir my_bff_outdir
+    $path/convert-pheno -ipxf file.json -obff individuals.json --out-dir my_bff_outdir
 
-    $ $path/convert-pheno -iredcap redcap.csv -opxf phenopackets.json --redcap-dictionary redcap_dict.csv
+    $path/convert-pheno -iredcap redcap.csv -opxf phenopackets.json --redcap-dictionary redcap_dict.csv
 
-    $ carton exec -- $path/convert-pheno -ibff individuals.json -opxf phenopackets.json # If using Carton
+    carton exec -- $path/convert-pheno -ibff individuals.json -opxf phenopackets.json # If using Carton
 
 ## COMMON ERRORS AND SOLUTIONS
 
