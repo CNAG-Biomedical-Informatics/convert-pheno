@@ -39,6 +39,10 @@ sub new {
 
 # NB: In general, we'll only display terms that exist and have content
 
+# Global variables:
+
+my @sqlites = qw(ncit icd10);
+
 ############
 ############
 #  PXF2BFF #
@@ -47,18 +51,14 @@ sub new {
 
 sub pxf2bff {
 
-    my $self = shift;
-
-    # Get the name of the subroutine (ofuscated...I know)
-    my $current_sub = (split(/::/,(caller(0))[3]))[-1];
-
-    # array_dispatcher will deal with JSON arrays
-    return array_dispatcher($self, $current_sub) ;
+    # <array_dispatcher> will deal with JSON arrays
+    return array_dispatcher(shift);
 }
 
 sub do_pxf2bff {
 
     my ( $self, $data ) = @_;
+    my $dbh = $self->{dbh};
 
     # Get cursors for 1D terms
     my $interpretation = $data->{interpretation};
@@ -137,8 +137,7 @@ sub do_pxf2bff {
             label       => $phenopacket->{subject}{sex},
             ontology    => 'ncit',
             labels_true => $self->{print_hidden_labels},
-
-            #            dbh => $dbh_ncit
+            dbh         => $dbh->{ncit}
         }
     ) if exists $phenopacket->{subject}{sex};
 
@@ -158,18 +157,13 @@ sub do_pxf2bff {
 
 sub bff2pxf {
 
-    my $self = shift;
-    
-    # Get the name of the subroutine (ofuscated...I know)
-    my $current_sub = (split(/::/,(caller(0))[3]))[-1];
-
-    # array_dispatcher will deal with JSON arrays
-    return array_dispatcher($self, $current_sub) ;
+    # <array_dispatcher> will deal with JSON arrays
+    return array_dispatcher(shift);
 }
 
 sub do_bff2pxf {
 
-    my ($self, $data) = @_;
+    my ( $self, $data ) = @_;
 
     # Setting a few variables
     my $user = $ENV{LOGNAME} || $ENV{USER} || getpwuid($<);
@@ -210,8 +204,8 @@ sub do_bff2pxf {
     my $meta_data =
       { created => iso8601(), resources => $resources, _info => $info };
 
-    $data->{meta_data} = $meta_data;
-    $data->{interpretation} = { phenopacket => {}};
+    $data->{meta_data}      = $meta_data;
+    $data->{interpretation} = { phenopacket => {} };
     my $out = { phenopacket => $data };
 
     return $out;
@@ -231,13 +225,21 @@ sub redcap2bff {
     my $data = read_redcap_export( $self->{in_file} );
 
     # Load (or read) REDCap CSV dictionary
-    my $rcd = load_redcap_dictionary( $self->{'redcap_dictionary'} );
+    my $data_rcd = load_redcap_dictionary( $self->{redcap_dictionary} );
 
-    print Dumper $rcd if ( $self->{debug} && $self->{debug} > 1 );
+    print Dumper $data_rcd if ( $self->{debug} && $self->{debug} > 1 );
 
-    # Open connection to SQLlite databases ONCE
-    my @sqlites = qw(ncit icd10);
-    my $dbh     = open_connection_SQLite( \@sqlites );
+    # array_dispatcher will deal with JSON arrays
+    $self->{data}     = $data;
+    $self->{data_rcd} = $data_rcd;
+    return array_dispatcher($self);
+}
+
+sub do_redcap2bff {
+
+    my ( $self, $data ) = @_;
+    my $rcd = $self->{data_rcd};
+    my $dbh = $self->{dbh};
 
     ##############################
     # <Variable> names in REDCap #
@@ -261,264 +263,251 @@ sub redcap2bff {
     # START MAPPING TO BEACON V2 TERMS #
     ####################################
 
-    # Data structure (hashref) for all individuals
-    my $individuals;
+    my $participant = $data;
 
-    for my $participant (@$data) {
+    print Dumper $rcd if $self->{debug};
 
-        print Dumper $participant if $self->{debug};
+    # Data structure (hashref) for each individual
+    my $individual;
 
-        # Data structure (hashref) for each individual
-        my $individual;
+    # ========
+    # diseases
+    # ========
 
-        # ========
-        # diseases
-        # ========
+    $individual->{diseases} = [];
+    my %disease = ( 'Inflamatory Bowel Disease' => 'ICD10:K51.90' );
 
-        $individual->{diseases} = [];
-        my %disease = ( 'Inflamatory Bowel Disease' => 'ICD10:K51.90' );
+    #my @diseases = ('Unspecified asthma, uncomplicated', 'Inflamatory Bowel Disease', "Crohn's disease, unspecified, without complications");
+    my @diseases = ('Inflamatory Bowel Disease');
 
-        #my @diseases = ('Unspecified asthma, uncomplicated', 'Inflamatory Bowel Disease', "Crohn's disease, unspecified, without complications");
-        my @diseases = ('Inflamatory Bowel Disease');
+    #( 'Unspecified asthma, uncomplicated', 'Inflamatory Bowel Disease' );
+    for my $element (@diseases) {
+        my $disease;
+        if ( $element ne 'Inflamatory Bowel Disease' ) {
+            $disease->{diseaseCode} = map_db(
+                {
+                    label       => $element,
+                    ontology    => 'icd10',                        # ICD-10 ontology (term must be precise)
+                    labels_true => $self->{print_hidden_labels},
+                    dbh         => $dbh->{icd10}
 
-        #( 'Unspecified asthma, uncomplicated', 'Inflamatory Bowel Disease' );
-        for my $element (@diseases) {
-            my $disease;
-            if ( $element ne 'Inflamatory Bowel Disease' ) {
-                $disease->{diseaseCode} = map_db(
-                    {
-                        label       => $element,
-                        ontology    => 'icd10',                        # ICD-10 ontology (term must be precise)
-                        labels_true => $self->{print_hidden_labels},
-                        dbh         => $dbh->{icd10}
-
-                    }
-                );
-            }
-            else {
-                $disease->{diseaseCode} = {
-                    id    => $disease{$element},
-                    label => $element
-                };
-            }
-            push @{ $individual->{diseases} }, $disease;
+                }
+            );
         }
-
-        # =========
-        # ethnicity
-        # =========
-
-        #print Dumper $participant and die;
-        $individual->{ethnicity} = map_ethnicity(
-            $rcd->{ethnicity}{_labels}{ $participant->{ethnicity} } )
-          if ( exists $participant->{ethnicity}
-            && $participant->{ethnicity} ne '' );    # Note that the value can be zero
-
-        # =========
-        # exposures
-        # =========
-
-        $individual->{exposures} = [];
-        for my $element (qw(alcohol)) {
-            my $exposure;
-
-            $exposure->{ageAtExposure}  = undef;
-            $exposure->{date}           = undef;                     #'2010-07-10';
-            $exposure->{duration}       = undef;                     # 'P32Y6M1D';
-            $exposure->{exposureCode}   = map_exposures($element);
-            $exposure->{quantity}{unit} = {
-                id    => $participant->{alcohol},
-                label => $rcd->{alcohol}{_labels}{ $participant->{alcohol} }
+        else {
+            $disease->{diseaseCode} = {
+                id    => $disease{$element},
+                label => $element
             };
-            $exposure->{quantity}{value} = undef;
-            push @{ $individual->{exposures} }, $exposure;
         }
+        push @{ $individual->{diseases} }, $disease;
+    }
 
-        # ================
-        # geographicOrigin
-        # ================
+    # =========
+    # ethnicity
+    # =========
 
-        $individual->{geographicOrigin} = undef;
+    #print Dumper $participant and die;
+    $individual->{ethnicity} =
+      map_ethnicity( $rcd->{ethnicity}{_labels}{ $participant->{ethnicity} } )
+      if ( exists $participant->{ethnicity}
+        && $participant->{ethnicity} ne '' );    # Note that the value can be zero
 
-        # ==
-        # id
-        # ==
+    # =========
+    # exposures
+    # =========
 
-        #$individual->{id} = $participant->{first_name}
-        #  if ( exists $participant->{first_name}
-        #    && $participant->{first_name} );
-        $individual->{id} = $participant->{ids_complete}
-          if $participant->{ids_complete};
+    $individual->{exposures} = [];
+    for my $element (qw(alcohol)) {
+        my $exposure;
 
-        # ====
-        # info
-        # ====
+        $exposure->{ageAtExposure}  = undef;
+        $exposure->{date}           = undef;                     #'2010-07-10';
+        $exposure->{duration}       = undef;                     # 'P32Y6M1D';
+        $exposure->{exposureCode}   = map_exposures($element);
+        $exposure->{quantity}{unit} = {
+            id    => $participant->{alcohol},
+            label => $rcd->{alcohol}{_labels}{ $participant->{alcohol} }
+        };
+        $exposure->{quantity}{value} = undef;
+        push @{ $individual->{exposures} }, $exposure;
+    }
 
-        for (qw(study_id redcap_event_name dob)) {
-            $individual->{info}{$_} = $participant->{$_}
-              if exists $participant->{$_};
+    # ================
+    # geographicOrigin
+    # ================
+
+    $individual->{geographicOrigin} = undef;
+
+    # ==
+    # id
+    # ==
+
+    #$individual->{id} = $participant->{first_name}
+    #  if ( exists $participant->{first_name}
+    #    && $participant->{first_name} );
+    $individual->{id} = $participant->{ids_complete}
+      if $participant->{ids_complete};
+
+    # ====
+    # info
+    # ====
+
+    for (qw(study_id redcap_event_name dob)) {
+        $individual->{info}{$_} = $participant->{$_}
+          if exists $participant->{$_};
+    }
+
+    # =========================
+    # interventionsOrProcedures
+    # =========================
+
+    $individual->{interventionsOrProcedures} = [];
+
+    #my @surgeries = map { $_ = 'surgery_details___' . $_ } ( 1 .. 8, 99 );
+    my %surgery = ();
+    for ( 1 .. 8, 99 ) {
+        $surgery{ 'surgery_details___' . $_ } =
+          $rcd->{surgery_details}{_labels}{$_};
+    }
+    for
+      my $element ( qw(endoscopy_performed intestinal_surgery), keys %surgery )
+    {
+        if ( $participant->{$element} ) {
+            my $intervention;
+            $intervention->{ageAtProcedure} = undef;
+            $intervention->{bodySite} =
+              { id => 'NCIT:C12736', label => 'intestine' };
+            $intervention->{dateOfProcedure} = undef;
+            $intervention->{procedureCode}   = map_db(
+                {
+                    label       => $surgery{$element},
+                    ontology    => 'ncit',
+                    labels_true => $self->{print_hidden_labels},
+                    dbh         => $dbh->{ncit}
+                }
+            ) if $surgery{$element};
+            push @{ $individual->{interventionsOrProcedures} }, $intervention;
         }
+    }
 
-        # =========================
-        # interventionsOrProcedures
-        # =========================
+    # =============
+    # karyotypicSex
+    # =============
 
-        $individual->{interventionsOrProcedures} = [];
+    # ========
+    # measures
+    # ========
 
-        #my @surgeries = map { $_ = 'surgery_details___' . $_ } ( 1 .. 8, 99 );
-        my %surgery = ();
-        for ( 1 .. 8, 99 ) {
-            $surgery{ 'surgery_details___' . $_ } =
-              $rcd->{surgery_details}{_labels}{$_};
-        }
-        for my $element ( qw(endoscopy_performed intestinal_surgery),
-            keys %surgery )
+    $individual->{measures} = [];
+    my @measures = (qw ( a b c));
+    for my $element (@measures) {
+        my $measure;
+        $measure->{assayCode} = undef;    # P32Y6M1D
+        $measure->{date} =
+          { Quantity => { unit => { id => '', label => '' }, value => '' } };
+        $measure->{measurementValue}  = [];
+        $measure->{notes}             = { id => '', label => '' };
+        $measure->{observationMoment} = { id => '', label => '' };
+        $measure->{procedure}         = { id => '', label => '' };
+
+        # Add to array
+        #push @{ $individual->{measures} }, $measure; # SWITCHED OFF on 072622
+
+    }
+
+    # =========
+    # pedigrees
+    # =========
+
+    $individual->{pedigrees} = [];
+
+    # disease, id, members, numSubjects
+    my @pedigrees = (qw ( a b c));
+    for my $element (@pedigrees) {
+        my $pedigree;
+        $pedigree->{disease}     = {};      # P32Y6M1D
+        $pedigree->{id}          = undef;
+        $pedigree->{members}     = [];
+        $pedigree->{numSubjects} = 0;
+
+        # Add to array
+        #push @{ $individual->{pedigrees} }, $pedigree; # SWITCHED OFF on 072622
+
+    }
+
+    # ==================
+    # phenotypicFeatures
+    # ==================
+
+    $individual->{phenotypicFeatures} = [];
+    my @phenotypicFeatures = qw ( a b c);
+    for my $element (@phenotypicFeatures) {
+        my $phenotypicFeature;
+        $phenotypicFeature->{evidence} = undef;    # P32Y6M1D
+        $phenotypicFeature->{excluded} =
+          { Quantity => { unit => { id => '', label => '' }, value => '' } };
+        $phenotypicFeature->{featureType} = [];
+        $phenotypicFeature->{modifiers}   = { id => '', label => '' };
+        $phenotypicFeature->{notes}       = { id => '', label => '' };
+        $phenotypicFeature->{onset}       = { id => '', label => '' };
+        $phenotypicFeature->{resolution}  = { id => '', label => '' };
+        $phenotypicFeature->{severity}    = { id => '', label => '' };
+
+        # Add to array
+        #push @{ $individual->{phenotypicFeatures} }, $phenotypicFeature; # SWITCHED OFF on 072622
+    }
+
+    # ===
+    # sex
+    # ===
+
+    $individual->{sex} = map_db(
         {
-            if ( $participant->{$element} ) {
-                my $intervention;
-                $intervention->{ageAtProcedure} = undef;
-                $intervention->{bodySite} =
-                  { id => 'NCIT:C12736', label => 'intestine' };
-                $intervention->{dateOfProcedure} = undef;
-                $intervention->{procedureCode}   = map_db(
-                    {
-                        label       => $surgery{$element},
-                        ontology    => 'ncit',
-                        labels_true => $self->{print_hidden_labels},
-                        dbh         => $dbh->{ncit}
-                    }
-                ) if $surgery{$element};
-                push @{ $individual->{interventionsOrProcedures} },
-                  $intervention;
-            }
-        }
-
-        # =============
-        # karyotypicSex
-        # =============
-
-        # ========
-        # measures
-        # ========
-
-        $individual->{measures} = [];
-        my @measures = (qw ( a b c));
-        for my $element (@measures) {
-            my $measure;
-            $measure->{assayCode} = undef;    # P32Y6M1D
-            $measure->{date} =
-              { Quantity => { unit => { id => '', label => '' }, value => '' }
-              };
-            $measure->{measurementValue}  = [];
-            $measure->{notes}             = { id => '', label => '' };
-            $measure->{observationMoment} = { id => '', label => '' };
-            $measure->{procedure}         = { id => '', label => '' };
-
-            # Add to array
-            #push @{ $individual->{measures} }, $measure; # SWITCHED OFF on 072622
+            label       => $rcd->{sex}{_labels}{ $participant->{sex} },
+            ontology    => 'ncit',
+            labels_true => $self->{print_hidden_labels},
+            dbh         => $dbh->{ncit}
 
         }
+    ) if ( exists $participant->{sex} && $participant->{sex} );
 
-        # =========
-        # pedigrees
-        # =========
+    # ==========
+    # treatments
+    # ==========
 
-        $individual->{pedigrees} = [];
+    $individual->{treatments} = [];
+    my @drugs = qw (budesonide_oral budesonide_rectal prednisolone);    #prednisolone asa);
 
-        # disease, id, members, numSubjects
-        my @pedigrees = (qw ( a b c));
-        for my $element (@pedigrees) {
-            my $pedigree;
-            $pedigree->{disease}     = {};      # P32Y6M1D
-            $pedigree->{id}          = undef;
-            $pedigree->{members}     = [];
-            $pedigree->{numSubjects} = 0;
+    #
+    #        '_labels' => {
+    #                                                       '1' => 'never treated',
+    #                                                       '2' => 'former treatment',
+    #                                                       '3' => 'current treatment'
+    #                                                     }
 
-            # Add to array
-            #push @{ $individual->{pedigrees} }, $pedigree; # SWITCHED OFF on 072622
+    for my $element (@drugs) {
+        my $treatment;
 
-        }
-
-        # ==================
-        # phenotypicFeatures
-        # ==================
-
-        $individual->{phenotypicFeatures} = [];
-        my @phenotypicFeatures = qw ( a b c);
-        for my $element (@phenotypicFeatures) {
-            my $phenotypicFeature;
-            $phenotypicFeature->{evidence} = undef;    # P32Y6M1D
-            $phenotypicFeature->{excluded} =
-              { Quantity => { unit => { id => '', label => '' }, value => '' }
-              };
-            $phenotypicFeature->{featureType} = [];
-            $phenotypicFeature->{modifiers}   = { id => '', label => '' };
-            $phenotypicFeature->{notes}       = { id => '', label => '' };
-            $phenotypicFeature->{onset}       = { id => '', label => '' };
-            $phenotypicFeature->{resolution}  = { id => '', label => '' };
-            $phenotypicFeature->{severity}    = { id => '', label => '' };
-
-            # Add to array
-            #push @{ $individual->{phenotypicFeatures} }, $phenotypicFeature; # SWITCHED OFF on 072622
-        }
-
-        # ===
-        # sex
-        # ===
-
-        $individual->{sex} = map_db(
-            {
-                label       => $rcd->{sex}{_labels}{ $participant->{sex} },
-                ontology    => 'ncit',
-                labels_true => $self->{print_hidden_labels},
-                dbh         => $dbh->{ncit}
-
-            }
-        ) if ( exists $participant->{sex} && $participant->{sex} );
-
-        # ==========
-        # treatments
-        # ==========
-
-        $individual->{treatments} = [];
-        my @drugs = qw (budesonide_oral budesonide_rectal prednisolone);    #prednisolone asa);
-
-        #
-        #        '_labels' => {
-        #                                                       '1' => 'never treated',
-        #                                                       '2' => 'former treatment',
-        #                                                       '3' => 'current treatment'
-        #                                                     }
-
-        for my $element (@drugs) {
-            my $treatment;
-
-            my $tmp_var = $element . '_status';
-            $treatment->{info} = {
-                drug   => $element,
-                status => $rcd->{$tmp_var}{_labels}{ $participant->{$tmp_var} }
-            };    # ***** INTERNAL FIELD
-            $treatment->{ageAtOnset} = undef;    # P32Y6M1D
-            $treatment->{cumulativeDose} =
-              { Quantity => { unit => { id => '', label => '' }, value => '' }
-              };
-            $treatment->{doseIntervals}         = [];
-            $treatment->{routeOfAdministration} = { id => '', label => '' };
-            $treatment->{treatmentCode}         = { id => '', label => '' };
-            push @{ $individual->{treatments} }, $treatment;
-        }
-        push @{$individuals}, $individual;
+        my $tmp_var = $element . '_status';
+        $treatment->{info} = {
+            drug   => $element,
+            status => $rcd->{$tmp_var}{_labels}{ $participant->{$tmp_var} }
+        };    # ***** INTERNAL FIELD
+        $treatment->{ageAtOnset} = undef;    # P32Y6M1D
+        $treatment->{cumulativeDose} =
+          { Quantity => { unit => { id => '', label => '' }, value => '' } };
+        $treatment->{doseIntervals}         = [];
+        $treatment->{routeOfAdministration} = { id => '', label => '' };
+        $treatment->{treatmentCode}         = { id => '', label => '' };
+        push @{ $individual->{treatments} }, $treatment;
     }
 
     ##################################
     # END MAPPING TO BEACON V2 TERMS #
     ##################################
 
-    # Close connections ONCE
-    close_connection_SQLite( $dbh, \@sqlites );
-
-    # Caution with the RAM (we store all in memory)
-    return $individuals;
+    return $individual;
 }
 
 ###############
@@ -534,11 +523,11 @@ sub redcap2pxf {
     # First iteration: redcap2bff
     my $bff = redcap2bff($self);    # array
 
-    # Second iteration: bff2pxf 
+    # Second iteration: bff2pxf
     my $pxf;
     for ( @{$bff} ) {
-            push @{$pxf}, do_bff2pxf(undef, $_);
-        }
+        push @{$pxf}, do_bff2pxf( undef, $_ );
+    }
 
     return $pxf;
 }
@@ -779,16 +768,15 @@ sub iso8601 {
 sub open_connection_SQLite {
 
     # Opening the DB once (instead that on each call) improves speed ~15%
-    my $sqlites = shift;
     my $dbh;
-    $dbh->{$_} = open_db_SQLite($_) for (@$sqlites);
+    $dbh->{$_} = open_db_SQLite($_) for (@sqlites);    # global
     return $dbh;
 }
 
 sub close_connection_SQLite {
 
-    my ( $dbh, $sqlites ) = @_;
-    close_db_SQLite( $dbh->{$_} ) for (@$sqlites);
+    my $dbh = shift;
+    close_db_SQLite( $dbh->{$_} ) for (@sqlites);      #global
     return 1;
 }
 
@@ -861,28 +849,50 @@ SQL
 ######################
 ######################
 
-sub array_dispatcher  {
+sub array_dispatcher {
 
-    my ($self, $method)  = @_;
+    my $self = shift;
 
-     # Load the input data as Perl data structure
-    my $in_data = $self->{in_textfile} ? read_json( $self->{in_file} ) : $self->{in_file};
+    # Load the input data as Perl data structure
+    my $in_data =
+      ( $self->{in_textfile} && $self->{method} !~ m/^redcap2/ )
+      ? read_json( $self->{in_file} )
+      : $self->{data};
 
     # Define the methods to call
-    my %func = ( pxf2bff => \&do_pxf2bff, bff2pxf => \&do_bff2pxf);
+    my %func = (
+        pxf2bff    => \&do_pxf2bff,
+        bff2pxf    => \&do_bff2pxf,
+        redcap2bff => \&do_redcap2bff
+    );
+
+    # Open connection to SQLlite databases ONCE
+    my $dbh = open_connection_SQLite() unless $self->{method} eq 'bff2pxf';
+
+    # Add $dbh HANDLE to $self
+    $self->{dbh} = $dbh;
 
     # Proceed depending if we have an ARRAY or not
     my $out_data;
     if ( ref $in_data eq 'ARRAY' ) {
-        say "$method: ARRAY" if $self->{debug};
+        say "$self->{method}: ARRAY" if $self->{debug};
+
+        # Caution with the RAM (we store all in memory)
         for ( @{$in_data} ) {
-            push @{$out_data}, $func{$method}->($self, $_);
+            say "ARRAY ELEMENT" if $self->{debug};
+
+            # We DELIBERATLEY separate array elements from $self
+            push @{$out_data}, $func{ $self->{method} }->( $self, $_ );
         }
     }
     else {
-        say "$method: NOT ARRAY" if $self->{debug};
-        $out_data = $func{$method}->($self, $_);
+        say "$self->{method}: NOT ARRAY" if $self->{debug};
+        $out_data = $func{ $self->{method} }->( $self, $_ );
     }
+
+    # Close connections ONCE
+    close_connection_SQLite($dbh) unless $self->{method} eq 'bff2pxf';
+
     return $out_data;
 }
 

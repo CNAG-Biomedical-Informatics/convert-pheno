@@ -8,37 +8,36 @@ convert-pheno - A script to interconvert phenotypic data between different CDM f
 
 convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-options\]
 
-        Arguments:                       
-          -input-type:  
-                -ipxf                    Phenopacket JSON file
-                -ibff                    Beacon v2 JSON file
-                -iredcap                 REDCap CSV file
+     Arguments:                       
+       -input-type:  
+             -ipxf                    Phenopacket JSON file
+             -ibff                    Beacon v2 JSON file
+             -iredcap                 REDCap CSV file
 
-               (Wish-list)
-                #-iomop                  OMOP-CDM CSV file
-                #-icdisc                 CDISC CSV file
-                #-ifhir                  FHIR CSV file
+            (Wish-list)
+             #-iomop                  OMOP-CDM CSV file
+             #-icdisc                 CDISC CSV file
+             #-ifhir                  FHIR CSV file
 
-          -output-type;
-                -opxf                    Phenopacket JSON file
-                -obff                    Beacon v2 JSON file
+       -output-type;
+             -opxf                    Phenopacket JSON file
+             -obff                    Beacon v2 JSON file
 
-                (Wish-list)
-                #-oomop                  OMOP-CDM CSV file
+             (Wish-list)
+             #-oomop                  OMOP-CDM CSV file
 
 
-        Options:
-          -out-dir                       Output (existing) directory
-          -h|help                        Brief help message
-          -man                           Full documentation
-          -debug                         Print debugging (from 1 to 5, being 5 max)
-          -verbose                       Verbosity on
-          -nc|-no-color                  Don't print colors to STDOUT
-          -format                        Output format for the text file [>json|yaml]
-          -rcd|redcap-dictionary         Dictionary file (CSV) exported from REDCap
-          -phl|print-hidden-labels       Print original values (before DB mapping) of text fields <_labels>
-    #     -to-array                      Write all data to a JSON array (instead of objects)
-        
+     Options:
+       -out-dir                       Output (existing) directory
+       -h|help                        Brief help message
+       -man                           Full documentation
+       -debug                         Print debugging (from 1 to 5, being 5 max)
+       -verbose                       Verbosity on
+       -nc|-no-color                  Don't print colors to STDOUT
+       -format                        Output format for the text file [>json|yaml]
+       -rcd|redcap-dictionary         Dictionary file (CSV) exported from REDCap
+       -phl|print-hidden-labels       Print original values (before DB mapping) of text fields <_labels>
+     
 
 # DESCRIPTION
 
@@ -107,7 +106,7 @@ For executing convert-pheno you will need:
 
     $ bin/convert-pheno -ipxf phenopackets.json -obff individuals.json
 
-    $ $path/convert-pheno -ipxf file.json -obff individuals.json --out-dir my_bff_outdir
+    $ $path/convert-pheno -ibff individuals.json -obff phenopackets.json --out-dir my_out_dir
 
     $ $path/convert-pheno -iredcap redcap.csv -opxf phenopackets.json --redcap-dictionary redcap_dict.csv
 

@@ -104,6 +104,7 @@ my $data = {
     debug               => $debug,
     verbose             => $verbose
 };
+$data->{method} = $data->{in_type} . '2' . $data->{out_type};
 print Dumper $data if $debug;
 
 # Start printing to STDOUT
@@ -133,7 +134,7 @@ sub convert {
     my $convert = Convert::Pheno->new($l_data);
 
     # Running $method
-    my $method = $l_data->{in_type} . '2' . $l_data->{out_type};
+    my $method = $l_data->{method};
 
     # Writing file
     dump_file( { filename => $o_file, data => $convert->$method, format => $format } );
@@ -287,7 +288,7 @@ B<Examples:>
 
  $ bin/convert-pheno -ipxf phenopackets.json -obff individuals.json
 
- $ $path/convert-pheno -ipxf file.json -obff individuals.json --out-dir my_bff_outdir
+ $ $path/convert-pheno -ibff individuals.json -obff phenopackets.json --out-dir my_out_dir
 
  $ $path/convert-pheno -iredcap redcap.csv -opxf phenopackets.json --redcap-dictionary redcap_dict.csv
 
