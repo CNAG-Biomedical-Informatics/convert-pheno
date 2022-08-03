@@ -37,17 +37,17 @@ sub new {
     return $self;
 }
 
-# NB: In general, we'll only display terms that exist and have content
-
 # Global variables:
-
 my @sqlites = qw(ncit icd10);
 
-############
-############
-#  PXF2BFF #
-############
-############
+# NB1: In general, we'll only display terms that exist and have content
+# NB2: We are using pure OO Perl but we might switch to Moose if things get trickier...
+
+#############
+#############
+#  PXF2BFF  #
+#############
+#############
 
 sub pxf2bff {
 
@@ -149,11 +149,11 @@ sub do_pxf2bff {
     return $individual;
 }
 
-############
-############
-#  BFF2PXF #
-############
-############
+#############
+#############
+#  BFF2PXF  #
+#############
+#############
 
 sub bff2pxf {
 
@@ -211,11 +211,11 @@ sub do_bff2pxf {
     return $out;
 }
 
-###############
-###############
-#  REDCAP2BFF #
-###############
-###############
+################
+################
+#  REDCAP2BFF  #
+################
+################
 
 sub redcap2bff {
 
@@ -230,8 +230,8 @@ sub redcap2bff {
     print Dumper $data_rcd if ( $self->{debug} && $self->{debug} > 1 );
 
     # array_dispatcher will deal with JSON arrays
-    $self->{data}     = $data;
-    $self->{data_rcd} = $data_rcd;
+    $self->{data}     = $data; # setter
+    $self->{data_rcd} = $data_rcd; # setter
     return array_dispatcher($self);
 }
 
@@ -510,33 +510,34 @@ sub do_redcap2bff {
     return $individual;
 }
 
-###############
-###############
-#  REDCAP2PXF #
-###############
-###############
+################
+################
+#  REDCAP2PXF  #
+################
+################
 
 sub redcap2pxf {
 
     my $self = shift;
 
     # First iteration: redcap2bff
+    $self->{method} = 'redcap2bff'; # setter - we have to change the value of attr {method}
     my $bff = redcap2bff($self);    # array
 
-    # Second iteration: bff2pxf
-    my $pxf;
-    for ( @{$bff} ) {
-        push @{$pxf}, do_bff2pxf( undef, $_ );
-    }
+    # Preparing for second iteration: bff2pxf
+    $self->{method} = 'bff2pxf'; # setter
+    $self->{data}   = $bff; # setter
+    $self->{in_textfile} = 0;    # setter
 
-    return $pxf;
+    # Run second iteration
+    return array_dispatcher($self);
 }
 
-######################
-######################
-# READ REDCAP EXPORT #
-######################
-######################
+########################
+########################
+#  READ REDCAP EXPORT  #
+########################
+########################
 
 sub read_redcap_export {
 
@@ -595,11 +596,11 @@ sub read_redcap_export {
     return $data;
 }
 
-##########################
-##########################
-# LOAD REDCAP DICTIONARY #
-##########################
-##########################
+############################
+############################
+#  LOAD REDCAP DICTIONARY  #
+############################
+############################
 
 sub load_redcap_dictionary {
 
@@ -674,11 +675,11 @@ sub load_redcap_dictionary {
     return $data;
 }
 
-########################
-########################
-#  SUBROUTINES FOR I/O #
-########################
-########################
+#########################
+#########################
+#  SUBROUTINES FOR I/O  #
+#########################
+#########################
 
 sub read_json {
 
@@ -707,11 +708,11 @@ sub write_yaml {
     return 1;
 }
 
-############################
-############################
-#  SUBROUTINES FOR MAPPING #
-############################
-############################
+#############################
+#############################
+#  SUBROUTINES FOR MAPPING  #
+#############################
+#############################
 
 sub map_ethnicity {
 
@@ -759,11 +760,11 @@ sub iso8601 {
     return strftime( '%Y-%m-%dT%H:%M:%S.' . $f . '%z', localtime($s) );
 }
 
-#######################
-#######################
-#  SUBROUTINES FOR DB #
-#######################
-#######################
+########################
+########################
+#  SUBROUTINES FOR DB  #
+########################
+########################
 
 sub open_connection_SQLite {
 
@@ -867,10 +868,13 @@ sub array_dispatcher {
     );
 
     # Open connection to SQLlite databases ONCE
-    my $dbh = open_connection_SQLite() unless $self->{method} eq 'bff2pxf';
-
-    # Add $dbh HANDLE to $self
-    $self->{dbh} = $dbh;
+    my $dbh = undef;
+    unless ($self->{method} eq 'bff2pxf' ) {
+        $dbh = open_connection_SQLite();
+        # Add $dbh HANDLE to $self
+        $self->{dbh} = $dbh; # setter
+    }
+    print Dumper $self->{method};
 
     # Proceed depending if we have an ARRAY or not
     my $out_data;
