@@ -63,7 +63,7 @@ Please download the `Dockerfile` from the repo:
 
 And then run:
 
-    docker build -t cnag/convert_pheno:latest .
+    docker build -t cnag/convert-pheno:latest .
 
 To run the container (detached) execute:
 

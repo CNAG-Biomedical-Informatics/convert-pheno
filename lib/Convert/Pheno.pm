@@ -874,7 +874,6 @@ sub array_dispatcher {
         # Add $dbh HANDLE to $self
         $self->{dbh} = $dbh; # setter
     }
-    print Dumper $self->{method};
 
     # Proceed depending if we have an ARRAY or not
     my $out_data;
