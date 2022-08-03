@@ -202,7 +202,7 @@ sub do_bff2pxf {
         }
     ];
     my $meta_data =
-      { created => iso8601(), resources => $resources, _info => $info };
+      { created => iso8601_time(), resources => $resources, _info => $info };
 
     $data->{meta_data}      = $meta_data;
     $data->{interpretation} = { phenopacket => {} };
@@ -343,11 +343,8 @@ sub do_redcap2bff {
     # id
     # ==
 
-    #$individual->{id} = $participant->{first_name}
-    #  if ( exists $participant->{first_name}
-    #    && $participant->{first_name} );
-    $individual->{id} = $participant->{ids_complete}
-      if $participant->{ids_complete};
+    $individual->{id} = $participant->{first_name} if ( exists $participant->{first_name} && $participant->{first_name} );
+    $individual->{id} = $participant->{ids_complete} if $participant->{ids_complete};
 
     # ====
     # info
@@ -400,19 +397,25 @@ sub do_redcap2bff {
     # ========
 
     $individual->{measures} = [];
-    my @measures = (qw ( a b c));
+    my @measures = (qw ( leucocytes hemoglobin hematokrit mcv mhc thrombocytes neutrophils lymphocytes eosinophils creatinine gfr bilirubin gpt ggt lipase crp iron il6 lab_remarks calprotectin));
     for my $element (@measures) {
         my $measure;
-        $measure->{assayCode} = undef;    # P32Y6M1D
-        $measure->{date} =
-          { Quantity => { unit => { id => '', label => '' }, value => '' } };
-        $measure->{measurementValue}  = [];
-        $measure->{notes}             = { id => '', label => '' };
-        $measure->{observationMoment} = { id => '', label => '' };
-        $measure->{procedure}         = { id => '', label => '' };
+        $measure->{assayCode} = map_db(
+       {
+		  label => 'Blood Test Result',
+	          ontology    => 'ncit',
+                  labels_true => $self->{print_hidden_labels},
+                  dbh         => $dbh->{ncit}
+                }
+        );
+        $measure->{date} = undef; # iso8601_time();
+        $measure->{measurementValue}  = [{ Quantity => { unit => { id => 'NA', label => map_quantity($rcd->{$element}{'Field Note'})}, value => dotify_number($participant->{$element}) }}];
+        $measure->{notes}             =  "$element, Field Label=$rcd->{$element}{'Field Label'}";
+        $measure->{observationMoment} = undef; # Age
+        $measure->{procedure}         = $measure->{assayCode};
 
         # Add to array
-        #push @{ $individual->{measures} }, $measure; # SWITCHED OFF on 072622
+        push @{ $individual->{measures} }, $measure; # SWITCHED OFF on 072622
 
     }
 
@@ -650,7 +653,7 @@ sub load_redcap_dictionary {
             # We keep key>/value as they are
             $tmp_hash->{ $header->[$i] } = $row->[$i];
 
-            # For the key having lavels, we create a new ad hoc key '_labels'
+            # For the key having labels, we create a new ad hoc key '_labels'
             # 'Choices, Calculations, OR Slider Labels' => '1, Female|2, Male|3, Other|4, not available',
             if ( $header->[$i] eq 'Choices, Calculations, OR Slider Labels' ) {
                 my @tmp =
@@ -754,7 +757,55 @@ sub map_exposures {
     return $exposure->{$str};
 }
 
-sub iso8601 {
+sub map_quantity {
+
+	# https://phenopacket-schema.readthedocs.io/en/latest/quantity.html
+	# https://www.ebi.ac.uk/ols/ontologies/ncit/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FNCIT_C25709
+	my $str = shift;
+	# SI UNITS (10^9/L) 
+	# hemoglobin;routine_lab_values;;text;Hemoglobin;;"xx.x g/dl";number;0;20;;;y;;;;;
+	#leucocytes;routine_lab_values;;text;Leucocytes;;"xx.xx /10^-9 l";number;0;200;;;y;;;;;
+	#hematokrit;routine_lab_values;;text;Hematokrit;;"xx.x %";number;0;100;;;y;;;;;
+	#mcv;routine_lab_values;;text;"Mean red cell volume (MCV)";;"xx.x fl";number;0;200;;;y;;;;;
+	#mhc;routine_lab_values;;text;"Mean red cell haemoglobin (MCH)";;"xx.x pg";number;0;100;;;y;;;;;
+	#thrombocytes;routine_lab_values;;text;Thrombocytes;;"xxxx /10^-9 l";number;0;2000;;;y;;;;;
+	#neutrophils;routine_lab_values;;text;Neutrophils;;"x.xx /10^-9 l";number;0;100;;;;;;;;
+	#lymphocytes;routine_lab_values;;text;Lymphocytes;;"x.xx /10^-9 l";number;0;100;;;;;;;;
+	#eosinophils;routine_lab_values;;text;Eosinophils;;"x.xx /10^-9 l";number;0;100;;;;;;;;
+	#creatinine;routine_lab_values;;text;Creatinine;;"xxx µmol/l";number;0;10000;;;y;;;;;
+	#gfr;routine_lab_values;;text;"GFR CKD-Epi";;"xxx ml/min/1.73";number;0;200;;;y;;;;;
+	#bilirubin;routine_lab_values;;text;Bilirubin;;"xxx.x µmol/l";number;0;10000;;;y;;;;;
+	#gpt;routine_lab_values;;text;GPT;;"xx.x U/l";number;0;10000;;;y;;;;;
+	#ggt;routine_lab_values;;text;gammaGT;;"xx.x U/l";number;0;10000;;;y;;;;;
+	#lipase;routine_lab_values;;text;Lipase;;"xx.x U/l";number;0;10000;;;;;;;;
+	#crp;routine_lab_values;;text;CRP;;"xxx.x mg/l";number;0;1000;;;y;;;;;
+	#iron;routine_lab_values;;text;Iron;;"xx.x µmol/l";number;0;1000;;;;;;;;
+	#il6;routine_lab_values;;text;IL-6;;"xxxx.x ng/l";number;0;10000;;;;;;;;
+
+	# http://purl.obolibrary.org/obo/NCIT_C64783
+	# Gram per Deciliter
+	my %unit = ('xx.xx /10^-9 l' => '10^9/L',
+	            'xx.x g/dl' => 'g/dL',
+		     'xx.x fl'  => 'fL', # femtoLiter
+		     'xx.x' =>  => 'pg', #picograms
+		     'xxx µmol/l' => 'µmol/l',
+		     'ml/min/1.73' => 'mL/min/1.73',
+		     'xx.x U/l'=> 'U/L',
+		      'mg/l' => 'mg/L',
+		      'ng/l' => 'ng/L'
+	);
+	return $unit{$str};
+}
+
+sub dotify_number {
+
+	my $val = shift;
+	(my $tr_val = $val ) =~ tr/,/./;
+	# looks_like_number does not work with commas so we must tr first
+	#say "$val === ",  looks_like_number($val); 
+	return looks_like_number($tr_val) ? $tr_val : $val;
+}
+sub iso8601_time {
 
     my ( $s, $f ) = split( /\./, gettimeofday );
     return strftime( '%Y-%m-%dT%H:%M:%S.' . $f . '%z', localtime($s) );
