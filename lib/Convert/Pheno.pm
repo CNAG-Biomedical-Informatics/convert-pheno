@@ -39,6 +39,7 @@ sub new {
 
 # Global variables:
 my @sqlites = qw(ncit icd10);
+my $seen    = {};
 
 # NB1: In general, we'll only display terms that exist and have content
 # NB2: We are using pure OO Perl but we might switch to Moose if things get trickier...
@@ -58,7 +59,7 @@ sub pxf2bff {
 sub do_pxf2bff {
 
     my ( $self, $data ) = @_;
-    my $dbh = $self->{dbh};
+    my $sth = $self->{sth};
 
     # Get cursors for 1D terms
     my $interpretation = $data->{interpretation};
@@ -132,12 +133,12 @@ sub do_pxf2bff {
     # sex
     # ===
 
-    $individual->{sex} = map_db(
+    $individual->{sex} = map_ontology(
         {
             label       => $phenopacket->{subject}{sex},
             ontology    => 'ncit',
             labels_true => $self->{print_hidden_labels},
-            dbh         => $dbh->{ncit}
+            sth         => $sth->{ncit}
         }
     ) if exists $phenopacket->{subject}{sex};
 
@@ -230,8 +231,8 @@ sub redcap2bff {
     print Dumper $data_rcd if ( $self->{debug} && $self->{debug} > 1 );
 
     # array_dispatcher will deal with JSON arrays
-    $self->{data}     = $data; # setter
-    $self->{data_rcd} = $data_rcd; # setter
+    $self->{data}     = $data;        # setter
+    $self->{data_rcd} = $data_rcd;    # setter
     return array_dispatcher($self);
 }
 
@@ -239,7 +240,7 @@ sub do_redcap2bff {
 
     my ( $self, $data ) = @_;
     my $rcd = $self->{data_rcd};
-    my $dbh = $self->{dbh};
+    my $sth = $self->{sth};
 
     ##############################
     # <Variable> names in REDCap #
@@ -284,12 +285,12 @@ sub do_redcap2bff {
     for my $element (@diseases) {
         my $disease;
         if ( $element ne 'Inflamatory Bowel Disease' ) {
-            $disease->{diseaseCode} = map_db(
+            $disease->{diseaseCode} = map_ontology(
                 {
                     label       => $element,
                     ontology    => 'icd10',                        # ICD-10 ontology (term must be precise)
                     labels_true => $self->{print_hidden_labels},
-                    dbh         => $dbh->{icd10}
+                    sth         => $sth->{icd10}
 
                 }
             );
@@ -343,8 +344,10 @@ sub do_redcap2bff {
     # id
     # ==
 
-    $individual->{id} = $participant->{first_name} if ( exists $participant->{first_name} && $participant->{first_name} );
-    $individual->{id} = $participant->{ids_complete} if $participant->{ids_complete};
+    $individual->{id} = $participant->{first_name}
+      if ( exists $participant->{first_name} && $participant->{first_name} );
+    $individual->{id} = $participant->{ids_complete}
+      if $participant->{ids_complete};
 
     # ====
     # info
@@ -376,12 +379,12 @@ sub do_redcap2bff {
             $intervention->{bodySite} =
               { id => 'NCIT:C12736', label => 'intestine' };
             $intervention->{dateOfProcedure} = undef;
-            $intervention->{procedureCode}   = map_db(
+            $intervention->{procedureCode}   = map_ontology(
                 {
                     label       => $surgery{$element},
                     ontology    => 'ncit',
                     labels_true => $self->{print_hidden_labels},
-                    dbh         => $dbh->{ncit}
+                    sth         => $sth->{ncit}
                 }
             ) if $surgery{$element};
             push @{ $individual->{interventionsOrProcedures} }, $intervention;
@@ -397,25 +400,38 @@ sub do_redcap2bff {
     # ========
 
     $individual->{measures} = [];
-    my @measures = (qw ( leucocytes hemoglobin hematokrit mcv mhc thrombocytes neutrophils lymphocytes eosinophils creatinine gfr bilirubin gpt ggt lipase crp iron il6 lab_remarks calprotectin));
+    my @measures = (
+        qw ( leucocytes hemoglobin hematokrit mcv mhc thrombocytes neutrophils lymphocytes eosinophils creatinine gfr bilirubin gpt ggt lipase crp iron il6 lab_remarks calprotectin)
+    );
     for my $element (@measures) {
         my $measure;
-        $measure->{assayCode} = map_db(
-       {
-		  label => 'Blood Test Result',
-	          ontology    => 'ncit',
-                  labels_true => $self->{print_hidden_labels},
-                  dbh         => $dbh->{ncit}
-                }
+        $measure->{assayCode} = map_ontology(
+            {
+                label       => 'Blood Test Result',
+                ontology    => 'ncit',
+                labels_true => $self->{print_hidden_labels},
+                sth         => $sth->{ncit}
+            }
         );
-        $measure->{date} = undef; # iso8601_time();
-        $measure->{measurementValue}  = [{ Quantity => { unit => { id => 'NA', label => map_quantity($rcd->{$element}{'Field Note'})}, value => dotify_number($participant->{$element}) }}];
-        $measure->{notes}             =  "$element, Field Label=$rcd->{$element}{'Field Label'}";
-        $measure->{observationMoment} = undef; # Age
+        $measure->{date}             = undef;    # iso8601_time();
+        $measure->{measurementValue} = [
+            {
+                Quantity => {
+                    unit => {
+                        id    => 'NA',
+                        label => map_quantity( $rcd->{$element}{'Field Note'} )
+                    },
+                    value => dotify_number( $participant->{$element} )
+                }
+            }
+        ];
+        $measure->{notes} =
+          "$element, Field Label=$rcd->{$element}{'Field Label'}";
+        $measure->{observationMoment} = undef;                   # Age
         $measure->{procedure}         = $measure->{assayCode};
 
         # Add to array
-        push @{ $individual->{measures} }, $measure; # SWITCHED OFF on 072622
+        #  push @{ $individual->{measures} }, $measure;             # SWITCHED OFF on 072622
 
     }
 
@@ -465,12 +481,12 @@ sub do_redcap2bff {
     # sex
     # ===
 
-    $individual->{sex} = map_db(
+    $individual->{sex} = map_ontology(
         {
             label       => $rcd->{sex}{_labels}{ $participant->{sex} },
             ontology    => 'ncit',
             labels_true => $self->{print_hidden_labels},
-            dbh         => $dbh->{ncit}
+            sth         => $sth->{ncit}
 
         }
     ) if ( exists $participant->{sex} && $participant->{sex} );
@@ -524,13 +540,13 @@ sub redcap2pxf {
     my $self = shift;
 
     # First iteration: redcap2bff
-    $self->{method} = 'redcap2bff'; # setter - we have to change the value of attr {method}
-    my $bff = redcap2bff($self);    # array
+    $self->{method} = 'redcap2bff';    # setter - we have to change the value of attr {method}
+    my $bff = redcap2bff($self);       # array
 
     # Preparing for second iteration: bff2pxf
-    $self->{method} = 'bff2pxf'; # setter
-    $self->{data}   = $bff; # setter
-    $self->{in_textfile} = 0;    # setter
+    $self->{method}      = 'bff2pxf';    # setter
+    $self->{data}        = $bff;         # setter
+    $self->{in_textfile} = 0;            # setter
 
     # Run second iteration
     return array_dispatcher($self);
@@ -726,16 +742,29 @@ sub map_ethnicity {
     return { id => $ethnicity{ lc($str) }, label => $str };
 }
 
-sub map_db {
+sub map_ontology {
+
+    # Most of the execution time goes to this subroutine
+    # We will adopt two estragies to gain speed:
+    #  1 - Prepare once, excute often (Bah: it does not improve much)
+    #  2 - Create a global hash with "seen" queries (Voilaaaa!!!)
+
+    #return { id => 'dummy', label => 'dummy' };    # test speed
+    # Not a big fan of global stuff and premature return, but it works here...
+    #  ¯\_(ツ)_/¯
+    return $seen->{ $_[0]->{label} } if exists $seen->{ $_[0]->{label} };
 
     my $arg                 = shift;
     my $str                 = $arg->{label};
     my $ontology            = $arg->{ontology};
     my $print_hidden_labels = $arg->{labels_true};
-    my $dbh                 = $arg->{dbh};
+    my $sth                 = $arg->{sth};
 
     # Perform query
-    my ( $id, $label ) = get_query_SQLite( $dbh, $str, $ontology );
+    my ( $id, $label ) = execute_query_SQLite( $sth, $str, $ontology );
+
+    # Add result to global hashref $seen
+    $seen->{$label} = { id => $id, label => $label };
 
     # id and label come from <db> _label is the original string (can change on partial matches)
     return $print_hidden_labels
@@ -759,52 +788,60 @@ sub map_exposures {
 
 sub map_quantity {
 
-	# https://phenopacket-schema.readthedocs.io/en/latest/quantity.html
-	# https://www.ebi.ac.uk/ols/ontologies/ncit/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FNCIT_C25709
-	my $str = shift;
-	# SI UNITS (10^9/L) 
-	# hemoglobin;routine_lab_values;;text;Hemoglobin;;"xx.x g/dl";number;0;20;;;y;;;;;
-	#leucocytes;routine_lab_values;;text;Leucocytes;;"xx.xx /10^-9 l";number;0;200;;;y;;;;;
-	#hematokrit;routine_lab_values;;text;Hematokrit;;"xx.x %";number;0;100;;;y;;;;;
-	#mcv;routine_lab_values;;text;"Mean red cell volume (MCV)";;"xx.x fl";number;0;200;;;y;;;;;
-	#mhc;routine_lab_values;;text;"Mean red cell haemoglobin (MCH)";;"xx.x pg";number;0;100;;;y;;;;;
-	#thrombocytes;routine_lab_values;;text;Thrombocytes;;"xxxx /10^-9 l";number;0;2000;;;y;;;;;
-	#neutrophils;routine_lab_values;;text;Neutrophils;;"x.xx /10^-9 l";number;0;100;;;;;;;;
-	#lymphocytes;routine_lab_values;;text;Lymphocytes;;"x.xx /10^-9 l";number;0;100;;;;;;;;
-	#eosinophils;routine_lab_values;;text;Eosinophils;;"x.xx /10^-9 l";number;0;100;;;;;;;;
-	#creatinine;routine_lab_values;;text;Creatinine;;"xxx µmol/l";number;0;10000;;;y;;;;;
-	#gfr;routine_lab_values;;text;"GFR CKD-Epi";;"xxx ml/min/1.73";number;0;200;;;y;;;;;
-	#bilirubin;routine_lab_values;;text;Bilirubin;;"xxx.x µmol/l";number;0;10000;;;y;;;;;
-	#gpt;routine_lab_values;;text;GPT;;"xx.x U/l";number;0;10000;;;y;;;;;
-	#ggt;routine_lab_values;;text;gammaGT;;"xx.x U/l";number;0;10000;;;y;;;;;
-	#lipase;routine_lab_values;;text;Lipase;;"xx.x U/l";number;0;10000;;;;;;;;
-	#crp;routine_lab_values;;text;CRP;;"xxx.x mg/l";number;0;1000;;;y;;;;;
-	#iron;routine_lab_values;;text;Iron;;"xx.x µmol/l";number;0;1000;;;;;;;;
-	#il6;routine_lab_values;;text;IL-6;;"xxxx.x ng/l";number;0;10000;;;;;;;;
+    # https://phenopacket-schema.readthedocs.io/en/latest/quantity.html
+    # https://www.ebi.ac.uk/ols/ontologies/ncit/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FNCIT_C25709
+    # Some SI units are in nict but others aren't.
+    # what do we do?
+    #  - Hard coded in Hash? ==> Fast
+    #  - Search every time on DB? ==> Slow
+    my $str = shift;
 
-	# http://purl.obolibrary.org/obo/NCIT_C64783
-	# Gram per Deciliter
-	my %unit = ('xx.xx /10^-9 l' => '10^9/L',
-	            'xx.x g/dl' => 'g/dL',
-		     'xx.x fl'  => 'fL', # femtoLiter
-		     'xx.x' =>  => 'pg', #picograms
-		     'xxx µmol/l' => 'µmol/l',
-		     'ml/min/1.73' => 'mL/min/1.73',
-		     'xx.x U/l'=> 'U/L',
-		      'mg/l' => 'mg/L',
-		      'ng/l' => 'ng/L'
-	);
-	return $unit{$str};
+    # SI UNITS (10^9/L)
+    # hemoglobin;routine_lab_values;;text;Hemoglobin;;"xx.x g/dl";number;0;20;;;y;;;;;
+    #leucocytes;routine_lab_values;;text;Leucocytes;;"xx.xx /10^-9 l";number;0;200;;;y;;;;;
+    #hematokrit;routine_lab_values;;text;Hematokrit;;"xx.x %";number;0;100;;;y;;;;;
+    #mcv;routine_lab_values;;text;"Mean red cell volume (MCV)";;"xx.x fl";number;0;200;;;y;;;;;
+    #mhc;routine_lab_values;;text;"Mean red cell haemoglobin (MCH)";;"xx.x pg";number;0;100;;;y;;;;;
+    #thrombocytes;routine_lab_values;;text;Thrombocytes;;"xxxx /10^-9 l";number;0;2000;;;y;;;;;
+    #neutrophils;routine_lab_values;;text;Neutrophils;;"x.xx /10^-9 l";number;0;100;;;;;;;;
+    #lymphocytes;routine_lab_values;;text;Lymphocytes;;"x.xx /10^-9 l";number;0;100;;;;;;;;
+    #eosinophils;routine_lab_values;;text;Eosinophils;;"x.xx /10^-9 l";number;0;100;;;;;;;;
+    #creatinine;routine_lab_values;;text;Creatinine;;"xxx µmol/l";number;0;10000;;;y;;;;;
+    #gfr;routine_lab_values;;text;"GFR CKD-Epi";;"xxx ml/min/1.73";number;0;200;;;y;;;;;
+    #bilirubin;routine_lab_values;;text;Bilirubin;;"xxx.x µmol/l";number;0;10000;;;y;;;;;
+    #gpt;routine_lab_values;;text;GPT;;"xx.x U/l";number;0;10000;;;y;;;;;
+    #ggt;routine_lab_values;;text;gammaGT;;"xx.x U/l";number;0;10000;;;y;;;;;
+    #lipase;routine_lab_values;;text;Lipase;;"xx.x U/l";number;0;10000;;;;;;;;
+    #crp;routine_lab_values;;text;CRP;;"xxx.x mg/l";number;0;1000;;;y;;;;;
+    #iron;routine_lab_values;;text;Iron;;"xx.x µmol/l";number;0;1000;;;;;;;;
+    #il6;routine_lab_values;;text;IL-6;;"xxxx.x ng/l";number;0;10000;;;;;;;;
+
+    # http://purl.obolibrary.org/obo/NCIT_C64783
+    # Gram per Deciliter
+    my %unit = (
+        'xx.xx /10^-9 l' => '10^9/L',
+        'xx.x g/dl'      => 'g/dL',
+        'xx.x fl'        => 'fL',            # femtoLiter
+        'xx.x'           => => 'pg',         #picograms
+        'xxx µmol/l'     => 'µmol/l',
+        'ml/min/1.73'    => 'mL/min/1.73',
+        'xx.x U/l'       => 'U/L',
+        'mg/l'           => 'mg/L',
+        'ng/l'           => 'ng/L'
+    );
+    return $unit{$str};
 }
 
 sub dotify_number {
 
-	my $val = shift;
-	(my $tr_val = $val ) =~ tr/,/./;
-	# looks_like_number does not work with commas so we must tr first
-	#say "$val === ",  looks_like_number($val); 
-	return looks_like_number($tr_val) ? $tr_val : $val;
+    my $val = shift;
+    ( my $tr_val = $val ) =~ tr/,/./;
+
+    # looks_like_number does not work with commas so we must tr first
+    #say "$val === ",  looks_like_number($val);
+    return looks_like_number($tr_val) ? $tr_val : $val;
 }
+
 sub iso8601_time {
 
     my ( $s, $f ) = split( /\./, gettimeofday );
@@ -817,17 +854,27 @@ sub iso8601_time {
 ########################
 ########################
 
-sub open_connection_SQLite {
+sub open_connections_SQLite {
+
+    my $self = shift;
 
     # Opening the DB once (instead that on each call) improves speed ~15%
     my $dbh;
     $dbh->{$_} = open_db_SQLite($_) for (@sqlites);    # global
-    return $dbh;
+
+    # Add $dbh HANDLE to $self
+    $self->{dbh} = $dbh;                               # setter
+
+    # Prepare the query once
+    prepare_query_SQLite($self);
+
+    return 1;
 }
 
-sub close_connection_SQLite {
+sub close_connections_SQLite {
 
-    my $dbh = shift;
+    my $self = shift;
+    my $dbh  = $self->{dbh};
     close_db_SQLite( $dbh->{$_} ) for (@sqlites);      #global
     return 1;
 }
@@ -859,24 +906,35 @@ sub close_db_SQLite {
     return 1;
 }
 
-sub get_query_SQLite {
+sub prepare_query_SQLite {
 
-    my ( $dbh, $query, $ontology ) = @_;
+    my $self  = shift;
     my $field = 'exact_match';
-    my $db    = uc($ontology) . '_table';
-    my %query = (
-        contains =>
-          qq(SELECT * FROM $db WHERE label LIKE '%' || ? || '%' COLLATE NOCASE),
-        contains_word =>
-qq(SELECT * FROM $db WHERE label LIKE '% ' || ? || ' %' COLLATE NOCASE),
-        exact_match => qq(SELECT * FROM $db WHERE label = ? COLLATE NOCASE),
-        begins_with =>
-          qq(SELECT * FROM $db WHERE label LIKE ? || '%' COLLATE NOCASE)
-    );
 
-    my $sth = $dbh->prepare(<<SQL);
-$query{$field}
+    for my $ontology (@sqlites) {    #global
+        my $db         = uc($ontology) . '_table';
+        my $dbh        = $self->{dbh}{$ontology};
+        my %query_type = (
+            contains =>
+qq(SELECT * FROM $db WHERE label LIKE '%' || ? || '%' COLLATE NOCASE),
+            contains_word =>
+qq(SELECT * FROM $db WHERE label LIKE '% ' || ? || ' %' COLLATE NOCASE),
+            exact_match => qq(SELECT * FROM $db WHERE label = ? COLLATE NOCASE),
+            begins_with =>
+              qq(SELECT * FROM $db WHERE label LIKE ? || '%' COLLATE NOCASE)
+        );
+        my $sth = $dbh->prepare(<<SQL);
+$query_type{$field}
 SQL
+        $self->{sth}{$ontology} = $sth;    # setter
+    }
+    return 1;
+}
+
+sub execute_query_SQLite {
+
+    my ( $sth, $query, $ontology ) = @_;
+    my $field = 'exact_match';
 
     # Excute query
     $sth->execute($query);
@@ -919,12 +977,7 @@ sub array_dispatcher {
     );
 
     # Open connection to SQLlite databases ONCE
-    my $dbh = undef;
-    unless ($self->{method} eq 'bff2pxf' ) {
-        $dbh = open_connection_SQLite();
-        # Add $dbh HANDLE to $self
-        $self->{dbh} = $dbh; # setter
-    }
+    open_connections_SQLite($self) if $self->{method} ne 'bff2pxf';
 
     # Proceed depending if we have an ARRAY or not
     my $out_data;
@@ -945,7 +998,7 @@ sub array_dispatcher {
     }
 
     # Close connections ONCE
-    close_connection_SQLite($dbh) unless $self->{method} eq 'bff2pxf';
+    close_connections_SQLite($self) unless $self->{method} eq 'bff2pxf';
 
     return $out_data;
 }
