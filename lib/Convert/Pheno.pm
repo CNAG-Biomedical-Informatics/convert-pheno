@@ -417,10 +417,15 @@ sub do_redcap2bff {
         $measure->{measurementValue} = [
             {
                 Quantity => {
-                    unit => {
-                        id    => 'NA',
-                        label => map_quantity( $rcd->{$element}{'Field Note'} )
-                    },
+                    unit => map_ontology(
+                        {
+                            label =>
+                              map_quantity( $rcd->{$element}{'Field Note'} ),
+                            ontology    => 'ncit',
+                            labels_true => $self->{print_hidden_labels},
+                            sth         => $sth->{ncit}
+                        }
+                    ),
                     value => dotify_number( $participant->{$element} )
                 }
             }
@@ -431,7 +436,7 @@ sub do_redcap2bff {
         $measure->{procedure}         = $measure->{assayCode};
 
         # Add to array
-        #  push @{ $individual->{measures} }, $measure;             # SWITCHED OFF on 072622
+        push @{ $individual->{measures} }, $measure;             # SWITCHED OFF on 072622
 
     }
 
@@ -465,7 +470,7 @@ sub do_redcap2bff {
         my $phenotypicFeature;
         $phenotypicFeature->{evidence} = undef;    # P32Y6M1D
         $phenotypicFeature->{excluded} =
-          { Quantity => { unit => { id => '', label => '' }, value => '' } };
+          { Quantity => { unit => { id => '', label => '' }, value => undef } };
         $phenotypicFeature->{featureType} = [];
         $phenotypicFeature->{modifiers}   = { id => '', label => '' };
         $phenotypicFeature->{notes}       = { id => '', label => '' };
@@ -515,7 +520,7 @@ sub do_redcap2bff {
         };    # ***** INTERNAL FIELD
         $treatment->{ageAtOnset} = undef;    # P32Y6M1D
         $treatment->{cumulativeDose} =
-          { Quantity => { unit => { id => '', label => '' }, value => '' } };
+          { Quantity => { unit => { id => '', label => '' }, value => undef } };
         $treatment->{doseIntervals}         = [];
         $treatment->{routeOfAdministration} = { id => '', label => '' };
         $treatment->{treatmentCode}         = { id => '', label => '' };
@@ -746,13 +751,19 @@ sub map_ontology {
 
     # Most of the execution time goes to this subroutine
     # We will adopt two estragies to gain speed:
-    #  1 - Prepare once, excute often (Bah: it does not improve much)
-    #  2 - Create a global hash with "seen" queries (Voilaaaa!!!)
+    #  1 - Prepare once, excute often (almost no gain)
+    #  2 - Create a global hash with "seen" queries (+++huge gain)
 
     #return { id => 'dummy', label => 'dummy' };    # test speed
     # Not a big fan of global stuff and premature return, but it works here...
     #  ¯\_(ツ)_/¯
+
+    # return if exists
     return $seen->{ $_[0]->{label} } if exists $seen->{ $_[0]->{label} };
+
+    # return if we know 'a priori' that the label won't exist
+    return { id => 'NCIT:NA', label => $_[0]->{label} }
+      if $_[0]->{label} =~ m/xx/;
 
     my $arg                 = shift;
     my $str                 = $arg->{label};
@@ -763,7 +774,7 @@ sub map_ontology {
     # Perform query
     my ( $id, $label ) = execute_query_SQLite( $sth, $str, $ontology );
 
-    # Add result to global hashref $seen
+    # Add result to global $seen
     $seen->{$label} = { id => $id, label => $label };
 
     # id and label come from <db> _label is the original string (can change on partial matches)
@@ -817,19 +828,22 @@ sub map_quantity {
     #il6;routine_lab_values;;text;IL-6;;"xxxx.x ng/l";number;0;10000;;;;;;;;
 
     # http://purl.obolibrary.org/obo/NCIT_C64783
-    # Gram per Deciliter
     my %unit = (
         'xx.xx /10^-9 l' => '10^9/L',
-        'xx.x g/dl'      => 'g/dL',
-        'xx.x fl'        => 'fL',            # femtoLiter
-        'xx.x'           => => 'pg',         #picograms
+        'xx.x g/dl'      => 'Gram per Deciliter',         #'g/dL',
+        'xx.x fl'        => 'Femtoliter',                 # 'fL'
+        'xx.x'           => 'Picogram',                   # 'pg',         #picograms
         'xxx µmol/l'     => 'µmol/l',
         'ml/min/1.73'    => 'mL/min/1.73',
-        'xx.x U/l'       => 'U/L',
-        'mg/l'           => 'mg/L',
-        'ng/l'           => 'ng/L'
+        'xx.x U/l'       => 'Units per Liter',
+        'pg/dl'          => 'Picogram per Deciliter',     #'pg/dL',
+        'mg/dl'          => 'Milligram per Deciliter',    #'mg/L',
+        'µg/dl'          => 'Microgram per Deciliter',    #'µg/dL',
+        'ng/dl'          => 'Nanogram per Deciliter'      #'ng/L'
     );
-    return $unit{$str};
+
+    #say "$str => $unit{$str}" if exists $unit{$str};
+    return exists $unit{$str} ? $unit{$str} : $str;
 }
 
 sub dotify_number {
@@ -839,7 +853,11 @@ sub dotify_number {
 
     # looks_like_number does not work with commas so we must tr first
     #say "$val === ",  looks_like_number($val);
-    return looks_like_number($tr_val) ? $tr_val : $val;
+    # coercing to number $tr_val and avoiding value = ""
+    return
+        looks_like_number($tr_val) ? 0 + $tr_val
+      : $val eq ''                 ? undef
+      :                              $val;         # coercing to number
 }
 
 sub iso8601_time {
