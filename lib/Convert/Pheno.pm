@@ -3,6 +3,7 @@ package Convert::Pheno;
 use strict;
 use warnings;
 use autodie;
+use utf8;
 use feature               qw(say);
 use FindBin               qw($Bin);
 use File::Spec::Functions qw(catdir catfile);
@@ -18,6 +19,7 @@ use Sys::Hostname;
 use Cwd         qw(cwd abs_path);
 use POSIX       qw(strftime);
 use Time::HiRes qw/gettimeofday/;
+binmode STDOUT, ':encoding(utf-8)';
 
 use constant DEVEL_MODE => 0;
 use vars qw{
@@ -400,6 +402,7 @@ sub do_redcap2bff {
     # ========
 
     $individual->{measures} = [];
+
     # lab_remarks was removed
     my @measures = (
         qw (leucocytes hemoglobin hematokrit mcv mhc thrombocytes neutrophils lymphocytes eosinophils creatinine gfr bilirubin gpt ggt lipase crp iron il6 calprotectin)
@@ -440,6 +443,7 @@ sub do_redcap2bff {
                     unit           => $unit,
                     value          => dotify_number( $participant->{$element} ),
                     referenceRange => {
+
                         #unit => $unit, # Isn't this redundant???
                         low  => exists $range{low}  ? $range{low}  : undef,
                         high => exists $range{high} ? $range{high} : undef
@@ -452,7 +456,9 @@ sub do_redcap2bff {
         $measure->{observationMoment} = undef;          # Age
         $measure->{procedure}         = map_ontology(
             {
-                label       => $element ne 'calprotectin' ? 'Blood Test Result' : 'Feces',
+                label => $element ne 'calprotectin'
+                ? 'Blood Test Result'
+                : 'Feces',
                 ontology    => 'ncit',
                 labels_true => $self->{print_hidden_labels},
                 sth         => $sth->{ncit}
@@ -503,7 +509,7 @@ sub do_redcap2bff {
         $phenotypicFeature->{severity}    = { id => '', label => '' };
 
         # Add to array
-        push @{ $individual->{phenotypicFeatures} }, $phenotypicFeature; # SWITCHED OFF on 072622
+        push @{ $individual->{phenotypicFeatures} }, $phenotypicFeature;    # SWITCHED OFF on 072622
     }
 
     # ===
@@ -862,14 +868,16 @@ sub map_quantity {
     #calprotectin;routine_lab_values;;text;Calprotectin;;"mg/kg stool";integer;;;;;;;;;;
 
     # http://purl.obolibrary.org/obo/NCIT_C64783
-    my %unit = (
+    my $micro = '\x{b5}';
+    my %unit  = (
         'xx.xx /10^-9 l' => 'Cells per Microliter',       # '10^9/L',
         'xx.x g/dl'      => 'Gram per Deciliter',         # 'g/dL',
         'xx.x fl'        => 'Femtoliter',                 # 'fL'
         'xx.x'           => 'Picogram',                   # 'pg',         #picograms
         'xx.x pg'        => 'Picogram',
+        'xx.x µmol/l'    => 'Micromole per Liter',
+        'xxx.x µmol/l'   => 'Micromole per Liter',
         'xxx µmol/l'     => 'Micromole per Liter',        # 'µmol/l',
-        'xxx Âµmol/l',   => 'Micromole per Liter',
         'ml/min/1.73'    => 'mL/min/1.73',
         'xx.x U/l'       => 'Units per Liter',
         'pg/dl'          => 'Picogram per Deciliter',     #'pg/dL',
@@ -880,7 +888,7 @@ sub map_quantity {
         'xx.x %'         => 'Percentage'
     );
 
-    #say "$str => $unit{$str}" if exists $unit{$str};
+    #say "#{$str}# ====>  $unit{$str}" if  exists $unit{$str};
     return exists $unit{$str} ? $unit{$str} : $str;
 }
 
@@ -933,8 +941,9 @@ sub map_3tr {
         hemoglobin => { 'Hemoglobin Measurement' => { low => 0, high => 20 } },
         leucocytes => { 'Leukocyte Count'        => { low => 0, high => 200 } },
         hematokrit => { 'Hematocrit Measurement' => { low => 0, high => 100 } },
-        mcv        =>
-          { 'Erythrocyte Mean Corpuscular Volume' => { low => 0, high => 200 } },
+        mcv        => {
+            'Erythrocyte Mean Corpuscular Volume' => { low => 0, high => 200 }
+        },
         mhc => {
             'Erythrocyte Mean Corpuscular Hemoglobin' =>
               { low => 0, high => 100 }
@@ -943,7 +952,8 @@ sub map_3tr {
         neutrophils  => { 'Neutrophil Count' => { low => 0, high => 100 } },
         lymphocytes  => { 'Lymphocyte Count' => { low => 0, high => 100 } },
         eosinophils  => { 'Eosinophil Count' => { low => 0, high => 100 } },
-        creatinine => { 'Creatinine Measurement' => { low => 0, high => 10_000 } },
+        creatinine   =>
+          { 'Creatinine Measurement' => { low => 0, high => 10_000 } },
         gfr => { 'Glomerular Filtration Rate' => { low => 0, high => 200 } },
         bilirubin =>
           { 'Total Bilirubin Measurement' => { low => 0, high => 10_000 } },
@@ -956,7 +966,8 @@ sub map_3tr {
               { low => 0, high => 10_000 }
         },
         lipase => { 'Lipase Measurement' => { low => 0, high => 10_000 } },
-        crp => { 'C-Reactive Protein Measurement' => { low => 0, high => 1000 } },
+        crp    =>
+          { 'C-Reactive Protein Measurement' => { low => 0, high => 1000 } },
         iron         => { 'Iron Measurement' => { low => 0, high => 1000 } },
         il6          => { 'Interleukin-6'    => { low => 0, high => 10_000 } },
         calprotectin =>
