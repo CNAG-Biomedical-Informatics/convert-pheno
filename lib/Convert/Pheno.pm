@@ -400,43 +400,67 @@ sub do_redcap2bff {
     # ========
 
     $individual->{measures} = [];
+    # lab_remarks was removed
     my @measures = (
-        qw ( leucocytes hemoglobin hematokrit mcv mhc thrombocytes neutrophils lymphocytes eosinophils creatinine gfr bilirubin gpt ggt lipase crp iron il6 lab_remarks calprotectin)
+        qw (leucocytes hemoglobin hematokrit mcv mhc thrombocytes neutrophils lymphocytes eosinophils creatinine gfr bilirubin gpt ggt lipase crp iron il6 calprotectin)
     );
     for my $element (@measures) {
         my $measure;
         $measure->{assayCode} = map_ontology(
             {
-                label       => 'Blood Test Result',
+                label       => $element,
                 ontology    => 'ncit',
                 labels_true => $self->{print_hidden_labels},
                 sth         => $sth->{ncit}
             }
         );
-        $measure->{date}             = undef;    # iso8601_time();
+        $measure->{date} = undef;    # iso8601_time();
+
+        # We first need to extract a few values for <measurementValue>
+        my $unit = map_ontology(
+            {
+                label       => map_quantity( $rcd->{$element}{'Field Note'} ),
+                ontology    => 'ncit',
+                labels_true => $self->{print_hidden_labels},
+                sth         => $sth->{ncit}
+            }
+        );
+        my $map_3tr = map_3tr($element);
+        my %range   = ();
+        if ( ref $map_3tr eq 'HASH' ) {
+            my ($key) = keys %{$map_3tr};
+            for my $range (qw (low high)) {
+                $range{$range} = $map_3tr->{$key}{$range};
+            }
+        }
+
         $measure->{measurementValue} = [
             {
                 Quantity => {
-                    unit => map_ontology(
-                        {
-                            label =>
-                              map_quantity( $rcd->{$element}{'Field Note'} ),
-                            ontology    => 'ncit',
-                            labels_true => $self->{print_hidden_labels},
-                            sth         => $sth->{ncit}
-                        }
-                    ),
-                    value => dotify_number( $participant->{$element} )
+                    unit           => $unit,
+                    value          => dotify_number( $participant->{$element} ),
+                    referenceRange => {
+                        #unit => $unit, # Isn't this redundant???
+                        low  => exists $range{low}  ? $range{low}  : undef,
+                        high => exists $range{high} ? $range{high} : undef
+                    }
                 }
             }
         ];
         $measure->{notes} =
           "$element, Field Label=$rcd->{$element}{'Field Label'}";
-        $measure->{observationMoment} = undef;                   # Age
-        $measure->{procedure}         = $measure->{assayCode};
+        $measure->{observationMoment} = undef;          # Age
+        $measure->{procedure}         = map_ontology(
+            {
+                label       => $element ne 'calprotectin' ? 'Blood Test Result' : 'Feces',
+                ontology    => 'ncit',
+                labels_true => $self->{print_hidden_labels},
+                sth         => $sth->{ncit}
+            }
+        );
 
         # Add to array
-        push @{ $individual->{measures} }, $measure;             # SWITCHED OFF on 072622
+        push @{ $individual->{measures} }, $measure;    # SWITCHED OFF on 072622
 
     }
 
@@ -447,7 +471,7 @@ sub do_redcap2bff {
     $individual->{pedigrees} = [];
 
     # disease, id, members, numSubjects
-    my @pedigrees = (qw ( a b c));
+    my @pedigrees = (qw ( x y ));
     for my $element (@pedigrees) {
         my $pedigree;
         $pedigree->{disease}     = {};      # P32Y6M1D
@@ -465,7 +489,7 @@ sub do_redcap2bff {
     # ==================
 
     $individual->{phenotypicFeatures} = [];
-    my @phenotypicFeatures = qw ( a b c);
+    my @phenotypicFeatures = qw ( a b);
     for my $element (@phenotypicFeatures) {
         my $phenotypicFeature;
         $phenotypicFeature->{evidence} = undef;    # P32Y6M1D
@@ -479,7 +503,7 @@ sub do_redcap2bff {
         $phenotypicFeature->{severity}    = { id => '', label => '' };
 
         # Add to array
-        #push @{ $individual->{phenotypicFeatures} }, $phenotypicFeature; # SWITCHED OFF on 072622
+        push @{ $individual->{phenotypicFeatures} }, $phenotypicFeature; # SWITCHED OFF on 072622
     }
 
     # ===
@@ -751,35 +775,44 @@ sub map_ontology {
 
     # Most of the execution time goes to this subroutine
     # We will adopt two estragies to gain speed:
-    #  1 - Prepare once, excute often (almost no gain)
+    #  1 - Prepare once, excute often (almost no gain in speed :/ )
     #  2 - Create a global hash with "seen" queries (+++huge gain)
 
     #return { id => 'dummy', label => 'dummy' };    # test speed
     # Not a big fan of global stuff and premature return, but it works here...
     #  ¯\_(ツ)_/¯
 
+    # Labels come in many forms, before checking existance we map to NCIT ones
+    # Ad hoc modifications for 3TR
+    my $tmp_label = $_[0]->{label};
+    my $map_3tr   = 1;                # Boolean
+    if ($map_3tr) {
+        $tmp_label = map_3tr($tmp_label);
+        ($tmp_label) = keys %{$tmp_label} if ref $tmp_label eq 'HASH';    # Only 1 key
+    }
+
     # return if exists
-    return $seen->{ $_[0]->{label} } if exists $seen->{ $_[0]->{label} };
+    return $seen->{$tmp_label} if exists $seen->{$tmp_label};
 
     # return if we know 'a priori' that the label won't exist
-    return { id => 'NCIT:NA', label => $_[0]->{label} }
-      if $_[0]->{label} =~ m/xx/;
+    return { id => 'NCIT:NA', label => $tmp_label }
+      if $tmp_label =~ m/xx/;
 
+    # Ok, now it's time to start the subroutine
     my $arg                 = shift;
-    my $str                 = $arg->{label};
     my $ontology            = $arg->{ontology};
     my $print_hidden_labels = $arg->{labels_true};
     my $sth                 = $arg->{sth};
 
     # Perform query
-    my ( $id, $label ) = execute_query_SQLite( $sth, $str, $ontology );
+    my ( $id, $label ) = execute_query_SQLite( $sth, $tmp_label, $ontology );
 
     # Add result to global $seen
     $seen->{$label} = { id => $id, label => $label };
 
     # id and label come from <db> _label is the original string (can change on partial matches)
     return $print_hidden_labels
-      ? { id => $id, label => $label, _label => $str }
+      ? { id => $id, label => $label, _label => $tmp_label }
       : { id => $id, label => $label };
 }
 
@@ -801,7 +834,7 @@ sub map_quantity {
 
     # https://phenopacket-schema.readthedocs.io/en/latest/quantity.html
     # https://www.ebi.ac.uk/ols/ontologies/ncit/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FNCIT_C25709
-    # Some SI units are in nict but others aren't.
+    # Some SI units are in ncit but others aren't.
     # what do we do?
     #  - Hard coded in Hash? ==> Fast
     #  - Search every time on DB? ==> Slow
@@ -826,20 +859,25 @@ sub map_quantity {
     #crp;routine_lab_values;;text;CRP;;"xxx.x mg/l";number;0;1000;;;y;;;;;
     #iron;routine_lab_values;;text;Iron;;"xx.x µmol/l";number;0;1000;;;;;;;;
     #il6;routine_lab_values;;text;IL-6;;"xxxx.x ng/l";number;0;10000;;;;;;;;
+    #calprotectin;routine_lab_values;;text;Calprotectin;;"mg/kg stool";integer;;;;;;;;;;
 
     # http://purl.obolibrary.org/obo/NCIT_C64783
     my %unit = (
-        'xx.xx /10^-9 l' => '10^9/L',
-        'xx.x g/dl'      => 'Gram per Deciliter',         #'g/dL',
+        'xx.xx /10^-9 l' => 'Cells per Microliter',       # '10^9/L',
+        'xx.x g/dl'      => 'Gram per Deciliter',         # 'g/dL',
         'xx.x fl'        => 'Femtoliter',                 # 'fL'
         'xx.x'           => 'Picogram',                   # 'pg',         #picograms
-        'xxx µmol/l'     => 'µmol/l',
+        'xx.x pg'        => 'Picogram',
+        'xxx µmol/l'     => 'Micromole per Liter',        # 'µmol/l',
+        'xxx Âµmol/l',   => 'Micromole per Liter',
         'ml/min/1.73'    => 'mL/min/1.73',
         'xx.x U/l'       => 'Units per Liter',
         'pg/dl'          => 'Picogram per Deciliter',     #'pg/dL',
         'mg/dl'          => 'Milligram per Deciliter',    #'mg/L',
         'µg/dl'          => 'Microgram per Deciliter',    #'µg/dL',
-        'ng/dl'          => 'Nanogram per Deciliter'      #'ng/L'
+        'ng/dl'          => 'Nanogram per Deciliter',     #'ng/L'
+        'mg/kg stool'    => 'Miligram per Kilogram',
+        'xx.x %'         => 'Percentage'
     );
 
     #say "$str => $unit{$str}" if exists $unit{$str};
@@ -857,13 +895,74 @@ sub dotify_number {
     return
         looks_like_number($tr_val) ? 0 + $tr_val
       : $val eq ''                 ? undef
-      :                              $val;         # coercing to number
+      :                              $val;
 }
 
 sub iso8601_time {
 
     my ( $s, $f ) = split( /\./, gettimeofday );
     return strftime( '%Y-%m-%dT%H:%M:%S.' . $f . '%z', localtime($s) );
+}
+
+sub map_3tr {
+
+    my $str = shift;
+
+    # hemoglobin leucocytes hematokrit mcv mhc thrombocytes neutrophils lymphocytes eosinophils creatinine gfr bilirubin gpt ggt lipase crp iron il6 calprotectin
+    #hemoglobin;routine_lab_values;;text;Hemoglobin;;"xx.x g/dl";number;0;20;;;y;;;;;
+    #leucocytes;routine_lab_values;;text;Leucocytes;;"xx.xx /10^-9 l";number;0;200;;;y;;;;;
+    #hematokrit;routine_lab_values;;text;Hematokrit;;"xx.x %";number;0;100;;;y;;;;;
+    #mcv;routine_lab_values;;text;"Mean red cell volume (MCV)";;"xx.x fl";number;0;200;;;y;;;;;
+    #mhc;routine_lab_values;;text;"Mean red cell haemoglobin (MCH)";;"xx.x pg";number;0;100;;;y;;;;;
+    #thrombocytes;routine_lab_values;;text;Thrombocytes;;"xxxx /10^-9 l";number;0;2000;;;y;;;;;
+    #neutrophils;routine_lab_values;;text;Neutrophils;;"x.xx /10^-9 l";number;0;100;;;;;;;;
+    #lymphocytes;routine_lab_values;;text;Lymphocytes;;"x.xx /10^-9 l";number;0;100;;;;;;;;
+    #eosinophils;routine_lab_values;;text;Eosinophils;;"x.xx /10^-9 l";number;0;100;;;;;;;;
+    #creatinine;routine_lab_values;;text;Creatinine;;"xxx µmol/l";number;0;10000;;;y;;;;;
+    #gfr;routine_lab_values;;text;"GFR CKD-Epi";;"xxx ml/min/1.73";number;0;200;;;y;;;;;
+    #bilirubin;routine_lab_values;;text;Bilirubin;;"xxx.x µmol/l";number;0;10000;;;y;;;;;
+    #gpt;routine_lab_values;;text;GPT;;"xx.x U/l";number;0;10000;;;y;;;;;
+    #ggt;routine_lab_values;;text;gammaGT;;"xx.x U/l";number;0;10000;;;y;;;;;
+    #lipase;routine_lab_values;;text;Lipase;;"xx.x U/l";number;0;10000;;;;;;;;
+    #crp;routine_lab_values;;text;CRP;;"xxx.x mg/l";number;0;1000;;;y;;;;;
+    #iron;routine_lab_values;;text;Iron;;"xx.x µmol/l";number;0;1000;;;;;;;;
+    #il6;routine_lab_values;;text;IL-6;;"xxxx.x ng/l";number;0;10000;;;;;;;;
+    #calprotectin;routine_lab_values;;text;Calprotectin;;"mg/kg stool";integer;;;;;;;;;;
+
+    my $term = {
+        hemoglobin => { 'Hemoglobin Measurement' => { low => 0, high => 20 } },
+        leucocytes => { 'Leukocyte Count'        => { low => 0, high => 200 } },
+        hematokrit => { 'Hematocrit Measurement' => { low => 0, high => 100 } },
+        mcv        =>
+          { 'Erythrocyte Mean Corpuscular Volume' => { low => 0, high => 200 } },
+        mhc => {
+            'Erythrocyte Mean Corpuscular Hemoglobin' =>
+              { low => 0, high => 100 }
+        },
+        thrombocytes => { 'Platelet Count'   => { low => 0, high => 2000 } },
+        neutrophils  => { 'Neutrophil Count' => { low => 0, high => 100 } },
+        lymphocytes  => { 'Lymphocyte Count' => { low => 0, high => 100 } },
+        eosinophils  => { 'Eosinophil Count' => { low => 0, high => 100 } },
+        creatinine => { 'Creatinine Measurement' => { low => 0, high => 10_000 } },
+        gfr => { 'Glomerular Filtration Rate' => { low => 0, high => 200 } },
+        bilirubin =>
+          { 'Total Bilirubin Measurement' => { low => 0, high => 10_000 } },
+        gpt => {
+            'Serum Glutamic Pyruvic Transaminase, CTCAE' =>
+              { low => 0, high => 10_000 }
+        },
+        ggt => {
+            'Serum Gamma Glutamyl Transpeptidase Measurement' =>
+              { low => 0, high => 10_000 }
+        },
+        lipase => { 'Lipase Measurement' => { low => 0, high => 10_000 } },
+        crp => { 'C-Reactive Protein Measurement' => { low => 0, high => 1000 } },
+        iron         => { 'Iron Measurement' => { low => 0, high => 1000 } },
+        il6          => { 'Interleukin-6'    => { low => 0, high => 10_000 } },
+        calprotectin =>
+          { 'Calprotectin Measurement' => { low => 0, high => 150 } }
+    };
+    return exists $term->{$str} ? $term->{$str} : $str;
 }
 
 ########################
