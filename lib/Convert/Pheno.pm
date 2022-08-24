@@ -359,14 +359,7 @@ sub do_redcap2bff {
                 sth         => $sth->{ncit}
             }
         );
-        my $map_3tr = map_3tr($element);
-        my %range   = map { $_ => undef } qw(low high);    # Initialize to undef
-        if ( ref $map_3tr eq 'HASH' ) {
-            my ($key) = keys %{$map_3tr};
-            for my $range (qw (low high)) {
-                $range{$range} = $map_3tr->{$key}{$range};
-            }
-        }
+        my $range = map_range($element);
         $exposure->{measurementValue} = [
             {
                 Quantity => {
@@ -377,8 +370,8 @@ sub do_redcap2bff {
                     referenceRange => {
 
                         #unit => $unit, # Isn't this redundant (see above)???
-                        low  => $range{low},
-                        high => $range{high}
+                        low  => $range->{low},
+                        high => $range->{high}
                     }
                 }
             }
@@ -480,15 +473,7 @@ sub do_redcap2bff {
                 sth         => $sth->{ncit}
             }
         );
-        my $map_3tr = map_3tr($element);
-        my %range   = map { $_ => undef } qw(low high);    # Initialize to undef
-        if ( ref $map_3tr eq 'HASH' ) {
-            my ($key) = keys %{$map_3tr};
-            for my $range (qw (low high)) {
-                $range{$range} = $map_3tr->{$key}{$range};
-            }
-        }
-
+        my $range = map_range($element);
         $measure->{measurementValue} = [
             {
                 Quantity => {
@@ -497,8 +482,8 @@ sub do_redcap2bff {
                     referenceRange => {
 
                         #unit => $unit, # Isn't this redundant (see above)???
-                        low  => $range{low},
-                        high => $range{high}
+                        low  => $range->{low},
+                        high => $range->{high}
                     }
                 }
             }
@@ -939,8 +924,7 @@ sub map_quantity {
     #calprotectin;routine_lab_values;;text;Calprotectin;;"mg/kg stool";integer;;;;;;;;;;
 
     # http://purl.obolibrary.org/obo/NCIT_C64783
-    my $micro = '\x{b5}';
-    my %unit  = (
+    my %unit = (
         'xx.xx /10^-9 l' => 'Cells per Microliter',       # '10^9/L',
         'xx.x g/dl'      => 'Gram per Deciliter',         # 'g/dL',
         'xx.x fl'        => 'Femtoliter',                 # 'fL'
@@ -1059,6 +1043,20 @@ sub map_3tr {
           { 'Smoking Cessation Year' => { low => 1980, high => 2030 } }
     };
     return exists $term->{$str} ? $term->{$str} : $str;
+}
+
+sub map_range {
+
+    my $element = shift;
+    my $map_3tr = map_3tr($element);
+    my $hash   = { map { $_ => undef } qw(low high) };    # Initialize to undef
+    if ( ref $map_3tr eq 'HASH' ) {
+        my ($key) = keys %{$map_3tr};
+        for my $range (qw (low high)) {
+            $hash->{$range} = $map_3tr->{$key}{$range};
+        }
+    }
+    return $hash;
 }
 
 ########################
