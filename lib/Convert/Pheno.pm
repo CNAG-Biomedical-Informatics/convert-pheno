@@ -285,6 +285,7 @@ sub do_redcap2bff {
 
     #( 'Unspecified asthma, uncomplicated', 'Inflamatory Bowel Disease' );
     for my $element (@diseases) {
+
         my $disease;
         if ( $element ne 'Inflamatory Bowel Disease' ) {
             $disease->{diseaseCode} = map_ontology(
@@ -321,18 +322,67 @@ sub do_redcap2bff {
     # =========
 
     $individual->{exposures} = [];
-    for my $element (qw(alcohol)) {
+    my @exposures = (
+        qw (alcohol smoking cigarettes_days cigarettes_years packyears smoking_quit)
+    );
+
+    for my $element (@exposures) {
+        next unless $participant->{$element} ne '';
         my $exposure;
 
-        $exposure->{ageAtExposure}  = undef;
-        $exposure->{date}           = undef;                     #'2010-07-10';
-        $exposure->{duration}       = undef;                     # 'P32Y6M1D';
-        $exposure->{exposureCode}   = map_exposures($element);
-        $exposure->{quantity}{unit} = {
-            id    => $participant->{alcohol},
-            label => $rcd->{alcohol}{_labels}{ $participant->{alcohol} }
-        };
-        $exposure->{quantity}{value} = undef;
+        $exposure->{ageAtExposure} = undef;
+        $exposure->{date}          = undef;          #'2010-07-10';
+        $exposure->{duration}      = undef;          # 'P32Y6M1D';
+        $exposure->{exposureCode}  = map_ontology(
+            {
+                label       => $element,
+                ontology    => 'ncit',
+                labels_true => $self->{print_hidden_labels},
+                sth         => $sth->{ncit}
+            }
+        );
+
+        # We first extract 'unit' and %range' for <measurementValue>
+        my $unit = map_ontology(
+            {
+                label => ( $element eq 'alcohol' || $element eq 'smoking' )
+                ? map_exposures(
+                    {
+                        key => $element,
+                        str =>
+                          $rcd->{$element}{_labels}{ $participant->{$element} }
+                    }
+                  )
+                : $element,
+                ontology    => 'ncit',
+                labels_true => $self->{print_hidden_labels},
+                sth         => $sth->{ncit}
+            }
+        );
+        my $map_3tr = map_3tr($element);
+        my %range   = map { $_ => undef } qw(low high);    # Initialize to undef
+        if ( ref $map_3tr eq 'HASH' ) {
+            my ($key) = keys %{$map_3tr};
+            for my $range (qw (low high)) {
+                $range{$range} = $map_3tr->{$key}{$range};
+            }
+        }
+        $exposure->{measurementValue} = [
+            {
+                Quantity => {
+                    unit  => $unit,
+                    value => dotify_number( $participant->{$element} ),
+                    _note =>
+'In many cases the <value> field shows the REDCap selection not the actual #items',
+                    referenceRange => {
+
+                        #unit => $unit, # Isn't this redundant (see above)???
+                        low  => $range{low},
+                        high => $range{high}
+                    }
+                }
+            }
+        ];
         push @{ $individual->{exposures} }, $exposure;
     }
 
@@ -408,6 +458,8 @@ sub do_redcap2bff {
         qw (leucocytes hemoglobin hematokrit mcv mhc thrombocytes neutrophils lymphocytes eosinophils creatinine gfr bilirubin gpt ggt lipase crp iron il6 calprotectin)
     );
     for my $element (@measures) {
+        next unless $participant->{$element} ne '';
+
         my $measure;
         $measure->{assayCode} = map_ontology(
             {
@@ -419,7 +471,7 @@ sub do_redcap2bff {
         );
         $measure->{date} = undef;    # iso8601_time();
 
-        # We first need to extract a few values for <measurementValue>
+        # We first extract 'unit' and %range' for <measurementValue>
         my $unit = map_ontology(
             {
                 label       => map_quantity( $rcd->{$element}{'Field Note'} ),
@@ -429,7 +481,7 @@ sub do_redcap2bff {
             }
         );
         my $map_3tr = map_3tr($element);
-        my %range   = ();
+        my %range   = map { $_ => undef } qw(low high);    # Initialize to undef
         if ( ref $map_3tr eq 'HASH' ) {
             my ($key) = keys %{$map_3tr};
             for my $range (qw (low high)) {
@@ -444,9 +496,9 @@ sub do_redcap2bff {
                     value          => dotify_number( $participant->{$element} ),
                     referenceRange => {
 
-                        #unit => $unit, # Isn't this redundant???
-                        low  => exists $range{low}  ? $range{low}  : undef,
-                        high => exists $range{high} ? $range{high} : undef
+                        #unit => $unit, # Isn't this redundant (see above)???
+                        low  => $range{low},
+                        high => $range{high}
                     }
                 }
             }
@@ -479,6 +531,9 @@ sub do_redcap2bff {
     # disease, id, members, numSubjects
     my @pedigrees = (qw ( x y ));
     for my $element (@pedigrees) {
+
+        #next unless $participant->{$element} ne '';
+
         my $pedigree;
         $pedigree->{disease}     = {};      # P32Y6M1D
         $pedigree->{id}          = undef;
@@ -497,6 +552,8 @@ sub do_redcap2bff {
     $individual->{phenotypicFeatures} = [];
     my @phenotypicFeatures = qw ( a b);
     for my $element (@phenotypicFeatures) {
+
+        #next unless $participant->{$element} ne '';
         my $phenotypicFeature;
         $phenotypicFeature->{evidence} = undef;    # P32Y6M1D
         $phenotypicFeature->{excluded} =
@@ -509,7 +566,7 @@ sub do_redcap2bff {
         $phenotypicFeature->{severity}    = { id => '', label => '' };
 
         # Add to array
-        push @{ $individual->{phenotypicFeatures} }, $phenotypicFeature;    # SWITCHED OFF on 072622
+        #push @{ $individual->{phenotypicFeatures} }, $phenotypicFeature;    # SWITCHED OFF on 072622
     }
 
     # ===
@@ -541,6 +598,8 @@ sub do_redcap2bff {
     #                                                     }
 
     for my $element (@drugs) {
+
+        #next unless $participant->{$element} ne '';
         my $treatment;
 
         my $tmp_var = $element . '_status';
@@ -801,8 +860,7 @@ sub map_ontology {
     return $seen->{$tmp_label} if exists $seen->{$tmp_label};
 
     # return if we know 'a priori' that the label won't exist
-    return { id => 'NCIT:NA', label => $tmp_label }
-      if $tmp_label =~ m/xx/;
+    return { id => 'NCIT:NA', label => $tmp_label } if $tmp_label =~ m/xx/;
 
     # Ok, now it's time to start the subroutine
     my $arg                 = shift;
@@ -824,16 +882,29 @@ sub map_ontology {
 
 sub map_exposures {
 
-    my $str      = shift;
+    #alcohol;anamnesis;;radio;"Alcohol drinking habits";"0, Non-drinker | 1, Ex-drinker | 2, occasional drinking | 3, regular drinking | 4, unknown";;;;;;;y;;;;;
+    #smoking;anamnesis;;radio;"Smoking habits";"0, Never smoked | 1, Ex-smoker | 2, Current smoker";;;;;;;y;;;;;
+
+    my $arg      = shift;
+    my $key      = $arg->{key};
+    my $str      = $arg->{str};
     my $exposure = {
-        cigarretes => {
-            cigarettes_days                => 'NCIT: C127064',
-            'Years Have Smoked Cigarettes' => 'NCIT:C127063',
-            packyears                      => 'NCIT: C73993'
+        smoking => {
+            'Never smoked'   => 'Never Smoker',
+            'Ex-smoker'      => 'Former Smoker',
+            'Current smoker' => 'Current Smoker'
         },
-        alcohol => { id => 'NCIT:C16273', label => 'alcohol consumption' }
+        alcohol => {
+            'Non-drinker' => 'Non-Drinker',
+            'Ex-drinker' => 'Current non-drinker with Past Alcohol Consumption',
+            'occasional drinking' =>
+'Alcohol Consumption Equal to or Less than 2 Drinks per Day for Men and 1 Drink or Less per Day for Women',
+            'regular drinking' =>
+'Alcohol Consumption More than 2 Drinks per Day for Men and More than 1 Drink per Day for Women',
+            unknown => 'Unknown'
+        }
     };
-    return $exposure->{$str};
+    return exists $exposure->{$key} ? $exposure->{$key}{$str} : $str;
 }
 
 sub map_quantity {
@@ -914,30 +985,30 @@ sub iso8601_time {
 
 sub map_3tr {
 
-    my $str = shift;
-
-    # hemoglobin leucocytes hematokrit mcv mhc thrombocytes neutrophils lymphocytes eosinophils creatinine gfr bilirubin gpt ggt lipase crp iron il6 calprotectin
-    #hemoglobin;routine_lab_values;;text;Hemoglobin;;"xx.x g/dl";number;0;20;;;y;;;;;
-    #leucocytes;routine_lab_values;;text;Leucocytes;;"xx.xx /10^-9 l";number;0;200;;;y;;;;;
-    #hematokrit;routine_lab_values;;text;Hematokrit;;"xx.x %";number;0;100;;;y;;;;;
-    #mcv;routine_lab_values;;text;"Mean red cell volume (MCV)";;"xx.x fl";number;0;200;;;y;;;;;
-    #mhc;routine_lab_values;;text;"Mean red cell haemoglobin (MCH)";;"xx.x pg";number;0;100;;;y;;;;;
-    #thrombocytes;routine_lab_values;;text;Thrombocytes;;"xxxx /10^-9 l";number;0;2000;;;y;;;;;
-    #neutrophils;routine_lab_values;;text;Neutrophils;;"x.xx /10^-9 l";number;0;100;;;;;;;;
-    #lymphocytes;routine_lab_values;;text;Lymphocytes;;"x.xx /10^-9 l";number;0;100;;;;;;;;
-    #eosinophils;routine_lab_values;;text;Eosinophils;;"x.xx /10^-9 l";number;0;100;;;;;;;;
-    #creatinine;routine_lab_values;;text;Creatinine;;"xxx µmol/l";number;0;10000;;;y;;;;;
-    #gfr;routine_lab_values;;text;"GFR CKD-Epi";;"xxx ml/min/1.73";number;0;200;;;y;;;;;
-    #bilirubin;routine_lab_values;;text;Bilirubin;;"xxx.x µmol/l";number;0;10000;;;y;;;;;
-    #gpt;routine_lab_values;;text;GPT;;"xx.x U/l";number;0;10000;;;y;;;;;
-    #ggt;routine_lab_values;;text;gammaGT;;"xx.x U/l";number;0;10000;;;y;;;;;
-    #lipase;routine_lab_values;;text;Lipase;;"xx.x U/l";number;0;10000;;;;;;;;
-    #crp;routine_lab_values;;text;CRP;;"xxx.x mg/l";number;0;1000;;;y;;;;;
-    #iron;routine_lab_values;;text;Iron;;"xx.x µmol/l";number;0;1000;;;;;;;;
-    #il6;routine_lab_values;;text;IL-6;;"xxxx.x ng/l";number;0;10000;;;;;;;;
-    #calprotectin;routine_lab_values;;text;Calprotectin;;"mg/kg stool";integer;;;;;;;;;;
-
+    my $str  = shift;
     my $term = {
+
+        # hemoglobin leucocytes hematokrit mcv mhc thrombocytes neutrophils lymphocytes eosinophils creatinine gfr bilirubin gpt ggt lipase crp iron il6 calprotectin
+        #hemoglobin;routine_lab_values;;text;Hemoglobin;;"xx.x g/dl";number;0;20;;;y;;;;;
+        #leucocytes;routine_lab_values;;text;Leucocytes;;"xx.xx /10^-9 l";number;0;200;;;y;;;;;
+        #hematokrit;routine_lab_values;;text;Hematokrit;;"xx.x %";number;0;100;;;y;;;;;
+        #mcv;routine_lab_values;;text;"Mean red cell volume (MCV)";;"xx.x fl";number;0;200;;;y;;;;;
+        #mhc;routine_lab_values;;text;"Mean red cell haemoglobin (MCH)";;"xx.x pg";number;0;100;;;y;;;;;
+        #thrombocytes;routine_lab_values;;text;Thrombocytes;;"xxxx /10^-9 l";number;0;2000;;;y;;;;;
+        #neutrophils;routine_lab_values;;text;Neutrophils;;"x.xx /10^-9 l";number;0;100;;;;;;;;
+        #lymphocytes;routine_lab_values;;text;Lymphocytes;;"x.xx /10^-9 l";number;0;100;;;;;;;;
+        #eosinophils;routine_lab_values;;text;Eosinophils;;"x.xx /10^-9 l";number;0;100;;;;;;;;
+        #creatinine;routine_lab_values;;text;Creatinine;;"xxx µmol/l";number;0;10000;;;y;;;;;
+        #gfr;routine_lab_values;;text;"GFR CKD-Epi";;"xxx ml/min/1.73";number;0;200;;;y;;;;;
+        #bilirubin;routine_lab_values;;text;Bilirubin;;"xxx.x µmol/l";number;0;10000;;;y;;;;;
+        #gpt;routine_lab_values;;text;GPT;;"xx.x U/l";number;0;10000;;;y;;;;;
+        #ggt;routine_lab_values;;text;gammaGT;;"xx.x U/l";number;0;10000;;;y;;;;;
+        #lipase;routine_lab_values;;text;Lipase;;"xx.x U/l";number;0;10000;;;;;;;;
+        #crp;routine_lab_values;;text;CRP;;"xxx.x mg/l";number;0;1000;;;y;;;;;
+        #iron;routine_lab_values;;text;Iron;;"xx.x µmol/l";number;0;1000;;;;;;;;
+        #il6;routine_lab_values;;text;IL-6;;"xxxx.x ng/l";number;0;10000;;;;;;;;
+        #calprotectin;routine_lab_values;;text;Calprotectin;;"mg/kg stool";integer;;;;;;;;;;
+
         hemoglobin => { 'Hemoglobin Measurement' => { low => 0, high => 20 } },
         leucocytes => { 'Leukocyte Count'        => { low => 0, high => 200 } },
         hematokrit => { 'Hematocrit Measurement' => { low => 0, high => 100 } },
@@ -971,7 +1042,21 @@ sub map_3tr {
         iron         => { 'Iron Measurement' => { low => 0, high => 1000 } },
         il6          => { 'Interleukin-6'    => { low => 0, high => 10_000 } },
         calprotectin =>
-          { 'Calprotectin Measurement' => { low => 0, high => 150 } }
+          { 'Calprotectin Measurement' => { low => 0, high => 150 } },
+
+        #cigarettes_days;anamnesis;;text;"On average, how many cigarettes do/did you smoke per day?";;;integer;0;300;;"[smoking] = '2' or [smoking] = '1'";;;;;;
+        #cigarettes_years;anamnesis;;text;"For how many years have you been smoking/did you smoke?";;;integer;0;100;;"[smoking] = '2' or [smoking] = '1'";;;;;;
+        #packyears;anamnesis;;text;"Pack Years";;;integer;0;300;;"[smoking] = '2' or [smoking] = '1'";;;;;;
+        #smoking_quit;anamnesis;;text;"When did you quit smoking?";;year;integer;1980;2030;;"[smoking] = '2'";;;;;;
+        cigarettes_days => {
+            'Average Number Cigarettes Smoked a Day' =>
+              { low => 0, high => 300 }
+        },
+        cigarettes_years =>
+          { 'Total Years Have Smoked Cigarettes' => { low => 0, high => 100 } },
+        packyears    => { 'Pack Year' => { low => 0, high => 300 } },
+        smoking_quit =>
+          { 'Smoking Cessation Year' => { low => 1980, high => 2030 } }
     };
     return exists $term->{$str} ? $term->{$str} : $str;
 }
