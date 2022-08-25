@@ -142,7 +142,9 @@ sub do_pxf2bff {
             labels_true => $self->{print_hidden_labels},
             sth         => $sth->{ncit}
         }
-    ) if exists $phenopacket->{subject}{sex};
+      )
+      if ( exists $phenopacket->{subject}{sex}
+        && $phenopacket->{subject}{sex} ne '' );
 
     ##################################
     # END MAPPING TO BEACON V2 TERMS #
@@ -224,11 +226,21 @@ sub redcap2bff {
 
     my $self = shift;
 
-    # Read data from REDCap export
+    # Read and load data from REDCap export
     my $data = read_redcap_export( $self->{in_file} );
 
-    # Load (or read) REDCap CSV dictionary
-    my $data_rcd = load_redcap_dictionary( $self->{redcap_dictionary} );
+    # $data = [
+    #       {
+    #         'abdominal_mass' => '0',
+    #         'abdominal_pain' => '1',
+    #         'age' => '2',
+    #         'age_first_diagnosis' => '0',
+    #         'alcohol' => '4',
+    #        }, {},,,
+    #        ]
+
+    # Read and load REDCap CSV dictionary
+    my $data_rcd = read_redcap_dictionary( $self->{redcap_dictionary} );
 
     print Dumper $data_rcd if ( $self->{debug} && $self->{debug} > 1 );
 
@@ -267,6 +279,14 @@ sub do_redcap2bff {
     ####################################
 
     my $participant = $data;
+
+    #       {
+    #         'abdominal_mass' => '0',
+    #         'abdominal_pain' => '1',
+    #         'age' => '2',
+    #         'age_first_diagnosis' => '0',
+    #         'alcohol' => '4',
+    #        }, {},,,
 
     print Dumper $rcd if $self->{debug};
 
@@ -314,8 +334,7 @@ sub do_redcap2bff {
     #print Dumper $participant and die;
     $individual->{ethnicity} =
       map_ethnicity( $rcd->{ethnicity}{_labels}{ $participant->{ethnicity} } )
-      if ( exists $participant->{ethnicity}
-        && $participant->{ethnicity} ne '' );    # Note that the value can be zero
+      if $participant->{ethnicity} ne '';
 
     # =========
     # exposures
@@ -327,7 +346,7 @@ sub do_redcap2bff {
     );
 
     for my $element (@exposures) {
-        next unless $participant->{$element} ne '';
+        next if $participant->{$element} eq '';
         my $exposure;
 
         $exposure->{ageAtExposure} = undef;
@@ -364,7 +383,8 @@ sub do_redcap2bff {
             {
                 Quantity => {
                     unit  => $unit,
-                    value => dotify_number( $participant->{$element} ),
+                    value =>
+                      dotify_and_coerce_number( $participant->{$element} ),
                     _note =>
 'In many cases the <value> field shows the REDCap selection not the actual #items',
                     referenceRange => {
@@ -389,18 +409,31 @@ sub do_redcap2bff {
     # id
     # ==
 
-    $individual->{id} = $participant->{first_name}
-      if ( exists $participant->{first_name} && $participant->{first_name} );
     $individual->{id} = $participant->{ids_complete}
-      if $participant->{ids_complete};
+      if $participant->{ids_complete} ne '';
 
     # ====
     # info
     # ====
 
-    for (qw(study_id redcap_event_name dob)) {
-        $individual->{info}{$_} = $participant->{$_}
-          if exists $participant->{$_};
+    my @variables =
+      qw(study_id redcap_event_name dob age first_name last_name consent consent_date consent_noneu consent_devices consent_recontact consent_week2_endo education zipcode consents_and_demographics_complete);
+    for my $var (@variables) {
+        $individual->{info}{$var} =
+            $var eq 'age' ? 'P' . $participant->{$var} . 'Y'
+          : $var eq 'education'
+          ? $rcd->{education}{_labels}{ $participant->{education} }
+          :
+
+          #$var =~ m/^consent/ ? { $participant->{$var} => $rcd->{$var}}
+          $var =~ m/^consent/
+          ? {
+            value => dotify_and_coerce_number( $participant->{$var} ),
+            map { $_ => $rcd->{$var}{$_} }
+              ( "Field Label", "Field Note", "Field Type" )
+          }
+          : $participant->{$var}
+          if $participant->{$var} ne '';
     }
 
     # =========================
@@ -451,7 +484,7 @@ sub do_redcap2bff {
         qw (leucocytes hemoglobin hematokrit mcv mhc thrombocytes neutrophils lymphocytes eosinophils creatinine gfr bilirubin gpt ggt lipase crp iron il6 calprotectin)
     );
     for my $element (@measures) {
-        next unless $participant->{$element} ne '';
+        next if $participant->{$element} eq '';
 
         my $measure;
         $measure->{assayCode} = map_ontology(
@@ -477,8 +510,9 @@ sub do_redcap2bff {
         $measure->{measurementValue} = [
             {
                 Quantity => {
-                    unit           => $unit,
-                    value          => dotify_number( $participant->{$element} ),
+                    unit  => $unit,
+                    value =>
+                      dotify_and_coerce_number( $participant->{$element} ),
                     referenceRange => {
 
                         #unit => $unit, # Isn't this redundant (see above)???
@@ -517,8 +551,6 @@ sub do_redcap2bff {
     my @pedigrees = (qw ( x y ));
     for my $element (@pedigrees) {
 
-        #next unless $participant->{$element} ne '';
-
         my $pedigree;
         $pedigree->{disease}     = {};      # P32Y6M1D
         $pedigree->{id}          = undef;
@@ -538,7 +570,6 @@ sub do_redcap2bff {
     my @phenotypicFeatures = qw ( a b);
     for my $element (@phenotypicFeatures) {
 
-        #next unless $participant->{$element} ne '';
         my $phenotypicFeature;
         $phenotypicFeature->{evidence} = undef;    # P32Y6M1D
         $phenotypicFeature->{excluded} =
@@ -566,7 +597,7 @@ sub do_redcap2bff {
             sth         => $sth->{ncit}
 
         }
-    ) if ( exists $participant->{sex} && $participant->{sex} );
+    ) if $participant->{sex} ne '';
 
     # ==========
     # treatments
@@ -583,8 +614,6 @@ sub do_redcap2bff {
     #                                                     }
 
     for my $element (@drugs) {
-
-        #next unless $participant->{$element} ne '';
         my $treatment;
 
         my $tmp_var = $element . '_status';
@@ -631,11 +660,11 @@ sub redcap2pxf {
     return array_dispatcher($self);
 }
 
-########################
-########################
-#  READ REDCAP EXPORT  #
-########################
-########################
+#############################
+#############################
+#  READ/LOAD REDCAP EXPORT  #
+#############################
+#############################
 
 sub read_redcap_export {
 
@@ -694,13 +723,13 @@ sub read_redcap_export {
     return $data;
 }
 
-############################
-############################
-#  LOAD REDCAP DICTIONARY  #
-############################
-############################
+#################################
+#################################
+#  READ/LOAD REDCAP DICTIONARY  #
+#################################
+#################################
 
-sub load_redcap_dictionary {
+sub read_redcap_dictionary {
 
     my $in_file = shift;
 
@@ -838,7 +867,7 @@ sub map_ontology {
     my $map_3tr   = 1;                # Boolean
     if ($map_3tr) {
         $tmp_label = map_3tr($tmp_label);
-        ($tmp_label) = keys %{$tmp_label} if ref $tmp_label eq 'HASH';    # Only 1 key
+        ($tmp_label) = keys %{$tmp_label} if ref $tmp_label eq ref {};    # Only 1 key
     }
 
     # return if exists
@@ -947,7 +976,7 @@ sub map_quantity {
     return exists $unit{$str} ? $unit{$str} : $str;
 }
 
-sub dotify_number {
+sub dotify_and_coerce_number {
 
     my $val = shift;
     ( my $tr_val = $val ) =~ tr/,/./;
@@ -1049,14 +1078,14 @@ sub map_range {
 
     my $element = shift;
     my $map_3tr = map_3tr($element);
-    my $hash   = { map { $_ => undef } qw(low high) };    # Initialize to undef
-    if ( ref $map_3tr eq 'HASH' ) {
+    my $hashref = { map { $_ => undef } qw(low high) };    # Initialize to undef
+    if ( ref $map_3tr eq ref {} ) {
         my ($key) = keys %{$map_3tr};
         for my $range (qw (low high)) {
-            $hash->{$range} = $map_3tr->{$key}{$range};
+            $hashref->{$range} = $map_3tr->{$key}{$range};
         }
     }
-    return $hash;
+    return $hashref;
 }
 
 ########################
@@ -1122,6 +1151,8 @@ sub prepare_query_SQLite {
     my $self  = shift;
     my $field = 'exact_match';
 
+    # dbh = "Database Handle"
+    # sth = "Statement Handle"
     for my $ontology (@sqlites) {    #global
         my $db         = uc($ontology) . '_table';
         my $dbh        = $self->{dbh}{$ontology};
@@ -1180,7 +1211,7 @@ sub array_dispatcher {
       ? read_json( $self->{in_file} )
       : $self->{data};
 
-    # Define the methods to call
+    # Define the methods to call (naming 'func' to avoid confussion with $self->{method})
     my %func = (
         pxf2bff    => \&do_pxf2bff,
         bff2pxf    => \&do_bff2pxf,
@@ -1199,13 +1230,14 @@ sub array_dispatcher {
         for ( @{$in_data} ) {
             say "ARRAY ELEMENT" if $self->{debug};
 
-            # We DELIBERATLEY separate array elements from $self
-            push @{$out_data}, $func{ $self->{method} }->( $self, $_ );
+            # In $self->{data} we have all participants data, but,
+            # WE DELIBERATELY SEPARATE ARRAY ELEMENTS FROM $self->{data}
+            push @{$out_data}, $func{ $self->{method} }->( $self, $_ );    # Method
         }
     }
     else {
         say "$self->{method}: NOT ARRAY" if $self->{debug};
-        $out_data = $func{ $self->{method} }->( $self, $_ );
+        $out_data = $func{ $self->{method} }->( $self, $_ );               # Method
     }
 
     # Close connections ONCE

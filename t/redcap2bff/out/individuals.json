@@ -67,7 +67,50 @@
       "geographicOrigin" : null,
       "id" : "2",
       "info" : {
-         "dob" : "",
+         "age" : "P2Y",
+         "consent" : {
+            "Field Label" : "Patient consented to BFU+/CED?",
+            "Field Note" : "",
+            "Field Type" : "yesno",
+            "value" : 1
+         },
+         "consent_date" : {
+            "Field Label" : "Date of consent",
+            "Field Note" : "",
+            "Field Type" : "text",
+            "value" : "25.10.2020"
+         },
+         "consent_devices" : {
+            "Field Label" : "Patient consented to device studies?",
+            "Field Note" : "",
+            "Field Type" : "yesno",
+            "value" : 0
+         },
+         "consent_noneu" : {
+            "Field Label" : "Patient consented to transfer of data/samples to non-EU countries?",
+            "Field Note" : "",
+            "Field Type" : "yesno",
+            "value" : 0
+         },
+         "consent_recontact" : {
+            "Field Label" : "Patient consented for the possibility to be recontacted for study purposes?",
+            "Field Note" : "",
+            "Field Type" : "yesno",
+            "value" : 1
+         },
+         "consent_week2_endo" : {
+            "Field Label" : "Patient consented for endoscopy at week 2?",
+            "Field Note" : "",
+            "Field Type" : "yesno",
+            "value" : 0
+         },
+         "consents_and_demographics_complete" : {
+            "Field Label" : null,
+            "Field Note" : null,
+            "Field Type" : null,
+            "value" : 2
+         },
+         "education" : "high-school diploma (Fachhochschulreife/Abitur)",
          "redcap_event_name" : "week_0_arm_1",
          "study_id" : "107"
       },
@@ -555,7 +598,6 @@
       "exposures" : [],
       "geographicOrigin" : null,
       "info" : {
-         "dob" : "",
          "redcap_event_name" : "week_14_arm_1",
          "study_id" : "107"
       },
@@ -1027,7 +1069,6 @@
       "exposures" : [],
       "geographicOrigin" : null,
       "info" : {
-         "dob" : "",
          "redcap_event_name" : "week_2_arm_1",
          "study_id" : "107"
       },
@@ -1546,7 +1587,49 @@
       "geographicOrigin" : null,
       "id" : "2",
       "info" : {
-         "dob" : "",
+         "age" : "P2Y",
+         "consent" : {
+            "Field Label" : "Patient consented to BFU+/CED?",
+            "Field Note" : "",
+            "Field Type" : "yesno",
+            "value" : 1
+         },
+         "consent_date" : {
+            "Field Label" : "Date of consent",
+            "Field Note" : "",
+            "Field Type" : "text",
+            "value" : "24.10.2020"
+         },
+         "consent_devices" : {
+            "Field Label" : "Patient consented to device studies?",
+            "Field Note" : "",
+            "Field Type" : "yesno",
+            "value" : 1
+         },
+         "consent_noneu" : {
+            "Field Label" : "Patient consented to transfer of data/samples to non-EU countries?",
+            "Field Note" : "",
+            "Field Type" : "yesno",
+            "value" : 1
+         },
+         "consent_recontact" : {
+            "Field Label" : "Patient consented for the possibility to be recontacted for study purposes?",
+            "Field Note" : "",
+            "Field Type" : "yesno",
+            "value" : 1
+         },
+         "consent_week2_endo" : {
+            "Field Label" : "Patient consented for endoscopy at week 2?",
+            "Field Note" : "",
+            "Field Type" : "yesno",
+            "value" : 0
+         },
+         "consents_and_demographics_complete" : {
+            "Field Label" : null,
+            "Field Note" : null,
+            "Field Type" : null,
+            "value" : 1
+         },
          "redcap_event_name" : "week_0_arm_1",
          "study_id" : "125"
       },
@@ -2022,7 +2105,6 @@
       "exposures" : [],
       "geographicOrigin" : null,
       "info" : {
-         "dob" : "",
          "redcap_event_name" : "week_14_arm_1",
          "study_id" : "125"
       },
@@ -2494,7 +2576,6 @@
       "exposures" : [],
       "geographicOrigin" : null,
       "info" : {
-         "dob" : "",
          "redcap_event_name" : "week_2_arm_1",
          "study_id" : "125"
       },
@@ -2957,7 +3038,6 @@
       "exposures" : [],
       "geographicOrigin" : null,
       "info" : {
-         "dob" : "",
          "redcap_event_name" : "week_26_arm_1",
          "study_id" : "125"
       },
@@ -3420,7 +3500,6 @@
       "exposures" : [],
       "geographicOrigin" : null,
       "info" : {
-         "dob" : "",
          "redcap_event_name" : "week_52_arm_1",
          "study_id" : "125"
       },
@@ -4032,7 +4111,6 @@
       "exposures" : [],
       "geographicOrigin" : null,
       "info" : {
-         "dob" : "",
          "redcap_event_name" : "week_78_arm_1",
          "study_id" : "125"
       },
@@ -4663,7 +4741,49 @@
       "geographicOrigin" : null,
       "id" : "2",
       "info" : {
-         "dob" : "",
+         "age" : "P6Y",
+         "consent" : {
+            "Field Label" : "Patient consented to BFU+/CED?",
+            "Field Note" : "",
+            "Field Type" : "yesno",
+            "value" : 1
+         },
+         "consent_date" : {
+            "Field Label" : "Date of consent",
+            "Field Note" : "",
+            "Field Type" : "text",
+            "value" : "18.12.2020"
+         },
+         "consent_devices" : {
+            "Field Label" : "Patient consented to device studies?",
+            "Field Note" : "",
+            "Field Type" : "yesno",
+            "value" : 0
+         },
+         "consent_noneu" : {
+            "Field Label" : "Patient consented to transfer of data/samples to non-EU countries?",
+            "Field Note" : "",
+            "Field Type" : "yesno",
+            "value" : 1
+         },
+         "consent_recontact" : {
+            "Field Label" : "Patient consented for the possibility to be recontacted for study purposes?",
+            "Field Note" : "",
+            "Field Type" : "yesno",
+            "value" : 1
+         },
+         "consent_week2_endo" : {
+            "Field Label" : "Patient consented for endoscopy at week 2?",
+            "Field Note" : "",
+            "Field Type" : "yesno",
+            "value" : 0
+         },
+         "consents_and_demographics_complete" : {
+            "Field Label" : null,
+            "Field Note" : null,
+            "Field Type" : null,
+            "value" : 1
+         },
          "redcap_event_name" : "week_0_arm_1",
          "study_id" : "215"
       },
@@ -5151,7 +5271,6 @@
       "exposures" : [],
       "geographicOrigin" : null,
       "info" : {
-         "dob" : "",
          "redcap_event_name" : "week_14_arm_1",
          "study_id" : "215"
       },
@@ -5623,7 +5742,6 @@
       "exposures" : [],
       "geographicOrigin" : null,
       "info" : {
-         "dob" : "",
          "redcap_event_name" : "week_2_arm_1",
          "study_id" : "215"
       },
@@ -6058,7 +6176,6 @@
       "exposures" : [],
       "geographicOrigin" : null,
       "info" : {
-         "dob" : "",
          "redcap_event_name" : "week_26_arm_1",
          "study_id" : "215"
       },
@@ -6493,7 +6610,6 @@
       "exposures" : [],
       "geographicOrigin" : null,
       "info" : {
-         "dob" : "",
          "redcap_event_name" : "week_52_arm_1",
          "study_id" : "215"
       },
@@ -7105,7 +7221,6 @@
       "exposures" : [],
       "geographicOrigin" : null,
       "info" : {
-         "dob" : "",
          "redcap_event_name" : "week_78_arm_1",
          "study_id" : "215"
       },
@@ -7680,7 +7795,49 @@
       "geographicOrigin" : null,
       "id" : "1",
       "info" : {
-         "dob" : "",
+         "age" : "P7Y",
+         "consent" : {
+            "Field Label" : "Patient consented to BFU+/CED?",
+            "Field Note" : "",
+            "Field Type" : "yesno",
+            "value" : 1
+         },
+         "consent_date" : {
+            "Field Label" : "Date of consent",
+            "Field Note" : "",
+            "Field Type" : "text",
+            "value" : "02.12.2021"
+         },
+         "consent_devices" : {
+            "Field Label" : "Patient consented to device studies?",
+            "Field Note" : "",
+            "Field Type" : "yesno",
+            "value" : 0
+         },
+         "consent_noneu" : {
+            "Field Label" : "Patient consented to transfer of data/samples to non-EU countries?",
+            "Field Note" : "",
+            "Field Type" : "yesno",
+            "value" : 1
+         },
+         "consent_recontact" : {
+            "Field Label" : "Patient consented for the possibility to be recontacted for study purposes?",
+            "Field Note" : "",
+            "Field Type" : "yesno",
+            "value" : 1
+         },
+         "consent_week2_endo" : {
+            "Field Label" : "Patient consented for endoscopy at week 2?",
+            "Field Note" : "",
+            "Field Type" : "yesno",
+            "value" : 0
+         },
+         "consents_and_demographics_complete" : {
+            "Field Label" : null,
+            "Field Note" : null,
+            "Field Type" : null,
+            "value" : 1
+         },
          "redcap_event_name" : "week_0_arm_1",
          "study_id" : "257"
       },
@@ -8296,7 +8453,6 @@
       "exposures" : [],
       "geographicOrigin" : null,
       "info" : {
-         "dob" : "",
          "redcap_event_name" : "week_14_arm_1",
          "study_id" : "257"
       },
@@ -8899,7 +9055,6 @@
       "exposures" : [],
       "geographicOrigin" : null,
       "info" : {
-         "dob" : "",
          "redcap_event_name" : "week_2_arm_1",
          "study_id" : "257"
       },
@@ -9502,7 +9657,6 @@
       "exposures" : [],
       "geographicOrigin" : null,
       "info" : {
-         "dob" : "",
          "redcap_event_name" : "week_26_arm_1",
          "study_id" : "257"
       },
@@ -10189,7 +10343,49 @@
       "geographicOrigin" : null,
       "id" : "2",
       "info" : {
-         "dob" : "",
+         "age" : "P1Y",
+         "consent" : {
+            "Field Label" : "Patient consented to BFU+/CED?",
+            "Field Note" : "",
+            "Field Type" : "yesno",
+            "value" : 1
+         },
+         "consent_date" : {
+            "Field Label" : "Date of consent",
+            "Field Note" : "",
+            "Field Type" : "text",
+            "value" : "07.01.2021"
+         },
+         "consent_devices" : {
+            "Field Label" : "Patient consented to device studies?",
+            "Field Note" : "",
+            "Field Type" : "yesno",
+            "value" : 0
+         },
+         "consent_noneu" : {
+            "Field Label" : "Patient consented to transfer of data/samples to non-EU countries?",
+            "Field Note" : "",
+            "Field Type" : "yesno",
+            "value" : 0
+         },
+         "consent_recontact" : {
+            "Field Label" : "Patient consented for the possibility to be recontacted for study purposes?",
+            "Field Note" : "",
+            "Field Type" : "yesno",
+            "value" : 0
+         },
+         "consent_week2_endo" : {
+            "Field Label" : "Patient consented for endoscopy at week 2?",
+            "Field Note" : "",
+            "Field Type" : "yesno",
+            "value" : 0
+         },
+         "consents_and_demographics_complete" : {
+            "Field Label" : null,
+            "Field Note" : null,
+            "Field Type" : null,
+            "value" : 1
+         },
          "redcap_event_name" : "week_0_arm_1",
          "study_id" : "275"
       },
@@ -10665,7 +10861,6 @@
       "exposures" : [],
       "geographicOrigin" : null,
       "info" : {
-         "dob" : "",
          "redcap_event_name" : "week_14_arm_1",
          "study_id" : "275"
       },
@@ -11109,7 +11304,6 @@
       "exposures" : [],
       "geographicOrigin" : null,
       "info" : {
-         "dob" : "",
          "redcap_event_name" : "week_2_arm_1",
          "study_id" : "275"
       },
@@ -11572,7 +11766,6 @@
       "exposures" : [],
       "geographicOrigin" : null,
       "info" : {
-         "dob" : "",
          "redcap_event_name" : "week_52_arm_1",
          "study_id" : "275"
       },
@@ -12265,7 +12458,49 @@
       "geographicOrigin" : null,
       "id" : "2",
       "info" : {
-         "dob" : "",
+         "age" : "P2Y",
+         "consent" : {
+            "Field Label" : "Patient consented to BFU+/CED?",
+            "Field Note" : "",
+            "Field Type" : "yesno",
+            "value" : 1
+         },
+         "consent_date" : {
+            "Field Label" : "Date of consent",
+            "Field Note" : "",
+            "Field Type" : "text",
+            "value" : "05.01.2021"
+         },
+         "consent_devices" : {
+            "Field Label" : "Patient consented to device studies?",
+            "Field Note" : "",
+            "Field Type" : "yesno",
+            "value" : 1
+         },
+         "consent_noneu" : {
+            "Field Label" : "Patient consented to transfer of data/samples to non-EU countries?",
+            "Field Note" : "",
+            "Field Type" : "yesno",
+            "value" : 1
+         },
+         "consent_recontact" : {
+            "Field Label" : "Patient consented for the possibility to be recontacted for study purposes?",
+            "Field Note" : "",
+            "Field Type" : "yesno",
+            "value" : 1
+         },
+         "consent_week2_endo" : {
+            "Field Label" : "Patient consented for endoscopy at week 2?",
+            "Field Note" : "",
+            "Field Type" : "yesno",
+            "value" : 0
+         },
+         "consents_and_demographics_complete" : {
+            "Field Label" : null,
+            "Field Note" : null,
+            "Field Type" : null,
+            "value" : 1
+         },
          "redcap_event_name" : "week_0_arm_1",
          "study_id" : "305"
       },
@@ -12789,7 +13024,6 @@
       "exposures" : [],
       "geographicOrigin" : null,
       "info" : {
-         "dob" : "",
          "redcap_event_name" : "week_26_arm_1",
          "study_id" : "305"
       },
@@ -13252,7 +13486,6 @@
       "exposures" : [],
       "geographicOrigin" : null,
       "info" : {
-         "dob" : "",
          "redcap_event_name" : "week_52_arm_1",
          "study_id" : "305"
       },
@@ -13911,7 +14144,49 @@
       "geographicOrigin" : null,
       "id" : "2",
       "info" : {
-         "dob" : "",
+         "age" : "P4Y",
+         "consent" : {
+            "Field Label" : "Patient consented to BFU+/CED?",
+            "Field Note" : "",
+            "Field Type" : "yesno",
+            "value" : 1
+         },
+         "consent_date" : {
+            "Field Label" : "Date of consent",
+            "Field Note" : "",
+            "Field Type" : "text",
+            "value" : "07.01.2021"
+         },
+         "consent_devices" : {
+            "Field Label" : "Patient consented to device studies?",
+            "Field Note" : "",
+            "Field Type" : "yesno",
+            "value" : 1
+         },
+         "consent_noneu" : {
+            "Field Label" : "Patient consented to transfer of data/samples to non-EU countries?",
+            "Field Note" : "",
+            "Field Type" : "yesno",
+            "value" : 1
+         },
+         "consent_recontact" : {
+            "Field Label" : "Patient consented for the possibility to be recontacted for study purposes?",
+            "Field Note" : "",
+            "Field Type" : "yesno",
+            "value" : 1
+         },
+         "consent_week2_endo" : {
+            "Field Label" : "Patient consented for endoscopy at week 2?",
+            "Field Note" : "",
+            "Field Type" : "yesno",
+            "value" : 0
+         },
+         "consents_and_demographics_complete" : {
+            "Field Label" : null,
+            "Field Note" : null,
+            "Field Type" : null,
+            "value" : 1
+         },
          "redcap_event_name" : "week_0_arm_1",
          "study_id" : "365"
       },
@@ -14359,7 +14634,6 @@
       "exposures" : [],
       "geographicOrigin" : null,
       "info" : {
-         "dob" : "",
          "redcap_event_name" : "week_14_arm_1",
          "study_id" : "365"
       },
@@ -14831,7 +15105,6 @@
       "exposures" : [],
       "geographicOrigin" : null,
       "info" : {
-         "dob" : "",
          "redcap_event_name" : "week_2_arm_1",
          "study_id" : "365"
       },
@@ -15294,7 +15567,6 @@
       "exposures" : [],
       "geographicOrigin" : null,
       "info" : {
-         "dob" : "",
          "redcap_event_name" : "week_26_arm_1",
          "study_id" : "365"
       },
@@ -15785,7 +16057,6 @@
       "exposures" : [],
       "geographicOrigin" : null,
       "info" : {
-         "dob" : "",
          "redcap_event_name" : "week_52_arm_1",
          "study_id" : "365"
       },
@@ -16444,7 +16715,49 @@
       "geographicOrigin" : null,
       "id" : "1",
       "info" : {
-         "dob" : "",
+         "age" : "P1Y",
+         "consent" : {
+            "Field Label" : "Patient consented to BFU+/CED?",
+            "Field Note" : "",
+            "Field Type" : "yesno",
+            "value" : 1
+         },
+         "consent_date" : {
+            "Field Label" : "Date of consent",
+            "Field Note" : "",
+            "Field Type" : "text",
+            "value" : "03.01.2021"
+         },
+         "consent_devices" : {
+            "Field Label" : "Patient consented to device studies?",
+            "Field Note" : "",
+            "Field Type" : "yesno",
+            "value" : 0
+         },
+         "consent_noneu" : {
+            "Field Label" : "Patient consented to transfer of data/samples to non-EU countries?",
+            "Field Note" : "",
+            "Field Type" : "yesno",
+            "value" : 0
+         },
+         "consent_recontact" : {
+            "Field Label" : "Patient consented for the possibility to be recontacted for study purposes?",
+            "Field Note" : "",
+            "Field Type" : "yesno",
+            "value" : 1
+         },
+         "consent_week2_endo" : {
+            "Field Label" : "Patient consented for endoscopy at week 2?",
+            "Field Note" : "",
+            "Field Type" : "yesno",
+            "value" : 0
+         },
+         "consents_and_demographics_complete" : {
+            "Field Label" : null,
+            "Field Note" : null,
+            "Field Type" : null,
+            "value" : 1
+         },
          "redcap_event_name" : "week_0_arm_1",
          "study_id" : "527"
       },
@@ -17060,7 +17373,6 @@
       "exposures" : [],
       "geographicOrigin" : null,
       "info" : {
-         "dob" : "",
          "redcap_event_name" : "week_14_arm_1",
          "study_id" : "527"
       },
@@ -17532,7 +17844,6 @@
       "exposures" : [],
       "geographicOrigin" : null,
       "info" : {
-         "dob" : "",
          "redcap_event_name" : "week_2_arm_1",
          "study_id" : "527"
       },
@@ -17995,7 +18306,6 @@
       "exposures" : [],
       "geographicOrigin" : null,
       "info" : {
-         "dob" : "",
          "redcap_event_name" : "week_26_arm_1",
          "study_id" : "527"
       },
@@ -18514,7 +18824,6 @@
       "exposures" : [],
       "geographicOrigin" : null,
       "info" : {
-         "dob" : "",
          "redcap_event_name" : "week_52_arm_1",
          "study_id" : "527"
       },
