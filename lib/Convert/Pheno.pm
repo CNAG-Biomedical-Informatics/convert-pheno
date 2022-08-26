@@ -19,6 +19,7 @@ use Sys::Hostname;
 use Cwd         qw(cwd abs_path);
 use POSIX       qw(strftime);
 use Time::HiRes qw/gettimeofday/;
+use List::Util  qw(any);
 binmode STDOUT, ':encoding(utf-8)';
 
 use constant DEVEL_MODE => 0;
@@ -137,10 +138,10 @@ sub do_pxf2bff {
 
     $individual->{sex} = map_ontology(
         {
-            label       => $phenopacket->{subject}{sex},
-            ontology    => 'ncit',
-            labels_true => $self->{print_hidden_labels},
-            sth         => $sth->{ncit}
+            label          => $phenopacket->{subject}{sex},
+            ontology       => 'ncit',
+            display_labels => $self->{print_hidden_labels},
+            sth            => $sth->{ncit}
         }
       )
       if ( exists $phenopacket->{subject}{sex}
@@ -298,32 +299,22 @@ sub do_redcap2bff {
     # ========
 
     $individual->{diseases} = [];
-    my %disease = ( 'Inflamatory Bowel Disease' => 'ICD10:K51.90' );
 
+    #my %disease = ( 'Inflamatory Bowel Disease' => 'ICD10:K51.90' ); # it does not exist as it is at ICD10
     #my @diseases = ('Unspecified asthma, uncomplicated', 'Inflamatory Bowel Disease', "Crohn's disease, unspecified, without complications");
-    my @diseases = ('Inflamatory Bowel Disease');
-
-    #( 'Unspecified asthma, uncomplicated', 'Inflamatory Bowel Disease' );
+    my @diseases = ('Inflammatory Bowel Disease');    # Note the 2 mm
     for my $element (@diseases) {
-
         my $disease;
-        if ( $element ne 'Inflamatory Bowel Disease' ) {
-            $disease->{diseaseCode} = map_ontology(
-                {
-                    label       => $element,
-                    ontology    => 'icd10',                        # ICD-10 ontology (term must be precise)
-                    labels_true => $self->{print_hidden_labels},
-                    sth         => $sth->{icd10}
+        $disease->{diseaseCode} = map_ontology(
+            {
+                label => $element,
 
-                }
-            );
-        }
-        else {
-            $disease->{diseaseCode} = {
-                id    => $disease{$element},
-                label => $element
-            };
-        }
+                #    ontology       => 'icd10',                        # ICD:10 Inflammatory Bowel Disease does not exist
+                ontology       => 'ncit',
+                display_labels => $self->{print_hidden_labels},
+                sth            => $sth->{ncit}
+            }
+        );
         push @{ $individual->{diseases} }, $disease;
     }
 
@@ -354,10 +345,10 @@ sub do_redcap2bff {
         $exposure->{duration}      = undef;          # 'P32Y6M1D';
         $exposure->{exposureCode}  = map_ontology(
             {
-                label       => $element,
-                ontology    => 'ncit',
-                labels_true => $self->{print_hidden_labels},
-                sth         => $sth->{ncit}
+                label          => $element,
+                ontology       => 'ncit',
+                display_labels => $self->{print_hidden_labels},
+                sth            => $sth->{ncit}
             }
         );
 
@@ -373,9 +364,9 @@ sub do_redcap2bff {
                     }
                   )
                 : $element,
-                ontology    => 'ncit',
-                labels_true => $self->{print_hidden_labels},
-                sth         => $sth->{ncit}
+                ontology       => 'ncit',
+                display_labels => $self->{print_hidden_labels},
+                sth            => $sth->{ncit}
             }
         );
         my $range = map_range($element);
@@ -416,24 +407,24 @@ sub do_redcap2bff {
     # info
     # ====
 
-    my @variables =
+    my @fields =
       qw(study_id redcap_event_name dob age first_name last_name consent consent_date consent_noneu consent_devices consent_recontact consent_week2_endo education zipcode consents_and_demographics_complete);
-    for my $var (@variables) {
-        $individual->{info}{$var} =
-            $var eq 'age' ? 'P' . $participant->{$var} . 'Y'
-          : $var eq 'education'
+    for my $field (@fields) {
+        $individual->{info}{$field} =
+            $field eq 'age' ? 'P' . $participant->{$field} . 'Y'
+          : $field eq 'education'
           ? $rcd->{education}{_labels}{ $participant->{education} }
           :
 
-          #$var =~ m/^consent/ ? { $participant->{$var} => $rcd->{$var}}
-          $var =~ m/^consent/
+          #$field =~ m/^consent/ ? { $participant->{$field} => $rcd->{$field}}
+          $field =~ m/^consent/
           ? {
-            value => dotify_and_coerce_number( $participant->{$var} ),
-            map { $_ => $rcd->{$var}{$_} }
+            value => dotify_and_coerce_number( $participant->{$field} ),
+            map { $_ => $rcd->{$field}{$_} }
               ( "Field Label", "Field Note", "Field Type" )
           }
-          : $participant->{$var}
-          if $participant->{$var} ne '';
+          : $participant->{$field}
+          if $participant->{$field} ne '';
     }
 
     # =========================
@@ -459,10 +450,10 @@ sub do_redcap2bff {
             $intervention->{dateOfProcedure} = undef;
             $intervention->{procedureCode}   = map_ontology(
                 {
-                    label       => $surgery{$element},
-                    ontology    => 'ncit',
-                    labels_true => $self->{print_hidden_labels},
-                    sth         => $sth->{ncit}
+                    label          => $surgery{$element},
+                    ontology       => 'ncit',
+                    display_labels => $self->{print_hidden_labels},
+                    sth            => $sth->{ncit}
                 }
             ) if $surgery{$element};
             push @{ $individual->{interventionsOrProcedures} }, $intervention;
@@ -489,10 +480,10 @@ sub do_redcap2bff {
         my $measure;
         $measure->{assayCode} = map_ontology(
             {
-                label       => $element,
-                ontology    => 'ncit',
-                labels_true => $self->{print_hidden_labels},
-                sth         => $sth->{ncit}
+                label          => $element,
+                ontology       => 'ncit',
+                display_labels => $self->{print_hidden_labels},
+                sth            => $sth->{ncit}
             }
         );
         $measure->{date} = undef;    # iso8601_time();
@@ -500,10 +491,10 @@ sub do_redcap2bff {
         # We first extract 'unit' and %range' for <measurementValue>
         my $unit = map_ontology(
             {
-                label       => map_quantity( $rcd->{$element}{'Field Note'} ),
-                ontology    => 'ncit',
-                labels_true => $self->{print_hidden_labels},
-                sth         => $sth->{ncit}
+                label    => map_quantity( $rcd->{$element}{'Field Note'} ),
+                ontology => 'ncit',
+                display_labels => $self->{print_hidden_labels},
+                sth            => $sth->{ncit}
             }
         );
         my $range = map_range($element);
@@ -530,9 +521,9 @@ sub do_redcap2bff {
                 label => $element ne 'calprotectin'
                 ? 'Blood Test Result'
                 : 'Feces',
-                ontology    => 'ncit',
-                labels_true => $self->{print_hidden_labels},
-                sth         => $sth->{ncit}
+                ontology       => 'ncit',
+                display_labels => $self->{print_hidden_labels},
+                sth            => $sth->{ncit}
             }
         );
 
@@ -591,10 +582,10 @@ sub do_redcap2bff {
 
     $individual->{sex} = map_ontology(
         {
-            label       => $rcd->{sex}{_labels}{ $participant->{sex} },
-            ontology    => 'ncit',
-            labels_true => $self->{print_hidden_labels},
-            sth         => $sth->{ncit}
+            label          => $rcd->{sex}{_labels}{ $participant->{sex} },
+            ontology       => 'ncit',
+            display_labels => $self->{print_hidden_labels},
+            sth            => $sth->{ncit}
 
         }
     ) if $participant->{sex} ne '';
@@ -604,30 +595,85 @@ sub do_redcap2bff {
     # ==========
 
     $individual->{treatments} = [];
-    my @drugs = qw (budesonide_oral budesonide_rectal prednisolone);    #prednisolone asa);
 
-    #
+    my %drug = (
+        aza => 'azathioprine',
+        asa => 'aspirin',
+        mtx => 'methotrexate',
+        mp  => 'mercaptopurine'
+    );
+
+    my @drugs  = qw (budesonide prednisolone asa aza mtx mp);
+    my @routes = qw (oral rectal);
+
     #        '_labels' => {
     #                                                       '1' => 'never treated',
     #                                                       '2' => 'former treatment',
     #                                                       '3' => 'current treatment'
     #                                                     }
 
-    for my $element (@drugs) {
-        my $treatment;
+    # FOR DRUGS
+    for my $drug (@drugs) {
 
-        my $tmp_var = $element . '_status';
-        $treatment->{info} = {
-            drug   => $element,
-            status => $rcd->{$tmp_var}{_labels}{ $participant->{$tmp_var} }
-        };    # ***** INTERNAL FIELD
-        $treatment->{ageAtOnset} = undef;    # P32Y6M1D
-        $treatment->{cumulativeDose} =
-          { Quantity => { unit => { id => '', label => '' }, value => undef } };
-        $treatment->{doseIntervals}         = [];
-        $treatment->{routeOfAdministration} = { id => '', label => '' };
-        $treatment->{treatmentCode}         = { id => '', label => '' };
-        push @{ $individual->{treatments} }, $treatment;
+        # Getting the right name for the drug (if any)
+        my $drug_name = exists $drug{$drug} ? $drug{$drug} : $drug;
+
+        # FOR ROUTES
+        for my $route (@routes) {
+
+            # Rectal route only happens in some drugs (ad hoc)
+            next
+              if ( $route eq 'rectal' && !any { /^$drug$/ }
+                qw(budesonide asa) );
+
+            # Discarding if drug_route_status is empty
+            my $tmp_var =
+              ( $drug eq 'budesonide' || $drug eq 'asa' )
+              ? $drug . '_' . $route . '_status'
+              : $drug . '_status';
+            next if $participant->{$tmp_var} eq '';
+
+            #say "$drug $route";
+
+            # Initialize element $treatment
+            my $treatment;
+
+            $treatment->{_info} = {
+                field     => $tmp_var,
+                drug      => $drug,
+                drug_name => $drug_name,
+                status => $rcd->{$tmp_var}{_labels}{ $participant->{$tmp_var} },
+                route  => $route,
+                value  => $participant->{$tmp_var},
+                map { $_ => $participant->{ $drug . $_ } }
+                  qw(start dose duration)
+            };    # ***** INTERNAL FIELD
+            $treatment->{ageAtOnset} = undef;    # P32Y6M1D
+            $treatment->{cumulativeDose} =
+              { Quantity =>
+                  { unit => { id => '', label => '' }, value => undef } };
+            $treatment->{doseIntervals}         = [];
+            $treatment->{routeOfAdministration} = map_ontology(
+                {
+                    label    => ucfirst($route) . ' Route of Administration',  # Oral Route of Administration
+                    ontology => 'ncit',
+                    display_labels => $self->{print_hidden_labels},
+                    sth            => $sth->{ncit}
+
+                }
+            );
+
+            $treatment->{treatmentCode} = map_ontology(
+                {
+                    label          => $drug_name,
+                    ontology       => 'ncit',
+                    display_labels => $self->{print_hidden_labels},
+                    sth            => $sth->{ncit}
+
+                }
+            );
+            push @{ $individual->{treatments} }, $treatment;
+        }
     }
 
     ##################################
@@ -879,7 +925,7 @@ sub map_ontology {
     # Ok, now it's time to start the subroutine
     my $arg                 = shift;
     my $ontology            = $arg->{ontology};
-    my $print_hidden_labels = $arg->{labels_true};
+    my $print_hidden_labels = $arg->{display_labels};
     my $sth                 = $arg->{sth};
 
     # Perform query
@@ -896,7 +942,7 @@ sub map_ontology {
 
 sub map_exposures {
 
-    #alcohol;anamnesis;;radio;"Alcohol drinking habits";"0, Non-drinker | 1, Ex-drinker | 2, occasional drinking | 3, regular drinking | 4, unknown";;;;;;;y;;;;;
+    #alcohol;anamnesis;;radio;Alcohol drinking habits";"0, Non-drinker | 1, Ex-drinker | 2, occasional drinking | 3, regular drinking | 4, unknown";;;;;;;y;;;;;
     #smoking;anamnesis;;radio;"Smoking habits";"0, Never smoked | 1, Ex-smoker | 2, Current smoker";;;;;;;y;;;;;
 
     my $arg      = shift;

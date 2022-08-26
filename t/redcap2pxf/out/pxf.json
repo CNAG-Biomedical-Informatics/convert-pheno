@@ -4,8 +4,8 @@
          "diseases" : [
             {
                "diseaseCode" : {
-                  "id" : "ICD10:K51.90",
-                  "label" : "Inflamatory Bowel Disease"
+                  "id" : "NCIT:C3138",
+                  "label" : "Inflammatory Bowel Disease"
                }
             }
          ],
@@ -514,7 +514,7 @@
                "ncpuhost" : 2,
                "user" : "mrueda"
             },
-            "created" : "2022-08-25T15:33:07.34706+0200",
+            "created" : "2022-08-26T14:33:14.51644+0200",
             "resources" : [
                {
                   "id" : "ICD10",
@@ -540,6 +540,17 @@
          },
          "treatments" : [
             {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "budesonide",
+                  "drug_name" : "budesonide",
+                  "duration" : null,
+                  "field" : "budesonide_oral_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "former treatment",
+                  "value" : "2"
+               },
                "ageAtOnset" : null,
                "cumulativeDose" : {
                   "Quantity" : {
@@ -551,20 +562,27 @@
                   }
                },
                "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_oral",
-                  "status" : "former treatment"
-               },
                "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
                },
                "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
                }
             },
             {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "budesonide",
+                  "drug_name" : "budesonide",
+                  "duration" : null,
+                  "field" : "budesonide_rectal_status",
+                  "route" : "rectal",
+                  "start" : null,
+                  "status" : "never treated",
+                  "value" : "1"
+               },
                "ageAtOnset" : null,
                "cumulativeDose" : {
                   "Quantity" : {
@@ -576,42 +594,205 @@
                   }
                },
                "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_rectal",
-                  "status" : "never treated"
-               },
                "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
                },
                "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
                }
             },
             {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
+               "_info" : {
+                  "dose" : null,
                   "drug" : "prednisolone",
-                  "status" : "current treatment"
+                  "drug_name" : "prednisolone",
+                  "duration" : null,
+                  "field" : "prednisolone_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "current treatment",
+                  "value" : "3"
                },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
                "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
                },
                "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C769",
+                  "label" : "Prednisolone"
+               }
+            },
+            {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "asa",
+                  "drug_name" : "aspirin",
+                  "duration" : null,
+                  "field" : "asa_oral_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "former treatment",
+                  "value" : "2"
+               },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               },
+               "treatmentCode" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               }
+            },
+            {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "asa",
+                  "drug_name" : "aspirin",
+                  "duration" : null,
+                  "field" : "asa_rectal_status",
+                  "route" : "rectal",
+                  "start" : null,
+                  "status" : "never treated",
+                  "value" : "1"
+               },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
+               },
+               "treatmentCode" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               }
+            },
+            {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "aza",
+                  "drug_name" : "azathioprine",
+                  "duration" : null,
+                  "field" : "aza_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "never treated",
+                  "value" : "1"
+               },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               },
+               "treatmentCode" : {
+                  "id" : "NCIT:C290",
+                  "label" : "Azathioprine"
+               }
+            },
+            {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "mtx",
+                  "drug_name" : "methotrexate",
+                  "duration" : null,
+                  "field" : "mtx_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "never treated",
+                  "value" : "1"
+               },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               },
+               "treatmentCode" : {
+                  "id" : "NCIT:C642",
+                  "label" : "Methotrexate"
+               }
+            },
+            {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "mp",
+                  "drug_name" : "mercaptopurine",
+                  "duration" : null,
+                  "field" : "mp_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "never treated",
+                  "value" : "1"
+               },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               },
+               "treatmentCode" : {
+                  "id" : "NCIT:C195",
+                  "label" : "Mercaptopurine"
                }
             }
          ]
@@ -622,8 +803,8 @@
          "diseases" : [
             {
                "diseaseCode" : {
-                  "id" : "ICD10:K51.90",
-                  "label" : "Inflamatory Bowel Disease"
+                  "id" : "NCIT:C3138",
+                  "label" : "Inflammatory Bowel Disease"
                }
             }
          ],
@@ -1020,7 +1201,7 @@
                "ncpuhost" : 2,
                "user" : "mrueda"
             },
-            "created" : "2022-08-25T15:33:07.35276+0200",
+            "created" : "2022-08-26T14:33:14.52203+0200",
             "resources" : [
                {
                   "id" : "ICD10",
@@ -1040,83 +1221,7 @@
          },
          "pedigrees" : [],
          "phenotypicFeatures" : [],
-         "treatments" : [
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_oral",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_rectal",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "prednisolone",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            }
-         ]
+         "treatments" : []
       }
    },
    {
@@ -1124,8 +1229,8 @@
          "diseases" : [
             {
                "diseaseCode" : {
-                  "id" : "ICD10:K51.90",
-                  "label" : "Inflamatory Bowel Disease"
+                  "id" : "NCIT:C3138",
+                  "label" : "Inflammatory Bowel Disease"
                }
             }
          ],
@@ -1513,7 +1618,7 @@
                "ncpuhost" : 2,
                "user" : "mrueda"
             },
-            "created" : "2022-08-25T15:33:07.35827+0200",
+            "created" : "2022-08-26T14:33:14.52713+0200",
             "resources" : [
                {
                   "id" : "ICD10",
@@ -1533,83 +1638,7 @@
          },
          "pedigrees" : [],
          "phenotypicFeatures" : [],
-         "treatments" : [
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_oral",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_rectal",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "prednisolone",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            }
-         ]
+         "treatments" : []
       }
    },
    {
@@ -1617,8 +1646,8 @@
          "diseases" : [
             {
                "diseaseCode" : {
-                  "id" : "ICD10:K51.90",
-                  "label" : "Inflamatory Bowel Disease"
+                  "id" : "NCIT:C3138",
+                  "label" : "Inflammatory Bowel Disease"
                }
             }
          ],
@@ -2114,7 +2143,7 @@
                "ncpuhost" : 2,
                "user" : "mrueda"
             },
-            "created" : "2022-08-25T15:33:07.36515+0200",
+            "created" : "2022-08-26T14:33:14.53245+0200",
             "resources" : [
                {
                   "id" : "ICD10",
@@ -2140,6 +2169,17 @@
          },
          "treatments" : [
             {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "budesonide",
+                  "drug_name" : "budesonide",
+                  "duration" : null,
+                  "field" : "budesonide_oral_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "former treatment",
+                  "value" : "2"
+               },
                "ageAtOnset" : null,
                "cumulativeDose" : {
                   "Quantity" : {
@@ -2151,20 +2191,27 @@
                   }
                },
                "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_oral",
-                  "status" : "former treatment"
-               },
                "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
                },
                "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
                }
             },
             {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "budesonide",
+                  "drug_name" : "budesonide",
+                  "duration" : null,
+                  "field" : "budesonide_rectal_status",
+                  "route" : "rectal",
+                  "start" : null,
+                  "status" : "never treated",
+                  "value" : "1"
+               },
                "ageAtOnset" : null,
                "cumulativeDose" : {
                   "Quantity" : {
@@ -2176,42 +2223,205 @@
                   }
                },
                "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_rectal",
-                  "status" : "never treated"
-               },
                "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
                },
                "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
                }
             },
             {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
+               "_info" : {
+                  "dose" : null,
                   "drug" : "prednisolone",
-                  "status" : "former treatment"
+                  "drug_name" : "prednisolone",
+                  "duration" : null,
+                  "field" : "prednisolone_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "former treatment",
+                  "value" : "2"
                },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
                "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
                },
                "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C769",
+                  "label" : "Prednisolone"
+               }
+            },
+            {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "asa",
+                  "drug_name" : "aspirin",
+                  "duration" : null,
+                  "field" : "asa_oral_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "current treatment",
+                  "value" : "3"
+               },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               },
+               "treatmentCode" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               }
+            },
+            {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "asa",
+                  "drug_name" : "aspirin",
+                  "duration" : null,
+                  "field" : "asa_rectal_status",
+                  "route" : "rectal",
+                  "start" : null,
+                  "status" : "former treatment",
+                  "value" : "2"
+               },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
+               },
+               "treatmentCode" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               }
+            },
+            {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "aza",
+                  "drug_name" : "azathioprine",
+                  "duration" : null,
+                  "field" : "aza_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "never treated",
+                  "value" : "1"
+               },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               },
+               "treatmentCode" : {
+                  "id" : "NCIT:C290",
+                  "label" : "Azathioprine"
+               }
+            },
+            {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "mtx",
+                  "drug_name" : "methotrexate",
+                  "duration" : null,
+                  "field" : "mtx_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "never treated",
+                  "value" : "1"
+               },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               },
+               "treatmentCode" : {
+                  "id" : "NCIT:C642",
+                  "label" : "Methotrexate"
+               }
+            },
+            {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "mp",
+                  "drug_name" : "mercaptopurine",
+                  "duration" : null,
+                  "field" : "mp_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "never treated",
+                  "value" : "1"
+               },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               },
+               "treatmentCode" : {
+                  "id" : "NCIT:C195",
+                  "label" : "Mercaptopurine"
                }
             }
          ]
@@ -2222,8 +2432,8 @@
          "diseases" : [
             {
                "diseaseCode" : {
-                  "id" : "ICD10:K51.90",
-                  "label" : "Inflamatory Bowel Disease"
+                  "id" : "NCIT:C3138",
+                  "label" : "Inflammatory Bowel Disease"
                }
             }
          ],
@@ -2620,7 +2830,7 @@
                "ncpuhost" : 2,
                "user" : "mrueda"
             },
-            "created" : "2022-08-25T15:33:07.37139+0200",
+            "created" : "2022-08-26T14:33:14.53772+0200",
             "resources" : [
                {
                   "id" : "ICD10",
@@ -2640,83 +2850,7 @@
          },
          "pedigrees" : [],
          "phenotypicFeatures" : [],
-         "treatments" : [
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_oral",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_rectal",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "prednisolone",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            }
-         ]
+         "treatments" : []
       }
    },
    {
@@ -2724,8 +2858,8 @@
          "diseases" : [
             {
                "diseaseCode" : {
-                  "id" : "ICD10:K51.90",
-                  "label" : "Inflamatory Bowel Disease"
+                  "id" : "NCIT:C3138",
+                  "label" : "Inflammatory Bowel Disease"
                }
             }
          ],
@@ -3113,7 +3247,7 @@
                "ncpuhost" : 2,
                "user" : "mrueda"
             },
-            "created" : "2022-08-25T15:33:07.37831+0200",
+            "created" : "2022-08-26T14:33:14.54275+0200",
             "resources" : [
                {
                   "id" : "ICD10",
@@ -3133,83 +3267,7 @@
          },
          "pedigrees" : [],
          "phenotypicFeatures" : [],
-         "treatments" : [
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_oral",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_rectal",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "prednisolone",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            }
-         ]
+         "treatments" : []
       }
    },
    {
@@ -3217,8 +3275,8 @@
          "diseases" : [
             {
                "diseaseCode" : {
-                  "id" : "ICD10:K51.90",
-                  "label" : "Inflamatory Bowel Disease"
+                  "id" : "NCIT:C3138",
+                  "label" : "Inflammatory Bowel Disease"
                }
             }
          ],
@@ -3606,7 +3664,7 @@
                "ncpuhost" : 2,
                "user" : "mrueda"
             },
-            "created" : "2022-08-25T15:33:07.38371+0200",
+            "created" : "2022-08-26T14:33:14.54759+0200",
             "resources" : [
                {
                   "id" : "ICD10",
@@ -3626,83 +3684,7 @@
          },
          "pedigrees" : [],
          "phenotypicFeatures" : [],
-         "treatments" : [
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_oral",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_rectal",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "prednisolone",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            }
-         ]
+         "treatments" : []
       }
    },
    {
@@ -3710,8 +3692,8 @@
          "diseases" : [
             {
                "diseaseCode" : {
-                  "id" : "ICD10:K51.90",
-                  "label" : "Inflamatory Bowel Disease"
+                  "id" : "NCIT:C3138",
+                  "label" : "Inflammatory Bowel Disease"
                }
             }
          ],
@@ -4248,7 +4230,7 @@
                "ncpuhost" : 2,
                "user" : "mrueda"
             },
-            "created" : "2022-08-25T15:33:07.38892+0200",
+            "created" : "2022-08-26T14:33:14.55263+0200",
             "resources" : [
                {
                   "id" : "ICD10",
@@ -4268,83 +4250,7 @@
          },
          "pedigrees" : [],
          "phenotypicFeatures" : [],
-         "treatments" : [
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_oral",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_rectal",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "prednisolone",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            }
-         ]
+         "treatments" : []
       }
    },
    {
@@ -4352,8 +4258,8 @@
          "diseases" : [
             {
                "diseaseCode" : {
-                  "id" : "ICD10:K51.90",
-                  "label" : "Inflamatory Bowel Disease"
+                  "id" : "NCIT:C3138",
+                  "label" : "Inflammatory Bowel Disease"
                }
             }
          ],
@@ -4853,7 +4759,7 @@
                "ncpuhost" : 2,
                "user" : "mrueda"
             },
-            "created" : "2022-08-25T15:33:07.39403+0200",
+            "created" : "2022-08-26T14:33:14.55757+0200",
             "resources" : [
                {
                   "id" : "ICD10",
@@ -4873,83 +4779,7 @@
          },
          "pedigrees" : [],
          "phenotypicFeatures" : [],
-         "treatments" : [
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_oral",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_rectal",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "prednisolone",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            }
-         ]
+         "treatments" : []
       }
    },
    {
@@ -4957,8 +4787,8 @@
          "diseases" : [
             {
                "diseaseCode" : {
-                  "id" : "ICD10:K51.90",
-                  "label" : "Inflamatory Bowel Disease"
+                  "id" : "NCIT:C3138",
+                  "label" : "Inflammatory Bowel Disease"
                }
             }
          ],
@@ -5466,7 +5296,7 @@
                "ncpuhost" : 2,
                "user" : "mrueda"
             },
-            "created" : "2022-08-25T15:33:07.39958+0200",
+            "created" : "2022-08-26T14:33:14.5626+0200",
             "resources" : [
                {
                   "id" : "ICD10",
@@ -5492,6 +5322,17 @@
          },
          "treatments" : [
             {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "budesonide",
+                  "drug_name" : "budesonide",
+                  "duration" : null,
+                  "field" : "budesonide_oral_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "never treated",
+                  "value" : "1"
+               },
                "ageAtOnset" : null,
                "cumulativeDose" : {
                   "Quantity" : {
@@ -5503,20 +5344,27 @@
                   }
                },
                "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_oral",
-                  "status" : "never treated"
-               },
                "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
                },
                "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
                }
             },
             {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "budesonide",
+                  "drug_name" : "budesonide",
+                  "duration" : null,
+                  "field" : "budesonide_rectal_status",
+                  "route" : "rectal",
+                  "start" : null,
+                  "status" : "never treated",
+                  "value" : "1"
+               },
                "ageAtOnset" : null,
                "cumulativeDose" : {
                   "Quantity" : {
@@ -5528,42 +5376,205 @@
                   }
                },
                "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_rectal",
-                  "status" : "never treated"
-               },
                "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
                },
                "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
                }
             },
             {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
+               "_info" : {
+                  "dose" : null,
                   "drug" : "prednisolone",
-                  "status" : "current treatment"
+                  "drug_name" : "prednisolone",
+                  "duration" : null,
+                  "field" : "prednisolone_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "current treatment",
+                  "value" : "3"
                },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
                "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
                },
                "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C769",
+                  "label" : "Prednisolone"
+               }
+            },
+            {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "asa",
+                  "drug_name" : "aspirin",
+                  "duration" : null,
+                  "field" : "asa_oral_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "current treatment",
+                  "value" : "3"
+               },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               },
+               "treatmentCode" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               }
+            },
+            {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "asa",
+                  "drug_name" : "aspirin",
+                  "duration" : null,
+                  "field" : "asa_rectal_status",
+                  "route" : "rectal",
+                  "start" : null,
+                  "status" : "never treated",
+                  "value" : "1"
+               },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
+               },
+               "treatmentCode" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               }
+            },
+            {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "aza",
+                  "drug_name" : "azathioprine",
+                  "duration" : null,
+                  "field" : "aza_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "never treated",
+                  "value" : "1"
+               },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               },
+               "treatmentCode" : {
+                  "id" : "NCIT:C290",
+                  "label" : "Azathioprine"
+               }
+            },
+            {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "mtx",
+                  "drug_name" : "methotrexate",
+                  "duration" : null,
+                  "field" : "mtx_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "never treated",
+                  "value" : "1"
+               },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               },
+               "treatmentCode" : {
+                  "id" : "NCIT:C642",
+                  "label" : "Methotrexate"
+               }
+            },
+            {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "mp",
+                  "drug_name" : "mercaptopurine",
+                  "duration" : null,
+                  "field" : "mp_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "never treated",
+                  "value" : "1"
+               },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               },
+               "treatmentCode" : {
+                  "id" : "NCIT:C195",
+                  "label" : "Mercaptopurine"
                }
             }
          ]
@@ -5574,8 +5585,8 @@
          "diseases" : [
             {
                "diseaseCode" : {
-                  "id" : "ICD10:K51.90",
-                  "label" : "Inflamatory Bowel Disease"
+                  "id" : "NCIT:C3138",
+                  "label" : "Inflammatory Bowel Disease"
                }
             }
          ],
@@ -5972,7 +5983,7 @@
                "ncpuhost" : 2,
                "user" : "mrueda"
             },
-            "created" : "2022-08-25T15:33:07.40627+0200",
+            "created" : "2022-08-26T14:33:14.56757+0200",
             "resources" : [
                {
                   "id" : "ICD10",
@@ -5992,83 +6003,7 @@
          },
          "pedigrees" : [],
          "phenotypicFeatures" : [],
-         "treatments" : [
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_oral",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_rectal",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "prednisolone",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            }
-         ]
+         "treatments" : []
       }
    },
    {
@@ -6076,8 +6011,8 @@
          "diseases" : [
             {
                "diseaseCode" : {
-                  "id" : "ICD10:K51.90",
-                  "label" : "Inflamatory Bowel Disease"
+                  "id" : "NCIT:C3138",
+                  "label" : "Inflammatory Bowel Disease"
                }
             }
          ],
@@ -6437,7 +6372,7 @@
                "ncpuhost" : 2,
                "user" : "mrueda"
             },
-            "created" : "2022-08-25T15:33:07.41328+0200",
+            "created" : "2022-08-26T14:33:14.57272+0200",
             "resources" : [
                {
                   "id" : "ICD10",
@@ -6457,83 +6392,7 @@
          },
          "pedigrees" : [],
          "phenotypicFeatures" : [],
-         "treatments" : [
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_oral",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_rectal",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "prednisolone",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            }
-         ]
+         "treatments" : []
       }
    },
    {
@@ -6541,8 +6400,8 @@
          "diseases" : [
             {
                "diseaseCode" : {
-                  "id" : "ICD10:K51.90",
-                  "label" : "Inflamatory Bowel Disease"
+                  "id" : "NCIT:C3138",
+                  "label" : "Inflammatory Bowel Disease"
                }
             }
          ],
@@ -6902,7 +6761,7 @@
                "ncpuhost" : 2,
                "user" : "mrueda"
             },
-            "created" : "2022-08-25T15:33:07.41886+0200",
+            "created" : "2022-08-26T14:33:14.57768+0200",
             "resources" : [
                {
                   "id" : "ICD10",
@@ -6922,83 +6781,7 @@
          },
          "pedigrees" : [],
          "phenotypicFeatures" : [],
-         "treatments" : [
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_oral",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_rectal",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "prednisolone",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            }
-         ]
+         "treatments" : []
       }
    },
    {
@@ -7006,8 +6789,8 @@
          "diseases" : [
             {
                "diseaseCode" : {
-                  "id" : "ICD10:K51.90",
-                  "label" : "Inflamatory Bowel Disease"
+                  "id" : "NCIT:C3138",
+                  "label" : "Inflammatory Bowel Disease"
                }
             }
          ],
@@ -7544,7 +7327,7 @@
                "ncpuhost" : 2,
                "user" : "mrueda"
             },
-            "created" : "2022-08-25T15:33:07.42412+0200",
+            "created" : "2022-08-26T14:33:14.58265+0200",
             "resources" : [
                {
                   "id" : "ICD10",
@@ -7564,83 +7347,7 @@
          },
          "pedigrees" : [],
          "phenotypicFeatures" : [],
-         "treatments" : [
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_oral",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_rectal",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "prednisolone",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            }
-         ]
+         "treatments" : []
       }
    },
    {
@@ -7648,8 +7355,8 @@
          "diseases" : [
             {
                "diseaseCode" : {
-                  "id" : "ICD10:K51.90",
-                  "label" : "Inflamatory Bowel Disease"
+                  "id" : "NCIT:C3138",
+                  "label" : "Inflammatory Bowel Disease"
                }
             }
          ],
@@ -8093,7 +7800,7 @@
                "ncpuhost" : 2,
                "user" : "mrueda"
             },
-            "created" : "2022-08-25T15:33:07.42974+0200",
+            "created" : "2022-08-26T14:33:14.58775+0200",
             "resources" : [
                {
                   "id" : "ICD10",
@@ -8113,83 +7820,7 @@
          },
          "pedigrees" : [],
          "phenotypicFeatures" : [],
-         "treatments" : [
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_oral",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_rectal",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "prednisolone",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            }
-         ]
+         "treatments" : []
       }
    },
    {
@@ -8197,8 +7828,8 @@
          "diseases" : [
             {
                "diseaseCode" : {
-                  "id" : "ICD10:K51.90",
-                  "label" : "Inflamatory Bowel Disease"
+                  "id" : "NCIT:C3138",
+                  "label" : "Inflammatory Bowel Disease"
                }
             }
          ],
@@ -8834,7 +8465,7 @@
                "ncpuhost" : 2,
                "user" : "mrueda"
             },
-            "created" : "2022-08-25T15:33:07.4403+0200",
+            "created" : "2022-08-26T14:33:14.59293+0200",
             "resources" : [
                {
                   "id" : "ICD10",
@@ -8860,6 +8491,17 @@
          },
          "treatments" : [
             {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "budesonide",
+                  "drug_name" : "budesonide",
+                  "duration" : null,
+                  "field" : "budesonide_oral_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "never treated",
+                  "value" : "1"
+               },
                "ageAtOnset" : null,
                "cumulativeDose" : {
                   "Quantity" : {
@@ -8871,20 +8513,27 @@
                   }
                },
                "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_oral",
-                  "status" : "never treated"
-               },
                "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
                },
                "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
                }
             },
             {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "budesonide",
+                  "drug_name" : "budesonide",
+                  "duration" : null,
+                  "field" : "budesonide_rectal_status",
+                  "route" : "rectal",
+                  "start" : null,
+                  "status" : "never treated",
+                  "value" : "1"
+               },
                "ageAtOnset" : null,
                "cumulativeDose" : {
                   "Quantity" : {
@@ -8896,42 +8545,205 @@
                   }
                },
                "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_rectal",
-                  "status" : "never treated"
-               },
                "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
                },
                "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
                }
             },
             {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
+               "_info" : {
+                  "dose" : null,
                   "drug" : "prednisolone",
-                  "status" : "former treatment"
+                  "drug_name" : "prednisolone",
+                  "duration" : null,
+                  "field" : "prednisolone_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "former treatment",
+                  "value" : "2"
                },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
                "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
                },
                "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C769",
+                  "label" : "Prednisolone"
+               }
+            },
+            {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "asa",
+                  "drug_name" : "aspirin",
+                  "duration" : null,
+                  "field" : "asa_oral_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "current treatment",
+                  "value" : "3"
+               },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               },
+               "treatmentCode" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               }
+            },
+            {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "asa",
+                  "drug_name" : "aspirin",
+                  "duration" : null,
+                  "field" : "asa_rectal_status",
+                  "route" : "rectal",
+                  "start" : null,
+                  "status" : "never treated",
+                  "value" : "1"
+               },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
+               },
+               "treatmentCode" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               }
+            },
+            {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "aza",
+                  "drug_name" : "azathioprine",
+                  "duration" : null,
+                  "field" : "aza_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "former treatment",
+                  "value" : "2"
+               },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               },
+               "treatmentCode" : {
+                  "id" : "NCIT:C290",
+                  "label" : "Azathioprine"
+               }
+            },
+            {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "mtx",
+                  "drug_name" : "methotrexate",
+                  "duration" : null,
+                  "field" : "mtx_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "never treated",
+                  "value" : "1"
+               },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               },
+               "treatmentCode" : {
+                  "id" : "NCIT:C642",
+                  "label" : "Methotrexate"
+               }
+            },
+            {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "mp",
+                  "drug_name" : "mercaptopurine",
+                  "duration" : null,
+                  "field" : "mp_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "never treated",
+                  "value" : "1"
+               },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               },
+               "treatmentCode" : {
+                  "id" : "NCIT:C195",
+                  "label" : "Mercaptopurine"
                }
             }
          ]
@@ -8942,8 +8754,8 @@
          "diseases" : [
             {
                "diseaseCode" : {
-                  "id" : "ICD10:K51.90",
-                  "label" : "Inflamatory Bowel Disease"
+                  "id" : "NCIT:C3138",
+                  "label" : "Inflammatory Bowel Disease"
                }
             }
          ],
@@ -9471,7 +9283,7 @@
                "ncpuhost" : 2,
                "user" : "mrueda"
             },
-            "created" : "2022-08-25T15:33:07.44945+0200",
+            "created" : "2022-08-26T14:33:14.59783+0200",
             "resources" : [
                {
                   "id" : "ICD10",
@@ -9491,83 +9303,7 @@
          },
          "pedigrees" : [],
          "phenotypicFeatures" : [],
-         "treatments" : [
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_oral",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_rectal",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "prednisolone",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            }
-         ]
+         "treatments" : []
       }
    },
    {
@@ -9575,8 +9311,8 @@
          "diseases" : [
             {
                "diseaseCode" : {
-                  "id" : "ICD10:K51.90",
-                  "label" : "Inflamatory Bowel Disease"
+                  "id" : "NCIT:C3138",
+                  "label" : "Inflammatory Bowel Disease"
                }
             }
          ],
@@ -10104,7 +9840,7 @@
                "ncpuhost" : 2,
                "user" : "mrueda"
             },
-            "created" : "2022-08-25T15:33:07.45512+0200",
+            "created" : "2022-08-26T14:33:14.60277+0200",
             "resources" : [
                {
                   "id" : "ICD10",
@@ -10124,83 +9860,7 @@
          },
          "pedigrees" : [],
          "phenotypicFeatures" : [],
-         "treatments" : [
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_oral",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_rectal",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "prednisolone",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            }
-         ]
+         "treatments" : []
       }
    },
    {
@@ -10208,8 +9868,8 @@
          "diseases" : [
             {
                "diseaseCode" : {
-                  "id" : "ICD10:K51.90",
-                  "label" : "Inflamatory Bowel Disease"
+                  "id" : "NCIT:C3138",
+                  "label" : "Inflammatory Bowel Disease"
                }
             }
          ],
@@ -10765,7 +10425,7 @@
                "ncpuhost" : 2,
                "user" : "mrueda"
             },
-            "created" : "2022-08-25T15:33:07.46131+0200",
+            "created" : "2022-08-26T14:33:14.6077+0200",
             "resources" : [
                {
                   "id" : "ICD10",
@@ -10785,83 +10445,7 @@
          },
          "pedigrees" : [],
          "phenotypicFeatures" : [],
-         "treatments" : [
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_oral",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_rectal",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "prednisolone",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            }
-         ]
+         "treatments" : []
       }
    },
    {
@@ -10869,8 +10453,8 @@
          "diseases" : [
             {
                "diseaseCode" : {
-                  "id" : "ICD10:K51.90",
-                  "label" : "Inflamatory Bowel Disease"
+                  "id" : "NCIT:C3138",
+                  "label" : "Inflammatory Bowel Disease"
                }
             }
          ],
@@ -11366,7 +10950,7 @@
                "ncpuhost" : 2,
                "user" : "mrueda"
             },
-            "created" : "2022-08-25T15:33:07.46791+0200",
+            "created" : "2022-08-26T14:33:14.61273+0200",
             "resources" : [
                {
                   "id" : "ICD10",
@@ -11392,6 +10976,17 @@
          },
          "treatments" : [
             {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "budesonide",
+                  "drug_name" : "budesonide",
+                  "duration" : null,
+                  "field" : "budesonide_oral_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "never treated",
+                  "value" : "1"
+               },
                "ageAtOnset" : null,
                "cumulativeDose" : {
                   "Quantity" : {
@@ -11403,20 +10998,27 @@
                   }
                },
                "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_oral",
-                  "status" : "never treated"
-               },
                "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
                },
                "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
                }
             },
             {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "budesonide",
+                  "drug_name" : "budesonide",
+                  "duration" : null,
+                  "field" : "budesonide_rectal_status",
+                  "route" : "rectal",
+                  "start" : null,
+                  "status" : "former treatment",
+                  "value" : "2"
+               },
                "ageAtOnset" : null,
                "cumulativeDose" : {
                   "Quantity" : {
@@ -11428,42 +11030,205 @@
                   }
                },
                "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_rectal",
-                  "status" : "former treatment"
-               },
                "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
                },
                "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
                }
             },
             {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
+               "_info" : {
+                  "dose" : null,
                   "drug" : "prednisolone",
-                  "status" : "current treatment"
+                  "drug_name" : "prednisolone",
+                  "duration" : null,
+                  "field" : "prednisolone_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "current treatment",
+                  "value" : "3"
                },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
                "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
                },
                "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C769",
+                  "label" : "Prednisolone"
+               }
+            },
+            {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "asa",
+                  "drug_name" : "aspirin",
+                  "duration" : null,
+                  "field" : "asa_oral_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "current treatment",
+                  "value" : "3"
+               },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               },
+               "treatmentCode" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               }
+            },
+            {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "asa",
+                  "drug_name" : "aspirin",
+                  "duration" : null,
+                  "field" : "asa_rectal_status",
+                  "route" : "rectal",
+                  "start" : null,
+                  "status" : "never treated",
+                  "value" : "1"
+               },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
+               },
+               "treatmentCode" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               }
+            },
+            {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "aza",
+                  "drug_name" : "azathioprine",
+                  "duration" : null,
+                  "field" : "aza_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "never treated",
+                  "value" : "1"
+               },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               },
+               "treatmentCode" : {
+                  "id" : "NCIT:C290",
+                  "label" : "Azathioprine"
+               }
+            },
+            {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "mtx",
+                  "drug_name" : "methotrexate",
+                  "duration" : null,
+                  "field" : "mtx_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "never treated",
+                  "value" : "1"
+               },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               },
+               "treatmentCode" : {
+                  "id" : "NCIT:C642",
+                  "label" : "Methotrexate"
+               }
+            },
+            {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "mp",
+                  "drug_name" : "mercaptopurine",
+                  "duration" : null,
+                  "field" : "mp_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "never treated",
+                  "value" : "1"
+               },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               },
+               "treatmentCode" : {
+                  "id" : "NCIT:C195",
+                  "label" : "Mercaptopurine"
                }
             }
          ]
@@ -11474,8 +11239,8 @@
          "diseases" : [
             {
                "diseaseCode" : {
-                  "id" : "ICD10:K51.90",
-                  "label" : "Inflamatory Bowel Disease"
+                  "id" : "NCIT:C3138",
+                  "label" : "Inflammatory Bowel Disease"
                }
             }
          ],
@@ -11844,7 +11609,7 @@
                "ncpuhost" : 2,
                "user" : "mrueda"
             },
-            "created" : "2022-08-25T15:33:07.47353+0200",
+            "created" : "2022-08-26T14:33:14.61759+0200",
             "resources" : [
                {
                   "id" : "ICD10",
@@ -11864,83 +11629,7 @@
          },
          "pedigrees" : [],
          "phenotypicFeatures" : [],
-         "treatments" : [
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_oral",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_rectal",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "prednisolone",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            }
-         ]
+         "treatments" : []
       }
    },
    {
@@ -11948,8 +11637,8 @@
          "diseases" : [
             {
                "diseaseCode" : {
-                  "id" : "ICD10:K51.90",
-                  "label" : "Inflamatory Bowel Disease"
+                  "id" : "NCIT:C3138",
+                  "label" : "Inflammatory Bowel Disease"
                }
             }
          ],
@@ -12337,7 +12026,7 @@
                "ncpuhost" : 2,
                "user" : "mrueda"
             },
-            "created" : "2022-08-25T15:33:07.48057+0200",
+            "created" : "2022-08-26T14:33:14.62267+0200",
             "resources" : [
                {
                   "id" : "ICD10",
@@ -12357,83 +12046,7 @@
          },
          "pedigrees" : [],
          "phenotypicFeatures" : [],
-         "treatments" : [
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_oral",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_rectal",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "prednisolone",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            }
-         ]
+         "treatments" : []
       }
    },
    {
@@ -12441,8 +12054,8 @@
          "diseases" : [
             {
                "diseaseCode" : {
-                  "id" : "ICD10:K51.90",
-                  "label" : "Inflamatory Bowel Disease"
+                  "id" : "NCIT:C3138",
+                  "label" : "Inflammatory Bowel Disease"
                }
             }
          ],
@@ -12979,7 +12592,7 @@
                "ncpuhost" : 2,
                "user" : "mrueda"
             },
-            "created" : "2022-08-25T15:33:07.48625+0200",
+            "created" : "2022-08-26T14:33:14.62757+0200",
             "resources" : [
                {
                   "id" : "ICD10",
@@ -12999,83 +12612,7 @@
          },
          "pedigrees" : [],
          "phenotypicFeatures" : [],
-         "treatments" : [
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_oral",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_rectal",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "prednisolone",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            }
-         ]
+         "treatments" : []
       }
    },
    {
@@ -13083,8 +12620,8 @@
          "diseases" : [
             {
                "diseaseCode" : {
-                  "id" : "ICD10:K51.90",
-                  "label" : "Inflamatory Bowel Disease"
+                  "id" : "NCIT:C3138",
+                  "label" : "Inflammatory Bowel Disease"
                }
             }
          ],
@@ -13653,7 +13190,7 @@
                "ncpuhost" : 2,
                "user" : "mrueda"
             },
-            "created" : "2022-08-25T15:33:07.4933+0200",
+            "created" : "2022-08-26T14:33:14.63245+0200",
             "resources" : [
                {
                   "id" : "ICD10",
@@ -13679,6 +13216,17 @@
          },
          "treatments" : [
             {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "budesonide",
+                  "drug_name" : "budesonide",
+                  "duration" : null,
+                  "field" : "budesonide_oral_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "current treatment",
+                  "value" : "3"
+               },
                "ageAtOnset" : null,
                "cumulativeDose" : {
                   "Quantity" : {
@@ -13690,20 +13238,27 @@
                   }
                },
                "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_oral",
-                  "status" : "current treatment"
-               },
                "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
                },
                "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
                }
             },
             {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "budesonide",
+                  "drug_name" : "budesonide",
+                  "duration" : null,
+                  "field" : "budesonide_rectal_status",
+                  "route" : "rectal",
+                  "start" : null,
+                  "status" : "never treated",
+                  "value" : "1"
+               },
                "ageAtOnset" : null,
                "cumulativeDose" : {
                   "Quantity" : {
@@ -13715,42 +13270,205 @@
                   }
                },
                "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_rectal",
-                  "status" : "never treated"
-               },
                "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
                },
                "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
                }
             },
             {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
+               "_info" : {
+                  "dose" : null,
                   "drug" : "prednisolone",
-                  "status" : "current treatment"
+                  "drug_name" : "prednisolone",
+                  "duration" : null,
+                  "field" : "prednisolone_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "current treatment",
+                  "value" : "3"
                },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
                "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
                },
                "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C769",
+                  "label" : "Prednisolone"
+               }
+            },
+            {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "asa",
+                  "drug_name" : "aspirin",
+                  "duration" : null,
+                  "field" : "asa_oral_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "never treated",
+                  "value" : "1"
+               },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               },
+               "treatmentCode" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               }
+            },
+            {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "asa",
+                  "drug_name" : "aspirin",
+                  "duration" : null,
+                  "field" : "asa_rectal_status",
+                  "route" : "rectal",
+                  "start" : null,
+                  "status" : "never treated",
+                  "value" : "1"
+               },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
+               },
+               "treatmentCode" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               }
+            },
+            {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "aza",
+                  "drug_name" : "azathioprine",
+                  "duration" : null,
+                  "field" : "aza_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "never treated",
+                  "value" : "1"
+               },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               },
+               "treatmentCode" : {
+                  "id" : "NCIT:C290",
+                  "label" : "Azathioprine"
+               }
+            },
+            {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "mtx",
+                  "drug_name" : "methotrexate",
+                  "duration" : null,
+                  "field" : "mtx_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "never treated",
+                  "value" : "1"
+               },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               },
+               "treatmentCode" : {
+                  "id" : "NCIT:C642",
+                  "label" : "Methotrexate"
+               }
+            },
+            {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "mp",
+                  "drug_name" : "mercaptopurine",
+                  "duration" : null,
+                  "field" : "mp_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "never treated",
+                  "value" : "1"
+               },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               },
+               "treatmentCode" : {
+                  "id" : "NCIT:C195",
+                  "label" : "Mercaptopurine"
                }
             }
          ]
@@ -13761,8 +13479,8 @@
          "diseases" : [
             {
                "diseaseCode" : {
-                  "id" : "ICD10:K51.90",
-                  "label" : "Inflamatory Bowel Disease"
+                  "id" : "NCIT:C3138",
+                  "label" : "Inflammatory Bowel Disease"
                }
             }
          ],
@@ -14150,7 +13868,7 @@
                "ncpuhost" : 2,
                "user" : "mrueda"
             },
-            "created" : "2022-08-25T15:33:07.49928+0200",
+            "created" : "2022-08-26T14:33:14.63751+0200",
             "resources" : [
                {
                   "id" : "ICD10",
@@ -14170,83 +13888,7 @@
          },
          "pedigrees" : [],
          "phenotypicFeatures" : [],
-         "treatments" : [
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_oral",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_rectal",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "prednisolone",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            }
-         ]
+         "treatments" : []
       }
    },
    {
@@ -14254,8 +13896,8 @@
          "diseases" : [
             {
                "diseaseCode" : {
-                  "id" : "ICD10:K51.90",
-                  "label" : "Inflamatory Bowel Disease"
+                  "id" : "NCIT:C3138",
+                  "label" : "Inflammatory Bowel Disease"
                }
             }
          ],
@@ -14783,7 +14425,7 @@
                "ncpuhost" : 2,
                "user" : "mrueda"
             },
-            "created" : "2022-08-25T15:33:07.5047+0200",
+            "created" : "2022-08-26T14:33:14.64261+0200",
             "resources" : [
                {
                   "id" : "ICD10",
@@ -14803,83 +14445,7 @@
          },
          "pedigrees" : [],
          "phenotypicFeatures" : [],
-         "treatments" : [
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_oral",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_rectal",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "prednisolone",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            }
-         ]
+         "treatments" : []
       }
    },
    {
@@ -14887,8 +14453,8 @@
          "diseases" : [
             {
                "diseaseCode" : {
-                  "id" : "ICD10:K51.90",
-                  "label" : "Inflamatory Bowel Disease"
+                  "id" : "NCIT:C3138",
+                  "label" : "Inflammatory Bowel Disease"
                }
             }
          ],
@@ -15356,7 +14922,7 @@
                "ncpuhost" : 2,
                "user" : "mrueda"
             },
-            "created" : "2022-08-25T15:33:07.51011+0200",
+            "created" : "2022-08-26T14:33:14.6479+0200",
             "resources" : [
                {
                   "id" : "ICD10",
@@ -15382,6 +14948,17 @@
          },
          "treatments" : [
             {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "budesonide",
+                  "drug_name" : "budesonide",
+                  "duration" : null,
+                  "field" : "budesonide_oral_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "never treated",
+                  "value" : "1"
+               },
                "ageAtOnset" : null,
                "cumulativeDose" : {
                   "Quantity" : {
@@ -15393,20 +14970,27 @@
                   }
                },
                "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_oral",
-                  "status" : "never treated"
-               },
                "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
                },
                "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
                }
             },
             {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "budesonide",
+                  "drug_name" : "budesonide",
+                  "duration" : null,
+                  "field" : "budesonide_rectal_status",
+                  "route" : "rectal",
+                  "start" : null,
+                  "status" : "current treatment",
+                  "value" : "3"
+               },
                "ageAtOnset" : null,
                "cumulativeDose" : {
                   "Quantity" : {
@@ -15418,42 +15002,205 @@
                   }
                },
                "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_rectal",
-                  "status" : "current treatment"
-               },
                "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
                },
                "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
                }
             },
             {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
+               "_info" : {
+                  "dose" : null,
                   "drug" : "prednisolone",
-                  "status" : "current treatment"
+                  "drug_name" : "prednisolone",
+                  "duration" : null,
+                  "field" : "prednisolone_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "current treatment",
+                  "value" : "3"
                },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
                "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
                },
                "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C769",
+                  "label" : "Prednisolone"
+               }
+            },
+            {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "asa",
+                  "drug_name" : "aspirin",
+                  "duration" : null,
+                  "field" : "asa_oral_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "current treatment",
+                  "value" : "3"
+               },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               },
+               "treatmentCode" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               }
+            },
+            {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "asa",
+                  "drug_name" : "aspirin",
+                  "duration" : null,
+                  "field" : "asa_rectal_status",
+                  "route" : "rectal",
+                  "start" : null,
+                  "status" : "never treated",
+                  "value" : "1"
+               },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
+               },
+               "treatmentCode" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               }
+            },
+            {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "aza",
+                  "drug_name" : "azathioprine",
+                  "duration" : null,
+                  "field" : "aza_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "never treated",
+                  "value" : "1"
+               },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               },
+               "treatmentCode" : {
+                  "id" : "NCIT:C290",
+                  "label" : "Azathioprine"
+               }
+            },
+            {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "mtx",
+                  "drug_name" : "methotrexate",
+                  "duration" : null,
+                  "field" : "mtx_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "never treated",
+                  "value" : "1"
+               },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               },
+               "treatmentCode" : {
+                  "id" : "NCIT:C642",
+                  "label" : "Methotrexate"
+               }
+            },
+            {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "mp",
+                  "drug_name" : "mercaptopurine",
+                  "duration" : null,
+                  "field" : "mp_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "never treated",
+                  "value" : "1"
+               },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               },
+               "treatmentCode" : {
+                  "id" : "NCIT:C195",
+                  "label" : "Mercaptopurine"
                }
             }
          ]
@@ -15464,8 +15211,8 @@
          "diseases" : [
             {
                "diseaseCode" : {
-                  "id" : "ICD10:K51.90",
-                  "label" : "Inflamatory Bowel Disease"
+                  "id" : "NCIT:C3138",
+                  "label" : "Inflammatory Bowel Disease"
                }
             }
          ],
@@ -15862,7 +15609,7 @@
                "ncpuhost" : 2,
                "user" : "mrueda"
             },
-            "created" : "2022-08-25T15:33:07.51544+0200",
+            "created" : "2022-08-26T14:33:14.65319+0200",
             "resources" : [
                {
                   "id" : "ICD10",
@@ -15882,83 +15629,7 @@
          },
          "pedigrees" : [],
          "phenotypicFeatures" : [],
-         "treatments" : [
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_oral",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_rectal",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "prednisolone",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            }
-         ]
+         "treatments" : []
       }
    },
    {
@@ -15966,8 +15637,8 @@
          "diseases" : [
             {
                "diseaseCode" : {
-                  "id" : "ICD10:K51.90",
-                  "label" : "Inflamatory Bowel Disease"
+                  "id" : "NCIT:C3138",
+                  "label" : "Inflammatory Bowel Disease"
                }
             }
          ],
@@ -16355,7 +16026,7 @@
                "ncpuhost" : 2,
                "user" : "mrueda"
             },
-            "created" : "2022-08-25T15:33:07.52164+0200",
+            "created" : "2022-08-26T14:33:14.65834+0200",
             "resources" : [
                {
                   "id" : "ICD10",
@@ -16375,83 +16046,7 @@
          },
          "pedigrees" : [],
          "phenotypicFeatures" : [],
-         "treatments" : [
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_oral",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_rectal",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "prednisolone",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            }
-         ]
+         "treatments" : []
       }
    },
    {
@@ -16459,8 +16054,8 @@
          "diseases" : [
             {
                "diseaseCode" : {
-                  "id" : "ICD10:K51.90",
-                  "label" : "Inflamatory Bowel Disease"
+                  "id" : "NCIT:C3138",
+                  "label" : "Inflammatory Bowel Disease"
                }
             }
          ],
@@ -16876,7 +16471,7 @@
                "ncpuhost" : 2,
                "user" : "mrueda"
             },
-            "created" : "2022-08-25T15:33:07.52902+0200",
+            "created" : "2022-08-26T14:33:14.66321+0200",
             "resources" : [
                {
                   "id" : "ICD10",
@@ -16896,83 +16491,7 @@
          },
          "pedigrees" : [],
          "phenotypicFeatures" : [],
-         "treatments" : [
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_oral",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_rectal",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "prednisolone",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            }
-         ]
+         "treatments" : []
       }
    },
    {
@@ -16980,8 +16499,8 @@
          "diseases" : [
             {
                "diseaseCode" : {
-                  "id" : "ICD10:K51.90",
-                  "label" : "Inflamatory Bowel Disease"
+                  "id" : "NCIT:C3138",
+                  "label" : "Inflammatory Bowel Disease"
                }
             }
          ],
@@ -17509,7 +17028,7 @@
                "ncpuhost" : 2,
                "user" : "mrueda"
             },
-            "created" : "2022-08-25T15:33:07.53482+0200",
+            "created" : "2022-08-26T14:33:14.66808+0200",
             "resources" : [
                {
                   "id" : "ICD10",
@@ -17529,83 +17048,7 @@
          },
          "pedigrees" : [],
          "phenotypicFeatures" : [],
-         "treatments" : [
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_oral",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_rectal",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "prednisolone",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            }
-         ]
+         "treatments" : []
       }
    },
    {
@@ -17613,8 +17056,8 @@
          "diseases" : [
             {
                "diseaseCode" : {
-                  "id" : "ICD10:K51.90",
-                  "label" : "Inflamatory Bowel Disease"
+                  "id" : "NCIT:C3138",
+                  "label" : "Inflammatory Bowel Disease"
                }
             }
          ],
@@ -18250,7 +17693,7 @@
                "ncpuhost" : 2,
                "user" : "mrueda"
             },
-            "created" : "2022-08-25T15:33:07.53989+0200",
+            "created" : "2022-08-26T14:33:14.67295+0200",
             "resources" : [
                {
                   "id" : "ICD10",
@@ -18276,6 +17719,17 @@
          },
          "treatments" : [
             {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "budesonide",
+                  "drug_name" : "budesonide",
+                  "duration" : null,
+                  "field" : "budesonide_oral_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "never treated",
+                  "value" : "1"
+               },
                "ageAtOnset" : null,
                "cumulativeDose" : {
                   "Quantity" : {
@@ -18287,20 +17741,27 @@
                   }
                },
                "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_oral",
-                  "status" : "never treated"
-               },
                "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
                },
                "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
                }
             },
             {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "budesonide",
+                  "drug_name" : "budesonide",
+                  "duration" : null,
+                  "field" : "budesonide_rectal_status",
+                  "route" : "rectal",
+                  "start" : null,
+                  "status" : "never treated",
+                  "value" : "1"
+               },
                "ageAtOnset" : null,
                "cumulativeDose" : {
                   "Quantity" : {
@@ -18312,42 +17773,205 @@
                   }
                },
                "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_rectal",
-                  "status" : "never treated"
-               },
                "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
                },
                "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
                }
             },
             {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
+               "_info" : {
+                  "dose" : null,
                   "drug" : "prednisolone",
-                  "status" : "current treatment"
+                  "drug_name" : "prednisolone",
+                  "duration" : null,
+                  "field" : "prednisolone_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "current treatment",
+                  "value" : "3"
                },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
                "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
                },
                "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
+                  "id" : "NCIT:C769",
+                  "label" : "Prednisolone"
+               }
+            },
+            {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "asa",
+                  "drug_name" : "aspirin",
+                  "duration" : null,
+                  "field" : "asa_oral_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "current treatment",
+                  "value" : "3"
+               },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               },
+               "treatmentCode" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               }
+            },
+            {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "asa",
+                  "drug_name" : "aspirin",
+                  "duration" : null,
+                  "field" : "asa_rectal_status",
+                  "route" : "rectal",
+                  "start" : null,
+                  "status" : "current treatment",
+                  "value" : "3"
+               },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
+               },
+               "treatmentCode" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               }
+            },
+            {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "aza",
+                  "drug_name" : "azathioprine",
+                  "duration" : null,
+                  "field" : "aza_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "never treated",
+                  "value" : "1"
+               },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               },
+               "treatmentCode" : {
+                  "id" : "NCIT:C290",
+                  "label" : "Azathioprine"
+               }
+            },
+            {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "mtx",
+                  "drug_name" : "methotrexate",
+                  "duration" : null,
+                  "field" : "mtx_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "never treated",
+                  "value" : "1"
+               },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               },
+               "treatmentCode" : {
+                  "id" : "NCIT:C642",
+                  "label" : "Methotrexate"
+               }
+            },
+            {
+               "_info" : {
+                  "dose" : null,
+                  "drug" : "mp",
+                  "drug_name" : "mercaptopurine",
+                  "duration" : null,
+                  "field" : "mp_status",
+                  "route" : "oral",
+                  "start" : null,
+                  "status" : "never treated",
+                  "value" : "1"
+               },
+               "ageAtOnset" : null,
+               "cumulativeDose" : {
+                  "Quantity" : {
+                     "unit" : {
+                        "id" : "",
+                        "label" : ""
+                     },
+                     "value" : null
+                  }
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               },
+               "treatmentCode" : {
+                  "id" : "NCIT:C195",
+                  "label" : "Mercaptopurine"
                }
             }
          ]
@@ -18358,8 +17982,8 @@
          "diseases" : [
             {
                "diseaseCode" : {
-                  "id" : "ICD10:K51.90",
-                  "label" : "Inflamatory Bowel Disease"
+                  "id" : "NCIT:C3138",
+                  "label" : "Inflammatory Bowel Disease"
                }
             }
          ],
@@ -18756,7 +18380,7 @@
                "ncpuhost" : 2,
                "user" : "mrueda"
             },
-            "created" : "2022-08-25T15:33:07.54503+0200",
+            "created" : "2022-08-26T14:33:14.67773+0200",
             "resources" : [
                {
                   "id" : "ICD10",
@@ -18776,83 +18400,7 @@
          },
          "pedigrees" : [],
          "phenotypicFeatures" : [],
-         "treatments" : [
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_oral",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_rectal",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "prednisolone",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            }
-         ]
+         "treatments" : []
       }
    },
    {
@@ -18860,8 +18408,8 @@
          "diseases" : [
             {
                "diseaseCode" : {
-                  "id" : "ICD10:K51.90",
-                  "label" : "Inflamatory Bowel Disease"
+                  "id" : "NCIT:C3138",
+                  "label" : "Inflammatory Bowel Disease"
                }
             }
          ],
@@ -19249,7 +18797,7 @@
                "ncpuhost" : 2,
                "user" : "mrueda"
             },
-            "created" : "2022-08-25T15:33:07.55087+0200",
+            "created" : "2022-08-26T14:33:14.68263+0200",
             "resources" : [
                {
                   "id" : "ICD10",
@@ -19269,83 +18817,7 @@
          },
          "pedigrees" : [],
          "phenotypicFeatures" : [],
-         "treatments" : [
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_oral",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_rectal",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "prednisolone",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            }
-         ]
+         "treatments" : []
       }
    },
    {
@@ -19353,8 +18825,8 @@
          "diseases" : [
             {
                "diseaseCode" : {
-                  "id" : "ICD10:K51.90",
-                  "label" : "Inflamatory Bowel Disease"
+                  "id" : "NCIT:C3138",
+                  "label" : "Inflammatory Bowel Disease"
                }
             }
          ],
@@ -19798,7 +19270,7 @@
                "ncpuhost" : 2,
                "user" : "mrueda"
             },
-            "created" : "2022-08-25T15:33:07.55751+0200",
+            "created" : "2022-08-26T14:33:14.68756+0200",
             "resources" : [
                {
                   "id" : "ICD10",
@@ -19818,83 +19290,7 @@
          },
          "pedigrees" : [],
          "phenotypicFeatures" : [],
-         "treatments" : [
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_oral",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_rectal",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "prednisolone",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            }
-         ]
+         "treatments" : []
       }
    },
    {
@@ -19902,8 +19298,8 @@
          "diseases" : [
             {
                "diseaseCode" : {
-                  "id" : "ICD10:K51.90",
-                  "label" : "Inflamatory Bowel Disease"
+                  "id" : "NCIT:C3138",
+                  "label" : "Inflammatory Bowel Disease"
                }
             }
          ],
@@ -20431,7 +19827,7 @@
                "ncpuhost" : 2,
                "user" : "mrueda"
             },
-            "created" : "2022-08-25T15:33:07.56321+0200",
+            "created" : "2022-08-26T14:33:14.69266+0200",
             "resources" : [
                {
                   "id" : "ICD10",
@@ -20451,83 +19847,7 @@
          },
          "pedigrees" : [],
          "phenotypicFeatures" : [],
-         "treatments" : [
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_oral",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "budesonide_rectal",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            },
-            {
-               "ageAtOnset" : null,
-               "cumulativeDose" : {
-                  "Quantity" : {
-                     "unit" : {
-                        "id" : "",
-                        "label" : ""
-                     },
-                     "value" : null
-                  }
-               },
-               "doseIntervals" : [],
-               "info" : {
-                  "drug" : "prednisolone",
-                  "status" : null
-               },
-               "routeOfAdministration" : {
-                  "id" : "",
-                  "label" : ""
-               },
-               "treatmentCode" : {
-                  "id" : "",
-                  "label" : ""
-               }
-            }
-         ]
+         "treatments" : []
       }
    }
 ]
