@@ -375,7 +375,7 @@ sub do_redcap2bff {
                 sth            => $sth->{ncit}
             }
         );
-        my $range = map_range($element);
+        my $range = map_unit_range($element);
         $exposure->{measurementValue} = [
             {
                 Quantity => {
@@ -501,7 +501,7 @@ sub do_redcap2bff {
                 sth            => $sth->{ncit}
             }
         );
-        my $range = map_range($element);
+        my $range = map_unit_range($element);
         $measure->{measurementValue} = [
             {
                 Quantity => {
@@ -1123,7 +1123,7 @@ sub map_3tr {
     return exists $term->{$str} ? $term->{$str} : $str;
 }
 
-sub map_range {
+sub map_unit_range {
 
     my $element = shift;
     my $map_3tr = map_3tr($element);
