@@ -289,7 +289,8 @@ sub do_redcap2bff {
     #         'alcohol' => '4',
     #        }, {},,,
 
-    print Dumper $rcd if $self->{debug};
+    print Dumper $rcd         if $self->{debug};
+    print Dumper $participant if $self->{debug};
 
     # Data structure (hashref) for each individual
     my $individual;
@@ -305,6 +306,9 @@ sub do_redcap2bff {
     my @diseases = ('Inflammatory Bowel Disease');    # Note the 2 mm
     for my $element (@diseases) {
         my $disease;
+        $disease->{ageOfOnset} =
+          map_age_range( map2rcd( $rcd, $participant, 'age_first_diagnosis' ) )
+          if $participant->{age_first_diagnosis} ne '';
         $disease->{diseaseCode} = map_ontology(
             {
                 label => $element,
@@ -315,6 +319,10 @@ sub do_redcap2bff {
                 sth            => $sth->{ncit}
             }
         );
+        $disease->{familyHistory} = convert2boolean(map2rcd($rcd,$participant,'family_history')) if $participant->{family_history} ne '';;
+        $disease->{notes}         = undef;
+        $disease->{severity}      = undef;
+        $disease->{stage}         = undef;
         push @{ $individual->{diseases} }, $disease;
     }
 
@@ -322,9 +330,8 @@ sub do_redcap2bff {
     # ethnicity
     # =========
 
-    #print Dumper $participant and die;
     $individual->{ethnicity} =
-      map_ethnicity( $rcd->{ethnicity}{_labels}{ $participant->{ethnicity} } )
+      map_ethnicity( map2rcd( $rcd, $participant, 'ethnicity' ) )
       if $participant->{ethnicity} ne '';
 
     # =========
@@ -359,8 +366,7 @@ sub do_redcap2bff {
                 ? map_exposures(
                     {
                         key => $element,
-                        str =>
-                          $rcd->{$element}{_labels}{ $participant->{$element} }
+                        str => map2rcd( $rcd, $participant, $element )
                     }
                   )
                 : $element,
@@ -408,17 +414,15 @@ sub do_redcap2bff {
     # ====
 
     my @fields =
-      qw(study_id redcap_event_name dob age first_name last_name consent consent_date consent_noneu consent_devices consent_recontact consent_week2_endo education zipcode consents_and_demographics_complete);
+      qw(study_id dob diet redcap_event_name age first_name last_name consent consent_date consent_noneu consent_devices consent_recontact consent_week2_endo education zipcode consents_and_demographics_complete);
     for my $field (@fields) {
         $individual->{info}{$field} =
-            $field eq 'age' ? 'P' . $participant->{$field} . 'Y'
-          : $field eq 'education'
-          ? $rcd->{education}{_labels}{ $participant->{education} }
-          :
-
-          #$field =~ m/^consent/ ? { $participant->{$field} => $rcd->{$field}}
-          $field =~ m/^consent/
-          ? {
+            $field eq 'age' ? 'P'
+          . $participant->{$field}
+          . 'Y'
+          : ( any { /^$field$/ } qw(education diet) )
+          ? map2rcd( $rcd, $participant, $field )
+          : $field =~ m/^consent/ ? {
             value => dotify_and_coerce_number( $participant->{$field} ),
             map { $_ => $rcd->{$field}{$_} }
               ( "Field Label", "Field Note", "Field Type" )
@@ -529,7 +533,6 @@ sub do_redcap2bff {
 
         # Add to array
         push @{ $individual->{measures} }, $measure;    # SWITCHED OFF on 072622
-
     }
 
     # =========
@@ -582,7 +585,7 @@ sub do_redcap2bff {
 
     $individual->{sex} = map_ontology(
         {
-            label          => $rcd->{sex}{_labels}{ $participant->{sex} },
+            label          => map2rcd( $rcd, $participant, 'sex' ),
             ontology       => 'ncit',
             display_labels => $self->{print_hidden_labels},
             sth            => $sth->{ncit}
@@ -642,9 +645,9 @@ sub do_redcap2bff {
                 field     => $tmp_var,
                 drug      => $drug,
                 drug_name => $drug_name,
-                status => $rcd->{$tmp_var}{_labels}{ $participant->{$tmp_var} },
-                route  => $route,
-                value  => $participant->{$tmp_var},
+                status    => map2rcd( $rcd, $participant, $tmp_var ),
+                route     => $route,
+                value     => $participant->{$tmp_var},
                 map { $_ => $participant->{ $drug . $_ } }
                   qw(start dose duration)
             };    # ***** INTERNAL FIELD
@@ -1132,6 +1135,34 @@ sub map_range {
         }
     }
     return $hashref;
+}
+
+sub map_age_range {
+
+    my $str = shift;
+    $str =~ s/\+/-9999/; #60+#
+    my ( $start, $end ) = split /\-/, $str;
+    return {
+        AgeRange => {
+            start => dotify_and_coerce_number($start),
+            end   => dotify_and_coerce_number($end)
+        }
+    };
+}
+
+sub map2rcd {
+
+    my ( $rcd, $participant, $field ) = @_;
+    return $rcd->{$field}{_labels}{ $participant->{$field} };
+}
+
+sub convert2boolean {
+
+  my $val = lc(shift);
+  return ($val eq 'true' || $val eq 'yes') ? JSON::XS::true : 
+         ($val eq 'false'|| $val eq 'no' ) ? JSON::XS::false :
+         undef;  # unknown = undef
+
 }
 
 ########################
