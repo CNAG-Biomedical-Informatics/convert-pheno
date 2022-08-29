@@ -269,9 +269,15 @@ sub do_redcap2bff {
     my @diseases = ('Inflammatory Bowel Disease');    # Note the 2 mm
     for my $element (@diseases) {
         my $disease;
-        $disease->{ageOfOnset} =
-          map_age_range( map2rcd( $rcd, $participant, 'age_first_diagnosis' ) )
-          if $participant->{age_first_diagnosis} ne '';
+        $disease->{ageOfOnset} = map_age_range(
+            map2rcd(
+                {
+                    rcd         => $rcd,
+                    participant => $participant,
+                    field       => 'age_first_diagnosis'
+                }
+            )
+        ) if $participant->{age_first_diagnosis} ne '';
         $disease->{diseaseCode} = map_ontology(
             {
                 label => $element,
@@ -282,9 +288,15 @@ sub do_redcap2bff {
                 sth            => $sth->{ncit}
             }
         );
-        $disease->{familyHistory} =
-          convert2boolean( map2rcd( $rcd, $participant, 'family_history' ) )
-          if $participant->{family_history} ne '';
+        $disease->{familyHistory} = convert2boolean(
+            map2rcd(
+                {
+                    rcd         => $rcd,
+                    participant => $participant,
+                    field       => 'family_history'
+                }
+            )
+        ) if $participant->{family_history} ne '';
         $disease->{notes}    = undef;
         $disease->{severity} = undef;
         $disease->{stage}    = undef;
@@ -295,9 +307,11 @@ sub do_redcap2bff {
     # ethnicity
     # =========
 
-    $individual->{ethnicity} =
-      map_ethnicity( map2rcd( $rcd, $participant, 'ethnicity' ) )
-      if $participant->{ethnicity} ne '';
+    $individual->{ethnicity} = map_ethnicity(
+        map2rcd(
+            { rcd => $rcd, participant => $participant, field => 'ethnicity' }
+        )
+    ) if $participant->{ethnicity} ne '';
 
     # =========
     # exposures
@@ -331,7 +345,13 @@ sub do_redcap2bff {
                 ? map_exposures(
                     {
                         key => $element,
-                        str => map2rcd( $rcd, $participant, $element )
+                        str => map2rcd(
+                            {
+                                rcd         => $rcd,
+                                participant => $participant,
+                                field       => $element
+                            }
+                        )
                     }
                   )
                 : $element,
@@ -340,7 +360,6 @@ sub do_redcap2bff {
                 sth            => $sth->{ncit}
             }
         );
-        my $range = map_unit_range($element);
         $exposure->{measurementValue} = [
             {
                 Quantity => {
@@ -349,12 +368,8 @@ sub do_redcap2bff {
                       dotify_and_coerce_number( $participant->{$element} ),
                     _note =>
 'In many cases the <value> field shows the REDCap selection not the actual #items',
-                    referenceRange => {
-
-                        #unit => $unit, # Isn't this redundant (see above)???
-                        low  => $range->{low},
-                        high => $range->{high}
-                    }
+                    referenceRange =>
+                      map_unit_range( { rcd => $rcd, field => $element } )
                 }
             }
         ];
@@ -385,8 +400,8 @@ sub do_redcap2bff {
             $field eq 'age' ? 'P'
           . $participant->{$field}
           . 'Y'
-          : ( any { /^$field$/ } qw(education diet) )
-          ? map2rcd( $rcd, $participant, $field )
+          : ( any { /^$field$/ } qw(education diet) ) ? map2rcd(
+            { rcd => $rcd, participant => $participant, field => $field } )
           : $field =~ m/^consent/ ? {
             value => dotify_and_coerce_number( $participant->{$field} ),
             map { $_ => $rcd->{$field}{$_} }
@@ -444,7 +459,9 @@ sub do_redcap2bff {
     my @measures = (
         qw (leucocytes hemoglobin hematokrit mcv mhc thrombocytes neutrophils lymphocytes eosinophils creatinine gfr bilirubin gpt ggt lipase crp iron il6 calprotectin)
     );
-    for my $element (@measures) {
+    my @indexes =
+      qw (nancy_index_acute  nancy_index_chronic nancy_index_ulceration);
+    for my $element ( @measures, @indexes ) {
         next if $participant->{$element} eq '';
 
         my $measure;
@@ -467,19 +484,14 @@ sub do_redcap2bff {
                 sth            => $sth->{ncit}
             }
         );
-        my $range = map_unit_range($element);
         $measure->{measurementValue} = [
             {
                 Quantity => {
                     unit  => $unit,
                     value =>
                       dotify_and_coerce_number( $participant->{$element} ),
-                    referenceRange => {
-
-                        #unit => $unit, # Isn't this redundant (see above)???
-                        low  => $range->{low},
-                        high => $range->{high}
-                    }
+                    referenceRange =>
+                      map_unit_range( { rcd => $rcd, field => $element } )
                 }
             }
         ];
@@ -488,9 +500,9 @@ sub do_redcap2bff {
         $measure->{observationMoment} = undef;          # Age
         $measure->{procedure}         = map_ontology(
             {
-                label => $element ne 'calprotectin'
-                ? 'Blood Test Result'
-                : 'Feces',
+                  label => $element eq 'calprotectin' ? 'Feces'
+                : $element =~ m/^nancy/ ? 'Histologic'
+                : 'Blood Test Result',
                 ontology       => 'ncit',
                 display_labels => $self->{print_hidden_labels},
                 sth            => $sth->{ncit}
@@ -551,7 +563,9 @@ sub do_redcap2bff {
 
     $individual->{sex} = map_ontology(
         {
-            label          => map2rcd( $rcd, $participant, 'sex' ),
+            label => map2rcd(
+                { rcd => $rcd, participant => $participant, field => 'sex' }
+            ),
             ontology       => 'ncit',
             display_labels => $self->{print_hidden_labels},
             sth            => $sth->{ncit}
@@ -611,9 +625,15 @@ sub do_redcap2bff {
                 field     => $tmp_var,
                 drug      => $drug,
                 drug_name => $drug_name,
-                status    => map2rcd( $rcd, $participant, $tmp_var ),
-                route     => $route,
-                value     => $participant->{$tmp_var},
+                status    => map2rcd(
+                    {
+                        rcd         => $rcd,
+                        participant => $participant,
+                        field       => $tmp_var
+                    }
+                ),
+                route => $route,
+                value => $participant->{$tmp_var},
                 map { $_ => $participant->{ $drug . $_ } }
                   qw(start dose duration)
             };    # ***** INTERNAL FIELD
@@ -878,14 +898,9 @@ sub map_ontology {
 
     # Labels come in many forms, before checking existance we map to NCIT ones
     # Ad hoc modifications for 3TR
-    my $tmp_label = $_[0]->{label};
-    my $map_3tr   = 1;                # Boolean
-    if ($map_3tr) {
-        $tmp_label = map_3tr($tmp_label);
-        ($tmp_label) = keys %{$tmp_label} if ref $tmp_label eq ref {};    # Only 1 key
-    }
+    my $tmp_label = map_3tr( $_[0]->{label} );
 
-    # return if exists
+    # return if terms has already been searched and exists
     return $seen->{$tmp_label} if exists $seen->{$tmp_label};
 
     # return if we know 'a priori' that the label won't exist
@@ -1014,7 +1029,7 @@ sub iso8601_time {
 sub map_3tr {
 
     my $str  = shift;
-    my $term = {
+    my %term = (
 
         # hemoglobin leucocytes hematokrit mcv mhc thrombocytes neutrophils lymphocytes eosinophils creatinine gfr bilirubin gpt ggt lipase crp iron il6 calprotectin
         #hemoglobin;routine_lab_values;;text;Hemoglobin;;"xx.x g/dl";number;0;20;;;y;;;;;
@@ -1037,68 +1052,58 @@ sub map_3tr {
         #il6;routine_lab_values;;text;IL-6;;"xxxx.x ng/l";number;0;10000;;;;;;;;
         #calprotectin;routine_lab_values;;text;Calprotectin;;"mg/kg stool";integer;;;;;;;;;;
 
-        hemoglobin => { 'Hemoglobin Measurement' => { low => 0, high => 20 } },
-        leucocytes => { 'Leukocyte Count'        => { low => 0, high => 200 } },
-        hematokrit => { 'Hematocrit Measurement' => { low => 0, high => 100 } },
-        mcv        => {
-            'Erythrocyte Mean Corpuscular Volume' => { low => 0, high => 200 }
-        },
-        mhc => {
-            'Erythrocyte Mean Corpuscular Hemoglobin' =>
-              { low => 0, high => 100 }
-        },
-        thrombocytes => { 'Platelet Count'   => { low => 0, high => 2000 } },
-        neutrophils  => { 'Neutrophil Count' => { low => 0, high => 100 } },
-        lymphocytes  => { 'Lymphocyte Count' => { low => 0, high => 100 } },
-        eosinophils  => { 'Eosinophil Count' => { low => 0, high => 100 } },
-        creatinine   =>
-          { 'Creatinine Measurement' => { low => 0, high => 10_000 } },
-        gfr => { 'Glomerular Filtration Rate' => { low => 0, high => 200 } },
-        bilirubin =>
-          { 'Total Bilirubin Measurement' => { low => 0, high => 10_000 } },
-        gpt => {
-            'Serum Glutamic Pyruvic Transaminase, CTCAE' =>
-              { low => 0, high => 10_000 }
-        },
-        ggt => {
-            'Serum Gamma Glutamyl Transpeptidase Measurement' =>
-              { low => 0, high => 10_000 }
-        },
-        lipase => { 'Lipase Measurement' => { low => 0, high => 10_000 } },
-        crp    =>
-          { 'C-Reactive Protein Measurement' => { low => 0, high => 1000 } },
-        iron         => { 'Iron Measurement' => { low => 0, high => 1000 } },
-        il6          => { 'Interleukin-6'    => { low => 0, high => 10_000 } },
-        calprotectin =>
-          { 'Calprotectin Measurement' => { low => 0, high => 150 } },
+        # Field || NCIT Term || low high
+        hemoglobin   => 'Hemoglobin Measurement',
+        leucocytes   => 'Leukocyte Count',
+        hematokrit   => 'Hematocrit Measurement',
+        mcv          => 'Erythrocyte Mean Corpuscular Volume',
+        mhc          => 'Erythrocyte Mean Corpuscular Hemoglobin',
+        thrombocytes => 'Platelet Count',
+        neutrophils  => 'Neutrophil Count',
+        lymphocytes  => 'Lymphocyte Count',
+        eosinophils  => 'Eosinophil Count',
+        creatinine   => 'Creatinine Measurement',
+        gfr          => 'Glomerular Filtration Rate',
+        bilirubin    => 'Total Bilirubin Measurement',
+        gpt          => 'Serum Glutamic Pyruvic Transaminase, CTCAE',
+        ggt          => 'Serum Gamma Glutamyl Transpeptidase Measurement',
+        lipase       => 'Lipase Measurement',
+        crp          => 'C-Reactive Protein Measurement',
+        iron         => 'Iron Measurement',
+        il6          => 'Interleukin-6',
+        calprotectin => 'Calprotectin Measurement',
 
         #cigarettes_days;anamnesis;;text;"On average, how many cigarettes do/did you smoke per day?";;;integer;0;300;;"[smoking] = '2' or [smoking] = '1'";;;;;;
         #cigarettes_years;anamnesis;;text;"For how many years have you been smoking/did you smoke?";;;integer;0;100;;"[smoking] = '2' or [smoking] = '1'";;;;;;
         #packyears;anamnesis;;text;"Pack Years";;;integer;0;300;;"[smoking] = '2' or [smoking] = '1'";;;;;;
         #smoking_quit;anamnesis;;text;"When did you quit smoking?";;year;integer;1980;2030;;"[smoking] = '2'";;;;;;
-        cigarettes_days => {
-            'Average Number Cigarettes Smoked a Day' =>
-              { low => 0, high => 300 }
-        },
-        cigarettes_years =>
-          { 'Total Years Have Smoked Cigarettes' => { low => 0, high => 100 } },
-        packyears    => { 'Pack Year' => { low => 0, high => 300 } },
-        smoking_quit =>
-          { 'Smoking Cessation Year' => { low => 1980, high => 2030 } }
-    };
-    return exists $term->{$str} ? $term->{$str} : $str;
+        cigarettes_days  => 'Average Number Cigarettes Smoked a Day',
+        cigarettes_years => 'Total Years Have Smoked Cigarettes',
+        packyears        => 'Pack Year',
+        smoking_quit     => 'Smoking Cessation Year',
+
+        #nancy_index_ulceration;endoscopy;;radio;"Nancy histology index: Ulceration";"0, 0 - none|2, 2 - yes";;;;;;"[endoscopy_performed] = '1' AND [week_0_arm_1][diagnosis] = '2'";y;;;;;
+        #nancy_index_acute;endoscopy;;radio;"Nancy histology index: Acute inflammatory cell infiltrate";"0, 0 - none|2, 2 - mild|3, 3 - moderate|4, 4 - severe";;;;;;"[endoscopy_performed] = '1' AND [week_0_arm_1][diagnosis] = '2'";y;;;;;
+        # nancy_index_chronic;endoscopy;;radio;"Nancy histology index: Chronic inflammatory infiltrates";"0, 0 - none|1, 1 - mild|3, 3 - moderate or marked increase";;;;;;"[endoscopy_performed] = '1' AND [week_0_arm_1][diagnosis] = '2'";y;;;;;
+        nancy_index_ulceration => 'Nancy Index Ulceration',
+        nancy_index_acute      =>
+          'Nancy histology index: Acute inflammatory cell infiltrate',
+        nancy_index_chronic =>
+          'Nancy histology index: Chronic inflammatory infiltrates'
+    );
+    return exists $term{$str} ? $term{$str} : $str;
 }
 
 sub map_unit_range {
 
-    my $element = shift;
-    my $map_3tr = map_3tr($element);
+    my $arg   = shift;
+    my $field = $arg->{field};
+    my $rcd   = $arg->{rcd};
+    my %hash  = ( low => 'Text Validation Min', high => 'Text Validation Max' );
     my $hashref = { map { $_ => undef } qw(low high) };    # Initialize to undef
-    if ( ref $map_3tr eq ref {} ) {
-        my ($key) = keys %{$map_3tr};
-        for my $range (qw (low high)) {
-            $hashref->{$range} = $map_3tr->{$key}{$range};
-        }
+    for my $range (qw (low high)) {
+        $hashref->{$range} =
+          dotify_and_coerce_number( $rcd->{$field}{ $hash{$range} } );
     }
     return $hashref;
 }
@@ -1106,7 +1111,7 @@ sub map_unit_range {
 sub map_age_range {
 
     my $str = shift;
-    $str =~ s/\+/-9999/;    #60+#
+    $str =~ s/\+/-9999/;                                   #60+#
     my ( $start, $end ) = split /\-/, $str;
     return {
         AgeRange => {
@@ -1118,7 +1123,9 @@ sub map_age_range {
 
 sub map2rcd {
 
-    my ( $rcd, $participant, $field ) = @_;
+    my $arg = shift;
+    my ( $rcd, $participant, $field ) =
+      ( $arg->{rcd}, $arg->{participant}, $arg->{field} );
     return $rcd->{$field}{_labels}{ $participant->{$field} };
 }
 
