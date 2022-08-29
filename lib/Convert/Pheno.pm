@@ -171,50 +171,13 @@ sub do_bff2pxf {
 
     my ( $self, $data ) = @_;
 
-    # Setting a few variables
-    my $user = $ENV{LOGNAME} || $ENV{USER} || getpwuid($<);
-    chomp( my $ncpuhost = qx{/usr/bin/nproc} ) // 1;
-    $ncpuhost = 0 + $ncpuhost;    # coercing it to be a number
-
-    my $info = {
-        user            => $user,
-        ncpuhost        => $ncpuhost,
-        cwd             => cwd,
-        hostname        => hostname,
-        'Convert-Pheno' => $VERSION
-    };
-    #####################
-    # Under development #
-    #####################
-
-    # Insert {"phenopacket": { "meta_data"}} in both ARRAY (missing: and single document)
-    my $resources = [
-        {
-            id   => "ICD10",
-            name =>
-"International Statistical Classification of Diseases and Related Health Problems 10th Revision",
-            url             => "https://icd.who.int/browse10/2019/en#",
-            version         => "2019",
-            namespacePrefix => "ICD-10"
-
-              #iriPrefix => "http://purl.obolibrary.org/obo/HP_"
-        },
-        {
-            id              => "NCIT",
-            name            => "NCI Thesaurus",
-            url             => " http://purl.obolibrary.org/obo/ncit.owl",
-            version         => "22.03d",
-            namespacePrefix => "NCIT"
-        }
-    ];
-    my $meta_data =
-      { created => iso8601_time(), resources => $resources, _info => $info };
-
-    $data->{meta_data}      = $meta_data;
+    # Depending on the origion (redcap) , _info and resources may exist
+    $data->{meta_data} =
+      exists $data->{info}{meta_data}
+      ? $data->{info}{meta_data}
+      : get_meta_data();
     $data->{interpretation} = { phenopacket => {} };
-    my $out = { phenopacket => $data };
-
-    return $out;
+    return { phenopacket => $data };
 }
 
 ################
@@ -319,10 +282,12 @@ sub do_redcap2bff {
                 sth            => $sth->{ncit}
             }
         );
-        $disease->{familyHistory} = convert2boolean(map2rcd($rcd,$participant,'family_history')) if $participant->{family_history} ne '';;
-        $disease->{notes}         = undef;
-        $disease->{severity}      = undef;
-        $disease->{stage}         = undef;
+        $disease->{familyHistory} =
+          convert2boolean( map2rcd( $rcd, $participant, 'family_history' ) )
+          if $participant->{family_history} ne '';
+        $disease->{notes}    = undef;
+        $disease->{severity} = undef;
+        $disease->{stage}    = undef;
         push @{ $individual->{diseases} }, $disease;
     }
 
@@ -430,6 +395,7 @@ sub do_redcap2bff {
           : $participant->{$field}
           if $participant->{$field} ne '';
     }
+    $individual->{info}{meta_data} = get_meta_data();
 
     # =========================
     # interventionsOrProcedures
@@ -1140,7 +1106,7 @@ sub map_unit_range {
 sub map_age_range {
 
     my $str = shift;
-    $str =~ s/\+/-9999/; #60+#
+    $str =~ s/\+/-9999/;    #60+#
     my ( $start, $end ) = split /\-/, $str;
     return {
         AgeRange => {
@@ -1158,10 +1124,11 @@ sub map2rcd {
 
 sub convert2boolean {
 
-  my $val = lc(shift);
-  return ($val eq 'true' || $val eq 'yes') ? JSON::XS::true : 
-         ($val eq 'false'|| $val eq 'no' ) ? JSON::XS::false :
-         undef;  # unknown = undef
+    my $val = lc(shift);
+    return
+        ( $val eq 'true'  || $val eq 'yes' ) ? JSON::XS::true
+      : ( $val eq 'false' || $val eq 'no' )  ? JSON::XS::false
+      :                                        undef;            # unknown = undef
 
 }
 
@@ -1321,6 +1288,45 @@ sub array_dispatcher {
     close_connections_SQLite($self) unless $self->{method} eq 'bff2pxf';
 
     return $out_data;
+}
+
+sub get_meta_data {
+
+    # Setting a few variables
+    my $user = $ENV{LOGNAME} || $ENV{USER} || getpwuid($<);
+    chomp( my $ncpuhost = qx{/usr/bin/nproc} ) // 1;
+    $ncpuhost = 0 + $ncpuhost;    # coercing it to be a number
+    my $info = {
+        user            => $user,
+        ncpuhost        => $ncpuhost,
+        cwd             => cwd,
+        hostname        => hostname,
+        'Convert-Pheno' => $VERSION
+    };
+    my $resources = [
+        {
+            id   => "ICD10",
+            name =>
+"International Statistical Classification of Diseases and Related Health Problems 10th Revision",
+            url             => "https://icd.who.int/browse10/2019/en#",
+            version         => "2019",
+            namespacePrefix => "ICD-10"
+
+              #iriPrefix => "http://purl.obolibrary.org/obo/HP_"
+        },
+        {
+            id              => "NCIT",
+            name            => "NCI Thesaurus",
+            url             => " http://purl.obolibrary.org/obo/ncit.owl",
+            version         => "22.03d",
+            namespacePrefix => "NCIT"
+        }
+    ];
+    return {
+        _info     => $info,
+        resources => $resources,
+        created   => iso8601_time()
+    };
 }
 
 1;
