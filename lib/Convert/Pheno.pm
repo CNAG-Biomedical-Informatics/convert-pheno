@@ -267,7 +267,7 @@ sub do_redcap2bff {
     #my %disease = ( 'Inflamatory Bowel Disease' => 'ICD10:K51.90' ); # it does not exist as it is at ICD10
     #my @diseases = ('Unspecified asthma, uncomplicated', 'Inflamatory Bowel Disease', "Crohn's disease, unspecified, without complications");
     my @diseases = ('Inflammatory Bowel Disease');    # Note the 2 mm
-    for my $element (@diseases) {
+    for my $field (@diseases) {
         my $disease;
         $disease->{ageOfOnset} = map_age_range(
             map2rcd(
@@ -280,7 +280,7 @@ sub do_redcap2bff {
         ) if $participant->{age_first_diagnosis} ne '';
         $disease->{diseaseCode} = map_ontology(
             {
-                label => $element,
+                label => $field,
 
                 #    ontology       => 'icd10',                        # ICD:10 Inflammatory Bowel Disease does not exist
                 ontology       => 'ncit',
@@ -322,8 +322,8 @@ sub do_redcap2bff {
         qw (alcohol smoking cigarettes_days cigarettes_years packyears smoking_quit)
     );
 
-    for my $element (@exposures) {
-        next if $participant->{$element} eq '';
+    for my $field (@exposures) {
+        next if $participant->{$field} eq '';
         my $exposure;
 
         $exposure->{ageAtExposure} = undef;
@@ -331,30 +331,30 @@ sub do_redcap2bff {
         $exposure->{duration}      = undef;          # 'P32Y6M1D';
         $exposure->{exposureCode}  = map_ontology(
             {
-                label          => $element,
+                label          => $field,
                 ontology       => 'ncit',
                 display_labels => $self->{print_hidden_labels},
                 sth            => $sth->{ncit}
             }
         );
 
-        # We first extract 'unit' and %range' for <measurementValue>
+        # We first extract 'unit' that supposedly will be used in <measurementValue> and <referenceRange>??
         my $unit = map_ontology(
             {
-                label => ( $element eq 'alcohol' || $element eq 'smoking' )
+                label => ( $field eq 'alcohol' || $field eq 'smoking' )
                 ? map_exposures(
                     {
-                        key => $element,
+                        key => $field,
                         str => map2rcd(
                             {
                                 rcd         => $rcd,
                                 participant => $participant,
-                                field       => $element
+                                field       => $field
                             }
                         )
                     }
                   )
-                : $element,
+                : $field,
                 ontology       => 'ncit',
                 display_labels => $self->{print_hidden_labels},
                 sth            => $sth->{ncit}
@@ -364,12 +364,11 @@ sub do_redcap2bff {
             {
                 Quantity => {
                     unit  => $unit,
-                    value =>
-                      dotify_and_coerce_number( $participant->{$element} ),
+                    value => dotify_and_coerce_number( $participant->{$field} ),
                     _note =>
 'In many cases the <value> field shows the REDCap selection not the actual #items',
                     referenceRange =>
-                      map_unit_range( { rcd => $rcd, field => $element } )
+                      map_unit_range( { rcd => $rcd, field => $field } )
                 }
             }
         ];
@@ -424,23 +423,28 @@ sub do_redcap2bff {
         $surgery{ 'surgery_details___' . $_ } =
           $rcd->{surgery_details}{_labels}{$_};
     }
-    for
-      my $element ( qw(endoscopy_performed intestinal_surgery), keys %surgery )
+    for my $field (
+        qw(endoscopy_performed intestinal_surgery partial_mayo complete_mayo prev_endosc_dilatation),
+        keys %surgery
+      )
     {
-        if ( $participant->{$element} ) {
+        if ( $participant->{$field} ) {
             my $intervention;
             $intervention->{ageAtProcedure} = undef;
             $intervention->{bodySite} =
               { id => 'NCIT:C12736', label => 'intestine' };
-            $intervention->{dateOfProcedure} = undef;
-            $intervention->{procedureCode}   = map_ontology(
+            $intervention->{dateOfProcedure} =
+                $field eq 'endoscopy_performed'
+              ? $participant->{endoscopy_date}
+              : undef;
+            $intervention->{procedureCode} = map_ontology(
                 {
-                    label          => $surgery{$element},
+                    label          => $surgery{$field},
                     ontology       => 'ncit',
                     display_labels => $self->{print_hidden_labels},
                     sth            => $sth->{ncit}
                 }
-            ) if $surgery{$element};
+            ) if $surgery{$field};
             push @{ $individual->{interventionsOrProcedures} }, $intervention;
         }
     }
@@ -461,13 +465,15 @@ sub do_redcap2bff {
     );
     my @indexes =
       qw (nancy_index_acute  nancy_index_chronic nancy_index_ulceration);
-    for my $element ( @measures, @indexes ) {
-        next if $participant->{$element} eq '';
+    my @others = qw(endo_mayo);
+
+    for my $field ( @measures, @indexes, @others ) {
+        next if $participant->{$field} eq '';
 
         my $measure;
         $measure->{assayCode} = map_ontology(
             {
-                label          => $element,
+                label          => $field,
                 ontology       => 'ncit',
                 display_labels => $self->{print_hidden_labels},
                 sth            => $sth->{ncit}
@@ -478,8 +484,8 @@ sub do_redcap2bff {
         # We first extract 'unit' and %range' for <measurementValue>
         my $unit = map_ontology(
             {
-                label    => map_quantity( $rcd->{$element}{'Field Note'} ),
-                ontology => 'ncit',
+                label          => map_quantity( $rcd->{$field}{'Field Note'} ),
+                ontology       => 'ncit',
                 display_labels => $self->{print_hidden_labels},
                 sth            => $sth->{ncit}
             }
@@ -488,20 +494,18 @@ sub do_redcap2bff {
             {
                 Quantity => {
                     unit  => $unit,
-                    value =>
-                      dotify_and_coerce_number( $participant->{$element} ),
+                    value => dotify_and_coerce_number( $participant->{$field} ),
                     referenceRange =>
-                      map_unit_range( { rcd => $rcd, field => $element } )
+                      map_unit_range( { rcd => $rcd, field => $field } )
                 }
             }
         ];
-        $measure->{notes} =
-          "$element, Field Label=$rcd->{$element}{'Field Label'}";
+        $measure->{notes} = "$field, Field Label=$rcd->{$field}{'Field Label'}";
         $measure->{observationMoment} = undef;          # Age
         $measure->{procedure}         = map_ontology(
             {
-                  label => $element eq 'calprotectin' ? 'Feces'
-                : $element =~ m/^nancy/ ? 'Histologic'
+                  label => $field eq 'calprotectin' ? 'Feces'
+                : $field =~ m/^nancy/ ? 'Histologic'
                 : 'Blood Test Result',
                 ontology       => 'ncit',
                 display_labels => $self->{print_hidden_labels},
@@ -521,7 +525,7 @@ sub do_redcap2bff {
 
     # disease, id, members, numSubjects
     my @pedigrees = (qw ( x y ));
-    for my $element (@pedigrees) {
+    for my $field (@pedigrees) {
 
         my $pedigree;
         $pedigree->{disease}     = {};      # P32Y6M1D
@@ -539,22 +543,39 @@ sub do_redcap2bff {
     # ==================
 
     $individual->{phenotypicFeatures} = [];
-    my @phenotypicFeatures = qw ( a b);
-    for my $element (@phenotypicFeatures) {
+    my @comorbidities =
+      qw ( comorb_asthma comorb_copd comorb_ms comorb_sle comorb_ra comorb_pso comorb_ad comorb_cancer comorb_cancer_specified comorb_hypertension comorb_diabetes comorb_lipids comorb_stroke comorb_other_ai comorb_other_ai_specified);
+    my @phenotypicFeatures = qw(immunodeficiency rectal_bleeding);
+
+    for my $field ( @comorbidities, @phenotypicFeatures ) {
 
         my $phenotypicFeature;
-        $phenotypicFeature->{evidence} = undef;    # P32Y6M1D
-        $phenotypicFeature->{excluded} =
-          { Quantity => { unit => { id => '', label => '' }, value => undef } };
-        $phenotypicFeature->{featureType} = [];
-        $phenotypicFeature->{modifiers}   = { id => '', label => '' };
-        $phenotypicFeature->{notes}       = { id => '', label => '' };
-        $phenotypicFeature->{onset}       = { id => '', label => '' };
-        $phenotypicFeature->{resolution}  = { id => '', label => '' };
-        $phenotypicFeature->{severity}    = { id => '', label => '' };
+        if ( $participant->{$field} ne '' && $participant->{$field} == 1 ) {
 
-        # Add to array
-        #push @{ $individual->{phenotypicFeatures} }, $phenotypicFeature;    # SWITCHED OFF on 072622
+            #$phenotypicFeature->{evidence} = undef;    # P32Y6M1D
+            #$phenotypicFeature->{excluded} =
+            #  { Quantity => { unit => { id => '', label => '' }, value => undef } };
+            $phenotypicFeature->{featureType} = map_ontology(
+                {
+                    label    => $field =~ m/comorb/ ? 'Comorbidity' : $field,
+                    ontology => 'ncit',
+                    display_labels => $self->{print_hidden_labels},
+                    sth            => $sth->{ncit}
+
+                }
+            );
+
+            #$phenotypicFeature->{modifiers}   = { id => '', label => '' };
+            $phenotypicFeature->{notes} =
+              "$field, Field Label=$rcd->{$field}{'Field Label'}";
+
+            #$phenotypicFeature->{onset}       = { id => '', label => '' };
+            #$phenotypicFeature->{resolution}  = { id => '', label => '' };
+            #$phenotypicFeature->{severity}    = { id => '', label => '' };
+
+            # Add to array
+            push @{ $individual->{phenotypicFeatures} }, $phenotypicFeature;
+        }
     }
 
     # ===
@@ -618,7 +639,7 @@ sub do_redcap2bff {
 
             #say "$drug $route";
 
-            # Initialize element $treatment
+            # Initialize field $treatment
             my $treatment;
 
             $treatment->{_info} = {
