@@ -194,22 +194,18 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
 
      Arguments:                       
        -input-type:  
-             -ipxf                    Phenopacket JSON file
              -ibff                    Beacon v2 JSON file
-             -iredcap                 REDCap CSV file
              -iomop                   OMOP-CDM CSV file(s)
+             -ipxf                    Phenopacket JSON file
+             -iredcap                 REDCap CSV file
 
             (Wish-list)
              #-icdisc                 CDISC CSV file
              #-ifhir                  FHIR CSV file
 
        -output-type;
-             -opxf                    Phenopacket JSON file
              -obff                    Beacon v2 JSON file
-
-             (Wish-list)
-             #-oomop                  OMOP-CDM CSV file
-
+             -opxf                    Phenopacket JSON file
 
      Options:
        -out-dir                       Output (existing) directory
