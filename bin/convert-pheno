@@ -197,9 +197,9 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
              -ipxf                    Phenopacket JSON file
              -ibff                    Beacon v2 JSON file
              -iredcap                 REDCap CSV file
+             -iomop                   OMOP-CDM CSV file(s)
 
             (Wish-list)
-             #-iomop                  OMOP-CDM CSV file(s)
              #-icdisc                 CDISC CSV file
              #-ifhir                  FHIR CSV file
 

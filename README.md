@@ -13,9 +13,9 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
              -ipxf                    Phenopacket JSON file
              -ibff                    Beacon v2 JSON file
              -iredcap                 REDCap CSV file
+             -iomop                   OMOP-CDM CSV file(s)
 
             (Wish-list)
-             #-iomop                  OMOP-CDM CSV file
              #-icdisc                 CDISC CSV file
              #-ifhir                  FHIR CSV file
 
@@ -37,6 +37,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
        -format                        Output format for the text file [>json|yaml]
        -rcd|redcap-dictionary         Dictionary file (CSV) exported from REDCap
        -phl|print-hidden-labels       Print original values (before DB mapping) of text fields <_labels>
+       -sep|separator                 Delimiter character for CSV files
      
 
 # DESCRIPTION
