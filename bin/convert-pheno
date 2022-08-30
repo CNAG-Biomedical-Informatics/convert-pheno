@@ -50,6 +50,7 @@ GetOptions(
     'ipxf=s'                  => \my $in_pxf,                               # string
     'ibff=s'                  => \my $in_bff,                               # string
     'iredcap=s'               => \my $in_redcap,                            # string
+    'iomop=s{,}'              => \my @omop_files,                           # array
     'obff=s'                  => \my $out_bff,                              # string
     'opxf=s'                  => \my $out_pxf,                              # string
     'out-dir=s'               => \$out_dir,                                 # string
@@ -59,6 +60,7 @@ GetOptions(
     'verbose'                 => \my $verbose,                              # flag
     'format=s'                => \$format,                                  # string
     'no-color|nc'             => \my $no_color,                             # flag
+    'separator|sep=s'         => \my $sep,                                  # str
     'redcap-dictionary|rcd=s' => \my $redcap_dictionary,                    # string
     'print-hidden-labels|phl' => \my $print_hidden_labels,                  # flag
     'version|v'               => sub { say "$0 Version $VERSION"; exit; }
@@ -66,9 +68,9 @@ GetOptions(
 pod2usage(1)                              if $help;
 pod2usage( -verbose => 2, -exitval => 0 ) if $man;
 pod2usage(
-    -message => "Please specify a valid input file(s) -i <*json>\n",
+    -message => "Please specify a valid input file(s) -i <json|csv>\n",
     -exitval => 1
-) unless ( $in_pxf || $in_bff || $in_redcap );
+) unless ( $in_pxf || $in_bff || $in_redcap || @omop_files);
 pod2usage(
     -message => "Please specify a valid directory for --out-dir\n",
     -exitval => 1
@@ -92,13 +94,16 @@ my $data = {
       in_type => $in_pxf ? 'pxf'
     : $in_bff    ? 'bff'
     : $in_redcap ? 'redcap'
+    : @omop_files ? 'omop' 
     : 'bff',
     out_type    => $out_pxf ? 'pxf' : $out_bff ? 'bff' : 'bff',
     in_textfile => 1,
     in_file     => $in_pxf ? $in_pxf
     : $in_bff    ? $in_bff
     : $in_redcap ? $in_redcap
-    : 'individuals.json',
+    :  undef,
+    in_files => \@omop_files // undef,
+    sep      =>  $sep,
     redcap_dictionary   => $redcap_dictionary,
     print_hidden_labels => $print_hidden_labels,
     debug               => $debug,
@@ -194,7 +199,7 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
              -iredcap                 REDCap CSV file
 
             (Wish-list)
-             #-iomop                  OMOP-CDM CSV file
+             #-iomop                  OMOP-CDM CSV file(s)
              #-icdisc                 CDISC CSV file
              #-ifhir                  FHIR CSV file
 
@@ -216,6 +221,7 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
        -format                        Output format for the text file [>json|yaml]
        -rcd|redcap-dictionary         Dictionary file (CSV) exported from REDCap
        -phl|print-hidden-labels       Print original values (before DB mapping) of text fields <_labels>
+       -sep|separator                 Delimiter character for CSV files
      
 =head1 DESCRIPTION
 

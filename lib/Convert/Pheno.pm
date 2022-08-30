@@ -191,7 +191,7 @@ sub redcap2bff {
     my $self = shift;
 
     # Read and load data from REDCap export
-    my $data = read_redcap_export( $self->{in_file} );
+    my $data = read_csv_export( { in => $self->{in_file}, sep => undef } );
 
     # $data = [
     #       {
@@ -216,7 +216,7 @@ sub redcap2bff {
 
 sub do_redcap2bff {
 
-    my ( $self, $data ) = @_;
+    my ( $self, $participant ) = @_;
     my $rcd = $self->{data_rcd};
     my $sth = $self->{sth};
 
@@ -242,15 +242,14 @@ sub do_redcap2bff {
     # START MAPPING TO BEACON V2 TERMS #
     ####################################
 
-    my $participant = $data;
-
+    # $participant =
     #       {
     #         'abdominal_mass' => '0',
     #         'abdominal_pain' => '1',
     #         'age' => '2',
     #         'age_first_diagnosis' => '0',
     #         'alcohol' => '4',
-    #        }, {},,,
+    #        }
 
     print Dumper $rcd         if $self->{debug};
     print Dumper $participant if $self->{debug};
@@ -716,15 +715,150 @@ sub redcap2pxf {
     return array_dispatcher($self);
 }
 
-#############################
-#############################
-#  READ/LOAD REDCAP EXPORT  #
-#############################
-#############################
+##############
+##############
+#  OMOP2BFF  #
+##############
+##############
 
-sub read_redcap_export {
+sub omop2bff {
 
-    my $in_file = shift;
+    my $self = shift;
+
+    # Read and load data from OMOP-CDM export
+    my $data;
+    my @exts = qw(.csv .tsv .txt);
+    for my $csv ( @{ $self->{in_files} } ) {
+        my ( $name, undef, undef ) = fileparse( $csv, @exts );
+        $data->{$name} = read_csv_export( { in => $csv, sep => $self->{sep} } );
+    }
+
+    # Now we need to perform a tranformation of the data where 'subject_id' is one row of data
+    $self->{data} = transpose_omop_data_structure($data);    # setter
+
+    # array_dispatcher will deal with JSON arrays
+    return array_dispatcher($self);
+}
+
+sub do_omop2bff {
+
+    my ( $self, $participant ) = @_;
+
+    ####################################
+    # START MAPPING TO BEACON V2 TERMS #
+    ####################################
+    my $individual;
+
+    # Get cursors for 1D terms
+    my $diagnoses = $participant->{ADMISSIONS};
+
+    # ========
+    # diseases
+    # ========
+    my $diseases = $participant->{DIAGNOSES_ICD};
+    $individual->{diseases} = $diseases;
+
+    # =========
+    # ethnicity
+    # =========
+
+    $individual->{ethnicity} = undef;
+
+    # =========
+    # exposures
+    # =========
+
+    # ================
+    # geographicOrigin
+    # ================
+
+    $individual->{geographicOrigin} = undef;
+
+    # ==
+    # id
+    # ==
+
+    $individual->{id} = $participant->{DIAGNOSES_ICD}{subject_id};
+
+    #  if exists $phenopacket->{subject}{id};
+
+    # ====
+    # info
+    # ====
+
+    # =========================
+    # interventionsOrProcedures
+    # =========================
+
+    # =============
+    # karyotypicSex
+    # =============
+
+    # ========
+    # measures
+    # ========
+
+    # =========
+    # pedigrees
+    # =========
+
+    # ==================
+    # phenotypicFeatures
+    # ==================
+
+    # ===
+    # sex
+    # ===
+
+    # ==========
+    # treatments
+    # ==========
+
+    ##################################
+    # END MAPPING TO BEACON V2 TERMS #
+    ##################################
+
+    return $individual;
+}
+
+##############
+##############
+#  OMOP2PXF  #
+##############
+##############
+
+sub omop2pxf {
+
+    my $self = shift;
+
+    # First iteration: omop2bff
+    $self->{method} = 'omop2bff';    # setter - we have to change the value of attr {method}
+    my $bff = omop2bff($self);       # array
+
+    # Preparing for second iteration: bff2pxf
+    $self->{method}      = 'bff2pxf';    # setter
+    $self->{data}        = $bff;         # setter
+    $self->{in_textfile} = 0;            # setter
+
+    # Run second iteration
+    return array_dispatcher($self);
+}
+
+#########################
+#########################
+#  SUBROUTINES FOR CSV  #
+#########################
+#########################
+
+##########################
+#  READ/LOAD CSV EXPORT  #
+##########################
+
+sub read_csv_export {
+
+    my $arg     = shift;
+    my $in_file = $arg->{in};
+    my $sep     = $arg->{sep};
 
     # Define split record separator
     my @exts = qw(.csv .tsv .txt);
@@ -740,8 +874,10 @@ sub read_redcap_export {
     chomp( my $tmp_header = <$fh> );
 
     # Defining separator
-    my $separator = $ext eq '.csv'
-      ? ';'    # Note we don't use comma but semicolon
+    my $separator =
+        $sep
+      ? $sep
+      : $ext eq '.csv' ? ';'    # Note we don't use comma but semicolon
       : $ext eq '.tsv' ? "\t"
       :                  ' ';
 
@@ -780,9 +916,7 @@ sub read_redcap_export {
 }
 
 #################################
-#################################
 #  READ/LOAD REDCAP DICTIONARY  #
-#################################
 #################################
 
 sub read_redcap_dictionary {
@@ -856,6 +990,27 @@ sub read_redcap_dictionary {
     #######################################
 
     return $data;
+}
+
+########################
+#  TRANSPOSE OMOP-CDM  #
+########################
+
+sub transpose_omop_data_structure {
+
+    my $data = shift;
+    my @tables =
+      qw(ADMISSIONS CALLOUT CAREGIVERS CHARTEVENTS CPTEVENTS DATETIMEEVENTS D_CPT DIAGNOSES_ICD D_ICD_DIAGNOSES D_ICD_PROCEDURES D_ITEMS D_LABITEMS DRGCODES ICUSTAYS INPUTEVENTS_CV INPUTEVENTS_MV LABEVENTS MICROBIOLOGYEVENTS NOTEEVENTS OUTPUTEVENTS PATIENTS PRESCRIPTIONS PROCEDUREEVENTS_MV PROCEDURES_ICD SERVICES TRANSFERS);
+    my $omop_ids;
+    for my $table (@tables) {
+        for my $item ( @{ $data->{$table} } ) {
+            if ( exists $item->{subject_id} && $item->{subject_id} ne '' ) {
+                my $subject_id = $item->{subject_id};
+                $omop_ids->{$subject_id}{$table} = $item;
+            }
+        }
+    }
+    return [ map { $omop_ids->{$_} } keys %{$omop_ids} ];
 }
 
 #########################
@@ -1279,7 +1434,7 @@ sub array_dispatcher {
 
     # Load the input data as Perl data structure
     my $in_data =
-      ( $self->{in_textfile} && $self->{method} !~ m/^redcap2/ )
+      ( $self->{in_textfile} && $self->{method} !~ m/^redcap2|^omop2/ )
       ? read_json( $self->{in_file} )
       : $self->{data};
 
@@ -1287,7 +1442,8 @@ sub array_dispatcher {
     my %func = (
         pxf2bff    => \&do_pxf2bff,
         bff2pxf    => \&do_bff2pxf,
-        redcap2bff => \&do_redcap2bff
+        redcap2bff => \&do_redcap2bff,
+        omop2bff   => \&do_omop2bff
     );
 
     # Open connection to SQLlite databases ONCE
@@ -1295,7 +1451,7 @@ sub array_dispatcher {
 
     # Proceed depending if we have an ARRAY or not
     my $out_data;
-    if ( ref $in_data eq 'ARRAY' ) {
+    if ( ref $in_data eq ref [] ) {
         say "$self->{method}: ARRAY" if $self->{debug};
 
         # Caution with the RAM (we store all in memory)
@@ -1309,7 +1465,7 @@ sub array_dispatcher {
     }
     else {
         say "$self->{method}: NOT ARRAY" if $self->{debug};
-        $out_data = $func{ $self->{method} }->( $self, $_ );               # Method
+        $out_data = $func{ $self->{method} }->( $self, $in_data );         # Method
     }
 
     # Close connections ONCE
