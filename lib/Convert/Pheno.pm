@@ -750,7 +750,7 @@ sub do_omop2bff {
     my $individual;
 
     # Get cursors for 1D terms
-    my $diagnoses = $participant->{ADMISSIONS};
+    #my $diagnoses = $participant->{ADMISSIONS};
 
     # ========
     # diseases
@@ -779,8 +779,6 @@ sub do_omop2bff {
     # ==
 
     $individual->{id} = $participant->{DIAGNOSES_ICD}{subject_id};
-
-    #  if exists $phenopacket->{subject}{id};
 
     # ====
     # info
@@ -850,10 +848,6 @@ sub omop2pxf {
 #########################
 #########################
 
-##########################
-#  READ/LOAD CSV EXPORT  #
-##########################
-
 sub read_csv_export {
 
     my $arg     = shift;
@@ -914,10 +908,6 @@ sub read_csv_export {
 
     return $data;
 }
-
-#################################
-#  READ/LOAD REDCAP DICTIONARY  #
-#################################
 
 sub read_redcap_dictionary {
 
@@ -991,10 +981,6 @@ sub read_redcap_dictionary {
 
     return $data;
 }
-
-########################
-#  TRANSPOSE OMOP-CDM  #
-########################
 
 sub transpose_omop_data_structure {
 
@@ -1207,7 +1193,6 @@ sub map_3tr {
     my $str  = shift;
     my %term = (
 
-        # hemoglobin leucocytes hematokrit mcv mhc thrombocytes neutrophils lymphocytes eosinophils creatinine gfr bilirubin gpt ggt lipase crp iron il6 calprotectin
         #hemoglobin;routine_lab_values;;text;Hemoglobin;;"xx.x g/dl";number;0;20;;;y;;;;;
         #leucocytes;routine_lab_values;;text;Leucocytes;;"xx.xx /10^-9 l";number;0;200;;;y;;;;;
         #hematokrit;routine_lab_values;;text;Hematokrit;;"xx.x %";number;0;100;;;y;;;;;
@@ -1228,7 +1213,7 @@ sub map_3tr {
         #il6;routine_lab_values;;text;IL-6;;"xxxx.x ng/l";number;0;10000;;;;;;;;
         #calprotectin;routine_lab_values;;text;Calprotectin;;"mg/kg stool";integer;;;;;;;;;;
 
-        # Field || NCIT Term || low high
+        # Field => NCIT Term
         hemoglobin   => 'Hemoglobin Measurement',
         leucocytes   => 'Leukocyte Count',
         hematokrit   => 'Hematocrit Measurement',
@@ -1441,9 +1426,9 @@ sub array_dispatcher {
     # Define the methods to call (naming 'func' to avoid confussion with $self->{method})
     my %func = (
         pxf2bff    => \&do_pxf2bff,
-        bff2pxf    => \&do_bff2pxf,
         redcap2bff => \&do_redcap2bff,
-        omop2bff   => \&do_omop2bff
+        omop2bff   => \&do_omop2bff,
+        bff2pxf    => \&do_bff2pxf
     );
 
     # Open connection to SQLlite databases ONCE
