@@ -797,6 +797,8 @@ sub omop2bff {
 sub do_omop2bff {
 
     my ( $self, $participant ) = @_;
+    my $rcd = $self->{data_rcd};
+    my $sth = $self->{sth};
 
     ####################################
     # START MAPPING TO BEACON V2 TERMS #
@@ -809,14 +811,52 @@ sub do_omop2bff {
     # ========
     # diseases
     # ========
-    my $diseases = $participant->{DIAGNOSES_ICD};
-    $individual->{diseases} = $diseases;
+
+    #$individual->{diseases} = [];
+
+    my @diseases = qw(a b);
+    for my $field (@diseases) {
+        my $disease;
+
+        #disease->{ageOfOnset} = map_age_range(
+        #    map2rcd(
+        #        {
+        #            rcd         => $rcd,
+        #            participant => $participant,
+        #            field       => 'age_first_diagnosis'
+        #        }
+        #    )
+        #) if $participant->{age_first_diagnosis} ne '';
+        #$disease->{diseaseCode} = map_ontology(
+        #    {
+        #        label => $field,
+        #
+        #                #    ontology       => 'icd10',                        # ICD:10 Inflammatory Bowel Disease does not exist
+        #                ontology       => 'ncit',
+        #                display_labels => $self->{print_hidden_labels},
+        #                sth            => $sth->{ncit}
+        #        ) if @diseases ;
+        #$disease->{familyHistory} = convert2boolean(
+        #    map2rcd(
+        #        {
+        #            rcd         => $rcd,
+        #            participant => $participant,
+        #            field       => 'family_history'
+        #        }
+        #    )
+        #) if $participant->{family_history} ne '';
+        #    $disease->{notes}    = undef;
+        #    $disease->{severity} = undef;
+        #    $disease->{stage}    = undef;
+        #push @{ $individual->{diseases} }, $disease;
+    }
 
     # =========
     # ethnicity
     # =========
 
-    $individual->{ethnicity} = undef;
+    $individual->{ethnicity} = $participant->{PERSON}{race_source_value}
+      if exists $participant->{PERSON}{race_source_value};
 
     # =========
     # exposures
@@ -826,13 +866,16 @@ sub do_omop2bff {
     # geographicOrigin
     # ================
 
-    $individual->{geographicOrigin} = undef;
+    $individual->{geographicOrigin} =
+      $participant->{PERSON}{ethnicity_source_value}
+      if exists $participant->{PERSON}{ethnicity_source_value};
 
     # ==
     # id
     # ==
 
-    $individual->{id} = $participant->{DIAGNOSES_ICD}{person_id};
+    $individual->{id} = $participant->{PERSON}{person_id}
+      if exists $participant->{PERSON}{person_id};
 
     # ====
     # info
@@ -849,6 +892,13 @@ sub do_omop2bff {
     # ========
     # measures
     # ========
+    if ( exists $participant->{MEASUREMENT} ) {
+
+        for my $measure ( @{ $participant->{MEASUREMENT} } ) {
+            push @{ $individual->{measures} },
+              { id => $measure->{measurement_concept_id} };
+        }
+    }
 
     # =========
     # pedigrees
@@ -1046,8 +1096,8 @@ sub read_sqldump {
     # The parser is based in reading COPY paragraphs from sql dump by using Perl's paragraph mode  $/ = "";
     # The sub can be seen as "ugly" but it does the job :-)
 
-    my $limit = 10;    #We have a counter to make things faste
-    local $/ = "";     # set record separator to paragraph
+    my $limit = 1000;    #We have a counter to make things faste
+    local $/ = "";       # set record separator to paragraph
 
     #COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, attribute_description, attribute_type_concept_id, attribute_syntax) FROM stdin;
     # ......
@@ -1151,13 +1201,21 @@ sub sqldump2csv {
 
 sub transpose_omop_data_structure {
 
-    my $data = shift;
-    my $omop_ids;
+    my $data     = shift;
+    my $omop_ids = {};
     for my $table ( @{ $omop_table->{$omop_version} } ) {
         for my $item ( @{ $data->{$table} } ) {
             if ( exists $item->{person_id} && $item->{person_id} ne '' ) {
                 my $person_id = $item->{person_id};
-                $omop_ids->{$person_id}{$table} = $item;
+
+                # {person_id} can have multiple measures in a given table
+                if ( $table eq 'MEASUREMENT' || $table eq 'OBSERVATION' ) {
+                    push @{ $omop_ids->{$person_id}{$table} }, $item; # array
+                }
+                # {person_id} only has one value in a given TABLE
+                else {
+                    $omop_ids->{$person_id}{$table} = $item; # scalar
+                }
             }
         }
     }
