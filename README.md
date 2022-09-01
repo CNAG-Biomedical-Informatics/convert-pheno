@@ -11,7 +11,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
      Arguments:                       
        -input-type:  
              -ibff                    Beacon v2 JSON file
-             -iomop                   OMOP-CDM CSV file(s)
+             -iomop                   OMOP-CDM CSV files or SQL dump
              -ipxf                    Phenopacket JSON file
              -iredcap                 REDCap CSV file
 
@@ -106,6 +106,10 @@ For executing convert-pheno you will need:
     $ $path/convert-pheno -ibff individuals.json -obff phenopackets.json --out-dir my_out_dir
 
     $ $path/convert-pheno -iredcap redcap.csv -opxf phenopackets.json --redcap-dictionary redcap_dict.csv
+
+    $ $path/convert-pheno -iomop dump.sql -obff individuals.json 
+
+    $ $path/convert-pheno -iomop *csv -obff individuals.json -sep ','
 
     $ carton exec -- $path/convert-pheno -ibff individuals.json -opxf phenopackets.json # If using Carton
 
