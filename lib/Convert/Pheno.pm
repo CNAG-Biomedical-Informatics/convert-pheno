@@ -33,6 +33,7 @@ use vars qw{
 @EXPORT  = qw( $VERSION &write_json &write_yaml );
 $VERSION = '0.0.0b';
 
+# Constructor method
 sub new {
 
     my ( $class, $self ) = @_;
@@ -41,8 +42,49 @@ sub new {
 }
 
 # Global variables:
-my @sqlites = qw(ncit icd10);
-my $seen    = {};
+my $seen         = {};
+my @sqlites      = qw(ncit icd10);
+my $omop_version = 'v5.4';
+my $omop_table   = {
+    'v5.4' => [
+        qw(
+          PERSON
+          OBSERVATION_PERIOD
+          VISIT_OCCURRENCE
+          VISIT_DETAIL
+          CONDITION_OCCURRENCE
+          DRUG_EXPOSURE
+          PROCEDURE_OCCURRENCE
+          DEVICE_EXPOSURE
+          MEASUREMENT
+          OBSERVATION
+          NOTE
+          NOTE_NLP
+          SPECIMEN
+          FACT_RELATIONSHIP
+          SURVEY_CONDUCT
+        )
+    ],
+    'v6' => [
+        qw(
+          PERSON
+          OBSERVATION_PERIOD
+          VISIT_OCCURRENCE
+          VISIT_DETAIL
+          CONDITION_OCCURRENCE
+          DRUG_EXPOSURE
+          PROCEDURE_OCCURRENCE
+          DEVICE_EXPOSURE
+          MEASUREMENT
+          OBSERVATION
+          DEATH
+          NOTE
+          NOTE_NLP
+          SPECIMEN
+          FACT_RELATIONSHIP
+        )
+    ]
+};
 
 # NB1: In general, we'll only display terms that exist and have content
 # NB2: We are using pure OO Perl but we might switch to Moose if things get trickier...
@@ -208,9 +250,10 @@ sub redcap2bff {
 
     print Dumper $data_rcd if ( $self->{debug} && $self->{debug} > 1 );
 
+    $self->{data}     = $data;        # Dynamically adding attributes (setter)
+    $self->{data_rcd} = $data_rcd;    # Dynamically adding attributes (setter)
+
     # array_dispatcher will deal with JSON arrays
-    $self->{data}     = $data;        # setter
-    $self->{data_rcd} = $data_rcd;    # setter
     return array_dispatcher($self);
 }
 
@@ -725,16 +768,27 @@ sub omop2bff {
 
     my $self = shift;
 
+    # First we need to know if we have SQL dump or *csv
     # Read and load data from OMOP-CDM export
     my $data;
-    my @exts = qw(.csv .tsv .txt);
-    for my $csv ( @{ $self->{in_files} } ) {
-        my ( $name, undef, undef ) = fileparse( $csv, @exts );
-        $data->{$name} = read_csv_export( { in => $csv, sep => $self->{sep} } );
+    my @exts = qw(.csv .tsv .txt .sql);
+    for my $file ( @{ $self->{in_files} } ) {
+        my ( $table_name, undef, $ext ) = fileparse( $file, @exts );
+        if ( $ext eq '.sql' ) {
+            $data = read_sqldump( $file, $self );
+            sqldump2csv( $data, $self->{out_dir} ) if $self->{sql2csv};
+            last;
+        }
+        else {
+            warn "<$table_name> is not a valid table in OMOP-CDM"
+              unless any { /^$table_name$/ } @{ $omop_table->{$omop_version} };
+            $data->{$table_name} =
+              read_csv_export( { in => $file, sep => $self->{sep} } );
+        }
     }
 
-    # Now we need to perform a tranformation of the data where 'subject_id' is one row of data
-    $self->{data} = transpose_omop_data_structure($data);    # setter
+    # Now we need to perform a tranformation of the data where 'person_id' is one row of data
+    $self->{data} = transpose_omop_data_structure($data);    # Dynamically adding attributes (setter)
 
     # array_dispatcher will deal with JSON arrays
     return array_dispatcher($self);
@@ -778,7 +832,7 @@ sub do_omop2bff {
     # id
     # ==
 
-    $individual->{id} = $participant->{DIAGNOSES_ICD}{subject_id};
+    $individual->{id} = $participant->{DIAGNOSES_ICD}{person_id};
 
     # ====
     # info
@@ -867,7 +921,7 @@ sub read_csv_export {
     # We'll read the header to assess separators in <txt> files
     chomp( my $tmp_header = <$fh> );
 
-    # Defining separator
+    # Defining separator character
     my $separator =
         $sep
       ? $sep
@@ -982,17 +1036,128 @@ sub read_redcap_dictionary {
     return $data;
 }
 
+sub read_sqldump {
+
+    my $file = shift;
+
+    # Before resorting to writting this subroutine I performed an exhaustive search on CPAN
+    # I tested MySQL::Dump::Parser::XS  but I could not make it work and other modules did not seem to do what I wanted...
+    # .. so I ended up writting the parser myself...
+    # The parser is based in reading COPY paragraphs from sql dump by using Perl's paragraph mode  $/ = "";
+    # The sub can be seen as "ugly" but it does the job :-)
+
+    my $limit = 10;    #We have a counter to make things faste
+    local $/ = "";     # set record separator to paragraph
+
+    #COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, attribute_description, attribute_type_concept_id, attribute_syntax) FROM stdin;
+    # ......
+    # \.
+
+    # Start reading the SQL dump
+    open my $fh, '<:encoding(utf-8)', $file;
+
+    # We'll store the data in the hashref $data
+    my $data = {};
+
+    # Process paragraphs
+    while ( my $paragraph = <$fh> ) {
+
+        # Discarding paragraphs not having  m/^COPY/
+        next unless $paragraph =~ m/^COPY/;
+
+        # Discarding empty /^COPY/ paragraphs
+        my @lines = split /\n/, $paragraph;
+        next unless scalar @lines > 2;
+        pop @lines;    # last line eq '\.'
+
+        # Ad hoc for testing
+        my $count = 0;
+
+        # First line contain the headers
+        #COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, ..., attribute_syntax) FROM stdin;
+        $lines[0] =~ s/[\(\),]//g;                                # getting rid of (),
+        my @headers    = split /\s+/, $lines[0];
+        my $table_name = uc( ( split /\./, $headers[1] )[1] );    # ATTRIBUTE_DEFINITION
+        shift @lines;                                             # discarding first line
+
+        # Discarding headers which are not terms/variables
+        @headers = @headers[ 2 .. $#headers - 2 ];
+
+        # Initializing $data>key as empty arrayref
+        $data->{$table_name} = [];
+
+        # Processing line by line
+        for my $line (@lines) {
+            $count++;
+            last if $count == $limit;
+
+            # Columns are separated by \t
+            my @values = split /\t/, $line;
+
+            # Loading the values like this:
+            #
+            #  $VAR1 = {
+            #  'PERSON' => [
+            #             {
+            #              'person_id' => 123,
+            #               'test' => 'abc'
+            #             },
+            #             {
+            #               'person_id' => 456,
+            #               'test' => 'def'
+            #             }
+            #           ]
+            #         };
+
+            push @{ $data->{$table_name} },
+              { map { $headers[$_] => $values[$_] } ( 0 .. $#headers ) };
+        }
+    }
+    return $data;
+}
+
+sub sqldump2csv {
+
+    my ( $data, $dir ) = @_;
+
+    # CSV sep character
+    my $sep = "\t";
+
+    # The idea is to save a CSV table for each $data->key
+    for my $table ( keys %{$data} ) {
+
+        # Name for CSV file
+        my $filename = catdir( $dir, "$table.csv" );
+
+        # Start printing
+        open my $fh, ">:encoding(utf8)", $filename;
+        my $csv =
+          Text::CSV_XS->new( { sep_char => $sep, eol => "\n", binary => 1 } );
+
+        # Print headers (got them from row[0]
+        my @headers = sort keys %{ $data->{$table}[0] };
+        say $fh join $sep, @headers;
+
+        # Print rows
+        foreach my $row ( 0 .. $#{ $data->{$table} } ) {
+
+            # Transposing it to typical CSV format
+            $csv->print( $fh, [ map { $data->{$table}[$row]{$_} } @headers ] );
+        }
+        close $fh;
+    }
+    return 1;
+}
+
 sub transpose_omop_data_structure {
 
     my $data = shift;
-    my @tables =
-      qw(ADMISSIONS CALLOUT CAREGIVERS CHARTEVENTS CPTEVENTS DATETIMEEVENTS D_CPT DIAGNOSES_ICD D_ICD_DIAGNOSES D_ICD_PROCEDURES D_ITEMS D_LABITEMS DRGCODES ICUSTAYS INPUTEVENTS_CV INPUTEVENTS_MV LABEVENTS MICROBIOLOGYEVENTS NOTEEVENTS OUTPUTEVENTS PATIENTS PRESCRIPTIONS PROCEDUREEVENTS_MV PROCEDURES_ICD SERVICES TRANSFERS);
     my $omop_ids;
-    for my $table (@tables) {
+    for my $table ( @{ $omop_table->{$omop_version} } ) {
         for my $item ( @{ $data->{$table} } ) {
-            if ( exists $item->{subject_id} && $item->{subject_id} ne '' ) {
-                my $subject_id = $item->{subject_id};
-                $omop_ids->{$subject_id}{$table} = $item;
+            if ( exists $item->{person_id} && $item->{person_id} ne '' ) {
+                my $person_id = $item->{person_id};
+                $omop_ids->{$person_id}{$table} = $item;
             }
         }
     }
@@ -1315,7 +1480,7 @@ sub open_connections_SQLite {
     $dbh->{$_} = open_db_SQLite($_) for (@sqlites);    # global
 
     # Add $dbh HANDLE to $self
-    $self->{dbh} = $dbh;                               # setter
+    $self->{dbh} = $dbh;                               # Need constructor for this
 
     # Prepare the query once
     prepare_query_SQLite($self);
@@ -1380,7 +1545,7 @@ qq(SELECT * FROM $db WHERE label LIKE '% ' || ? || ' %' COLLATE NOCASE),
         my $sth = $dbh->prepare(<<SQL);
 $query_type{$field}
 SQL
-        $self->{sth}{$ontology} = $sth;    # setter
+        $self->{sth}{$ontology} = $sth;    # Dynamically adding nested attributes (setter)
     }
     return 1;
 }

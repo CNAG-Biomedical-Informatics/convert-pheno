@@ -38,6 +38,7 @@ use File::Spec::Functions qw(catdir catfile);
 use FindBin               qw($Bin);
 use lib "$Bin/../lib";
 use Term::ANSIColor qw(:constants);
+use List::Util  qw(any);
 use Convert::Pheno;
 $Data::Dumper::Sortkeys = 1;
 
@@ -50,7 +51,7 @@ GetOptions(
     'ipxf=s'                  => \my $in_pxf,                               # string
     'ibff=s'                  => \my $in_bff,                               # string
     'iredcap=s'               => \my $in_redcap,                            # string
-    'iomop=s{,}'              => \my @omop_files,                           # array
+    'iomop=s{1,}'             => \my @omop_files,                           # array
     'obff=s'                  => \my $out_bff,                              # string
     'opxf=s'                  => \my $out_pxf,                              # string
     'out-dir=s'               => \$out_dir,                                 # string
@@ -61,6 +62,7 @@ GetOptions(
     'format=s'                => \$format,                                  # string
     'no-color|nc'             => \my $no_color,                             # flag
     'separator|sep=s'         => \my $sep,                                  # str
+    'sql2csv'                 => \my $sql2csv,                              # flag
     'redcap-dictionary|rcd=s' => \my $redcap_dictionary,                    # string
     'print-hidden-labels|phl' => \my $print_hidden_labels,                  # flag
     'version|v'               => sub { say "$0 Version $VERSION"; exit; }
@@ -79,6 +81,10 @@ pod2usage(
     -message => "Please specify a valid REDCap dictionary --rcd\n",
     -exitval => 1
 ) if ( $in_redcap && !$redcap_dictionary );
+#pod2usage(
+#    -message => "Please specify a valid OMOP-CDM file(s) (e.g, *csv or .sql)\n",
+#    -exitval => 1
+#) if ( @omop_files && ! any { /$omop_files[0]$/ } ('.csv', '.sql'));
 
 # Turning color off if argument <--no-color>
 $ENV{'ANSI_COLORS_DISABLED'} = 1 if $no_color;
@@ -97,13 +103,15 @@ my $data = {
     : @omop_files ? 'omop' 
     : 'bff',
     out_type    => $out_pxf ? 'pxf' : $out_bff ? 'bff' : 'bff',
+    out_dir     => $out_dir,
     in_textfile => 1,
     in_file     => $in_pxf ? $in_pxf
     : $in_bff    ? $in_bff
     : $in_redcap ? $in_redcap
     :  undef,
-    in_files => \@omop_files // undef,
-    sep      =>  $sep,
+    in_files => \@omop_files // undef, # only for Omop
+    sep      => $sep,
+    sql2csv  => $sql2csv,
     redcap_dictionary   => $redcap_dictionary,
     print_hidden_labels => $print_hidden_labels,
     debug               => $debug,
