@@ -44,7 +44,9 @@ The module will be uploaded to CPAN once ready.
 
 # CITATION
 
-To be defined.
+The author requests that any published work that utilizes `Convert-Pheno` includes a cite to the the following reference:
+
+Rueda, M. "Convert-Pheno: A toolbox to interconvert common data models for phenotypic data". _Manuscript in preparation_.
 
 # SUMMARY
 

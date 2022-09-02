@@ -1096,7 +1096,7 @@ sub read_sqldump {
     # The parser is based in reading COPY paragraphs from sql dump by using Perl's paragraph mode  $/ = "";
     # The sub can be seen as "ugly" but it does the job :-)
 
-    my $limit = 1000;    #We have a counter to make things faste
+    my $limit = 1000;    # We have a counter to make things faster
     local $/ = "";       # set record separator to paragraph
 
     #COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, attribute_description, attribute_type_concept_id, attribute_syntax) FROM stdin;
@@ -1147,7 +1147,7 @@ sub read_sqldump {
             # Loading the values like this:
             #
             #  $VAR1 = {
-            #  'PERSON' => [
+            #  'PERSON' => [  # NB: This is the table name
             #             {
             #              'person_id' => 123,
             #               'test' => 'abc'
@@ -1184,11 +1184,15 @@ sub sqldump2csv {
         my $csv =
           Text::CSV_XS->new( { sep_char => $sep, eol => "\n", binary => 1 } );
 
-        # Print headers (got them from row[0]
+        ##########################
+        # Transforming it to CSV #
+        ##########################
+
+        # Print headers (we get them from row[0])
         my @headers = sort keys %{ $data->{$table}[0] };
         say $fh join $sep, @headers;
 
-        # Print rows
+        # Print rows 
         foreach my $row ( 0 .. $#{ $data->{$table} } ) {
 
             # Transposing it to typical CSV format
@@ -1202,7 +1206,60 @@ sub sqldump2csv {
 sub transpose_omop_data_structure {
 
     my $data     = shift;
-    my $omop_ids = {};
+
+    # The situation is the following, $data comes in format: 
+    #
+    #$VAR1 = {
+    #          'MEASUREMENT' => [
+    #                             {
+    #                               'measurement_concept_id' => '001',
+    #                               'person_id' => '666'
+    #                             },
+    #                             {
+    #                               'measurement_concept_id' => '002',
+    #                               'person_id' => '666'
+    #                             }
+    #                           ],
+    #          'PERSON' => [
+    #                        {
+    #                          'person_id' => '666'
+    #                        },
+    #                        {
+    #                          'person_id' => '001'
+    #                        }
+    #                      ]
+    #        };
+
+    # where all 'perosn_id' are together inside the TABLE_NAME.
+    # But, BFF works at the individual level so we are going to 
+    # transpose the data structure to end up into something like this
+    # NB: MEASUREMENT and OBSERVATION can have multiple values for one 'person_id'
+    #     so they will be loaded as arrays
+    #
+    #$VAR1 = {
+    #          '001' => {
+    #                     'PERSON' => {
+    #                                   'person_id' => '001'
+    #                                 }
+    #                   },
+    #          '666' => {
+    #                     'MEASUREMENT' => [
+    #                                        {
+    #                                          'measurement_concept_id' => '001',
+    #                                          'person_id' => '666'
+    #                                        },
+    #                                        {
+    #                                          'measurement_concept_id' => '002',
+    #                                          'person_id' => '666'
+    #                                        }
+    #                                      ],
+    #                     'PERSON' => {
+    #                                   'person_id' => '666'
+    #                                 }
+    #                   }
+    #        };
+
+    my $omop_person_id = {};
     for my $table ( @{ $omop_table->{$omop_version} } ) {
         for my $item ( @{ $data->{$table} } ) {
             if ( exists $item->{person_id} && $item->{person_id} ne '' ) {
@@ -1210,16 +1267,41 @@ sub transpose_omop_data_structure {
 
                 # {person_id} can have multiple measures in a given table
                 if ( $table eq 'MEASUREMENT' || $table eq 'OBSERVATION' ) {
-                    push @{ $omop_ids->{$person_id}{$table} }, $item; # array
+                    push @{ $omop_person_id->{$person_id}{$table} }, $item; # array
                 }
                 # {person_id} only has one value in a given TABLE
                 else {
-                    $omop_ids->{$person_id}{$table} = $item; # scalar
+                    $omop_person_id->{$person_id}{$table} = $item; # scalar
                 }
             }
         }
     }
-    return [ map { $omop_ids->{$_} } keys %{$omop_ids} ];
+
+    # Finally we get rid of the 'person_id' key and return values as an array
+    #
+    #$VAR1 = [
+    #          {
+    #            'PERSON' => {
+    #                          'person_id' => '001'
+    #                        }
+    #          },
+    #          {
+    #            'MEASUREMENT' => [
+    #                               {
+    #                                 'measurement_concept_id' => '001',
+    #                                 'person_id' => '666'
+    #                               },
+    #                               {
+    #                                 'measurement_concept_id' => '002',
+    #                                 'person_id' => '666'
+    #                               }
+    #                             ],
+    #            'PERSON' => {
+    #                          'person_id' => '666'
+    #                        }
+    #          }
+    #        ];
+    return [ map { $omop_person_id->{$_} } keys %{$omop_person_id} ];
 }
 
 #########################
@@ -1740,6 +1822,12 @@ Convert::Pheno -  Interconvert phenotypic data between different CDM formats
  my $data = $convert->redcap2bff;
 
 =head1 DESCRIPTION
+
+=head1 CITATION
+
+The author requests that any published work that utilizes C<Convert-Pheno> includes a cite to the the following reference:
+
+Rueda, M. "Convert-Pheno: A toolbox to interconvert common data models for phenotypic data". I<iManuscript in preparation>.
 
 =head1 AUTHOR
 
