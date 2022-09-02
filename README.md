@@ -2,7 +2,7 @@
 
 **UNDER DEVELOPMENT**
 
-convert-pheno - A script to interconvert phenotypic data between different CDM formats
+convert-pheno - A script to interconvert common data models for phenotypic data
 
 # SYNOPSIS
 
@@ -42,15 +42,9 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
 
 The module will be uploaded to CPAN once ready.
 
-# CITATION
-
-The author requests that any published work that utilizes `Convert-Pheno` includes a cite to the the following reference:
-
-Rueda, M. "Convert-Pheno: A toolbox to interconvert common data models for phenotypic data". _Manuscript in preparation_.
-
 # SUMMARY
 
-A script that uses [Convert::Pheno](https://metacpan.org/pod/Convert%3A%3APheno) to interconvert phenotypic data between different CDM formats
+A script that uses [Convert::Pheno](https://metacpan.org/pod/Convert%3A%3APheno) to interconvert common data models for phenotypic data
 
 # INSTALLATION
 
@@ -122,6 +116,12 @@ For executing convert-pheno you will need:
 
     * Error message: Foo
       Solution: Bar
+
+# CITATION
+
+The author requests that any published work that utilizes `Convert-Pheno` includes a cite to the the following reference:
+
+Rueda, M. "Convert-Pheno: A toolbox to interconvert common data models for phenotypic data". _Manuscript in preparation_.
 
 # AUTHOR 
 

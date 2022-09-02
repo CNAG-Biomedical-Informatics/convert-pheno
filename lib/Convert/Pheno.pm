@@ -1807,7 +1807,7 @@ sub get_meta_data {
 
 =head1 NAME
 
-Convert::Pheno -  Interconvert phenotypic data between different CDM formats
+Convert::Pheno - A module to interconvert common data models for phenotypic data
   
 =head1 SYNOPSIS
 

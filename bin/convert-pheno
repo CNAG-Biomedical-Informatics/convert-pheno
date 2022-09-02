@@ -1,10 +1,10 @@
 #!/usr/bin/env perl
 #
-#   A script that interconverts phenotypic data between different CDM formats
+#   A script to interconvert common data models for phenotypic data
 #
 #   This file is part of Convert::Pheno
 #
-#   Last Modified: Aug/01/2022
+#   Last Modified: Sep/02/2022
 #
 #   Version 0.0.0b
 #
@@ -194,7 +194,7 @@ return 1;
 
 B<UNDER DEVELOPMENT>
 
-convert-pheno - A script to interconvert phenotypic data between different CDM formats
+convert-pheno - A script to interconvert common data models for phenotypic data
 
 =head1 SYNOPSIS
 
@@ -233,15 +233,9 @@ C<convert-pheno> is a command-line front-end to the CPAN's module L<Convert::Phe
 
 The module will be uploaded to CPAN once ready.
 
-=head1 CITATION
-
-The author requests that any published work that utilizes C<Convert-Pheno> includes a cite to the the following reference:
-
-Rueda, M. "Convert-Pheno: A toolbox to interconvert common data models for phenotypic data". I<Manuscript in preparation>.
-
 =head1 SUMMARY
 
-A script that uses L<Convert::Pheno> to interconvert phenotypic data between different CDM formats
+A script that uses L<Convert::Pheno> to interconvert common data models for phenotypic data
 
 =head1 INSTALLATION
 
@@ -317,6 +311,12 @@ B<Examples:>
 
  * Error message: Foo
    Solution: Bar
+
+=head1 CITATION
+
+The author requests that any published work that utilizes C<Convert-Pheno> includes a cite to the the following reference:
+
+Rueda, M. "Convert-Pheno: A toolbox to interconvert common data models for phenotypic data". I<Manuscript in preparation>.
 
 =head1 AUTHOR 
 
