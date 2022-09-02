@@ -43,7 +43,7 @@ sub new {
 
 # Global variables:
 my $seen         = {};
-my @sqlites      = qw(ncit icd10);
+my @sqlites      = qw(ncit icd10 athena);
 my $omop_version = 'v5.4';
 my $omop_table   = {
     'v5.4' => [
@@ -768,7 +768,7 @@ sub omop2bff {
 
     my $self = shift;
 
-    # First we need to know if we have SQL dump or *csv
+    # First we need to know if we have PostgreSQL dump or *csv
     # Read and load data from OMOP-CDM export
     my $data;
     my @exts = qw(.csv .tsv .txt .sql);
@@ -855,8 +855,14 @@ sub do_omop2bff {
     # ethnicity
     # =========
 
-    $individual->{ethnicity} = $participant->{PERSON}{race_source_value}
-      if exists $participant->{PERSON}{race_source_value};
+    $individual->{ethnicity} = map_ontology(
+        {
+            label          => $participant->{PERSON}{race_source_value},
+            ontology       => 'ncit',
+            display_labels => $self->{print_hidden_labels},
+            sth            => $sth->{ncit}
+        }
+    ) if exists $participant->{PERSON}{race_source_value};
 
     # =========
     # exposures
@@ -866,9 +872,14 @@ sub do_omop2bff {
     # geographicOrigin
     # ================
 
-    $individual->{geographicOrigin} =
-      $participant->{PERSON}{ethnicity_source_value}
-      if exists $participant->{PERSON}{ethnicity_source_value};
+    $individual->{geographicOrigin} = map_ontology(
+        {
+            label          => $participant->{PERSON}{ethnicity_source_value},
+            ontology       => 'ncit',
+            display_labels => $self->{print_hidden_labels},
+            sth            => $sth->{ncit}
+        }
+    ) if exists $participant->{PERSON}{ethnicity_source_value};
 
     # ==
     # id
@@ -892,11 +903,46 @@ sub do_omop2bff {
     # ========
     # measures
     # ========
+
+    #  "measurement_concept_id" : "3006322",
+    #  "measurement_date" : "1943-02-03",
+    #  "measurement_datetime" : "1943-02-03 00:00:00",
+    #  "measurement_id" : "9852",
+    #  "measurement_source_concept_id" : "3006322",
+    #  "measurement_source_value" : "8331-1",
+    #  "measurement_time" : "1943-02-03",
+    #  "measurement_type_concept_id" : "5001",
+    #  "operator_concept_id" : "0",
+    #  "person_id" : "929",
+    #  "provider_id" : "0",
+    #  "range_high" : "\\N",
+    #  "range_low" : "\\N",
+    #  "unit_concept_id" : "0",
+    #  "unit_source_value" : null,
+    #  "value_as_concept_id" : "0",
+    #  "value_as_number" : "\\N",
+    #  "value_source_value" : null,
+    #  "visit_detail_id" : "0",
+    #  "visit_occurrence_id" : "61837"
+
     if ( exists $participant->{MEASUREMENT} ) {
 
-        for my $measure ( @{ $participant->{MEASUREMENT} } ) {
-            push @{ $individual->{measures} },
-              { id => $measure->{measurement_concept_id} };
+        for my $field ( @{ $participant->{MEASUREMENT} } ) {
+            my $measure;
+            $measure->{assayCode} = map_ontology(
+                {
+                    id             => $field->{measurement_concept_id},
+                    ontology       => 'athena',
+                    display_labels => $self->{print_hidden_labels},
+                    sth            => $sth->{athena}
+                }
+            );
+            $measure->{data}              = $field->{measurement_datetime};
+            $measure->{measurementValue}  = $field->{value_as_number};
+            $measure->{notes}             = { OMOP_fields => $field };
+            $measure->{observationMoment} = undef;
+            $measure->{procedure}         = $measure->{assayCode};
+            push @{ $individual->{measures} }, $measure;
         }
     }
 
@@ -1093,11 +1139,11 @@ sub read_sqldump {
     # Before resorting to writting this subroutine I performed an exhaustive search on CPAN
     # I tested MySQL::Dump::Parser::XS  but I could not make it work and other modules did not seem to do what I wanted...
     # .. so I ended up writting the parser myself...
-    # The parser is based in reading COPY paragraphs from sql dump by using Perl's paragraph mode  $/ = "";
+    # The parser is based in reading COPY paragraphs from PostgreSQL dump by using Perl's paragraph mode  $/ = "";
     # The sub can be seen as "ugly" but it does the job :-)
 
-    my $limit = 1000;    # We have a counter to make things faster
-    local $/ = "";       # set record separator to paragraph
+    my $limit = 100;    # We have a counter to make things faster
+    local $/ = "";      # set record separator to paragraph
 
     #COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, attribute_description, attribute_type_concept_id, attribute_syntax) FROM stdin;
     # ......
@@ -1192,7 +1238,7 @@ sub sqldump2csv {
         my @headers = sort keys %{ $data->{$table}[0] };
         say $fh join $sep, @headers;
 
-        # Print rows 
+        # Print rows
         foreach my $row ( 0 .. $#{ $data->{$table} } ) {
 
             # Transposing it to typical CSV format
@@ -1205,9 +1251,9 @@ sub sqldump2csv {
 
 sub transpose_omop_data_structure {
 
-    my $data     = shift;
+    my $data = shift;
 
-    # The situation is the following, $data comes in format: 
+    # The situation is the following, $data comes in format:
     #
     #$VAR1 = {
     #          'MEASUREMENT' => [
@@ -1231,7 +1277,7 @@ sub transpose_omop_data_structure {
     #        };
 
     # where all 'perosn_id' are together inside the TABLE_NAME.
-    # But, BFF works at the individual level so we are going to 
+    # But, BFF works at the individual level so we are going to
     # transpose the data structure to end up into something like this
     # NB: MEASUREMENT and OBSERVATION can have multiple values for one 'person_id'
     #     so they will be loaded as arrays
@@ -1267,11 +1313,12 @@ sub transpose_omop_data_structure {
 
                 # {person_id} can have multiple measures in a given table
                 if ( $table eq 'MEASUREMENT' || $table eq 'OBSERVATION' ) {
-                    push @{ $omop_person_id->{$person_id}{$table} }, $item; # array
+                    push @{ $omop_person_id->{$person_id}{$table} }, $item;    # array
                 }
+
                 # {person_id} only has one value in a given TABLE
                 else {
-                    $omop_person_id->{$person_id}{$table} = $item; # scalar
+                    $omop_person_id->{$person_id}{$table} = $item;             # scalar
                 }
             }
         }
@@ -1363,15 +1410,22 @@ sub map_ontology {
     # Not a big fan of global stuff and premature return, but it works here...
     #  ¯\_(ツ)_/¯
 
-    # Labels come in many forms, before checking existance we map to NCIT ones
-    # Ad hoc modifications for 3TR
-    my $tmp_label = map_3tr( $_[0]->{label} );
+    ########################################
+    # NCIT and ICD- we go FROM VALUE -> ID #
+    # -------------------------------------#
+    # ATHENA        we go FROM ID -> VALUE #
+    ########################################
+
+    # Labels come in many forms, before checking existance we map to 3TR-NCIT ones
+    # If we have ->id we have inverted search
+    my $tmp_label =
+      exists $_[0]->{label} ? map_3tr( $_[0]->{label} ) : $_[0]->{id};
 
     # return if terms has already been searched and exists
     return $seen->{$tmp_label} if exists $seen->{$tmp_label};
 
     # return if we know 'a priori' that the label won't exist
-    return { id => 'NCIT:NA', label => $tmp_label } if $tmp_label =~ m/xx/;
+    #return { id => 'NCIT:NA', label => $tmp_label } if $tmp_label =~ m/xx/;
 
     # Ok, now it's time to start the subroutine
     my $arg                 = shift;
@@ -1383,7 +1437,7 @@ sub map_ontology {
     my ( $id, $label ) = execute_query_SQLite( $sth, $tmp_label, $ontology );
 
     # Add result to global $seen
-    $seen->{$label} = { id => $id, label => $label };
+    $seen->{$tmp_label} = { id => $id, label => $label };
 
     # id and label come from <db> _label is the original string (can change on partial matches)
     return $print_hidden_labels
@@ -1665,11 +1719,19 @@ sub close_db_SQLite {
 
 sub prepare_query_SQLite {
 
-    my $self  = shift;
+    my $self = shift;
+
+    # NB: Take a look to "Phrase Search" in
+    # https://github.com/OHDSI/Athena/blob/master/README.md
+    # In contains we can create a hash with #matches and set a %match
+    # Right now we only perform "exact_match" of terms -> mrueda
     my $field = 'exact_match';
 
     # dbh = "Database Handle"
     # sth = "Statement Handle"
+
+    # NB: <ncit.db> and <icd10.db> were pre-processed to have "id" and "label" columns only
+    #   : <athena.db> consists of 4 columns, each having its original name (e.g., "concept_id)
     for my $ontology (@sqlites) {    #global
         my $db         = uc($ontology) . '_table';
         my $dbh        = $self->{dbh}{$ontology};
@@ -1678,10 +1740,14 @@ sub prepare_query_SQLite {
 qq(SELECT * FROM $db WHERE label LIKE '%' || ? || '%' COLLATE NOCASE),
             contains_word =>
 qq(SELECT * FROM $db WHERE label LIKE '% ' || ? || ' %' COLLATE NOCASE),
-            exact_match => qq(SELECT * FROM $db WHERE label = ? COLLATE NOCASE),
+            exact_match => $ontology ne 'athena'
+            ? qq(SELECT * FROM $db WHERE label = ? COLLATE NOCASE)
+            : qq(SELECT * FROM $db WHERE concept_id = ? COLLATE NOCASE),
             begins_with =>
               qq(SELECT * FROM $db WHERE label LIKE ? || '%' COLLATE NOCASE)
         );
+
+        # Prepare the query
         my $sth = $dbh->prepare(<<SQL);
 $query_type{$field}
 SQL
@@ -1703,8 +1769,14 @@ sub execute_query_SQLite {
     my $id    = $ontology . ':NA';
     my $label = 'NA';
     while ( my $row = $sth->fetchrow_arrayref ) {
-        $id    = $ontology . ':' . $row->[1];
-        $label = $row->[0];
+        if ( $ontology ne 'ATHENA' ) {
+            $id    = $ontology . ':' . $row->[1];
+            $label = $row->[0];
+        }
+        else {
+            $id    = $row->[2] . ':' . $row->[0];
+            $label = $row->[1];
+        }
         last if $field eq 'exact_match';    # Note that sometimes we get more than one
     }
     $sth->finish();
