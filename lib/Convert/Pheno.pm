@@ -42,10 +42,10 @@ sub new {
 }
 
 # Global variables:
-my $seen         = {};
-my @sqlites      = qw(ncit icd10 athena);
-my $omop_version = 'v5.4';
-my $omop_table   = {
+my $seen            = {};
+my @sqlites         = qw(ncit icd10 ohdsi);
+my $omop_version    = 'v5.4';
+my $omop_main_table = {
     'v5.4' => [
         qw(
           PERSON
@@ -85,6 +85,18 @@ my $omop_table   = {
         )
     ]
 };
+
+my @omop_extra_tables = qw(
+  CDM_SOURCE
+  CONCEPT_ANCESTOR
+  CONCEPT
+  CONCEPT_RELATIONSHIP
+  CONCEPT_SYNONYM
+  CONDITION_ERA
+  DOMAIN
+  OBSERVATION_PERIOD
+  VOCABULARY
+);
 
 # NB1: In general, we'll only display terms that exist and have content
 # NB2: We are using pure OO Perl but we might switch to Moose if things get trickier...
@@ -246,12 +258,12 @@ sub redcap2bff {
     #        ]
 
     # Read and load REDCap CSV dictionary
-    my $data_rcd = read_redcap_dictionary( $self->{redcap_dictionary} );
+    my $data_redcap_dic = read_redcap_dictionary( $self->{redcap_dictionary} );
 
-    print Dumper $data_rcd if ( $self->{debug} && $self->{debug} > 1 );
+    print Dumper $data_redcap_dic if ( $self->{debug} && $self->{debug} > 1 );
 
-    $self->{data}     = $data;        # Dynamically adding attributes (setter)
-    $self->{data_rcd} = $data_rcd;    # Dynamically adding attributes (setter)
+    $self->{data}            = $data;               # Dynamically adding attributes (setter)
+    $self->{data_redcap_dic} = $data_redcap_dic;    # Dynamically adding attributes (setter)
 
     # array_dispatcher will deal with JSON arrays
     return array_dispatcher($self);
@@ -260,8 +272,8 @@ sub redcap2bff {
 sub do_redcap2bff {
 
     my ( $self, $participant ) = @_;
-    my $rcd = $self->{data_rcd};
-    my $sth = $self->{sth};
+    my $redcap_dic = $self->{data_redcap_dic};
+    my $sth        = $self->{sth};
 
     ##############################
     # <Variable> names in REDCap #
@@ -294,7 +306,7 @@ sub do_redcap2bff {
     #         'alcohol' => '4',
     #        }
 
-    print Dumper $rcd         if $self->{debug};
+    print Dumper $redcap_dic  if $self->{debug};
     print Dumper $participant if $self->{debug};
 
     # Data structure (hashref) for each individual
@@ -312,9 +324,9 @@ sub do_redcap2bff {
     for my $field (@diseases) {
         my $disease;
         $disease->{ageOfOnset} = map_age_range(
-            map2rcd(
+            map2redcap_dic(
                 {
-                    rcd         => $rcd,
+                    redcap_dic  => $redcap_dic,
                     participant => $participant,
                     field       => 'age_first_diagnosis'
                 }
@@ -331,9 +343,9 @@ sub do_redcap2bff {
             }
         );
         $disease->{familyHistory} = convert2boolean(
-            map2rcd(
+            map2redcap_dic(
                 {
-                    rcd         => $rcd,
+                    redcap_dic  => $redcap_dic,
                     participant => $participant,
                     field       => 'family_history'
                 }
@@ -350,8 +362,12 @@ sub do_redcap2bff {
     # =========
 
     $individual->{ethnicity} = map_ethnicity(
-        map2rcd(
-            { rcd => $rcd, participant => $participant, field => 'ethnicity' }
+        map2redcap_dic(
+            {
+                redcap_dic  => $redcap_dic,
+                participant => $participant,
+                field       => 'ethnicity'
+            }
         )
     ) if $participant->{ethnicity} ne '';
 
@@ -387,9 +403,9 @@ sub do_redcap2bff {
                 ? map_exposures(
                     {
                         key => $field,
-                        str => map2rcd(
+                        str => map2redcap_dic(
                             {
-                                rcd         => $rcd,
+                                redcap_dic  => $redcap_dic,
                                 participant => $participant,
                                 field       => $field
                             }
@@ -409,8 +425,9 @@ sub do_redcap2bff {
                     value => dotify_and_coerce_number( $participant->{$field} ),
                     _note =>
 'In many cases the <value> field shows the REDCap selection not the actual #items',
-                    referenceRange =>
-                      map_unit_range( { rcd => $rcd, field => $field } )
+                    referenceRange => map_unit_range(
+                        { redcap_dic => $redcap_dic, field => $field }
+                    )
                 }
             }
         ];
@@ -441,11 +458,16 @@ sub do_redcap2bff {
             $field eq 'age' ? 'P'
           . $participant->{$field}
           . 'Y'
-          : ( any { /^$field$/ } qw(education diet) ) ? map2rcd(
-            { rcd => $rcd, participant => $participant, field => $field } )
+          : ( any { /^$field$/ } qw(education diet) ) ? map2redcap_dic(
+            {
+                redcap_dic  => $redcap_dic,
+                participant => $participant,
+                field       => $field
+            }
+          )
           : $field =~ m/^consent/ ? {
             value => dotify_and_coerce_number( $participant->{$field} ),
-            map { $_ => $rcd->{$field}{$_} }
+            map { $_ => $redcap_dic->{$field}{$_} }
               ( "Field Label", "Field Note", "Field Type" )
           }
           : $participant->{$field}
@@ -463,7 +485,7 @@ sub do_redcap2bff {
     my %surgery = ();
     for ( 1 .. 8, 99 ) {
         $surgery{ 'surgery_details___' . $_ } =
-          $rcd->{surgery_details}{_labels}{$_};
+          $redcap_dic->{surgery_details}{_labels}{$_};
     }
     for my $field (
         qw(endoscopy_performed intestinal_surgery partial_mayo complete_mayo prev_endosc_dilatation),
@@ -526,8 +548,8 @@ sub do_redcap2bff {
         # We first extract 'unit' and %range' for <measurementValue>
         my $unit = map_ontology(
             {
-                label          => map_quantity( $rcd->{$field}{'Field Note'} ),
-                ontology       => 'ncit',
+                label    => map_quantity( $redcap_dic->{$field}{'Field Note'} ),
+                ontology => 'ncit',
                 display_labels => $self->{print_hidden_labels},
                 sth            => $sth->{ncit}
             }
@@ -537,12 +559,14 @@ sub do_redcap2bff {
                 Quantity => {
                     unit  => $unit,
                     value => dotify_and_coerce_number( $participant->{$field} ),
-                    referenceRange =>
-                      map_unit_range( { rcd => $rcd, field => $field } )
+                    referenceRange => map_unit_range(
+                        { redcap_dic => $redcap_dic, field => $field }
+                    )
                 }
             }
         ];
-        $measure->{notes} = "$field, Field Label=$rcd->{$field}{'Field Label'}";
+        $measure->{notes} =
+          "$field, Field Label=$redcap_dic->{$field}{'Field Label'}";
         $measure->{observationMoment} = undef;          # Age
         $measure->{procedure}         = map_ontology(
             {
@@ -609,7 +633,7 @@ sub do_redcap2bff {
 
             #$phenotypicFeature->{modifiers}   = { id => '', label => '' };
             $phenotypicFeature->{notes} =
-              "$field, Field Label=$rcd->{$field}{'Field Label'}";
+              "$field, Field Label=$redcap_dic->{$field}{'Field Label'}";
 
             #$phenotypicFeature->{onset}       = { id => '', label => '' };
             #$phenotypicFeature->{resolution}  = { id => '', label => '' };
@@ -626,8 +650,12 @@ sub do_redcap2bff {
 
     $individual->{sex} = map_ontology(
         {
-            label => map2rcd(
-                { rcd => $rcd, participant => $participant, field => 'sex' }
+            label => map2redcap_dic(
+                {
+                    redcap_dic  => $redcap_dic,
+                    participant => $participant,
+                    field       => 'sex'
+                }
             ),
             ontology       => 'ncit',
             display_labels => $self->{print_hidden_labels},
@@ -688,9 +716,9 @@ sub do_redcap2bff {
                 field     => $tmp_var,
                 drug      => $drug,
                 drug_name => $drug_name,
-                status    => map2rcd(
+                status    => map2redcap_dic(
                     {
-                        rcd         => $rcd,
+                        redcap_dic  => $redcap_dic,
                         participant => $participant,
                         field       => $tmp_var
                     }
@@ -768,26 +796,44 @@ sub omop2bff {
 
     my $self = shift;
 
-    # First we need to know if we have PostgreSQL dump or *csv
+    # The idea here is that we'll load all $omop_main_table and @omop_extra_tables in $data,
+    # regardless of whete they belong. Dictionaris (e.g. <CONCEPT>) will be parsed latter from $data
+
     # Read and load data from OMOP-CDM export
     my $data;
+
+    # First we need to know if we have PostgreSQL dump or a bunch of csv
     my @exts = qw(.csv .tsv .txt .sql);
     for my $file ( @{ $self->{in_files} } ) {
         my ( $table_name, undef, $ext ) = fileparse( $file, @exts );
         if ( $ext eq '.sql' ) {
+
+            # We'll load all OMOP tables ('main' and 'extra') as long as they're not empty
             $data = read_sqldump( $file, $self );
             sqldump2csv( $data, $self->{out_dir} ) if $self->{sql2csv};
             last;
         }
         else {
+
+            # We'll load all OMOP tables (as CSV) as long they have a match in 'main' or 'extra'
             warn "<$table_name> is not a valid table in OMOP-CDM"
-              unless any { /^$table_name$/ } @{ $omop_table->{$omop_version} };
+              and next
+              unless any { /^$table_name$/ }
+              ( @{ $omop_main_table->{$omop_version} }, @omop_extra_tables );  # global
             $data->{$table_name} =
               read_csv_export( { in => $file, sep => $self->{sep} } );
         }
     }
 
+    # Primarily with CSV, it can happen that user does not provide <CONCEPT.csv>
+    die 'We could not find table CONCEPT, maybe missing <CONCEPT.csv> ???'
+      unless exists $data->{CONCEPT};
+
+    # We  create a dictionary for $data->{CONCEPT}
+    $self->{data_ohdsi_dic} = undef;    # Dynamically adding attributes (setter)
+
     # Now we need to perform a tranformation of the data where 'person_id' is one row of data
+    # NB: Transformation is due ONLY IN $omop_main_table FIELDS, the rest of the tables are not used
     $self->{data} = transpose_omop_data_structure($data);    # Dynamically adding attributes (setter)
 
     # array_dispatcher will deal with JSON arrays
@@ -797,8 +843,8 @@ sub omop2bff {
 sub do_omop2bff {
 
     my ( $self, $participant ) = @_;
-    my $rcd = $self->{data_rcd};
-    my $sth = $self->{sth};
+    my $data_ohdsi_dic = $self->{data_ohdsi_dic};
+    my $sth            = $self->{sth};
 
     ####################################
     # START MAPPING TO BEACON V2 TERMS #
@@ -814,42 +860,11 @@ sub do_omop2bff {
 
     #$individual->{diseases} = [];
 
-    my @diseases = qw(a b);
-    for my $field (@diseases) {
-        my $disease;
-
-        #disease->{ageOfOnset} = map_age_range(
-        #    map2rcd(
-        #        {
-        #            rcd         => $rcd,
-        #            participant => $participant,
-        #            field       => 'age_first_diagnosis'
-        #        }
-        #    )
-        #) if $participant->{age_first_diagnosis} ne '';
-        #$disease->{diseaseCode} = map_ontology(
-        #    {
-        #        label => $field,
-        #
-        #                #    ontology       => 'icd10',                        # ICD:10 Inflammatory Bowel Disease does not exist
-        #                ontology       => 'ncit',
-        #                display_labels => $self->{print_hidden_labels},
-        #                sth            => $sth->{ncit}
-        #        ) if @diseases ;
-        #$disease->{familyHistory} = convert2boolean(
-        #    map2rcd(
-        #        {
-        #            rcd         => $rcd,
-        #            participant => $participant,
-        #            field       => 'family_history'
-        #        }
-        #    )
-        #) if $participant->{family_history} ne '';
-        #    $disease->{notes}    = undef;
-        #    $disease->{severity} = undef;
-        #    $disease->{stage}    = undef;
-        #push @{ $individual->{diseases} }, $disease;
-    }
+    #my @diseases = qw(a b);
+    #for my $field (@diseases) {
+    #    my $disease;
+    #
+    #    }
 
     # =========
     # ethnicity
@@ -932,11 +947,11 @@ sub do_omop2bff {
             $measure->{assayCode} = map_ontology(
                 {
                     id             => $field->{measurement_concept_id},
-                    ontology       => 'athena',
+                    ontology       => 'ohdsi',
                     display_labels => $self->{print_hidden_labels},
-                    sth            => $sth->{athena}
+                    sth            => $sth->{ohdsi}
                 }
-            );
+            ) if $self->{ohdsi_db};
             $measure->{data}              = $field->{measurement_datetime};
             $measure->{measurementValue}  = $field->{value_as_number};
             $measure->{notes}             = { OMOP_fields => $field };
@@ -1306,7 +1321,9 @@ sub transpose_omop_data_structure {
     #        };
 
     my $omop_person_id = {};
-    for my $table ( @{ $omop_table->{$omop_version} } ) {
+
+    # Only performed for $omop_main_table
+    for my $table ( @{ $omop_main_table->{$omop_version} } ) {    # global
         for my $item ( @{ $data->{$table} } ) {
             if ( exists $item->{person_id} && $item->{person_id} ne '' ) {
                 my $person_id = $item->{person_id};
@@ -1413,7 +1430,7 @@ sub map_ontology {
     ########################################
     # NCIT and ICD- we go FROM VALUE -> ID #
     # -------------------------------------#
-    # ATHENA        we go FROM ID -> VALUE #
+    # OHDSI        we go FROM ID -> VALUE #
     ########################################
 
     # Labels come in many forms, before checking existance we map to 3TR-NCIT ones
@@ -1422,7 +1439,7 @@ sub map_ontology {
       exists $_[0]->{label} ? map_3tr( $_[0]->{label} ) : $_[0]->{id};
 
     # return if terms has already been searched and exists
-    return $seen->{$tmp_label} if exists $seen->{$tmp_label};
+    return $seen->{$tmp_label} if exists $seen->{$tmp_label};    # global
 
     # return if we know 'a priori' that the label won't exist
     #return { id => 'NCIT:NA', label => $tmp_label } if $tmp_label =~ m/xx/;
@@ -1437,7 +1454,7 @@ sub map_ontology {
     my ( $id, $label ) = execute_query_SQLite( $sth, $tmp_label, $ontology );
 
     # Add result to global $seen
-    $seen->{$tmp_label} = { id => $id, label => $label };
+    $seen->{$tmp_label} = { id => $id, label => $label };    # global
 
     # id and label come from <db> _label is the original string (can change on partial matches)
     return $print_hidden_labels
@@ -1616,14 +1633,14 @@ sub map_3tr {
 
 sub map_unit_range {
 
-    my $arg   = shift;
-    my $field = $arg->{field};
-    my $rcd   = $arg->{rcd};
-    my %hash  = ( low => 'Text Validation Min', high => 'Text Validation Max' );
+    my $arg        = shift;
+    my $field      = $arg->{field};
+    my $redcap_dic = $arg->{redcap_dic};
+    my %hash = ( low => 'Text Validation Min', high => 'Text Validation Max' );
     my $hashref = { map { $_ => undef } qw(low high) };    # Initialize to undef
     for my $range (qw (low high)) {
         $hashref->{$range} =
-          dotify_and_coerce_number( $rcd->{$field}{ $hash{$range} } );
+          dotify_and_coerce_number( $redcap_dic->{$field}{ $hash{$range} } );
     }
     return $hashref;
 }
@@ -1641,12 +1658,12 @@ sub map_age_range {
     };
 }
 
-sub map2rcd {
+sub map2redcap_dic {
 
     my $arg = shift;
-    my ( $rcd, $participant, $field ) =
-      ( $arg->{rcd}, $arg->{participant}, $arg->{field} );
-    return $rcd->{$field}{_labels}{ $participant->{$field} };
+    my ( $redcap_dic, $participant, $field ) =
+      ( $arg->{redcap_dic}, $arg->{participant}, $arg->{field} );
+    return $redcap_dic->{$field}{_labels}{ $participant->{$field} };
 }
 
 sub convert2boolean {
@@ -1669,12 +1686,18 @@ sub open_connections_SQLite {
 
     my $self = shift;
 
+    # Check flag ohdsi_db
+    my @databases =
+      defined $self->{ohdsi_db} ? @sqlites : grep { !m/ohdsi/ } @sqlites;
+
+    print Dumper \@databases;
+
     # Opening the DB once (instead that on each call) improves speed ~15%
     my $dbh;
-    $dbh->{$_} = open_db_SQLite($_) for (@sqlites);    # global
+    $dbh->{$_} = open_db_SQLite($_) for (@databases);    # global
 
     # Add $dbh HANDLE to $self
-    $self->{dbh} = $dbh;                               # Need constructor for this
+    $self->{dbh} = $dbh;                                 # Need constructor for this
 
     # Prepare the query once
     prepare_query_SQLite($self);
@@ -1686,7 +1709,11 @@ sub close_connections_SQLite {
 
     my $self = shift;
     my $dbh  = $self->{dbh};
-    close_db_SQLite( $dbh->{$_} ) for (@sqlites);      #global
+
+    # Check flag ohdsi_db
+    my @databases =
+      defined $self->{ohdsi_db} ? @sqlites : grep { !m/ohdsi/ } @sqlites;
+    close_db_SQLite( $dbh->{$_} ) for (@databases);    #global
     return 1;
 }
 
@@ -1694,10 +1721,11 @@ sub open_db_SQLite {
 
     my $ontology = shift;
     my $dbfile   = catfile( $Bin, '../db', "$ontology.db" );
-    my $user     = '';
-    my $passwd   = '';
-    my $dsn      = "dbi:SQLite:dbname=$dbfile";
-    my $dbh      = DBI->connect(
+    die "Sorry we could not find <$dbfile> file" unless -f $dbfile;
+    my $user   = '';
+    my $passwd = '';
+    my $dsn    = "dbi:SQLite:dbname=$dbfile";
+    my $dbh    = DBI->connect(
         $dsn, $user, $passwd,
         {
             PrintError       => 0,
@@ -1721,9 +1749,10 @@ sub prepare_query_SQLite {
 
     my $self = shift;
 
-    # NB: Take a look to "Phrase Search" in
-    # https://github.com/OHDSI/Athena/blob/master/README.md
-    # In contains we can create a hash with #matches and set a %match
+    # Check flag ohdsi_db
+    my @databases =
+      defined $self->{ohdsi_db} ? @sqlites : grep { !m/ohdsi/ } @sqlites;
+
     # Right now we only perform "exact_match" of terms -> mrueda
     my $field = 'exact_match';
 
@@ -1731,8 +1760,8 @@ sub prepare_query_SQLite {
     # sth = "Statement Handle"
 
     # NB: <ncit.db> and <icd10.db> were pre-processed to have "id" and "label" columns only
-    #   : <athena.db> consists of 4 columns, each having its original name (e.g., "concept_id)
-    for my $ontology (@sqlites) {    #global
+    #   : <ohdsi.db> consists of 4 columns, each having its original name (e.g., "concept_id)
+    for my $ontology (@databases) {    #global
         my $db         = uc($ontology) . '_table';
         my $dbh        = $self->{dbh}{$ontology};
         my %query_type = (
@@ -1740,7 +1769,7 @@ sub prepare_query_SQLite {
 qq(SELECT * FROM $db WHERE label LIKE '%' || ? || '%' COLLATE NOCASE),
             contains_word =>
 qq(SELECT * FROM $db WHERE label LIKE '% ' || ? || ' %' COLLATE NOCASE),
-            exact_match => $ontology ne 'athena'
+            exact_match => $ontology ne 'ohdsi'
             ? qq(SELECT * FROM $db WHERE label = ? COLLATE NOCASE)
             : qq(SELECT * FROM $db WHERE concept_id = ? COLLATE NOCASE),
             begins_with =>
@@ -1769,7 +1798,7 @@ sub execute_query_SQLite {
     my $id    = $ontology . ':NA';
     my $label = 'NA';
     while ( my $row = $sth->fetchrow_arrayref ) {
-        if ( $ontology ne 'ATHENA' ) {
+        if ( $ontology ne 'OHDSI' ) {
             $id    = $ontology . ':' . $row->[1];
             $label = $row->[0];
         }

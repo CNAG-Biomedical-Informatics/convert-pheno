@@ -63,6 +63,7 @@ GetOptions(
     'no-color|nc'             => \my $no_color,                             # flag
     'separator|sep=s'         => \my $sep,                                  # str
     'sql2csv'                 => \my $sql2csv,                              # flag
+    'ohdsi-db'                => \my $ohdsi_db,                             # flag
     'redcap-dictionary|rcd=s' => \my $redcap_dictionary,                    # string
     'print-hidden-labels|phl' => \my $print_hidden_labels,                  # flag
     'version|v'               => sub { say "$0 Version $VERSION"; exit; }
@@ -81,10 +82,14 @@ pod2usage(
     -message => "Please specify a valid REDCap dictionary --rcd\n",
     -exitval => 1
 ) if ( $in_redcap && !$redcap_dictionary );
-#pod2usage(
-#    -message => "Please specify a valid OMOP-CDM file(s) (e.g, *csv or .sql)\n",
-#    -exitval => 1
-#) if ( @omop_files && ! any { /$omop_files[0]$/ } ('.csv', '.sql'));
+pod2usage(
+    -message => "Please specify a valid OMOP-CDM file(s) (e.g, *csv or .sql)\n",
+    -exitval => 1
+) if ( @omop_files && $omop_files[0] !~ m/\.csv|\.sql/i);
+pod2usage(
+    -message => "OHDSI database (<-ohdsi-db>) only works with <-iomop> argument\n",
+    -exitval => 1
+) if ( $ohdsi_db && ! @omop_files );
 
 # Turning color off if argument <--no-color>
 $ENV{'ANSI_COLORS_DISABLED'} = 1 if $no_color;
@@ -113,6 +118,7 @@ my $data = {
     sep      => $sep,
     sql2csv  => $sql2csv,
     redcap_dictionary   => $redcap_dictionary,
+    ohdsi_db            => $ohdsi_db,
     print_hidden_labels => $print_hidden_labels,
     debug               => $debug,
     verbose             => $verbose
@@ -203,7 +209,7 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
      Arguments:                       
        -input-type:  
              -ibff                    Beacon v2 JSON file
-             -iomop                   OMOP-CDM CSV files or SQL dump
+             -iomop                   OMOP-CDM CSV files or PostgreSQL dump
              -ipxf                    Phenopacket JSON file
              -iredcap                 REDCap CSV file
 
@@ -225,6 +231,7 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
        -format                        Output format for the text file [>json|yaml]
        -rcd|redcap-dictionary         Dictionary file (CSV) exported from REDCap
        -phl|print-hidden-labels       Print original values (before DB mapping) of text fields <_labels>
+       -ohdsi-db                      Use Athena-OHDSI database (~1.1GB) with -iomop
        -sep|separator                 Delimiter character for CSV files
      
 =head1 DESCRIPTION
@@ -278,7 +285,7 @@ Then, we can install our dependencies:
 
   carton install
 
-=head1 HOW TO RUN PHENO-CONVERT
+=head1 HOW TO RUN CONVERT-PHENO
 
 For executing convert-pheno you will need:
 

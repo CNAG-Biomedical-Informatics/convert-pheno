@@ -11,7 +11,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
      Arguments:                       
        -input-type:  
              -ibff                    Beacon v2 JSON file
-             -iomop                   OMOP-CDM CSV files or SQL dump
+             -iomop                   OMOP-CDM CSV files or PostgreSQL dump
              -ipxf                    Phenopacket JSON file
              -iredcap                 REDCap CSV file
 
@@ -33,6 +33,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
        -format                        Output format for the text file [>json|yaml]
        -rcd|redcap-dictionary         Dictionary file (CSV) exported from REDCap
        -phl|print-hidden-labels       Print original values (before DB mapping) of text fields <_labels>
+       -ohdsi-db                      Use Athena-OHDSI database (~1.1GB) with -iomop
        -sep|separator                 Delimiter character for CSV files
      
 
@@ -87,7 +88,7 @@ Then, we can install our dependencies:
 
     carton install
 
-# HOW TO RUN PHENO-CONVERT
+# HOW TO RUN CONVERT-PHENO
 
 For executing convert-pheno you will need:
 
