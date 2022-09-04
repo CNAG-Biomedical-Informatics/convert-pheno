@@ -192,10 +192,10 @@ sub do_pxf2bff {
 
     $individual->{sex} = map_ontology(
         {
-            label          => $phenopacket->{subject}{sex},
-            ontology       => 'ncit',
-            display_labels => $self->{print_hidden_labels},
-            sth            => $sth->{ncit}
+            query    => $phenopacket->{subject}{sex},
+            column   => 'label',
+            ontology => 'ncit',
+            self     => $self
         }
       )
       if ( exists $phenopacket->{subject}{sex}
@@ -334,12 +334,12 @@ sub do_redcap2bff {
         ) if $participant->{age_first_diagnosis} ne '';
         $disease->{diseaseCode} = map_ontology(
             {
-                label => $field,
+                query  => $field,
+                column => 'label',
 
-                #    ontology       => 'icd10',                        # ICD:10 Inflammatory Bowel Disease does not exist
-                ontology       => 'ncit',
-                display_labels => $self->{print_hidden_labels},
-                sth            => $sth->{ncit}
+                #ontology       => 'icd10',                        # ICD:10 Inflammatory Bowel Disease does not exist
+                ontology => 'ncit',
+                self     => $self
             }
         );
         $disease->{familyHistory} = convert2boolean(
@@ -389,17 +389,17 @@ sub do_redcap2bff {
         $exposure->{duration}      = undef;          # 'P32Y6M1D';
         $exposure->{exposureCode}  = map_ontology(
             {
-                label          => $field,
-                ontology       => 'ncit',
-                display_labels => $self->{print_hidden_labels},
-                sth            => $sth->{ncit}
+                query    => $field,
+                column   => 'label',
+                ontology => 'ncit',
+                self     => $self
             }
         );
 
         # We first extract 'unit' that supposedly will be used in <measurementValue> and <referenceRange>??
         my $unit = map_ontology(
             {
-                label => ( $field eq 'alcohol' || $field eq 'smoking' )
+                query => ( $field eq 'alcohol' || $field eq 'smoking' )
                 ? map_exposures(
                     {
                         key => $field,
@@ -413,9 +413,9 @@ sub do_redcap2bff {
                     }
                   )
                 : $field,
-                ontology       => 'ncit',
-                display_labels => $self->{print_hidden_labels},
-                sth            => $sth->{ncit}
+                column   => 'label',
+                ontology => 'ncit',
+                self     => $self
             }
         );
         $exposure->{measurementValue} = [
@@ -503,10 +503,10 @@ sub do_redcap2bff {
               : undef;
             $intervention->{procedureCode} = map_ontology(
                 {
-                    label          => $surgery{$field},
-                    ontology       => 'ncit',
-                    display_labels => $self->{print_hidden_labels},
-                    sth            => $sth->{ncit}
+                    query    => $surgery{$field},
+                    column   => 'label',
+                    ontology => 'ncit',
+                    self     => $self
                 }
             ) if $surgery{$field};
             push @{ $individual->{interventionsOrProcedures} }, $intervention;
@@ -537,10 +537,10 @@ sub do_redcap2bff {
         my $measure;
         $measure->{assayCode} = map_ontology(
             {
-                label          => $field,
-                ontology       => 'ncit',
-                display_labels => $self->{print_hidden_labels},
-                sth            => $sth->{ncit}
+                query    => $field,
+                column   => 'label',
+                ontology => 'ncit',
+                self     => $self,
             }
         );
         $measure->{date} = undef;    # iso8601_time();
@@ -548,10 +548,10 @@ sub do_redcap2bff {
         # We first extract 'unit' and %range' for <measurementValue>
         my $unit = map_ontology(
             {
-                label    => map_quantity( $redcap_dic->{$field}{'Field Note'} ),
+                query    => map_quantity( $redcap_dic->{$field}{'Field Note'} ),
+                column   => 'label',
                 ontology => 'ncit',
-                display_labels => $self->{print_hidden_labels},
-                sth            => $sth->{ncit}
+                self     => $self
             }
         );
         $measure->{measurementValue} = [
@@ -570,12 +570,12 @@ sub do_redcap2bff {
         $measure->{observationMoment} = undef;          # Age
         $measure->{procedure}         = map_ontology(
             {
-                  label => $field eq 'calprotectin' ? 'Feces'
+                  query => $field eq 'calprotectin' ? 'Feces'
                 : $field =~ m/^nancy/ ? 'Histologic'
                 : 'Blood Test Result',
-                ontology       => 'ncit',
-                display_labels => $self->{print_hidden_labels},
-                sth            => $sth->{ncit}
+                column   => 'label',
+                ontology => 'ncit',
+                self     => $self
             }
         );
 
@@ -623,10 +623,10 @@ sub do_redcap2bff {
             #  { Quantity => { unit => { id => '', label => '' }, value => undef } };
             $phenotypicFeature->{featureType} = map_ontology(
                 {
-                    label    => $field =~ m/comorb/ ? 'Comorbidity' : $field,
+                    query    => $field =~ m/comorb/ ? 'Comorbidity' : $field,
+                    column   => 'label',
                     ontology => 'ncit',
-                    display_labels => $self->{print_hidden_labels},
-                    sth            => $sth->{ncit}
+                    self     => $self
 
                 }
             );
@@ -650,17 +650,16 @@ sub do_redcap2bff {
 
     $individual->{sex} = map_ontology(
         {
-            label => map2redcap_dic(
+            query => map2redcap_dic(
                 {
                     redcap_dic  => $redcap_dic,
                     participant => $participant,
                     field       => 'sex'
                 }
             ),
-            ontology       => 'ncit',
-            display_labels => $self->{print_hidden_labels},
-            sth            => $sth->{ncit}
-
+            column   => 'label',
+            ontology => 'ncit',
+            self     => $self
         }
     ) if $participant->{sex} ne '';
 
@@ -735,21 +734,19 @@ sub do_redcap2bff {
             $treatment->{doseIntervals}         = [];
             $treatment->{routeOfAdministration} = map_ontology(
                 {
-                    label    => ucfirst($route) . ' Route of Administration',  # Oral Route of Administration
+                    query    => ucfirst($route) . ' Route of Administration',  # Oral Route of Administration
+                    column   => 'label',
                     ontology => 'ncit',
-                    display_labels => $self->{print_hidden_labels},
-                    sth            => $sth->{ncit}
-
+                    self     => $self
                 }
             );
 
             $treatment->{treatmentCode} = map_ontology(
                 {
-                    label          => $drug_name,
-                    ontology       => 'ncit',
-                    display_labels => $self->{print_hidden_labels},
-                    sth            => $sth->{ncit}
-
+                    query    => $drug_name,
+                    column   => 'label',
+                    ontology => 'ncit',
+                    self     => $self
                 }
             );
             push @{ $individual->{treatments} }, $treatment;
@@ -872,10 +869,10 @@ sub do_omop2bff {
 
     $individual->{ethnicity} = map_ontology(
         {
-            label          => $participant->{PERSON}{race_source_value},
-            ontology       => 'ncit',
-            display_labels => $self->{print_hidden_labels},
-            sth            => $sth->{ncit}
+            query    => $participant->{PERSON}{race_source_value},
+            column   => 'label',
+            ontology => 'ncit',
+            self     => $self
         }
     ) if exists $participant->{PERSON}{race_source_value};
 
@@ -889,10 +886,10 @@ sub do_omop2bff {
 
     $individual->{geographicOrigin} = map_ontology(
         {
-            label          => $participant->{PERSON}{ethnicity_source_value},
-            ontology       => 'ncit',
-            display_labels => $self->{print_hidden_labels},
-            sth            => $sth->{ncit}
+            query    => $participant->{PERSON}{ethnicity_source_value},
+            column   => 'label',
+            ontology => 'ncit',
+            self     => $self
         }
     ) if exists $participant->{PERSON}{ethnicity_source_value};
 
@@ -946,10 +943,10 @@ sub do_omop2bff {
             my $measure;
             $measure->{assayCode} = map_ontology(
                 {
-                    id             => $field->{measurement_concept_id},
-                    ontology       => 'ohdsi',
-                    display_labels => $self->{print_hidden_labels},
-                    sth            => $sth->{ohdsi}
+                    query    => $field->{measurement_concept_id},
+                    column   => 'concept_id',
+                    ontology => 'ohdsi',
+                    self     => $self
                 }
             ) if $self->{ohdsi_db};
             $measure->{data}              = $field->{measurement_datetime};
@@ -1427,38 +1424,40 @@ sub map_ontology {
     # Not a big fan of global stuff and premature return, but it works here...
     #  ¯\_(ツ)_/¯
 
-    ########################################
-    # NCIT and ICD- we go FROM VALUE -> ID #
-    # -------------------------------------#
-    # OHDSI        we go FROM ID -> VALUE #
-    ########################################
-
-    # Labels come in many forms, before checking existance we map to 3TR-NCIT ones
-    # If we have ->id we have inverted search
-    my $tmp_label =
-      exists $_[0]->{label} ? map_3tr( $_[0]->{label} ) : $_[0]->{id};
+    # Before checking existance we map to 3TR to -NCIT
+    my $tmp_query = map_3tr( $_[0]->{query} );
 
     # return if terms has already been searched and exists
-    return $seen->{$tmp_label} if exists $seen->{$tmp_label};    # global
+    return $seen->{$tmp_query} if exists $seen->{$tmp_query};    # global
 
-    # return if we know 'a priori' that the label won't exist
-    #return { id => 'NCIT:NA', label => $tmp_label } if $tmp_label =~ m/xx/;
+    # return something if we know 'a priori' that the query won't exist
+    #return { id => 'NCIT:NA', label => $tmp_query } if $tmp_query =~ m/xx/;
 
     # Ok, now it's time to start the subroutine
     my $arg                 = shift;
+    my $column              = $arg->{column};
     my $ontology            = $arg->{ontology};
-    my $print_hidden_labels = $arg->{display_labels};
-    my $sth                 = $arg->{sth};
+    my $match               = exists $arg->{match} ? $arg->{match} : 'exact_match'; # Only option as of 090422
+    my $self                = $arg->{self};
+    my $print_hidden_labels = $self->{display_labels};
+    my $sth                 = $self->{sth}{$ontology}{$column};
 
     # Perform query
-    my ( $id, $label ) = execute_query_SQLite( $sth, $tmp_label, $ontology );
+    my ( $id, $label ) = execute_query_SQLite(
+        {
+            sth      => $sth,
+            query    => $tmp_query,
+            ontology => $ontology,
+            match    => $match
+        }
+    );
 
     # Add result to global $seen
-    $seen->{$tmp_label} = { id => $id, label => $label };    # global
+    $seen->{$tmp_query} = { id => $id, label => $label };    # global
 
     # id and label come from <db> _label is the original string (can change on partial matches)
     return $print_hidden_labels
-      ? { id => $id, label => $label, _label => $tmp_label }
+      ? { id => $id, label => $label, _label => $tmp_query }
       : { id => $id, label => $label };
 }
 
@@ -1520,24 +1519,32 @@ sub map_quantity {
     #il6;routine_lab_values;;text;IL-6;;"xxxx.x ng/l";number;0;10000;;;;;;;;
     #calprotectin;routine_lab_values;;text;Calprotectin;;"mg/kg stool";integer;;;;;;;;;;
 
-    # http://purl.obolibrary.org/obo/NCIT_C64783
+    # http://purl.obolibrary.org/obo/NCIT_C64783          # SI units
+    # label => NCIT
     my %unit = (
-        'xx.xx /10^-9 l' => 'Cells per Microliter',       # '10^9/L',
-        'xx.x g/dl'      => 'Gram per Deciliter',         # 'g/dL',
-        'xx.x fl'        => 'Femtoliter',                 # 'fL'
-        'xx.x'           => 'Picogram',                   # 'pg',         #picograms
+        'xx.xx /10^-9 l' => 'Cells per Microliter',    # '10^9/L',
+        'x.xx /10^-9 l'  => 'Cells per Microliter',    #
+        'xxxx /10^-9 l'  => 'Cells per Microliter',
+        'xx.x g/dl'      => 'Gram per Deciliter',      # 'g/dL',
+        'xx.x fl'        => 'Femtoliter',              # 'fL'
+        'xx.x'           => 'Picogram',                # 'pg',         #picograms
         'xx.x pg'        => 'Picogram',
         'xx.x µmol/l'    => 'Micromole per Liter',
         'xxx.x µmol/l'   => 'Micromole per Liter',
-        'xxx µmol/l'     => 'Micromole per Liter',        # 'µmol/l',
-        'ml/min/1.73'    => 'mL/min/1.73',
-        'xx.x U/l'       => 'Units per Liter',
-        'pg/dl'          => 'Picogram per Deciliter',     #'pg/dL',
-        'mg/dl'          => 'Milligram per Deciliter',    #'mg/L',
-        'µg/dl'          => 'Microgram per Deciliter',    #'µg/dL',
-        'ng/dl'          => 'Nanogram per Deciliter',     #'ng/L'
-        'mg/kg stool'    => 'Miligram per Kilogram',
-        'xx.x %'         => 'Percentage'
+        'xxx µmol/l'     => 'Micromole per Liter',     # 'µmol/l',
+
+        #        'ml/min/1.73'    => 'mL/min/1.73',
+        #        'xxx ml/min/1.73' => 'mL/min/1.73',
+        'xx.x U/l' => 'Units per Liter',
+        'pg/dl'    => 'Picogram per Deciliter',     #'pg/dL',
+        'mg/dl'    => 'Milligram per Deciliter',    #'mg/dL',
+
+        #       'xxx.x mg/l'     => 'Milligram per Liter',
+        'µg/dl'       => 'Microgram per Deciliter',    #'µg/dL',
+        'ng/dl'       => 'Nanogram per Deciliter',     #'ng/dL'
+        'xxxx.x ng/l' => 'Nanogram per Liter',
+        'mg/kg stool' => 'Miligram per Kilogram',
+        'xx.x %'      => 'Percentage'
     );
 
     #say "#{$str}# ====>  $unit{$str}" if  exists $unit{$str};
@@ -1690,8 +1697,6 @@ sub open_connections_SQLite {
     my @databases =
       defined $self->{ohdsi_db} ? @sqlites : grep { !m/ohdsi/ } @sqlites;
 
-    print Dumper \@databases;
-
     # Opening the DB once (instead that on each call) improves speed ~15%
     my $dbh;
     $dbh->{$_} = open_db_SQLite($_) for (@databases);    # global
@@ -1700,6 +1705,7 @@ sub open_connections_SQLite {
     $self->{dbh} = $dbh;                                 # Need constructor for this
 
     # Prepare the query once
+    # If we want to modify the query during execution time we'll need to prepare_query_SQLite($self) again;
     prepare_query_SQLite($self);
 
     return 1;
@@ -1749,46 +1755,76 @@ sub prepare_query_SQLite {
 
     my $self = shift;
 
+    ###############
+    # EXPLANATION #
+    ###############
+    #
+    # Even though we did not gain a lot of speed, we decided to do the "prepare step" once, instead of on each query.
+    # Then, if we want to search in a different column than 'label' we also need to create that $sth
+    # To solve that we have created a nested sth->{ncit}{label}, sth->{icd10}{label}, sth->{ohdsi}{concept_id} and sth->{ohdsi}{label}
+    # On top of that, we add the "match" type, so that we can have other matches in the future if needed
+    # NB: In principle, is is possible to change the "prepare" during queries but we must reverte it back to default after using it
+
     # Check flag ohdsi_db
     my @databases =
       defined $self->{ohdsi_db} ? @sqlites : grep { !m/ohdsi/ } @sqlites;
 
-    # Right now we only perform "exact_match" of terms -> mrueda
-    my $field = 'exact_match';
-
+    # NB1:
     # dbh = "Database Handle"
     # sth = "Statement Handle"
 
-    # NB: <ncit.db> and <icd10.db> were pre-processed to have "id" and "label" columns only
-    #   : <ohdsi.db> consists of 4 columns, each having its original name (e.g., "concept_id)
-    for my $ontology (@databases) {    #global
-        my $db         = uc($ontology) . '_table';
-        my $dbh        = $self->{dbh}{$ontology};
-        my %query_type = (
-            contains =>
-qq(SELECT * FROM $db WHERE label LIKE '%' || ? || '%' COLLATE NOCASE),
-            contains_word =>
-qq(SELECT * FROM $db WHERE label LIKE '% ' || ? || ' %' COLLATE NOCASE),
-            exact_match => $ontology ne 'ohdsi'
-            ? qq(SELECT * FROM $db WHERE label = ? COLLATE NOCASE)
-            : qq(SELECT * FROM $db WHERE concept_id = ? COLLATE NOCASE),
-            begins_with =>
-              qq(SELECT * FROM $db WHERE label LIKE ? || '%' COLLATE NOCASE)
-        );
+    # NB2:
+    #     *<ncit.db> and <icd10.db> were pre-processed to have "id" and "label" columns only
+    #       label [0]
+    #       id    [1]
+    #
+    #     * <ohdsi.db> consists of 4 columns:
+    #       concept_id    => concept_id    [0]
+    #       concept_name  => label         [1]
+    #       vocabulary_id => vocabulary_id [2]
+    #       vocabulary_id => id            [4]
 
-        # Prepare the query
-        my $sth = $dbh->prepare(<<SQL);
-$query_type{$field}
+    for my $match ('exact_match') {
+        for my $ontology (@databases) {    #global
+            for my $column ( 'label', 'concept_id' ) {
+                next
+                  if ( $column eq 'concept_id' && any { /^$ontology$/ }
+                    ( 'ncit', 'icd10' ) );
+                my $db         = uc($ontology) . '_table';
+                my $dbh        = $self->{dbh}{$ontology};
+                my %query_type = (
+                    contains =>
+qq(SELECT * FROM $db WHERE $column LIKE '%' || ? || '%' COLLATE NOCASE),
+                    contains_word =>
+qq(SELECT * FROM $db WHERE $column LIKE '% ' || ? || ' %' COLLATE NOCASE),
+                    exact_match =>
+                      qq(SELECT * FROM $db WHERE $column = ? COLLATE NOCASE),
+                    begins_with =>
+qq(SELECT * FROM $db WHERE $column LIKE ? || '%' COLLATE NOCASE)
+                );
+
+                # Prepare the query
+                my $sth = $dbh->prepare(<<SQL);
+$query_type{$match}
 SQL
-        $self->{sth}{$ontology} = $sth;    # Dynamically adding nested attributes (setter)
+
+                # Autovivification of $self->{sth}{$ontology}{$column}{$match}
+                $self->{sth}{$ontology}{$column}{$match} = $sth;    # Dynamically adding nested attributes (setter)
+            }
+        }
     }
+
+    #print Dumper $self and die;
     return 1;
 }
 
 sub execute_query_SQLite {
 
-    my ( $sth, $query, $ontology ) = @_;
-    my $field = 'exact_match';
+    my $arg      = shift;
+    my $sth      = $arg->{sth};
+    my $query    = $arg->{query};
+    my $ontology = $arg->{ontology};
+    my $match    = $arg->{match};
 
     # Excute query
     $sth->execute($query);
@@ -1806,7 +1842,7 @@ sub execute_query_SQLite {
             $id    = $row->[2] . ':' . $row->[0];
             $label = $row->[1];
         }
-        last if $field eq 'exact_match';    # Note that sometimes we get more than one
+        last if $match eq 'exact_match';    # Note that sometimes we get more than one
     }
     $sth->finish();
 
@@ -1898,9 +1934,10 @@ sub get_meta_data {
         }
     ];
     return {
-        _info     => $info,
-        resources => $resources,
-        created   => iso8601_time()
+        _info => $info,
+
+        #created   => iso8601_time(), 3 to alleviate testing
+        resources => $resources
     };
 }
 
