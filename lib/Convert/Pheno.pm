@@ -872,6 +872,7 @@ sub do_omop2bff {
             query    => $participant->{PERSON}{race_source_value},
             column   => 'label',
             ontology => 'ncit',
+            #ontology => 'ohdsi',
             self     => $self
         }
     ) if exists $participant->{PERSON}{race_source_value};
@@ -1440,8 +1441,10 @@ sub map_ontology {
     my $match               = exists $arg->{match} ? $arg->{match} : 'exact_match'; # Only option as of 090422
     my $self                = $arg->{self};
     my $print_hidden_labels = $self->{display_labels};
-    my $sth                 = $self->{sth}{$ontology}{$column};
+    my $sth                 = $self->{sth}{$ontology}{$column}{$match}; # IMPORTANT STEP
 
+    # Die if user wants OHDSI w/o flag -ohdsi-db
+    die "Please use the flag <-ohdsi> to enable searching at Athena-OHDSI database" if ($ontology eq 'ohdsi' && ! $self->{ohdsi_db});
     # Perform query
     my ( $id, $label ) = execute_query_SQLite(
         {
@@ -1702,10 +1705,9 @@ sub open_connections_SQLite {
     $dbh->{$_} = open_db_SQLite($_) for (@databases);    # global
 
     # Add $dbh HANDLE to $self
-    $self->{dbh} = $dbh;                                 # Need constructor for this
+    $self->{dbh} = $dbh;                                 # Dynamically adding attributes (setter)
 
     # Prepare the query once
-    # If we want to modify the query during execution time we'll need to prepare_query_SQLite($self) again;
     prepare_query_SQLite($self);
 
     return 1;
@@ -1759,11 +1761,12 @@ sub prepare_query_SQLite {
     # EXPLANATION #
     ###############
     #
-    # Even though we did not gain a lot of speed, we decided to do the "prepare step" once, instead of on each query.
+    # Even though we did not gain a lot of speed (~15%), we decided to do the "prepare step" once, instead of on each query.
     # Then, if we want to search in a different column than 'label' we also need to create that $sth
     # To solve that we have created a nested sth->{ncit}{label}, sth->{icd10}{label}, sth->{ohdsi}{concept_id} and sth->{ohdsi}{label}
     # On top of that, we add the "match" type, so that we can have other matches in the future if needed
     # NB: In principle, is is possible to change the "prepare" during queries but we must reverte it back to default after using it
+    # We prefer using ncit/icd10 as they're small and fast
 
     # Check flag ohdsi_db
     my @databases =
