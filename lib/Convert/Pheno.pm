@@ -134,7 +134,7 @@ sub do_pxf2bff {
     # ========
 
     $individual->{diseases} =
-      [ map { $_ = { "diseaseCode" => $_->{term} } }
+      [ map { $_ = { diseaseCode => $_->{term} } }
           @{ $phenopacket->{diseases} } ]
       if exists $phenopacket->{diseases};
 
@@ -853,7 +853,7 @@ sub do_omop2bff {
     my $individual;
 
     # Get cursors for 1D terms
-    #my $diagnoses = $participant->{ADMISSIONS};
+    my $person = $participant->{PERSON};
 
     # ========
     # diseases
@@ -873,14 +873,14 @@ sub do_omop2bff {
 
     $individual->{ethnicity} = map_ontology(
         {
-            query    => $participant->{PERSON}{race_source_value},
+            query    => $person->{race_source_value},
             column   => 'label',
             ontology => 'ncit',
 
             #ontology => 'ohdsi',
             self => $self
         }
-    ) if exists $participant->{PERSON}{race_source_value};
+    ) if exists $person->{race_source_value};
 
     # =========
     # exposures
@@ -892,19 +892,19 @@ sub do_omop2bff {
 
     $individual->{geographicOrigin} = map_ontology(
         {
-            query    => $participant->{PERSON}{ethnicity_source_value},
+            query    => $person->{ethnicity_source_value},
             column   => 'label',
             ontology => 'ncit',
             self     => $self
         }
-    ) if exists $participant->{PERSON}{ethnicity_source_value};
+    ) if exists $person->{ethnicity_source_value};
 
     # ==
     # id
     # ==
 
-    $individual->{id} = $participant->{PERSON}{person_id}
-      if exists $participant->{PERSON}{person_id};
+    $individual->{id} = $person->{person_id}
+      if exists $person->{person_id};
 
     # ====
     # info
@@ -982,6 +982,35 @@ sub do_omop2bff {
     # ===
     # sex
     # ===
+
+    # OHSDI CONCEPT.vocabulary_id = Gender
+    my $sex = map2ohdsi_dic(
+        {
+            ohdsi_dic  => $ohdsi_dic,
+            concept_id => $person->{gender_concept_id}
+        }
+      )
+      or map_ontology(
+        {
+            query    => $person->{gender_concept_id},
+            column   => 'concept_id',
+            ontology => 'ohdsi',
+            self     => $self
+        }
+      )
+      if ( exists $person->{gender_concept_id}
+        && $person->{gender_concept_id} ne '' );
+
+    # $sex = {id, label), we need to use 'label'
+    $individual->{sex} = map_ontology(
+        {
+            query    => $sex->{label},
+            column   => 'label',
+            ontology => 'ncit',
+            self     => $self
+        }
+
+    ) if $sex;
 
     # ==========
     # treatments
@@ -1209,7 +1238,7 @@ sub read_sqldump {
     # The parser is based in reading COPY paragraphs from PostgreSQL dump by using Perl's paragraph mode  $/ = "";
     # The sub can be seen as "ugly" but it does the job :-)
 
-    my $limit = 999;    # We have a counter to make things faster
+    my $limit = 500;    # We have a counter to make things faster
     local $/ = "";      # set record separator to paragraph
 
     #COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, attribute_description, attribute_type_concept_id, attribute_syntax) FROM stdin;
