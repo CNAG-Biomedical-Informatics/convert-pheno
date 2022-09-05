@@ -225,6 +225,10 @@ sub do_bff2pxf {
 
     my ( $self, $data ) = @_;
 
+    #Not a big fan of premature return, but it works here...
+    #  ¯\_(ツ)_/¯
+    return undef unless defined($data);
+
     # Depending on the origion (redcap) , _info and resources may exist
     $data->{meta_data} =
       exists $data->{info}{meta_data}
@@ -827,7 +831,7 @@ sub omop2bff {
       unless exists $data->{CONCEPT};
 
     # We  create a dictionary for $data->{CONCEPT}
-    $self->{data_ohdsi_dic} = undef;    # Dynamically adding attributes (setter)
+    $self->{data_ohdsi_dic} = remap_ohdsi_dictionary( $data->{CONCEPT} );    # Dynamically adding attributes (setter)
 
     # Now we need to perform a tranformation of the data where 'person_id' is one row of data
     # NB: Transformation is due ONLY IN $omop_main_table FIELDS, the rest of the tables are not used
@@ -840,8 +844,8 @@ sub omop2bff {
 sub do_omop2bff {
 
     my ( $self, $participant ) = @_;
-    my $data_ohdsi_dic = $self->{data_ohdsi_dic};
-    my $sth            = $self->{sth};
+    my $ohdsi_dic = $self->{data_ohdsi_dic};
+    my $sth       = $self->{sth};
 
     ####################################
     # START MAPPING TO BEACON V2 TERMS #
@@ -872,8 +876,9 @@ sub do_omop2bff {
             query    => $participant->{PERSON}{race_source_value},
             column   => 'label',
             ontology => 'ncit',
+
             #ontology => 'ohdsi',
-            self     => $self
+            self => $self
         }
     ) if exists $participant->{PERSON}{race_source_value};
 
@@ -942,14 +947,21 @@ sub do_omop2bff {
 
         for my $field ( @{ $participant->{MEASUREMENT} } ) {
             my $measure;
-            $measure->{assayCode} = map_ontology(
+            my $tmp_field = $field->{measurement_concept_id};
+            $measure->{assayCode} = map2ohdsi_dic(
                 {
-                    query    => $field->{measurement_concept_id},
+                    ohdsi_dic  => $ohdsi_dic,
+                    concept_id => $tmp_field
+                }
+              )
+              or map_ontology(
+                {
+                    query    => $tmp_field,
                     column   => 'concept_id',
                     ontology => 'ohdsi',
                     self     => $self
                 }
-            ) if $self->{ohdsi_db};
+              ) if $tmp_field ne '';
             $measure->{data}              = $field->{measurement_datetime};
             $measure->{measurementValue}  = $field->{value_as_number};
             $measure->{notes}             = { OMOP_fields => $field };
@@ -997,6 +1009,7 @@ sub omop2pxf {
     my $bff = omop2bff($self);       # array
 
     # Preparing for second iteration: bff2pxf
+    # NB: This 2nd round may take a while if #inviduals > 1000!!!
     $self->{method}      = 'bff2pxf';    # setter
     $self->{data}        = $bff;         # setter
     $self->{in_textfile} = 0;            # setter
@@ -1145,6 +1158,47 @@ sub read_redcap_dictionary {
     return $data;
 }
 
+sub remap_ohdsi_dictionary {
+
+    my $data   = shift;
+    my $column = 'concept_id';
+
+    # The idea is the following:
+    # $data comes as an array (from SQL/CSV)
+    #
+    # $VAR1 = [
+    #          {
+    #            'concept_class_id' => '4-char billing code',
+    #            'concept_code' => 'K92.2',
+    #            'concept_id' => '35208414',
+    #            'concept_name' => 'Gastrointestinal hemorrhage, unspecified',
+    #            'domain_id' => 'Condition',
+    #            'invalid_reason' => undef,
+    #            'standard_concept' => '',
+    #            'valid_end_date' => '2099-12-31',
+    #            'valid_start_date' => '2007-01-01',
+    #            'vocabulary_id' => 'ICD10CM'
+    #          },
+    #
+    # and we convert it to hash to allow for quick searches by 'concept_id'
+    #
+    # $VAR1 = {
+    #          '1107830' => {
+    #                         'concept_class_id' => 'Ingredient',
+    #                         'concept_code' => '28889',
+    #                         'concept_id' => '1107830',
+    #                         'concept_name' => 'Loratadine',
+    #                         'domain_id' => 'Drug',
+    #                         'invalid_reason' => undef,
+    #                         'standard_concept' => 'S',
+    #                         'valid_end_date' => '2099-12-31',
+    #                         'valid_start_date' => '1970-01-01',
+    #                         'vocabulary_id' => 'RxNorm'
+    #                         },
+
+    return { map { $_->{$column} => $_ } @{$data} };
+}
+
 sub read_sqldump {
 
     my $file = shift;
@@ -1155,7 +1209,7 @@ sub read_sqldump {
     # The parser is based in reading COPY paragraphs from PostgreSQL dump by using Perl's paragraph mode  $/ = "";
     # The sub can be seen as "ugly" but it does the job :-)
 
-    my $limit = 100;    # We have a counter to make things faster
+    my $limit = 999;    # We have a counter to make things faster
     local $/ = "";      # set record separator to paragraph
 
     #COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, attribute_description, attribute_type_concept_id, attribute_syntax) FROM stdin;
@@ -1435,16 +1489,19 @@ sub map_ontology {
     #return { id => 'NCIT:NA', label => $tmp_query } if $tmp_query =~ m/xx/;
 
     # Ok, now it's time to start the subroutine
-    my $arg                 = shift;
-    my $column              = $arg->{column};
-    my $ontology            = $arg->{ontology};
-    my $match               = exists $arg->{match} ? $arg->{match} : 'exact_match'; # Only option as of 090422
-    my $self                = $arg->{self};
+    my $arg      = shift;
+    my $column   = $arg->{column};
+    my $ontology = $arg->{ontology};
+    my $match    = exists $arg->{match} ? $arg->{match} : 'exact_match';    # Only option as of 090422
+    my $self     = $arg->{self};
     my $print_hidden_labels = $self->{display_labels};
-    my $sth                 = $self->{sth}{$ontology}{$column}{$match}; # IMPORTANT STEP
+    my $sth                 = $self->{sth}{$ontology}{$column}{$match};     # IMPORTANT STEP
 
     # Die if user wants OHDSI w/o flag -ohdsi-db
-    die "Please use the flag <-ohdsi> to enable searching at Athena-OHDSI database" if ($ontology eq 'ohdsi' && ! $self->{ohdsi_db});
+    die
+"Please use the flag <-ohdsi> to enable searching at Athena-OHDSI database"
+      if ( $ontology eq 'ohdsi' && !$self->{ohdsi_db} );
+
     # Perform query
     my ( $id, $label ) = execute_query_SQLite(
         {
@@ -1676,6 +1733,24 @@ sub map2redcap_dic {
     return $redcap_dic->{$field}{_labels}{ $participant->{$field} };
 }
 
+sub map2ohdsi_dic {
+
+    my $arg = shift;
+    my ( $ohdsi_dic, $concept_id ) = ( $arg->{ohdsi_dic}, $arg->{concept_id} );
+
+    # NB: Here we don't win any speed over $seen as we are already searching in a hash
+    my ( $id, $label, $vocabulary ) = ( undef, undef, undef );
+    if ( exists $ohdsi_dic->{$concept_id} ) {
+        $id         = $ohdsi_dic->{$concept_id}{concept_code};
+        $label      = $ohdsi_dic->{$concept_id}{concept_name};
+        $vocabulary = $ohdsi_dic->{$concept_id}{vocabulary_id};
+        return { id => "$vocabulary:$id", label => $label };
+    }
+    else {
+        return 0;    # A priori ALL concept_id MUST be in CONCEPTS table
+    }
+}
+
 sub convert2boolean {
 
     my $val = lc(shift);
@@ -1698,14 +1773,14 @@ sub open_connections_SQLite {
 
     # Check flag ohdsi_db
     my @databases =
-      defined $self->{ohdsi_db} ? @sqlites : grep { !m/ohdsi/ } @sqlites;
+      defined $self->{ohdsi_db} ? @sqlites : grep { !m/ohdsi/ } @sqlites;    # global
 
     # Opening the DB once (instead that on each call) improves speed ~15%
     my $dbh;
-    $dbh->{$_} = open_db_SQLite($_) for (@databases);    # global
+    $dbh->{$_} = open_db_SQLite($_) for (@databases);
 
     # Add $dbh HANDLE to $self
-    $self->{dbh} = $dbh;                                 # Dynamically adding attributes (setter)
+    $self->{dbh} = $dbh;                                                     # Dynamically adding attributes (setter)
 
     # Prepare the query once
     prepare_query_SQLite($self);
@@ -1720,8 +1795,8 @@ sub close_connections_SQLite {
 
     # Check flag ohdsi_db
     my @databases =
-      defined $self->{ohdsi_db} ? @sqlites : grep { !m/ohdsi/ } @sqlites;
-    close_db_SQLite( $dbh->{$_} ) for (@databases);    #global
+      defined $self->{ohdsi_db} ? @sqlites : grep { !m/ohdsi/ } @sqlites;    # global
+    close_db_SQLite( $dbh->{$_} ) for (@databases);
     return 1;
 }
 
@@ -1770,7 +1845,7 @@ sub prepare_query_SQLite {
 
     # Check flag ohdsi_db
     my @databases =
-      defined $self->{ohdsi_db} ? @sqlites : grep { !m/ohdsi/ } @sqlites;
+      defined $self->{ohdsi_db} ? @sqlites : grep { !m/ohdsi/ } @sqlites;    # global
 
     # NB1:
     # dbh = "Database Handle"
@@ -1885,8 +1960,10 @@ sub array_dispatcher {
         say "$self->{method}: ARRAY" if $self->{debug};
 
         # Caution with the RAM (we store all in memory)
+        my $counter = 0;
         for ( @{$in_data} ) {
-            say "ARRAY ELEMENT" if $self->{debug};
+            say "[$counter] ARRAY ELEMENT" if $self->{debug};
+            $counter++;
 
             # In $self->{data} we have all participants data, but,
             # WE DELIBERATELY SEPARATE ARRAY ELEMENTS FROM $self->{data}
