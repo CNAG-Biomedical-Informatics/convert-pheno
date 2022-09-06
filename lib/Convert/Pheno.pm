@@ -859,13 +859,79 @@ sub do_omop2bff {
     # diseases
     # ========
 
-    #$individual->{diseases} = [];
+    # Table CONDITION_OCCURRENCE
+    #  1	condition_concept_id
+    #  2	condition_end_date
+    #  3	condition_end_datetime
+    #  4	condition_occurrence_id
+    #  5	condition_source_concept_id
+    #  6	condition_source_value
+    #  7	condition_start_date
+    #  8	condition_start_datetime
+    #  9	condition_status_concept_id
+    # 10	condition_status_source_value
+    # 11	condition_type_concept_id
+    # 12	person_id
+    # 13	provider_id
+    # 14	stop_reason
+    # 15	visit_detail_id
+    # 16	visit_occurrence_id
 
-    #my @diseases = qw(a b);
-    #for my $field (@diseases) {
-    #    my $disease;
-    #
-    #    }
+    my $table = 'CONDITION_OCCURRENCE';
+    if ( exists $participant->{$table} ) {
+
+        for my $field ( @{ $participant->{$table} } ) {
+            my $disease;
+
+            $disease->{ageOfOnset} = {
+                AgeRange => {
+                    start => $field->{condition_start_date},
+                    end   => $field->{condition_end_date}
+                }
+            };
+            $disease->{diseaseCode} = map2ohdsi_dic(
+                {
+                    ohdsi_dic  => $ohdsi_dic,
+                    concept_id => $field->{condition_concept_id}
+                }
+              )
+              or map_ontology(
+                {
+                    query    => $field->{condition_concept_id},
+                    column   => 'concept_id',
+                    ontology => 'ohdsi',
+                    self     => $self
+                }
+              ) if $field->{condition_concept_id} ne '';
+
+            #$disease->{familyHistory} = convert2boolean(
+            #    map2redcap_dic(
+            #        {
+            #            redcap_dic  => $redcap_dic,
+            #            participant => $participant,
+            #            field       => 'family_history'
+            #        }
+            #    )
+            #) if $participant->{family_history} ne '';
+            $disease->{notes}{$table}{OMOP_columns} = $field;          # Autovivification
+                                                                       #$disease->{severity} = undef;
+            $disease->{stage}                       = map2ohdsi_dic(
+                {
+                    ohdsi_dic  => $ohdsi_dic,
+                    concept_id => $field->{condition_status_concept_id}
+                }
+              )
+              or map_ontology(
+                {
+                    query    => $field->{condition_status_concept_id},
+                    column   => 'concept_id',
+                    ontology => 'ohdsi',
+                    self     => $self
+                }
+              ) if $field->{condition_status_concept_id} ne '';
+            push @{ $individual->{diseases} }, $disease;
+        }
+    }
 
     # =========
     # ethnicity
@@ -910,6 +976,35 @@ sub do_omop2bff {
     # info
     # ====
 
+    # Table PERSON
+    #     1	birth_datetime
+    #     2	care_site_id
+    #     3	day_of_birth
+    #     4	ethnicity_concept_id
+    #     5	ethnicity_source_concept_id
+    #     6	ethnicity_source_value
+    #     7	gender_concept_id
+    #     8	gender_source_concept_id
+    #     9	gender_source_value
+    #    10	location_id
+    #    11	month_of_birth
+    #    12	person_id
+    #    13	person_source_value
+    #    14	provider_id
+    #    15	race_concept_id
+    #    16	race_source_concept_id
+    #    17	race_source_value
+    #    18	year_of_birth
+
+    for (
+        qw (birth_datetime care_site_id day_of_birth month_of_birth provider_id year_of_birth)
+      )
+    {
+        # Autovivification
+        $individual->{info}{PERSON}{OMOP_columns}{$_} = $person->{$_}
+          if exists $person->{$_};
+    }
+
     # =========================
     # interventionsOrProcedures
     # =========================
@@ -943,9 +1038,10 @@ sub do_omop2bff {
     #  "visit_detail_id" : "0",
     #  "visit_occurrence_id" : "61837"
 
-    if ( exists $participant->{MEASUREMENT} ) {
+    $table = 'MEASUREMENT';
+    if ( exists $participant->{$table} ) {
 
-        for my $field ( @{ $participant->{MEASUREMENT} } ) {
+        for my $field ( @{ $participant->{$table} } ) {
             my $measure;
             my $tmp_field = $field->{measurement_concept_id};
             $measure->{assayCode} = map2ohdsi_dic(
@@ -962,11 +1058,11 @@ sub do_omop2bff {
                     self     => $self
                 }
               ) if $tmp_field ne '';
-            $measure->{data}              = $field->{measurement_datetime};
-            $measure->{measurementValue}  = $field->{value_as_number};
-            $measure->{notes}             = { OMOP_fields => $field };
-            $measure->{observationMoment} = undef;
-            $measure->{procedure}         = $measure->{assayCode};
+            $measure->{date}             = $field->{measurement_datetime};
+            $measure->{measurementValue} = $field->{value_as_number};
+            $measure->{notes}{$table}{OMOP_columns} = $field;                  # Autovivification
+            $measure->{observationMoment}           = undef;
+            $measure->{procedure}                   = $measure->{assayCode};
             push @{ $individual->{measures} }, $measure;
         }
     }
@@ -1375,8 +1471,9 @@ sub transpose_omop_data_structure {
     # where all 'perosn_id' are together inside the TABLE_NAME.
     # But, BFF works at the individual level so we are going to
     # transpose the data structure to end up into something like this
-    # NB: MEASUREMENT and OBSERVATION can have multiple values for one 'person_id'
-    #     so they will be loaded as arrays
+    # NB: MEASUREMENT and OBSERVATION (among others, i.e., CONDITION_OCCURRENCE)
+    #     can have multiple values for one 'person_id' so they will be loaded as arrays
+    #
     #
     #$VAR1 = {
     #          '001' => {
@@ -1409,8 +1506,10 @@ sub transpose_omop_data_structure {
             if ( exists $item->{person_id} && $item->{person_id} ne '' ) {
                 my $person_id = $item->{person_id};
 
-                # {person_id} can have multiple measures in a given table
-                if ( $table eq 'MEASUREMENT' || $table eq 'OBSERVATION' ) {
+                # {person_id} can have multiple rows in a given table
+                if ( any { m/^$table$/ }
+                    ( 'MEASUREMENT', 'OBSERVATION', 'CONDITION_OCCURRENCE' ) )
+                {
                     push @{ $omop_person_id->{$person_id}{$table} }, $item;    # array
                 }
 
@@ -1656,6 +1755,7 @@ sub dotify_and_coerce_number {
 
 sub iso8601_time {
 
+    # Standard modules
     my ( $s, $f ) = split( /\./, gettimeofday );
     return strftime( '%Y-%m-%dT%H:%M:%S.' . $f . '%z', localtime($s) );
 }

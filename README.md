@@ -41,7 +41,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
 
 `convert-pheno` is a command-line front-end to the CPAN's module [Convert::Pheno](https://metacpan.org/pod/Convert%3A%3APheno).
 
-The module will be uploaded to CPAN once ready.
+The module will be uploaded to CPAN once the paper is submitted.
 
 # SUMMARY
 
