@@ -923,7 +923,8 @@ sub do_omop2bff {
             #    )
             #) if $participant->{family_history} ne '';
 
-            $disease->{notes}{$table}{OMOP_columns} = $field;          # Autovivification
+            # notes MUST be string
+            $disease->{_info}{$table}{OMOP_columns} = $field;          # Autovivification
                                                                        #$disease->{severity} = undef;
             $disease->{stage}                       = map2ohdsi_dic(
                 {
@@ -963,11 +964,11 @@ sub do_omop2bff {
     # exposures
     # =========
 
-    #*********************************
+    #**************************************************
     # IMPORTANT
-    #    WE HAVEN'T FOUND TOBACCO, ALCOHOL, ETC in OMOP
-    #*********************************
-
+    # WE HAVEN'T FOUND TOBACCO, ALCOHOL, ETC in OMOP
+    #*************************************************
+    #
     #    $table = 'OBSERVATION';
     #
     #    if ( exists $participant->{$table} ) {
@@ -1034,8 +1035,12 @@ sub do_omop2bff {
     # id
     # ==
 
-    $individual->{id} = $person->{person_id}
-      if exists $person->{person_id};
+    # <id> is a required property in Beacon v2
+    # Not a big fan of premature return, but it works here...
+    #  ¯\_(ツ)_/¯
+    return undef unless (exists $person->{person_id}  && $person->{person_id} ne '' );
+
+    $individual->{id} = $person->{person_id};
 
     # ====
     # info
@@ -1215,9 +1220,10 @@ sub do_omop2bff {
                 }
               ) if $tmp_field ne '';
             $measure->{date}             = $field->{measurement_datetime};
-            $measure->{measurementValue} = $field->{value_as_number};
-            $measure->{notes}{$table}{OMOP_columns} = $field;                  # Autovivification
-            $measure->{observationMoment}           = undef;
+            $measure->{measurementValue} = $field->{value_as_number} ne '\\N' ? $field->{value_as_number} : undef;
+            # notes MUST be string
+            $measure->{_info}{$table}{OMOP_columns} = $field;                  # Autovivification
+            #$measure->{observationMoment}           = undef;
             $measure->{procedure}                   = $measure->{assayCode};
             push @{ $individual->{measures} }, $measure;
         }
@@ -1278,11 +1284,11 @@ sub do_omop2bff {
 
             #$phenotypicFeature->{modifiers} = undef;
 
-            # notes
+            # notes MUST be string
             for ( keys %{$field} ) {
 
                 # Autovivification
-                $phenotypicFeature->{notes}{$table}{OMOP_columns}{$_} =
+                $phenotypicFeature->{_info}{$table}{OMOP_columns}{$_} =
                   $field->{$_};
             }
 
@@ -1308,7 +1314,13 @@ sub do_omop2bff {
     # sex
     # ===
 
-    # OHSDI CONCEPT.vocabulary_id = Gender
+    # <sex> is required property in Beacon v2
+    # Not a big fan of premature return, but it works here...
+    #  ¯\_(ツ)_/¯
+    return undef unless (exists $person->{gender_concept_id}
+        && $person->{gender_concept_id} ne '' );
+
+    # OHSDI CONCEPT.vocabulary_id = Gender (i.e., ad hoc)
     my $sex = map2ohdsi_dic(
         {
             ohdsi_dic  => $ohdsi_dic,
@@ -1322,9 +1334,7 @@ sub do_omop2bff {
             ontology => 'ohdsi',
             self     => $self
         }
-      )
-      if ( exists $person->{gender_concept_id}
-        && $person->{gender_concept_id} ne '' );
+      );
 
     # $sex = {id, label), we need to use 'label'
     $individual->{sex} = map_ontology(
@@ -1340,8 +1350,8 @@ sub do_omop2bff {
     # ==========
     # treatments
     # ==========
+
     $table = 'DRUG_EXPOSURE';
-    print Dumper $participant->{$table};
 
     #      1	days_supply
     #      2	dose_unit_source_value
@@ -1393,6 +1403,61 @@ sub do_omop2bff {
     #            'visit_detail_id' => '0',
     #            'visit_occurrence_id' => '53547'
     #          },
+
+    if ( exists $participant->{$table} ) {
+
+        $individual->{treatments} = [];
+
+        for my $field ( @{ $participant->{$table} } ) {
+            my $treatment;
+
+            $treatment->{ageAtOnset} = {
+                Age => find_age(
+                    {
+                        date      => $field->{drug_exposure_start_date},
+                        birth_day => $person->{birth_datetime}
+                    }
+                ),
+                _birth_datetime               => $person->{birth_datetime},
+                _drug_exposure_start_datetime =>
+                  $field->{drug_exposure_start_date}
+            };
+
+            #$treatment->{cumulativeDose} = undef;
+            $treatment->{doseIntervals} = [{
+                #_days_supply => $field->{days_supply}, # Property not allowed
+                interval     => {
+                    start => $field->{drug_exposure_start_date},
+                    end   => $field->{drug_exposure_end_date}
+                }
+            }];
+
+            # _info
+            for ( keys %{$field} ) {
+
+                # Autovivification
+                $treatment->{_info}{$table}{OMOP_columns}{$_} = $field->{$_};
+            }
+
+            $treatment->{routeOfAdministration} = undef;
+            $treatment->{treatmentCode}         = map2ohdsi_dic(
+                {
+                    ohdsi_dic  => $ohdsi_dic,
+                    concept_id => $field->{drug_concept_id}
+                }
+              )
+              or map_ontology(
+                {
+                    query    => $field->{drug_concept_id},
+                    column   => 'concept_id',
+                    ontology => 'ohdsi',
+                    self     => $self
+                }
+              ) if $field->{drug_concept_id} ne '';
+
+            push @{ $individual->{treatments} }, $treatment;
+        }
+    }
 
     ##################################
     # END MAPPING TO BEACON V2 TERMS #
@@ -2383,7 +2448,10 @@ sub array_dispatcher {
 
             # In $self->{data} we have all participants data, but,
             # WE DELIBERATELY SEPARATE ARRAY ELEMENTS FROM $self->{data}
-            push @{$out_data}, $func{ $self->{method} }->( $self, $_ );    # Method
+
+            # If we get "null" participants the validator will complain about not having "id"
+            my $method_result = $func{ $self->{method} }->( $self, $_ ); # Method
+            push @{$out_data}, $method_result if defined $method_result; # 
         }
     }
     else {
