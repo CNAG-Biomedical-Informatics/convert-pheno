@@ -122,7 +122,7 @@ For executing convert-pheno you will need:
 
 The author requests that any published work that utilizes `Convert-Pheno` includes a cite to the the following reference:
 
-Rueda, M. "Convert-Pheno: A toolbox to interconvert common data models for phenotypic data". _Manuscript in preparation_.
+Rueda, M., (2022). Convert-Pheno: A toolbox to interconvert common data models for phenotypic data \[Software\]. Available from https://github.com/mrueda/Convert-Pheno
 
 # AUTHOR 
 
