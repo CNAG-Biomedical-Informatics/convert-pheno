@@ -892,9 +892,18 @@ sub do_omop2bff {
             my $disease;
 
             $disease->{ageOfOnset} = {
-                AgeRange => {
-                    start => $field->{condition_start_date},
-                    end   => $field->{condition_end_date}
+                age => {
+                    iso8601duration => find_age(
+
+                        #_birth_datetime => $person->{birth_datetime}, # Property not allowed
+                        #_procedure_date => $field->{procedure_date},  # Property not allowed
+                        {
+
+                            date      => $field->{condition_start_date},
+                            birth_day => $person->{birth_datetime}
+                        }
+                    )
+
                 }
             };
 
@@ -979,7 +988,7 @@ sub do_omop2bff {
     #            my $exposure;
     #
     #            $exposure->{ageAtExposure} = {
-    #                Age => find_age(
+    #                age => find_age(
     #                    {
     #
     #                        date      => $field->{observation_date},
@@ -1038,7 +1047,8 @@ sub do_omop2bff {
     # <id> is a required property in Beacon v2
     # Not a big fan of premature return, but it works here...
     #  ¯\_(ツ)_/¯
-    return undef unless (exists $person->{person_id}  && $person->{person_id} ne '' );
+    return undef
+      unless ( exists $person->{person_id} && $person->{person_id} ne '' );
 
     $individual->{id} = $person->{person_id};
 
@@ -1106,15 +1116,18 @@ sub do_omop2bff {
             my $intervention;
 
             $intervention->{ageAtProcedure} = {
-                Age => find_age(
-                    {
+                age => {
+                    iso8601duration => find_age(
 
-                        date      => $field->{procedure_date},
-                        birth_day => $person->{birth_datetime}
-                    }
-                ),
-                _birth_datetime => $person->{birth_datetime},
-                _procedure_date => $field->{procedure_date}
+                        #_birth_datetime => $person->{birth_datetime}, # Property not allowed
+                        #_procedure_date => $field->{procedure_date},  # Property not allowed
+                        {
+
+                            date      => $field->{procedure_date},
+                            birth_day => $person->{birth_datetime}
+                        }
+                    )
+                }
             };
 
             #$intervention->{bodySite} = undef;
@@ -1203,7 +1216,11 @@ sub do_omop2bff {
     if ( exists $participant->{$table} ) {
 
         for my $field ( @{ $participant->{$table} } ) {
+
+            # Exiting the loop if we don't have any value
+            last if $field->{value_as_number} eq '\\N';
             my $measure;
+
             my $tmp_field = $field->{measurement_concept_id};
             $measure->{assayCode} = map2ohdsi_dic(
                 {
@@ -1219,11 +1236,15 @@ sub do_omop2bff {
                     self     => $self
                 }
               ) if $tmp_field ne '';
-            $measure->{date}             = $field->{measurement_datetime};
-            $measure->{measurementValue} = $field->{value_as_number} ne '\\N' ? $field->{value_as_number} : undef;
+            $measure->{date} = $field->{measurement_datetime};
+            $measure->{measurementValue} =
+                $field->{value_as_number} ne '\\N'
+              ? $field->{value_as_number}
+              : undef;
+
             # notes MUST be string
             $measure->{_info}{$table}{OMOP_columns} = $field;                  # Autovivification
-            #$measure->{observationMoment}           = undef;
+                                                                               #$measure->{observationMoment}           = undef;
             $measure->{procedure}                   = $measure->{assayCode};
             push @{ $individual->{measures} }, $measure;
         }
@@ -1293,15 +1314,19 @@ sub do_omop2bff {
             }
 
             $phenotypicFeature->{onset} = {
-                Age => find_age(
-                    {
+                age => {
 
-                        date      => $field->{observation_date},
-                        birth_day => $person->{birth_datetime}
-                    }
-                ),
-                _birth_datetime   => $person->{birth_datetime},
-                _observation_date => $field->{observation_date}
+                    #_birth_datetime   => $person->{birth_datetime}, # property not allowed
+                    #_observation_date => $field->{observation_date}, # property not allowed
+
+                    iso8601duration => find_age(
+                        {
+
+                            date      => $field->{observation_date},
+                            birth_day => $person->{birth_datetime}
+                        }
+                    )
+                }
             };
 
             #$phenotypicFeature->{resolution} = undef;
@@ -1317,7 +1342,8 @@ sub do_omop2bff {
     # <sex> is required property in Beacon v2
     # Not a big fan of premature return, but it works here...
     #  ¯\_(ツ)_/¯
-    return undef unless (exists $person->{gender_concept_id}
+    return undef
+      unless ( exists $person->{gender_concept_id}
         && $person->{gender_concept_id} ne '' );
 
     # OHSDI CONCEPT.vocabulary_id = Gender (i.e., ad hoc)
@@ -1412,25 +1438,31 @@ sub do_omop2bff {
             my $treatment;
 
             $treatment->{ageAtOnset} = {
-                Age => find_age(
-                    {
-                        date      => $field->{drug_exposure_start_date},
-                        birth_day => $person->{birth_datetime}
-                    }
-                ),
-                _birth_datetime               => $person->{birth_datetime},
-                _drug_exposure_start_datetime =>
-                  $field->{drug_exposure_start_date}
+                age => {
+
+                    # _birth_datetime               => $person->{birth_datetime}, # property not allowed
+                    # _drug_exposure_start_datetime => $field->{drug_exposure_start_date},
+                    iso8601duration => find_age(
+                        {
+                            date      => $field->{drug_exposure_start_date},
+                            birth_day => $person->{birth_datetime}
+                        }
+                    )
+                }
             };
 
             #$treatment->{cumulativeDose} = undef;
-            $treatment->{doseIntervals} = [{
-                #_days_supply => $field->{days_supply}, # Property not allowed
-                interval     => {
-                    start => $field->{drug_exposure_start_date},
-                    end   => $field->{drug_exposure_end_date}
-                }
-            }];
+            $treatment->{doseIntervals} = [];
+
+            # #[{
+            #    #_days_supply => $field->{days_supply}, # Property not allowed
+            #    interval     => {
+            #        start => $field->{drug_exposure_start_date},
+            #        end   => $field->{drug_exposure_end_date}
+            #    },
+            #     quantity => {},
+            #     scheduleFrequency => {}
+            #}];
 
             # _info
             for ( keys %{$field} ) {
@@ -1439,8 +1471,9 @@ sub do_omop2bff {
                 $treatment->{_info}{$table}{OMOP_columns}{$_} = $field->{$_};
             }
 
-            $treatment->{routeOfAdministration} = undef;
-            $treatment->{treatmentCode}         = map2ohdsi_dic(
+            $treatment->{routeOfAdministration} =
+              { id => "NCIT:NA", label => "Fake" };
+            $treatment->{treatmentCode} = map2ohdsi_dic(
                 {
                     ohdsi_dic  => $ohdsi_dic,
                     concept_id => $field->{drug_concept_id}
@@ -2199,9 +2232,11 @@ sub map_age_range {
     $str =~ s/\+/-9999/;                                   #60+#
     my ( $start, $end ) = split /\-/, $str;
     return {
-        AgeRange => {
-            start => dotify_and_coerce_number($start),
-            end   => dotify_and_coerce_number($end)
+        ageRange => {
+            {
+                start => { iso8601duration => dotify_and_coerce_number($start) }
+            },
+            { end => { iso8601duration => dotify_and_coerce_number($end) } }
         }
     };
 }
@@ -2450,13 +2485,13 @@ sub array_dispatcher {
             # WE DELIBERATELY SEPARATE ARRAY ELEMENTS FROM $self->{data}
 
             # If we get "null" participants the validator will complain about not having "id"
-            my $method_result = $func{ $self->{method} }->( $self, $_ ); # Method
-            push @{$out_data}, $method_result if defined $method_result; # 
+            my $method_result = $func{ $self->{method} }->( $self, $_ );    # Method
+            push @{$out_data}, $method_result if defined $method_result;    #
         }
     }
     else {
         say "$self->{method}: NOT ARRAY" if $self->{debug};
-        $out_data = $func{ $self->{method} }->( $self, $in_data );         # Method
+        $out_data = $func{ $self->{method} }->( $self, $in_data );          # Method
     }
 
     # Close connections ONCE
