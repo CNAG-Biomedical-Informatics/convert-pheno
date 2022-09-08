@@ -903,7 +903,6 @@ sub do_omop2bff {
                             birth_day => $person->{birth_datetime}
                         }
                     )
-
                 }
             };
 
@@ -1117,6 +1116,7 @@ sub do_omop2bff {
 
             $intervention->{ageAtProcedure} = {
                 age => {
+
                     iso8601duration => find_age(
 
                         #_birth_datetime => $person->{birth_datetime}, # Property not allowed
@@ -1314,19 +1314,17 @@ sub do_omop2bff {
             }
 
             $phenotypicFeature->{onset} = {
-                age => {
 
-                    #_birth_datetime   => $person->{birth_datetime}, # property not allowed
-                    #_observation_date => $field->{observation_date}, # property not allowed
+                #_birth_datetime   => $person->{birth_datetime}, # property not allowed
+                #_observation_date => $field->{observation_date}, # property not allowed
 
-                    iso8601duration => find_age(
-                        {
+                iso8601duration => find_age(
+                    {
 
-                            date      => $field->{observation_date},
-                            birth_day => $person->{birth_datetime}
-                        }
-                    )
-                }
+                        date      => $field->{observation_date},
+                        birth_day => $person->{birth_datetime}
+                    }
+                )
             };
 
             #$phenotypicFeature->{resolution} = undef;
@@ -2231,13 +2229,12 @@ sub map_age_range {
     my $str = shift;
     $str =~ s/\+/-9999/;                                   #60+#
     my ( $start, $end ) = split /\-/, $str;
+
     return {
         ageRange => {
-            {
-                start => { iso8601duration => dotify_and_coerce_number($start) }
-            },
-            { end => { iso8601duration => dotify_and_coerce_number($end) } }
-        }
+            start => { iso8601duration => dotify_and_coerce_number($start) }
+        },
+        { end => { iso8601duration => dotify_and_coerce_number($end) } }
     };
 }
 
