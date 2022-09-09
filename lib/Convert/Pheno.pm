@@ -101,7 +101,7 @@ my @omop_extra_tables = qw(
 );
 
 # NB1: In general, we'll only display terms that exist and have content
-# NB2: We are using pure OO Perl but we might switch to Moose if things get trickier...
+# NB2: Using pure OO Perl but we may switch to others (e.g., Moose) if things get trickier...
 
 #############
 #############
@@ -409,7 +409,7 @@ sub do_redcap2bff {
 
         $exposure->{ageAtExposure} = { id => 'NCIT:NA0000', label => 'NA' };
         $exposure->{date}          = '1900-01-01';
-        $exposure->{duration}      = 'P0Y';
+        $exposure->{duration}      = 'P999Y';
         $exposure->{exposureCode}  = map_ontology(
             {
                 query    => $field,
@@ -530,6 +530,8 @@ sub do_redcap2bff {
     # =============
     # karyotypicSex
     # =============
+
+    # $individual->{karyotypicSex} = undef;
 
     # ========
     # measures
@@ -812,7 +814,7 @@ sub omop2bff {
     my $self = shift;
 
     # The idea here is that we'll load all $omop_main_table and @omop_extra_tables in $data,
-    # regardless of whete they belong. Dictionaris (e.g. <CONCEPT>) will be parsed latter from $data
+    # regardless of wheter they belong. Dictionaris (e.g. <CONCEPT>) will be parsed latter from $data
 
     # Read and load data from OMOP-CDM export
     my $data;
@@ -1176,6 +1178,8 @@ sub do_omop2bff {
     # =============
     # karyotypicSex
     # =============
+  
+    # $individual->{karyotypicSex} = undef;
 
     # ========
     # measures
