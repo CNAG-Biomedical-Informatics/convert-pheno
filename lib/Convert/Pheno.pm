@@ -315,6 +315,19 @@ sub do_redcap2bff {
     print Dumper $redcap_dic  if $self->{debug};
     print Dumper $participant if $self->{debug};
 
+    # ABOUT REQUIRED PROPERTIES
+    # 'id' and 'sex' are required properties in <individuals> entry type
+    # Not a big fan of premature return, but it works here...
+    #  ¯\_(ツ)_/¯
+    return undef
+      unless (
+        (
+            exists $participant->{ids_complete}
+            && $participant->{ids_complete} ne ''
+        )
+        && ( exists $participant->{sex} && $participant->{sex} ne '' )
+      );
+
     # Data structure (hashref) for each individual
     my $individual;
 
@@ -358,10 +371,13 @@ sub do_redcap2bff {
                 }
             )
         ) if $participant->{family_history} ne '';
-        $disease->{notes}    = undef;
-        $disease->{severity} = undef;
-        $disease->{stage}    = undef;
-        push @{ $individual->{diseases} }, $disease;
+
+        #$disease->{notes}    = undef;
+        $disease->{severity} = { id => 'NCIT:NA000', label => 'NA' };
+        $disease->{stage}    = { id => 'NCIT:NA000', label => 'NA' };
+
+        push @{ $individual->{diseases} }, $disease
+          if defined $disease->{diseaseCode};
     }
 
     # =========
@@ -391,9 +407,9 @@ sub do_redcap2bff {
         next if $participant->{$field} eq '';
         my $exposure;
 
-        $exposure->{ageAtExposure} = undef;
-        $exposure->{date}          = undef;          #'2010-07-10';
-        $exposure->{duration}      = undef;          # 'P32Y6M1D';
+        $exposure->{ageAtExposure} = { id => 'NCIT:NA0000', label => 'NA' };
+        $exposure->{date}          = '1900-01-01';
+        $exposure->{duration}      = 'P0Y';
         $exposure->{exposureCode}  = map_ontology(
             {
                 query    => $field,
@@ -425,34 +441,23 @@ sub do_redcap2bff {
                 self     => $self
             }
         );
-        $exposure->{measurementValue} = [
-            {
-                Quantity => {
-                    unit  => $unit,
-                    value => dotify_and_coerce_number( $participant->{$field} ),
-                    _note =>
-'In many cases the <value> field shows the REDCap selection not the actual #items',
-                    referenceRange => map_unit_range(
-                        { redcap_dic => $redcap_dic, field => $field }
-                    )
-                }
-            }
-        ];
-        push @{ $individual->{exposures} }, $exposure;
+        $exposure->{unit}  = $unit;
+        $exposure->{value} = dotify_and_coerce_number( $participant->{$field} );
+        push @{ $individual->{exposures} }, $exposure
+          if defined $exposure->{exposureCode};
     }
 
     # ================
     # geographicOrigin
     # ================
 
-    $individual->{geographicOrigin} = undef;
+    #$individual->{geographicOrigin} = {};
 
     # ==
     # id
     # ==
 
-    $individual->{id} = $participant->{ids_complete}
-      if $participant->{ids_complete} ne '';
+    $individual->{id} = $participant->{ids_complete};
 
     # ====
     # info
@@ -501,13 +506,14 @@ sub do_redcap2bff {
     {
         if ( $participant->{$field} ) {
             my $intervention;
-            $intervention->{ageAtProcedure} = undef;
+
+            #$intervention->{ageAtProcedure} = undef;
             $intervention->{bodySite} =
               { id => 'NCIT:C12736', label => 'intestine' };
             $intervention->{dateOfProcedure} =
                 $field eq 'endoscopy_performed'
               ? $participant->{endoscopy_date}
-              : undef;
+              : '1900-01-01';
             $intervention->{procedureCode} = map_ontology(
                 {
                     query    => $surgery{$field},
@@ -515,8 +521,9 @@ sub do_redcap2bff {
                     ontology => 'ncit',
                     self     => $self
                 }
-            ) if $surgery{$field};
-            push @{ $individual->{interventionsOrProcedures} }, $intervention;
+            ) if ( exists $surgery{$field} && $surgery{$field} ne '' );
+            push @{ $individual->{interventionsOrProcedures} }, $intervention
+              if defined $intervention->{procedureCode};
         }
     }
 
@@ -550,7 +557,7 @@ sub do_redcap2bff {
                 self     => $self,
             }
         );
-        $measure->{date} = undef;    # iso8601_time();
+        $measure->{date} = '1900-01-01';
 
         # We first extract 'unit' and %range' for <measurementValue>
         my $unit = map_ontology(
@@ -561,33 +568,35 @@ sub do_redcap2bff {
                 self     => $self
             }
         );
-        $measure->{measurementValue} = [
-            {
-                Quantity => {
-                    unit  => $unit,
-                    value => dotify_and_coerce_number( $participant->{$field} ),
-                    referenceRange => map_unit_range(
-                        { redcap_dic => $redcap_dic, field => $field }
-                    )
-                }
+        $measure->{measurementValue} = {
+            Quantity => {
+                unit  => $unit,
+                value => dotify_and_coerce_number( $participant->{$field} ),
+                referenceRange => map_unit_range(
+                    { redcap_dic => $redcap_dic, field => $field }
+                )
             }
-        ];
+        };
         $measure->{notes} =
           "$field, Field Label=$redcap_dic->{$field}{'Field Label'}";
-        $measure->{observationMoment} = undef;          # Age
-        $measure->{procedure}         = map_ontology(
-            {
-                  query => $field eq 'calprotectin' ? 'Feces'
-                : $field =~ m/^nancy/ ? 'Histologic'
-                : 'Blood Test Result',
-                column   => 'label',
-                ontology => 'ncit',
-                self     => $self
-            }
-        );
+
+        #$measure->{observationMoment} = undef;          # Age
+        $measure->{procedure} = {
+            procedureCode => map_ontology(
+                {
+                      query => $field eq 'calprotectin' ? 'Feces'
+                    : $field =~ m/^nancy/ ? 'Histologic'
+                    : 'Blood Test Result',
+                    column   => 'label',
+                    ontology => 'ncit',
+                    self     => $self
+                }
+            )
+        };
 
         # Add to array
-        push @{ $individual->{measures} }, $measure;    # SWITCHED OFF on 072622
+        push @{ $individual->{measures} }, $measure
+          if defined $measure->{assayCode};
     }
 
     # =========
@@ -647,7 +656,8 @@ sub do_redcap2bff {
             #$phenotypicFeature->{severity}    = { id => '', label => '' };
 
             # Add to array
-            push @{ $individual->{phenotypicFeatures} }, $phenotypicFeature;
+            push @{ $individual->{phenotypicFeatures} }, $phenotypicFeature
+              if defined $phenotypicFeature->{featureType};
         }
     }
 
@@ -668,7 +678,7 @@ sub do_redcap2bff {
             ontology => 'ncit',
             self     => $self
         }
-    ) if $participant->{sex} ne '';
+    );
 
     # ==========
     # treatments
@@ -734,10 +744,10 @@ sub do_redcap2bff {
                 map { $_ => $participant->{ $drug . $_ } }
                   qw(start dose duration)
             };    # ***** INTERNAL FIELD
-            $treatment->{ageAtOnset} = undef;    # P32Y6M1D
+            $treatment->{ageAtOnset} =
+              { age => { iso8601duration => "P999Y" } };
             $treatment->{cumulativeDose} =
-              { Quantity =>
-                  { unit => { id => '', label => '' }, value => undef } };
+              { unit => { id => 'NCIT:00000', label => 'NA' }, value => -1 };
             $treatment->{doseIntervals}         = [];
             $treatment->{routeOfAdministration} = map_ontology(
                 {
@@ -756,7 +766,8 @@ sub do_redcap2bff {
                     self     => $self
                 }
             );
-            push @{ $individual->{treatments} }, $treatment;
+            push @{ $individual->{treatments} }, $treatment
+              if defined $treatment->{treatmentCode};
         }
     }
 
@@ -861,6 +872,15 @@ sub do_omop2bff {
     # $participant = input data
     # $person = cursor to $participant->PERSON
     # $individual = output data
+
+    # ABOUT REQUIRED PROPERTIES
+    # 'id' and 'sex' are required properties in <individuals> entry type
+    # 'person_id' must exist at this point otherwise it would have not been created
+    # Not a big fan of premature return, but it works here...
+    #  ¯\_(ツ)_/¯
+    return undef
+      unless ( exists $person->{gender_concept_id}
+        && $person->{gender_concept_id} ne '' );
 
     # ========
     # diseases
@@ -1042,12 +1062,6 @@ sub do_omop2bff {
     # ==
     # id
     # ==
-
-    # <id> is a required property in Beacon v2
-    # Not a big fan of premature return, but it works here...
-    #  ¯\_(ツ)_/¯
-    return undef
-      unless ( exists $person->{person_id} && $person->{person_id} ne '' );
 
     $individual->{id} = $person->{person_id};
 
@@ -1337,13 +1351,6 @@ sub do_omop2bff {
     # sex
     # ===
 
-    # <sex> is required property in Beacon v2
-    # Not a big fan of premature return, but it works here...
-    #  ¯\_(ツ)_/¯
-    return undef
-      unless ( exists $person->{gender_concept_id}
-        && $person->{gender_concept_id} ne '' );
-
     # OHSDI CONCEPT.vocabulary_id = Gender (i.e., ad hoc)
     my $sex = map2ohdsi_dic(
         {
@@ -1470,7 +1477,7 @@ sub do_omop2bff {
             }
 
             $treatment->{routeOfAdministration} =
-              { id => "NCIT:NA", label => "Fake" };
+              { id => "NCIT:NA0000", label => "Fake" };
             $treatment->{treatmentCode} = map2ohdsi_dic(
                 {
                     ohdsi_dic  => $ohdsi_dic,
@@ -1997,7 +2004,7 @@ sub map_ontology {
     return $seen->{$tmp_query} if exists $seen->{$tmp_query};    # global
 
     # return something if we know 'a priori' that the query won't exist
-    #return { id => 'NCIT:NA', label => $tmp_query } if $tmp_query =~ m/xx/;
+    #return { id => 'NCIT:NA000', label => $tmp_query } if $tmp_query =~ m/xx/;
 
     # Ok, now it's time to start the subroutine
     my $arg      = shift;
@@ -2232,9 +2239,9 @@ sub map_age_range {
 
     return {
         ageRange => {
-            start => { iso8601duration => dotify_and_coerce_number($start) }
-        },
-        { end => { iso8601duration => dotify_and_coerce_number($end) } }
+            start => { iso8601duration => dotify_and_coerce_number($start) },
+            end   => { iso8601duration => dotify_and_coerce_number($end) }
+        }
     };
 }
 
@@ -2422,7 +2429,7 @@ sub execute_query_SQLite {
 
     # Parse query
     $ontology = uc($ontology);
-    my $id    = $ontology . ':NA';
+    my $id    = $ontology . ':NA0000';
     my $label = 'NA';
     while ( my $row = $sth->fetchrow_arrayref ) {
         if ( $ontology ne 'OHDSI' ) {
