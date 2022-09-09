@@ -227,8 +227,7 @@ sub do_bff2pxf {
 
     my ( $self, $data ) = @_;
 
-    # Not a big fan of premature return, but it works here...
-    #  ¯\_(ツ)_/¯
+    # Premature return
     return undef unless defined($data);
 
     # Depending on the origion (redcap) , _info and resources may exist
@@ -317,8 +316,7 @@ sub do_redcap2bff {
 
     # ABOUT REQUIRED PROPERTIES
     # 'id' and 'sex' are required properties in <individuals> entry type
-    # Not a big fan of premature return, but it works here...
-    #  ¯\_(ツ)_/¯
+    # Premature return
     return undef
       unless (
         (
@@ -878,8 +876,7 @@ sub do_omop2bff {
     # ABOUT REQUIRED PROPERTIES
     # 'id' and 'sex' are required properties in <individuals> entry type
     # 'person_id' must exist at this point otherwise it would have not been created
-    # Not a big fan of premature return, but it works here...
-    #  ¯\_(ツ)_/¯
+    # Premature return
     return undef
       unless ( exists $person->{gender_concept_id}
         && $person->{gender_concept_id} ne '' );
@@ -1998,13 +1995,14 @@ sub map_ontology {
     #  2 - Create a global hash with "seen" queries (+++huge gain)
 
     #return { id => 'dummy', label => 'dummy' };    # test speed
-    # Not a big fan of global stuff and premature return, but it works here...
-    #  ¯\_(ツ)_/¯
 
     # Before checking existance we map to 3TR to -NCIT
     my $tmp_query = map_3tr( $_[0]->{query} );
 
     # return if terms has already been searched and exists
+    # Not a big fan of global stuff...
+    #  ¯\_(ツ)_/¯
+    # Premature return
     return $seen->{$tmp_query} if exists $seen->{$tmp_query};    # global
 
     # return something if we know 'a priori' that the query won't exist
