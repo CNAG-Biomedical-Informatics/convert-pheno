@@ -154,14 +154,20 @@ sub do_pxf2bff {
     # **** $data->{phenopacket} ****
     $individual->{info}{phenopacket}{dateOfBirth} =
       $phenopacket->{subject}{dateOfBirth};
-    for my $term (qw (dateOfBirth genes meta_data variants)) {
+
+    # CNAG files have 'meta_data' nomenclature, but PHX documentation uses 'metaData'
+    # We search for both 'meta_data' and 'metaData' and leave them untouched
+    for my $term (qw (dateOfBirth genes meta_data metaData variants)) {
         $individual->{info}{phenopacket}{$term} = $phenopacket->{$term}
           if exists $phenopacket->{$term};
     }
 
     # **** $data->{interpretation} ****
-    $individual->{info}{interpretation}{phenopacket}{meta_data} =
-      $interpretation->{phenopacket}{meta_data};
+    for my $term (qw (meta_data metaData)) {
+        $individual->{info}{interpretation}{phenopacket}{$term} =
+          $interpretation->{phenopacket}{$term}
+          if $interpretation->{phenopacket}{$term};
+    }
 
     # <diseases> and <phenotypicFeatures> are identical to those of $data->{phenopacket}{diseases,phenotypicFeatures}
     for my $term (
@@ -231,10 +237,10 @@ sub do_bff2pxf {
     return undef unless defined($data);
 
     # Depending on the origion (redcap) , _info and resources may exist
-    $data->{meta_data} =
-      exists $data->{info}{meta_data}
-      ? $data->{info}{meta_data}
-      : get_meta_data();
+    $data->{metaData} =
+      exists $data->{info}{metaData}
+      ? $data->{info}{metaData}
+      : get_metaData();
     $data->{interpretation} = { phenopacket => {} };
     return { phenopacket => $data };
 }
@@ -483,7 +489,7 @@ sub do_redcap2bff {
           : $participant->{$field}
           if $participant->{$field} ne '';
     }
-    $individual->{info}{meta_data} = get_meta_data();
+    $individual->{info}{metaData} = get_metaData();
 
     # =========================
     # interventionsOrProcedures
@@ -812,31 +818,42 @@ sub omop2bff {
     my $self = shift;
 
     # The idea here is that we'll load all $omop_main_table and @omop_extra_tables in $data,
-    # regardless of wheter they belong. Dictionaris (e.g. <CONCEPT>) will be parsed latter from $data
+    # regardless of wheter they are concepts or truly records. Dictionaries (e.g. <CONCEPT>) will be parsed latter from $data
 
-    # Read and load data from OMOP-CDM export
+    # Check if data comes from variable or from file
     my $data;
 
-    # First we need to know if we have PostgreSQL dump or a bunch of csv
-    my @exts = qw(.csv .tsv .txt .sql);
-    for my $file ( @{ $self->{in_files} } ) {
-        my ( $table_name, undef, $ext ) = fileparse( $file, @exts );
-        if ( $ext eq '.sql' ) {
+    # Variable
+    if ( exists $self->{data} ) {
+        $data = $self->{data};
+    }
 
-            # We'll load all OMOP tables ('main' and 'extra') as long as they're not empty
-            $data = read_sqldump( $file, $self );
-            sqldump2csv( $data, $self->{out_dir} ) if $self->{sql2csv};
-            last;
-        }
-        else {
+    # File(s)
+    else {
 
-            # We'll load all OMOP tables (as CSV) as long they have a match in 'main' or 'extra'
-            warn "<$table_name> is not a valid table in OMOP-CDM"
-              and next
-              unless any { /^$table_name$/ }
-              ( @{ $omop_main_table->{$omop_version} }, @omop_extra_tables );  # global
-            $data->{$table_name} =
-              read_csv_export( { in => $file, sep => $self->{sep} } );
+        # Read and load data from OMOP-CDM export
+        # First we need to know if we have PostgreSQL dump or a bunch of csv
+        my @exts = qw(.csv .tsv .txt .sql);
+        for my $file ( @{ $self->{in_files} } ) {
+            my ( $table_name, undef, $ext ) = fileparse( $file, @exts );
+            if ( $ext eq '.sql' ) {
+
+                # We'll load all OMOP tables ('main' and 'extra') as long as they're not empty
+                $data = read_sqldump( $file, $self );
+                sqldump2csv( $data, $self->{out_dir} ) if $self->{sql2csv};
+                last;
+            }
+            else {
+
+                # We'll load all OMOP tables (as CSV) as long they have a match in 'main' or 'extra'
+                warn "<$table_name> is not a valid table in OMOP-CDM"
+                  and next
+                  unless any { /^$table_name$/ }
+                  ( @{ $omop_main_table->{$omop_version} },
+                    @omop_extra_tables );    # global
+                $data->{$table_name} =
+                  read_csv_export( { in => $file, sep => $self->{sep} } );
+            }
         }
     }
 
@@ -1175,7 +1192,7 @@ sub do_omop2bff {
     # =============
     # karyotypicSex
     # =============
-  
+
     # $individual->{karyotypicSex} = undef;
 
     # ========
@@ -2506,7 +2523,7 @@ sub array_dispatcher {
     return $out_data;
 }
 
-sub get_meta_data {
+sub get_metaData {
 
     # Setting a few variables
     my $user = $ENV{LOGNAME} || $ENV{USER} || getpwuid($<);
