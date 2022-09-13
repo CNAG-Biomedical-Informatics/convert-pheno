@@ -6,3 +6,4 @@ requires 'Term::ANSIColor';
 requires 'Text::CSV_XS';
 requires 'DBI';
 requires 'DBD::SQLite';
+requires 'Mojolicius';

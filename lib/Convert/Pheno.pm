@@ -236,13 +236,52 @@ sub do_bff2pxf {
     # Premature return
     return undef unless defined($data);
 
+    #########################################
+    # START MAPPING TO PHENOPACKET V2 TERMS #
+    #########################################
+
+    # We need to shuffle a bit some Beacon v2 properties to be Phenopacket compliant
+    # https://phenopacket-schema.readthedocs.io/en/latest/phenopacket.html
+    my $pxf; 
+
+    # ==
+    # id
+    # ==
+
+    $pxf->{id} = 'phenopacket_id.' . randStr(8);
+
+    # =======
+    # subject
+    # =======
+
+    $pxf->{subject} = { id => $data->{id}, sex => $data->{sex}, age => { timeAtLastEncounter => $data->{info}{age}}};
+
+    # ===================
+    # phenotypic_features
+    # ===================
+
+
+    # ==============
+    # interpretation
+    # ==============
+
+    $data->{interpretation} = { phenopacket => {} };
+
+    # =========
+    # meta_data
+    # =========
+
     # Depending on the origion (redcap) , _info and resources may exist
-    $data->{metaData} =
+    $pxf->{metaData} =
       exists $data->{info}{metaData}
       ? $data->{info}{metaData}
       : get_metaData();
-    $data->{interpretation} = { phenopacket => {} };
-    return { phenopacket => $data };
+
+    #######################################
+    # END MAPPING TO PHENOPACKET V2 TERMS #
+    #######################################
+
+    return $pxf;
 }
 
 ################
@@ -471,9 +510,7 @@ sub do_redcap2bff {
       qw(study_id dob diet redcap_event_name age first_name last_name consent consent_date consent_noneu consent_devices consent_recontact consent_week2_endo education zipcode consents_and_demographics_complete);
     for my $field (@fields) {
         $individual->{info}{$field} =
-            $field eq 'age' ? 'P'
-          . $participant->{$field}
-          . 'Y'
+            $field eq 'age' ? { iso8601duration => 'P' . $participant->{$field} . 'Y' }
           : ( any { /^$field$/ } qw(education diet) ) ? map2redcap_dic(
             {
                 redcap_dic  => $redcap_dic,
@@ -2589,6 +2626,10 @@ sub find_age {
       unless sprintf( "%02d%02d", $month, $day ) >=
       sprintf( "%02d%02d", $birth_month, $birth_day );
     return $age . 'Y';
+}
+
+sub randStr {
+    return join('', map{('a'..'z','A'..'Z',0..9)[rand 62]} 0..shift);
 }
 
 1;
