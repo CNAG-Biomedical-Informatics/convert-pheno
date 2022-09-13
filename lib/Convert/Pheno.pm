@@ -242,7 +242,7 @@ sub do_bff2pxf {
 
     # We need to shuffle a bit some Beacon v2 properties to be Phenopacket compliant
     # https://phenopacket-schema.readthedocs.io/en/latest/phenopacket.html
-    my $pxf; 
+    my $pxf;
 
     # ==
     # id
@@ -254,18 +254,57 @@ sub do_bff2pxf {
     # subject
     # =======
 
-    $pxf->{subject} = { id => $data->{id}, sex => $data->{sex}, age => { timeAtLastEncounter => $data->{info}{age}}};
+    $pxf->{subject} =
+      { id => $data->{id}, sex => $data->{sex}, age => $data->{info}{age} };
 
     # ===================
     # phenotypic_features
     # ===================
 
+    $pxf->{phenotypicFeatures} =
+      [ map { { type => $_->{featureType}, _notes => $_->{notes} } }
+          @{ $data->{phenotypicFeatures} } ];
 
-    # ==============
-    # interpretation
-    # ==============
+    # ========
+    # measures
+    # ========
+
+    $pxf->{measures} = [
+        map {
+            {
+                assay        => $_->{assayCode},
+                timeObserved => exists $_->{date} ? $_->{date} : undef,
+                value        => $_->{measurementValue}
+            }
+        } @{ $data->{measures} }
+    ];    # Only 1 element at $_->{measurementValue}
+
+    # ==========
+    # biosamples
+    # ==========
+
+    # ===============
+    # interpretations
+    # ===============
 
     $data->{interpretation} = { phenopacket => {} };
+
+    # ========
+    # diseases
+    # ========
+
+    $pxf->{diseases} = [
+        map { { term => $_->{diseaseCode}, onset => $_->{ageOfOnset} } }
+          @{ $data->{diseases} }
+    ];
+
+    # ===============
+    # medical_actions
+    # ===============
+
+    # =====
+    # files
+    # =====
 
     # =========
     # meta_data
@@ -510,7 +549,8 @@ sub do_redcap2bff {
       qw(study_id dob diet redcap_event_name age first_name last_name consent consent_date consent_noneu consent_devices consent_recontact consent_week2_endo education zipcode consents_and_demographics_complete);
     for my $field (@fields) {
         $individual->{info}{$field} =
-            $field eq 'age' ? { iso8601duration => 'P' . $participant->{$field} . 'Y' }
+          $field eq 'age'
+          ? { iso8601duration => 'P' . $participant->{$field} . 'Y' }
           : ( any { /^$field$/ } qw(education diet) ) ? map2redcap_dic(
             {
                 redcap_dic  => $redcap_dic,
@@ -612,7 +652,7 @@ sub do_redcap2bff {
             }
         );
         $measure->{measurementValue} = {
-            Quantity => {
+            quantity => {
                 unit  => $unit,
                 value => dotify_and_coerce_number( $participant->{$field} ),
                 referenceRange => map_unit_range(
@@ -679,7 +719,7 @@ sub do_redcap2bff {
 
             #$phenotypicFeature->{evidence} = undef;    # P32Y6M1D
             #$phenotypicFeature->{excluded} =
-            #  { Quantity => { unit => { id => '', label => '' }, value => undef } };
+            #  { quantity => { unit => { id => '', label => '' }, value => undef } };
             $phenotypicFeature->{featureType} = map_ontology(
                 {
                     query    => $field =~ m/comorb/ ? 'Comorbidity' : $field,
@@ -2629,7 +2669,10 @@ sub find_age {
 }
 
 sub randStr {
-    return join('', map{('a'..'z','A'..'Z',0..9)[rand 62]} 0..shift);
+
+    #https://www.perlmonks.org/?node_id=233023
+    return join( '',
+        map { ( 'a' .. 'z', 'A' .. 'Z', 0 .. 9 )[ rand 62 ] } 0 .. shift );
 }
 
 1;
