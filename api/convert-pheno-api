@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 #
-#   A simple API to interact with COnvert::Pheno
+#   A simple API to interact with Convert::Pheno
 #
 #   This file is part of Convert::Pheno
 #
@@ -30,7 +30,7 @@ use FindBin qw($Bin);
 use lib "$Bin/../lib";
 use Convert::Pheno;
 
-#perl convert-pheno-api get -M POST -c '{"method":"bff2pxf"}' /in > a.html
+#perl convert-pheno-api get -M POST -c '{"method":"bff2pxf"}' /in
 post '/in' => sub ($c) {
   my $hash = $c->req->json;
   my $convert  = Convert::Pheno->new($hash);
