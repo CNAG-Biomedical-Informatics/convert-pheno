@@ -1,0 +1,37 @@
+site_name: 'Convert-Pheno Documentation'
+site_description: 'Convert-Pheno Toolbox Documentation'
+site_author: 'Manuel Rueda, PhD'
+copyright: '&copy; Copyright 2022, Manuel Rueda, CNAG'
+repo_name: 'Convert-Pheno'
+
+extra_css: [css/theme_overrides.css]
+
+markdown_extensions:
+  - admonition
+  - attr_list
+
+nav:
+  - Introduction:
+      - What is Convert-Pheno?: what-is-convert-pheno.md
+  - 'Download & Installation': download-and-installation.md
+  - Use:
+      - As a command-line tool: use-as-a-command-line-tool.md
+      - As a Perl module: use-as-a-perl-module.md
+      - As an API: use-as-an-api.md
+  - Formats accepted:
+      - Beacon v2 (BFF): bff.md
+      - Phenopacket (PXF): https://phenopacket-schema.readthedocs.io/en/latest/basics.html
+      - REDCap: https://www.project-redcap.org
+      - OMOP-CDM: https://www.ohdsi.org/data-standardization/the-common-data-model
+      - CDISC: https://www.cdisc.org/standards
+  - Help:
+      - Help: http://github.com/mrueda/Convert-Pheno
+      - FAQs: faq.md
+  - About:
+      - About: about.md
+      - Citation: citation.md
+
+theme:
+    name: readthedocs
+    collapse_navigation: true
+    navigation_depth: 2
