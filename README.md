@@ -67,6 +67,14 @@ To enter:
 
     docker exec -ti convert-pheno bash
 
+The command-line executable can be found at:
+
+    /usr/share/Convert-Pheno/bin/convert-pheno
+
+_NB:_ Docker containers are fully isolated. If you need the mount a volume to the container please use the following syntax (`-v host:container`). Find an example below (note that you need to change the paths to match yours):
+
+    docker run -tid --volume /media/mrueda/4TBT:/4TB --name convert-pheno cnag/convert-pheno:latest
+
 ## Non containerized
 
 The script runs on command-line Linux (tested on Debian-based distribution). Perl 5 is installed by default on Linux, 
@@ -100,7 +108,7 @@ For executing convert-pheno you will need:
 
     $ bin/convert-pheno -ipxf phenopackets.json -obff individuals.json
 
-    $ $path/convert-pheno -ibff individuals.json -obff phenopackets.json --out-dir my_out_dir
+    $ $path/convert-pheno -ibff individuals.json -opxf phenopackets.json --out-dir my_out_dir
 
     $ $path/convert-pheno -iredcap redcap.csv -opxf phenopackets.json --redcap-dictionary redcap_dict.csv
 

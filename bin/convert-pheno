@@ -269,6 +269,14 @@ To enter:
 
   docker exec -ti convert-pheno bash
 
+The command-line executable can be found at:
+
+  /usr/share/Convert-Pheno/bin/convert-pheno
+
+I<NB:> Docker containers are fully isolated. If you need the mount a volume to the container please use the following syntax (C<-v host:container>). Find an example below (note that you need to change the paths to match yours):
+
+  docker run -tid --volume /media/mrueda/4TBT:/4TB --name convert-pheno cnag/convert-pheno:latest
+
 =head2 Non containerized
 
 The script runs on command-line Linux (tested on Debian-based distribution). Perl 5 is installed by default on Linux, 
