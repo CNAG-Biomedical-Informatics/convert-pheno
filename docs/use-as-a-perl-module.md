@@ -58,3 +58,8 @@ hashref = convert.method
  
 ```
 
+!!! Warning "About PyPerler installation"
+    Note you may need to install `libperl-dev` to make it work.
+    
+    `sudo apt-get install libperl-dev`
+
