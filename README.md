@@ -43,6 +43,8 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
 
 The module will be uploaded to CPAN once the paper is submitted.
 
+Please see a more comprehensive documentation [here](https://convert-pheno.readthedocs.io/en/latest).
+
 # SUMMARY
 
 A script that uses [Convert::Pheno](https://metacpan.org/pod/Convert%3A%3APheno) to interconvert common data models for phenotypic data
