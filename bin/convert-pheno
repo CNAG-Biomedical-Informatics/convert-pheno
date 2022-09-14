@@ -38,13 +38,13 @@ use File::Spec::Functions qw(catdir catfile);
 use FindBin               qw($Bin);
 use lib "$Bin/../lib";
 use Term::ANSIColor qw(:constants);
-use List::Util  qw(any);
+use List::Util      qw(any);
 use Convert::Pheno;
 $Data::Dumper::Sortkeys = 1;
 
 # Defining a few variables
 my $out_dir = '.';
-my $format = 'json';
+my $format  = 'json';
 
 # Reading arguments
 GetOptions(
@@ -73,7 +73,7 @@ pod2usage( -verbose => 2, -exitval => 0 ) if $man;
 pod2usage(
     -message => "Please specify a valid input file(s) -i <json|csv>\n",
     -exitval => 1
-) unless ( $in_pxf || $in_bff || $in_redcap || @omop_files);
+) unless ( $in_pxf || $in_bff || $in_redcap || @omop_files );
 pod2usage(
     -message => "Please specify a valid directory for --out-dir\n",
     -exitval => 1
@@ -85,11 +85,12 @@ pod2usage(
 pod2usage(
     -message => "Please specify a valid OMOP-CDM file(s) (e.g, *csv or .sql)\n",
     -exitval => 1
-) if ( @omop_files && $omop_files[0] !~ m/\.csv|\.sql/i);
+) if ( @omop_files && $omop_files[0] !~ m/\.csv|\.sql/i );
 pod2usage(
-    -message => "OHDSI database (<-ohdsi-db>) only works with <-iomop> argument\n",
+    -message =>
+      "OHDSI database (<-ohdsi-db>) only works with <-iomop> argument\n",
     -exitval => 1
-) if ( $ohdsi_db && ! @omop_files );
+) if ( $ohdsi_db && !@omop_files );
 
 # Turning color off if argument <--no-color>
 $ENV{'ANSI_COLORS_DISABLED'} = 1 if $no_color;
@@ -100,30 +101,34 @@ my $out_file =
   : $out_bff ? catfile( $out_dir, $out_bff )
   :            catfile( $out_dir, 'individuals.json' );
 
+# Defining method
+my $in_type =
+    $in_pxf     ? 'pxf'
+  : $in_bff     ? 'bff'
+  : $in_redcap  ? 'redcap'
+  : @omop_files ? 'omop'
+  :               'bff';
+my $out_type = $out_pxf ? 'pxf' : $out_bff ? 'bff' : 'bff';
+my $method   = $in_type . '2' . $out_type;
+
 # Defining data as a hashref
 my $data = {
-      in_type => $in_pxf ? 'pxf'
-    : $in_bff    ? 'bff'
-    : $in_redcap ? 'redcap'
-    : @omop_files ? 'omop' 
-    : 'bff',
-    out_type    => $out_pxf ? 'pxf' : $out_bff ? 'bff' : 'bff',
     out_dir     => $out_dir,
     in_textfile => 1,
     in_file     => $in_pxf ? $in_pxf
     : $in_bff    ? $in_bff
     : $in_redcap ? $in_redcap
-    :  undef,
-    in_files => \@omop_files // undef, # only for Omop
-    sep      => $sep,
-    sql2csv  => $sql2csv,
+    : undef,
+    in_files            => \@omop_files // undef,    # only for Omop
+    method              => $method,
+    sep                 => $sep,
+    sql2csv             => $sql2csv,
     redcap_dictionary   => $redcap_dictionary,
     ohdsi_db            => $ohdsi_db,
     print_hidden_labels => $print_hidden_labels,
     debug               => $debug,
     verbose             => $verbose
 };
-$data->{method} = $data->{in_type} . '2' . $data->{out_type};
 print Dumper $data if $debug;
 
 # Start printing to STDOUT
@@ -144,8 +149,7 @@ sub convert {
     my ( $o_file, $l_data ) = @_;
 
     if ($verbose) {
-        print BOLD BLUE program_body( $l_data->{in_type}, $l_data->{out_type},
-            $l_data->{in_file} );
+        print BOLD BLUE program_body($l_data);
         say BOLD GREEN "Writing <$o_file> file\n";
     }
 
@@ -156,7 +160,8 @@ sub convert {
     my $method = $l_data->{method};
 
     # Writing file
-    dump_file( { filename => $o_file, data => $convert->$method, format => $format } );
+    dump_file(
+        { filename => $o_file, data => $convert->$method, format => $format } );
 }
 
 sub program_header {
@@ -176,25 +181,25 @@ EOF
 
 sub program_body {
 
-    my ( $in_type, $out_type, $file ) = @_;
-    my $msg = <<EOF;
-==== INPUT: <$in_type> OUTPUT: <$out_type> ====
-==== Processing: <$file> ====
+    my $l_data = shift;
+    my $msg    = <<EOF;
+==== METHOD: <$l_data->{method}> ====
+Processing: <$l_data->{in_file}>
 EOF
     return $msg;
 }
 
 sub dump_file {
 
- my $arg = shift;
- if ($arg->{format} eq 'json') { 
-     write_json( { filename => $arg->{filename}, data => $arg->{data} } );
- } else {
-     write_yaml( { filename => $arg->{filename}, data => $arg->{data} } );
- }
-return 1;
+    my $arg = shift;
+    if ( $arg->{format} eq 'json' ) {
+        write_json( { filename => $arg->{filename}, data => $arg->{data} } );
+    }
+    else {
+        write_yaml( { filename => $arg->{filename}, data => $arg->{data} } );
+    }
+    return 1;
 }
-
 
 =head1 NAME
 
@@ -301,7 +306,7 @@ B<Examples:>
 
  $ bin/convert-pheno -ipxf phenopackets.json -obff individuals.json
 
- $ $path/convert-pheno -ibff individuals.json -obff phenopackets.json --out-dir my_out_dir
+ $ $path/convert-pheno -ibff individuals.json -opxf phenopackets.json --out-dir my_out_dir
 
  $ $path/convert-pheno -iredcap redcap.csv -opxf phenopackets.json --redcap-dictionary redcap_dict.csv
 

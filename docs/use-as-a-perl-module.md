@@ -17,17 +17,19 @@ Example (please see all options at CPAN):
 
 use Convert::Pheno;
 
+# Define method
+my $method = 'pxf2bff';
+
 # Create object
 my $convert = Convert::Pheno->new(
-{
-     in_type =>  'pxf'
-     out_type => 'bff',
+ {
      data => $my_pxf_json_data
-}
+     method => $method
+ }
 );
 
 # Run method and store result in hashref
-my $hashref = $convert->pxf2bff;
+my $hashref = $convert->$method;
 ...
 
 ```
@@ -43,14 +45,16 @@ import pyperler; i = pyperler.Interpreter()
 
 # use a CPAN module (must be installed!!)
 CP = i.use('Convert::Pheno')
-convert = CP(
-       { 
-        'in_type' : 'pxf',
-        'out_type'  'bff',
-        'data' :  my_pxf_json_data
-       }
-      )
-hashref = convert.pxf2bff
+
+method = 'pxf2bff'
+convert = CP
+(
+    { 
+        'method' method,
+        'data' : my_pxf_json_data
+    }
+)
+hashref = convert.method
  
 ```
 

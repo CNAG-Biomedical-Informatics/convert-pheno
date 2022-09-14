@@ -6,8 +6,6 @@ We have created a very light API that will allow you to send `POST` requests and
 ```
 {
  "data": {...}
- "in_type" : "pxf",
- "out_type"  "bff",
  "method": "pxf2bff"
 }
 ```
