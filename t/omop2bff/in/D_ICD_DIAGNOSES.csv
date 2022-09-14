@@ -1,0 +1,1000 @@
+row_id,icd9_code,short_title,long_title
+1,01716,Erythem nod tb-oth test,"Erythema nodosum with hypersensitivity reaction in tuberculosis, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+2,01720,TB periph lymph-unspec,"Tuberculosis of peripheral lymph nodes, unspecified"
+3,01721,TB periph lymph-no exam,"Tuberculosis of peripheral lymph nodes, bacteriological or histological examination not done"
+4,01722,TB periph lymph-exam unk,"Tuberculosis of peripheral lymph nodes, bacteriological or histological examination unknown (at present)"
+5,01723,TB periph lymph-micro dx,"Tuberculosis of peripheral lymph nodes, tubercle bacilli found (in sputum) by microscopy"
+6,01724,TB periph lymph-cult dx,"Tuberculosis of peripheral lymph nodes, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+7,01725,TB periph lymph-histo dx,"Tuberculosis of peripheral lymph nodes, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+8,01726,TB periph lymph-oth test,"Tuberculosis of peripheral lymph nodes, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+9,01730,TB of eye-unspec,"Tuberculosis of eye, unspecified"
+10,01731,TB of eye-no exam,"Tuberculosis of eye, bacteriological or histological examination not done"
+11,01732,TB of eye-exam unkn,"Tuberculosis of eye, bacteriological or histological examination unknown (at present)"
+12,01733,TB of eye-micro dx,"Tuberculosis of eye, tubercle bacilli found (in sputum) by microscopy"
+13,01734,TB of eye-cult dx,"Tuberculosis of eye, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+14,01735,TB of eye-histo dx,"Tuberculosis of eye, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+15,01736,TB of eye-oth test,"Tuberculosis of eye, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+16,01740,TB of ear-unspec,"Tuberculosis of ear, unspecified"
+17,01741,TB of ear-no exam,"Tuberculosis of ear, bacteriological or histological examination not done"
+18,01742,TB of ear-exam unkn,"Tuberculosis of ear, bacteriological or histological examination unknown (at present)"
+19,01743,TB of ear-micro dx,"Tuberculosis of ear, tubercle bacilli found (in sputum) by microscopy"
+20,01744,TB of ear-cult dx,"Tuberculosis of ear, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+21,01745,TB of ear-histo dx,"Tuberculosis of ear, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+22,01746,TB of ear-oth test,"Tuberculosis of ear, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+23,01750,TB of thyroid-unspec,"Tuberculosis of thyroid gland, unspecified"
+24,01751,TB of thyroid-no exam,"Tuberculosis of thyroid gland, bacteriological or histological examination not done"
+25,01752,TB of thyroid-exam unkn,"Tuberculosis of thyroid gland, bacteriological or histological examination unknown (at present)"
+26,01753,TB of thyroid-micro dx,"Tuberculosis of thyroid gland, tubercle bacilli found (in sputum) by microscopy"
+27,01754,TB of thyroid-cult dx,"Tuberculosis of thyroid gland, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+28,01755,TB of thyroid-histo dx,"Tuberculosis of thyroid gland, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+29,01756,TB of thyroid-oth test,"Tuberculosis of thyroid gland, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+30,01760,TB of adrenal-unspec,"Tuberculosis of adrenal glands, unspecified"
+31,01761,TB of adrenal-no exam,"Tuberculosis of adrenal glands, bacteriological or histological examination not done"
+32,01762,TB of adrenal-exam unkn,"Tuberculosis of adrenal glands, bacteriological or histological examination unknown (at present)"
+33,01763,TB of adrenal-micro dx,"Tuberculosis of adrenal glands, tubercle bacilli found (in sputum) by microscopy"
+34,01764,TB of adrenal-cult dx,"Tuberculosis of adrenal glands, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+35,01765,TB of adrenal-histo dx,"Tuberculosis of adrenal glands, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+36,01766,TB of adrenal-oth test,"Tuberculosis of adrenal glands, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+37,01770,TB of spleen-unspec,"Tuberculosis of spleen, unspecified"
+38,01771,TB of spleen-no exam,"Tuberculosis of spleen, bacteriological or histological examination not done"
+39,01772,TB of spleen-exam unkn,"Tuberculosis of spleen, bacteriological or histological examination unknown (at present)"
+40,01773,TB of spleen-micro dx,"Tuberculosis of spleen, tubercle bacilli found (in sputum) by microscopy"
+41,01774,TB of spleen-cult dx,"Tuberculosis of spleen, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+42,01775,TB of spleen-histo dx,"Tuberculosis of spleen, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+43,01776,TB of spleen-oth test,"Tuberculosis of spleen, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+44,01780,TB esophagus-unspec,"Tuberculosis of esophagus, unspecified"
+45,01781,TB esophagus-no exam,"Tuberculosis of esophagus, bacteriological or histological examination not done"
+46,01782,TB esophagus-exam unkn,"Tuberculosis of esophagus, bacteriological or histological examination unknown (at present)"
+47,01783,TB esophagus-micro dx,"Tuberculosis of esophagus, tubercle bacilli found (in sputum) by microscopy"
+48,01784,TB esophagus-cult dx,"Tuberculosis of esophagus, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+49,01785,TB esophagus-histo dx,"Tuberculosis of esophagus, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+50,01786,TB esophagus-oth test,"Tuberculosis of esophagus, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+51,01790,TB of organ NEC-unspec,"Tuberculosis of other specified organs, unspecified"
+52,01791,TB of organ NEC-no exam,"Tuberculosis of other specified organs, bacteriological or histological examination not done"
+53,0063,Amebic liver abscess,Amebic liver abscess
+54,0064,Amebic lung abscess,Amebic lung abscess
+55,0065,Amebic brain abscess,Amebic brain abscess
+56,0066,Amebic skin ulceration,Amebic skin ulceration
+57,0068,Amebic infection NEC,Amebic infection of other sites
+58,0069,Amebiasis NOS,"Amebiasis, unspecified"
+59,0070,Balantidiasis,Balantidiasis
+60,0071,Giardiasis,Giardiasis
+61,0072,Coccidiosis,Coccidiosis
+62,0073,Intest trichomoniasis,Intestinal trichomoniasis
+63,0074,Cryptosporidiosis,Cryptosporidiosis
+64,0075,Cyclosporiasis,Cyclosporiasis
+65,0078,Protozoal intest dis NEC,Other specified protozoal intestinal diseases
+66,0079,Protozoal intest dis NOS,Unspecified protozoal intestinal disease
+67,00800,Intest infec e coli NOS,"Intestinal infection due to E. coli, unspecified"
+68,00801,Int inf e coli entrpath,Intestinal infection due to enteropathogenic E. coli
+69,00802,Int inf e coli entrtoxgn,Intestinal infection due to enterotoxigenic E. coli
+70,00803,Int inf e coli entrnvsv,Intestinal infection due to enteroinvasive E. coli
+71,00804,Int inf e coli entrhmrg,Intestinal infection due to enterohemorrhagic E. coli
+72,00809,Int inf e coli spcf NEC,Intestinal infection due to other intestinal E. coli infections
+73,0081,Arizona enteritis,Intestinal infection due to arizona group of paracolon bacilli
+74,0082,Aerobacter enteritis,Intestinal infection due to aerobacter aerogenes
+75,0083,Proteus enteritis,Intestinal infection due to proteus (mirabilis) (morganii)
+76,00841,Staphylococc enteritis,Intestinal infection due to staphylococcus
+77,00842,Pseudomonas enteritis,Intestinal infection due to pseudomonas
+78,00843,Int infec campylobacter,Intestinal infection due to campylobacter
+79,00844,Int inf yrsnia entrcltca,Intestinal infection due to yersinia enterocolitica
+80,00845,Int inf clstrdium dfcile,Intestinal infection due to Clostridium difficile
+81,00846,Intes infec oth anerobes,Intestinal infection due to other anaerobes
+82,00847,Int inf oth grm neg bctr,Intestinal infection due to other gram-negative bacteria
+83,00849,Bacterial enteritis NEC,Intestinal infection due to other organisms
+84,0085,Bacterial enteritis NOS,"Bacterial enteritis, unspecified"
+85,00861,Intes infec rotavirus,Enteritis due to rotavirus
+86,00862,Intes infec adenovirus,Enteritis due to adenovirus
+87,00863,Int inf norwalk virus,Enteritis due to norwalk virus
+88,00864,Int inf oth sml rnd vrus,Enteritis due to other small round viruses [SRV's]
+89,00865,Enteritis d/t calicivirs,Enteritis due to calicivirus
+90,00866,Intes infec astrovirus,Enteritis due to astrovirus
+91,00867,Int inf enterovirus NEC,Enteritis due to enterovirus nec
+92,00869,Other viral intes infec,Enteritis due to other viral enteritis
+93,0088,Viral enteritis NOS,"Intestinal infection due to other organism, not elsewhere classified"
+94,0090,Infectious enteritis NOS,"Infectious colitis, enteritis, and gastroenteritis"
+95,0091,Enteritis of infect orig,"Colitis, enteritis, and gastroenteritis of presumed infectious origin"
+96,0092,Infectious diarrhea NOS,Infectious diarrhea
+97,0093,Diarrhea of infect orig,Diarrhea of presumed infectious origin
+98,01000,Prim TB complex-unspec,"Primary tuberculous infection, unspecified"
+99,01001,Prim TB complex-no exam,"Primary tuberculous infection, bacteriological or histological examination not done"
+100,01002,Prim TB complex-exm unkn,"Primary tuberculous infection, bacteriological or histological examination unknown (at present)"
+101,01003,Prim TB complex-micro dx,"Primary tuberculous infection, tubercle bacilli found (in sputum) by microscopy"
+102,01004,Prim TB complex-cult dx,"Primary tuberculous infection, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+103,01005,Prim TB complex-histo dx,"Primary tuberculous infection, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+104,01006,Prim TB complex-oth test,"Primary tuberculous infection, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+105,01010,Prim TB pleurisy-unspec,"Tuberculous pleurisy in primary progressive tuberculosis, unspecified"
+106,01011,Prim TB pleurisy-no exam,"Tuberculous pleurisy in primary progressive tuberculosis, bacteriological or histological examination not done"
+107,01012,Prim TB pleur-exam unkn,"Tuberculous pleurisy in primary progressive tuberculosis, bacteriological or histological examination unknown (at present)"
+108,01013,Prim TB pleuris-micro dx,"Tuberculous pleurisy in primary progressive tuberculosis, tubercle bacilli found (in sputum) by microscopy"
+109,01014,Prim TB pleurisy-cult dx,"Tuberculous pleurisy in primary progressive tuberculosis, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+110,01015,Prim TB pleuris-histo dx,"Tuberculous pleurisy in primary progressive tuberculosis, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+111,01016,Prim TB pleuris-oth test,"Tuberculous pleurisy in primary progressive tuberculosis, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+112,01080,Prim prog TB NEC-unspec,"Other primary progressive tuberculosis, unspecified"
+113,01081,Prim prog TB NEC-no exam,"Other primary progressive tuberculosis, bacteriological or histological examination not done"
+114,01082,Prim pr TB NEC-exam unkn,"Other primary progressive tuberculosis, bacteriological or histological examination unknown (at present)"
+115,01083,Prim prg TB NEC-micro dx,"Other primary progressive tuberculosis, tubercle bacilli found (in sputum) by microscopy"
+116,01084,Prim prog TB NEC-cult dx,"Other primary progressive tuberculosis, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+117,01085,Prim prg TB NEC-histo dx,"Other primary progressive tuberculosis, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+118,01086,Prim prg TB NEC-oth test,"Other primary progressive tuberculosis, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+119,01090,Primary TB NOS-unspec,"Primary tuberculous infection, unspecified, unspecified"
+120,01091,Primary TB NOS-no exam,"Primary tuberculous infection, unspecified, bacteriological or histological examination not done"
+121,01092,Primary TB NOS-exam unkn,"Primary tuberculous infection, unspecified, bacteriological or histological examination unknown (at present)"
+122,01093,Primary TB NOS-micro dx,"Primary tuberculous infection, unspecified, tubercle bacilli found (in sputum) by microscopy"
+123,01094,Primary TB NOS-cult dx,"Primary tuberculous infection, unspecified, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+124,01095,Primary TB NOS-histo dx,"Primary tuberculous infection, unspecified, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+125,01096,Primary TB NOS-oth test,"Primary tuberculous infection, unspecified, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+126,01100,TB lung infiltr-unspec,"Tuberculosis of lung, infiltrative, unspecified"
+127,01101,TB lung infiltr-no exam,"Tuberculosis of lung, infiltrative, bacteriological or histological examination not done"
+128,01102,TB lung infiltr-exm unkn,"Tuberculosis of lung, infiltrative, bacteriological or histological examination unknown (at present)"
+129,01103,TB lung infiltr-micro dx,"Tuberculosis of lung, infiltrative, tubercle bacilli found (in sputum) by microscopy"
+130,01104,TB lung infiltr-cult dx,"Tuberculosis of lung, infiltrative, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+131,01105,TB lung infiltr-histo dx,"Tuberculosis of lung, infiltrative, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+132,01106,TB lung infiltr-oth test,"Tuberculosis of lung, infiltrative, tubercle bacilli not found bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+133,01110,TB lung nodular-unspec,"Tuberculosis of lung, nodular, unspecified"
+134,01111,TB lung nodular-no exam,"Tuberculosis of lung, nodular, bacteriological or histological examination not done"
+135,01112,TB lung nodul-exam unkn,"Tuberculosis of lung, nodular, bacteriological or histological examination unknown (at present)"
+136,01113,TB lung nodular-micro dx,"Tuberculosis of lung, nodular, tubercle bacilli found (in sputum) by microscopy"
+137,01114,TB lung nodular-cult dx,"Tuberculosis of lung, nodular, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+138,01115,TB lung nodular-histo dx,"Tuberculosis of lung, nodular, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+139,01116,TB lung nodular-oth test,"Tuberculosis of lung, nodular, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+140,01120,TB lung w cavity-unspec,"Tuberculosis of lung with cavitation, unspecified"
+141,01121,TB lung w cavity-no exam,"Tuberculosis of lung with cavitation, bacteriological or histological examination not done"
+142,01122,TB lung cavity-exam unkn,"Tuberculosis of lung with cavitation, bacteriological or histological examination unknown (at present)"
+143,01123,TB lung w cavit-micro dx,"Tuberculosis of lung with cavitation, tubercle bacilli found (in sputum) by microscopy"
+144,01124,TB lung w cavity-cult dx,"Tuberculosis of lung with cavitation, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+145,01125,TB lung w cavit-histo dx,"Tuberculosis of lung with cavitation, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+146,01126,TB lung w cavit-oth test,"Tuberculosis of lung with cavitation, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+147,01130,TB of bronchus-unspec,"Tuberculosis of bronchus, unspecified"
+148,01131,TB of bronchus-no exam,"Tuberculosis of bronchus, bacteriological or histological examination not done"
+149,01132,TB of bronchus-exam unkn,"Tuberculosis of bronchus, bacteriological or histological examination unknown (at present)"
+150,01133,TB of bronchus-micro dx,"Tuberculosis of bronchus, tubercle bacilli found (in sputum) by microscopy"
+151,01134,TB of bronchus-cult dx,"Tuberculosis of bronchus, tubercle bacilli not found (in sputum) by microscopy, but found in bacterial culture"
+152,01135,TB of bronchus-histo dx,"Tuberculosis of bronchus, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+153,01136,TB of bronchus-oth test,"Tuberculosis of bronchus, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+154,01140,TB lung fibrosis-unspec,"Tuberculous fibrosis of lung, unspecified"
+155,01141,TB lung fibrosis-no exam,"Tuberculous fibrosis of lung, bacteriological or histological examination not done"
+156,01142,TB lung fibros-exam unkn,"Tuberculous fibrosis of lung, bacteriological or histological examination unknown (at present)"
+157,01143,TB lung fibros-micro dx,"Tuberculous fibrosis of lung, tubercle bacilli found (in sputum) by microscopy"
+158,01144,TB lung fibrosis-cult dx,"Tuberculous fibrosis of lung, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+159,01145,TB lung fibros-histo dx,"Tuberculous fibrosis of lung, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+160,01146,TB lung fibros-oth test,"Tuberculous fibrosis of lung, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+161,01150,TB bronchiectasis-unspec,"Tuberculous bronchiectasis, unspecified"
+162,01151,TB bronchiect-no exam,"Tuberculous bronchiectasis, bacteriological or histological examination not done"
+163,01152,TB bronchiect-exam unkn,"Tuberculous bronchiectasis, bacteriological or histological examination unknown (at present)"
+164,01153,TB bronchiect-micro dx,"Tuberculous bronchiectasis, tubercle bacilli found (in sputum) by microscopy"
+165,01154,TB bronchiect-cult dx,"Tuberculous bronchiectasis, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+166,01155,TB bronchiect-histo dx,"Tuberculous bronchiectasis, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+167,01156,TB bronchiect-oth test,"Tuberculous bronchiectasis, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+168,01160,TB pneumonia-unspec,"Tuberculous pneumonia [any form], unspecified"
+169,01161,TB pneumonia-no exam,"Tuberculous pneumonia [any form], bacteriological or histological examination not done"
+170,01162,TB pneumonia-exam unkn,"Tuberculous pneumonia [any form], bacteriological or histological examination unknown (at present)"
+171,01163,TB pneumonia-micro dx,"Tuberculous pneumonia [any form], tubercle bacilli found (in sputum) by microscopy"
+172,01164,TB pneumonia-cult dx,"Tuberculous pneumonia [any form], tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+173,01165,TB pneumonia-histo dx,"Tuberculous pneumonia [any form], tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+174,01166,TB pneumonia-oth test,"Tuberculous pneumonia [any form], tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+175,01170,TB pneumothorax-unspec,"Tuberculous pneumothorax, unspecified"
+176,01171,TB pneumothorax-no exam,"Tuberculous pneumothorax, bacteriological or histological examination not done"
+177,01172,TB pneumothorx-exam unkn,"Tuberculous pneumothorax, bacteriological or histological examination unknown (at present)"
+178,01173,TB pneumothorax-micro dx,"Tuberculous pneumothorax, tubercle bacilli found (in sputum) by microscopy"
+179,01174,TB pneumothorax-cult dx,"Tuberculous pneumothorax, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+180,01175,TB pneumothorax-histo dx,"Tuberculous pneumothorax, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+181,01176,TB pneumothorax-oth test,"Tuberculous pneumothorax, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+182,01180,Pulmonary TB NEC-unspec,"Other specified pulmonary tuberculosis, unspecified"
+183,01181,Pulmonary TB NEC-no exam,"Other specified pulmonary tuberculosis, bacteriological or histological examination not done"
+184,01182,Pulmon TB NEC-exam unkn,"Other specified pulmonary tuberculosis, bacteriological or histological examination unknown (at present)"
+185,01183,Pulmon TB NEC-micro dx,"Other specified pulmonary tuberculosis, tubercle bacilli found (in sputum) by microscopy"
+186,01184,Pulmon TB NEC-cult dx,"Other specified pulmonary tuberculosis, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+187,01185,Pulmon TB NEC-histo dx,"Other specified pulmonary tuberculosis, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+188,01186,Pulmon TB NEC-oth test,"Other specified pulmonary tuberculosis, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+189,01190,Pulmonary TB NOS-unspec,"Pulmonary tuberculosis, unspecified, unspecified"
+190,01191,Pulmonary TB NOS-no exam,"Pulmonary tuberculosis, unspecified, bacteriological or histological examination not done"
+191,01192,Pulmon TB NOS-exam unkn,"Pulmonary tuberculosis, unspecified, bacteriological or histological examination unknown (at present)"
+192,01193,Pulmon TB NOS-micro dx,"Pulmonary tuberculosis, unspecified, tubercle bacilli found (in sputum) by microscopy"
+193,01194,Pulmon TB NOS-cult dx,"Pulmonary tuberculosis, unspecified, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+194,01195,Pulmon TB NOS-histo dx,"Pulmonary tuberculosis, unspecified, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+195,01196,Pulmon TB NOS-oth test,"Pulmonary tuberculosis, unspecified, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+196,01200,TB pleurisy-unspec,"Tuberculous pleurisy, unspecified"
+197,01201,TB pleurisy-no exam,"Tuberculous pleurisy, bacteriological or histological examination not done"
+198,01202,TB pleurisy-exam unkn,"Tuberculous pleurisy, bacteriological or histological examination unknown (at present)"
+199,01203,TB pleurisy-micro dx,"Tuberculous pleurisy, tubercle bacilli found (in sputum) by microscopy"
+200,01204,TB pleurisy-cult dx,"Tuberculous pleurisy, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+201,01205,TB pleurisy-histolog dx,"Tuberculous pleurisy, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+202,01206,TB pleurisy-oth test,"Tuberculous pleurisy, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+203,01210,TB thoracic nodes-unspec,"Tuberculosis of intrathoracic lymph nodes, unspecified"
+204,01211,TB thorax node-no exam,"Tuberculosis of intrathoracic lymph nodes, bacteriological or histological examination not done"
+205,01212,TB thorax node-exam unkn,"Tuberculosis of intrathoracic lymph nodes, bacteriological or histological examination unknown (at present)"
+206,01213,TB thorax node-micro dx,"Tuberculosis of intrathoracic lymph nodes, tubercle bacilli found (in sputum) by microscopy"
+207,01214,TB thorax node-cult dx,"Tuberculosis of intrathoracic lymph nodes, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+208,01215,TB thorax node-histo dx,"Tuberculosis of intrathoracic lymph nodes, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+209,01216,TB thorax node-oth test,"Tuberculosis of intrathoracic lymph nodes, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+210,01220,Isol tracheal tb-unspec,"Isolated tracheal or bronchial tuberculosis, unspecified"
+211,01221,Isol tracheal tb-no exam,"Isolated tracheal or bronchial tuberculosis, bacteriological or histological examination not done"
+212,01222,Isol trach tb-exam unkn,"Isolated tracheal or bronchial tuberculosis, bacteriological or histological examination unknown (at present)"
+213,01223,Isolat trach tb-micro dx,"Isolated tracheal or bronchial tuberculosis, tubercle bacilli found (in sputum) by microscopy"
+214,01224,Isol tracheal tb-cult dx,"Isolated tracheal or bronchial tuberculosis, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+215,01225,Isolat trach tb-histo dx,"Isolated tracheal or bronchial tuberculosis, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+216,01226,Isolat trach tb-oth test,"Isolated tracheal or bronchial tuberculosis, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+217,01230,TB laryngitis-unspec,"Tuberculous laryngitis, unspecified"
+218,01231,TB laryngitis-no exam,"Tuberculous laryngitis, bacteriological or histological examination not done"
+219,01232,TB laryngitis-exam unkn,"Tuberculous laryngitis, bacteriological or histological examination unknown (at present)"
+220,01233,TB laryngitis-micro dx,"Tuberculous laryngitis, tubercle bacilli found (in sputum) by microscopy"
+221,01234,TB laryngitis-cult dx,"Tuberculous laryngitis, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+222,01235,TB laryngitis-histo dx,"Tuberculous laryngitis, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+223,01236,TB laryngitis-oth test,"Tuberculous laryngitis, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+224,01280,Resp TB NEC-unspec,"Other specified respiratory tuberculosis, unspecified"
+225,01281,Resp TB NEC-no exam,"Other specified respiratory tuberculosis, bacteriological or histological examination not done"
+226,01282,Resp TB NEC-exam unkn,"Other specified respiratory tuberculosis, bacteriological or histological examination unknown (at present)"
+227,01283,Resp TB NEC-micro dx,"Other specified respiratory tuberculosis, tubercle bacilli found (in sputum) by microscopy"
+228,01284,Resp TB NEC-cult dx,"Other specified respiratory tuberculosis, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+229,01285,Resp TB NEC-histo dx,"Other specified respiratory tuberculosis, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+230,01286,Resp TB NEC-oth test,"Other specified respiratory tuberculosis, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+231,01300,TB meningitis-unspec,"Tuberculous meningitis, unspecified"
+232,01301,TB meningitis-no exam,"Tuberculous meningitis, bacteriological or histological examination not done"
+233,0010,Cholera d/t vib cholerae,Cholera due to vibrio cholerae
+234,0011,Cholera d/t vib el tor,Cholera due to vibrio cholerae el tor
+235,0019,Cholera NOS,"Cholera, unspecified"
+236,0020,Typhoid fever,Typhoid fever
+237,0021,Paratyphoid fever a,Paratyphoid fever A
+238,0022,Paratyphoid fever b,Paratyphoid fever B
+239,0023,Paratyphoid fever c,Paratyphoid fever C
+240,0029,Paratyphoid fever NOS,"Paratyphoid fever, unspecified"
+241,0030,Salmonella enteritis,Salmonella gastroenteritis
+242,0031,Salmonella septicemia,Salmonella septicemia
+243,00320,Local salmonella inf NOS,"Localized salmonella infection, unspecified"
+244,00321,Salmonella meningitis,Salmonella meningitis
+245,00322,Salmonella pneumonia,Salmonella pneumonia
+246,00323,Salmonella arthritis,Salmonella arthritis
+247,00324,Salmonella osteomyelitis,Salmonella osteomyelitis
+248,00329,Local salmonella inf NEC,Other localized salmonella infections
+249,0038,Salmonella infection NEC,Other specified salmonella infections
+250,0039,Salmonella infection NOS,"Salmonella infection, unspecified"
+251,0040,Shigella dysenteriae,Shigella dysenteriae
+252,0041,Shigella flexneri,Shigella flexneri
+253,0042,Shigella boydii,Shigella boydii
+254,0043,Shigella sonnei,Shigella sonnei
+255,0048,Shigella infection NEC,Other specified shigella infections
+256,0049,Shigellosis NOS,"Shigellosis, unspecified"
+257,0050,Staph food poisoning,Staphylococcal food poisoning
+258,0051,Botulism food poisoning,Botulism food poisoning
+259,0052,Food pois d/t c. perfrin,Food poisoning due to Clostridium perfringens (C. welchii)
+260,0053,Food pois: clostrid NEC,Food poisoning due to other Clostridia
+261,0054,Food pois: v. parahaem,Food poisoning due to Vibrio parahaemolyticus
+262,00581,Food poisn d/t v. vulnif,Food poisoning due to Vibrio vulnificus
+263,00589,Bact food poisoning NEC,Other bacterial food poisoning
+264,0059,Food poisoning NOS,"Food poisoning, unspecified"
+265,0060,Ac amebiasis w/o abscess,Acute amebic dysentery without mention of abscess
+266,0061,Chr amebiasis w/o absces,Chronic intestinal amebiasis without mention of abscess
+267,0062,Amebic nondysent colitis,Amebic nondysenteric colitis
+268,01676,TB fem gen NEC-oth test,"Tuberculosis of other female genital organs, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+269,01690,Gu TB NOS-unspec,"Genitourinary tuberculosis, unspecified, unspecified"
+270,01691,Gu TB NOS-no exam,"Genitourinary tuberculosis, unspecified, bacteriological or histological examination not done"
+271,01692,Gu TB NOS-exam unkn,"Genitourinary tuberculosis, unspecified, bacteriological or histological examination unknown (at present)"
+272,01693,Gu TB NOS-micro dx,"Genitourinary tuberculosis, unspecified, tubercle bacilli found (in sputum) by microscopy"
+273,01694,Gu TB NOS-cult dx,"Genitourinary tuberculosis, unspecified, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+274,01695,Gu TB NOS-histo dx,"Genitourinary tuberculosis, unspecified, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+275,01696,Gu TB NOS-oth test,"Genitourinary tuberculosis, unspecified, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+276,01700,TB skin/subcutan-unspec,"Tuberculosis of skin and subcutaneous cellular tissue, unspecified"
+277,01701,TB skin/subcut-no exam,"Tuberculosis of skin and subcutaneous cellular tissue, bacteriological or histological examination not done"
+278,01702,TB skin/subcut-exam unkn,"Tuberculosis of skin and subcutaneous cellular tissue, bacteriological or histological examination unknown (at present)"
+279,01703,TB skin/subcut-micro dx,"Tuberculosis of skin and subcutaneous cellular tissue, tubercle bacilli found (in sputum) by microscopy"
+280,01704,TB skin/subcut-cult dx,"Tuberculosis of skin and subcutaneous cellular tissue, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+281,01705,TB skin/subcut-histo dx,"Tuberculosis of skin and subcutaneous cellular tissue, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+282,01706,TB skin/subcut-oth test,"Tuberculosis of skin and subcutaneous cellular tissue, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+283,01710,Erythema nodos tb-unspec,"Erythema nodosum with hypersensitivity reaction in tuberculosis, unspecified"
+284,01711,Erythem nodos tb-no exam,"Erythema nodosum with hypersensitivity reaction in tuberculosis, bacteriological or histological examination not done"
+285,01712,Erythem nod tb-exam unkn,"Erythema nodosum with hypersensitivity reaction in tuberculosis, bacteriological or histological examination unknown (at present)"
+286,01713,Erythem nod tb-micro dx,"Erythema nodosum with hypersensitivity reaction in tuberculosis, tubercle bacilli found (in sputum) by microscopy"
+287,01714,Erythem nodos tb-cult dx,"Erythema nodosum with hypersensitivity reaction in tuberculosis, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+288,01715,Erythem nod tb-histo dx,"Erythema nodosum with hypersensitivity reaction in tuberculosis, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+289,01582,TB joint NEC-exam unkn,"Tuberculosis of other specified joint, bacteriological or histological examination unknown (at present)"
+290,01583,TB of joint NEC-micro dx,"Tuberculosis of other specified joint, tubercle bacilli found (in sputum) by microscopy"
+291,01584,TB of joint NEC-cult dx,"Tuberculosis of other specified joint, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+292,01585,TB of joint NEC-histo dx,"Tuberculosis of other specified joint, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+293,01586,TB of joint NEC-oth test,"Tuberculosis of other specified joint, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+294,01590,TB bone/joint NOS-unspec,"Tuberculosis of unspecified bones and joints, unspecified"
+295,01591,TB bone/jt NOS-no exam,"Tuberculosis of unspecified bones and joints, bacteriological or histological examination not done"
+296,01592,TB bone/jt NOS-exam unkn,"Tuberculosis of unspecified bones and joints, bacteriological or histological examination unknown (at present)"
+297,01593,TB bone/jt NOS-micro dx,"Tuberculosis of unspecified bones and joints, tubercle bacilli found (in sputum) by microscopy"
+298,01594,TB bone/jt NOS-cult dx,"Tuberculosis of unspecified bones and joints, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+299,01595,TB bone/jt NOS-histo dx,"Tuberculosis of unspecified bones and joints, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+300,01596,TB bone/jt NOS-oth test,"Tuberculosis of unspecified bones and joints, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+301,01600,TB of kidney-unspec,"Tuberculosis of kidney, unspecified"
+302,01601,TB of kidney-no exam,"Tuberculosis of kidney, bacteriological or histological examination not done"
+303,01602,TB of kidney-exam unkn,"Tuberculosis of kidney, bacteriological or histological examination unknown (at present)"
+304,01603,TB of kidney-micro dx,"Tuberculosis of kidney, tubercle bacilli found (in sputum) by microscopy"
+305,01604,TB of kidney-cult dx,"Tuberculosis of kidney, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+306,01605,TB of kidney-histo dx,"Tuberculosis of kidney, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+307,01606,TB of kidney-oth test,"Tuberculosis of kidney, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+308,01610,TB of bladder-unspec,"Tuberculosis of bladder, unspecified"
+309,01611,TB of bladder-no exam,"Tuberculosis of bladder, bacteriological or histological examination not done"
+310,01612,TB of bladder-exam unkn,"Tuberculosis of bladder, bacteriological or histological examination unknown (at present)"
+311,01613,TB of bladder-micro dx,"Tuberculosis of bladder, tubercle bacilli found (in sputum) by microscopy"
+312,01614,TB of bladder-cult dx,"Tuberculosis of bladder, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+313,01615,TB of bladder-histo dx,"Tuberculosis of bladder, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+314,01616,TB of bladder-oth test,"Tuberculosis of bladder, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+315,01620,TB of ureter-unspec,"Tuberculosis of ureter, unspecified"
+316,01621,TB of ureter-no exam,"Tuberculosis of ureter, bacteriological or histological examination not done"
+317,01622,TB of ureter-exam unkn,"Tuberculosis of ureter, bacteriological or histological examination unknown (at present)"
+318,01623,TB of ureter-micro dx,"Tuberculosis of ureter, tubercle bacilli found (in sputum) by microscopy"
+319,01624,TB of ureter-cult dx,"Tuberculosis of ureter, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+320,01625,TB of ureter-histo dx,"Tuberculosis of ureter, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+321,01626,TB of ureter-oth test,"Tuberculosis of ureter, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+322,01630,TB urinary NEC-unspec,"Tuberculosis of other urinary organs, unspecified"
+323,01631,TB urinary NEC-no exam,"Tuberculosis of other urinary organs, bacteriological or histological examination not done"
+324,01632,TB urinary NEC-exam unkn,"Tuberculosis of other urinary organs, bacteriological or histological examination unknown (at present)"
+325,01633,TB urinary NEC-micro dx,"Tuberculosis of other urinary organs, tubercle bacilli found (in sputum) by microscopy"
+326,01634,TB urinary NEC-cult dx,"Tuberculosis of other urinary organs, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+327,01635,TB urinary NEC-histo dx,"Tuberculosis of other urinary organs, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+328,01636,TB urinary NEC-oth test,"Tuberculosis of other urinary organs, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+329,01640,TB epididymis-unspec,"Tuberculosis of epididymis, unspecified"
+330,01641,TB epididymis-no exam,"Tuberculosis of epididymis, bacteriological or histological examination not done"
+331,01642,TB epididymis-exam unkn,"Tuberculosis of epididymis, bacteriological or histological examination unknown (at present)"
+332,01643,TB epididymis-micro dx,"Tuberculosis of epididymis, tubercle bacilli found (in sputum) by microscopy"
+333,01644,TB epididymis-cult dx,"Tuberculosis of epididymis, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+334,01645,TB epididymis-histo dx,"Tuberculosis of epididymis, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+335,01646,TB epididymis-oth test,"Tuberculosis of epididymis, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+336,01650,TB male genit NEC-unspec,"Tuberculosis of other male genital organs, unspecified"
+337,01651,TB male gen NEC-no exam,"Tuberculosis of other male genital organs, bacteriological or histological examination not done"
+338,01652,TB male gen NEC-ex unkn,"Tuberculosis of other male genital organs, bacteriological or histological examination unknown (at present)"
+339,01653,TB male gen NEC-micro dx,"Tuberculosis of other male genital organs, tubercle bacilli found (in sputum) by microscopy"
+340,01654,TB male gen NEC-cult dx,"Tuberculosis of other male genital organs, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+341,01655,TB male gen NEC-histo dx,"Tuberculosis of other male genital organs, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+342,01656,TB male gen NEC-oth test,"Tuberculosis of other male genital organs, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+343,01660,TB ovary & tube-unspec,"Tuberculous oophoritis and salpingitis, unspecified"
+344,01661,TB ovary & tube-no exam,"Tuberculous oophoritis and salpingitis, bacteriological or histological examination not done"
+345,01662,TB ovary/tube-exam unkn,"Tuberculous oophoritis and salpingitis, bacteriological or histological examination unknown (at present)"
+346,01663,TB ovary & tube-micro dx,"Tuberculous oophoritis and salpingitis, tubercle bacilli found (in sputum) by microscopy"
+347,01664,TB ovary & tube-cult dx,"Tuberculous oophoritis and salpingitis, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+348,01665,TB ovary & tube-histo dx,"Tuberculous oophoritis and salpingitis, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+349,01666,TB ovary & tube-oth test,"Tuberculous oophoritis and salpingitis, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+350,01670,TB female gen NEC-unspec,"Tuberculosis of other female genital organs, unspecified"
+351,01671,TB fem gen NEC-no exam,"Tuberculosis of other female genital organs, bacteriological or histological examination not done"
+352,01672,TB fem gen NEC-exam unkn,"Tuberculosis of other female genital organs, bacteriological or histological examination unknown (at present)"
+353,01673,TB fem gen NEC-micro dx,"Tuberculosis of other female genital organs, tubercle bacilli found (in sputum) by microscopy"
+354,01674,TB fem gen NEC-cult dx,"Tuberculosis of other female genital organs, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+355,01675,TB fem gen NEC-histo dx,"Tuberculosis of other female genital organs, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+356,0844,Malaria NEC,Other malaria
+357,0845,Mixed malaria,Mixed malaria
+358,0846,Malaria NOS,"Malaria, unspecified"
+359,0847,Induced malaria,Induced malaria
+360,0848,Blackwater fever,Blackwater fever
+361,0849,Malaria complicated NEC,Other pernicious complications of malaria
+362,0850,Visceral leishmaniasis,Visceral [kala-azar] leishmaniasis
+363,0851,Cutan leishmanias urban,"Cutaneous leishmaniasis, urban"
+364,0852,Cutan leishmanias asian,"Cutaneous leishmaniasis, Asian desert"
+365,0853,Cutan leishmanias ethiop,"Cutaneous leishmaniasis, Ethiopian"
+366,0854,Cutan leishmanias amer,"Cutaneous leishmaniasis, American"
+367,0855,Mucocutan leishmaniasis,"Mucocutaneous leishmaniasis, (American)"
+368,0859,Leishmaniasis NOS,"Leishmaniasis, unspecified"
+369,0860,Chagas disease of heart,Chagas' disease with heart involvement
+370,0861,Chagas dis of oth organ,Chagas' disease with other organ involvement
+371,0862,Chagas disease NOS,Chagas' disease without mention of organ involvement
+372,0863,Gambian trypanosomiasis,Gambian trypanosomiasis
+373,0864,Rhodesian trypanosomias,Rhodesian trypanosomiasis
+374,0865,African trypanosoma NOS,"African trypanosomiasis, unspecified"
+375,0869,Trypanosomiasis NOS,"Trypanosomiasis, unspecified"
+376,0870,Louse-borne relaps fever,"Relapsing fever, louse-borne"
+377,0871,Tick-borne relaps fever,"Relapsing fever, tick-borne"
+378,0879,Relapsing fever NOS,"Relapsing fever, unspecified"
+379,0880,Bartonellosis,Bartonellosis
+380,08881,Lyme disease,Lyme Disease
+381,08882,Babesiosis,Babesiosis
+382,08889,Oth arthropod-borne dis,"Other specified arthropod-borne diseases, other"
+383,0889,Arthropod-borne dis NOS,"Arthropod-borne disease, unspecified"
+384,0900,Early cong syph symptom,"Early congenital syphilis, symptomatic"
+385,0901,Early congen syph latent,"Early congenital syphilis, latent"
+386,0902,Early congen syph NOS,"Early congenital syphilis, unspecified"
+387,0903,Syphilitic keratitis,Syphilitic interstitial keratitis
+388,09040,Juvenile neurosyph NOS,"Juvenile neurosyphilis, unspecified"
+389,09041,Congen syph encephalitis,Congenital syphilitic encephalitis
+390,09042,Congen syph meningitis,Congenital syphilitic meningitis
+391,09049,Juvenile neurosyph NEC,Other juvenile neurosyphilis
+392,0905,Late congen syph symptom,"Other late congenital syphilis, symptomatic"
+393,0906,Late congen syph latent,"Late congenital syphilis, latent"
+394,0907,Late congen syph NOS,"Late congenital syphilis, unspecified"
+395,0909,Congenital syphilis NOS,"Congenital syphilis, unspecified"
+396,0910,Primary genital syphilis,Genital syphilis (primary)
+397,0911,Primary anal syphilis,Primary anal syphilis
+398,0912,Primary syphilis NEC,Other primary syphilis
+399,0913,Secondary syph skin,Secondary syphilis of skin or mucous membranes
+400,0914,Syphilitic adenopathy,Adenopathy due to secondary syphilis
+401,09150,Syphilitic uveitis NOS,"Syphilitic uveitis, unspecified"
+402,09151,Syphilit chorioretinitis,Syphilitic chorioretinitis (secondary)
+403,09152,Syphilitic iridocyclitis,Syphilitic iridocyclitis (secondary)
+404,09161,Syphilitic periostitis,Secondary syphilitic periostitis
+405,09162,Syphilitic hepatitis,Secondary syphilitic hepatitis
+406,09169,Second syph viscera NEC,Secondary syphilis of other viscera
+407,0917,Second syphilis relapse,"Secondary syphilis, relapse"
+408,09181,Acute syphil meningitis,Acute syphilitic meningitis (secondary)
+409,09182,Syphilitic alopecia,Syphilitic alopecia
+410,09189,Secondary syphilis NEC,Other forms of secondary syphilis
+411,0919,Secondary syphilis NOS,Unspecified secondary syphilis
+412,0920,Early syph latent relaps,"Early syphilis, latent, serological relapse after treatment"
+413,0929,Early syphil latent NOS,"Early syphilis, latent, unspecified"
+414,0930,"Aortic aneurysm, syphil","Aneurysm of aorta, specified as syphilitic"
+415,0931,Syphilitic aortitis,Syphilitic aortitis
+416,09320,Syphil endocarditis NOS,"Syphilitic endocarditis of valve, unspecified"
+417,09321,Syphilitic mitral valve,Syphilitic endocarditis of mitral valve
+418,09322,Syphilitic aortic valve,Syphilitic endocarditis of aortic valve
+419,09323,Syphil tricuspid valve,Syphilitic endocarditis of tricuspid valve
+420,09324,Syphil pulmonary valve,Syphilitic endocarditis of pulmonary valve
+421,09381,Syphilitic pericarditis,Syphilitic pericarditis
+422,09382,Syphilitic myocarditis,Syphilitic myocarditis
+423,09389,Cardiovascular syph NEC,Other specified cardiovascular syphilis
+424,0939,Cardiovascular syph NOS,"Cardiovascular syphilis, unspecified"
+425,0940,Tabes dorsalis,Tabes dorsalis
+426,0941,General paresis,General paresis
+427,0942,Syphilitic meningitis,Syphilitic meningitis
+428,0943,Asymptomat neurosyphilis,Asymptomatic neurosyphilis
+429,09481,Syphilitic encephalitis,Syphilitic encephalitis
+430,09482,Syphilitic parkinsonism,Syphilitic parkinsonism
+431,09483,Syph dissem retinitis,Syphilitic disseminated retinochoroiditis
+432,09484,Syphilitic optic atrophy,Syphilitic optic atrophy
+433,09485,Syph retrobulb neuritis,Syphilitic retrobulbar neuritis
+434,09486,Syphil acoustic neuritis,Syphilitic acoustic neuritis
+435,09487,Syph rupt cereb aneurysm,Syphilitic ruptured cerebral aneurysm
+436,09489,Neurosyphilis NEC,Other specified neurosyphilis
+437,0949,Neurosyphilis NOS,"Neurosyphilis, unspecified"
+438,0950,Syphilitic episcleritis,Syphilitic episcleritis
+439,0951,Syphilis of lung,Syphilis of lung
+440,0952,Syphilitic peritonitis,Syphilitic peritonitis
+441,0953,Syphilis of liver,Syphilis of liver
+442,0954,Syphilis of kidney,Syphilis of kidney
+443,0955,Syphilis of bone,Syphilis of bone
+444,0956,Syphilis of muscle,Syphilis of muscle
+445,0957,Syphilis of tendon/bursa,"Syphilis of synovium, tendon, and bursa"
+446,0958,Late sympt syphilis NEC,Other specified forms of late symptomatic syphilis
+447,0959,Late sympt syphilis NOS,"Late symptomatic syphilis, unspecified"
+448,096,Late syphilis latent,"Late syphilis, latent"
+449,0970,Late syphilis NOS,"Late syphilis, unspecified"
+450,0971,Latent syphilis NOS,"Latent syphilis, unspecified"
+451,0979,Syphilis NOS,"Syphilis, unspecified"
+452,0980,Acute gc infect lower gu,Gonococcal infection (acute) of lower genitourinary tract
+453,09810,Gc (acute) upper gu NOS,"Gonococcal infection (acute) of upper genitourinary tract, site unspecified"
+454,09811,Gc cystitis (acute),Gonococcal cystitis (acute)
+455,09812,Gc prostatitis (acute),Gonococcal prostatitis (acute)
+456,09813,Gc orchitis (acute),Gonococcal epididymo-orchitis (acute)
+457,09814,Gc sem vesiculit (acute),Gonococcal seminal vesiculitis (acute)
+458,09815,Gc cervicitis (acute),Gonococcal cervicitis (acute)
+459,09816,Gc endometritis (acute),Gonococcal endometritis (acute)
+460,09817,Acute gc salpingitis,"Gonococcal salpingitis, specified as acute"
+461,09819,Gc (acute) upper gu NEC,Other gonococcal infection (acute) of upper genitourinary tract
+462,0982,Chr gc infect lower gu,"Gonococcal infection, chronic, of lower genitourinary tract"
+463,09830,Chr gc upper gu NOS,"Chronic gonococcal infection of upper genitourinary tract, site unspecified"
+464,09831,"Gc cystitis, chronic","Gonococcal cystitis, chronic"
+465,09832,"Gc prostatitis, chronic","Gonococcal prostatitis, chronic"
+466,09833,"Gc orchitis, chronic","Gonococcal epididymo-orchitis, chronic"
+467,09834,"Gc sem vesiculitis, chr","Gonococcal seminal vesiculitis, chronic"
+468,09835,"Gc cervicitis, chronic","Gonococcal cervicitis, chronic"
+469,09836,"Gc endometritis, chronic","Gonococcal endometritis, chronic"
+470,09837,Gc salpingitis (chronic),Gonococcal salpingitis (chronic)
+471,09839,Chr gc upper gu NEC,Other chronic gonococcal infection of upper genitourinary tract
+472,09840,Gonococcal conjunctivit,Gonococcal conjunctivitis (neonatorum)
+473,09841,Gonococcal iridocyclitis,Gonococcal iridocyclitis
+474,09842,Gonococcal endophthalmia,Gonococcal endophthalmia
+475,09843,Gonococcal keratitis,Gonococcal keratitis
+476,09849,Gonococcal eye NEC,Other gonococcal infection of eye
+477,09850,Gonococcal arthritis,Gonococcal arthritis
+478,09851,Gonococcal synovitis,Gonococcal synovitis and tenosynovitis
+479,09852,Gonococcal bursitis,Gonococcal bursitis
+480,09853,Gonococcal spondylitis,Gonococcal spondylitis
+481,09859,Gc infect joint NEC,Other gonococcal infection of joint
+482,0986,Gonococcal infec pharynx,Gonococcal infection of pharynx
+483,0987,Gc infect anus & rectum,Gonococcal infection of anus and rectum
+484,09881,Gonococcal keratosis,Gonococcal keratosis (blennorrhagica)
+485,09882,Gonococcal meningitis,Gonococcal meningitis
+486,09883,Gonococcal pericarditis,Gonococcal pericarditis
+487,09884,Gonococcal endocarditis,Gonococcal endocarditis
+488,09885,Gonococcal heart dis NEC,Other gonococcal heart disease
+489,09886,Gonococcal peritonitis,Gonococcal peritonitis
+490,09889,Gonococcal inf site NEC,Gonococcal infection of other specified sites
+491,04109,Other streptococcus,"Streptococcus infection in conditions classified elsewhere and of unspecified site, other streptococcus"
+492,04110,Staphylococcus unspcfied,"Staphylococcus infection in conditions classified elsewhere and of unspecified site, staphylococcus, unspecified"
+493,04111,Mth sus Stph aur els/NOS,Methicillin susceptible Staphylococcus aureus in conditions classified elsewhere and of unspecified site
+494,04112,MRSA elsewhere/NOS,Methicillin resistant Staphylococcus aureus in conditions classified elsewhere and of unspecified site
+495,04119,Other staphylococcus,"Staphylococcus infection in conditions classified elsewhere and of unspecified site, other staphylococcus"
+496,0412,Pneumococcus infect NOS,Pneumococcus infection in conditions classified elsewhere and of unspecified site
+497,0413,Klebsiella pneumoniae,Friedl?nder's bacillus infection in conditions classified elsewhere and of unspecified site
+498,04141,Shiga txn-produce E.coli,Shiga toxin-producing Escherichia coli [E. coli] (STEC) O157
+499,04142,Shga txn prod E.coli NEC,Other specified Shiga toxin-producing Escherichia coli [E. coli] (STEC)
+500,04143,Shga txn prod E.coli NOS,"Shiga toxin-producing Escherichia coli [E. coli] (STEC), unspecified"
+501,04149,E.coli infection NEC/NOS,Other and unspecified Escherichia coli [E. coli]
+502,0415,H. influenzae infect NOS,Hemophilus influenzae [H. influenzae] infection in conditions classified elsewhere and of unspecified site
+503,0416,Proteus infection NOS,Proteus (mirabilis) (morganii) infection in conditions classified elsewhere and of unspecified site
+504,0417,Pseudomonas infect NOS,Pseudomonas infection in conditions classified elsewhere and of unspecified site
+505,04181,Mycoplasma,"Other specified bacterial infections in conditions classified elsewhere and of unspecified site, mycoplasma"
+506,04182,Bacteroides fragilis,Bacteroides fragilis
+507,04183,Clostridium perfringens,"Other specified bacterial infections in conditions classified elsewhere and of unspecified site, Clostridium perfringens"
+508,04184,Other anaerobes,"Other specified bacterial infections in conditions classified elsewhere and of unspecified site, other anaerobes"
+509,04185,Oth gram negatv bacteria,"Other specified bacterial infections in conditions classified elsewhere and of unspecified site, other gram-negative organisms"
+510,04186,Helicobacter pylori,Helicobacter pylori [H. pylori]
+511,04189,Oth specf bacteria,"Other specified bacterial infections in conditions classified elsewhere and of unspecified site, other specified bacteria"
+512,0419,Bacterial infection NOS,"Bacterial infection, unspecified, in conditions classified elsewhere and of unspecified site"
+513,042,Human immuno virus dis,Human immunodeficiency virus [HIV] disease
+514,04500,Ac bulbar polio-type NOS,"Acute paralytic poliomyelitis specified as bulbar, poliovirus, unspecified type"
+515,04501,Ac bulbar polio-type 1,"Acute paralytic poliomyelitis specified as bulbar, poliovirus type I"
+516,04502,Ac bulbar polio-type 2,"Acute paralytic poliomyelitis specified as bulbar, poliovirus type II"
+517,04503,Ac bulbar polio-type 3,"Acute paralytic poliomyelitis specified as bulbar, poliovirus type III"
+518,04510,Paral polio NEC-type NOS,"Acute poliomyelitis with other paralysis, poliovirus, unspecified type"
+519,04511,Paral polio NEC-type 1,"Acute poliomyelitis with other paralysis, poliovirus type I"
+520,04512,Paral polio NEC-type 2,"Acute poliomyelitis with other paralysis, poliovirus type II"
+521,04513,Paral polio NEC-type 3,"Acute poliomyelitis with other paralysis, poliovirus type III"
+522,04520,Nonparaly polio-type NOS,"Acute nonparalytic poliomyelitis, poliovirus, unspecified type"
+523,04521,Nonparalyt polio-type 1,"Acute nonparalytic poliomyelitis, poliovirus type I"
+524,04522,Nonparalyt polio-type 2,"Acute nonparalytic poliomyelitis, poliovirus type II"
+525,04523,Nonparalyt polio-type 3,"Acute nonparalytic poliomyelitis, poliovirus type III"
+526,04590,Ac polio NOS-type NOS,"Acute poliomyelitis, unspecified, poliovirus, unspecified type"
+527,04591,Ac polio NOS-type 1,"Acute poliomyelitis, unspecified, poliovirus type I"
+528,04592,Ac polio NOS-type 2,"Acute poliomyelitis, unspecified, poliovirus type II"
+529,04593,Ac polio NOS-type 3,"Acute poliomyelitis, unspecified, poliovirus type III"
+530,0460,Kuru,Kuru
+531,04611,Varnt Creutzfeldt-Jakob,Variant Creutzfeldt-Jakob disease
+532,04619,Creutzfldt-Jakob NEC/NOS,Other and unspecified Creutzfeldt-Jakob disease
+533,0462,Subac scleros panenceph,Subacute sclerosing panencephalitis
+534,0463,Prog multifoc leukoencep,Progressive multifocal leukoencephalopathy
+535,04671,Gerstmn-Straus-Schnk syn,Gerstmann-Str?ussler-Scheinker syndrome
+536,04672,Fatal familial insomnia,Fatal familial insomnia
+537,04679,Prion dis of CNS NEC/NOS,Other and unspecified prion disease of central nervous system
+538,0468,Cns slow virus infec NEC,Other specified slow virus infection of central nervous system
+539,0469,Cns slow virus infec NOS,Unspecified slow virus infection of central nervous system
+540,0470,Coxsackie virus mening,Meningitis due to coxsackie virus
+541,0471,Echo virus meningitis,Meningitis due to echo virus
+542,0478,Viral meningitis NEC,Other specified viral meningitis
+543,0479,Viral meningitis NOS,Unspecified viral meningitis
+544,048,Oth enteroviral cns dis,Other enterovirus diseases of central nervous system
+545,0490,Lymphocytic choriomening,Lymphocytic choriomeningitis
+546,0491,Adenoviral meningitis,Meningitis due to adenovirus
+547,0498,Viral encephalitis NEC,Other specified non-arthropod-borne viral diseases of central nervous system
+548,0499,Viral encephalitis NOS,Unspecified non-arthropod-borne viral diseases of central nervous system
+549,0500,Variola major,Variola major
+550,0501,Alastrim,Alastrim
+551,0502,Modified smallpox,Modified smallpox
+552,0509,Smallpox NOS,"Smallpox, unspecified"
+553,05101,Cowpox,Cowpox
+554,05102,Vaccinia n/f vaccination,Vaccinia not from vaccination
+555,0511,Pseudocowpox,Pseudocowpox
+556,0512,Contagious pustular derm,Contagious pustular dermatitis
+557,0519,Paravaccinia NOS,"Paravaccinia, unspecified"
+558,0520,Postvaricella encephalit,Postvaricella encephalitis
+559,0521,Varicella pneumonitis,Varicella (hemorrhagic) pneumonitis
+560,0522,Postvaricella myelitis,Postvaricella myelitis
+561,0527,Varicella complicat NEC,Chickenpox with other specified complications
+562,0528,Varicella complicat NOS,Chickenpox with unspecified complication
+563,0529,Varicella uncomplicated,Varicella without mention of complication
+564,0530,Herpes zoster meningitis,Herpes zoster with meningitis
+565,05310,H zoster nerv syst NOS,Herpes zoster with unspecified nervous system complication
+566,05311,Geniculate herpes zoster,Geniculate herpes zoster
+567,05312,Postherpes trigem neural,Postherpetic trigeminal neuralgia
+568,05313,Postherpes polyneuropath,Postherpetic polyneuropathy
+569,05314,Herpes zoster myelitis,Herpes zoster myelitis
+570,05319,H zoster nerv syst NEC,Herpes zoster with other nervous system complications
+571,05320,Herpes zoster of eyelid,Herpes zoster dermatitis of eyelid
+572,05321,H zoster keratoconjunct,Herpes zoster keratoconjunctivitis
+573,05322,H zoster iridocyclitis,Herpes zoster iridocyclitis
+574,05329,Herpes zoster of eye NEC,Herpes zoster with other ophthalmic complications
+575,05371,H zoster otitis externa,Otitis externa due to herpes zoster
+576,05379,H zoster complicated NEC,Herpes zoster with other specified complications
+577,0538,H zoster complicated NOS,Herpes zoster with unspecified complication
+578,0539,Herpes zoster NOS,Herpes zoster without mention of complication
+579,0540,Eczema herpeticum,Eczema herpeticum
+580,05410,Genital herpes NOS,"Genital herpes, unspecified"
+581,05411,Herpetic vulvovaginitis,Herpetic vulvovaginitis
+582,05412,Herpetic ulcer of vulva,Herpetic ulceration of vulva
+583,05413,Herpetic infect of penis,Herpetic infection of penis
+584,05419,Genital herpes NEC,Other genital herpes
+585,0542,Herpetic gingivostomat,Herpetic gingivostomatitis
+586,0543,Herpetic encephalitis,Herpetic meningoencephalitis
+587,05440,Herpes simplex eye NOS,Herpes simplex with unspecified ophthalmic complication
+588,05441,Herpes simplex of eyelid,Herpes simplex dermatitis of eyelid
+589,05442,Dendritic keratitis,Dendritic keratitis
+590,05443,H simplex keratitis,Herpes simplex disciform keratitis
+591,05444,H simplex iridocyclitis,Herpes simplex iridocyclitis
+592,05449,Herpes simplex eye NEC,Herpes simplex with other ophthalmic complications
+593,0545,Herpetic septicemia,Herpetic septicemia
+594,0546,Herpetic whitlow,Herpetic whitlow
+595,05471,Visceral herpes simplex,Visceral herpes simplex
+596,05472,H simplex meningitis,Herpes simplex meningitis
+597,05473,H simplex otitis externa,Herpes simplex otitis externa
+598,05474,Herpes simplex myelitis,Herpes simplex myelitis
+599,05479,H simplex complicat NEC,Herpes simplex with other specified complications
+600,0548,H simplex complicat NOS,Herpes simplex with unspecified complication
+601,0549,Herpes simplex NOS,Herpes simplex without mention of complication
+602,0550,Postmeasles encephalitis,Postmeasles encephalitis
+603,0551,Postmeasles pneumonia,Postmeasles pneumonia
+604,01792,TB organ NEC-exam unkn,"Tuberculosis of other specified organs, bacteriological or histological examination unknown (at present)"
+605,01793,TB of organ NEC-micro dx,"Tuberculosis of other specified organs, tubercle bacilli found (in sputum) by microscopy"
+606,01794,TB of organ NEC-cult dx,"Tuberculosis of other specified organs, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+607,01795,TB of organ NEC-histo dx,"Tuberculosis of other specified organs, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+608,01796,TB of organ NEC-oth test,"Tuberculosis of other specified organs, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+609,01800,Acute miliary tb-unspec,"Acute miliary tuberculosis, unspecified"
+610,01801,Acute miliary tb-no exam,"Acute miliary tuberculosis, bacteriological or histological examination not done"
+611,01802,Ac miliary tb-exam unkn,"Acute miliary tuberculosis, bacteriological or histological examination unknown (at present)"
+612,01803,Ac miliary tb-micro dx,"Acute miliary tuberculosis, tubercle bacilli found (in sputum) by microscopy"
+613,01804,Acute miliary tb-cult dx,"Acute miliary tuberculosis, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+614,01805,Ac miliary tb-histo dx,"Acute miliary tuberculosis, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+615,01806,Ac miliary tb-oth test,"Acute miliary tuberculosis, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+616,01880,Miliary TB NEC-unspec,"Other specified miliary tuberculosis, unspecified"
+617,01881,Miliary TB NEC-no exam,"Other specified miliary tuberculosis, bacteriological or histological examination not done"
+618,01882,Miliary TB NEC-exam unkn,"Other specified miliary tuberculosis, bacteriological or histological examination unknown (at present)"
+619,01883,Miliary TB NEC-micro dx,"Other specified miliary tuberculosis, tubercle bacilli found (in sputum) by microscopy"
+620,01884,Miliary TB NEC-cult dx,"Other specified miliary tuberculosis, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+621,01885,Miliary TB NEC-histo dx,"Other specified miliary tuberculosis, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+622,01886,Miliary TB NEC-oth test,"Other specified miliary tuberculosis, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+623,01890,Miliary TB NOS-unspec,"Miliary tuberculosis, unspecified, unspecified"
+624,01891,Miliary TB NOS-no exam,"Miliary tuberculosis, unspecified, bacteriological or histological examination not done"
+625,01892,Miliary TB NOS-exam unkn,"Miliary tuberculosis, unspecified, bacteriological or histological examination unknown (at present)"
+626,0330,Bordetella pertussis,Whooping cough due to bordetella pertussis [B. pertussis]
+627,0331,Bordetella parapertussis,Whooping cough due to bordetella parapertussis [B. parapertussis]
+628,0338,Whooping cough NEC,Whooping cough due to other specified organism
+629,0339,Whooping cough NOS,"Whooping cough, unspecified organism"
+630,0340,Strep sore throat,Streptococcal sore throat
+631,0341,Scarlet fever,Scarlet fever
+632,035,Erysipelas,Erysipelas
+633,0360,Meningococcal meningitis,Meningococcal meningitis
+634,0361,Meningococc encephalitis,Meningococcal encephalitis
+635,0362,Meningococcemia,Meningococcemia
+636,0363,Meningococc adrenal synd,"Waterhouse-Friderichsen syndrome, meningococcal"
+637,03640,Meningococc carditis NOS,"Meningococcal carditis, unspecified"
+638,03641,Meningococc pericarditis,Meningococcal pericarditis
+639,03642,Meningococc endocarditis,Meningococcal endocarditis
+640,03643,Meningococc myocarditis,Meningococcal myocarditis
+641,03681,Meningococc optic neurit,Meningococcal optic neuritis
+642,03682,Meningococc arthropathy,Meningococcal arthropathy
+643,03689,Meningococcal infect NEC,Other specified meningococcal infections
+644,0369,Meningococcal infect NOS,"Meningococcal infection, unspecified"
+645,037,Tetanus,Tetanus
+646,0380,Streptococcal septicemia,Streptococcal septicemia
+647,03810,Staphylcocc septicem NOS,"Staphylococcal septicemia, unspecified"
+648,03811,Meth susc Staph aur sept,Methicillin susceptible Staphylococcus aureus septicemia
+649,03812,MRSA septicemia,Methicillin resistant Staphylococcus aureus septicemia
+650,03819,Staphylcocc septicem NEC,Other staphylococcal septicemia
+651,0382,Pneumococcal septicemia,Pneumococcal septicemia [Streptococcus pneumoniae septicemia]
+652,0383,Anaerobic septicemia,Septicemia due to anaerobes
+653,03840,Gram-neg septicemia NOS,"Septicemia due to gram-negative organism, unspecified"
+654,03841,H. influenae septicemia,Septicemia due to hemophilus influenzae [H. influenzae]
+655,03842,E coli septicemia,Septicemia due to escherichia coli [E. coli]
+656,03843,Pseudomonas septicemia,Septicemia due to pseudomonas
+657,03844,Serratia septicemia,Septicemia due to serratia
+658,03849,Gram-neg septicemia NEC,Other septicemia due to gram-negative organisms
+659,0388,Septicemia NEC,Other specified septicemias
+660,0389,Septicemia NOS,Unspecified septicemia
+661,0390,Cutaneous actinomycosis,Cutaneous actinomycotic infection
+662,0391,Pulmonary actinomycosis,Pulmonary actinomycotic infection
+663,0392,Abdominal actinomycosis,Abdominal actinomycotic infection
+664,0393,Cervicofac actinomycosis,Cervicofacial actinomycotic infection
+665,0394,Madura foot,Madura foot
+666,0398,Actinomycosis NEC,Actinomycotic infection of other specified sites
+667,0399,Actinomycosis NOS,Actinomycotic infection of unspecified site
+668,0400,Gas gangrene,Gas gangrene
+669,0401,Rhinoscleroma,Rhinoscleroma
+670,0402,Whipple's disease,Whipple's disease
+671,0403,Necrobacillosis,Necrobacillosis
+672,04041,Infant botulism,Infant botulism
+673,04042,Wound botulism,Wound botulism
+674,04081,Tropical pyomyositis,Tropical pyomyositis
+675,04082,Toxic shock syndrome,Toxic shock syndrome
+676,04089,Bacterial diseases NEC,Other specified bacterial diseases
+677,04100,Streptococcus unspecf,"Streptococcus infection in conditions classified elsewhere and of unspecified site, streptococcus, unspecified"
+678,04101,Streptococcus group a,"Streptococcus infection in conditions classified elsewhere and of unspecified site, streptococcus, group A"
+679,04102,Streptococcus group b,"Streptococcus infection in conditions classified elsewhere and of unspecified site, streptococcus, group B"
+680,04103,Streptococcus group c,"Streptococcus infection in conditions classified elsewhere and of unspecified site, streptococcus, group C"
+681,04104,Enterococcus group d,"Streptococcus infection in conditions classified elsewhere and of unspecified site, streptococcus, group D [Enterococcus]"
+682,04105,Streptococcus group g,"Streptococcus infection in conditions classified elsewhere and of unspecified site, streptococcus, group G"
+683,01893,Miliary TB NOS-micro dx,"Miliary tuberculosis, unspecified, tubercle bacilli found (in sputum) by microscopy"
+684,01894,Miliary TB NOS-cult dx,"Miliary tuberculosis, unspecified, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+685,01895,Miliary TB NOS-histo dx,"Miliary tuberculosis, unspecified, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+686,01896,Miliary TB NOS-oth test,"Miliary tuberculosis, unspecified, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+687,0200,Bubonic plague,Bubonic plague
+688,0201,Cellulocutaneous plague,Cellulocutaneous plague
+689,0202,Septicemic plague,Septicemic plague
+690,0203,Primary pneumonic plague,Primary pneumonic plague
+691,0204,Secondary pneumon plague,Secondary pneumonic plague
+692,0205,Pneumonic plague NOS,"Pneumonic plague, unspecified"
+693,0208,Other types of plague,Other specified types of plague
+694,0209,Plague NOS,"Plague, unspecified"
+695,0210,Ulceroglandul tularemia,Ulceroglandular tularemia
+696,0211,Enteric tularemia,Enteric tularemia
+697,0212,Pulmonary tularemia,Pulmonary tularemia
+698,0213,Oculoglandular tularemia,Oculoglandular tularemia
+699,0218,Tularemia NEC,Other specified tularemia
+700,0219,Tularemia NOS,Unspecified tularemia
+701,0220,Cutaneous anthrax,Cutaneous anthrax
+702,0221,Pulmonary anthrax,Pulmonary anthrax
+703,0222,Gastrointestinal anthrax,Gastrointestinal anthrax
+704,0223,Anthrax septicemia,Anthrax septicemia
+705,0228,Other anthrax manifest,Other specified manifestations of anthrax
+706,0229,Anthrax NOS,"Anthrax, unspecified"
+707,0230,Brucella melitensis,Brucella melitensis
+708,0231,Brucella abortus,Brucella abortus
+709,0232,Brucella suis,Brucella suis
+710,0233,Brucella canis,Brucella canis
+711,0238,Brucellosis NEC,Other brucellosis
+712,0239,Brucellosis NOS,"Brucellosis, unspecified"
+713,024,Glanders,Glanders
+714,025,Melioidosis,Melioidosis
+715,0260,Spirillary fever,Spirillary fever
+716,0261,Streptobacillary fever,Streptobacillary fever
+717,0269,Rat-bite fever NOS,Unspecified rat-bite fever
+718,0270,Listeriosis,Listeriosis
+719,0271,Erysipelothrix infection,Erysipelothrix infection
+720,0272,Pasteurellosis,Pasteurellosis
+721,0278,Zoonotic bact dis NEC,Other specified zoonotic bacterial diseases
+722,0279,Zoonotic bact dis NOS,Unspecified zoonotic bacterial disease
+723,0300,Lepromatous leprosy,Lepromatous leprosy [type L]
+724,0301,Tuberculoid leprosy,Tuberculoid leprosy [type T]
+725,0302,Indeterminate leprosy,Indeterminate leprosy [group I]
+726,0303,Borderline leprosy,Borderline leprosy [group B]
+727,0308,Leprosy NEC,Other specified leprosy
+728,0309,Leprosy NOS,"Leprosy, unspecified"
+729,0310,Pulmonary mycobacteria,Pulmonary diseases due to other mycobacteria
+730,0311,Cutaneous mycobacteria,Cutaneous diseases due to other mycobacteria
+731,0312,DMAC bacteremia,Disseminated due to other mycobacteria
+732,0318,Mycobacterial dis NEC,Other specified mycobacterial diseases
+733,0319,Mycobacterial dis NOS,Unspecified diseases due to mycobacteria
+734,0320,Faucial diphtheria,Faucial diphtheria
+735,0321,Nasopharynx diphtheria,Nasopharyngeal diphtheria
+736,0322,Ant nasal diphtheria,Anterior nasal diphtheria
+737,0323,Laryngeal diphtheria,Laryngeal diphtheria
+738,03281,Conjunctival diphtheria,Conjunctival diphtheria
+739,03282,Diphtheritic myocarditis,Diphtheritic myocarditis
+740,03283,Diphtheritic peritonitis,Diphtheritic peritonitis
+741,03284,Diphtheritic cystitis,Diphtheritic cystitis
+742,03285,Cutaneous diphtheria,Cutaneous diphtheria
+743,03289,Diphtheria NEC,Other specified diphtheria
+744,0329,Diphtheria NOS,"Diphtheria, unspecified"
+745,01302,TB meningitis-exam unkn,"Tuberculous meningitis, bacteriological or histological examination unknown (at present)"
+746,01303,TB meningitis-micro dx,"Tuberculous meningitis, tubercle bacilli found (in sputum) by microscopy"
+747,01304,TB meningitis-cult dx,"Tuberculous meningitis, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+748,01305,TB meningitis-histo dx,"Tuberculous meningitis, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+749,01306,TB meningitis-oth test,"Tuberculous meningitis, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+750,01310,Tubrclma meninges-unspec,"Tuberculoma of meninges, unspecified"
+751,01311,Tubrclma mening-no exam,"Tuberculoma of meninges, bacteriological or histological examination not done"
+752,01312,Tubrclma menin-exam unkn,"Tuberculoma of meninges, bacteriological or histological examination unknown (at present)"
+753,01313,Tubrclma mening-micro dx,"Tuberculoma of meninges, tubercle bacilli found (in sputum) by microscopy"
+754,01314,Tubrclma mening-cult dx,"Tuberculoma of meninges, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+755,01315,Tubrclma mening-histo dx,"Tuberculoma of meninges, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+756,01316,Tubrclma mening-oth test,"Tuberculoma of meninges, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+757,01320,Tuberculoma brain-unspec,"Tuberculoma of brain, unspecified"
+758,01321,Tubrcloma brain-no exam,"Tuberculoma of brain, bacteriological or histological examination not done"
+759,01322,Tubrclma brain-exam unkn,"Tuberculoma of brain, bacteriological or histological examination unknown (at present)"
+760,01323,Tubrcloma brain-micro dx,"Tuberculoma of brain, tubercle bacilli found (in sputum) by microscopy"
+761,01324,Tubrcloma brain-cult dx,"Tuberculoma of brain, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+762,01325,Tubrcloma brain-histo dx,"Tuberculoma of brain, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+763,01326,Tubrcloma brain-oth test,"Tuberculoma of brain, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+764,01330,TB brain abscess-unspec,"Tuberculous abscess of brain, unspecified"
+765,01331,TB brain abscess-no exam,"Tuberculous abscess of brain, bacteriological or histological examination not done"
+766,01332,TB brain absc-exam unkn,"Tuberculous abscess of brain, bacteriological or histological examination unknown (at present)"
+767,01333,TB brain absc-micro dx,"Tuberculous abscess of brain, tubercle bacilli found (in sputum) by microscopy"
+768,01334,TB brain abscess-cult dx,"Tuberculous abscess of brain, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+769,01335,TB brain absc-histo dx,"Tuberculous abscess of brain, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+770,01336,TB brain absc-oth test,"Tuberculous abscess of brain, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+771,01340,Tubrclma sp cord-unspec,"Tuberculoma of spinal cord, unspecified"
+772,01341,Tubrclma sp cord-no exam,"Tuberculoma of spinal cord, bacteriological or histological examination not done"
+773,01342,Tubrclma sp cd-exam unkn,"Tuberculoma of spinal cord, bacteriological or histological examination unknown (at present)"
+774,01343,Tubrclma sp crd-micro dx,"Tuberculoma of spinal cord, tubercle bacilli found (in sputum) by microscopy"
+775,01344,Tubrclma sp cord-cult dx,"Tuberculoma of spinal cord, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+776,01345,Tubrclma sp crd-histo dx,"Tuberculoma of spinal cord, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+777,01346,Tubrclma sp crd-oth test,"Tuberculoma of spinal cord, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+778,01350,TB sp crd abscess-unspec,"Tuberculous abscess of spinal cord, unspecified"
+779,01351,TB sp crd absc-no exam,"Tuberculous abscess of spinal cord, bacteriological or histological examination not done"
+780,01352,TB sp crd absc-exam unkn,"Tuberculous abscess of spinal cord, bacteriological or histological examination unknown (at present)"
+781,01353,TB sp crd absc-micro dx,"Tuberculous abscess of spinal cord, tubercle bacilli found (in sputum) by microscopy"
+782,01354,TB sp crd absc-cult dx,"Tuberculous abscess of spinal cord, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+783,01355,TB sp crd absc-histo dx,"Tuberculous abscess of spinal cord, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+784,01356,TB sp crd absc-oth test,"Tuberculous abscess of spinal cord, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+785,01360,TB encephalitis-unspec,"Tuberculous encephalitis or myelitis, unspecified"
+786,01361,TB encephalitis-no exam,"Tuberculous encephalitis or myelitis, bacteriological or histological examination not done"
+787,01362,TB encephalit-exam unkn,"Tuberculous encephalitis or myelitis, bacteriological or histological examination unknown (at present)"
+788,01363,TB encephalitis-micro dx,"Tuberculous encephalitis or myelitis, tubercle bacilli found (in sputum) by microscopy"
+789,01364,TB encephalitis-cult dx,"Tuberculous encephalitis or myelitis, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+790,01365,TB encephalitis-histo dx,"Tuberculous encephalitis or myelitis, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+791,01366,TB encephalitis-oth test,"Tuberculous encephalitis or myelitis, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+792,01380,Cns TB NEC-unspec,"Other specified tuberculosis of central nervous system, unspecified"
+793,01381,Cns TB NEC-no exam,"Other specified tuberculosis of central nervous system, bacteriological or histological examination not done"
+794,01382,Cns TB NEC-exam unkn,"Other specified tuberculosis of central nervous system, bacteriological or histological examination unknown (at present)"
+795,01383,Cns TB NEC-micro dx,"Other specified tuberculosis of central nervous system, tubercle bacilli found (in sputum) by microscopy"
+796,01384,Cns TB NEC-cult dx,"Other specified tuberculosis of central nervous system, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+797,01385,Cns TB NEC-histo dx,"Other specified tuberculosis of central nervous system, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+798,01386,Cns TB NEC-oth test,"Other specified tuberculosis of central nervous system, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+799,01390,Cns TB NOS-unspec,"Unspecified tuberculosis of central nervous system, unspecified"
+800,01391,Cns TB NOS-no exam,"Unspecified tuberculosis of central nervous system, bacteriological or histological examination not done"
+801,01392,Cns TB NOS-exam unkn,"Unspecified tuberculosis of central nervous system, bacteriological or histological examination unknown (at present)"
+802,01393,Cns TB NOS-micro dx,"Unspecified tuberculosis of central nervous system, tubercle bacilli found (in sputum) by microscopy"
+803,01394,Cns TB NOS-cult dx,"Unspecified tuberculosis of central nervous system, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+804,01395,Cns TB NOS-histo dx,"Unspecified tuberculosis of central nervous system, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+805,01396,Cns TB NOS-oth test,"Unspecified tuberculosis of central nervous system, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+806,01400,TB peritonitis-unspec,"Tuberculous peritonitis, unspecified"
+807,01401,TB peritonitis-no exam,"Tuberculous peritonitis, bacteriological or histological examination not done"
+808,01402,TB peritonitis-exam unkn,"Tuberculous peritonitis, bacteriological or histological examination unknown (at present)"
+809,01403,TB peritonitis-micro dx,"Tuberculous peritonitis, tubercle bacilli found (in sputum) by microscopy"
+810,01404,TB peritonitis-cult dx,"Tuberculous peritonitis, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+811,01405,TB peritonitis-histo dx,"Tuberculous peritonitis, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+812,01406,TB peritonitis-oth test,"Tuberculous peritonitis, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+813,01480,Intestinal TB NEC-unspec,"Other tuberculosis of intestines, peritoneum, and mesenteric glands, unspecified"
+814,01481,Intestin TB NEC-no exam,"Other tuberculosis of intestines, peritoneum, and mesenteric glands, bacteriological or histological examination not done"
+815,01482,Intest TB NEC-exam unkn,"Other tuberculosis of intestines, peritoneum, and mesenteric glands, bacteriological or histological examination unknown (at present)"
+816,01483,Intestin TB NEC-micro dx,"Other tuberculosis of intestines, peritoneum, and mesenteric glands, tubercle bacilli found (in sputum) by microscopy"
+817,01484,Intestin TB NEC-cult dx,"Other tuberculosis of intestines, peritoneum, and mesenteric glands, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+818,01485,Intestin TB NEC-histo dx,"Other tuberculosis of intestines, peritoneum, and mesenteric glands, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+819,01486,Intestin TB NEC-oth test,"Other tuberculosis of intestines, peritoneum, and mesenteric glands, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+820,01500,TB of vertebra-unspec,"Tuberculosis of vertebral column, unspecified"
+821,01501,TB of vertebra-no exam,"Tuberculosis of vertebral column, bacteriological or histological examination not done"
+822,01502,TB of vertebra-exam unkn,"Tuberculosis of vertebral column, bacteriological or histological examination unknown (at present)"
+823,01503,TB of vertebra-micro dx,"Tuberculosis of vertebral column, tubercle bacilli found (in sputum) by microscopy"
+824,01504,TB of vertebra-cult dx,"Tuberculosis of vertebral column, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+825,01505,TB of vertebra-histo dx,"Tuberculosis of vertebral column, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+826,01506,TB of vertebra-oth test,"Tuberculosis of vertebral column, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+827,01510,TB of hip-unspec,"Tuberculosis of hip, unspecified"
+828,01511,TB of hip-no exam,"Tuberculosis of hip, bacteriological or histological examination not done"
+829,01512,TB of hip-exam unkn,"Tuberculosis of hip, bacteriological or histological examination unknown (at present)"
+830,01513,TB of hip-micro dx,"Tuberculosis of hip, tubercle bacilli found (in sputum) by microscopy"
+831,01514,TB of hip-cult dx,"Tuberculosis of hip, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+832,01515,TB of hip-histo dx,"Tuberculosis of hip, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+833,01516,TB of hip-oth test,"Tuberculosis of hip, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+834,01520,TB of knee-unspec,"Tuberculosis of knee, unspecified"
+835,01521,TB of knee-no exam,"Tuberculosis of knee, bacteriological or histological examination not done"
+836,01522,TB of knee-exam unkn,"Tuberculosis of knee, bacteriological or histological examination unknown (at present)"
+837,01523,TB of knee-micro dx,"Tuberculosis of knee, tubercle bacilli found (in sputum) by microscopy"
+838,01524,TB of knee-cult dx,"Tuberculosis of knee, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+839,01525,TB of knee-histo dx,"Tuberculosis of knee, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+840,01526,TB of knee-oth test,"Tuberculosis of knee, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+841,01550,TB of limb bones-unspec,"Tuberculosis of limb bones, unspecified"
+842,01551,TB limb bones-no exam,"Tuberculosis of limb bones, bacteriological or histological examination not done"
+843,01552,TB limb bones-exam unkn,"Tuberculosis of limb bones, bacteriological or histological examination unknown (at present)"
+844,01553,TB limb bones-micro dx,"Tuberculosis of limb bones, tubercle bacilli found (in sputum) by microscopy"
+845,01554,TB limb bones-cult dx,"Tuberculosis of limb bones, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+846,01555,TB limb bones-histo dx,"Tuberculosis of limb bones, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+847,01556,TB limb bones-oth test,"Tuberculosis of limb bones, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+848,01560,TB of mastoid-unspec,"Tuberculosis of mastoid, unspecified"
+849,01561,TB of mastoid-no exam,"Tuberculosis of mastoid, bacteriological or histological examination not done"
+850,01562,TB of mastoid-exam unkn,"Tuberculosis of mastoid, bacteriological or histological examination unknown (at present)"
+851,01563,TB of mastoid-micro dx,"Tuberculosis of mastoid, tubercle bacilli found (in sputum) by microscopy"
+852,01564,TB of mastoid-cult dx,"Tuberculosis of mastoid, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+853,01565,TB of mastoid-histo dx,"Tuberculosis of mastoid, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+854,01566,TB of mastoid-oth test,"Tuberculosis of mastoid, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+855,01570,TB of bone NEC-unspec,"Tuberculosis of other specified bone, unspecified"
+856,01571,TB of bone NEC-no exam,"Tuberculosis of other specified bone, bacteriological or histological examination not done"
+857,01572,TB of bone NEC-exam unkn,"Tuberculosis of other specified bone, bacteriological or histological examination unknown (at present)"
+858,01573,TB of bone NEC-micro dx,"Tuberculosis of other specified bone, tubercle bacilli found (in sputum) by microscopy"
+859,01574,TB of bone NEC-cult dx,"Tuberculosis of other specified bone, tubercle bacilli not found (in sputum) by microscopy, but found by bacterial culture"
+860,01575,TB of bone NEC-histo dx,"Tuberculosis of other specified bone, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically"
+861,01576,TB of bone NEC-oth test,"Tuberculosis of other specified bone, tubercle bacilli not found by bacteriological or histological examination, but tuberculosis confirmed by other methods [inoculation of animals]"
+862,01580,TB of joint NEC-unspec,"Tuberculosis of other specified joint, unspecified"
+863,01581,TB of joint NEC-no exam,"Tuberculosis of other specified joint, bacteriological or histological examination not done"
+864,1289,Helminthiasis NOS,"Helminth infection, unspecified"
+865,129,Intestin parasitism NOS,"Intestinal parasitism, unspecified"
+866,1300,Toxoplasm meningoenceph,Meningoencephalitis due to toxoplasmosis
+867,1301,Toxoplasm conjunctivitis,Conjunctivitis due to toxoplasmosis
+868,1302,Toxoplasm chorioretinit,Chorioretinitis due to toxoplasmosis
+869,1303,Toxoplasma myocarditis,Myocarditis due to toxoplasmosis
+870,1304,Toxoplasma pneumonitis,Pneumonitis due to toxoplasmosis
+871,1305,Toxoplasma hepatitis,Hepatitis due to toxoplasmosis
+872,1307,Toxoplasmosis site NEC,Toxoplasmosis of other specified sites
+873,1308,Multisystem toxoplasmos,Multisystemic disseminated toxoplasmosis
+874,1309,Toxoplasmosis NOS,"Toxoplasmosis, unspecified"
+875,13100,Urogenital trichomon NOS,"Urogenital trichomoniasis, unspecified"
+876,13101,Trichomonal vaginitis,Trichomonal vulvovaginitis
+877,13102,Trichomonal urethritis,Trichomonal urethritis
+878,13103,Trichomonal prostatitis,Trichomonal prostatitis
+879,13109,Urogenital trichomon NEC,Other urogenital trichomoniasis
+880,1318,Trichomoniasis NEC,Trichomoniasis of other specified sites
+881,1319,Trichomoniasis NOS,"Trichomoniasis, unspecified"
+882,1320,Pediculus capitis,Pediculus capitis [head louse]
+883,1321,Pediculus corporis,Pediculus corporis [body louse]
+884,1322,Phthirus pubis,Phthirus pubis [pubic louse]
+885,1323,Mixed pedicul & phthirus,Mixed pediculosis infestation
+886,1329,Pediculosis NOS,"Pediculosis, unspecified"
+887,1330,Scabies,Scabies
+888,1338,Acariasis NEC,Other acariasis
+889,1339,Acariasis NOS,"Acariasis, unspecified"
+890,1340,Myiasis,Myiasis
+891,1341,Arthropod infest NEC,Other arthropod infestation
+892,1342,Hirudiniasis,Hirudiniasis
+893,1348,Infestation NEC,Other specified infestations
+894,1349,Infestation NOS,"Infestation, unspecified"
+895,135,Sarcoidosis,Sarcoidosis
+896,1360,Ainhum,Ainhum
+897,1361,Behcet's syndrome,Behcet's syndrome
+898,13621,Infectn d/t acanthamoeba,Specific infection due to acanthamoeba
+899,13629,Infc free-liv amebae NEC,Other specific infections by free-living amebae
+900,1363,Pneumocystosis,Pneumocystosis
+901,1364,Psorospermiasis,Psorospermiasis
+902,1365,Sarcosporidiosis,Sarcosporidiosis
+903,1368,Infect/parasite dis NEC,Other specified infectious and parasitic diseases
+904,1369,Infect/parasite dis NOS,Unspecified infectious and parasitic diseases
+905,1370,"Late effect tb, resp/NOS",Late effects of respiratory or unspecified tuberculosis
+906,1371,Late effect cns TB,Late effects of central nervous system tuberculosis
+907,1372,Late effect gu TB,Late effects of genitourinary tuberculosis
+908,1373,Late eff bone & joint TB,Late effects of tuberculosis of bones and joints
+909,1374,Late effect TB NEC,Late effects of tuberculosis of other specified organs
+910,138,Late effect acute polio,Late effects of acute poliomyelitis
+911,1390,Late eff viral encephal,Late effects of viral encephalitis
+912,1391,Late effect of trachoma,Late effects of trachoma
+913,1398,Late eff infect dis NEC,Late effects of other and unspecified infectious and parasitic diseases
+914,1400,Mal neo upper vermilion,"Malignant neoplasm of upper lip, vermilion border"
+915,1401,Mal neo lower vermilion,"Malignant neoplasm of lower lip, vermilion border"
+916,1403,"Mal neo upper lip, inner","Malignant neoplasm of upper lip, inner aspect"
+917,1404,"Mal neo lower lip, inner","Malignant neoplasm of lower lip, inner aspect"
+918,1405,"Mal neo lip, inner NOS","Malignant neoplasm of lip, unspecified, inner aspect"
+919,1406,"Mal neo lip, commissure",Malignant neoplasm of commissure of lip
+920,1408,Mal neo lip NEC,Malignant neoplasm of other sites of lip
+921,1409,Mal neo lip/vermil NOS,"Malignant neoplasm of lip, unspecified, vermilion border"
+922,1410,Mal neo tongue base,Malignant neoplasm of base of tongue
+923,1411,Mal neo dorsal tongue,Malignant neoplasm of dorsal surface of tongue
+924,1412,Mal neo tip/lat tongue,Malignant neoplasm of tip and lateral border of tongue
+925,1413,Mal neo ventral tongue,Malignant neoplasm of ventral surface of tongue
+926,1414,Mal neo ant 2/3 tongue,"Malignant neoplasm of anterior two-thirds of tongue, part unspecified"
+927,1415,Mal neo tongue junction,Malignant neoplasm of junctional zone of tongue
+928,1416,Mal neo lingual tonsil,Malignant neoplasm of lingual tonsil
+929,1418,Malig neo tongue NEC,Malignant neoplasm of other sites of tongue
+930,20221,Sezary's disease head,"Sezary's disease, lymph nodes of head, face, and neck"
+931,20222,Sezary's disease thorax,"Sezary's disease, intrathoracic lymph nodes"
+932,20223,Sezary's disease abdom,"Sezary's disease, intra-abdominal lymph nodes"
+933,20224,Sezary's disease axilla,"Sezary's disease, lymph nodes of axilla and upper limb"
+934,20225,Sezary's disease inguin,"Sezary's disease, lymph nodes of inguinal region and lower limb"
+935,20226,Sezary's disease pelvic,"Sezary's disease, intrapelvic lymph nodes"
+936,20227,Sezary's disease spleen,"Sezary's disease, spleen"
+937,20228,Sezary's disease mult,"Sezary's disease, lymph nodes of multiple sites"
+938,20230,Mlg hist unsp xtrndl org,"Malignant histiocytosis, unspecified site, extranodal and solid organ sites"
+939,20231,Mal histiocytosis head,"Malignant histiocytosis, lymph nodes of head, face, and neck"
+940,20232,Mal histiocytosis thorax,"Malignant histiocytosis, intrathoracic lymph nodes"
+941,20233,Mal histiocytosis abdom,"Malignant histiocytosis, intra-abdominal lymph nodes"
+942,20234,Mal histiocytosis axilla,"Malignant histiocytosis, lymph nodes of axilla and upper limb"
+943,20235,Mal histiocytosis inguin,"Malignant histiocytosis, lymph nodes of inguinal region and lower limb"
+944,20236,Mal histiocytosis pelvic,"Malignant histiocytosis, intrapelvic lymph nodes"
+945,20237,Mal histiocytosis spleen,"Malignant histiocytosis, spleen"
+946,20238,Mal histiocytosis mult,"Malignant histiocytosis, lymph nodes of multiple sites"
+947,20240,Lk rtctl unsp xtrndl org,"Leukemic reticuloendotheliosis, unspecified site, extranodal and solid organ sites"
+948,20241,Hairy-cell leukem head,"Leukemic reticuloendotheliosis, lymph nodes of head, face, and neck"
+949,20242,Hairy-cell leukem thorax,"Leukemic reticuloendotheliosis, intrathoracic lymph nodes"
+950,20243,Hairy-cell leukem abdom,"Leukemic reticuloendotheliosis, intra-abdominal lymph nodes"
+951,20244,Hairy-cell leukem axilla,"Leukemic reticuloendotheliosis, lymph nodes of axilla and upper arm"
+952,20245,Hairy-cell leukem inguin,"Leukemic reticuloendotheliosis, lymph nodes of inguinal region and lower limb"
+953,20246,Hairy-cell leukem pelvic,"Leukemic reticuloendotheliosis, intrapelvic lymph nodes"
+954,20247,Hairy-cell leukem spleen,"Leukemic reticuloendotheliosis, spleen"
+955,20248,Hairy-cell leukem mult,"Leukemic reticuloendotheliosis, lymph nodes of multiple sites"
+956,20250,Ltr-siwe unsp xtrndl org,"Letterer-siwe disease, unspecified site, extranodal and solid organ sites"
+957,0552,Postmeasles otitis media,Postmeasles otitis media
+958,05571,Measles keratitis,Measles keratoconjunctivitis
+959,05579,Measles complication NEC,Measles with other specified complications
+960,0558,Measles complication NOS,Measles with unspecified complication
+961,0559,Measles uncomplicated,Measles without mention of complication
+962,05600,Rubella nerve compl NOS,Rubella with unspecified neurological complication
+963,05601,Rubella encephalitis,Encephalomyelitis due to rubella
+964,05609,Rubella nerve compl NEC,Rubella with other neurological complications
+965,05671,Arthritis due to rubella,Arthritis due to rubella
+966,05679,Rubella complication NEC,Rubella with other specified complications
+967,0568,Rubella complication NOS,Rubella with unspecified complications
+968,0569,Rubella uncomplicated,Rubella without mention of complication
+969,0570,Erythema infectiosum,Erythema infectiosum (fifth disease)
+970,0578,Viral exanthemata NEC,Other specified viral exanthemata
+971,0579,Viral exanthemata NOS,"Viral exanthem, unspecified"
+972,05810,Roseola infantum NOS,"Roseola infantum, unspecified"
+973,05811,Roseola infant d/t HHV-6,Roseola infantum due to human herpesvirus 6
+974,05812,Roseola infant d/t HHV-7,Roseola infantum due to human herpesvirus 7
+975,05821,Human herpesvir 6 enceph,Human herpesvirus 6 encephalitis
+976,05829,Human herpesvr encph NEC,Other human herpesvirus encephalitis
+977,05881,Human herpesvirus 6 infc,Human herpesvirus 6 infection
+978,05882,Human herpesvirus 7 infc,Human herpesvirus 7 infection
+979,05889,Human herpesvirs inf NEC,Other human herpesvirus infection
+980,05900,Orthopoxvirus infect NOS,"Orthopoxvirus infection, unspecified"
+981,05901,Monkeypox,Monkeypox
+982,05909,Orthopoxvirus infect NEC,Other orthopoxvirus infections
+983,05910,Parapoxvirus infectn NOS,"Parapoxvirus infection, unspecified"
+984,05911,Bovine stomatitis,Bovine stomatitis
+985,05912,Sealpox,Sealpox
+986,05919,Parapoxvirus infectn NEC,Other parapoxvirus infections
+987,05920,Yatapoxvirus infectn NOS,"Yatapoxvirus infection, unspecified"
+988,05921,Tanapox,Tanapox
+989,05922,Yaba monkey tumor virus,Yaba monkey tumor virus
+990,0598,Poxvirus infections NEC,Other poxvirus infections
+991,0599,Poxvirus infection NOS,"Poxvirus infections, unspecified"
+992,0600,Sylvatic yellow fever,Sylvatic yellow fever
+993,0601,Urban yellow fever,Urban yellow fever
+994,0609,Yellow fever NOS,"Yellow fever, unspecified"
+995,061,Dengue,Dengue
+996,0620,Japanese encephalitis,Japanese encephalitis
+997,0621,West equine encephalitis,Western equine encephalitis
+998,0622,East equine encephalitis,Eastern equine encephalitis
+999,0623,St Louis encephalitis,St. Louis encephalitis

@@ -6,7 +6,7 @@ We have created a very light API that will allow you to send `POST` requests and
 ```
 {
  "data": {...}
- "method": "pxf2bff"
+ "method": "pfx2bff"
 }
 ```
 

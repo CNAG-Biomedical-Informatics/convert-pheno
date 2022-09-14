@@ -1,0 +1,1004 @@
+[
+   {
+      "diseases" : {
+         "hadm_id" : "169938",
+         "icd9_code" : "2859",
+         "row_id" : "113129",
+         "seq_num" : "17",
+         "subject_id" : "10088"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10088"
+   },
+   {
+      "diseases" : null,
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : null
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "109698",
+         "icd9_code" : "2768",
+         "row_id" : "380312",
+         "seq_num" : "11",
+         "subject_id" : "40286"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "40286"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "177759",
+         "icd9_code" : "7299",
+         "row_id" : "112471",
+         "seq_num" : "14",
+         "subject_id" : "10019"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10019"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "160442",
+         "icd9_code" : "73689",
+         "row_id" : "112896",
+         "seq_num" : "8",
+         "subject_id" : "10067"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10067"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "105331",
+         "icd9_code" : "2760",
+         "row_id" : "112399",
+         "seq_num" : "6",
+         "subject_id" : "10011"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10011"
+   },
+   {
+      "diseases" : null,
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : null
+   },
+   {
+      "diseases" : null,
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : null
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "134993",
+         "icd9_code" : "04182",
+         "row_id" : "113052",
+         "seq_num" : "23",
+         "subject_id" : "10083"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10083"
+   },
+   {
+      "diseases" : null,
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : null
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "198503",
+         "icd9_code" : "E9331",
+         "row_id" : "112985",
+         "seq_num" : "15",
+         "subject_id" : "10076"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10076"
+   },
+   {
+      "diseases" : null,
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : null
+   },
+   {
+      "diseases" : null,
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : null
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "111115",
+         "icd9_code" : "04102",
+         "row_id" : "112630",
+         "seq_num" : "20",
+         "subject_id" : "10038"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10038"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "145024",
+         "icd9_code" : "5990",
+         "row_id" : "387964",
+         "seq_num" : "2",
+         "subject_id" : "41976"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "41976"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "103770",
+         "icd9_code" : "2859",
+         "row_id" : "112512",
+         "seq_num" : "7",
+         "subject_id" : "10026"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10026"
+   },
+   {
+      "diseases" : null,
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : null
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "157235",
+         "icd9_code" : "53390",
+         "row_id" : "112583",
+         "seq_num" : "12",
+         "subject_id" : "10033"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10033"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "132349",
+         "icd9_code" : "V1046",
+         "row_id" : "112553",
+         "seq_num" : "23",
+         "subject_id" : "10029"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10029"
+   },
+   {
+      "diseases" : null,
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : null
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "170119",
+         "icd9_code" : "V5861",
+         "row_id" : "112957",
+         "seq_num" : "12",
+         "subject_id" : "10074"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10074"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "127703",
+         "icd9_code" : "V1302",
+         "row_id" : "380301",
+         "seq_num" : "10",
+         "subject_id" : "40277"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "40277"
+   },
+   {
+      "diseases" : null,
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : null
+   },
+   {
+      "diseases" : null,
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : null
+   },
+   {
+      "diseases" : null,
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : null
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "116518",
+         "icd9_code" : "V153",
+         "row_id" : "381732",
+         "seq_num" : "24",
+         "subject_id" : "40595"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "40595"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "146893",
+         "icd9_code" : "7821",
+         "row_id" : "379799",
+         "seq_num" : "7",
+         "subject_id" : "40124"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "40124"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "197611",
+         "icd9_code" : "V1042",
+         "row_id" : "113524",
+         "seq_num" : "9",
+         "subject_id" : "10132"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10132"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "168674",
+         "icd9_code" : "28529",
+         "row_id" : "112670",
+         "seq_num" : "8",
+         "subject_id" : "10043"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10043"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "101361",
+         "icd9_code" : "V1582",
+         "row_id" : "387658",
+         "seq_num" : "31",
+         "subject_id" : "41914"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "41914"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "174997",
+         "icd9_code" : "V1011",
+         "row_id" : "380384",
+         "seq_num" : "18",
+         "subject_id" : "40304"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "40304"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "175237",
+         "icd9_code" : "V0254",
+         "row_id" : "380054",
+         "seq_num" : "15",
+         "subject_id" : "40204"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "40204"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "174739",
+         "icd9_code" : "78057",
+         "row_id" : "113295",
+         "seq_num" : "9",
+         "subject_id" : "10111"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10111"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "164869",
+         "icd9_code" : "28959",
+         "row_id" : "113240",
+         "seq_num" : "13",
+         "subject_id" : "10102"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10102"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "168074",
+         "icd9_code" : "2449",
+         "row_id" : "113189",
+         "seq_num" : "12",
+         "subject_id" : "10094"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10094"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "165436",
+         "icd9_code" : "4019",
+         "row_id" : "113383",
+         "seq_num" : "5",
+         "subject_id" : "10119"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10119"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "168803",
+         "icd9_code" : "4240",
+         "row_id" : "381247",
+         "seq_num" : "14",
+         "subject_id" : "40503"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "40503"
+   },
+   {
+      "diseases" : null,
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : null
+   },
+   {
+      "diseases" : null,
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : null
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "148562",
+         "icd9_code" : "4439",
+         "row_id" : "112662",
+         "seq_num" : "9",
+         "subject_id" : "10042"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10042"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "160445",
+         "icd9_code" : "5762",
+         "row_id" : "113469",
+         "seq_num" : "14",
+         "subject_id" : "10126"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10126"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "176805",
+         "icd9_code" : "7806",
+         "row_id" : "113142",
+         "seq_num" : "8",
+         "subject_id" : "10090"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10090"
+   },
+   {
+      "diseases" : null,
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : null
+   },
+   {
+      "diseases" : null,
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : null
+   },
+   {
+      "diseases" : null,
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : null
+   },
+   {
+      "diseases" : null,
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : null
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "167957",
+         "icd9_code" : "5939",
+         "row_id" : "113327",
+         "seq_num" : "9",
+         "subject_id" : "10114"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10114"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "129273",
+         "icd9_code" : "V103",
+         "row_id" : "382077",
+         "seq_num" : "15",
+         "subject_id" : "40687"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "40687"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "193924",
+         "icd9_code" : "E9361",
+         "row_id" : "113396",
+         "seq_num" : "13",
+         "subject_id" : "10120"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10120"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "140372",
+         "icd9_code" : "5849",
+         "row_id" : "112571",
+         "seq_num" : "9",
+         "subject_id" : "10032"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10032"
+   },
+   {
+      "diseases" : null,
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : null
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "182664",
+         "icd9_code" : "E8788",
+         "row_id" : "113442",
+         "seq_num" : "17",
+         "subject_id" : "10124"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10124"
+   },
+   {
+      "diseases" : null,
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : null
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "183314",
+         "icd9_code" : "73300",
+         "row_id" : "112881",
+         "seq_num" : "11",
+         "subject_id" : "10065"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10065"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "126002",
+         "icd9_code" : "V4581",
+         "row_id" : "381969",
+         "seq_num" : "18",
+         "subject_id" : "40655"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "40655"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "126949",
+         "icd9_code" : "V4582",
+         "row_id" : "112706",
+         "seq_num" : "27",
+         "subject_id" : "10045"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10045"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "182839",
+         "icd9_code" : "7806",
+         "row_id" : "113484",
+         "seq_num" : "15",
+         "subject_id" : "10127"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10127"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "138132",
+         "icd9_code" : "27801",
+         "row_id" : "387283",
+         "seq_num" : "22",
+         "subject_id" : "41795"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "41795"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "180685",
+         "icd9_code" : "87349",
+         "row_id" : "113207",
+         "seq_num" : "5",
+         "subject_id" : "10098"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10098"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "156668",
+         "icd9_code" : "25000",
+         "row_id" : "113507",
+         "seq_num" : "9",
+         "subject_id" : "10130"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10130"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "100375",
+         "icd9_code" : "99592",
+         "row_id" : "112779",
+         "seq_num" : "9",
+         "subject_id" : "10056"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10056"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "110244",
+         "icd9_code" : "412",
+         "row_id" : "112589",
+         "seq_num" : "4",
+         "subject_id" : "10035"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10035"
+   },
+   {
+      "diseases" : null,
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : null
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "165393",
+         "icd9_code" : "41401",
+         "row_id" : "113169",
+         "seq_num" : "10",
+         "subject_id" : "10093"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10093"
+   },
+   {
+      "diseases" : null,
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : null
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "142582",
+         "icd9_code" : "4019",
+         "row_id" : "112828",
+         "seq_num" : "9",
+         "subject_id" : "10059"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10059"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "187023",
+         "icd9_code" : "2875",
+         "row_id" : "113358",
+         "seq_num" : "5",
+         "subject_id" : "10117"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10117"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "142345",
+         "icd9_code" : "3051",
+         "row_id" : "112364",
+         "seq_num" : "21",
+         "subject_id" : "10006"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10006"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "189483",
+         "icd9_code" : "2449",
+         "row_id" : "112603",
+         "seq_num" : "14",
+         "subject_id" : "10036"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10036"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "161765",
+         "icd9_code" : "2811",
+         "row_id" : "380948",
+         "seq_num" : "9",
+         "subject_id" : "40456"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "40456"
+   },
+   {
+      "diseases" : null,
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : null
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "124073",
+         "icd9_code" : "28522",
+         "row_id" : "112679",
+         "seq_num" : "9",
+         "subject_id" : "10044"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10044"
+   },
+   {
+      "diseases" : null,
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : null
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "190301",
+         "icd9_code" : "41400",
+         "row_id" : "113134",
+         "seq_num" : "5",
+         "subject_id" : "10089"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10089"
+   },
+   {
+      "diseases" : null,
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : null
+   },
+   {
+      "diseases" : null,
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : null
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "177678",
+         "icd9_code" : "73300",
+         "row_id" : "113253",
+         "seq_num" : "9",
+         "subject_id" : "10104"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10104"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "157839",
+         "icd9_code" : "53081",
+         "row_id" : "112645",
+         "seq_num" : "9",
+         "subject_id" : "10040"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10040"
+   },
+   {
+      "diseases" : null,
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : null
+   },
+   {
+      "diseases" : null,
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : null
+   },
+   {
+      "diseases" : null,
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : null
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "165520",
+         "icd9_code" : "2724",
+         "row_id" : "112418",
+         "seq_num" : "9",
+         "subject_id" : "10013"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10013"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "111761",
+         "icd9_code" : "E8348",
+         "row_id" : "112870",
+         "seq_num" : "4",
+         "subject_id" : "10064"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10064"
+   },
+   {
+      "diseases" : null,
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : null
+   },
+   {
+      "diseases" : null,
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : null
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "133110",
+         "icd9_code" : "V1042",
+         "row_id" : "112709",
+         "seq_num" : "3",
+         "subject_id" : "10046"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10046"
+   },
+   {
+      "diseases" : null,
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : null
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "199395",
+         "icd9_code" : "79092",
+         "row_id" : "112524",
+         "seq_num" : "12",
+         "subject_id" : "10027"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10027"
+   },
+   {
+      "diseases" : null,
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : null
+   },
+   {
+      "diseases" : null,
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : null
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "186361",
+         "icd9_code" : "45829",
+         "row_id" : "380486",
+         "seq_num" : "36",
+         "subject_id" : "40310"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "40310"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "199207",
+         "icd9_code" : "4019",
+         "row_id" : "112457",
+         "seq_num" : "14",
+         "subject_id" : "10017"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10017"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "146672",
+         "icd9_code" : "25000",
+         "row_id" : "112914",
+         "seq_num" : "9",
+         "subject_id" : "10069"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10069"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "133283",
+         "icd9_code" : "25000",
+         "row_id" : "113262",
+         "seq_num" : "5",
+         "subject_id" : "10106"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10106"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "198480",
+         "icd9_code" : "41400",
+         "row_id" : "379915",
+         "seq_num" : "19",
+         "subject_id" : "40177"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "40177"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "142539",
+         "icd9_code" : "19889",
+         "row_id" : "113227",
+         "seq_num" : "7",
+         "subject_id" : "10101"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10101"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "188574",
+         "icd9_code" : "56210",
+         "row_id" : "113304",
+         "seq_num" : "9",
+         "subject_id" : "10112"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10112"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "182879",
+         "icd9_code" : "2724",
+         "row_id" : "381789",
+         "seq_num" : "11",
+         "subject_id" : "40601"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "40601"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "104697",
+         "icd9_code" : "29570",
+         "row_id" : "381839",
+         "seq_num" : "11",
+         "subject_id" : "40612"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "40612"
+   },
+   {
+      "diseases" : {
+         "hadm_id" : "145203",
+         "icd9_code" : "48282",
+         "row_id" : "112853",
+         "seq_num" : "9",
+         "subject_id" : "10061"
+      },
+      "ethnicity" : null,
+      "geographicOrigin" : null,
+      "id" : "10061"
+   }
+]

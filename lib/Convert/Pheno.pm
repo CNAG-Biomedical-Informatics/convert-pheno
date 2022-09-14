@@ -105,17 +105,17 @@ my @omop_extra_tables = qw(
 
 #############
 #############
-#  PXF2BFF  #
+#  PFX2BFF  #
 #############
 #############
 
-sub pxf2bff {
+sub pfx2bff {
 
     # <array_dispatcher> will deal with JSON arrays
     return array_dispatcher(shift);
 }
 
-sub do_pxf2bff {
+sub do_pfx2bff {
 
     my ( $self, $data ) = @_;
     my $sth = $self->{sth};
@@ -128,7 +128,7 @@ sub do_pxf2bff {
     # START MAPPING TO BEACON V2 TERMS #
     ####################################
 
-    # NB: In PXF some terms are = []
+    # NB: In PFX some terms are = []
     my $individual;
 
     # ========
@@ -219,17 +219,17 @@ sub do_pxf2bff {
 
 #############
 #############
-#  BFF2PXF  #
+#  BFF2PFX  #
 #############
 #############
 
-sub bff2pxf {
+sub bff2pfx {
 
     # <array_dispatcher> will deal with JSON arrays
     return array_dispatcher(shift);
 }
 
-sub do_bff2pxf {
+sub do_bff2pfx {
 
     my ( $self, $data ) = @_;
 
@@ -242,26 +242,26 @@ sub do_bff2pxf {
 
     # We need to shuffle a bit some Beacon v2 properties to be Phenopacket compliant
     # https://phenopacket-schema.readthedocs.io/en/latest/phenopacket.html
-    my $pxf;
+    my $pfx;
 
     # ==
     # id
     # ==
 
-    $pxf->{id} = 'phenopacket_id.' . randStr(8);
+    $pfx->{id} = 'phenopacket_id.' . randStr(8);
 
     # =======
     # subject
     # =======
 
-    $pxf->{subject} =
+    $pfx->{subject} =
       { id => $data->{id}, sex => $data->{sex}, age => $data->{info}{age} };
 
     # ===================
     # phenotypic_features
     # ===================
 
-    $pxf->{phenotypicFeatures} =
+    $pfx->{phenotypicFeatures} =
       [ map { { type => $_->{featureType}, _notes => $_->{notes} } }
           @{ $data->{phenotypicFeatures} } ];
 
@@ -269,7 +269,7 @@ sub do_bff2pxf {
     # measures
     # ========
 
-    $pxf->{measures} = [
+    $pfx->{measures} = [
         map {
             {
                 assay        => $_->{assayCode},
@@ -293,7 +293,7 @@ sub do_bff2pxf {
     # diseases
     # ========
 
-    $pxf->{diseases} =
+    $pfx->{diseases} =
       [ map { { term => $_->{diseaseCode}, onset => $_->{ageOfOnset} } }
           @{ $data->{diseases} } ];
 
@@ -332,8 +332,8 @@ sub do_bff2pxf {
     ];
     $medical_actions->{treatment} = $treatment;
 
-    # Load $pxf->{medicalActions}
-    $pxf->{medicalActions} = $medical_actions;
+    # Load $pfx->{medicalActions}
+    $pfx->{medicalActions} = $medical_actions;
 
     # =====
     # files
@@ -344,7 +344,7 @@ sub do_bff2pxf {
     # =========
 
     # Depending on the origion (redcap) , _info and resources may exist
-    $pxf->{metaData} =
+    $pfx->{metaData} =
       exists $data->{info}{metaData}
       ? $data->{info}{metaData}
       : get_metaData();
@@ -353,7 +353,7 @@ sub do_bff2pxf {
     # END MAPPING TO PHENOPACKET V2 TERMS #
     #######################################
 
-    return $pxf;
+    return $pfx;
 }
 
 ################
@@ -896,11 +896,11 @@ sub do_redcap2bff {
 
 ################
 ################
-#  REDCAP2PXF  #
+#  REDCAP2PFX  #
 ################
 ################
 
-sub redcap2pxf {
+sub redcap2pfx {
 
     my $self = shift;
 
@@ -908,8 +908,8 @@ sub redcap2pxf {
     $self->{method} = 'redcap2bff';    # setter - we have to change the value of attr {method}
     my $bff = redcap2bff($self);       # array
 
-    # Preparing for second iteration: bff2pxf
-    $self->{method}      = 'bff2pxf';    # setter
+    # Preparing for second iteration: bff2pfx
+    $self->{method}      = 'bff2pfx';    # setter
     $self->{data}        = $bff;         # setter
     $self->{in_textfile} = 0;            # setter
 
@@ -1634,11 +1634,11 @@ sub do_omop2bff {
 
 ##############
 ##############
-#  OMOP2PXF  #
+#  OMOP2PFX  #
 ##############
 ##############
 
-sub omop2pxf {
+sub omop2pfx {
 
     my $self = shift;
 
@@ -1646,9 +1646,9 @@ sub omop2pxf {
     $self->{method} = 'omop2bff';    # setter - we have to change the value of attr {method}
     my $bff = omop2bff($self);       # array
 
-    # Preparing for second iteration: bff2pxf
+    # Preparing for second iteration: bff2pfx
     # NB: This 2nd round may take a while if #inviduals > 1000!!!
-    $self->{method}      = 'bff2pxf';    # setter
+    $self->{method}      = 'bff2pfx';    # setter
     $self->{data}        = $bff;         # setter
     $self->{in_textfile} = 0;            # setter
 
@@ -2594,14 +2594,14 @@ sub array_dispatcher {
 
     # Define the methods to call (naming 'func' to avoid confussion with $self->{method})
     my %func = (
-        pxf2bff    => \&do_pxf2bff,
+        pfx2bff    => \&do_pfx2bff,
         redcap2bff => \&do_redcap2bff,
         omop2bff   => \&do_omop2bff,
-        bff2pxf    => \&do_bff2pxf
+        bff2pfx    => \&do_bff2pfx
     );
 
     # Open connection to SQLlite databases ONCE
-    open_connections_SQLite($self) if $self->{method} ne 'bff2pxf';
+    open_connections_SQLite($self) if $self->{method} ne 'bff2pfx';
 
     # Proceed depending if we have an ARRAY or not
     my $out_data;
@@ -2628,7 +2628,7 @@ sub array_dispatcher {
     }
 
     # Close connections ONCE
-    close_connections_SQLite($self) unless $self->{method} eq 'bff2pxf';
+    close_connections_SQLite($self) unless $self->{method} eq 'bff2pfx';
 
     return $out_data;
 }

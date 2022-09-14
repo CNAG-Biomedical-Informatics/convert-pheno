@@ -18,12 +18,12 @@ Example (please see all options at CPAN):
 use Convert::Pheno;
 
 # Define method
-my $method = 'pxf2bff';
+my $method = 'pfx2bff';
 
 # Create object
 my $convert = Convert::Pheno->new(
  {
-     data => $my_pxf_json_data,
+     data => $my_pfx_json_data,
      method => $method
  }
 );
@@ -46,12 +46,12 @@ import pyperler; i = pyperler.Interpreter()
 # use a CPAN module (must be installed!!)
 CP = i.use('Convert::Pheno')
 
-method = 'pxf2bff'
+method = 'pfx2bff'
 convert = CP
 (
     { 
         'method' method,
-        'data' : my_pxf_json_data
+        'data' : my_pfx_json_data
     }
 )
 hashref = convert.method
