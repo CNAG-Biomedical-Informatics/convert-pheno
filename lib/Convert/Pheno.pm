@@ -293,14 +293,47 @@ sub do_bff2pxf {
     # diseases
     # ========
 
-    $pxf->{diseases} = [
-        map { { term => $_->{diseaseCode}, onset => $_->{ageOfOnset} } }
-          @{ $data->{diseases} }
-    ];
+    $pxf->{diseases} =
+      [ map { { term => $_->{diseaseCode}, onset => $_->{ageOfOnset} } }
+          @{ $data->{diseases} } ];
 
     # ===============
     # medical_actions
     # ===============
+
+    my $medical_actions = {};
+
+    # **** procedures ****
+    my $procedures = [
+        map {
+            {
+                code      => $_->{procedureCode},
+                performed => {
+                    timestamp => exists $_->{dateOfProcedure}
+                    ? $_->{dateOfProcedure}
+                    : undef
+                }
+            }
+        } @{ $data->{interventionsOrProcedures} }
+    ];
+    $medical_actions->{procedure} = $procedures;
+
+    # **** treatment ****
+    my $treatment = [
+        map {
+            {
+                agent                 => $_->{treatmentCode},
+                routeOfAdministration => $_->{routeOfAdministration},
+                doseIntervals         => $_->{doseIntervals}
+
+                  #performed => { timestamp => exists $_->{dateOfProcedure} ? $_->{dateOfProcedure} : undef}
+            }
+        } @{ $data->{treatments} }
+    ];
+    $medical_actions->{treatment} = $treatment;
+
+    # Load $pxf->{medicalActions}
+    $pxf->{medicalActions} = $medical_actions;
 
     # =====
     # files
