@@ -23,7 +23,7 @@ my $method = 'pxf2bff';
 # Create object
 my $convert = Convert::Pheno->new(
  {
-     data => $my_pxf_json_data
+     data => $my_pxf_json_data,
      method => $method
  }
 );
