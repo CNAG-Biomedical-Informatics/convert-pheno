@@ -20,7 +20,7 @@ nav:
       - As an API: use-as-an-api.md
   - Formats accepted:
       - Beacon v2 (BFF): bff.md
-      - Phenopacket (PXF): https://phenopacket-schema.readthedocs.io/en/latest/basics.html
+      - Phenopacket (PFX): https://phenopacket-schema.readthedocs.io/en/latest/basics.html
       - REDCap: https://www.project-redcap.org
       - OMOP-CDM: https://www.ohdsi.org/data-standardization/the-common-data-model
       - CDISC: https://www.cdisc.org/standards

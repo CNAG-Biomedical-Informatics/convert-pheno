@@ -1,33 +1,54 @@
 #!/usr/bin/env perl
 #
 # Author: Manuel Rueda <manuel.ruedal@cnag.crg.eu>
-# Date  : 14-Sep-2022
+# Date  : Sep/14/2022
 
 use strict;
 use warnings;
 use Path::Tiny;
+use Data::Dumper;
 use JSON::XS;
 use JSON::Validator;
+use feature qw(say);
+use FindBin qw($Bin);
 
-die "Please provide a <pfx.json> file as input" unless @ARGV;
+print "Please provide a <pfx.json> file as input\n" and exit if $#ARGV;
+
+my $debug = 0;
 
 # Load schema
-my $schema = read_json("phenopacket-schema-2-0.json");
+my $schema    = read_json("$Bin/phenopacket-schema-2-0.json");
 my $validator = JSON::Validator->new($schema);
 
 # Load your data
-my $data = read_json($ARGV[0]);
+my $data = read_json( $ARGV[0] );
 
 # Validate data
-my @errors = $validator->validate($data);
+my @errors;
+
+# ARRAY
+if ( ref $data eq ref [] ) {
+    say "ARRAY" if $debug;
+    my $count = 1;
+    for (@$data) {
+        say "Validating document $count" if $debug;
+        $validator->validate($_);
+        push @errors, $validator->validate($_);
+        $count++;
+    }
+}
+
+# NON-ARRAY
+else {
+    say "HASH" if $debug;
+    @errors = $validator->validate($data);
+}
 
 # Die if errors were found
 die "@errors" if @errors;
 
 sub read_json {
 
-    my $json_file = shift;
-    my $str       = path($json_file)->slurp_utf8;
-    my $json      = decode_json($str);           # Decode to Perl data structure
-    return $json;
+    my $str = path(shift)->slurp_utf8;
+    return decode_json($str);    # Decode to Perl data structure
 }

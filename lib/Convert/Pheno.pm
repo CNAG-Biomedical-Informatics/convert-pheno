@@ -2074,10 +2074,8 @@ sub transpose_omop_data_structure {
 
 sub read_json {
 
-    my $json_file = shift;
-    my $str       = path($json_file)->slurp_utf8;
-    my $json      = decode_json($str);              # Decode to Perl data structure
-    return $json;
+    my $str       = path(shift)->slurp_utf8;
+    return decode_json($str); # Decode to Perl data structure
 }
 
 sub write_json {
