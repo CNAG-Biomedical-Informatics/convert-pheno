@@ -31,7 +31,7 @@ use lib "$Bin/../lib";
 use Convert::Pheno;
 
 #perl convert-pheno-api get -M POST -c '{"method":"bff2pfx"}' /in
-post '/in' => sub ($c) {
+post '/data' => sub ($c) {
   my $hash = $c->req->json;
   my $convert  = Convert::Pheno->new($hash);
   my $method = $hash->{method};
