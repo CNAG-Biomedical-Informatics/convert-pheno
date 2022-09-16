@@ -227,18 +227,20 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
              -opfx                    Phenopacket JSON file
 
      Options:
-       -out-dir                       Output (existing) directory
+       -debug                         Print debugging (from 1 to 5, being 5 max)
+       -format                        Output format for the text file [>json|yaml]
        -h|help                        Brief help message
        -man                           Full documentation
-       -debug                         Print debugging (from 1 to 5, being 5 max)
-       -verbose                       Verbosity on
        -nc|-no-color                  Don't print colors to STDOUT
-       -format                        Output format for the text file [>json|yaml]
-       -rcd|redcap-dictionary         Dictionary file (CSV) exported from REDCap
-       -phl|print-hidden-labels       Print original values (before DB mapping) of text fields <_labels>
        -ohdsi-db                      Use Athena-OHDSI database (~1.1GB) with -iomop
+       -out-dir                       Output (existing) directory
+       -phl|print-hidden-labels       Print original values (before DB mapping) of text fields <_labels>
+       -rcd|redcap-dictionary         Dictionary file (CSV) exported from REDCap
        -sep|separator                 Delimiter character for CSV files
-     
+       -sql2csv                       Print SQL TABLES (with -iomop)
+       -verbose                       Verbosity on
+       -v                             Print Version
+
 =head1 DESCRIPTION
 
 C<convert-pheno> is a command-line front-end to the CPAN's module L<Convert::Pheno>.
