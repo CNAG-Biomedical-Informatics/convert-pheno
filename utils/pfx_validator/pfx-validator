@@ -84,7 +84,7 @@ sub validate_input_data {
     # Finally validate each file
     for my $file (@in_files) {
         say "==== PROCESSING <$file> ==== file";
-        say process_files( { file => $file, validator => $validator } );
+        print process_files( { file => $file, validator => $validator } );
     }
 }
 
@@ -123,7 +123,7 @@ sub check_array {
             # Validation with JSON::Validator
             my $error = validate_against_json_schema(
                 { data => $_, validator => $validator } );
-            push @{$errors}, ( "Row", $count, ":\n", join "\n", @$error )
+            push @{$errors}, ( "Row", $count, ":\n", (join "\n", @$error), "\n" )
               if defined $error;
             $count++;
         }
@@ -135,7 +135,7 @@ sub check_array {
         say "Only 1 document found" if $debug;
         my $error = validate_against_json_schema(
             { data => $data, validator => $validator } );
-        push @{$errors}, ( "Row", 1, ":\n", join "\n", @$error )
+        push @{$errors}, ( "Row", 1, ":\n", (join "\n", @$error), "\n" )
           if defined $error;
     }
 

@@ -1,0 +1,3851 @@
+[
+   {
+      "diseases" : [
+         {
+            "onset" : {
+               "ageRange" : {
+                  "end" : {
+                     "iso8601duration" : 9
+                  },
+                  "start" : {
+                     "iso8601duration" : 0
+                  }
+               }
+            },
+            "term" : {
+               "id" : "NCIT:C3138",
+               "label" : "Inflammatory Bowel Disease"
+            }
+         }
+      ],
+      "id" : "phenopacket_id.Zwzgid4Mg",
+      "measures" : [
+         {
+            "assay" : {
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 200,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 8.91
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 20,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64783",
+                     "label" : "Gram per Deciliter"
+                  },
+                  "value" : 11.2
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 100,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C25613",
+                     "label" : "Percentage"
+                  },
+                  "value" : 34
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 2000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 442
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C48508",
+                     "label" : "Micromole per Liter"
+                  },
+                  "value" : 76
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 200,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 123
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C48508",
+                     "label" : "Micromole per Liter"
+                  },
+                  "value" : 3.5
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 18
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 19
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 46
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 1000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 1.77
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C74679",
+               "label" : "Iron Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 1000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C48508",
+                     "label" : "Micromole per Liter"
+                  },
+                  "value" : 3.7
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67327",
+                     "label" : "Nanogram per Liter"
+                  },
+                  "value" : 2.3
+               }
+            }
+         }
+      ],
+      "medicalActions" : {
+         "procedure" : [
+            {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01"
+               }
+            }
+         ],
+         "treatment" : [
+            {
+               "agent" : {
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C769",
+                  "label" : "Prednisolone"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C290",
+                  "label" : "Azathioprine"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C642",
+                  "label" : "Methotrexate"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C195",
+                  "label" : "Mercaptopurine"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         ]
+      },
+      "metaData" : {
+         "_info" : {
+            "Convert-Pheno" : "0.0.0b",
+            "cwd" : "/media/mrueda/4TBT/CNAG/Project_3TR/Convert-Pheno/t/redcap2pfx/out",
+            "hostname" : "mrueda-ws3",
+            "ncpuhost" : 2,
+            "user" : "mrueda"
+         },
+         "resources" : [
+            {
+               "id" : "ICD10",
+               "name" : "International Statistical Classification of Diseases and Related Health Problems 10th Revision",
+               "namespacePrefix" : "ICD-10",
+               "url" : "https://icd.who.int/browse10/2019/en#",
+               "version" : "2019"
+            },
+            {
+               "id" : "NCIT",
+               "name" : "NCI Thesaurus",
+               "namespacePrefix" : "NCIT",
+               "url" : " http://purl.obolibrary.org/obo/ncit.owl",
+               "version" : "22.03d"
+            }
+         ]
+      },
+      "phenotypicFeatures" : [
+         {
+            "_notes" : "rectal_bleeding, Field Label=Rectal bleeding score",
+            "type" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
+      "subject" : {
+         "age" : {
+            "iso8601duration" : "P2Y"
+         },
+         "id" : "2",
+         "sex" : {
+            "id" : "NCIT:C20197",
+            "label" : "Male"
+         }
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "onset" : {
+               "ageRange" : {
+                  "end" : {
+                     "iso8601duration" : 16
+                  },
+                  "start" : {
+                     "iso8601duration" : 10
+                  }
+               }
+            },
+            "term" : {
+               "id" : "NCIT:C3138",
+               "label" : "Inflammatory Bowel Disease"
+            }
+         }
+      ],
+      "id" : "phenopacket_id.nKEfAMncf",
+      "measures" : [
+         {
+            "assay" : {
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 200,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 4.14
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 20,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64783",
+                     "label" : "Gram per Deciliter"
+                  },
+                  "value" : 15.5
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 100,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C25613",
+                     "label" : "Percentage"
+                  },
+                  "value" : 45.8
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 2000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 288
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C48508",
+                     "label" : "Micromole per Liter"
+                  },
+                  "value" : 99
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 200,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 97
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C48508",
+                     "label" : "Micromole per Liter"
+                  },
+                  "value" : 8.1
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 12
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 13
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 24
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 1000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 0.6
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C74679",
+               "label" : "Iron Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 1000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C48508",
+                     "label" : "Micromole per Liter"
+                  },
+                  "value" : 43
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67327",
+                     "label" : "Nanogram per Liter"
+                  },
+                  "value" : 2.6
+               }
+            }
+         }
+      ],
+      "medicalActions" : {
+         "procedure" : [],
+         "treatment" : [
+            {
+               "agent" : {
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C769",
+                  "label" : "Prednisolone"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C290",
+                  "label" : "Azathioprine"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C642",
+                  "label" : "Methotrexate"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C195",
+                  "label" : "Mercaptopurine"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         ]
+      },
+      "metaData" : {
+         "_info" : {
+            "Convert-Pheno" : "0.0.0b",
+            "cwd" : "/media/mrueda/4TBT/CNAG/Project_3TR/Convert-Pheno/t/redcap2pfx/out",
+            "hostname" : "mrueda-ws3",
+            "ncpuhost" : 2,
+            "user" : "mrueda"
+         },
+         "resources" : [
+            {
+               "id" : "ICD10",
+               "name" : "International Statistical Classification of Diseases and Related Health Problems 10th Revision",
+               "namespacePrefix" : "ICD-10",
+               "url" : "https://icd.who.int/browse10/2019/en#",
+               "version" : "2019"
+            },
+            {
+               "id" : "NCIT",
+               "name" : "NCI Thesaurus",
+               "namespacePrefix" : "NCIT",
+               "url" : " http://purl.obolibrary.org/obo/ncit.owl",
+               "version" : "22.03d"
+            }
+         ]
+      },
+      "phenotypicFeatures" : [
+         {
+            "_notes" : "rectal_bleeding, Field Label=Rectal bleeding score",
+            "type" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
+      "subject" : {
+         "age" : {
+            "iso8601duration" : "P2Y"
+         },
+         "id" : "2",
+         "sex" : {
+            "id" : "NCIT:C20197",
+            "label" : "Male"
+         }
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "onset" : {
+               "ageRange" : {
+                  "end" : {
+                     "iso8601duration" : 39
+                  },
+                  "start" : {
+                     "iso8601duration" : 25
+                  }
+               }
+            },
+            "term" : {
+               "id" : "NCIT:C3138",
+               "label" : "Inflammatory Bowel Disease"
+            }
+         }
+      ],
+      "id" : "phenopacket_id.FTr0XSuei",
+      "measures" : [
+         {
+            "assay" : {
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 200,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 7.77
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 20,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64783",
+                     "label" : "Gram per Deciliter"
+                  },
+                  "value" : 12.2
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 100,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C25613",
+                     "label" : "Percentage"
+                  },
+                  "value" : 39.2
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 2000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 276
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C48508",
+                     "label" : "Micromole per Liter"
+                  },
+                  "value" : 130
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 200,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 54
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C48508",
+                     "label" : "Micromole per Liter"
+                  },
+                  "value" : 7.4
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 30
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 36
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 54
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 1000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 6
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C74679",
+               "label" : "Iron Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 1000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C48508",
+                     "label" : "Micromole per Liter"
+                  },
+                  "value" : 164
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67327",
+                     "label" : "Nanogram per Liter"
+                  },
+                  "value" : 2.47
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : null,
+                     "low" : null
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 2
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : null,
+                     "low" : null
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 3
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : null,
+                     "low" : null
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 0
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : null,
+                     "low" : null
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 2
+               }
+            }
+         }
+      ],
+      "medicalActions" : {
+         "procedure" : [
+            {
+               "code" : {
+                  "id" : "NCIT:C86074",
+                  "label" : "Hemicolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01"
+               }
+            }
+         ],
+         "treatment" : [
+            {
+               "agent" : {
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C769",
+                  "label" : "Prednisolone"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C290",
+                  "label" : "Azathioprine"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C642",
+                  "label" : "Methotrexate"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C195",
+                  "label" : "Mercaptopurine"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         ]
+      },
+      "metaData" : {
+         "_info" : {
+            "Convert-Pheno" : "0.0.0b",
+            "cwd" : "/media/mrueda/4TBT/CNAG/Project_3TR/Convert-Pheno/t/redcap2pfx/out",
+            "hostname" : "mrueda-ws3",
+            "ncpuhost" : 2,
+            "user" : "mrueda"
+         },
+         "resources" : [
+            {
+               "id" : "ICD10",
+               "name" : "International Statistical Classification of Diseases and Related Health Problems 10th Revision",
+               "namespacePrefix" : "ICD-10",
+               "url" : "https://icd.who.int/browse10/2019/en#",
+               "version" : "2019"
+            },
+            {
+               "id" : "NCIT",
+               "name" : "NCI Thesaurus",
+               "namespacePrefix" : "NCIT",
+               "url" : " http://purl.obolibrary.org/obo/ncit.owl",
+               "version" : "22.03d"
+            }
+         ]
+      },
+      "phenotypicFeatures" : [
+         {
+            "_notes" : "rectal_bleeding, Field Label=Rectal bleeding score",
+            "type" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
+      "subject" : {
+         "age" : {
+            "iso8601duration" : "P6Y"
+         },
+         "id" : "2",
+         "sex" : {
+            "id" : "NCIT:C20197",
+            "label" : "Male"
+         }
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "onset" : {
+               "ageRange" : {
+                  "end" : {
+                     "iso8601duration" : 9999
+                  },
+                  "start" : {
+                     "iso8601duration" : 60
+                  }
+               }
+            },
+            "term" : {
+               "id" : "NCIT:C3138",
+               "label" : "Inflammatory Bowel Disease"
+            }
+         }
+      ],
+      "id" : "phenopacket_id.0lX3SdYeC",
+      "measures" : [
+         {
+            "assay" : {
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 200,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 7.8
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 20,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64783",
+                     "label" : "Gram per Deciliter"
+                  },
+                  "value" : 12.2
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 100,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C25613",
+                     "label" : "Percentage"
+                  },
+                  "value" : 36.2
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C64799",
+               "label" : "Erythrocyte Mean Corpuscular Volume"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 200,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64780",
+                     "label" : "Femtoliter"
+                  },
+                  "value" : 80.8
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C64797",
+               "label" : "Erythrocyte Mean Corpuscular Hemoglobin"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 100,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64551",
+                     "label" : "Picogram"
+                  },
+                  "value" : 26.5
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 2000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 557
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C51950",
+               "label" : "Neutrophil Count"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 100,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 8.55
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C51949",
+               "label" : "Lymphocyte Count"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 100,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 1.04
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C64550",
+               "label" : "Eosinophil Count"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 100,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 0.12
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C48508",
+                     "label" : "Micromole per Liter"
+                  },
+                  "value" : 84
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 200,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 59
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C48508",
+                     "label" : "Micromole per Liter"
+                  },
+                  "value" : 5.1
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 5
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 18
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 101
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 1000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 19
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C74679",
+               "label" : "Iron Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 1000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C48508",
+                     "label" : "Micromole per Liter"
+                  },
+                  "value" : 8
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67327",
+                     "label" : "Nanogram per Liter"
+                  },
+                  "value" : 10.01
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : null,
+                     "low" : null
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 3
+               }
+            }
+         }
+      ],
+      "medicalActions" : {
+         "procedure" : [],
+         "treatment" : [
+            {
+               "agent" : {
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C769",
+                  "label" : "Prednisolone"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C290",
+                  "label" : "Azathioprine"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C642",
+                  "label" : "Methotrexate"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C195",
+                  "label" : "Mercaptopurine"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         ]
+      },
+      "metaData" : {
+         "_info" : {
+            "Convert-Pheno" : "0.0.0b",
+            "cwd" : "/media/mrueda/4TBT/CNAG/Project_3TR/Convert-Pheno/t/redcap2pfx/out",
+            "hostname" : "mrueda-ws3",
+            "ncpuhost" : 2,
+            "user" : "mrueda"
+         },
+         "resources" : [
+            {
+               "id" : "ICD10",
+               "name" : "International Statistical Classification of Diseases and Related Health Problems 10th Revision",
+               "namespacePrefix" : "ICD-10",
+               "url" : "https://icd.who.int/browse10/2019/en#",
+               "version" : "2019"
+            },
+            {
+               "id" : "NCIT",
+               "name" : "NCI Thesaurus",
+               "namespacePrefix" : "NCIT",
+               "url" : " http://purl.obolibrary.org/obo/ncit.owl",
+               "version" : "22.03d"
+            }
+         ]
+      },
+      "phenotypicFeatures" : [
+         {
+            "_notes" : "comorb_hypertension, Field Label=Comorbidities - hypertension",
+            "type" : {
+               "id" : "NCIT:C16457",
+               "label" : "Comorbidity"
+            }
+         },
+         {
+            "_notes" : "comorb_diabetes, Field Label=Comorbidities - diabetes mellitus",
+            "type" : {
+               "id" : "NCIT:C16457",
+               "label" : "Comorbidity"
+            }
+         }
+      ],
+      "subject" : {
+         "age" : {
+            "iso8601duration" : "P7Y"
+         },
+         "id" : "1",
+         "sex" : {
+            "id" : "NCIT:C16576",
+            "label" : "Female"
+         }
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "onset" : {
+               "ageRange" : {
+                  "end" : {
+                     "iso8601duration" : 24
+                  },
+                  "start" : {
+                     "iso8601duration" : 17
+                  }
+               }
+            },
+            "term" : {
+               "id" : "NCIT:C3138",
+               "label" : "Inflammatory Bowel Disease"
+            }
+         }
+      ],
+      "id" : "phenopacket_id.yFx4WRbfQ",
+      "measures" : [
+         {
+            "assay" : {
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 200,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 9.47
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 20,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64783",
+                     "label" : "Gram per Deciliter"
+                  },
+                  "value" : 10
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 100,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C25613",
+                     "label" : "Percentage"
+                  },
+                  "value" : 25.7
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 2000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 172
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C48508",
+                     "label" : "Micromole per Liter"
+                  },
+                  "value" : 52
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 200,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 132
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C48508",
+                     "label" : "Micromole per Liter"
+                  },
+                  "value" : 4.2
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 10
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 14
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 18
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 1000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 4.46
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C74679",
+               "label" : "Iron Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 1000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C48508",
+                     "label" : "Micromole per Liter"
+                  },
+                  "value" : 23.6
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67327",
+                     "label" : "Nanogram per Liter"
+                  },
+                  "value" : 71.02
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : null,
+                     "low" : null
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 3
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : null,
+                     "low" : null
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 3
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : null,
+                     "low" : null
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 0
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : null,
+                     "low" : null
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 3
+               }
+            }
+         }
+      ],
+      "medicalActions" : {
+         "procedure" : [],
+         "treatment" : [
+            {
+               "agent" : {
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C769",
+                  "label" : "Prednisolone"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C290",
+                  "label" : "Azathioprine"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C642",
+                  "label" : "Methotrexate"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C195",
+                  "label" : "Mercaptopurine"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         ]
+      },
+      "metaData" : {
+         "_info" : {
+            "Convert-Pheno" : "0.0.0b",
+            "cwd" : "/media/mrueda/4TBT/CNAG/Project_3TR/Convert-Pheno/t/redcap2pfx/out",
+            "hostname" : "mrueda-ws3",
+            "ncpuhost" : 2,
+            "user" : "mrueda"
+         },
+         "resources" : [
+            {
+               "id" : "ICD10",
+               "name" : "International Statistical Classification of Diseases and Related Health Problems 10th Revision",
+               "namespacePrefix" : "ICD-10",
+               "url" : "https://icd.who.int/browse10/2019/en#",
+               "version" : "2019"
+            },
+            {
+               "id" : "NCIT",
+               "name" : "NCI Thesaurus",
+               "namespacePrefix" : "NCIT",
+               "url" : " http://purl.obolibrary.org/obo/ncit.owl",
+               "version" : "22.03d"
+            }
+         ]
+      },
+      "phenotypicFeatures" : [
+         {
+            "_notes" : "rectal_bleeding, Field Label=Rectal bleeding score",
+            "type" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
+      "subject" : {
+         "age" : {
+            "iso8601duration" : "P1Y"
+         },
+         "id" : "2",
+         "sex" : {
+            "id" : "NCIT:C16576",
+            "label" : "Female"
+         }
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "onset" : {
+               "ageRange" : {
+                  "end" : {
+                     "iso8601duration" : 24
+                  },
+                  "start" : {
+                     "iso8601duration" : 17
+                  }
+               }
+            },
+            "term" : {
+               "id" : "NCIT:C3138",
+               "label" : "Inflammatory Bowel Disease"
+            }
+         }
+      ],
+      "id" : "phenopacket_id.QuzwXJbUK",
+      "measures" : [
+         {
+            "assay" : {
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 200,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 23.16
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 20,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64783",
+                     "label" : "Gram per Deciliter"
+                  },
+                  "value" : 13.2
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 100,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C25613",
+                     "label" : "Percentage"
+                  },
+                  "value" : 43.4
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 2000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 385
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C48508",
+                     "label" : "Micromole per Liter"
+                  },
+                  "value" : 63
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 200,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 121
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C48508",
+                     "label" : "Micromole per Liter"
+                  },
+                  "value" : 2
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 24
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 66
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 46
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 1000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 20.7
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C74679",
+               "label" : "Iron Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 1000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C48508",
+                     "label" : "Micromole per Liter"
+                  },
+                  "value" : 8.9
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67327",
+                     "label" : "Nanogram per Liter"
+                  },
+                  "value" : 11.62
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C82005",
+               "label" : "Calprotectin Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : null,
+                     "low" : null
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 243
+               }
+            }
+         }
+      ],
+      "medicalActions" : {
+         "procedure" : [
+            {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01"
+               }
+            }
+         ],
+         "treatment" : [
+            {
+               "agent" : {
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C769",
+                  "label" : "Prednisolone"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C290",
+                  "label" : "Azathioprine"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C642",
+                  "label" : "Methotrexate"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C195",
+                  "label" : "Mercaptopurine"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         ]
+      },
+      "metaData" : {
+         "_info" : {
+            "Convert-Pheno" : "0.0.0b",
+            "cwd" : "/media/mrueda/4TBT/CNAG/Project_3TR/Convert-Pheno/t/redcap2pfx/out",
+            "hostname" : "mrueda-ws3",
+            "ncpuhost" : 2,
+            "user" : "mrueda"
+         },
+         "resources" : [
+            {
+               "id" : "ICD10",
+               "name" : "International Statistical Classification of Diseases and Related Health Problems 10th Revision",
+               "namespacePrefix" : "ICD-10",
+               "url" : "https://icd.who.int/browse10/2019/en#",
+               "version" : "2019"
+            },
+            {
+               "id" : "NCIT",
+               "name" : "NCI Thesaurus",
+               "namespacePrefix" : "NCIT",
+               "url" : " http://purl.obolibrary.org/obo/ncit.owl",
+               "version" : "22.03d"
+            }
+         ]
+      },
+      "phenotypicFeatures" : [],
+      "subject" : {
+         "age" : {
+            "iso8601duration" : "P2Y"
+         },
+         "id" : "2",
+         "sex" : {
+            "id" : "NCIT:C16576",
+            "label" : "Female"
+         }
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "onset" : {
+               "ageRange" : {
+                  "end" : {
+                     "iso8601duration" : 39
+                  },
+                  "start" : {
+                     "iso8601duration" : 25
+                  }
+               }
+            },
+            "term" : {
+               "id" : "NCIT:C3138",
+               "label" : "Inflammatory Bowel Disease"
+            }
+         }
+      ],
+      "id" : "phenopacket_id.OBqr2WYaA",
+      "measures" : [
+         {
+            "assay" : {
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 200,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 9.6
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 20,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64783",
+                     "label" : "Gram per Deciliter"
+                  },
+                  "value" : 13.5
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 100,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C25613",
+                     "label" : "Percentage"
+                  },
+                  "value" : 38.8
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 2000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 233
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C48508",
+                     "label" : "Micromole per Liter"
+                  },
+                  "value" : 85
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 200,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 75
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C48508",
+                     "label" : "Micromole per Liter"
+                  },
+                  "value" : 5.4
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 18
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 24
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 38
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 1000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 4.1
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67327",
+                     "label" : "Nanogram per Liter"
+                  },
+                  "value" : 2.49
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : null,
+                     "low" : null
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 3
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : null,
+                     "low" : null
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 3
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : null,
+                     "low" : null
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 2
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : null,
+                     "low" : null
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 2
+               }
+            }
+         }
+      ],
+      "medicalActions" : {
+         "procedure" : [],
+         "treatment" : [
+            {
+               "agent" : {
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C769",
+                  "label" : "Prednisolone"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C290",
+                  "label" : "Azathioprine"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C642",
+                  "label" : "Methotrexate"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C195",
+                  "label" : "Mercaptopurine"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         ]
+      },
+      "metaData" : {
+         "_info" : {
+            "Convert-Pheno" : "0.0.0b",
+            "cwd" : "/media/mrueda/4TBT/CNAG/Project_3TR/Convert-Pheno/t/redcap2pfx/out",
+            "hostname" : "mrueda-ws3",
+            "ncpuhost" : 2,
+            "user" : "mrueda"
+         },
+         "resources" : [
+            {
+               "id" : "ICD10",
+               "name" : "International Statistical Classification of Diseases and Related Health Problems 10th Revision",
+               "namespacePrefix" : "ICD-10",
+               "url" : "https://icd.who.int/browse10/2019/en#",
+               "version" : "2019"
+            },
+            {
+               "id" : "NCIT",
+               "name" : "NCI Thesaurus",
+               "namespacePrefix" : "NCIT",
+               "url" : " http://purl.obolibrary.org/obo/ncit.owl",
+               "version" : "22.03d"
+            }
+         ]
+      },
+      "phenotypicFeatures" : [
+         {
+            "_notes" : "rectal_bleeding, Field Label=Rectal bleeding score",
+            "type" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
+      "subject" : {
+         "age" : {
+            "iso8601duration" : "P4Y"
+         },
+         "id" : "2",
+         "sex" : {
+            "id" : "NCIT:C16576",
+            "label" : "Female"
+         }
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "onset" : {
+               "ageRange" : {
+                  "end" : {
+                     "iso8601duration" : 24
+                  },
+                  "start" : {
+                     "iso8601duration" : 17
+                  }
+               }
+            },
+            "term" : {
+               "id" : "NCIT:C3138",
+               "label" : "Inflammatory Bowel Disease"
+            }
+         }
+      ],
+      "id" : "phenopacket_id.vXhX9CwIK",
+      "measures" : [
+         {
+            "assay" : {
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 200,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 9.2
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 20,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64783",
+                     "label" : "Gram per Deciliter"
+                  },
+                  "value" : 14
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 100,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C25613",
+                     "label" : "Percentage"
+                  },
+                  "value" : 41.4
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C64799",
+               "label" : "Erythrocyte Mean Corpuscular Volume"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 200,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64780",
+                     "label" : "Femtoliter"
+                  },
+                  "value" : 82.4
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C64797",
+               "label" : "Erythrocyte Mean Corpuscular Hemoglobin"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 100,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64551",
+                     "label" : "Picogram"
+                  },
+                  "value" : 28.1
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 2000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 338
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C51950",
+               "label" : "Neutrophil Count"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 100,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 6.81
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C51949",
+               "label" : "Lymphocyte Count"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 100,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 1.98
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C64550",
+               "label" : "Eosinophil Count"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 100,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 0.14
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C48508",
+                     "label" : "Micromole per Liter"
+                  },
+                  "value" : 88
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 200,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 116
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C48508",
+                     "label" : "Micromole per Liter"
+                  },
+                  "value" : 3.3
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 20
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 15
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 15
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 1000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  },
+                  "value" : 1.81
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C74679",
+               "label" : "Iron Measurement"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 1000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C48508",
+                     "label" : "Micromole per Liter"
+                  },
+                  "value" : 14.7
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
+            },
+            "timeObserved" : "1900-01-01",
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 10000,
+                     "low" : 0
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67327",
+                     "label" : "Nanogram per Liter"
+                  },
+                  "value" : 3.52
+               }
+            }
+         }
+      ],
+      "medicalActions" : {
+         "procedure" : [],
+         "treatment" : [
+            {
+               "agent" : {
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C769",
+                  "label" : "Prednisolone"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C290",
+                  "label" : "Azathioprine"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C642",
+                  "label" : "Methotrexate"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            },
+            {
+               "agent" : {
+                  "id" : "NCIT:C195",
+                  "label" : "Mercaptopurine"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         ]
+      },
+      "metaData" : {
+         "_info" : {
+            "Convert-Pheno" : "0.0.0b",
+            "cwd" : "/media/mrueda/4TBT/CNAG/Project_3TR/Convert-Pheno/t/redcap2pfx/out",
+            "hostname" : "mrueda-ws3",
+            "ncpuhost" : 2,
+            "user" : "mrueda"
+         },
+         "resources" : [
+            {
+               "id" : "ICD10",
+               "name" : "International Statistical Classification of Diseases and Related Health Problems 10th Revision",
+               "namespacePrefix" : "ICD-10",
+               "url" : "https://icd.who.int/browse10/2019/en#",
+               "version" : "2019"
+            },
+            {
+               "id" : "NCIT",
+               "name" : "NCI Thesaurus",
+               "namespacePrefix" : "NCIT",
+               "url" : " http://purl.obolibrary.org/obo/ncit.owl",
+               "version" : "22.03d"
+            }
+         ]
+      },
+      "phenotypicFeatures" : [
+         {
+            "_notes" : "rectal_bleeding, Field Label=Rectal bleeding score",
+            "type" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
+      "subject" : {
+         "age" : {
+            "iso8601duration" : "P1Y"
+         },
+         "id" : "1",
+         "sex" : {
+            "id" : "NCIT:C20197",
+            "label" : "Male"
+         }
+      }
+   }
+]

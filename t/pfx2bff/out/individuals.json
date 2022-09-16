@@ -92,7 +92,7 @@
       "phenotypicFeatures" : [],
       "sex" : {
          "id" : "NCIT:C16576",
-         "label" : "female"
+         "label" : "Female"
       }
    },
    {
@@ -188,7 +188,7 @@
       "phenotypicFeatures" : [],
       "sex" : {
          "id" : "NCIT:C20197",
-         "label" : "male"
+         "label" : "Male"
       }
    },
    {
@@ -375,7 +375,7 @@
       ],
       "sex" : {
          "id" : "NCIT:C20197",
-         "label" : "male"
+         "label" : "Male"
       }
    },
    {
@@ -493,7 +493,7 @@
       ],
       "sex" : {
          "id" : "NCIT:C20197",
-         "label" : "male"
+         "label" : "Male"
       }
    },
    {
@@ -589,7 +589,7 @@
       "phenotypicFeatures" : [],
       "sex" : {
          "id" : "NCIT:C20197",
-         "label" : "male"
+         "label" : "Male"
       }
    },
    {
@@ -721,7 +721,7 @@
       ],
       "sex" : {
          "id" : "NCIT:C16576",
-         "label" : "female"
+         "label" : "Female"
       }
    },
    {
@@ -817,7 +817,7 @@
       "phenotypicFeatures" : [],
       "sex" : {
          "id" : "NCIT:C20197",
-         "label" : "male"
+         "label" : "Male"
       }
    },
    {
@@ -913,7 +913,7 @@
       "phenotypicFeatures" : [],
       "sex" : {
          "id" : "NCIT:C16576",
-         "label" : "female"
+         "label" : "Female"
       }
    },
    {
@@ -1045,7 +1045,7 @@
       ],
       "sex" : {
          "id" : "NCIT:C20197",
-         "label" : "male"
+         "label" : "Male"
       }
    },
    {
@@ -1280,7 +1280,7 @@
       ],
       "sex" : {
          "id" : "NCIT:C20197",
-         "label" : "male"
+         "label" : "Male"
       }
    },
    {
@@ -1376,7 +1376,7 @@
       "phenotypicFeatures" : [],
       "sex" : {
          "id" : "NCIT:C20197",
-         "label" : "male"
+         "label" : "Male"
       }
    },
    {
@@ -1472,7 +1472,7 @@
       "phenotypicFeatures" : [],
       "sex" : {
          "id" : "NCIT:C16576",
-         "label" : "female"
+         "label" : "Female"
       }
    },
    {
@@ -1604,7 +1604,7 @@
       ],
       "sex" : {
          "id" : "NCIT:C16576",
-         "label" : "female"
+         "label" : "Female"
       }
    },
    {
@@ -1708,7 +1708,7 @@
       ],
       "sex" : {
          "id" : "NCIT:C16576",
-         "label" : "female"
+         "label" : "Female"
       }
    },
    {
@@ -1804,7 +1804,7 @@
       "phenotypicFeatures" : [],
       "sex" : {
          "id" : "NCIT:C20197",
-         "label" : "male"
+         "label" : "Male"
       }
    },
    {
@@ -1943,7 +1943,7 @@
       ],
       "sex" : {
          "id" : "NCIT:C20197",
-         "label" : "male"
+         "label" : "Male"
       }
    },
    {
@@ -2039,7 +2039,7 @@
       "phenotypicFeatures" : [],
       "sex" : {
          "id" : "NCIT:C16576",
-         "label" : "female"
+         "label" : "Female"
       }
    },
    {
@@ -2135,7 +2135,7 @@
       "phenotypicFeatures" : [],
       "sex" : {
          "id" : "NCIT:C20197",
-         "label" : "male"
+         "label" : "Male"
       }
    }
 ]
