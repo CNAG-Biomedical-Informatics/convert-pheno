@@ -157,7 +157,7 @@ sub validate_against_json_schema {
     # Validate
     my $errors = [ $validator->validate($json) ];
 
-    # Return errors as string (or undef)
+    # Return errors as ref
     return scalar @$errors ? $errors : undef;
 }
 
