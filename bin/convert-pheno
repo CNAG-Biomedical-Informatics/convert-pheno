@@ -48,12 +48,12 @@ my $format  = 'json';
 
 # Reading arguments
 GetOptions(
-    'ipfx=s'                  => \my $in_pfx,                               # string
+    'ipxf=s'                  => \my $in_pxf,                               # string
     'ibff=s'                  => \my $in_bff,                               # string
     'iredcap=s'               => \my $in_redcap,                            # string
     'iomop=s{1,}'             => \my @omop_files,                           # array
     'obff=s'                  => \my $out_bff,                              # string
-    'opfx=s'                  => \my $out_pfx,                              # string
+    'opxf=s'                  => \my $out_pxf,                              # string
     'out-dir=s'               => \$out_dir,                                 # string
     'help|?'                  => \my $help,                                 # flag
     'man'                     => \my $man,                                  # flag
@@ -73,7 +73,7 @@ pod2usage( -verbose => 2, -exitval => 0 ) if $man;
 pod2usage(
     -message => "Please specify a valid input file(s) -i <json|csv>\n",
     -exitval => 1
-) unless ( $in_pfx || $in_bff || $in_redcap || @omop_files );
+) unless ( $in_pxf || $in_bff || $in_redcap || @omop_files );
 pod2usage(
     -message => "Please specify a valid directory for --out-dir\n",
     -exitval => 1
@@ -97,25 +97,25 @@ $ENV{'ANSI_COLORS_DISABLED'} = 1 if $no_color;
 
 # Defining $out_file
 my $out_file =
-    $out_pfx ? catfile( $out_dir, $out_pfx )
+    $out_pxf ? catfile( $out_dir, $out_pxf )
   : $out_bff ? catfile( $out_dir, $out_bff )
   :            catfile( $out_dir, 'individuals.json' );
 
 # Defining method
 my $in_type =
-    $in_pfx     ? 'pfx'
+    $in_pxf     ? 'pxf'
   : $in_bff     ? 'bff'
   : $in_redcap  ? 'redcap'
   : @omop_files ? 'omop'
   :               'bff';
-my $out_type = $out_pfx ? 'pfx' : $out_bff ? 'bff' : 'bff';
+my $out_type = $out_pxf ? 'pxf' : $out_bff ? 'bff' : 'bff';
 my $method   = $in_type . '2' . $out_type;
 
 # Defining data as a hashref
 my $data = {
     out_dir     => $out_dir,
     in_textfile => 1,
-    in_file     => $in_pfx ? $in_pfx
+    in_file     => $in_pxf ? $in_pxf
     : $in_bff    ? $in_bff
     : $in_redcap ? $in_redcap
     : undef,
@@ -215,7 +215,7 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
        -input-type:  
              -ibff                    Beacon v2 JSON file
              -iomop                   OMOP-CDM CSV files or PostgreSQL dump
-             -ipfx                    Phenopacket JSON file
+             -ipxf                    Phenopacket JSON file
              -iredcap                 REDCap CSV file
 
             (Wish-list)
@@ -224,7 +224,7 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
 
        -output-type;
              -obff                    Beacon v2 JSON file
-             -opfx                    Phenopacket JSON file
+             -opxf                    Phenopacket JSON file
 
      Options:
        -debug                         Print debugging (from 1 to 5, being 5 max)
@@ -316,17 +316,17 @@ A text file in one of the accepted formats.
 
 B<Examples:>
 
- $ bin/convert-pheno -ipfx phenopackets.json -obff individuals.json
+ $ bin/convert-pheno -ipxf phenopackets.json -obff individuals.json
 
- $ $path/convert-pheno -ibff individuals.json -opfx phenopackets.json --out-dir my_out_dir
+ $ $path/convert-pheno -ibff individuals.json -opxf phenopackets.json --out-dir my_out_dir
 
- $ $path/convert-pheno -iredcap redcap.csv -opfx phenopackets.json --redcap-dictionary redcap_dict.csv
+ $ $path/convert-pheno -iredcap redcap.csv -opxf phenopackets.json --redcap-dictionary redcap_dict.csv
 
  $ $path/convert-pheno -iomop dump.sql -obff individuals.json 
 
  $ $path/convert-pheno -iomop *csv -obff individuals.json -sep ','
 
- $ carton exec -- $path/convert-pheno -ibff individuals.json -opfx phenopackets.json # If using Carton
+ $ carton exec -- $path/convert-pheno -ibff individuals.json -opxf phenopackets.json # If using Carton
 
 =head2 COMMON ERRORS AND SOLUTIONS
 

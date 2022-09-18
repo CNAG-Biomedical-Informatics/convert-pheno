@@ -11,4 +11,4 @@ requires 'DBD::SQLite';
 requires 'Mojolicious::Lite';
 
 # for utils
-requires 'JSON::Validator';         # pfx-validator
+requires 'JSON::Validator';         # pxf-validator

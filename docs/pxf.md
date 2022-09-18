@@ -1,12 +1,10 @@
-# Beacon v2 - BFF
+# Phenopacket v2 - PXF
 
-**BFF** stands for **B**eacon **F**riendly **F**ormat.
+**PXF** stands for **P**henotype e**X**change **F**ormat.
 
-The BFF consists of 7 `JSON` files that match the 7 entry types of the [Beacon v2 default models](https://docs.genomebeacons.org/models).
+Phenopacket [documentation](https://phenopacket-schema.readthedocs.io/en/latest/basics.html).
 
-From these 7 files, in many occasions only `individuals.json` is the file containing [phenotypic data](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema).
-
-## BFF as input
+## PXF as input
 
 ### Command-line
 
@@ -15,7 +13,7 @@ If you're using a Beacon v2 JSON file with the `convert-pheno` command-line inte
 Note that the file can consist of a single individual or multiple ones (JSON array).
 
 ```
-convert-pheno -ibff individuals.json -opxf phenopacket.json
+convert-pheno -ipxf phenopacket.json -obff individuals.json
 ```
 
 ### Module
@@ -26,16 +24,15 @@ The idea is that we will pass the essential information as a hash (Perl) or dict
 ```Perl
 $bff = {
      data => $my_bff_json_data,
-     method => $method
+     method => 'pxf2bff'
 };
 
 ```
 
-
 ```Python
 bff = {
      "data : my_bff_json_data,
-     "method" : "bff2pxf"
+     "method" : "pxf2bff"
 }
 ```
 
@@ -43,6 +40,6 @@ bff = {
 ```
 {
  "data": {...}
- "method": "bff2pxf"
+ "method": "pxf2bff"
 }
 ```

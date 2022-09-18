@@ -12,7 +12,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
        -input-type:  
              -ibff                    Beacon v2 JSON file
              -iomop                   OMOP-CDM CSV files or PostgreSQL dump
-             -ipfx                    Phenopacket JSON file
+             -ipxf                    Phenopacket JSON file
              -iredcap                 REDCap CSV file
 
             (Wish-list)
@@ -21,7 +21,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
 
        -output-type;
              -obff                    Beacon v2 JSON file
-             -opfx                    Phenopacket JSON file
+             -opxf                    Phenopacket JSON file
 
      Options:
        -debug                         Print debugging (from 1 to 5, being 5 max)
@@ -109,17 +109,17 @@ For executing convert-pheno you will need:
 
 **Examples:**
 
-    $ bin/convert-pheno -ipfx phenopackets.json -obff individuals.json
+    $ bin/convert-pheno -ipxf phenopackets.json -obff individuals.json
 
-    $ $path/convert-pheno -ibff individuals.json -opfx phenopackets.json --out-dir my_out_dir
+    $ $path/convert-pheno -ibff individuals.json -opxf phenopackets.json --out-dir my_out_dir
 
-    $ $path/convert-pheno -iredcap redcap.csv -opfx phenopackets.json --redcap-dictionary redcap_dict.csv
+    $ $path/convert-pheno -iredcap redcap.csv -opxf phenopackets.json --redcap-dictionary redcap_dict.csv
 
     $ $path/convert-pheno -iomop dump.sql -obff individuals.json 
 
     $ $path/convert-pheno -iomop *csv -obff individuals.json -sep ','
 
-    $ carton exec -- $path/convert-pheno -ibff individuals.json -opfx phenopackets.json # If using Carton
+    $ carton exec -- $path/convert-pheno -ibff individuals.json -opxf phenopackets.json # If using Carton
 
 ## COMMON ERRORS AND SOLUTIONS
 
