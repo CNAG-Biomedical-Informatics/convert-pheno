@@ -1,10 +1,10 @@
 # NAME
 
-pfx-validator: A script that validates PFX JSON files against PFX v2 JSON schema.
+pxf-validator: A script that validates PXF JSON files against PXF v2 JSON schema.
 
 # SYNOPSIS
 
-pfx-validator -i <\*json> \[-options\]
+pxf-validator -i <\*json> \[-options\]
 
      Arguments:                       
        -i|input                       Phenopacket JSON file(s)
@@ -19,11 +19,11 @@ pfx-validator -i <\*json> \[-options\]
 
 # DESCRIPTION
 
-pfx-validator: A script that validates PFX JSON files against PFX v2 JSON schema.
+pxf-validator: A script that validates PXF JSON files against PXF v2 JSON schema.
 
 # SUMMARY
 
-pfx-validator: A script that validates PFX JSON files against PFX v2 JSON schema.
+pxf-validator: A script that validates PXF JSON files against PXF v2 JSON schema.
 
 # INSTALLATION
 
@@ -50,7 +50,7 @@ Then, we can install our dependencies:
 
     carton install
 
-# HOW TO RUN PFX-VALIDATOR
+# HOW TO RUN PXF-VALIDATOR
 
 For executing convert-pheno you will need:
 
@@ -60,11 +60,11 @@ For executing convert-pheno you will need:
 
 **Examples:**
 
-    $ pfx-validator -i phenopackets.json 
+    $ pxf-validator -i phenopackets.json 
 
-    $ $path/pfx-validator -i phenopackets*.json
+    $ $path/pxf-validator -i phenopackets*.json
 
-    $ carton exec -- $path/pfx-validator -i phenopackets.json # If using Carton
+    $ carton exec -- $path/pxf-validator -i phenopackets.json # If using Carton
 
 ## COMMON ERRORS AND SOLUTIONS
 
