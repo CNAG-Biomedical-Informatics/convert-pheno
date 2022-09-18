@@ -15,7 +15,7 @@ pfx-validator -i <\*json> \[-options\]
        -man                           Full documentation
        -debug                         Print debugging (from 1 to 5, being 5 max)
        -verbose                       Verbosity on
-     
+       -nc|-no-color                  Don't print colors to STDOUT
 
 # DESCRIPTION
 

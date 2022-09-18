@@ -119,7 +119,7 @@ sub do_pfx2bff {
 
     my ( $self, $data ) = @_;
     my $sth = $self->{sth};
-
+   
     # Get cursors for 1D terms
     my $interpretation = $data->{interpretation};
     my $phenopacket    = $data->{phenopacket};
@@ -985,6 +985,7 @@ sub omop2bff {
 sub do_omop2bff {
 
     my ( $self, $participant ) = @_;
+
     my $ohdsi_dic = $self->{data_ohdsi_dic};
     my $sth       = $self->{sth};
 
@@ -1890,7 +1891,6 @@ sub read_sqldump {
         # Processing line by line
         for my $line (@lines) {
             $count++;
-            last if $count == $limit;
 
             # Columns are separated by \t
             my @values = split /\t/, $line;
@@ -1912,6 +1912,7 @@ sub read_sqldump {
 
             push @{ $data->{$table_name} },
               { map { $headers[$_] => $values[$_] } ( 0 .. $#headers ) };
+          last if $count == $limit;
         }
     }
     return $data;
@@ -2074,8 +2075,8 @@ sub transpose_omop_data_structure {
 
 sub read_json {
 
-    my $str       = path(shift)->slurp_utf8;
-    return decode_json($str); # Decode to Perl data structure
+    my $str = path(shift)->slurp_utf8;
+    return decode_json($str);    # Decode to Perl data structure
 }
 
 sub write_json {
@@ -2704,6 +2705,19 @@ sub randStr {
     #https://www.perlmonks.org/?node_id=233023
     return join( '',
         map { ( 'a' .. 'z', 'A' .. 'Z', 0 .. 9 )[ rand 62 ] } 0 .. shift );
+}
+
+sub Dumper_tidy {
+    {
+        local $Data::Dumper::Terse     = 1;
+        local $Data::Dumper::Indent    = 1;
+        local $Data::Dumper::Useqq     = 1;
+        local $Data::Dumper::Deparse   = 1;
+        local $Data::Dumper::Quotekeys = 1;
+        local $Data::Dumper::Sortkeys  = 1;
+        local $Data::Dumper::Pair = ' : ';
+        print Dumper shift;
+    }
 }
 
 1;

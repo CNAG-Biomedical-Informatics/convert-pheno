@@ -2,7 +2,7 @@
 #
 #   A script that validates PFX JSON files against PFX v2 JSON schema
 #
-#   Last Modified: Sep/16/2022
+#   Last Modified: Sep/17/2022
 #
 #   Version 0.0.0b
 #
@@ -33,6 +33,7 @@ use Path::Tiny;
 use Data::Dumper;
 use JSON::XS;
 use JSON::Validator;
+use Term::ANSIColor       qw(:constants);
 use FindBin               qw($Bin);
 use File::Spec::Functions qw(catdir catfile);
 
@@ -58,6 +59,7 @@ sub validate_input_data {
         'man'            => \my $man,                                  # flag
         'debug=i'        => \$debug,                                   # integer
         'verbose'        => \$verbose,                                 # flag
+        'no-color|nc'    => \my $no_color,                             # flag
         'version|v'      => sub { say "$0 Version $version"; exit; }
     ) or pod2usage(2);
     pod2usage(1)                              if $help;
@@ -71,6 +73,9 @@ sub validate_input_data {
         -exitval => 1
     ) if ( !-d $schema_dir );
 
+    # Turning color off if argument <--no-color>
+    $ENV{'ANSI_COLORS_DISABLED'} = 1 if $no_color;
+
     # Load schema (once)
     my $schema =
       read_json( catfile( $schema_dir, 'phenopacket-schema-2-0.json' ) );
@@ -81,10 +86,13 @@ sub validate_input_data {
     # Load schema in object
     $validator->schema($schema);
 
+    # Start printing to STDOUT
+    say BOLD CYAN program_header($version) if $verbose;
+
     # Finally validate each file
     for my $file (@in_files) {
-        say "==== PROCESSING <$file> ==== file";
-        print process_files( { file => $file, validator => $validator } );
+        say BOLD BLUE "==== PROCESSING <$file> file ====", RESET;;
+        process_files( { file => $file, validator => $validator } );
     }
 }
 
@@ -98,10 +106,12 @@ sub process_files {
     my $data = read_json($file);
 
     # Validate data
-    my $json_errors = check_array( { data => $data, validator => $validator } );
+    my $errors = check_array( { data => $data, validator => $validator } );
 
-    # Return array or nada
-    return @$json_errors ? @$json_errors : 'Hurray! No errors found';
+    # Print errors to STDOUT
+    say_errors($errors);
+
+    return 1;
 }
 
 sub check_array {
@@ -123,7 +133,7 @@ sub check_array {
             # Validation with JSON::Validator
             my $error = validate_against_json_schema(
                 { data => $_, validator => $validator } );
-            push @{$errors}, ( "Row", $count, ":\n", (join "\n", @$error), "\n" )
+            push @{$errors}, ( "Row " . $count . ':', join "\n", @$error )
               if defined $error;
             $count++;
         }
@@ -135,7 +145,7 @@ sub check_array {
         say "Only 1 document found" if $debug;
         my $error = validate_against_json_schema(
             { data => $data, validator => $validator } );
-        push @{$errors}, ( "Row", 1, ":\n", (join "\n", @$error), "\n" )
+        push @{$errors}, ( "Row " . '1' . ':', join "\n", @$error )
           if defined $error;
     }
 
@@ -161,6 +171,33 @@ sub validate_against_json_schema {
     return scalar @$errors ? $errors : undef;
 }
 
+sub program_header {
+
+    my $version = shift;
+    my $str     = <<EOF;
+****************************************
+*      Phenopacket JSON Validator      *
+*          - PFX-VALIDATOR -           *
+*          Version: $version             *
+*      (C) 2022 Manuel Rueda, PhD      *
+*    GNU General Public License v3     *
+****************************************
+EOF
+    return $str;
+}
+
+sub say_errors {
+
+    my $errors = shift;
+    if ( @{$errors} ) {
+        say BOLD RED( join "\n", @{$errors} ), RESET;
+    }
+    else {
+        say BOLD GREEN 'Hurray! No errors found', RESET;
+    }
+    return 1;
+}
+
 =head1 NAME
 
 pfx-validator: A script that validates PFX JSON files against PFX v2 JSON schema.
@@ -179,8 +216,7 @@ pfx-validator -i <*json> [-options]
        -man                           Full documentation
        -debug                         Print debugging (from 1 to 5, being 5 max)
        -verbose                       Verbosity on
-     
-
+       -nc|-no-color                  Don't print colors to STDOUT
 
 =head1 DESCRIPTION
 
