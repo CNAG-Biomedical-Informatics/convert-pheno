@@ -40,6 +40,8 @@ bff = {
 ```
 
 ### API
+
+The data will be sent as `POST` to the API's URL (see more info [here](use-as-an-api.md).
 ```
 {
  "data": {...}
