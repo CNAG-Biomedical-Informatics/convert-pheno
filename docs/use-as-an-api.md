@@ -10,4 +10,4 @@ We have created a very light API that will allow you to send `POST` requests and
 }
 ```
 
-Please see more instructions at this [README](https://github.com/mrueda/Convert-Pheno/tree/main/api).
+Please see more detailed instructions at this [README](https://github.com/mrueda/Convert-Pheno/tree/main/api).

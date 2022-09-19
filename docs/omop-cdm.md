@@ -20,28 +20,15 @@ convert-pheno -iomop omop_dump.sql -obff individuals.json
 
 The idea is that we will pass the essential information as a hash (Perl) or dictionary (Python). You don't need to send all the tables shown in the example below, just the ones you want to transform.
 
-__NB__: The defintions are stored in table `CONCEPT`. If you send the complete `CONCEPT` table then `Convert::Pheno` will be able to find a match, otherwise it will require setting the parameter `ohdsi = 1` (true).
+__NB__: The defintions are stored in table `CONCEPT`. If you send the complete `CONCEPT` table then `Convert::Pheno` will be able to find a match, otherwise it will require setting the parameter `ohdsi_db = 1` (true).
 
 ```Perl
-my $data = {
-  method" => 'omop2bff',
-  ohdsi" => 0,
+my $data = 
+{
+  method => 'omop2bff',
+  ohdsi_db => 1,
   data => 
          {
-          'CDM_SOURCE' => [
-                            {
-                              'cdm_etl_reference' => 'https://github.com/OHDSI/ETL-Synthea',
-                              'cdm_holder' => 'OHDSI Community',
-                              'cdm_release_date' => '2019-05-25',
-                              'cdm_source_abbreviation' => 'Synthea',
-                              'cdm_source_name' => 'Synthea synthetic health database',
-                              'cdm_version' => 'v5.3.1',
-                              'source_description' => 'SyntheaTM is a Synthetic Patient Population Simulator. The goal is to output synthetic, realistic (but not real), patient data and associated health records in a variety of formats.',
-                              'source_documentation_reference' => 'https://synthetichealth.github.io/synthea/',
-                              'source_release_date' => '2019-05-25',
-                              'vocabulary_version' => 'v5.0 18-JAN-19'
-                            }
-                          ],
           'CONCEPT' => [
                          {
                            'concept_class_id' => '4-char billing code',
@@ -57,31 +44,6 @@ my $data = {
                          },
                          {...}
                        ],
-          'CONCEPT_ANCESTOR' => [
-                                  {
-                                    'ancestor_concept_id' => '4180628',
-                                    'descendant_concept_id' => '313217',
-                                    'max_levels_of_separation' => '6',
-                                    'min_levels_of_separation' => '5'
-                                  }
-                                ],
-          'CONCEPT_RELATIONSHIP' => [
-                                      {
-                                        'concept_id_1' => '192671',
-                                        'concept_id_2' => '35208414',
-                                        'invalid_reason' => undef,
-                                        'relationship_id' => 'Mapped from',
-                                        'valid_end_date' => '2099-12-31',
-                                        'valid_start_date' => '1970-01-01'
-                                      }
-                                    ],
-          'CONCEPT_SYNONYM' => [
-                                 {
-                                   'concept_id' => '964261',
-                                   'concept_synonym_name' => 'cyanocobalamin 5000 MCG/ML Injectable Solution',
-                                   'language_concept_id' => '4180186'
-                                 }
-                               ],
           'CONDITION_ERA' => [
                                {
                                  'condition_concept_id' => '40481087',
@@ -296,9 +258,10 @@ my $data = {
 }
 ```
 
-API
+### API
 
-See example data [here](json/omop-cdm.json)
+See example data [here](json/omop-cdm.json).
+
 ```JSON
 {
 "data": { ... },

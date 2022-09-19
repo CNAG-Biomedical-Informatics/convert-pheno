@@ -22,7 +22,7 @@ nav:
       - Beacon v2 (BFF): bff.md
       - Phenopacket v2 (PXF): pxf.md
       - REDCap: redcap.md
-      - OMOP-CDM: https://www.ohdsi.org/data-standardization/the-common-data-model
+      - OMOP-CDM: omop-cdm.md
       - CDISC: https://www.cdisc.org/standards
   - Help:
       - Help: http://github.com/mrueda/Convert-Pheno
