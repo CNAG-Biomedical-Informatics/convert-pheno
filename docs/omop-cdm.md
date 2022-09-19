@@ -301,7 +301,7 @@ API
 See example data [here](json/omop-cdm.json)
 ```JSON
 {
-"data: { ... },
+"data": { ... },
 "method": "omop2bff",
 "ohdsi_db": true
 }
