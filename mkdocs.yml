@@ -21,7 +21,7 @@ nav:
   - Formats accepted:
       - Beacon v2 (BFF): bff.md
       - Phenopacket (PXF): pxf.md
-      - REDCap: https://www.project-redcap.org
+      - REDCap: redcap.md
       - OMOP-CDM: https://www.ohdsi.org/data-standardization/the-common-data-model
       - CDISC: https://www.cdisc.org/standards
   - Help:
