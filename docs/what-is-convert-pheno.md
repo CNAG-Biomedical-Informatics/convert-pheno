@@ -5,7 +5,7 @@
 # Input formats:
 
 * Beacon v2
-* Phenopacket
+* Phenopacket v2
 * OMOP-CDM
 * REDCap 
 * CDISC (under active development)
@@ -13,7 +13,7 @@
 # Output formats (Sep-2022):
 
 * Beacon v2
-* Phenopacket
+* Phenopacket v2
 
 `Convert-Pheno` can work as **command-line tool** or as a **module**. Please see the [Download and installation](download-and-installation.md) section of this website.
 

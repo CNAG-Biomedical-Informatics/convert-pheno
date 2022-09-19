@@ -12,7 +12,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
        -input-type:  
              -ibff                    Beacon v2 JSON file
              -iomop                   OMOP-CDM CSV files or PostgreSQL dump
-             -ipxf                    Phenopacket JSON file
+             -ipxf                    Phenopacket v2 JSON file
              -iredcap                 REDCap CSV file
 
             (Wish-list)
@@ -21,7 +21,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
 
        -output-type;
              -obff                    Beacon v2 JSON file
-             -opxf                    Phenopacket JSON file
+             -opxf                    Phenopacket v2 JSON file
 
      Options:
        -debug                         Print debugging (from 1 to 5, being 5 max)

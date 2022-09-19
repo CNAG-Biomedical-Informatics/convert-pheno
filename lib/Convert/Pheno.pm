@@ -967,6 +967,8 @@ sub omop2bff {
         }
     }
 
+    #print Dumper_tidy($data);
+
     # Primarily with CSV, it can happen that user does not provide <CONCEPT.csv>
     die 'We could not find table CONCEPT, maybe missing <CONCEPT.csv> ???'
       unless exists $data->{CONCEPT};
@@ -2145,7 +2147,7 @@ sub map_ontology {
 
     # Die if user wants OHDSI w/o flag -ohdsi-db
     die
-"Please use the flag <-ohdsi> to enable searching at Athena-OHDSI database"
+"Please use the flag <-ohdsi-db> to enable searching at Athena-OHDSI database"
       if ( $ontology eq 'ohdsi' && !$self->{ohdsi_db} );
 
     # Perform query
