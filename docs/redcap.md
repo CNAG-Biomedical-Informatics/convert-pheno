@@ -11,9 +11,9 @@ REDCap projects are by definition “**free format**”, that is, is up to the p
 As stated in the REDCap project creation user’s guide _“We always recommend reviewing your variable names with a statistician or whoever will be analyzing your data. This is especially important if this is the first time you are building a database.”_ 
 
 This freedom of choice makes very difficult (if not impossible) to come up with a solution that is able to handle the plethora of possibilities from REDCap projects.  
-Still, we have been able to succesfully convert data from REDCap project to both Beacon v2 and Phenopackets v2. These projects were developed in the context of the [3TR Project](https://3tr-imi.eu).
+Still, we have been able to succesfully convert data from REDCap project export to both Beacon v2 and Phenopackets v2. These projects were developed in the context of the [3TR Project](https://3tr-imi.eu).
 
-The idea is to support more REDCap data in the future by allowing **one-to-one variable mapping to our template**. 
+The idea is to support more REDCap data exports in the future by allowing **one-to-one variable mapping to our template**. 
 
 ### Command-line
 

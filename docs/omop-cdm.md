@@ -18,6 +18,8 @@ convert-pheno -iomop omop_dump.sql -obff individuals.json
 
 ### Module
 
+Usually, OMOP-CDM databases are implemented as PostgreSQL instances. Programatically, we let the developer deal with database credentials, queries, etc. which we assume are performed with one of the many available [drivers for PostgreSQL](https://wiki.postgresql.org/wiki/List_of_drivers).
+
 The idea is that we will pass the essential information as a hash (Perl) or dictionary (Python). You don't need to send all the tables shown in the example below, just the ones you want to transform.
 
 __NB__: The defintions are stored in table `CONCEPT`. If you send the complete `CONCEPT` table then `Convert::Pheno` will be able to find a match, otherwise it will require setting the parameter `ohdsi_db = 1` (true).
@@ -74,12 +76,6 @@ my $data =
                                         'visit_occurrence_id' => '17479'
                                       }
                                     ],
-          'DOMAIN' => [
-                        {
-                          'domain_concept_id' => '19',
-                          'domain_id' => 'Condition',
-                          'domain_name' => 'Condition'
-                        }
                       ],
           'DRUG_ERA' => [
                           {
@@ -255,7 +251,7 @@ my $data =
                             }
                           ]
         }
-}
+};
 ```
 
 ### API

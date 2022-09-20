@@ -1,6 +1,6 @@
 {
   "method": "omop2bff",
-  "ohdsi_db": true,
+  "ohdsi_db": false,
   "data": {
     "CDM_SOURCE": [
       {

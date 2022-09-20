@@ -29,7 +29,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
        -h|help                        Brief help message
        -man                           Full documentation
        -nc|-no-color                  Don't print colors to STDOUT
-       -ohdsi-db                      Use Athena-OHDSI database (~1.1GB) with -iomop
+       -ohdsi-db                      Use Athena-OHDSI database (~1.2GB) with -iomop
        -out-dir                       Output (existing) directory
        -phl|print-hidden-labels       Print original values (before DB mapping) of text fields <_labels>
        -rcd|redcap-dictionary         Dictionary file (CSV) exported from REDCap
@@ -106,6 +106,12 @@ For executing convert-pheno you will need:
 - Input file(s):
 
     A text file in one of the accepted formats.
+
+- Optional: 
+
+    Athena-OHDSI database
+
+    Please download it from this [link](https://drive.google.com/file/d/104ciON3zRc3ScAzzrL_3GO14aCnBLh-c/view?usp=sharing) (~1.2GB) and move it inside `db/` directory.
 
 **Examples:**
 
