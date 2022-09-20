@@ -8,14 +8,11 @@
 * Phenopacket v2
 * OMOP-CDM
 * REDCap 
-* CDISC (under active development)
+* CDISC-ODM (under active development)
 
 # Output formats (Sep-2022):
 
 * Beacon v2
 * Phenopacket v2
 
-`Convert-Pheno` can work as **command-line tool** or as a **module**. Please see the [Download and installation](download-and-installation.md) section of this website.
-
-!!! Important
-    The software is implemented in `Perl` language and packaged as a Perl Module in the Comprehensive Perl Archive Network (CPAN).
+`Convert-Pheno` can work as a **command-line tool**, as a **module** and as an **API**. Please see the [Download and installation](download-and-installation.md) section of this website.

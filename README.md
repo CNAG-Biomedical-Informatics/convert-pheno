@@ -13,11 +13,11 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
              -ibff                    Beacon v2 JSON file
              -iomop                   OMOP-CDM CSV files or PostgreSQL dump
              -ipxf                    Phenopacket v2 JSON file
-             -iredcap                 REDCap CSV file
+             -iredcap                 REDCap (raw data) export CSV file
 
             (Wish-list)
-             #-icdisc                 CDISC CSV file
-             #-ifhir                  FHIR CSV file
+             #-icdisc                 CDISC-ODM XML file
+             #-ifhir                  FHIR
 
        -output-type;
              -obff                    Beacon v2 JSON file
@@ -32,7 +32,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
        -ohdsi-db                      Use Athena-OHDSI database (~1.2GB) with -iomop
        -out-dir                       Output (existing) directory
        -phl|print-hidden-labels       Print original values (before DB mapping) of text fields <_labels>
-       -rcd|redcap-dictionary         Dictionary file (CSV) exported from REDCap
+       -rcd|redcap-dictionary         REDCap data dictionary CSV file
        -sep|separator                 Delimiter character for CSV files
        -sql2csv                       Print SQL TABLES (with -iomop)
        -verbose                       Verbosity on

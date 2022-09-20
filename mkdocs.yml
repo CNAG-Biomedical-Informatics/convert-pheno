@@ -23,6 +23,7 @@ nav:
       - Phenopacket v2 (PXF): pxf.md
       - REDCap: redcap.md
       - OMOP-CDM: omop-cdm.md
+      - CDISC (ODM): cdisc.md
   - Help:
       - Help: http://github.com/mrueda/Convert-Pheno
       - FAQs: faq.md

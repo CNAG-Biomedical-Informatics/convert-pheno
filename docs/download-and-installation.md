@@ -9,13 +9,13 @@ We provide several alternatives for download and installation.
 !!! Danger "Disclaimer"
     This installation method will be available once the paper is accepted.
 
-The software can be downloaded from [CPAN](https://metacpan.org/pod/Convert::Pheno).
+The software is implemented in `Perl` language and packaged as a Perl Module in the Comprehensive Perl Archive Network (CPAN). See the description [here](https://metacpan.org/pod/Convert::Pheno).
 
-First we install cpanminus (with sudo privileges):
+To install it, we'll be using `cpanminus` (with sudo privileges):
 
     sudo apt-get install cpanminus
 
-Then the module:
+Then the install the module:
 
   cpanm --sudo Convert::Pheno
 
