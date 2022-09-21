@@ -234,7 +234,7 @@ sub do_bff2pxf {
     my ( $self, $data ) = @_;
 
     # Premature return
-    return undef unless defined($data);
+    return () unless defined($data);
 
     #########################################
     # START MAPPING TO PHENOPACKET V2 TERMS #
@@ -434,7 +434,7 @@ sub do_redcap2bff {
     # ABOUT REQUIRED PROPERTIES
     # 'id' and 'sex' are required properties in <individuals> entry type
     # Premature return
-    return undef
+    return ()
       unless (
         (
             exists $participant->{ids_complete}
@@ -1007,7 +1007,7 @@ sub do_omop2bff {
     # 'id' and 'sex' are required properties in <individuals> entry type
     # 'person_id' must exist at this point otherwise it would have not been created
     # Premature return
-    return undef
+    return ()
       unless ( exists $person->{gender_concept_id}
         && $person->{gender_concept_id} ne '' );
 
@@ -2618,9 +2618,10 @@ sub array_dispatcher {
             # In $self->{data} we have all participants data, but,
             # WE DELIBERATELY SEPARATE ARRAY ELEMENTS FROM $self->{data}
 
-            # If we get "null" participants the validator will complain about not having "id"
+            # NB: If we get "null" participants the validator will complain 
+            # about not having "id" or any other required property
             my $method_result = $func{ $self->{method} }->( $self, $_ );    # Method
-            push @{$out_data}, $method_result if defined $method_result;    #
+            push @{$out_data}, $method_result if $method_result;
         }
     }
     else {
@@ -2686,7 +2687,7 @@ sub find_age {
 
     # Not a big fan of premature return, but it works here...
     #  ¯\_(ツ)_/¯
-    return undef unless ( $birth && $date );
+    return () unless ( $birth && $date );
 
     my ( $birth_year, $birth_month, $birth_day ) =
       ( split /\-|\s+/, $birth )[ 0 .. 2 ];
