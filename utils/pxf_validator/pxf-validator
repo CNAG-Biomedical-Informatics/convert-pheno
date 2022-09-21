@@ -134,7 +134,7 @@ sub check_array {
             my $error = validate_against_json_schema(
                 { data => $_, validator => $validator } );
             push @{$errors}, ( "Row " . $count . ':', join "\n", @$error )
-              if $error;
+              if defined $error;
             $count++;
         }
     }
@@ -146,7 +146,7 @@ sub check_array {
         my $error = validate_against_json_schema(
             { data => $data, validator => $validator } );
         push @{$errors}, ( "Row " . '1' . ':', join "\n", @$error )
-          if $error;
+          if defined $error;
     }
 
     return wantarray ? @$errors : $errors;
@@ -168,7 +168,7 @@ sub validate_against_json_schema {
     my $errors = [ $validator->validate($json) ];
 
     # Return errors as ref
-    return scalar @$errors ? $errors : ();
+    return scalar @$errors ? $errors : undef;
 }
 
 sub program_header {
