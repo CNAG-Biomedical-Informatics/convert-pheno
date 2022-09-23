@@ -218,9 +218,11 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
              -ipxf                    Phenopacket v2 JSON file
              -iredcap                 REDCap (raw data) export CSV file
 
-            (Wish-list)
+            (Under development)
              #-icdisc                 CDISC-ODM XML file
-             #-ifhir                  FHIR
+
+            (Wish-list)
+             #-ifhir                  HL7/FHIR
 
        -output-type;
              -obff                    Beacon v2 JSON file

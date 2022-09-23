@@ -16,9 +16,10 @@ use File::Basename;
 use Text::CSV_XS;
 use Scalar::Util qw(looks_like_number);
 use Sys::Hostname;
-use Cwd         qw(cwd abs_path);
-use POSIX       qw(strftime);
-use Time::HiRes qw(gettimeofday);
+use Cwd             qw(cwd abs_path);
+use POSIX           qw(strftime);
+use Time::HiRes     qw(gettimeofday);
+use Sort::Naturally qw(nsort);
 
 #use Time::Piece qw(localtime);
 use List::Util qw(any);
@@ -119,7 +120,7 @@ sub do_pxf2bff {
 
     my ( $self, $data ) = @_;
     my $sth = $self->{sth};
-   
+
     # Get cursors for 1D terms
     my $interpretation = $data->{interpretation};
     my $phenopacket    = $data->{phenopacket};
@@ -234,7 +235,7 @@ sub do_bff2pxf {
     my ( $self, $data ) = @_;
 
     # Premature return
-    return () unless defined($data);
+    return unless defined($data);
 
     #########################################
     # START MAPPING TO PHENOPACKET V2 TERMS #
@@ -254,22 +255,32 @@ sub do_bff2pxf {
     # subject
     # =======
 
-    $pxf->{subject} =
-      { id => $data->{id}, sex => $data->{sex}, age => $data->{info}{age} };
+    $pxf->{subject} = {
+        id  => $data->{id},
+        sex => uc( $data->{sex}{label} ),
+        age => $data->{info}{age}
+    };
 
     # ===================
     # phenotypic_features
     # ===================
 
-    $pxf->{phenotypicFeatures} =
-      [ map { { type => $_->{featureType}, _notes => $_->{notes} } }
-          @{ $data->{phenotypicFeatures} } ];
+    $pxf->{phenotypicFeatures} = [
+        map {
+            {
+                type => $_->{featureType}
 
-    # ========
-    # measures
-    # ========
+                  #_notes => $_->{notes}
+            }
+        } @{ $data->{phenotypicFeatures} }
+      ]
+      if defined $data->{phenotypicFeatures};
 
-    $pxf->{measures} = [
+    # ============
+    # measurements
+    # ============
+
+    $pxf->{measurements} = [
         map {
             {
                 assay        => $_->{assayCode},
@@ -277,7 +288,7 @@ sub do_bff2pxf {
                 value        => $_->{measurementValue}
             }
         } @{ $data->{measures} }
-    ];    # Only 1 element at $_->{measurementValue}
+    ] if defined $data->{measures};    # Only 1 element at $_->{measurementValue}
 
     # ==========
     # biosamples
@@ -287,7 +298,7 @@ sub do_bff2pxf {
     # interpretations
     # ===============
 
-    $data->{interpretation} = { phenopacket => {} };
+    #$data->{interpretation} = {};
 
     # ========
     # diseases
@@ -301,39 +312,36 @@ sub do_bff2pxf {
     # medical_actions
     # ===============
 
-    my $medical_actions = {};
-
     # **** procedures ****
-    my $procedures = [
-        map {
-            {
+    my @procedures = map {
+        {
+            procedure => {
                 code      => $_->{procedureCode},
                 performed => {
                     timestamp => exists $_->{dateOfProcedure}
-                    ? $_->{dateOfProcedure}
+                    ? _map2iso8601( $_->{dateOfProcedure} )
                     : undef
                 }
             }
-        } @{ $data->{interventionsOrProcedures} }
-    ];
-    $medical_actions->{procedure} = $procedures;
+        }
+    } @{ $data->{interventionsOrProcedures} };
 
-    # **** treatment ****
-    my $treatment = [
-        map {
-            {
+    # **** treatments ****
+    my @treatments = map {
+        {
+            treatment => {
                 agent                 => $_->{treatmentCode},
                 routeOfAdministration => $_->{routeOfAdministration},
                 doseIntervals         => $_->{doseIntervals}
 
                   #performed => { timestamp => exists $_->{dateOfProcedure} ? $_->{dateOfProcedure} : undef}
             }
-        } @{ $data->{treatments} }
-    ];
-    $medical_actions->{treatment} = $treatment;
+        }
+    } @{ $data->{treatments} };
 
-    # Load $pxf->{medicalActions}
-    $pxf->{medicalActions} = $medical_actions;
+    # Load
+    push @{ $pxf->{medicalActions} }, @procedures if @procedures;
+    push @{ $pxf->{medicalActions} }, @treatments if @treatments;
 
     # =====
     # files
@@ -434,7 +442,7 @@ sub do_redcap2bff {
     # ABOUT REQUIRED PROPERTIES
     # 'id' and 'sex' are required properties in <individuals> entry type
     # Premature return
-    return ()
+    return
       unless (
         (
             exists $participant->{ids_complete}
@@ -1007,7 +1015,7 @@ sub do_omop2bff {
     # 'id' and 'sex' are required properties in <individuals> entry type
     # 'person_id' must exist at this point otherwise it would have not been created
     # Premature return
-    return ()
+    return
       unless ( exists $person->{gender_concept_id}
         && $person->{gender_concept_id} ne '' );
 
@@ -1914,7 +1922,7 @@ sub read_sqldump {
 
             push @{ $data->{$table_name} },
               { map { $headers[$_] => $values[$_] } ( 0 .. $#headers ) };
-          last if $count == $limit;
+            last if $count == $limit;
         }
     }
     return $data;
@@ -1943,7 +1951,7 @@ sub sqldump2csv {
         ##########################
 
         # Print headers (we get them from row[0])
-        my @headers = sort keys %{ $data->{$table}[0] };
+        my @headers = nsort keys %{ $data->{$table}[0] };
         say $fh join $sep, @headers;
 
         # Print rows
@@ -2066,7 +2074,8 @@ sub transpose_omop_data_structure {
     #                        }
     #          }
     #        ];
-    return [ map { $omop_person_id->{$_} } keys %{$omop_person_id} ];
+    # NB: We nsort keys to always have the same result but it's not needed
+    return [ map { $omop_person_id->{$_} } nsort keys %{$omop_person_id} ];
 }
 
 #########################
@@ -2278,6 +2287,11 @@ sub iso8601_time {
     # Standard modules
     my ( $s, $f ) = split( /\./, gettimeofday );
     return strftime( '%Y-%m-%dT%H:%M:%S.' . $f . '%z', localtime($s) );
+}
+
+sub _map2iso8601 {
+
+    return shift . 'T00:00:00.00Z';
 }
 
 sub map_3tr {
@@ -2618,7 +2632,7 @@ sub array_dispatcher {
             # In $self->{data} we have all participants data, but,
             # WE DELIBERATELY SEPARATE ARRAY ELEMENTS FROM $self->{data}
 
-            # NB: If we get "null" participants the validator will complain 
+            # NB: If we get "null" participants the validator will complain
             # about not having "id" or any other required property
             my $method_result = $func{ $self->{method} }->( $self, $_ );    # Method
             push @{$out_data}, $method_result if $method_result;
@@ -2655,23 +2669,25 @@ sub get_metaData {
 "International Statistical Classification of Diseases and Related Health Problems 10th Revision",
             url             => "https://icd.who.int/browse10/2019/en#",
             version         => "2019",
-            namespacePrefix => "ICD-10"
-
-              #iriPrefix => "http://purl.obolibrary.org/obo/HP_"
+            namespacePrefix => "ICD-10",
+            iriPrefix       => "http://purl.obolibrary.org/obo/ICD10_"
         },
         {
             id              => "NCIT",
             name            => "NCI Thesaurus",
             url             => " http://purl.obolibrary.org/obo/ncit.owl",
             version         => "22.03d",
-            namespacePrefix => "NCIT"
+            namespacePrefix => "NCIT",
+            iriPrefix       => "http://purl.obolibrary.org/obo/NCIT_"
         }
     ];
     return {
-        _info => $info,
+        #_info => $info,
 
-        #created   => iso8601_time(), 3 to alleviate testing
-        resources => $resources
+        created                  => iso8601_time(),    # to alleviate testing
+        createdBy                => $user,
+        phenopacketSchemaVersion => '2.0',
+        resources                => $resources
     };
 }
 
@@ -2687,7 +2703,7 @@ sub find_age {
 
     # Not a big fan of premature return, but it works here...
     #  ¯\_(ツ)_/¯
-    return () unless ( $birth && $date );
+    return unless ( $birth && $date );
 
     my ( $birth_year, $birth_month, $birth_day ) =
       ( split /\-|\s+/, $birth )[ 0 .. 2 ];
@@ -2718,7 +2734,7 @@ sub Dumper_tidy {
         local $Data::Dumper::Deparse   = 1;
         local $Data::Dumper::Quotekeys = 1;
         local $Data::Dumper::Sortkeys  = 1;
-        local $Data::Dumper::Pair = ' : ';
+        local $Data::Dumper::Pair      = ' : ';
         print Dumper shift;
     }
 }
