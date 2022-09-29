@@ -3,17 +3,19 @@ package Convert::Pheno::Mapping;
 use strict;
 use warnings;
 use autodie;
-use feature               qw(say);
+use feature qw(say);
 use utf8;
 use Data::Dumper;
-use Time::HiRes     qw(gettimeofday);
-use POSIX           qw(strftime);
+use JSON::XS;
+use Time::HiRes  qw(gettimeofday);
+use POSIX        qw(strftime);
 use Scalar::Util qw(looks_like_number);
 use Convert::Pheno::SQLite;
 binmode STDOUT, ':encoding(utf-8)';
 
 use Exporter 'import';
-our @EXPORT = qw( map_ethnicity map_ontology map_exposures map_quantity dotify_and_coerce_number iso8601_time map2iso8601 map_3tr map_unit_range map_age_range map2redcap_dic map2ohdsi_dic convert2boolean find_age randStr);
+our @EXPORT =
+  qw( map_ethnicity map_ontology map_exposures map_quantity dotify_and_coerce_number iso8601_time _map2iso8601 map_3tr map_unit_range map_age_range map2redcap_dic map2ohdsi_dic convert2boolean find_age randStr);
 
 my $seen = {};
 
@@ -28,7 +30,7 @@ sub map_ethnicity {
     my $str       = shift;
     my %ethnicity = ( map { $_ => 'NCIT:C41261' } ( 'caucasian', 'white' ) );
 
-    # 1, Caucasian | 2, Hispanic | 3, Asian | 4, African/African-American | 5, Indigenous American | 6, Mixed | 9, Other";
+# 1, Caucasian | 2, Hispanic | 3, Asian | 4, African/African-American | 5, Indigenous American | 6, Mixed | 9, Other";
     return { id => $ethnicity{ lc($str) }, label => $str };
 }
 
@@ -57,10 +59,13 @@ sub map_ontology {
     my $arg      = shift;
     my $column   = $arg->{column};
     my $ontology = $arg->{ontology};
-    my $match    = exists $arg->{match} ? $arg->{match} : 'exact_match';    # Only option as of 090422
-    my $self     = $arg->{self};
+    my $match =
+      exists $arg->{match}
+      ? $arg->{match}
+      : 'exact_match';    # Only option as of 090422
+    my $self                = $arg->{self};
     my $print_hidden_labels = $self->{display_labels};
-    my $sth                 = $self->{sth}{$ontology}{$column}{$match};     # IMPORTANT STEP
+    my $sth = $self->{sth}{$ontology}{$column}{$match};    # IMPORTANT STEP
 
     # Die if user wants OHDSI w/o flag -ohdsi-db
     die
@@ -80,7 +85,7 @@ sub map_ontology {
     # Add result to global $seen
     $seen->{$tmp_query} = { id => $id, label => $label };    # global
 
-    # id and label come from <db> _label is the original string (can change on partial matches)
+# id and label come from <db> _label is the original string (can change on partial matches)
     return $print_hidden_labels
       ? { id => $id, label => $label, _label => $tmp_query }
       : { id => $id, label => $label };
@@ -88,8 +93,8 @@ sub map_ontology {
 
 sub map_exposures {
 
-    #alcohol;anamnesis;;radio;Alcohol drinking habits";"0, Non-drinker | 1, Ex-drinker | 2, occasional drinking | 3, regular drinking | 4, unknown";;;;;;;y;;;;;
-    #smoking;anamnesis;;radio;"Smoking habits";"0, Never smoked | 1, Ex-smoker | 2, Current smoker";;;;;;;y;;;;;
+#alcohol;anamnesis;;radio;Alcohol drinking habits";"0, Non-drinker | 1, Ex-drinker | 2, occasional drinking | 3, regular drinking | 4, unknown";;;;;;;y;;;;;
+#smoking;anamnesis;;radio;"Smoking habits";"0, Never smoked | 1, Ex-smoker | 2, Current smoker";;;;;;;y;;;;;
 
     my $arg      = shift;
     my $key      = $arg->{key};
@@ -115,48 +120,48 @@ sub map_exposures {
 
 sub map_quantity {
 
-    # https://phenopacket-schema.readthedocs.io/en/latest/quantity.html
-    # https://www.ebi.ac.uk/ols/ontologies/ncit/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FNCIT_C25709
-    # Some SI units are in ncit but others aren't.
-    # what do we do?
-    #  - Hard coded in Hash? ==> Fast
-    #  - Search every time on DB? ==> Slow
+# https://phenopacket-schema.readthedocs.io/en/latest/quantity.html
+# https://www.ebi.ac.uk/ols/ontologies/ncit/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FNCIT_C25709
+# Some SI units are in ncit but others aren't.
+# what do we do?
+#  - Hard coded in Hash? ==> Fast
+#  - Search every time on DB? ==> Slow
     my $str = shift;
 
-    # SI UNITS (10^9/L)
-    # hemoglobin;routine_lab_values;;text;Hemoglobin;;"xx.x g/dl";number;0;20;;;y;;;;;
-    #leucocytes;routine_lab_values;;text;Leucocytes;;"xx.xx /10^-9 l";number;0;200;;;y;;;;;
-    #hematokrit;routine_lab_values;;text;Hematokrit;;"xx.x %";number;0;100;;;y;;;;;
-    #mcv;routine_lab_values;;text;"Mean red cell volume (MCV)";;"xx.x fl";number;0;200;;;y;;;;;
-    #mhc;routine_lab_values;;text;"Mean red cell haemoglobin (MCH)";;"xx.x pg";number;0;100;;;y;;;;;
-    #thrombocytes;routine_lab_values;;text;Thrombocytes;;"xxxx /10^-9 l";number;0;2000;;;y;;;;;
-    #neutrophils;routine_lab_values;;text;Neutrophils;;"x.xx /10^-9 l";number;0;100;;;;;;;;
-    #lymphocytes;routine_lab_values;;text;Lymphocytes;;"x.xx /10^-9 l";number;0;100;;;;;;;;
-    #eosinophils;routine_lab_values;;text;Eosinophils;;"x.xx /10^-9 l";number;0;100;;;;;;;;
-    #creatinine;routine_lab_values;;text;Creatinine;;"xxx µmol/l";number;0;10000;;;y;;;;;
-    #gfr;routine_lab_values;;text;"GFR CKD-Epi";;"xxx ml/min/1.73";number;0;200;;;y;;;;;
-    #bilirubin;routine_lab_values;;text;Bilirubin;;"xxx.x µmol/l";number;0;10000;;;y;;;;;
-    #gpt;routine_lab_values;;text;GPT;;"xx.x U/l";number;0;10000;;;y;;;;;
-    #ggt;routine_lab_values;;text;gammaGT;;"xx.x U/l";number;0;10000;;;y;;;;;
-    #lipase;routine_lab_values;;text;Lipase;;"xx.x U/l";number;0;10000;;;;;;;;
-    #crp;routine_lab_values;;text;CRP;;"xxx.x mg/l";number;0;1000;;;y;;;;;
-    #iron;routine_lab_values;;text;Iron;;"xx.x µmol/l";number;0;1000;;;;;;;;
-    #il6;routine_lab_values;;text;IL-6;;"xxxx.x ng/l";number;0;10000;;;;;;;;
-    #calprotectin;routine_lab_values;;text;Calprotectin;;"mg/kg stool";integer;;;;;;;;;;
+# SI UNITS (10^9/L)
+# hemoglobin;routine_lab_values;;text;Hemoglobin;;"xx.x g/dl";number;0;20;;;y;;;;;
+#leucocytes;routine_lab_values;;text;Leucocytes;;"xx.xx /10^-9 l";number;0;200;;;y;;;;;
+#hematokrit;routine_lab_values;;text;Hematokrit;;"xx.x %";number;0;100;;;y;;;;;
+#mcv;routine_lab_values;;text;"Mean red cell volume (MCV)";;"xx.x fl";number;0;200;;;y;;;;;
+#mhc;routine_lab_values;;text;"Mean red cell haemoglobin (MCH)";;"xx.x pg";number;0;100;;;y;;;;;
+#thrombocytes;routine_lab_values;;text;Thrombocytes;;"xxxx /10^-9 l";number;0;2000;;;y;;;;;
+#neutrophils;routine_lab_values;;text;Neutrophils;;"x.xx /10^-9 l";number;0;100;;;;;;;;
+#lymphocytes;routine_lab_values;;text;Lymphocytes;;"x.xx /10^-9 l";number;0;100;;;;;;;;
+#eosinophils;routine_lab_values;;text;Eosinophils;;"x.xx /10^-9 l";number;0;100;;;;;;;;
+#creatinine;routine_lab_values;;text;Creatinine;;"xxx µmol/l";number;0;10000;;;y;;;;;
+#gfr;routine_lab_values;;text;"GFR CKD-Epi";;"xxx ml/min/1.73";number;0;200;;;y;;;;;
+#bilirubin;routine_lab_values;;text;Bilirubin;;"xxx.x µmol/l";number;0;10000;;;y;;;;;
+#gpt;routine_lab_values;;text;GPT;;"xx.x U/l";number;0;10000;;;y;;;;;
+#ggt;routine_lab_values;;text;gammaGT;;"xx.x U/l";number;0;10000;;;y;;;;;
+#lipase;routine_lab_values;;text;Lipase;;"xx.x U/l";number;0;10000;;;;;;;;
+#crp;routine_lab_values;;text;CRP;;"xxx.x mg/l";number;0;1000;;;y;;;;;
+#iron;routine_lab_values;;text;Iron;;"xx.x µmol/l";number;0;1000;;;;;;;;
+#il6;routine_lab_values;;text;IL-6;;"xxxx.x ng/l";number;0;10000;;;;;;;;
+#calprotectin;routine_lab_values;;text;Calprotectin;;"mg/kg stool";integer;;;;;;;;;;
 
     # http://purl.obolibrary.org/obo/NCIT_C64783          # SI units
     # label => NCIT
     my %unit = (
-        'xx.xx /10^-9 l' => 'Cells per Microliter',    # '10^9/L',
-        'x.xx /10^-9 l'  => 'Cells per Microliter',    #
+        'xx.xx /10^-9 l' => 'Cells per Microliter',   # '10^9/L',
+        'x.xx /10^-9 l'  => 'Cells per Microliter',   #
         'xxxx /10^-9 l'  => 'Cells per Microliter',
-        'xx.x g/dl'      => 'Gram per Deciliter',      # 'g/dL',
-        'xx.x fl'        => 'Femtoliter',              # 'fL'
-        'xx.x'           => 'Picogram',                # 'pg',         #picograms
+        'xx.x g/dl'      => 'Gram per Deciliter',     # 'g/dL',
+        'xx.x fl'        => 'Femtoliter',             # 'fL'
+        'xx.x'           => 'Picogram',               # 'pg',         #picograms
         'xx.x pg'        => 'Picogram',
         'xx.x µmol/l'    => 'Micromole per Liter',
         'xxx.x µmol/l'   => 'Micromole per Liter',
-        'xxx µmol/l'     => 'Micromole per Liter',     # 'µmol/l',
+        'xxx µmol/l'     => 'Micromole per Liter',    # 'µmol/l',
 
         #        'ml/min/1.73'    => 'mL/min/1.73',
         #        'xxx ml/min/1.73' => 'mL/min/1.73',
@@ -207,25 +212,25 @@ sub map_3tr {
     my $str  = shift;
     my %term = (
 
-        #hemoglobin;routine_lab_values;;text;Hemoglobin;;"xx.x g/dl";number;0;20;;;y;;;;;
-        #leucocytes;routine_lab_values;;text;Leucocytes;;"xx.xx /10^-9 l";number;0;200;;;y;;;;;
-        #hematokrit;routine_lab_values;;text;Hematokrit;;"xx.x %";number;0;100;;;y;;;;;
-        #mcv;routine_lab_values;;text;"Mean red cell volume (MCV)";;"xx.x fl";number;0;200;;;y;;;;;
-        #mhc;routine_lab_values;;text;"Mean red cell haemoglobin (MCH)";;"xx.x pg";number;0;100;;;y;;;;;
-        #thrombocytes;routine_lab_values;;text;Thrombocytes;;"xxxx /10^-9 l";number;0;2000;;;y;;;;;
-        #neutrophils;routine_lab_values;;text;Neutrophils;;"x.xx /10^-9 l";number;0;100;;;;;;;;
-        #lymphocytes;routine_lab_values;;text;Lymphocytes;;"x.xx /10^-9 l";number;0;100;;;;;;;;
-        #eosinophils;routine_lab_values;;text;Eosinophils;;"x.xx /10^-9 l";number;0;100;;;;;;;;
-        #creatinine;routine_lab_values;;text;Creatinine;;"xxx µmol/l";number;0;10000;;;y;;;;;
-        #gfr;routine_lab_values;;text;"GFR CKD-Epi";;"xxx ml/min/1.73";number;0;200;;;y;;;;;
-        #bilirubin;routine_lab_values;;text;Bilirubin;;"xxx.x µmol/l";number;0;10000;;;y;;;;;
-        #gpt;routine_lab_values;;text;GPT;;"xx.x U/l";number;0;10000;;;y;;;;;
-        #ggt;routine_lab_values;;text;gammaGT;;"xx.x U/l";number;0;10000;;;y;;;;;
-        #lipase;routine_lab_values;;text;Lipase;;"xx.x U/l";number;0;10000;;;;;;;;
-        #crp;routine_lab_values;;text;CRP;;"xxx.x mg/l";number;0;1000;;;y;;;;;
-        #iron;routine_lab_values;;text;Iron;;"xx.x µmol/l";number;0;1000;;;;;;;;
-        #il6;routine_lab_values;;text;IL-6;;"xxxx.x ng/l";number;0;10000;;;;;;;;
-        #calprotectin;routine_lab_values;;text;Calprotectin;;"mg/kg stool";integer;;;;;;;;;;
+#hemoglobin;routine_lab_values;;text;Hemoglobin;;"xx.x g/dl";number;0;20;;;y;;;;;
+#leucocytes;routine_lab_values;;text;Leucocytes;;"xx.xx /10^-9 l";number;0;200;;;y;;;;;
+#hematokrit;routine_lab_values;;text;Hematokrit;;"xx.x %";number;0;100;;;y;;;;;
+#mcv;routine_lab_values;;text;"Mean red cell volume (MCV)";;"xx.x fl";number;0;200;;;y;;;;;
+#mhc;routine_lab_values;;text;"Mean red cell haemoglobin (MCH)";;"xx.x pg";number;0;100;;;y;;;;;
+#thrombocytes;routine_lab_values;;text;Thrombocytes;;"xxxx /10^-9 l";number;0;2000;;;y;;;;;
+#neutrophils;routine_lab_values;;text;Neutrophils;;"x.xx /10^-9 l";number;0;100;;;;;;;;
+#lymphocytes;routine_lab_values;;text;Lymphocytes;;"x.xx /10^-9 l";number;0;100;;;;;;;;
+#eosinophils;routine_lab_values;;text;Eosinophils;;"x.xx /10^-9 l";number;0;100;;;;;;;;
+#creatinine;routine_lab_values;;text;Creatinine;;"xxx µmol/l";number;0;10000;;;y;;;;;
+#gfr;routine_lab_values;;text;"GFR CKD-Epi";;"xxx ml/min/1.73";number;0;200;;;y;;;;;
+#bilirubin;routine_lab_values;;text;Bilirubin;;"xxx.x µmol/l";number;0;10000;;;y;;;;;
+#gpt;routine_lab_values;;text;GPT;;"xx.x U/l";number;0;10000;;;y;;;;;
+#ggt;routine_lab_values;;text;gammaGT;;"xx.x U/l";number;0;10000;;;y;;;;;
+#lipase;routine_lab_values;;text;Lipase;;"xx.x U/l";number;0;10000;;;;;;;;
+#crp;routine_lab_values;;text;CRP;;"xxx.x mg/l";number;0;1000;;;y;;;;;
+#iron;routine_lab_values;;text;Iron;;"xx.x µmol/l";number;0;1000;;;;;;;;
+#il6;routine_lab_values;;text;IL-6;;"xxxx.x ng/l";number;0;10000;;;;;;;;
+#calprotectin;routine_lab_values;;text;Calprotectin;;"mg/kg stool";integer;;;;;;;;;;
 
         # Field => NCIT Term
         hemoglobin   => 'Hemoglobin Measurement',
@@ -248,18 +253,18 @@ sub map_3tr {
         il6          => 'Interleukin-6',
         calprotectin => 'Calprotectin Measurement',
 
-        #cigarettes_days;anamnesis;;text;"On average, how many cigarettes do/did you smoke per day?";;;integer;0;300;;"[smoking] = '2' or [smoking] = '1'";;;;;;
-        #cigarettes_years;anamnesis;;text;"For how many years have you been smoking/did you smoke?";;;integer;0;100;;"[smoking] = '2' or [smoking] = '1'";;;;;;
-        #packyears;anamnesis;;text;"Pack Years";;;integer;0;300;;"[smoking] = '2' or [smoking] = '1'";;;;;;
-        #smoking_quit;anamnesis;;text;"When did you quit smoking?";;year;integer;1980;2030;;"[smoking] = '2'";;;;;;
+#cigarettes_days;anamnesis;;text;"On average, how many cigarettes do/did you smoke per day?";;;integer;0;300;;"[smoking] = '2' or [smoking] = '1'";;;;;;
+#cigarettes_years;anamnesis;;text;"For how many years have you been smoking/did you smoke?";;;integer;0;100;;"[smoking] = '2' or [smoking] = '1'";;;;;;
+#packyears;anamnesis;;text;"Pack Years";;;integer;0;300;;"[smoking] = '2' or [smoking] = '1'";;;;;;
+#smoking_quit;anamnesis;;text;"When did you quit smoking?";;year;integer;1980;2030;;"[smoking] = '2'";;;;;;
         cigarettes_days  => 'Average Number Cigarettes Smoked a Day',
         cigarettes_years => 'Total Years Have Smoked Cigarettes',
         packyears        => 'Pack Year',
         smoking_quit     => 'Smoking Cessation Year',
 
-        #nancy_index_ulceration;endoscopy;;radio;"Nancy histology index: Ulceration";"0, 0 - none|2, 2 - yes";;;;;;"[endoscopy_performed] = '1' AND [week_0_arm_1][diagnosis] = '2'";y;;;;;
-        #nancy_index_acute;endoscopy;;radio;"Nancy histology index: Acute inflammatory cell infiltrate";"0, 0 - none|2, 2 - mild|3, 3 - moderate|4, 4 - severe";;;;;;"[endoscopy_performed] = '1' AND [week_0_arm_1][diagnosis] = '2'";y;;;;;
-        # nancy_index_chronic;endoscopy;;radio;"Nancy histology index: Chronic inflammatory infiltrates";"0, 0 - none|1, 1 - mild|3, 3 - moderate or marked increase";;;;;;"[endoscopy_performed] = '1' AND [week_0_arm_1][diagnosis] = '2'";y;;;;;
+#nancy_index_ulceration;endoscopy;;radio;"Nancy histology index: Ulceration";"0, 0 - none|2, 2 - yes";;;;;;"[endoscopy_performed] = '1' AND [week_0_arm_1][diagnosis] = '2'";y;;;;;
+#nancy_index_acute;endoscopy;;radio;"Nancy histology index: Acute inflammatory cell infiltrate";"0, 0 - none|2, 2 - mild|3, 3 - moderate|4, 4 - severe";;;;;;"[endoscopy_performed] = '1' AND [week_0_arm_1][diagnosis] = '2'";y;;;;;
+# nancy_index_chronic;endoscopy;;radio;"Nancy histology index: Chronic inflammatory infiltrates";"0, 0 - none|1, 1 - mild|3, 3 - moderate or marked increase";;;;;;"[endoscopy_performed] = '1' AND [week_0_arm_1][diagnosis] = '2'";y;;;;;
         nancy_index_ulceration => 'Nancy Index Ulceration',
         nancy_index_acute      =>
           'Nancy histology index: Acute inflammatory cell infiltrate',
@@ -310,7 +315,7 @@ sub map2ohdsi_dic {
     my $arg = shift;
     my ( $ohdsi_dic, $concept_id ) = ( $arg->{ohdsi_dic}, $arg->{concept_id} );
 
-    # NB: Here we don't win any speed over $seen as we are already searching in a hash
+# NB: Here we don't win any speed over $seen as we are already searching in a hash
     my ( $id, $label, $vocabulary ) = ( undef, undef, undef );
     if ( exists $ohdsi_dic->{$concept_id} ) {
         $id         = $ohdsi_dic->{$concept_id}{concept_code};
@@ -329,7 +334,7 @@ sub convert2boolean {
     return
         ( $val eq 'true'  || $val eq 'yes' ) ? JSON::XS::true
       : ( $val eq 'false' || $val eq 'no' )  ? JSON::XS::false
-      :                                        undef;            # unknown = undef
+      :                                        undef;          # unknown = undef
 
 }
 

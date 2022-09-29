@@ -3,56 +3,15 @@ package Convert::Pheno::CSV;
 use strict;
 use warnings;
 use autodie;
-use feature               qw(say);
+use feature qw(say);
 use File::Basename;
 use Text::CSV_XS;
 use Sort::Naturally qw(nsort);
-use List::Util qw(any);
+use List::Util      qw(any);
+use Convert::Pheno::OMOP;
 use Exporter 'import';
-our @EXPORT = qw(read_csv_export read_redcap_dictionary remap_ohdsi_dictionary read_sqldump sqldump2csv transpose_omop_data_structure);
-
-my $omop_version    = 'v5.4';
-my $omop_main_table = {
-    'v5.4' => [
-        qw(
-          PERSON
-          OBSERVATION_PERIOD
-          VISIT_OCCURRENCE
-          VISIT_DETAIL
-          CONDITION_OCCURRENCE
-          DRUG_EXPOSURE
-          PROCEDURE_OCCURRENCE
-          DEVICE_EXPOSURE
-          MEASUREMENT
-          OBSERVATION
-          NOTE
-          NOTE_NLP
-          SPECIMEN
-          FACT_RELATIONSHIP
-          SURVEY_CONDUCT
-        )
-    ],
-    'v6' => [
-        qw(
-          PERSON
-          OBSERVATION_PERIOD
-          VISIT_OCCURRENCE
-          VISIT_DETAIL
-          CONDITION_OCCURRENCE
-          DRUG_EXPOSURE
-          PROCEDURE_OCCURRENCE
-          DEVICE_EXPOSURE
-          MEASUREMENT
-          OBSERVATION
-          DEATH
-          NOTE
-          NOTE_NLP
-          SPECIMEN
-          FACT_RELATIONSHIP
-        )
-    ]
-};
-
+our @EXPORT =
+  qw(read_csv_export read_redcap_dictionary remap_ohdsi_dictionary read_sqldump sqldump2csv transpose_omop_data_structure);
 
 #########################
 #########################
@@ -169,8 +128,8 @@ sub read_redcap_dictionary {
             # We keep key>/value as they are
             $tmp_hash->{ $header->[$i] } = $row->[$i];
 
-            # For the key having labels, we create a new ad hoc key '_labels'
-            # 'Choices, Calculations, OR Slider Labels' => '1, Female|2, Male|3, Other|4, not available',
+# For the key having labels, we create a new ad hoc key '_labels'
+# 'Choices, Calculations, OR Slider Labels' => '1, Female|2, Male|3, Other|4, not available',
             if ( $header->[$i] eq 'Choices, Calculations, OR Slider Labels' ) {
                 my @tmp =
                   map { s/^\s//; s/\s+$//; $_; } ( split /\||,/, $row->[$i] );
@@ -239,18 +198,18 @@ sub read_sqldump {
 
     my $file = shift;
 
-    # Before resorting to writting this subroutine I performed an exhaustive search on CPAN
-    # I tested MySQL::Dump::Parser::XS  but I could not make it work and other modules did not seem to do what I wanted...
-    # .. so I ended up writting the parser myself...
-    # The parser is based in reading COPY paragraphs from PostgreSQL dump by using Perl's paragraph mode  $/ = "";
-    # The sub can be seen as "ugly" but it does the job :-)
+# Before resorting to writting this subroutine I performed an exhaustive search on CPAN
+# I tested MySQL::Dump::Parser::XS  but I could not make it work and other modules did not seem to do what I wanted...
+# .. so I ended up writting the parser myself...
+# The parser is based in reading COPY paragraphs from PostgreSQL dump by using Perl's paragraph mode  $/ = "";
+# The sub can be seen as "ugly" but it does the job :-)
 
     my $limit = 500;    # We have a counter to make things faster
     local $/ = "";      # set record separator to paragraph
 
-    #COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, attribute_description, attribute_type_concept_id, attribute_syntax) FROM stdin;
-    # ......
-    # \.
+#COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, attribute_description, attribute_type_concept_id, attribute_syntax) FROM stdin;
+# ......
+# \.
 
     # Start reading the SQL dump
     open my $fh, '<:encoding(utf-8)', $file;
@@ -272,12 +231,13 @@ sub read_sqldump {
         # Ad hoc for testing
         my $count = 0;
 
-        # First line contain the headers
-        #COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, ..., attribute_syntax) FROM stdin;
-        $lines[0] =~ s/[\(\),]//g;                                # getting rid of (),
-        my @headers    = split /\s+/, $lines[0];
-        my $table_name = uc( ( split /\./, $headers[1] )[1] );    # ATTRIBUTE_DEFINITION
-        shift @lines;                                             # discarding first line
+# First line contain the headers
+#COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, ..., attribute_syntax) FROM stdin;
+        $lines[0] =~ s/[\(\),]//g;    # getting rid of (),
+        my @headers = split /\s+/, $lines[0];
+        my $table_name =
+          uc( ( split /\./, $headers[1] )[1] );    # ATTRIBUTE_DEFINITION
+        shift @lines;                              # discarding first line
 
         # Discarding headers which are not terms/variables
         @headers = @headers[ 2 .. $#headers - 2 ];
@@ -379,35 +339,35 @@ sub transpose_omop_data_structure {
     #                      ]
     #        };
 
-    # where all 'perosn_id' are together inside the TABLE_NAME.
-    # But, BFF works at the individual level so we are going to
-    # transpose the data structure to end up into something like this
-    # NB: MEASUREMENT and OBSERVATION (among others, i.e., CONDITION_OCCURRENCE, PROCEDURE_OCCURRENCE)
-    #     can have multiple values for one 'person_id' so they will be loaded as arrays
-    #
-    #
-    #$VAR1 = {
-    #          '001' => {
-    #                     'PERSON' => {
-    #                                   'person_id' => '001'
-    #                                 }
-    #                   },
-    #          '666' => {
-    #                     'MEASUREMENT' => [
-    #                                        {
-    #                                          'measurement_concept_id' => '001',
-    #                                          'person_id' => '666'
-    #                                        },
-    #                                        {
-    #                                          'measurement_concept_id' => '002',
-    #                                          'person_id' => '666'
-    #                                        }
-    #                                      ],
-    #                     'PERSON' => {
-    #                                   'person_id' => '666'
-    #                                 }
-    #                   }
-    #        };
+# where all 'perosn_id' are together inside the TABLE_NAME.
+# But, BFF works at the individual level so we are going to
+# transpose the data structure to end up into something like this
+# NB: MEASUREMENT and OBSERVATION (among others, i.e., CONDITION_OCCURRENCE, PROCEDURE_OCCURRENCE)
+#     can have multiple values for one 'person_id' so they will be loaded as arrays
+#
+#
+#$VAR1 = {
+#          '001' => {
+#                     'PERSON' => {
+#                                   'person_id' => '001'
+#                                 }
+#                   },
+#          '666' => {
+#                     'MEASUREMENT' => [
+#                                        {
+#                                          'measurement_concept_id' => '001',
+#                                          'person_id' => '666'
+#                                        },
+#                                        {
+#                                          'measurement_concept_id' => '002',
+#                                          'person_id' => '666'
+#                                        }
+#                                      ],
+#                     'PERSON' => {
+#                                   'person_id' => '666'
+#                                 }
+#                   }
+#        };
 
     my $omop_person_id = {};
 
@@ -426,12 +386,13 @@ sub transpose_omop_data_structure {
                     )
                   )
                 {
-                    push @{ $omop_person_id->{$person_id}{$table} }, $item;    # array
+                    push @{ $omop_person_id->{$person_id}{$table} },
+                      $item;    # array
                 }
 
                 # {person_id} only has one value in a given TABLE
                 else {
-                    $omop_person_id->{$person_id}{$table} = $item;             # scalar
+                    $omop_person_id->{$person_id}{$table} = $item;    # scalar
                 }
             }
         }
