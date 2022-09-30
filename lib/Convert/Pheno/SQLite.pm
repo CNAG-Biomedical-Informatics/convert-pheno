@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use autodie;
 use feature qw(say);
+use Carp qw(confess);
 use DBI;
 use File::Spec::Functions qw(catdir catfile);
 use Data::Dumper;
@@ -58,8 +59,8 @@ sub close_connections_SQLite {
 sub open_db_SQLite {
 
     my $ontology = shift;
-    my $dbfile   = catfile( $::Bin, '../db', "$ontology.db" );
-    die "Sorry we could not find <$dbfile> file" unless -f $dbfile;
+    my $dbfile   = catfile( $Convert::Pheno::Bin, '../db', "$ontology.db" );
+    confess "Sorry we could not find <$dbfile> file" unless -f $dbfile;
     my $user   = '';
     my $passwd = '';
     my $dsn    = "dbi:SQLite:dbname=$dbfile";

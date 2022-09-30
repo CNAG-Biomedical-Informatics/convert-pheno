@@ -63,6 +63,7 @@ GetOptions(
     'no-color|nc'             => \my $no_color,                             # flag
     'separator|sep=s'         => \my $sep,                                  # str
     'sql2csv'                 => \my $sql2csv,                              # flag
+    'test'                    => \my $test,                                 # flag
     'ohdsi-db'                => \my $ohdsi_db,                             # flag
     'redcap-dictionary|rcd=s' => \my $redcap_dictionary,                    # string
     'print-hidden-labels|phl' => \my $print_hidden_labels,                  # flag
@@ -126,6 +127,7 @@ my $data = {
     redcap_dictionary   => $redcap_dictionary,
     ohdsi_db            => $ohdsi_db,
     print_hidden_labels => $print_hidden_labels,
+    test                => $test,
     debug               => $debug,
     verbose             => $verbose
 };
@@ -240,6 +242,7 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
        -rcd|redcap-dictionary         REDCap data dictionary CSV file
        -sep|separator                 Delimiter character for CSV files
        -sql2csv                       Print SQL TABLES (with -iomop)
+       -test                          Does not print time-changing-events
        -verbose                       Verbosity on
        -v                             Print Version
 

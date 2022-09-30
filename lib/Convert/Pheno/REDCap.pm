@@ -224,7 +224,7 @@ sub do_redcap2bff {
           : $participant->{$field}
           if $participant->{$field} ne '';
     }
-    $individual->{info}{metaData} = get_metaData();
+    $individual->{info}{metaData} = $self->{test} ? undef : get_metaData();
 
     # =========================
     # interventionsOrProcedures

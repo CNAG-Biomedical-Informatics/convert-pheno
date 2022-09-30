@@ -116,31 +116,7 @@
          },
          "diet" : "Unknown",
          "education" : "high-school diploma (Fachhochschulreife/Abitur)",
-         "metaData" : {
-            "_info" : {
-               "Convert-Pheno" : "0.0.0b",
-               "cwd" : "/media/mrueda/4TBT/CNAG/Project_3TR/Convert-Pheno/t/redcap2bff/out",
-               "hostname" : "mrueda-ws3",
-               "ncpuhost" : 2,
-               "user" : "mrueda"
-            },
-            "resources" : [
-               {
-                  "id" : "ICD10",
-                  "name" : "International Statistical Classification of Diseases and Related Health Problems 10th Revision",
-                  "namespacePrefix" : "ICD-10",
-                  "url" : "https://icd.who.int/browse10/2019/en#",
-                  "version" : "2019"
-               },
-               {
-                  "id" : "NCIT",
-                  "name" : "NCI Thesaurus",
-                  "namespacePrefix" : "NCIT",
-                  "url" : " http://purl.obolibrary.org/obo/ncit.owl",
-                  "version" : "22.03d"
-               }
-            ]
-         },
+         "metaData" : null,
          "redcap_event_name" : "week_0_arm_1",
          "study_id" : "107"
       },
@@ -915,31 +891,7 @@
             "value" : 1
          },
          "diet" : "Meat-Eating",
-         "metaData" : {
-            "_info" : {
-               "Convert-Pheno" : "0.0.0b",
-               "cwd" : "/media/mrueda/4TBT/CNAG/Project_3TR/Convert-Pheno/t/redcap2bff/out",
-               "hostname" : "mrueda-ws3",
-               "ncpuhost" : 2,
-               "user" : "mrueda"
-            },
-            "resources" : [
-               {
-                  "id" : "ICD10",
-                  "name" : "International Statistical Classification of Diseases and Related Health Problems 10th Revision",
-                  "namespacePrefix" : "ICD-10",
-                  "url" : "https://icd.who.int/browse10/2019/en#",
-                  "version" : "2019"
-               },
-               {
-                  "id" : "NCIT",
-                  "name" : "NCI Thesaurus",
-                  "namespacePrefix" : "NCIT",
-                  "url" : " http://purl.obolibrary.org/obo/ncit.owl",
-                  "version" : "22.03d"
-               }
-            ]
-         },
+         "metaData" : null,
          "redcap_event_name" : "week_0_arm_1",
          "study_id" : "125"
       },
@@ -1702,31 +1654,7 @@
             "value" : 1
          },
          "diet" : "Unknown",
-         "metaData" : {
-            "_info" : {
-               "Convert-Pheno" : "0.0.0b",
-               "cwd" : "/media/mrueda/4TBT/CNAG/Project_3TR/Convert-Pheno/t/redcap2bff/out",
-               "hostname" : "mrueda-ws3",
-               "ncpuhost" : 2,
-               "user" : "mrueda"
-            },
-            "resources" : [
-               {
-                  "id" : "ICD10",
-                  "name" : "International Statistical Classification of Diseases and Related Health Problems 10th Revision",
-                  "namespacePrefix" : "ICD-10",
-                  "url" : "https://icd.who.int/browse10/2019/en#",
-                  "version" : "2019"
-               },
-               {
-                  "id" : "NCIT",
-                  "name" : "NCI Thesaurus",
-                  "namespacePrefix" : "NCIT",
-                  "url" : " http://purl.obolibrary.org/obo/ncit.owl",
-                  "version" : "22.03d"
-               }
-            ]
-         },
+         "metaData" : null,
          "redcap_event_name" : "week_0_arm_1",
          "study_id" : "215"
       },
@@ -2609,31 +2537,7 @@
             "value" : 1
          },
          "diet" : "Unknown",
-         "metaData" : {
-            "_info" : {
-               "Convert-Pheno" : "0.0.0b",
-               "cwd" : "/media/mrueda/4TBT/CNAG/Project_3TR/Convert-Pheno/t/redcap2bff/out",
-               "hostname" : "mrueda-ws3",
-               "ncpuhost" : 2,
-               "user" : "mrueda"
-            },
-            "resources" : [
-               {
-                  "id" : "ICD10",
-                  "name" : "International Statistical Classification of Diseases and Related Health Problems 10th Revision",
-                  "namespacePrefix" : "ICD-10",
-                  "url" : "https://icd.who.int/browse10/2019/en#",
-                  "version" : "2019"
-               },
-               {
-                  "id" : "NCIT",
-                  "name" : "NCI Thesaurus",
-                  "namespacePrefix" : "NCIT",
-                  "url" : " http://purl.obolibrary.org/obo/ncit.owl",
-                  "version" : "22.03d"
-               }
-            ]
-         },
+         "metaData" : null,
          "redcap_event_name" : "week_0_arm_1",
          "study_id" : "257"
       },
@@ -3565,31 +3469,7 @@
             "value" : 1
          },
          "diet" : "Unknown",
-         "metaData" : {
-            "_info" : {
-               "Convert-Pheno" : "0.0.0b",
-               "cwd" : "/media/mrueda/4TBT/CNAG/Project_3TR/Convert-Pheno/t/redcap2bff/out",
-               "hostname" : "mrueda-ws3",
-               "ncpuhost" : 2,
-               "user" : "mrueda"
-            },
-            "resources" : [
-               {
-                  "id" : "ICD10",
-                  "name" : "International Statistical Classification of Diseases and Related Health Problems 10th Revision",
-                  "namespacePrefix" : "ICD-10",
-                  "url" : "https://icd.who.int/browse10/2019/en#",
-                  "version" : "2019"
-               },
-               {
-                  "id" : "NCIT",
-                  "name" : "NCI Thesaurus",
-                  "namespacePrefix" : "NCIT",
-                  "url" : " http://purl.obolibrary.org/obo/ncit.owl",
-                  "version" : "22.03d"
-               }
-            ]
-         },
+         "metaData" : null,
          "redcap_event_name" : "week_0_arm_1",
          "study_id" : "275"
       },
@@ -4477,31 +4357,7 @@
             "value" : 1
          },
          "diet" : "Meat-Eating",
-         "metaData" : {
-            "_info" : {
-               "Convert-Pheno" : "0.0.0b",
-               "cwd" : "/media/mrueda/4TBT/CNAG/Project_3TR/Convert-Pheno/t/redcap2bff/out",
-               "hostname" : "mrueda-ws3",
-               "ncpuhost" : 2,
-               "user" : "mrueda"
-            },
-            "resources" : [
-               {
-                  "id" : "ICD10",
-                  "name" : "International Statistical Classification of Diseases and Related Health Problems 10th Revision",
-                  "namespacePrefix" : "ICD-10",
-                  "url" : "https://icd.who.int/browse10/2019/en#",
-                  "version" : "2019"
-               },
-               {
-                  "id" : "NCIT",
-                  "name" : "NCI Thesaurus",
-                  "namespacePrefix" : "NCIT",
-                  "url" : " http://purl.obolibrary.org/obo/ncit.owl",
-                  "version" : "22.03d"
-               }
-            ]
-         },
+         "metaData" : null,
          "redcap_event_name" : "week_0_arm_1",
          "study_id" : "305"
       },
@@ -5295,31 +5151,7 @@
             "value" : 1
          },
          "diet" : "Meat-Eating",
-         "metaData" : {
-            "_info" : {
-               "Convert-Pheno" : "0.0.0b",
-               "cwd" : "/media/mrueda/4TBT/CNAG/Project_3TR/Convert-Pheno/t/redcap2bff/out",
-               "hostname" : "mrueda-ws3",
-               "ncpuhost" : 2,
-               "user" : "mrueda"
-            },
-            "resources" : [
-               {
-                  "id" : "ICD10",
-                  "name" : "International Statistical Classification of Diseases and Related Health Problems 10th Revision",
-                  "namespacePrefix" : "ICD-10",
-                  "url" : "https://icd.who.int/browse10/2019/en#",
-                  "version" : "2019"
-               },
-               {
-                  "id" : "NCIT",
-                  "name" : "NCI Thesaurus",
-                  "namespacePrefix" : "NCIT",
-                  "url" : " http://purl.obolibrary.org/obo/ncit.owl",
-                  "version" : "22.03d"
-               }
-            ]
-         },
+         "metaData" : null,
          "redcap_event_name" : "week_0_arm_1",
          "study_id" : "365"
       },
@@ -6163,31 +5995,7 @@
             "value" : 1
          },
          "diet" : "Unknown",
-         "metaData" : {
-            "_info" : {
-               "Convert-Pheno" : "0.0.0b",
-               "cwd" : "/media/mrueda/4TBT/CNAG/Project_3TR/Convert-Pheno/t/redcap2bff/out",
-               "hostname" : "mrueda-ws3",
-               "ncpuhost" : 2,
-               "user" : "mrueda"
-            },
-            "resources" : [
-               {
-                  "id" : "ICD10",
-                  "name" : "International Statistical Classification of Diseases and Related Health Problems 10th Revision",
-                  "namespacePrefix" : "ICD-10",
-                  "url" : "https://icd.who.int/browse10/2019/en#",
-                  "version" : "2019"
-               },
-               {
-                  "id" : "NCIT",
-                  "name" : "NCI Thesaurus",
-                  "namespacePrefix" : "NCIT",
-                  "url" : " http://purl.obolibrary.org/obo/ncit.owl",
-                  "version" : "22.03d"
-               }
-            ]
-         },
+         "metaData" : null,
          "redcap_event_name" : "week_0_arm_1",
          "study_id" : "527"
       },

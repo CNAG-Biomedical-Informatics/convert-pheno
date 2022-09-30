@@ -37,6 +37,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
        -rcd|redcap-dictionary         REDCap data dictionary CSV file
        -sep|separator                 Delimiter character for CSV files
        -sql2csv                       Print SQL TABLES (with -iomop)
+       -test                          Does not print time-changing-events
        -verbose                       Verbosity on
        -v                             Print Version
 

@@ -18,8 +18,8 @@
             }
          }
       ],
-      "id" : "phenopacket_id.Zwzgid4Mg",
-      "measures" : [
+      "id" : null,
+      "measurements" : [
          {
             "assay" : {
                "id" : "NCIT:C51948",
@@ -281,20 +281,20 @@
             }
          }
       ],
-      "medicalActions" : {
-         "procedure" : [
-            {
+      "medicalActions" : [
+         {
+            "procedure" : {
                "code" : {
                   "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "performed" : {
-                  "timestamp" : "1900-01-01"
+                  "timestamp" : "1900-01-01T00:00:00.00Z"
                }
             }
-         ],
-         "treatment" : [
-            {
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C1027",
                   "label" : "Budesonide"
@@ -304,8 +304,10 @@
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C1027",
                   "label" : "Budesonide"
@@ -315,8 +317,10 @@
                   "id" : "NCIT:C38295",
                   "label" : "Rectal Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C769",
                   "label" : "Prednisolone"
@@ -326,8 +330,10 @@
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C287",
                   "label" : "Aspirin"
@@ -337,8 +343,10 @@
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C287",
                   "label" : "Aspirin"
@@ -348,8 +356,10 @@
                   "id" : "NCIT:C38295",
                   "label" : "Rectal Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C290",
                   "label" : "Azathioprine"
@@ -359,8 +369,10 @@
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C642",
                   "label" : "Methotrexate"
@@ -370,8 +382,10 @@
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C195",
                   "label" : "Mercaptopurine"
@@ -382,36 +396,11 @@
                   "label" : "Oral Route of Administration"
                }
             }
-         ]
-      },
-      "metaData" : {
-         "_info" : {
-            "Convert-Pheno" : "0.0.0b",
-            "cwd" : "/media/mrueda/4TBT/CNAG/Project_3TR/Convert-Pheno/t/redcap2pfx/out",
-            "hostname" : "mrueda-ws3",
-            "ncpuhost" : 2,
-            "user" : "mrueda"
-         },
-         "resources" : [
-            {
-               "id" : "ICD10",
-               "name" : "International Statistical Classification of Diseases and Related Health Problems 10th Revision",
-               "namespacePrefix" : "ICD-10",
-               "url" : "https://icd.who.int/browse10/2019/en#",
-               "version" : "2019"
-            },
-            {
-               "id" : "NCIT",
-               "name" : "NCI Thesaurus",
-               "namespacePrefix" : "NCIT",
-               "url" : " http://purl.obolibrary.org/obo/ncit.owl",
-               "version" : "22.03d"
-            }
-         ]
-      },
+         }
+      ],
+      "metaData" : null,
       "phenotypicFeatures" : [
          {
-            "_notes" : "rectal_bleeding, Field Label=Rectal bleeding score",
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -423,10 +412,7 @@
             "iso8601duration" : "P2Y"
          },
          "id" : "2",
-         "sex" : {
-            "id" : "NCIT:C20197",
-            "label" : "Male"
-         }
+         "sex" : "MALE"
       }
    },
    {
@@ -448,8 +434,8 @@
             }
          }
       ],
-      "id" : "phenopacket_id.nKEfAMncf",
-      "measures" : [
+      "id" : null,
+      "measurements" : [
          {
             "assay" : {
                "id" : "NCIT:C51948",
@@ -711,10 +697,9 @@
             }
          }
       ],
-      "medicalActions" : {
-         "procedure" : [],
-         "treatment" : [
-            {
+      "medicalActions" : [
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C1027",
                   "label" : "Budesonide"
@@ -724,8 +709,10 @@
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C1027",
                   "label" : "Budesonide"
@@ -735,8 +722,10 @@
                   "id" : "NCIT:C38295",
                   "label" : "Rectal Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C769",
                   "label" : "Prednisolone"
@@ -746,8 +735,10 @@
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C287",
                   "label" : "Aspirin"
@@ -757,8 +748,10 @@
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C287",
                   "label" : "Aspirin"
@@ -768,8 +761,10 @@
                   "id" : "NCIT:C38295",
                   "label" : "Rectal Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C290",
                   "label" : "Azathioprine"
@@ -779,8 +774,10 @@
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C642",
                   "label" : "Methotrexate"
@@ -790,8 +787,10 @@
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C195",
                   "label" : "Mercaptopurine"
@@ -802,36 +801,11 @@
                   "label" : "Oral Route of Administration"
                }
             }
-         ]
-      },
-      "metaData" : {
-         "_info" : {
-            "Convert-Pheno" : "0.0.0b",
-            "cwd" : "/media/mrueda/4TBT/CNAG/Project_3TR/Convert-Pheno/t/redcap2pfx/out",
-            "hostname" : "mrueda-ws3",
-            "ncpuhost" : 2,
-            "user" : "mrueda"
-         },
-         "resources" : [
-            {
-               "id" : "ICD10",
-               "name" : "International Statistical Classification of Diseases and Related Health Problems 10th Revision",
-               "namespacePrefix" : "ICD-10",
-               "url" : "https://icd.who.int/browse10/2019/en#",
-               "version" : "2019"
-            },
-            {
-               "id" : "NCIT",
-               "name" : "NCI Thesaurus",
-               "namespacePrefix" : "NCIT",
-               "url" : " http://purl.obolibrary.org/obo/ncit.owl",
-               "version" : "22.03d"
-            }
-         ]
-      },
+         }
+      ],
+      "metaData" : null,
       "phenotypicFeatures" : [
          {
-            "_notes" : "rectal_bleeding, Field Label=Rectal bleeding score",
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -843,10 +817,7 @@
             "iso8601duration" : "P2Y"
          },
          "id" : "2",
-         "sex" : {
-            "id" : "NCIT:C20197",
-            "label" : "Male"
-         }
+         "sex" : "MALE"
       }
    },
    {
@@ -868,8 +839,8 @@
             }
          }
       ],
-      "id" : "phenopacket_id.FTr0XSuei",
-      "measures" : [
+      "id" : null,
+      "measurements" : [
          {
             "assay" : {
                "id" : "NCIT:C51948",
@@ -1211,20 +1182,20 @@
             }
          }
       ],
-      "medicalActions" : {
-         "procedure" : [
-            {
+      "medicalActions" : [
+         {
+            "procedure" : {
                "code" : {
                   "id" : "NCIT:C86074",
                   "label" : "Hemicolectomy"
                },
                "performed" : {
-                  "timestamp" : "1900-01-01"
+                  "timestamp" : "1900-01-01T00:00:00.00Z"
                }
             }
-         ],
-         "treatment" : [
-            {
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C1027",
                   "label" : "Budesonide"
@@ -1234,8 +1205,10 @@
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C1027",
                   "label" : "Budesonide"
@@ -1245,8 +1218,10 @@
                   "id" : "NCIT:C38295",
                   "label" : "Rectal Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C769",
                   "label" : "Prednisolone"
@@ -1256,8 +1231,10 @@
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C287",
                   "label" : "Aspirin"
@@ -1267,8 +1244,10 @@
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C287",
                   "label" : "Aspirin"
@@ -1278,8 +1257,10 @@
                   "id" : "NCIT:C38295",
                   "label" : "Rectal Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C290",
                   "label" : "Azathioprine"
@@ -1289,8 +1270,10 @@
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C642",
                   "label" : "Methotrexate"
@@ -1300,8 +1283,10 @@
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C195",
                   "label" : "Mercaptopurine"
@@ -1312,36 +1297,11 @@
                   "label" : "Oral Route of Administration"
                }
             }
-         ]
-      },
-      "metaData" : {
-         "_info" : {
-            "Convert-Pheno" : "0.0.0b",
-            "cwd" : "/media/mrueda/4TBT/CNAG/Project_3TR/Convert-Pheno/t/redcap2pfx/out",
-            "hostname" : "mrueda-ws3",
-            "ncpuhost" : 2,
-            "user" : "mrueda"
-         },
-         "resources" : [
-            {
-               "id" : "ICD10",
-               "name" : "International Statistical Classification of Diseases and Related Health Problems 10th Revision",
-               "namespacePrefix" : "ICD-10",
-               "url" : "https://icd.who.int/browse10/2019/en#",
-               "version" : "2019"
-            },
-            {
-               "id" : "NCIT",
-               "name" : "NCI Thesaurus",
-               "namespacePrefix" : "NCIT",
-               "url" : " http://purl.obolibrary.org/obo/ncit.owl",
-               "version" : "22.03d"
-            }
-         ]
-      },
+         }
+      ],
+      "metaData" : null,
       "phenotypicFeatures" : [
          {
-            "_notes" : "rectal_bleeding, Field Label=Rectal bleeding score",
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -1353,10 +1313,7 @@
             "iso8601duration" : "P6Y"
          },
          "id" : "2",
-         "sex" : {
-            "id" : "NCIT:C20197",
-            "label" : "Male"
-         }
+         "sex" : "MALE"
       }
    },
    {
@@ -1378,8 +1335,8 @@
             }
          }
       ],
-      "id" : "phenopacket_id.0lX3SdYeC",
-      "measures" : [
+      "id" : null,
+      "measurements" : [
          {
             "assay" : {
                "id" : "NCIT:C51948",
@@ -1761,10 +1718,9 @@
             }
          }
       ],
-      "medicalActions" : {
-         "procedure" : [],
-         "treatment" : [
-            {
+      "medicalActions" : [
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C1027",
                   "label" : "Budesonide"
@@ -1774,8 +1730,10 @@
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C1027",
                   "label" : "Budesonide"
@@ -1785,8 +1743,10 @@
                   "id" : "NCIT:C38295",
                   "label" : "Rectal Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C769",
                   "label" : "Prednisolone"
@@ -1796,8 +1756,10 @@
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C287",
                   "label" : "Aspirin"
@@ -1807,8 +1769,10 @@
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C287",
                   "label" : "Aspirin"
@@ -1818,8 +1782,10 @@
                   "id" : "NCIT:C38295",
                   "label" : "Rectal Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C290",
                   "label" : "Azathioprine"
@@ -1829,8 +1795,10 @@
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C642",
                   "label" : "Methotrexate"
@@ -1840,8 +1808,10 @@
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C195",
                   "label" : "Mercaptopurine"
@@ -1852,43 +1822,17 @@
                   "label" : "Oral Route of Administration"
                }
             }
-         ]
-      },
-      "metaData" : {
-         "_info" : {
-            "Convert-Pheno" : "0.0.0b",
-            "cwd" : "/media/mrueda/4TBT/CNAG/Project_3TR/Convert-Pheno/t/redcap2pfx/out",
-            "hostname" : "mrueda-ws3",
-            "ncpuhost" : 2,
-            "user" : "mrueda"
-         },
-         "resources" : [
-            {
-               "id" : "ICD10",
-               "name" : "International Statistical Classification of Diseases and Related Health Problems 10th Revision",
-               "namespacePrefix" : "ICD-10",
-               "url" : "https://icd.who.int/browse10/2019/en#",
-               "version" : "2019"
-            },
-            {
-               "id" : "NCIT",
-               "name" : "NCI Thesaurus",
-               "namespacePrefix" : "NCIT",
-               "url" : " http://purl.obolibrary.org/obo/ncit.owl",
-               "version" : "22.03d"
-            }
-         ]
-      },
+         }
+      ],
+      "metaData" : null,
       "phenotypicFeatures" : [
          {
-            "_notes" : "comorb_hypertension, Field Label=Comorbidities - hypertension",
             "type" : {
                "id" : "NCIT:C16457",
                "label" : "Comorbidity"
             }
          },
          {
-            "_notes" : "comorb_diabetes, Field Label=Comorbidities - diabetes mellitus",
             "type" : {
                "id" : "NCIT:C16457",
                "label" : "Comorbidity"
@@ -1900,10 +1844,7 @@
             "iso8601duration" : "P7Y"
          },
          "id" : "1",
-         "sex" : {
-            "id" : "NCIT:C16576",
-            "label" : "Female"
-         }
+         "sex" : "FEMALE"
       }
    },
    {
@@ -1925,8 +1866,8 @@
             }
          }
       ],
-      "id" : "phenopacket_id.yFx4WRbfQ",
-      "measures" : [
+      "id" : null,
+      "measurements" : [
          {
             "assay" : {
                "id" : "NCIT:C51948",
@@ -2268,10 +2209,9 @@
             }
          }
       ],
-      "medicalActions" : {
-         "procedure" : [],
-         "treatment" : [
-            {
+      "medicalActions" : [
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C1027",
                   "label" : "Budesonide"
@@ -2281,8 +2221,10 @@
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C1027",
                   "label" : "Budesonide"
@@ -2292,8 +2234,10 @@
                   "id" : "NCIT:C38295",
                   "label" : "Rectal Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C769",
                   "label" : "Prednisolone"
@@ -2303,8 +2247,10 @@
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C287",
                   "label" : "Aspirin"
@@ -2314,8 +2260,10 @@
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C287",
                   "label" : "Aspirin"
@@ -2325,8 +2273,10 @@
                   "id" : "NCIT:C38295",
                   "label" : "Rectal Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C290",
                   "label" : "Azathioprine"
@@ -2336,8 +2286,10 @@
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C642",
                   "label" : "Methotrexate"
@@ -2347,8 +2299,10 @@
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C195",
                   "label" : "Mercaptopurine"
@@ -2359,36 +2313,11 @@
                   "label" : "Oral Route of Administration"
                }
             }
-         ]
-      },
-      "metaData" : {
-         "_info" : {
-            "Convert-Pheno" : "0.0.0b",
-            "cwd" : "/media/mrueda/4TBT/CNAG/Project_3TR/Convert-Pheno/t/redcap2pfx/out",
-            "hostname" : "mrueda-ws3",
-            "ncpuhost" : 2,
-            "user" : "mrueda"
-         },
-         "resources" : [
-            {
-               "id" : "ICD10",
-               "name" : "International Statistical Classification of Diseases and Related Health Problems 10th Revision",
-               "namespacePrefix" : "ICD-10",
-               "url" : "https://icd.who.int/browse10/2019/en#",
-               "version" : "2019"
-            },
-            {
-               "id" : "NCIT",
-               "name" : "NCI Thesaurus",
-               "namespacePrefix" : "NCIT",
-               "url" : " http://purl.obolibrary.org/obo/ncit.owl",
-               "version" : "22.03d"
-            }
-         ]
-      },
+         }
+      ],
+      "metaData" : null,
       "phenotypicFeatures" : [
          {
-            "_notes" : "rectal_bleeding, Field Label=Rectal bleeding score",
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -2400,10 +2329,7 @@
             "iso8601duration" : "P1Y"
          },
          "id" : "2",
-         "sex" : {
-            "id" : "NCIT:C16576",
-            "label" : "Female"
-         }
+         "sex" : "FEMALE"
       }
    },
    {
@@ -2425,8 +2351,8 @@
             }
          }
       ],
-      "id" : "phenopacket_id.QuzwXJbUK",
-      "measures" : [
+      "id" : null,
+      "measurements" : [
          {
             "assay" : {
                "id" : "NCIT:C51948",
@@ -2708,20 +2634,20 @@
             }
          }
       ],
-      "medicalActions" : {
-         "procedure" : [
-            {
+      "medicalActions" : [
+         {
+            "procedure" : {
                "code" : {
                   "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "performed" : {
-                  "timestamp" : "1900-01-01"
+                  "timestamp" : "1900-01-01T00:00:00.00Z"
                }
             }
-         ],
-         "treatment" : [
-            {
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C1027",
                   "label" : "Budesonide"
@@ -2731,8 +2657,10 @@
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C1027",
                   "label" : "Budesonide"
@@ -2742,8 +2670,10 @@
                   "id" : "NCIT:C38295",
                   "label" : "Rectal Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C769",
                   "label" : "Prednisolone"
@@ -2753,8 +2683,10 @@
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C287",
                   "label" : "Aspirin"
@@ -2764,8 +2696,10 @@
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C287",
                   "label" : "Aspirin"
@@ -2775,8 +2709,10 @@
                   "id" : "NCIT:C38295",
                   "label" : "Rectal Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C290",
                   "label" : "Azathioprine"
@@ -2786,8 +2722,10 @@
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C642",
                   "label" : "Methotrexate"
@@ -2797,8 +2735,10 @@
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C195",
                   "label" : "Mercaptopurine"
@@ -2809,43 +2749,16 @@
                   "label" : "Oral Route of Administration"
                }
             }
-         ]
-      },
-      "metaData" : {
-         "_info" : {
-            "Convert-Pheno" : "0.0.0b",
-            "cwd" : "/media/mrueda/4TBT/CNAG/Project_3TR/Convert-Pheno/t/redcap2pfx/out",
-            "hostname" : "mrueda-ws3",
-            "ncpuhost" : 2,
-            "user" : "mrueda"
-         },
-         "resources" : [
-            {
-               "id" : "ICD10",
-               "name" : "International Statistical Classification of Diseases and Related Health Problems 10th Revision",
-               "namespacePrefix" : "ICD-10",
-               "url" : "https://icd.who.int/browse10/2019/en#",
-               "version" : "2019"
-            },
-            {
-               "id" : "NCIT",
-               "name" : "NCI Thesaurus",
-               "namespacePrefix" : "NCIT",
-               "url" : " http://purl.obolibrary.org/obo/ncit.owl",
-               "version" : "22.03d"
-            }
-         ]
-      },
+         }
+      ],
+      "metaData" : null,
       "phenotypicFeatures" : [],
       "subject" : {
          "age" : {
             "iso8601duration" : "P2Y"
          },
          "id" : "2",
-         "sex" : {
-            "id" : "NCIT:C16576",
-            "label" : "Female"
-         }
+         "sex" : "FEMALE"
       }
    },
    {
@@ -2867,8 +2780,8 @@
             }
          }
       ],
-      "id" : "phenopacket_id.OBqr2WYaA",
-      "measures" : [
+      "id" : null,
+      "measurements" : [
          {
             "assay" : {
                "id" : "NCIT:C51948",
@@ -3190,10 +3103,9 @@
             }
          }
       ],
-      "medicalActions" : {
-         "procedure" : [],
-         "treatment" : [
-            {
+      "medicalActions" : [
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C1027",
                   "label" : "Budesonide"
@@ -3203,8 +3115,10 @@
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C1027",
                   "label" : "Budesonide"
@@ -3214,8 +3128,10 @@
                   "id" : "NCIT:C38295",
                   "label" : "Rectal Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C769",
                   "label" : "Prednisolone"
@@ -3225,8 +3141,10 @@
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C287",
                   "label" : "Aspirin"
@@ -3236,8 +3154,10 @@
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C287",
                   "label" : "Aspirin"
@@ -3247,8 +3167,10 @@
                   "id" : "NCIT:C38295",
                   "label" : "Rectal Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C290",
                   "label" : "Azathioprine"
@@ -3258,8 +3180,10 @@
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C642",
                   "label" : "Methotrexate"
@@ -3269,8 +3193,10 @@
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C195",
                   "label" : "Mercaptopurine"
@@ -3281,36 +3207,11 @@
                   "label" : "Oral Route of Administration"
                }
             }
-         ]
-      },
-      "metaData" : {
-         "_info" : {
-            "Convert-Pheno" : "0.0.0b",
-            "cwd" : "/media/mrueda/4TBT/CNAG/Project_3TR/Convert-Pheno/t/redcap2pfx/out",
-            "hostname" : "mrueda-ws3",
-            "ncpuhost" : 2,
-            "user" : "mrueda"
-         },
-         "resources" : [
-            {
-               "id" : "ICD10",
-               "name" : "International Statistical Classification of Diseases and Related Health Problems 10th Revision",
-               "namespacePrefix" : "ICD-10",
-               "url" : "https://icd.who.int/browse10/2019/en#",
-               "version" : "2019"
-            },
-            {
-               "id" : "NCIT",
-               "name" : "NCI Thesaurus",
-               "namespacePrefix" : "NCIT",
-               "url" : " http://purl.obolibrary.org/obo/ncit.owl",
-               "version" : "22.03d"
-            }
-         ]
-      },
+         }
+      ],
+      "metaData" : null,
       "phenotypicFeatures" : [
          {
-            "_notes" : "rectal_bleeding, Field Label=Rectal bleeding score",
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -3322,10 +3223,7 @@
             "iso8601duration" : "P4Y"
          },
          "id" : "2",
-         "sex" : {
-            "id" : "NCIT:C16576",
-            "label" : "Female"
-         }
+         "sex" : "FEMALE"
       }
    },
    {
@@ -3347,8 +3245,8 @@
             }
          }
       ],
-      "id" : "phenopacket_id.vXhX9CwIK",
-      "measures" : [
+      "id" : null,
+      "measurements" : [
          {
             "assay" : {
                "id" : "NCIT:C51948",
@@ -3710,10 +3608,9 @@
             }
          }
       ],
-      "medicalActions" : {
-         "procedure" : [],
-         "treatment" : [
-            {
+      "medicalActions" : [
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C1027",
                   "label" : "Budesonide"
@@ -3723,8 +3620,10 @@
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C1027",
                   "label" : "Budesonide"
@@ -3734,8 +3633,10 @@
                   "id" : "NCIT:C38295",
                   "label" : "Rectal Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C769",
                   "label" : "Prednisolone"
@@ -3745,8 +3646,10 @@
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C287",
                   "label" : "Aspirin"
@@ -3756,8 +3659,10 @@
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C287",
                   "label" : "Aspirin"
@@ -3767,8 +3672,10 @@
                   "id" : "NCIT:C38295",
                   "label" : "Rectal Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C290",
                   "label" : "Azathioprine"
@@ -3778,8 +3685,10 @@
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C642",
                   "label" : "Methotrexate"
@@ -3789,8 +3698,10 @@
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
                }
-            },
-            {
+            }
+         },
+         {
+            "treatment" : {
                "agent" : {
                   "id" : "NCIT:C195",
                   "label" : "Mercaptopurine"
@@ -3801,36 +3712,11 @@
                   "label" : "Oral Route of Administration"
                }
             }
-         ]
-      },
-      "metaData" : {
-         "_info" : {
-            "Convert-Pheno" : "0.0.0b",
-            "cwd" : "/media/mrueda/4TBT/CNAG/Project_3TR/Convert-Pheno/t/redcap2pfx/out",
-            "hostname" : "mrueda-ws3",
-            "ncpuhost" : 2,
-            "user" : "mrueda"
-         },
-         "resources" : [
-            {
-               "id" : "ICD10",
-               "name" : "International Statistical Classification of Diseases and Related Health Problems 10th Revision",
-               "namespacePrefix" : "ICD-10",
-               "url" : "https://icd.who.int/browse10/2019/en#",
-               "version" : "2019"
-            },
-            {
-               "id" : "NCIT",
-               "name" : "NCI Thesaurus",
-               "namespacePrefix" : "NCIT",
-               "url" : " http://purl.obolibrary.org/obo/ncit.owl",
-               "version" : "22.03d"
-            }
-         ]
-      },
+         }
+      ],
+      "metaData" : null,
       "phenotypicFeatures" : [
          {
-            "_notes" : "rectal_bleeding, Field Label=Rectal bleeding score",
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -3842,10 +3728,7 @@
             "iso8601duration" : "P1Y"
          },
          "id" : "1",
-         "sex" : {
-            "id" : "NCIT:C20197",
-            "label" : "Male"
-         }
+         "sex" : "MALE"
       }
    }
 ]

@@ -34,7 +34,7 @@ sub do_bff2pxf {
     # id
     # ==
 
-    $pxf->{id} = 'phenopacket_id.' . randStr(8);
+    $pxf->{id} = $self->{test} ? undef : 'phenopacket_id.' . randStr(8);
 
     # =======
     # subject
@@ -138,7 +138,7 @@ sub do_bff2pxf {
     # =========
 
     # Depending on the origion (redcap) , _info and resources may exist
-    $pxf->{metaData} =
+    $pxf->{metaData} = $self->{test} ? undef :
       exists $data->{info}{metaData}
       ? $data->{info}{metaData}
       : get_metaData();
