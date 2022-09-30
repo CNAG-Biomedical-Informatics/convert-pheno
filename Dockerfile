@@ -12,5 +12,5 @@ WORKDIR /usr/share/
 RUN git clone https://github.com/mrueda/Convert-Pheno.git
 
 # Install Perl modules
-WORKDIR /usr/share/Convert-Pheno
+WORKDIR /usr/share/convert-pheno
 RUN cpanm --sudo --installdeps .

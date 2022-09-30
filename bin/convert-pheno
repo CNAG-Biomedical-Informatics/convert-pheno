@@ -280,7 +280,7 @@ To enter:
 
 The command-line executable can be found at:
 
-  /usr/share/Convert-Pheno/bin/convert-pheno
+  /usr/share/convert-pheno/bin/convert-pheno
 
 I<NB:> Docker containers are fully isolated. If you need the mount a volume to the container please use the following syntax (C<-v host:container>). Find an example below (note that you need to change the paths to match yours):
 
