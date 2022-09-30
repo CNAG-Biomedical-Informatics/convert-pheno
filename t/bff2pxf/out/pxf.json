@@ -1,0 +1,75 @@
+[
+   {
+      "diseases" : [],
+      "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "LOINC:35925-4",
+               "label" : "BMI"
+            },
+            "timeObserved" : "2021-09-24",
+            "value" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 26.63838307
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "LOINC:3141-9",
+               "label" : "Weight"
+            },
+            "timeObserved" : "2021-09-24",
+            "value" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C28252",
+                     "label" : "Kilogram"
+                  },
+                  "value" : 85.6358
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "LOINC:8308-9",
+               "label" : "Height-standing"
+            },
+            "timeObserved" : "2021-09-24",
+            "value" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C49668",
+                     "label" : "Centimeter"
+                  },
+                  "value" : 179.2973
+               }
+            }
+         }
+      ],
+      "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "OPCS4:L46.3",
+                  "label" : "OPCS(v4-0.0):Ligation of visceral branch of abdominal aorta NEC"
+               },
+               "performed" : {
+                  "timestamp" : null
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "subject" : {
+         "age" : null,
+         "id" : "HG00096",
+         "sex" : "MALE"
+      }
+   }
+]

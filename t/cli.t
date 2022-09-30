@@ -1,14 +1,20 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-use lib './lib';
+use lib ('./lib', '../lib');
 use feature qw(say);
 use Data::Dumper;
 use Convert::Pheno;
-use Test::Simple tests => 5;
+use Test::Simple tests => 6;
 use File::Compare;
 
 my $input = {
+    bff2pxf => {
+        in_file           => 't/bff2pxf/in/individuals.json',
+        redcap_dictionary => 'undef',
+        sep               => undef,
+        out               => 't/bff2pxf/out/pxf.json'
+    },
     pxf2bff => {
         in_file           => 't/pxf2bff/in/all.json',
         redcap_dictionary => 'undef',
@@ -49,7 +55,6 @@ my $input = {
 for my $method ( sort keys %{$input} ) {
 
     say "################";
-    say "Testing $method ... ";
     my $convert = Convert::Pheno->new(
         {
             in_file  => $input->{$method}{in_file},
@@ -71,7 +76,7 @@ for my $method ( sort keys %{$input} ) {
             format   => 'json'
         }
     );
-    ok( compare( 't/test.json', $input->{$method}{out} ) == 0 );
+    ok( compare( $input->{$method}{out}, 't/test.json' ) == 0 , $method);
 }
 
 #########
