@@ -5,40 +5,62 @@ use lib './lib';
 use feature qw(say);
 use Data::Dumper;
 use Convert::Pheno;
-use Test::Simple tests => 3;
+use Test::Simple tests => 5;
 use File::Compare;
 
 my $input = {
     pxf2bff => {
         in_file           => 't/pxf2bff/in/all.json',
         redcap_dictionary => 'undef',
+        sep               => undef,
         out               => 't/pxf2bff/out/individuals.json'
     },
     redcap2bff => {
         in_file           => 't/redcap2bff/in/Data_table_3TR_IBD_dummydata.csv',
-        redcap_dictionary => 't/redcap2bff/in/3TRKielTemplateExport01072022_DataDictionary_2022-07-03.csv',
-        out               => 't/redcap2bff/out/individuals.json'
+        redcap_dictionary =>
+'t/redcap2bff/in/3TRKielTemplateExport01072022_DataDictionary_2022-07-03.csv',
+        sep => undef,
+        out => 't/redcap2bff/out/individuals.json'
     },
     redcap2pxf => {
         in_file           => 't/redcap2bff/in/Data_table_3TR_IBD_dummydata.csv',
         redcap_dictionary =>
 't/redcap2bff/in/3TRKielTemplateExport01072022_DataDictionary_2022-07-03.csv',
+        sep => undef,
         out => 't/redcap2pxf/out/pxf.json'
+    },
+    omop2bff => {
+        in_file           => undef,
+        in_files          => ['t/omop2bff/in/dump.sql'],
+        sep               => ',',
+        redcap_dictionary => 'undef',
+        out               => 't/omop2bff/out/individuals.json'
+    },
+    omop2pxf => {
+        in_file           => undef,
+        in_files          => ['t/omop2bff/in/dump.sql'],
+        sep               => ',',
+        redcap_dictionary => 'undef',
+        out               => 't/omop2pxf/out/pxf.json'
     }
 };
 
 #for my $method (qw/redcap2bff/){
-for my $method (sort keys %{$input}) {
+for my $method ( sort keys %{$input} ) {
 
     say "################";
     say "Testing $method ... ";
     my $convert = Convert::Pheno->new(
         {
-            'in_file'           => $input->{$method}{in_file},
-            'redcap_dictionary' => $input->{$method}{redcap_dictionary},
-            'in_textfile'       => 1,
-	    'test'              => 1,
-            'method'            => $method
+            in_file  => $input->{$method}{in_file},
+            in_files => $method =~ m/^omop2/
+            ? $input->{$method}{in_files}
+            : undef,
+            redcap_dictionary => $input->{$method}{redcap_dictionary},
+            in_textfile       => 1,
+            sep               => $input->{$method}{sep},
+            test              => 1,
+            method            => $method
         }
     );
 
@@ -49,7 +71,7 @@ for my $method (sort keys %{$input}) {
             format   => 'json'
         }
     );
-    ok( compare( 't/test.json', $input->{$method}{out}) == 0 );
+    ok( compare( 't/test.json', $input->{$method}{out} ) == 0 );
 }
 
 #########
