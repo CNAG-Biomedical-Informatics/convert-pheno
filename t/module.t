@@ -6,7 +6,9 @@ use feature qw(say);
 use Data::Dumper;
 use Convert::Pheno;
 use JSON::XS;
-use Test::More tests => 1;
+use Test::More tests => 2;
+
+use_ok( 'Convert::Pheno' ) or exit;
 
 # Load data
 my $bff   = bff();

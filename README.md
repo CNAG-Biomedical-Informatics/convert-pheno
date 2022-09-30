@@ -94,6 +94,10 @@ Then the modules:
 
     cpanm --sudo --installdeps .
 
+_NB:_ If you have downloaded this from CPAN or GitHub's main branch it's unlikely that you have installation errors. In any case, tests can be performed by using:
+
+    prove -l
+
 If you prefer to have the dependencies in a "virtual environment" (i.e., install the CPAN modules in the directory of the application) we recommend using the module `Carton`.
 
     cpanm --sudo Carton
