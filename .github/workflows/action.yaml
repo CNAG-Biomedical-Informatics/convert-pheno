@@ -1,4 +1,4 @@
-name: Convert::Pheno CI Makefile
+name: Convert::Pheno CI Tests
  
 on:
     push:
