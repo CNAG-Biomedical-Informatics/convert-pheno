@@ -13,9 +13,9 @@ WriteMakefile(
   VERSION_FROM  => 'lib/Convert/Pheno.pm',
   META_MERGE    => {
     'dynamic_config' => 0,
-    'meta-spec'      => {version   => 0},
-    'no_index'       => {directory => [qw(examples t)]},
-    'prereqs'        => {runtime   => {requires => {perl => '5.016'}}},
+  #  'meta-spec'      => {version   => 0},
+  #  'no_index'       => {directory => [qw(examples t)]},
+  #  'prereqs'        => {runtime   => {requires => {perl => '5.016'}}},
     'resources'      => {
       bugtracker => {web => "$GITHUB_URL/issues"},
       homepage   => $GITHUB_URL,

@@ -289,11 +289,7 @@ Rueda, M., (2022). Convert-Pheno: A toolbox to interconvert common data models f
 
 Written by Manuel Rueda, PhD. Info about CNAG can be found at L<https://www.cnag.crg.eu>.
 
-=head1 REPORTING BUGS
-
-Report bugs or comments to <manuel.rueda@cnag.crg.eu>.
-
-=head1 COPYRIGHT
+=head1 COPYRIGHT AND LICENSE
 
 This PERL file is copyrighted. See the LICENSE file included in this distribution.
 
