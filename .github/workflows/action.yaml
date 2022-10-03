@@ -1,4 +1,4 @@
-name: Convert::Pheno CI Tests
+name: Build and test
  
 on:
     push:

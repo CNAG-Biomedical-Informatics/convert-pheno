@@ -1,4 +1,4 @@
-[![Convert::Pheno CI Tests](https://github.com/mrueda/convert-pheno/actions/workflows/action.yaml/badge.svg)](https://github.com/mrueda/convert-pheno/actions/workflows/action.yaml)
+[![Build and Test](https://github.com/mrueda/convert-pheno/actions/workflows/action.yaml/badge.svg)](https://github.com/mrueda/convert-pheno/actions/workflows/action.yaml)
 # NAME
 
 **UNDER DEVELOPMENT**
