@@ -9,7 +9,6 @@ on:
 jobs:
   build:
    runs-on: ubuntu-latest
-   container: ./Dockerfile 
    steps:
      - uses: actions/checkout@v2
      - name: Build Docker image 
