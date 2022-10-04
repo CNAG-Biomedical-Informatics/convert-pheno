@@ -31,5 +31,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          perl Makefile.PL
           cpanm -n Devel::Cover::Report::Coveralls
           cover -test -report Coveralls
