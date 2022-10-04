@@ -1,0 +1,17 @@
+name: Docker build
+
+on:
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+   runs-on: ubuntu-latest
+   container: ./Dockerfile 
+   steps:
+     - uses: actions/checkout@v2
+     - name: Build Docker image 
+       run: docker build -t cnag/convert-pheno:latest .
