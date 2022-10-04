@@ -86,7 +86,7 @@ pod2usage(
 pod2usage(
     -message => "Please specify a valid OMOP-CDM file(s) (e.g, *csv or .sql)\n",
     -exitval => 1
-) if ( @omop_files && $omop_files[0] !~ m/\.csv|\.sql/i );
+) if ( @omop_files && $omop_files[0] !~ m/\.csv|\.sql|\.tsv/i );
 pod2usage(
     -message =>
       "OHDSI database (<-ohdsi-db>) only works with <-iomop> argument\n",
