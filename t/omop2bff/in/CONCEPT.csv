@@ -1,0 +1,2 @@
+concept_class_id;concept_code;concept_id;concept_name;domain_id;invalid_reason;standard_concept;valid_end_date;valid_start_date;vocabulary_id
+"4-char billing code";K92.2;35208414;"Gastrointestinal hemorrhage, unspecified";Condition;;;2099-12-31;2007-01-01;ICD10CM

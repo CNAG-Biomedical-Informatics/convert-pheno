@@ -13,13 +13,13 @@ use_ok( 'Convert::Pheno' ) or exit;
 my $input = {
     bff2pxf => {
         in_file           => 't/bff2pxf/in/individuals.json',
-        redcap_dictionary => 'undef',
+        redcap_dictionary => undef,
         sep               => undef,
         out               => 't/bff2pxf/out/pxf.json'
     },
     pxf2bff => {
         in_file           => 't/pxf2bff/in/all.json',
-        redcap_dictionary => 'undef',
+        redcap_dictionary => undef,
         sep               => undef,
         out               => 't/pxf2bff/out/individuals.json'
     },
@@ -41,14 +41,14 @@ my $input = {
         in_file           => undef,
         in_files          => ['t/omop2bff/in/dump.sql'],
         sep               => ',',
-        redcap_dictionary => 'undef',
+        redcap_dictionary => undef,
         out               => 't/omop2bff/out/individuals.json'
     },
     omop2pxf => {
         in_file           => undef,
         in_files          => ['t/omop2bff/in/dump.sql'],
         sep               => ',',
-        redcap_dictionary => 'undef',
+        redcap_dictionary => undef,
         out               => 't/omop2pxf/out/pxf.json'
     }
 };
@@ -70,7 +70,6 @@ for my $method ( sort keys %{$input} ) {
             method            => $method
         }
     );
-
     dump_file(
         {
             filename => 't/test.json',

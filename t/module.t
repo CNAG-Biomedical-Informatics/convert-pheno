@@ -7,26 +7,32 @@ use Data::Dumper;
 use Convert::Pheno;
 use JSON::XS;
 use Test::More tests => 2;
+use Test::Deep;
 
 use_ok( 'Convert::Pheno' ) or exit;
 
 # Load data
 my $bff   = bff();
 my $pxf   = pxf();
+
+# Ignoring variable fields
+# https://metacpan.org/pod/Test::Deep
+$pxf->{$_} = ignore() for (qw(id metaData));
+
 my $input = { bff2pxf => { data => $bff } };
 
 # Tests
 for my $method ( sort keys %{$input} ) {
-    say "################";
     my $convert = Convert::Pheno->new(
         {
             in_textfile => 0,
             data        => $input->{$method}{data},
-            test        => 1,
             method      => $method
         }
     );
-    is_deeply( $convert->$method, $pxf, $method );
+    #is_deeply( $convert->$method, $pxf, $method );
+    cmp_deeply( $convert->$method, $pxf, $method );
+
 }
 
 sub pxf {

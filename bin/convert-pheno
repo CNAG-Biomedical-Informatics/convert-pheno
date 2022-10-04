@@ -242,7 +242,7 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
        -rcd|redcap-dictionary         REDCap data dictionary CSV file
        -sep|separator                 Delimiter character for CSV files
        -sql2csv                       Print SQL TABLES (with -iomop)
-       -test                          Does not print time-changing-events
+       -t|test                        Does not print time-changing-events (useful for file-based cmp)
        -verbose                       Verbosity on
        -v                             Print Version
 

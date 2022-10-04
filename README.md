@@ -1,4 +1,3 @@
-[![Build and Test](https://github.com/mrueda/convert-pheno/actions/workflows/action.yaml/badge.svg)](https://github.com/mrueda/convert-pheno/actions/workflows/action.yaml)
 # NAME
 
 **UNDER DEVELOPMENT**
@@ -38,7 +37,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
        -rcd|redcap-dictionary         REDCap data dictionary CSV file
        -sep|separator                 Delimiter character for CSV files
        -sql2csv                       Print SQL TABLES (with -iomop)
-       -test                          Does not print time-changing-events
+       -t|test                        Does not print time-changing-events (useful for file-based cmp)
        -verbose                       Verbosity on
        -v                             Print Version
 
