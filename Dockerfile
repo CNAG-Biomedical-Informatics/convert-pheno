@@ -5,11 +5,11 @@ MAINTAINER Manuel Rueda <manuel.rueda@cnag.crg.eu>
 
 # Install Linux tools
 RUN apt-get update && \
-    apt-get -y install gcc make git cpanminus perl-doc vim sudo
+    apt-get -y install gcc unzip make git cpanminus perl-doc vim sudo
 
 # Download app
 WORKDIR /usr/share/
-RUN git clone https://github.com/mrueda/Convert-Pheno.git
+RUN git clone https://github.com/mrueda/convert-pheno.git
 
 # Install Perl modules
 WORKDIR /usr/share/convert-pheno
