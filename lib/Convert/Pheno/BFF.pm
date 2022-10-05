@@ -26,8 +26,8 @@ sub do_bff2pxf {
     # START MAPPING TO PHENOPACKET V2 TERMS #
     #########################################
 
-    # We need to shuffle a bit some Beacon v2 properties to be Phenopacket compliant
-    # https://phenopacket-schema.readthedocs.io/en/latest/phenopacket.html
+# We need to shuffle a bit some Beacon v2 properties to be Phenopacket compliant
+# https://phenopacket-schema.readthedocs.io/en/latest/phenopacket.html
     my $pxf;
 
     # ==
@@ -106,7 +106,7 @@ sub do_bff2pxf {
                 performed => {
                     timestamp => exists $_->{dateOfProcedure}
                     ? _map2iso8601( $_->{dateOfProcedure} )
-                    : undef
+                    : '0000-01-01T00:00:00Z'
                 }
             }
         }
@@ -138,10 +138,10 @@ sub do_bff2pxf {
     # =========
 
     # Depending on the origion (redcap) , _info and resources may exist
-    $pxf->{metaData} = $self->{test} ? undef :
-      exists $data->{info}{metaData}
-      ? $data->{info}{metaData}
-      : get_metaData();
+    $pxf->{metaData} =
+        $self->{test}                  ? undef
+      : exists $data->{info}{metaData} ? $data->{info}{metaData}
+      :                                  get_metaData();
 
     #######################################
     # END MAPPING TO PHENOPACKET V2 TERMS #

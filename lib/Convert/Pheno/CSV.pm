@@ -42,9 +42,9 @@ sub read_csv_export {
     my $separator =
         $sep
       ? $sep
-      : $ext eq '.csv' ? ';'    # Note we don't use comma but semicolon
+      : $ext eq '.csv' ? ';'     # Note we don't use comma but semicolon
       : $ext eq '.tsv' ? "\t"
-      :                  ' ';
+      :                  "\t";
 
     # Defining variables
     my $data = [];                  #AoH

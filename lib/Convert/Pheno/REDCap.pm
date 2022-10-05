@@ -71,11 +71,18 @@ sub do_redcap2bff {
     # Data structure (hashref) for each individual
     my $individual;
 
+    # NB: We don't need to initialize (unless required)
+    # e.g.,
+    # $individual->{diseases} = undef;
+    #  or
+    # $individual->{diseases} = []
+    # Otherwise the validator may complain about being empty
+
     # ========
     # diseases
     # ========
 
-    $individual->{diseases} = [];
+    #$individual->{diseases} = [];
 
 #my %disease = ( 'Inflamatory Bowel Disease' => 'ICD10:K51.90' ); # it does not exist as it is at ICD10
 #my @diseases = ('Unspecified asthma, uncomplicated', 'Inflamatory Bowel Disease', "Crohn's disease, unspecified, without complications");
@@ -138,7 +145,7 @@ sub do_redcap2bff {
     # exposures
     # =========
 
-    $individual->{exposures} = [];
+    $individual->{exposures} = undef;
     my @exposures = (
         qw (alcohol smoking cigarettes_days cigarettes_years packyears smoking_quit)
     );
@@ -230,7 +237,7 @@ sub do_redcap2bff {
     # interventionsOrProcedures
     # =========================
 
-    $individual->{interventionsOrProcedures} = [];
+    #$individual->{interventionsOrProcedures} = [];
 
     #my @surgeries = map { $_ = 'surgery_details___' . $_ } ( 1 .. 8, 99 );
     my %surgery = ();
@@ -276,7 +283,7 @@ sub do_redcap2bff {
     # measures
     # ========
 
-    $individual->{measures} = [];
+    $individual->{measures} = undef;
 
     # lab_remarks was removed
     my @measures = (
@@ -344,7 +351,7 @@ sub do_redcap2bff {
     # pedigrees
     # =========
 
-    $individual->{pedigrees} = [];
+    #$individual->{pedigrees} = [];
 
     # disease, id, members, numSubjects
     my @pedigrees = (qw ( x y ));
@@ -365,7 +372,8 @@ sub do_redcap2bff {
     # phenotypicFeatures
     # ==================
 
-    $individual->{phenotypicFeatures} = [];
+    #$individual->{phenotypicFeatures} = [];
+
     my @comorbidities =
       qw ( comorb_asthma comorb_copd comorb_ms comorb_sle comorb_ra comorb_pso comorb_ad comorb_cancer comorb_cancer_specified comorb_hypertension comorb_diabetes comorb_lipids comorb_stroke comorb_other_ai comorb_other_ai_specified);
     my @phenotypicFeatures = qw(immunodeficiency rectal_bleeding);
@@ -425,7 +433,7 @@ sub do_redcap2bff {
     # treatments
     # ==========
 
-    $individual->{treatments} = [];
+    $individual->{treatments} = undef;
 
     my %drug = (
         aza => 'azathioprine',

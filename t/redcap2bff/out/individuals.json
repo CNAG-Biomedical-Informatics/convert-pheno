@@ -5,10 +5,10 @@
             "ageOfOnset" : {
                "ageRange" : {
                   "end" : {
-                     "iso8601duration" : 9
+                     "iso8601duration" : "P9Y"
                   },
                   "start" : {
-                     "iso8601duration" : 0
+                     "iso8601duration" : "P0Y"
                   }
                }
             },
@@ -486,7 +486,6 @@
             }
          }
       ],
-      "pedigrees" : [],
       "phenotypicFeatures" : [
          {
             "featureType" : {
@@ -781,10 +780,10 @@
             "ageOfOnset" : {
                "ageRange" : {
                   "end" : {
-                     "iso8601duration" : 16
+                     "iso8601duration" : "P16Y"
                   },
                   "start" : {
-                     "iso8601duration" : 10
+                     "iso8601duration" : "P10Y"
                   }
                }
             },
@@ -895,7 +894,6 @@
          "redcap_event_name" : "week_0_arm_1",
          "study_id" : "125"
       },
-      "interventionsOrProcedures" : [],
       "measures" : [
          {
             "assayCode" : {
@@ -1249,7 +1247,6 @@
             }
          }
       ],
-      "pedigrees" : [],
       "phenotypicFeatures" : [
          {
             "featureType" : {
@@ -1544,10 +1541,10 @@
             "ageOfOnset" : {
                "ageRange" : {
                   "end" : {
-                     "iso8601duration" : 39
+                     "iso8601duration" : "P39Y"
                   },
                   "start" : {
-                     "iso8601duration" : 25
+                     "iso8601duration" : "P25Y"
                   }
                }
             },
@@ -2132,7 +2129,6 @@
             }
          }
       ],
-      "pedigrees" : [],
       "phenotypicFeatures" : [
          {
             "featureType" : {
@@ -2427,10 +2423,10 @@
             "ageOfOnset" : {
                "ageRange" : {
                   "end" : {
-                     "iso8601duration" : 9999
+                     "iso8601duration" : "P9999Y"
                   },
                   "start" : {
-                     "iso8601duration" : 60
+                     "iso8601duration" : "P60Y"
                   }
                }
             },
@@ -2541,7 +2537,6 @@
          "redcap_event_name" : "week_0_arm_1",
          "study_id" : "257"
       },
-      "interventionsOrProcedures" : [],
       "measures" : [
          {
             "assayCode" : {
@@ -3057,7 +3052,6 @@
             }
          }
       ],
-      "pedigrees" : [],
       "phenotypicFeatures" : [
          {
             "featureType" : {
@@ -3359,10 +3353,10 @@
             "ageOfOnset" : {
                "ageRange" : {
                   "end" : {
-                     "iso8601duration" : 24
+                     "iso8601duration" : "P24Y"
                   },
                   "start" : {
-                     "iso8601duration" : 17
+                     "iso8601duration" : "P17Y"
                   }
                }
             },
@@ -3473,7 +3467,6 @@
          "redcap_event_name" : "week_0_arm_1",
          "study_id" : "275"
       },
-      "interventionsOrProcedures" : [],
       "measures" : [
          {
             "assayCode" : {
@@ -3935,7 +3928,6 @@
             }
          }
       ],
-      "pedigrees" : [],
       "phenotypicFeatures" : [
          {
             "featureType" : {
@@ -4230,10 +4222,10 @@
             "ageOfOnset" : {
                "ageRange" : {
                   "end" : {
-                     "iso8601duration" : 24
+                     "iso8601duration" : "P24Y"
                   },
                   "start" : {
-                     "iso8601duration" : 17
+                     "iso8601duration" : "P17Y"
                   }
                }
             },
@@ -4754,8 +4746,6 @@
             }
          }
       ],
-      "pedigrees" : [],
-      "phenotypicFeatures" : [],
       "sex" : {
          "id" : "NCIT:C16576",
          "label" : "Female"
@@ -5041,10 +5031,10 @@
             "ageOfOnset" : {
                "ageRange" : {
                   "end" : {
-                     "iso8601duration" : 39
+                     "iso8601duration" : "P39Y"
                   },
                   "start" : {
-                     "iso8601duration" : 25
+                     "iso8601duration" : "P25Y"
                   }
                }
             },
@@ -5155,7 +5145,6 @@
          "redcap_event_name" : "week_0_arm_1",
          "study_id" : "365"
       },
-      "interventionsOrProcedures" : [],
       "measures" : [
          {
             "assayCode" : {
@@ -5590,7 +5579,6 @@
             }
          }
       ],
-      "pedigrees" : [],
       "phenotypicFeatures" : [
          {
             "featureType" : {
@@ -5885,10 +5873,10 @@
             "ageOfOnset" : {
                "ageRange" : {
                   "end" : {
-                     "iso8601duration" : 24
+                     "iso8601duration" : "P24Y"
                   },
                   "start" : {
-                     "iso8601duration" : 17
+                     "iso8601duration" : "P17Y"
                   }
                }
             },
@@ -5999,7 +5987,6 @@
          "redcap_event_name" : "week_0_arm_1",
          "study_id" : "527"
       },
-      "interventionsOrProcedures" : [],
       "measures" : [
          {
             "assayCode" : {
@@ -6488,7 +6475,6 @@
             }
          }
       ],
-      "pedigrees" : [],
       "phenotypicFeatures" : [
          {
             "featureType" : {

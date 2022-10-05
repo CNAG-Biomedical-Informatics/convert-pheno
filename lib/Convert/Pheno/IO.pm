@@ -6,7 +6,7 @@ use autodie;
 use feature qw(say);
 use Path::Tiny;
 use File::Basename;
-use YAML::XS        qw(LoadFile DumpFile);
+use YAML::XS qw(LoadFile DumpFile);
 use JSON::XS;
 use Sort::Naturally qw(nsort);
 use Exporter 'import';

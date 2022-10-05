@@ -3,6 +3,7 @@ package Convert::Pheno::Mapping;
 use strict;
 use warnings;
 use autodie;
+use Carp    qw(confess);
 use feature qw(say);
 use utf8;
 use Data::Dumper;
@@ -68,7 +69,7 @@ sub map_ontology {
     my $sth = $self->{sth}{$ontology}{$column}{$match};    # IMPORTANT STEP
 
     # Die if user wants OHDSI w/o flag -ohdsi-db
-    die
+    confess
 "Please use the flag <-ohdsi-db> to enable searching at Athena-OHDSI database"
       if ( $ontology eq 'ohdsi' && !$self->{ohdsi_db} );
 
@@ -296,8 +297,11 @@ sub map_age_range {
 
     return {
         ageRange => {
-            start => { iso8601duration => dotify_and_coerce_number($start) },
-            end   => { iso8601duration => dotify_and_coerce_number($end) }
+            start => {
+                iso8601duration => 'P' . dotify_and_coerce_number($start) . 'Y'
+            },
+            end =>
+              { iso8601duration => 'P' . dotify_and_coerce_number($end) . 'Y' }
         }
     };
 }

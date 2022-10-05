@@ -5,10 +5,10 @@
             "onset" : {
                "ageRange" : {
                   "end" : {
-                     "iso8601duration" : 9
+                     "iso8601duration" : "P9Y"
                   },
                   "start" : {
-                     "iso8601duration" : 0
+                     "iso8601duration" : "P0Y"
                   }
                }
             },
@@ -421,10 +421,10 @@
             "onset" : {
                "ageRange" : {
                   "end" : {
-                     "iso8601duration" : 16
+                     "iso8601duration" : "P16Y"
                   },
                   "start" : {
-                     "iso8601duration" : 10
+                     "iso8601duration" : "P10Y"
                   }
                }
             },
@@ -826,10 +826,10 @@
             "onset" : {
                "ageRange" : {
                   "end" : {
-                     "iso8601duration" : 39
+                     "iso8601duration" : "P39Y"
                   },
                   "start" : {
-                     "iso8601duration" : 25
+                     "iso8601duration" : "P25Y"
                   }
                }
             },
@@ -1322,10 +1322,10 @@
             "onset" : {
                "ageRange" : {
                   "end" : {
-                     "iso8601duration" : 9999
+                     "iso8601duration" : "P9999Y"
                   },
                   "start" : {
-                     "iso8601duration" : 60
+                     "iso8601duration" : "P60Y"
                   }
                }
             },
@@ -1853,10 +1853,10 @@
             "onset" : {
                "ageRange" : {
                   "end" : {
-                     "iso8601duration" : 24
+                     "iso8601duration" : "P24Y"
                   },
                   "start" : {
-                     "iso8601duration" : 17
+                     "iso8601duration" : "P17Y"
                   }
                }
             },
@@ -2338,10 +2338,10 @@
             "onset" : {
                "ageRange" : {
                   "end" : {
-                     "iso8601duration" : 24
+                     "iso8601duration" : "P24Y"
                   },
                   "start" : {
-                     "iso8601duration" : 17
+                     "iso8601duration" : "P17Y"
                   }
                }
             },
@@ -2752,7 +2752,6 @@
          }
       ],
       "metaData" : null,
-      "phenotypicFeatures" : [],
       "subject" : {
          "age" : {
             "iso8601duration" : "P2Y"
@@ -2767,10 +2766,10 @@
             "onset" : {
                "ageRange" : {
                   "end" : {
-                     "iso8601duration" : 39
+                     "iso8601duration" : "P39Y"
                   },
                   "start" : {
-                     "iso8601duration" : 25
+                     "iso8601duration" : "P25Y"
                   }
                }
             },
@@ -3232,10 +3231,10 @@
             "onset" : {
                "ageRange" : {
                   "end" : {
-                     "iso8601duration" : 24
+                     "iso8601duration" : "P24Y"
                   },
                   "start" : {
-                     "iso8601duration" : 17
+                     "iso8601duration" : "P17Y"
                   }
                }
             },
