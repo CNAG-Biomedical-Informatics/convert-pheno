@@ -9,7 +9,7 @@
 
 ### Command-line
 
-If you're using a OMOP-CDM export (`csv`) or dump (`sql`) file with the `convert-pheno` command-line interface just provide the right [syntax](https://github.com/mrueda/Convert-Pheno#synopsis):
+If you're using a OMOP-CDM export (`csv`) or dump (`sql`) file with the `convert-pheno` command-line interface just provide the right [syntax](https://github.com/mrueda/convert-pheno#synopsis):
 
 
 ```

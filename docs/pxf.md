@@ -8,7 +8,7 @@ Phenopacket [documentation](https://phenopacket-schema.readthedocs.io/en/latest/
 
 ### Command-line
 
-If you're using a Beacon v2 JSON file with the `convert-pheno` command-line interface just provide the right [syntax](https://github.com/mrueda/Convert-Pheno#synopsis):
+If you're using a Beacon v2 JSON file with the `convert-pheno` command-line interface just provide the right [syntax](https://github.com/mrueda/convert-pheno#synopsis):
 
 Note that the file can consist of a single individual or multiple ones (JSON array).
 

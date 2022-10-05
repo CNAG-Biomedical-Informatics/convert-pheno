@@ -21,9 +21,9 @@ Then the install the module:
 
 ## Method 2: Containerized
 
-Please follow the instructions provided in this [README](https://github.com/mrueda/Convert-Pheno#containerized).
+Please follow the instructions provided in this [README](https://github.com/mrueda/convert-pheno#containerized).
 
 ## Method 3: Non-containerized
 
-Please follow the instructions provided in this [README](https://github.com/mrueda/Convert-Pheno#non-containerized).
+Please follow the instructions provided in this [README](https://github.com/mrueda/convert-pheno#non-containerized).
 

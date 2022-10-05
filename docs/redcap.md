@@ -25,7 +25,7 @@ The idea is to support more REDCap data exports in the future by allowing **one-
 
 ### Command-line
 
-If you're using a Beacon v2 JSON file with the `convert-pheno` command-line interface just provide the right [syntax](https://github.com/mrueda/Convert-Pheno#synopsis):
+If you're using a Beacon v2 JSON file with the `convert-pheno` command-line interface just provide the right [syntax](https://github.com/mrueda/convert-pheno#synopsis):
 
 Note that the we need two (`csv`) files, one for the REDCap export data and another for the dictionaries.
 

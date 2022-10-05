@@ -7,7 +7,7 @@ At the time of writting this (Sep-2022) the API consists of **very basic functio
 ### Notes:
 
 * This API only accepts requests using `POST` http method.
-* This API only has one endpoint `/data`.
+* This API only has one endpoint `/individuals`.
     
 ## Installation
 
@@ -23,9 +23,9 @@ or
 
 ## Examples
 
-### POST with a data file (Beacon v2 to Phenopacket)
+### POST with a data file (Beacon v2 to Phenopacket v2)
 
-   $ curl -d "@data.json" -X POST http://localhost:3000/data
+   $ curl -d "@data.json" -X POST http://localhost:3000/individuals
 
 [data.json](data.json) contents:
 ```

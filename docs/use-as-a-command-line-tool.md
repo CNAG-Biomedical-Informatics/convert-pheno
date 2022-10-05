@@ -8,4 +8,4 @@ The operation is simple:
 
 Using it as a command line tools works well when your input are **text files**, for instance, coming from an PostgreSQL export or dump.
 
-Please see more examples in this [README](https://github.com/mrueda/Convert-Pheno#synopsis).
+Please see more examples in this [README](https://github.com/mrueda/convert-pheno#synopsis).
