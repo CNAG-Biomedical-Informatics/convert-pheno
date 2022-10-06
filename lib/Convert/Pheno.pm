@@ -25,7 +25,7 @@ our @EXPORT = qw($VERSION write_json write_yaml);    # Symbols imported by defau
 use constant DEVEL_MODE => 0;
 
 # Global variables:
-our $VERSION = '0.0.0b';
+our $VERSION = '0.0.0_alpha';
 
 # Constructor method
 sub new {
@@ -143,7 +143,7 @@ sub omop2bff {
 
         # Read and load data from OMOP-CDM export
         # First we need to know if we have PostgreSQL dump or a bunch of csv
-        my @exts = qw(.csv .tsv .txt .sql);
+        my @exts = qw(.csv .tsv .sql);
         for my $file ( @{ $self->{in_files} } ) {
             my ( $table_name, undef, $ext ) = fileparse( $file, @exts );
             if ( $ext eq '.sql' ) {

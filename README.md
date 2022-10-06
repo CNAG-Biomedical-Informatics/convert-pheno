@@ -2,6 +2,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/mrueda/convert-pheno/badge.svg?branch=main)](https://coveralls.io/github/mrueda/convert-pheno?branch=main)
 [![Docker build](https://github.com/mrueda/convert-pheno/actions/workflows/docker-build.yml/badge.svg)](https://github.com/mrueda/convert-pheno/actions/workflows/docker-build.yml)
 [![Documentation Status](https://readthedocs.org/projects/convert-pheno/badge/?version=latest)](https://convert-pheno.readthedocs.io/en/latest/?badge=latest)
+![version](https://img.shields.io/badge/version-0.0.0_alpha-orange)
 [![License: Artistic-2.0](https://img.shields.io/badge/License-Artistic%202.0-0298c3.svg)](https://opensource.org/licenses/Artistic-2.0)
 # NAME
 
