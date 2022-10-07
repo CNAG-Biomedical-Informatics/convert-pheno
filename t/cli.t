@@ -55,7 +55,6 @@ my $input = {
 
 #for my $method (qw/redcap2bff/){
 for my $method ( sort keys %{$input} ) {
-
     #say "################";
     my $convert = Convert::Pheno->new(
         {

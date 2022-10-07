@@ -9,6 +9,8 @@ use Convert::Pheno::PXF;
 use Exporter 'import';
 our @EXPORT = qw(do_bff2pxf);
 
+my $DEFAULT_timestamp = '0000-01-01T00:00:00Z';
+
 #############
 #############
 #  BFF2PXF  #
@@ -106,7 +108,7 @@ sub do_bff2pxf {
                 performed => {
                     timestamp => exists $_->{dateOfProcedure}
                     ? _map2iso8601( $_->{dateOfProcedure} )
-                    : '0000-01-01T00:00:00Z'
+                    : $DEFAULT_timestamp
                 }
             }
         }

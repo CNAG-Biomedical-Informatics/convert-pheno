@@ -98,7 +98,7 @@ sub pxf {
                   "label" : "OPCS(v4-0.0):Ligation of visceral branch of abdominal aorta NEC"
                },
                "performed" : {
-                  "timestamp" : null
+                  "timestamp" : "0000-01-01T00:00:00Z"
                }
             }
          }
