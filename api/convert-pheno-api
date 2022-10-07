@@ -4,34 +4,22 @@
 #
 #   This file is part of Convert::Pheno
 #
-#   Last Modified: Sep/13/2022
+#   Last Modified: Oct/07/2022
 #
-#   Version 0.0.0b
+#   $VERSION taken from Convert::Pheno
 #
 #   Copyright (C) 2022 Manuel Rueda (manuel.rueda@cnag.crg.eu)
-#
-#   This program is free software; you can redistribute it and/or modify
-#   it under the terms of the GNU General Public License as published by
-#   the Free Software Foundation; either version 3 of the License, or
-#   (at your option) any later version.
-#
-#   This program is distributed in the hope that it will be useful,
-#   but WITHOUT ANY WARRANTY; without even the implied warranty of
-#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-#   GNU General Public License for more details.
-#
-#   You should have received a copy of the GNU General Public License
-#   along with this program; if not, see <https://www.gnu.org/licenses/>.
-#
-#   If this program helps you in your research, please cite.
 
-use Mojolicious::Lite -signatures;
+#use Mojolicious::Lite -signatures; # No go for CentOs Perl v5.16
+use Mojolicious::Lite; 
 use FindBin qw($Bin);
 use lib "$Bin/../lib";
 use Convert::Pheno;
 
 #perl convert-pheno-api get -M POST -c '{"method":"bff2pfx"}' /individuals
-post '/individuals' => sub ($c) {
+#post '/individuals' => sub ($c) { # With -signatures
+post '/individuals' => sub {
+  my $c = shift;
   my $hash = $c->req->json;
   my $convert  = Convert::Pheno->new($hash);
   my $method = $hash->{method};
