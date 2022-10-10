@@ -26,4 +26,5 @@ post '/individuals' => sub {
   $c->render(json => $convert->$method);
 };
 
+app->config(hypnotoad => {listen => ['https://*:8080']});
 app->start;

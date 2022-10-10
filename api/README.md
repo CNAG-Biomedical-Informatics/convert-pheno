@@ -15,11 +15,17 @@ At the time of writting this (Sep-2022) the API consists of **very basic functio
 
 ## How to run
 
+With `morbo` for development
+
     $ morbo convert-pheno-api # development (default: port 3000)
-or 
 
-    $ hypnotoad convert-pheno-api # production (port 8080)
+If you want to use a self-signed certificate:
 
+    morbo convert-pheno-api daemon -l https://*:3000
+
+or with `hypnotoad` 
+
+    $ hypnotoad convert-pheno-api # production (https://localhost:8080)
 
 ## Examples
 
