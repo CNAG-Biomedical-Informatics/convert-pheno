@@ -105,9 +105,9 @@ sub pxf {
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "HG00096",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    }
 ';

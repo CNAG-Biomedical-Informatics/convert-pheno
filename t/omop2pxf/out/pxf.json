@@ -150,9 +150,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "1",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -195,9 +195,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "2",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -213,9 +213,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "3",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -277,9 +277,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "5",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -295,9 +295,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "6",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -328,9 +328,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "7",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -599,9 +599,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "9",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -609,9 +609,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "11",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -619,9 +619,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "12",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -629,9 +629,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "16",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -717,9 +717,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "17",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -739,9 +739,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "18",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -749,9 +749,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "19",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -783,9 +783,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "23",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -806,9 +806,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "28",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -962,9 +962,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "30",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -972,9 +972,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "32",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -982,9 +982,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "35",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -1026,9 +1026,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "36",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -1092,9 +1092,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "38",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -1244,9 +1244,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "40",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -1254,9 +1254,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "41",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -1272,9 +1272,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "42",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -1294,9 +1294,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "43",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -1390,9 +1390,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "49",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -1400,9 +1400,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "53",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -1410,9 +1410,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "57",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -1544,9 +1544,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "61",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -1611,9 +1611,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "63",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -1621,9 +1621,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "64",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -1631,9 +1631,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "65",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -1641,9 +1641,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "66",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -1651,9 +1651,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "67",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -1750,9 +1750,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "69",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -1760,9 +1760,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "70",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -1770,9 +1770,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "72",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -1821,9 +1821,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "74",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -1854,9 +1854,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "78",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -1931,9 +1931,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "79",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -1941,9 +1941,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "80",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -1992,9 +1992,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "81",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -2043,9 +2043,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "82",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -2053,9 +2053,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "84",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -2063,9 +2063,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "86",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -2162,9 +2162,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "90",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -2207,9 +2207,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "94",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -2274,9 +2274,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "95",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -2304,9 +2304,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "96",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -2392,9 +2392,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "97",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -2402,9 +2402,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "99",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -2412,9 +2412,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "101",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -2422,9 +2422,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "102",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -2432,9 +2432,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "103",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -2539,9 +2539,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "105",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -2549,9 +2549,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "110",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -2559,9 +2559,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "111",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -2626,9 +2626,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "114",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -2660,9 +2660,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "115",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -2772,9 +2772,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "116",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -2810,9 +2810,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "117",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -2820,9 +2820,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "119",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -2830,9 +2830,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "120",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -2840,9 +2840,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "123",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -2850,9 +2850,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "124",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -2949,9 +2949,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "126",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -2959,9 +2959,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "129",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -2969,9 +2969,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "133",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -3003,9 +3003,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "135",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -3159,9 +3159,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "137",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -3169,9 +3169,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "140",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -3214,9 +3214,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "141",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -3259,9 +3259,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "143",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -3282,9 +3282,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "144",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -3304,9 +3304,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "145",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -3381,9 +3381,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "148",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -3399,9 +3399,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "149",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -3409,9 +3409,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "152",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -3419,9 +3419,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "153",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -3508,9 +3508,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "154",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -3596,9 +3596,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "155",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -3606,9 +3606,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "156",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -3616,9 +3616,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "158",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -3626,9 +3626,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "159",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -3636,9 +3636,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "160",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -3646,9 +3646,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "161",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -3679,9 +3679,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "162",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -3745,9 +3745,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "163",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -3755,9 +3755,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "164",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -3765,9 +3765,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "165",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -3775,9 +3775,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "170",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -3785,9 +3785,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "171",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -3841,9 +3841,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "173",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -3964,9 +3964,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "176",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -3974,9 +3974,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "177",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -3984,9 +3984,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "180",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -3994,9 +3994,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "181",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -4004,9 +4004,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "182",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -4022,9 +4022,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "183",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -4032,9 +4032,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "184",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -4120,9 +4120,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "185",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -4236,9 +4236,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "186",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -4246,9 +4246,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "187",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -4256,9 +4256,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "188",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -4266,9 +4266,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "189",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -4276,9 +4276,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "190",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -4364,9 +4364,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "191",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -4374,9 +4374,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "192",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -4384,9 +4384,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "194",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -4394,9 +4394,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "195",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -4404,9 +4404,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "196",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -4460,9 +4460,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "197",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -4583,9 +4583,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "199",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -4593,9 +4593,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "202",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -4603,9 +4603,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "207",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -4699,9 +4699,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "209",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -4709,9 +4709,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "211",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -4719,9 +4719,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "212",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -4729,9 +4729,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "213",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -4739,9 +4739,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "217",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -4757,9 +4757,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "219",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -4823,9 +4823,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "220",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -4856,9 +4856,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "222",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -4874,9 +4874,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "224",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -4930,9 +4930,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "225",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -4964,9 +4964,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "227",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -5073,9 +5073,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "232",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -5091,9 +5091,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "235",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -5101,9 +5101,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "236",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -5119,9 +5119,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "239",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -5207,9 +5207,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "244",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -5296,9 +5296,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "245",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -5306,9 +5306,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "246",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -5339,9 +5339,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "248",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -5405,9 +5405,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "249",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -5415,9 +5415,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "250",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -5425,9 +5425,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "254",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -5435,9 +5435,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "260",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -5445,9 +5445,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "262",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -5544,9 +5544,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "263",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -5554,9 +5554,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "264",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -5643,9 +5643,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "266",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -5653,9 +5653,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "268",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -5663,9 +5663,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "270",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -5841,9 +5841,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "273",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -5851,9 +5851,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "276",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -5861,9 +5861,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "277",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -5871,9 +5871,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "279",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -5881,9 +5881,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "280",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -6021,9 +6021,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "283",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -6031,9 +6031,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "285",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -6120,9 +6120,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "286",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -6130,9 +6130,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "287",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -6140,9 +6140,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "289",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -6150,9 +6150,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "292",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -6191,9 +6191,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "293",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -6268,9 +6268,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "295",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -6278,9 +6278,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "297",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -6288,9 +6288,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "298",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -6298,9 +6298,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "299",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -6308,9 +6308,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "300",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -6407,9 +6407,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "304",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -6417,9 +6417,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "307",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -6427,9 +6427,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "308",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -6437,9 +6437,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "310",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -6447,9 +6447,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "311",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -6513,9 +6513,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "312",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -6636,9 +6636,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "316",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -6646,9 +6646,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "318",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -6656,9 +6656,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "320",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -6666,9 +6666,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "321",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -6765,9 +6765,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "326",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -6775,9 +6775,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "327",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -6785,9 +6785,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "328",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -6795,9 +6795,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "331",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -6829,9 +6829,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "332",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -6985,9 +6985,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "334",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -6995,9 +6995,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "335",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -7005,9 +7005,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "337",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -7015,9 +7015,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "338",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -7025,9 +7025,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "339",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -7035,9 +7035,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "340",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -7134,9 +7134,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "341",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -7260,9 +7260,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "343",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -7270,9 +7270,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "347",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -7280,9 +7280,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "348",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -7290,9 +7290,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "349",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -7300,9 +7300,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "350",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -7407,9 +7407,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "351",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -7417,9 +7417,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "352",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -7427,9 +7427,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "354",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -7519,9 +7519,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "357",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -7542,9 +7542,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "358",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -7565,9 +7565,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "359",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -7664,9 +7664,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "362",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -7674,9 +7674,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "363",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -7684,9 +7684,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "364",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -7694,9 +7694,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "366",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -7704,9 +7704,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "368",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -7714,9 +7714,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "369",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -7813,9 +7813,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "370",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -7823,9 +7823,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "371",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -7841,9 +7841,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "372",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -7851,9 +7851,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "374",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -7861,9 +7861,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "376",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -7879,9 +7879,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "377",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -7889,9 +7889,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "379",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -7899,9 +7899,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "380",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -7998,9 +7998,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "384",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -8008,9 +8008,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "387",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -8026,9 +8026,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "388",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -8036,9 +8036,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "390",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -8091,9 +8091,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "392",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -8146,9 +8146,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "393",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -8164,9 +8164,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "394",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -8174,9 +8174,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "395",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -8184,9 +8184,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "398",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -8304,9 +8304,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "399",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -8403,9 +8403,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "403",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -8413,9 +8413,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "404",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -8513,9 +8513,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "406",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -8523,9 +8523,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "408",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -8533,9 +8533,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "409",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -8632,9 +8632,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "410",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -8732,9 +8732,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "411",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -8742,9 +8742,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "412",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -8752,9 +8752,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "418",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -8851,9 +8851,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "419",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -8861,9 +8861,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "421",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -8871,9 +8871,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "422",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -8889,9 +8889,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "426",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -9045,9 +9045,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "430",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -9090,9 +9090,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "431",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -9100,9 +9100,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "432",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -9110,9 +9110,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "437",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -9209,9 +9209,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "439",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -9219,9 +9219,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "440",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -9319,9 +9319,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "442",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -9329,9 +9329,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "443",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -9347,9 +9347,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "445",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -9454,9 +9454,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "449",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -9464,9 +9464,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "450",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -9474,9 +9474,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "452",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -9574,9 +9574,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "453",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -9584,9 +9584,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "454",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -9647,9 +9647,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "455",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -9702,9 +9702,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "457",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -9712,9 +9712,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "458",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -9722,9 +9722,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "459",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -9732,9 +9732,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "461",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -9742,9 +9742,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "462",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -9752,9 +9752,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "464",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -9941,9 +9941,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "469",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -9951,9 +9951,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "470",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -9969,9 +9969,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "471",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -9979,9 +9979,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "472",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -9989,9 +9989,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "474",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -10105,9 +10105,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "476",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -10204,9 +10204,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "479",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -10214,9 +10214,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "480",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -10224,9 +10224,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "482",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -10323,9 +10323,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "484",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -10333,9 +10333,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "486",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -10343,9 +10343,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "487",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -10366,9 +10366,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "488",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -10455,9 +10455,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "489",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -10554,9 +10554,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "492",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -10564,9 +10564,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "495",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -10574,9 +10574,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "498",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -10700,9 +10700,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "499",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -10710,9 +10710,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "500",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -10728,9 +10728,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "502",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -10827,9 +10827,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "505",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -10837,9 +10837,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "507",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -10847,9 +10847,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "510",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -10857,9 +10857,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "512",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -10956,9 +10956,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "515",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -11001,9 +11001,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "518",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -11172,9 +11172,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "520",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -11377,9 +11377,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "525",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -11395,9 +11395,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "526",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -11405,9 +11405,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "528",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -11505,9 +11505,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "533",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -11515,9 +11515,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "534",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -11634,9 +11634,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "539",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -11652,9 +11652,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "545",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -11675,9 +11675,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "546",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -11798,9 +11798,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "549",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -11865,9 +11865,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "550",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -11875,9 +11875,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "552",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -11885,9 +11885,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "558",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -11940,9 +11940,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "559",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -12093,9 +12093,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "563",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -12103,9 +12103,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "564",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -12113,9 +12113,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "565",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -12123,9 +12123,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "569",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -12222,9 +12222,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "571",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -12232,9 +12232,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "572",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -12322,9 +12322,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "573",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -12573,9 +12573,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "576",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -12624,9 +12624,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "578",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -12777,9 +12777,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "579",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -12787,9 +12787,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "580",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -12890,9 +12890,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "582",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -12900,9 +12900,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "587",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -13089,9 +13089,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "592",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -13099,9 +13099,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "596",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -13215,9 +13215,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "597",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -13225,9 +13225,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "598",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -13360,9 +13360,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "600",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -13370,9 +13370,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "601",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -13470,9 +13470,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "603",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -13480,9 +13480,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "605",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -13490,9 +13490,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "606",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -13500,9 +13500,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "607",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -13510,9 +13510,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "609",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -13520,9 +13520,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "610",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -13543,9 +13543,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "613",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -13610,9 +13610,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "614",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -13759,9 +13759,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "615",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -13805,9 +13805,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "616",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -13815,9 +13815,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "621",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -13825,9 +13825,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "624",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -13848,9 +13848,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "625",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -13937,9 +13937,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "636",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -13947,9 +13947,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "639",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -13957,9 +13957,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "640",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -13967,9 +13967,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "642",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -13977,9 +13977,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "644",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -13987,9 +13987,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "648",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14005,9 +14005,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "649",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14023,9 +14023,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "651",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14033,9 +14033,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "653",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14043,9 +14043,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "654",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14053,9 +14053,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "655",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14063,9 +14063,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "656",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14130,9 +14130,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "662",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14175,9 +14175,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "664",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14185,9 +14185,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "665",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14195,9 +14195,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "669",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14205,9 +14205,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "670",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14215,9 +14215,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "673",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14225,9 +14225,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "675",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14235,9 +14235,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "677",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14245,9 +14245,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "679",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14345,9 +14345,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "680",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14355,9 +14355,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "682",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14365,9 +14365,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "685",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14375,9 +14375,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "686",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14393,9 +14393,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "687",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14403,9 +14403,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "689",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14413,9 +14413,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "691",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14513,9 +14513,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "693",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14523,9 +14523,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "695",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14533,9 +14533,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "697",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14543,9 +14543,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "700",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14553,9 +14553,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "701",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14563,9 +14563,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "703",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14573,9 +14573,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "704",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14651,9 +14651,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "709",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14685,9 +14685,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "710",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14695,9 +14695,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "711",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14705,9 +14705,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "712",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14715,9 +14715,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "715",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14815,9 +14815,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "718",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14825,9 +14825,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "719",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14835,9 +14835,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "720",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14845,9 +14845,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "722",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14855,9 +14855,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "723",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14865,9 +14865,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "727",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14875,9 +14875,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "729",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14885,9 +14885,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "730",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14895,9 +14895,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "732",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -14940,9 +14940,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "733",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -15007,9 +15007,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "736",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -15017,9 +15017,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "738",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -15027,9 +15027,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "739",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -15045,9 +15045,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "741",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -15055,9 +15055,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "742",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -15065,9 +15065,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "743",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -15075,9 +15075,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "744",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -15085,9 +15085,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "747",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -15095,9 +15095,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "752",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -15105,9 +15105,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "753",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -15205,9 +15205,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "754",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -15215,9 +15215,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "755",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -15225,9 +15225,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "756",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -15235,9 +15235,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "757",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -15245,9 +15245,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "758",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -15255,9 +15255,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "763",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -15278,9 +15278,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "764",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -15323,9 +15323,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "774",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -15333,9 +15333,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "775",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -15343,9 +15343,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "776",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -15353,9 +15353,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "778",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -15453,9 +15453,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "782",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -15463,9 +15463,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "785",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -15473,9 +15473,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "787",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -15483,9 +15483,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "789",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -15493,9 +15493,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "793",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -15503,9 +15503,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "795",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -15581,9 +15581,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "800",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -15745,9 +15745,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "806",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -15830,9 +15830,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "807",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -15840,9 +15840,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "812",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -15850,9 +15850,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "814",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -15966,9 +15966,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "817",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -16052,9 +16052,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "820",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -16119,9 +16119,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "821",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -16129,9 +16129,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "822",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -16152,9 +16152,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "823",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -16162,9 +16162,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "825",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -16172,9 +16172,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "826",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -16182,9 +16182,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "828",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -16192,9 +16192,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "829",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -16210,9 +16210,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "830",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -16220,9 +16220,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "834",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -16230,9 +16230,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "836",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -16240,9 +16240,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "842",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -16250,9 +16250,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "844",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -16260,9 +16260,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "851",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -16270,9 +16270,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "855",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -16288,9 +16288,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "857",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -16298,9 +16298,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "858",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -16398,9 +16398,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "859",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -16408,9 +16408,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "862",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -16418,9 +16418,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "867",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -16518,9 +16518,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "869",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -16634,9 +16634,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "871",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -16799,9 +16799,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "877",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -16817,9 +16817,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "884",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -16827,9 +16827,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "886",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -16837,9 +16837,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "887",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -16847,9 +16847,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "890",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -16871,9 +16871,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "911",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -16881,9 +16881,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "914",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -16981,9 +16981,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "917",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -16991,9 +16991,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "918",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17001,9 +17001,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "923",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17011,9 +17011,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "924",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17021,9 +17021,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "925",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17031,9 +17031,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "929",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17041,9 +17041,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "932",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17051,9 +17051,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "936",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17061,9 +17061,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "938",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17079,9 +17079,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "939",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17103,9 +17103,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "940",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17113,9 +17113,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "950",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17123,9 +17123,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "951",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17133,9 +17133,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "954",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17143,9 +17143,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "956",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17153,9 +17153,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "959",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17163,9 +17163,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "969",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17173,9 +17173,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "970",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17183,9 +17183,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "971",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17193,9 +17193,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "972",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17217,9 +17217,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "974",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17227,9 +17227,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "975",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17294,9 +17294,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "978",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17317,9 +17317,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "987",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17327,9 +17327,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "994",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17337,9 +17337,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "1004",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17347,9 +17347,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "1005",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17357,9 +17357,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "1022",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17446,9 +17446,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "1024",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17456,9 +17456,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "1032",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17474,9 +17474,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "1053",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17508,9 +17508,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "1058",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17586,9 +17586,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "1072",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17650,9 +17650,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "1076",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17660,9 +17660,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "1082",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17707,9 +17707,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "1084",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17741,9 +17741,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "1085",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17751,9 +17751,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "1092",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17761,9 +17761,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "1102",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17771,9 +17771,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "1107",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17781,9 +17781,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "1132",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17791,9 +17791,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "1134",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17801,9 +17801,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "1135",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17819,9 +17819,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "1136",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17829,9 +17829,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "1138",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17839,9 +17839,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "1144",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17849,9 +17849,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "1148",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17859,9 +17859,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "1149",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17869,9 +17869,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "1150",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -17879,9 +17879,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "1155",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -18009,9 +18009,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "1169",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -18143,9 +18143,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "1176",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -18153,9 +18153,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "1214",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -18163,9 +18163,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "1215",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -18173,9 +18173,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "1227",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -18183,9 +18183,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "1246",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -18193,9 +18193,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "1250",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -18203,9 +18203,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "1293",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -18221,9 +18221,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "1318",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -18231,9 +18231,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "1320",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -18241,9 +18241,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "1333",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -18251,9 +18251,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "1389",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -18261,9 +18261,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "1409",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -18271,9 +18271,9 @@
       "id" : null,
       "metaData" : null,
       "subject" : {
-         "age" : null,
          "id" : "1425",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -18295,9 +18295,9 @@
          }
       ],
       "subject" : {
-         "age" : null,
          "id" : "1476",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    }
 ]

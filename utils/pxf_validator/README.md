@@ -68,6 +68,9 @@ For executing convert-pheno you will need:
 
 ## COMMON ERRORS AND SOLUTIONS
 
+    * NB: Phenopackets v2 does not allow for additional properties at the root level. Required properties: [ "id", "metaData" ].
+          At the 2nd level, "metaData" does not allow for additional properties.
+
     * Error message: Foo
       Solution: Bar
 

@@ -44,8 +44,15 @@ sub do_bff2pxf {
 
     $pxf->{subject} = {
         id  => $data->{id},
+        #alternateIds => [],
+        #_age => $data->{info}{age}
+        #dateOfBirth => undef, 
+        #timeAtLastEncounter => {},
+        vitalStatus => 'ALIVE', #["UNKNOWN_STATUS", "ALIVE", "DECEASED"]
         sex => uc( $data->{sex}{label} ),
-        age => $data->{info}{age}
+        #karyotypicSex => undef , # ["UNKNOWN_KARYOTYPE", "XX", "XY", "XO", "XXY","XXX","XXYY", "XXXY", "XXXX", "XYY", "OTHER_KARYOTYPE"]
+        #taxonomy => {}
+        #_age => $data->{info}{age}
     };
 
     # ===================

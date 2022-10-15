@@ -408,11 +408,9 @@
          }
       ],
       "subject" : {
-         "age" : {
-            "iso8601duration" : "P2Y"
-         },
          "id" : "2",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -813,11 +811,9 @@
          }
       ],
       "subject" : {
-         "age" : {
-            "iso8601duration" : "P2Y"
-         },
          "id" : "2",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -1309,11 +1305,9 @@
          }
       ],
       "subject" : {
-         "age" : {
-            "iso8601duration" : "P6Y"
-         },
          "id" : "2",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -1840,11 +1834,9 @@
          }
       ],
       "subject" : {
-         "age" : {
-            "iso8601duration" : "P7Y"
-         },
          "id" : "1",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -2325,11 +2317,9 @@
          }
       ],
       "subject" : {
-         "age" : {
-            "iso8601duration" : "P1Y"
-         },
          "id" : "2",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -2753,11 +2743,9 @@
       ],
       "metaData" : null,
       "subject" : {
-         "age" : {
-            "iso8601duration" : "P2Y"
-         },
          "id" : "2",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -3218,11 +3206,9 @@
          }
       ],
       "subject" : {
-         "age" : {
-            "iso8601duration" : "P4Y"
-         },
          "id" : "2",
-         "sex" : "FEMALE"
+         "sex" : "FEMALE",
+         "vitalStatus" : "ALIVE"
       }
    },
    {
@@ -3723,11 +3709,9 @@
          }
       ],
       "subject" : {
-         "age" : {
-            "iso8601duration" : "P1Y"
-         },
          "id" : "1",
-         "sex" : "MALE"
+         "sex" : "MALE",
+         "vitalStatus" : "ALIVE"
       }
    }
 ]

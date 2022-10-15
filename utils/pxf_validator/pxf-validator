@@ -4,7 +4,7 @@
 #
 #   Last Modified: Sep/17/2022
 #
-#   Version 0.0.0b
+#   Version 1.0.0
 #
 #   Copyright (C) 2022 Manuel Rueda (manuel.rueda@cnag.crg.eu)
 #
@@ -272,6 +272,9 @@ B<Examples:>
  $ carton exec -- $path/pxf-validator -i phenopackets.json # If using Carton
 
 =head2 COMMON ERRORS AND SOLUTIONS
+
+ * NB: Phenopackets v2 does not allow for additional properties at the root level. Required properties: [ "id", "metaData" ].
+       At the 2nd level, "metaData" does not allow for additional properties.
 
  * Error message: Foo
    Solution: Bar

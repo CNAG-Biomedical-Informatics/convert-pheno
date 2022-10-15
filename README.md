@@ -89,7 +89,7 @@ _NB:_ Docker containers are fully isolated. If you need the mount a volume to th
 
 ## Non containerized
 
-The script runs on command-line Linux (tested on Debian-based distribution). Perl 5 is installed by default on Linux, 
+The script runs on command-line Linux and it has been tested on Debian/RedHat based distributions (only showing commands for Debian's). Perl 5 is installed by default on Linux, 
 but we will install a few CPAN modules with `cpanminus`.
 
 First we install cpanminus (with sudo privileges):
