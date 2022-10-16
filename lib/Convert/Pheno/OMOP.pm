@@ -313,6 +313,9 @@ sub do_omop2bff {
           if exists $person->{$_};
     }
 
+    # Hard-code $individual->{info}{dateOfBirth}
+    $individual->{info}{dateOfBirth}  = _map2iso8601((split /\s+/, $person->{birth_datetime})[0]);
+
     # =========================
     # interventionsOrProcedures
     # =========================

@@ -46,14 +46,16 @@ sub do_bff2pxf {
         id  => $data->{id},
         #alternateIds => [],
         #_age => $data->{info}{age}
-        #dateOfBirth => undef, 
         #timeAtLastEncounter => {},
         vitalStatus => 'ALIVE', #["UNKNOWN_STATUS", "ALIVE", "DECEASED"]
         sex => uc( $data->{sex}{label} ),
-        #karyotypicSex => undef , # ["UNKNOWN_KARYOTYPE", "XX", "XY", "XO", "XXY","XXX","XXYY", "XXXY", "XXXX", "XYY", "OTHER_KARYOTYPE"]
         #taxonomy => {}
         #_age => $data->{info}{age}
     };
+
+    for (qw(dateOfBirth karyotypicSex)){
+        $pxf->{subject}{$_} = $data->{info}{$_} if exists $data->{info}{$_};
+    }
 
     # ===================
     # phenotypic_features

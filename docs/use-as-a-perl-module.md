@@ -13,7 +13,6 @@ The module can be used inside a `Perl` script, but also inside scripts from othe
 
 Example (please see all options at [Convert::Pheno](https://metacpan.org/pod/Convert%3A%3APheno):
 
-`Perl`
 ```Perl
 #!/usr/bin/env perl
 
@@ -41,7 +40,6 @@ Perl plays nicely with other languages and let users embed them into Perl's code
 
 One possible to solution that works is to use the library [PyPerler](https://github.com/tkluck/pyperler). Once installed, one can use a code like this to access `Convert-Pheno` from Python.
 
-`Python`
 ```Python
 #!/usr/bin/env python3
 import pyperler; i = pyperler.Interpreter()
