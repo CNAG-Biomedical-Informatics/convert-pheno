@@ -314,7 +314,7 @@ sub do_omop2bff {
     }
 
     # Hard-code $individual->{info}{dateOfBirth}
-    $individual->{info}{dateOfBirth}  = _map2iso8601((split /\s+/, $person->{birth_datetime})[0]);
+    $individual->{info}{dateOfBirth}  = _map2iso8601($person->{birth_datetime});
 
     # =========================
     # interventionsOrProcedures

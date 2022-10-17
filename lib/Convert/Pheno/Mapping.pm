@@ -205,7 +205,8 @@ sub iso8601_time {
 
 sub _map2iso8601 {
 
-    return shift . 'T00:00:00.00Z';
+    my ($date, $time) = split /\s+/, shift;
+    return $date . ((defined $time && $time =~ m/^T(.+)Z$/) ? $time : 'T00:00:00.00Z');
 }
 
 sub map_3tr {
