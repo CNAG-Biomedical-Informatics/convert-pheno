@@ -11,8 +11,8 @@ requires 'DBI';
 requires 'DBD::SQLite';
 requires 'Mojolicious::Lite';
 
-# for t
-requires 'Inline::Python';
+# for t (only local dev)
+#requires 'Inline::Python';
 
 # for utils
 requires 'JSON::Validator';         # pxf-validator

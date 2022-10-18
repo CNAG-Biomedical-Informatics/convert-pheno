@@ -46,7 +46,6 @@ sub pxf {
                "id" : "LOINC:35925-4",
                "label" : "BMI"
             },
-            "timeObserved" : "2021-09-24",
             "value" : {
                "quantity" : {
                   "unit" : {
@@ -62,7 +61,6 @@ sub pxf {
                "id" : "LOINC:3141-9",
                "label" : "Weight"
             },
-            "timeObserved" : "2021-09-24",
             "value" : {
                "quantity" : {
                   "unit" : {
@@ -78,7 +76,6 @@ sub pxf {
                "id" : "LOINC:8308-9",
                "label" : "Height-standing"
             },
-            "timeObserved" : "2021-09-24",
             "value" : {
                "quantity" : {
                   "unit" : {
@@ -98,7 +95,7 @@ sub pxf {
                   "label" : "OPCS(v4-0.0):Ligation of visceral branch of abdominal aorta NEC"
                },
                "performed" : {
-                  "timestamp" : "0000-01-01T00:00:00Z"
+                  "timestamp" : "1900-01-01T00:00:00Z"
                }
             }
          }
@@ -107,7 +104,9 @@ sub pxf {
       "subject" : {
          "id" : "HG00096",
          "sex" : "MALE",
-         "vitalStatus" : "ALIVE"
+         "vitalStatus" : {
+           "status" : "ALIVE"
+         }
       }
    }
 ';

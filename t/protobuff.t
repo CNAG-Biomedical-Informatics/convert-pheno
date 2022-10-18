@@ -22,7 +22,7 @@ my $input = {
 };
 
 for my $method ( sort keys %{$input} ) {
-    ok( validate_pxf( $input->{$method}{out} ) , qq(protobuff $method) );
+    ok( validate_pxf( $input->{$method}{out} ) , qq(protobuff -> $method) );
 }
 
 use Inline Python => <<'END_OF_PYTHON_CODE';
@@ -55,5 +55,8 @@ def validate_pxf(input_file):
     # Parsing phenopackets from json
     #with open('pxf.json', 'r') as jsfile:
     #    phenopacket = Parse(message=Phenopacket(), text=jsfile.read())
+
+    # Return 1 for Perl
+    return 1
 
 END_OF_PYTHON_CODE

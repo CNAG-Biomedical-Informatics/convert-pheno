@@ -68,6 +68,8 @@ For executing convert-pheno you will need:
 
 ## COMMON ERRORS AND SOLUTIONS
 
+The validator is based on JSON Schema, thus, the validation is only as good as the artificially-created JSON schema.
+
     * NB: Phenopackets v2 does not allow for additional properties at the root level. Required properties: [ "id", "metaData" ].
           At the 2nd level, "metaData" does not allow for additional properties.
 

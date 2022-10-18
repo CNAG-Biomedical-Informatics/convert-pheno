@@ -198,15 +198,19 @@ sub dotify_and_coerce_number {
 
 sub iso8601_time {
 
-    # Standard modules
-    my ( $s, $f ) = split( /\./, gettimeofday );
-    return strftime( '%Y-%m-%dT%H:%M:%S.' . $f . '%z', localtime($s) );
+    # Standard modules (gmtime()===>Coordinated Universal Time(UTC))
+    # NB: The T separates the date portion from the time-of-day portion. 
+    #     The Z on the end means UTC (that is, an offset-from-UTC of zero hours-minutes-seconds). 
+    #     - The Z is pronounced “Zulu”.
+    my $now = time();
+    return strftime('%Y-%m-%dT%H:%M:%SZ', gmtime($now));
 }
 
 sub _map2iso8601 {
 
     my ($date, $time) = split /\s+/, shift;
-    return $date . ((defined $time && $time =~ m/^T(.+)Z$/) ? $time : 'T00:00:00.00Z');
+    # UTC
+    return $date . ((defined $time && $time =~ m/^T(.+)Z$/) ? $time : 'T00:00:00Z');
 }
 
 sub map_3tr {

@@ -11,3 +11,4 @@
 /pm_to_blib
 bck/
 /db/ohdsi.db
+t/protobuff.t

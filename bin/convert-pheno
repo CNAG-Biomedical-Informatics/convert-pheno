@@ -181,9 +181,10 @@ EOF
 sub program_body {
 
     my $l_data = shift;
+    my $file = $l_data->{method} =~ m/^omop/ ? join ',', @{$l_data->{in_files}} : $l_data->{in_file};
     my $msg    = <<EOF;
 ==== METHOD: <$l_data->{method}> ====
-Processing: <$l_data->{in_file}>
+Processing: <$file>
 EOF
     return $msg;
 }
@@ -204,16 +205,14 @@ sub write_log {
 
     my ( $log, $data ) = @_;
 
-    # Creating a temp hash
-    my $date = strftime "%a %b %e %H:%M:%S %Y", localtime;
+    # NB: We will use anonymous (no effect on $data)
     chomp( my $ncpuhost = qx{/usr/bin/nproc} ) // 1;
-    my $user = $ENV{LOGNAME} || $ENV{USER} || getpwuid($<);
 
     my $info = {
-        date     => $date,
+        date     => (strftime "%a %b %e %H:%M:%S %Y", localtime),
         ncpuhost => ( 0 + $ncpuhost ),    # coercing it to be a number
         hostname => hostname,
-        user     => $user
+        user     => $ENV{LOGNAME} || $ENV{USER} || getpwuid($<)
     };
 
     # Saving file

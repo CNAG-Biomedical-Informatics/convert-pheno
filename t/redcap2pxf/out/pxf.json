@@ -25,7 +25,6 @@
                "id" : "NCIT:C51948",
                "label" : "Leukocyte Count"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -45,7 +44,6 @@
                "id" : "NCIT:C64848",
                "label" : "Hemoglobin Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -65,7 +63,6 @@
                "id" : "NCIT:C64796",
                "label" : "Hematocrit Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -85,7 +82,6 @@
                "id" : "NCIT:C51951",
                "label" : "Platelet Count"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -105,7 +101,6 @@
                "id" : "NCIT:C64547",
                "label" : "Creatinine Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -125,7 +120,6 @@
                "id" : "NCIT:C90505",
                "label" : "Glomerular Filtration Rate"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -145,7 +139,6 @@
                "id" : "NCIT:C38037",
                "label" : "Total Bilirubin Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -165,7 +158,6 @@
                "id" : "NCIT:C55098",
                "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -185,7 +177,6 @@
                "id" : "NCIT:C61025",
                "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -205,7 +196,6 @@
                "id" : "NCIT:C117748",
                "label" : "Lipase Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -225,7 +215,6 @@
                "id" : "NCIT:C64548",
                "label" : "C-Reactive Protein Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -245,7 +234,6 @@
                "id" : "NCIT:C74679",
                "label" : "Iron Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -265,7 +253,6 @@
                "id" : "NCIT:C20451",
                "label" : "Interleukin-6"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -289,7 +276,7 @@
                   "label" : "NA"
                },
                "performed" : {
-                  "timestamp" : "1900-01-01T00:00:00.00Z"
+                  "timestamp" : "1900-01-01T00:00:00Z"
                }
             }
          },
@@ -410,7 +397,9 @@
       "subject" : {
          "id" : "2",
          "sex" : "MALE",
-         "vitalStatus" : "ALIVE"
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
       }
    },
    {
@@ -439,7 +428,6 @@
                "id" : "NCIT:C51948",
                "label" : "Leukocyte Count"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -459,7 +447,6 @@
                "id" : "NCIT:C64848",
                "label" : "Hemoglobin Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -479,7 +466,6 @@
                "id" : "NCIT:C64796",
                "label" : "Hematocrit Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -499,7 +485,6 @@
                "id" : "NCIT:C51951",
                "label" : "Platelet Count"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -519,7 +504,6 @@
                "id" : "NCIT:C64547",
                "label" : "Creatinine Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -539,7 +523,6 @@
                "id" : "NCIT:C90505",
                "label" : "Glomerular Filtration Rate"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -559,7 +542,6 @@
                "id" : "NCIT:C38037",
                "label" : "Total Bilirubin Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -579,7 +561,6 @@
                "id" : "NCIT:C55098",
                "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -599,7 +580,6 @@
                "id" : "NCIT:C61025",
                "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -619,7 +599,6 @@
                "id" : "NCIT:C117748",
                "label" : "Lipase Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -639,7 +618,6 @@
                "id" : "NCIT:C64548",
                "label" : "C-Reactive Protein Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -659,7 +637,6 @@
                "id" : "NCIT:C74679",
                "label" : "Iron Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -679,7 +656,6 @@
                "id" : "NCIT:C20451",
                "label" : "Interleukin-6"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -813,7 +789,9 @@
       "subject" : {
          "id" : "2",
          "sex" : "MALE",
-         "vitalStatus" : "ALIVE"
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
       }
    },
    {
@@ -842,7 +820,6 @@
                "id" : "NCIT:C51948",
                "label" : "Leukocyte Count"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -862,7 +839,6 @@
                "id" : "NCIT:C64848",
                "label" : "Hemoglobin Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -882,7 +858,6 @@
                "id" : "NCIT:C64796",
                "label" : "Hematocrit Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -902,7 +877,6 @@
                "id" : "NCIT:C51951",
                "label" : "Platelet Count"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -922,7 +896,6 @@
                "id" : "NCIT:C64547",
                "label" : "Creatinine Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -942,7 +915,6 @@
                "id" : "NCIT:C90505",
                "label" : "Glomerular Filtration Rate"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -962,7 +934,6 @@
                "id" : "NCIT:C38037",
                "label" : "Total Bilirubin Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -982,7 +953,6 @@
                "id" : "NCIT:C55098",
                "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -1002,7 +972,6 @@
                "id" : "NCIT:C61025",
                "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -1022,7 +991,6 @@
                "id" : "NCIT:C117748",
                "label" : "Lipase Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -1042,7 +1010,6 @@
                "id" : "NCIT:C64548",
                "label" : "C-Reactive Protein Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -1062,7 +1029,6 @@
                "id" : "NCIT:C74679",
                "label" : "Iron Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -1082,7 +1048,6 @@
                "id" : "NCIT:C20451",
                "label" : "Interleukin-6"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -1102,7 +1067,6 @@
                "id" : "NCIT:NA0000",
                "label" : "NA"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -1122,7 +1086,6 @@
                "id" : "NCIT:NA0000",
                "label" : "NA"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -1142,7 +1105,6 @@
                "id" : "NCIT:NA0000",
                "label" : "NA"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -1162,7 +1124,6 @@
                "id" : "NCIT:NA0000",
                "label" : "NA"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -1186,7 +1147,7 @@
                   "label" : "Hemicolectomy"
                },
                "performed" : {
-                  "timestamp" : "1900-01-01T00:00:00.00Z"
+                  "timestamp" : "1900-01-01T00:00:00Z"
                }
             }
          },
@@ -1307,7 +1268,9 @@
       "subject" : {
          "id" : "2",
          "sex" : "MALE",
-         "vitalStatus" : "ALIVE"
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
       }
    },
    {
@@ -1336,7 +1299,6 @@
                "id" : "NCIT:C51948",
                "label" : "Leukocyte Count"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -1356,7 +1318,6 @@
                "id" : "NCIT:C64848",
                "label" : "Hemoglobin Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -1376,7 +1337,6 @@
                "id" : "NCIT:C64796",
                "label" : "Hematocrit Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -1396,7 +1356,6 @@
                "id" : "NCIT:C64799",
                "label" : "Erythrocyte Mean Corpuscular Volume"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -1416,7 +1375,6 @@
                "id" : "NCIT:C64797",
                "label" : "Erythrocyte Mean Corpuscular Hemoglobin"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -1436,7 +1394,6 @@
                "id" : "NCIT:C51951",
                "label" : "Platelet Count"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -1456,7 +1413,6 @@
                "id" : "NCIT:C51950",
                "label" : "Neutrophil Count"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -1476,7 +1432,6 @@
                "id" : "NCIT:C51949",
                "label" : "Lymphocyte Count"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -1496,7 +1451,6 @@
                "id" : "NCIT:C64550",
                "label" : "Eosinophil Count"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -1516,7 +1470,6 @@
                "id" : "NCIT:C64547",
                "label" : "Creatinine Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -1536,7 +1489,6 @@
                "id" : "NCIT:C90505",
                "label" : "Glomerular Filtration Rate"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -1556,7 +1508,6 @@
                "id" : "NCIT:C38037",
                "label" : "Total Bilirubin Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -1576,7 +1527,6 @@
                "id" : "NCIT:C55098",
                "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -1596,7 +1546,6 @@
                "id" : "NCIT:C61025",
                "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -1616,7 +1565,6 @@
                "id" : "NCIT:C117748",
                "label" : "Lipase Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -1636,7 +1584,6 @@
                "id" : "NCIT:C64548",
                "label" : "C-Reactive Protein Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -1656,7 +1603,6 @@
                "id" : "NCIT:C74679",
                "label" : "Iron Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -1676,7 +1622,6 @@
                "id" : "NCIT:C20451",
                "label" : "Interleukin-6"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -1696,7 +1641,6 @@
                "id" : "NCIT:NA0000",
                "label" : "NA"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -1836,7 +1780,9 @@
       "subject" : {
          "id" : "1",
          "sex" : "FEMALE",
-         "vitalStatus" : "ALIVE"
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
       }
    },
    {
@@ -1865,7 +1811,6 @@
                "id" : "NCIT:C51948",
                "label" : "Leukocyte Count"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -1885,7 +1830,6 @@
                "id" : "NCIT:C64848",
                "label" : "Hemoglobin Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -1905,7 +1849,6 @@
                "id" : "NCIT:C64796",
                "label" : "Hematocrit Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -1925,7 +1868,6 @@
                "id" : "NCIT:C51951",
                "label" : "Platelet Count"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -1945,7 +1887,6 @@
                "id" : "NCIT:C64547",
                "label" : "Creatinine Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -1965,7 +1906,6 @@
                "id" : "NCIT:C90505",
                "label" : "Glomerular Filtration Rate"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -1985,7 +1925,6 @@
                "id" : "NCIT:C38037",
                "label" : "Total Bilirubin Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -2005,7 +1944,6 @@
                "id" : "NCIT:C55098",
                "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -2025,7 +1963,6 @@
                "id" : "NCIT:C61025",
                "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -2045,7 +1982,6 @@
                "id" : "NCIT:C117748",
                "label" : "Lipase Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -2065,7 +2001,6 @@
                "id" : "NCIT:C64548",
                "label" : "C-Reactive Protein Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -2085,7 +2020,6 @@
                "id" : "NCIT:C74679",
                "label" : "Iron Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -2105,7 +2039,6 @@
                "id" : "NCIT:C20451",
                "label" : "Interleukin-6"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -2125,7 +2058,6 @@
                "id" : "NCIT:NA0000",
                "label" : "NA"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -2145,7 +2077,6 @@
                "id" : "NCIT:NA0000",
                "label" : "NA"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -2165,7 +2096,6 @@
                "id" : "NCIT:NA0000",
                "label" : "NA"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -2185,7 +2115,6 @@
                "id" : "NCIT:NA0000",
                "label" : "NA"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -2319,7 +2248,9 @@
       "subject" : {
          "id" : "2",
          "sex" : "FEMALE",
-         "vitalStatus" : "ALIVE"
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
       }
    },
    {
@@ -2348,7 +2279,6 @@
                "id" : "NCIT:C51948",
                "label" : "Leukocyte Count"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -2368,7 +2298,6 @@
                "id" : "NCIT:C64848",
                "label" : "Hemoglobin Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -2388,7 +2317,6 @@
                "id" : "NCIT:C64796",
                "label" : "Hematocrit Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -2408,7 +2336,6 @@
                "id" : "NCIT:C51951",
                "label" : "Platelet Count"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -2428,7 +2355,6 @@
                "id" : "NCIT:C64547",
                "label" : "Creatinine Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -2448,7 +2374,6 @@
                "id" : "NCIT:C90505",
                "label" : "Glomerular Filtration Rate"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -2468,7 +2393,6 @@
                "id" : "NCIT:C38037",
                "label" : "Total Bilirubin Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -2488,7 +2412,6 @@
                "id" : "NCIT:C55098",
                "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -2508,7 +2431,6 @@
                "id" : "NCIT:C61025",
                "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -2528,7 +2450,6 @@
                "id" : "NCIT:C117748",
                "label" : "Lipase Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -2548,7 +2469,6 @@
                "id" : "NCIT:C64548",
                "label" : "C-Reactive Protein Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -2568,7 +2488,6 @@
                "id" : "NCIT:C74679",
                "label" : "Iron Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -2588,7 +2507,6 @@
                "id" : "NCIT:C20451",
                "label" : "Interleukin-6"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -2608,7 +2526,6 @@
                "id" : "NCIT:C82005",
                "label" : "Calprotectin Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -2632,7 +2549,7 @@
                   "label" : "NA"
                },
                "performed" : {
-                  "timestamp" : "1900-01-01T00:00:00.00Z"
+                  "timestamp" : "1900-01-01T00:00:00Z"
                }
             }
          },
@@ -2745,7 +2662,9 @@
       "subject" : {
          "id" : "2",
          "sex" : "FEMALE",
-         "vitalStatus" : "ALIVE"
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
       }
    },
    {
@@ -2774,7 +2693,6 @@
                "id" : "NCIT:C51948",
                "label" : "Leukocyte Count"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -2794,7 +2712,6 @@
                "id" : "NCIT:C64848",
                "label" : "Hemoglobin Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -2814,7 +2731,6 @@
                "id" : "NCIT:C64796",
                "label" : "Hematocrit Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -2834,7 +2750,6 @@
                "id" : "NCIT:C51951",
                "label" : "Platelet Count"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -2854,7 +2769,6 @@
                "id" : "NCIT:C64547",
                "label" : "Creatinine Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -2874,7 +2788,6 @@
                "id" : "NCIT:C90505",
                "label" : "Glomerular Filtration Rate"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -2894,7 +2807,6 @@
                "id" : "NCIT:C38037",
                "label" : "Total Bilirubin Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -2914,7 +2826,6 @@
                "id" : "NCIT:C55098",
                "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -2934,7 +2845,6 @@
                "id" : "NCIT:C61025",
                "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -2954,7 +2864,6 @@
                "id" : "NCIT:C117748",
                "label" : "Lipase Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -2974,7 +2883,6 @@
                "id" : "NCIT:C64548",
                "label" : "C-Reactive Protein Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -2994,7 +2902,6 @@
                "id" : "NCIT:C20451",
                "label" : "Interleukin-6"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -3014,7 +2921,6 @@
                "id" : "NCIT:NA0000",
                "label" : "NA"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -3034,7 +2940,6 @@
                "id" : "NCIT:NA0000",
                "label" : "NA"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -3054,7 +2959,6 @@
                "id" : "NCIT:NA0000",
                "label" : "NA"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -3074,7 +2978,6 @@
                "id" : "NCIT:NA0000",
                "label" : "NA"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -3208,7 +3111,9 @@
       "subject" : {
          "id" : "2",
          "sex" : "FEMALE",
-         "vitalStatus" : "ALIVE"
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
       }
    },
    {
@@ -3237,7 +3142,6 @@
                "id" : "NCIT:C51948",
                "label" : "Leukocyte Count"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -3257,7 +3161,6 @@
                "id" : "NCIT:C64848",
                "label" : "Hemoglobin Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -3277,7 +3180,6 @@
                "id" : "NCIT:C64796",
                "label" : "Hematocrit Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -3297,7 +3199,6 @@
                "id" : "NCIT:C64799",
                "label" : "Erythrocyte Mean Corpuscular Volume"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -3317,7 +3218,6 @@
                "id" : "NCIT:C64797",
                "label" : "Erythrocyte Mean Corpuscular Hemoglobin"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -3337,7 +3237,6 @@
                "id" : "NCIT:C51951",
                "label" : "Platelet Count"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -3357,7 +3256,6 @@
                "id" : "NCIT:C51950",
                "label" : "Neutrophil Count"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -3377,7 +3275,6 @@
                "id" : "NCIT:C51949",
                "label" : "Lymphocyte Count"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -3397,7 +3294,6 @@
                "id" : "NCIT:C64550",
                "label" : "Eosinophil Count"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -3417,7 +3313,6 @@
                "id" : "NCIT:C64547",
                "label" : "Creatinine Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -3437,7 +3332,6 @@
                "id" : "NCIT:C90505",
                "label" : "Glomerular Filtration Rate"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -3457,7 +3351,6 @@
                "id" : "NCIT:C38037",
                "label" : "Total Bilirubin Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -3477,7 +3370,6 @@
                "id" : "NCIT:C55098",
                "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -3497,7 +3389,6 @@
                "id" : "NCIT:C61025",
                "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -3517,7 +3408,6 @@
                "id" : "NCIT:C117748",
                "label" : "Lipase Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -3537,7 +3427,6 @@
                "id" : "NCIT:C64548",
                "label" : "C-Reactive Protein Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -3557,7 +3446,6 @@
                "id" : "NCIT:C74679",
                "label" : "Iron Measurement"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -3577,7 +3465,6 @@
                "id" : "NCIT:C20451",
                "label" : "Interleukin-6"
             },
-            "timeObserved" : "1900-01-01",
             "value" : {
                "quantity" : {
                   "referenceRange" : {
@@ -3711,7 +3598,9 @@
       "subject" : {
          "id" : "1",
          "sex" : "MALE",
-         "vitalStatus" : "ALIVE"
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
       }
    }
 ]
