@@ -4,11 +4,14 @@
 *.old
 *.swp
 /blib/
+/cover_db/
 /Makefile
 /MANIFEST
 /META*
 /MYMETA*
 /pm_to_blib
 bck/
+old/
+_Inline/
 /db/ohdsi.db
-t/protobuff.t
+/t/protobuff.t
