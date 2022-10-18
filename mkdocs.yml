@@ -19,7 +19,7 @@ nav:
       - As a Perl module: use-as-a-perl-module.md
       - As an API: use-as-an-api.md
   - Formats accepted:
-      - Beacon v2 (BFF): bff.md
+      - Beacon v2 Models (BFF): bff.md
       - Phenopacket v2 (PXF): pxf.md
       - REDCap: redcap.md
       - OMOP-CDM: omop-cdm.md

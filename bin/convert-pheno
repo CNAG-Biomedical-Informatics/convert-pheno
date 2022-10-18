@@ -19,6 +19,8 @@ use autodie;
 use Getopt::Long;
 use Pod::Usage;
 use Data::Dumper;
+use Sys::Hostname;
+use POSIX                 qw(strftime);
 use File::Spec::Functions qw(catdir catfile);
 use FindBin               qw($Bin);
 use lib "$Bin/../lib";
@@ -52,6 +54,7 @@ GetOptions(
     'ohdsi-db'                => \my $ohdsi_db,                             # flag
     'redcap-dictionary|rcd=s' => \my $redcap_dictionary,                    # string
     'print-hidden-labels|phl' => \my $print_hidden_labels,                  # flag
+    'log'                     => \my $log,                                  # flag
     'version|v'               => sub { say "$0 Version $VERSION"; exit; }
 ) or pod2usage(2);
 pod2usage(1)                              if $help;
@@ -87,6 +90,9 @@ my $out_file =
   : $out_bff ? catfile( $out_dir, $out_bff )
   :            catfile( $out_dir, 'individuals.json' );
 
+# Defining $log_file
+my $log_file = catfile( $out_dir, 'convert-pheno.log' );
+
 # Defining method
 my $in_type =
     $in_pxf     ? 'pxf'
@@ -114,9 +120,13 @@ my $data = {
     print_hidden_labels => $print_hidden_labels,
     test                => $test,
     debug               => $debug,
+    log                 => $log,
     verbose             => $verbose
 };
 print Dumper $data if $debug;
+
+# Save log file if $log
+write_log( $log_file, $data ) if $log;
 
 # Start printing to STDOUT
 say BOLD CYAN program_header($VERSION) if $verbose;
@@ -130,6 +140,8 @@ convert( $out_file, $data );
 ###########################
 # END DATA TRANSFORMATION #
 ###########################
+
+print Dumper $data if $debug;
 
 sub convert {
 
@@ -188,6 +200,32 @@ sub dump_file {
     return 1;
 }
 
+sub write_log {
+
+    my ( $log, $data ) = @_;
+
+    # Creating a temp hash
+    my $date = strftime "%a %b %e %H:%M:%S %Y", localtime;
+    chomp( my $ncpuhost = qx{/usr/bin/nproc} ) // 1;
+    my $user = $ENV{LOGNAME} || $ENV{USER} || getpwuid($<);
+
+    my $info = {
+        date     => $date,
+        ncpuhost => ( 0 + $ncpuhost ),    # coercing it to be a number
+        hostname => hostname,
+        user     => $user
+    };
+
+    # Saving file
+    dump_file(
+        {
+            filename => $log,
+            data     => { info => $info, data => $data },
+            format   => 'json'
+        }
+    );
+}
+
 =head1 NAME
 
 B<UNDER DEVELOPMENT>
@@ -200,7 +238,7 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
 
      Arguments:                       
        -input-type:  
-             -ibff                    Beacon v2 JSON file
+             -ibff                    Beacon v2 Models JSON file
              -iomop                   OMOP-CDM CSV files or PostgreSQL dump
              -ipxf                    Phenopacket v2 JSON file
              -iredcap                 REDCap (raw data) export CSV file
@@ -212,13 +250,14 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
              #-ifhir                  HL7/FHIR
 
        -output-type;
-             -obff                    Beacon v2 JSON file
+             -obff                    Beacon v2 Models JSON file
              -opxf                    Phenopacket v2 JSON file
 
      Options:
        -debug                         Print debugging (from 1 to 5, being 5 max)
        -format                        Output format for the text file [>json|yaml]
        -h|help                        Brief help message
+       -log                           Save <convert-pheno.log> file
        -man                           Full documentation
        -nc|-no-color                  Don't print colors to STDOUT
        -ohdsi-db                      Use Athena-OHDSI database (~1.2GB) with -iomop

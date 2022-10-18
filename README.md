@@ -16,7 +16,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
 
      Arguments:                       
        -input-type:  
-             -ibff                    Beacon v2 JSON file
+             -ibff                    Beacon v2 Models JSON file
              -iomop                   OMOP-CDM CSV files or PostgreSQL dump
              -ipxf                    Phenopacket v2 JSON file
              -iredcap                 REDCap (raw data) export CSV file
@@ -28,13 +28,14 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
              #-ifhir                  HL7/FHIR
 
        -output-type;
-             -obff                    Beacon v2 JSON file
+             -obff                    Beacon v2 Models JSON file
              -opxf                    Phenopacket v2 JSON file
 
      Options:
        -debug                         Print debugging (from 1 to 5, being 5 max)
        -format                        Output format for the text file [>json|yaml]
        -h|help                        Brief help message
+       -log                           Save <convert-pheno.log> file
        -man                           Full documentation
        -nc|-no-color                  Don't print colors to STDOUT
        -ohdsi-db                      Use Athena-OHDSI database (~1.2GB) with -iomop
