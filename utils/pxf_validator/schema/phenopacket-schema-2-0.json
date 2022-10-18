@@ -32,7 +32,9 @@
           "$ref": "#/definitions/timeElement"
         },
         "vitalStatus": {
+          "status" : {
           "enum": ["UNKNOWN_STATUS", "ALIVE", "DECEASED"]
+           }
         },
         "sex": {
           "enum": ["UNKNOWN_SEX", "FEMALE", "MALE"]
