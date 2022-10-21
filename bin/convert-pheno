@@ -275,7 +275,7 @@ C<convert-pheno> is a command-line front-end to the CPAN's module L<Convert::Phe
 
 The module will be uploaded to CPAN once the paper is submitted.
 
-Please see a more comprehensive documentation L<here|https://convert-pheno.readthedocs.io/en/latest>.
+Please see a more comprehensive documentation at L<Read The Docs|https://convert-pheno.readthedocs.io/en/latest>.
 
 =head1 SUMMARY
 

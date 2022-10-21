@@ -54,7 +54,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
 
 The module will be uploaded to CPAN once the paper is submitted.
 
-Please see a more comprehensive documentation [here](https://convert-pheno.readthedocs.io/en/latest).
+Please see a more comprehensive documentation at [Read The Docs](https://convert-pheno.readthedocs.io/en/latest).
 
 # SUMMARY
 
