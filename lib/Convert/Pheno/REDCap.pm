@@ -104,7 +104,7 @@ sub do_redcap2bff {
                 query  => $field,
                 column => 'label',
 
-#ontology       => 'icd10',                        # ICD:10 Inflammatory Bowel Disease does not exist
+#ontology       => 'icd10',                        # ICD10 Inflammatory Bowel Disease does not exist
                 ontology => 'ncit',
                 self     => $self
             }

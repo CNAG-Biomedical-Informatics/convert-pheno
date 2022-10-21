@@ -56,8 +56,8 @@ sub do_pxf2bff {
     $individual->{info}{phenopacket}{dateOfBirth} =
       $phenopacket->{subject}{dateOfBirth};
 
-# CNAG files have 'meta_data' nomenclature, but PHX documentation uses 'metaData'
-# We search for both 'meta_data' and 'metaData' and leave them untouched
+    # CNAG files have 'meta_data' nomenclature, but PHX documentation uses 'metaData'
+    # We search for both 'meta_data' and 'metaData' and leave them untouched
     for my $term (qw (dateOfBirth genes meta_data metaData variants)) {
         $individual->{info}{phenopacket}{$term} = $phenopacket->{$term}
           if exists $phenopacket->{$term};
@@ -70,7 +70,7 @@ sub do_pxf2bff {
           if $interpretation->{phenopacket}{$term};
     }
 
-# <diseases> and <phenotypicFeatures> are identical to those of $data->{phenopacket}{diseases,phenotypicFeatures}
+    # <diseases> and <phenotypicFeatures> are identical to those of $data->{phenopacket}{diseases,phenotypicFeatures}
     for my $term (
         qw (diagnosis diseases resolutionStatus phenotypicFeatures genes variants)
       )
@@ -136,30 +136,47 @@ sub get_metaData {
     };
     my $resources = [
         {
-            id   => "ICD10",
+            id   => 'ICD10',
             name =>
-"International Statistical Classification of Diseases and Related Health Problems 10th Revision",
-            url             => "https://icd.who.int/browse10/2019/en#",
-            version         => "2019",
-            namespacePrefix => "ICD-10",
-            iriPrefix       => "http://purl.obolibrary.org/obo/ICD10_"
+'International Statistical Classification of Diseases and Related Health Problems 10th Revision',
+            url             => 'https://icd.who.int/browse10/2019/en#',
+            version         => '2019',
+            namespacePrefix => 'ICD10',
+            iriPrefix       => 'https://icd.who.int/browse10/2019/en#/'
         },
         {
-            id              => "NCIT",
-            name            => "NCI Thesaurus",
-            url             => " http://purl.obolibrary.org/obo/ncit.owl",
-            version         => "22.03d",
-            namespacePrefix => "NCIT",
-            iriPrefix       => "http://purl.obolibrary.org/obo/NCIT_"
+            id              => 'NCIT',
+            name            => 'NCI Thesaurus',
+            url             => 'http://purl.obolibrary.org/obo/ncit.owl',
+            version         => '22.03d',
+            namespacePrefix => 'NCIT',
+            iriPrefix       => 'http://purl.obolibrary.org/obo/NCIT_'
+        },
+        {
+            id              => 'Synthea',
+            name            => 'Synthea synthetic health database',
+            url             => 'https://github.com/OHDSI/ETL-Synthea',
+            version         => 'v5.3.1',
+            namespacePrefix => 'OHDSI',
+            iriPrefix       => 'http://www.fakeurl.com/OHDSI_'
         }
     ];
     return {
-        #_info => $info,
-
-        created                  => iso8601_time(),    # to alleviate testing
+        #_info => $info,         # Not allowed
+        created                  => iso8601_time(),
         createdBy                => $user,
+        submittedBy              => $user,
         phenopacketSchemaVersion => '2.0',
-        resources                => $resources
+        resources                => $resources,
+        externalReference        => [
+            {
+                id        => 'PMID: 26262116',
+                reference =>
+                  'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4815923',
+                description =>
+'Observational Health Data Sciences and Informatics (OHDSI): Opportunities for Observational Researchers'
+            }
+        ]
     };
 }
 1;
