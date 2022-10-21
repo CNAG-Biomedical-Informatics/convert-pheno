@@ -27,7 +27,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
             (Wish-list)
              #-ifhir                  HL7/FHIR
 
-       -output-type;
+       -output-type:
              -obff                    Beacon v2 Models JSON file
              -opxf                    Phenopacket v2 JSON file
 
