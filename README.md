@@ -21,10 +21,10 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
              -ipxf                    Phenopacket v2 JSON file
              -iredcap                 REDCap (raw data) export CSV file
 
-            (Under development)
-             #-icdisc                 CDISC-ODM XML file
+             (Under development)
+             -icdisc                  CDISC-ODM XML file
 
-            (Wish-list)
+             (Wish-list)
              #-ifhir                  HL7/FHIR
 
        -output-type:

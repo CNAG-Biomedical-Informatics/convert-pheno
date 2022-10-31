@@ -38,6 +38,7 @@ GetOptions(
     'ipxf=s'                  => \my $in_pxf,                               # string
     'ibff=s'                  => \my $in_bff,                               # string
     'iredcap=s'               => \my $in_redcap,                            # string
+    'icdisc=s'                => \my $in_cdisc,                             # string
     'iomop=s{1,}'             => \my @omop_files,                           # array
     'obff=s'                  => \my $out_bff,                              # string
     'opxf=s'                  => \my $out_pxf,                              # string
@@ -62,7 +63,7 @@ pod2usage( -verbose => 2, -exitval => 0 ) if $man;
 pod2usage(
     -message => "Please specify a valid input file(s) -i <json|csv>\n",
     -exitval => 1
-) unless ( $in_pxf || $in_bff || $in_redcap || @omop_files );
+) unless ( $in_pxf || $in_bff || $in_redcap || $in_cdisc || @omop_files );
 pod2usage(
     -message => "Please specify a valid directory for --out-dir\n",
     -exitval => 1
@@ -98,6 +99,7 @@ my $in_type =
     $in_pxf     ? 'pxf'
   : $in_bff     ? 'bff'
   : $in_redcap  ? 'redcap'
+  : $in_cdisc   ? 'cdisc'
   : @omop_files ? 'omop'
   :               'bff';
 my $out_type = $out_pxf ? 'pxf' : $out_bff ? 'bff' : 'bff';
@@ -110,6 +112,7 @@ my $data = {
     in_file     => $in_pxf ? $in_pxf
     : $in_bff    ? $in_bff
     : $in_redcap ? $in_redcap
+    : $in_cdisc  ? $in_cdisc
     : undef,
     in_files            => \@omop_files // undef,    # only for Omop
     method              => $method,
@@ -242,10 +245,10 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
              -ipxf                    Phenopacket v2 JSON file
              -iredcap                 REDCap (raw data) export CSV file
 
-            (Under development)
-             #-icdisc                 CDISC-ODM XML file
+             (Under development)
+             -icdisc                  CDISC-ODM XML file
 
-            (Wish-list)
+             (Wish-list)
              #-ifhir                  HL7/FHIR
 
        -output-type:

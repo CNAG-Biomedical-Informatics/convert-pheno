@@ -26,7 +26,7 @@ The idea is to support more REDCap data exports in the future by allowing **one-
     REDCap has a built API, which, in principle could be used to pull data _on-the-fly_ data (instead of data exports). 
     The current version of `Convert::Pheno` does not support REDCap API calls.
 
-During the data transformation, **ontologies are automatically added** to harmonize the content of the variables. We use [NCIT](http://purl.obolibrary.org/obo/ncit.owl), [ICD-10](https://icd.who.int/browse10/2019/), and data from [Athena-OHDSI](https://github.com/OHDSI).
+During the data transformation, **ontologies are automatically added** to harmonize the content of the variables. We use [NCI Thesaurus](https://ncithesaurus.nci.nih.gov/ncitbrowser), [ICD-10](https://icd.who.int/browse10), and data from [Athena-OHDSI](https://athena.ohdsi.org/search-terms/start).
 
 ### Command-line
 

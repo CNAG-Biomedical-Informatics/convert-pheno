@@ -10,6 +10,7 @@ use Path::Tiny;
 use File::Basename;
 use List::Util qw(any);
 use Carp       qw(confess);
+use XML::Hash::LX;
 use Convert::Pheno::CSV;
 use Convert::Pheno::IO;
 use Convert::Pheno::SQLite;
@@ -17,6 +18,7 @@ use Convert::Pheno::Mapping;
 use Convert::Pheno::OMOP;
 use Convert::Pheno::PXF;
 use Convert::Pheno::BFF;
+use Convert::Pheno::CDISC;
 use Convert::Pheno::REDCap;
 use Exporter 'import';
 our @EXPORT = qw($VERSION write_json write_yaml);    # Symbols imported by default
@@ -207,6 +209,23 @@ sub omop2pxf {
     # Run second iteration
     return array_dispatcher($self);
 }
+
+
+###############
+###############
+#  CDISC2BFF  #
+###############
+###############
+
+sub cdisc2bff {
+
+    my $self = shift;
+    my $str      = path($self->{in_file})->slurp_utf8;
+    my $hash     = xml2hash $str, attr => '-', text => '~';
+    my $data = cdisc2redcap_longitudinal($hash);
+    print Dumper $data;
+}
+
 
 ######################
 ######################
