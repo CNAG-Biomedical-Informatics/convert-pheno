@@ -1,14 +1,14 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-use lib ('./lib', '../lib');
+use lib ( './lib', '../lib' );
 use feature qw(say);
 use Data::Dumper;
 use Convert::Pheno;
-use Test::More tests => 7;
+use Test::More tests => 9;
 use File::Compare;
 
-use_ok( 'Convert::Pheno' ) or exit;
+use_ok('Convert::Pheno') or exit;
 
 my $input = {
     bff2pxf => {
@@ -50,11 +50,29 @@ my $input = {
         sep               => ',',
         redcap_dictionary => undef,
         out               => 't/omop2pxf/out/pxf.json'
+    },
+    cdisc2bff => {
+        in_file =>
+          't/cdisc2bff/in/3TRKielTemplateExpor_CDISC_ODM_2022-09-27_1822.xml',
+        redcap_dictionary =>
+'t/redcap2bff/in/3TRKielTemplateExport01072022_DataDictionary_2022-07-03.csv',
+        sep => undef,
+        out => 't/cdisc2bff/out/individuals.json'
+    },
+    cdisc2pxf => {
+        in_file =>
+          't/cdisc2bff/in/3TRKielTemplateExpor_CDISC_ODM_2022-09-27_1822.xml',
+        redcap_dictionary =>
+'t/redcap2bff/in/3TRKielTemplateExport01072022_DataDictionary_2022-07-03.csv',
+        sep => undef,
+        out => 't/cdisc2pxf/out/pxf.json'
     }
+
 };
 
 #for my $method (qw/redcap2bff/){
 for my $method ( sort keys %{$input} ) {
+
     #say "################";
     my $convert = Convert::Pheno->new(
         {
@@ -76,7 +94,7 @@ for my $method ( sort keys %{$input} ) {
             format   => 'json'
         }
     );
-    ok( compare( $input->{$method}{out}, 't/test.json' ) == 0 , $method);
+    ok( compare( $input->{$method}{out}, 't/test.json' ) == 0, $method );
 }
 
 #########

@@ -19,13 +19,12 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
              -ibff                    Beacon v2 Models JSON file
              -iomop                   OMOP-CDM CSV files or PostgreSQL dump
              -ipxf                    Phenopacket v2 JSON file
-             -iredcap                 REDCap (raw data) export CSV file
-
-             (Under development)
-             -icdisc                  CDISC-ODM XML file
+             -iredcap (experimental)  REDCap (raw data) export CSV file
+             -icdisc  (experimental)  CDISC-ODM XML file
 
              (Wish-list)
              #-ifhir                  HL7/FHIR
+             #-openehr                openEHR
 
        -output-type:
              -obff                    Beacon v2 Models JSON file
