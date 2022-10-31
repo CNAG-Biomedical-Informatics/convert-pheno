@@ -10,8 +10,9 @@ requires 'Sort::Naturally';
 requires 'DBI';
 requires 'DBD::SQLite';
 requires 'Mojolicious::Lite';
+requires 'XML::Hash::LX';
 
-# for t (only local dev)
+# for t/protobuff.t (only local dev)
 #requires 'Inline::Python';
 
 # for utils
