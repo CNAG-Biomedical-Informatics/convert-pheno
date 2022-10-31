@@ -137,6 +137,8 @@ For executing convert-pheno you will need:
 
     $ $path/convert-pheno -iomop dump.sql -obff individuals.json 
 
+    $ $path/convert-pheno -cdisc cdisc_odm.xml -obff individuals.json -rcd redcap_dict.csv 
+
     $ $path/convert-pheno -iomop *csv -obff individuals.json -sep ','
 
     $ carton exec -- $path/convert-pheno -ibff individuals.json -opxf phenopackets.json # If using Carton

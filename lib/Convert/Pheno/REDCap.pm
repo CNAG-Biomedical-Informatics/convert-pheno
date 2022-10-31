@@ -7,6 +7,7 @@ use feature    qw(say);
 use List::Util qw(any);
 use Convert::Pheno::Mapping;
 use Convert::Pheno::PXF;
+use Data::Dumper;
 use Exporter 'import';
 our @EXPORT = qw(do_redcap2bff);
 
@@ -25,20 +26,20 @@ sub do_redcap2bff {
     ##############################
     # <Variable> names in REDCap #
     ##############################
-#
-# REDCap does not enforce any particular "Variable" name.
-# Extracted from https://www.ctsi.ufl.edu/wordpress/files/2019/02/Project-Creation-User-Guide.pdf
-# ---
-# "Variable Names: Variable names are critical in the data analysis process. If you export your data to a
-# statistical software program, the variable names are what you or your statistician will use to conduct
-# the analysis"
-#
-# "We always recommend reviewing your variable names with a statistician or whoever will be
-# analyzing your data. This is especially important if this is the first time you are building a
-# database"
-#---
-# If "Variable" names are not consensuated, then we need to do the mapping manually "a posteriori".
-# This is what we are attempting here:
+    #
+    # REDCap does not enforce any particular "Variable" name.
+    # Extracted from https://www.ctsi.ufl.edu/wordpress/files/2019/02/Project-Creation-User-Guide.pdf
+    # ---
+    # "Variable Names: Variable names are critical in the data analysis process. If you export your data to a
+    # statistical software program, the variable names are what you or your statistician will use to conduct
+    # the analysis"
+    #
+    # "We always recommend reviewing your variable names with a statistician or whoever will be
+    # analyzing your data. This is especially important if this is the first time you are building a
+    # database"
+    #---
+    # If "Variable" names are not consensuated, then we need to do the mapping manually "a posteriori".
+    # This is what we are attempting here:
 
     ####################################
     # START MAPPING TO BEACON V2 TERMS #
@@ -52,21 +53,24 @@ sub do_redcap2bff {
     #         'age_first_diagnosis' => '0',
     #         'alcohol' => '4',
     #        }
-
     print Dumper $redcap_dic  if $self->{debug};
     print Dumper $participant if $self->{debug};
 
     # ABOUT REQUIRED PROPERTIES
     # 'id' and 'sex' are required properties in <individuals> entry type
-    # Premature return
+    # The first element will have it but others don't
+    # We need to pass 'sex' info to external elements
+    # storing $participant->{sex} in $self
+    if ( exists $participant->{sex} && $participant->{sex} ne '' ) {
+        $self->{_info}{ $participant->{study_id} }{sex} = $participant->{sex};
+    }
+    $participant->{sex} = $self->{_info}{ $participant->{study_id} }{sex};
+
+    # Premature return if they don't exist
     return
       unless (
-        (
-            exists $participant->{ids_complete}
-            && $participant->{ids_complete} ne ''
-        )
-        && ( exists $participant->{sex} && $participant->{sex} ne '' )
-      );
+        ( exists $participant->{study_id} && $participant->{study_id} ne '' )
+        && $participant->{sex} );
 
     # Data structure (hashref) for each individual
     my $individual;
@@ -84,8 +88,8 @@ sub do_redcap2bff {
 
     #$individual->{diseases} = [];
 
-#my %disease = ( 'Inflamatory Bowel Disease' => 'ICD10:K51.90' ); # it does not exist as it is at ICD10
-#my @diseases = ('Unspecified asthma, uncomplicated', 'Inflamatory Bowel Disease', "Crohn's disease, unspecified, without complications");
+    #my %disease = ( 'Inflamatory Bowel Disease' => 'ICD10:K51.90' ); # it does not exist as it is at ICD10
+    #my @diseases = ('Unspecified asthma, uncomplicated', 'Inflamatory Bowel Disease', "Crohn's disease, unspecified, without complications");
     my @diseases = ('Inflammatory Bowel Disease');    # Note the 2 mm
     for my $field (@diseases) {
         my $disease;
@@ -98,13 +102,15 @@ sub do_redcap2bff {
                     field       => 'age_first_diagnosis'
                 }
             )
-        ) if $participant->{age_first_diagnosis} ne '';
+          )
+          if ( exists $participant->{age_first_diagnosis}
+            && $participant->{age_first_diagnosis} ne '' );
         $disease->{diseaseCode} = map_ontology(
             {
                 query  => $field,
                 column => 'label',
 
-#ontology       => 'icd10',                        # ICD10 Inflammatory Bowel Disease does not exist
+                #ontology       => 'icd10',                        # ICD10 Inflammatory Bowel Disease does not exist
                 ontology => 'ncit',
                 self     => $self
             }
@@ -117,7 +123,9 @@ sub do_redcap2bff {
                     field       => 'family_history'
                 }
             )
-        ) if $participant->{family_history} ne '';
+          )
+          if ( exists $participant->{family_history}
+            && $participant->{family_history} ne '' );
 
         #$disease->{notes}    = undef;
         $disease->{severity} = { id => 'NCIT:NA000', label => 'NA' };
@@ -139,19 +147,23 @@ sub do_redcap2bff {
                 field       => 'ethnicity'
             }
         )
-    ) if $participant->{ethnicity} ne '';
+      )
+      if ( exists $participant->{ethnicity}
+        && $participant->{ethnicity} ne '' );
 
     # =========
     # exposures
     # =========
 
-    $individual->{exposures} = undef;
+    #$individual->{exposures} = undef;
     my @exposures = (
         qw (alcohol smoking cigarettes_days cigarettes_years packyears smoking_quit)
     );
 
     for my $field (@exposures) {
-        next if $participant->{$field} eq '';
+        next
+          unless ( exists $participant->{$field}
+            && $participant->{$field} ne '' );
         my $exposure;
 
         $exposure->{ageAtExposure} = { id => 'NCIT:NA0000', label => 'NA' };
@@ -166,7 +178,7 @@ sub do_redcap2bff {
             }
         );
 
-# We first extract 'unit' that supposedly will be used in <measurementValue> and <referenceRange>??
+        # We first extract 'unit' that supposedly will be used in <measurementValue> and <referenceRange>??
         my $unit = map_ontology(
             {
                 query => ( $field eq 'alcohol' || $field eq 'smoking' )
@@ -204,7 +216,9 @@ sub do_redcap2bff {
     # id
     # ==
 
-    $individual->{id} = $participant->{ids_complete};
+    my $longitudinal_id =
+      $participant->{study_id} . ':' . $participant->{redcap_event_name};
+    $individual->{id} = $longitudinal_id;
 
     # ====
     # info
@@ -229,7 +243,7 @@ sub do_redcap2bff {
               ( "Field Label", "Field Note", "Field Type" )
           }
           : $participant->{$field}
-          if $participant->{$field} ne '';
+          if ( exists $participant->{$field} && $participant->{$field} ne '' );
     }
     $individual->{info}{metaData} = $self->{test} ? undef : get_metaData();
 
@@ -381,11 +395,14 @@ sub do_redcap2bff {
     for my $field ( @comorbidities, @phenotypicFeatures ) {
         my $phenotypicFeature;
 
-        if ( $participant->{$field} ne '' && $participant->{$field} == 1 ) {
+        if (   exists $participant->{$field}
+            && $participant->{$field} ne ''
+            && $participant->{$field} == 1 )
+        {
 
-       #$phenotypicFeature->{evidence} = undef;    # P32Y6M1D
-       #$phenotypicFeature->{excluded} =
-       #  { quantity => { unit => { id => '', label => '' }, value => undef } };
+            #$phenotypicFeature->{evidence} = undef;    # P32Y6M1D
+            #$phenotypicFeature->{excluded} =
+            #  { quantity => { unit => { id => '', label => '' }, value => undef } };
             $phenotypicFeature->{featureType} = map_ontology(
                 {
                     query    => $field =~ m/comorb/ ? 'Comorbidity' : $field,
@@ -433,7 +450,7 @@ sub do_redcap2bff {
     # treatments
     # ==========
 
-    $individual->{treatments} = undef;
+    #$individual->{treatments} = undef;
 
     my %drug = (
         aza => 'azathioprine',
@@ -445,11 +462,11 @@ sub do_redcap2bff {
     my @drugs  = qw (budesonide prednisolone asa aza mtx mp);
     my @routes = qw (oral rectal);
 
-#        '_labels' => {
-#                                                       '1' => 'never treated',
-#                                                       '2' => 'former treatment',
-#                                                       '3' => 'current treatment'
-#                                                     }
+    #        '_labels' => {
+    #                                                       '1' => 'never treated',
+    #                                                       '2' => 'former treatment',
+    #                                                       '3' => 'current treatment'
+    #                                                     }
 
     # FOR DRUGS
     for my $drug (@drugs) {
@@ -470,7 +487,9 @@ sub do_redcap2bff {
               ( $drug eq 'budesonide' || $drug eq 'asa' )
               ? $drug . '_' . $route . '_status'
               : $drug . '_status';
-            next if $participant->{$tmp_var} eq '';
+            next
+              unless ( exists $participant->{$tmp_var}
+                && $participant->{$tmp_var} ne '' );
 
             #say "$drug $route";
 
@@ -500,9 +519,7 @@ sub do_redcap2bff {
             $treatment->{doseIntervals}         = [];
             $treatment->{routeOfAdministration} = map_ontology(
                 {
-                    query => ucfirst($route)
-                      . ' Route of Administration'
-                    ,    # Oral Route of Administration
+                    query    => ucfirst($route) . ' Route of Administration',  # Oral Route of Administration
                     column   => 'label',
                     ontology => 'ncit',
                     self     => $self

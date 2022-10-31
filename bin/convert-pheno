@@ -71,7 +71,7 @@ pod2usage(
 pod2usage(
     -message => "Please specify a valid REDCap data dictionary --rcd\n",
     -exitval => 1
-) if ( $in_redcap && !$redcap_dictionary );
+) if ( ($in_redcap || $in_cdisc)  && !$redcap_dictionary );
 pod2usage(
     -message => "Please specify a valid OMOP-CDM file(s) (e.g, *csv or .sql)\n",
     -exitval => 1
@@ -364,6 +364,8 @@ B<Examples:>
  $ $path/convert-pheno -iredcap redcap.csv -opxf phenopackets.json --redcap-dictionary redcap_dict.csv
 
  $ $path/convert-pheno -iomop dump.sql -obff individuals.json 
+
+ $ $path/convert-pheno -cdisc cdisc_odm.xml -obff individuals.json -rcd redcap_dict.csv 
 
  $ $path/convert-pheno -iomop *csv -obff individuals.json -sep ','
 

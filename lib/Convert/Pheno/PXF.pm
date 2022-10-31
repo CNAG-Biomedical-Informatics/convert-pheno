@@ -153,9 +153,9 @@ sub get_metaData {
             iriPrefix       => 'http://purl.obolibrary.org/obo/NCIT_'
         },
         {
-            id              => 'Synthea',
-            name            => 'Synthea synthetic health database',
-            url             => 'https://github.com/OHDSI/ETL-Synthea',
+            id              => 'Athena-OHDSI',
+            name            => 'Athena-OHDSI',
+            url             => 'https://athena.ohdsi.org',
             version         => 'v5.3.1',
             namespacePrefix => 'OHDSI',
             iriPrefix       => 'http://www.fakeurl.com/OHDSI_'

@@ -83,7 +83,7 @@ sub redcap2bff {
     #         'alcohol' => '4',
     #        }, {},,,
     #      ]
-
+    
     # Read and load REDCap CSV dictionary
     my $data_redcap_dic = read_redcap_dictionary( $self->{redcap_dictionary} );
 
@@ -222,8 +222,39 @@ sub cdisc2bff {
     my $self = shift;
     my $str      = path($self->{in_file})->slurp_utf8;
     my $hash     = xml2hash $str, attr => '-', text => '~';
-    my $data = cdisc2redcap_longitudinal($hash);
-    print Dumper $data;
+    my $data = cdisc2redcap($hash);
+
+    # Read and load REDCap CSV dictionary
+    my $data_redcap_dic = read_redcap_dictionary( $self->{redcap_dictionary} );
+
+    $self->{data}            = $data;               # Dynamically adding attributes (setter)
+    $self->{data_redcap_dic} = $data_redcap_dic;    # Dynamically adding attributes (setter)
+
+    # array_dispatcher will deal with JSON arrays
+    return array_dispatcher($self);
+}
+
+###############
+###############
+#  CDISC2PXF  #
+###############
+###############
+
+sub cdisc2pxf {
+
+ my $self = shift;
+
+    # First iteration: cdisc2bff
+    $self->{method} = 'cdisc2bff';    # setter - we have to change the value of attr {method}
+    my $bff = cdisc2bff($self);       # array
+
+    # Preparing for second iteration: bff2pxf
+    $self->{method}      = 'bff2pxf';    # setter
+    $self->{data}        = $bff;         # setter
+    $self->{in_textfile} = 0;            # setter
+
+    # Run second iteration
+    return array_dispatcher($self);
 }
 
 
@@ -239,7 +270,7 @@ sub array_dispatcher {
 
     # Load the input data as Perl data structure
     my $in_data =
-      ( $self->{in_textfile} && $self->{method} !~ m/^redcap2|^omop2/ )
+      ( $self->{in_textfile} && $self->{method} !~ m/^redcap2|^omop2|^cdisc2/ )
       ? read_json( $self->{in_file} )
       : $self->{data};
 
@@ -247,6 +278,7 @@ sub array_dispatcher {
     my %func = (
         pxf2bff    => \&do_pxf2bff,
         redcap2bff => \&do_redcap2bff,
+        cdisc2bff  => \&do_cdisc2bff,
         omop2bff   => \&do_omop2bff,
         bff2pxf    => \&do_bff2pxf
     );

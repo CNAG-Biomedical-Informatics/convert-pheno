@@ -5,8 +5,9 @@ use warnings;
 use autodie;
 use feature qw(say);
 use Data::Dumper;
+use Convert::Pheno::REDCap;
 use Exporter 'import';
-our @EXPORT = qw(cdisc2redcap_longitudinal);
+our @EXPORT = qw(do_cdisc2bff cdisc2redcap);
 $Data::Dumper::Sortkeys = 1;
 
 ###############
@@ -18,45 +19,75 @@ $Data::Dumper::Sortkeys = 1;
 sub do_cdisc2bff {
 
     my ( $self, $participant ) = @_;
-
-#    ####################################
-#    # START MAPPING TO BEACON V2 TERMS #
-#    ####################################
-#    my $individual;
-#
-#    # Get cursors for 1D terms
-#    my $person = $participant->{PERSON};
-#
-#    # $participant = input data
-#    # $person = cursor to $participant->PERSON
-#    # $individual = output data
-#
-# # ABOUT REQUIRED PROPERTIES
-# # 'id' and 'sex' are required properties in <individuals> entry type
-# # 'person_id' must exist at this point otherwise it would have not been created
-# # Premature return
-#    return
-#      unless ( exists $person->{gender_concept_id}
-#        && $person->{gender_concept_id} ne '' );
-#
-#
-#    ##################################
-#    # END MAPPING TO BEACON V2 TERMS #
-#    ##################################
-#
-#    return $individual;
+    return do_redcap2bff( $self, $participant );
 }
 
-sub cdisc2redcap_longitudinal {
+sub cdisc2redcap {
 
-    # We're taking advantage that REDCap uses the same key, just changes the value
-    # Unlike OMOP_CDM that can change the whole row (multiple keys and values)
     my $data = shift;
 
     # We take $subject information from the nested data structure
     my $subjects = $data->{ODM}{ClinicalData}{SubjectData};
 
-    # Now we iteratte over the array of subjects
+    # Now we iterate over the array of subjects
+    my $individuals = [];
+    for my $subject ( @{$subjects} ) {
+
+        # The data in CDISC-ODM  has the following hierarchy
+        # StudyEventData->'-redcap:UniqueEventName'->FormData->ItemGroupData->ItemData
+
+        # StudyEventData
+        for my $StudyEventData ( @{ $subject->{'StudyEventData'} } ) {
+
+            # We'll store the new data on $individual
+            my $individual = {
+                study_id          => $subject->{'-SubjectKey'},
+                redcap_event_name =>
+                  $StudyEventData->{'-redcap:UniqueEventName'}
+            };
+
+            # FormData
+            for my $FormData ( @{ $StudyEventData->{FormData} } ) {
+
+                # ItemGroupData
+                for my $ItemGroupData ( @{ $FormData->{ItemGroupData} } ) {
+
+                    # The elements can arrive as {} or []
+                    # Both will be loaded as []
+                    if ( ref $ItemGroupData->{ItemData} eq ref [] ) {
+                        for my $ItemData ( @{ $ItemGroupData->{ItemData} } ) {
+                            $individual->{ $ItemData->{'-ItemOID'} } =
+                              $ItemData->{'-Value'};
+                        }
+                    }
+                    else {
+                        # Converting from hash to 1-subject array
+                        $individual->{ $ItemGroupData->{ItemData}{'-ItemOID'} }
+                          = $ItemGroupData->{ItemData}{'-Value'};
+                    }
+                }
+            }
+            push @{$individuals}, $individual;
+        }
+    }
+    return $individuals;
+}
+
+sub _cdisc2redcap_longitudinal {
+
+    ##############
+    # Deprecated #
+    ##############
+
+    # This sobroutine was built to store longitudinal data as an array
+    # Unfortunately, there is no way to add longitudinal info (redcap_event) on Beacon v2
+
+    my $data = shift;
+
+    # We take $subject information from the nested data structure
+    my $subjects = $data->{ODM}{ClinicalData}{SubjectData};
+
+    # Now we iterate over the array of subjects
     my $individuals = [];
     for my $subject ( @{$subjects} ) {
 
@@ -103,10 +134,10 @@ sub cdisc2redcap_longitudinal {
             }
         }
         push @{$individuals}, $individual;
+
         #print Dumper $individual;
     }
     return $individuals;
 }
-
 
 1;
