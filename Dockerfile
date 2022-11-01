@@ -5,8 +5,7 @@ MAINTAINER Manuel Rueda <manuel.rueda@cnag.crg.eu>
 
 # Install Linux tools
 RUN apt-get update && \
-    apt-get -y install gcc unzip make git cpanminus perl-doc vim sudo libnet-ssleay-perl
-
+    apt-get -y install gcc unzip make git cpanminus perl-doc vim sudo libxml-hash-lx-perl
 
 # Download app
 WORKDIR /usr/share/
