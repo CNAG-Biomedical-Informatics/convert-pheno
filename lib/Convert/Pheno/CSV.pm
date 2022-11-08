@@ -25,18 +25,9 @@ sub read_csv_export {
     my $in_file = $arg->{in};
     my $sep     = $arg->{sep};
 
-    # Define split record separator
+    # Define split record separator from file extension
     my @exts = qw(.csv .tsv .txt);
     my ( undef, undef, $ext ) = fileparse( $in_file, @exts );
-
-    #########################################
-    #     START READING CSV|TSV|TXT FILE    #
-    #########################################
-
-    open my $fh, '<:encoding(utf8)', $in_file;
-
-    # We'll read the header to assess separators in <txt> files
-    chomp( my $tmp_header = <$fh> );
 
     # Defining separator character
     my $separator =
@@ -45,6 +36,10 @@ sub read_csv_export {
       : $ext eq '.csv' ? ';'     # Note we don't use comma but semicolon
       : $ext eq '.tsv' ? "\t"
       :                  "\t";
+
+    #########################################
+    #     START READING CSV|TSV|TXT FILE    #
+    #########################################
 
     # Defining variables
     my $data = [];                  #AoH
@@ -56,9 +51,11 @@ sub read_csv_export {
         }
     );
 
-    # Loading header fields into $header
-    $csv->parse($tmp_header);
-    my $header = [ $csv->fields() ];
+    # Open filehandle
+    open my $fh, '<:encoding(utf8)', $in_file;
+
+    # Loading header fields
+    my $header = $csv->getline($fh);
 
     # Now proceed with the rest of the file
     while ( my $row = $csv->getline($fh) ) {
@@ -84,24 +81,19 @@ sub read_redcap_dictionary {
 
     my $in_file = shift;
 
-    # Define split record separator
+    # Define split record separator from file extension
     my @exts = qw(.csv .tsv .txt);
     my ( undef, undef, $ext ) = fileparse( $in_file, @exts );
-
-    #########################################
-    #     START READING CSV|TSV|TXT FILE    #
-    #########################################
-
-    open my $fh, '<:encoding(utf8)', $in_file;
-
-    # We'll read the header to assess separators in <txt> files
-    chomp( my $tmp_header = <$fh> );
 
     # Defining separator
     my $separator =
         $ext eq '.csv' ? ';'
       : $ext eq '.tsv' ? "\t"
       :                  ' ';
+
+    #########################################
+    #     START READING CSV|TSV|TXT FILE    #
+    #########################################
 
     # Defining variables
     my $data = {};                  #AoH
@@ -113,9 +105,11 @@ sub read_redcap_dictionary {
         }
     );
 
-    # Loading header fields into $header
-    $csv->parse($tmp_header);
-    my $header = [ $csv->fields() ];
+    # Open filehandle
+    open my $fh, '<:encoding(utf8)', $in_file;
+
+    # Loading header fields
+    my $header = $csv->getline($fh);
 
     # Now proceed with the rest of the file
     while ( my $row = $csv->getline($fh) ) {
