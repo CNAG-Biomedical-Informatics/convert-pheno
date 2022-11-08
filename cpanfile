@@ -10,7 +10,7 @@ requires 'Sort::Naturally';
 requires 'DBI';
 requires 'DBD::SQLite';
 requires 'Mojolicious::Lite';
-#requires 'XML::Hash::LX'; # sudo apt install libxml-hash-lx-perl
+requires 'XML::Hash::LX';
 
 # for t/protobuff.t (only local dev)
 #requires 'Inline::Python';
