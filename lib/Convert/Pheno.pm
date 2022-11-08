@@ -10,7 +10,7 @@ use Path::Tiny;
 use File::Basename;
 use List::Util qw(any);
 use Carp       qw(confess);
-use XML::Hash::LX;
+use XML::Fast;
 use Convert::Pheno::CSV;
 use Convert::Pheno::IO;
 use Convert::Pheno::SQLite;
@@ -22,6 +22,7 @@ use Convert::Pheno::CDISC;
 use Convert::Pheno::REDCap;
 use Exporter 'import';
 our @EXPORT = qw($VERSION write_json write_yaml);    # Symbols imported by default
+
 #our @EXPORT_OK = qw(foo bar);       # Symbols imported by request
 
 use constant DEVEL_MODE => 0;
@@ -83,7 +84,7 @@ sub redcap2bff {
     #         'alcohol' => '4',
     #        }, {},,,
     #      ]
-    
+
     # Read and load REDCap CSV dictionary
     my $data_redcap_dic = read_redcap_dictionary( $self->{redcap_dictionary} );
 
@@ -210,7 +211,6 @@ sub omop2pxf {
     return array_dispatcher($self);
 }
 
-
 ###############
 ###############
 #  CDISC2BFF  #
@@ -220,8 +220,8 @@ sub omop2pxf {
 sub cdisc2bff {
 
     my $self = shift;
-    my $str      = path($self->{in_file})->slurp_utf8;
-    my $hash     = xml2hash $str, attr => '-', text => '~';
+    my $str  = path( $self->{in_file} )->slurp_utf8;
+    my $hash = xml2hash $str, attr => '-', text => '~';
     my $data = cdisc2redcap($hash);
 
     # Read and load REDCap CSV dictionary
@@ -242,7 +242,7 @@ sub cdisc2bff {
 
 sub cdisc2pxf {
 
- my $self = shift;
+    my $self = shift;
 
     # First iteration: cdisc2bff
     $self->{method} = 'cdisc2bff';    # setter - we have to change the value of attr {method}
@@ -256,7 +256,6 @@ sub cdisc2pxf {
     # Run second iteration
     return array_dispatcher($self);
 }
-
 
 ######################
 ######################
