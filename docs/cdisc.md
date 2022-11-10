@@ -3,9 +3,10 @@
 **CDISC** stands for **C**linical **D**ata **I**nterchange **S**tandards **C**onsortium.
 **ODM** stands for **O**perational **D**ata **M**odel.
 
-**CDISC** [documentation](https://www.cdisc.org).
+[CDISC](https://www.cdisc.org) has several [standards](https://www.cdisc.org/standards/data-exchange) for data exchange. From those, we accept as input **Operational Data Model (ODM)-XML**. ODM-XML is a vendor-neutral, platform-independent format for exchanging and archiving clinical and translational research data, along with their associated metadata, administrative data, reference data, and audit information.
 
-CDISC has several [standards](https://www.cdisc.org/standards/data-exchange) for data exchange. From those, we accept as input **Operational Data Model (ODM)-XML**. ODM-XML is a vendor-neutral, platform-independent format for exchanging and archiving clinical and translational research data, along with their associated metadata, administrative data, reference data, and audit information.
+!!! Info "ODM versions"
+    We're accpeting CDISC-ODM v1 (XML). Currently, v2 is in the [process of being approved](https://www.cdisc.org/public-review/odm-v2-0).
 
 ## CDISC-ODM as input
 

@@ -35,7 +35,7 @@ $bff = {
 `Python`
 ```Python
 bff = {
-     "data : my_bff_json_data,
+     "data" : my_bff_json_data,
      "method" : "bff2pxf"
 }
 ```

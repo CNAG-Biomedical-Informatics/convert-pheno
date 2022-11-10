@@ -20,7 +20,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
              -iomop                   OMOP-CDM CSV files or PostgreSQL dump
              -ipxf                    Phenopacket v2 JSON file
              -iredcap (experimental)  REDCap (raw data) export CSV file
-             -icdisc  (experimental)  CDISC-ODM XML file
+             -icdisc  (experimental)  CDISC-ODM v1 XML file
 
              (Wish-list)
              #-ifhir                  HL7/FHIR
