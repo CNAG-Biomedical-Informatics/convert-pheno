@@ -32,7 +32,7 @@ but we will install a few CPAN modules with `cpanminus`.
 
 Please download the `cpanfile` from the repo:
 
-    wget https://raw.githubusercontent.com/mrueda/Convert-Pheno/main/cpanfile
+    wget https://raw.githubusercontent.com/mrueda/convert-pheno/main/cpanfile
 
 First we install cpanminus (with sudo privileges):
 
@@ -83,7 +83,7 @@ The validator is based on JSON Schema, thus, the validation is only as good as t
 
 The author requests that any published work that utilizes `Convert-Pheno` includes a cite to the the following reference:
 
-Rueda, M., (2022). Convert-Pheno: A toolbox to interconvert common data models for phenotypic data \[Software\]. Available from https://github.com/mrueda/Convert-Pheno
+Rueda, M., (2022). Convert-Pheno: A toolbox to interconvert common data models for phenotypic data \[Software\]. Available from https://github.com/mrueda/convert-pheno
 
 # AUTHOR 
 

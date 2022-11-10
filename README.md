@@ -65,7 +65,7 @@ A script that uses [Convert::Pheno](https://metacpan.org/pod/Convert%3A%3APheno)
 
 Please download the `Dockerfile` from the repo:
 
-    wget https://raw.githubusercontent.com/mrueda/Convert-Pheno/main/Dockerfile
+    wget https://raw.githubusercontent.com/mrueda/convert-pheno/main/Dockerfile
 
 And then run:
 
@@ -154,7 +154,7 @@ For executing convert-pheno you will need:
 
 The author requests that any published work that utilizes `Convert-Pheno` includes a cite to the the following reference:
 
-Rueda, M., (2022). Convert-Pheno: A toolbox to interconvert common data models for phenotypic data \[Software\]. Available from https://github.com/mrueda/Convert-Pheno
+Rueda, M., (2022). Convert-Pheno: A toolbox to interconvert common data models for phenotypic data \[Software\]. Available from https://github.com/mrueda/convert-pheno
 
 # AUTHOR 
 

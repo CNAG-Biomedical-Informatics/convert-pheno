@@ -9,9 +9,9 @@ At the time of writting this (Sep-2022) the API consists of **very basic functio
 * This API only accepts requests using `POST` http method.
 * This API only has one endpoint `/individuals`.
     
-## Installation
+## Installation (from CPAN) 
 
-    $ cpanm --sudo Mojolicious Convert::Pheno
+    $ cpanm --sudo Convert::Pheno # Once the paper is published !!!
 
 ## How to run
 
