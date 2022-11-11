@@ -13,6 +13,10 @@ The module can be used inside a `Perl` script, but also inside scripts from othe
 
 Example (please see all options at [Convert::Pheno](https://metacpan.org/pod/Convert%3A%3APheno):
 
+!!! Warning "About @INC errors"
+    If you are not downloading `Convert:.Pheno` from CPAN you may have to add its path to @INC, like this:
+    export PERL5LIB=your_path_to/convert-pheno/lib
+
 ```Perl
 #!/usr/bin/env perl
 
@@ -38,29 +42,49 @@ my $hashref = $convert->$method;
 
 Perl plays nicely with other languages and let users embed them into Perl's code (e.g., with `Inline`). Unfortunately, embedding Perl code into other languages is not as straightforward.
 
-One possible to solution that works is to use the library [PyPerler](https://github.com/tkluck/pyperler). Once installed, one can use a code like this to access `Convert-Pheno` from Python.
+Luckily, the library [PyPerler](https://github.com/tkluck/pyperler) solves our problem. Once installed, one can use a code like the one below to access `Convert-Pheno` from Python.
 
 ```Python
 #!/usr/bin/env python3
+from pprint import pprint
 import pyperler; i = pyperler.Interpreter()
 
-# use a CPAN module (must be installed!!)
+##############################
+# Only if the module WAS NOT #
+# installed with CPAN        #
+##############################
+# - We have to provide the path to <convert-pheno/lib>
+# - Here we're running from inside ex/
+i.use("lib '../lib'") 
+
+# Load the module 
 CP = i.use('Convert::Pheno')
 
-method = 'pxf2bff'
-convert = CP
-(
-    { 
-        'method' method,
-        'data' : my_pxf_json_data
+# Example data
+my_pxf_json_data = {
+    "phenopacket": {
+    "id": "P0007500",
+    "subject": {
+      "id": "P0007500",
+      "dateOfBirth": "unknown-01-01T00:00:00Z",
+      "sex": "FEMALE"
+    }
+  }
+}
+
+# Create object
+convert = CP.new (
+    {
+        "method" : "pxf2bff",
+        "data" : my_pxf_json_data
     }
 )
-hashref = convert.method
- 
+
+# Pretty print
+pprint(convert.pxf2bff())
 ```
 
 !!! Warning "About PyPerler installation"
-    Note you may need to install `libperl-dev` to make it work.
+    Apart from [PypPerler](https://github.com/tkluck/pyperler#quick-install) itself, you may need to install `libperl-dev` to make it work.
     
     `sudo apt-get install libperl-dev`
-
