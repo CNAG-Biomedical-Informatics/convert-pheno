@@ -13,10 +13,6 @@ The module can be used inside a `Perl` script, but also inside scripts from othe
 
 Example (please see all options at [Convert::Pheno](https://metacpan.org/pod/Convert%3A%3APheno):
 
-!!! Warning "About @INC errors"
-    If you are not downloading `Convert:.Pheno` from CPAN you may have to add its path to @INC, like this:
-    export PERL5LIB=your_path_to/convert-pheno/lib
-
 ```Perl
 #!/usr/bin/env perl
 
@@ -51,7 +47,7 @@ import pyperler; i = pyperler.Interpreter()
 
 ##############################
 # Only if the module WAS NOT #
-# installed with CPAN        #
+# installed from CPAN        #
 ##############################
 # - We have to provide the path to <convert-pheno/lib>
 # - Here we're running from inside ex/
