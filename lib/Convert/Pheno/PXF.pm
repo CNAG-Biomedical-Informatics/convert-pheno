@@ -21,9 +21,12 @@ sub do_pxf2bff {
     my ( $self, $data ) = @_;
     my $sth = $self->{sth};
 
-    # Get cursors for 1D terms
-    my $interpretation = $data->{interpretation};
-    my $phenopacket    = $data->{phenopacket};
+    # We encountered that some PXF files have 
+    # /phenopacket 
+    # /interpretation
+    # Get cursors for them if they exist
+    my $interpretation = exists $data->{interpretation} ? $data->{interpretation} : undef;
+    my $phenopacket    = exists $data->{phenopacket} ? $data->{phenopacket} : $data;
 
     ####################################
     # START MAPPING TO BEACON V2 TERMS #
