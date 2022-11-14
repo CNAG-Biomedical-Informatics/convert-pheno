@@ -1,4 +1,4 @@
-FROM perl:5.30
+FROM perl:5.36-bullseye
 
 # File Author / Maintainer
 MAINTAINER Manuel Rueda <manuel.rueda@cnag.crg.eu>
