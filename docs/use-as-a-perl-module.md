@@ -13,7 +13,6 @@ The module can be used inside a `Perl` script, but also inside scripts from othe
 Example (please see all options at [Convert::Pheno](https://metacpan.org/pod/Convert%3A%3APheno)):
 
 ```Perl
-```
 #!/usr/bin/env perl
 use strict;
 use warnings;
@@ -53,8 +52,8 @@ my $convert = Convert::Pheno->new(
 # Run method and store result in hashref
 my $hashref = $convert->$method;
 print Dumper $hashref;
-
 ```
+
 ## Inside Python
 
 Perl plays nicely with other languages and let users embed them into Perl's code (e.g., with `Inline`). Unfortunately, embedding Perl code into other languages is not as straightforward.
@@ -65,7 +64,10 @@ Luckily, the library [PyPerler](https://github.com/tkluck/pyperler) solves our p
 #!/usr/bin/env python3
 import pprint
 import json
-import pyperler; i = pyperler.Interpreter()
+import pyperler
+
+# Create interpreter
+i = pyperler.Interpreter()
 
 ##############################
 # Only if the module WAS NOT #
@@ -79,14 +81,14 @@ CP = i.use('Convert::Pheno')
 
 # Example data
 my_pxf_json_data = {
-    "phenopacket": {
-    "id": "P0007500",
-    "subject": {
-      "id": "P0007500",
-      "dateOfBirth": "unknown-01-01T00:00:00Z",
-      "sex": "FEMALE"
-    }
-  }
+     "phenopacket": {
+     "id": "P0007500",
+     "subject": {
+       "id": "P0007500",
+       "dateOfBirth": "unknown-01-01T00:00:00Z",
+       "sex": "FEMALE"
+       }
+   }
 }
 
 # Create object
@@ -104,7 +106,7 @@ hashref=convert.pxf2bff()
 # The data structure is accesible via pprint
 #pprint.pprint(hashref)
 
-# Trick to serialize it back to Python dictitonary
+# Trick to serialize it back to Python dictionary
 dictionary = json.loads((pprint.pformat(hashref)).replace("'", '"'))
 
 # Using json.dumps to beautify

@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 import pprint
 import json
-import pyperler; i = pyperler.Interpreter()
+import pyperler
+
+# Create interpreter
+i = pyperler.Interpreter()
 
 ##############################
 # Only if the module WAS NOT #
@@ -15,14 +18,14 @@ CP = i.use('Convert::Pheno')
 
 # Example data
 my_pxf_json_data = {
-    "phenopacket": {
-    "id": "P0007500",
-    "subject": {
-      "id": "P0007500",
-      "dateOfBirth": "unknown-01-01T00:00:00Z",
-      "sex": "FEMALE"
-    }
-  }
+     "phenopacket": {
+     "id": "P0007500",
+     "subject": {
+       "id": "P0007500",
+       "dateOfBirth": "unknown-01-01T00:00:00Z",
+       "sex": "FEMALE"
+       }
+   }
 }
 
 # Create object
@@ -40,7 +43,7 @@ hashref=convert.pxf2bff()
 # The data structure is accesible via pprint
 #pprint.pprint(hashref)
 
-# Trick to serialize it back to Python dictitonary
+# Trick to serialize it back to Python dictionary
 dictionary = json.loads((pprint.pformat(hashref)).replace("'", '"'))
 
 # Using json.dumps to beautify
