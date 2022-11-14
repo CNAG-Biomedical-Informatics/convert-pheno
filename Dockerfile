@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM perl:5.30
 
 # File Author / Maintainer
 MAINTAINER Manuel Rueda <manuel.rueda@cnag.crg.eu>
@@ -13,4 +13,4 @@ RUN git clone https://github.com/mrueda/convert-pheno.git
 
 # Install Perl modules
 WORKDIR /usr/share/convert-pheno
-RUN cpanm --sudo --installdeps .
+RUN cpanm --installdeps .
