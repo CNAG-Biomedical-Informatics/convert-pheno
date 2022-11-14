@@ -27,7 +27,7 @@ The idea is that we will pass the essential information as a hash (Perl) or dict
 ```Perl
 $bff = {
      data => $my_bff_json_data,
-     method => $method
+     method => 'bff2pxf'
 };
 
 ```
