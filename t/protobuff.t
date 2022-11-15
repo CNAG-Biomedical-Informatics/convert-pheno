@@ -10,17 +10,7 @@ use lib ( './lib', '../lib' );
 use feature qw(say);
 use Data::Dumper;
 use Convert::Pheno;
-use Test::More;
-
-# Skip if Inline::Python is not installed
-# No need to check protobuff, etc.
-eval 'require Inline::Python';
-if ($@) {
-    plan skip_all => 'Test performed on local dev only';
-}
-else {
-    plan tests => 5;
-}
+use Test::More tests => 5;
 
 use_ok('Convert::Pheno') or exit;
 
