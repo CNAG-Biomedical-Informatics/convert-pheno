@@ -13,3 +13,6 @@ install-carton:
 
 test:
 	prove -l
+
+test-carton:
+	carton exec -- prove -l
