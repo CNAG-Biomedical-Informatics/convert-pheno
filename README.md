@@ -87,7 +87,7 @@ _NB:_ Docker containers are fully isolated. If you need the mount a volume to th
 
     docker run -tid --volume /media/mrueda/4TBT:/4TB --name convert-pheno cnag/convert-pheno:latest
 
-Alternatively, you can use 'make' to perform all previous steps:
+Alternatively, you can use `make` to perform all the previous steps:
 
     wget https://raw.githubusercontent.com/mrueda/convert-pheno/main/makefile.docker
     make -f makefile.docker install 
@@ -99,12 +99,15 @@ Alternatively, you can use 'make' to perform all previous steps:
 The script runs on command-line Linux and it has been tested on Debian/RedHat based distributions (only showing commands for Debian's). Perl 5 is installed by default on Linux, 
 but we will install a few CPAN modules with `cpanminus`.
 
-    make install (Will ask for sudo passwd)
+    git clone https://github.com/mrueda/convert-pheno.git
+    cd convert-pheno
+    make install # (Will ask for sudo passwd)
     make test
 
 If you prefer to have the dependencies in a "virtual environment" (i.e., install the CPAN modules in the directory of the application) we recommend using the module `Carton`.
 
     make install-carton
+    make test
 
 # HOW TO RUN CONVERT-PHENO
 
