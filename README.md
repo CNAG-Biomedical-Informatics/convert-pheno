@@ -81,18 +81,30 @@ To enter:
 
 The command-line executable can be found at:
 
-    /usr/share/convert-pheno/bin/convert-pheno
-
-_NB:_ Docker containers are fully isolated. If you need the mount a volume to the container please use the following syntax (`-v host:container`). Find an example below (note that you need to change the paths to match yours):
-
-    docker run -tid --volume /media/mrueda/4TBT:/4TB --name convert-pheno cnag/convert-pheno:latest
+     /usr/share/convert-pheno/bin/convert-pheno
+    
 
 Alternatively, you can use `make` to perform all the previous steps:
 
+    wget https://raw.githubusercontent.com/mrueda/convert-pheno/main/Dockerfile
     wget https://raw.githubusercontent.com/mrueda/convert-pheno/main/makefile.docker
-    make -f makefile.docker install 
+    make -f makefile.docker install
     make -f makefile.docker run
     make -f makefile.docker enter
+
+### Mounting volumes
+Docker containers are fully isolated. If you need the mount a volume to the container please use the following syntax (`-v host:container`). 
+Find an example below (note that you need to change the paths to match yours):
+
+    docker run -tid --volume /media/mrueda/4TBT/data:/data --name convert-pheno-mount cnag/convert-pheno:latest
+
+Then I will do something like this:
+
+    # First I create an alias to simplyfy invocation
+    alias convert-pheno='docker exec -ti convert-pheno-mount /usr/share/convert-pheno/bin/convert-pheno'
+
+    # Now I use the alias to run the command (note that I use the flag --out-dir to specify the output directory)
+    convert-pheno -ibff /data/individuals.json -opxf pxf.bff --out-dir /data
 
 ## Non containerized
 
