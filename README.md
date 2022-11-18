@@ -100,7 +100,7 @@ Find an example below (note that you need to change the paths to match yours):
 
 Then I will do something like this:
 
-    # First I create an alias to simplyfy invocation
+    # First I create an alias to simplify invocation (from the host)
     alias convert-pheno='docker exec -ti convert-pheno-mount /usr/share/convert-pheno/bin/convert-pheno'
 
     # Now I use the alias to run the command (note that I use the flag --out-dir to specify the output directory)
