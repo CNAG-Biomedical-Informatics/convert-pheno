@@ -18,8 +18,8 @@ use Convert::Pheno::Mapping;
 use Convert::Pheno::OMOP;
 use Convert::Pheno::PXF;
 use Convert::Pheno::BFF;
-use Convert::Pheno::CDISC;
-use Convert::Pheno::REDCap;
+use Convert::Pheno::CDISC3TR;
+use Convert::Pheno::REDCap3TR;
 use Exporter 'import';
 our @EXPORT = qw($VERSION write_json write_yaml);    # Symbols imported by default
 

@@ -1,4 +1,4 @@
-package Convert::Pheno::CDISC;
+package Convert::Pheno::CDISC3TR;
 
 use strict;
 use warnings;

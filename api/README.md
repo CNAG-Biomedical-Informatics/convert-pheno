@@ -9,29 +9,52 @@ At the time of writting this (Sep-2022) the API consists of **very basic functio
 * This API only accepts requests using `POST` http method.
 * This API only has one endpoint `/individuals`.
     
-## Installation (from CPAN) 
+## Installation 
+
+### From CPAN 
 
     $ cpanm --sudo Convert::Pheno # Once the paper is published !!!
 
+### With Docker
+
+Please see installation instructions [here](https://github.com/mrueda/convert-pheno#containerized).
+
 ## How to run
 
-With `morbo` for development
+### Non-containerized version
+
+With `morbo` for development:
 
     $ morbo convert-pheno-api # development (default: port 3000)
 
 If you want to use a self-signed certificate:
 
-    morbo convert-pheno-api daemon -l https://*:3000
+    $ morbo convert-pheno-api daemon -l https://*:3000
 
-or with `hypnotoad` 
+or with `hypnotoad`:
 
     $ hypnotoad convert-pheno-api # production (https://localhost:8080)
+
+### Containerized version
+
+With `morbo` for development:
+
+    $ docker container run -p 3000:3000 --name convert-pheno-morbo cnag/convert-pheno:latest morbo api/convert-pheno-api
+
+If you want to use a self-signed certificate:
+
+    $ docker container run -p 3000:3000 --name convert-pheno-morbo cnag/convert-pheno:latest morbo api/convert-pheno-api daemon -l https://*:3000
+
+or with `hypnotoad`:
+
+     $ docker container run -p 8080:8080 --name convert-pheno-h2 cnag/convert-pheno:latest hypnotoad -f api/convert-pheno-api
 
 ## Examples
 
 ### POST with a data file (Beacon v2 to Phenopacket v2)
 
    $ curl -d "@data.json" -X POST http://localhost:3000/individuals
+   $ curl -k -d "@data.json" -X POST http://localhost:3000/individuals # -k tells cURL to accept self-signed certificates
 
 [data.json](data.json) contents:
 ```
