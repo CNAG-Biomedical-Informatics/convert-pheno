@@ -47,14 +47,14 @@ If you want to use a self-signed certificate:
 
 or with `hypnotoad`:
 
-     $ docker container run -p 8080:8080 --name convert-pheno-h2 cnag/convert-pheno:latest hypnotoad -f api/convert-pheno-api
+    $ docker container run -p 8080:8080 --name convert-pheno-h2 cnag/convert-pheno:latest hypnotoad -f api/convert-pheno-api
 
 ## Examples
 
 ### POST with a data file (Beacon v2 to Phenopacket v2)
 
-   $ curl -d "@data.json" -X POST http://localhost:3000/individuals
-   $ curl -k -d "@data.json" -X POST http://localhost:3000/individuals # -k tells cURL to accept self-signed certificates
+    $ curl -d "@data.json" -X POST http://localhost:3000/individuals
+    $ curl -k -d "@data.json" -X POST http://localhost:3000/individuals # -k tells cURL to accept self-signed certificates
 
 [data.json](data.json) contents:
 ```
