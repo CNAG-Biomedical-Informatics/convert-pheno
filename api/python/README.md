@@ -1,4 +1,4 @@
-# README Convert-Pheno-API (Perl version)
+# README Convert-Pheno-API (Python version)
 
 Here we provide a light API to enable requests/responses to `Convert::Pheno`. 
 
@@ -6,7 +6,7 @@ At the time of writting this (Fall-2022) the API consists of **very basic functi
 
 ### Notes:
 
-* The API is built with Mojolicius.
+* The API is built with FastAPI.
 * This API only accepts requests using `POST` http method.
 * This API only has one endpoint `/api`.
     
@@ -16,6 +16,12 @@ At the time of writting this (Fall-2022) the API consists of **very basic functi
 
     $ cpanm --sudo Convert::Pheno # Once the paper is published !!!
 
+You need to install a few Python packages:
+
+    $ sudo pip3 install "fastapi[all]"
+
+Please take a look to how to run `Convert-Pheno`in [Python](https://convert-pheno.readthedocs.io/en/latest/use-as-a-perl-module/#inside-python).
+
 ### With Docker
 
 Please see installation instructions [here](https://github.com/mrueda/convert-pheno#containerized).
@@ -24,38 +30,26 @@ Please see installation instructions [here](https://github.com/mrueda/convert-ph
 
 ### Non-containerized version
 
-With `morbo` for development:
+With `uvicorn` for development:
 
-    $ morbo convert-pheno-api # development (default: port 3000)
+    $ uvicorn main:app --reload # development (default: port 8000)
 
-If you want to use a self-signed certificate:
+With `uvicorn` for production:
 
-    $ morbo convert-pheno-api daemon -l https://*:3000
-
-or with `hypnotoad`:
-
-    $ hypnotoad convert-pheno-api # production (https://localhost:8080)
+    $ uvicorn main:app 
 
 ### Containerized version
 
-With `morbo` for development:
+With `uvicorn` for development:
 
-    $ docker container run -p 3000:3000 --name convert-pheno-morbo cnag/convert-pheno:latest morbo api/convert-pheno-api
-
-If you want to use a self-signed certificate:
-
-    $ docker container run -p 3000:3000 --name convert-pheno-morbo cnag/convert-pheno:latest morbo api/convert-pheno-api daemon -l https://*:3000
-
-or with `hypnotoad`:
-
-    $ docker container run -p 8080:8080 --name convert-pheno-h2 cnag/convert-pheno:latest hypnotoad -f api/convert-pheno-api
+    $ docker container run -p 8000:8000 --name convert-pheno-uvicorn cnag/convert-pheno:latest uvicorn  api/main:app
 
 ## Examples
 
 ### POST with a data file (Beacon v2 to Phenopacket v2)
 
-    $ curl -d "@data.json" -X POST http://localhost:3000/api
-    $ curl -k -d "@data.json" -X POST https://localhost:3000/api # -k tells cURL to accept self-signed certificates
+    $ curl -d "@data.json" -X POST http://localhost:8000/api
+    $ curl -k -d "@data.json" -X POST https://localhost:8000/api # -k tells cURL to accept self-signed certificates
 
 [data.json](data.json) contents:
 ```
