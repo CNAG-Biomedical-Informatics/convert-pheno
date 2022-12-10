@@ -4,7 +4,7 @@
 #
 #   This file is part of Convert::Pheno
 #
-#   Last Modified: Oct/07/2022
+#   Last Modified: Dec/10/2022
 #
 #   $VERSION taken from Convert::Pheno
 #
@@ -16,9 +16,9 @@ use FindBin qw($Bin);
 use lib "$Bin/../lib";
 use Convert::Pheno;
 
-#perl convert-pheno-api get -M POST -c '{"method":"bff2pfx"}' /individuals
-#post '/individuals' => sub ($c) { # With -signatures
-post '/individuals' => sub {
+#perl convert-pheno-api get -M POST -c '{"method":"bff2pfx"}' /api
+#post '/api' => sub ($c) { # With -signatures
+post '/api' => sub {
   my $c = shift;
   my $hash = $c->req->json;
   my $convert  = Convert::Pheno->new($hash);

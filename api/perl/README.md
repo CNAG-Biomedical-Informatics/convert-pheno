@@ -7,7 +7,7 @@ At the time of writting this (Sep-2022) the API consists of **very basic functio
 ### Notes:
 
 * This API only accepts requests using `POST` http method.
-* This API only has one endpoint `/individuals`.
+* This API only has one endpoint `/api`.
     
 ## Installation 
 
@@ -53,8 +53,8 @@ or with `hypnotoad`:
 
 ### POST with a data file (Beacon v2 to Phenopacket v2)
 
-    $ curl -d "@data.json" -X POST http://localhost:3000/individuals
-    $ curl -k -d "@data.json" -X POST http://localhost:3000/individuals # -k tells cURL to accept self-signed certificates
+    $ curl -d "@data.json" -X POST http://localhost:3000/api
+    $ curl -k -d "@data.json" -X POST http://localhost:3000/api # -k tells cURL to accept self-signed certificates
 
 [data.json](data.json) contents:
 ```
