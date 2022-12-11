@@ -9,6 +9,7 @@ At the time of writting this (Fall-2022) the API consists of **very basic functi
 * The API is built with Mojolicius.
 * This API only accepts requests using `POST` http method.
 * This API only has one endpoint `/api`.
+* `/api` directly receives a `POST` request with the [request body](https://swagger.io/docs/specification/2-0/describing-request-body) (payload) as JSON object. All the needed data are inside the JSON object (i.e., it does not use request parameters). 
     
 ## Installation 
 

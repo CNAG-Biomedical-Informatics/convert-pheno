@@ -11,13 +11,18 @@
 #   Copyright (C) 2022 Manuel Rueda (manuel.rueda@cnag.crg.eu)
 
 #use Mojolicious::Lite -signatures; # No go for CentOs Perl v5.16
+#use Mojolicious::Lite -async_await; # cpanm --sudo Future::AsyncAwait
 use Mojolicious::Lite; 
 use FindBin qw($Bin);
 use lib "$Bin/../../lib";
 use Convert::Pheno;
 
-#perl convert-pheno-api get -M POST -c '{"method":"bff2pfx"}' /api
 #post '/api' => sub ($c) { # With -signatures
+
+# With Future::AsyncAwait installed
+# post '/api' => async sub {
+#     my $c = await shift;
+
 post '/api' => sub {
   my $c = shift;
   my $hash = $c->req->json;
@@ -28,3 +33,7 @@ post '/api' => sub {
 
 app->config(hypnotoad => {listen => ['https://*:8080']});
 app->start;
+
+# Usage
+#perl convert-pheno-api get -M POST -c '{"method":"bff2pfx"}' /api
+
