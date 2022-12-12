@@ -2,6 +2,7 @@
 import pprint
 import json
 import pyperler
+import pathlib
 from fastapi import Request, FastAPI
 from pydantic import BaseModel, ValidationError
 
@@ -15,7 +16,10 @@ def convert_pheno(json_data):
     # installed from CPAN        #
     ##############################
     # We have to provide the path to <convert-pheno/lib>
-    i.use("lib '../../lib'")
+    #i.use("lib '../../lib'")
+    bindir = pathlib.Path(__file__).resolve().parent
+    lib_str = "lib '" + str(bindir) + "/../../lib'"
+    i.use(lib_str)
 
     # Load the module 
     CP = i.use('Convert::Pheno')
