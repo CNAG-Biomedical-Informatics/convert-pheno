@@ -1,3 +1,4 @@
 *.pl linguist-language=Perl
 *.pm linguist-language=Perl
 *.t linguist-language=Perl
+ex/pyperler/** linguist-vendored
