@@ -46,11 +46,11 @@ my_pxf_json_data = {
 }
 
 # Create data for convert_pheno
-json_dict = {
+json_data = {
     "method" : "pxf2bff",
     "data" : my_pxf_json_data
 }
      
 
 # Using json.dumps to beautify
-print(json.dumps(convert_pheno(json_dict), indent=4, sort_keys=True))
+print(json.dumps(convert_pheno(json_data), indent=4, sort_keys=True))
