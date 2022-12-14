@@ -17,3 +17,6 @@ requires 'XML::Fast';
 
 # for utils
 requires 'JSON::Validator';         # pxf-validator
+
+# for api
+requires 'IO::Socket::SSL';

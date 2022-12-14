@@ -16,7 +16,7 @@ def convert_pheno(json_data):
     # installed from CPAN        #
     ##############################
     # We have to provide the path to <convert-pheno/lib>
-    #i.use("lib '../../lib'")
+    #i.use("lib '../lib'")
     bindir = pathlib.Path(__file__).resolve().parent
     lib_str = "lib '" + str(bindir) + "/../../lib'"
     i.use(lib_str)
@@ -27,16 +27,14 @@ def convert_pheno(json_data):
     # Create object
     convert = CP.new(json_data)
 
-    # The result of the method (e.g. 'pxf2bff()') comes out as a scalar (Perl hashref)
+    #The result of the method (e.g. 'pxf2bff()') comes out as a scalar (Perl hashref)
+    #type(hashref) = pyperler.ScalarValue
     hashref=getattr(convert, json_data["method"])()
 
-    # The data structure is accesible via pprint
-    #pprint.pprint(hashref)
-
-    # Trick to serialize it back to Python dictionary
+    # Trick to serialize it back to a correct Python dictionary
     json_dict = json.loads((pprint.pformat(hashref)).replace("'", '"'))
 
-    # return data as dict
+    # Return dict
     return json_dict
 
 # Here we start the API
