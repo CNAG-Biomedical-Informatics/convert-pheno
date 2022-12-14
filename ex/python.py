@@ -44,14 +44,14 @@ def convert_pheno(json_data):
 
 # Example PXF data
 my_pxf_json_data = {
-     "phenopacket": {
-     "id": "P0007500",
-     "subject": {
-       "id": "P0007500",
-       "dateOfBirth": "unknown-01-01T00:00:00Z",
-       "sex": "FEMALE"
-      }
-   }
+  "phenopacket": {
+    "id": "P0007500",
+    "subject": {
+      "id": "P0007500",
+      "dateOfBirth": "unknown-01-01T00:00:00Z",
+      "sex": "FEMALE"
+    }
+  }
 }
 
 # Create data for convert_pheno
@@ -60,6 +60,5 @@ json_data = {
     "data" : my_pxf_json_data
 }
      
-
 # Using json.dumps to beautify
 print(json.dumps(convert_pheno(json_data), indent=4, sort_keys=True))

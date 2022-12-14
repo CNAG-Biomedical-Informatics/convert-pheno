@@ -3,7 +3,9 @@
 *.bck
 *.old
 *.swp
+*.pyc
 /blib/
+__pycache__/
 /cover_db/
 /Makefile
 /MANIFEST
