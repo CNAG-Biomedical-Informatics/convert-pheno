@@ -9,6 +9,8 @@
 #   $VERSION taken from Convert::Pheno
 #
 #   Copyright (C) 2022 Manuel Rueda (manuel.rueda@cnag.crg.eu)
+#
+#   License: Artistic License 2.0 
 
 #use Mojolicious::Lite -signatures; # No go for CentOs Perl v5.16
 #use Mojolicious::Lite -async_await; # cpanm --sudo Future::AsyncAwait

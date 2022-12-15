@@ -1,4 +1,17 @@
 #!/usr/bin/env perl
+#
+#   Example script on how to use Convert::Pheno in Perl
+#
+#   This file is part of Convert::Pheno
+#
+#   Last Modified: Dec/14/2022
+#
+#   $VERSION taken from Convert::Pheno
+#
+#   Copyright (C) 2022 Manuel Rueda (manuel.rueda@cnag.crg.eu)
+#
+#   License: Artistic License 2.0 
+
 use strict;
 use warnings;
 use Data::Dumper;

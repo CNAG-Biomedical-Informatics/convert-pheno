@@ -153,6 +153,10 @@ For executing convert-pheno you will need:
 
 ## COMMON ERRORS AND SOLUTIONS
 
+Please be aware that we are reading input files and storing them in RAM memory (we do not use streams).
+We never encountered such case, but it may become an issue if your file > 1GB and you do not have enough RAM memory.
+One simple solution is to split the input file in many.
+
     * Error message: Foo
       Solution: Bar
 

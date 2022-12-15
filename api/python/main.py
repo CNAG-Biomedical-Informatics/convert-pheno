@@ -1,4 +1,17 @@
 #!/usr/bin/env python3
+#
+#   A simple API to interact with Convert::Pheno
+#
+#   This file is part of Convert::Pheno
+#
+#   Last Modified: Dec/10/2022
+#
+#   $VERSION taken from Convert::Pheno
+#
+#   Copyright (C) 2022 Manuel Rueda (manuel.rueda@cnag.crg.eu)
+#
+#   License: Artistic License 2.0 
+
 import pprint
 import json
 import pyperler

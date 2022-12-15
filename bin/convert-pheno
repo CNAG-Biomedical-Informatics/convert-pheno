@@ -9,6 +9,8 @@
 #   $VERSION taken from Convert::Pheno
 #
 #   Copyright (C) 2022 Manuel Rueda (manuel.rueda@cnag.crg.eu)
+#
+#   License: Artistic License 2.0 
 
 package main;
 
@@ -380,6 +382,10 @@ B<Examples:>
  $ carton exec -- $path/convert-pheno -ibff individuals.json -opxf phenopackets.json # If using Carton
 
 =head2 COMMON ERRORS AND SOLUTIONS
+
+Please be aware that we are reading input files and storing them in RAM memory (we do not use streams).
+We never encountered such case, but it may become an issue if your file > 1GB and you do not have enough RAM memory.
+One simple solution is to split the input file in many.
 
  * Error message: Foo
    Solution: Bar
