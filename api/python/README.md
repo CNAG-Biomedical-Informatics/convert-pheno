@@ -21,7 +21,7 @@ You need to install a few Python packages:
 
     $ sudo pip3 install "fastapi[all]"
 
-Please take a look to how to run `Convert-Pheno`in [Python](https://convert-pheno.readthedocs.io/en/latest/use-as-a-perl-module/#inside-python).
+Please take a look to how to run `Convert-Pheno`in [Python](https://convert-pheno.readthedocs.io/en/latest/use-as-a-module/#inside-python).
 
 ### With Docker
 

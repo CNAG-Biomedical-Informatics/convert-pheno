@@ -1,6 +1,6 @@
 # As an API
 
-In some cases, it's simply more elegant to send and receive the data from an API (as a [microservice](https://en.wikipedia.org/wiki/Microservices). 
+In some cases, it's simply more elegant to send and receive the data from an API (as a [microservice](https://en.wikipedia.org/wiki/Microservices)). 
 We have created a very light API that will allow you to send `POST` requests and receive `JSON` responses. Just make sure to send your data in the proper format.
 
 ```JSON
