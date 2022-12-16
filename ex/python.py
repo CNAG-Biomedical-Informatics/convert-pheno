@@ -12,48 +12,10 @@
 #
 #   License: Artistic License 2.0 
 
-import pprint
 import json
-import pyperler
-import pathlib
-
-def convert_pheno(json_data):
-
-    # Create interpreter
-    i = pyperler.Interpreter()
-
-    ##############################
-    # Only if the module WAS NOT #
-    # installed from CPAN        #
-    ##############################
-    # We have to provide the path to <convert-pheno/lib>
-    #i.use("lib '../lib'")
-    bindir = pathlib.Path(__file__).resolve().parent
-    lib_str = "lib '" + str(bindir) + "/../lib'"
-    i.use(lib_str)
-
-    # Load the module 
-    CP = i.use('Convert::Pheno')
-
-    # Create object
-    convert = CP.new(json_data)
-
-    #The result of the method (e.g. 'pxf2bff()') comes out as a scalar (Perl hashref)
-    #type(hashref) = pyperler.ScalarValue
-    hashref=getattr(convert, json_data["method"])()
-
-    # The data structure is accesible via pprint
-    #pprint.pprint(hashref)
-    # Casting works within print...
-    #print(dict(hashref))
-    # ... but fails with json.dumps
-    #print(json.dumps(dict(hashref)))
-    
-    # Trick to serialize it back to a correct Python dictionary
-    json_dict = json.loads((pprint.pformat(hashref)).replace("'", '"'))
-
-    # Return dict
-    return json_dict
+import sys
+sys.path.append('../lib/')
+from convertpheno import PythonBinding 
 
 # Example PXF data
 my_pxf_json_data = {
@@ -67,11 +29,14 @@ my_pxf_json_data = {
   }
 }
 
-# Create data for convert_pheno
+# Create dictionary
 json_data = {
     "method" : "pxf2bff",
     "data" : my_pxf_json_data
 }
      
-# Using json.dumps to beautify
-print(json.dumps(convert_pheno(json_data), indent=4, sort_keys=True))
+# Creating object for class PythonBinding
+convert = PythonBinding(json_data)
+
+# Run method convert_pheno and beautify with json.dumps
+print(json.dumps(convert.convert_pheno(), indent=4, sort_keys=True))
