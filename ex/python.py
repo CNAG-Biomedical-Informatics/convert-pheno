@@ -10,12 +10,12 @@
 #
 #   Copyright (C) 2022 Manuel Rueda (manuel.rueda@cnag.crg.eu)
 #
-#   License: Artistic License 2.0 
+#   License: Artistic License 2.0
 
 import json
 import sys
 sys.path.append('../lib/')
-from convertpheno import PythonBinding 
+from convertpheno import PythonBinding
 
 # Example PXF data
 my_pxf_json_data = {
@@ -31,10 +31,10 @@ my_pxf_json_data = {
 
 # Create dictionary
 json_data = {
-    "method" : "pxf2bff",
-    "data" : my_pxf_json_data
+    "method": "pxf2bff",
+    "data": my_pxf_json_data
 }
-     
+
 # Creating object for class PythonBinding
 convert = PythonBinding(json_data)
 
