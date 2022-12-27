@@ -123,11 +123,12 @@ sub do_pxf2bff {
 
 sub get_metaData {
 
+    my $self = shift;
     # NB: Q: Why inside PXF.pm and not inside BFF.pm?
     #   : A: Because it's easier to remember
 
     # Setting a few variables
-    my $user = $ENV{LOGNAME} || $ENV{USER} || getpwuid($<);
+    my $user = $self->{username} // ( $ENV{LOGNAME} || $ENV{USER} || getpwuid($<));
     chomp( my $ncpuhost = qx{/usr/bin/nproc} ) // 1;
     $ncpuhost = 0 + $ncpuhost;    # coercing it to be a number
     my $info = {

@@ -245,7 +245,7 @@ sub do_redcap2bff {
           : $participant->{$field}
           if ( exists $participant->{$field} && $participant->{$field} ne '' );
     }
-    $individual->{info}{metaData} = $self->{test} ? undef : get_metaData();
+    $individual->{info}{metaData} = $self->{test} ? undef : get_metaData($self);
 
     # =========================
     # interventionsOrProcedures

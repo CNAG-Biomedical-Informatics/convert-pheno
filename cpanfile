@@ -20,3 +20,4 @@ requires 'JSON::Validator';         # pxf-validator
 
 # for api
 requires 'IO::Socket::SSL';
+#requires 'Future::AsyncAwait';     # for async/wait     

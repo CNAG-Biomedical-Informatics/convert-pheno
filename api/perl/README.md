@@ -41,15 +41,15 @@ or with `hypnotoad`:
 
 With `morbo` for development:
 
-    $ docker container run -p 3000:3000 --name convert-pheno-dev cnag/convert-pheno:latest morbo api/perl/convert-pheno-api
+    $ docker container run -p 3000:3000 --name convert-pheno-morbo cnag/convert-pheno:latest morbo api/perl/convert-pheno-api
 
 If you want to use a self-signed certificate:
 
-    $ docker container run -p 3000:3000 --name convert-pheno-dev cnag/convert-pheno:latest morbo api/perl/convert-pheno-api daemon -l https://*:3000
+    $ docker container run -p 3000:3000 --name convert-pheno-morbo cnag/convert-pheno:latest morbo api/perl/convert-pheno-api daemon -l https://*:3000
 
 or with `hypnotoad`:
 
-    $ docker container run -p 8080:8080 --name convert-pheno-pro cnag/convert-pheno:latest hypnotoad -f api/perl/convert-pheno-api
+    $ docker container run -p 8080:8080 --name convert-pheno-hypnptoad cnag/convert-pheno:latest hypnotoad -f api/perl/convert-pheno-api
 
 ## Examples
 

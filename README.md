@@ -43,7 +43,9 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
        -rcd|redcap-dictionary         REDCap data dictionary CSV file
        -sep|separator                 Delimiter character for CSV files
        -sql2csv                       Print SQL TABLES (with -iomop)
+       -sql-max-lines                 Maxium number of lines read from SQL dump [500]
        -t|test                        Does not print time-changing-events (useful for file-based cmp)
+       -username                      Set the username
        -verbose                       Verbosity on
        -v                             Print Version
 
@@ -120,6 +122,16 @@ If you prefer to have the dependencies in a "virtual environment" (i.e., install
 
     make install-carton
     make test
+
+### System requirements
+
+    * Ideally a Debian-based distribution (Ubuntu or Mint), but any other (e.g., CentOs, OpenSuse) should do as well.
+    * Perl 5 (>= 5.10 core; installed by default in most Linux distributions). Check the version with "perl -v"
+    * 1GB of RAM.
+    * 1 core (it only uses one core per job).
+    * At least 16GB HDD.
+
+The Perl itself does not need a lot of RAM (max load will reach 400MB) but external tools do (e.g., process `mongod` \[MongoDB's daemon\]).
 
 # HOW TO RUN CONVERT-PHENO
 

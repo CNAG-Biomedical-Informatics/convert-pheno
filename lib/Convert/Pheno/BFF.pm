@@ -155,7 +155,7 @@ sub do_bff2pxf {
     $pxf->{metaData} =
         $self->{test}                  ? undef
       : exists $data->{info}{metaData} ? $data->{info}{metaData}
-      :                                  get_metaData();
+      :                                  get_metaData($self);
 
     #######################################
     # END MAPPING TO PHENOPACKET V2 TERMS #
