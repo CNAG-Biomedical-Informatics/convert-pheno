@@ -18,7 +18,6 @@ Please see more detailed instructions at this [README](https://github.com/mrueda
 
 Please see more detailed instructions at this [README](https://github.com/mrueda/convert-pheno/tree/main/api/python).
 
-
 !!! Warning "About API location"
     The API should be installed **locally** in your server. This way you don't have to worry about security, etc.
     Depending on user's adoption, in the future we may launch a [CNAG](https://www.cnag.crg.eu)-based API service.

@@ -17,26 +17,33 @@ import sys
 sys.path.append('../lib/')
 from convertpheno import PythonBinding
 
-# Example PXF data
-my_pxf_json_data = {
-  "phenopacket": {
-    "id": "P0007500",
-    "subject": {
-      "id": "P0007500",
-      "dateOfBirth": "unknown-01-01T00:00:00Z",
-      "sex": "FEMALE"
+
+def main():
+
+    # Example PXF data
+    my_pxf_json_data = {
+      "phenopacket": {
+        "id": "P0007500",
+        "subject": {
+          "id": "P0007500",
+          "dateOfBirth": "unknown-01-01T00:00:00Z",
+          "sex": "FEMALE"
+        }
+      }
     }
-  }
-}
 
-# Create dictionary
-json_data = {
-    "method": "pxf2bff",
-    "data": my_pxf_json_data
-}
+    # Create dictionary
+    json_data = {
+        "method": "pxf2bff",
+        "data": my_pxf_json_data
+    }
 
-# Creating object for class PythonBinding
-convert = PythonBinding(json_data)
+    # Creating object for class PythonBinding
+    convert = PythonBinding(json_data)
 
-# Run method convert_pheno and beautify with json.dumps
-print(json.dumps(convert.convert_pheno(), indent=4, sort_keys=True))
+    # Run method convert_pheno and beautify with json.dumps
+    print(json.dumps(convert.convert_pheno(), indent=4, sort_keys=True))
+
+
+if __name__ == "__main__":
+    main()

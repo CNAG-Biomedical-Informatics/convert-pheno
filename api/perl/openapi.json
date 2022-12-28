@@ -1,0 +1,51 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Convert-Pheno Perl API",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/api": {
+      "post": {
+        "x-mojo-name": "post_data",
+        "summary": "Get Body",
+        "operationId": "get_body_api_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "title": "Data",
+                "required": [
+                  "method",
+                  "data"
+                ],
+                "type": "object",
+                "properties": {
+                  "method": {
+                    "title": "Method",
+                    "type": "string"
+                  },
+                  "data": {
+                    "title": "Data",
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

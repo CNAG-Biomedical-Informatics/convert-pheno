@@ -10,32 +10,33 @@
 #
 #   Copyright (C) 2022 Manuel Rueda (manuel.rueda@cnag.crg.eu)
 #
-#   License: Artistic License 2.0 
+#   License: Artistic License 2.0
 
 #use Mojolicious::Lite -signatures; # No go for CentOs Perl v5.16
-#use Mojolicious::Lite -async_await; # cpanm --sudo Future::AsyncAwait
-use Mojolicious::Lite; 
+use Mojolicious::Lite;
 use FindBin qw($Bin);
 use lib "$Bin/../../lib";
 use Convert::Pheno;
 
-#post '/api' => sub ($c) { # With -signatures
+post '/api' =>  sub {
 
-# With Future::AsyncAwait installed
-# post '/api' => async sub {
-#     my $c = await shift;
+    # Validate input request or return an error document
+    my $c = shift;
+    $c->openapi->valid_input or return;
 
-post '/api' => sub {
-  my $c = shift;
-  my $hash = $c->req->json;
-  my $convert  = Convert::Pheno->new($hash);
-  my $method = $hash->{method};
-  $c->render(json => $convert->$method);
-};
+    # Get payload
+    my $hash = $c->req->json;
 
-app->config(hypnotoad => {listen => ['https://*:8080']});
+    # Create new object
+    my $convert = Convert::Pheno->new($hash);
+
+    # Render the result as JSON
+    my $method = $hash->{method};
+    $c->render( json => $convert->$method );
+  },
+  'post_data';  # Must match 'operationId' or 'x-mojo-name'
+
+# Load specification and start web server
+plugin OpenAPI => { url => 'file://openapi.json', schema => 'v3' };
+app->config( hypnotoad => { listen => ['https://*:8080'] } );
 app->start;
-
-# Usage
-#perl convert-pheno-api get -M POST -c '{"method":"bff2pfx"}' /api
-

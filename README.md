@@ -45,7 +45,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
        -sql2csv                       Print SQL TABLES (with -iomop)
        -sql-max-lines                 Maxium number of lines read from SQL dump [500]
        -t|test                        Does not print time-changing-events (useful for file-based cmp)
-       -username                      Set the username
+       -u|username                    Set the username
        -verbose                       Verbosity on
        -v                             Print Version
 

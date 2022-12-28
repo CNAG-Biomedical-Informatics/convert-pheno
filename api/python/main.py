@@ -4,7 +4,7 @@
 #
 #   This file is part of Convert::Pheno
 #
-#   Last Modified: Dec/10/2022
+#   Last Modified: Dec/27/2022
 #
 #   $VERSION taken from Convert::Pheno
 #
@@ -13,8 +13,8 @@
 #   License: Artistic License 2.0
 
 import sys
-from fastapi import Request, FastAPI
-from pydantic import BaseModel
+from fastapi import Request, FastAPI, HTTPException
+from pydantic import BaseModel, parse_obj_as
 sys.path.append('../../lib/')
 from convertpheno import PythonBinding
 
@@ -22,7 +22,7 @@ from convertpheno import PythonBinding
 app = FastAPI()
 
 
-class Item(BaseModel):
+class Data(BaseModel):
     method: str
     data: dict
 
@@ -31,15 +31,18 @@ class Item(BaseModel):
     "/api",
     openapi_extra={
         "requestBody": {
-            "content": {"application/json": {"schema": Item.schema()}},
+            "content": {"application/json": {"schema": Data.schema()}},
             "required": True,
         },
     },
 )
 async def get_body(request: Request):
 
+    # Receive and validate payload JSON
+    payload = parse_obj_as(Data, await request.json())
+
     # Creating object for class PythonBinding
-    convert = PythonBinding(await request.json())
+    convert = PythonBinding(dict(payload))
 
     # Run convert_pheno method
     return convert.convert_pheno()
