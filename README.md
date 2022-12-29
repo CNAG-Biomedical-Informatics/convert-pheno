@@ -1,6 +1,6 @@
 <p align="left">
   <a href="https://github.com/mrueda/convert-pheno"><img src="https://github.com/mrueda/convert-pheno/blob/main/docs/img/CP-logo.png" width="220" alt="Convert-Pheno"></a>
-  <a href="https://github.com/mrueda/convert-pheno"><img src="docs/img/CP-text.png" width="500" alt="Convert-Pheno"></a>
+  <a href="https://github.com/mrueda/convert-pheno"><img src="https://github.com/mrueda/convert-pheno/blob/main/docs/img/CP-text.png" width="500" alt="Convert-Pheno"></a>
 </p>
 <p align="center">
     <em>A toolbox to interconvert common data models for phenotypic data</em>
