@@ -108,6 +108,6 @@ extra:
 #    - icon: fontawesome/brands/twitter 
 #      link: https://twitter.com/genomebeacons
     - icon: fontawesome/brands/github 
-      link: https://github.com/ga4gh-beacon
+      link: https://github.com/mrueda
 
 # https://pypi.org/project/mkdocs-with-pdf/ for more PDF configuration ...
