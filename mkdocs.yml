@@ -3,12 +3,52 @@ site_description: 'Convert-Pheno Toolbox Documentation'
 site_author: 'Manuel Rueda, PhD'
 copyright: '&copy; Copyright 2022, Manuel Rueda, CNAG'
 repo_name: 'Convert-Pheno'
+repo_url: https://github.com/mrueda/convert-pheno
+edit_uri: edit/main/docs/
+#repo_framework_icon: " [:fontawesome-brands-github:](https://github.com/ga4gh-beacon/beacon-v2/tree/main/framework/src)"
+#repo_models_icon: " [:fontawesome-brands-github:](https://github.com/ga4gh-beacon/beacon-v2/tree/main/models/src)"
 
 extra_css: [css/theme_overrides.css]
 
+plugins:
+  - search
+  - macros
+  - mermaid2
+
 markdown_extensions:
-  - admonition
-  - attr_list
+    - toc:
+        toc_depth: 2-3
+        permalink: true
+    - admonition
+    - attr_list
+    - footnotes
+    - md_in_html
+    - pymdownx.critic
+    - pymdownx.caret
+    - pymdownx.details
+    - pymdownx.keys
+    - pymdownx.mark
+    - pymdownx.tilde
+    - pymdownx.saneheaders
+    - pymdownx.superfences
+    - pymdownx.magiclink:
+        hide_protocol: true
+    - pymdownx.tabbed:
+        alternate_style: true
+    - pymdownx.tasklist:
+        custom_checkbox: true
+    - tables
+    - mdx_gh_links:
+        user: ga4gh-beacon
+        repo: beacon-v2
+    - pymdownx.emoji:
+          emoji_index: !!python/name:materialx.emoji.twemoji
+          emoji_generator: !!python/name:materialx.emoji.to_svg
+    - pymdownx.superfences:
+        custom_fences:
+            - name: mermaid
+              class: mermaid
+              format: !!python/name:mermaid2.fence_mermaid   
 
 nav:
   - Introduction:
@@ -30,8 +70,44 @@ nav:
   - About:
       - About: about.md
       - Citation: citation.md
+    # - Download PDF: pdf/beacon.pdf
 
 theme:
-    name: readthedocs
-    collapse_navigation: true
-    navigation_depth: 2
+  name: material
+  #custom_dir: overrides
+  palette:
+  - media: '(prefers-color-scheme: dark)'
+    scheme: default
+    primary: blue grey
+    accent: amber
+    toggle:
+      icon: material/lightbulb
+      name: Switch to light mode
+  - media: '(prefers-color-scheme: light)'
+    scheme: slate
+    primary: blue grey
+    accent: amber
+    toggle:
+      icon: material/lightbulb-outline
+      name: Switch to dark mode
+  logo: img/CP-logo-grey.png
+  icon:
+      repo: fontawesome/brands/github-alt 
+  features:
+        - content.tabs.link
+        - search.highlight
+        - search.share
+        - navigation.instant
+        - navigation.tracking
+        - navigation.sections
+        - toc.integrate
+
+# Options
+extra:
+  social:
+#    - icon: fontawesome/brands/twitter 
+#      link: https://twitter.com/genomebeacons
+    - icon: fontawesome/brands/github 
+      link: https://github.com/ga4gh-beacon
+
+# https://pypi.org/project/mkdocs-with-pdf/ for more PDF configuration ...
