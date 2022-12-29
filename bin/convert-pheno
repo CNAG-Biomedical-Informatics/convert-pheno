@@ -359,7 +359,7 @@ If you prefer to have the dependencies in a "virtual environment" (i.e., install
   * 1 core (it only uses one core per job).
   * At least 16GB HDD.
 
-The Perl itself does not need a lot of RAM (max load will reach 400MB) but external tools do (e.g., process C<mongod> [MongoDB's daemon]).
+See note about RAM memory below.
 
 =head1 HOW TO RUN CONVERT-PHENO
 
