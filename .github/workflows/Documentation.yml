@@ -1,4 +1,4 @@
-name: mk-convert-pheno-docs
+name: Documentation
 on:
   push:
     branches:
