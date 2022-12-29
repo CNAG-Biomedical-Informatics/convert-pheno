@@ -1,9 +1,24 @@
+<p align="left">
+  <a href="https://github.com/mrueda/convert-pheno"><img src="https://github.com/mrueda/convert-pheno/blob/main/docs/img/CP-logo.png" width="220" alt="Convert-Pheno"></a>
+  <a href="https://github.com/mrueda/convert-pheno"><img src="docs/img/CP-text.png" width="500" alt="Convert-Pheno"></a>
+</p>
+<p align="center">
+    <em>A toolbox to interconvert common data models for phenotypic data</em>
+</p>
+
 [![Build and Test](https://github.com/mrueda/convert-pheno/actions/workflows/action.yaml/badge.svg)](https://github.com/mrueda/convert-pheno/actions/workflows/action.yaml)
 [![Coverage Status](https://coveralls.io/repos/github/mrueda/convert-pheno/badge.svg?branch=main)](https://coveralls.io/github/mrueda/convert-pheno?branch=main)
 [![Docker build](https://github.com/mrueda/convert-pheno/actions/workflows/docker-build.yml/badge.svg)](https://github.com/mrueda/convert-pheno/actions/workflows/docker-build.yml)
 [![Documentation Status](https://readthedocs.org/projects/convert-pheno/badge/?version=latest)](https://convert-pheno.readthedocs.io/en/latest/?badge=latest)
 ![version](https://img.shields.io/badge/version-0.0.0_alpha-orange)
 [![License: Artistic-2.0](https://img.shields.io/badge/License-Artistic%202.0-0298c3.svg)](https://opensource.org/licenses/Artistic-2.0)
+
+
+**Documentation**: <a href="https://mrueda.github.io/convert-pheno" target="_blank">https://mrueda.github.io/convert-pheno</a>
+
+**Source Code**: <a href="https://github.com/mrueda/convert-pheno" target="_blank">https://github.com/mrueda/convert-pheno</a>
+
+
 # NAME
 
 **UNDER DEVELOPMENT**
@@ -54,8 +69,6 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
 `convert-pheno` is a command-line front-end to the CPAN's module [Convert::Pheno](https://metacpan.org/pod/Convert%3A%3APheno).
 
 The module will be uploaded to CPAN once the paper is submitted.
-
-Please see a more comprehensive documentation at [Read The Docs](https://convert-pheno.readthedocs.io/en/latest).
 
 # SUMMARY
 
@@ -187,6 +200,6 @@ Written by Manuel Rueda, PhD. Info about CNAG can be found at [https://www.cnag.
 
 # COPYRIGHT AND LICENSE
 
-Copyright (C) 2022, Manuel Rueda.
+Copyright (C) 2022, Manuel Rueda (CNAG).
 
 This program is free software, you can redistribute it and/or modify it under the terms of the [Artistic License version 2.0](https://metacpan.org/pod/perlartistic).

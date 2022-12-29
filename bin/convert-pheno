@@ -8,7 +8,7 @@
 #
 #   $VERSION taken from Convert::Pheno
 #
-#   Copyright (C) 2022 Manuel Rueda (manuel.rueda@cnag.crg.eu)
+#   Copyright (C) 2022 Manuel Rueda - CNAG (manuel.rueda@cnag.crg.eu)
 #
 #   License: Artistic License 2.0 
 
@@ -285,8 +285,6 @@ C<convert-pheno> is a command-line front-end to the CPAN's module L<Convert::Phe
 
 The module will be uploaded to CPAN once the paper is submitted.
 
-Please see a more comprehensive documentation at L<Read The Docs|https://convert-pheno.readthedocs.io/en/latest>.
-
 =head1 SUMMARY
 
 A script that uses L<Convert::Pheno> to interconvert common data models for phenotypic data
@@ -421,7 +419,7 @@ Written by Manuel Rueda, PhD. Info about CNAG can be found at L<https://www.cnag
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2022, Manuel Rueda.
+Copyright (C) 2022, Manuel Rueda (CNAG).
 
 This program is free software, you can redistribute it and/or modify it under the terms of the L<Artistic License version 2.0|perlartistic>.
 
