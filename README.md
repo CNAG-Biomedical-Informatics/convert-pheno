@@ -30,7 +30,7 @@ convert-pheno - A script to interconvert common data models for phenotypic data
 convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-options\]
 
      Arguments:                       
-       -input-type:  
+       (input-type): 
              -ibff                    Beacon v2 Models JSON file
              -iomop                   OMOP-CDM CSV files or PostgreSQL dump
              -ipxf                    Phenopacket v2 JSON file
@@ -41,7 +41,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
              #-ifhir                  HL7/FHIR
              #-openehr                openEHR
 
-       -output-type:
+       (output-type):
              -obff                    Beacon v2 Models JSON file
              -opxf                    Phenopacket v2 JSON file
 
@@ -128,10 +128,15 @@ but we will install a few CPAN modules with `cpanminus`.
 
     git clone https://github.com/mrueda/convert-pheno.git
     cd convert-pheno
+
+Now you have two choose between one of the 2 options below:
+
+**Option 1:** Install dependencies (they're harmless to your system) as `sudo`:
+
     make install # (Will ask for sudo passwd)
     make test
 
-If you prefer to have the dependencies in a "virtual environment" (i.e., install the CPAN modules in the directory of the application) we recommend using the module `Carton`.
+**Option 2:** Install the dependencies in a "virtual environment" (i.e., install the CPAN modules in the directory of the application). We'll be using with the module `Carton`:
 
     make install-carton
     make test
@@ -200,6 +205,6 @@ Written by Manuel Rueda, PhD. Info about CNAG can be found at [https://www.cnag.
 
 # COPYRIGHT AND LICENSE
 
-Copyright (C) 2022, Manuel Rueda (CNAG).
+Copyright (C) 2022, Manuel Rueda - CNAG.
 
 This program is free software, you can redistribute it and/or modify it under the terms of the [Artistic License version 2.0](https://metacpan.org/pod/perlartistic).
