@@ -1,26 +1,28 @@
-# About
-
 **Convert-Pheno** has been developed at [CNAG](https://cnag.crg.eu), Barcelona, Spain.
 
-## Convert-Pheno Developer(s):
+## Developers:
 
-  * [Manuel Rueda](https://github.com/mrueda)
+=== "Module"
+
+    * [Manuel Rueda](https://github.com/mrueda)
+
+=== "Graphical User Interface"
+
+    * [Ivo C. Leist](https://github.com/IvoLeist)
   
+=== "Documentation"
 
-## Documentation author(s):
-
- * [Manuel Rueda](https://github.com/mrueda)
+    * [Manuel Rueda](https://github.com/mrueda)
 
 ## Acknowledgments
 
-### CNAG
+=== "CNAG"
 
-  * Ivo G. Gut
-  * [Ivo C. Leist](https://github.com/IvoLeist) -> User interface
-  * [Davide Piscia](https://github.com/dpiscia)
+    * [Ivo G. Gut](https://scholar.google.com/citations?user=YKdDEVYAAAAJ)
+    * [Davide Piscia](https://github.com/dpiscia)
 
-### External
+=== "External"
 
-  * Juan Manuel Ramirez ([IMIM](https://www.imim.es/IMIM2019/integrative-biomedical-informatics.html))
-  * Ioannis Parodis (Karolinska Institutet)
-  * Florian Tran (Christian Albrechts University Kiel)
+    * Juan Manuel Ramirez ([IMIM](https://www.imim.es/IMIM2019/integrative-biomedical-informatics.html))
+    * Ioannis Parodis (Karolinska Institutet)
+    * Florian Tran (Christian Albrechts University Kiel)

@@ -58,6 +58,7 @@ nav:
       - As a command-line tool: use-as-a-command-line-tool.md
       - As a module: use-as-a-module.md
       - As an API: use-as-an-api.md
+      - Graphical user Interface: gui.md
   - Formats accepted:
       - Beacon v2 Models (BFF): bff.md
       - Phenopacket v2 (PXF): pxf.md

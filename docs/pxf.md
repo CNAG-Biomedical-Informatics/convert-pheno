@@ -1,47 +1,200 @@
-# Phenopacket v2 - PXF
+**PXF** stands for **P**henotype e**X**change **F**ormat. Phenopackets v2 [documentation](https://phenopacket-schema.readthedocs.io/en/latest/basics.html).
 
-**PXF** stands for **P**henotype e**X**change **F**ormat.
-
-Phenopacket [documentation](https://phenopacket-schema.readthedocs.io/en/latest/basics.html).
+Phenopackets have a [top-level](https://phenopacket-schema.readthedocs.io/en/latest/toplevel.html) elements to structure the information. We'll be focussing on the element **Phenopacket**.
 
 ## PXF as input
 
-### Command-line
+=== "Command-line"
 
-If you're using a Beacon v2 JSON file with the `convert-pheno` command-line interface just provide the right [syntax](https://github.com/mrueda/convert-pheno#synopsis):
+    If you're using a Phenopackets v2 JSON file with the `convert-pheno` command-line interface just provide the right [syntax](https://github.com/mrueda/convert-pheno#synopsis):
 
-Note that the file can consist of a single individual or multiple ones (JSON array).
+    !!! Note "About data types"
+        Note that the file can consist of a single individual (JSON object) or multiple ones (JSON array of objects).
 
-```
-convert-pheno -ipxf phenopacket.json -obff individuals.json
-```
+    ```
+    convert-pheno -ipxf ipxf.json -obff individuals.json
+    ```
 
-### Module
+=== "Module"
 
-The idea is that we will pass the essential information as a hash (Perl) or dictionary (Python).
+    The idea is that we will pass the essential information as a hash (Perl) or dictionary (Python).
 
+    `Perl`
+    ```Perl
+    $bff = {
+        data => $my_pxf_json_data,
+        method => 'pxf2bff'
+    };
+    ```
 
-`Perl`
-```Perl
-$bff = {
-     data => $my_bff_json_data,
-     method => 'pxf2bff'
-};
+    `Python`
+    ```Python
+    bff = {
+         "data" : my_pxf_json_data,
+         "method" : "pxf2bff"
+    }
+    ```
 
-```
+=== "API"
 
-`Python`
-```Python
-bff = {
-     "data" : my_bff_json_data,
-     "method" : "pxf2bff"
-}
-```
+    The data will be sent as `POST` to the API's URL (see more info [here](use-as-an-api.md)).
+    ```
+    {
+    "data": {...}
+    "method": "pxf2bff"
+    }
+    ```
 
-### API
-```
-{
- "data": {...}
- "method": "pxf2bff"
-}
-```
+Please find below examples of data:
+
+=== "BFF (output)"
+    ```json
+    {
+      "ethnicity": {
+        "id": "NCIT:C42331",
+        "label": "African"
+      },
+      "id": "HG00096",
+      "info": {
+        "eid": "fake1"
+      },
+      "interventionsOrProcedures": [
+        {
+          "procedureCode": {
+            "id": "OPCS4:L46.3",
+            "label": "OPCS(v4-0.0):Ligation of visceral branch of abdominal aorta NEC"
+          }
+        }
+      ],
+      "measures": [
+        {
+          "assayCode": {
+            "id": "LOINC:35925-4",
+            "label": "BMI"
+          },
+          "date": "2021-09-24",
+          "measurementValue": {
+            "quantity": {
+              "unit": {
+                "id": "NCIT:C49671",
+                "label": "Kilogram per Square Meter"
+              },
+              "value": 26.63838307
+            }
+          }
+        },
+        {
+          "assayCode": {
+            "id": "LOINC:3141-9",
+            "label": "Weight"
+          },
+          "date": "2021-09-24",
+          "measurementValue": {
+            "quantity": {
+              "unit": {
+                "id": "NCIT:C28252",
+                "label": "Kilogram"
+              },
+              "value": 85.6358
+            }
+          }
+        },
+        {
+          "assayCode": {
+            "id": "LOINC:8308-9",
+            "label": "Height-standing"
+          },
+          "date": "2021-09-24",
+          "measurementValue": {
+            "quantity": {
+              "unit": {
+                "id": "NCIT:C49668",
+                "label": "Centimeter"
+              },
+              "value": 179.2973
+            }
+          }
+        }
+      ],
+      "sex": {
+        "id": "NCIT:C20197",
+        "label": "male"
+      }
+    }
+    ```
+    
+=== "PXF (input)"
+    ```json
+    {
+       "diseases" : [],
+       "id" : null,
+       "measurements" : [
+          {
+             "assay" : {
+                "id" : "LOINC:35925-4",
+                "label" : "BMI"
+             },
+             "value" : {
+                "quantity" : {
+                   "unit" : {
+                      "id" : "NCIT:C49671",
+                      "label" : "Kilogram per Square Meter"
+                   },
+                   "value" : 26.63838307
+                }
+             }
+          },
+          {
+             "assay" : {
+                "id" : "LOINC:3141-9",
+                "label" : "Weight"
+             },
+             "value" : {
+                "quantity" : {
+                   "unit" : {
+                      "id" : "NCIT:C28252",
+                      "label" : "Kilogram"
+                   },
+                   "value" : 85.6358
+                }
+             }
+          },
+          {
+             "assay" : {
+                "id" : "LOINC:8308-9",
+                "label" : "Height-standing"
+             },
+             "value" : {
+                "quantity" : {
+                   "unit" : {
+                      "id" : "NCIT:C49668",
+                      "label" : "Centimeter"
+                   },
+                   "value" : 179.2973
+                }
+             }
+          }
+       ],
+       "medicalActions" : [
+          {
+             "procedure" : {
+                "code" : {
+                   "id" : "OPCS4:L46.3",
+                   "label" : "OPCS(v4-0.0):Ligation of visceral branch of abdominal aorta NEC"
+                },
+                "performed" : {
+                   "timestamp" : "1900-01-01T00:00:00Z"
+                }
+             }
+          }
+       ],
+       "metaData" : null,
+       "subject" : {
+          "id" : "HG00096",
+          "sex" : "MALE",
+          "vitalStatus" : {
+             "status" : "ALIVE"
+          }
+       }
+    }
+    ```

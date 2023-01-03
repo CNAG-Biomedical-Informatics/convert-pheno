@@ -4,26 +4,25 @@
 
 We provide several alternatives for download and installation.
 
-## Method 1: From CPAN
+=== "Method 1: Containerized"
 
-!!! Danger "Disclaimer"
-    This installation method will be available once the paper is accepted.
+    Please follow the instructions provided in this [README](https://github.com/mrueda/convert-pheno#containerized).
 
-The software is implemented in `Perl` language and packaged as a Perl Module in the Comprehensive Perl Archive Network (CPAN). See the description [here](https://metacpan.org/pod/Convert::Pheno).
+=== "Method 2: Non-containerized"
 
-To install it, we'll be using `cpanminus` (with sudo privileges):
+    Please follow the instructions provided in this [README](https://github.com/mrueda/convert-pheno#non-containerized).
 
-    sudo apt-get install cpanminus
+=== "Method 3: From CPAN"
 
-Then the install the module:
+    !!! Danger "Disclaimer"
+        This installation method will be available once the paper is accepted.
 
-  cpanm --sudo Convert::Pheno
+    The software is implemented in `Perl` language and packaged as a Perl Module in the Comprehensive Perl Archive Network (CPAN). See the description [here](https://metacpan.org/pod/Convert::Pheno).
 
-## Method 2: Containerized
+    To install it, we'll be using `cpanminus` (with sudo privileges):
 
-Please follow the instructions provided in this [README](https://github.com/mrueda/convert-pheno#containerized).
+        sudo apt-get install cpanminus
 
-## Method 3: Non-containerized
+    Then the install the module:
 
-Please follow the instructions provided in this [README](https://github.com/mrueda/convert-pheno#non-containerized).
-
+        cpanm --sudo Convert::Pheno
