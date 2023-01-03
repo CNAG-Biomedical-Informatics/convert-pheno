@@ -1,0 +1,27 @@
+---
+  diseases:
+    items: [Inflammatory Bowel Disease]
+    fields:
+      ageOfOnset: age_first_diagnosis
+      familyHistory: family_history
+  ethnicity: ethnicity
+  exposures: [alcohol,smoking,cigarettes_days,cigarettes_years,packyears,smoking_quit]
+  geographicOrigin: null
+  id: null
+  info:
+   fields:
+     studyId: study_id
+  interventionsOrProcedures: [surgery_details___1,surgery_details___2,surgery_details___3,surgery_details___4,surgery_details___5,surgery_details___6,surgery_details___7,surgery_details___8,surgery_details___99,endoscopy_performed,intestinal_surgery,partial_mayo,complete_mayo,prev_endosc_dilatation]
+  karyotypicSex: null
+  measures: [leucocytes,hemoglobin,hematokrit,mcv,mhc,thrombocytes,neutrophils,lymphocytes,eosinophils,creatinine,gfr,bilirubin,gpt,ggt,lipase,crp,iron,il6,calprotectin,nancy_index_acute,nancy_index_chronic,nancy_index_ulceration,endo_mayo]
+  pedigrees: null
+  phenotypicFeatures: [comorb_asthma,comorb_copd,comorb_ms,comorb_sle,comorb_ra,comorb_pso,comorb_ad,comorb_cancer,comorb_cancer_specified,comorb_hypertension,comorb_diabetes,comorb_lipids,comorb_stroke,comorb_other_ai,comorb_other_ai_specified,immunodeficiency,rectal_bleeding]
+  sex: sex
+  treatments:
+    items: [budesonide,prednisolone,asa,aza,mtx,mp]
+    dict:
+      aza: azathioprine
+      asa: aspirin 
+      mtx: methotrexate
+      mp: mercaptopurine
+    routes: [oral,rectal]

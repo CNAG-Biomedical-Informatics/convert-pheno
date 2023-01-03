@@ -10,7 +10,7 @@ use YAML::XS qw(LoadFile DumpFile);
 use JSON::XS;
 use Sort::Naturally qw(nsort);
 use Exporter 'import';
-our @EXPORT = qw(read_json write_json write_yaml);
+our @EXPORT = qw(read_json read_yaml write_json write_yaml);
 
 #########################
 #########################
@@ -23,6 +23,13 @@ sub read_json {
     my $str = path(shift)->slurp_utf8;
     return decode_json($str);    # Decode to Perl data structure
 }
+
+
+sub read_yaml {
+
+    return LoadFile(shift);    # Decode to Perl data structure
+}
+
 
 sub write_json {
 

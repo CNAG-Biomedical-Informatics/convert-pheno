@@ -20,6 +20,8 @@ use Convert::Pheno::PXF;
 use Convert::Pheno::BFF;
 use Convert::Pheno::CDISC3TR;
 use Convert::Pheno::REDCap3TR;
+
+#use Convert::Pheno::REDCap;
 use Exporter 'import';
 our @EXPORT = qw($VERSION write_json write_yaml);    # Symbols imported by default
 
@@ -76,22 +78,17 @@ sub redcap2bff {
 
     # Read and load data from REDCap export
     my $data = read_csv_export( { in => $self->{in_file}, sep => undef } );
+    my ( $data_redcap_dic, $data_redcap_config ) = read_redcap_dic_and_config(
+        {
+            redcap_dictionary => $self->{redcap_dictionary},
+            redcap_config     => $self->{redcap_config}
+        }
+    );
 
-    # $data = [
-    #       {
-    #         'abdominal_mass' => '0',
-    #         'age_first_diagnosis' => '0',
-    #         'alcohol' => '4',
-    #        }, {},,,
-    #      ]
-
-    # Read and load REDCap CSV dictionary
-    my $data_redcap_dic = read_redcap_dictionary( $self->{redcap_dictionary} );
-
-    print Dumper $data_redcap_dic if ( $self->{debug} && $self->{debug} > 1 );
-
-    $self->{data}            = $data;               # Dynamically adding attributes (setter)
-    $self->{data_redcap_dic} = $data_redcap_dic;    # Dynamically adding attributes (setter)
+    # Load data in $self
+    $self->{data}               = $data;                  # Dynamically adding attributes (setter)
+    $self->{data_redcap_dic}    = $data_redcap_dic;       # Dynamically adding attributes (setter)
+    $self->{data_redcap_config} = $data_redcap_config;    # Dynamically adding attributes (setter)
 
     # array_dispatcher will deal with JSON arrays
     return array_dispatcher($self);
@@ -224,11 +221,18 @@ sub cdisc2bff {
     my $hash = xml2hash $str, attr => '-', text => '~';
     my $data = cdisc2redcap($hash);
 
-    # Read and load REDCap CSV dictionary
-    my $data_redcap_dic = read_redcap_dictionary( $self->{redcap_dictionary} );
+    my ( $data_redcap_dic, $data_redcap_config ) = read_redcap_dic_and_config(
+        {
+            redcap_dictionary => $self->{redcap_dictionary},
+            redcap_config     => $self->{redcap_config}
+        }
+    );
 
-    $self->{data}            = $data;               # Dynamically adding attributes (setter)
-    $self->{data_redcap_dic} = $data_redcap_dic;    # Dynamically adding attributes (setter)
+    # Load data in $self
+    $self->{data}               = $data;                  # Dynamically adding attributes (setter)
+    $self->{data_redcap_dic}    = $data_redcap_dic;       # Dynamically adding attributes (setter)
+    $self->{data_redcap_config} = $data_redcap_config;    # Dynamically adding attributes (setter)
+
 
     # array_dispatcher will deal with JSON arrays
     return array_dispatcher($self);

@@ -9,9 +9,10 @@ use Text::CSV_XS;
 use Sort::Naturally qw(nsort);
 use List::Util      qw(any);
 use Convert::Pheno::OMOP;
+use Convert::Pheno::IO;
 use Exporter 'import';
 our @EXPORT =
-  qw(read_csv_export read_redcap_dictionary remap_ohdsi_dictionary read_sqldump sqldump2csv transpose_omop_data_structure);
+  qw(read_csv_export read_redcap_dic_and_config remap_ohdsi_dictionary read_sqldump sqldump2csv transpose_omop_data_structure);
 
 #########################
 #########################
@@ -73,6 +74,14 @@ sub read_csv_export {
     #########################################
     #     END READING CSV|TSV|TXT FILE      #
     #########################################
+
+    # $data = [
+    #       {
+    #         'abdominal_mass' => '0',
+    #         'age_first_diagnosis' => '0',
+    #         'alcohol' => '4',
+    #        }, {},,,
+    #      ]
 
     return $data;
 }
@@ -147,6 +156,19 @@ sub read_redcap_dictionary {
     return $data;
 }
 
+sub read_redcap_dic_and_config {
+
+    my $arg = shift;
+
+    # Read and load REDCap CSV dictionary
+    my $data_redcap_dic = read_redcap_dictionary( $arg->{redcap_dictionary} );
+
+    # Read and load REDCap YAML config
+    my $data_redcap_config = read_yaml( $arg->{redcap_config} );
+
+    return ( $data_redcap_dic, $data_redcap_config );
+}
+
 sub remap_ohdsi_dictionary {
 
     my $data   = shift;
@@ -190,7 +212,7 @@ sub remap_ohdsi_dictionary {
 
 sub read_sqldump {
 
-    my ($file, $self) = @_;
+    my ( $file, $self ) = @_;
 
 # Before resorting to writting this subroutine I performed an exhaustive search on CPAN
 # I tested MySQL::Dump::Parser::XS  but I could not make it work and other modules did not seem to do what I wanted...
@@ -198,8 +220,9 @@ sub read_sqldump {
 # The parser is based in reading COPY paragraphs from PostgreSQL dump by using Perl's paragraph mode  $/ = "";
 # The sub can be seen as "ugly" but it does the job :-)
 
-    my $max_lines_sql = $self->{max_lines_sql} // 500;    # Limit to speed up runtime
-    local $/ = "";      # set record separator to paragraph
+    my $max_lines_sql = $self->{max_lines_sql}
+      // 500;    # Limit to speed up runtime
+    local $/ = "";    # set record separator to paragraph
 
 #COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, attribute_description, attribute_type_concept_id, attribute_syntax) FROM stdin;
 # ......

@@ -18,11 +18,11 @@
             },
             "familyHistory" : false,
             "severity" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             },
             "stage" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             }
          }
@@ -519,7 +519,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -553,7 +553,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -587,7 +587,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -621,7 +621,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -655,7 +655,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -689,7 +689,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -723,7 +723,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -757,7 +757,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -782,11 +782,11 @@
                "label" : "Inflammatory Bowel Disease"
             },
             "severity" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             },
             "stage" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             }
          }
@@ -1163,11 +1163,11 @@
                "label" : "Inflammatory Bowel Disease"
             },
             "severity" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             },
             "stage" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             }
          }
@@ -1564,11 +1564,11 @@
             },
             "familyHistory" : true,
             "severity" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             },
             "stage" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             }
          }
@@ -2051,7 +2051,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -2085,7 +2085,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -2119,7 +2119,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -2153,7 +2153,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -2187,7 +2187,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -2221,7 +2221,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -2255,7 +2255,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -2289,7 +2289,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -2314,11 +2314,11 @@
                "label" : "Inflammatory Bowel Disease"
             },
             "severity" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             },
             "stage" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             }
          }
@@ -2695,11 +2695,11 @@
                "label" : "Inflammatory Bowel Disease"
             },
             "severity" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             },
             "stage" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             }
          }
@@ -3076,11 +3076,11 @@
                "label" : "Inflammatory Bowel Disease"
             },
             "severity" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             },
             "stage" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             }
          }
@@ -3457,11 +3457,11 @@
                "label" : "Inflammatory Bowel Disease"
             },
             "severity" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             },
             "stage" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             }
          }
@@ -3973,11 +3973,11 @@
                "label" : "Inflammatory Bowel Disease"
             },
             "severity" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             },
             "stage" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             }
          }
@@ -4473,11 +4473,11 @@
             },
             "familyHistory" : false,
             "severity" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             },
             "stage" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             }
          }
@@ -5081,7 +5081,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -5115,7 +5115,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -5149,7 +5149,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -5183,7 +5183,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -5217,7 +5217,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -5251,7 +5251,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -5285,7 +5285,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -5319,7 +5319,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -5344,11 +5344,11 @@
                "label" : "Inflammatory Bowel Disease"
             },
             "severity" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             },
             "stage" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             }
          }
@@ -5842,11 +5842,11 @@
                "label" : "Inflammatory Bowel Disease"
             },
             "severity" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             },
             "stage" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             }
          }
@@ -6205,11 +6205,11 @@
                "label" : "Inflammatory Bowel Disease"
             },
             "severity" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             },
             "stage" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             }
          }
@@ -6559,11 +6559,11 @@
                "label" : "Inflammatory Bowel Disease"
             },
             "severity" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             },
             "stage" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             }
          }
@@ -7183,11 +7183,11 @@
                "label" : "Inflammatory Bowel Disease"
             },
             "severity" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             },
             "stage" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             }
          }
@@ -7629,11 +7629,11 @@
             },
             "familyHistory" : false,
             "severity" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             },
             "stage" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             }
          }
@@ -8285,7 +8285,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -8319,7 +8319,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -8353,7 +8353,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -8387,7 +8387,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -8421,7 +8421,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -8455,7 +8455,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -8489,7 +8489,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -8523,7 +8523,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -8548,11 +8548,11 @@
                "label" : "Inflammatory Bowel Disease"
             },
             "severity" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             },
             "stage" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             }
          }
@@ -9064,11 +9064,11 @@
                "label" : "Inflammatory Bowel Disease"
             },
             "severity" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             },
             "stage" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             }
          }
@@ -9589,11 +9589,11 @@
                "label" : "Inflammatory Bowel Disease"
             },
             "severity" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             },
             "stage" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             }
          }
@@ -10143,11 +10143,11 @@
             },
             "familyHistory" : false,
             "severity" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             },
             "stage" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             }
          }
@@ -10738,7 +10738,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -10772,7 +10772,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -10806,7 +10806,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -10840,7 +10840,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -10874,7 +10874,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -10908,7 +10908,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -10942,7 +10942,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -10976,7 +10976,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -11001,11 +11001,11 @@
                "label" : "Inflammatory Bowel Disease"
             },
             "severity" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             },
             "stage" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             }
          }
@@ -11382,11 +11382,11 @@
                "label" : "Inflammatory Bowel Disease"
             },
             "severity" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             },
             "stage" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             }
          }
@@ -11763,11 +11763,11 @@
                "label" : "Inflammatory Bowel Disease"
             },
             "severity" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             },
             "stage" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             }
          }
@@ -12398,11 +12398,11 @@
             },
             "familyHistory" : false,
             "severity" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             },
             "stage" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             }
          }
@@ -12933,7 +12933,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -12967,7 +12967,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -13001,7 +13001,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -13035,7 +13035,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -13069,7 +13069,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -13103,7 +13103,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -13137,7 +13137,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -13171,7 +13171,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -13196,11 +13196,11 @@
                "label" : "Inflammatory Bowel Disease"
             },
             "severity" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             },
             "stage" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             }
          }
@@ -13577,11 +13577,11 @@
                "label" : "Inflammatory Bowel Disease"
             },
             "severity" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             },
             "stage" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             }
          }
@@ -14104,11 +14104,11 @@
             },
             "familyHistory" : false,
             "severity" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             },
             "stage" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             }
          }
@@ -14672,7 +14672,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -14706,7 +14706,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -14740,7 +14740,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -14774,7 +14774,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -14808,7 +14808,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -14842,7 +14842,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -14876,7 +14876,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -14910,7 +14910,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -14935,11 +14935,11 @@
                "label" : "Inflammatory Bowel Disease"
             },
             "severity" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             },
             "stage" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             }
          }
@@ -15343,11 +15343,11 @@
                "label" : "Inflammatory Bowel Disease"
             },
             "severity" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             },
             "stage" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             }
          }
@@ -15733,11 +15733,11 @@
                "label" : "Inflammatory Bowel Disease"
             },
             "severity" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             },
             "stage" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             }
          }
@@ -16141,11 +16141,11 @@
                "label" : "Inflammatory Bowel Disease"
             },
             "severity" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             },
             "stage" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             }
          }
@@ -16668,11 +16668,11 @@
             },
             "familyHistory" : true,
             "severity" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             },
             "stage" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             }
          }
@@ -17290,7 +17290,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -17324,7 +17324,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -17358,7 +17358,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -17392,7 +17392,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -17426,7 +17426,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -17460,7 +17460,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -17494,7 +17494,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -17528,7 +17528,7 @@
             },
             "cumulativeDose" : {
                "unit" : {
-                  "id" : "NCIT:00000",
+                  "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "value" : -1
@@ -17553,11 +17553,11 @@
                "label" : "Inflammatory Bowel Disease"
             },
             "severity" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             },
             "stage" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             }
          }
@@ -17934,11 +17934,11 @@
                "label" : "Inflammatory Bowel Disease"
             },
             "severity" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             },
             "stage" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             }
          }
@@ -18315,11 +18315,11 @@
                "label" : "Inflammatory Bowel Disease"
             },
             "severity" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             },
             "stage" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             }
          }
@@ -18750,11 +18750,11 @@
                "label" : "Inflammatory Bowel Disease"
             },
             "severity" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             },
             "stage" : {
-               "id" : "NCIT:NA000",
+               "id" : "NCIT:NA0000",
                "label" : "NA"
             }
          }

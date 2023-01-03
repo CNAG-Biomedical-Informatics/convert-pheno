@@ -20,8 +20,9 @@ our @EXPORT = qw(do_redcap2bff);
 sub do_redcap2bff {
 
     my ( $self, $participant ) = @_;
-    my $redcap_dic = $self->{data_redcap_dic};
-    my $sth        = $self->{sth};
+    my $redcap_dic    = $self->{data_redcap_dic};
+    my $redcap_config = $self->{data_redcap_config};
+    my $sth           = $self->{sth};
 
     ##############################
     # <Variable> names in REDCap #
@@ -56,24 +57,39 @@ sub do_redcap2bff {
     print Dumper $redcap_dic  if $self->{debug};
     print Dumper $participant if $self->{debug};
 
-    # ABOUT REQUIRED PROPERTIES
+    # *** ABOUT REQUIRED PROPERTIES ***
     # 'id' and 'sex' are required properties in <individuals> entry type
-    # The first element will have it but others don't
-    # We need to pass 'sex' info to external elements
-    # storing $participant->{sex} in $self
-    if ( exists $participant->{sex} && $participant->{sex} ne '' ) {
-        $self->{_info}{ $participant->{study_id} }{sex} = $participant->{sex};
+
+    # Getting the field name from config (note that we add _field suffix)
+    my $sex_field     = $redcap_config->{sex};
+    my $studyId_field = $redcap_config->{info}{fields}{studyId};
+
+    # *** IMPORTANT STEP ***
+    # We need to pass 'sex' info to external array elements from $participant
+    # Thus, we are storing $participant->{sex} in $self !!!
+    if ( exists $participant->{$sex_field} && $participant->{$sex_field} ne '' )
+    {
+        $self->{_info}{ $participant->{study_id} }{$sex_field} =
+          $participant->{$sex_field}; # Dynamically adding attributes (setter)
     }
-    $participant->{sex} = $self->{_info}{ $participant->{study_id} }{sex};
+    $participant->{$sex_field} =
+      $self->{_info}{ $participant->{$studyId_field} }{$sex_field};
 
     # Premature return if they don't exist
     return
       unless (
-        ( exists $participant->{study_id} && $participant->{study_id} ne '' )
-        && $participant->{sex} );
+        (
+            exists $participant->{$studyId_field}
+            && $participant->{$studyId_field} ne ''
+        )
+        && $participant->{$sex_field} ne ''
+      );
 
     # Data structure (hashref) for each individual
     my $individual;
+
+    # Default ontology for a bunch of required terms 
+    my $default_ontology = { id => 'NCIT:NA0000', label => 'NA' };
 
     # NB: We don't need to initialize (unless required)
     # e.g.,
@@ -88,29 +104,38 @@ sub do_redcap2bff {
 
     #$individual->{diseases} = [];
 
-    #my %disease = ( 'Inflamatory Bowel Disease' => 'ICD10:K51.90' ); # it does not exist as it is at ICD10
+    # Inflamatory Bowel Disease --- Note the 2 mm in infla-mm-atory
+    #my %disease = ( 'Inflammatory Bowel Disease' => 'ICD10:K51.90' ); # it does not exist as it is at ICD10
     #my @diseases = ('Unspecified asthma, uncomplicated', 'Inflamatory Bowel Disease', "Crohn's disease, unspecified, without complications");
-    my @diseases = ('Inflammatory Bowel Disease');    # Note the 2 mm
+
+    # Loading @diseases from config file
+    my @diseases = @{ $redcap_config->{diseases}{items} };
+
+    # Start looping over them
     for my $field (@diseases) {
         my $disease;
 
+        # Load a few more variables from config file
+        my $ageOfOnset_field = $redcap_config->{diseases}{fields}{ageOfOnset};
+        my $familyHistory_field =
+          $redcap_config->{diseases}{fields}{familyHistory};
+
+        # Start mapping
         $disease->{ageOfOnset} = map_age_range(
             map2redcap_dic(
                 {
                     redcap_dic  => $redcap_dic,
                     participant => $participant,
-                    field       => 'age_first_diagnosis'
+                    field       => $ageOfOnset_field
                 }
             )
           )
-          if ( exists $participant->{age_first_diagnosis}
-            && $participant->{age_first_diagnosis} ne '' );
+          if ( exists $participant->{$ageOfOnset_field}
+            && $participant->{$ageOfOnset_field} ne '' );
         $disease->{diseaseCode} = map_ontology(
             {
-                query  => $field,
-                column => 'label',
-
-                #ontology       => 'icd10',                        # ICD10 Inflammatory Bowel Disease does not exist
+                query    => $field,
+                column   => 'label',
                 ontology => 'ncit',
                 self     => $self
             }
@@ -120,16 +145,16 @@ sub do_redcap2bff {
                 {
                     redcap_dic  => $redcap_dic,
                     participant => $participant,
-                    field       => 'family_history'
+                    field       => $familyHistory_field
                 }
             )
           )
-          if ( exists $participant->{family_history}
-            && $participant->{family_history} ne '' );
+          if ( exists $participant->{$familyHistory_field}
+            && $participant->{$familyHistory_field} ne '' );
 
         #$disease->{notes}    = undef;
-        $disease->{severity} = { id => 'NCIT:NA000', label => 'NA' };
-        $disease->{stage}    = { id => 'NCIT:NA000', label => 'NA' };
+        $disease->{severity} = $default_ontology;
+        $disease->{stage}    = $default_ontology;
 
         push @{ $individual->{diseases} }, $disease
           if defined $disease->{diseaseCode};
@@ -139,17 +164,20 @@ sub do_redcap2bff {
     # ethnicity
     # =========
 
+    # Load field name from config
+    my $ethnicity_field = $redcap_config->{ethnicity};
+
     $individual->{ethnicity} = map_ethnicity(
         map2redcap_dic(
             {
                 redcap_dic  => $redcap_dic,
                 participant => $participant,
-                field       => 'ethnicity'
+                field       => $ethnicity_field
             }
         )
       )
-      if ( exists $participant->{ethnicity}
-        && $participant->{ethnicity} ne '' );
+      if ( exists $participant->{$ethnicity_field}
+        && $participant->{$ethnicity_field} ne '' );
 
     # =========
     # exposures
@@ -166,7 +194,7 @@ sub do_redcap2bff {
             && $participant->{$field} ne '' );
         my $exposure;
 
-        $exposure->{ageAtExposure} = { id => 'NCIT:NA0000', label => 'NA' };
+        $exposure->{ageAtExposure} = $default_ontology;
         $exposure->{date}          = '1900-01-01';
         $exposure->{duration}      = 'P999Y';
         $exposure->{exposureCode}  = map_ontology(
@@ -217,7 +245,7 @@ sub do_redcap2bff {
     # ==
 
     my $longitudinal_id =
-      $participant->{study_id} . ':' . $participant->{redcap_event_name};
+      $participant->{$studyId_field} . ':' . $participant->{redcap_event_name};
     $individual->{id} = $longitudinal_id;
 
     # ====
@@ -437,7 +465,7 @@ sub do_redcap2bff {
                 {
                     redcap_dic  => $redcap_dic,
                     participant => $participant,
-                    field       => 'sex'
+                    field       => $sex_field
                 }
             ),
             column   => 'label',
@@ -515,7 +543,7 @@ sub do_redcap2bff {
             $treatment->{ageAtOnset} =
               { age => { iso8601duration => "P999Y" } };
             $treatment->{cumulativeDose} =
-              { unit => { id => 'NCIT:00000', label => 'NA' }, value => -1 };
+              { unit => $default_ontology, value => -1 };
             $treatment->{doseIntervals}         = [];
             $treatment->{routeOfAdministration} = map_ontology(
                 {

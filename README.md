@@ -56,9 +56,10 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
        -out-dir                       Output (existing) directory
        -phl|print-hidden-labels       Print original values (before DB mapping) of text fields <_labels>
        -rcd|redcap-dictionary         REDCap data dictionary CSV file
+       -rcc|redcap-config             REDCap configuration YAML file
        -sep|separator                 Delimiter character for CSV files
        -sql2csv                       Print SQL TABLES (with -iomop)
-       -sql-max-lines                 Maxium number of lines read from SQL dump [500]
+       -max-lines-sql                 Maxium number of lines read from SQL dump [500]
        -t|test                        Does not print time-changing-events (useful for file-based cmp)
        -u|username                    Set the username
        -verbose                       Verbosity on
@@ -171,11 +172,11 @@ For executing convert-pheno you will need:
 
     $ $path/convert-pheno -ibff individuals.json -opxf phenopackets.json --out-dir my_out_dir
 
-    $ $path/convert-pheno -iredcap redcap.csv -opxf phenopackets.json --redcap-dictionary redcap_dict.csv
+    $ $path/convert-pheno -iredcap redcap.csv -opxf phenopackets.json --redcap-dictionary redcap_dict.csv --redcap-config redcap_config.yaml
 
     $ $path/convert-pheno -iomop dump.sql -obff individuals.json 
 
-    $ $path/convert-pheno -cdisc cdisc_odm.xml -obff individuals.json -rcd redcap_dict.csv 
+    $ $path/convert-pheno -cdisc cdisc_odm.xml -obff individuals.json --rcd redcap_dict.csv --redcap-config redcap_config.yaml
 
     $ $path/convert-pheno -iomop *csv -obff individuals.json -sep ','
 
