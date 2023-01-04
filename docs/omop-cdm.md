@@ -1,5 +1,10 @@
 **OMOP-CDM** stands for **O**bservational **M**edical **O**utcomes **P**artnership **C**ommon **D**ata **M**odel. **OMOP-CDM** [documentation](https://www.ohdsi.org/data-standardization/the-common-data-model).
 
+<figure markdown>
+   ![OMOP-CDM](https://www.ohdsi.org/wp-content/uploads/2015/02/h243-ohdsi-logo-with-text.png){ width="400" }
+   <figcaption>Image extracted from www.ohdsi.org</figcaption>
+</figure>
+
 Usually, OMOP-CDM databases are implemented as PostgreSQL instances. According to our experience, OMOP users will perform a periodic database export to either `.sql` or `.csv` formats. 
 
 ## OMOP as input

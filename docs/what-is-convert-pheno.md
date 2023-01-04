@@ -1,19 +1,16 @@
-# Convert-Pheno
+# What is Convert-Pheno?
 
-`Convert-Pheno` is a toolbox that allows for interconverting phenotipic data stored in the most common data models. It can work as a **command-line tool**, as a **module** and as an **API**. 
+`Convert-Pheno` is a toolbox that allows for interconverting phenotipic data stored in the most common data models.
 
-Please see the [Download and installation](download-and-installation.md) section of this website for a more detailed description.
+<figure markdown>
+ ![Convert-Pheno](img/convert-pheno-schema.png){width="600"}
+ <figcaption>Convert-Pheno schematic view</figcaption>
+</figure>
 
+!!! Success "Use"
 
-# Input formats:
+    `Convert-Pheno` can be operated as a:
 
-* Beacon v2 Models (JSON)
-* Phenopacket v2 (JSON)
-* OMOP-CDM (SQL export or CSVs)
-* REDCap exports (CSVs)
-* CDISC-ODM v1 (XML)
-
-# Output formats (Jan-2023):
-
-* Beacon v2 Models (JSON
-* Phenopacket v2 (JSON)
+    * [Command-line tool](use-as-a-command-line-tool)
+    * [Module](use-as-a-module.md)
+    * [API](use-as-an-api.md)

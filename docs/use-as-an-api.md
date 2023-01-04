@@ -12,10 +12,12 @@ Just make sure to send your `POST` data in the proper format.
 }
 ```
 
+## Included APIs
+
 !!! Warning "About API location"
     The API should be installed **locally** at your server. Depending on user's adoption, in the future we may launch a [CNAG](https://www.cnag.crg.eu)-based API service.
 
-We created two versions, one in `Perl` another in `Python`. Both should work out of the box with the [containerized version](https://github.com/mrueda/convert-pheno#containerized).
+We created two versions, one in `Perl` and another in `Python`. Both should work out of the box with the [containerized version](https://github.com/mrueda/convert-pheno#containerized).
 
 === "Perl version"
 

@@ -1,10 +1,14 @@
 **BFF** stands for **B**eacon **F**riendly **F**ormat. The BFF consists of 7 `JSON` files that match the 7 entities of the [Beacon v2 default models](https://docs.genomebeacons.org/models).
 
-From these 7 files, often `individuals.json` is the only file containing [phenotypic data](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema).
+<figure markdown>
+   ![Beacon v2](img/beacon-v2-models.png){ width="300" }
+   <figcaption>Beacon v2 entities</figcaption>
+</figure>
 
-Other entities such as [cohorts](https://docs.genomebeacons.org/schemas-md/cohortsindividuals_defaultSchema) or [datasets](https://docs.genomebeacons.org/schemas-md/datasets_defaultSchema) may contain valuable info, but being mostly text, its conversion does not represent a challenge.
+!!! Success "About Beacon v2 entities"
+    From these 7 files, often `individuals.json` is the only file containing [phenotypic data](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema). Other entities such as [cohorts](https://docs.genomebeacons.org/schemas-md/cohortsindividuals_defaultSchema) or [datasets](https://docs.genomebeacons.org/schemas-md/datasets_defaultSchema) may contain valuable info, but being mostly text, its conversion does not represent a challenge.
 
-## BFF (individuals) as input
+## BFF (individuals) as input ![BFF](https://avatars.githubusercontent.com/u/33450937?s=200&v=4){ width="20" }
 
 === "Command-line"
 
@@ -129,7 +133,7 @@ Please find below examples of data:
     ```json
     {
        "diseases" : [],
-       "id" : null,
+       "id" : "phenopacket_id.AUNb6vNX1",
        "measurements" : [
           {
              "assay" : {

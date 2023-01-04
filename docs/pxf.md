@@ -1,8 +1,13 @@
 **PXF** stands for **P**henotype e**X**change **F**ormat. Phenopackets v2 [documentation](https://phenopacket-schema.readthedocs.io/en/latest/basics.html).
 
+<figure markdown>
+   ![Phenopackets v2](https://www.ga4gh.org/wp-content/uploads/phenopachets-v2-final.jpeg){ width="500" }
+   <figcaption>Figure extracted from www.ga4gh.org</figcaption>
+</figure>
+
 Phenopackets have a [top-level](https://phenopacket-schema.readthedocs.io/en/latest/toplevel.html) elements to structure the information. We'll be focussing on the element **Phenopacket**.
 
-## PXF as input
+## PXF as input ![PXF](https://avatars.githubusercontent.com/u/17553567?s=280&v=4){ width="20" }
 
 === "Command-line"
 
@@ -127,7 +132,7 @@ Please find below examples of data:
     ```json
     {
        "diseases" : [],
-       "id" : null,
+       "id" : "phenopacket_id.AUNb6vNX1",
        "measurements" : [
           {
              "assay" : {
