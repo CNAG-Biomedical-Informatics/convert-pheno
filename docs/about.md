@@ -1,6 +1,6 @@
 **Convert-Pheno** has been developed at [CNAG](https://cnag.crg.eu), Barcelona, Spain.
 
-## Developers:
+## Developers
 
 === "Module"
 

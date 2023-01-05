@@ -35,7 +35,7 @@ graph LR
 
 === "Output formats (Jan-2023):"
 
-    * [Beacon v2 Models (JSON](bff.md)
+    * [Beacon v2 Models (JSON)](bff.md)
     * [Phenopacket v2 (JSON)](pxf.md)
 
     !!! Question "Why start with these two?"

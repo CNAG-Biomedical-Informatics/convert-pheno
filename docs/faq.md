@@ -2,14 +2,21 @@
 
 ## General
 
-??? faq "Is Convert-Pheno free?"
+??? faq "What does `Convert-Pheno` do?"
+
+    It's a tool to interconvert common data formats for clinical data. For instance, the conversion to [GA4GH](https://www.ga4gh.org) standards enables **interoperability** for secure **data sharing** or **discovery**.
+
+    ##### last change 2023-01-05 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
+
+
+??? faq "Is `Convert-Pheno` free?"
 
     Yes - Free as in Speech. 
 
     ##### last change 2023-01-04 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
 
-??? faq "Can I use in 'production' software?"
+??? faq "Can I use `Convert-Pheno` in _production_ software?"
 
     Nope. We're working on it as we speak.
 
@@ -21,11 +28,9 @@
  
     ##### last change 2023-01-04 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
-??? faq "If I convert my data to [Beacon v2 Models](bff.md), does this mean I have a Beacon v2?"
+??? faq "If I use `Convert-Pheno` to convert my data to [Beacon v2 Models](bff.md), does this mean I have a Beacon v2?"
 
-    I am afraid not. Beacon v2 is an [API specification](https://docs.genomebeacons.org). In order to enable data share/discovery for your data you have to add the API on top.
-
-    We recommend using the [Beacon v2 Reference Implementation](https://b2ri-documentation.readthedocs.io/en/latest), which among others components, contains an API.
+    I am afraid not. Beacon v2 is an [API specification](https://docs.genomebeacons.org) and the [Beacon v2 Models](bff.md) are just part of it. In order to _light a Beacon v2_ you have to add a **database** and an **API** on top. At this time, we recommend using the [Beacon v2 Reference Implementation](https://b2ri-documentation.readthedocs.io/en/latest) which contains the database + Beacon v2 API (among other components).
 
     See below an example in how to integrate an OMOP-CDM export from SQL with Beacon v2.
 
@@ -38,13 +43,13 @@
 
 ??? faq "Are you planning in supporting other clinical data formats?"
 
-    Certainly. Note, however, that the core development team consists of exactly one member :smile:.
+    Afirmative. Please check our [roadmap](future-plans.md) for more information.
 
     ##### last change 2023-01-04 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
 ## Installation
 
-??? faq "I am installing it from source (non-containerized version) but I can't run it. Any suggestions?"
+??? faq "I am installing `Convert-Pheno` from source ([non-containerized version](https://github.com/mrueda/convert-pheno#non-containerized)) but I can't make iti work. Any suggestions?"
 
     #### Problems with Python / PyPerler
 
