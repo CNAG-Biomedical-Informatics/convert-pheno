@@ -1,6 +1,6 @@
-# Command-line tool
-
 `Convert-Pheno` comes with a command-line utility. Using it as a command line tool works well when your input are **text files**, for instance, those coming from a PostgreSQL export.
+
+## Usage
 
 The operation is simple:
 

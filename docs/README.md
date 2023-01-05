@@ -1,6 +1,6 @@
 # Convert-Pheno Documentation
 
-!!! Danger "Disclaimer"
+!!! Bug "Disclaimer"
     This software is still in development phase. Please do not use it in production projects.
 
 Welcome to the documentation for **Convert-Pheno**!

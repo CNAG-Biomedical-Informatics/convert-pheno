@@ -23,7 +23,7 @@ Usually, OMOP-CDM databases are implemented as PostgreSQL instances. According t
 
     The idea is that we will pass the essential information as a hash (Perl) or dictionary (Python). You don't need to send all the tables shown in the example below, just the ones you want to transform.
 
-    !!! Warning "Heads Up"
+    !!! Tip "Tip"
         The defintions are stored in table `CONCEPT`. If you send the complete `CONCEPT` table then `Convert::Pheno` will be able to find a match, otherwise it will require setting the parameter `ohdsi_db = 1` (true).
 
     `Perl`

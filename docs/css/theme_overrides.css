@@ -1,3 +1,10 @@
+.md-header__source {
+    background-image: url("../img/cnag-logo-white.png");
+    background-size: 50px 15px;
+    background-repeat: no-repeat;
+    background-position: right;
+}
+
 h2 {
     color: #2980B9;
     border-top:  #2980B9 thin solid;

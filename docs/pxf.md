@@ -13,7 +13,7 @@ Phenopackets have a [top-level](https://phenopacket-schema.readthedocs.io/en/lat
 
     If you're using a Phenopackets v2 JSON file with the `convert-pheno` command-line interface just provide the right [syntax](https://github.com/mrueda/convert-pheno#synopsis):
 
-    !!! Note "About data types"
+    !!! Tip "About data types"
         Note that the file can consist of a single individual (JSON object) or multiple ones (JSON array of objects).
 
     ```

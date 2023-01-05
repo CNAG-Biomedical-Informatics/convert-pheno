@@ -3,11 +3,11 @@
 `Convert-Pheno` is a toolbox that allows for interconverting phenotipic data stored in the most common data models.
 
 <figure markdown>
- ![Convert-Pheno](img/convert-pheno-schema.png){width="600"}
+ ![Convert-Pheno](img/convert-pheno-schema.png){width="550"}
  <figcaption>Convert-Pheno schematic view</figcaption>
 </figure>
 
-!!! Success "Use"
+!!! Tip "Use"
 
     `Convert-Pheno` can be operated as a:
 

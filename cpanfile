@@ -15,9 +15,6 @@ requires 'XML::Fast';
 # for t/protobuff.t (only local dev)
 #requires 'Inline::Python';
 
-# for utils
-requires 'JSON::Validator';         # pxf-validator
-
 # for api
 requires 'IO::Socket::SSL';
 #requires 'Future::AsyncAwait';     # for async/wait     

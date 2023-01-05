@@ -5,7 +5,7 @@
    <figcaption>Beacon v2 entities</figcaption>
 </figure>
 
-!!! Success "About Beacon v2 entities"
+!!! Abstract "About Beacon v2 entities"
     From these 7 files, often `individuals.json` is the only file containing [phenotypic data](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema). Other entities such as [cohorts](https://docs.genomebeacons.org/schemas-md/cohortsindividuals_defaultSchema) or [datasets](https://docs.genomebeacons.org/schemas-md/datasets_defaultSchema) may contain valuable info, but being mostly text, its conversion does not represent a challenge.
 
 ## BFF (individuals) as input ![BFF](https://avatars.githubusercontent.com/u/33450937?s=200&v=4){ width="20" }
@@ -14,7 +14,7 @@
 
     If you're using a Beacon v2 JSON file with the `convert-pheno` command-line interface just provide the right [syntax](https://github.com/mrueda/convert-pheno#synopsis):
 
-    !!! Note "About data types"
+    !!! Tip "About data types"
         Note that the file can consist of a single individual (JSON object) or multiple ones (JSON array of objects).
 
     ```

@@ -1,7 +1,7 @@
 # Citation for Convert-Pheno
 
-!!! Note "Citation"
+!!! Abstract "Citation"
      Rueda, M et al., "Convert-Pheno: A toolbox to interconvert common data models for phenotypic data". _Manuscript in preparation_.
 
-!!! Warning "Funding agencies"
+!!! Success "Funding agencies"
     TBD

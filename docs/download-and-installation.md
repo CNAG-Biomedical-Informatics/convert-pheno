@@ -1,17 +1,25 @@
-!!! Warning "Where should I install it?"
+!!! Info "Where should I install it?"
     `Convert-Pheno` is a software that must be installed **locally** in a Linux server/workstation. 
 
-We provide several alternatives for download and installation.
+We provide several alternatives (containerized and non-containerized) for download and installation.
 
-=== "Method 1: Containerized"
+## Containerized
+
+=== "Method 1: With Dockerfile"
 
     Please follow the instructions provided in this [README](https://github.com/mrueda/convert-pheno#containerized).
 
-=== "Method 2: Non-containerized"
+=== "Method 2: From Docker Hub"
+
+    TBA
+
+## Non-Containerized
+
+=== "Method 3: From Github"
 
     Please follow the instructions provided in this [README](https://github.com/mrueda/convert-pheno#non-containerized).
 
-=== "Method 3: From CPAN"
+=== "Method 4: From CPAN"
 
     !!! Danger "Disclaimer"
         This installation method will be available once the paper is accepted.

@@ -38,7 +38,7 @@
 
 ??? faq "Are you planning in supporting other clinical data formats?"
 
-    Certainly. Note, however, that the core development team consists of exactly one member :fontawesome-regular-face-laugh-wink:.
+    Certainly. Note, however, that the core development team consists of exactly one member :smile:.
 
     ##### last change 2023-01-04 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
@@ -48,7 +48,7 @@
 
     #### Problems with Python / PyPerler
 
-    !!! Warning "About PyPerler installation"
+    !!! Failure "About PyPerler installation"
         Apart from [PypPerler](https://github.com/tkluck/pyperler#quick-install) itself, you may need to install `libperl-dev` to make it work.
 
         `sudo apt-get install libperl-dev`
