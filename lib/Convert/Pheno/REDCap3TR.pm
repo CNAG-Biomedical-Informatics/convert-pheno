@@ -20,9 +20,9 @@ our @EXPORT = qw(do_redcap2bff);
 sub do_redcap2bff {
 
     my ( $self, $participant ) = @_;
-    my $redcap_dic    = $self->{data_redcap_dic};
-    my $redcap_config = $self->{data_redcap_config};
-    my $sth           = $self->{sth};
+    my $redcap_dic   = $self->{data_redcap_dic};
+    my $mapping_file = $self->{data_mapping_file};
+    my $sth          = $self->{sth};
 
     ##############################
     # <Variable> names in REDCap #
@@ -60,9 +60,9 @@ sub do_redcap2bff {
     # *** ABOUT REQUIRED PROPERTIES ***
     # 'id' and 'sex' are required properties in <individuals> entry type
 
-    # Getting the field name from config (note that we add _field suffix)
-    my $sex_field     = $redcap_config->{sex};
-    my $studyId_field = $redcap_config->{info}{fields}{studyId};
+    # Getting the field name from mapping file (note that we add _field suffix)
+    my $sex_field     = $mapping_file->{sex};
+    my $studyId_field = $mapping_file->{info}{dict}{studyId};
 
     # *** IMPORTANT STEP ***
     # We need to pass 'sex' info to external array elements from $participant
@@ -70,7 +70,7 @@ sub do_redcap2bff {
     if ( exists $participant->{$sex_field} && $participant->{$sex_field} ne '' )
     {
         $self->{_info}{ $participant->{study_id} }{$sex_field} =
-          $participant->{$sex_field}; # Dynamically adding attributes (setter)
+          $participant->{$sex_field};    # Dynamically adding attributes (setter)
     }
     $participant->{$sex_field} =
       $self->{_info}{ $participant->{$studyId_field} }{$sex_field};
@@ -88,7 +88,7 @@ sub do_redcap2bff {
     # Data structure (hashref) for each individual
     my $individual;
 
-    # Default ontology for a bunch of required terms 
+    # Default ontology for a bunch of required terms
     my $default_ontology = { id => 'NCIT:NA0000', label => 'NA' };
 
     # NB: We don't need to initialize (unless required)
@@ -108,17 +108,17 @@ sub do_redcap2bff {
     #my %disease = ( 'Inflammatory Bowel Disease' => 'ICD10:K51.90' ); # it does not exist as it is at ICD10
     #my @diseases = ('Unspecified asthma, uncomplicated', 'Inflamatory Bowel Disease', "Crohn's disease, unspecified, without complications");
 
-    # Loading @diseases from config file
-    my @diseases = @{ $redcap_config->{diseases}{items} };
+    # Loading @diseases from mapping file
+    my @diseases = @{ $mapping_file->{diseases}{fields} };
 
     # Start looping over them
     for my $field (@diseases) {
         my $disease;
 
-        # Load a few more variables from config file
-        my $ageOfOnset_field = $redcap_config->{diseases}{fields}{ageOfOnset};
+        # Load a few more variables from mapping file
+        my $ageOfOnset_field = $mapping_file->{diseases}{dict}{ageOfOnset};
         my $familyHistory_field =
-          $redcap_config->{diseases}{fields}{familyHistory};
+          $mapping_file->{diseases}{dict}{familyHistory};
 
         # Start mapping
         $disease->{ageOfOnset} = map_age_range(
@@ -164,8 +164,8 @@ sub do_redcap2bff {
     # ethnicity
     # =========
 
-    # Load field name from config
-    my $ethnicity_field = $redcap_config->{ethnicity};
+    # Load field name from mapping file
+    my $ethnicity_field = $mapping_file->{ethnicity};
 
     $individual->{ethnicity} = map_ethnicity(
         map2redcap_dic(
@@ -184,11 +184,8 @@ sub do_redcap2bff {
     # =========
 
     #$individual->{exposures} = undef;
-    my @exposures = (
-        qw (alcohol smoking cigarettes_days cigarettes_years packyears smoking_quit)
-    );
-
-    for my $field (@exposures) {
+    my @exposures_fields = @{ $mapping_file->{exposures}{fields} };
+    for my $field (@exposures_fields) {
         next
           unless ( exists $participant->{$field}
             && $participant->{$field} ne '' );
@@ -252,9 +249,8 @@ sub do_redcap2bff {
     # info
     # ====
 
-    my @fields =
-      qw(study_id dob diet redcap_event_name age first_name last_name consent consent_date consent_noneu consent_devices consent_recontact consent_week2_endo education zipcode consents_and_demographics_complete);
-    for my $field (@fields) {
+    my @info_fields = @{ $mapping_file->{info}{fields} };
+    for my $field (@info_fields) {
         $individual->{info}{$field} =
           $field eq 'age'
           ? { iso8601duration => 'P' . $participant->{$field} . 'Y' }
@@ -281,16 +277,15 @@ sub do_redcap2bff {
 
     #$individual->{interventionsOrProcedures} = [];
 
-    #my @surgeries = map { $_ = 'surgery_details___' . $_ } ( 1 .. 8, 99 );
+    my @interventions_fields = @{ $mapping_file->{interventionsOrProcedures}{fields} };
+
     my %surgery = ();
     for ( 1 .. 8, 99 ) {
         $surgery{ 'surgery_details___' . $_ } =
           $redcap_dic->{surgery_details}{_labels}{$_};
     }
-    for my $field (
-        qw(endoscopy_performed intestinal_surgery partial_mayo complete_mayo prev_endosc_dilatation),
-        keys %surgery
-      )
+
+    for my $field (@interventions_fields)
     {
         if ( $participant->{$field} ) {
             my $intervention;
@@ -328,14 +323,9 @@ sub do_redcap2bff {
     $individual->{measures} = undef;
 
     # lab_remarks was removed
-    my @measures = (
-        qw (leucocytes hemoglobin hematokrit mcv mhc thrombocytes neutrophils lymphocytes eosinophils creatinine gfr bilirubin gpt ggt lipase crp iron il6 calprotectin)
-    );
-    my @indexes =
-      qw (nancy_index_acute  nancy_index_chronic nancy_index_ulceration);
-    my @others = qw(endo_mayo);
-
-    for my $field ( @measures, @indexes, @others ) {
+    my @measures_fields = @{ $mapping_file->{measures}{fields} };
+    print Dumper  @measures_fields;
+    for my $field (@measures_fields) {
         next if $participant->{$field} eq '';
         my $measure;
 
@@ -396,19 +386,19 @@ sub do_redcap2bff {
     #$individual->{pedigrees} = [];
 
     # disease, id, members, numSubjects
-    my @pedigrees = (qw ( x y ));
-    for my $field (@pedigrees) {
-
-        my $pedigree;
-        $pedigree->{disease}     = {};      # P32Y6M1D
-        $pedigree->{id}          = undef;
-        $pedigree->{members}     = [];
-        $pedigree->{numSubjects} = 0;
-
+    #my @pedigrees = @{ $mapping_file->{pedigrees}{fields} };
+    #for my $field (@pedigrees) {
+#
+#        my $pedigree;
+#        $pedigree->{disease}     = {};      # P32Y6M1D
+#        $pedigree->{id}          = undef;
+#        $pedigree->{members}     = [];
+#        $pedigree->{numSubjects} = 0;
+#
         # Add to array
         #push @{ $individual->{pedigrees} }, $pedigree; # SWITCHED OFF on 072622
 
-    }
+   # }
 
     # ==================
     # phenotypicFeatures
@@ -416,11 +406,10 @@ sub do_redcap2bff {
 
     #$individual->{phenotypicFeatures} = [];
 
-    my @comorbidities =
-      qw ( comorb_asthma comorb_copd comorb_ms comorb_sle comorb_ra comorb_pso comorb_ad comorb_cancer comorb_cancer_specified comorb_hypertension comorb_diabetes comorb_lipids comorb_stroke comorb_other_ai comorb_other_ai_specified);
-    my @phenotypicFeatures = qw(immunodeficiency rectal_bleeding);
+    my @phenotypicFeatures_fields =
+      @{ $mapping_file->{phenotypicFeatures}{fields} };
 
-    for my $field ( @comorbidities, @phenotypicFeatures ) {
+    for my $field (@phenotypicFeatures_fields) {
         my $phenotypicFeature;
 
         if (   exists $participant->{$field}

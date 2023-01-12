@@ -27,17 +27,17 @@ my $input = {
         in_file           => 't/redcap2bff/in/Data_table_3TR_IBD_dummydata.csv',
         redcap_dictionary =>
 't/redcap2bff/in/3TRKielTemplateExport01072022_DataDictionary_2022-07-03.csv',
-        redcap_config     => 't/redcap2bff/in/redcap_3tr_config.yaml',
-        sep => undef,
-        out => 't/redcap2bff/out/individuals.json'
+        mapping_file => 't/redcap2bff/in/redcap_3tr_config.yaml',
+        sep          => undef,
+        out          => 't/redcap2bff/out/individuals.json'
     },
     redcap2pxf => {
         in_file           => 't/redcap2bff/in/Data_table_3TR_IBD_dummydata.csv',
         redcap_dictionary =>
 't/redcap2bff/in/3TRKielTemplateExport01072022_DataDictionary_2022-07-03.csv',
-        redcap_config     => 't/redcap2bff/in/redcap_3tr_config.yaml',
-        sep => undef,
-        out => 't/redcap2pxf/out/pxf.json'
+        mapping_file => 't/redcap2bff/in/redcap_3tr_config.yaml',
+        sep          => undef,
+        out          => 't/redcap2pxf/out/pxf.json'
     },
     omop2bff => {
         in_file           => undef,
@@ -58,18 +58,18 @@ my $input = {
           't/cdisc2bff/in/3TRKielTemplateExpor_CDISC_ODM_2022-09-27_1822.xml',
         redcap_dictionary =>
 't/redcap2bff/in/3TRKielTemplateExport01072022_DataDictionary_2022-07-03.csv',
-        redcap_config     => 't/redcap2bff/in/redcap_3tr_config.yaml',
-        sep => undef,
-        out => 't/cdisc2bff/out/individuals.json'
+        mapping_file => 't/redcap2bff/in/redcap_3tr_config.yaml',
+        sep          => undef,
+        out          => 't/cdisc2bff/out/individuals.json'
     },
     cdisc2pxf => {
         in_file =>
           't/cdisc2bff/in/3TRKielTemplateExpor_CDISC_ODM_2022-09-27_1822.xml',
         redcap_dictionary =>
 't/redcap2bff/in/3TRKielTemplateExport01072022_DataDictionary_2022-07-03.csv',
-        redcap_config     => 't/redcap2bff/in/redcap_3tr_config.yaml',
-        sep => undef,
-        out => 't/cdisc2pxf/out/pxf.json'
+        mapping_file => 't/redcap2bff/in/redcap_3tr_config.yaml',
+        sep          => undef,
+        out          => 't/cdisc2pxf/out/pxf.json'
     }
 };
 
@@ -84,7 +84,7 @@ for my $method ( sort keys %{$input} ) {
             ? $input->{$method}{in_files}
             : undef,
             redcap_dictionary => $input->{$method}{redcap_dictionary},
-            redcap_config => $input->{$method}{redcap_config},
+            mapping_file      => $input->{$method}{mapping_file},
             in_textfile       => 1,
             sep               => $input->{$method}{sep},
             test              => 1,

@@ -78,17 +78,17 @@ sub redcap2bff {
 
     # Read and load data from REDCap export
     my $data = read_csv_export( { in => $self->{in_file}, sep => undef } );
-    my ( $data_redcap_dic, $data_redcap_config ) = read_redcap_dic_and_config(
+    my ( $data_redcap_dic, $data_mapping_file ) = read_redcap_dic_and_mapping_file(
         {
             redcap_dictionary => $self->{redcap_dictionary},
-            redcap_config     => $self->{redcap_config}
+            mapping_file     => $self->{mapping_file}
         }
     );
 
     # Load data in $self
     $self->{data}               = $data;                  # Dynamically adding attributes (setter)
     $self->{data_redcap_dic}    = $data_redcap_dic;       # Dynamically adding attributes (setter)
-    $self->{data_redcap_config} = $data_redcap_config;    # Dynamically adding attributes (setter)
+    $self->{data_mapping_file} = $data_mapping_file;    # Dynamically adding attributes (setter)
 
     # array_dispatcher will deal with JSON arrays
     return array_dispatcher($self);
@@ -221,17 +221,17 @@ sub cdisc2bff {
     my $hash = xml2hash $str, attr => '-', text => '~';
     my $data = cdisc2redcap($hash);
 
-    my ( $data_redcap_dic, $data_redcap_config ) = read_redcap_dic_and_config(
+    my ( $data_redcap_dic, $data_mapping_file ) = read_redcap_dic_and_mapping_file(
         {
             redcap_dictionary => $self->{redcap_dictionary},
-            redcap_config     => $self->{redcap_config}
+            mapping_file     => $self->{mapping_file}
         }
     );
 
     # Load data in $self
     $self->{data}               = $data;                  # Dynamically adding attributes (setter)
     $self->{data_redcap_dic}    = $data_redcap_dic;       # Dynamically adding attributes (setter)
-    $self->{data_redcap_config} = $data_redcap_config;    # Dynamically adding attributes (setter)
+    $self->{data_mapping_file} = $data_mapping_file;    # Dynamically adding attributes (setter)
 
 
     # array_dispatcher will deal with JSON arrays

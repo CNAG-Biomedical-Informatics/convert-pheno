@@ -57,7 +57,7 @@ GetOptions(
     'test'                    => \my $test,                                 # flag
     'ohdsi-db'                => \my $ohdsi_db,                             # flag
     'redcap-dictionary|rcd=s' => \my $redcap_dictionary,                    # string
-    'redcap-config|rcc=s'     => \my $redcap_config,                        # string
+    'mapping-file|rcc=s'     => \my $mapping_file,                        # string
     'print-hidden-labels|phl' => \my $print_hidden_labels,                  # flag
     'username=s'              => \my $username,                             # string
     'log'                     => \my $log,                                  # flag
@@ -78,9 +78,9 @@ pod2usage(
     -exitval => 1
 ) if ( ($in_redcap || $in_cdisc)  && !$redcap_dictionary );
 pod2usage(
-    -message => "Please specify a valid REDCap configuration file --redcap-config\n",
+    -message => "Please specify a valid REDCap configuration file --mapping-file\n",
     -exitval => 1
-) if ( ($in_redcap || $in_cdisc)  && !$redcap_config );
+) if ( ($in_redcap || $in_cdisc)  && !$mapping_file );
 pod2usage(
     -message => "Please specify a valid OMOP-CDM file(s) (e.g, *csv or .sql)\n",
     -exitval => 1
@@ -128,7 +128,7 @@ my $data = {
     sep                 => $sep,
     sql2csv             => $sql2csv,
     redcap_dictionary   => $redcap_dictionary,
-    redcap_config       => $redcap_config,
+    mapping_file        => $mapping_file,
     ohdsi_db            => $ohdsi_db,
     username            => $username,
     max_lines_sql       => $max_lines_sql,
@@ -277,7 +277,7 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
        -out-dir                       Output (existing) directory
        -phl|print-hidden-labels       Print original values (before DB mapping) of text fields <_labels>
        -rcd|redcap-dictionary         REDCap data dictionary CSV file
-       -rcc|redcap-config             REDCap configuration YAML file
+       -mapping-file                  Mapping YAML file
        -sep|separator                 Delimiter character for CSV files
        -sql2csv                       Print SQL TABLES (with -iomop)
        -max-lines-sql                 Maxium number of lines read from SQL dump [500]
@@ -397,11 +397,11 @@ B<Examples:>
 
  $ $path/convert-pheno -ibff individuals.json -opxf phenopackets.json --out-dir my_out_dir
 
- $ $path/convert-pheno -iredcap redcap.csv -opxf phenopackets.json --redcap-dictionary redcap_dict.csv --redcap-config redcap_config.yaml
+ $ $path/convert-pheno -iredcap redcap.csv -opxf phenopackets.json --redcap-dictionary redcap_dict.csv --mapping-file mapping_file.yaml
 
  $ $path/convert-pheno -iomop dump.sql -obff individuals.json 
 
- $ $path/convert-pheno -cdisc cdisc_odm.xml -obff individuals.json --rcd redcap_dict.csv --redcap-config redcap_config.yaml
+ $ $path/convert-pheno -cdisc cdisc_odm.xml -obff individuals.json --rcd redcap_dict.csv --mapping-file mapping_file.yaml
 
  $ $path/convert-pheno -iomop *csv -obff individuals.json -sep ','
 

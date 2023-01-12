@@ -12,7 +12,7 @@ use Convert::Pheno::OMOP;
 use Convert::Pheno::IO;
 use Exporter 'import';
 our @EXPORT =
-  qw(read_csv_export read_redcap_dic_and_config remap_ohdsi_dictionary read_sqldump sqldump2csv transpose_omop_data_structure);
+  qw(read_csv_export read_redcap_dic_and_mapping_file remap_ohdsi_dictionary read_sqldump sqldump2csv transpose_omop_data_structure);
 
 #########################
 #########################
@@ -156,17 +156,17 @@ sub read_redcap_dictionary {
     return $data;
 }
 
-sub read_redcap_dic_and_config {
+sub read_redcap_dic_and_mapping_file {
 
     my $arg = shift;
 
     # Read and load REDCap CSV dictionary
     my $data_redcap_dic = read_redcap_dictionary( $arg->{redcap_dictionary} );
 
-    # Read and load REDCap YAML config
-    my $data_redcap_config = read_yaml( $arg->{redcap_config} );
+    # Read and load REDCap YAML mapping file
+    my $data_mapping_file = read_yaml( $arg->{mapping_file} );
 
-    return ( $data_redcap_dic, $data_redcap_config );
+    return ( $data_redcap_dic, $data_mapping_file );
 }
 
 sub remap_ohdsi_dictionary {

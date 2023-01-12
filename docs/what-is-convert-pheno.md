@@ -11,6 +11,6 @@
 
     `Convert-Pheno` can be operated as a:
 
-    * [Command-line tool](use-as-a-command-line-tool)
+    * [Command-line tool](use-as-a-command-line-tool.md)
     * [Module](use-as-a-module.md)
     * [API](use-as-an-api.md)
