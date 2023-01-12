@@ -94,8 +94,7 @@ for my $method ( sort keys %{$input} ) {
     dump_file(
         {
             filename => 't/test.json',
-            data     => $convert->$method,
-            format   => 'json'
+            data     => $convert->$method
         }
     );
     ok( compare( $input->{$method}{out}, 't/test.json' ) == 0, $method );
@@ -105,11 +104,6 @@ for my $method ( sort keys %{$input} ) {
 sub dump_file {
 
     my $arg = shift;
-    if ( $arg->{format} eq 'json' ) {
-        write_json( { filename => $arg->{filename}, data => $arg->{data} } );
-    }
-    else {
-        write_yaml( { filename => $arg->{filename}, data => $arg->{data} } );
-    }
+    write_json( { filename => $arg->{filename}, data => $arg->{data} } );
     return 1;
 }

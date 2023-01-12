@@ -26,7 +26,7 @@ This freedom of choice makes very difficult (if not impossible) to come up with 
     3. Configuration (mapping) file (YAML)
 
     ```
-    convert-pheno -iredcap redcap.csv --redcap-dictionary dictionary.csv --redcap-config config.yaml -obff individuals.json
+    convert-pheno -iredcap redcap.csv --redcap-dictionary dictionary.csv --mapping-file mapping.yaml -obff individuals.json
     ```
 
     During the data transformation, **ontologies are automatically added** to harmonize the content of the variables. We use [NCI Thesaurus](https://ncithesaurus.nci.nih.gov/ncitbrowser), [ICD-10](https://icd.who.int/browse10), and data from [Athena-OHDSI](https://athena.ohdsi.org/search-terms/start).

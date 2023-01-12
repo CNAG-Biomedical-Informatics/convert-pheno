@@ -28,7 +28,7 @@
     3. Configuration (mapping) file (YAML)
 
     ```
-    convert-pheno -icdisc cdisc.xml --redcap-dictionary dictionary.csv --redcap-config config.yaml -obff individuals.json
+    convert-pheno -icdisc cdisc.xml --redcap-dictionary dictionary.csv --mapping-file mapping.yaml -obff individuals.json
     ```
     !!! Warning "About other CDISC data exchange standars"
         We are currently exploring [Dataset-XML](https://www.cdisc.org/standards/data-exchange/dataset-xml) (extension of ODM-XML) and the new [Dataset-JSON](https://wiki.cdisc.org/display/ODM2/Dataset-JSON) formats. The idea is to support them in the future.

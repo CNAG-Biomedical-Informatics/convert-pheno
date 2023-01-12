@@ -31,9 +31,9 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
 
      Arguments:                       
        (input-type): 
-             -ibff                    Beacon v2 Models JSON file
+             -ibff                    Beacon v2 Models (JSON|YAML) file
              -iomop                   OMOP-CDM CSV files or PostgreSQL dump
-             -ipxf                    Phenopacket v2 JSON file
+             -ipxf                    Phenopacket v2 (JSON|YAML) file
              -iredcap (experimental)  REDCap (raw data) export CSV file
              -icdisc  (experimental)  CDISC-ODM v1 XML file
 
@@ -47,16 +47,15 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
 
      Options:
        -debug                         Print debugging (from 1 to 5, being 5 max)
-       -format                        Output format for the text file [>json|yaml]
        -h|help                        Brief help message
-       -log                           Save <convert-pheno.log> file
+       -log                           Save <convert-pheno-log.json> file
        -man                           Full documentation
        -nc|-no-color                  Don't print colors to STDOUT
        -ohdsi-db                      Use Athena-OHDSI database (~1.2GB) with -iomop
        -out-dir                       Output (existing) directory
        -phl|print-hidden-labels       Print original values (before DB mapping) of text fields <_labels>
        -rcd|redcap-dictionary         REDCap data dictionary CSV file
-       -mapping-file                  Mapping YAML file
+       -mapping-file                  Fields mapping YAML file
        -sep|separator                 Delimiter character for CSV files
        -sql2csv                       Print SQL TABLES (with -iomop)
        -max-lines-sql                 Maxium number of lines read from SQL dump [500]
@@ -170,7 +169,7 @@ For executing convert-pheno you will need:
 
     $ bin/convert-pheno -ipxf phenopackets.json -obff individuals.json
 
-    $ $path/convert-pheno -ibff individuals.json -opxf phenopackets.json --out-dir my_out_dir
+    $ $path/convert-pheno -ibff individuals.json -opxf phenopackets.yaml --out-dir my_out_dir 
 
     $ $path/convert-pheno -iredcap redcap.csv -opxf phenopackets.json --redcap-dictionary redcap_dict.csv --mapping-file mapping_file.yaml
 

@@ -10,7 +10,7 @@ use YAML::XS qw(LoadFile DumpFile);
 use JSON::XS;
 use Sort::Naturally qw(nsort);
 use Exporter 'import';
-our @EXPORT = qw(read_json read_yaml write_json write_yaml);
+our @EXPORT = qw(read_json read_yaml is_it_yaml_or_json write_json write_yaml);
 
 #########################
 #########################
@@ -24,12 +24,22 @@ sub read_json {
     return decode_json($str);    # Decode to Perl data structure
 }
 
-
 sub read_yaml {
 
-    return LoadFile(shift);    # Decode to Perl data structure
+    return LoadFile(shift);      # Decode to Perl data structure
 }
 
+sub is_it_yaml_or_json {
+
+    my $file = shift;
+    my @exts = qw(.yaml .yml .json);
+    my ( undef, undef, $ext ) = fileparse( $file, @exts );
+    return
+        ( $ext eq '.yaml' || $ext eq '.yml' ) ? read_yaml($file)
+      : $ext eq '.json'                        ? read_json($file)
+      : die
+qq(Can't recognize <$file> extension. Please use a .yaml|.yml|.json file);
+}
 
 sub write_json {
 

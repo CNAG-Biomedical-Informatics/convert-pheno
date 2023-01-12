@@ -274,7 +274,7 @@ sub array_dispatcher {
     # Load the input data as Perl data structure
     my $in_data =
       ( $self->{in_textfile} && $self->{method} !~ m/^redcap2|^omop2|^cdisc2/ )
-      ? read_json( $self->{in_file} )
+      ? is_it_yaml_or_json( $self->{in_file} )
       : $self->{data};
 
     # Define the methods to call (naming 'func' to avoid confussion with $self->{method})

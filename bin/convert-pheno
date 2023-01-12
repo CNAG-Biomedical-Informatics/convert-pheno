@@ -24,6 +24,7 @@ use Data::Dumper;
 use Sys::Hostname;
 use POSIX                 qw(strftime);
 use File::Spec::Functions qw(catdir catfile);
+use File::Basename;
 use FindBin               qw($Bin);
 use lib "$Bin/../lib";
 use Term::ANSIColor qw(:constants);
@@ -33,7 +34,6 @@ $Data::Dumper::Sortkeys = 1;
 
 # Defining a few variables
 my $out_dir = '.';
-my $format  = 'json';
 
 # Reading arguments
 GetOptions(
@@ -47,17 +47,16 @@ GetOptions(
     'out-dir=s'               => \$out_dir,                                 # string
     'help|?'                  => \my $help,                                 # flag
     'man'                     => \my $man,                                  # flag
+    'mapping-file|rcc=s'      => \my $mapping_file,                         # string
     'max-lines-sql=i'         => \my $max_lines_sql,                        # integer
     'debug=i'                 => \my $debug,                                # integer
     'verbose'                 => \my $verbose,                              # flag
-    'format=s'                => \$format,                                  # string
     'no-color|nc'             => \my $no_color,                             # flag
     'separator|sep=s'         => \my $sep,                                  # str
     'sql2csv'                 => \my $sql2csv,                              # flag
     'test'                    => \my $test,                                 # flag
     'ohdsi-db'                => \my $ohdsi_db,                             # flag
     'redcap-dictionary|rcd=s' => \my $redcap_dictionary,                    # string
-    'mapping-file|rcc=s'     => \my $mapping_file,                        # string
     'print-hidden-labels|phl' => \my $print_hidden_labels,                  # flag
     'username=s'              => \my $username,                             # string
     'log'                     => \my $log,                                  # flag
@@ -66,7 +65,7 @@ GetOptions(
 pod2usage(1)                              if $help;
 pod2usage( -verbose => 2, -exitval => 0 ) if $man;
 pod2usage(
-    -message => "Please specify a valid input file(s) -i <json|csv>\n",
+    -message => "Please specify a valid input file(s) -i <json|yaml|csv>\n",
     -exitval => 1
 ) unless ( $in_pxf || $in_bff || $in_redcap || $in_cdisc || @omop_files );
 pod2usage(
@@ -78,7 +77,7 @@ pod2usage(
     -exitval => 1
 ) if ( ($in_redcap || $in_cdisc)  && !$redcap_dictionary );
 pod2usage(
-    -message => "Please specify a valid REDCap configuration file --mapping-file\n",
+    -message => "Please specify a valid field-mapping file --mapping-file\n",
     -exitval => 1
 ) if ( ($in_redcap || $in_cdisc)  && !$mapping_file );
 pod2usage(
@@ -101,7 +100,7 @@ my $out_file =
   :            catfile( $out_dir, 'individuals.json' );
 
 # Defining $log_file
-my $log_file = catfile( $out_dir, 'convert-pheno.log' );
+my $log_file = catfile( $out_dir, 'convert-pheno-log.json' );
 
 # Defining method
 my $in_type =
@@ -175,7 +174,7 @@ sub convert {
 
     # Writing file
     dump_file(
-        { filename => $o_file, data => $convert->$method, format => $format } );
+        { filename => $o_file, data => $convert->$method } );
 }
 
 sub program_header {
@@ -207,7 +206,9 @@ EOF
 sub dump_file {
 
     my $arg = shift;
-    if ( $arg->{format} eq 'json' ) {
+    my @exts = qw(.yaml .yml .json);
+    my ( undef, undef, $ext ) = fileparse( $arg->{filename}, @exts );
+    if ( $ext eq '.json' ) {
         write_json( { filename => $arg->{filename}, data => $arg->{data} } );
     }
     else {
@@ -234,8 +235,7 @@ sub write_log {
     dump_file(
         {
             filename => $log,
-            data     => { info => $info, data => $data },
-            format   => 'json'
+            data     => { info => $info, data => $data }
         }
     );
 }
@@ -252,9 +252,9 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
 
      Arguments:                       
        (input-type): 
-             -ibff                    Beacon v2 Models JSON file
+             -ibff                    Beacon v2 Models (JSON|YAML) file
              -iomop                   OMOP-CDM CSV files or PostgreSQL dump
-             -ipxf                    Phenopacket v2 JSON file
+             -ipxf                    Phenopacket v2 (JSON|YAML) file
              -iredcap (experimental)  REDCap (raw data) export CSV file
              -icdisc  (experimental)  CDISC-ODM v1 XML file
 
@@ -268,16 +268,15 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
 
      Options:
        -debug                         Print debugging (from 1 to 5, being 5 max)
-       -format                        Output format for the text file [>json|yaml]
        -h|help                        Brief help message
-       -log                           Save <convert-pheno.log> file
+       -log                           Save <convert-pheno-log.json> file
        -man                           Full documentation
        -nc|-no-color                  Don't print colors to STDOUT
        -ohdsi-db                      Use Athena-OHDSI database (~1.2GB) with -iomop
        -out-dir                       Output (existing) directory
        -phl|print-hidden-labels       Print original values (before DB mapping) of text fields <_labels>
        -rcd|redcap-dictionary         REDCap data dictionary CSV file
-       -mapping-file                  Mapping YAML file
+       -mapping-file                  Fields mapping YAML file
        -sep|separator                 Delimiter character for CSV files
        -sql2csv                       Print SQL TABLES (with -iomop)
        -max-lines-sql                 Maxium number of lines read from SQL dump [500]
@@ -395,7 +394,7 @@ B<Examples:>
 
  $ bin/convert-pheno -ipxf phenopackets.json -obff individuals.json
 
- $ $path/convert-pheno -ibff individuals.json -opxf phenopackets.json --out-dir my_out_dir
+ $ $path/convert-pheno -ibff individuals.json -opxf phenopackets.yaml --out-dir my_out_dir 
 
  $ $path/convert-pheno -iredcap redcap.csv -opxf phenopackets.json --redcap-dictionary redcap_dict.csv --mapping-file mapping_file.yaml
 

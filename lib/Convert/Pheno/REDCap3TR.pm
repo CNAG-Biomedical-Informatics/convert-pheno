@@ -324,7 +324,6 @@ sub do_redcap2bff {
 
     # lab_remarks was removed
     my @measures_fields = @{ $mapping_file->{measures}{fields} };
-    print Dumper  @measures_fields;
     for my $field (@measures_fields) {
         next if $participant->{$field} eq '';
         my $measure;
@@ -476,6 +475,7 @@ sub do_redcap2bff {
         mp  => 'mercaptopurine'
     );
 
+    my @treatments_fields = @{ $mapping_file->{treatments}{fields} };
     my @drugs  = qw (budesonide prednisolone asa aza mtx mp);
     my @routes = qw (oral rectal);
 
