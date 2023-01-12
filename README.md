@@ -197,7 +197,7 @@ One simple solution is to split the input file in many.
 
 The author requests that any published work that utilizes `Convert-Pheno` includes a cite to the the following reference:
 
-Rueda, M et al., (2022). Convert-Pheno: A toolbox to interconvert common data models for phenotypic data \[Software\]. Available from https://github.com/mrueda/convert-pheno
+Rueda, M et al., (2023). Convert-Pheno: A toolbox to interconvert common data models for phenotypic data \[Software\]. Available from https://github.com/mrueda/convert-pheno
 
 # AUTHOR 
 
@@ -205,6 +205,6 @@ Written by Manuel Rueda, PhD. Info about CNAG can be found at [https://www.cnag.
 
 # COPYRIGHT AND LICENSE
 
-Copyright (C) 2022, Manuel Rueda - CNAG.
+Copyright (C) 2022-2023, Manuel Rueda - CNAG.
 
 This program is free software, you can redistribute it and/or modify it under the terms of the [Artistic License version 2.0](https://metacpan.org/pod/perlartistic).

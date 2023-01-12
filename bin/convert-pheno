@@ -4,11 +4,11 @@
 #
 #   This file is part of Convert::Pheno
 #
-#   Last Modified: Dec/27/2022
+#   Last Modified: Jan/11/2023
 #
 #   $VERSION taken from Convert::Pheno
 #
-#   Copyright (C) 2022 Manuel Rueda - CNAG (manuel.rueda@cnag.crg.eu)
+#   Copyright (C) 2022-2023 Manuel Rueda - CNAG (manuel.rueda@cnag.crg.eu)
 #
 #   License: Artistic License 2.0 
 
@@ -185,7 +185,7 @@ sub program_header {
 *  Phenotypic Data Model Convert Tool  *
 *          - CONVERT-PHENO -           *
 *          Version: $version             *
-*      (C) 2022 Manuel Rueda, PhD      *
+*   (C) 2022-2023 Manuel Rueda, PhD    *
 *       The Artistic License 2.0       *
 ****************************************
 EOF
@@ -422,7 +422,7 @@ One simple solution is to split the input file in many.
 
 The author requests that any published work that utilizes C<Convert-Pheno> includes a cite to the the following reference:
 
-Rueda, M et al., (2022). Convert-Pheno: A toolbox to interconvert common data models for phenotypic data [Software]. Available from https://github.com/mrueda/convert-pheno
+Rueda, M et al., (2023). Convert-Pheno: A toolbox to interconvert common data models for phenotypic data [Software]. Available from https://github.com/mrueda/convert-pheno
 
 =head1 AUTHOR 
 
@@ -430,7 +430,7 @@ Written by Manuel Rueda, PhD. Info about CNAG can be found at L<https://www.cnag
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2022, Manuel Rueda - CNAG.
+Copyright (C) 2022-2023, Manuel Rueda - CNAG.
 
 This program is free software, you can redistribute it and/or modify it under the terms of the L<Artistic License version 2.0|perlartistic>.
 
