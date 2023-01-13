@@ -16,7 +16,7 @@ binmode STDOUT, ':encoding(utf-8)';
 
 use Exporter 'import';
 our @EXPORT =
-  qw( map_ethnicity map_ontology map_exposures map_quantity dotify_and_coerce_number iso8601_time _map2iso8601 map_3tr map_unit_range map_age_range map2redcap_dic map2ohdsi_dic convert2boolean find_age randStr);
+  qw( map_ethnicity map_ontology map_quantity dotify_and_coerce_number iso8601_time _map2iso8601 map_3tr map_unit_range map_age_range map2redcap_dic map2ohdsi_dic convert2boolean find_age randStr);
 
 my $seen = {};
 
@@ -90,33 +90,6 @@ sub map_ontology {
     return $print_hidden_labels
       ? { id => $id, label => $label, _label => $tmp_query }
       : { id => $id, label => $label };
-}
-
-sub map_exposures {
-
-#alcohol;anamnesis;;radio;Alcohol drinking habits";"0, Non-drinker | 1, Ex-drinker | 2, occasional drinking | 3, regular drinking | 4, unknown";;;;;;;y;;;;;
-#smoking;anamnesis;;radio;"Smoking habits";"0, Never smoked | 1, Ex-smoker | 2, Current smoker";;;;;;;y;;;;;
-
-    my $arg      = shift;
-    my $key      = $arg->{key};
-    my $str      = $arg->{str};
-    my $exposure = {
-        smoking => {
-            'Never smoked'   => 'Never Smoker',
-            'Ex-smoker'      => 'Former Smoker',
-            'Current smoker' => 'Current Smoker'
-        },
-        alcohol => {
-            'Non-drinker' => 'Non-Drinker',
-            'Ex-drinker' => 'Current non-drinker with Past Alcohol Consumption',
-            'occasional drinking' =>
-'Alcohol Consumption Equal to or Less than 2 Drinks per Day for Men and 1 Drink or Less per Day for Women',
-            'regular drinking' =>
-'Alcohol Consumption More than 2 Drinks per Day for Men and More than 1 Drink per Day for Women',
-            unknown => 'Unknown'
-        }
-    };
-    return exists $exposure->{$key} ? $exposure->{$key}{$str} : $str;
 }
 
 sub map_quantity {

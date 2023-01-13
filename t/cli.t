@@ -27,7 +27,7 @@ my $input = {
         in_file           => 't/redcap2bff/in/Data_table_3TR_IBD_dummydata.csv',
         redcap_dictionary =>
 't/redcap2bff/in/3TRKielTemplateExport01072022_DataDictionary_2022-07-03.csv',
-        mapping_file => 't/redcap2bff/in/redcap_3tr_config.yaml',
+        mapping_file => 't/redcap2bff/in/redcap_3tr_mapping.yaml',
         sep          => undef,
         out          => 't/redcap2bff/out/individuals.json'
     },
@@ -35,7 +35,7 @@ my $input = {
         in_file           => 't/redcap2bff/in/Data_table_3TR_IBD_dummydata.csv',
         redcap_dictionary =>
 't/redcap2bff/in/3TRKielTemplateExport01072022_DataDictionary_2022-07-03.csv',
-        mapping_file => 't/redcap2bff/in/redcap_3tr_config.yaml',
+        mapping_file => 't/redcap2bff/in/redcap_3tr_mapping.yaml',
         sep          => undef,
         out          => 't/redcap2pxf/out/pxf.json'
     },
@@ -58,7 +58,7 @@ my $input = {
           't/cdisc2bff/in/3TRKielTemplateExpor_CDISC_ODM_2022-09-27_1822.xml',
         redcap_dictionary =>
 't/redcap2bff/in/3TRKielTemplateExport01072022_DataDictionary_2022-07-03.csv',
-        mapping_file => 't/redcap2bff/in/redcap_3tr_config.yaml',
+        mapping_file => 't/redcap2bff/in/redcap_3tr_mapping.yaml',
         sep          => undef,
         out          => 't/cdisc2bff/out/individuals.json'
     },
@@ -67,7 +67,7 @@ my $input = {
           't/cdisc2bff/in/3TRKielTemplateExpor_CDISC_ODM_2022-09-27_1822.xml',
         redcap_dictionary =>
 't/redcap2bff/in/3TRKielTemplateExport01072022_DataDictionary_2022-07-03.csv',
-        mapping_file => 't/redcap2bff/in/redcap_3tr_config.yaml',
+        mapping_file => 't/redcap2bff/in/redcap_3tr_mapping.yaml',
         sep          => undef,
         out          => 't/cdisc2pxf/out/pxf.json'
     }

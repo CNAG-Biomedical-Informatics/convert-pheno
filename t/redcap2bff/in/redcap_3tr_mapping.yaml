@@ -7,6 +7,19 @@
   ethnicity: ethnicity
   exposures: 
     fields: [alcohol,smoking,cigarettes_days,cigarettes_years,packyears,smoking_quit]
+    #alcohol;anamnesis;;radio;Alcohol drinking habits";"0, Non-drinker | 1, Ex-drinker | 2, occasional drinking | 3, regular drinking | 4, unknown";;;;;;;y;;;;;
+    #smoking;anamnesis;;radio;"Smoking habits";"0, Never smoked | 1, Ex-smoker | 2, Current smoker";;;;;;;y;;;;;
+    dict:
+      smoking:
+        Never smoked: Never Smoker
+        Ex-smoker: Former Smoker
+        Current smoker: Current Smoker
+      alcohol:
+        Non-drinker: Non-Drinker
+        Ex-drinker: Current non-drinker with Past Alcohol Consumption
+        occasional drinking: Alcohol Consumption Equal to or Less than 2 Drinks per Day for Men and 1 Drink or Less per Day for Women
+        regular drinking: Alcohol Consumption More than 2 Drinks per Day for Men and More than 1 Drink per Day for Women
+        unknown: Unknown
   geographicOrigin: null
   id: null
   info:

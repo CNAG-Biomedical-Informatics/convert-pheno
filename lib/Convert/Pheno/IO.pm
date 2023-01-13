@@ -70,6 +70,7 @@ sub write_yaml {
     my $arg        = shift;
     my $file       = $arg->{filename};
     my $json_array = $arg->{data};
+    local $YAML::XS::Boolean = 'JSON::PP';
     DumpFile( $file, $json_array );
     return 1;
 }
