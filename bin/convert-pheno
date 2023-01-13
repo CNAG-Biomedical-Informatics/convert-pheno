@@ -28,7 +28,6 @@ use File::Basename;
 use FindBin               qw($Bin);
 use lib "$Bin/../lib";
 use Term::ANSIColor qw(:constants);
-use List::Util      qw(any);
 use Convert::Pheno;
 $Data::Dumper::Sortkeys = 1;
 

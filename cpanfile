@@ -12,9 +12,10 @@ requires 'DBD::SQLite';
 requires 'Mojolicious::Lite';
 requires 'XML::Fast';
 
-# for t/protobuff.t (only local dev)
-#requires 'Inline::Python';
+# t
+requires 'Test::Deep';
+#requires 'Inline::Python';      # for t/protobuff.t (only local dev)
 
-# for api
+# api
 requires 'IO::Socket::SSL';
-#requires 'Future::AsyncAwait';     # for async/wait     
+#requires 'Future::AsyncAwait';  # for async/wait     
