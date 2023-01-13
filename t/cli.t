@@ -91,19 +91,12 @@ for my $method ( sort keys %{$input} ) {
             method            => $method
         }
     );
-    dump_file(
+    io_yaml_or_json(
         {
             filename => 't/test.json',
-            data     => $convert->$method
+            data     => $convert->$method,
+            mode     => 'write'
         }
     );
     ok( compare( $input->{$method}{out}, 't/test.json' ) == 0, $method );
-}
-
-#########
-sub dump_file {
-
-    my $arg = shift;
-    write_json( { filename => $arg->{filename}, data => $arg->{data} } );
-    return 1;
 }

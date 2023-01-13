@@ -36,27 +36,14 @@ for my $method ( sort keys %{$input} ) {
   SKIP: {
         skip qq{because 'db/ohdsi.db' is required with <ohdsi_db>}, 1
           unless -f 'db/ohdsi.db';
-        dump_file(
+        io_yaml_or_json(
             {
                 filename => 't/test.json',
                 data     => $convert->$method,
-                format   => 'json'
+                mode     => 'write'
             }
           )
           and
           ok( compare( $input->{$method}{out}, 't/test.json' ) == 0, $method );
     }
-}
-
-#########
-sub dump_file {
-
-    my $arg = shift;
-    if ( $arg->{format} eq 'json' ) {
-        write_json( { filename => $arg->{filename}, data => $arg->{data} } );
-    }
-    else {
-        write_yaml( { filename => $arg->{filename}, data => $arg->{data} } );
-    }
-    return 1;
 }

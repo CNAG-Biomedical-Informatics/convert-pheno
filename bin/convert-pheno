@@ -47,7 +47,7 @@ GetOptions(
     'out-dir=s'               => \$out_dir,                                 # string
     'help|?'                  => \my $help,                                 # flag
     'man'                     => \my $man,                                  # flag
-    'mapping-file|rcc=s'      => \my $mapping_file,                         # string
+    'mapping-file=s'          => \my $mapping_file,                         # string
     'max-lines-sql=i'         => \my $max_lines_sql,                        # integer
     'debug=i'                 => \my $debug,                                # integer
     'verbose'                 => \my $verbose,                              # flag
@@ -173,8 +173,8 @@ sub convert {
     my $method = $l_data->{method};
 
     # Writing file
-    dump_file(
-        { filename => $o_file, data => $convert->$method } );
+    io_yaml_or_json(
+        { filename => $o_file, mode => 'write', data => $convert->$method } );
 }
 
 sub program_header {
@@ -203,20 +203,6 @@ EOF
     return $msg;
 }
 
-sub dump_file {
-
-    my $arg = shift;
-    my @exts = qw(.yaml .yml .json);
-    my ( undef, undef, $ext ) = fileparse( $arg->{filename}, @exts );
-    if ( $ext eq '.json' ) {
-        write_json( { filename => $arg->{filename}, data => $arg->{data} } );
-    }
-    else {
-        write_yaml( { filename => $arg->{filename}, data => $arg->{data} } );
-    }
-    return 1;
-}
-
 sub write_log {
 
     my ( $log, $data ) = @_;
@@ -232,9 +218,10 @@ sub write_log {
     };
 
     # Saving file
-    dump_file(
+    io_yaml_or_json(
         {
             filename => $log,
+            mode     => 'write',
             data     => { info => $info, data => $data }
         }
     );
@@ -271,12 +258,12 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
        -h|help                        Brief help message
        -log                           Save <convert-pheno-log.json> file
        -man                           Full documentation
+       -mapping-file                  Fields mapping YAML file
        -nc|-no-color                  Don't print colors to STDOUT
        -ohdsi-db                      Use Athena-OHDSI database (~1.2GB) with -iomop
        -out-dir                       Output (existing) directory
        -phl|print-hidden-labels       Print original values (before DB mapping) of text fields <_labels>
        -rcd|redcap-dictionary         REDCap data dictionary CSV file
-       -mapping-file                  Fields mapping YAML file
        -sep|separator                 Delimiter character for CSV files
        -sql2csv                       Print SQL TABLES (with -iomop)
        -max-lines-sql                 Maxium number of lines read from SQL dump [500]

@@ -23,7 +23,7 @@ use Convert::Pheno::REDCap3TR;
 
 #use Convert::Pheno::REDCap;
 use Exporter 'import';
-our @EXPORT = qw($VERSION write_json write_yaml);    # Symbols imported by default
+our @EXPORT = qw($VERSION io_yaml_or_json);    # Symbols imported by default
 
 #our @EXPORT_OK = qw(foo bar);       # Symbols imported by request
 
@@ -274,7 +274,7 @@ sub array_dispatcher {
     # Load the input data as Perl data structure
     my $in_data =
       ( $self->{in_textfile} && $self->{method} !~ m/^redcap2|^omop2|^cdisc2/ )
-      ? is_it_yaml_or_json( $self->{in_file} )
+      ? io_yaml_or_json({filename => $self->{in_file}, mode => 'read'} )
       : $self->{data};
 
     # Define the methods to call (naming 'func' to avoid confussion with $self->{method})

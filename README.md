@@ -50,12 +50,12 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
        -h|help                        Brief help message
        -log                           Save <convert-pheno-log.json> file
        -man                           Full documentation
+       -mapping-file                  Fields mapping YAML file
        -nc|-no-color                  Don't print colors to STDOUT
        -ohdsi-db                      Use Athena-OHDSI database (~1.2GB) with -iomop
        -out-dir                       Output (existing) directory
        -phl|print-hidden-labels       Print original values (before DB mapping) of text fields <_labels>
        -rcd|redcap-dictionary         REDCap data dictionary CSV file
-       -mapping-file                  Fields mapping YAML file
        -sep|separator                 Delimiter character for CSV files
        -sql2csv                       Print SQL TABLES (with -iomop)
        -max-lines-sql                 Maxium number of lines read from SQL dump [500]

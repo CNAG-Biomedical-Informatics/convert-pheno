@@ -164,7 +164,7 @@ sub read_redcap_dic_and_mapping_file {
     my $data_redcap_dic = read_redcap_dictionary( $arg->{redcap_dictionary} );
 
     # Read and load mapping file
-    my $data_mapping_file = is_it_yaml_or_json( $arg->{mapping_file});
+    my $data_mapping_file = io_yaml_or_json( {filename =>$arg->{mapping_file}, mode => 'read'} );
 
     return ( $data_redcap_dic, $data_mapping_file );
 }

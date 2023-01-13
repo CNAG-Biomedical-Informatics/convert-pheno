@@ -6,11 +6,12 @@ use autodie;
 use feature qw(say);
 use Path::Tiny;
 use File::Basename;
-use YAML::XS qw(LoadFile DumpFile);
+use List::MoreUtils qw(any);
+use YAML::XS        qw(LoadFile DumpFile);
 use JSON::XS;
 use Sort::Naturally qw(nsort);
 use Exporter 'import';
-our @EXPORT = qw(read_json read_yaml is_it_yaml_or_json write_json write_yaml);
+our @EXPORT = qw(read_json read_yaml io_yaml_or_json write_json write_yaml);
 
 #########################
 #########################
@@ -29,16 +30,29 @@ sub read_yaml {
     return LoadFile(shift);      # Decode to Perl data structure
 }
 
-sub is_it_yaml_or_json {
+sub io_yaml_or_json {
 
-    my $file = shift;
+    my $arg  = shift;
+    my $file = $arg->{filename};
+    my $mode = $arg->{mode};
+    my $data = $mode eq 'write' ? $arg->{data} : undef;
+
+    # Checking only for qw(.yaml .yml .json)
     my @exts = qw(.yaml .yml .json);
+    my $msg  = qq(Can't recognize <$file> extension. Extensions allowed are: )
+      . join ',', @exts;
     my ( undef, undef, $ext ) = fileparse( $file, @exts );
-    return
-        ( $ext eq '.yaml' || $ext eq '.yml' ) ? read_yaml($file)
-      : $ext eq '.json'                        ? read_json($file)
-      : die
-qq(Can't recognize <$file> extension. Please use a .yaml|.yml|.json file);
+    die $msg unless any { $_ eq $ext } @exts;
+
+    # To simplify return values, we create a hash
+    $ext =~ tr/a.//d;    # Unify $ext (delete 'a' and '.')
+    my $return = {
+        read  => { json => \&read_json,  yml => \&read_yaml },
+        write => { json => \&write_json, yml => \&write_yaml }
+    };
+
+    # We return according to the mode (read or write) and format
+    return $mode eq 'read' ? $return->{$mode}{$ext}->($file) : $return->{$mode}{$ext}->({filename => $file, data => $data});
 }
 
 sub write_json {
