@@ -27,9 +27,10 @@ my $input = {
         in_file           => 't/redcap2bff/in/Data_table_3TR_IBD_dummydata.csv',
         redcap_dictionary =>
 't/redcap2bff/in/3TRKielTemplateExport01072022_DataDictionary_2022-07-03.csv',
-        mapping_file => 't/redcap2bff/in/redcap_3tr_mapping.yaml',
-        sep          => undef,
-        out          => 't/redcap2bff/out/individuals.json'
+        mapping_file         => 't/redcap2bff/in/redcap_3tr_mapping.yaml',
+        self_validate_schema => 1,                                           # SELF-VALIDATE-SCHEMA (OK - ONLY ONCE)
+        sep                  => undef,
+        out                  => 't/redcap2bff/out/individuals.json'
     },
     redcap2pxf => {
         in_file           => 't/redcap2bff/in/Data_table_3TR_IBD_dummydata.csv',
@@ -75,20 +76,19 @@ my $input = {
 
 #for my $method (qw/redcap2bff/){
 for my $method ( sort keys %{$input} ) {
-
-    #say "################";
     my $convert = Convert::Pheno->new(
         {
             in_file  => $input->{$method}{in_file},
             in_files => $method =~ m/^omop2/
             ? $input->{$method}{in_files}
             : undef,
-            redcap_dictionary => $input->{$method}{redcap_dictionary},
-            mapping_file      => $input->{$method}{mapping_file},
-            in_textfile       => 1,
-            sep               => $input->{$method}{sep},
-            test              => 1,
-            method            => $method
+            redcap_dictionary    => $input->{$method}{redcap_dictionary},
+            mapping_file         => $input->{$method}{mapping_file},
+            self_validate_schema => $input->{$method}{self_validate_schema},
+            in_textfile          => 1,
+            sep                  => $input->{$method}{sep},
+            test                 => 1,
+            method               => $method
         }
     );
     io_yaml_or_json(
