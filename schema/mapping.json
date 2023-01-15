@@ -1,5 +1,5 @@
 {
-  "$id": "Mapping example",
+  "$id": "https://github.com/mrueda",
   "additionalProperties": false,
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Convert-Pheno mapping file schema",
