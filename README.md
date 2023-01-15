@@ -51,6 +51,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
        -log                           Save <convert-pheno-log.json> file
        -man                           Full documentation
        -mapping-file                  Fields mapping YAML file
+       -max-lines-sql                 Maxium number of lines read from SQL dump [500]
        -nc|-no-color                  Don't print colors to STDOUT
        -ohdsi-db                      Use Athena-OHDSI database (~1.2GB) with -iomop
        -out-dir                       Output (existing) directory
@@ -59,7 +60,6 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
        -svs|self-validate-schema      Perform a self-validation of the JSON schema that defines mapping
        -sep|separator                 Delimiter character for CSV files
        -sql2csv                       Print SQL TABLES (with -iomop)
-       -max-lines-sql                 Maxium number of lines read from SQL dump [500]
        -t|test                        Does not print time-changing-events (useful for file-based cmp)
        -u|username                    Set the username
        -verbose                       Verbosity on

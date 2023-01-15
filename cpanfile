@@ -11,6 +11,7 @@ requires 'DBI';
 requires 'DBD::SQLite';
 requires 'Mojolicious::Lite';
 requires 'XML::Fast';
+requires 'JSON::Validator';
 
 # t
 requires 'Test::Deep';
