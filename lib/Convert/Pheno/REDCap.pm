@@ -26,20 +26,20 @@ sub do_redcap2bff {
     ##############################
     # <Variable> names in REDCap #
     ##############################
-    #
-    # REDCap does not enforce any particular "Variable" name.
-    # Extracted from https://www.ctsi.ufl.edu/wordpress/files/2019/02/Project-Creation-User-Guide.pdf
-    # ---
-    # "Variable Names: Variable names are critical in the data analysis process. If you export your data to a
-    # statistical software program, the variable names are what you or your statistician will use to conduct
-    # the analysis"
-    #
-    # "We always recommend reviewing your variable names with a statistician or whoever will be
-    # analyzing your data. This is especially important if this is the first time you are building a
-    # database"
-    #---
-    # If "Variable" names are not consensuated, then we need to do the mapping manually "a posteriori".
-    # This is what we are attempting here:
+#
+# REDCap does not enforce any particular "Variable" name.
+# Extracted from https://www.ctsi.ufl.edu/wordpress/files/2019/02/Project-Creation-User-Guide.pdf
+# ---
+# "Variable Names: Variable names are critical in the data analysis process. If you export your data to a
+# statistical software program, the variable names are what you or your statistician will use to conduct
+# the analysis"
+#
+# "We always recommend reviewing your variable names with a statistician or whoever will be
+# analyzing your data. This is especially important if this is the first time you are building a
+# database"
+#---
+# If "Variable" names are not consensuated, then we need to do the mapping manually "a posteriori".
+# This is what we are attempting here:
 
     ####################################
     # START MAPPING TO BEACON V2 TERMS #
@@ -88,8 +88,8 @@ sub do_redcap2bff {
 
     #$individual->{diseases} = [];
 
-    #my %disease = ( 'Inflamatory Bowel Disease' => 'ICD10:K51.90' ); # it does not exist as it is at ICD10
-    #my @diseases = ('Unspecified asthma, uncomplicated', 'Inflamatory Bowel Disease', "Crohn's disease, unspecified, without complications");
+#my %disease = ( 'Inflamatory Bowel Disease' => 'ICD10:K51.90' ); # it does not exist as it is at ICD10
+#my @diseases = ('Unspecified asthma, uncomplicated', 'Inflamatory Bowel Disease', "Crohn's disease, unspecified, without complications");
     my @diseases = ('Inflammatory Bowel Disease');    # Note the 2 mm
     for my $field (@diseases) {
         my $disease;
@@ -110,7 +110,7 @@ sub do_redcap2bff {
                 query  => $field,
                 column => 'label',
 
-                #ontology       => 'icd10',                        # ICD10 Inflammatory Bowel Disease does not exist
+#ontology       => 'icd10',                        # ICD10 Inflammatory Bowel Disease does not exist
                 ontology => 'ncit',
                 self     => $self
             }
@@ -178,7 +178,7 @@ sub do_redcap2bff {
             }
         );
 
-        # We first extract 'unit' that supposedly will be used in <measurementValue> and <referenceRange>??
+# We first extract 'unit' that supposedly will be used in <measurementValue> and <referenceRange>??
         my $unit = map_ontology(
             {
                 query => ( $field eq 'alcohol' || $field eq 'smoking' )
@@ -400,9 +400,9 @@ sub do_redcap2bff {
             && $participant->{$field} == 1 )
         {
 
-            #$phenotypicFeature->{evidence} = undef;    # P32Y6M1D
-            #$phenotypicFeature->{excluded} =
-            #  { quantity => { unit => { id => '', label => '' }, value => undef } };
+       #$phenotypicFeature->{evidence} = undef;    # P32Y6M1D
+       #$phenotypicFeature->{excluded} =
+       #  { quantity => { unit => { id => '', label => '' }, value => undef } };
             $phenotypicFeature->{featureType} = map_ontology(
                 {
                     query    => $field =~ m/comorb/ ? 'Comorbidity' : $field,
@@ -462,11 +462,11 @@ sub do_redcap2bff {
     my @drugs  = qw (budesonide prednisolone asa aza mtx mp);
     my @routes = qw (oral rectal);
 
-    #        '_labels' => {
-    #                                                       '1' => 'never treated',
-    #                                                       '2' => 'former treatment',
-    #                                                       '3' => 'current treatment'
-    #                                                     }
+#        '_labels' => {
+#                                                       '1' => 'never treated',
+#                                                       '2' => 'former treatment',
+#                                                       '3' => 'current treatment'
+#                                                     }
 
     # FOR DRUGS
     for my $drug (@drugs) {
@@ -519,7 +519,9 @@ sub do_redcap2bff {
             $treatment->{doseIntervals}         = [];
             $treatment->{routeOfAdministration} = map_ontology(
                 {
-                    query    => ucfirst($route) . ' Route of Administration',  # Oral Route of Administration
+                    query => ucfirst($route)
+                      . ' Route of Administration'
+                    ,    # Oral Route of Administration
                     column   => 'label',
                     ontology => 'ncit',
                     self     => $self

@@ -7,7 +7,7 @@ use feature qw(say);
 use Path::Tiny;
 use File::Basename;
 use List::Util qw(any);
-use YAML::XS        qw(LoadFile DumpFile);
+use YAML::XS   qw(LoadFile DumpFile);
 use JSON::XS;
 use Sort::Naturally qw(nsort);
 use Exporter 'import';
@@ -52,7 +52,9 @@ sub io_yaml_or_json {
     };
 
     # We return according to the mode (read or write) and format
-    return $mode eq 'read' ? $return->{$mode}{$ext}->($file) : $return->{$mode}{$ext}->({filename => $file, data => $data});
+    return $mode eq 'read'
+      ? $return->{$mode}{$ext}->($file)
+      : $return->{$mode}{$ext}->( { filename => $file, data => $data } );
 }
 
 sub write_json {

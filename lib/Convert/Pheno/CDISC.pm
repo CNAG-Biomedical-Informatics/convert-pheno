@@ -33,8 +33,8 @@ sub cdisc2redcap {
     my $individuals = [];
     for my $subject ( @{$subjects} ) {
 
-        # The data in CDISC-ODM  has the following hierarchy
-        # StudyEventData->'-redcap:UniqueEventName'->FormData->ItemGroupData->ItemData
+  # The data in CDISC-ODM  has the following hierarchy
+  # StudyEventData->'-redcap:UniqueEventName'->FormData->ItemGroupData->ItemData
 
         # StudyEventData
         for my $StudyEventData ( @{ $subject->{'StudyEventData'} } ) {
@@ -79,8 +79,8 @@ sub _cdisc2redcap_longitudinal {
     # Deprecated #
     ##############
 
-    # This sobroutine was built to store longitudinal data as an array
-    # Unfortunately, there is no way to add longitudinal info (redcap_event) on Beacon v2
+# This sobroutine was built to store longitudinal data as an array
+# Unfortunately, there is no way to add longitudinal info (redcap_event) on Beacon v2
 
     my $data = shift;
 
@@ -91,15 +91,15 @@ sub _cdisc2redcap_longitudinal {
     my $individuals = [];
     for my $subject ( @{$subjects} ) {
 
-        # We'll use $subject->{'-SubjectKey'} = study_id to form the 1D of the hash
+     # We'll use $subject->{'-SubjectKey'} = study_id to form the 1D of the hash
         my $study_id = $subject->{'-SubjectKey'};
         my $key      = 'study_id' . ':' . $study_id;
 
         # We'll store the new data on $individual
         my $individual = {};
 
-        # The data in CDISC-ODM  has the following hierarchy
-        # StudyEventData->'-redcap:UniqueEventName'->FormData->ItemGroupData->ItemData
+  # The data in CDISC-ODM  has the following hierarchy
+  # StudyEventData->'-redcap:UniqueEventName'->FormData->ItemGroupData->ItemData
 
         # StudyEventData
         for my $StudyEventData ( @{ $subject->{'StudyEventData'} } ) {

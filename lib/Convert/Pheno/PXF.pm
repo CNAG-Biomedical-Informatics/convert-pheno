@@ -21,12 +21,14 @@ sub do_pxf2bff {
     my ( $self, $data ) = @_;
     my $sth = $self->{sth};
 
-    # We encountered that some PXF files have 
-    # /phenopacket 
+    # We encountered that some PXF files have
+    # /phenopacket
     # /interpretation
     # Get cursors for them if they exist
-    my $interpretation = exists $data->{interpretation} ? $data->{interpretation} : undef;
-    my $phenopacket    = exists $data->{phenopacket} ? $data->{phenopacket} : $data;
+    my $interpretation =
+      exists $data->{interpretation} ? $data->{interpretation} : undef;
+    my $phenopacket =
+      exists $data->{phenopacket} ? $data->{phenopacket} : $data;
 
     ####################################
     # START MAPPING TO BEACON V2 TERMS #
@@ -59,8 +61,8 @@ sub do_pxf2bff {
     $individual->{info}{phenopacket}{dateOfBirth} =
       $phenopacket->{subject}{dateOfBirth};
 
-    # CNAG files have 'meta_data' nomenclature, but PHX documentation uses 'metaData'
-    # We search for both 'meta_data' and 'metaData' and leave them untouched
+# CNAG files have 'meta_data' nomenclature, but PHX documentation uses 'metaData'
+# We search for both 'meta_data' and 'metaData' and leave them untouched
     for my $term (qw (dateOfBirth genes meta_data metaData variants)) {
         $individual->{info}{phenopacket}{$term} = $phenopacket->{$term}
           if exists $phenopacket->{$term};
@@ -73,7 +75,7 @@ sub do_pxf2bff {
           if $interpretation->{phenopacket}{$term};
     }
 
-    # <diseases> and <phenotypicFeatures> are identical to those of $data->{phenopacket}{diseases,phenotypicFeatures}
+# <diseases> and <phenotypicFeatures> are identical to those of $data->{phenopacket}{diseases,phenotypicFeatures}
     for my $term (
         qw (diagnosis diseases resolutionStatus phenotypicFeatures genes variants)
       )
@@ -124,11 +126,13 @@ sub do_pxf2bff {
 sub get_metaData {
 
     my $self = shift;
+
     # NB: Q: Why inside PXF.pm and not inside BFF.pm?
     #   : A: Because it's easier to remember
 
     # Setting a few variables
-    my $user = $self->{username} // ( $ENV{LOGNAME} || $ENV{USER} || getpwuid($<));
+    my $user = $self->{username}
+      // ( $ENV{LOGNAME} || $ENV{USER} || getpwuid($<) );
     chomp( my $ncpuhost = qx{/usr/bin/nproc} ) // 1;
     $ncpuhost = 0 + $ncpuhost;    # coercing it to be a number
     my $info = {

@@ -10,6 +10,7 @@ use Sort::Naturally qw(nsort);
 use List::Util      qw(any);
 use Convert::Pheno::OMOP;
 use Convert::Pheno::IO;
+use Convert::Pheno::Schema;
 use Exporter 'import';
 our @EXPORT =
   qw(read_csv_export read_redcap_dic_and_mapping_file remap_ohdsi_dictionary read_sqldump sqldump2csv transpose_omop_data_structure);
@@ -131,8 +132,8 @@ sub read_redcap_dictionary {
             # We keep key>/value as they are
             $tmp_hash->{ $header->[$i] } = $row->[$i];
 
-            # For the key having labels, we create a new ad hoc key '_labels'
-            # 'Choices, Calculations, OR Slider Labels' => '1, Female|2, Male|3, Other|4, not available',
+# For the key having labels, we create a new ad hoc key '_labels'
+# 'Choices, Calculations, OR Slider Labels' => '1, Female|2, Male|3, Other|4, not available',
             if ( $header->[$i] eq 'Choices, Calculations, OR Slider Labels' ) {
                 my @tmp =
                   map { s/^\s//; s/\s+$//; $_; } ( split /\||,/, $row->[$i] );
@@ -164,8 +165,15 @@ sub read_redcap_dic_and_mapping_file {
     my $data_redcap_dic = read_redcap_dictionary( $arg->{redcap_dictionary} );
 
     # Read and load mapping file
-    my $data_mapping_file = io_yaml_or_json( {filename =>$arg->{mapping_file}, mode => 'read'} );
+    my $data_mapping_file =
+      io_yaml_or_json( { filename => $arg->{mapping_file}, mode => 'read' } );
 
+    # Validate mapping file against JSON schema
+    my $jv = Convert::Pheno::Schema->new(
+        { data => $data_mapping_file, debug => $arg->{self_validate_schema} } );
+    $jv->json_validate;
+
+    # Return if succesful
     return ( $data_redcap_dic, $data_mapping_file );
 }
 
@@ -214,18 +222,19 @@ sub read_sqldump {
 
     my ( $file, $self ) = @_;
 
-    # Before resorting to writting this subroutine I performed an exhaustive search on CPAN
-    # I tested MySQL::Dump::Parser::XS  but I could not make it work and other modules did not seem to do what I wanted...
-    # .. so I ended up writting the parser myself...
-    # The parser is based in reading COPY paragraphs from PostgreSQL dump by using Perl's paragraph mode  $/ = "";
-    # The sub can be seen as "ugly" but it does the job :-)
+# Before resorting to writting this subroutine I performed an exhaustive search on CPAN
+# I tested MySQL::Dump::Parser::XS  but I could not make it work and other modules did not seem to do what I wanted...
+# .. so I ended up writting the parser myself...
+# The parser is based in reading COPY paragraphs from PostgreSQL dump by using Perl's paragraph mode  $/ = "";
+# The sub can be seen as "ugly" but it does the job :-)
 
-    my $max_lines_sql = $self->{max_lines_sql} // 500;    # Limit to speed up runtime
-    local $/ = "";                                        # set record separator to paragraph
+    my $max_lines_sql = $self->{max_lines_sql}
+      // 500;    # Limit to speed up runtime
+    local $/ = "";    # set record separator to paragraph
 
-    #COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, attribute_description, attribute_type_concept_id, attribute_syntax) FROM stdin;
-    # ......
-    # \.
+#COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, attribute_description, attribute_type_concept_id, attribute_syntax) FROM stdin;
+# ......
+# \.
 
     # Start reading the SQL dump
     open my $fh, '<:encoding(utf-8)', $file;
@@ -247,8 +256,8 @@ sub read_sqldump {
         # Ad hoc for testing
         my $count = 0;
 
-        # First line contain the headers
-        #COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, ..., attribute_syntax) FROM stdin;
+# First line contain the headers
+#COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, ..., attribute_syntax) FROM stdin;
         $lines[0] =~ s/[\(\),]//g;    # getting rid of (),
         my @headers = split /\s+/, $lines[0];
         my $table_name =
@@ -355,35 +364,35 @@ sub transpose_omop_data_structure {
     #                      ]
     #        };
 
-    # where all 'perosn_id' are together inside the TABLE_NAME.
-    # But, BFF works at the individual level so we are going to
-    # transpose the data structure to end up into something like this
-    # NB: MEASUREMENT and OBSERVATION (among others, i.e., CONDITION_OCCURRENCE, PROCEDURE_OCCURRENCE)
-    #     can have multiple values for one 'person_id' so they will be loaded as arrays
-    #
-    #
-    #$VAR1 = {
-    #          '001' => {
-    #                     'PERSON' => {
-    #                                   'person_id' => '001'
-    #                                 }
-    #                   },
-    #          '666' => {
-    #                     'MEASUREMENT' => [
-    #                                        {
-    #                                          'measurement_concept_id' => '001',
-    #                                          'person_id' => '666'
-    #                                        },
-    #                                        {
-    #                                          'measurement_concept_id' => '002',
-    #                                          'person_id' => '666'
-    #                                        }
-    #                                      ],
-    #                     'PERSON' => {
-    #                                   'person_id' => '666'
-    #                                 }
-    #                   }
-    #        };
+# where all 'perosn_id' are together inside the TABLE_NAME.
+# But, BFF works at the individual level so we are going to
+# transpose the data structure to end up into something like this
+# NB: MEASUREMENT and OBSERVATION (among others, i.e., CONDITION_OCCURRENCE, PROCEDURE_OCCURRENCE)
+#     can have multiple values for one 'person_id' so they will be loaded as arrays
+#
+#
+#$VAR1 = {
+#          '001' => {
+#                     'PERSON' => {
+#                                   'person_id' => '001'
+#                                 }
+#                   },
+#          '666' => {
+#                     'MEASUREMENT' => [
+#                                        {
+#                                          'measurement_concept_id' => '001',
+#                                          'person_id' => '666'
+#                                        },
+#                                        {
+#                                          'measurement_concept_id' => '002',
+#                                          'person_id' => '666'
+#                                        }
+#                                      ],
+#                     'PERSON' => {
+#                                   'person_id' => '666'
+#                                 }
+#                   }
+#        };
 
     my $omop_person_id = {};
 
@@ -402,12 +411,13 @@ sub transpose_omop_data_structure {
                     )
                   )
                 {
-                    push @{ $omop_person_id->{$person_id}{$table} }, $item;    # array
+                    push @{ $omop_person_id->{$person_id}{$table} },
+                      $item;    # array
                 }
 
                 # {person_id} only has one value in a given TABLE
                 else {
-                    $omop_person_id->{$person_id}{$table} = $item;             # scalar
+                    $omop_person_id->{$person_id}{$table} = $item;    # scalar
                 }
             }
         }

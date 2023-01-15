@@ -28,8 +28,8 @@ sub do_bff2pxf {
     # START MAPPING TO PHENOPACKET V2 TERMS #
     #########################################
 
-    # We need to shuffle a bit some Beacon v2 properties to be Phenopacket compliant
-    # https://phenopacket-schema.readthedocs.io/en/latest/phenopacket.html
+# We need to shuffle a bit some Beacon v2 properties to be Phenopacket compliant
+# https://phenopacket-schema.readthedocs.io/en/latest/phenopacket.html
     my $pxf;
 
     # ==
@@ -48,8 +48,9 @@ sub do_bff2pxf {
         #alternateIds => [],
         #_age => $data->{info}{age}
         #timeAtLastEncounter => {},
-        vitalStatus => { status => 'ALIVE' },       #["UNKNOWN_STATUS", "ALIVE", "DECEASED"]
-        sex         => uc( $data->{sex}{label} ),
+        vitalStatus => { status => 'ALIVE' }
+        ,    #["UNKNOWN_STATUS", "ALIVE", "DECEASED"]
+        sex => uc( $data->{sex}{label} ),
 
         #taxonomy => {}
         #_age => $data->{info}{age}
@@ -83,12 +84,12 @@ sub do_bff2pxf {
             {
                 assay => $_->{assayCode},
 
-                #timeObserved => exists $_->{date} ? $_->{date} : undef, # Not valid in v2
+      #timeObserved => exists $_->{date} ? $_->{date} : undef, # Not valid in v2
                 value => $_->{measurementValue}
             }
         } @{ $data->{measures} }
       ]
-      if defined $data->{measures};    # Only 1 element at $_->{measurementValue}
+      if defined $data->{measures};   # Only 1 element at $_->{measurementValue}
 
     # ==========
     # biosamples
@@ -134,7 +135,7 @@ sub do_bff2pxf {
                 routeOfAdministration => $_->{routeOfAdministration},
                 doseIntervals         => $_->{doseIntervals}
 
-                  #performed => { timestamp => exists $_->{dateOfProcedure} ? $_->{dateOfProcedure} : undef}
+#performed => { timestamp => exists $_->{dateOfProcedure} ? $_->{dateOfProcedure} : undef}
             }
         }
     } @{ $data->{treatments} };

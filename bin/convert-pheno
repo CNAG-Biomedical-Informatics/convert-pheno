@@ -10,7 +10,7 @@
 #
 #   Copyright (C) 2022-2023 Manuel Rueda - CNAG (manuel.rueda@cnag.crg.eu)
 #
-#   License: Artistic License 2.0 
+#   License: Artistic License 2.0
 
 package main;
 
@@ -25,7 +25,7 @@ use Sys::Hostname;
 use POSIX                 qw(strftime);
 use File::Spec::Functions qw(catdir catfile);
 use File::Basename;
-use FindBin               qw($Bin);
+use FindBin qw($Bin);
 use lib "$Bin/../lib";
 use Term::ANSIColor qw(:constants);
 use Convert::Pheno;
@@ -36,30 +36,31 @@ my $out_dir = '.';
 
 # Reading arguments
 GetOptions(
-    'ipxf=s'                  => \my $in_pxf,                               # string
-    'ibff=s'                  => \my $in_bff,                               # string
-    'iredcap=s'               => \my $in_redcap,                            # string
-    'icdisc=s'                => \my $in_cdisc,                             # string
-    'iomop=s{1,}'             => \my @omop_files,                           # array
-    'obff=s'                  => \my $out_bff,                              # string
-    'opxf=s'                  => \my $out_pxf,                              # string
-    'out-dir=s'               => \$out_dir,                                 # string
-    'help|?'                  => \my $help,                                 # flag
-    'man'                     => \my $man,                                  # flag
-    'mapping-file=s'          => \my $mapping_file,                         # string
-    'max-lines-sql=i'         => \my $max_lines_sql,                        # integer
-    'debug=i'                 => \my $debug,                                # integer
-    'verbose'                 => \my $verbose,                              # flag
-    'no-color|nc'             => \my $no_color,                             # flag
-    'separator|sep=s'         => \my $sep,                                  # str
-    'sql2csv'                 => \my $sql2csv,                              # flag
-    'test'                    => \my $test,                                 # flag
-    'ohdsi-db'                => \my $ohdsi_db,                             # flag
-    'redcap-dictionary|rcd=s' => \my $redcap_dictionary,                    # string
-    'print-hidden-labels|phl' => \my $print_hidden_labels,                  # flag
-    'username=s'              => \my $username,                             # string
-    'log'                     => \my $log,                                  # flag
-    'version|v'               => sub { say "$0 Version $VERSION"; exit; }
+    'ipxf=s'                   => \my $in_pxf,                               # string
+    'ibff=s'                   => \my $in_bff,                               # string
+    'iredcap=s'                => \my $in_redcap,                            # string
+    'icdisc=s'                 => \my $in_cdisc,                             # string
+    'iomop=s{1,}'              => \my @omop_files,                           # array
+    'obff=s'                   => \my $out_bff,                              # string
+    'opxf=s'                   => \my $out_pxf,                              # string
+    'out-dir=s'                => \$out_dir,                                 # string
+    'help|?'                   => \my $help,                                 # flag
+    'man'                      => \my $man,                                  # flag
+    'mapping-file=s'           => \my $mapping_file,                         # string
+    'max-lines-sql=i'          => \my $max_lines_sql,                        # integer
+    'debug=i'                  => \my $debug,                                # integer
+    'verbose'                  => \my $verbose,                              # flag
+    'no-color|nc'              => \my $no_color,                             # flag
+    'separator|sep=s'          => \my $sep,                                  # str
+    'sql2csv'                  => \my $sql2csv,                              # flag
+    'test'                     => \my $test,                                 # flag
+    'ohdsi-db'                 => \my $ohdsi_db,                             # flag
+    'redcap-dictionary|rcd=s'  => \my $redcap_dictionary,                    # string
+    'print-hidden-labels|phl'  => \my $print_hidden_labels,                  # flag
+    'self-validate-schema|svs' => \my $self_validate_schema,                 # flag
+    'username=s'               => \my $username,                             # string
+    'log'                      => \my $log,                                  # flag
+    'version|v'                => sub { say "$0 Version $VERSION"; exit; }
 ) or pod2usage(2);
 pod2usage(1)                              if $help;
 pod2usage( -verbose => 2, -exitval => 0 ) if $man;
@@ -74,11 +75,11 @@ pod2usage(
 pod2usage(
     -message => "Please specify a valid REDCap data dictionary --rcd\n",
     -exitval => 1
-) if ( ($in_redcap || $in_cdisc)  && !$redcap_dictionary );
+) if ( ( $in_redcap || $in_cdisc ) && !$redcap_dictionary );
 pod2usage(
     -message => "Please specify a valid field-mapping file --mapping-file\n",
     -exitval => 1
-) if ( ($in_redcap || $in_cdisc)  && !$mapping_file );
+) if ( ( $in_redcap || $in_cdisc ) && !$mapping_file );
 pod2usage(
     -message => "Please specify a valid OMOP-CDM file(s) (e.g, *csv or .sql)\n",
     -exitval => 1
@@ -121,20 +122,21 @@ my $data = {
     : $in_redcap ? $in_redcap
     : $in_cdisc  ? $in_cdisc
     : undef,
-    in_files            => \@omop_files // undef,    # only for Omop
-    method              => $method,
-    sep                 => $sep,
-    sql2csv             => $sql2csv,
-    redcap_dictionary   => $redcap_dictionary,
-    mapping_file        => $mapping_file,
-    ohdsi_db            => $ohdsi_db,
-    username            => $username,
-    max_lines_sql       => $max_lines_sql,
-    print_hidden_labels => $print_hidden_labels,
-    test                => $test,
-    debug               => $debug,
-    log                 => $log,
-    verbose             => $verbose
+    in_files             => \@omop_files // undef,    # only for Omop
+    method               => $method,
+    sep                  => $sep,
+    sql2csv              => $sql2csv,
+    redcap_dictionary    => $redcap_dictionary,
+    mapping_file         => $mapping_file,
+    ohdsi_db             => $ohdsi_db,
+    username             => $username,
+    max_lines_sql        => $max_lines_sql,
+    self_validate_schema => $self_validate_schema,
+    print_hidden_labels  => $print_hidden_labels,
+    test                 => $test,
+    debug                => $debug,
+    log                  => $log,
+    verbose              => $verbose
 };
 print Dumper $data if $debug;
 
@@ -194,8 +196,10 @@ EOF
 sub program_body {
 
     my $l_data = shift;
-    my $file = $l_data->{method} =~ m/^omop/ ? join ',', @{$l_data->{in_files}} : $l_data->{in_file};
-    my $msg    = <<EOF;
+    my $file   = $l_data->{method} =~ m/^omop/
+      ? join ',', @{ $l_data->{in_files} }
+      : $l_data->{in_file};
+    my $msg = <<EOF;
 ==== METHOD: <$l_data->{method}> ====
 Processing: <$file>
 EOF
@@ -210,8 +214,8 @@ sub write_log {
     chomp( my $ncpuhost = qx{/usr/bin/nproc} ) // 1;
 
     my $info = {
-        date     => (strftime "%a %b %e %H:%M:%S %Y", localtime),
-        ncpuhost => ( 0 + $ncpuhost ),    # coercing it to be a number
+        date     => ( strftime "%a %b %e %H:%M:%S %Y", localtime ),
+        ncpuhost => ( 0 + $ncpuhost ),                                # coercing it to be a number
         hostname => hostname,
         user     => $ENV{LOGNAME} || $ENV{USER} || getpwuid($<)
     };
@@ -263,6 +267,7 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
        -out-dir                       Output (existing) directory
        -phl|print-hidden-labels       Print original values (before DB mapping) of text fields <_labels>
        -rcd|redcap-dictionary         REDCap data dictionary CSV file
+       -svs|self-validate-schema      Perform a self-validation of the JSON schema that defines mapping
        -sep|separator                 Delimiter character for CSV files
        -sql2csv                       Print SQL TABLES (with -iomop)
        -max-lines-sql                 Maxium number of lines read from SQL dump [500]

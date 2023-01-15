@@ -1,0 +1,111 @@
+{
+  "$id": "Mapping example",
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Convert-Pheno mapping file schema",
+  "type": "object",
+  "required": [
+    "project",
+    "diseases",
+    "ethnicity",
+    "exposures",
+    "info",
+    "interventionsOrProcedures",
+    "measures",
+    "phenotypicFeatures",
+    "sex",
+    "treatments"
+  ],
+  "properties": {
+    "project": {
+      "type": "object",
+      "required": [
+        "projectId",
+        "projectType"
+      ],
+      "properties": {
+        "projectId": {
+          "type": "string"
+        },
+        "projectType": {
+          "type": "string"
+        }
+      }
+    },
+    "diseases": {
+      "$ref": "#/$defs/objectField"
+    },
+    "ethnicity": {
+      "$ref": "#/$defs/stringField"
+    },
+    "exposures": {
+      "$ref": "#/$defs/objectField"
+    },
+    "geographicOrigin": {
+      "$ref": "#/$defs/stringField"
+    },
+    "id": {
+      "$ref": "#/$defs/stringField"
+    },
+    "info": {
+      "$ref": "#/$defs/objectField"
+    },
+    "interventionsOrProcedures": {
+      "$ref": "#/$defs/objectField"
+    },
+    "karyotypicSex": {
+      "$ref": "#/$defs/stringField"
+    },
+    "measures": {
+      "$ref": "#/$defs/objectField"
+    },
+    "pedigrees": {
+      "$ref": "#/$defs/objectField"
+    },
+    "phenotypicFeatures": {
+      "$ref": "#/$defs/objectField"
+    },
+    "sex": {
+      "$ref": "#/$defs/stringField"
+    },
+    "treatments": {
+      "$ref": "#/$defs/objectField"
+    }
+  },
+  "$defs": {
+    "objectField": {
+      "type": "object",
+      "properties": {
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "dict": {
+          "type": "object",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object"
+            }
+          ]
+        },
+        "routes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "fields"
+      ]
+    },
+    "stringField": {
+      "type": "string"
+    }
+  }
+}
