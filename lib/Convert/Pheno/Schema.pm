@@ -3,30 +3,35 @@ package Convert::Pheno::Schema;
 use strict;
 use warnings;
 use autodie;
-use feature               qw(say);
-use File::Spec::Functions qw(catdir catfile);
+use feature qw(say);
+use Moo;
+use File::Spec::Functions qw(catfile);
 use JSON::Validator;
 use Term::ANSIColor qw(:constants);
 use Convert::Pheno::IO;
-use Exporter 'import';
-our @EXPORT = qw();
+
+has data => (
+    is       => 'ro',
+    required => 1
+);
+has debug => (
+    is       => 'ro',
+    required => 1
+);
+
+# The BUILD method is called after an object is created
+sub BUILD {
+
+    my $self = shift;
+    my $file = catfile( $Convert::Pheno::Bin, '../schema/mapping.json' );
+    $self->{schema} = io_yaml_or_json( { filename => $file, mode => 'read' } );
+}
 
 #########################
 #########################
 #  SCHEMA VALIDATION    #
 #########################
 #########################
-
-# Constructor method
-sub new {
-
-    my ( $class, $self ) = @_;
-    my $file = catfile( $Convert::Pheno::Bin, '../schema/mapping.json' );
-    $self->{schema_filename} = $file;    # Not used
-    $self->{schema} = io_yaml_or_json( { filename => $file, mode => 'read' } );
-    bless $self, $class;
-    return $self;
-}
 
 sub json_validate {
 

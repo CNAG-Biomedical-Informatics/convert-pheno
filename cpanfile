@@ -8,6 +8,7 @@ requires 'Term::ANSIColor';
 requires 'Text::CSV_XS';
 requires 'Sort::Naturally';
 requires 'DBI';
+requires 'Moo';
 requires 'DBD::SQLite';
 requires 'Mojolicious::Lite';
 requires 'XML::Fast';

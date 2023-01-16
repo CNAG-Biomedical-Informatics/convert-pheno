@@ -32,7 +32,7 @@ use constant DEVEL_MODE => 0;
 # Global variables:
 our $VERSION = '0.0.0_alpha';
 
-# Constructor method
+# PP-OO Constructor method
 sub new {
 
     my ( $class, $self ) = @_;
@@ -81,8 +81,8 @@ sub redcap2bff {
     my ( $data_redcap_dic, $data_mapping_file ) =
       read_redcap_dic_and_mapping_file(
         {
-            redcap_dictionary => $self->{redcap_dictionary},
-            mapping_file      => $self->{mapping_file},
+            redcap_dictionary    => $self->{redcap_dictionary},
+            mapping_file         => $self->{mapping_file},
             self_validate_schema => $self->{self_validate_schema}
         }
       );
@@ -226,8 +226,8 @@ sub cdisc2bff {
     my ( $data_redcap_dic, $data_mapping_file ) =
       read_redcap_dic_and_mapping_file(
         {
-            redcap_dictionary => $self->{redcap_dictionary},
- mapping_file      => $self->{mapping_file},
+            redcap_dictionary    => $self->{redcap_dictionary},
+            mapping_file         => $self->{mapping_file},
             self_validate_schema => $self->{self_validate_schema}
         }
       );
