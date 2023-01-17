@@ -13,11 +13,13 @@ use POSIX        qw(strftime);
 use Scalar::Util qw(looks_like_number);
 use Convert::Pheno::SQLite;
 binmode STDOUT, ':encoding(utf-8)';
-
 use Exporter 'import';
 our @EXPORT =
   qw( map_ethnicity map_ontology map_quantity dotify_and_coerce_number iso8601_time _map2iso8601 map_3tr map_unit_range map_age_range map2redcap_dic map2ohdsi_dic convert2boolean find_age randStr);
 
+use constant DEVEL_MODE => 0;
+
+# Global hasref
 my $seen = {};
 
 #############################
@@ -47,12 +49,15 @@ sub map_ontology {
     # Before checking existance we map to 3TR to -NCIT
     my $tmp_query = map_3tr( $_[0]->{query} );
 
+    say "Skipping searching for <$tmp_query> as it already exists" if DEVEL_MODE && exists $seen->{$tmp_query};
     # return if terms has already been searched and exists
     # Not a big fan of global stuff...
     #  ¯\_(ツ)_/¯
     # Premature return
     return $seen->{$tmp_query} if exists $seen->{$tmp_query};    # global
 
+    say "searching for <$tmp_query>" if DEVEL_MODE;
+ 
     # return something if we know 'a priori' that the query won't exist
     #return { id => 'NCIT:NA000', label => $tmp_query } if $tmp_query =~ m/xx/;
 
@@ -65,7 +70,7 @@ sub map_ontology {
       ? $arg->{match}
       : 'exact_match';    # Only option as of 090422
     my $self                = $arg->{self};
-    my $print_hidden_labels = $self->{display_labels};
+    my $print_hidden_labels = $self->{print_hidden_labels};
     my $sth = $self->{sth}{$ontology}{$column}{$match};    # IMPORTANT STEP
 
     # Die if user wants OHDSI w/o flag -ohdsi-db

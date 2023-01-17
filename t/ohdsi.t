@@ -4,6 +4,7 @@ use warnings;
 use lib ( './lib', '../lib' );
 use feature qw(say);
 use Data::Dumper;
+use File::Temp qw{ tempfile };    # core
 use Convert::Pheno;
 use Test::More tests => 2;
 use File::Compare;
@@ -23,6 +24,11 @@ my $input = {
 };
 
 for my $method ( sort keys %{$input} ) {
+
+    # Create Temporary file
+    my ( undef, $tmp_file ) =
+      tempfile( DIR => 't', SUFFIX => ".json", UNLINK => 1 );
+
     my $convert = Convert::Pheno->new(
         {
             in_files    => $input->{$method}{in_files},
@@ -38,12 +44,12 @@ for my $method ( sort keys %{$input} ) {
           unless -f 'db/ohdsi.db';
         io_yaml_or_json(
             {
-                filename => 't/test.json',
+                filename => $tmp_file,
                 data     => $convert->$method,
                 mode     => 'write'
             }
           )
           and
-          ok( compare( $input->{$method}{out}, 't/test.json' ) == 0, $method );
+          ok( compare( $input->{$method}{out}, $tmp_file ) == 0, $method );
     }
 }
