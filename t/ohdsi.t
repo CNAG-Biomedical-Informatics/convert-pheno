@@ -5,9 +5,9 @@ use lib ( './lib', '../lib' );
 use feature qw(say);
 use Data::Dumper;
 use File::Temp qw{ tempfile };    # core
-use Convert::Pheno;
 use Test::More tests => 2;
 use File::Compare;
+use Convert::Pheno;
 
 use_ok('Convert::Pheno') or exit;
 

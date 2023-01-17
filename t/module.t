@@ -4,10 +4,10 @@ use warnings;
 use lib ( './lib', '../lib' );
 use feature qw(say);
 use Data::Dumper;
-use Convert::Pheno;
 use JSON::XS;
 use Test::More tests => 2;
 use Test::Deep;
+use Convert::Pheno; 
 
 use_ok( 'Convert::Pheno' ) or exit;
 
