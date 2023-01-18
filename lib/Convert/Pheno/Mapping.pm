@@ -49,7 +49,9 @@ sub map_ontology {
     # Before checking existance we map to 3TR to -NCIT
     my $tmp_query = map_3tr( $_[0]->{query} );
 
-    say "Skipping searching for <$tmp_query> as it already exists" if DEVEL_MODE && exists $seen->{$tmp_query};
+    say "Skipping searching for <$tmp_query> as it already exists"
+      if DEVEL_MODE && exists $seen->{$tmp_query};
+
     # return if terms has already been searched and exists
     # Not a big fan of global stuff...
     #  ¯\_(ツ)_/¯
@@ -57,7 +59,7 @@ sub map_ontology {
     return $seen->{$tmp_query} if exists $seen->{$tmp_query};    # global
 
     say "searching for <$tmp_query>" if DEVEL_MODE;
- 
+
     # return something if we know 'a priori' that the query won't exist
     #return { id => 'NCIT:NA000', label => $tmp_query } if $tmp_query =~ m/xx/;
 

@@ -33,7 +33,7 @@ sub read_yaml {
 sub io_yaml_or_json {
 
     my $arg  = shift;
-    my $file = $arg->{filename};
+    my $file = $arg->{filepath};
     my $mode = $arg->{mode};
     my $data = $mode eq 'write' ? $arg->{data} : undef;
 
@@ -54,13 +54,13 @@ sub io_yaml_or_json {
     # We return according to the mode (read or write) and format
     return $mode eq 'read'
       ? $return->{$mode}{$ext}->($file)
-      : $return->{$mode}{$ext}->( { filename => $file, data => $data } );
+      : $return->{$mode}{$ext}->( { filepath => $file, data => $data } );
 }
 
 sub write_json {
 
     my $arg        = shift;
-    my $file       = $arg->{filename};
+    my $file       = $arg->{filepath};
     my $json_array = $arg->{data};
     my $json = JSON::XS->new->utf8->canonical->pretty->encode($json_array);
     path($file)->spew_utf8($json);
@@ -70,7 +70,7 @@ sub write_json {
 sub write_yaml {
 
     my $arg        = shift;
-    my $file       = $arg->{filename};
+    my $file       = $arg->{filepath};
     my $json_array = $arg->{data};
     local $YAML::XS::Boolean = 'JSON::PP';
     DumpFile( $file, $json_array );

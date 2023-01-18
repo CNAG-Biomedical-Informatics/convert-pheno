@@ -83,7 +83,8 @@ sub redcap2bff {
         {
             redcap_dictionary    => $self->{redcap_dictionary},
             mapping_file         => $self->{mapping_file},
-            self_validate_schema => $self->{self_validate_schema}
+            self_validate_schema => $self->{self_validate_schema},
+            schema_file          => $self->{schema_file}
         }
       );
 
@@ -228,7 +229,8 @@ sub cdisc2bff {
         {
             redcap_dictionary    => $self->{redcap_dictionary},
             mapping_file         => $self->{mapping_file},
-            self_validate_schema => $self->{self_validate_schema}
+            self_validate_schema => $self->{self_validate_schema},
+            schema_file          => $self->{schema_file}
         }
       );
 
@@ -277,7 +279,7 @@ sub array_dispatcher {
     # Load the input data as Perl data structure
     my $in_data =
       ( $self->{in_textfile} && $self->{method} !~ m/^redcap2|^omop2|^cdisc2/ )
-      ? io_yaml_or_json( { filename => $self->{in_file}, mode => 'read' } )
+      ? io_yaml_or_json( { filepath => $self->{in_file}, mode => 'read' } )
       : $self->{data};
 
     # Define the methods to call (naming 'func' to avoid confussion with $self->{method})

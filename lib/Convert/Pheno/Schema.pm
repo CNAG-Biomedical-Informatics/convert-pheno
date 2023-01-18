@@ -18,13 +18,18 @@ has debug => (
     is       => 'ro',
     required => 1
 );
+has schema_file => (
+    is       => 'ro',
+    required => 1
+);
 
 # The BUILD method is called after an object is created
 sub BUILD {
 
     my $self = shift;
-    my $file = catfile( $Convert::Pheno::Bin, '../schema/mapping.json' );
-    $self->{schema} = io_yaml_or_json( { filename => $file, mode => 'read' } );
+    $self->{schema} =
+      io_yaml_or_json( { filepath => $self->{schema_file}, mode => 'read' } )
+      ;    # setter
 }
 
 #########################

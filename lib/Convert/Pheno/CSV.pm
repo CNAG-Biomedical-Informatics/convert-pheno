@@ -166,11 +166,16 @@ sub read_redcap_dic_and_mapping_file {
 
     # Read and load mapping file
     my $data_mapping_file =
-      io_yaml_or_json( { filename => $arg->{mapping_file}, mode => 'read' } );
+      io_yaml_or_json( { filepath => $arg->{mapping_file}, mode => 'read' } );
 
     # Validate mapping file against JSON schema
     my $jv = Convert::Pheno::Schema->new(
-        { data => $data_mapping_file, debug => $arg->{self_validate_schema} } );
+        {
+            data        => $data_mapping_file,
+            debug       => $arg->{self_validate_schema},
+            schema_file => $arg->{schema_file}
+        }
+    );
     $jv->json_validate;
 
     # Return if succesful
@@ -310,11 +315,11 @@ sub sqldump2csv {
     # The idea is to save a CSV table for each $data->key
     for my $table ( keys %{$data} ) {
 
-        # Name for CSV file
-        my $filename = catdir( $dir, "$table.csv" );
+        # File path for CSV file
+        my $filepath = catdir( $dir, "$table.csv" );
 
         # Start printing
-        open my $fh, ">:encoding(utf8)", $filename;
+        open my $fh, ">:encoding(utf8)", $filepath;
         my $csv =
           Text::CSV_XS->new( { sep_char => $sep, eol => "\n", binary => 1 } );
 

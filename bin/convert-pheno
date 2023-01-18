@@ -4,7 +4,7 @@
 #
 #   This file is part of Convert::Pheno
 #
-#   Last Modified: Jan/11/2023
+#   Last Modified: Jan/17/2023
 #
 #   $VERSION taken from Convert::Pheno
 #
@@ -33,6 +33,7 @@ $Data::Dumper::Sortkeys = 1;
 
 # Defining a few variables
 my $out_dir = '.';
+my $schema_file = catfile( $Bin, '../schema/mapping.json' );
 
 # Reading arguments
 GetOptions(
@@ -52,6 +53,7 @@ GetOptions(
     'verbose'                  => \my $verbose,                              # flag
     'no-color|nc'              => \my $no_color,                             # flag
     'separator|sep=s'          => \my $sep,                                  # str
+    'schema-file=s'            => \$schema_file,                             # str
     'sql2csv'                  => \my $sql2csv,                              # flag
     'test'                     => \my $test,                                 # flag
     'ohdsi-db'                 => \my $ohdsi_db,                             # flag
@@ -133,6 +135,7 @@ my $data = {
     max_lines_sql        => $max_lines_sql,
     self_validate_schema => $self_validate_schema,
     print_hidden_labels  => $print_hidden_labels,
+    schema_file          => $schema_file,
     test                 => $test,
     debug                => $debug,
     log                  => $log,
@@ -140,11 +143,11 @@ my $data = {
 };
 print Dumper $data if $debug;
 
-# Save log file if $log
-write_log( $log_file, $data ) if $log;
-
 # Start printing to STDOUT
 say BOLD CYAN program_header($VERSION) if $verbose;
+
+# Save log file if $log (before $data gets blessed)
+write_log( $log_file, $data ) if $log;
 
 #############################
 # START DATA TRANSFORMATION #
@@ -155,8 +158,6 @@ convert( $out_file, $data );
 ###########################
 # END DATA TRANSFORMATION #
 ###########################
-
-print Dumper $data if $debug;
 
 sub convert {
 
@@ -170,12 +171,10 @@ sub convert {
     # Creating object
     my $convert = Convert::Pheno->new($l_data);
 
-    # Running $method
+    # Running $method and writing the results to $o_file
     my $method = $l_data->{method};
-
-    # Writing file
     io_yaml_or_json(
-        { filename => $o_file, mode => 'write', data => $convert->$method } );
+        { filepath => $o_file, mode => 'write', data => $convert->$method } );
 }
 
 sub program_header {
@@ -185,8 +184,8 @@ sub program_header {
 ****************************************
 *  Phenotypic Data Model Convert Tool  *
 *          - CONVERT-PHENO -           *
-*          Version: $version             *
-*   (C) 2022-2023 Manuel Rueda, PhD    *
+*          Version: $version        *
+*   (C) 2022-2023 Manuel Rueda, CNAG   *
 *       The Artistic License 2.0       *
 ****************************************
 EOF
@@ -196,7 +195,8 @@ EOF
 sub program_body {
 
     my $l_data = shift;
-    my $file   = $l_data->{method} =~ m/^omop/
+    my $file =
+      $l_data->{method} =~ m/^omop/
       ? join ',', @{ $l_data->{in_files} }
       : $l_data->{in_file};
     my $msg = <<EOF;
@@ -221,9 +221,10 @@ sub write_log {
     };
 
     # Saving file
+    say BOLD GREEN "Writing <$log> file\n" if $verbose;
     io_yaml_or_json(
         {
-            filename => $log,
+            filepath => $log,
             mode     => 'write',
             data     => { info => $info, data => $data }
         }
@@ -268,6 +269,7 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
        -out-dir                       Output (existing) directory
        -phl|print-hidden-labels       Print original values (before DB mapping) of text fields <_labels>
        -rcd|redcap-dictionary         REDCap data dictionary CSV file
+       -schema-file                   Alternative JSON Schema for mapping file
        -svs|self-validate-schema      Perform a self-validation of the JSON schema that defines mapping
        -sep|separator                 Delimiter character for CSV files
        -sql2csv                       Print SQL TABLES (with -iomop)

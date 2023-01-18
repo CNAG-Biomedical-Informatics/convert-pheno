@@ -54,8 +54,10 @@ sub do_redcap2bff {
     #         'age_first_diagnosis' => '0',
     #         'alcohol' => '4',
     #        }
-    print Dumper $redcap_dic  if (exists $self->{debug} && $self->{debug} > 4);
-    print Dumper $participant if (exists $self->{debug} && $self->{debug} > 4);
+    print Dumper $redcap_dic
+      if ( defined $self->{debug} && $self->{debug} > 4 );
+    print Dumper $participant
+      if ( defined $self->{debug} && $self->{debug} > 4 );
 
     # *** ABOUT REQUIRED PROPERTIES ***
     # 'id' and 'sex' are required properties in <individuals> entry type

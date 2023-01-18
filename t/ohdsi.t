@@ -44,7 +44,7 @@ for my $method ( sort keys %{$input} ) {
           unless -f 'db/ohdsi.db';
         io_yaml_or_json(
             {
-                filename => $tmp_file,
+                filepath => $tmp_file,
                 data     => $convert->$method,
                 mode     => 'write'
             }

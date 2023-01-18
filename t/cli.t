@@ -90,6 +90,7 @@ for my $method ( sort keys %{$input} ) {
             redcap_dictionary    => $input->{$method}{redcap_dictionary},
             mapping_file         => $input->{$method}{mapping_file},
             self_validate_schema => $input->{$method}{self_validate_schema},
+            schema_file          => 'schema/mapping.json',
             in_textfile          => 1,
             sep                  => $input->{$method}{sep},
             test                 => 1,
@@ -98,7 +99,7 @@ for my $method ( sort keys %{$input} ) {
     );
     io_yaml_or_json(
         {
-            filename => $tmp_file,
+            filepath => $tmp_file,
             data     => $convert->$method,
             mode     => 'write'
         }
