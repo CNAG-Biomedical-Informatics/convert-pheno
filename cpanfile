@@ -16,6 +16,7 @@ requires 'JSON::Validator';
 
 # t
 requires 'Test::Deep';
+requires 'Test::Exception';
 #requires 'Inline::Python';      # for t/protobuff.t (only local dev)
 
 # api
