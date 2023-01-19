@@ -13,7 +13,7 @@
 
   # diseases:
   diseases:
-    fields: foo
+    fields: [Inflammatory Bowel Disease]
     dict:
       ageOfOnset: age_first_diagnosis
       familyHistory: family_history
@@ -38,16 +38,14 @@
       #packyears;anamnesis;;text;"Pack Years";;;integer;0;300;;"[smoking] = '2' or [smoking] = '1'";;;;;;
       #smoking_quit;anamnesis;;text;"When did you quit smoking?";;year;integer;1980;2030;;"[smoking] = '2'";;;;;;
       # radio
-      smoking:
-        Never smoked: Never Smoker
-        Ex-smoker: Former Smoker
-        Current smoker: Current Smoker
-      alcohol:
-        Non-drinker: Non-Drinker
-        Ex-drinker: Current non-drinker with Past Alcohol Consumption
-        occasional drinking: Alcohol Consumption Equal to or Less than 2 Drinks per Day for Men and 1 Drink or Less per Day for Women
-        regular drinking: Alcohol Consumption More than 2 Drinks per Day for Men and More than 1 Drink per Day for Women
-        unknown: Unknown
+      Never smoked: Never Smoker
+      Ex-smoker: Former Smoker
+      Current smoker: Current Smoker
+      Non-drinker: Non-Drinker
+      Ex-drinker: Current non-drinker with Past Alcohol Consumption
+      occasional drinking: Alcohol Consumption Equal to or Less than 2 Drinks per Day for Men and 1 Drink or Less per Day for Women
+      regular drinking: Alcohol Consumption More than 2 Drinks per Day for Men and More than 1 Drink per Day for Women
+      unknown: Unknown
 
   # geographicOrigin: null
 

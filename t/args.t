@@ -123,7 +123,6 @@ for my $method ( sort keys %{$input} ) {
   SKIP: {
         skip qq{because 'db/ohdsi.db' is required with <ohdsi_db>}, 1
           unless -f 'db/ohdsi.db';
-
         warning_is { $convert->$method }
         qq(<DUMMY> is not a valid table in OMOP-CDM),
           'expecting warn: <DUMMY> is not a valid table in OMOP-CDM';

@@ -27,20 +27,20 @@ sub do_redcap2bff {
     ##############################
     # <Variable> names in REDCap #
     ##############################
-#
-# REDCap does not enforce any particular "Variable" name.
-# Extracted from https://www.ctsi.ufl.edu/wordpress/files/2019/02/Project-Creation-User-Guide.pdf
-# ---
-# "Variable Names: Variable names are critical in the data analysis process. If you export your data to a
-# statistical software program, the variable names are what you or your statistician will use to conduct
-# the analysis"
-#
-# "We always recommend reviewing your variable names with a statistician or whoever will be
-# analyzing your data. This is especially important if this is the first time you are building a
-# database"
-#---
-# If "Variable" names are not consensuated, then we need to do the mapping manually "a posteriori".
-# This is what we are attempting here:
+    #
+    # REDCap does not enforce any particular "Variable" name.
+    # Extracted from https://www.ctsi.ufl.edu/wordpress/files/2019/02/Project-Creation-User-Guide.pdf
+    # ---
+    # "Variable Names: Variable names are critical in the data analysis process. If you export your data to a
+    # statistical software program, the variable names are what you or your statistician will use to conduct
+    # the analysis"
+    #
+    # "We always recommend reviewing your variable names with a statistician or whoever will be
+    # analyzing your data. This is especially important if this is the first time you are building a
+    # database"
+    #---
+    # If "Variable" names are not consensuated, then we need to do the mapping manually "a posteriori".
+    # This is what we are attempting here:
 
     ####################################
     # START MAPPING TO BEACON V2 TERMS #
@@ -72,7 +72,7 @@ sub do_redcap2bff {
     if ( exists $participant->{$sex_field} && $participant->{$sex_field} ne '' )
     {
         $self->{_info}{ $participant->{study_id} }{$sex_field} =
-          $participant->{$sex_field};   # Dynamically adding attributes (setter)
+          $participant->{$sex_field};    # Dynamically adding attributes (setter)
     }
     $participant->{$sex_field} =
       $self->{_info}{ $participant->{$studyId_field} }{$sex_field};
@@ -106,9 +106,9 @@ sub do_redcap2bff {
 
     #$individual->{diseases} = [];
 
-# Inflamatory Bowel Disease --- Note the 2 mm in infla-mm-atory
-#my %disease = ( 'Inflammatory Bowel Disease' => 'ICD10:K51.90' ); # it does not exist as it is at ICD10
-#my @diseases = ('Unspecified asthma, uncomplicated', 'Inflamatory Bowel Disease', "Crohn's disease, unspecified, without complications");
+    # Inflamatory Bowel Disease --- Note the 2 mm in infla-mm-atory
+    #my %disease = ( 'Inflammatory Bowel Disease' => 'ICD10:K51.90' ); # it does not exist as it is at ICD10
+    #my @diseases = ('Unspecified asthma, uncomplicated', 'Inflamatory Bowel Disease', "Crohn's disease, unspecified, without complications");
 
     # Loading @diseases from mapping file
     my @diseases = @{ $mapping_file->{diseases}{fields} };
@@ -188,6 +188,7 @@ sub do_redcap2bff {
     #$individual->{exposures} = undef;
     my @exposures_fields = @{ $mapping_file->{exposures}{fields} };
     my %exposures_dict   = %{ $mapping_file->{exposures}{dict} };
+    my $exposures_radio  = $mapping_file->{exposures}{radio};         # DELIBERATE -- hashref instead of hash
     for my $field (@exposures_fields) {
         next
           unless ( exists $participant->{$field}
@@ -196,18 +197,20 @@ sub do_redcap2bff {
         $exposure->{ageAtExposure} = $default_ontology;
         $exposure->{date}          = '1900-01-01';
         $exposure->{duration}      = 'P999Y';
-        $exposure->{exposureCode}  = map_ontology(
+        my $exposure_query =
+          exists $exposures_dict{$field} ? $exposures_dict{$field} : $field;
+        $exposure->{exposureCode} = map_ontology(
             {
-                query    => $field,
+                query    => $exposure_query,
                 column   => 'label',
                 ontology => 'ncit',
                 self     => $self
             }
         );
 
-# We first extract 'unit' that supposedly will be used in <measurementValue> and <referenceRange>??
-        my $subfield =
-          exists $exposures_dict{$field}
+        # We first extract 'unit' that supposedly will be used in in
+        # <measurementValue> and <referenceRange>??
+        my $subkey = exists $exposures_radio->{$field}
           ? map2redcap_dic(
             {
                 redcap_dic  => $redcap_dic,
@@ -215,13 +218,15 @@ sub do_redcap2bff {
                 field       => $field
             }
           )
-          : ''
-          ; # '' instead of undef, otherwise we'll get complaints on (exists $exposures_dict{$field}{$subfield})
+          : 'dummy';
         my $unit = map_ontology(
             {
-                query => exists $exposures_dict{$field}{$subfield}
-                ? $exposures_dict{$field}{$subfield}
-                : $field,
+                # order on the ternary operator matters
+                # 1 - Check for subkey
+                # 2 - Check for field
+                query => exists $exposures_radio->{$field}
+                ? $exposures_radio->{$field}{$subkey}
+                : $exposure_query,
                 column   => 'label',
                 ontology => 'ncit',
                 self     => $self
@@ -326,13 +331,17 @@ sub do_redcap2bff {
 
     # lab_remarks was removed
     my @measures_fields = @{ $mapping_file->{measures}{fields} };
+    my %measures_dict   = %{ $mapping_file->{measures}{dict} };
+
     for my $field (@measures_fields) {
         next if $participant->{$field} eq '';
         my $measure;
 
         $measure->{assayCode} = map_ontology(
             {
-                query    => $field,
+                query => exists $measures_dict{$field}
+                ? $measures_dict{$field}
+                : $field,
                 column   => 'label',
                 ontology => 'ncit',
                 self     => $self,
@@ -341,9 +350,12 @@ sub do_redcap2bff {
         $measure->{date} = '1900-01-01';
 
         # We first extract 'unit' and %range' for <measurementValue>
-        my $unit = map_ontology(
+        my $tmp_str = $redcap_dic->{$field}{'Field Note'};
+        my $unit    = map_ontology(
             {
-                query    => map_quantity( $redcap_dic->{$field}{'Field Note'} ),
+                query => exists $measures_dict{$tmp_str}
+                ? $measures_dict{$tmp_str}
+                : $tmp_str,
                 column   => 'label',
                 ontology => 'ncit',
                 self     => $self
@@ -418,9 +430,9 @@ sub do_redcap2bff {
             && $participant->{$field} == 1 )
         {
 
-       #$phenotypicFeature->{evidence} = undef;    # P32Y6M1D
-       #$phenotypicFeature->{excluded} =
-       #  { quantity => { unit => { id => '', label => '' }, value => undef } };
+            #$phenotypicFeature->{evidence} = undef;    # P32Y6M1D
+            #$phenotypicFeature->{excluded} =
+            #  { quantity => { unit => { id => '', label => '' }, value => undef } };
             $phenotypicFeature->{featureType} = map_ontology(
                 {
                     query    => $field =~ m/comorb/ ? 'Comorbidity' : $field,
@@ -522,9 +534,7 @@ sub do_redcap2bff {
             $treatment->{doseIntervals}         = [];
             $treatment->{routeOfAdministration} = map_ontology(
                 {
-                    query => ucfirst($route)
-                      . ' Route of Administration'
-                    ,    # Oral Route of Administration
+                    query    => ucfirst($route) . ' Route of Administration',  # Oral Route of Administration
                     column   => 'label',
                     ontology => 'ncit',
                     self     => $self

@@ -15,7 +15,7 @@ use Convert::Pheno::SQLite;
 binmode STDOUT, ':encoding(utf-8)';
 use Exporter 'import';
 our @EXPORT =
-  qw( map_ethnicity map_ontology map_quantity dotify_and_coerce_number iso8601_time _map2iso8601 map_3tr map_unit_range map_age_range map2redcap_dic map2ohdsi_dic convert2boolean find_age randStr);
+  qw( map_ethnicity map_ontology dotify_and_coerce_number iso8601_time _map2iso8601 map_3tr map_unit_range map_age_range map2redcap_dic map2ohdsi_dic convert2boolean find_age randStr);
 
 use constant DEVEL_MODE => 0;
 
@@ -97,69 +97,6 @@ sub map_ontology {
     return $print_hidden_labels
       ? { id => $id, label => $label, _label => $tmp_query }
       : { id => $id, label => $label };
-}
-
-sub map_quantity {
-
-# https://phenopacket-schema.readthedocs.io/en/latest/quantity.html
-# https://www.ebi.ac.uk/ols/ontologies/ncit/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FNCIT_C25709
-# Some SI units are in ncit but others aren't.
-# what do we do?
-#  - Hard coded in Hash? ==> Fast
-#  - Search every time on DB? ==> Slow
-    my $str = shift;
-
-# SI UNITS (10^9/L)
-# hemoglobin;routine_lab_values;;text;Hemoglobin;;"xx.x g/dl";number;0;20;;;y;;;;;
-#leucocytes;routine_lab_values;;text;Leucocytes;;"xx.xx /10^-9 l";number;0;200;;;y;;;;;
-#hematokrit;routine_lab_values;;text;Hematokrit;;"xx.x %";number;0;100;;;y;;;;;
-#mcv;routine_lab_values;;text;"Mean red cell volume (MCV)";;"xx.x fl";number;0;200;;;y;;;;;
-#mhc;routine_lab_values;;text;"Mean red cell haemoglobin (MCH)";;"xx.x pg";number;0;100;;;y;;;;;
-#thrombocytes;routine_lab_values;;text;Thrombocytes;;"xxxx /10^-9 l";number;0;2000;;;y;;;;;
-#neutrophils;routine_lab_values;;text;Neutrophils;;"x.xx /10^-9 l";number;0;100;;;;;;;;
-#lymphocytes;routine_lab_values;;text;Lymphocytes;;"x.xx /10^-9 l";number;0;100;;;;;;;;
-#eosinophils;routine_lab_values;;text;Eosinophils;;"x.xx /10^-9 l";number;0;100;;;;;;;;
-#creatinine;routine_lab_values;;text;Creatinine;;"xxx µmol/l";number;0;10000;;;y;;;;;
-#gfr;routine_lab_values;;text;"GFR CKD-Epi";;"xxx ml/min/1.73";number;0;200;;;y;;;;;
-#bilirubin;routine_lab_values;;text;Bilirubin;;"xxx.x µmol/l";number;0;10000;;;y;;;;;
-#gpt;routine_lab_values;;text;GPT;;"xx.x U/l";number;0;10000;;;y;;;;;
-#ggt;routine_lab_values;;text;gammaGT;;"xx.x U/l";number;0;10000;;;y;;;;;
-#lipase;routine_lab_values;;text;Lipase;;"xx.x U/l";number;0;10000;;;;;;;;
-#crp;routine_lab_values;;text;CRP;;"xxx.x mg/l";number;0;1000;;;y;;;;;
-#iron;routine_lab_values;;text;Iron;;"xx.x µmol/l";number;0;1000;;;;;;;;
-#il6;routine_lab_values;;text;IL-6;;"xxxx.x ng/l";number;0;10000;;;;;;;;
-#calprotectin;routine_lab_values;;text;Calprotectin;;"mg/kg stool";integer;;;;;;;;;;
-
-    # http://purl.obolibrary.org/obo/NCIT_C64783          # SI units
-    # label => NCIT
-    my %unit = (
-        'xx.xx /10^-9 l' => 'Cells per Microliter',   # '10^9/L',
-        'x.xx /10^-9 l'  => 'Cells per Microliter',   #
-        'xxxx /10^-9 l'  => 'Cells per Microliter',
-        'xx.x g/dl'      => 'Gram per Deciliter',     # 'g/dL',
-        'xx.x fl'        => 'Femtoliter',             # 'fL'
-        'xx.x'           => 'Picogram',               # 'pg',         #picograms
-        'xx.x pg'        => 'Picogram',
-        'xx.x µmol/l'    => 'Micromole per Liter',
-        'xxx.x µmol/l'   => 'Micromole per Liter',
-        'xxx µmol/l'     => 'Micromole per Liter',    # 'µmol/l',
-
-        #        'ml/min/1.73'    => 'mL/min/1.73',
-        #        'xxx ml/min/1.73' => 'mL/min/1.73',
-        'xx.x U/l' => 'Units per Liter',
-        'pg/dl'    => 'Picogram per Deciliter',     #'pg/dL',
-        'mg/dl'    => 'Milligram per Deciliter',    #'mg/dL',
-
-        #       'xxx.x mg/l'     => 'Milligram per Liter',
-        'µg/dl'       => 'Microgram per Deciliter',    #'µg/dL',
-        'ng/dl'       => 'Nanogram per Deciliter',     #'ng/dL'
-        'xxxx.x ng/l' => 'Nanogram per Liter',
-        'mg/kg stool' => 'Miligram per Kilogram',
-        'xx.x %'      => 'Percentage'
-    );
-
-    #say "#{$str}# ====>  $unit{$str}" if  exists $unit{$str};
-    return exists $unit{$str} ? $unit{$str} : $str;
 }
 
 sub dotify_and_coerce_number {
