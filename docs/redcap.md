@@ -10,20 +10,20 @@ REDCap projects are by definition “**free format**”, that is, is up to the p
 !!! Quote "REDCap project creation user’s guide" 
     _“We always recommend reviewing your variable names with a statistician or whoever will be analyzing your data. This is especially important if this is the first time you are building a database.”_ 
 
-This freedom of choice makes very difficult (if not impossible) to come up with a solution that is able to handle the plethora of possibilities from REDCap projects. Still, we have been able to succesfully convert data from REDCap project exports to both Beacon v2 and Phenopackets v2. These projects were developed in the context of the [3TR Project](https://3tr-imi.eu).
+This freedom of choice makes very difficult (if not impossible) to come up with a solution that is able to handle the plethora of possibilities from REDCap projects. Still, we have been able to succesfully convert data from REDCap project exports to both Beacon v2 and Phenopackets v2 by using a **mapping file**. These projects were developed in the context of the [3TR Project](https://3tr-imi.eu).
 
 === "Command-line"
 
     !!! Important "About REDCap export formats"
         REDCap allows for exporting "All data (all records and fields)" in multiple ways. Here we are accepting the `CSV / Microsoft Excel` format, along with a data dictionary (also in CSV).
-        REDCap `CDISC ODM (XML)` export will be covered in the section about [CDISC-ODM](cdisc.md).
+        REDCap `CDISC ODM (XML)` export are covered in the section about [CDISC-ODM](cdisc.md).
 
 
     We'll need three files:
 
     1. REDCap export (CSV)
     2. REDCap data dictionary (CSV)
-    3. Configuration (mapping) file (YAML)
+    3. Mapping file (YAML or JSON)
 
     ```
     convert-pheno -iredcap redcap.csv --redcap-dictionary dictionary.csv --mapping-file mapping.yaml -obff individuals.json

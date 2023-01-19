@@ -67,6 +67,7 @@ nav:
       - OMOP-CDM: omop-cdm.md
       - CDISC (ODM): cdisc.md
   - Help:
+      - Tutorial: tutorial.md
       - FAQs: faq.md
       - Future plans: future-plans.md
   - About:
