@@ -4,8 +4,8 @@
   #######################
 
   project:
-    projectId: 3tr_ibd
-    projectType: redcap
+    id: 3tr_ibd
+    source: redcap
 
   #################################
   # Beacon v2 Models: individuals #

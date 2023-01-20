@@ -2,13 +2,14 @@
   "$id": "https://github.com/mrueda",
   "additionalProperties": false,
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "description": "Convert-Pheno mapping file schema",
+  "description": "JSON Schema for Convert-Pheno mapping file",
   "type": "object",
   "required": [
     "project",
     "diseases",
     "ethnicity",
     "exposures",
+    "id",
     "info",
     "interventionsOrProcedures",
     "measures",
@@ -20,14 +21,21 @@
     "project": {
       "type": "object",
       "required": [
-        "projectId",
-        "projectType"
+        "id",
+        "source"
       ],
       "properties": {
-        "projectId": {
+        "id": {
           "type": "string"
         },
-        "projectType": {
+        "source": {
+          "type": "string",
+          "enum": [
+            "redcap",
+            "cdisc-odm"
+          ]
+        },
+        "description": {
           "type": "string"
         }
       }
@@ -45,7 +53,7 @@
       "$ref": "#/$defs/stringField"
     },
     "id": {
-      "$ref": "#/$defs/stringField"
+      "$ref": "#/$defs/objectField"
     },
     "info": {
       "$ref": "#/$defs/objectField"
@@ -107,6 +115,9 @@
     },
     "stringField": {
       "type": "string"
+    },
+    "arrayField": {
+      "type": "array"
     }
   }
 }

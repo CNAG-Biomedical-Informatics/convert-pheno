@@ -5,7 +5,7 @@
 
   project:
     id: 3tr_ibd
-    source: redcap
+    source: foo
 
   #################################
   # Beacon v2 Models: individuals #
@@ -51,9 +51,7 @@
 
   # geographicOrigin: null
 
-  # id
-  id:
-    fields: [study_id,redcap_event_name]
+  # id: null
 
   # info
   info:

@@ -20,8 +20,9 @@ our @EXPORT = qw(do_redcap2bff);
 sub do_redcap2bff {
 
     my ( $self, $participant ) = @_;
-    my $redcap_dic = $self->{data_redcap_dic};
-    my $sth        = $self->{sth};
+    my $redcap_dic   = $self->{data_redcap_dic};
+    my $mapping_file = $self->{data_mapping_file};
+    my $sth          = $self->{sth};
 
     ##############################
     # <Variable> names in REDCap #
@@ -53,27 +54,47 @@ sub do_redcap2bff {
     #         'age_first_diagnosis' => '0',
     #         'alcohol' => '4',
     #        }
-    print Dumper $redcap_dic  if $self->{debug};
-    print Dumper $participant if $self->{debug};
+    print Dumper $redcap_dic
+      if ( defined $self->{debug} && $self->{debug} > 4 );
+    print Dumper $participant
+      if ( defined $self->{debug} && $self->{debug} > 4 );
 
-    # ABOUT REQUIRED PROPERTIES
+    # *** ABOUT REQUIRED PROPERTIES ***
     # 'id' and 'sex' are required properties in <individuals> entry type
-    # The first element will have it but others don't
-    # We need to pass 'sex' info to external elements
-    # storing $participant->{sex} in $self
-    if ( exists $participant->{sex} && $participant->{sex} ne '' ) {
-        $self->{_info}{ $participant->{study_id} }{sex} = $participant->{sex};
-    }
-    $participant->{sex} = $self->{_info}{ $participant->{study_id} }{sex};
 
-    # Premature return if they don't exist
+    # Getting the field name from mapping file (note that we add _field suffix)
+    my $sex_field     = $mapping_file->{sex};
+    my $studyId_field = $mapping_file->{info}{dict}{studyId};
+
+    # *** IMPORTANT STEP ***
+    # We need to pass 'sex' info to external array elements from $participant
+    # Thus, we are storing $participant->{sex} in $self !!!
+    if ( exists $participant->{$sex_field} && $participant->{$sex_field} ne '' )
+    {
+        $self->{_info}{ $participant->{study_id} }{$sex_field} =
+          $participant->{$sex_field};   # Dynamically adding attributes (setter)
+    }
+    $participant->{$sex_field} =
+      $self->{_info}{ $participant->{$studyId_field} }{$sex_field};
+
+    # Premature return if fields don't exist
     return
       unless (
-        ( exists $participant->{study_id} && $participant->{study_id} ne '' )
-        && $participant->{sex} );
+        (
+            exists $participant->{$studyId_field}
+            && $participant->{$studyId_field} ne ''
+        )
+        && $participant->{$sex_field} ne ''
+      );
 
     # Data structure (hashref) for each individual
     my $individual;
+
+    # Default ontology for a bunch of required terms
+    my $default_ontology = { id => 'NCIT:NA0000', label => 'NA' };
+
+    # Variable that will allows to perform adhoc changes for some projects
+    my $project_id = $mapping_file->{project}{id};
 
     # NB: We don't need to initialize (unless required)
     # e.g.,
@@ -88,29 +109,38 @@ sub do_redcap2bff {
 
     #$individual->{diseases} = [];
 
-#my %disease = ( 'Inflamatory Bowel Disease' => 'ICD10:K51.90' ); # it does not exist as it is at ICD10
+# Inflamatory Bowel Disease --- Note the 2 mm in infla-mm-atory
+#my %disease = ( 'Inflammatory Bowel Disease' => 'ICD10:K51.90' ); # it does not exist as it is at ICD10
 #my @diseases = ('Unspecified asthma, uncomplicated', 'Inflamatory Bowel Disease', "Crohn's disease, unspecified, without complications");
-    my @diseases = ('Inflammatory Bowel Disease');    # Note the 2 mm
+
+    # Loading @diseases from mapping file
+    my @diseases = @{ $mapping_file->{diseases}{fields} };
+
+    # Start looping over them
     for my $field (@diseases) {
         my $disease;
 
+        # Load a few more variables from mapping file
+        my $ageOfOnset_field = $mapping_file->{diseases}{dict}{ageOfOnset};
+        my $familyHistory_field =
+          $mapping_file->{diseases}{dict}{familyHistory};
+
+        # Start mapping
         $disease->{ageOfOnset} = map_age_range(
             map2redcap_dic(
                 {
                     redcap_dic  => $redcap_dic,
                     participant => $participant,
-                    field       => 'age_first_diagnosis'
+                    field       => $ageOfOnset_field
                 }
             )
           )
-          if ( exists $participant->{age_first_diagnosis}
-            && $participant->{age_first_diagnosis} ne '' );
+          if ( exists $participant->{$ageOfOnset_field}
+            && $participant->{$ageOfOnset_field} ne '' );
         $disease->{diseaseCode} = map_ontology(
             {
-                query  => $field,
-                column => 'label',
-
-#ontology       => 'icd10',                        # ICD10 Inflammatory Bowel Disease does not exist
+                query    => $field,
+                column   => 'label',
                 ontology => 'ncit',
                 self     => $self
             }
@@ -120,16 +150,16 @@ sub do_redcap2bff {
                 {
                     redcap_dic  => $redcap_dic,
                     participant => $participant,
-                    field       => 'family_history'
+                    field       => $familyHistory_field
                 }
             )
           )
-          if ( exists $participant->{family_history}
-            && $participant->{family_history} ne '' );
+          if ( exists $participant->{$familyHistory_field}
+            && $participant->{$familyHistory_field} ne '' );
 
         #$disease->{notes}    = undef;
-        $disease->{severity} = { id => 'NCIT:NA000', label => 'NA' };
-        $disease->{stage}    = { id => 'NCIT:NA000', label => 'NA' };
+        $disease->{severity} = $default_ontology;
+        $disease->{stage}    = $default_ontology;
 
         push @{ $individual->{diseases} }, $disease
           if defined $disease->{diseaseCode};
@@ -139,62 +169,69 @@ sub do_redcap2bff {
     # ethnicity
     # =========
 
+    # Load field name from mapping file
+    my $ethnicity_field = $mapping_file->{ethnicity};
+
     $individual->{ethnicity} = map_ethnicity(
         map2redcap_dic(
             {
                 redcap_dic  => $redcap_dic,
                 participant => $participant,
-                field       => 'ethnicity'
+                field       => $ethnicity_field
             }
         )
       )
-      if ( exists $participant->{ethnicity}
-        && $participant->{ethnicity} ne '' );
+      if ( exists $participant->{$ethnicity_field}
+        && $participant->{$ethnicity_field} ne '' );
 
     # =========
     # exposures
     # =========
 
     #$individual->{exposures} = undef;
-    my @exposures = (
-        qw (alcohol smoking cigarettes_days cigarettes_years packyears smoking_quit)
-    );
-
-    for my $field (@exposures) {
+    my @exposures_fields = @{ $mapping_file->{exposures}{fields} };
+    my %exposures_dict   = %{ $mapping_file->{exposures}{dict} };
+    my $exposures_radio =
+      $mapping_file->{exposures}{radio}; # DELIBERATE -- hashref instead of hash
+    for my $field (@exposures_fields) {
         next
           unless ( exists $participant->{$field}
             && $participant->{$field} ne '' );
         my $exposure;
-
-        $exposure->{ageAtExposure} = { id => 'NCIT:NA0000', label => 'NA' };
+        $exposure->{ageAtExposure} = $default_ontology;
         $exposure->{date}          = '1900-01-01';
         $exposure->{duration}      = 'P999Y';
-        $exposure->{exposureCode}  = map_ontology(
+        my $exposure_query =
+          exists $exposures_dict{$field} ? $exposures_dict{$field} : $field;
+        $exposure->{exposureCode} = map_ontology(
             {
-                query    => $field,
+                query    => $exposure_query,
                 column   => 'label',
                 ontology => 'ncit',
                 self     => $self
             }
         );
 
-# We first extract 'unit' that supposedly will be used in <measurementValue> and <referenceRange>??
+        # We first extract 'unit' that supposedly will be used in in
+        # <measurementValue> and <referenceRange>??
+        my $subkey =
+          exists $exposures_radio->{$field}
+          ? map2redcap_dic(
+            {
+                redcap_dic  => $redcap_dic,
+                participant => $participant,
+                field       => $field
+            }
+          )
+          : 'dummy';
         my $unit = map_ontology(
             {
-                query => ( $field eq 'alcohol' || $field eq 'smoking' )
-                ? map_exposures(
-                    {
-                        key => $field,
-                        str => map2redcap_dic(
-                            {
-                                redcap_dic  => $redcap_dic,
-                                participant => $participant,
-                                field       => $field
-                            }
-                        )
-                    }
-                  )
-                : $field,
+                # order on the ternary operator matters
+                # 1 - Check for subkey
+                # 2 - Check for field
+                query => exists $exposures_radio->{$field}
+                ? $exposures_radio->{$field}{$subkey}
+                : $exposure_query,
                 column   => 'label',
                 ontology => 'ncit',
                 self     => $self
@@ -216,35 +253,42 @@ sub do_redcap2bff {
     # id
     # ==
 
-    my $longitudinal_id =
-      $participant->{study_id} . ':' . $participant->{redcap_event_name};
-    $individual->{id} = $longitudinal_id;
+    # It will will a concatentaion of the @id_fields from mapping file
+    my @id_fields = @{ $mapping_file->{id}{fields} };
+    $individual->{id} = join ':', map { $participant->{$_} } @id_fields;
 
     # ====
     # info
     # ====
 
-    my @fields =
-      qw(study_id dob diet redcap_event_name age first_name last_name consent consent_date consent_noneu consent_devices consent_recontact consent_week2_endo education zipcode consents_and_demographics_complete);
-    for my $field (@fields) {
-        $individual->{info}{$field} =
-          $field eq 'age'
-          ? { iso8601duration => 'P' . $participant->{$field} . 'Y' }
-          : ( any { /^$field$/ } qw(education diet) ) ? map2redcap_dic(
-            {
-                redcap_dic  => $redcap_dic,
-                participant => $participant,
-                field       => $field
+    my @info_fields = @{ $mapping_file->{info}{fields} };
+    for my $field (@info_fields) {
+        if ( exists $participant->{$field} && $participant->{$field} ne '' ) {
+            if ( $project_id eq '3tr_ibd' ) {
+                $individual->{info}{$field} =
+                  $field eq 'age'
+                  ? { iso8601duration => 'P' . $participant->{$field} . 'Y' }
+                  : ( any { /^$field$/ } qw(education diet) ) ? map2redcap_dic(
+                    {
+                        redcap_dic  => $redcap_dic,
+                        participant => $participant,
+                        field       => $field
+                    }
+                  )
+                  : $field =~ m/^consent/ ? {
+                    value => dotify_and_coerce_number( $participant->{$field} ),
+                    map { $_ => $redcap_dic->{$field}{$_} }
+                      ( "Field Label", "Field Note", "Field Type" )
+                  }
+                  : $participant->{$field};
             }
-          )
-          : $field =~ m/^consent/ ? {
-            value => dotify_and_coerce_number( $participant->{$field} ),
-            map { $_ => $redcap_dic->{$field}{$_} }
-              ( "Field Label", "Field Note", "Field Type" )
-          }
-          : $participant->{$field}
-          if ( exists $participant->{$field} && $participant->{$field} ne '' );
+            else {
+                $individual->{info}{$field} = $participant->{$field};
+            }
+        }
     }
+
+    # When we use --test we do not serialize changing (metaData) information
     $individual->{info}{metaData} = $self->{test} ? undef : get_metaData($self);
 
     # =========================
@@ -253,17 +297,16 @@ sub do_redcap2bff {
 
     #$individual->{interventionsOrProcedures} = [];
 
-    #my @surgeries = map { $_ = 'surgery_details___' . $_ } ( 1 .. 8, 99 );
+    my @interventions_fields =
+      @{ $mapping_file->{interventionsOrProcedures}{fields} };
+
     my %surgery = ();
     for ( 1 .. 8, 99 ) {
         $surgery{ 'surgery_details___' . $_ } =
           $redcap_dic->{surgery_details}{_labels}{$_};
     }
-    for my $field (
-        qw(endoscopy_performed intestinal_surgery partial_mayo complete_mayo prev_endosc_dilatation),
-        keys %surgery
-      )
-    {
+
+    for my $field (@interventions_fields) {
         if ( $participant->{$field} ) {
             my $intervention;
 
@@ -300,20 +343,18 @@ sub do_redcap2bff {
     $individual->{measures} = undef;
 
     # lab_remarks was removed
-    my @measures = (
-        qw (leucocytes hemoglobin hematokrit mcv mhc thrombocytes neutrophils lymphocytes eosinophils creatinine gfr bilirubin gpt ggt lipase crp iron il6 calprotectin)
-    );
-    my @indexes =
-      qw (nancy_index_acute  nancy_index_chronic nancy_index_ulceration);
-    my @others = qw(endo_mayo);
+    my @measures_fields = @{ $mapping_file->{measures}{fields} };
+    my %measures_dict   = %{ $mapping_file->{measures}{dict} };
 
-    for my $field ( @measures, @indexes, @others ) {
+    for my $field (@measures_fields) {
         next if $participant->{$field} eq '';
         my $measure;
 
         $measure->{assayCode} = map_ontology(
             {
-                query    => $field,
+                query => exists $measures_dict{$field}
+                ? $measures_dict{$field}
+                : $field,
                 column   => 'label',
                 ontology => 'ncit',
                 self     => $self,
@@ -322,9 +363,12 @@ sub do_redcap2bff {
         $measure->{date} = '1900-01-01';
 
         # We first extract 'unit' and %range' for <measurementValue>
-        my $unit = map_ontology(
+        my $tmp_str = $redcap_dic->{$field}{'Field Note'};
+        my $unit    = map_ontology(
             {
-                query    => map_quantity( $redcap_dic->{$field}{'Field Note'} ),
+                query => exists $measures_dict{$tmp_str}
+                ? $measures_dict{$tmp_str}
+                : $tmp_str,
                 column   => 'label',
                 ontology => 'ncit',
                 self     => $self
@@ -368,19 +412,19 @@ sub do_redcap2bff {
     #$individual->{pedigrees} = [];
 
     # disease, id, members, numSubjects
-    my @pedigrees = (qw ( x y ));
-    for my $field (@pedigrees) {
+    #my @pedigrees = @{ $mapping_file->{pedigrees}{fields} };
+    #for my $field (@pedigrees) {
+    #
+    #        my $pedigree;
+    #        $pedigree->{disease}     = {};      # P32Y6M1D
+    #        $pedigree->{id}          = undef;
+    #        $pedigree->{members}     = [];
+    #        $pedigree->{numSubjects} = 0;
+    #
+    # Add to array
+    #push @{ $individual->{pedigrees} }, $pedigree; # SWITCHED OFF on 072622
 
-        my $pedigree;
-        $pedigree->{disease}     = {};      # P32Y6M1D
-        $pedigree->{id}          = undef;
-        $pedigree->{members}     = [];
-        $pedigree->{numSubjects} = 0;
-
-        # Add to array
-        #push @{ $individual->{pedigrees} }, $pedigree; # SWITCHED OFF on 072622
-
-    }
+    # }
 
     # ==================
     # phenotypicFeatures
@@ -388,11 +432,10 @@ sub do_redcap2bff {
 
     #$individual->{phenotypicFeatures} = [];
 
-    my @comorbidities =
-      qw ( comorb_asthma comorb_copd comorb_ms comorb_sle comorb_ra comorb_pso comorb_ad comorb_cancer comorb_cancer_specified comorb_hypertension comorb_diabetes comorb_lipids comorb_stroke comorb_other_ai comorb_other_ai_specified);
-    my @phenotypicFeatures = qw(immunodeficiency rectal_bleeding);
+    my @phenotypicFeatures_fields =
+      @{ $mapping_file->{phenotypicFeatures}{fields} };
 
-    for my $field ( @comorbidities, @phenotypicFeatures ) {
+    for my $field (@phenotypicFeatures_fields) {
         my $phenotypicFeature;
 
         if (   exists $participant->{$field}
@@ -437,7 +480,7 @@ sub do_redcap2bff {
                 {
                     redcap_dic  => $redcap_dic,
                     participant => $participant,
-                    field       => 'sex'
+                    field       => $sex_field
                 }
             ),
             column   => 'label',
@@ -452,54 +495,39 @@ sub do_redcap2bff {
 
     #$individual->{treatments} = undef;
 
-    my %drug = (
-        aza => 'azathioprine',
-        asa => 'aspirin',
-        mtx => 'methotrexate',
-        mp  => 'mercaptopurine'
-    );
+    my @treatments_fields = @{ $mapping_file->{treatments}{fields} };
+    my %drug              = %{ $mapping_file->{treatments}{dict} };
+    my @routes            = @{ $mapping_file->{treatments}{routes} };
 
-    my @drugs  = qw (budesonide prednisolone asa aza mtx mp);
-    my @routes = qw (oral rectal);
-
-#        '_labels' => {
-#                                                       '1' => 'never treated',
-#                                                       '2' => 'former treatment',
-#                                                       '3' => 'current treatment'
-#                                                     }
-
-    # FOR DRUGS
-    for my $drug (@drugs) {
+    for my $field (@treatments_fields) {
 
         # Getting the right name for the drug (if any)
-        my $drug_name = exists $drug{$drug} ? $drug{$drug} : $drug;
+        my $treatment_name = exists $drug{$field} ? $drug{$field} : $field;
 
         # FOR ROUTES
         for my $route (@routes) {
 
             # Rectal route only happens in some drugs (ad hoc)
             next
-              if ( $route eq 'rectal' && !any { /^$drug$/ }
+              if ( $route eq 'rectal' && !any { /^$field$/ }
                 qw(budesonide asa) );
 
             # Discarding if drug_route_status is empty
             my $tmp_var =
-              ( $drug eq 'budesonide' || $drug eq 'asa' )
-              ? $drug . '_' . $route . '_status'
-              : $drug . '_status';
+              ( $field eq 'budesonide' || $field eq 'asa' )
+              ? $field . '_' . $route . '_status'
+              : $field . '_status';
             next
               unless ( exists $participant->{$tmp_var}
                 && $participant->{$tmp_var} ne '' );
-
-            #say "$drug $route";
 
             # Initialize field $treatment
             my $treatment;
 
             $treatment->{_info} = {
                 field     => $tmp_var,
-                drug      => $drug,
-                drug_name => $drug_name,
+                drug      => $field,
+                drug_name => $treatment_name,
                 status    => map2redcap_dic(
                     {
                         redcap_dic  => $redcap_dic,
@@ -509,13 +537,13 @@ sub do_redcap2bff {
                 ),
                 route => $route,
                 value => $participant->{$tmp_var},
-                map { $_ => $participant->{ $drug . $_ } }
+                map { $_ => $participant->{ $field . $_ } }
                   qw(start dose duration)
             };    # ***** INTERNAL FIELD
             $treatment->{ageAtOnset} =
               { age => { iso8601duration => "P999Y" } };
             $treatment->{cumulativeDose} =
-              { unit => { id => 'NCIT:00000', label => 'NA' }, value => -1 };
+              { unit => $default_ontology, value => -1 };
             $treatment->{doseIntervals}         = [];
             $treatment->{routeOfAdministration} = map_ontology(
                 {
@@ -530,7 +558,7 @@ sub do_redcap2bff {
 
             $treatment->{treatmentCode} = map_ontology(
                 {
-                    query    => $drug_name,
+                    query    => $treatment_name,
                     column   => 'label',
                     ontology => 'ncit',
                     self     => $self

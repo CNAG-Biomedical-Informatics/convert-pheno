@@ -4,7 +4,7 @@ use warnings;
 use lib ( './lib', '../lib' );
 use feature qw(say);
 use File::Spec::Functions qw(catdir catfile);
-use Test::Exception tests => 4;
+use Test::Exception tests => 5;
 use Convert::Pheno;
 
 my $input = {
@@ -18,10 +18,10 @@ my $input = {
     }
 };
 
-my %err = ( '1' => 'typos', '2' => 'additionalProperties: false', '3' => 'expected array got string', '4' => 'radio property is not nested');
+my %err = ( '1' => 'typos', '2' => 'additionalProperties: false', '3' => 'expected array got string', '4' => 'radio property is not nested', '5' => 'value not allowed for project.source');
 
 for my $method ( sort keys %{$input} ) {
-    for my $err ( 1 .. 4 ) {
+    for my $err ( 1 .. 5 ) {
         my $convert = Convert::Pheno->new(
             {
                 in_file           => $input->{$method}{in_file},

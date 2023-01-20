@@ -2,7 +2,7 @@
   "$id": "https://github.com/mrueda",
   "additionalProperties": false,
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "description": "Convert-Pheno mapping file schema",
+  "description": "JSON Schema for Convert-Pheno mapping file",
   "type": "foo",
   "required": [
     "project",
@@ -20,14 +20,21 @@
     "project": {
       "type": "object",
       "required": [
-        "projectId",
-        "projectType"
+        "id",
+        "source"
       ],
       "properties": {
-        "projectId": {
+        "id": {
           "type": "string"
         },
-        "projectType": {
+        "source": {
+          "type": "string",
+          "enum": [
+            "redcap",
+            "cdisc-odm"
+          ]
+        },
+        "description": {
           "type": "string"
         }
       }
@@ -84,14 +91,15 @@
         },
         "dict": {
           "type": "object",
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "object"
-            }
-          ]
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "radio": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
         },
         "routes": {
           "type": "array",

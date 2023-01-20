@@ -11,11 +11,12 @@ use JSON::XS;
 use Time::HiRes  qw(gettimeofday);
 use POSIX        qw(strftime);
 use Scalar::Util qw(looks_like_number);
+use List::Util   qw(first);
 use Convert::Pheno::SQLite;
 binmode STDOUT, ':encoding(utf-8)';
 use Exporter 'import';
 our @EXPORT =
-  qw( map_ethnicity map_ontology dotify_and_coerce_number iso8601_time _map2iso8601 map_3tr map_unit_range map_age_range map2redcap_dic map2ohdsi_dic convert2boolean find_age randStr);
+  qw( map_ethnicity map_ontology dotify_and_coerce_number iso8601_time _map2iso8601 map_unit_range map_age_range map2redcap_dic map2ohdsi_dic convert2boolean find_age randStr is_multidimensional);
 
 use constant DEVEL_MODE => 0;
 
@@ -46,9 +47,8 @@ sub map_ontology {
 
     #return { id => 'dummy', label => 'dummy' };    # test speed
 
-    # Before checking existance we map to 3TR to -NCIT
-    my $tmp_query = map_3tr( $_[0]->{query} );
-
+    # Checking for existance in %$seen
+    my $tmp_query = $_[0]->{query};
     say "Skipping searching for <$tmp_query> as it already exists"
       if DEVEL_MODE && exists $seen->{$tmp_query};
 
@@ -130,73 +130,6 @@ sub _map2iso8601 {
     # UTC
     return $date
       . ( ( defined $time && $time =~ m/^T(.+)Z$/ ) ? $time : 'T00:00:00Z' );
-}
-
-sub map_3tr {
-
-    my $str  = shift;
-    my %term = (
-
-#hemoglobin;routine_lab_values;;text;Hemoglobin;;"xx.x g/dl";number;0;20;;;y;;;;;
-#leucocytes;routine_lab_values;;text;Leucocytes;;"xx.xx /10^-9 l";number;0;200;;;y;;;;;
-#hematokrit;routine_lab_values;;text;Hematokrit;;"xx.x %";number;0;100;;;y;;;;;
-#mcv;routine_lab_values;;text;"Mean red cell volume (MCV)";;"xx.x fl";number;0;200;;;y;;;;;
-#mhc;routine_lab_values;;text;"Mean red cell haemoglobin (MCH)";;"xx.x pg";number;0;100;;;y;;;;;
-#thrombocytes;routine_lab_values;;text;Thrombocytes;;"xxxx /10^-9 l";number;0;2000;;;y;;;;;
-#neutrophils;routine_lab_values;;text;Neutrophils;;"x.xx /10^-9 l";number;0;100;;;;;;;;
-#lymphocytes;routine_lab_values;;text;Lymphocytes;;"x.xx /10^-9 l";number;0;100;;;;;;;;
-#eosinophils;routine_lab_values;;text;Eosinophils;;"x.xx /10^-9 l";number;0;100;;;;;;;;
-#creatinine;routine_lab_values;;text;Creatinine;;"xxx µmol/l";number;0;10000;;;y;;;;;
-#gfr;routine_lab_values;;text;"GFR CKD-Epi";;"xxx ml/min/1.73";number;0;200;;;y;;;;;
-#bilirubin;routine_lab_values;;text;Bilirubin;;"xxx.x µmol/l";number;0;10000;;;y;;;;;
-#gpt;routine_lab_values;;text;GPT;;"xx.x U/l";number;0;10000;;;y;;;;;
-#ggt;routine_lab_values;;text;gammaGT;;"xx.x U/l";number;0;10000;;;y;;;;;
-#lipase;routine_lab_values;;text;Lipase;;"xx.x U/l";number;0;10000;;;;;;;;
-#crp;routine_lab_values;;text;CRP;;"xxx.x mg/l";number;0;1000;;;y;;;;;
-#iron;routine_lab_values;;text;Iron;;"xx.x µmol/l";number;0;1000;;;;;;;;
-#il6;routine_lab_values;;text;IL-6;;"xxxx.x ng/l";number;0;10000;;;;;;;;
-#calprotectin;routine_lab_values;;text;Calprotectin;;"mg/kg stool";integer;;;;;;;;;;
-
-        # Field => NCIT Term
-        hemoglobin   => 'Hemoglobin Measurement',
-        leucocytes   => 'Leukocyte Count',
-        hematokrit   => 'Hematocrit Measurement',
-        mcv          => 'Erythrocyte Mean Corpuscular Volume',
-        mhc          => 'Erythrocyte Mean Corpuscular Hemoglobin',
-        thrombocytes => 'Platelet Count',
-        neutrophils  => 'Neutrophil Count',
-        lymphocytes  => 'Lymphocyte Count',
-        eosinophils  => 'Eosinophil Count',
-        creatinine   => 'Creatinine Measurement',
-        gfr          => 'Glomerular Filtration Rate',
-        bilirubin    => 'Total Bilirubin Measurement',
-        gpt          => 'Serum Glutamic Pyruvic Transaminase, CTCAE',
-        ggt          => 'Serum Gamma Glutamyl Transpeptidase Measurement',
-        lipase       => 'Lipase Measurement',
-        crp          => 'C-Reactive Protein Measurement',
-        iron         => 'Iron Measurement',
-        il6          => 'Interleukin-6',
-        calprotectin => 'Calprotectin Measurement',
-
-#cigarettes_days;anamnesis;;text;"On average, how many cigarettes do/did you smoke per day?";;;integer;0;300;;"[smoking] = '2' or [smoking] = '1'";;;;;;
-#cigarettes_years;anamnesis;;text;"For how many years have you been smoking/did you smoke?";;;integer;0;100;;"[smoking] = '2' or [smoking] = '1'";;;;;;
-#packyears;anamnesis;;text;"Pack Years";;;integer;0;300;;"[smoking] = '2' or [smoking] = '1'";;;;;;
-#smoking_quit;anamnesis;;text;"When did you quit smoking?";;year;integer;1980;2030;;"[smoking] = '2'";;;;;;
-        cigarettes_days  => 'Average Number Cigarettes Smoked a Day',
-        cigarettes_years => 'Total Years Have Smoked Cigarettes',
-        packyears        => 'Pack Year',
-        smoking_quit     => 'Smoking Cessation Year',
-
-#nancy_index_ulceration;endoscopy;;radio;"Nancy histology index: Ulceration";"0, 0 - none|2, 2 - yes";;;;;;"[endoscopy_performed] = '1' AND [week_0_arm_1][diagnosis] = '2'";y;;;;;
-#nancy_index_acute;endoscopy;;radio;"Nancy histology index: Acute inflammatory cell infiltrate";"0, 0 - none|2, 2 - mild|3, 3 - moderate|4, 4 - severe";;;;;;"[endoscopy_performed] = '1' AND [week_0_arm_1][diagnosis] = '2'";y;;;;;
-# nancy_index_chronic;endoscopy;;radio;"Nancy histology index: Chronic inflammatory infiltrates";"0, 0 - none|1, 1 - mild|3, 3 - moderate or marked increase";;;;;;"[endoscopy_performed] = '1' AND [week_0_arm_1][diagnosis] = '2'";y;;;;;
-        nancy_index_ulceration => 'Nancy Index Ulceration',
-        nancy_index_acute      =>
-          'Nancy histology index: Acute inflammatory cell infiltrate',
-        nancy_index_chronic =>
-          'Nancy histology index: Chronic inflammatory infiltrates'
-    );
-    return exists $term{$str} ? $term{$str} : $str;
 }
 
 sub map_unit_range {
@@ -300,4 +233,10 @@ sub randStr {
     return join( '',
         map { ( 'a' .. 'z', 'A' .. 'Z', 0 .. 9 )[ rand 62 ] } 0 .. shift );
 }
+
+sub is_multidimensional {
+
+    return ref shift ? 1 : 0;
+}
+
 1;

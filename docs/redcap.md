@@ -14,7 +14,7 @@ This freedom of choice makes very difficult (if not impossible) to come up with 
 
 === "Command-line"
 
-    !!! Important "About REDCap export formats"
+    !!! Tip "About REDCap export formats"
         REDCap allows for exporting "All data (all records and fields)" in multiple ways. Here we are accepting the `CSV / Microsoft Excel` format, along with a data dictionary (also in CSV).
         REDCap `CDISC ODM (XML)` export are covered in the section about [CDISC-ODM](cdisc.md).
 
@@ -29,7 +29,8 @@ This freedom of choice makes very difficult (if not impossible) to come up with 
     convert-pheno -iredcap redcap.csv --redcap-dictionary dictionary.csv --mapping-file mapping.yaml -obff individuals.json
     ```
 
-    During the data transformation, **ontologies are automatically added** to harmonize the content of the variables. We use [NCI Thesaurus](https://ncithesaurus.nci.nih.gov/ncitbrowser), [ICD-10](https://icd.who.int/browse10), and data from [Athena-OHDSI](https://athena.ohdsi.org/search-terms/start).
+    !!! Abstract "Ontologies used"
+        During the data transformation, **ontologies are automatically added** to harmonize the content of the variables. We use [NCI Thesaurus](https://ncithesaurus.nci.nih.gov/ncitbrowser), [ICD-10](https://icd.who.int/browse10), and data from [Athena-OHDSI](https://athena.ohdsi.org/search-terms/start).
 
 === "API"
 
