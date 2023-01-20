@@ -5,16 +5,16 @@
    <figcaption>Figure extracted from www.ga4gh.org</figcaption>
 </figure>
 
-Phenopackets have a [top-level](https://phenopacket-schema.readthedocs.io/en/latest/toplevel.html) elements to structure the information. We'll be focussing on the element **Phenopacket**.
+Phenopackets use [top-level](https://phenopacket-schema.readthedocs.io/en/latest/toplevel.html) elements in order to structure the information. We'll be focussing on the element **Phenopacket**.
 
 ## PXF as input ![PXF](https://avatars.githubusercontent.com/u/17553567?s=280&v=4){ width="20" }
 
 === "Command-line"
 
-    If you're using a Phenopackets v2 JSON file with the `convert-pheno` command-line interface just provide the right [syntax](https://github.com/mrueda/convert-pheno#synopsis):
+    When using the `convert-pheno` command-line interface, simply ensure the [correct syntax](https://github.com/mrueda/convert-pheno#synopsis) is provided.
 
-    !!! Tip "About data types"
-        Note that the file can consist of a single individual (JSON object) or multiple ones (JSON array of objects).
+    !!! Tip "`JSON` data in Phenopackets file"
+        Note that the file can consist of one individual (one JSON object) or multiple individuals (a JSON array of objects).
 
     ```
     convert-pheno -ipxf ipxf.json -obff individuals.json
@@ -22,7 +22,7 @@ Phenopackets have a [top-level](https://phenopacket-schema.readthedocs.io/en/lat
 
 === "Module"
 
-    The idea is that we will pass the essential information as a hash (Perl) or dictionary (Python).
+    The concept is to pass the necessary information as a hash (in Perl) or dictionary (in Python).
 
     `Perl`
     ```Perl

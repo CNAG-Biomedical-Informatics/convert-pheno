@@ -1,21 +1,23 @@
-**BFF** stands for **B**eacon **F**riendly **F**ormat. The BFF consists of 7 `JSON` files that match the 7 entities of the [Beacon v2 default models](https://docs.genomebeacons.org/models).
+**BFF** stands for **B**eacon **F**riendly **F**ormat. The [BFF](https://b2ri-documentation.readthedocs.io/en/latest/data-ingestion) consists of 7 `JSON` files that match the 7 entities of the [Beacon v2 Models](https://docs.genomebeacons.org/models).
 
 <figure markdown>
    ![Beacon v2](img/beacon-v2-models.png){ width="300" }
-   <figcaption>Beacon v2 entities</figcaption>
+   <figcaption> Entities in Beacon v2 Models</figcaption>
 </figure>
 
-!!! Abstract "About Beacon v2 entities"
-    From these 7 files, often `individuals.json` is the only file containing [phenotypic data](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema). Other entities such as [cohorts](https://docs.genomebeacons.org/schemas-md/cohortsindividuals_defaultSchema) or [datasets](https://docs.genomebeacons.org/schemas-md/datasets_defaultSchema) may contain valuable info, but being mostly text, its conversion does not represent a challenge.
+!!! Abstract "About Beacon v2 Models' entities"
+    Out of these 7 entities, [individuals](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema) is typically the only one that contain phenotypic data. Other entities such as [cohorts](https://docs.genomebeacons.org/schemas-md/cohortsindividuals_defaultSchema) or [datasets](https://docs.genomebeacons.org/schemas-md/datasets_defaultSchema) may also contain useful information, but their conversion is generally not challenging as they mostly contain text.
+
+   `Convert-Pheno` accepts as input data from the [individuals](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema) entity in [BFF](https://b2ri-documentation.readthedocs.io/en/latest/data-ingestion) format (`individuals.json`).
 
 ## BFF (individuals) as input ![BFF](https://avatars.githubusercontent.com/u/33450937?s=200&v=4){ width="20" }
 
 === "Command-line"
 
-    If you're using a Beacon v2 JSON file with the `convert-pheno` command-line interface just provide the right [syntax](https://github.com/mrueda/convert-pheno#synopsis):
+    When using the `convert-pheno` command-line interface, simply ensure the [correct syntax](https://github.com/mrueda/convert-pheno#synopsis) is provided.
 
-    !!! Tip "About data types"
-        Note that the file can consist of a single individual (JSON object) or multiple ones (JSON array of objects).
+    !!! Tip "`JSON` data in `individuals.json`"
+        Note that the file can consist of one individual (one JSON object) or multiple individuals (a JSON array of objects).
 
     ```
     convert-pheno -ibff individuals.json -opxf phenopacket.json
@@ -23,7 +25,7 @@
 
 === "Module"
 
-    The idea is that we will pass the essential information as a hash (Perl) or dictionary (Python).
+    The concept is to pass the necessary information as a hash (in Perl) or dictionary (in Python).
 
     `Perl`
     ```Perl

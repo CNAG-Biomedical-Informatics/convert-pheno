@@ -6,6 +6,7 @@
   project:
     id: 3tr_ibd
     source: redcap
+    ontology: ncit
 
   #################################
   # Beacon v2 Models: individuals #

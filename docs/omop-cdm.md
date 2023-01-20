@@ -5,13 +5,14 @@
    <figcaption>Image extracted from www.ohdsi.org</figcaption>
 </figure>
 
-Usually, OMOP-CDM databases are implemented as PostgreSQL instances. According to our experience, OMOP users will perform a periodic database export to either `.sql` or `.csv` formats. 
+OMOP-CDM databases are typically implemented as PostgreSQL instances. Based on our experience, OMOP users will often export their databases periodically in either `.sql` or `.csv` format.
 
 ## OMOP as input
 
 === "Command-line"
 
-    If you're using a OMOP-CDM export (`csv`) or dump (`sql`) file with the `convert-pheno` command-line interface just provide the right [syntax](https://github.com/mrueda/convert-pheno#synopsis):
+    When using the `convert-pheno` command-line interface, simply ensure the [correct syntax](https://github.com/mrueda/convert-pheno#synopsis) is provided.
+
 
     ```
     convert-pheno -iomop omop_dump.sql -obff individuals.json
@@ -19,9 +20,10 @@ Usually, OMOP-CDM databases are implemented as PostgreSQL instances. According t
 
 === "Module"
 
-    In the event that the developer wants to perform data "on-the-fly", we also provide the option of using the module version. Programatically, we let the developer deal with database credentials, queries, etc. which we assume are performed with one of the many available [drivers for PostgreSQL](https://wiki.postgresql.org/wiki/List_of_drivers).
+    For developers who wish to retrieve data in real-time, we also offer the option of using the module version. With this option, the developer has to handle database credentials, queries, etc. using one of the many available PostgreSQL [drivers](https://wiki.postgresql.org/wiki/List_of_drivers).
 
-    The idea is that we will pass the essential information as a hash (Perl) or dictionary (Python). You don't need to send all the tables shown in the example below, just the ones you want to transform.
+    The idea is to pass the essential information as a hash (in Perl) or dictionary (in Python). It is not necessary to send all the tables shown in the example, only the ones you wish to transform.
+
 
     !!! Tip "Tip"
         The defintions are stored in table `CONCEPT`. If you send the complete `CONCEPT` table then `Convert::Pheno` will be able to find a match, otherwise it will require setting the parameter `ohdsi_db = 1` (true).

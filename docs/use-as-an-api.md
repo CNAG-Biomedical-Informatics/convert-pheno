@@ -1,5 +1,4 @@
-In some cases, it's simply more elegant to send and receive the data from an API (as a [microservice](https://en.wikipedia.org/wiki/Microservices)). 
-For this reason, we have created a very light API that will allow you to send `POST` requests and receive `JSON` responses. 
+In certain situations, using an API for sending and receiving data (as a microservice) may be more efficient. To accommodate this, we have created a lightweight API that enables sending `POST` requests and receiving `JSON` responses.
 
 ## Usage
 
@@ -29,5 +28,4 @@ We included two flavours of the same API, one in `Perl` and another in `Python`.
     Please see more detailed instructions at this [README](https://github.com/mrueda/convert-pheno/tree/main/api/python#readme-convert-pheno-api-python-version).
 
 !!! Question "Local or remote installation?"
-    The API should be installed **locally** at your server. The idea is to enable **federated** data discovery. Depending on user's adoption, in the future we may launch a [CNAG](https://www.cnag.crg.eu)-based API service.
-
+    The API should be installed on a **local** server to enable federated data discovery.

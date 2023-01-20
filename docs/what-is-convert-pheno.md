@@ -1,6 +1,6 @@
 # What is Convert-Pheno?
 
-`Convert-Pheno` is a toolbox that allows for interconverting phenotipic data stored in the most common data models.
+`Convert-Pheno` is a toolbox that facilitates the conversion of phenotypic data stored in commonly used data models.
 
 <figure markdown>
  ![Convert-Pheno](img/convert-pheno-schema.png){width="550"}

@@ -4,7 +4,7 @@ Frequently Asked Questions
 
 ??? faq "What does `Convert-Pheno` do?"
 
-    It's a tool to interconvert common data formats for clinical data. For instance, the conversion to [GA4GH](https://www.ga4gh.org) standards enables **interoperability** for secure **data sharing** or **discovery**.
+    This tool facilitates the conversion of clinical data between commonly used formats, such as [GA4GH standards](https://www.ga4gh.org), to enable **secure data sharing** and discovery through **interoperability**.
 
     ##### last change 2023-01-05 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 

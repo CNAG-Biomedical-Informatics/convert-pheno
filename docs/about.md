@@ -23,6 +23,7 @@
 
 === "External"
 
-    * Juan Manuel Ramirez ([IMIM](https://www.imim.es/IMIM2019/integrative-biomedical-informatics.html))
-    * Ioannis Parodis (Karolinska Institutet)
-    * Florian Tran (Christian Albrechts University Kiel)
+    * Florian Tran (Christian Albrechts University Kiel) - REDCap
+    * Ioannis Parodis (Karolinska Institutet) - REDCap
+    * Juan Manuel Ramirez and M. A. Mayer ([IMIM](https://www.imim.es/IMIM2019/integrative-biomedical-informatics.html)) - OMOP
+    * Sergi Aguilo (BSC)

@@ -1,4 +1,4 @@
-`Convert-Pheno` comes with a command-line utility. Using it as a command line tool works well when your input are **text files**, for instance, those coming from a PostgreSQL export.
+`Convert-Pheno` software includes a command-line utility, which is particularly useful when working with **text files**, such as those exported from PostgreSQL, as input.
 
 ## Usage
 

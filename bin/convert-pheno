@@ -262,7 +262,7 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
        -h|help                        Brief help message
        -log                           Save <convert-pheno-log.json> file
        -man                           Full documentation
-       -mapping-file                  Fields mapping YAML file
+       -mapping-file                  Fields mapping YAML (or JSON) file
        -max-lines-sql                 Maxium number of lines read from SQL dump [500]
        -nc|-no-color                  Don't print colors to STDOUT
        -ohdsi-db                      Use Athena-OHDSI database (~1.2GB) with -iomop

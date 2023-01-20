@@ -5,7 +5,7 @@
 
 ## Usage
 
-The module can be used inside a `Perl` script, but also inside scripts from other languages (e.g., Python), as long as they allow for it. The operation is simple:
+The module can be used within a `Perl` script, but it can also be utilized in scripts written in other languages, such as `Python`. 
 
 === "Inside Perl"
 
@@ -16,8 +16,7 @@ The module can be used inside a `Perl` script, but also inside scripts from othe
     Find [here](https://github.com/mrueda/convert-pheno/blob/main/ex/python.py) an example script. It should work out of the box with the [containerized version](https://github.com/mrueda/convert-pheno#containerized).
 
     !!! Question "Perl inside Python, is that even possible :smile:?"
-        Perl plays nicely with other languages and let users embed them into Perl's code (e.g., with `Inline`). Unfortunately, embedding Perl code into other languages is not as straightforward.
-        Luckily, the library [PyPerler](https://github.com/tkluck/pyperler) solves our problem. It should work out of the box with the [containerized version](https://github.com/mrueda/convert-pheno#containerized).
+        Perl easily integrates with other languages and allows for embedding them into Perl code (e.g., using `Inline`). However, embedding Perl code into other languages is not as simple. Fortunately, the [PyPerler library](https://github.com/tkluck/pyperler) provides a solution for this issue. It should work out of the box with the [containerized version](https://github.com/mrueda/convert-pheno#containerized).
 
 === "Other programming languages"
 

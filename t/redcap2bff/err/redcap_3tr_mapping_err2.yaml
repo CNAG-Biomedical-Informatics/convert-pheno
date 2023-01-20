@@ -7,6 +7,7 @@
   project:
     id: 3tr_ibd
     source: redcap
+    ontology: foo
 
   #################################
   # Beacon v2 Models: individuals #
