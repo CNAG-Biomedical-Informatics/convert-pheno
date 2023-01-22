@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 #
-#   A script to interconvert common data models for phenotypic data
+#   A software toolkit for the interconversion of standard data models for phenotypic data
 #
 #   This file is part of Convert::Pheno
 #
@@ -125,7 +125,8 @@ my $data = {
     : $in_cdisc  ? $in_cdisc
     : undef,
     in_files             => \@omop_files // undef,    # only for Omop
-    method               => $method,
+    #method               => $method,
+    method => 'peter2pan',
     sep                  => $sep,
     sql2csv              => $sql2csv,
     redcap_dictionary    => $redcap_dictionary,
@@ -415,7 +416,7 @@ One simple solution is to split the input file in many.
 
 The author requests that any published work that utilizes C<Convert-Pheno> includes a cite to the the following reference:
 
-Rueda, M et al., (2023). Convert-Pheno: A toolbox to interconvert common data models for phenotypic data [Software]. Available from https://github.com/mrueda/convert-pheno
+Rueda, M et al., (2023). Convert-Pheno: A software toolkit for the interconversion of standard data models for phenotypic data [Software]. Available from https://github.com/mrueda/convert-pheno
 
 =head1 AUTHOR 
 

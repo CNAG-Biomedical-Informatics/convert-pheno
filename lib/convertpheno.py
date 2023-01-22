@@ -3,6 +3,15 @@ import json
 import pyperler
 import pathlib
 
+__author__ = "Manuel Rueda"
+__copyright__ = "Copyright 2022-2023, Manuel Rueda - CNAG"
+__credits__ = ["None"]
+__license__ = "Artistic License 2.0"
+__version__ = "0.0.0_alpha"
+__maintainer__ = "Manuel Rueda"
+__email__ = "manuel.rueda@cnag.crg.eu"
+__status__ = "Production"
+
 
 class PythonBinding:
 

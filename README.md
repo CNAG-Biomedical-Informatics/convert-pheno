@@ -3,7 +3,7 @@
   <a href="https://github.com/mrueda/convert-pheno"><img src="https://github.com/mrueda/convert-pheno/blob/main/docs/img/CP-text.png" width="500" alt="Convert-Pheno"></a>
 </p>
 <p align="center">
-    <em>A toolbox to interconvert common data models for phenotypic data</em>
+    <em>A software toolkit for the interconversion of standard data models for phenotypic data</em>
 </p>
 
 [![Build and Test](https://github.com/mrueda/convert-pheno/actions/workflows/action.yaml/badge.svg)](https://github.com/mrueda/convert-pheno/actions/workflows/action.yaml)
@@ -199,7 +199,7 @@ One simple solution is to split the input file in many.
 
 The author requests that any published work that utilizes `Convert-Pheno` includes a cite to the the following reference:
 
-Rueda, M et al., (2023). Convert-Pheno: A toolbox to interconvert common data models for phenotypic data \[Software\]. Available from https://github.com/mrueda/convert-pheno
+Rueda, M et al., (2023). Convert-Pheno: A software toolkit for the interconversion of standard data models for phenotypic data \[Software\]. Available from https://github.com/mrueda/convert-pheno
 
 # AUTHOR 
 

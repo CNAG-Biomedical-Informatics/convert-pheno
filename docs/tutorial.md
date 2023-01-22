@@ -7,11 +7,13 @@ This page provides brief tutorials on how to perform data conversion.
 
 === "REDCap to Phenopackets v2"
 
-    This section provides a summary of the steps to convert a REDCap project to Phenopackets v2. The starting point is to log in to your REDCap system and export the data to CSV format. If you need more information on REDCap, we recommend consulting the comprehensive [documentation](https://confluence.research.cchmc.org/display/CCTSTRED/Cincinnati+REDCap+Resource+Center) provided by the Cincinnati Children's Hospital Medical Center.
+    This section provides a summary of the steps to convert a REDCap project to Phenopackets v2. 
 
-    After exporting the data, you must also download the REDCap dictionary in CSV format. This can be done within REDCap by navigating to `Project Setup/Data Dictionary/Download the current`.
+* The starting point is to log in to your REDCap system and export the data to CSV format. If you need more information on REDCap, we recommend consulting the comprehensive [documentation](https://confluence.research.cchmc.org/display/CCTSTRED/Cincinnati+REDCap+Resource+Center) provided by the Cincinnati Children's Hospital Medical Center.
 
-    Since REDCap projects are "free-format," a mapping file is necessary to connect REDCap project variables (i.e. fields) to something meaningful for `Convert-Pheno`. This mapping file will be used in the conversion process.
+* After exporting the data, you must also download the REDCap dictionary in CSV format. This can be done within REDCap by navigating to `Project Setup/Data Dictionary/Download the current`.
+
+* Since REDCap projects are "free-format," a mapping file is necessary to connect REDCap project variables (i.e. fields) to something meaningful for `Convert-Pheno`. This mapping file will be used in the conversion process.
 
     !!! Question "What is a `Convert-Pheno` mapping file?"
         A mapping file is a text file in [YAML](https://en.wikipedia.org/wiki/YAML) format ([JSON]((https://en.wikipedia.org/wiki/JSON) is also accepted) that connects a set of variables to a format that is understood by `Convert-Pheno`. This file maps your variables to the required **terms** of the [individuals](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema) entity from the Beacon v2 models.
@@ -31,7 +33,7 @@ This page provides brief tutorials on how to perform data conversion.
         - **radio**, a nested `object` value with specific mappings.
         - **routes**, an `array` with specific mappings.
 
-    !!! Tip "Defining the values in the property `fields`"
+    !!! Tip "Defining the values in the property `dict`"
         The values are obtained from the ontology you have selected in `project.ontology`. For example, if you have chosen `ncit`, you can search for the values within NCIT at [EBI Search](https://www.ebi.ac.uk/ols/ontologies/ncit). `Convert-Pheno` will use these values to retrieve the actual ontology from its internal databases".
 
     ### Running `Convert-Pheno`
@@ -53,7 +55,7 @@ This page provides brief tutorials on how to perform data conversion.
 
     #### Partial export
 
-    In a partial export, many ontologies may be missing from the `CONCEPT` table, as a result, `Convert-Pheno` will perform a search on the included **ATHENA-OHDSI** database. To enable this search you should use the flag `---ohdsi-db`.
+    In a partial export, many ontologies may be missing from the `CONCEPT` table, as a result, `Convert-Pheno` will perform a search on the included **ATHENA-OHDSI** database. To enable this search you should use the flag `--ohdsi-db`.
 
     ### Running `Convert-Pheno`
 

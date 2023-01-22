@@ -30,7 +30,7 @@ Frequently Asked Questions
 
 ??? faq "If I use `Convert-Pheno` to convert my data to [Beacon v2 Models](bff.md), does this mean I have a Beacon v2?"
 
-    I am afraid not. Beacon v2 is an [API specification](https://docs.genomebeacons.org) and the [Beacon v2 Models](bff.md) are just part of it. In order to _light a Beacon v2_ you have to add a **database** and an **API** on top. At this time, we recommend using the [Beacon v2 Reference Implementation](https://b2ri-documentation.readthedocs.io/en/latest) which contains the database + Beacon v2 API (among other components).
+    I am afraid not. Beacon v2 is an [API specification](https://docs.genomebeacons.org), and the [Beacon v2 Models](bff.md) are merely a component of it. In order to _light a Beacon v2_, it is necessary to incorporate a **database** and an **API** in addition to the Beacon v2 Models. Currently, it is advisable to utilize the [Beacon v2 Reference Implementation](https://b2ri-documentation.readthedocs.io/en/latest) which includes the database, the Beacon v2 API, and other necessary components.
 
     See below an example in how to integrate an OMOP-CDM export from SQL with Beacon v2.
 

@@ -362,7 +362,7 @@ Convert::Pheno - A module to interconvert common data models for phenotypic data
 
 The author requests that any published work that utilizes C<Convert-Pheno> includes a cite to the the following reference:
 
-Rueda, M. "Convert-Pheno: A toolbox to interconvert common data models for phenotypic data". I<iManuscript in preparation>.
+Rueda, M. "Convert-Pheno: A software toolkit for the interconversion of standard data models for phenotypic data". I<iManuscript in preparation>.
 
 =head1 AUTHOR
 

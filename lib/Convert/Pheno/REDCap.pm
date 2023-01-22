@@ -27,20 +27,20 @@ sub do_redcap2bff {
     ##############################
     # <Variable> names in REDCap #
     ##############################
-#
-# REDCap does not enforce any particular "Variable" name.
-# Extracted from https://www.ctsi.ufl.edu/wordpress/files/2019/02/Project-Creation-User-Guide.pdf
-# ---
-# "Variable Names: Variable names are critical in the data analysis process. If you export your data to a
-# statistical software program, the variable names are what you or your statistician will use to conduct
-# the analysis"
-#
-# "We always recommend reviewing your variable names with a statistician or whoever will be
-# analyzing your data. This is especially important if this is the first time you are building a
-# database"
-#---
-# If "Variable" names are not consensuated, then we need to do the mapping manually "a posteriori".
-# This is what we are attempting here:
+    #
+    # REDCap does not enforce any particular "Variable" name.
+    # Extracted from https://www.ctsi.ufl.edu/wordpress/files/2019/02/Project-Creation-User-Guide.pdf
+    # ---
+    # "Variable Names: Variable names are critical in the data analysis process. If you export your data to a
+    # statistical software program, the variable names are what you or your statistician will use to conduct
+    # the analysis"
+    #
+    # "We always recommend reviewing your variable names with a statistician or whoever will be
+    # analyzing your data. This is especially important if this is the first time you are building a
+    # database"
+    #---
+    # If "Variable" names are not consensuated, then we need to do the mapping manually "a posteriori".
+    # This is what we are attempting here:
 
     ####################################
     # START MAPPING TO BEACON V2 TERMS #
@@ -72,7 +72,7 @@ sub do_redcap2bff {
     if ( exists $participant->{$sex_field} && $participant->{$sex_field} ne '' )
     {
         $self->{_info}{ $participant->{study_id} }{$sex_field} =
-          $participant->{$sex_field};   # Dynamically adding attributes (setter)
+          $participant->{$sex_field};    # Dynamically adding attributes (setter)
     }
     $participant->{$sex_field} =
       $self->{_info}{ $participant->{$studyId_field} }{$sex_field};
@@ -96,6 +96,9 @@ sub do_redcap2bff {
     # Variable that will allows to perform adhoc changes for some projects
     my $project_id = $mapping_file->{project}{id};
 
+    # Load the default ontology for the project
+    my $project_ontology = $mapping_file->{project}{ontology};
+
     # NB: We don't need to initialize (unless required)
     # e.g.,
     # $individual->{diseases} = undef;
@@ -109,9 +112,9 @@ sub do_redcap2bff {
 
     #$individual->{diseases} = [];
 
-# Inflamatory Bowel Disease --- Note the 2 mm in infla-mm-atory
-#my %disease = ( 'Inflammatory Bowel Disease' => 'ICD10:K51.90' ); # it does not exist as it is at ICD10
-#my @diseases = ('Unspecified asthma, uncomplicated', 'Inflamatory Bowel Disease', "Crohn's disease, unspecified, without complications");
+    # Inflamatory Bowel Disease --- Note the 2 mm in infla-mm-atory
+    #my %disease = ( 'Inflammatory Bowel Disease' => 'ICD10:K51.90' ); # it does not exist as it is at ICD10
+    #my @diseases = ('Unspecified asthma, uncomplicated', 'Inflamatory Bowel Disease', "Crohn's disease, unspecified, without complications");
 
     # Loading @diseases from mapping file
     my @diseases = @{ $mapping_file->{diseases}{fields} };
@@ -141,7 +144,7 @@ sub do_redcap2bff {
             {
                 query    => $field,
                 column   => 'label',
-                ontology => 'ncit',
+                ontology => $project_ontology,
                 self     => $self
             }
         );
@@ -191,8 +194,7 @@ sub do_redcap2bff {
     #$individual->{exposures} = undef;
     my @exposures_fields = @{ $mapping_file->{exposures}{fields} };
     my %exposures_dict   = %{ $mapping_file->{exposures}{dict} };
-    my $exposures_radio =
-      $mapping_file->{exposures}{radio}; # DELIBERATE -- hashref instead of hash
+    my $exposures_radio  = $mapping_file->{exposures}{radio};         # DELIBERATE -- hashref instead of hash
     for my $field (@exposures_fields) {
         next
           unless ( exists $participant->{$field}
@@ -207,7 +209,7 @@ sub do_redcap2bff {
             {
                 query    => $exposure_query,
                 column   => 'label',
-                ontology => 'ncit',
+                ontology => $project_ontology,
                 self     => $self
             }
         );
@@ -233,7 +235,7 @@ sub do_redcap2bff {
                 ? $exposures_radio->{$field}{$subkey}
                 : $exposure_query,
                 column   => 'label',
-                ontology => 'ncit',
+                ontology => $project_ontology,
                 self     => $self
             }
         );
@@ -321,7 +323,7 @@ sub do_redcap2bff {
                 {
                     query    => $surgery{$field},
                     column   => 'label',
-                    ontology => 'ncit',
+                    ontology => $project_ontology,
                     self     => $self
                 }
             ) if ( exists $surgery{$field} && $surgery{$field} ne '' );
@@ -356,7 +358,7 @@ sub do_redcap2bff {
                 ? $measures_dict{$field}
                 : $field,
                 column   => 'label',
-                ontology => 'ncit',
+                ontology => $project_ontology,
                 self     => $self,
             }
         );
@@ -370,7 +372,7 @@ sub do_redcap2bff {
                 ? $measures_dict{$tmp_str}
                 : $tmp_str,
                 column   => 'label',
-                ontology => 'ncit',
+                ontology => $project_ontology,
                 self     => $self
             }
         );
@@ -394,7 +396,7 @@ sub do_redcap2bff {
                     : $field =~ m/^nancy/ ? 'Histologic'
                     : 'Blood Test Result',
                     column   => 'label',
-                    ontology => 'ncit',
+                    ontology => $project_ontology,
                     self     => $self
                 }
             )
@@ -443,14 +445,14 @@ sub do_redcap2bff {
             && $participant->{$field} == 1 )
         {
 
-       #$phenotypicFeature->{evidence} = undef;    # P32Y6M1D
-       #$phenotypicFeature->{excluded} =
-       #  { quantity => { unit => { id => '', label => '' }, value => undef } };
+            #$phenotypicFeature->{evidence} = undef;    # P32Y6M1D
+            #$phenotypicFeature->{excluded} =
+            #  { quantity => { unit => { id => '', label => '' }, value => undef } };
             $phenotypicFeature->{featureType} = map_ontology(
                 {
                     query    => $field =~ m/comorb/ ? 'Comorbidity' : $field,
                     column   => 'label',
-                    ontology => 'ncit',
+                    ontology => $project_ontology,
                     self     => $self
 
                 }
@@ -484,7 +486,7 @@ sub do_redcap2bff {
                 }
             ),
             column   => 'label',
-            ontology => 'ncit',
+            ontology => $project_ontology,
             self     => $self
         }
     );
@@ -547,11 +549,9 @@ sub do_redcap2bff {
             $treatment->{doseIntervals}         = [];
             $treatment->{routeOfAdministration} = map_ontology(
                 {
-                    query => ucfirst($route)
-                      . ' Route of Administration'
-                    ,    # Oral Route of Administration
+                    query    => ucfirst($route) . ' Route of Administration',  # Oral Route of Administration
                     column   => 'label',
-                    ontology => 'ncit',
+                    ontology => $project_ontology,
                     self     => $self
                 }
             );
@@ -560,7 +560,7 @@ sub do_redcap2bff {
                 {
                     query    => $treatment_name,
                     column   => 'label',
-                    ontology => 'ncit',
+                    ontology => $project_ontology,
                     self     => $self
                 }
             );
