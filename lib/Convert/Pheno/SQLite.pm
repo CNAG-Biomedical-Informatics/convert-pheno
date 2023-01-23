@@ -109,20 +109,9 @@ sub prepare_query_SQLite {
       defined $self->{ohdsi_db} ? @sqlites : grep { !m/ohdsi/ }
       @sqlites;    # global
 
-    # NB1:
+    # NB:
     # dbh = "Database Handle"
     # sth = "Statement Handle"
-
-# NB2:
-#     *<ncit.db> and <icd10.db> were pre-processed to have "id" and "label" columns only
-#       label [0]
-#       id    [1]
-#
-#     * <ohdsi.db> consists of 4 columns:
-#       concept_id    => concept_id    [0]
-#       concept_name  => label         [1]
-#       vocabulary_id => vocabulary_id [2]
-#       vocabulary_id => id            [4]
 
     for my $match (@matches) {
         for my $ontology (@databases) {    #global
@@ -163,11 +152,13 @@ sub get_ontology {
     # START QUERY #
     ###############
 
-    my $arg      = shift;
-    my $ontology = $arg->{ontology};
-    my $sth_ref  = $arg->{sth_ref};    #it contains hashref
-    my $query    = $arg->{query};
-    my $match    = $arg->{match};
+    my $arg                       = shift;
+    my $ontology                  = $arg->{ontology};
+    my $sth_column_ref            = $arg->{sth_column_ref}; #it contains hashref
+    my $query                     = $arg->{query};
+    my $column                    = $arg->{column};
+    my $match                     = $arg->{match};
+    my $min_text_similarity_score = $arg->{min_text_similarity_score};
 
     # A) 'exact'
     # - exact_match
@@ -183,10 +174,11 @@ sub get_ontology {
     # exact_match
     my ( $id, $label ) = execute_query_SQLite(
         {
-            sth      => $sth_ref->{exact_match},    # IMPORTANT STEP
+            sth      => $sth_column_ref->{exact_match},    # IMPORTANT STEP
             query    => $query,
             ontology => $ontology,
-            match    => 'exact_match'
+            match    => 'exact_match',
+            min_text_similarity_score => $min_text_similarity_score
         }
     );
 
@@ -194,10 +186,11 @@ sub get_ontology {
     if ( $match eq 'mixed' && ( !defined $id && !defined $label ) ) {
         ( $id, $label ) = execute_query_SQLite(
             {
-                sth      => $sth_ref->{contains},    # IMPORTANT STEP
+                sth      => $sth_column_ref->{contains},    # IMPORTANT STEP
                 query    => $query,
                 ontology => $ontology,
-                match    => 'contains'
+                match    => 'contains',
+                min_text_similarity_score => $min_text_similarity_score
             }
         );
     }
@@ -219,11 +212,31 @@ sub execute_query_SQLite {
     my $arg                       = shift;
     my $sth                       = $arg->{sth};
     my $query                     = $arg->{query};
-    my $ontology                  = uc( $arg->{ontology} );
-    my $match                     = $arg->{match};
-    my $id_row                    = $ontology ne 'OHDSI' ? 1 : 0;
-    my $label_row                 = $ontology ne 'OHDSI' ? 0 : 1;
     my $min_text_similarity_score = $arg->{min_text_similarity_score};
+    my $ontology                  = $arg->{ontology};
+    my $match                     = $arg->{match};
+
+#  Columns in DBs
+#     *<ncit.db> and <icd10.db> were pre-processed to have "id" and "label" columns only
+#       label [0]
+#       id    [1]
+#
+#     * <ohdsi.db> consists of 4 columns:
+#       concept_id    => concept_id    [0]
+#       concept_name  => label         [1]
+#       vocabulary_id => vocabulary_id [2]
+#       vocabulary_id => id            [3]
+
+    # Define a hash for column position on databases
+    my $position = {
+        ohdsi => { label => 1, id => 3 },
+        ncit  => { label => 0, id => 1 }
+    };
+    my $id_row    = $position->{$ontology}{id};
+    my $label_row = $position->{$ontology}{label};
+
+    # Upper case from now-on
+    $ontology = uc($ontology);
 
     # Excute query
     $sth->execute($query);
@@ -279,16 +292,22 @@ sub text_similarity {
     my $ts = Text::Similarity::Overlaps->new();
 
     # Fetch the query results
-    my $data = ();
+    my $data;    # hashref
     while ( my $row = $sth->fetchrow_arrayref() ) {
+
+        # We have a threshold to assign a result as valid
+        my $score = $ts->getSimilarityStrings( $query, $row->[$label_row] );
+
+        # Only load $data if $score >= $min_score;
         $data->{ $row->[$label_row] } = {
             id => $ontology ne 'OHDSI'
-            ? $ontology . ':' . $row->[$label_row]
-            : $row->[2] . ':' . $row->[$label_row],
+            ? $ontology . ':' . $row->[$id_row]
+            : $row->[2] . ':' . $row->[$id_row],
             label => $row->[$label_row],
-            score => $ts->getSimilarityStrings( $query, $row->[$label_row] ),
+            score => $score,
             query => $query
-        };
+          }
+          if $score >= $min_score;
     }
 
     # Sort the results by similarity score
@@ -300,14 +319,9 @@ sub text_similarity {
     #print "$query\n"           if DEVEL_MODE;
     #print Dumper \@sorted_keys if DEVEL_MODE;
 
-    # We have a threshold to assign a result as valid
-    my @valid_keys = grep { $data->{$_}{score} >= $min_score } @sorted_keys;
-
-    print Dumper \@valid_keys if DEVEL_MODE;
-
     # Return 1st element if present
-    return $valid_keys[0]
-      ? ( $data->{ $valid_keys[0] }{id}, $data->{ $valid_keys[0] }{label} )
+    return $sorted_keys[0]
+      ? ( $data->{ $sorted_keys[0] }{id}, $data->{ $sorted_keys[0] }{label} )
       : ( undef, undef );
 
 }

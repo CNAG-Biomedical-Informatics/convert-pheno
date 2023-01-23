@@ -90,11 +90,11 @@ pod2usage(
     -message => "Please specify a valid OMOP-CDM file(s) (e.g, *csv or .sql)\n",
     -exitval => 1
 ) if ( @omop_files && $omop_files[0] !~ m/\.csv|\.sql|\.tsv/i );
-pod2usage(
-    -message =>
-      "OHDSI database (<-ohdsi-db>) only works with <-iomop> argument\n",
-    -exitval => 1
-) if ( $ohdsi_db && !@omop_files );
+#pod2usage(
+#    -message =>
+#      "OHDSI database (<-ohdsi-db>) only works with <-iomop> argument\n",
+#    -exitval => 1
+#) if ( $ohdsi_db && !@omop_files );
 
 # Turning color off if argument <--no-color>
 $ENV{'ANSI_COLORS_DISABLED'} = 1 if $no_color;
@@ -271,7 +271,7 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
        -mapping-file                  Fields mapping YAML (or JSON) file
        -match                         Type of search [>exact|mixed]
        -max-lines-sql                 Maxium number of lines read from SQL dump [500]
-       -min-text-similarity-score     Minimum number of overlapping words [3]
+       -min-text-similarity-score     Minimum number of overlapping words [3] (to be used with --match mixed)
        -nc|-no-color                  Don't print colors to STDOUT
        -ohdsi-db                      Use Athena-OHDSI database (~1.2GB) with -iomop
        -out-dir                       Output (existing) directory
@@ -402,6 +402,8 @@ Retrieves only exact matches for a specified 'label',
 =item mixed:
 
 The script will begin by attempting an exact match for 'label', and if it is unsuccessful, it will then conduct a search based on string similarity and select the ontology with the highest score.
+
+C<--min-text-similarity-score> sets the minimum number of overlapping words.
 
 =back
 

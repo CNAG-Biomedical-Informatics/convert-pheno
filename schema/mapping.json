@@ -22,7 +22,8 @@
       "type": "object",
       "required": [
         "id",
-        "source"
+        "source",
+        "ontology"
       ],
       "properties": {
         "id": {
@@ -35,7 +36,13 @@
             "cdisc-odm"
           ]
         },
-        "description": {
+        "ontology": {
+          "type": "string",
+          "enum": [
+            "ncit",
+            "ohdsi"
+          ]
+        },"description": {
           "type": "string"
         }
       }

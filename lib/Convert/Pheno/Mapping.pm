@@ -45,8 +45,7 @@ sub map_ontology {
     #  1 - Prepare once, excute often (almost no gain in speed :/ )
     #  2 - Create a global hash with "seen" queries (+++huge gain)
 
-    return { id => 'dummy', label => 'dummy' }
-      if $_[0]->{query} eq '';    # test speed
+    #return { id => 'dummy', label => 'dummy' } # test speed
 
     # Checking for existance in %$seen
     my $tmp_query = $_[0]->{query};
@@ -81,9 +80,10 @@ sub map_ontology {
     # Perform query
     my ( $id, $label ) = get_ontology(
         {
-            sth_ref                   => $self->{sth}{$ontology}{$column},
+            sth_column_ref            => $self->{sth}{$ontology}{$column},
             query                     => $tmp_query,
             ontology                  => $ontology,
+            column                    => $column,
             match                     => $match,
             min_text_similarity_score => $min_text_similarity_score
         }

@@ -53,7 +53,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
        -mapping-file                  Fields mapping YAML (or JSON) file
        -match                         Type of search [>exact|mixed]
        -max-lines-sql                 Maxium number of lines read from SQL dump [500]
-       -min-text-similarity-score     Minimum number of overlapping words [3]
+       -min-text-similarity-score     Minimum number of overlapping words [3] (to be used with --match mixed)
        -nc|-no-color                  Don't print colors to STDOUT
        -ohdsi-db                      Use Athena-OHDSI database (~1.2GB) with -iomop
        -out-dir                       Output (existing) directory
@@ -179,6 +179,8 @@ For executing convert-pheno you will need:
 - mixed:
 
     The script will begin by attempting an exact match for 'label', and if it is unsuccessful, it will then conduct a search based on string similarity and select the ontology with the highest score.
+
+    `--min-text-similarity-score` sets the minimum number of overlapping words.
 
 **Examples:**
 
