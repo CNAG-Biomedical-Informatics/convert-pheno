@@ -32,37 +32,41 @@ use Convert::Pheno;
 $Data::Dumper::Sortkeys = 1;
 
 # Defining a few variables
-my $out_dir = '.';
-my $schema_file = catfile( $Bin, '../schema/mapping.json' );
+my $out_dir                   = '.';
+my $schema_file               = catfile( $Bin, '../schema/mapping.json' );
+my $match                     = 'exact';
+my $min_text_similarity_score = 3;
 
 # Reading arguments
 GetOptions(
-    'ipxf=s'                   => \my $in_pxf,                               # string
-    'ibff=s'                   => \my $in_bff,                               # string
-    'iredcap=s'                => \my $in_redcap,                            # string
-    'icdisc=s'                 => \my $in_cdisc,                             # string
-    'iomop=s{1,}'              => \my @omop_files,                           # array
-    'obff=s'                   => \my $out_bff,                              # string
-    'opxf=s'                   => \my $out_pxf,                              # string
-    'out-dir=s'                => \$out_dir,                                 # string
-    'help|?'                   => \my $help,                                 # flag
-    'man'                      => \my $man,                                  # flag
-    'mapping-file=s'           => \my $mapping_file,                         # string
-    'max-lines-sql=i'          => \my $max_lines_sql,                        # integer
-    'debug=i'                  => \my $debug,                                # integer
-    'verbose'                  => \my $verbose,                              # flag
-    'no-color|nc'              => \my $no_color,                             # flag
-    'separator|sep=s'          => \my $sep,                                  # str
-    'schema-file=s'            => \$schema_file,                             # str
-    'sql2csv'                  => \my $sql2csv,                              # flag
-    'test'                     => \my $test,                                 # flag
-    'ohdsi-db'                 => \my $ohdsi_db,                             # flag
-    'redcap-dictionary|rcd=s'  => \my $redcap_dictionary,                    # string
-    'print-hidden-labels|phl'  => \my $print_hidden_labels,                  # flag
-    'self-validate-schema|svs' => \my $self_validate_schema,                 # flag
-    'username=s'               => \my $username,                             # string
-    'log'                      => \my $log,                                  # flag
-    'version|v'                => sub { say "$0 Version $VERSION"; exit; }
+    'ipxf=s'                      => \my $in_pxf,                              # string
+    'ibff=s'                      => \my $in_bff,                              # string
+    'iredcap=s'                   => \my $in_redcap,                           # string
+    'icdisc=s'                    => \my $in_cdisc,                            # string
+    'iomop=s{1,}'                 => \my @omop_files,                          # array
+    'obff=s'                      => \my $out_bff,                             # string
+    'opxf=s'                      => \my $out_pxf,                             # string
+    'out-dir=s'                   => \$out_dir,                                # string
+    'help|?'                      => \my $help,                                # flag
+    'man'                         => \my $man,                                 # flag
+    'mapping-file=s'              => \my $mapping_file,                        # string
+    'max-lines-sql=i'             => \my $max_lines_sql,                       # integer
+    'match=s'                     => \$match,                                  # string
+    'min-text-similarity-score=i' => \$min_text_similarity_score,              # integer
+    'debug=i'                     => \my $debug,                               # integer
+    'verbose'                     => \my $verbose,                             # flag
+    'no-color|nc'                 => \my $no_color,                            # flag
+    'separator|sep=s'             => \my $sep,                                 # str
+    'schema-file=s'               => \$schema_file,                            # str
+    'sql2csv'                     => \my $sql2csv,                             # flag
+    'test'                        => \my $test,                                # flag
+    'ohdsi-db'                    => \my $ohdsi_db,                            # flag
+    'redcap-dictionary|rcd=s'     => \my $redcap_dictionary,                   # string
+    'print-hidden-labels|phl'     => \my $print_hidden_labels,                 # flag
+    'self-validate-schema|svs'    => \my $self_validate_schema,                # flag
+    'username=s'                  => \my $username,                            # string
+    'log'                         => \my $log,                                 # flag
+    'version|v'                   => sub { say "$0 Version $VERSION"; exit; }
 ) or pod2usage(2);
 pod2usage(1)                              if $help;
 pod2usage( -verbose => 2, -exitval => 0 ) if $man;
@@ -124,23 +128,24 @@ my $data = {
     : $in_redcap ? $in_redcap
     : $in_cdisc  ? $in_cdisc
     : undef,
-    in_files             => \@omop_files // undef,    # only for Omop
-    #method               => $method,
-    method => 'peter2pan',
-    sep                  => $sep,
-    sql2csv              => $sql2csv,
-    redcap_dictionary    => $redcap_dictionary,
-    mapping_file         => $mapping_file,
-    ohdsi_db             => $ohdsi_db,
-    username             => $username,
-    max_lines_sql        => $max_lines_sql,
-    self_validate_schema => $self_validate_schema,
-    print_hidden_labels  => $print_hidden_labels,
-    schema_file          => $schema_file,
-    test                 => $test,
-    debug                => $debug,
-    log                  => $log,
-    verbose              => $verbose
+    in_files                  => \@omop_files // undef,        # only for Omop
+    method                    => $method,
+    sep                       => $sep,
+    sql2csv                   => $sql2csv,
+    redcap_dictionary         => $redcap_dictionary,
+    mapping_file              => $mapping_file,
+    match                     => $match,
+    ohdsi_db                  => $ohdsi_db,
+    username                  => $username,
+    max_lines_sql             => $max_lines_sql,
+    min_text_similarity_score => $min_text_similarity_score,
+    self_validate_schema      => $self_validate_schema,
+    print_hidden_labels       => $print_hidden_labels,
+    schema_file               => $schema_file,
+    test                      => $test,
+    debug                     => $debug,
+    log                       => $log,
+    verbose                   => $verbose
 };
 print Dumper $data if $debug;
 
@@ -264,7 +269,9 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
        -log                           Save <convert-pheno-log.json> file
        -man                           Full documentation
        -mapping-file                  Fields mapping YAML (or JSON) file
+       -match                         Type of search [>exact|mixed]
        -max-lines-sql                 Maxium number of lines read from SQL dump [500]
+       -min-text-similarity-score     Minimum number of overlapping words [3]
        -nc|-no-color                  Don't print colors to STDOUT
        -ohdsi-db                      Use Athena-OHDSI database (~1.2GB) with -iomop
        -out-dir                       Output (existing) directory
@@ -321,8 +328,8 @@ Alternatively, you can use C<make> to perform all the previous steps:
   make -f makefile.docker run
   make -f makefile.docker enter
 
-
 =head3 Mounting volumes
+
 Docker containers are fully isolated. If you need the mount a volume to the container please use the following syntax (C<-v host:container>). 
 Find an example below (note that you need to change the paths to match yours):
 
@@ -381,6 +388,20 @@ A text file in one of the accepted formats.
 Athena-OHDSI database
 
 Please download it from this L<link|https://drive.google.com/file/d/104ciON3zRc3ScAzzrL_3GO14aCnBLh-c/view?usp=sharing> (~1.2GB) and move it inside C<db/> directory.
+
+=back
+
+=head2 ABOUT SEARCH OPTIONS
+
+=over
+
+=item exact:
+
+Retrieves only exact matches for a specified 'label',
+
+=item mixed:
+
+The script will begin by attempting an exact match for 'label', and if it is unsuccessful, it will then conduct a search based on string similarity and select the ontology with the highest score.
 
 =back
 

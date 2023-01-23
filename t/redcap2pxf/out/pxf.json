@@ -127,8 +127,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C98734",
+                     "label" : "Glomerular Filtration Rate Adjusted for BSA"
                   },
                   "value" : 123
                }
@@ -165,8 +165,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 18
                }
@@ -184,8 +184,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 19
                }
@@ -203,8 +203,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 46
                }
@@ -222,8 +222,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C85710",
+                     "label" : "Milligram per Liter per Milligram"
                   },
                   "value" : 1.77
                }
@@ -521,8 +521,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C98734",
+                     "label" : "Glomerular Filtration Rate Adjusted for BSA"
                   },
                   "value" : 106
                }
@@ -559,8 +559,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 26
                }
@@ -578,8 +578,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 28
                }
@@ -597,8 +597,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 46
                }
@@ -616,8 +616,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C85710",
+                     "label" : "Milligram per Liter per Milligram"
                   },
                   "value" : 6.17
                }
@@ -790,8 +790,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C98734",
+                     "label" : "Glomerular Filtration Rate Adjusted for BSA"
                   },
                   "value" : 122
                }
@@ -828,8 +828,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 68
                }
@@ -847,8 +847,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 39
                }
@@ -866,8 +866,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 51
                }
@@ -885,8 +885,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C85710",
+                     "label" : "Milligram per Liter per Milligram"
                   },
                   "value" : 0.6
                }
@@ -1076,8 +1076,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C98734",
+                     "label" : "Glomerular Filtration Rate Adjusted for BSA"
                   },
                   "value" : 97
                }
@@ -1114,8 +1114,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 12
                }
@@ -1133,8 +1133,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 13
                }
@@ -1152,8 +1152,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 24
                }
@@ -1171,8 +1171,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C85710",
+                     "label" : "Milligram per Liter per Milligram"
                   },
                   "value" : 0.6
                }
@@ -1459,8 +1459,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C98734",
+                     "label" : "Glomerular Filtration Rate Adjusted for BSA"
                   },
                   "value" : 109
                }
@@ -1497,8 +1497,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 16
                }
@@ -1516,8 +1516,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 16
                }
@@ -1535,8 +1535,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 29
                }
@@ -1554,8 +1554,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C85710",
+                     "label" : "Milligram per Liter per Milligram"
                   },
                   "value" : 0.6
                }
@@ -1728,8 +1728,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C98734",
+                     "label" : "Glomerular Filtration Rate Adjusted for BSA"
                   },
                   "value" : 108
                }
@@ -1766,8 +1766,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 16
                }
@@ -1785,8 +1785,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 14
                }
@@ -1804,8 +1804,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 27
                }
@@ -1823,8 +1823,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C85710",
+                     "label" : "Milligram per Liter per Milligram"
                   },
                   "value" : 0.6
                }
@@ -1997,8 +1997,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C98734",
+                     "label" : "Glomerular Filtration Rate Adjusted for BSA"
                   },
                   "value" : 108
                }
@@ -2035,8 +2035,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 14
                }
@@ -2054,8 +2054,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 16
                }
@@ -2073,8 +2073,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 24
                }
@@ -2092,8 +2092,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C85710",
+                     "label" : "Milligram per Liter per Milligram"
                   },
                   "value" : 0.6
                }
@@ -2361,8 +2361,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C98734",
+                     "label" : "Glomerular Filtration Rate Adjusted for BSA"
                   },
                   "value" : 103
                }
@@ -2399,8 +2399,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 10
                }
@@ -2418,8 +2418,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 17
                }
@@ -2437,8 +2437,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 239
                }
@@ -2456,8 +2456,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C85710",
+                     "label" : "Milligram per Liter per Milligram"
                   },
                   "value" : 0.6
                }
@@ -2706,8 +2706,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C98734",
+                     "label" : "Glomerular Filtration Rate Adjusted for BSA"
                   },
                   "value" : 121
                }
@@ -2744,8 +2744,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 25
                }
@@ -2763,8 +2763,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 16
                }
@@ -2782,8 +2782,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 36
                }
@@ -2801,8 +2801,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C85710",
+                     "label" : "Milligram per Liter per Milligram"
                   },
                   "value" : 0.68
                }
@@ -2984,8 +2984,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C98734",
+                     "label" : "Glomerular Filtration Rate Adjusted for BSA"
                   },
                   "value" : 54
                }
@@ -3022,8 +3022,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 30
                }
@@ -3041,8 +3041,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 36
                }
@@ -3060,8 +3060,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 54
                }
@@ -3079,8 +3079,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C85710",
+                     "label" : "Milligram per Liter per Milligram"
                   },
                   "value" : 6
                }
@@ -3454,8 +3454,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C98734",
+                     "label" : "Glomerular Filtration Rate Adjusted for BSA"
                   },
                   "value" : 52
                }
@@ -3492,8 +3492,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 26
                }
@@ -3511,8 +3511,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 30
                }
@@ -3530,8 +3530,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 42
                }
@@ -3549,8 +3549,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C85710",
+                     "label" : "Milligram per Liter per Milligram"
                   },
                   "value" : 2.03
                }
@@ -3807,8 +3807,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C98734",
+                     "label" : "Glomerular Filtration Rate Adjusted for BSA"
                   },
                   "value" : 63
                }
@@ -3845,8 +3845,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 28
                }
@@ -3864,8 +3864,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 32
                }
@@ -3883,8 +3883,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 48
                }
@@ -3902,8 +3902,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C85710",
+                     "label" : "Milligram per Liter per Milligram"
                   },
                   "value" : 1.13
                }
@@ -4065,8 +4065,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C98734",
+                     "label" : "Glomerular Filtration Rate Adjusted for BSA"
                   },
                   "value" : 58
                }
@@ -4103,8 +4103,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 21
                }
@@ -4122,8 +4122,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 19
                }
@@ -4141,8 +4141,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 0
                }
@@ -4160,8 +4160,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C85710",
+                     "label" : "Milligram per Liter per Milligram"
                   },
                   "value" : 0.6
                }
@@ -4410,8 +4410,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C98734",
+                     "label" : "Glomerular Filtration Rate Adjusted for BSA"
                   },
                   "value" : 63
                }
@@ -4448,8 +4448,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 24
                }
@@ -4467,8 +4467,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 22
                }
@@ -4486,8 +4486,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 47
                }
@@ -4505,8 +4505,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C85710",
+                     "label" : "Milligram per Liter per Milligram"
                   },
                   "value" : 0.6
                }
@@ -4793,8 +4793,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C98734",
+                     "label" : "Glomerular Filtration Rate Adjusted for BSA"
                   },
                   "value" : 67
                }
@@ -4831,8 +4831,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 22
                }
@@ -4850,8 +4850,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 19
                }
@@ -4869,8 +4869,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 46
                }
@@ -4888,8 +4888,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C85710",
+                     "label" : "Milligram per Liter per Milligram"
                   },
                   "value" : 0.6
                }
@@ -5166,8 +5166,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C98734",
+                     "label" : "Glomerular Filtration Rate Adjusted for BSA"
                   },
                   "value" : 59
                }
@@ -5204,8 +5204,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 5
                }
@@ -5223,8 +5223,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 18
                }
@@ -5242,8 +5242,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 101
                }
@@ -5261,8 +5261,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C85710",
+                     "label" : "Milligram per Liter per Milligram"
                   },
                   "value" : 19
                }
@@ -5669,8 +5669,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C98734",
+                     "label" : "Glomerular Filtration Rate Adjusted for BSA"
                   },
                   "value" : 66
                }
@@ -5707,8 +5707,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 8
                }
@@ -5726,8 +5726,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 26
                }
@@ -5745,8 +5745,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 48
                }
@@ -5764,8 +5764,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C85710",
+                     "label" : "Milligram per Liter per Milligram"
                   },
                   "value" : 2.11
                }
@@ -6033,8 +6033,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C98734",
+                     "label" : "Glomerular Filtration Rate Adjusted for BSA"
                   },
                   "value" : 58
                }
@@ -6071,8 +6071,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 8
                }
@@ -6090,8 +6090,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 20
                }
@@ -6109,8 +6109,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 51
                }
@@ -6128,8 +6128,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C85710",
+                     "label" : "Milligram per Liter per Milligram"
                   },
                   "value" : 74
                }
@@ -6405,8 +6405,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C98734",
+                     "label" : "Glomerular Filtration Rate Adjusted for BSA"
                   },
                   "value" : 59
                }
@@ -6443,8 +6443,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 8
                }
@@ -6462,8 +6462,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 15
                }
@@ -6481,8 +6481,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 43
                }
@@ -6500,8 +6500,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C85710",
+                     "label" : "Milligram per Liter per Milligram"
                   },
                   "value" : 2.65
                }
@@ -6557,8 +6557,8 @@
                      "low" : null
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67396",
+                     "label" : "Microgram per Kilogram"
                   },
                   "value" : 81
                }
@@ -6702,8 +6702,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C98734",
+                     "label" : "Glomerular Filtration Rate Adjusted for BSA"
                   },
                   "value" : 132
                }
@@ -6740,8 +6740,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 10
                }
@@ -6759,8 +6759,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 14
                }
@@ -6778,8 +6778,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 18
                }
@@ -6797,8 +6797,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C85710",
+                     "label" : "Milligram per Liter per Milligram"
                   },
                   "value" : 4.46
                }
@@ -7161,8 +7161,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C98734",
+                     "label" : "Glomerular Filtration Rate Adjusted for BSA"
                   },
                   "value" : 111
                }
@@ -7199,8 +7199,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 28
                }
@@ -7218,8 +7218,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 10
                }
@@ -7237,8 +7237,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 17
                }
@@ -7256,8 +7256,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C85710",
+                     "label" : "Milligram per Liter per Milligram"
                   },
                   "value" : 0.6
                }
@@ -7430,8 +7430,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C98734",
+                     "label" : "Glomerular Filtration Rate Adjusted for BSA"
                   },
                   "value" : 113
                }
@@ -7468,8 +7468,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 31
                }
@@ -7487,8 +7487,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 33
                }
@@ -7506,8 +7506,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 52
                }
@@ -7525,8 +7525,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C85710",
+                     "label" : "Milligram per Liter per Milligram"
                   },
                   "value" : 0.6
                }
@@ -7794,8 +7794,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C98734",
+                     "label" : "Glomerular Filtration Rate Adjusted for BSA"
                   },
                   "value" : 106
                }
@@ -7832,8 +7832,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 23
                }
@@ -7851,8 +7851,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 10
                }
@@ -7870,8 +7870,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 22
                }
@@ -7889,8 +7889,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C85710",
+                     "label" : "Milligram per Liter per Milligram"
                   },
                   "value" : 0.95
                }
@@ -8148,8 +8148,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C98734",
+                     "label" : "Glomerular Filtration Rate Adjusted for BSA"
                   },
                   "value" : 121
                }
@@ -8186,8 +8186,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 24
                }
@@ -8205,8 +8205,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 66
                }
@@ -8224,8 +8224,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 46
                }
@@ -8243,8 +8243,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C85710",
+                     "label" : "Milligram per Liter per Milligram"
                   },
                   "value" : 20.7
                }
@@ -8300,8 +8300,8 @@
                      "low" : null
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67396",
+                     "label" : "Microgram per Kilogram"
                   },
                   "value" : 243
                }
@@ -8553,8 +8553,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C98734",
+                     "label" : "Glomerular Filtration Rate Adjusted for BSA"
                   },
                   "value" : 118
                }
@@ -8591,8 +8591,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 24
                }
@@ -8610,8 +8610,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 41
                }
@@ -8629,8 +8629,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 46
                }
@@ -8648,8 +8648,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C85710",
+                     "label" : "Milligram per Liter per Milligram"
                   },
                   "value" : 12.9
                }
@@ -8917,8 +8917,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C98734",
+                     "label" : "Glomerular Filtration Rate Adjusted for BSA"
                   },
                   "value" : 112
                }
@@ -8955,8 +8955,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 21
                }
@@ -8974,8 +8974,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 77
                }
@@ -8993,8 +8993,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 48
                }
@@ -9012,8 +9012,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C85710",
+                     "label" : "Milligram per Liter per Milligram"
                   },
                   "value" : 11.3
                }
@@ -9195,8 +9195,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C98734",
+                     "label" : "Glomerular Filtration Rate Adjusted for BSA"
                   },
                   "value" : 75
                }
@@ -9233,8 +9233,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 18
                }
@@ -9252,8 +9252,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 24
                }
@@ -9271,8 +9271,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 38
                }
@@ -9290,8 +9290,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C85710",
+                     "label" : "Milligram per Liter per Milligram"
                   },
                   "value" : 4.1
                }
@@ -9635,8 +9635,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C98734",
+                     "label" : "Glomerular Filtration Rate Adjusted for BSA"
                   },
                   "value" : 79
                }
@@ -9673,8 +9673,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 23
                }
@@ -9692,8 +9692,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 15
                }
@@ -9711,8 +9711,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 25
                }
@@ -9730,8 +9730,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C85710",
+                     "label" : "Milligram per Liter per Milligram"
                   },
                   "value" : 1.34
                }
@@ -9923,8 +9923,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C98734",
+                     "label" : "Glomerular Filtration Rate Adjusted for BSA"
                   },
                   "value" : 85
                }
@@ -9961,8 +9961,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 22
                }
@@ -9980,8 +9980,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 19
                }
@@ -9999,8 +9999,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 32
                }
@@ -10018,8 +10018,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C85710",
+                     "label" : "Milligram per Liter per Milligram"
                   },
                   "value" : 8.27
                }
@@ -10200,8 +10200,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C98734",
+                     "label" : "Glomerular Filtration Rate Adjusted for BSA"
                   },
                   "value" : 85
                }
@@ -10238,8 +10238,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 17
                }
@@ -10257,8 +10257,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 15
                }
@@ -10276,8 +10276,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 49
                }
@@ -10295,8 +10295,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C85710",
+                     "label" : "Milligram per Liter per Milligram"
                   },
                   "value" : 0.64
                }
@@ -10352,8 +10352,8 @@
                      "low" : null
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67396",
+                     "label" : "Microgram per Kilogram"
                   },
                   "value" : 21
                }
@@ -10583,8 +10583,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C98734",
+                     "label" : "Glomerular Filtration Rate Adjusted for BSA"
                   },
                   "value" : 85
                }
@@ -10621,8 +10621,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 17
                }
@@ -10640,8 +10640,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 18
                }
@@ -10659,8 +10659,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 35
                }
@@ -10678,8 +10678,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C85710",
+                     "label" : "Milligram per Liter per Milligram"
                   },
                   "value" : 1.12
                }
@@ -10956,8 +10956,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C98734",
+                     "label" : "Glomerular Filtration Rate Adjusted for BSA"
                   },
                   "value" : 116
                }
@@ -10994,8 +10994,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 20
                }
@@ -11013,8 +11013,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 15
                }
@@ -11032,8 +11032,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 15
                }
@@ -11051,8 +11051,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C85710",
+                     "label" : "Milligram per Liter per Milligram"
                   },
                   "value" : 1.81
                }
@@ -11339,8 +11339,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C98734",
+                     "label" : "Glomerular Filtration Rate Adjusted for BSA"
                   },
                   "value" : 112
                }
@@ -11377,8 +11377,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 18
                }
@@ -11396,8 +11396,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 12
                }
@@ -11415,8 +11415,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 17
                }
@@ -11434,8 +11434,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C85710",
+                     "label" : "Milligram per Liter per Milligram"
                   },
                   "value" : 1.76
                }
@@ -11608,8 +11608,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C98734",
+                     "label" : "Glomerular Filtration Rate Adjusted for BSA"
                   },
                   "value" : 108
                }
@@ -11646,8 +11646,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 20
                }
@@ -11665,8 +11665,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 13
                }
@@ -11684,8 +11684,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 16
                }
@@ -11703,8 +11703,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C85710",
+                     "label" : "Milligram per Liter per Milligram"
                   },
                   "value" : 1.45
                }
@@ -11915,8 +11915,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C98734",
+                     "label" : "Glomerular Filtration Rate Adjusted for BSA"
                   },
                   "value" : 107
                }
@@ -11953,8 +11953,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 17
                }
@@ -11972,8 +11972,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 11
                }
@@ -11991,8 +11991,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 12
                }
@@ -12010,8 +12010,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C85710",
+                     "label" : "Milligram per Liter per Milligram"
                   },
                   "value" : 3.37
                }
@@ -12279,8 +12279,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C98734",
+                     "label" : "Glomerular Filtration Rate Adjusted for BSA"
                   },
                   "value" : 110
                }
@@ -12317,8 +12317,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 12
                }
@@ -12336,8 +12336,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 11
                }
@@ -12355,8 +12355,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C67376",
+                     "label" : "International Unit per Liter"
                   },
                   "value" : 17
                }
@@ -12374,8 +12374,8 @@
                      "low" : 0
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C85710",
+                     "label" : "Milligram per Liter per Milligram"
                   },
                   "value" : 3.75
                }

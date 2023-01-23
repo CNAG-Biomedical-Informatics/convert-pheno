@@ -21,7 +21,7 @@ my $input = {
 't/redcap2bff/in/3TRKielTemplateExport01072022_DataDictionary_2022-07-03.csv',
         mapping_file         => 't/redcap2bff/in/redcap_3tr_mapping.yaml',
         schema_file          => 'schema/mapping.json',
-        self_validate_schema => 1,                                           # SELF-VALIDATE-SCHEMA (OK - ONLY ONCE)
+        self_validate_schema => 1,       # SELF-VALIDATE-SCHEMA (OK - ONLY ONCE)
         sep                  => undef,
         out                  => 't/redcap2bff/out/individuals.json'
     }
@@ -49,6 +49,7 @@ for my $method ( sort keys %{$input} ) {
             sep                  => $input->{$method}{sep},
             test                 => 1,
             debug                => 2,
+            match                => 'exact',
             verbose              => 1,
             method               => $method
 
@@ -89,6 +90,7 @@ for my $method ( sort keys %{$input} ) {
                 schema_file => $err eq 'ERR4' ? 't/schema/malformed.json'
                 : $input->{$method}{schema_file},
                 in_textfile => 1,
+                match       => 'exact',
                 sep         => $input->{$method}{sep},
                 test        => 1,
                 method      => $err eq 'ERR3' ? 'foo2bar' : $method
@@ -116,7 +118,8 @@ for my $method ( sort keys %{$input} ) {
         {
             in_files    => $input->{$method}{in_files},
             in_textfile => 1,
-            ohdsi_db    => 1,                             # Need ohdsi_db as we deal with few rows
+            match       => 'exact',
+            ohdsi_db    => 1,        # Need ohdsi_db as we deal with few rows
             method      => $method
         }
     );

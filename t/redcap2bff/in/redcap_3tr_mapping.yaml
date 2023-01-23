@@ -83,16 +83,16 @@
       xx.x µmol/l: Micromole per Liter
       xxx.x µmol/l: Micromole per Liter
       xxx µmol/l: Micromole per Liter 
-      # 'ml/min/1.73'    => 'mL/min/1.73',
-      # 'xxx ml/min/1.73' => 'mL/min/1.73',
-      xx.x U/l: Units per Liter
+      ml/min/1.73: Glomerular Filtration Rate Adjusted for BSA
+      xxx ml/min/1.73: Glomerular Filtration Rate Adjusted for BSA
+      xx.x U/l: International Unit per Liter
       pg/dl: Picogram per Deciliter
       mg/dl: Milligram per Deciliter
-      # 'xxx.x mg/l'     => 'Milligram per Liter',
+      xxx.x mg/l: Milligram per Liter per Milligram
       µg/dl: Microgram per Deciliter
       ng/dl: Nanogram per Deciliter
       xxxx.x ng/l: Nanogram per Liter
-      mg/kg stool: Miligram per Kilogram
+      mg/kg stool: Microgram per Kilogram
       'xx.x %': Percentage
       # Test
       hemoglobin: Hemoglobin Measurement
@@ -109,21 +109,15 @@
       bilirubin: Total Bilirubin Measurement
       gpt: Serum Glutamic Pyruvic Transaminase, CTCAE
       ggt: Serum Gamma Glutamyl Transpeptidase Measurement
-      lipase    : Lipase Measurement
+      lipase: Lipase Measurement
       crp: C-Reactive Protein Measurement
       iron: Iron Measurement
       il6: Interleukin-6
-      calprotectin : Calprotectin Measurement
-
-#nancy_index_ulceration;endoscopy;;radio;"Nancy histology index: Ulceration";"0, 0 - none|2, 2 - yes";;;;;;"[endoscopy_performed] = '1' AND [week_0_arm_1][diagnosis] = '2'";y;;;;;
-#nancy_index_acute;endoscopy;;radio;"Nancy histology index: Acute inflammatory cell infiltrate";"0, 0 - none|2, 2 - mild|3, 3 - moderate|4, 4 - severe";;;;;;"[endoscopy_performed] = '1' AND [week_0_arm_1][diagnosis] = '2'";y;;;;;
-# nancy_index_chronic;endoscopy;;radio;"Nancy histology index: Chronic inflammatory infiltrates";"0, 0 - none|1, 1 - mild|3, 3 - moderate or marked increase";;;;;;"[endoscopy_performed] = '1' AND [week_0_arm_1][diagnosis] = '2'";y;;;;;
-#        nancy_index_ulceration => 'Nancy Index Ulceration',
-#        nancy_index_acute      =>
-#          'Nancy histology index: Acute inflammatory cell infiltrate',
-#        nancy_index_chronic =>
-#          'Nancy histology index: Chronic inflammatory infiltrates'
-
+      calprotectin: Calprotectin Measurement
+      # Index
+      #nancy_index_ulceration: Nancy Index Ulceration
+      #nancy_index_acute: 'Nancy histology index: Acute inflammatory cell infiltrate'
+      #nancy_index_chronic: 'Nancy histology index: Chronic inflammatory infiltrates'
 
   # pedigrees: null
 

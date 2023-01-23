@@ -51,7 +51,9 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
        -log                           Save <convert-pheno-log.json> file
        -man                           Full documentation
        -mapping-file                  Fields mapping YAML (or JSON) file
+       -match                         Type of search [>exact|mixed]
        -max-lines-sql                 Maxium number of lines read from SQL dump [500]
+       -min-text-similarity-score     Minimum number of overlapping words [3]
        -nc|-no-color                  Don't print colors to STDOUT
        -ohdsi-db                      Use Athena-OHDSI database (~1.2GB) with -iomop
        -out-dir                       Output (existing) directory
@@ -110,6 +112,7 @@ Alternatively, you can use `make` to perform all the previous steps:
     make -f makefile.docker enter
 
 ### Mounting volumes
+
 Docker containers are fully isolated. If you need the mount a volume to the container please use the following syntax (`-v host:container`). 
 Find an example below (note that you need to change the paths to match yours):
 
@@ -166,6 +169,16 @@ For executing convert-pheno you will need:
     Athena-OHDSI database
 
     Please download it from this [link](https://drive.google.com/file/d/104ciON3zRc3ScAzzrL_3GO14aCnBLh-c/view?usp=sharing) (~1.2GB) and move it inside `db/` directory.
+
+## ABOUT SEARCH OPTIONS
+
+- exact:
+
+    Retrieves only exact matches for a specified 'label',
+
+- mixed:
+
+    The script will begin by attempting an exact match for 'label', and if it is unsuccessful, it will then conduct a search based on string similarity and select the ontology with the highest score.
 
 **Examples:**
 

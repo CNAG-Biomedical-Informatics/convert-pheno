@@ -9,11 +9,14 @@ use DBI;
 use File::Spec::Functions qw(catdir catfile);
 use Data::Dumper;
 use List::Util qw(any);
+use Text::Similarity::Overlaps;
 use Exporter 'import';
 our @EXPORT =
-  qw( $VERSION open_connections_SQLite close_connections_SQLite execute_query_SQLite);
+  qw( $VERSION open_connections_SQLite close_connections_SQLite get_ontology);
 
 my @sqlites = qw(ncit icd10 ohdsi);
+my @matches = qw(exact_match contains);
+use constant DEVEL_MODE => 1;
 
 ########################
 ########################
@@ -61,6 +64,8 @@ sub open_db_SQLite {
     my $ontology = shift;
     my $dbfile   = catfile( $Convert::Pheno::Bin, '../db', "$ontology.db" );
     confess "Sorry we could not find <$dbfile> file" unless -f $dbfile;
+
+    # Connect to the database
     my $user   = '';
     my $passwd = '';
     my $dsn    = "dbi:SQLite:dbname=$dbfile";
@@ -119,7 +124,7 @@ sub prepare_query_SQLite {
 #       vocabulary_id => vocabulary_id [2]
 #       vocabulary_id => id            [4]
 
-    for my $match ('exact_match') {
+    for my $match (@matches) {
         for my $ontology (@databases) {    #global
             for my $column ( 'label', 'concept_id' ) {
                 next
@@ -139,9 +144,7 @@ qq(SELECT * FROM $db WHERE $column LIKE ? || '%' COLLATE NOCASE)
                 );
 
                 # Prepare the query
-                my $sth = $dbh->prepare(<<SQL);
-$query_type{$match}
-SQL
+                my $sth = $dbh->prepare( $query_type{$match} );
 
                 # Autovivification of $self->{sth}{$ontology}{$column}{$match}
                 $self->{sth}{$ontology}{$column}{$match} =
@@ -154,35 +157,158 @@ SQL
     return 1;
 }
 
-sub execute_query_SQLite {
+sub get_ontology {
+
+    ###############
+    # START QUERY #
+    ###############
 
     my $arg      = shift;
-    my $sth      = $arg->{sth};
-    my $query    = $arg->{query};
     my $ontology = $arg->{ontology};
+    my $sth_ref  = $arg->{sth_ref};    #it contains hashref
+    my $query    = $arg->{query};
     my $match    = $arg->{match};
+
+    # A) 'exact'
+    # - exact_match
+    # B) Mixed queries:
+    #    1 - exact_match
+    #      if we don't get results
+    #    2 - contains
+    #       for which we rank by similarity w/ Text:Similarity
+
+    my $default_id    = uc($ontology) . ':NA0000';
+    my $default_label = 'NA';
+
+    # exact_match
+    my ( $id, $label ) = execute_query_SQLite(
+        {
+            sth      => $sth_ref->{exact_match},    # IMPORTANT STEP
+            query    => $query,
+            ontology => $ontology,
+            match    => 'exact_match'
+        }
+    );
+
+    # mixed
+    if ( $match eq 'mixed' && ( !defined $id && !defined $label ) ) {
+        ( $id, $label ) = execute_query_SQLite(
+            {
+                sth      => $sth_ref->{contains},    # IMPORTANT STEP
+                query    => $query,
+                ontology => $ontology,
+                match    => 'contains'
+            }
+        );
+    }
+
+    # Set defaults if undef
+    $id    = $id    // $default_id;
+    $label = $label // $default_label;
+
+    #############
+    # END QUERY #
+    #############
+
+    return ( $id, $label );
+
+}
+
+sub execute_query_SQLite {
+
+    my $arg                       = shift;
+    my $sth                       = $arg->{sth};
+    my $query                     = $arg->{query};
+    my $ontology                  = uc( $arg->{ontology} );
+    my $match                     = $arg->{match};
+    my $id_row                    = $ontology ne 'OHDSI' ? 1 : 0;
+    my $label_row                 = $ontology ne 'OHDSI' ? 0 : 1;
+    my $min_text_similarity_score = $arg->{min_text_similarity_score};
 
     # Excute query
     $sth->execute($query);
 
-    # Parse query
-    $ontology = uc($ontology);
-    my $id    = $ontology . ':NA0000';
-    my $label = 'NA';
-    while ( my $row = $sth->fetchrow_arrayref ) {
-        if ( $ontology ne 'OHDSI' ) {
-            $id    = $ontology . ':' . $row->[1];
-            $label = $row->[0];
+    my $id    = undef;
+    my $label = undef;
+
+    if ( $match eq 'exact_match' ) {
+
+        # Parse query
+        while ( my $row = $sth->fetchrow_arrayref ) {
+            $id =
+                $ontology ne 'OHDSI'
+              ? $ontology . ':' . $row->[$id_row]
+              : $row->[2] . ':' . $row->[$id_row];
+            $label = $row->[$label_row];
+            last; # Note that sometimes we get more than one (they're discarded)
         }
-        else {
-            $id    = $row->[2] . ':' . $row->[0];
-            $label = $row->[1];
-        }
-        last
-          if $match eq 'exact_match'; # Note that sometimes we get more than one
     }
+    else {
+
+        # Parse query w/ sub
+        ( $id, $label ) = text_similarity(
+            {
+                sth                       => $sth,
+                query                     => $query,
+                ontology                  => $ontology,
+                id_row                    => $id_row,
+                label_row                 => $label_row,
+                min_text_similarity_score => $min_text_similarity_score
+            }
+        );
+    }
+
+    # Finish $sth
     $sth->finish();
 
+    # We return results
     return ( $id, $label );
+}
+
+sub text_similarity {
+
+    my $arg       = shift;
+    my $sth       = $arg->{sth};
+    my $query     = $arg->{query};
+    my $ontology  = $arg->{ontology};
+    my $id_row    = $arg->{id_row};
+    my $label_row = $arg->{label_row};
+    my $min_score = $arg->{min_text_similarity_score};
+
+    # Create a new Text::Similarity object
+    my $ts = Text::Similarity::Overlaps->new();
+
+    # Fetch the query results
+    my $data = ();
+    while ( my $row = $sth->fetchrow_arrayref() ) {
+        $data->{ $row->[$label_row] } = {
+            id => $ontology ne 'OHDSI'
+            ? $ontology . ':' . $row->[$label_row]
+            : $row->[2] . ':' . $row->[$label_row],
+            label => $row->[$label_row],
+            score => $ts->getSimilarityStrings( $query, $row->[$label_row] ),
+            query => $query
+        };
+    }
+
+    # Sort the results by similarity score
+    #$Data::Dumper::Sortkeys = 1 ;
+    my @sorted_keys =
+      sort { $data->{$b}{score} <=> $data->{$a}{score} } keys %{$data};
+
+    #print Dumper $data         if DEVEL_MODE;
+    #print "$query\n"           if DEVEL_MODE;
+    #print Dumper \@sorted_keys if DEVEL_MODE;
+
+    # We have a threshold to assign a result as valid
+    my @valid_keys = grep { $data->{$_}{score} >= $min_score } @sorted_keys;
+
+    print Dumper \@valid_keys if DEVEL_MODE;
+
+    # Return 1st element if present
+    return $valid_keys[0]
+      ? ( $data->{ $valid_keys[0] }{id}, $data->{ $valid_keys[0] }{label} )
+      : ( undef, undef );
+
 }
 1;

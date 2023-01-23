@@ -4,6 +4,8 @@
 *.old
 *.swp
 *.pyc
+test.pl
+clean.sh
 /blib/
 __pycache__/
 /cover_db/

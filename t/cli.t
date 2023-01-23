@@ -29,7 +29,7 @@ my $input = {
         redcap_dictionary =>
 't/redcap2bff/in/3TRKielTemplateExport01072022_DataDictionary_2022-07-03.csv',
         mapping_file         => 't/redcap2bff/in/redcap_3tr_mapping.yaml',
-        self_validate_schema => 1,                                           # SELF-VALIDATE-SCHEMA (OK - ONLY ONCE)
+        self_validate_schema => 1,       # SELF-VALIDATE-SCHEMA (OK - ONLY ONCE)
         sep                  => undef,
         out                  => 't/redcap2bff/out/individuals.json'
     },
@@ -94,6 +94,7 @@ for my $method ( sort keys %{$input} ) {
             in_textfile          => 1,
             sep                  => $input->{$method}{sep},
             test                 => 1,
+            match                => 'exact',
             method               => $method
         }
     );

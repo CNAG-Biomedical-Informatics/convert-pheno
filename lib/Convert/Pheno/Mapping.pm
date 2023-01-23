@@ -45,7 +45,8 @@ sub map_ontology {
     #  1 - Prepare once, excute often (almost no gain in speed :/ )
     #  2 - Create a global hash with "seen" queries (+++huge gain)
 
-    #return { id => 'dummy', label => 'dummy' };    # test speed
+    return { id => 'dummy', label => 'dummy' }
+      if $_[0]->{query} eq '';    # test speed
 
     # Checking for existance in %$seen
     my $tmp_query = $_[0]->{query};
@@ -64,16 +65,13 @@ sub map_ontology {
     #return { id => 'NCIT:NA000', label => $tmp_query } if $tmp_query =~ m/xx/;
 
     # Ok, now it's time to start the subroutine
-    my $arg      = shift;
-    my $column   = $arg->{column};
-    my $ontology = $arg->{ontology};
-    my $match =
-      exists $arg->{match}
-      ? $arg->{match}
-      : 'exact_match';    # Only option as of 090422
-    my $self                = $arg->{self};
-    my $print_hidden_labels = $self->{print_hidden_labels};
-    my $sth = $self->{sth}{$ontology}{$column}{$match};    # IMPORTANT STEP
+    my $arg                       = shift;
+    my $column                    = $arg->{column};
+    my $ontology                  = $arg->{ontology};
+    my $self                      = $arg->{self};
+    my $match                     = $self->{match};
+    my $print_hidden_labels       = $self->{print_hidden_labels};
+    my $min_text_similarity_score = $self->{min_text_similarity_score};
 
     # Die if user wants OHDSI w/o flag -ohdsi-db
     confess
@@ -81,12 +79,13 @@ sub map_ontology {
       if ( $ontology eq 'ohdsi' && !$self->{ohdsi_db} );
 
     # Perform query
-    my ( $id, $label ) = execute_query_SQLite(
+    my ( $id, $label ) = get_ontology(
         {
-            sth      => $sth,
-            query    => $tmp_query,
-            ontology => $ontology,
-            match    => $match
+            sth_ref                   => $self->{sth}{$ontology}{$column},
+            query                     => $tmp_query,
+            ontology                  => $ontology,
+            match                     => $match,
+            min_text_similarity_score => $min_text_similarity_score
         }
     );
 
@@ -166,9 +165,13 @@ sub map_age_range {
 sub map2redcap_dic {
 
     my $arg = shift;
-    my ( $redcap_dic, $participant, $field ) =
-      ( $arg->{redcap_dic}, $arg->{participant}, $arg->{field} );
-    return $redcap_dic->{$field}{_labels}{ $participant->{$field} };
+    my ( $redcap_dic, $participant, $field, $labels ) = (
+        $arg->{redcap_dic}, $arg->{participant},
+        $arg->{field},      $arg->{labels}
+    );
+    return $labels
+      ? $redcap_dic->{$field}{_labels}{ $participant->{$field} }
+      : $redcap_dic->{$field}{'Field Note'};
 }
 
 sub map2ohdsi_dic {

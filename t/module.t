@@ -7,13 +7,13 @@ use Data::Dumper;
 use JSON::XS;
 use Test::More tests => 2;
 use Test::Deep;
-use Convert::Pheno; 
+use Convert::Pheno;
 
-use_ok( 'Convert::Pheno' ) or exit;
+use_ok('Convert::Pheno') or exit;
 
 # Load data
-my $bff   = bff();
-my $pxf   = pxf();
+my $bff = bff();
+my $pxf = pxf();
 
 # Ignoring variable fields
 # https://metacpan.org/pod/Test::Deep
@@ -30,6 +30,7 @@ for my $method ( sort keys %{$input} ) {
             method      => $method
         }
     );
+
     #is_deeply( $convert->$method, $pxf, $method );
     cmp_deeply( $convert->$method, $pxf, $method );
 
@@ -188,5 +189,5 @@ sub bff {
     }
   }
 ';
-  return decode_json $str;
+    return decode_json $str;
 }

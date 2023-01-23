@@ -6,6 +6,7 @@ requires 'YAML::XS';
 requires 'Path::Tiny';
 requires 'Term::ANSIColor';
 requires 'Text::CSV_XS';
+requires 'Text::Similarity';
 requires 'Sort::Naturally';
 requires 'DBI';
 requires 'Moo';

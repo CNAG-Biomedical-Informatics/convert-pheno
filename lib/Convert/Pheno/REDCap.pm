@@ -27,20 +27,20 @@ sub do_redcap2bff {
     ##############################
     # <Variable> names in REDCap #
     ##############################
-    #
-    # REDCap does not enforce any particular "Variable" name.
-    # Extracted from https://www.ctsi.ufl.edu/wordpress/files/2019/02/Project-Creation-User-Guide.pdf
-    # ---
-    # "Variable Names: Variable names are critical in the data analysis process. If you export your data to a
-    # statistical software program, the variable names are what you or your statistician will use to conduct
-    # the analysis"
-    #
-    # "We always recommend reviewing your variable names with a statistician or whoever will be
-    # analyzing your data. This is especially important if this is the first time you are building a
-    # database"
-    #---
-    # If "Variable" names are not consensuated, then we need to do the mapping manually "a posteriori".
-    # This is what we are attempting here:
+#
+# REDCap does not enforce any particular "Variable" name.
+# Extracted from https://www.ctsi.ufl.edu/wordpress/files/2019/02/Project-Creation-User-Guide.pdf
+# ---
+# "Variable Names: Variable names are critical in the data analysis process. If you export your data to a
+# statistical software program, the variable names are what you or your statistician will use to conduct
+# the analysis"
+#
+# "We always recommend reviewing your variable names with a statistician or whoever will be
+# analyzing your data. This is especially important if this is the first time you are building a
+# database"
+#---
+# If "Variable" names are not consensuated, then we need to do the mapping manually "a posteriori".
+# This is what we are attempting here:
 
     ####################################
     # START MAPPING TO BEACON V2 TERMS #
@@ -62,6 +62,8 @@ sub do_redcap2bff {
     # *** ABOUT REQUIRED PROPERTIES ***
     # 'id' and 'sex' are required properties in <individuals> entry type
 
+    my @redcap_field_types = ( "Field Label", "Field Note", "Field Type" );
+
     # Getting the field name from mapping file (note that we add _field suffix)
     my $sex_field     = $mapping_file->{sex};
     my $studyId_field = $mapping_file->{info}{dict}{studyId};
@@ -72,7 +74,7 @@ sub do_redcap2bff {
     if ( exists $participant->{$sex_field} && $participant->{$sex_field} ne '' )
     {
         $self->{_info}{ $participant->{study_id} }{$sex_field} =
-          $participant->{$sex_field};    # Dynamically adding attributes (setter)
+          $participant->{$sex_field};   # Dynamically adding attributes (setter)
     }
     $participant->{$sex_field} =
       $self->{_info}{ $participant->{$studyId_field} }{$sex_field};
@@ -113,9 +115,6 @@ sub do_redcap2bff {
     #$individual->{diseases} = [];
 
     # Inflamatory Bowel Disease --- Note the 2 mm in infla-mm-atory
-    #my %disease = ( 'Inflammatory Bowel Disease' => 'ICD10:K51.90' ); # it does not exist as it is at ICD10
-    #my @diseases = ('Unspecified asthma, uncomplicated', 'Inflamatory Bowel Disease', "Crohn's disease, unspecified, without complications");
-
     # Loading @diseases from mapping file
     my @diseases = @{ $mapping_file->{diseases}{fields} };
 
@@ -134,7 +133,8 @@ sub do_redcap2bff {
                 {
                     redcap_dic  => $redcap_dic,
                     participant => $participant,
-                    field       => $ageOfOnset_field
+                    field       => $ageOfOnset_field,
+                    labels      => 1
                 }
             )
           )
@@ -153,7 +153,8 @@ sub do_redcap2bff {
                 {
                     redcap_dic  => $redcap_dic,
                     participant => $participant,
-                    field       => $familyHistory_field
+                    field       => $familyHistory_field,
+                    labels      => 1
                 }
             )
           )
@@ -180,7 +181,9 @@ sub do_redcap2bff {
             {
                 redcap_dic  => $redcap_dic,
                 participant => $participant,
-                field       => $ethnicity_field
+                field       => $ethnicity_field,
+                labels      => 1
+
             }
         )
       )
@@ -194,7 +197,8 @@ sub do_redcap2bff {
     #$individual->{exposures} = undef;
     my @exposures_fields = @{ $mapping_file->{exposures}{fields} };
     my %exposures_dict   = %{ $mapping_file->{exposures}{dict} };
-    my $exposures_radio  = $mapping_file->{exposures}{radio};         # DELIBERATE -- hashref instead of hash
+    my $exposures_radio =
+      $mapping_file->{exposures}{radio}; # DELIBERATE -- hashref instead of hash
     for my $field (@exposures_fields) {
         next
           unless ( exists $participant->{$field}
@@ -216,13 +220,14 @@ sub do_redcap2bff {
 
         # We first extract 'unit' that supposedly will be used in in
         # <measurementValue> and <referenceRange>??
-        my $subkey =
-          exists $exposures_radio->{$field}
+        my $subkey = exists $exposures_radio->{$field}
           ? map2redcap_dic(
             {
                 redcap_dic  => $redcap_dic,
                 participant => $participant,
-                field       => $field
+                field       => $field,
+                labels      => 1
+
             }
           )
           : 'dummy';
@@ -274,13 +279,14 @@ sub do_redcap2bff {
                     {
                         redcap_dic  => $redcap_dic,
                         participant => $participant,
-                        field       => $field
+                        field       => $field,
+                        labels      => 1
+
                     }
                   )
                   : $field =~ m/^consent/ ? {
                     value => dotify_and_coerce_number( $participant->{$field} ),
-                    map { $_ => $redcap_dic->{$field}{$_} }
-                      ( "Field Label", "Field Note", "Field Type" )
+                    map { $_ => $redcap_dic->{$field}{$_} } @redcap_field_types
                   }
                   : $participant->{$field};
             }
@@ -365,8 +371,30 @@ sub do_redcap2bff {
         $measure->{date} = '1900-01-01';
 
         # We first extract 'unit' and %range' for <measurementValue>
-        my $tmp_str = $redcap_dic->{$field}{'Field Note'};
-        my $unit    = map_ontology(
+        my $tmp_str =
+          ( any { /^$field$/ }
+              qw(nancy_index_acute nancy_index_chronic nancy_index_ulceration endo_mayo)
+          )
+          ? map2redcap_dic(
+            {
+                redcap_dic  => $redcap_dic,
+                participant => $participant,
+                field       => $field,
+                labels      => 1
+
+            }
+          )
+          : map2redcap_dic(
+            {
+                redcap_dic  => $redcap_dic,
+                participant => $participant,
+                field       => $field,
+                labels      => 0               # will get 'Field Note'
+
+            }
+          );
+
+        my $unit = map_ontology(
             {
                 query => exists $measures_dict{$tmp_str}
                 ? $measures_dict{$tmp_str}
@@ -385,8 +413,8 @@ sub do_redcap2bff {
                 )
             }
         };
-        $measure->{notes} =
-          "$field, Field Label=$redcap_dic->{$field}{'Field Label'}";
+        $measure->{notes} = join ' /// ', $field,
+          ( map { qq/$_=$redcap_dic->{$field}{$_}/ } @redcap_field_types );
 
         #$measure->{observationMoment} = undef;          # Age
         $measure->{procedure} = {
@@ -445,9 +473,9 @@ sub do_redcap2bff {
             && $participant->{$field} == 1 )
         {
 
-            #$phenotypicFeature->{evidence} = undef;    # P32Y6M1D
-            #$phenotypicFeature->{excluded} =
-            #  { quantity => { unit => { id => '', label => '' }, value => undef } };
+       #$phenotypicFeature->{evidence} = undef;    # P32Y6M1D
+       #$phenotypicFeature->{excluded} =
+       #  { quantity => { unit => { id => '', label => '' }, value => undef } };
             $phenotypicFeature->{featureType} = map_ontology(
                 {
                     query    => $field =~ m/comorb/ ? 'Comorbidity' : $field,
@@ -459,8 +487,11 @@ sub do_redcap2bff {
             );
 
             #$phenotypicFeature->{modifiers}   = { id => '', label => '' };
-            $phenotypicFeature->{notes} =
-              "$field, Field Label=$redcap_dic->{$field}{'Field Label'}";
+            $phenotypicFeature->{notes} = join ' /// ',
+              (
+                $field,
+                map { qq/$_=$redcap_dic->{$field}{$_}/ } @redcap_field_types
+              );
 
             #$phenotypicFeature->{onset}       = { id => '', label => '' };
             #$phenotypicFeature->{resolution}  = { id => '', label => '' };
@@ -482,7 +513,9 @@ sub do_redcap2bff {
                 {
                     redcap_dic  => $redcap_dic,
                     participant => $participant,
-                    field       => $sex_field
+                    field       => $sex_field,
+                    labels      => 1
+
                 }
             ),
             column   => 'label',
@@ -534,7 +567,9 @@ sub do_redcap2bff {
                     {
                         redcap_dic  => $redcap_dic,
                         participant => $participant,
-                        field       => $tmp_var
+                        field       => $tmp_var,
+                        labels      => 1
+
                     }
                 ),
                 route => $route,
@@ -549,7 +584,9 @@ sub do_redcap2bff {
             $treatment->{doseIntervals}         = [];
             $treatment->{routeOfAdministration} = map_ontology(
                 {
-                    query    => ucfirst($route) . ' Route of Administration',  # Oral Route of Administration
+                    query => ucfirst($route)
+                      . ' Route of Administration'
+                    ,    # Oral Route of Administration
                     column   => 'label',
                     ontology => $project_ontology,
                     self     => $self
