@@ -178,9 +178,23 @@ For executing convert-pheno you will need:
 
 - mixed:
 
-    The script will begin by attempting an exact match for 'label', and if it is unsuccessful, it will then conduct a search based on string similarity and select the ontology with the highest [Sorensen-Dice](https://en.wikipedia.org/wiki/S%C3%B8rensen%E2%80%93Dice_coefficient).
+    The script will begin by attempting an excat match for 'label', and if it is unsuccessful, it will then conduct a search based on string (phrase) similarity and select the ontology with the highest [Sorensen-Dice](https://en.wikipedia.org/wiki/S%C3%B8rensen%E2%80%93Dice_coefficient). 
 
-    `--min-text-similarity-score` sets the minimum value for the Sorensen-Dice coefficient.
+### Example (NCIT ontology): 
+
+Search phrase: **Exercise pain management** with `exact` search.
+
+\- exact match: Exercise Pain Management
+
+Search phrase: **Brain Hemorrhage** with `mixed` search.
+
+\- exact match: NA
+
+\- mixed match: Intraventricular Brain Hemorrhage
+
+`--min-text-similarity-score` sets the minimum value for the Sorensen-Dice coefficient.
+
+Note that `mixed` search requires more computational time and its results can be unpredictable. Please us it with caution.
 
 **Examples:**
 

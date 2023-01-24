@@ -14,9 +14,9 @@ use Exporter 'import';
 our @EXPORT =
   qw( $VERSION open_connections_SQLite close_connections_SQLite get_ontology);
 
-my @sqlites = qw(ncit icd10 ohdsi);
+my @sqlites = qw(ncit icd10 ohdsi cdisc);
 my @matches = qw(exact_match contains);
-use constant DEVEL_MODE => 1;
+use constant DEVEL_MODE => 0;
 
 ########################
 ########################
@@ -128,9 +128,11 @@ sub prepare_query_SQLite {
     for my $match (@matches) {
         for my $ontology (@databases) {    #global
             for my $column ( 'label', 'concept_id' ) {
-                next
-                  if ( $column eq 'concept_id' && any { /^$ontology$/ }
-                    ( 'ncit', 'icd10' ) );
+
+                # We only need to open 'concept_id' in ohdsi
+                next if ( $column eq 'concept_id' && $ontology ne 'ohdsi' );
+
+                # Start building teh queries
                 my $db         = uc($ontology) . '_table';
                 my $dbh        = $self->{dbh}{$ontology};
                 my %query_type = (
@@ -229,7 +231,7 @@ sub execute_query_SQLite {
     my $match                     = $arg->{match};
 
 #  Columns in DBs
-#     *<ncit.db> and <icd10.db> were pre-processed to have "id" and "label" columns only
+#     *<ncit.db>, <icd10.db> and <cdisc.db> were pre-processed to have "id" and "label" columns only
 #       label [0]
 #       id    [1]
 #
@@ -242,7 +244,9 @@ sub execute_query_SQLite {
     # Define a hash for column position on databases
     my $position = {
         ohdsi => { label => 1, id => 3 },
-        ncit  => { label => 0, id => 1 }
+        ncit  => { label => 0, id => 1 },
+        icd10 => { label => 0, id => 1 },
+        cdisc => { label => 0, id => 1 }
     };
     my $id_row    = $position->{$ontology}{id};
     my $label_row = $position->{$ontology}{label};
@@ -323,7 +327,6 @@ sub text_similarity {
           }
           if $scores{$score_type} >= $min_score;
     }
-    print Dumper $data;
 
     # Sort the results by similarity score
     #$Data::Dumper::Sortkeys = 1 ;

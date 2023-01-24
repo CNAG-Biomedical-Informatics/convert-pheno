@@ -40,7 +40,8 @@
           "type": "string",
           "enum": [
             "ncit",
-            "ohdsi"
+            "ohdsi",
+            "cdisc"
           ]
         },
         "description": {
@@ -121,7 +122,8 @@
           "enum": [
             "ncit",
             "ohdsi",
-            "icd10"
+            "icd10",
+            "cdisc"
           ]
         }
       },

@@ -1,0 +1,137 @@
+---
+  #######################
+  # Project identifiers #
+  #######################
+
+  project:
+    id: 3tr_ibd
+    source: redcap
+    ontology: ncit
+
+  #################################
+  # Beacon v2 Models: individuals #
+  #################################
+
+  # diseases:
+  diseases:
+    fields: [Inflammatory Bowel Disease]
+    dict:
+      ageOfOnset: age_first_diagnosis
+      familyHistory: family_history
+
+  ethnicity: ethnicity
+
+  # exposures
+  exposures: 
+    fields: [alcohol,smoking,cigarettes_days,cigarettes_years,packyears,smoking_quit]
+    dict:
+      alcohol: Alcohol
+      smoking: Smoking
+      cigarettes_days: Average Number Cigarettes Smoked a Day
+      cigarettes_years: Total Years Have Smoked Cigarettes
+      packyears: Pack Year
+      smoking_quit: Smoking Cessation Year
+    radio:
+      #alcohol;anamnesis;;radio;Alcohol drinking habits";"0, Non-drinker | 1, Ex-drinker | 2, occasional drinking | 3, regular drinking | 4, unknown";;;;;;;y;;;;;
+      #smoking;anamnesis;;radio;"Smoking habits";"0, Never smoked | 1, Ex-smoker | 2, Current smoker";;;;;;;y;;;;;
+      #cigarettes_days;anamnesis;;text;"On average, how many cigarettes do/did you smoke per day?";;;integer;0;300;;"[smoking] = '2' or [smoking] = '1'";;;;;;
+      #cigarettes_years;anamnesis;;text;"For how many years have you been smoking/did you smoke?";;;integer;0;100;;"[smoking] = '2' or [smoking] = '1'";;;;;;
+      #packyears;anamnesis;;text;"Pack Years";;;integer;0;300;;"[smoking] = '2' or [smoking] = '1'";;;;;;
+      #smoking_quit;anamnesis;;text;"When did you quit smoking?";;year;integer;1980;2030;;"[smoking] = '2'";;;;;;
+      # radio
+      smoking:
+        Never smoked: Never Smoker
+        Ex-smoker: Former Smoker
+        Current smoker: Current Smoker
+      alcohol:
+        Non-drinker: Non-Drinker
+        Ex-drinker: Current non-drinker with Past Alcohol Consumption
+        occasional drinking: Alcohol Consumption Equal to or Less than 2 Drinks per Day for Men and 1 Drink or Less per Day for Women
+        regular drinking: Alcohol Consumption More than 2 Drinks per Day for Men and More than 1 Drink per Day for Women
+        unknown: Unknown
+
+  # geographicOrigin: null
+
+  # id
+  id:
+    fields: [study_id,redcap_event_name]
+
+  # info
+  info:
+   fields: [study_id,dob,diet,redcap_event_name,age,first_name,last_name,consent,consent_date,consent_noneu,consent_devices,consent_recontact,consent_week2_endo,education,zipcode,consents_and_demographics_complete]
+   dict:
+     studyId: study_id
+
+  # interventionsOrProcedures
+  interventionsOrProcedures: 
+    fields: [surgery_details___1,surgery_details___2,surgery_details___3,surgery_details___4,surgery_details___5,surgery_details___6,surgery_details___7,surgery_details___8,surgery_details___99,endoscopy_performed,intestinal_surgery,partial_mayo,complete_mayo,prev_endosc_dilatation]
+
+  # karyotypicSex: null
+
+  # measures
+  measures: 
+    fields: [leucocytes,hemoglobin,hematokrit,mcv,mhc,thrombocytes,neutrophils,lymphocytes,eosinophils,creatinine,gfr,bilirubin,gpt,ggt,lipase,crp,iron,il6,calprotectin,nancy_index_acute,nancy_index_chronic,nancy_index_ulceration,endo_mayo]
+    dict:
+      # Unit
+      xx.xx /10^-9 l: Cells per Microliter
+      x.xx /10^-9 l: Cells per Microliter
+      xxxx /10^-9 l: Cells per Microliter
+      xx.x g/dl: Gram per Deciliter
+      xx.x fl: Femtoliter
+      xx.x: Picogram
+      xx.x pg: Picogram
+      xx.x µmol/l: Micromole per Liter
+      xxx.x µmol/l: Micromole per Liter
+      xxx µmol/l: Micromole per Liter 
+      ml/min/1.73: Glomerular Filtration Rate Adjusted for BSA
+      xxx ml/min/1.73: Glomerular Filtration Rate Adjusted for BSA
+      xx.x U/l: International Unit per Liter
+      pg/dl: Picogram per Deciliter
+      mg/dl: Milligram per Deciliter
+      xxx.x mg/l: Milligram per Liter per Milligram
+      µg/dl: Microgram per Deciliter
+      ng/dl: Nanogram per Deciliter
+      xxxx.x ng/l: Nanogram per Liter
+      mg/kg stool: Microgram per Kilogram
+      'xx.x %': Percentage
+      # Test
+      hemoglobin: Hemoglobin Measurement
+      leucocytes: Leukocyte Count
+      hematokrit: Hematocrit Measurement
+      mcv: Erythrocyte Mean Corpuscular Volume
+      mhc: Erythrocyte Mean Corpuscular Hemoglobin
+      thrombocytes: Platelet Count
+      neutrophils: Neutrophil Count
+      lymphocytes: Lymphocyte Count
+      eosinophils: Eosinophil Count
+      creatinine: Creatinine Measurement
+      gfr: Glomerular Filtration Rate
+      bilirubin: Total Bilirubin Measurement
+      gpt: Serum Glutamic Pyruvic Transaminase, CTCAE
+      ggt: Serum Gamma Glutamyl Transpeptidase Measurement
+      lipase: Lipase Measurement
+      crp: C-Reactive Protein Measurement
+      iron: Iron Measurement
+      il6: Interleukin-6
+      calprotectin: Calprotectin Measurement
+      # Index
+      #nancy_index_ulceration: Nancy Index Ulceration
+      #nancy_index_acute: 'Nancy histology index: Acute inflammatory cell infiltrate'
+      #nancy_index_chronic: 'Nancy histology index: Chronic inflammatory infiltrates'
+
+  # pedigrees: null
+
+  # phenotypicFeatures
+  phenotypicFeatures: 
+    fields: [comorb_asthma,comorb_copd,comorb_ms,comorb_sle,comorb_ra,comorb_pso,comorb_ad,comorb_cancer,comorb_cancer_specified,comorb_hypertension,comorb_diabetes,comorb_lipids,comorb_stroke,comorb_other_ai,comorb_other_ai_specified,immunodeficiency,rectal_bleeding]
+    ontology: ncit
+  sex: sex
+  treatments:
+    fields: [budesonide,prednisolone,asa,aza,mtx,mp]
+    dict:
+      aza: azathioprine
+      asa: aspirin 
+      mtx: methotrexate
+      mp: mercaptopurine
+    routes: [oral,rectal]
+    ontology: ncit

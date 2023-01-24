@@ -401,11 +401,25 @@ Retrieves only exact matches for a specified 'label',
 
 =item mixed:
 
-The script will begin by attempting an exact match for 'label', and if it is unsuccessful, it will then conduct a search based on string similarity and select the ontology with the highest L<Sorensen-Dice|https://en.wikipedia.org/wiki/S%C3%B8rensen%E2%80%93Dice_coefficient>.
+The script will begin by attempting an excat match for 'label', and if it is unsuccessful, it will then conduct a search based on string (phrase) similarity and select the ontology with the highest L<Sorensen-Dice|https://en.wikipedia.org/wiki/S%C3%B8rensen%E2%80%93Dice_coefficient>. 
+
+=back
+
+=head3 Example (NCIT ontology): 
+
+Search phrase: B<Exercise pain management> with C<exact> search.
+
+- exact match: Exercise Pain Management
+
+Search phrase: B<Brain Hemorrhage> with C<mixed> search.
+
+- exact match: NA
+
+- mixed match: Intraventricular Brain Hemorrhage
 
 C<--min-text-similarity-score> sets the minimum value for the Sorensen-Dice coefficient.
 
-=back
+Note that C<mixed> search requires more computational time and its results can be unpredictable. Please us it with caution.
 
 B<Examples:>
 
