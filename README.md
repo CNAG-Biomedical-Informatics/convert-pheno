@@ -53,7 +53,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
        -mapping-file                  Fields mapping YAML (or JSON) file
        -match                         Type of search [>exact|mixed]
        -max-lines-sql                 Maxium number of lines read from SQL dump [500]
-       -min-text-similarity-score     Minimum number of overlapping words [3] (to be used with --match mixed)
+       -min-text-similarity-score     Minimum score for Sorensen–Dice coefficient [0.8] (to be used with --match mixed)
        -nc|-no-color                  Don't print colors to STDOUT
        -ohdsi-db                      Use Athena-OHDSI database (~1.2GB) with -iomop
        -out-dir                       Output (existing) directory
@@ -178,9 +178,9 @@ For executing convert-pheno you will need:
 
 - mixed:
 
-    The script will begin by attempting an exact match for 'label', and if it is unsuccessful, it will then conduct a search based on string similarity and select the ontology with the highest score.
+    The script will begin by attempting an exact match for 'label', and if it is unsuccessful, it will then conduct a search based on string similarity and select the ontology with the highest [Sorensen-Dice](https://en.wikipedia.org/wiki/S%C3%B8rensen%E2%80%93Dice_coefficient).
 
-    `--min-text-similarity-score` sets the minimum number of overlapping words.
+    `--min-text-similarity-score` sets the minimum value for the Sorensen-Dice coefficient.
 
 **Examples:**
 
@@ -192,7 +192,7 @@ For executing convert-pheno you will need:
 
     $ $path/convert-pheno -iomop dump.sql -obff individuals.json 
 
-    $ $path/convert-pheno -cdisc cdisc_odm.xml -obff individuals.json --rcd redcap_dict.csv --mapping-file mapping_file.yaml
+    $ $path/convert-pheno -cdisc cdisc_odm.xml -obff individuals.json --rcd redcap_dict.csv --mapping-file mapping_file.yaml --match mixed --min-text-similarity-score 0.6
 
     $ $path/convert-pheno -iomop *csv -obff individuals.json -sep ','
 
@@ -225,3 +225,11 @@ Written by Manuel Rueda, PhD. Info about CNAG can be found at [https://www.cnag.
 Copyright (C) 2022-2023, Manuel Rueda - CNAG.
 
 This program is free software, you can redistribute it and/or modify it under the terms of the [Artistic License version 2.0](https://metacpan.org/pod/perlartistic).
+
+# POD ERRORS
+
+Hey! **The above document had some coding errors, which are explained below:**
+
+- Around line 274:
+
+    Non-ASCII character seen before =encoding in 'Sorensen–Dice'. Assuming UTF-8

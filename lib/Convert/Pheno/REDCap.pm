@@ -68,7 +68,9 @@ sub do_redcap2bff {
     my $sex_field     = $mapping_file->{sex};
     my $studyId_field = $mapping_file->{info}{dict}{studyId};
 
+    # **********************
     # *** IMPORTANT STEP ***
+    # **********************
     # We need to pass 'sex' info to external array elements from $participant
     # Thus, we are storing $participant->{sex} in $self !!!
     if ( exists $participant->{$sex_field} && $participant->{$sex_field} ne '' )
@@ -98,7 +100,12 @@ sub do_redcap2bff {
     # Variable that will allows to perform adhoc changes for some projects
     my $project_id = $mapping_file->{project}{id};
 
-    # Load the default ontology for the project
+ # **********************
+ # *** IMPORTANT STEP ***
+ # **********************
+ # Load the main ontology for the project
+ # <sex> and <ethnicity> project_ontology are fixed (can't be changed granulary)
+
     my $project_ontology = $mapping_file->{project}{ontology};
 
     # NB: We don't need to initialize (unless required)
@@ -117,6 +124,10 @@ sub do_redcap2bff {
     # Inflamatory Bowel Disease --- Note the 2 mm in infla-mm-atory
     # Loading @diseases from mapping file
     my @diseases = @{ $mapping_file->{diseases}{fields} };
+    my $diseases_ontology =
+      exists $mapping_file->{diseases}{ontology}
+      ? $mapping_file->{diseases}{ontology}
+      : $project_ontology;
 
     # Start looping over them
     for my $field (@diseases) {
@@ -144,7 +155,7 @@ sub do_redcap2bff {
             {
                 query    => $field,
                 column   => 'label',
-                ontology => $project_ontology,
+                ontology => $diseases_ontology,
                 self     => $self
             }
         );
@@ -199,6 +210,11 @@ sub do_redcap2bff {
     my %exposures_dict   = %{ $mapping_file->{exposures}{dict} };
     my $exposures_radio =
       $mapping_file->{exposures}{radio}; # DELIBERATE -- hashref instead of hash
+    my $exposures_ontology =
+      exists $mapping_file->{exposures}{ontology}
+      ? $mapping_file->{exposures}{ontology}
+      : $project_ontology;
+
     for my $field (@exposures_fields) {
         next
           unless ( exists $participant->{$field}
@@ -213,7 +229,7 @@ sub do_redcap2bff {
             {
                 query    => $exposure_query,
                 column   => 'label',
-                ontology => $project_ontology,
+                ontology => $exposures_ontology,
                 self     => $self
             }
         );
@@ -240,7 +256,7 @@ sub do_redcap2bff {
                 ? $exposures_radio->{$field}{$subkey}
                 : $exposure_query,
                 column   => 'label',
-                ontology => $project_ontology,
+                ontology => $exposures_ontology,
                 self     => $self
             }
         );
@@ -307,6 +323,10 @@ sub do_redcap2bff {
 
     my @interventions_fields =
       @{ $mapping_file->{interventionsOrProcedures}{fields} };
+    my $interventions_ontology =
+      exists $mapping_file->{interventionsOrProcedures}{ontology}
+      ? $mapping_file->{interventionsOrProcedures}{ontology}
+      : $project_ontology;
 
     my %surgery = ();
     for ( 1 .. 8, 99 ) {
@@ -329,7 +349,7 @@ sub do_redcap2bff {
                 {
                     query    => $surgery{$field},
                     column   => 'label',
-                    ontology => $project_ontology,
+                    ontology => $interventions_ontology,
                     self     => $self
                 }
             ) if ( exists $surgery{$field} && $surgery{$field} ne '' );
@@ -353,6 +373,10 @@ sub do_redcap2bff {
     # lab_remarks was removed
     my @measures_fields = @{ $mapping_file->{measures}{fields} };
     my %measures_dict   = %{ $mapping_file->{measures}{dict} };
+    my $measures_ontology =
+      exists $mapping_file->{measures}{ontology}
+      ? $mapping_file->{measures}{ontology}
+      : $project_ontology;
 
     for my $field (@measures_fields) {
         next if $participant->{$field} eq '';
@@ -364,7 +388,7 @@ sub do_redcap2bff {
                 ? $measures_dict{$field}
                 : $field,
                 column   => 'label',
-                ontology => $project_ontology,
+                ontology => $measures_ontology,
                 self     => $self,
             }
         );
@@ -400,7 +424,7 @@ sub do_redcap2bff {
                 ? $measures_dict{$tmp_str}
                 : $tmp_str,
                 column   => 'label',
-                ontology => $project_ontology,
+                ontology => $measures_ontology,
                 self     => $self
             }
         );
@@ -424,7 +448,7 @@ sub do_redcap2bff {
                     : $field =~ m/^nancy/ ? 'Histologic'
                     : 'Blood Test Result',
                     column   => 'label',
-                    ontology => $project_ontology,
+                    ontology => $measures_ontology,
                     self     => $self
                 }
             )
@@ -464,6 +488,10 @@ sub do_redcap2bff {
 
     my @phenotypicFeatures_fields =
       @{ $mapping_file->{phenotypicFeatures}{fields} };
+    my $phenotypicFeatures_ontology =
+      exists $mapping_file->{phenotypicFeatures}{ontology}
+      ? $mapping_file->{phenotypicFeatures}{ontology}
+      : $project_ontology;
 
     for my $field (@phenotypicFeatures_fields) {
         my $phenotypicFeature;
@@ -480,7 +508,7 @@ sub do_redcap2bff {
                 {
                     query    => $field =~ m/comorb/ ? 'Comorbidity' : $field,
                     column   => 'label',
-                    ontology => $project_ontology,
+                    ontology => $phenotypicFeatures_ontology,
                     self     => $self
 
                 }
@@ -533,6 +561,10 @@ sub do_redcap2bff {
     my @treatments_fields = @{ $mapping_file->{treatments}{fields} };
     my %drug              = %{ $mapping_file->{treatments}{dict} };
     my @routes            = @{ $mapping_file->{treatments}{routes} };
+    my $treatments_ontology =
+      exists $mapping_file->{treatments}{ontology}
+      ? $mapping_file->{treatments}{ontology}
+      : $project_ontology;
 
     for my $field (@treatments_fields) {
 
@@ -588,7 +620,7 @@ sub do_redcap2bff {
                       . ' Route of Administration'
                     ,    # Oral Route of Administration
                     column   => 'label',
-                    ontology => $project_ontology,
+                    ontology => $treatments_ontology,
                     self     => $self
                 }
             );
@@ -597,7 +629,7 @@ sub do_redcap2bff {
                 {
                     query    => $treatment_name,
                     column   => 'label',
-                    ontology => $project_ontology,
+                    ontology => $treatments_ontology,
                     self     => $self
                 }
             );

@@ -35,7 +35,7 @@ $Data::Dumper::Sortkeys = 1;
 my $out_dir                   = '.';
 my $schema_file               = catfile( $Bin, '../schema/mapping.json' );
 my $match                     = 'exact';
-my $min_text_similarity_score = 3;
+my $min_text_similarity_score = 0.8;
 
 # Reading arguments
 GetOptions(
@@ -52,7 +52,7 @@ GetOptions(
     'mapping-file=s'              => \my $mapping_file,                        # string
     'max-lines-sql=i'             => \my $max_lines_sql,                       # integer
     'match=s'                     => \$match,                                  # string
-    'min-text-similarity-score=i' => \$min_text_similarity_score,              # integer
+    'min-text-similarity-score=f' => \$min_text_similarity_score,              # floating
     'debug=i'                     => \my $debug,                               # integer
     'verbose'                     => \my $verbose,                             # flag
     'no-color|nc'                 => \my $no_color,                            # flag
@@ -271,7 +271,7 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
        -mapping-file                  Fields mapping YAML (or JSON) file
        -match                         Type of search [>exact|mixed]
        -max-lines-sql                 Maxium number of lines read from SQL dump [500]
-       -min-text-similarity-score     Minimum number of overlapping words [3] (to be used with --match mixed)
+       -min-text-similarity-score     Minimum score for Sorensen–Dice coefficient [0.8] (to be used with --match mixed)
        -nc|-no-color                  Don't print colors to STDOUT
        -ohdsi-db                      Use Athena-OHDSI database (~1.2GB) with -iomop
        -out-dir                       Output (existing) directory
@@ -401,9 +401,9 @@ Retrieves only exact matches for a specified 'label',
 
 =item mixed:
 
-The script will begin by attempting an exact match for 'label', and if it is unsuccessful, it will then conduct a search based on string similarity and select the ontology with the highest score.
+The script will begin by attempting an exact match for 'label', and if it is unsuccessful, it will then conduct a search based on string similarity and select the ontology with the highest L<Sorensen-Dice|https://en.wikipedia.org/wiki/S%C3%B8rensen%E2%80%93Dice_coefficient>.
 
-C<--min-text-similarity-score> sets the minimum number of overlapping words.
+C<--min-text-similarity-score> sets the minimum value for the Sorensen-Dice coefficient.
 
 =back
 
@@ -417,7 +417,7 @@ B<Examples:>
 
  $ $path/convert-pheno -iomop dump.sql -obff individuals.json 
 
- $ $path/convert-pheno -cdisc cdisc_odm.xml -obff individuals.json --rcd redcap_dict.csv --mapping-file mapping_file.yaml
+ $ $path/convert-pheno -cdisc cdisc_odm.xml -obff individuals.json --rcd redcap_dict.csv --mapping-file mapping_file.yaml --match mixed --min-text-similarity-score 0.6
 
  $ $path/convert-pheno -iomop *csv -obff individuals.json -sep ','
 

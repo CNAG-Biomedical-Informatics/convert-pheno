@@ -124,6 +124,7 @@
   # phenotypicFeatures
   phenotypicFeatures: 
     fields: [comorb_asthma,comorb_copd,comorb_ms,comorb_sle,comorb_ra,comorb_pso,comorb_ad,comorb_cancer,comorb_cancer_specified,comorb_hypertension,comorb_diabetes,comorb_lipids,comorb_stroke,comorb_other_ai,comorb_other_ai_specified,immunodeficiency,rectal_bleeding]
+    ontology: ncit
   sex: sex
   treatments:
     fields: [budesonide,prednisolone,asa,aza,mtx,mp]
@@ -133,3 +134,4 @@
       mtx: methotrexate
       mp: mercaptopurine
     routes: [oral,rectal]
+    ontology: ncit

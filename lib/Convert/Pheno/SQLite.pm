@@ -28,12 +28,19 @@ sub open_connections_SQLite {
 
     my $self = shift;
 
-    # Check flag ohdsi_db
+# **********************
+# *** IMPORTANT STEP ***
+# **********************
+# Well open ALL databases once (instead that on each call), regardless if they user has selected them.
+# It imrpoves speed by 15%
+# The only exception is for <ohdsi> that is the larger and may interfere in timings
+
+    # Only open ohdsi.db if $self->{ohdsi_db}
     my @databases =
       defined $self->{ohdsi_db} ? @sqlites : grep { !m/ohdsi/ }
       @sqlites;    # global
 
-    # Opening the DB once (instead that on each call) improves speed ~15%
+    # Open databases
     my $dbh;
     $dbh->{$_} = open_db_SQLite($_) for (@databases);
 
@@ -74,10 +81,15 @@ sub open_db_SQLite {
         {
             PrintError       => 0,
             RaiseError       => 1,
+            ReadOnly         => 1,
             AutoCommit       => 1,
             FetchHashKeyName => 'NAME_lc',
         }
     );
+
+    # These PRAGMAs are supposed to speed-up queries??
+    $dbh->do("PRAGMA synchronous = OFF");
+    $dbh->do("PRAGMA cache_size = 800000");
 
     return $dbh;
 }
@@ -101,8 +113,8 @@ sub prepare_query_SQLite {
 # Then, if we want to search in a different column than 'label' we also need to create that $sth
 # To solve that we have created a nested sth->{ncit}{label}, sth->{icd10}{label}, sth->{ohdsi}{concept_id} and sth->{ohdsi}{label}
 # On top of that, we add the "match" type, so that we can have other matches in the future if needed
-# NB: In principle, is is possible to change the "prepare" during queries but we must reverte it back to default after using it
-# We prefer using ncit/icd10 as they're small and fast
+# NB: In principle, is is possible to change the "prepare" during queries but we must revert it back to default after using it
+# We recommend using small db such as ncit/icd10 as they're fast
 
     # Check flag ohdsi_db
     my @databases =
@@ -280,13 +292,14 @@ sub execute_query_SQLite {
 
 sub text_similarity {
 
-    my $arg       = shift;
-    my $sth       = $arg->{sth};
-    my $query     = $arg->{query};
-    my $ontology  = $arg->{ontology};
-    my $id_row    = $arg->{id_row};
-    my $label_row = $arg->{label_row};
-    my $min_score = $arg->{min_text_similarity_score};
+    my $arg        = shift;
+    my $sth        = $arg->{sth};
+    my $query      = $arg->{query};
+    my $ontology   = $arg->{ontology};
+    my $id_row     = $arg->{id_row};
+    my $label_row  = $arg->{label_row};
+    my $min_score  = $arg->{min_text_similarity_score};
+    my $score_type = 'dice';
 
     # Create a new Text::Similarity object
     my $ts = Text::Similarity::Overlaps->new();
@@ -296,24 +309,28 @@ sub text_similarity {
     while ( my $row = $sth->fetchrow_arrayref() ) {
 
         # We have a threshold to assign a result as valid
-        my $score = $ts->getSimilarityStrings( $query, $row->[$label_row] );
+        my ( $score, %scores ) =
+          $ts->getSimilarityStrings( $query, $row->[$label_row] );
 
-        # Only load $data if $score >= $min_score;
+        # Only load $data if dice >= $min_score;
         $data->{ $row->[$label_row] } = {
             id => $ontology ne 'OHDSI'
             ? $ontology . ':' . $row->[$id_row]
             : $row->[2] . ':' . $row->[$id_row],
-            label => $row->[$label_row],
-            score => $score,
-            query => $query
+            label  => $row->[$label_row],
+            scores => {%scores},
+            query  => $query
           }
-          if $score >= $min_score;
+          if $scores{$score_type} >= $min_score;
     }
+    print Dumper $data;
 
     # Sort the results by similarity score
     #$Data::Dumper::Sortkeys = 1 ;
     my @sorted_keys =
-      sort { $data->{$b}{score} <=> $data->{$a}{score} } keys %{$data};
+      sort {
+        $data->{$b}{scores}{$score_type} <=> $data->{$a}{scores}{$score_type}
+      } keys %{$data};
 
     #print Dumper $data         if DEVEL_MODE;
     #print "$query\n"           if DEVEL_MODE;
@@ -323,6 +340,5 @@ sub text_similarity {
     return $sorted_keys[0]
       ? ( $data->{ $sorted_keys[0] }{id}, $data->{ $sorted_keys[0] }{label} )
       : ( undef, undef );
-
 }
 1;

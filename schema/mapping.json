@@ -42,7 +42,8 @@
             "ncit",
             "ohdsi"
           ]
-        },"description": {
+        },
+        "description": {
           "type": "string"
         }
       }
@@ -114,6 +115,14 @@
           "items": {
             "type": "string"
           }
+        },
+        "ontology": {
+          "type": "string",
+          "enum": [
+            "ncit",
+            "ohdsi",
+            "icd10"
+          ]
         }
       },
       "required": [
