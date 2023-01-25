@@ -53,7 +53,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
        -mapping-file                  Fields mapping YAML (or JSON) file
        -match                         Type of search [>exact|mixed]
        -max-lines-sql                 Maxium number of lines read from SQL dump [500]
-       -min-text-similarity-score     Minimum score for Sorensen–Dice coefficient [0.8] (to be used with --match mixed)
+       -min-text-similarity-score     Minimum score for cosine similarity (or Sorensen–Dice coefficient) [0.8] (to be used with --match mixed)
        -nc|-no-color                  Don't print colors to STDOUT
        -ohdsi-db                      Use Athena-OHDSI database (~1.2GB) with -iomop
        -out-dir                       Output (existing) directory
@@ -63,7 +63,8 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
        -svs|self-validate-schema      Perform a self-validation of the JSON schema that defines mapping
        -sep|separator                 Delimiter character for CSV files
        -sql2csv                       Print SQL TABLES (with -iomop)
-       -t|test                        Does not print time-changing-events (useful for file-based cmp)
+       -test                          Does not print time-changing-events (useful for file-based cmp)
+       -text-similarity-method        The method used to compare values to DB [>cosine|dice]
        -u|username                    Set the username
        -verbose                       Verbosity on
        -v                             Print Version
@@ -178,7 +179,7 @@ For executing convert-pheno you will need:
 
 - mixed:
 
-    The script will begin by attempting an excat match for 'label', and if it is unsuccessful, it will then conduct a search based on string (phrase) similarity and select the ontology with the highest [Sorensen-Dice](https://en.wikipedia.org/wiki/S%C3%B8rensen%E2%80%93Dice_coefficient). 
+    The script will begin by attempting an excat match for 'label', and if it is unsuccessful, it will then conduct a search based on string (phrase) similarity and select the ontology with the highest score. 
 
 ### Example (NCIT ontology): 
 
@@ -192,7 +193,7 @@ Search phrase: **Brain Hemorrhage** with `mixed` search.
 
 \- mixed match: Intraventricular Brain Hemorrhage
 
-`--min-text-similarity-score` sets the minimum value for the Sorensen-Dice coefficient.
+`--min-text-similarity-score` sets the minimum value for the Cosine / Sorensen-Dice coefficient.
 
 Note that `mixed` search requires more computational time and its results can be unpredictable. Please us it with caution.
 
@@ -244,6 +245,6 @@ This program is free software, you can redistribute it and/or modify it under th
 
 Hey! **The above document had some coding errors, which are explained below:**
 
-- Around line 274:
+- Around line 277:
 
     Non-ASCII character seen before =encoding in 'Sorensen–Dice'. Assuming UTF-8

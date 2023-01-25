@@ -70,6 +70,7 @@ sub map_ontology {
     my $self                      = $arg->{self};
     my $match                     = $self->{match};
     my $print_hidden_labels       = $self->{print_hidden_labels};
+    my $text_similarity_method    = $self->{text_similarity_method};
     my $min_text_similarity_score = $self->{min_text_similarity_score};
 
     # Die if user wants OHDSI w/o flag -ohdsi-db
@@ -85,6 +86,7 @@ sub map_ontology {
             ontology                  => $ontology,
             column                    => $column,
             match                     => $match,
+            text_similarity_method    => $text_similarity_method,
             min_text_similarity_score => $min_text_similarity_score
         }
     );

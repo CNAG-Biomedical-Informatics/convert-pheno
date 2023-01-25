@@ -4952,8 +4952,8 @@
                      "low" : null
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C70666",
+                     "label" : "Mild"
                   },
                   "value" : 2
                }
@@ -5006,8 +5006,8 @@
                      "low" : null
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C41132",
+                     "label" : "None"
                   },
                   "value" : 0
                }
@@ -5724,8 +5724,8 @@
                      "low" : null
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C61376",
+                     "label" : "Moderate"
                   },
                   "value" : 3
                }
@@ -5778,8 +5778,8 @@
                      "low" : null
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C41132",
+                     "label" : "None"
                   },
                   "value" : 0
                }
@@ -7074,8 +7074,8 @@
                      "low" : null
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C70666",
+                     "label" : "Mild"
                   },
                   "value" : 2
                }
@@ -7101,8 +7101,8 @@
                      "low" : null
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C70666",
+                     "label" : "Mild"
                   },
                   "value" : 1
                }
@@ -7128,8 +7128,8 @@
                      "low" : null
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C41132",
+                     "label" : "None"
                   },
                   "value" : 0
                }
@@ -10609,8 +10609,8 @@
                      "low" : null
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C61376",
+                     "label" : "Moderate"
                   },
                   "value" : 3
                }
@@ -10663,8 +10663,8 @@
                      "low" : null
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C41132",
+                     "label" : "None"
                   },
                   "value" : 0
                }
@@ -12278,8 +12278,8 @@
                      "low" : null
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C41132",
+                     "label" : "None"
                   },
                   "value" : 0
                }
@@ -12305,8 +12305,8 @@
                      "low" : null
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C70666",
+                     "label" : "Mild"
                   },
                   "value" : 1
                }
@@ -12332,8 +12332,8 @@
                      "low" : null
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C41132",
+                     "label" : "None"
                   },
                   "value" : 0
                }
@@ -14543,8 +14543,8 @@
                      "low" : null
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C61376",
+                     "label" : "Moderate"
                   },
                   "value" : 3
                }
@@ -14597,8 +14597,8 @@
                      "low" : null
                   },
                   "unit" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C49488",
+                     "label" : "Yes"
                   },
                   "value" : 2
                }

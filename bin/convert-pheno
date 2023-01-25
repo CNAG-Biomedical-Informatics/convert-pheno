@@ -35,6 +35,7 @@ $Data::Dumper::Sortkeys = 1;
 my $out_dir                   = '.';
 my $schema_file               = catfile( $Bin, '../schema/mapping.json' );
 my $match                     = 'exact';
+my $text_similarity_method    = 'cosine';
 my $min_text_similarity_score = 0.8;
 
 # Reading arguments
@@ -52,6 +53,7 @@ GetOptions(
     'mapping-file=s'              => \my $mapping_file,                        # string
     'max-lines-sql=i'             => \my $max_lines_sql,                       # integer
     'match=s'                     => \$match,                                  # string
+    'text-similarity-method=s'    => \$text_similarity_method,                 # string
     'min-text-similarity-score=f' => \$min_text_similarity_score,              # floating
     'debug=i'                     => \my $debug,                               # integer
     'verbose'                     => \my $verbose,                             # flag
@@ -138,6 +140,7 @@ my $data = {
     ohdsi_db                  => $ohdsi_db,
     username                  => $username,
     max_lines_sql             => $max_lines_sql,
+    text_similarity_method    => $text_similarity_method,
     min_text_similarity_score => $min_text_similarity_score,
     self_validate_schema      => $self_validate_schema,
     print_hidden_labels       => $print_hidden_labels,
@@ -271,7 +274,7 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
        -mapping-file                  Fields mapping YAML (or JSON) file
        -match                         Type of search [>exact|mixed]
        -max-lines-sql                 Maxium number of lines read from SQL dump [500]
-       -min-text-similarity-score     Minimum score for Sorensen–Dice coefficient [0.8] (to be used with --match mixed)
+       -min-text-similarity-score     Minimum score for cosine similarity (or Sorensen–Dice coefficient) [0.8] (to be used with --match mixed)
        -nc|-no-color                  Don't print colors to STDOUT
        -ohdsi-db                      Use Athena-OHDSI database (~1.2GB) with -iomop
        -out-dir                       Output (existing) directory
@@ -281,7 +284,8 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
        -svs|self-validate-schema      Perform a self-validation of the JSON schema that defines mapping
        -sep|separator                 Delimiter character for CSV files
        -sql2csv                       Print SQL TABLES (with -iomop)
-       -t|test                        Does not print time-changing-events (useful for file-based cmp)
+       -test                          Does not print time-changing-events (useful for file-based cmp)
+       -text-similarity-method        The method used to compare values to DB [>cosine|dice]
        -u|username                    Set the username
        -verbose                       Verbosity on
        -v                             Print Version
@@ -401,7 +405,7 @@ Retrieves only exact matches for a specified 'label',
 
 =item mixed:
 
-The script will begin by attempting an excat match for 'label', and if it is unsuccessful, it will then conduct a search based on string (phrase) similarity and select the ontology with the highest L<Sorensen-Dice|https://en.wikipedia.org/wiki/S%C3%B8rensen%E2%80%93Dice_coefficient>. 
+The script will begin by attempting an excat match for 'label', and if it is unsuccessful, it will then conduct a search based on string (phrase) similarity and select the ontology with the highest score. 
 
 =back
 
@@ -417,7 +421,7 @@ Search phrase: B<Brain Hemorrhage> with C<mixed> search.
 
 - mixed match: Intraventricular Brain Hemorrhage
 
-C<--min-text-similarity-score> sets the minimum value for the Sorensen-Dice coefficient.
+C<--min-text-similarity-score> sets the minimum value for the Cosine / Sorensen-Dice coefficient.
 
 Note that C<mixed> search requires more computational time and its results can be unpredictable. Please us it with caution.
 
