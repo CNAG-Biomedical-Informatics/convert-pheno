@@ -169,7 +169,7 @@ For executing convert-pheno you will need:
 
     Athena-OHDSI database
 
-    Please download it from this [link](https://drive.google.com/file/d/104ciON3zRc3ScAzzrL_3GO14aCnBLh-c/view?usp=sharing) (~1.2GB) and move it inside `db/` directory.
+    Please download it from this [link](https://drive.google.com/drive/folders/104_Bgl3IxM3U6u-wn-1LUvNZXevD2DRm?usp=sharing) (~2.4GB) and move it inside `db/` directory.
 
 ## ABOUT SEARCH OPTIONS
 
