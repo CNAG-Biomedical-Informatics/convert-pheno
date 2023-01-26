@@ -892,8 +892,8 @@
          "label" : "Black"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C43829",
-         "label" : "West Indian"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "6",
       "info" : {
@@ -1031,8 +1031,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67118",
-         "label" : "Central American"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "7",
       "info" : {
@@ -3923,8 +3923,8 @@
          "label" : "Black"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C43829",
-         "label" : "West Indian"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "41",
       "info" : {
@@ -5159,8 +5159,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67118",
-         "label" : "Central American"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "67",
       "info" : {
@@ -6476,8 +6476,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C126532",
-         "label" : "South American"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "86",
       "info" : {
@@ -7537,8 +7537,8 @@
          "label" : "Black"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C43829",
-         "label" : "West Indian"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "99",
       "info" : {
@@ -8256,8 +8256,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "115",
       "info" : {
@@ -8648,8 +8648,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "116",
       "info" : {
@@ -8710,8 +8710,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "117",
       "info" : {
@@ -8830,8 +8830,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "119",
       "info" : {
@@ -11313,8 +11313,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "160",
       "info" : {
@@ -12345,8 +12345,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "177",
       "info" : {
@@ -12457,8 +12457,8 @@
          "label" : "Native"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C43877",
-         "label" : "American Indian"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "183",
       "info" : {
@@ -13283,8 +13283,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "189",
       "info" : {
@@ -13740,8 +13740,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "197",
       "info" : {
@@ -15027,8 +15027,8 @@
          "label" : "Black"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C43829",
-         "label" : "West Indian"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "220",
       "info" : {
@@ -15832,8 +15832,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "235",
       "info" : {
@@ -18288,8 +18288,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67118",
-         "label" : "Central American"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "280",
       "info" : {
@@ -18779,8 +18779,8 @@
          "label" : "Asian"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C41262",
-         "label" : "Asian Indian"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "285",
       "info" : {
@@ -20002,8 +20002,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67118",
-         "label" : "Central American"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "308",
       "info" : {
@@ -20030,8 +20030,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C126532",
-         "label" : "South American"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "310",
       "info" : {
@@ -20414,8 +20414,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "316",
       "info" : {
@@ -20668,8 +20668,8 @@
          "label" : "Asian"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C41262",
-         "label" : "Asian Indian"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "318",
       "info" : {
@@ -20724,8 +20724,8 @@
          "label" : "Black"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C43829",
-         "label" : "West Indian"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "321",
       "info" : {
@@ -21134,8 +21134,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C126532",
-         "label" : "South American"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "331",
       "info" : {
@@ -21162,8 +21162,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "332",
       "info" : {
@@ -21828,8 +21828,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67118",
-         "label" : "Central American"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "339",
       "info" : {
@@ -21856,8 +21856,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "340",
       "info" : {
@@ -22714,8 +22714,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "350",
       "info" : {
@@ -23103,8 +23103,8 @@
          "label" : "Black"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C43829",
-         "label" : "West Indian"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "352",
       "info" : {
@@ -23511,8 +23511,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "359",
       "info" : {
@@ -23871,8 +23871,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "362",
       "info" : {
@@ -24337,8 +24337,8 @@
          "label" : "Asian"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C41262",
-         "label" : "Asian Indian"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "370",
       "info" : {
@@ -25048,8 +25048,8 @@
          "label" : "Black"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C43829",
-         "label" : "West Indian"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "390",
       "info" : {
@@ -27628,8 +27628,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C126532",
-         "label" : "South American"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "421",
       "info" : {
@@ -27656,8 +27656,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "422",
       "info" : {
@@ -28361,8 +28361,8 @@
          "label" : "Black"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C43829",
-         "label" : "West Indian"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "432",
       "info" : {
@@ -29085,8 +29085,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "445",
       "info" : {
@@ -29509,8 +29509,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "450",
       "info" : {
@@ -29565,8 +29565,8 @@
          "label" : "Black"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C43829",
-         "label" : "West Indian"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "453",
       "info" : {
@@ -30270,8 +30270,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "458",
       "info" : {
@@ -30708,8 +30708,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C126532",
-         "label" : "South American"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "469",
       "info" : {
@@ -31113,8 +31113,8 @@
          "label" : "Black"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C43829",
-         "label" : "West Indian"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "474",
       "info" : {
@@ -31885,8 +31885,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "482",
       "info" : {
@@ -32239,8 +32239,8 @@
          "label" : "Black"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C43829",
-         "label" : "West Indian"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "486",
       "info" : {
@@ -32267,8 +32267,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "487",
       "info" : {
@@ -32909,8 +32909,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "492",
       "info" : {
@@ -32993,8 +32993,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67118",
-         "label" : "Central American"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "499",
       "info" : {
@@ -34198,8 +34198,8 @@
          "label" : "Black"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C43829",
-         "label" : "West Indian"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "518",
       "info" : {
@@ -35564,8 +35564,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67118",
-         "label" : "Central American"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "526",
       "info" : {
@@ -35627,8 +35627,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "528",
       "info" : {
@@ -36396,8 +36396,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C126532",
-         "label" : "South American"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "545",
       "info" : {
@@ -37487,8 +37487,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "563",
       "info" : {
@@ -38218,8 +38218,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "572",
       "info" : {
@@ -38246,8 +38246,8 @@
          "label" : "Asian"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C41262",
-         "label" : "Asian Indian"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "573",
       "info" : {
@@ -39484,8 +39484,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "578",
       "info" : {
@@ -40157,8 +40157,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "580",
       "info" : {
@@ -40530,8 +40530,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "587",
       "info" : {
@@ -43045,8 +43045,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "615",
       "info" : {
@@ -43442,8 +43442,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "625",
       "info" : {
@@ -43758,8 +43758,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "639",
       "info" : {
@@ -44592,8 +44592,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "677",
       "info" : {
@@ -44620,8 +44620,8 @@
          "label" : "Asian"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C41262",
-         "label" : "Asian Indian"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "679",
       "info" : {
@@ -44934,8 +44934,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67118",
-         "label" : "Central American"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "682",
       "info" : {
@@ -45137,8 +45137,8 @@
          "label" : "Black"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C43829",
-         "label" : "West Indian"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "693",
       "info" : {
@@ -46305,8 +46305,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67118",
-         "label" : "Central American"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "720",
       "info" : {
@@ -47020,8 +47020,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "747",
       "info" : {
@@ -47048,8 +47048,8 @@
          "label" : "Black"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C43829",
-         "label" : "West Indian"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "752",
       "info" : {
@@ -47474,8 +47474,8 @@
          "label" : "Black"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C43829",
-         "label" : "West Indian"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "758",
       "info" : {
@@ -47502,8 +47502,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C126532",
-         "label" : "South American"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "763",
       "info" : {
@@ -47530,8 +47530,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "764",
       "info" : {
@@ -47592,8 +47592,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "774",
       "info" : {
@@ -48088,8 +48088,8 @@
          "label" : "Asian"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C41262",
-         "label" : "Asian Indian"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "785",
       "info" : {
@@ -49342,8 +49342,8 @@
          "label" : "Black"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C43829",
-         "label" : "West Indian"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "817",
       "info" : {
@@ -50008,8 +50008,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "821",
       "info" : {
@@ -50344,8 +50344,8 @@
          "label" : "Asian"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C41262",
-         "label" : "Asian Indian"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "828",
       "info" : {
@@ -50400,8 +50400,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "830",
       "info" : {
@@ -50547,8 +50547,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "844",
       "info" : {
@@ -50603,8 +50603,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67118",
-         "label" : "Central American"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "855",
       "info" : {
@@ -51036,8 +51036,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "867",
       "info" : {
@@ -51350,8 +51350,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "871",
       "info" : {
@@ -52344,8 +52344,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "887",
       "info" : {
@@ -52810,8 +52810,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "918",
       "info" : {
@@ -53193,8 +53193,8 @@
          "label" : "Asian"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C41262",
-         "label" : "Asian Indian"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "950",
       "info" : {
@@ -53445,8 +53445,8 @@
          "label" : "Black"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C43829",
-         "label" : "West Indian"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "974",
       "info" : {
@@ -53877,8 +53877,8 @@
          "label" : "Asian"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C41262",
-         "label" : "Asian Indian"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "1005",
       "info" : {
@@ -53905,8 +53905,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "1022",
       "info" : {
@@ -54372,8 +54372,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "1072",
       "info" : {
@@ -55067,8 +55067,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "1092",
       "info" : {
@@ -55207,8 +55207,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "1135",
       "info" : {
@@ -55438,8 +55438,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C126532",
-         "label" : "South American"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "1155",
       "info" : {
@@ -56485,8 +56485,8 @@
          "label" : "Black"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C43829",
-         "label" : "West Indian"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "1215",
       "info" : {
@@ -56513,8 +56513,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "1227",
       "info" : {
@@ -56744,8 +56744,8 @@
          "label" : "Black"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C43829",
-         "label" : "West Indian"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "1389",
       "info" : {
@@ -56772,8 +56772,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C67112",
-         "label" : "Puerto Rican"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "1409",
       "info" : {
@@ -56828,8 +56828,8 @@
          "label" : "NA"
       },
       "geographicOrigin" : {
-         "id" : "NCIT:C126532",
-         "label" : "South American"
+         "id" : "NCIT:NA0000",
+         "label" : "NA"
       },
       "id" : "1476",
       "info" : {
