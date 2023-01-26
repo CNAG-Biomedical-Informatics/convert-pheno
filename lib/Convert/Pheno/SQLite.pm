@@ -29,24 +29,23 @@ sub open_connections_SQLite {
 
     my $self = shift;
 
-# **********************
-# *** IMPORTANT STEP ***
-# **********************
-# Well open ALL databases once (instead that on each call), regardless if they user has selected them.
-# It imrpoves speed by 15%
-# The only exception is for <ohdsi> that is the larger and may interfere in timings
+    # **********************
+    # *** IMPORTANT STEP ***
+    # **********************
+    # Well open ALL databases once (instead that on each call), regardless if they user has selected them.
+    # It imrpoves speed by 15%
+    # The only exception is for <ohdsi> that is the larger and may interfere in timings
 
     # Only open ohdsi.db if $self->{ohdsi_db}
     my @databases =
-      defined $self->{ohdsi_db} ? @sqlites : grep { !m/ohdsi/ }
-      @sqlites;    # global
+      defined $self->{ohdsi_db} ? @sqlites : grep { !m/ohdsi/ } @sqlites;    # global
 
     # Open databases
     my $dbh;
     $dbh->{$_} = open_db_SQLite($_) for (@databases);
 
     # Add $dbh HANDLE to $self
-    $self->{dbh} = $dbh;    # Dynamically adding attributes (setter)
+    $self->{dbh} = $dbh;                                                     # Dynamically adding attributes (setter)
 
     # Prepare the query once
     prepare_query_SQLite($self);
@@ -61,8 +60,7 @@ sub close_connections_SQLite {
 
     # Check flag ohdsi_db
     my @databases =
-      defined $self->{ohdsi_db} ? @sqlites : grep { !m/ohdsi/ }
-      @sqlites;    # global
+      defined $self->{ohdsi_db} ? @sqlites : grep { !m/ohdsi/ } @sqlites;    # global
     close_db_SQLite( $dbh->{$_} ) for (@databases);
     return 1;
 }
@@ -111,18 +109,17 @@ sub prepare_query_SQLite {
     ###############
     # EXPLANATION #
     ###############
-#
-# Even though we did not gain a lot of speed (~15%), we decided to do the "prepare step" once, instead of on each query.
-# Then, if we want to search in a different column than 'label' we also need to create that $sth
-# To solve that we have created a nested sth->{ncit}{label}, sth->{icd10}{label}, sth->{ohdsi}{concept_id} and sth->{ohdsi}{label}
-# On top of that, we add the "match" type, so that we can have other matches in the future if needed
-# NB: In principle, is is possible to change the "prepare" during queries but we must revert it back to default after using it
-# We recommend using small db such as ncit/icd10 as they're fast
+    #
+    # Even though we did not gain a lot of speed (~15%), we decided to do the "prepare step" once, instead of on each query.
+    # Then, if we want to search in a different column than 'label' we also need to create that $sth
+    # To solve that we have created a nested sth->{ncit}{label}, sth->{icd10}{label}, sth->{ohdsi}{concept_id} and sth->{ohdsi}{label}
+    # On top of that, we add the "match" type, so that we can have other matches in the future if needed
+    # NB: In principle, is is possible to change the "prepare" during queries but we must revert it back to default after using it
+    # We recommend using small db such as ncit/icd10 as they're fast
 
     # Check flag ohdsi_db
     my @databases =
-      defined $self->{ohdsi_db} ? @sqlites : grep { !m/ohdsi/ }
-      @sqlites;    # global
+      defined $self->{ohdsi_db} ? @sqlites : grep { !m/ohdsi/ } @sqlites;    # global
 
     # NB:
     # dbh = "Database Handle"
@@ -150,7 +147,7 @@ sub prepare_query_SQLite {
 qq(SELECT * FROM $db WHERE $column LIKE '%' || ? || '%' COLLATE NOCASE)
                     ,    # NOT USED
 
-#begins_with => qq(SELECT * FROM $db WHERE $column LIKE ? || '%' COLLATE NOCASE), # NOT USED
+                    #begins_with => qq(SELECT * FROM $db WHERE $column LIKE ? || '%' COLLATE NOCASE), # NOT USED
                     exact_match =>
                       qq(SELECT * FROM $db WHERE $column = ? COLLATE NOCASE),
 
@@ -158,16 +155,16 @@ qq(SELECT * FROM $db WHERE $column LIKE '%' || ? || '%' COLLATE NOCASE)
                     # *** IMPORTANT STEP ***
                     # **********************
 
-# Full-text-search queries only on column <label> BUT IT CAN BE DONE ALL COLUMNS!!!!
-# full_text_search   => qq(SELECT * FROM $db_fts WHERE $db MATCH ?),
-# FTS is 2x faster than 'contains'
-# NOTE (Jan-2023): We don't check for misspelled words
-#       --> TO DO - Tricky -->  https://www.sqlite.org/spellfix1.html
+                    # Full-text-search queries only on column <label> BUT IT CAN BE DONE ALL COLUMNS!!!!
+                    # full_text_search   => qq(SELECT * FROM $db_fts WHERE $db MATCH ?),
+                    # FTS is 2x faster than 'contains'
+                    # NOTE (Jan-2023): We don't check for misspelled words
+                    #       --> TO DO - Tricky -->  https://www.sqlite.org/spellfix1.html
                     full_text_search =>
                       qq(SELECT * FROM $db_fts WHERE $column MATCH ?),
 
-# SOUNDEX using TABLE_fts but only on column <label>
-# soundex     => qq(SELECT * FROM $db_fts WHERE SOUNDEX($column) = SOUNDEX(?)) # NOT USED
+                    # SOUNDEX using TABLE_fts but only on column <label>
+                    # soundex     => qq(SELECT * FROM $db_fts WHERE SOUNDEX($column) = SOUNDEX(?)) # NOT USED
                 );
 
                 # Prepare the query
@@ -192,14 +189,15 @@ sub get_ontology {
 
     my $arg                       = shift;
     my $ontology                  = $arg->{ontology};
-    my $sth_column_ref            = $arg->{sth_column_ref}; #it contains hashref
+    my $sth_column_ref            = $arg->{sth_column_ref};              #it contains hashref
     my $query                     = $arg->{query};
     my $column                    = $arg->{column};
     my $match                     = $arg->{match};
     my $text_similarity_method    = $arg->{text_similarity_method};
     my $min_text_similarity_score = $arg->{min_text_similarity_score};
-    my $type_of_search = 'full_text_search'; # 'contains' and 'full_text_search'
-                                             #say $type_of_search;
+    my $type_of_search            = 'full_text_search';                  # 'contains' and 'full_text_search'
+                                                                         #say $type_of_search;
+    say "QUERY <$query>" if DEVEL_MODE;
 
     # A) 'exact'
     # - exact_match
@@ -215,11 +213,11 @@ sub get_ontology {
     # exact_match (always performed)
     my ( $id, $label ) = execute_query_SQLite(
         {
-            sth      => $sth_column_ref->{exact_match},    # IMPORTANT STEP
-            query    => $query,
-            ontology => $ontology,
-            match    => 'exact_match',
-            text_similarity_method => $text_similarity_method,   # Not used here
+            sth                       => $sth_column_ref->{exact_match},    # IMPORTANT STEP
+            query                     => $query,
+            ontology                  => $ontology,
+            match                     => 'exact_match',
+            text_similarity_method    => $text_similarity_method,           # Not used here
             min_text_similarity_score => $min_text_similarity_score
         }
     );
@@ -228,11 +226,11 @@ sub get_ontology {
     if ( $match eq 'mixed' && ( !defined $id && !defined $label ) ) {
         ( $id, $label ) = execute_query_SQLite(
             {
-                sth      => $sth_column_ref->{$type_of_search}, # IMPORTANT STEP
-                query    => $query,
-                ontology => $ontology,
-                match    => $type_of_search,
-                text_similarity_method    => $text_similarity_method,
+                sth                    => $sth_column_ref->{$type_of_search},  # IMPORTANT STEP
+                query                  => $query,
+                ontology               => $ontology,
+                match                  => $type_of_search,
+                text_similarity_method => $text_similarity_method,
                 min_text_similarity_score => $min_text_similarity_score
             }
         );
@@ -260,16 +258,16 @@ sub execute_query_SQLite {
     my $ontology                  = $arg->{ontology};
     my $match                     = $arg->{match};
 
-#  Columns in DBs
-#     *<ncit.db>, <icd10.db> and <cdisc.db> were pre-processed to have "id" and "label" columns only
-#       label [0]
-#       id    [1]
-#
-#     * <ohdsi.db> consists of 4 columns:
-#       concept_id    => concept_id    [0]
-#       concept_name  => label         [1]
-#       vocabulary_id => vocabulary_id [2]
-#       vocabulary_id => id            [3]
+    #  Columns in DBs
+    #     *<ncit.db>, <icd10.db> and <cdisc.db> were pre-processed to have "id" and "label" columns only
+    #       label [0]
+    #       id    [1]
+    #
+    #     * <ohdsi.db> consists of 4 columns:
+    #       concept_id    => concept_id    [0]
+    #       concept_name  => label         [1]
+    #       vocabulary_id => vocabulary_id [2]
+    #       concept_code  => id            [3]
 
     # Define a hash for column position on databases
     my $position = { ohdsi => { label => 1, id => 3 } };
@@ -277,22 +275,21 @@ sub execute_query_SQLite {
     my $id_row    = $position->{$ontology}{id};
     my $label_row = $position->{$ontology}{label};
 
-   # Execute query
-   # **********************
-   # *** IMPORTANT STEP ***
-   # **********************
-   # full_text_search is supposed to be ONLY in text fields, but, for
-   # whatever reaon the binding of parameters e.g, '2 - mild' (starts w/ number)
-   # produce an exception on SQLite. We'll be parsing them for ALL SEARCHES!!!
+    # Execute query
+    # **********************
+    # *** IMPORTANT STEP ***
+    # **********************
+    # full_text_search is supposed to be ONLY in text fields, but, for
+    # whatever reaon the binding of parameters e.g, '2 - mild' (starts w/ number)
+    # produce an exception on SQLite. We'll be parsing them for ALL SEARCHES!!!
 
     # for ALL SEARCHES!!
     $query =~ s/^\d+\s+\-\s+//;    # for ALL SEARCHES!!!
 
     # for full_text_search (they create execptions)
     $query =~ tr/_,-/   / if $match eq 'full_text_search';
-    $sth->bind_param( 1, $query )
-      ;    # docstore.mik.ua/orelly/linux/dbi/ch05_03.htm
-    $sth->execute();    # eq to $sth->execute($query);
+    $sth->bind_param( 1, $query );    # docstore.mik.ua/orelly/linux/dbi/ch05_03.htm
+    $sth->execute();                  # eq to $sth->execute($query);
 
     my $id    = undef;
     my $label = undef;
@@ -306,7 +303,7 @@ sub execute_query_SQLite {
               ? uc($ontology) . ':' . $row->[$id_row]
               : $row->[2] . ':' . $row->[$id_row];
             $label = $row->[$label_row];
-            last; # Note that sometimes we get more than one (they're discarded)
+            last;    # Note that sometimes we get more than one (they're discarded)
         }
     }
     else {
@@ -355,6 +352,8 @@ sub text_similarity {
     my $data;    # hashref
     while ( my $row = $sth->fetchrow_arrayref() ) {
 
+        say "---Checking <$row->[$label_row]>" if DEVEL_MODE;
+
         # We have a threshold to assign a result as valid
         my ( $score, %scores ) =
           $ts->getSimilarityStrings( $query, $row->[$label_row] );
@@ -379,9 +378,8 @@ sub text_similarity {
           <=> $data->{$a}{scores}{$text_similarity_method}
       } keys %{$data};
 
-    print Dumper $data         if DEVEL_MODE;
-    print "#$query#\n"         if DEVEL_MODE;
-    print Dumper \@sorted_keys if DEVEL_MODE;
+    print Dumper $data             if DEVEL_MODE;
+    say "WINNER <$sorted_keys[0]>" if ( $sorted_keys[0] && DEVEL_MODE );
 
     # Return 1st element if present
     return $sorted_keys[0]

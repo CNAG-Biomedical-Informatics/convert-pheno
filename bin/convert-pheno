@@ -274,7 +274,7 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
        -mapping-file                  Fields mapping YAML (or JSON) file
        -match                         Type of search [>exact|mixed]
        -max-lines-sql                 Maxium number of lines read from SQL dump [500]
-       -min-text-similarity-score     Minimum score for cosine similarity (or Sorensen–Dice coefficient) [0.8] (to be used with --match mixed)
+       -min-text-similarity-score     Minimum score for cosine similarity (or Sorensen-Dice coefficient) [0.8] (to be used with --match mixed)
        -nc|-no-color                  Don't print colors to STDOUT
        -ohdsi-db                      Use Athena-OHDSI database (~1.2GB) with -iomop
        -out-dir                       Output (existing) directory

@@ -53,7 +53,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
        -mapping-file                  Fields mapping YAML (or JSON) file
        -match                         Type of search [>exact|mixed]
        -max-lines-sql                 Maxium number of lines read from SQL dump [500]
-       -min-text-similarity-score     Minimum score for cosine similarity (or Sorensen–Dice coefficient) [0.8] (to be used with --match mixed)
+       -min-text-similarity-score     Minimum score for cosine similarity (or Sorensen-Dice coefficient) [0.8] (to be used with --match mixed)
        -nc|-no-color                  Don't print colors to STDOUT
        -ohdsi-db                      Use Athena-OHDSI database (~1.2GB) with -iomop
        -out-dir                       Output (existing) directory
@@ -240,11 +240,3 @@ Written by Manuel Rueda, PhD. Info about CNAG can be found at [https://www.cnag.
 Copyright (C) 2022-2023, Manuel Rueda - CNAG.
 
 This program is free software, you can redistribute it and/or modify it under the terms of the [Artistic License version 2.0](https://metacpan.org/pod/perlartistic).
-
-# POD ERRORS
-
-Hey! **The above document had some coding errors, which are explained below:**
-
-- Around line 277:
-
-    Non-ASCII character seen before =encoding in 'Sorensen–Dice'. Assuming UTF-8
