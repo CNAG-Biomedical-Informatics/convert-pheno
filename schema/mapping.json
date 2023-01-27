@@ -125,6 +125,12 @@
             "icd10",
             "cdisc"
           ]
+        },
+        "map": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
         }
       },
       "required": [

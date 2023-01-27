@@ -66,7 +66,7 @@ sub do_redcap2bff {
 
     # Getting the field name from mapping file (note that we add _field suffix)
     my $sex_field     = $mapping_file->{sex};
-    my $studyId_field = $mapping_file->{info}{dict}{studyId};
+    my $studyId_field = $mapping_file->{info}{map}{studyId};
 
     # **********************
     # *** IMPORTANT STEP ***
@@ -134,9 +134,8 @@ sub do_redcap2bff {
         my $disease;
 
         # Load a few more variables from mapping file
-        my $ageOfOnset_field = $mapping_file->{diseases}{dict}{ageOfOnset};
-        my $familyHistory_field =
-          $mapping_file->{diseases}{dict}{familyHistory};
+        my $ageOfOnset_field = $mapping_file->{diseases}{map}{ageOfOnset};
+        my $familyHistory_field = $mapping_file->{diseases}{map}{familyHistory};
 
         # Start mapping
         $disease->{ageOfOnset} = map_age_range(

@@ -51,9 +51,9 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
        -log                           Save <convert-pheno-log.json> file
        -man                           Full documentation
        -mapping-file                  Fields mapping YAML (or JSON) file
-       -match                         Type of search [>exact|mixed]
+       -search                        Type of search [>exact|mixed]
        -max-lines-sql                 Maxium number of lines read from SQL dump [500]
-       -min-text-similarity-score     Minimum score for cosine similarity (or Sorensen-Dice coefficient) [0.8] (to be used with --match mixed)
+       -min-text-similarity-score     Minimum score for cosine similarity (or Sorensen-Dice coefficient) [0.8] (to be used with --search mixed)
        -nc|-no-color                  Don't print colors to STDOUT
        -ohdsi-db                      Use Athena-OHDSI database (~1.2GB) with -iomop
        -out-dir                       Output (existing) directory
@@ -171,32 +171,6 @@ For executing convert-pheno you will need:
 
     Please download it from this [link](https://drive.google.com/drive/folders/104_Bgl3IxM3U6u-wn-1LUvNZXevD2DRm?usp=sharing) (~2.4GB) and move it inside `db/` directory.
 
-## ABOUT SEARCH OPTIONS
-
-- exact:
-
-    Retrieves only exact matches for a specified 'label',
-
-- mixed:
-
-    The script will begin by attempting an excat match for 'label', and if it is unsuccessful, it will then conduct a search based on string (phrase) similarity and select the ontology with the highest score. 
-
-### Example (NCIT ontology): 
-
-Search phrase: **Exercise pain management** with `exact` search.
-
-\- exact match: Exercise Pain Management
-
-Search phrase: **Brain Hemorrhage** with `mixed` search.
-
-\- exact match: NA
-
-\- mixed match: Intraventricular Brain Hemorrhage
-
-`--min-text-similarity-score` sets the minimum value for the Cosine / Sorensen-Dice coefficient.
-
-Note that `mixed` search requires more computational time and its results can be unpredictable. Please us it with caution.
-
 **Examples:**
 
     $ bin/convert-pheno -ipxf phenopackets.json -obff individuals.json
@@ -207,7 +181,7 @@ Note that `mixed` search requires more computational time and its results can be
 
     $ $path/convert-pheno -iomop dump.sql -obff individuals.json 
 
-    $ $path/convert-pheno -cdisc cdisc_odm.xml -obff individuals.json --rcd redcap_dict.csv --mapping-file mapping_file.yaml --match mixed --min-text-similarity-score 0.6
+    $ $path/convert-pheno -cdisc cdisc_odm.xml -obff individuals.json --rcd redcap_dict.csv --mapping-file mapping_file.yaml --search mixed --min-text-similarity-score 0.6
 
     $ $path/convert-pheno -iomop *csv -obff individuals.json -sep ','
 

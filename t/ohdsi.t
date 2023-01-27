@@ -34,7 +34,7 @@ for my $method ( sort keys %{$input} ) {
             in_files    => $input->{$method}{in_files},
             in_textfile => 1,
             test        => 1,
-            match       => 'exact',
+            search      => 'exact',
             ohdsi_db    => $input->{$method}{'ohdsi_db'},
             method      => $method
         }

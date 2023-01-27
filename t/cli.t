@@ -94,7 +94,7 @@ for my $method ( sort keys %{$input} ) {
             in_textfile          => 1,
             sep                  => $input->{$method}{sep},
             test                 => 1,
-            match                => 'exact',
+            search               => 'exact',
             method               => $method
         }
     );

@@ -16,7 +16,7 @@ use Convert::Pheno::SQLite;
 binmode STDOUT, ':encoding(utf-8)';
 use Exporter 'import';
 our @EXPORT =
-  qw( map_ethnicity map_ontology dotify_and_coerce_number iso8601_time _map2iso8601 map_unit_range map_age_range map2redcap_dic map2ohdsi_dic convert2boolean find_age randStr is_multidimensional);
+  qw( map_ethnicity map_ontology dotify_and_coerce_number iso8601_time _map2iso8601 map_unit_range map_age_range map2redcap_dic map2ohdsi_dic convert2boolean find_age randStr);
 
 use constant DEVEL_MODE => 0;
 
@@ -68,7 +68,7 @@ sub map_ontology {
     my $column                    = $arg->{column};
     my $ontology                  = $arg->{ontology};
     my $self                      = $arg->{self};
-    my $match                     = $self->{match};
+    my $search                    = $self->{search};
     my $print_hidden_labels       = $self->{print_hidden_labels};
     my $text_similarity_method    = $self->{text_similarity_method};
     my $min_text_similarity_score = $self->{min_text_similarity_score};
@@ -85,7 +85,7 @@ sub map_ontology {
             query                     => $tmp_query,
             ontology                  => $ontology,
             column                    => $column,
-            match                     => $match,
+            search                    => $search,
             text_similarity_method    => $text_similarity_method,
             min_text_similarity_score => $min_text_similarity_score
         }

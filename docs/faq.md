@@ -8,13 +8,11 @@ Frequently Asked Questions
 
     ##### last change 2023-01-05 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
-
 ??? faq "Is `Convert-Pheno` free?"
 
     Yes - Free as in Speech. 
 
     ##### last change 2023-01-04 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
-
 
 ??? faq "Can I use `Convert-Pheno` in _production_ software?"
 
@@ -46,6 +44,12 @@ Frequently Asked Questions
     Afirmative. Please check our [roadmap](future-plans.md) for more information.
 
     ##### last change 2023-01-04 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
+
+??? faq "Which ontologies are supported?"
+
+    We support [NCI Thesaurus](https://ncithesaurus.nci.nih.gov/ncitbrowser), [ICD-10](https://icd.who.int/browse10), [CDISC](https://www.cdisc.org/standards/terminology/controlled-terminology) (Study Data Tabulation Model Terminology) and data from [Athena-OHDSI](https://athena.ohdsi.org/search-terms/start) which includes multiple ontologies, such as _SNOMED, RxNorm or LOINC_.
+
+    ##### last change 2023-01-27 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
 ## Installation
 

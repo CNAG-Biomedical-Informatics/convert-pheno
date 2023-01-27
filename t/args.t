@@ -49,7 +49,7 @@ for my $method ( sort keys %{$input} ) {
             sep                  => $input->{$method}{sep},
             test                 => 1,
             debug                => 2,
-            match                => 'exact',
+            search               => 'exact',
             verbose              => 1,
             method               => $method
 
@@ -90,7 +90,7 @@ for my $method ( sort keys %{$input} ) {
                 schema_file => $err eq 'ERR4' ? 't/schema/malformed.json'
                 : $input->{$method}{schema_file},
                 in_textfile => 1,
-                match       => 'exact',
+                search      => 'exact',
                 sep         => $input->{$method}{sep},
                 test        => 1,
                 method      => $err eq 'ERR3' ? 'foo2bar' : $method
@@ -118,7 +118,7 @@ for my $method ( sort keys %{$input} ) {
         {
             in_files    => $input->{$method}{in_files},
             in_textfile => 1,
-            match       => 'exact',
+            search      => 'exact',
             ohdsi_db    => 1,        # Need ohdsi_db as we deal with few rows
             method      => $method
         }
