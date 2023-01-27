@@ -32,11 +32,8 @@ use Convert::Pheno;
 $Data::Dumper::Sortkeys = 1;
 
 # Defining a few variables
-my $out_dir                   = '.';
-my $schema_file               = catfile( $Bin, '../schema/mapping.json' );
-my $search                    = 'exact';
-my $text_similarity_method    = 'cosine';
-my $min_text_similarity_score = 0.8;
+my $out_dir     = '.';
+my $schema_file = catfile( $Bin, '../schema/mapping.json' );
 
 # Reading arguments
 GetOptions(
@@ -52,9 +49,9 @@ GetOptions(
     'man'                         => \my $man,                                 # flag
     'mapping-file=s'              => \my $mapping_file,                        # string
     'max-lines-sql=i'             => \my $max_lines_sql,                       # integer
-    'search=s'                    => \$search,                                 # string
-    'text-similarity-method=s'    => \$text_similarity_method,                 # string
-    'min-text-similarity-score=f' => \$min_text_similarity_score,              # floating
+    'search=s'                    => \my $search,                              # string
+    'text-similarity-method=s'    => \my $text_similarity_method,              # string
+    'min-text-similarity-score=f' => \my $min_text_similarity_score,           # floating
     'debug=i'                     => \my $debug,                               # integer
     'verbose'                     => \my $verbose,                             # flag
     'no-color|nc'                 => \my $no_color,                            # flag
@@ -72,6 +69,8 @@ GetOptions(
 ) or pod2usage(2);
 pod2usage(1)                              if $help;
 pod2usage( -verbose => 2, -exitval => 0 ) if $man;
+
+# Will validate CLI specific options
 pod2usage(
     -message => "Please specify a valid input file(s) -i <json|yaml|csv>\n",
     -exitval => 1
@@ -83,21 +82,20 @@ pod2usage(
 pod2usage(
     -message => "Please specify a valid REDCap data dictionary --rcd\n",
     -exitval => 1
-) if ( ( $in_redcap || $in_cdisc ) && !$redcap_dictionary );
+) if ( ( $in_redcap || $in_cdisc ) && !-f $redcap_dictionary );
 pod2usage(
     -message => "Please specify a valid field-mapping file --mapping-file\n",
     -exitval => 1
-) if ( ( $in_redcap || $in_cdisc ) && !$mapping_file );
+) if ( ( $in_redcap || $in_cdisc ) && !-f $mapping_file );
 pod2usage(
     -message => "Please specify a valid OMOP-CDM file(s) (e.g, *csv or .sql)\n",
     -exitval => 1
 ) if ( @omop_files && $omop_files[0] !~ m/\.csv|\.sql|\.tsv/i );
-
-#pod2usage(
-#    -message =>
-#      "OHDSI database (<-ohdsi-db>) only works with <-iomop> argument\n",
-#    -exitval => 1
-#) if ( $ohdsi_db && !@omop_files );
+pod2usage(
+    -message =>
+      "Please specify a valid schema for the mapping file --schema-file\n",
+    -exitval => 1
+) unless -f $schema_file;
 
 # Turning color off if argument <--no-color>
 $ENV{'ANSI_COLORS_DISABLED'} = 1 if $no_color;
@@ -273,7 +271,6 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
        -log                           Save <convert-pheno-log.json> file
        -man                           Full documentation
        -mapping-file                  Fields mapping YAML (or JSON) file
-       -search                        Type of search [>exact|mixed]
        -max-lines-sql                 Maxium number of lines read from SQL dump [500]
        -min-text-similarity-score     Minimum score for cosine similarity (or Sorensen-Dice coefficient) [0.8] (to be used with --search mixed)
        -nc|-no-color                  Don't print colors to STDOUT
@@ -282,6 +279,7 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
        -phl|print-hidden-labels       Print original values (before DB mapping) of text fields <_labels>
        -rcd|redcap-dictionary         REDCap data dictionary CSV file
        -schema-file                   Alternative JSON Schema for mapping file
+       -search                        Type of search [>exact|mixed]
        -svs|self-validate-schema      Perform a self-validation of the JSON schema that defines mapping
        -sep|separator                 Delimiter character for CSV files
        -sql2csv                       Print SQL TABLES (with -iomop)

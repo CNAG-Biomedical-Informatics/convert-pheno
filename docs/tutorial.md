@@ -62,7 +62,7 @@ This page provides brief tutorials on how to perform data conversion.
 
           `--min-text-similarity-score` sets the minimum value for the Cosine / Sorensen-Dice coefficient. The default value (0.8) is very conservative.
 
-         Note that `mixed` search requires more computational time and its results can be unpredictable. Please us it with caution.
+         Note that `mixed` search requires more computational time and its results can be unpredictable. Please use it with caution.
 
     ### Running `Convert-Pheno`
 

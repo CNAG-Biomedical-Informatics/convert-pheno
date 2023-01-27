@@ -131,8 +131,7 @@ sub get_metaData {
     #   : A: Because it's easier to remember
 
     # Setting a few variables
-    my $user = $self->{username}
-      // ( $ENV{LOGNAME} || $ENV{USER} || getpwuid($<) );
+    my $user = $self->{username};
     chomp( my $ncpuhost = qx{/usr/bin/nproc} ) // 1;
     $ncpuhost = 0 + $ncpuhost;    # coercing it to be a number
     my $info = {

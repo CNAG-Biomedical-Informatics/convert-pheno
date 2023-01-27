@@ -10,6 +10,7 @@ use JSON::Validator;
 use Term::ANSIColor qw(:constants);
 use Convert::Pheno::IO;
 
+# Declate attribute classes
 has data => (
     is       => 'ro',
     required => 1

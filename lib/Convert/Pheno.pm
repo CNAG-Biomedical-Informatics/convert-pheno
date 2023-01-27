@@ -11,6 +11,7 @@ use File::Basename;
 use List::Util qw(any);
 use Carp       qw(confess);
 use XML::Fast;
+use Moo;
 use Convert::Pheno::CSV;
 use Convert::Pheno::IO;
 use Convert::Pheno::SQLite;
@@ -21,7 +22,6 @@ use Convert::Pheno::BFF;
 use Convert::Pheno::CDISC;
 use Convert::Pheno::REDCap;
 
-#use Convert::Pheno::REDCap;
 use Exporter 'import';
 our @EXPORT = qw($VERSION io_yaml_or_json);    # Symbols imported by default
 
@@ -32,13 +32,46 @@ use constant DEVEL_MODE => 0;
 # Global variables:
 our $VERSION = '0.0.0_alpha';
 
-# PP-OO Constructor method
-sub new {
+# Declaring attributes for the class
+has search => (
+    default => 'exact',
+    is      => 'ro',
+    isa     => sub {
+        die "Only <exact|mixed> values supported!"
+          unless ( $_[0] eq 'exact' || $_[0] eq 'mixed' );
+    }
+);
 
-    my ( $class, $self ) = @_;
-    bless $self, $class;
-    return $self;
-}
+has text_similarity_method => (
+    default => 'cosine',
+    is      => 'ro',
+    isa     => sub {
+        die "Only <cosine|dice> values supported!"
+          unless ( $_[0] eq 'cosine' || $_[0] eq 'dice' );
+    }
+);
+
+has min_text_similarity_score => (
+    default => 0.8,
+    is      => 'ro',
+    isa     => sub {
+        die "Only values between 0 .. 1 supported!"
+          unless ( $_[0] >= 0.0 && $_[0] <= 1.0 );
+    }
+);
+
+has username => (
+    default => ( $ENV{LOGNAME} || $ENV{USER} || getpwuid($<) ),
+    is      => 'ro'
+);
+
+has $_ => ( default => undef, is => 'ro' )
+  for (qw /test ohdsi_db print_hidden_labels self_validate_schema/);
+
+has $_ => ( is => 'rw' )
+  for (
+    qw /data out_dir in_textfile in_file in_files method sep sql2csv redcap_dictionary mapping_file max_lines_sql schema_file debug log verbose/
+  );
 
 # NB: In general, we'll only display terms that exist and have content
 
