@@ -36,6 +36,7 @@ our $VERSION = '0.0.0_alpha';
 has search => (
     default => 'exact',
     is      => 'ro',
+    coerce => sub { defined $_[0] ? $_[0] : 'exact'  },
     isa     => sub {
         die "Only <exact|mixed> values supported!"
           unless ( $_[0] eq 'exact' || $_[0] eq 'mixed' );
@@ -45,6 +46,7 @@ has search => (
 has text_similarity_method => (
     default => 'cosine',
     is      => 'ro',
+    coerce => sub { defined $_[0] ? $_[0] : 'cosine'  },
     isa     => sub {
         die "Only <cosine|dice> values supported!"
           unless ( $_[0] eq 'cosine' || $_[0] eq 'dice' );
@@ -54,6 +56,7 @@ has text_similarity_method => (
 has min_text_similarity_score => (
     default => 0.8,
     is      => 'ro',
+    coerce => sub { defined $_[0] ? $_[0] : 0.8  },
     isa     => sub {
         die "Only values between 0 .. 1 supported!"
           unless ( $_[0] >= 0.0 && $_[0] <= 1.0 );
