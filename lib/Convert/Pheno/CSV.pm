@@ -8,6 +8,7 @@ use File::Basename;
 use Text::CSV_XS;
 use Sort::Naturally qw(nsort);
 use List::Util      qw(any);
+use File::Spec::Functions qw(catdir);
 use Convert::Pheno::OMOP;
 use Convert::Pheno::IO;
 use Convert::Pheno::Schema;

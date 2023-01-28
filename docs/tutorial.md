@@ -1,4 +1,7 @@
-This page provides brief tutorials on how to perform data conversion.
+!!! Tip "Google Colab version"
+    We created a [Google Colab version](https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6) of the tutorial. Users can view notebooks shared publicly without sign-in, but you need a google account to execute code.
+
+This page provides brief tutorials on how to perform data conversion by using `Convert-Pheno`**command-line interface**.
 
 !!! Info "Note on installation"
     Before proceeding, ensure that the software is properly installed. In the following instructions, it will be assumed that you have downloaded and installed the [containerized version](https://github.com/mrueda/convert-pheno#containerized).
