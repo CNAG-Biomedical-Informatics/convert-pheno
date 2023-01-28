@@ -18,6 +18,8 @@
 
 **Source Code**: <a href="https://github.com/mrueda/convert-pheno" target="_blank">https://github.com/mrueda/convert-pheno</a>
 
+**Google Colab**: <a href="https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6" target="_blank">CLI tutorial</a>
+
 
 # NAME
 
