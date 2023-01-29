@@ -16,8 +16,8 @@ Phenopackets use [top-level](https://phenopacket-schema.readthedocs.io/en/latest
 
     When using the `convert-pheno` command-line interface, simply ensure the [correct syntax](https://github.com/mrueda/convert-pheno#synopsis) is provided.
 
-    !!! Tip "`JSON` data in Phenopackets file"
-        Note that the file can consist of one individual (one JSON object) or multiple individuals (a JSON array of objects).
+    !!! Tip "About `JSON` data in `individuals.json`"
+        Note that the input `-ipxf` file can consist of one individual (one JSON object) or a list of individuals (a JSON array of objects). The output `--obff` file will replicate the data organization of the input file.
 
     ```
     convert-pheno -ipxf ipxf.json -obff individuals.json

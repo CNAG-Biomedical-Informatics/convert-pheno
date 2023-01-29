@@ -5,13 +5,18 @@ We provide several alternatives (containerized and non-containerized) for downlo
 
 ## Containerized
 
-=== "Method 1: With Dockerfile"
+=== "Method 1: From Docker Hub"
+
+    Download a docker image (latest version) from [Docker Hub](https://hub.docker.com/r/manuelrueda/convert-pheno) by executing:
+    ```bash
+    docker pull manuelrueda/convert-pheno:latest
+    docker image tag manuelrueda/convert-pheno:latest cnag/convert-pheno:latest
+    ```
+    Then follow the instructions provided in this [README](https://github.com/mrueda/convert-pheno#containerized).
+
+=== "Method 2: With Dockerfile"
 
     Please follow the instructions provided in this [README](https://github.com/mrueda/convert-pheno#containerized).
-
-=== "Method 2: From Docker Hub"
-
-    TBA
 
 ## Non-Containerized
 

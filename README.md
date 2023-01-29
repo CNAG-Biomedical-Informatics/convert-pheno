@@ -18,8 +18,6 @@
 
 **Source Code**: <a href="https://github.com/mrueda/convert-pheno" target="_blank">https://github.com/mrueda/convert-pheno</a>
 
-**Google Colab**: <a href="https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6" target="_blank">CLI tutorial</a>
-
 
 # NAME
 
@@ -85,6 +83,17 @@ A script that uses [Convert::Pheno](https://metacpan.org/pod/Convert%3A%3APheno)
 
 ## Containerized
 
+### Method 1: From Docker Hub
+
+Download a docker image (latest version) from [Docker Hub](https://hub.docker.com/r/manuelrueda/convert-pheno) by executing:
+
+    docker pull manuelrueda/convert-pheno:latest
+    docker image tag manuelrueda/convert-pheno:latest cna
+
+See additional instructions below.
+
+### Method 2: With Dockerfile
+
 Please download the `Dockerfile` from the repo:
 
     wget https://raw.githubusercontent.com/mrueda/convert-pheno/main/Dockerfile
@@ -92,6 +101,8 @@ Please download the `Dockerfile` from the repo:
 And then run:
 
     docker build -t cnag/convert-pheno:latest .
+
+### Additional instructions for Methods 1 and 2
 
 To run the container (detached) execute:
 

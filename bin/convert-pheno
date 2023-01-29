@@ -303,6 +303,17 @@ A script that uses L<Convert::Pheno> to interconvert common data models for phen
 
 =head2 Containerized
 
+=head3 Method 1: From Docker Hub
+
+Download a docker image (latest version) from L<Docker Hub|https://hub.docker.com/r/manuelrueda/convert-pheno> by executing:
+
+  docker pull manuelrueda/convert-pheno:latest
+  docker image tag manuelrueda/convert-pheno:latest cna
+
+See additional instructions below.
+
+=head3 Method 2: With Dockerfile
+
 Please download the C<Dockerfile> from the repo:
 
   wget https://raw.githubusercontent.com/mrueda/convert-pheno/main/Dockerfile
@@ -310,6 +321,8 @@ Please download the C<Dockerfile> from the repo:
 And then run:
 
   docker build -t cnag/convert-pheno:latest .
+
+=head3 Additional instructions for Methods 1 and 2
 
 To run the container (detached) execute:
 

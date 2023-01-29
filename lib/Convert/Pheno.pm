@@ -209,7 +209,7 @@ sub omop2bff {
         }
     }
 
-    #print Dumper_tidy($data);
+    #print Dumper_concise($data);
 
     # Primarily with CSV, it can happen that user does not provide <CONCEPT.csv>
     confess 'We could not find table CONCEPT, maybe missing <CONCEPT.csv> ???'
@@ -364,7 +364,7 @@ sub array_dispatcher {
     return $out_data;
 }
 
-sub Dumper_tidy {
+sub Dumper_concise {
     {
         local $Data::Dumper::Terse     = 1;
         local $Data::Dumper::Indent    = 1;
