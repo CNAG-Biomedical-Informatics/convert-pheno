@@ -88,7 +88,7 @@ A script that uses [Convert::Pheno](https://metacpan.org/pod/Convert%3A%3APheno)
 Download a docker image (latest version) from [Docker Hub](https://hub.docker.com/r/manuelrueda/convert-pheno) by executing:
 
     docker pull manuelrueda/convert-pheno:latest
-    docker image tag manuelrueda/convert-pheno:latest cna
+    docker image tag manuelrueda/convert-pheno:latest cnag/convert-pheno:latest
 
 See additional instructions below.
 
