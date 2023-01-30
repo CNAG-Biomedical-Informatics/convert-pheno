@@ -68,6 +68,7 @@ nav:
       - CDISC (ODM): cdisc.md
   - Help:
       - Tutorial: tutorial.md
+      - Google colab: https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6
       - FAQs: faq.md
       - Future plans: future-plans.md
   - About:

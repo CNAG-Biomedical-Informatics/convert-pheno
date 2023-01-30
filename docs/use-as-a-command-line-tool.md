@@ -7,7 +7,7 @@ The operation is simple:
     $ convert-pheno -input-format <filein> -output-format <fileout>
 
 !!! Tip "Google Colab version"
-    We created a [Google Colab version](https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6) of the tutorial. Users can view notebooks shared publicly without sign-in, but you need a google account to execute code.
+    We created a [Google Colab version](https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6) notebook to enable testing `Convert-Pheno`in a virtual environment. Users can view notebooks shared publicly without sign-in, but you need a google account to execute code.
 
 Please see more examples in this [README](https://github.com/mrueda/convert-pheno#synopsis).
 
