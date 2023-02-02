@@ -9,9 +9,10 @@ Phenopackets use [top-level](https://phenopacket-schema.readthedocs.io/en/latest
 
 !!! Tip "Browsing PXF vs `JSON` data"
 
-    You can browse a public Phenopackets v2 file with:
+    You can browse a public Phenopackets v2 file with onf of teh following **JSON viewers**:
 
     * [JSON Crack](https://jsoncrack.com/editor?json=https://raw.githubusercontent.com/mrueda/convert-pheno/main/t/pxf2bff/in/all.json)
+    * [JSON Hero](https://jsonhero.io/new?url=https://raw.githubusercontent.com/mrueda/convert-pheno/main/t/pxf2bff/in/all.json)
     * [Datasette](https://lite.datasette.io/?json=https%3A%2F%2Fraw.githubusercontent.com%2Fmrueda%2Fconvert-pheno%2Fmain%2Ft%2Fomop2pxf%2Fout%2Fpxf.json#/data?sql=select+*+from+pxf)
 
 ## PXF as input ![PXF](https://avatars.githubusercontent.com/u/17553567?s=280&v=4){ width="20" }

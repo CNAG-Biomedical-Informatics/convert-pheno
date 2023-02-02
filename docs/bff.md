@@ -11,9 +11,10 @@
    `Convert-Pheno` accepts as input data from the [individuals](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema) entity in [BFF](https://b2ri-documentation.readthedocs.io/en/latest/data-ingestion) format (`individuals.json`).
 
 !!! Tip "Browsing BFF vs `JSON` data"
-    You can browse a public BFF v2 file with:
+    You can browse a public BFF v2 file with the following **JSON viewers**:
 
     * [JSON Crack](https://jsoncrack.com/editor?json=https://raw.githubusercontent.com/mrueda/convert-pheno/main/t/bff2pxf/in/individuals.json)
+    * [JSON Hero](https://jsonhero.io/new?url=https://raw.githubusercontent.com/mrueda/convert-pheno/main/t/bff2pxf/in/individuals.json)
     * [Datasette](https://lite.datasette.io/?json=https%3A%2F%2Fraw.githubusercontent.com%2Fmrueda%2Fconvert-pheno%2Fmain%2Ft%2Fomop2bff%2Fout%2Findividuals.json#/data?sql=select+*+from+individuals)
 
 ## BFF (individuals) as input ![BFF](https://avatars.githubusercontent.com/u/33450937?s=200&v=4){ width="20" }
