@@ -8,6 +8,8 @@ use Convert::Pheno::Mapping;
 use Exporter 'import';
 our @EXPORT = qw(do_omop2bff $omop_version $omop_main_table @omop_extra_tables);
 
+use constant DEVEL_MODE => 0;
+
 our $omop_version    = 'v5.4';
 our $omop_main_table = {
     'v5.4' => [
@@ -87,10 +89,10 @@ sub do_omop2bff {
     # $person = cursor to $participant->PERSON
     # $individual = output data
 
- # ABOUT REQUIRED PROPERTIES
- # 'id' and 'sex' are required properties in <individuals> entry type
- # 'person_id' must exist at this point otherwise it would have not been created
- # Premature return
+    # ABOUT REQUIRED PROPERTIES
+    # 'id' and 'sex' are required properties in <individuals> entry type
+    # 'person_id' must exist at this point otherwise it would have not been created
+    # Premature return
     return
       unless ( exists $person->{gender_concept_id}
         && $person->{gender_concept_id} ne '' );
@@ -139,20 +141,13 @@ sub do_omop2bff {
                 }
             };
 
-            $disease->{diseaseCode} = map2ohdsi_dic(
+            $disease->{diseaseCode} = map2ohdsi(
                 {
                     ohdsi_dic  => $ohdsi_dic,
-                    concept_id => $field->{condition_concept_id}
+                    concept_id => $field->{condition_concept_id},
+                    self       => $self
                 }
-              )
-              or map_ontology(
-                {
-                    query    => $field->{condition_concept_id},
-                    column   => 'concept_id',
-                    ontology => 'ohdsi',
-                    self     => $self
-                }
-              ) if $field->{condition_concept_id} ne '';
+            ) if $field->{condition_concept_id} ne '';
 
             #$disease->{familyHistory} = convert2boolean(
             #    map2redcap_dic(
@@ -167,20 +162,14 @@ sub do_omop2bff {
             # notes MUST be string
             $disease->{_info}{$table}{OMOP_columns} = $field; # Autovivification
                 #$disease->{severity} = undef;
-            $disease->{stage} = map2ohdsi_dic(
+            $disease->{stage} = map2ohdsi(
                 {
                     ohdsi_dic  => $ohdsi_dic,
-                    concept_id => $field->{condition_status_concept_id}
+                    concept_id => $field->{condition_status_concept_id},
+                    self       => $self
+
                 }
-              )
-              or map_ontology(
-                {
-                    query    => $field->{condition_status_concept_id},
-                    column   => 'concept_id',
-                    ontology => 'ohdsi',
-                    self     => $self
-                }
-              ) if $field->{condition_status_concept_id} ne '';
+            ) if $field->{condition_status_concept_id} ne '';
 
             push @{ $individual->{diseases} }, $disease;
         }
@@ -240,7 +229,7 @@ sub do_omop2bff {
    #                $exposure->{_info}{$table}{OMOP_columns}{$_} = $field->{$_};
    #            }
    #
-   #            $exposure->{exposureCode} = map2ohdsi_dic(
+   #            $exposure->{exposureCode} = map2ohdsi(
    #                {
    #                    ohdsi_dic  => $ohdsi_dic,
    #                    concept_id => $field->{observation_concept_id}
@@ -371,20 +360,14 @@ sub do_omop2bff {
                 $intervention->{_info}{$table}{OMOP_columns}{$_} = $field->{$_};
             }
 
-            $intervention->{procedureCode} = map2ohdsi_dic(
+            $intervention->{procedureCode} = map2ohdsi(
                 {
                     ohdsi_dic  => $ohdsi_dic,
-                    concept_id => $field->{procedure_concept_id}
+                    concept_id => $field->{procedure_concept_id},
+                    self       => $self
+
                 }
-              )
-              or map_ontology(
-                {
-                    query    => $field->{procedure_concept_id},
-                    column   => 'concept_id',
-                    ontology => 'ohdsi',
-                    self     => $self
-                }
-              ) if $field->{procedure_concept_id} ne '';
+            ) if $field->{procedure_concept_id} ne '';
 
             push @{ $individual->{interventionsOrProcedures} }, $intervention;
         }
@@ -450,30 +433,41 @@ sub do_omop2bff {
 
         for my $field ( @{ $participant->{$table} } ) {
 
-            # Exiting the loop if we don't have any value
-            last if $field->{value_as_number} eq '\\N';
+            # FAKE VALUES FOR DEBUG
+            $field->{unit_concept_id} = 18753 if DEVEL_MODE;
+            $field->{value_as_number} = 20    if DEVEL_MODE;
+
+            # Only proceeding if we have actual values
+            next if $field->{value_as_number} eq '\\N';
+
             my $measure;
 
-            my $tmp_field = $field->{measurement_concept_id};
-            $measure->{assayCode} = map2ohdsi_dic(
+            $measure->{assayCode} = map2ohdsi(
                 {
                     ohdsi_dic  => $ohdsi_dic,
-                    concept_id => $tmp_field
+                    concept_id => $field->{measurement_concept_id},
+                    self       => $self
                 }
-              )
-              or map_ontology(
-                {
-                    query    => $tmp_field,
-                    column   => 'concept_id',
-                    ontology => 'ohdsi',
-                    self     => $self
-                }
-              ) if $tmp_field ne '';
+            ) if $field->{measurement_concept_id} ne '';
+
             $measure->{date} = $field->{measurement_datetime};
-            $measure->{measurementValue} =
-                $field->{value_as_number} ne '\\N'
-              ? $field->{value_as_number}
-              : undef;
+
+            my $unit = map2ohdsi(
+                {
+                    ohdsi_dic  => $ohdsi_dic,
+                    concept_id => $field->{unit_concept_id},
+                    self       => $self
+
+                }
+            );
+            $measure->{measurementValue} = {
+                quantity => {
+                    unit  => $unit,
+                    value =>
+                      dotify_and_coerce_number( $field->{value_as_number} ),
+                    referenceRange => undef # until we know how to get it
+                }
+            };
 
             # notes MUST be string
             $measure->{_info}{$table}{OMOP_columns} = $field; # Autovivification
@@ -521,20 +515,14 @@ sub do_omop2bff {
 
             #$phenotypicFeature->{evidence} = undef;
             #$phenotypicFeature->{excluded} = undef;
-            $phenotypicFeature->{featureType} = map2ohdsi_dic(
+            $phenotypicFeature->{featureType} = map2ohdsi(
                 {
                     ohdsi_dic  => $ohdsi_dic,
-                    concept_id => $field->{observation_concept_id}
+                    concept_id => $field->{observation_concept_id},
+                    self       => $self
+
                 }
-              )
-              or map_ontology(
-                {
-                    query    => $field->{observation_concept_id},
-                    column   => 'concept_id',
-                    ontology => 'ohdsi',
-                    self     => $self
-                }
-              ) if $field->{observation_concept_id} ne '';
+            ) if $field->{observation_concept_id} ne '';
 
             #$phenotypicFeature->{modifiers} = undef;
 
@@ -571,20 +559,13 @@ sub do_omop2bff {
     # ===
 
     # OHSDI CONCEPT.vocabulary_id = Gender (i.e., ad hoc)
-    my $sex = map2ohdsi_dic(
+    my $sex = map2ohdsi(
         {
             ohdsi_dic  => $ohdsi_dic,
-            concept_id => $person->{gender_concept_id}
+            concept_id => $person->{gender_concept_id},
+            self       => $self
         }
-      )
-      or map_ontology(
-        {
-            query    => $person->{gender_concept_id},
-            column   => 'concept_id',
-            ontology => 'ohdsi',
-            self     => $self
-        }
-      );
+    );
 
     # $sex = {id, label), we need to use 'label'
     $individual->{sex} = map_ontology(
@@ -697,20 +678,13 @@ sub do_omop2bff {
 
             $treatment->{routeOfAdministration} =
               { id => "NCIT:NA0000", label => "Fake" };
-            $treatment->{treatmentCode} = map2ohdsi_dic(
+            $treatment->{treatmentCode} = map2ohdsi(
                 {
                     ohdsi_dic  => $ohdsi_dic,
-                    concept_id => $field->{drug_concept_id}
+                    concept_id => $field->{drug_concept_id},
+                    self       => $self
                 }
-              )
-              or map_ontology(
-                {
-                    query    => $field->{drug_concept_id},
-                    column   => 'concept_id',
-                    ontology => 'ohdsi',
-                    self     => $self
-                }
-              ) if $field->{drug_concept_id} ne '';
+            ) if $field->{drug_concept_id} ne '';
 
             push @{ $individual->{treatments} }, $treatment;
         }

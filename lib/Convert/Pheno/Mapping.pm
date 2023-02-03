@@ -3,7 +3,8 @@ package Convert::Pheno::Mapping;
 use strict;
 use warnings;
 use autodie;
-use Carp    qw(confess);
+
+#use Carp    qw(confess);
 use feature qw(say);
 use utf8;
 use Data::Dumper;
@@ -16,7 +17,7 @@ use Convert::Pheno::SQLite;
 binmode STDOUT, ':encoding(utf-8)';
 use Exporter 'import';
 our @EXPORT =
-  qw( map_ethnicity map_ontology dotify_and_coerce_number iso8601_time _map2iso8601 map_unit_range map_age_range map2redcap_dic map2ohdsi_dic convert2boolean find_age randStr);
+  qw( map_ethnicity map_ontology dotify_and_coerce_number iso8601_time _map2iso8601 map_unit_range map_age_range map2redcap_dic map2ohdsi convert2boolean find_age randStr);
 
 use constant DEVEL_MODE => 0;
 
@@ -74,8 +75,8 @@ sub map_ontology {
     my $min_text_similarity_score = $self->{min_text_similarity_score};
 
     # Die if user wants OHDSI w/o flag -ohdsi-db
-    confess
-"Please use the flag <-ohdsi-db> to enable searching at Athena-OHDSI database"
+    die
+"Could not find the concept_id:$tmp_query in the provided <CONCEPT> table.\nPlease use the flag <--ohdsi-db> to enable searching at Athena-OHDSI database\n"
       if ( $ontology eq 'ohdsi' && !$self->{ohdsi_db} );
 
     # Perform query
@@ -176,22 +177,41 @@ sub map2redcap_dic {
       : $redcap_dic->{$field}{'Field Note'};
 }
 
-sub map2ohdsi_dic {
+sub map2ohdsi {
 
     my $arg = shift;
-    my ( $ohdsi_dic, $concept_id ) = ( $arg->{ohdsi_dic}, $arg->{concept_id} );
+    my ( $ohdsi_dic, $concept_id, $self ) =
+      ( $arg->{ohdsi_dic}, $arg->{concept_id}, $arg->{self} );
 
-# NB: Here we don't win any speed over $seen as we are already searching in a hash
-    my ( $id, $label, $vocabulary ) = ( undef, undef, undef );
+    #######################
+    # OPTION A: <CONCEPT> #
+    #######################
+
+    # NB: Here we don't win any speed over using $seen as ...
+    # .. we are already searching in a hash
+    my ( $data, $id, $label, $vocabulary ) = ( (undef) x 4 );
     if ( exists $ohdsi_dic->{$concept_id} ) {
         $id         = $ohdsi_dic->{$concept_id}{concept_code};
         $label      = $ohdsi_dic->{$concept_id}{concept_name};
         $vocabulary = $ohdsi_dic->{$concept_id}{vocabulary_id};
-        return { id => "$vocabulary:$id", label => $label };
+        $data       = { id => qq($vocabulary:$id), label => $label };
     }
+
+    ######################
+    # OPTION B: External #
+    ######################
+
     else {
-        return 0;    # A priori ALL concept_id MUST be in CONCEPTS table
+        $data = map_ontology(
+            {
+                query    => $concept_id,
+                column   => 'concept_id',
+                ontology => 'ohdsi',
+                self     => $self
+            }
+        );
     }
+    return $data;
 }
 
 sub convert2boolean {

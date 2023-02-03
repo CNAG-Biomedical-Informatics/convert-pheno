@@ -134,7 +134,7 @@ sub do_redcap2bff {
         my $disease;
 
         # Load a few more variables from mapping file
-        my $ageOfOnset_field = $mapping_file->{diseases}{map}{ageOfOnset};
+        my $ageOfOnset_field    = $mapping_file->{diseases}{map}{ageOfOnset};
         my $familyHistory_field = $mapping_file->{diseases}{map}{familyHistory};
 
         # Start mapping

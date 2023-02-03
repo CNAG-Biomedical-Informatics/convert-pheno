@@ -34,21 +34,23 @@
 
     The concept is to pass the necessary information as a hash (in Perl) or dictionary (in Python).
 
-    `Perl`
-    ```Perl
-    $bff = {
-        data => $my_bff_json_data,
-        method => 'bff2pxf'
-    };
-    ```
+    === "Perl"
 
-    `Python`
-    ```Python
-    bff = {
-         "data" : my_bff_json_data,
-         "method" : "bff2pxf"
-    }
-    ```
+        ```Perl
+        $bff = {
+            data => $my_bff_json_data,
+            method => 'bff2pxf'
+        };
+        ```
+
+    === "Python"
+
+        ```Python
+        bff = {
+             "data" : my_bff_json_data,
+             "method" : "bff2pxf"
+        }
+        ```
 
 === "API"
 

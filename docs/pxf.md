@@ -32,21 +32,22 @@ Phenopackets use [top-level](https://phenopacket-schema.readthedocs.io/en/latest
 
     The concept is to pass the necessary information as a hash (in Perl) or dictionary (in Python).
 
-    `Perl`
-    ```Perl
-    $bff = {
-        data => $my_pxf_json_data,
-        method => 'pxf2bff'
-    };
-    ```
+    === "Perl"
 
-    `Python`
-    ```Python
-    bff = {
-         "data" : my_pxf_json_data,
-         "method" : "pxf2bff"
-    }
-    ```
+        ```Perl
+        $bff = {
+            data => $my_pxf_json_data,
+            method => 'pxf2bff'
+        };
+        ```
+   
+    === "Python"
+        ```Python
+        bff = {
+             "data" : my_pxf_json_data,
+             "method" : "pxf2bff"
+        }
+        ```
 
 === "API"
 

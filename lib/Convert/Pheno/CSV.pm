@@ -63,12 +63,12 @@ sub read_csv_export {
     # Now proceed with the rest of the file
     while ( my $row = $csv->getline($fh) ) {
 
-        # We store the data as an AoH $data
-        my $tmp_hash;
-        for my $i ( 0 .. $#{$header} ) {
-            $tmp_hash->{ $header->[$i] } = $row->[$i];
-        }
-        push @$data, $tmp_hash;
+        # Using tmp hash to load all values at once
+        my %tmp_hash;
+        @tmp_hash{@$header} = @$row;
+
+        # Adding them as an array element (AoH)
+        push @$data, {%tmp_hash};
     }
 
     close $fh;
@@ -107,7 +107,7 @@ sub read_redcap_dictionary {
     #########################################
 
     # Defining variables
-    my $data = {};                  #AoH
+    my $data = {};                  #HoH
     my $csv  = Text::CSV_XS->new(
         {
             binary    => 1,
@@ -125,28 +125,26 @@ sub read_redcap_dictionary {
     # Now proceed with the rest of the file
     while ( my $row = $csv->getline($fh) ) {
 
-        # We store the data as an AoH $data
-        my $tmp_hash;
+        # Using tmp hash to load all values at once
+        my %tmp_hash;
+        @tmp_hash{@$header} = @$row;
 
-        for my $i ( 0 .. $#{$header} ) {
-
-            # We keep key>/value as they are
-            $tmp_hash->{ $header->[$i] } = $row->[$i];
-
-            # For the key having labels, we create a new ad hoc key '_labels'
-            # 'Choices, Calculations, OR Slider Labels' => '1, Female|2, Male|3, Other|4, not available',
-            if ( $header->[$i] eq 'Choices, Calculations, OR Slider Labels' ) {
-                my @tmp =
-                  map { s/^\s//; s/\s+$//; $_; } ( split /\||,/, $row->[$i] );
-                $tmp_hash->{_labels} = {@tmp} if @tmp % 2 == 0;
-            }
+# For the elements having labels, we create a new ad hoc key '_labels'
+# Example:
+# 'Choices, Calculations, OR Slider Labels' => '1, Female|2, Male|3, Other|4, not available',
+        if ( $tmp_hash{'Choices, Calculations, OR Slider Labels'} ne '' ) {
+            my @tmp = map { s/^\s//; s/\s+$//; $_; } (
+                split /\||,/,
+                $tmp_hash{'Choices, Calculations, OR Slider Labels'}
+            );
+            $tmp_hash{_labels} = {@tmp} if @tmp % 2 == 0;
         }
 
         # Now we create the 1D of the hash with 'Variable / Field Name'
-        my $key = $tmp_hash->{'Variable / Field Name'};
+        my $key = $tmp_hash{'Variable / Field Name'};
 
         # And we nest the hash inside
-        $data->{$key} = $tmp_hash;
+        $data->{$key} = {%tmp_hash};
     }
 
     close $fh;
@@ -228,18 +226,19 @@ sub read_sqldump {
 
     my ( $file, $self ) = @_;
 
-    # Before resorting to writting this subroutine I performed an exhaustive search on CPAN
-    # I tested MySQL::Dump::Parser::XS  but I could not make it work and other modules did not seem to do what I wanted...
-    # .. so I ended up writting the parser myself...
-    # The parser is based in reading COPY paragraphs from PostgreSQL dump by using Perl's paragraph mode  $/ = "";
-    # The sub can be seen as "ugly" but it does the job :-)
+# Before resorting to writting this subroutine I performed an exhaustive search on CPAN
+# I tested MySQL::Dump::Parser::XS  but I could not make it work and other modules did not seem to do what I wanted...
+# .. so I ended up writting the parser myself...
+# The parser is based in reading COPY paragraphs from PostgreSQL dump by using Perl's paragraph mode  $/ = "";
+# The sub can be seen as "ugly" but it does the job :-)
 
-    my $max_lines_sql = $self->{max_lines_sql} // 500;    # Limit to speed up runtime
-    local $/ = "";                                        # set record separator to paragraph
+    my $max_lines_sql = $self->{max_lines_sql}
+      // 500;    # Limit to speed up runtime
+    local $/ = "";    # set record separator to paragraph
 
-    #COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, attribute_description, attribute_type_concept_id, attribute_syntax) FROM stdin;
-    # ......
-    # \.
+#COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, attribute_description, attribute_type_concept_id, attribute_syntax) FROM stdin;
+# ......
+# \.
 
     # Start reading the SQL dump
     open my $fh, '<:encoding(utf-8)', $file;
@@ -261,8 +260,8 @@ sub read_sqldump {
         # Ad hoc for testing
         my $count = 0;
 
-        # First line contain the headers
-        #COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, ..., attribute_syntax) FROM stdin;
+# First line contain the headers
+#COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, ..., attribute_syntax) FROM stdin;
         $lines[0] =~ s/[\(\),]//g;    # getting rid of (),
         my @headers = split /\s+/, $lines[0];
         my $table_name =
@@ -297,8 +296,14 @@ sub read_sqldump {
             #           ]
             #         };
 
-            push @{ $data->{$table_name} },
-              { map { $headers[$_] => $values[$_] } ( 0 .. $#headers ) };
+            # Using tmp hash to load all values at once
+            my %tmp_hash;
+            @tmp_hash{@headers} = @values;
+
+            # Adding them as an array element (AoH)
+            push @{ $data->{$table_name} }, {%tmp_hash};
+
+            # adhoc filter to speed-up development
             last if $count == $max_lines_sql;
         }
     }
@@ -362,35 +367,35 @@ sub transpose_omop_data_structure {
     #                      ]
     #        };
 
-    # where all 'perosn_id' are together inside the TABLE_NAME.
-    # But, BFF works at the individual level so we are going to
-    # transpose the data structure to end up into something like this
-    # NB: MEASUREMENT and OBSERVATION (among others, i.e., CONDITION_OCCURRENCE, PROCEDURE_OCCURRENCE)
-    #     can have multiple values for one 'person_id' so they will be loaded as arrays
-    #
-    #
-    #$VAR1 = {
-    #          '001' => {
-    #                     'PERSON' => {
-    #                                   'person_id' => '001'
-    #                                 }
-    #                   },
-    #          '666' => {
-    #                     'MEASUREMENT' => [
-    #                                        {
-    #                                          'measurement_concept_id' => '001',
-    #                                          'person_id' => '666'
-    #                                        },
-    #                                        {
-    #                                          'measurement_concept_id' => '002',
-    #                                          'person_id' => '666'
-    #                                        }
-    #                                      ],
-    #                     'PERSON' => {
-    #                                   'person_id' => '666'
-    #                                 }
-    #                   }
-    #        };
+# where all 'perosn_id' are together inside the TABLE_NAME.
+# But, BFF works at the individual level so we are going to
+# transpose the data structure to end up into something like this
+# NB: MEASUREMENT and OBSERVATION (among others, i.e., CONDITION_OCCURRENCE, PROCEDURE_OCCURRENCE)
+#     can have multiple values for one 'person_id' so they will be loaded as arrays
+#
+#
+#$VAR1 = {
+#          '001' => {
+#                     'PERSON' => {
+#                                   'person_id' => '001'
+#                                 }
+#                   },
+#          '666' => {
+#                     'MEASUREMENT' => [
+#                                        {
+#                                          'measurement_concept_id' => '001',
+#                                          'person_id' => '666'
+#                                        },
+#                                        {
+#                                          'measurement_concept_id' => '002',
+#                                          'person_id' => '666'
+#                                        }
+#                                      ],
+#                     'PERSON' => {
+#                                   'person_id' => '666'
+#                                 }
+#                   }
+#        };
 
     my $omop_person_id = {};
 
@@ -409,12 +414,13 @@ sub transpose_omop_data_structure {
                     )
                   )
                 {
-                    push @{ $omop_person_id->{$person_id}{$table} }, $item;    # array
+                    push @{ $omop_person_id->{$person_id}{$table} },
+                      $item;    # array
                 }
 
                 # {person_id} only has one value in a given TABLE
                 else {
-                    $omop_person_id->{$person_id}{$table} = $item;             # scalar
+                    $omop_person_id->{$person_id}{$table} = $item;    # scalar
                 }
             }
         }
@@ -454,7 +460,7 @@ sub print_csv {
     my $sep      = $arg->{sep};
     my $data     = $arg->{data};
     my $filepath = $arg->{filepath};
-    my @headers  = @{ $arg->{headers} }; # 1-D (no need for dclone)
+    my @headers  = @{ $arg->{headers} };    # 1-D (no need for dclone)
 
     # Initialize object
     my $csv =
