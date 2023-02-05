@@ -116,7 +116,7 @@ sub redcap2bff {
     my $self = shift;
 
     # Read and load data from REDCap export
-    my $data = read_csv_export( { in => $self->{in_file}, sep => undef } );
+    my $data = read_csv( { in => $self->{in_file}, sep => undef } );
     my ( $data_redcap_dic, $data_mapping_file ) =
       read_redcap_dic_and_mapping_file(
         {
@@ -204,7 +204,7 @@ sub omop2bff {
                   ( @{ $omop_main_table->{$omop_version} },
                     @omop_extra_tables );    # global
                 $data->{$table_name} =
-                  read_csv_export( { in => $file, sep => $self->{sep} } );
+                  read_csv( { in => $file, sep => $self->{sep} } );
             }
         }
     }

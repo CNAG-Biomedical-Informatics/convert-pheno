@@ -155,7 +155,7 @@ Now you have two choose between one of the 2 options below:
     make install # (Will ask for sudo passwd)
     make test
 
-**Option 2:** Install the dependencies in a "virtual environment" (i.e., install the CPAN modules in the directory of the application). We'll be using with the module `Carton`:
+**Option 2:** Install the dependencies in a "virtual environment" (i.e., install the CPAN modules in the directory of the application). We'll be using the module `Carton`for that:
 
     make install-carton
     make test

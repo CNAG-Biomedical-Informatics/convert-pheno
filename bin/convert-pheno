@@ -374,7 +374,7 @@ B<Option 1:> Install dependencies (they're harmless to your system) as C<sudo>:
   make install # (Will ask for sudo passwd)
   make test
 
-B<Option 2:> Install the dependencies in a "virtual environment" (i.e., install the CPAN modules in the directory of the application). We'll be using with the module C<Carton>:
+B<Option 2:> Install the dependencies in a "virtual environment" (i.e., install the CPAN modules in the directory of the application). We'll be using the module C<Carton>for that:
 
   make install-carton
   make test
