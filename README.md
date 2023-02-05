@@ -8,7 +8,9 @@
 
 [![Build and Test](https://github.com/mrueda/convert-pheno/actions/workflows/action.yaml/badge.svg)](https://github.com/mrueda/convert-pheno/actions/workflows/action.yaml)
 [![Coverage Status](https://coveralls.io/repos/github/mrueda/convert-pheno/badge.svg?branch=main)](https://coveralls.io/github/mrueda/convert-pheno?branch=main)
-[![Docker build](https://github.com/mrueda/convert-pheno/actions/workflows/docker-build.yml/badge.svg)](https://github.com/mrueda/convert-pheno/actions/workflows/docker-build.yml)
+[![Docker Build](https://github.com/mrueda/convert-pheno/actions/workflows/docker-build.yml/badge.svg)](https://github.com/mrueda/convert-pheno/actions/workflows/docker-build.yml)
+[![Docker Pulls](https://badgen.net/docker/pulls/manuelrueda/convert-pheno?icon=docker&label=pulls)](https://hub.docker.com/r/manuelrueda/convert-pheno/)
+[![Docker Image Size](https://badgen.net/docker/size/manuelrueda/convert-pheno?icon=docker&label=image%20size)](https://hub.docker.com/r/manuelrueda/convert-pheno/)
 [![Documentation Status](https://github.com/mrueda/convert-pheno/actions/workflows/Documentation.yml/badge.svg)](https://github.com/mrueda/convert-pheno/actions/workflows/Documentation.yml)
 ![version](https://img.shields.io/badge/version-0.0.0_alpha-orange)
 [![License: Artistic-2.0](https://img.shields.io/badge/License-Artistic%202.0-0298c3.svg)](https://opensource.org/licenses/Artistic-2.0)
