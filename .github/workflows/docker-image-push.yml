@@ -1,0 +1,32 @@
+name: Docker Image Push
+
+on:
+#  push:
+#    branches:
+#      - main
+  workflow_dispatch
+
+env:
+  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Build Docker Image
+      run: |
+        docker build -t cnag/convert-pheno:latest .
+
+    - name: Login to Docker Hub
+      run: |
+        echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
+    - name: Push Docker Image
+      run: |
+        docker image push manuelrueda/convert-pheno:latest
+

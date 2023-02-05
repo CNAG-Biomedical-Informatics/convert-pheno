@@ -36,11 +36,14 @@ sub read_redcap_dictionary {
       : $ext eq '.tsv' ? "\t"
       :                  ' ';
 
-    # We'll create an HoH using as 1Di-key the 'Variable / Field Name'
+    # We'll create an HoH using as 1D-key the 'Variable / Field Name'
     my $key = 'Variable / Field Name';
 
     # We'll be adding the key <_labels>. See sub add_labels
     my $labels = 'Choices, Calculations, OR Slider Labels';
+
+    # NB: We want HoH and sub read_csv returns AoH
+    # Loading data directly from Text::CSV_XS
     my $hoh    = csv(
         in        => $in_file,
         sep_char  => $separator,
