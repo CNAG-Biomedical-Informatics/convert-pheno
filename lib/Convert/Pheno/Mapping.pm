@@ -17,7 +17,7 @@ use Convert::Pheno::SQLite;
 binmode STDOUT, ':encoding(utf-8)';
 use Exporter 'import';
 our @EXPORT =
-  qw( map_ethnicity map_ontology dotify_and_coerce_number iso8601_time _map2iso8601 map_reference_range map_age_range map2redcap_dic map2ohdsi convert2boolean find_age randStr);
+  qw( map_ethnicity map_ontology dotify_and_coerce_number iso8601_time _map2iso8601 map_reference_range map_age_range map2redcap_dic map2ohdsi convert2boolean find_age randStr map_operator_concept_id);
 
 use constant DEVEL_MODE => 0;
 
@@ -265,6 +265,35 @@ sub randStr {
     #https://www.perlmonks.org/?node_id=233023
     return join( '',
         map { ( 'a' .. 'z', 'A' .. 'Z', 0 .. 9 )[ rand 62 ] } 0 .. shift );
+}
+
+sub map_operator_concept_id {
+
+    my $arg  = shift;
+    my $id   = $arg->{operator_concept_id};
+    my $val  = $arg->{value_as_number};
+    my $unit = $arg->{unit};
+
+    # Define hash for possible values
+    my %operator_concept_id =
+      ( 4172704 => 'GT', 4172756 => 'LT' );
+      #  4172703 => 'EQ';
+
+    # $hasref will be used for return
+    my $hashref = undef;
+
+    # Only for GT || LT
+    if ( exists $operator_concept_id{$id} )
+    {
+        $hashref = { unit => $unit, map { $_ => undef } qw(low high) };    # Initialize low,high to undef
+        if ( $operator_concept_id{$id} eq 'GT' ) {
+            $hashref->{high} = dotify_and_coerce_number($val);
+        }
+        else {
+            $hashref->{low} = dotify_and_coerce_number($val);
+        }
+    }
+    return $hashref;
 }
 
 sub is_multidimensional {

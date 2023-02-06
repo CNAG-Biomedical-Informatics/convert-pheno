@@ -130,8 +130,8 @@ sub do_omop2bff {
                 age => {
                     iso8601duration => find_age(
 
-           #_birth_datetime => $person->{birth_datetime}, # Property not allowed
-           #_procedure_date => $field->{procedure_date},  # Property not allowed
+                        #_birth_datetime => $person->{birth_datetime}, # Property not allowed
+                        #_procedure_date => $field->{procedure_date},  # Property not allowed
                         {
 
                             date      => $field->{condition_start_date},
@@ -160,9 +160,9 @@ sub do_omop2bff {
             #) if $participant->{family_history} ne '';
 
             # notes MUST be string
-            $disease->{_info}{$table}{OMOP_columns} = $field; # Autovivification
-                #$disease->{severity} = undef;
-            $disease->{stage} = map2ohdsi(
+            $disease->{_info}{$table}{OMOP_columns} = $field;      # Autovivification
+                                                                   #$disease->{severity} = undef;
+            $disease->{stage}                       = map2ohdsi(
                 {
                     ohdsi_dic  => $ohdsi_dic,
                     concept_id => $field->{condition_status_concept_id},
@@ -194,59 +194,59 @@ sub do_omop2bff {
     # exposures
     # =========
 
-   #**************************************************
-   # IMPORTANT
-   # WE HAVEN'T FOUND TOBACCO, ALCOHOL, ETC in OMOP
-   #*************************************************
-   #
-   #    $table = 'OBSERVATION';
-   #
-   #    if ( exists $participant->{$table} ) {
-   #
-   #        $individual->{exposures} = [];
-   #
-   #        for my $field ( @{ $participant->{$table} } ) {
-   #            my $exposure;
-   #
-   #            $exposure->{ageAtExposure} = {
-   #                age => find_age(
-   #                    {
-   #
-   #                        date      => $field->{observation_date},
-   #                        birth_day => $person->{birth_datetime}
-   #                    }
-   #                ),
-   #                _birth_datetime => $person->{birth_datetime},
-   #                _observation_date => $field->{observation_date}
-   #            };
-   #            #$exposure->{bodySite} = undef;
-   #            $exposure->{date} = $field->{observation_date};
-   #
-   #            # _info
-   #            for ( keys %{$field} ) {
-   #
-   #                # Autovivification
-   #                $exposure->{_info}{$table}{OMOP_columns}{$_} = $field->{$_};
-   #            }
-   #
-   #            $exposure->{exposureCode} = map2ohdsi(
-   #                {
-   #                    ohdsi_dic  => $ohdsi_dic,
-   #                    concept_id => $field->{observation_concept_id}
-   #                }
-   #              )
-   #              or map_ontology(
-   #                {
-   #                    query    => $field->{observation_concept_id},
-   #                    column   => 'concept_id',
-   #                    ontology => 'ohdsi',
-   #                    self     => $self
-   #                }
-   #              ) if $field->{observation_concept_id} ne '';
-   #
-   #            #push @{ $individual->{exposures} }, $exposure;
-   #        }
-   #    }
+    #**************************************************
+    # IMPORTANT
+    # WE HAVEN'T FOUND TOBACCO, ALCOHOL, ETC in OMOP
+    #*************************************************
+    #
+    #    $table = 'OBSERVATION';
+    #
+    #    if ( exists $participant->{$table} ) {
+    #
+    #        $individual->{exposures} = [];
+    #
+    #        for my $field ( @{ $participant->{$table} } ) {
+    #            my $exposure;
+    #
+    #            $exposure->{ageAtExposure} = {
+    #                age => find_age(
+    #                    {
+    #
+    #                        date      => $field->{observation_date},
+    #                        birth_day => $person->{birth_datetime}
+    #                    }
+    #                ),
+    #                _birth_datetime => $person->{birth_datetime},
+    #                _observation_date => $field->{observation_date}
+    #            };
+    #            #$exposure->{bodySite} = undef;
+    #            $exposure->{date} = $field->{observation_date};
+    #
+    #            # _info
+    #            for ( keys %{$field} ) {
+    #
+    #                # Autovivification
+    #                $exposure->{_info}{$table}{OMOP_columns}{$_} = $field->{$_};
+    #            }
+    #
+    #            $exposure->{exposureCode} = map2ohdsi(
+    #                {
+    #                    ohdsi_dic  => $ohdsi_dic,
+    #                    concept_id => $field->{observation_concept_id}
+    #                }
+    #              )
+    #              or map_ontology(
+    #                {
+    #                    query    => $field->{observation_concept_id},
+    #                    column   => 'concept_id',
+    #                    ontology => 'ohdsi',
+    #                    self     => $self
+    #                }
+    #              ) if $field->{observation_concept_id} ne '';
+    #
+    #            #push @{ $individual->{exposures} }, $exposure;
+    #        }
+    #    }
 
     # ================
     # geographicOrigin
@@ -339,8 +339,8 @@ sub do_omop2bff {
 
                     iso8601duration => find_age(
 
-           #_birth_datetime => $person->{birth_datetime}, # Property not allowed
-           #_procedure_date => $field->{procedure_date},  # Property not allowed
+                        #_birth_datetime => $person->{birth_datetime}, # Property not allowed
+                        #_procedure_date => $field->{procedure_date},  # Property not allowed
                         {
 
                             date      => $field->{procedure_date},
@@ -434,8 +434,9 @@ sub do_omop2bff {
         for my $field ( @{ $participant->{$table} } ) {
 
             # FAKE VALUES FOR DEBUG
-            $field->{unit_concept_id} = 18753 if DEVEL_MODE;
-            $field->{value_as_number} = 20    if DEVEL_MODE;
+            $field->{unit_concept_id}     = 18753   if DEVEL_MODE;
+            $field->{value_as_number}     = 20      if DEVEL_MODE;
+            $field->{operator_concept_id} = 4172756 if DEVEL_MODE;
 
             # Only proceeding if we have actual values
             next if $field->{value_as_number} eq '\\N';
@@ -460,19 +461,31 @@ sub do_omop2bff {
 
                 }
             );
+
             $measure->{measurementValue} = {
                 quantity => {
                     unit  => $unit,
                     value =>
                       dotify_and_coerce_number( $field->{value_as_number} ),
-                    referenceRange => undef # until we know how to get it
+
+                    # operator_concept_id  can be '0' or '', thus avoiding using ne ''
+                    referenceRange => $field->{operator_concept_id}
+                    ? map_operator_concept_id(
+                        {
+                            operator_concept_id =>
+                              $field->{operator_concept_id},
+                            value_as_number => $field->{value_as_number},
+                            unit            => $unit
+                        }
+                      )
+                    : undef
                 }
             };
 
             # notes MUST be string
-            $measure->{_info}{$table}{OMOP_columns} = $field; # Autovivification
-                #$measure->{observationMoment}           = undef;
-            $measure->{procedure} = $measure->{assayCode};
+            $measure->{_info}{$table}{OMOP_columns} = $field;                  # Autovivification
+                                                                               #$measure->{observationMoment}           = undef;
+            $measure->{procedure}                   = $measure->{assayCode};
             push @{ $individual->{measures} }, $measure;
         }
     }
@@ -536,8 +549,8 @@ sub do_omop2bff {
 
             $phenotypicFeature->{onset} = {
 
-        #_birth_datetime   => $person->{birth_datetime}, # property not allowed
-        #_observation_date => $field->{observation_date}, # property not allowed
+                #_birth_datetime   => $person->{birth_datetime}, # property not allowed
+                #_observation_date => $field->{observation_date}, # property not allowed
 
                 iso8601duration => find_age(
                     {
@@ -645,8 +658,8 @@ sub do_omop2bff {
             $treatment->{ageAtOnset} = {
                 age => {
 
-# _birth_datetime               => $person->{birth_datetime}, # property not allowed
-# _drug_exposure_start_datetime => $field->{drug_exposure_start_date},
+                    # _birth_datetime               => $person->{birth_datetime}, # property not allowed
+                    # _drug_exposure_start_datetime => $field->{drug_exposure_start_date},
                     iso8601duration => find_age(
                         {
                             date      => $field->{drug_exposure_start_date},
