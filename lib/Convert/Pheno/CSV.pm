@@ -44,11 +44,13 @@ sub read_redcap_dictionary {
 
     # NB: We want HoH and sub read_csv returns AoH
     # Loading data directly from Text::CSV_XS
-    my $hoh    = csv(
-        in        => $in_file,
-        sep_char  => $separator,
-        binary    => 1,
+    my $hoh = csv(
+        in       => $in_file,
+        sep_char => $separator,
+
+        #binary    => 1, # default
         auto_diag => 1,
+        encoding  => 'UTF-8',
         key       => $key,
         on_in     => sub { $_{_labels} = add_labels( $_{$labels} ) }
     );
@@ -395,11 +397,13 @@ sub read_csv {
     # Transform $in_file into an AoH
     # Using Text::CSV_XS functional interface
     my $aoh = csv(
-        in        => $in_file,
-        sep_char  => $separator,
-        headers   => "auto",
-        auto_diag => 1,
-        binary    => 1
+        in       => $in_file,
+        sep_char => $separator,
+        headers  => "auto",
+
+        # binary    => 1, # default
+        encoding  => 'UTF-8',
+        auto_diag => 1
     );
 
     # $aoh = [
@@ -422,12 +426,16 @@ sub print_csv {
     my $headers  = $arg->{headers};
 
     # Using Text::CSV_XS functional interface
+    # NB: About speed:
+    #     https://metacpan.org/pod/Text::CSV#csv1
     csv(
         in       => $aoh,
         out      => $filepath,
         sep_char => $sep,
         eol      => "\n",
-        binary   => 1,
+
+        #binary   => 1,   # default
+        encoding => 'UTF-8',
         headers  => $arg->{headers}
     );
     return 1;

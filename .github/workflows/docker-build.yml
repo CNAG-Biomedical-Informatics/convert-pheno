@@ -1,4 +1,4 @@
-name: Docker build
+name: Docker build and push
 
 on:
    workflow_dispatch
@@ -12,5 +12,15 @@ jobs:
    runs-on: ubuntu-latest
    steps:
      - uses: actions/checkout@v2
+
      - name: Build Docker image 
-       run: docker build -t cnag/convert-pheno:latest .
+       run: docker build -t manuelrueda/convert-pheno:latest .
+
+     - name: Login to Docker Hub
+       uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+       with:
+         username: ${{ secrets.DOCKERHUB_USERNAME }}
+         password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+     - name: Push to Docker Hub
+       run: docker image push manuelrueda/convert-pheno:latest
