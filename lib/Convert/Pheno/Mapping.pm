@@ -17,7 +17,7 @@ use Convert::Pheno::SQLite;
 binmode STDOUT, ':encoding(utf-8)';
 use Exporter 'import';
 our @EXPORT =
-  qw( map_ethnicity map_ontology dotify_and_coerce_number iso8601_time _map2iso8601 map_reference_range map_age_range map2redcap_dic map2ohdsi convert2boolean find_age randStr map_operator_concept_id);
+  qw( map_ethnicity map_ontology dotify_and_coerce_number iso8601_time _map2iso8601 map_reference_range map_age_range map2redcap_dic map2ohdsi convert2boolean find_age randStr map_operator_concept_id map_info_field);
 
 use constant DEVEL_MODE => 0;
 
@@ -275,22 +275,47 @@ sub map_operator_concept_id {
     my $unit = $arg->{unit};
 
     # Define hash for possible values
-    my %operator_concept_id =
-      ( 4172704 => 'GT', 4172756 => 'LT' );
-      #  4172703 => 'EQ';
+    my %operator_concept_id = ( 4172704 => 'GT', 4172756 => 'LT' );
+
+    #  4172703 => 'EQ';
 
     # $hasref will be used for return
     my $hashref = undef;
 
     # Only for GT || LT
-    if ( exists $operator_concept_id{$id} )
-    {
+    if ( exists $operator_concept_id{$id} ) {
         $hashref = { unit => $unit, map { $_ => undef } qw(low high) };    # Initialize low,high to undef
         if ( $operator_concept_id{$id} eq 'GT' ) {
             $hashref->{high} = dotify_and_coerce_number($val);
         }
         else {
             $hashref->{low} = dotify_and_coerce_number($val);
+        }
+    }
+    return $hashref;
+}
+
+sub map_info_field {
+
+    my $field = shift;
+
+    #############
+    # IMPORTANT #
+    #############
+    # WE DO NOT MODIFY ORIGINAL REFERENCE HERE
+
+    # Out data structure
+    my $hashref;
+
+    # Loop through the keys
+    for ( keys %{$field} ) {
+
+        # Only peform if defined (we can have '0')
+        if ( defined $field->{$_} ) {
+            $hashref->{$_} = dotify_and_coerce_number( $field->{$_} );
+        }
+        else {
+            $hashref->{$_} = undef; # Note that <""> will become <null>
         }
     }
     return $hashref;

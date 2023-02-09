@@ -160,8 +160,9 @@ sub do_omop2bff {
             #) if $participant->{family_history} ne '';
 
             # notes MUST be string
-            $disease->{_info}{$table}{OMOP_columns} = $field;      # Autovivification
-                                                                   #$disease->{severity} = undef;
+            # _info (Autovivification)
+            $disease->{_info}{$table}{OMOP_columns} = map_info_field($field);
+            #$disease->{severity} = undef;
             $disease->{stage}                       = map2ohdsi(
                 {
                     ohdsi_dic  => $ohdsi_dic,
@@ -293,16 +294,10 @@ sub do_omop2bff {
     #    17	race_source_value
     #    18	year_of_birth
 
-    for (
-        qw (birth_datetime care_site_id day_of_birth month_of_birth provider_id year_of_birth)
-      )
-    {
-        # Autovivification
-        $individual->{info}{$table}{OMOP_columns}{$_} = $person->{$_}
-          if exists $person->{$_};
-    }
+    # info (Autovivification)
+    $individual->{info}{$table}{OMOP_columns} = map_info_field($person);
 
-    # Hard-code $individual->{info}{dateOfBirth}
+    # Hard-coded $individual->{info}{dateOfBirth}
     $individual->{info}{dateOfBirth} =
       _map2iso8601( $person->{birth_datetime} );
 
@@ -353,12 +348,8 @@ sub do_omop2bff {
             #$intervention->{bodySite} = undef;
             $intervention->{dateOfProcedure} = $field->{procedure_date};
 
-            # _info
-            for ( keys %{$field} ) {
-
-                # Autovivification
-                $intervention->{_info}{$table}{OMOP_columns}{$_} = $field->{$_};
-            }
+            # _info (Autovivification)
+            $intervention->{_info}{$table}{OMOP_columns} = map_info_field($field);
 
             $intervention->{procedureCode} = map2ohdsi(
                 {
@@ -483,8 +474,10 @@ sub do_omop2bff {
             };
 
             # notes MUST be string
-            $measure->{_info}{$table}{OMOP_columns} = $field;                  # Autovivification
-                                                                               #$measure->{observationMoment}           = undef;
+            # _info (Autovivification)
+            $measure->{_info}{$table}{OMOP_columns} = map_info_field($field);
+
+            #$measure->{observationMoment}           = undef;
             $measure->{procedure}                   = $measure->{assayCode};
             push @{ $individual->{measures} }, $measure;
         }
@@ -540,12 +533,8 @@ sub do_omop2bff {
             #$phenotypicFeature->{modifiers} = undef;
 
             # notes MUST be string
-            for ( keys %{$field} ) {
-
-                # Autovivification
-                $phenotypicFeature->{_info}{$table}{OMOP_columns}{$_} =
-                  $field->{$_};
-            }
+            # _info (Autovivification)
+            $phenotypicFeature->{_info}{$table}{OMOP_columns} = map_info_field($field);
 
             $phenotypicFeature->{onset} = {
 
@@ -682,12 +671,8 @@ sub do_omop2bff {
             #     scheduleFrequency => {}
             #}];
 
-            # _info
-            for ( keys %{$field} ) {
-
-                # Autovivification
-                $treatment->{_info}{$table}{OMOP_columns}{$_} = $field->{$_};
-            }
+            # _info (Autovivification)
+            $treatment->{_info}{$table}{OMOP_columns} = map_info_field($field);
 
             $treatment->{routeOfAdministration} =
               { id => "NCIT:NA0000", label => "Fake" };

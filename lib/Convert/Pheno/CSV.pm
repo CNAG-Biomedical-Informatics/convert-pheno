@@ -179,10 +179,7 @@ sub read_sqldump {
         next unless scalar @lines > 2;
         pop @lines;    # last line eq '\.'
 
-        # Ad hoc for testing
-        my $count = 0;
-
-        # First line contain the headers
+        # First line contains the headers
         #COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, ..., attribute_syntax) FROM stdin;
         $lines[0] =~ s/[\(\),]//g;    # getting rid of (),
         my @headers = split /\s+/, $lines[0];
@@ -196,15 +193,19 @@ sub read_sqldump {
         # Initializing $data>key as empty arrayref
         $data->{$table_name} = [];
 
+        # Ad hoc counter for dev
+        my $count = 0;
+
         # Processing line by line
         for my $line (@lines) {
             $count++;
 
             # Columns are separated by \t
-            # NB: Loading everything as 'string'. Coercing a posteriori
-            my @values = split /\t/, $line;
+            # NB: 'split' and 'Text::CSV' split to strings
+            # We go with 'split'. Coercing a posteriori
+            my @fields = split /\t/, $line;
 
-            # Loading the values like this:
+            # Loading the fields like this:
             #
             #  $VAR1 = {
             #  'PERSON' => [  # NB: This is the table name
@@ -219,9 +220,9 @@ sub read_sqldump {
             #           ]
             #         };
 
-            # Using tmp hash to load all values at once
+            # Using tmp hash to load all fields at once
             my %tmp_hash;
-            @tmp_hash{@headers} = @values;
+            @tmp_hash{@headers} = @fields;
 
             # Adding them as an array element (AoH)
             push @{ $data->{$table_name} }, {%tmp_hash};

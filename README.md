@@ -157,8 +157,9 @@ Now you have two choose between one of the 2 options below:
     make install # (Will ask for sudo passwd)
     make test
 
-**Option 2:** Install the dependencies in a "virtual environment" (i.e., install the CPAN modules in the directory of the application). We'll be using the module `Carton`for that:
+**Option 2:** Install the dependencies in a "virtual environment" (i.e., install the CPAN modules in the directory of the application). We'll be using the module <Carton> for that:
 
+    # NB: We're installing cpanminus and Carton as sudo. That's why you will be asked to provide sudo password.
     make install-carton
     make test
 
@@ -208,8 +209,10 @@ Please be aware that we are reading input files and storing them in RAM memory (
 We never encountered such case, but it may become an issue if your file > 1GB and you do not have enough RAM memory.
 One simple solution is to split the input file in many.
 
-    * Error message: Foo
-      Solution: Bar
+    * Error message: CSV_XS ERROR: 2023 - EIQ - QUO character not allowed @ rec 1 pos 21 field 1
+      Solution: Make sure you use the right character separator for your data. The script tries to guess it from the file extension (e.g. comma for csv), but sometimes extension and actual separator do not match.
+      Example for tab separator in CLI.
+       --sep  $'\t' 
 
     * Error message: Foo
       Solution: Bar
