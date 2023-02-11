@@ -34,6 +34,8 @@ $Data::Dumper::Sortkeys = 1;
 # Defining a few variables
 my $out_dir     = '.';
 my $schema_file = catfile( $Bin, '../schema/mapping.json' );
+my $color = 1;
+my $stream = 0;
 
 # Reading arguments
 GetOptions(
@@ -54,9 +56,10 @@ GetOptions(
     'min-text-similarity-score=f' => \my $min_text_similarity_score,           # floating
     'debug=i'                     => \my $debug,                               # integer
     'verbose'                     => \my $verbose,                             # flag
-    'no-color|nc'                 => \my $no_color,                            # flag
+    'color!'                      => \$color,                                  # flag
     'separator|sep=s'             => \my $sep,                                 # str
     'schema-file=s'               => \$schema_file,                            # str
+    'stream!'                     => \$stream,                                 # flag
     'sql2csv'                     => \my $sql2csv,                             # flag
     'test'                        => \my $test,                                # flag
     'ohdsi-db'                    => \my $ohdsi_db,                            # flag
@@ -98,7 +101,7 @@ pod2usage(
 ) unless -f $schema_file;
 
 # Turning color off if argument <--no-color>
-$ENV{'ANSI_COLORS_DISABLED'} = 1 if $no_color;
+$ENV{'ANSI_COLORS_DISABLED'} = 1 unless $color;
 
 # Defining $out_file
 my $out_file =
@@ -143,6 +146,7 @@ my $data = {
     min_text_similarity_score => $min_text_similarity_score,
     self_validate_schema      => $self_validate_schema,
     print_hidden_labels       => $print_hidden_labels,
+    stream                    => $stream,
     schema_file               => $schema_file,
     test                      => $test,
     debug                     => $debug,
@@ -273,7 +277,7 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
        -mapping-file                  Fields mapping YAML (or JSON) file
        -max-lines-sql                 Maxium number of lines read from SQL dump [500]
        -min-text-similarity-score     Minimum score for cosine similarity (or Sorensen-Dice coefficient) [0.8] (to be used with --search mixed)
-       -nc|-no-color                  Don't print colors to STDOUT
+       -no-color                      Don't print colors to STDOUT [>color|no-color]
        -ohdsi-db                      Use Athena-OHDSI database (~1.2GB) with -iomop
        -out-dir                       Output (existing) directory
        -phl|print-hidden-labels       Print original values (before DB mapping) of text fields <_labels>
@@ -282,6 +286,7 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
        -search                        Type of search [>exact|mixed]
        -svs|self-validate-schema      Perform a self-validation of the JSON schema that defines mapping
        -sep|separator                 Delimiter character for CSV files
+       -stream                        Stream results (to be used with -iomopi huge files) [>no-stream|stream]
        -sql2csv                       Print SQL TABLES (with -iomop)
        -test                          Does not print time-changing-events (useful for file-based cmp)
        -text-similarity-method        The method used to compare values to DB [>cosine|dice]

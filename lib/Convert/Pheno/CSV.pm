@@ -141,7 +141,9 @@ sub remap_ohdsi_dictionary {
     #                         'valid_start_date' => '1970-01-01',
     #                         'vocabulary_id' => 'RxNorm'
     #                         },
-
+    #
+    # NB: We store all columns yet we'll use 4:
+    # 'concept_id', 'concept_code', 'concept_name', 'vocabulary_id'
     return { map { $_->{$column} => $_ } @{$data} };
 }
 
@@ -185,7 +187,13 @@ sub read_sqldump {
         my @headers = split /\s+/, $lines[0];
         my $table_name =
           uc( ( split /\./, $headers[1] )[1] );    # ATTRIBUTE_DEFINITION
-        shift @lines;                              # discarding first line
+
+        # Discarding non @omop_essential_tables:
+        # This step improves RAM consumption
+        next unless any { m/^$table_name$/ } @omop_essential_tables;
+
+        # Discarding first line
+        shift @lines;
 
         # Discarding headers which are not terms/variables
         @headers = @headers[ 2 .. $#headers - 2 ];
@@ -291,8 +299,8 @@ sub transpose_omop_data_structure {
     #                      ]
     #        };
 
-    # where all 'perosn_id' are together inside the TABLE_NAME.
-    # But, BFF works at the individual level so we are going to
+    # where all 'person_id' are together inside the TABLE_NAME.
+    # But, BFF "ideally" works at the individual level so we are going to
     # transpose the data structure to end up into something like this
     # NB: MEASUREMENT and OBSERVATION (among others, i.e., CONDITION_OCCURRENCE, PROCEDURE_OCCURRENCE)
     #     can have multiple values for one 'person_id' so they will be loaded as arrays
@@ -326,18 +334,12 @@ sub transpose_omop_data_structure {
     # Only performed for $omop_main_table
     for my $table ( @{ $omop_main_table->{$omop_version} } ) {    # global
         for my $item ( @{ $data->{$table} } ) {
+
             if ( exists $item->{person_id} && $item->{person_id} ne '' ) {
                 my $person_id = $item->{person_id};
 
                 # {person_id} can have multiple rows in a given table
-                if (
-                    any { m/^$table$/ } (
-                        'MEASUREMENT',          'OBSERVATION',
-                        'CONDITION_OCCURRENCE', 'PROCEDURE_OCCURRENCE',
-                        'DRUG_EXPOSURE'
-                    )
-                  )
-                {
+                if ( any { m/^$table$/ } @omop_array_tables ) {
                     push @{ $omop_person_id->{$person_id}{$table} }, $item;    # array
                 }
 
@@ -347,6 +349,7 @@ sub transpose_omop_data_structure {
                 }
             }
         }
+        delete $data->{$table};    # To get back unused memory for later...
     }
 
     # Finally we get rid of the 'person_id' key and return values as an array

@@ -74,6 +74,9 @@ has username => (
 has $_ => ( default => undef, is => 'ro' )
   for (qw /test ohdsi_db print_hidden_labels self_validate_schema/);
 
+has $_ => ( default => 1, is => 'ro' )
+  for (qw /stream/);
+
 has $_ => ( is => 'rw' )
   for (
     qw /data out_dir in_textfile in_file in_files method sep sql2csv redcap_dictionary mapping_file max_lines_sql schema_file debug log verbose/
@@ -169,8 +172,63 @@ sub omop2bff {
 
     my $self = shift;
 
-    # The idea here is that we'll load all $omop_main_table and @omop_extra_tables in $data,
-    # regardless of wheter they are concepts or truly records. Dictionaries (e.g. <CONCEPT>) will be parsed latter from $data
+    #############
+    # IMPORTANT #
+    #############
+
+    # SMALL TO MEDIUM FILES < 1GB
+    #
+    # In many cases, since people are downsizing their DBs for data sharing,
+    # PostgreSQL dumps or CSVs will be <500MB. If that's the case, providing we
+    # have enough memory (4-16GB), we'll able to load stuff in RAM memory, 
+    # and still merge values (MEASURES, DRUGS) for each individual and serialize ALL at once.
+    # It's just a matter of only loading ESSENTIAL tables and not duplicating data structures (unless necessary)
+    
+    # HUMONGOUS FILES > 1GB 
+    # NB: Interesting read on the topic
+    #     https://www.perlmonks.org/?node_id=1033692
+    # Since we're relying heavily on hashes we need to resort to another strategy(es) to load the data
+    #
+    # * Option A *: Parellel processing - No change in our code
+    #    Without changing the code, we ask the user to create mini-instances (or split CSV's in chunks) and use 
+    #    some sort of parallel processing (e.g., GNU parallel, snakemake, HPC, etc.)
+    #
+    # * Option B *: Keeping data grouped at the individual-object level (as we do with small to medium files)
+    #   --no-stream
+    #   To do this, the only option is to first dump CSV (me or users) and then use *nix to sort by person_id.
+    #   Then, since rows for each individual are adjacent, we can load individual data together. Still, 
+    #   we'll by reading one table (e.g. MEASUREMENTS) at a time, so this is not relly helping much.
+    #
+    # * Option C *: Parsing files line by line (one row of CSV/SQL per JSON object)
+    #   --stream 
+    #   This option seems the more feasible because BFF / PXF JSONs are just intermediate files. It's nice that they
+    #   contain data grouped by individual (for visually inspection and display), but at the end of the day they'll 
+    #   end up in MongoDB. If all entries contain the primary key 'person_id' then it's up to the Beacon v2 API to deal with them.
+    #   It's a similar issue to the one we had with genomicVariations in the B2RI, where a given variant belong to many individuals.
+    #   Here, multiple JSON documents/objects (MEASUREMENTS, DRUGS, etc.) will belong to the same individual.
+    #   Now, since we allow for CSV and SQL as an input, we need to minimize the numer of steps to a minimum.
+    #
+    #   - Problems that may arise:
+    #     1 - <CONCEPT> table is mandatory, but it can be so huge that it takes all RAM memory.
+    #         For instance, <CONCEPT.csv> with 5_808_095 lines = 735 MB
+    #                       <CONCEPT_light.csv> with 5_808_094 lines but only 4 columns = 501 MB 
+    #                       Anything more than 2M lines kills a 8GB Ram machine.
+    #         Solutions: 
+    #           a) Not loading the table at all (using SQLite version <ohdsi.db>  
+    #           b) Creating a temporary SQLite DB for <CONCEPT>
+    #     2 - How to read line-by-line from an SQL dump
+    #          If the PostgreSQL dump weights, say, 20GB, do we create CSV tables from it (another ~20GB)? 
+    #         Solutions: 
+    #           a) Yep, we read <CONCEPT> and <PERSON> and export the needed tables to CSV and go from there.
+    #           b) Nope, we read PostgreSQL file twice, one time to load <CONCEPT> and <PERSON> and the second time to load the remaining TABLES.
+    #     3 - In --stream mode, do we still allow for --sql2csv? 
+    #           We would need to go from functional mode (csv) to filehandlesi and it will take tons of space. 
+    #           Then, --stream and -sql2csv are mutually exclusive.
+    #
+    # Additional info:
+    # The idea here is that we'll load ONLY ESSENTIAL TABLES $omop_main_table and @omop_extra_tables in $data,
+    # regardless of wheter they are concepts or truly records. 
+    # Dictionaries (e.g. <CONCEPT>) will be parsed latter from $data
 
     # Check if data comes from variable or from file
     my $data;
@@ -211,16 +269,19 @@ sub omop2bff {
 
     #print Dumper_concise($data);
 
-    # Primarily with CSV, it can happen that user does not provide <CONCEPT.csv>
-    confess 'We could not find table CONCEPT, maybe missing <CONCEPT.csv> ???'
+    # Primarily with CSVs, it can happen that user does not provide <CONCEPT.csv>
+    confess 'We could not find table <CONCEPT> from your input files'
       unless exists $data->{CONCEPT};
 
-    # We  create a dictionary for $data->{CONCEPT}
+    # We create a dictionary for $data->{CONCEPT}
     $self->{data_ohdsi_dic} = remap_ohdsi_dictionary( $data->{CONCEPT} );    # Dynamically adding attributes (setter)
 
     # Now we need to perform a tranformation of the data where 'person_id' is one row of data
     # NB: Transformation is due ONLY IN $omop_main_table FIELDS, the rest of the tables are not used
     $self->{data} = transpose_omop_data_structure($data);    # Dynamically adding attributes (setter)
+    
+    # Giving some memory back to the system
+    $data = undef;
 
     # array_dispatcher will deal with JSON arrays
     return array_dispatcher($self);

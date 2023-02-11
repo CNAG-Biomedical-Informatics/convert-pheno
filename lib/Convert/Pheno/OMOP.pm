@@ -6,7 +6,7 @@ use autodie;
 use feature qw(say);
 use Convert::Pheno::Mapping;
 use Exporter 'import';
-our @EXPORT = qw(do_omop2bff $omop_version $omop_main_table @omop_extra_tables);
+our @EXPORT = qw(do_omop2bff $omop_version $omop_main_table @omop_extra_tables @omop_array_tables @omop_essential_tables);
 
 use constant DEVEL_MODE => 0;
 
@@ -62,6 +62,24 @@ our @omop_extra_tables = qw(
   DOMAIN
   OBSERVATION_PERIOD
   VOCABULARY
+);
+
+our @omop_array_tables = qw(
+  MEASUREMENT
+  OBSERVATION
+  CONDITION_OCCURRENCE
+  PROCEDURE_OCCURRENCE
+  DRUG_EXPOSURE
+);
+
+our @omop_essential_tables = qw(
+  CONCEPT
+  CONDITION_OCCURRENCE
+  PERSON
+  PROCEDURE_OCCURRENCE
+  MEASUREMENT
+  OBSERVATION
+  DRUG_EXPOSURE
 );
 
 ##############
@@ -162,8 +180,9 @@ sub do_omop2bff {
             # notes MUST be string
             # _info (Autovivification)
             $disease->{_info}{$table}{OMOP_columns} = map_info_field($field);
+
             #$disease->{severity} = undef;
-            $disease->{stage}                       = map2ohdsi(
+            $disease->{stage} = map2ohdsi(
                 {
                     ohdsi_dic  => $ohdsi_dic,
                     concept_id => $field->{condition_status_concept_id},
@@ -349,7 +368,8 @@ sub do_omop2bff {
             $intervention->{dateOfProcedure} = $field->{procedure_date};
 
             # _info (Autovivification)
-            $intervention->{_info}{$table}{OMOP_columns} = map_info_field($field);
+            $intervention->{_info}{$table}{OMOP_columns} =
+              map_info_field($field);
 
             $intervention->{procedureCode} = map2ohdsi(
                 {
@@ -478,7 +498,7 @@ sub do_omop2bff {
             $measure->{_info}{$table}{OMOP_columns} = map_info_field($field);
 
             #$measure->{observationMoment}           = undef;
-            $measure->{procedure}                   = $measure->{assayCode};
+            $measure->{procedure} = $measure->{assayCode};
             push @{ $individual->{measures} }, $measure;
         }
     }
@@ -534,7 +554,8 @@ sub do_omop2bff {
 
             # notes MUST be string
             # _info (Autovivification)
-            $phenotypicFeature->{_info}{$table}{OMOP_columns} = map_info_field($field);
+            $phenotypicFeature->{_info}{$table}{OMOP_columns} =
+              map_info_field($field);
 
             $phenotypicFeature->{onset} = {
 
