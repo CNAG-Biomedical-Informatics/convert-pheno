@@ -157,8 +157,12 @@ sub read_sqldump {
     # The parser is based in reading COPY paragraphs from PostgreSQL dump by using Perl's paragraph mode  $/ = "";
     # The sub can be seen as "ugly" but it does the job :-)
 
-    my $max_lines_sql = $self->{max_lines_sql} // 500;    # Limit to speed up runtime
-    local $/ = "";                                        # set record separator to paragraph
+    # Define variables that modify what we load
+    my $max_lines_sql = $self->{max_lines_sql};
+    my @omop_tables   = @{$self->{omop_tables}};
+
+     # Set record separator to paragraph
+    local $/ = "";
 
     #COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, attribute_description, attribute_type_concept_id, attribute_syntax) FROM stdin;
     # ......
@@ -188,9 +192,9 @@ sub read_sqldump {
         my $table_name =
           uc( ( split /\./, $headers[1] )[1] );    # ATTRIBUTE_DEFINITION
 
-        # Discarding non @omop_essential_tables:
+        # Discarding non @$omop_tables:
         # This step improves RAM consumption
-        next unless any { m/^$table_name$/ } @omop_essential_tables;
+        next unless any { m/^$table_name$/ } @omop_tables;
 
         # Discarding first line
         shift @lines;

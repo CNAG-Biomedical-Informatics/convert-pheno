@@ -57,6 +57,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
        -min-text-similarity-score     Minimum score for cosine similarity (or Sorensen-Dice coefficient) [0.8] (to be used with --search mixed)
        -no-color                      Don't print colors to STDOUT [>color|no-color]
        -ohdsi-db                      Use Athena-OHDSI database (~1.2GB) with -iomop
+       -omop-tables                   (Only valid with -iomop) OMOP-CDM tables to be processed. Tables <CONCEPT> and <PERSON> are always included.
        -out-dir                       Output (existing) directory
        -phl|print-hidden-labels       Print original values (before DB mapping) of text fields <_labels>
        -rcd|redcap-dictionary         REDCap data dictionary CSV file
@@ -64,8 +65,8 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
        -search                        Type of search [>exact|mixed]
        -svs|self-validate-schema      Perform a self-validation of the JSON schema that defines mapping
        -sep|separator                 Delimiter character for CSV files
-       -stream                        Stream results (to be used with -iomopi huge files) [>no-stream|stream]
-       -sql2csv                       Print SQL TABLES (with -iomop)
+       -stream                        Stream results (to be used with -iomop huge files) [>no-stream|stream]
+       -sql2csv                       Print SQL TABLES (only valid with -iomop). Mutually exclusive with --stream
        -test                          Does not print time-changing-events (useful for file-based cmp)
        -text-similarity-method        The method used to compare values to DB [>cosine|dice]
        -u|username                    Set the username

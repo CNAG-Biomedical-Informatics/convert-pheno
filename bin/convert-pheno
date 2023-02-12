@@ -34,8 +34,8 @@ $Data::Dumper::Sortkeys = 1;
 # Defining a few variables
 my $out_dir     = '.';
 my $schema_file = catfile( $Bin, '../schema/mapping.json' );
-my $color = 1;
-my $stream = 0;
+my $color       = 1;
+my $stream      = 0;
 
 # Reading arguments
 GetOptions(
@@ -63,6 +63,7 @@ GetOptions(
     'sql2csv'                     => \my $sql2csv,                             # flag
     'test'                        => \my $test,                                # flag
     'ohdsi-db'                    => \my $ohdsi_db,                            # flag
+    'omop-tables=s{1,}'           => \my @omop_tables,                         # array
     'redcap-dictionary|rcd=s'     => \my $redcap_dictionary,                   # string
     'print-hidden-labels|phl'     => \my $print_hidden_labels,                 # flag
     'self-validate-schema|svs'    => \my $self_validate_schema,                # flag
@@ -73,7 +74,8 @@ GetOptions(
 pod2usage(1)                              if $help;
 pod2usage( -verbose => 2, -exitval => 0 ) if $man;
 
-# Will validate CLI specific options
+# Here we will validate a few CLI specific options
+# NB: Order matters
 pod2usage(
     -message => "Please specify a valid input file(s) -i <json|yaml|csv>\n",
     -exitval => 1
@@ -94,6 +96,19 @@ pod2usage(
     -message => "Please specify a valid OMOP-CDM file(s) (e.g, *csv or .sql)\n",
     -exitval => 1
 ) if ( @omop_files && $omop_files[0] !~ m/\.csv|\.sql|\.tsv/i );
+pod2usage(
+    -message => "The flag <--omop-tables> is only valid with <-iomop>)\n",
+    -exitval => 1
+) if ( @omop_tables && !@omop_files );
+pod2usage(
+    -message => "The flag <--omop-tables> is only valid with <-iomop>)\n",
+    -exitval => 1
+) if ( @omop_tables && !@omop_files );
+pod2usage(
+    -message =>
+"The flags <--stream> and <--sql2csv> are mutually exclusive.\nIf you are using <--stream> is because you are likely processing huge files and we don't want to duplicate them in your HDD\n",
+    -exitval => 1
+) if ( $stream && $sql2csv );
 pod2usage(
     -message =>
       "Please specify a valid schema for the mapping file --schema-file\n",
@@ -140,6 +155,7 @@ my $data = {
     mapping_file              => $mapping_file,
     search                    => $search,
     ohdsi_db                  => $ohdsi_db,
+    omop_tables               => \@omop_tables,
     username                  => $username,
     max_lines_sql             => $max_lines_sql,
     text_similarity_method    => $text_similarity_method,
@@ -279,6 +295,7 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
        -min-text-similarity-score     Minimum score for cosine similarity (or Sorensen-Dice coefficient) [0.8] (to be used with --search mixed)
        -no-color                      Don't print colors to STDOUT [>color|no-color]
        -ohdsi-db                      Use Athena-OHDSI database (~1.2GB) with -iomop
+       -omop-tables                   (Only valid with -iomop) OMOP-CDM tables to be processed. Tables <CONCEPT> and <PERSON> are always included.
        -out-dir                       Output (existing) directory
        -phl|print-hidden-labels       Print original values (before DB mapping) of text fields <_labels>
        -rcd|redcap-dictionary         REDCap data dictionary CSV file
@@ -286,8 +303,8 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
        -search                        Type of search [>exact|mixed]
        -svs|self-validate-schema      Perform a self-validation of the JSON schema that defines mapping
        -sep|separator                 Delimiter character for CSV files
-       -stream                        Stream results (to be used with -iomopi huge files) [>no-stream|stream]
-       -sql2csv                       Print SQL TABLES (with -iomop)
+       -stream                        Stream results (to be used with -iomop huge files) [>no-stream|stream]
+       -sql2csv                       Print SQL TABLES (only valid with -iomop). Mutually exclusive with --stream
        -test                          Does not print time-changing-events (useful for file-based cmp)
        -text-similarity-method        The method used to compare values to DB [>cosine|dice]
        -u|username                    Set the username
