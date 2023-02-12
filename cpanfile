@@ -23,5 +23,6 @@ requires 'Test::Warn';
 
 # api
 requires 'IO::Socket::SSL';
+requires 'Net::SSLeay';
 requires 'Mojolicious::Plugin::OpenAPI';
 #requires 'Future::AsyncAwait';  # for async/wait     
