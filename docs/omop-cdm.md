@@ -9,12 +9,13 @@ OMOP-CDM databases are typically implemented as PostgreSQL instances. Based on o
 
 ## OMOP as input
 
+!!! Hint "OMOP-CDM supported version(s)"
+         We currently support **v5.4**. We have everything ready for supporting v6 once we are able to test the code with v6 projects.
+
+
 === "Command-line"
 
     When using the `convert-pheno` command-line interface, simply ensure the [correct syntax](https://github.com/mrueda/convert-pheno#synopsis) is provided.
-
-    !!! Hint "OMOP-CDM supported version(s)"
-              We currently support **v5.4**. We have everything ready for supporting v6 once we are able to test the code with v6 projects.
 
     === "Small to medium-sized files (<1GB)"
 
@@ -41,7 +42,7 @@ OMOP-CDM databases are typically implemented as PostgreSQL instances. Based on o
         ```
 
         !!! Danger "RAM memory usage when merging rows by atribute `person_id`"
-            When working with `-iomop` and `--no-stream` (default), `Convert::Pheno` will consolidate all the values corresponding to a given `person_id` under the same object. In order to do this, we need to store all data in the **RAM** memory. The reason for storing the data in RAM is because the rows are **not adjacent** (they are not pre-sorted by `person_id`) and can originate from **distinct tables**.
+            When working with `-iomop` and `--no-stream` (default), `Convert-Pheno` will consolidate all the values corresponding to a given `person_id` under the same object. In order to do this, we need to store all data in the **RAM** memory. The reason for storing the data in RAM is because the rows are **not adjacent** (they are not pre-sorted by `person_id`) and can originate from **distinct tables**.
 
             If your computer only has 4GB-8GB of RAM and you plan to convert **large files** we recommend you to use the flag `--stream` which will process your tables **incrementally** (i.e.,line-by-line), instead of loading them into memory. 
 
@@ -70,7 +71,7 @@ OMOP-CDM databases are typically implemented as PostgreSQL instances. Based on o
         !!! Danger "_Pros_ and _Cons_ of incremental data load"
             Incremental data load facilitates the processing of huge files. The only substantive difference compared to the `--no-stream` mode is that the data will not be consolidated at the patient or individual level, which is merely a **cosmetic concern**. Ultimately, the data will be loaded into a **database**, such as _MongoDB_, where the linking of data through keys can be managed. In most cases, the implementation of a pre-built API, such as the one described in the [B2RI documentation](https://b2ri-documentation.readthedocs.io/en/latest), will be added to further enhance the functionality.
 
-            Note that the output JSON files generated in --stream mode will always include information from both the `PERSON` and `CONCEPT` tables. This is not a mandatory requirement, but it serves to facilitate subsequent [validation of the data against JSON schemas](https://github.com/EGA-archive/beacon2-ri-tools/tree/main/utils/bff_validator). In terms of the JSON Schema terminology, these files contain `required` properties for [BFF](bff.md) and [PXF](pxf.md).
+            Note that the output JSON files generated in `--stream` mode will always include information from both the `PERSON` and `CONCEPT` tables. This is not a mandatory requirement, but it serves to facilitate subsequent [validation of the data against JSON schemas](https://github.com/EGA-archive/beacon2-ri-tools/tree/main/utils/bff_validator). In terms of the JSON Schema terminology, these files contain `required` properties for [BFF](bff.md) and [PXF](pxf.md).
 
         !!! Tip "About Parallelization"
             `Convert-Pheno` has been optimized for speed, and, in general the CLI results are generated almost immediatly. For instance, all tests with synthetic data take less than a second of a few seconds to complete. It should be noted that the speed of the results depends on the performance of the CPU and disk speed. If `Convert-Pheno` must retrieve ontologies from a database to annotate the data, the process may take longer.
@@ -83,11 +84,11 @@ OMOP-CDM databases are typically implemented as PostgreSQL instances. Based on o
 
     For developers who wish to retrieve data in **real-time**, we also offer the option of using the module version. With this option, the developer has to handle database credentials, queries, etc. using one of the many available PostgreSQL [drivers](https://wiki.postgresql.org/wiki/List_of_drivers).
 
-    The idea is to pass the essential information to `Convert::Pheno` as a hash (in Perl) or dictionary (in Python). It is not necessary to send all the tables shown in the example, only the ones you wish to transform.
+    The idea is to pass the essential information to `Convert-Pheno` as a hash (in Perl) or dictionary (in Python). It is not necessary to send all the tables shown in the example, only the ones you wish to transform.
 
 
     !!! Tip "Tip"
-        The defintions are stored in table `CONCEPT`. If you send the complete `CONCEPT` table then `Convert::Pheno` will be able to find a match, otherwise it will require setting the parameter `ohdsi_db = 1` (true).
+        The defintions are stored in table `CONCEPT`. If you send the complete `CONCEPT` table then `Convert-Pheno` will be able to find a match, otherwise it will require setting the parameter `ohdsi_db = 1` (true).
 
     === "Perl"
         ```Perl
