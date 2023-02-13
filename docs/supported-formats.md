@@ -39,5 +39,5 @@ graph LR
     * [Phenopacket v2 (JSON | YAML)](pxf.md)
 
     !!! Question "Why start with these two?"
-        [Beacon v2](https://docs.genomebeacons.org) and [Phenopackets v2](https://phenopacket-schema.readthedocs.io/en/latest) are data exchange standards from the [G4AGH](https://www.ga4gh.org).
+        [Beacon v2](https://docs.genomebeacons.org) and [Phenopackets v2](https://phenopacket-schema.readthedocs.io/en/latest) are data exchange standards from the [G4AGH](https://www.ga4gh.org). Note that these output files are **intermediate** files that reach their full potential when loaded into a database. Once in the database their fields can be queried through an **API**, such as the [Beacon v2 API](https://docs.genomebeacons.org). 
 

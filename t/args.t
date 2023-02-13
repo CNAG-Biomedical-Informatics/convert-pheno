@@ -40,7 +40,7 @@ for my $method ( sort keys %{$input} ) {
     my $convert = Convert::Pheno->new(
         {
             in_file              => $input->{$method}{in_file},
-            in_files             => undef,
+            in_files             => [],
             redcap_dictionary    => $input->{$method}{redcap_dictionary},
             mapping_file         => $input->{$method}{mapping_file},
             self_validate_schema => $input->{$method}{self_validate_schema},
@@ -82,7 +82,7 @@ for my $method ( sort keys %{$input} ) {
             {
                 in_file => $err eq 'ERR1' ? 'dummy'
                 : $input->{$method}{in_file},
-                in_files          => undef,
+                in_files          => [],
                 redcap_dictionary => $input->{$method}{redcap_dictionary},
                 mapping_file      => $err eq 'ERR2' ? 'dummy'
                 : $input->{$method}{mapping_file},

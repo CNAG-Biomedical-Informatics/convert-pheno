@@ -86,12 +86,13 @@ for my $method ( sort keys %{$input} ) {
             in_file  => $input->{$method}{in_file},
             in_files => $method =~ m/^omop2/
             ? $input->{$method}{in_files}
-            : undef,
+            : [],
             redcap_dictionary    => $input->{$method}{redcap_dictionary},
             mapping_file         => $input->{$method}{mapping_file},
             self_validate_schema => $input->{$method}{self_validate_schema},
             schema_file          => 'schema/mapping.json',
             in_textfile          => 1,
+            omop_tables          => [],
             sep                  => $input->{$method}{sep},
             test                 => 1,
             search               => 'exact',

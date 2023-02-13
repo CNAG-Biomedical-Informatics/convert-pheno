@@ -32,7 +32,7 @@ for my $method ( sort keys %{$input} ) {
         my $convert = Convert::Pheno->new(
             {
                 in_file           => $input->{$method}{in_file},
-                in_files          => undef,
+                in_files          => [],
                 redcap_dictionary => $input->{$method}{redcap_dictionary},
                 mapping_file      => catfile(
                     't/redcap2bff/err/redcap_3tr_mapping_err', $err,

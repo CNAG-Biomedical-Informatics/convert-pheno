@@ -8,7 +8,7 @@ use Convert::Pheno::Mapping;
 use Exporter 'import';
 our @EXPORT = qw(do_omop2bff $omop_version $omop_main_table @omop_extra_tables @omop_array_tables @omop_essential_tables);
 
-use constant DEVEL_MODE => 0;
+use constant DEVEL_MODE => 1;
 
 our $omop_version    = 'v5.4';
 our $omop_main_table = {

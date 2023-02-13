@@ -75,7 +75,7 @@ has username => (
 );
 
 has max_lines_sql => (
-    #default => 500,                                   # Limit to speed up runtime
+    default => 500,                                   # Limit to speed up runtime
     is      => 'ro',
     coerce  => sub { defined $_[0] ? $_[0] : 500 },
     isa     => Int
@@ -86,7 +86,7 @@ has omop_tables => (
     # Tables <CONCEPT> and <PERSON> are always required
     coerce  => sub {
         @{ $_[0] }
-          ? $_[0] = [ uniq( @{ $_[0] }, 'CONCEPT', 'PERSON' ) ]
+          ? $_[0] = [ map { uc($_)} (uniq( @{ $_[0] }, 'CONCEPT', 'PERSON' )) ]
           : \@omop_essential_tables;
     },
     is => 'ro',
@@ -99,8 +99,10 @@ has [qw /test ohdsi_db print_hidden_labels self_validate_schema/] =>
 
 has [qw /stream/] => ( default => 1, is => 'ro' );
 
+has [qw /in_files/] => ( default => sub { [] }, is => 'ro' );
+
 has [
-    qw /data out_dir in_textfile in_file in_files method sep sql2csv redcap_dictionary mapping_file schema_file debug log verbose/
+    qw /data out_dir in_textfile in_file method sep sql2csv redcap_dictionary mapping_file schema_file debug log verbose/
 ] => ( is => 'rw' );
 
 # NB: In general, we'll only display terms that exist and have content
@@ -193,7 +195,6 @@ sub omop2bff {
 
     my $self = shift;
 
-    print Dumper $self;
     #############
     # IMPORTANT #
     #############
