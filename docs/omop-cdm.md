@@ -49,7 +49,19 @@ OMOP-CDM databases are typically implemented as PostgreSQL instances. Based on o
         
     === "Large files (>1GB)"
 
-        For large files, `Convert-Pheno` takes a different approach. Because we can't load all the data in RAM memory, we have to parse the `sql` or `csv` files incrementally and serialize it (print it) in chunks.
+
+        #### CSV
+
+        We recommend running one table at a time in **parallel**. If you exceed the amount of RAM, try splitting your CSV tables in chunks.
+
+        ```
+        convert-pheno -iomop omop_dump.sql -obff individuals.json --omop-tables MEASUREMENT
+        ```
+
+
+        #### SQL exports
+
+        For large SQL exports, `Convert-Pheno` takes a different approach. The files will be parsed incrementally incrementally and serialize it (print it) line-by-line.
 
         To choose incremental data processing we'll be using the flag `--stream`:
 

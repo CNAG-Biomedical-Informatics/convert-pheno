@@ -35,7 +35,7 @@ sub map_ethnicity {
     my $str       = shift;
     my %ethnicity = ( map { $_ => 'NCIT:C41261' } ( 'caucasian', 'white' ) );
 
-    # 1, Caucasian | 2, Hispanic | 3, Asian | 4, African/African-American | 5, Indigenous American | 6, Mixed | 9, Other";
+# 1, Caucasian | 2, Hispanic | 3, Asian | 4, African/African-American | 5, Indigenous American | 6, Mixed | 9, Other";
     return { id => $ethnicity{ lc($str) }, label => $str };
 }
 
@@ -76,7 +76,7 @@ sub map_ontology {
 
     # Die if user wants OHDSI w/o flag -ohdsi-db
     die
-"Could not find the concept_id:$tmp_query in the provided <CONCEPT> table.\nPlease use the flag <--ohdsi-db> to enable searching at Athena-OHDSI database\n"
+"Could not find the concept_id:<$tmp_query> in the provided <CONCEPT> table.\nPlease use the flag <--ohdsi-db> to enable searching at Athena-OHDSI database\n"
       if ( $ontology eq 'ohdsi' && !$self->{ohdsi_db} );
 
     # Perform query
@@ -95,7 +95,7 @@ sub map_ontology {
     # Add result to global $seen
     $seen->{$tmp_query} = { id => $id, label => $label };    # global
 
-    # id and label come from <db> _label is the original string (can change on partial matches)
+# id and label come from <db> _label is the original string (can change on partial matches)
     return $print_hidden_labels
       ? { id => $id, label => $label, _label => $tmp_query }
       : { id => $id, label => $label };
@@ -117,10 +117,10 @@ sub dotify_and_coerce_number {
 
 sub iso8601_time {
 
-    # Standard modules (gmtime()===>Coordinated Universal Time(UTC))
-    # NB: The T separates the date portion from the time-of-day portion.
-    #     The Z on the end means UTC (that is, an offset-from-UTC of zero hours-minutes-seconds).
-    #     - The Z is pronounced “Zulu”.
+# Standard modules (gmtime()===>Coordinated Universal Time(UTC))
+# NB: The T separates the date portion from the time-of-day portion.
+#     The Z on the end means UTC (that is, an offset-from-UTC of zero hours-minutes-seconds).
+#     - The Z is pronounced “Zulu”.
     my $now = time();
     return strftime( '%Y-%m-%dT%H:%M:%SZ', gmtime($now) );
 }
@@ -141,7 +141,10 @@ sub map_reference_range {
     my $redcap_dic = $arg->{redcap_dic};
     my $unit       = $arg->{unit};
     my %hash = ( low => 'Text Validation Min', high => 'Text Validation Max' );
-    my $hashref = { unit => $unit, map { $_ => undef } qw(low high) };    # Initialize low,high to undef
+    my $hashref = {
+        unit => $unit,
+        map { $_ => undef } qw(low high)
+    };    # Initialize low,high to undef
     for my $range (qw (low high)) {
         $hashref->{$range} =
           dotify_and_coerce_number( $redcap_dic->{$field}{ $hash{$range} } );
@@ -153,7 +156,7 @@ sub map_reference_range {
 sub map_age_range {
 
     my $str = shift;
-    $str =~ s/\+/-9999/;                                                  #60+#
+    $str =~ s/\+/-9999/;    #60+#
     my ( $start, $end ) = split /\-/, $str;
 
     return {
@@ -228,7 +231,7 @@ sub convert2boolean {
     return
         ( $val eq 'true'  || $val eq 'yes' ) ? JSON::XS::true
       : ( $val eq 'false' || $val eq 'no' )  ? JSON::XS::false
-      :                                        undef;            # unknown = undef
+      :                                        undef;          # unknown = undef
 
 }
 
@@ -284,7 +287,10 @@ sub map_operator_concept_id {
 
     # Only for GT || LT
     if ( exists $operator_concept_id{$id} ) {
-        $hashref = { unit => $unit, map { $_ => undef } qw(low high) };    # Initialize low,high to undef
+        $hashref = {
+            unit => $unit,
+            map { $_ => undef } qw(low high)
+        };    # Initialize low,high to undef
         if ( $operator_concept_id{$id} eq 'GT' ) {
             $hashref->{high} = dotify_and_coerce_number($val);
         }
@@ -315,7 +321,7 @@ sub map_info_field {
             $hashref->{$_} = dotify_and_coerce_number( $field->{$_} );
         }
         else {
-            $hashref->{$_} = undef; # Note that <""> will become <null>
+            $hashref->{$_} = undef;    # Note that <""> will become <null>
         }
     }
     return $hashref;

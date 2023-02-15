@@ -24,7 +24,7 @@ use Convert::Pheno::CDISC;
 use Convert::Pheno::REDCap;
 
 use Exporter 'import';
-our @EXPORT = qw($VERSION io_yaml_or_json);    # Symbols imported by default
+our @EXPORT = qw($VERSION io_yaml_or_json omop2bff_stream_processing);    # Symbols imported by default
 
 #our @EXPORT_OK = qw(foo bar);       # Symbols imported by request
 
@@ -33,45 +33,47 @@ use constant DEVEL_MODE => 0;
 # Global variables:
 our $VERSION = '0.0.0_alpha';
 
-######################################
-# Declaring attributes for the class #
-######################################
+############################################
+# Start declaring attributes for the class #
+############################################
 
 # Complex defaults here
 has search => (
 
     #default => 'exact',
-    is      => 'ro',
-    coerce  => sub { defined $_[0] ? $_[0] : 'exact' },
-    isa     => Enum[qw(exact mixed)]
+    is     => 'ro',
+    coerce => sub { defined $_[0] ? $_[0] : 'exact' },
+    isa    => Enum [qw(exact mixed)]
 );
 
 has text_similarity_method => (
 
     #default => 'cosine',
-    is      => 'ro',
-    coerce  => sub { defined $_[0] ? $_[0] : 'cosine' },
-    isa     => Enum[qw(cosine dice)]
+    is     => 'ro',
+    coerce => sub { defined $_[0] ? $_[0] : 'cosine' },
+    isa    => Enum [qw(cosine dice)]
 );
 
 has min_text_similarity_score => (
 
     #default => 0.8,
-    is      => 'ro',
-    coerce  => sub { defined $_[0] ? $_[0] : 0.8 },
-    isa     => sub {
+    is     => 'ro',
+    coerce => sub { defined $_[0] ? $_[0] : 0.8 },
+    isa    => sub {
         die "Only values between 0 .. 1 supported!"
           unless ( $_[0] >= 0.0 && $_[0] <= 1.0 );
     }
 );
 
 has username => (
+
     # Strings from GetOptions will get 'default' values OK
     default => ( $ENV{LOGNAME} || $ENV{USER} || getpwuid($<) ),
     is      => 'ro'
-    # :-/
-    # # Undef will bypass default and Str will complain when undef
-    #isa     => Str|Undef
+
+      # :-/
+      # # Undef will bypass default and Str will complain when undef
+      #isa     => Str|Undef
 );
 
 has max_lines_sql => (
@@ -83,13 +85,14 @@ has max_lines_sql => (
 
 has omop_tables => (
 
-    # Tables <CONCEPT> and <PERSON> are always required
-    coerce  => sub {
+    # Table <CONCEPT> is always required
+    coerce => sub {
         @{ $_[0] }
-          ? $_[0] = [ map { uc($_)} (uniq( @{ $_[0] }, 'CONCEPT', 'PERSON' )) ]
+          ? $_[0] =
+          [ map { uc($_) } ( uniq( @{ $_[0] }, 'CONCEPT', 'PERSON' ) ) ]
           : \@omop_essential_tables;
     },
-    is => 'ro',
+    is  => 'rw',
     isa => ArrayRef
 );
 
@@ -102,8 +105,12 @@ has [qw /stream/] => ( default => 1, is => 'ro' );
 has [qw /in_files/] => ( default => sub { [] }, is => 'ro' );
 
 has [
-    qw /data out_dir in_textfile in_file method sep sql2csv redcap_dictionary mapping_file schema_file debug log verbose/
+    qw /out_file data out_dir in_textfile in_file method sep sql2csv redcap_dictionary mapping_file schema_file debug log verbose/
 ] => ( is => 'rw' );
+
+##########################################
+# End declaring attributes for the class #
+##########################################
 
 # NB: In general, we'll only display terms that exist and have content
 
@@ -246,8 +253,8 @@ sub omop2bff {
     #         Solutions:
     #           a) Yep, we read <CONCEPT> and <PERSON> and export the needed tables to CSV and go from there.
     #           b) Nope, we read PostgreSQL file twice, one time to load <CONCEPT> and <PERSON> and the second time to load the remaining TABLES.
-    #     3 - In --stream mode, do we still allow for --sql2csv?
-    #           We would need to go from functional mode (csv) to filehandlesi and it will take tons of space.
+    #     3 - In --stream mode, do we still allow for --sql2csv? NOPE !!!!
+    #           We would need to go from functional mode (csv) to filehandles and it will take tons of space.
     #           Then, --stream and -sql2csv are mutually exclusive.
     #
     # Additional info:
@@ -255,9 +262,12 @@ sub omop2bff {
     # regardless of wheter they are concepts or truly records.
     # Dictionaries (e.g. <CONCEPT>) will be parsed latter from $data
 
-    # Check if data comes from variable or from file
+    # Load variables
     my $data;
+    my $prev_omop_tables = $self->{omop_tables};
+    my $filename;
 
+    # Check if data comes from variable or from file
     # Variable
     if ( exists $self->{data} ) {
         $data = $self->{data};
@@ -268,21 +278,45 @@ sub omop2bff {
 
         # Read and load data from OMOP-CDM export
         # First we need to know if we have PostgreSQL dump or a bunch of csv
+
+        # File extensions to check
         my @exts = qw(.csv .tsv .sql);
         for my $file ( @{ $self->{in_files} } ) {
             my ( $table_name, undef, $ext ) = fileparse( $file, @exts );
             if ( $ext eq '.sql' ) {
 
-                # We'll load all OMOP tables ('main' and 'extra') as long as they're not empty
-                $data = read_sqldump( $file, $self );
-                sqldump2csv( $data, $self->{out_dir} ) if $self->{sql2csv};
+                #######################
+                # Loading OMOP tables #
+                #######################
+
+                # --no-stream
+                if ( !$self->{stream} ) {
+                    $data = read_sqldump_no_stream( $file, $self );
+
+                    # Exporting to CSV if --sql2csv
+                    sqldump2csv( $data, $self->{out_dir} ) if $self->{sql2csv};
+                }
+
+                # --stream
+                else {
+
+                    # We'll still load <CONCEPT> and <PERSON> in RAM and the other tables as $fh
+                    $self->{omop_tables} = [qw/CONCEPT PERSON/];    # setter
+                    $data = read_sqldump_no_stream( $file, $self );
+                }
+
+                # We keep the filename for later
+                $filename = $file;
+
+                # Exit loop
                 last;
             }
             else {
 
-                # We'll load all OMOP tables (as CSV) as long they have a match in 'main' or 'extra'
-                warn "<$table_name> is not a valid table in OMOP-CDM"
-                  and next
+                # We'll load all OMOP tables that the user is providing as -iomop
+                # as long as they have a match in 'main' or 'extra'
+                # NB: --omop-tables has no effect
+                warn "<$table_name> is not a valid table in OMOP-CDM" and next
                   unless any { /^$table_name$/ }
                   ( @{ $omop_main_table->{$omop_version} },
                     @omop_extra_tables );    # global
@@ -303,13 +337,47 @@ sub omop2bff {
 
     # Now we need to perform a tranformation of the data where 'person_id' is one row of data
     # NB: Transformation is due ONLY IN $omop_main_table FIELDS, the rest of the tables are not used
-    $self->{data} = transpose_omop_data_structure($data);    # Dynamically adding attributes (setter)
+    # The transformormation is performed in --no-stream mode
+    $self->{data} =
+      $self->{stream} ? $data : transpose_omop_data_structure($data);    # Dynamically adding attributes (setter)
 
     # Giving some memory back to the system
     $data = undef;
 
-    # array_dispatcher will deal with JSON arrays
-    return array_dispatcher($self);
+    ############
+    # --stream #
+    ############
+    if ( $self->{stream} ) {
+
+        # Open connection to SQLite databases ONCE
+        open_connections_SQLite($self) if $self->{method} ne 'bff2pxf';
+
+        for my $table ( @{$prev_omop_tables} ) {
+            next if any { /^$table$/ } (qw(CONCEPT PERSON));
+            say "Processing...$table" if $self->{verbose};
+            $self->{omop_tables} = [$table];
+            read_sqldump_stream( $filename, $self );
+        }
+
+        # Close connections ONCE
+        close_connections_SQLite($self) unless $self->{method} eq 'bff2pxf';
+    }
+
+    ###############
+    # --no-stream #
+    ###############
+    else {
+        # array_dispatcher will deal with JSON arrays
+        return array_dispatcher($self);
+    }
+}
+
+sub omop2bff_stream_processing {
+
+    my ( $self, $data ) = @_;
+
+    # We have this subroutine here because the class was initiated in Pheno.pm
+    return do_omop2bff( $self, $data );    # Method
 }
 
 ##############

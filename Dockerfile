@@ -21,5 +21,14 @@ RUN cpanm --installdeps .
 WORKDIR ex/pyperler
 RUN make install 2> install.log
 
+# Add user "dockeruser"
+ARG UID=1000
+ARG GID=1000
+
+RUN groupadd -g "${GID}" dockeruser \
+  && useradd --create-home --no-log-init -u "${UID}" -g "${GID}" dockeruser
+
+USER dockeruser
+
 # Get back to entry dir
 WORKDIR /usr/share/convert-pheno

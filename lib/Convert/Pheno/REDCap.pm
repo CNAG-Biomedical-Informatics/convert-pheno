@@ -27,20 +27,20 @@ sub do_redcap2bff {
     ##############################
     # <Variable> names in REDCap #
     ##############################
-    #
-    # REDCap does not enforce any particular "Variable" name.
-    # Extracted from https://www.ctsi.ufl.edu/wordpress/files/2019/02/Project-Creation-User-Guide.pdf
-    # ---
-    # "Variable Names: Variable names are critical in the data analysis process. If you export your data to a
-    # statistical software program, the variable names are what you or your statistician will use to conduct
-    # the analysis"
-    #
-    # "We always recommend reviewing your variable names with a statistician or whoever will be
-    # analyzing your data. This is especially important if this is the first time you are building a
-    # database"
-    #---
-    # If "Variable" names are not consensuated, then we need to do the mapping manually "a posteriori".
-    # This is what we are attempting here:
+#
+# REDCap does not enforce any particular "Variable" name.
+# Extracted from https://www.ctsi.ufl.edu/wordpress/files/2019/02/Project-Creation-User-Guide.pdf
+# ---
+# "Variable Names: Variable names are critical in the data analysis process. If you export your data to a
+# statistical software program, the variable names are what you or your statistician will use to conduct
+# the analysis"
+#
+# "We always recommend reviewing your variable names with a statistician or whoever will be
+# analyzing your data. This is especially important if this is the first time you are building a
+# database"
+#---
+# If "Variable" names are not consensuated, then we need to do the mapping manually "a posteriori".
+# This is what we are attempting here:
 
     ####################################
     # START MAPPING TO BEACON V2 TERMS #
@@ -76,7 +76,7 @@ sub do_redcap2bff {
     if ( exists $participant->{$sex_field} && $participant->{$sex_field} ne '' )
     {
         $self->{_info}{ $participant->{study_id} }{$sex_field} =
-          $participant->{$sex_field};    # Dynamically adding attributes (setter)
+          $participant->{$sex_field};   # Dynamically adding attributes (setter)
     }
     $participant->{$sex_field} =
       $self->{_info}{ $participant->{$studyId_field} }{$sex_field};
@@ -100,11 +100,11 @@ sub do_redcap2bff {
     # Variable that will allows to perform adhoc changes for some projects
     my $project_id = $mapping_file->{project}{id};
 
-    # **********************
-    # *** IMPORTANT STEP ***
-    # **********************
-    # Load the main ontology for the project
-    # <sex> and <ethnicity> project_ontology are fixed (can't be changed granulary)
+ # **********************
+ # *** IMPORTANT STEP ***
+ # **********************
+ # Load the main ontology for the project
+ # <sex> and <ethnicity> project_ontology are fixed (can't be changed granulary)
 
     my $project_ontology = $mapping_file->{project}{ontology};
 
@@ -207,7 +207,8 @@ sub do_redcap2bff {
     #$individual->{exposures} = undef;
     my @exposures_fields = @{ $mapping_file->{exposures}{fields} };
     my %exposures_dict   = %{ $mapping_file->{exposures}{dict} };
-    my $exposures_radio  = $mapping_file->{exposures}{radio};         # DELIBERATE -- hashref instead of hash
+    my $exposures_radio =
+      $mapping_file->{exposures}{radio}; # DELIBERATE -- hashref instead of hash
     my $exposures_ontology =
       exists $mapping_file->{exposures}{ontology}
       ? $mapping_file->{exposures}{ontology}
@@ -503,9 +504,9 @@ sub do_redcap2bff {
             && $participant->{$field} == 1 )
         {
 
-            #$phenotypicFeature->{evidence} = undef;    # P32Y6M1D
-            #$phenotypicFeature->{excluded} =
-            #  { quantity => { unit => { id => '', label => '' }, value => undef } };
+       #$phenotypicFeature->{evidence} = undef;    # P32Y6M1D
+       #$phenotypicFeature->{excluded} =
+       #  { quantity => { unit => { id => '', label => '' }, value => undef } };
             $phenotypicFeature->{featureType} = map_ontology(
                 {
                     query    => $field =~ m/comorb/ ? 'Comorbidity' : $field,
@@ -618,7 +619,9 @@ sub do_redcap2bff {
             $treatment->{doseIntervals}         = [];
             $treatment->{routeOfAdministration} = map_ontology(
                 {
-                    query    => ucfirst($route) . ' Route of Administration',  # Oral Route of Administration
+                    query => ucfirst($route)
+                      . ' Route of Administration'
+                    ,    # Oral Route of Administration
                     column   => 'label',
                     ontology => $treatments_ontology,
                     self     => $self
