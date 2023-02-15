@@ -65,7 +65,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
        -search                        Type of search [>exact|mixed]
        -svs|self-validate-schema      Perform a self-validation of the JSON schema that defines mapping
        -sep|separator                 Delimiter character for CSV files
-       -stream                        Stream results (to be used with -iomop huge PosgreSQL dumps) [>no-stream|stream]
+       -stream                        Stream results (to be used with -iomop and PosgreSQL dumps) [>no-stream|stream]
        -sql2csv                       Print SQL TABLES (only valid with -iomop). Mutually exclusive with --stream
        -test                          Does not print time-changing-events (useful for file-based cmp)
        -text-similarity-method        The method used to compare values to DB [>cosine|dice]

@@ -103,7 +103,7 @@ pod2usage(
 pod2usage(
     -message => "The flag <--stream> is only valid with <.sql> dumps)\n",
     -exitval => 1
-) if ( $stream  && !~ m/\.sql/i  );
+) if ( $stream  && $omop_files[0] !~ m/\.sql/i  );
 pod2usage(
     -message =>
 "The flags <--stream> and <--sql2csv> are mutually exclusive.\nIf you are using <--stream> is because you are likely processing huge files and we don't want to duplicate them in your HDD\n",
@@ -311,7 +311,7 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
        -search                        Type of search [>exact|mixed]
        -svs|self-validate-schema      Perform a self-validation of the JSON schema that defines mapping
        -sep|separator                 Delimiter character for CSV files
-       -stream                        Stream results (to be used with -iomop huge PosgreSQL dumps) [>no-stream|stream]
+       -stream                        Stream results (to be used with -iomop and PosgreSQL dumps) [>no-stream|stream]
        -sql2csv                       Print SQL TABLES (only valid with -iomop). Mutually exclusive with --stream
        -test                          Does not print time-changing-events (useful for file-based cmp)
        -text-similarity-method        The method used to compare values to DB [>cosine|dice]
