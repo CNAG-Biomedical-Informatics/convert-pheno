@@ -197,6 +197,9 @@ sub read_sqldump_stream {
 
             # Initialize $data each time
             # Adding them as an array element (AoH)
+            die
+"We could not find person_id:$tmp_hash{person_id}. Try increasing the #lines with --max-lines-sql\n"
+              unless exists $person->{ $tmp_hash{person_id} };
             my $data = {
                 $table_name => [ {%tmp_hash} ],
                 PERSON      => $person->{ $tmp_hash{person_id} }
@@ -218,13 +221,13 @@ sub read_sqldump_no_stream {
 
     my ( $file, $self ) = @_;
 
-# Before resorting to writting this subroutine I performed an exhaustive search on CPAN:
-# - Tested MySQL::Dump::Parser::XS but I could not make it work...
-# - App-MysqlUtils-0.022 has a CLI utility (mysql-sql-dump-extract-tables)
-# - Of course one can always use *nix tools (sed, grep, awk, etc) or other programming languages....
-# Anyway, I ended up writting the parser myself...
-# The parser is based in reading COPY paragraphs from PostgreSQL dump by using Perl's paragraph mode  $/ = "";
-# NB: Each paragraph (TABLE) is loaded into memory. Not great for large files.
+    # Before resorting to writting this subroutine I performed an exhaustive search on CPAN:
+    # - Tested MySQL::Dump::Parser::XS but I could not make it work...
+    # - App-MysqlUtils-0.022 has a CLI utility (mysql-sql-dump-extract-tables)
+    # - Of course one can always use *nix tools (sed, grep, awk, etc) or other programming languages....
+    # Anyway, I ended up writting the parser myself...
+    # The parser is based in reading COPY paragraphs from PostgreSQL dump by using Perl's paragraph mode  $/ = "";
+    # NB: Each paragraph (TABLE) is loaded into memory. Not great for large files.
 
     # Define variables that modify what we load
     my $max_lines_sql = $self->{max_lines_sql};
@@ -233,9 +236,9 @@ sub read_sqldump_no_stream {
     # Set record separator to paragraph
     local $/ = "";
 
-#COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, attribute_description, attribute_type_concept_id, attribute_syntax) FROM stdin;
-# ......
-# \.
+    #COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, attribute_description, attribute_type_concept_id, attribute_syntax) FROM stdin;
+    # ......
+    # \.
 
     # Start reading the SQL dump
     open my $fh, '<:encoding(utf-8)', $file;
@@ -254,8 +257,8 @@ sub read_sqldump_no_stream {
         next unless scalar @lines > 2;
         pop @lines;    # last line eq '\.'
 
-# First line contains the headers
-#COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, ..., attribute_syntax) FROM stdin;
+        # First line contains the headers
+        #COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, ..., attribute_syntax) FROM stdin;
         $lines[0] =~ s/[\(\),]//g;    # getting rid of (),
         my @headers = split /\s+/, $lines[0];
         my $table_name =
@@ -372,35 +375,35 @@ sub transpose_omop_data_structure {
     #                      ]
     #        };
 
-# where all 'person_id' are together inside the TABLE_NAME.
-# But, BFF "ideally" works at the individual level so we are going to
-# transpose the data structure to end up into something like this
-# NB: MEASUREMENT and OBSERVATION (among others, i.e., CONDITION_OCCURRENCE, PROCEDURE_OCCURRENCE)
-#     can have multiple values for one 'person_id' so they will be loaded as arrays
-#
-#
-#$VAR1 = {
-#          '001' => {
-#                     'PERSON' => {
-#                                   'person_id' => '001'
-#                                 }
-#                   },
-#          '666' => {
-#                     'MEASUREMENT' => [
-#                                        {
-#                                          'measurement_concept_id' => '001',
-#                                          'person_id' => '666'
-#                                        },
-#                                        {
-#                                          'measurement_concept_id' => '002',
-#                                          'person_id' => '666'
-#                                        }
-#                                      ],
-#                     'PERSON' => {
-#                                   'person_id' => '666'
-#                                 }
-#                   }
-#        };
+    # where all 'person_id' are together inside the TABLE_NAME.
+    # But, BFF "ideally" works at the individual level so we are going to
+    # transpose the data structure to end up into something like this
+    # NB: MEASUREMENT and OBSERVATION (among others, i.e., CONDITION_OCCURRENCE, PROCEDURE_OCCURRENCE)
+    #     can have multiple values for one 'person_id' so they will be loaded as arrays
+    #
+    #
+    #$VAR1 = {
+    #          '001' => {
+    #                     'PERSON' => {
+    #                                   'person_id' => '001'
+    #                                 }
+    #                   },
+    #          '666' => {
+    #                     'MEASUREMENT' => [
+    #                                        {
+    #                                          'measurement_concept_id' => '001',
+    #                                          'person_id' => '666'
+    #                                        },
+    #                                        {
+    #                                          'measurement_concept_id' => '002',
+    #                                          'person_id' => '666'
+    #                                        }
+    #                                      ],
+    #                     'PERSON' => {
+    #                                   'person_id' => '666'
+    #                                 }
+    #                   }
+    #        };
 
     my $omop_person_id = {};
 
@@ -413,13 +416,12 @@ sub transpose_omop_data_structure {
 
                 # {person_id} can have multiple rows in a given table
                 if ( any { m/^$table$/ } @omop_array_tables ) {
-                    push @{ $omop_person_id->{$person_id}{$table} },
-                      $item;    # array
+                    push @{ $omop_person_id->{$person_id}{$table} }, $item;    # array
                 }
 
                 # {person_id} only has one value in a given TABLE
                 else {
-                    $omop_person_id->{$person_id}{$table} = $item;    # scalar
+                    $omop_person_id->{$person_id}{$table} = $item;             # scalar
                 }
             }
         }
