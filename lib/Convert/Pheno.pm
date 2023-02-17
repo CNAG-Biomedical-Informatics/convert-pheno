@@ -280,10 +280,12 @@ sub omop2bff {
         # First we need to know if we have PostgreSQL dump or a bunch of csv
 
         # File extensions to check
-        my @exts = qw(.csv .tsv .sql);
+        my @exts = map { $_, $_ . '.gz' } qw(.csv .tsv .sql);
+
+        # Proceed
         for my $file ( @{ $self->{in_files} } ) {
             my ( $table_name, undef, $ext ) = fileparse( $file, @exts );
-            if ( $ext eq '.sql' ) {
+            if ( $ext =~ m/\.sql/i ) {
 
                 #######################
                 # Loading OMOP tables #
@@ -291,7 +293,7 @@ sub omop2bff {
 
                 # --no-stream
                 if ( !$self->{stream} ) {
-                    $data = read_sqldump_no_stream( $file, $self );
+                    $data = read_sqldump( $file, $self );
 
                     # Exporting to CSV if --sql2csv
                     sqldump2csv( $data, $self->{out_dir} ) if $self->{sql2csv};
@@ -301,8 +303,8 @@ sub omop2bff {
                 else {
 
                     # We'll still load <CONCEPT> and <PERSON> in RAM and the other tables as $fh
-                    $self->{omop_tables} = [qw/CONCEPT PERSON/];    # setter
-                    $data = read_sqldump_no_stream( $file, $self );
+                    $self->{omop_tables} = [qw/CONCEPT PERSON/];           # setter
+                    $data = read_sqldump( $file, $self );
                 }
 
                 # We keep the filename for later

@@ -15,7 +15,7 @@ use Convert::Pheno::IO;
 use Convert::Pheno::Schema;
 use Exporter 'import';
 our @EXPORT =
-  qw(read_csv read_redcap_dic_and_mapping_file remap_ohdsi_dictionary read_sqldump_stream read_sqldump_no_stream  sqldump2csv transpose_omop_data_structure);
+  qw(read_csv read_redcap_dic_and_mapping_file remap_ohdsi_dictionary read_sqldump_stream read_sqldump  sqldump2csv transpose_omop_data_structure);
 
 #########################
 #########################
@@ -25,11 +25,11 @@ our @EXPORT =
 
 sub read_redcap_dictionary {
 
-    my $in_file = shift;
+    my $filepath = shift;
 
     # Define split record separator from file extension
     my @exts = qw(.csv .tsv .txt);
-    my ( undef, undef, $ext ) = fileparse( $in_file, @exts );
+    my ( undef, undef, $ext ) = fileparse( $filepath, @exts );
 
     # Defining separator
     my $separator =
@@ -46,7 +46,7 @@ sub read_redcap_dictionary {
     # NB: We want HoH and sub read_csv returns AoH
     # Loading data directly from Text::CSV_XS
     my $hoh = csv(
-        in       => $in_file,
+        in       => $filepath,
         sep_char => $separator,
 
         #binary    => 1, # default
@@ -150,24 +150,29 @@ sub remap_ohdsi_dictionary {
 
 sub read_sqldump_stream {
 
-    my ( $file, $self ) = @_;
-    my $switch = 0;
+    my ( $filein, $self ) = @_;
+    my $fileout = $self->{out_file};
+    my $switch  = 0;
     my @headers;
     my $table_name    = $self->{omop_tables}[0];
     my $table_name_lc = lc($table_name);
-    open( my $fh_in,  '<', $file );
-    open( my $fh_out, ">", $self->{out_file} );
 
-    #say $fh_out "[";
-
-    # First we do a transformation from array to hash to speed up calculation
+    # First we do a transformation from AoH to HoH to speed up the calculation
     my $person = { map { $_->{person_id} => $_ } @{ $self->{data}{PERSON} } };
 
-    # No we we start processing line by line
+    # Open filehandles
+    my $fh_in = open_file($filein, 'r');
+    my $fh_out = open_file($fileout, 'w');
+
+    # Start printing the array
+    #say $fh_out "[";
+
+    # Now we we start processing line by line
+    my $count = 0;
     while ( my $line = <$fh_in> ) {
         chomp $line;
 
-        # Parsing $table_name_lc
+        # Only parsing $table_name_lc and discarding others
         if ( $line =~ /^COPY \"(\w+)\"\.$table_name_lc / ) {
 
             # Create an array to hold the column names for this table
@@ -176,13 +181,16 @@ sub read_sqldump_stream {
 
             # Discarding headers which are not terms/variables
             @headers = @headers[ 2 .. $#headers - 2 ];
-            $switch++;
-            $line = <$fh_in>;         #jump one line
-            chomp $line;              # Otherwise it will have \n
 
+            # Turning on the switch for later
+            $switch++;
+
+            # Jump one line and get rid of \n
+            $line = <$fh_in>;
+            chomp $line;
         }
 
-        # Loading the data
+        # Loading the data if $switch
         if ($switch) {
 
             # Order matters. We exit before loading
@@ -191,35 +199,52 @@ sub read_sqldump_stream {
             # Solitting by tab, it's ok
             my @fields = split /\t/, $line;
 
-            # Using tmp hash to load all fields at once
-            my %tmp_hash;
-            @tmp_hash{@headers} = @fields;
+            # Using tmp hashref to load all fields at once with slice
+            my $tmp_hash;
+            @{$tmp_hash}{@headers} = @fields;
 
             # Initialize $data each time
             # Adding them as an array element (AoH)
             die
-"We could not find person_id:$tmp_hash{person_id}. Try increasing the #lines with --max-lines-sql\n"
-              unless exists $person->{ $tmp_hash{person_id} };
+"We could not find person_id:$tmp_hash->{person_id}. Try increasing the #lines with --max-lines-sql\n"
+              unless exists $person->{ $tmp_hash->{person_id} };
+
+            # Increase counter
+            $count++;
+
+            # Load data.
+            # IMPORTANT === We only print person_id ONCE!!!
             my $data = {
-                $table_name => [ {%tmp_hash} ],
-                PERSON      => $person->{ $tmp_hash{person_id} }
+                $table_name => [$tmp_hash],
+                PERSON      => $count == 1
+                ? $person->{ $tmp_hash->{person_id} }
+                : {
+                    map { $_ => $person->{ $tmp_hash->{person_id} }{$_} }
+                      qw(person_id gender_concept_id birth_datetime)
+                }
             };
 
             # Print line by line
             say $fh_out JSON::XS->new->utf8->canonical->encode(
                 Convert::Pheno::omop2bff_stream_processing( $self, $data ) );
+
+            # Print if verbose
+            say "Rows processed: $count"
+              if ( $self->{verbose} && $count % 5_000 == 0 );
         }
     }
 
     #say $fh_out "]"; # not needed
+
+    # Closing filehandles
     close $fh_in;
     close $fh_out;
     return 1;
 }
 
-sub read_sqldump_no_stream {
+sub read_sqldump {
 
-    my ( $file, $self ) = @_;
+    my ( $filepath, $self ) = @_;
 
     # Before resorting to writting this subroutine I performed an exhaustive search on CPAN:
     # - Tested MySQL::Dump::Parser::XS but I could not make it work...
@@ -241,7 +266,7 @@ sub read_sqldump_no_stream {
     # \.
 
     # Start reading the SQL dump
-    open my $fh, '<:encoding(utf-8)', $file;
+    my $fh = open_file($filepath, 'r');
 
     # We'll store the data in the hashref $data
     my $data = {};
@@ -304,17 +329,18 @@ sub read_sqldump_no_stream {
             #           ]
             #         };
 
-            # Using tmp hash to load all fields at once
-            my %tmp_hash;
-            @tmp_hash{@headers} = @fields;
+            # Using tmp hashref to load all fields at once with slice
+            my $tmp_hash;
+            @{$tmp_hash}{@headers} = @fields;
 
             # Adding them as an array element (AoH)
-            push @{ $data->{$table_name} }, {%tmp_hash};
+            push @{ $data->{$table_name} }, $tmp_hash;
 
             # adhoc filter to speed-up development
             last if $count == $max_lines_sql;
         }
     }
+    close $fh;
     return $data;
 }
 
@@ -460,12 +486,12 @@ sub transpose_omop_data_structure {
 sub read_csv {
 
     my $arg     = shift;
-    my $in_file = $arg->{in};
+    my $filepath = $arg->{in};
     my $sep     = $arg->{sep};
 
     # Define split record separator from file extension
     my @exts = qw(.csv .tsv .txt);
-    my ( undef, undef, $ext ) = fileparse( $in_file, @exts );
+    my ( undef, undef, $ext ) = fileparse( $filepath, @exts );
 
     # Defining separator character
     my $separator =
@@ -475,10 +501,10 @@ sub read_csv {
       : $ext eq '.tsv' ? "\t"
       :                  "\t";
 
-    # Transform $in_file into an AoH
+    # Transform $filepath into an AoH
     # Using Text::CSV_XS functional interface
     my $aoh = csv(
-        in       => $in_file,
+        in       => $filepath,
         sep_char => $separator,
         headers  => "auto",
 
@@ -520,5 +546,25 @@ sub print_csv {
         headers  => $arg->{headers}
     );
     return 1;
+}
+
+sub open_file {
+
+ my ($filepath, $mode) = @_;
+ my $diamond = $mode eq 'w' ? '>' : '<';
+ my $fh;
+
+ # To avoid issues with ZIP layers we use gzip to rw gz files
+    # See: https://perldoc.perl.org/IO::Compress::FAQ
+    #      https://www.biostars.org/p/94240/
+    #open my $fh_in, '-|', 'zcat', $filein;
+
+    if ( $filepath =~ /\.gz$/ ) {
+        open $fh, qq($diamond:gzip:encoding(utf-8)), $filepath;
+    }
+    else {
+        open $fh, qq($diamond:encoding(utf-8)), $filepath;
+    }
+  return $fh;
 }
 1;

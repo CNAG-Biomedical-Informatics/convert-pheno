@@ -65,7 +65,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
        -search                        Type of search [>exact|mixed]
        -svs|self-validate-schema      Perform a self-validation of the JSON schema that defines mapping
        -sep|separator                 Delimiter character for CSV files
-       -stream                        Stream results (to be used with -iomop and PosgreSQL dumps) [>no-stream|stream]
+       -stream                        Enable incremental processing with -iomop. I/O files can also be .gz [>no-stream|stream]
        -sql2csv                       Print SQL TABLES (only valid with -iomop). Mutually exclusive with --stream
        -test                          Does not print time-changing-events (useful for file-based cmp)
        -text-similarity-method        The method used to compare values to DB [>cosine|dice]
@@ -118,8 +118,9 @@ To enter:
 
 The command-line executable can be found at:
 
-     /usr/share/convert-pheno/bin/convert-pheno
-    
+    /usr/share/convert-pheno/bin/convert-pheno
+
+The default container user is named `dockeruser`.
 
 Alternatively, you can use `make` to perform all the previous steps:
 
@@ -169,8 +170,8 @@ Now you have two choose between one of the 2 options below:
 
     * Ideally a Debian-based distribution (Ubuntu or Mint), but any other (e.g., CentOs, OpenSuse) should do as well.
     * Perl 5 (>= 5.10 core; installed by default in most Linux distributions). Check the version with "perl -v"
-    * 1GB of RAM.
-    * 1 core (it only uses one core per job).
+    * 4GB of RAM.
+    * 1 core
     * At least 16GB HDD.
 
 See note about RAM memory below.
@@ -199,6 +200,8 @@ For executing convert-pheno you will need:
 
     $ $path/convert-pheno -iomop dump.sql -obff individuals.json 
 
+    $ $path/convert-pheno -iomop dump.sql.gz -obff individuals.json.gz --stream -omop-tables measurement
+
     $ $path/convert-pheno -cdisc cdisc_odm.xml -obff individuals.json --rcd redcap_dict.csv --mapping-file mapping_file.yaml --search mixed --min-text-similarity-score 0.6
 
     $ $path/convert-pheno -iomop *csv -obff individuals.json -sep ','
@@ -206,10 +209,6 @@ For executing convert-pheno you will need:
     $ carton exec -- $path/convert-pheno -ibff individuals.json -opxf phenopackets.json # If using Carton
 
 ## COMMON ERRORS AND SOLUTIONS
-
-Please be aware that we are reading input files and storing them in RAM memory (we do not use streams).
-We never encountered such case, but it may become an issue if your file > 1GB and you do not have enough RAM memory.
-One simple solution is to split the input file in many.
 
     * Error message: CSV_XS ERROR: 2023 - EIQ - QUO character not allowed @ rec 1 pos 21 field 1
       Solution: Make sure you use the right character separator for your data. The script tries to guess it from the file extension (e.g. comma for csv), but sometimes extension and actual separator do not match.

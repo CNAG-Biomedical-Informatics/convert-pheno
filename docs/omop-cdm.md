@@ -17,7 +17,9 @@ OMOP-CDM databases are typically implemented as PostgreSQL instances. Based on o
 
     When using the `convert-pheno` command-line interface, simply ensure the [correct syntax](https://github.com/mrueda/convert-pheno#synopsis) is provided.
 
-    === "Small to medium-sized files (<1GB)"
+    === "Small to medium-sized files (<500K rows)"
+
+        #### All tables at once
 
         Usage:
 
@@ -25,7 +27,9 @@ OMOP-CDM databases are typically implemented as PostgreSQL instances. Based on o
         convert-pheno -iomop omop_dump.sql -obff individuals.json
         ```
 
-        It is possible to convert specific tables. For instance, in case you only want to convert `MEASUREMENT` table use the option `--omop-tables`. The option accepts a list of tables (case insensitive) separated by spaces:
+        #### Selected table(s)
+
+        It is possible to convert selected tables. For instance, in case you only want to convert `MEASUREMENT` table use the option `--omop-tables`. The option accepts a list of tables (case insensitive) separated by spaces:
 
 
         !!! Warning "About tables `CONCEPT` and `PERSON`"
@@ -35,50 +39,53 @@ OMOP-CDM databases are typically implemented as PostgreSQL instances. Based on o
         convert-pheno -iomop omop_dump.sql -obff individuals.json --omop-tables MEASUREMENT
         ```
 
-        In some cases, your `CONCEPT` table may not contain all posible standard concepts. In this case, you can use the flag `--ohdsi-db` that will check an internal database whenever the `concept_id` can not be found inside your `CONCEPT` table.
+        Using this approach you will be able to submit multiple jobs in **parallel**.
 
-        ```
-        convert-pheno -iomop omop_dump.sql -obff individuals_measurement.json --omop-tables MEASUREMENT --ohdsi-db
-        ```
+        !!! Question  "What if my `CONCEPT` does not contain all standard `concept_id`"
+
+            In this case, you can use the flag `--ohdsi-db` that will enable checking an internal database whenever the `concept_id` can not be found inside your `CONCEPT` table.
+
+            ```
+            convert-pheno -iomop omop_dump.sql -obff individuals_measurement.json --omop-tables MEASUREMENT --ohdsi-db
+            ```
 
         !!! Danger "RAM memory usage when merging rows by atribute `person_id`"
             When working with `-iomop` and `--no-stream` (default), `Convert-Pheno` will consolidate all the values corresponding to a given `person_id` under the same object. In order to do this, we need to store all data in the **RAM** memory. The reason for storing the data in RAM is because the rows are **not adjacent** (they are not pre-sorted by `person_id`) and can originate from **distinct tables**.
 
+            Number of Rows | Estimated RAM memory |
+                   :---:     |   :---:
+                    100K   | 1GB
+                    500K   | 5GB
+                    1M     | 10GB
+             
+
             If your computer only has 4GB-8GB of RAM and you plan to convert **large files** we recommend you to use the flag `--stream` which will process your tables **incrementally** (i.e.,line-by-line), instead of loading them into memory. 
 
         
-    === "Large files (>1GB)"
+    === "Large files (>500K rows)"
 
+        For large files, `Convert-Pheno` allows for a different approach. The files can be parsed incrementally and serialized (printed) line-by-line.
 
-        #### CSV
+        To choose incremental data processing we'll be using the flag `--stream`. Both the input and output files files can be gzipped to save space:
 
-        We recommend running one table at a time in **parallel**. If you exceed the amount of RAM, try splitting your CSV tables in chunks.
-
-        ```
-        convert-pheno -iomop omop_dump.sql -obff individuals.json --omop-tables MEASUREMENT
-        ```
-
-
-        #### SQL exports
-
-        For large SQL exports, `Convert-Pheno` takes a different approach. The files will be parsed incrementally incrementally and serialize it (print it) line-by-line.
-
-        To choose incremental data processing we'll be using the flag `--stream`:
+        #### All tables at once
 
         ```
-        convert-pheno -iomop omop_dump.sql -obff individuals.json --stream
+        convert-pheno -iomop omop_dump.sql.gz -obff individuals.json.gz --stream
         ```
 
-        You can narrow down the selection to a given table(s). This will come in handy to run jobs in **parallel**.
+        #### Selected table(s)
+
+        You can narrow down the selection to a set of table(s). This will come in handy to run jobs in **parallel**.
 
         !!! Warning "About tables `CONCEPT` and `PERSON`"
             Tables `CONCEPT` and `PERSON` are always loaded as they're needed for the conversion. You don't need to specify them.
 
         ```
-        convert-pheno -iomop omop_dump.sql -obff individuals_measurement.json --omop-tables MEASUREMENT --stream
+        convert-pheno -iomop omop_dump.sql.gz -obff individuals_measurement.json.gz --omop-tables MEASUREMENT --stream
         ```
 
-        This way you will end-up with a bunch of `JSON` files instead of one. It's OK, as the files we're creating are **intermediate** files.
+        Running multiple jobs in stream mode will create -up with a bunch of `JSON` files instead of one. It's OK, as the files we're creating are **intermediate** files.
 
         !!! Danger "_Pros_ and _Cons_ of incremental data load"
             Incremental data load facilitates the processing of huge files. The only substantive difference compared to the `--no-stream` mode is that the data will not be consolidated at the patient or individual level, which is merely a **cosmetic concern**. Ultimately, the data will be loaded into a **database**, such as _MongoDB_, where the linking of data through keys can be managed. In most cases, the implementation of a pre-built API, such as the one described in the [B2RI documentation](https://b2ri-documentation.readthedocs.io/en/latest), will be added to further enhance the functionality.
@@ -88,9 +95,11 @@ OMOP-CDM databases are typically implemented as PostgreSQL instances. Based on o
         !!! Tip "About Parallelization"
             `Convert-Pheno` has been optimized for speed, and, in general the CLI results are generated almost immediatly. For instance, all tests with synthetic data take less than a second of a few seconds to complete. It should be noted that the speed of the results depends on the performance of the CPU and disk speed. If `Convert-Pheno` must retrieve ontologies from a database to annotate the data, the process may take longer.
 
-            The calculation is I/O limited and using internal [threads](https://en.wikipedia.org/wiki/Thread_(computing)) does not really speed up the calculation much. In any case, you can try running simultaneous jobs with external tools such as [GNU Parallel](https://www.gnu.org/software/parallel).
+            The calculation is I/O limited and using internal [threads](https://en.wikipedia.org/wiki/Thread_(computing)) (TO BE IMPLEMENTED) may not speed up the calculation a lot. 
 
-            As a final consideration, it is important to recall that pheno-clinical data conversions are executed only "once" and create **intermediate files**. If a large file has been converted, it is likely that the **performance bottleneck** will not occur within the `Convert-Pheno` software, but rather during the **ingestion phase in the database**.
+            Another valid option is to run simultaneous jobs with external tools such as [GNU Parallel](https://www.gnu.org/software/parallel).
+
+            As a final consideration, it is important to recall that pheno-clinical data conversions are executed only "once". The goal is obtaining **intermediate files** which will be later loaded into a database. If a large file has been converted, it is verly likely that the **performance bottleneck** will not occur at the `Convert-Pheno` step, but rather during the **database load**.
 
 === "Module"
 
