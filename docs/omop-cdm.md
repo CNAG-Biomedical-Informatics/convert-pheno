@@ -12,7 +12,6 @@ OMOP-CDM databases are typically implemented as PostgreSQL instances. Based on o
 !!! Hint "OMOP-CDM supported version(s)"
          We currently support **v5.4**. We have everything ready for supporting v6 once we are able to test the code with v6 projects.
 
-
 === "Command-line"
 
     When using the `convert-pheno` command-line interface, simply ensure the [correct syntax](https://github.com/mrueda/convert-pheno#synopsis) is provided.
@@ -30,7 +29,6 @@ OMOP-CDM databases are typically implemented as PostgreSQL instances. Based on o
         #### Selected table(s)
 
         It is possible to convert selected tables. For instance, in case you only want to convert `MEASUREMENT` table use the option `--omop-tables`. The option accepts a list of tables (case insensitive) separated by spaces:
-
 
         !!! Warning "About tables `CONCEPT` and `PERSON`"
             Tables `CONCEPT` and `PERSON` are always loaded as they're needed for the conversion. You don't need to specify them.
@@ -66,7 +64,10 @@ OMOP-CDM databases are typically implemented as PostgreSQL instances. Based on o
 
         For large files, `Convert-Pheno` allows for a different approach. The files can be parsed incrementally and serialized (printed) line-by-line.
 
-        To choose incremental data processing we'll be using the flag `--stream`. Both the input and output files files can be gzipped to save space:
+        To choose incremental data processing we'll be using the flag `--stream`:
+
+        !!! Warning " `--stream` mode supported output"
+            We only support output to BFF (`-obff`). Both the input and output files files can be gzipped to save space.
 
         #### All tables at once
 
@@ -76,7 +77,7 @@ OMOP-CDM databases are typically implemented as PostgreSQL instances. Based on o
 
         #### Selected table(s)
 
-        You can narrow down the selection to a set of table(s). This will come in handy to run jobs in **parallel**.
+        You can narrow down the selection to a set of table(s).
 
         !!! Warning "About tables `CONCEPT` and `PERSON`"
             Tables `CONCEPT` and `PERSON` are always loaded as they're needed for the conversion. You don't need to specify them.
@@ -95,9 +96,9 @@ OMOP-CDM databases are typically implemented as PostgreSQL instances. Based on o
         !!! Tip "About Parallelization"
             `Convert-Pheno` has been optimized for speed, and, in general the CLI results are generated almost immediatly. For instance, all tests with synthetic data take less than a second of a few seconds to complete. It should be noted that the speed of the results depends on the performance of the CPU and disk speed. If `Convert-Pheno` must retrieve ontologies from a database to annotate the data, the process may take longer.
 
-            The calculation is I/O limited and using internal [threads](https://en.wikipedia.org/wiki/Thread_(computing)) (TO BE IMPLEMENTED) may not speed up the calculation a lot. 
+            The calculation is I/O limited and using internal [threads](https://en.wikipedia.org/wiki/Thread_(computing)) **did not speed up** the calculation. 
 
-            Another valid option is to run simultaneous jobs with external tools such as [GNU Parallel](https://www.gnu.org/software/parallel).
+            Another valid option is to run simultaneous jobs with external tools such as [GNU Parallel](https://www.gnu.org/software/parallel), but keep in mind that **SQLite** database may complain.
 
             As a final consideration, it is important to recall that pheno-clinical data conversions are executed only "once". The goal is obtaining **intermediate files** which will be later loaded into a database. If a large file has been converted, it is verly likely that the **performance bottleneck** will not occur at the `Convert-Pheno` step, but rather during the **database load**.
 

@@ -9,13 +9,16 @@ use Text::CSV_XS          qw(csv);
 use Sort::Naturally       qw(nsort);
 use List::Util            qw(any);
 use File::Spec::Functions qw(catdir);
+use Parallel::ForkManager;
 use Convert::Pheno;
 use Convert::Pheno::OMOP;
 use Convert::Pheno::IO;
 use Convert::Pheno::Schema;
 use Exporter 'import';
 our @EXPORT =
-  qw(read_csv read_redcap_dic_and_mapping_file remap_ohdsi_dictionary read_sqldump_stream read_sqldump  sqldump2csv transpose_omop_data_structure);
+  qw(read_csv read_csv_stream read_redcap_dic_and_mapping_file remap_ohdsi_dictionary read_sqldump_stream read_sqldump  sqldump2csv transpose_omop_data_structure);
+
+use constant DEVEL_MODE => 0;
 
 #########################
 #########################
@@ -150,7 +153,9 @@ sub remap_ohdsi_dictionary {
 
 sub read_sqldump_stream {
 
-    my ( $filein, $self ) = @_;
+    my $arg     = shift;
+    my $filein  = $arg->{in};
+    my $self    = $arg->{self};
     my $fileout = $self->{out_file};
     my $switch  = 0;
     my @headers;
@@ -161,8 +166,8 @@ sub read_sqldump_stream {
     my $person = { map { $_->{person_id} => $_ } @{ $self->{data}{PERSON} } };
 
     # Open filehandles
-    my $fh_in = open_file($filein, 'r');
-    my $fh_out = open_file($fileout, 'w');
+    my $fh_in  = open_file( $filein,  'r' );
+    my $fh_out = open_file( $fileout, 'w' );
 
     # Start printing the array
     #say $fh_out "[";
@@ -186,8 +191,7 @@ sub read_sqldump_stream {
             $switch++;
 
             # Jump one line and get rid of \n
-            $line = <$fh_in>;
-            chomp $line;
+            chomp( $line = <$fh_in> );
         }
 
         # Loading the data if $switch
@@ -213,24 +217,12 @@ sub read_sqldump_stream {
             $count++;
 
             # Load data.
-            # IMPORTANT === We only print person_id ONCE!!!
-            my $data = {
-                $table_name => [$tmp_hash],
-                PERSON      => $count == 1
-                ? $person->{ $tmp_hash->{person_id} }
-                : {
-                    map { $_ => $person->{ $tmp_hash->{person_id} }{$_} }
-                      qw(person_id gender_concept_id birth_datetime)
-                }
-            };
-
-            # Print line by line
-            say $fh_out JSON::XS->new->utf8->canonical->encode(
-                Convert::Pheno::omop2bff_stream_processing( $self, $data ) );
+            say $fh_out encode_omop_stream( $table_name, $tmp_hash, $person,
+                $count, $self );
 
             # Print if verbose
             say "Rows processed: $count"
-              if ( $self->{verbose} && $count % 5_000 == 0 );
+              if ( $self->{verbose} && $count % 10_000 == 0 );
         }
     }
 
@@ -242,17 +234,39 @@ sub read_sqldump_stream {
     return 1;
 }
 
+sub encode_omop_stream {
+    my ( $table_name, $tmp_hash, $person, $count, $self ) = @_;
+
+    # IMPORTANT === We only print person_id ONCE!!!
+    my $data = {
+        $table_name => [$tmp_hash],
+        PERSON      => $count == 1
+        ? $person->{ $tmp_hash->{person_id} }
+        : {
+            map { $_ => $person->{ $tmp_hash->{person_id} }{$_} }
+              qw(person_id gender_concept_id birth_datetime)
+        }
+    };
+
+    # Print line by line
+    return JSON::XS->new->utf8->canonical->encode(
+        Convert::Pheno::omop2bff_stream_processing( $self, $data ) );
+
+}
+
 sub read_sqldump {
 
-    my ( $filepath, $self ) = @_;
+    my $arg      = shift;
+    my $filepath = $arg->{in};
+    my $self     = $arg->{self};
 
-    # Before resorting to writting this subroutine I performed an exhaustive search on CPAN:
-    # - Tested MySQL::Dump::Parser::XS but I could not make it work...
-    # - App-MysqlUtils-0.022 has a CLI utility (mysql-sql-dump-extract-tables)
-    # - Of course one can always use *nix tools (sed, grep, awk, etc) or other programming languages....
-    # Anyway, I ended up writting the parser myself...
-    # The parser is based in reading COPY paragraphs from PostgreSQL dump by using Perl's paragraph mode  $/ = "";
-    # NB: Each paragraph (TABLE) is loaded into memory. Not great for large files.
+# Before resorting to writting this subroutine I performed an exhaustive search on CPAN:
+# - Tested MySQL::Dump::Parser::XS but I could not make it work...
+# - App-MysqlUtils-0.022 has a CLI utility (mysql-sql-dump-extract-tables)
+# - Of course one can always use *nix tools (sed, grep, awk, etc) or other programming languages....
+# Anyway, I ended up writting the parser myself...
+# The parser is based in reading COPY paragraphs from PostgreSQL dump by using Perl's paragraph mode  $/ = "";
+# NB: Each paragraph (TABLE) is loaded into memory. Not great for large files.
 
     # Define variables that modify what we load
     my $max_lines_sql = $self->{max_lines_sql};
@@ -261,12 +275,12 @@ sub read_sqldump {
     # Set record separator to paragraph
     local $/ = "";
 
-    #COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, attribute_description, attribute_type_concept_id, attribute_syntax) FROM stdin;
-    # ......
-    # \.
+#COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, attribute_description, attribute_type_concept_id, attribute_syntax) FROM stdin;
+# ......
+# \.
 
     # Start reading the SQL dump
-    my $fh = open_file($filepath, 'r');
+    my $fh = open_file( $filepath, 'r' );
 
     # We'll store the data in the hashref $data
     my $data = {};
@@ -282,8 +296,8 @@ sub read_sqldump {
         next unless scalar @lines > 2;
         pop @lines;    # last line eq '\.'
 
-        # First line contains the headers
-        #COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, ..., attribute_syntax) FROM stdin;
+# First line contains the headers
+#COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, ..., attribute_syntax) FROM stdin;
         $lines[0] =~ s/[\(\),]//g;    # getting rid of (),
         my @headers = split /\s+/, $lines[0];
         my $table_name =
@@ -401,35 +415,35 @@ sub transpose_omop_data_structure {
     #                      ]
     #        };
 
-    # where all 'person_id' are together inside the TABLE_NAME.
-    # But, BFF "ideally" works at the individual level so we are going to
-    # transpose the data structure to end up into something like this
-    # NB: MEASUREMENT and OBSERVATION (among others, i.e., CONDITION_OCCURRENCE, PROCEDURE_OCCURRENCE)
-    #     can have multiple values for one 'person_id' so they will be loaded as arrays
-    #
-    #
-    #$VAR1 = {
-    #          '001' => {
-    #                     'PERSON' => {
-    #                                   'person_id' => '001'
-    #                                 }
-    #                   },
-    #          '666' => {
-    #                     'MEASUREMENT' => [
-    #                                        {
-    #                                          'measurement_concept_id' => '001',
-    #                                          'person_id' => '666'
-    #                                        },
-    #                                        {
-    #                                          'measurement_concept_id' => '002',
-    #                                          'person_id' => '666'
-    #                                        }
-    #                                      ],
-    #                     'PERSON' => {
-    #                                   'person_id' => '666'
-    #                                 }
-    #                   }
-    #        };
+# where all 'person_id' are together inside the TABLE_NAME.
+# But, BFF "ideally" works at the individual level so we are going to
+# transpose the data structure to end up into something like this
+# NB: MEASUREMENT and OBSERVATION (among others, i.e., CONDITION_OCCURRENCE, PROCEDURE_OCCURRENCE)
+#     can have multiple values for one 'person_id' so they will be loaded as arrays
+#
+#
+#$VAR1 = {
+#          '001' => {
+#                     'PERSON' => {
+#                                   'person_id' => '001'
+#                                 }
+#                   },
+#          '666' => {
+#                     'MEASUREMENT' => [
+#                                        {
+#                                          'measurement_concept_id' => '001',
+#                                          'person_id' => '666'
+#                                        },
+#                                        {
+#                                          'measurement_concept_id' => '002',
+#                                          'person_id' => '666'
+#                                        }
+#                                      ],
+#                     'PERSON' => {
+#                                   'person_id' => '666'
+#                                 }
+#                   }
+#        };
 
     my $omop_person_id = {};
 
@@ -442,12 +456,13 @@ sub transpose_omop_data_structure {
 
                 # {person_id} can have multiple rows in a given table
                 if ( any { m/^$table$/ } @omop_array_tables ) {
-                    push @{ $omop_person_id->{$person_id}{$table} }, $item;    # array
+                    push @{ $omop_person_id->{$person_id}{$table} },
+                      $item;    # array
                 }
 
                 # {person_id} only has one value in a given TABLE
                 else {
-                    $omop_person_id->{$person_id}{$table} = $item;             # scalar
+                    $omop_person_id->{$person_id}{$table} = $item;    # scalar
                 }
             }
         }
@@ -485,9 +500,9 @@ sub transpose_omop_data_structure {
 
 sub read_csv {
 
-    my $arg     = shift;
+    my $arg      = shift;
     my $filepath = $arg->{in};
-    my $sep     = $arg->{sep};
+    my $sep      = $arg->{sep};
 
     # Define split record separator from file extension
     my @exts = qw(.csv .tsv .txt);
@@ -507,6 +522,7 @@ sub read_csv {
         in       => $filepath,
         sep_char => $separator,
         headers  => "auto",
+        eol      => "\n",
 
         # binary    => 1, # default
         encoding  => 'UTF-8',
@@ -522,6 +538,76 @@ sub read_csv {
     #      ]
 
     return $aoh;
+}
+
+sub read_csv_stream {
+
+    my $arg     = shift;
+    my $filein  = $arg->{in};
+    my $self    = $arg->{self};
+    my $sep     = $arg->{sep};
+    my $fileout = $self->{out_file};
+
+    # Define split record separator from file extension
+    my @exts = map { $_, $_ . '.gz' } qw(.csv .tsv .sql);
+    my ( undef, $table_name, $ext ) = fileparse( $filein, @exts );
+    my $table_name_lc = lc($table_name);
+
+    # Defining separator character
+    my $separator =
+        $sep
+      ? $sep
+      : $ext eq '.csv'    ? ';'     # Note we don't use comma but semicolon
+      : $ext eq '.csv.gz' ? ';'     # idem
+      : $ext eq '.tsv'    ? "\t"
+      : $ext eq '.tsv.gz' ? "\t"
+      :                     "\t";
+
+    # First we do a transformation from AoH to HoH to speed up the calculation
+    my $person = { map { $_->{person_id} => $_ } @{ $self->{data}{PERSON} } };
+
+    # Using Text::CSV_XS OO interface
+    my $csv = Text::CSV_XS->new(
+        { binary => 1, auto_diag => 1, sep_char => $sep, eol => "\n" } );
+
+    # Open filehandles
+    my $fh_in  = open_file( $filein,  'r' );
+    my $fh_out = open_file( $fileout, 'w' );
+
+    # Get rid of \n on first line
+    chomp( my $line = <$fh_in> );
+    my @headers = split /$sep/, $line;
+
+    my $tmp_hash;
+    my $count = 0;
+
+    #############
+    # IMPORTANT #
+    #############
+    # On Feb-19-2023 I tested Parallel::ForkManager and:
+    # 1 - The performance was by far slower than w/o it
+    # 2 - We hot SQLite errors for concurring fh
+    # Thus, it was not implemented
+
+    while ( my $row = $csv->getline($fh_in) ) {
+
+        # Load the values a a hash slice;
+        my $tmp_hash;
+        @{$tmp_hash}{@headers} = @$row;
+
+        # Load data
+        say $fh_out encode_omop_stream( $table_name, $tmp_hash, $person,
+            $count, $self );
+
+        # Increment $count
+        $count++;
+        say "Rows processed: $count"
+          if ( $self->{verbose} && $count % 10_000 == 0 );
+    }
+
+    close $fh_in;
+    close $fh_out;
+    return 1;
 }
 
 sub print_csv {
@@ -550,11 +636,11 @@ sub print_csv {
 
 sub open_file {
 
- my ($filepath, $mode) = @_;
- my $diamond = $mode eq 'w' ? '>' : '<';
- my $fh;
+    my ( $filepath, $mode ) = @_;
+    my $diamond = $mode eq 'w' ? '>' : '<';
+    my $fh;
 
- # To avoid issues with ZIP layers we use gzip to rw gz files
+    # To avoid issues with ZIP layers we use gzip to rw gz files
     # See: https://perldoc.perl.org/IO::Compress::FAQ
     #      https://www.biostars.org/p/94240/
     #open my $fh_in, '-|', 'zcat', $filein;
@@ -565,6 +651,6 @@ sub open_file {
     else {
         open $fh, qq($diamond:encoding(utf-8)), $filepath;
     }
-  return $fh;
+    return $fh;
 }
 1;

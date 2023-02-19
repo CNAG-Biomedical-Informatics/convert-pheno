@@ -208,11 +208,10 @@ sub omop2bff {
 
     # SMALL TO MEDIUM FILES < 500MB-1GB
     #
-    # In many cases, since people are downsizing their DBs for data sharing,
-    # PostgreSQL dumps or CSVs will be <500MB. If that's the case, providing we
-    # have enough memory (4-16GB), we'll able to load stuff in RAM memory,
-    # and still merge values (MEASURES, DRUGS) for each individual and serialize ALL at once.
-    # It's just a matter of only loading ESSENTIAL tables and not duplicating data structures (unless necessary)
+    # In many cases, because people are downsizing their DBs for data sharing,
+    # PostgreSQL dumps or CSVs will be <500MB.
+    # Providing we have enough memory (4-16GB), we'll able to load data in RAM,
+    # and consolidate individual values (MEASURES, DRUGS) and serialize ALL at once.
 
     # HUMONGOUS FILES > 1GB
     # NB: Interesting read on the topic
@@ -222,6 +221,7 @@ sub omop2bff {
     # * Option A *: Parellel processing - No change in our code
     #    Without changing the code, we ask the user to create mini-instances (or split CSV's in chunks) and use
     #    some sort of parallel processing (e.g., GNU parallel, snakemake, HPC, etc.)
+    #    CONS: Concurrent jobs may fail due to SQLite been opened by multiple threads
     #
     # * Option B *: Keeping data grouped at the individual-object level (as we do with small to medium files)
     #   --no-stream
@@ -231,11 +231,11 @@ sub omop2bff {
     #   Then, since rows for each individual are adjacent, we can load individual data together. Still,
     #   we'll by reading one table (e.g. MEASUREMENTS) at a time, thus, this is not relly helping much...
     #
-    # * Option C *: Parsing files line by line (one row of CSV/SQL per JSON object)
+    # * Option C *: Parsing files line by line (one row of CSV/SQL per JSON object) <=========== IMPLEMENTED ==========
     #   --stream
-    #   This option seems the more feasible because BFF / PXF JSONs are just intermediate files. It's nice that they
-    #   contain data grouped by individual (for visually inspection and display), but at the end of the day they'll
-    #   end up in MongoDB. If all entries contain the primary key 'person_id' then it's up to the Beacon v2 API to deal with them.
+    #   BFF / PXF JSONs are just intermediate files. It's nice that they contain data grouped by individual
+    #   (for visually inspection and display), but at the end of the day they'll end up in Mongo DB.
+    #   If all entries contain the primary key 'person_id' then it's up to the Beacon v2 API to deal with them.
     #   It's a similar issue to the one we had with genomicVariations in the B2RI, where a given variant belong to many individuals.
     #   Here, multiple JSON documents/objects (MEASUREMENTS, DRUGS, etc.) will belong to the same individual.
     #   Now, since we allow for CSV and SQL as an input, we need to minimize the numer of steps to a minimum.
@@ -252,20 +252,18 @@ sub omop2bff {
     #          If the PostgreSQL dump weights, say, 20GB, do we create CSV tables from it (another ~20GB)?
     #         Solutions:
     #           a) Yep, we read <CONCEPT> and <PERSON> and export the needed tables to CSV and go from there.
-    #           b) Nope, we read PostgreSQL file twice, one time to load <CONCEPT> and <PERSON> and the second time to load the remaining TABLES.
-    #     3 - In --stream mode, do we still allow for --sql2csv? NOPE !!!!
+    #           b) Nope, we read PostgreSQL file twice, one time to load <CONCEPT> and <PERSON>
+    #              and the second time to load the remaining TABLES. <=========== IMPLEMENTED ==========
+    #     3 - In --stream mode, do we still allow for --sql2csv? NOPE !!!! <=========== IMPLEMENTED ==========
     #           We would need to go from functional mode (csv) to filehandles and it will take tons of space.
     #           Then, --stream and -sql2csv are mutually exclusive.
     #
-    # Additional info:
-    # The idea here is that we'll load ONLY ESSENTIAL TABLES $omop_main_table and @omop_extra_tables in $data,
-    # regardless of wheter they are concepts or truly records.
-    # Dictionaries (e.g. <CONCEPT>) will be parsed latter from $data
 
     # Load variables
     my $data;
-    my $prev_omop_tables = $self->{omop_tables};
-    my $filename;
+    my $filepath;
+    my @filepaths;
+    $self->{prev_omop_tables} = [ @{ $self->{omop_tables} } ];    # setter - 1D clone
 
     # Check if data comes from variable or from file
     # Variable
@@ -283,6 +281,10 @@ sub omop2bff {
         my @exts = map { $_, $_ . '.gz' } qw(.csv .tsv .sql);
 
         # Proceed
+        # The idea here is that we'll load ONLY ESSENTIAL TABLES $omop_main_table and @omop_extra_tables in $data,
+        # regardless of wheter they are concepts or truly records.
+        # Dictionaries (e.g. <CONCEPT>) will be parsed latter from $data
+
         for my $file ( @{ $self->{in_files} } ) {
             my ( $table_name, undef, $ext ) = fileparse( $file, @exts );
             if ( $ext =~ m/\.sql/i ) {
@@ -293,7 +295,9 @@ sub omop2bff {
 
                 # --no-stream
                 if ( !$self->{stream} ) {
-                    $data = read_sqldump( $file, $self );
+
+                    # We read all tables in memory
+                    $data = read_sqldump( { in => $file, self => $self } );
 
                     # Exporting to CSV if --sql2csv
                     sqldump2csv( $data, $self->{out_dir} ) if $self->{sql2csv};
@@ -302,13 +306,13 @@ sub omop2bff {
                 # --stream
                 else {
 
-                    # We'll still load <CONCEPT> and <PERSON> in RAM and the other tables as $fh
-                    $self->{omop_tables} = [qw/CONCEPT PERSON/];           # setter
-                    $data = read_sqldump( $file, $self );
+                    # We'll ONLY load <CONCEPT> and <PERSON> in RAM and the other tables as $fh
+                    $self->{omop_tables} = [qw/CONCEPT PERSON/];    # setter
+                    $data = read_sqldump( { in => $file, self => $self } );
                 }
 
-                # We keep the filename for later
-                $filename = $file;
+                # We keep the filepath for later
+                $filepath = $file;
 
                 # Exit loop
                 last;
@@ -322,13 +326,31 @@ sub omop2bff {
                   unless any { /^$table_name$/ }
                   ( @{ $omop_main_table->{$omop_version} },
                     @omop_extra_tables );    # global
-                $data->{$table_name} =
-                  read_csv( { in => $file, sep => $self->{sep} } );
+
+                # --no-stream
+                if ( !$self->{stream} ) {
+
+                    # We read all tables in memory
+                    $data->{$table_name} =
+                      read_csv( { in => $file, sep => $self->{sep} } );
+                }
+
+                # --stream
+                else {
+                    # We'll ONLY load <CONCEPT> and <PERSON> in RAM and the other tables as $fh
+                    if ( any { /^$table_name$/ } qw/CONCEPT PERSON/ ) {
+                        $data->{$table_name} =
+                          read_csv( { in => $file, sep => $self->{sep} } );
+                    }
+                    else {
+                        push @filepaths, $file;
+                    }
+                }
             }
         }
     }
 
-    #print Dumper_concise($data);
+    #print Dumper_concise($data) and die;
 
     # Primarily with CSVs, it can happen that user does not provide <CONCEPT.csv>
     confess 'We could not find table <CONCEPT> from your input files'
@@ -339,47 +361,25 @@ sub omop2bff {
 
     # Now we need to perform a tranformation of the data where 'person_id' is one row of data
     # NB: Transformation is due ONLY IN $omop_main_table FIELDS, the rest of the tables are not used
-    # The transformormation is performed in --no-stream mode
+    # The transformation is performed in --no-stream mode
     $self->{data} =
       $self->{stream} ? $data : transpose_omop_data_structure($data);    # Dynamically adding attributes (setter)
 
     # Giving some memory back to the system
     $data = undef;
 
-    ############
-    # --stream #
-    ############
+    # --stream
     if ( $self->{stream} ) {
-
-        # Open connection to SQLite databases ONCE
-        open_connections_SQLite($self) if $self->{method} ne 'bff2pxf';
-
-        for my $table ( @{$prev_omop_tables} ) {
-            next if any { /^$table$/ } (qw(CONCEPT PERSON));
-            say "Processing...$table" if $self->{verbose};
-            $self->{omop_tables} = [$table];
-            read_sqldump_stream( $filename, $self );
-        }
-
-        # Close connections ONCE
-        close_connections_SQLite($self) unless $self->{method} eq 'bff2pxf';
+        stream_dispatcher(
+            { self => $self, filepath => $filepath, filepaths => \@filepaths }
+        );
     }
 
-    ###############
-    # --no-stream #
-    ###############
+    # --no-stream
     else {
         # array_dispatcher will deal with JSON arrays
         return array_dispatcher($self);
     }
-}
-
-sub omop2bff_stream_processing {
-
-    my ( $self, $data ) = @_;
-
-    # We have this subroutine here because the class was initiated in Pheno.pm
-    return do_omop2bff( $self, $data );    # Method
 }
 
 ##############
@@ -518,6 +518,53 @@ sub array_dispatcher {
     close_connections_SQLite($self) unless $self->{method} eq 'bff2pxf';
 
     return $out_data;
+}
+
+sub stream_dispatcher {
+
+    my $arg      = shift;
+    my $self     = $arg->{self};
+    my $filepath = $arg->{filepath};
+    say $filepath;
+    my $filepaths   = $arg->{filepaths};
+    my $omop_tables = $self->{prev_omop_tables};
+
+    # Open connection to SQLite databases ONCE
+    open_connections_SQLite($self) if $self->{method} ne 'bff2pxf';
+
+    # CSVs we have the full filepath at @filepaths
+    #   - CONCEPT and PERSOn were already filtered out:w
+    # SQL dumps, the tables come from @{$prev_omop_tables}
+    #   - may have CONCEPT and PERSON
+
+    if (@$filepaths) {
+        for (@$filepaths) {
+            say "Processing file ... <$_>" if $self->{verbose};
+            read_csv_stream( { in => $_, sep => $self->{sep}, self => $self } );
+        }
+    }
+    else {
+        for my $table ( @{$omop_tables} ) {
+
+            # We already loaded CONCEPT and PERSON
+            next if any { /^$table$/ } (qw(CONCEPT PERSON));
+            say "Processing table ... <$table>" if $self->{verbose};
+            $self->{omop_tables} = [$table];
+            read_sqldump_stream( { in => $filepath, self => $self } );
+        }
+    }
+
+    # Close connections ONCE
+    close_connections_SQLite($self) unless $self->{method} eq 'bff2pxf';
+    return 1;
+}
+
+sub omop2bff_stream_processing {
+
+    my ( $self, $data ) = @_;
+
+    # We have this subroutine here because the class was initiated in Pheno.pm
+    return do_omop2bff( $self, $data );    # Method
 }
 
 sub Dumper_concise {
