@@ -178,7 +178,10 @@ sub read_sqldump_stream {
         chomp $line;
 
         # Only parsing $table_name_lc and discarding others
-        if ( $line =~ /^COPY \"(\w+)\"\.$table_name_lc / ) {
+        # Note that double quotes are optional
+        # - COPY "OMOP_cdm_eunomia".person
+        # . COPY omop_cdm_eunomia_2.person
+        if ( $line =~ /^COPY \"?(\w+)\"?\.$table_name_lc / ) {
 
             # Create an array to hold the column names for this table
             $line =~ s/[\(\),]//g;    # getting rid of (),
@@ -192,6 +195,7 @@ sub read_sqldump_stream {
 
             # Jump one line and get rid of \n
             chomp( $line = <$fh_in> );
+
         }
 
         # Loading the data if $switch
@@ -216,15 +220,17 @@ sub read_sqldump_stream {
             # Increase counter
             $count++;
 
-            # Load data.
-            say $fh_out encode_omop_stream( $table_name, $tmp_hash, $person,
+            # Encode data
+            my $encoded_data = encode_omop_stream( $table_name, $tmp_hash, $person,
                 $count, $self );
+            say $fh_out $encoded_data if $encoded_data ne 'null';
 
             # Print if verbose
             say "Rows processed: $count"
               if ( $self->{verbose} && $count % 10_000 == 0 );
         }
     }
+    say "==============\nRows total:     $count\n" if $self->{verbose};
 
     #say $fh_out "]"; # not needed
 
@@ -595,15 +601,17 @@ sub read_csv_stream {
         my $tmp_hash;
         @{$tmp_hash}{@headers} = @$row;
 
-        # Load data
-        say $fh_out encode_omop_stream( $table_name, $tmp_hash, $person,
-            $count, $self );
+        # Encode data
+            my $encoded_data = encode_omop_stream( $table_name, $tmp_hash, $person,
+                $count, $self );
+            say $fh_out $encoded_data if $encoded_data ne 'null';
 
         # Increment $count
         $count++;
         say "Rows processed: $count"
           if ( $self->{verbose} && $count % 10_000 == 0 );
     }
+    say "==============\nRows total:     $count\n" if $self->{verbose};
 
     close $fh_in;
     close $fh_out;

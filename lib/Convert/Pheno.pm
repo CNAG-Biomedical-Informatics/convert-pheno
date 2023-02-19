@@ -87,10 +87,7 @@ has omop_tables => (
 
     # Table <CONCEPT> is always required
     coerce => sub {
-        @{ $_[0] }
-          ? $_[0] =
-          [ map { uc($_) } ( uniq( @{ $_[0] }, 'CONCEPT', 'PERSON' ) ) ]
-          : \@omop_essential_tables;
+        @{$_[0]}  ? $_[0] = [ map { uc($_) } ( uniq( @{ $_[0] }, 'CONCEPT', 'PERSON' ) ) ] : \@omop_essential_tables 
     },
     is  => 'rw',
     isa => ArrayRef
@@ -351,6 +348,7 @@ sub omop2bff {
     }
 
     #print Dumper_concise($data) and die;
+    #print Dumper_concise($self) and die;
 
     # Primarily with CSVs, it can happen that user does not provide <CONCEPT.csv>
     confess 'We could not find table <CONCEPT> from your input files'
@@ -525,7 +523,6 @@ sub stream_dispatcher {
     my $arg      = shift;
     my $self     = $arg->{self};
     my $filepath = $arg->{filepath};
-    say $filepath;
     my $filepaths   = $arg->{filepaths};
     my $omop_tables = $self->{prev_omop_tables};
 
@@ -533,7 +530,7 @@ sub stream_dispatcher {
     open_connections_SQLite($self) if $self->{method} ne 'bff2pxf';
 
     # CSVs we have the full filepath at @filepaths
-    #   - CONCEPT and PERSOn were already filtered out:w
+    #   - CONCEPT and PERSON were already filtered out:w
     # SQL dumps, the tables come from @{$prev_omop_tables}
     #   - may have CONCEPT and PERSON
 

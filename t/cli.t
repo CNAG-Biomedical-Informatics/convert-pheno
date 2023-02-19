@@ -92,6 +92,7 @@ for my $method ( sort keys %{$input} ) {
             self_validate_schema => $input->{$method}{self_validate_schema},
             schema_file          => 'schema/mapping.json',
             in_textfile          => 1,
+            stream               => 0,
             omop_tables          => [],
             sep                  => $input->{$method}{sep},
             test                 => 1,

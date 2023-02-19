@@ -48,6 +48,7 @@ for my $method ( sort keys %{$input} ) {
             in_textfile          => 1,
             sep                  => $input->{$method}{sep},
             test                 => 1,
+            omop_tables          => [],
             debug                => 2,
             search               => 'exact',
             verbose              => 1,
@@ -90,6 +91,7 @@ for my $method ( sort keys %{$input} ) {
                 schema_file => $err eq 'ERR4' ? 't/schema/malformed.json'
                 : $input->{$method}{schema_file},
                 in_textfile => 1,
+                omop_tables => [],
                 search      => 'exact',
                 sep         => $input->{$method}{sep},
                 test        => 1,
@@ -119,6 +121,8 @@ for my $method ( sort keys %{$input} ) {
             in_files    => $input->{$method}{in_files},
             in_textfile => 1,
             search      => 'exact',
+            stream      => 0,
+            omop_tables => [],
             ohdsi_db    => 1,        # Need ohdsi_db as we deal with few rows
             method      => $method
         }
