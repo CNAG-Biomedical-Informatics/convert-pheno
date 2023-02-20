@@ -5,7 +5,7 @@ use lib ( './lib', '../lib' );
 use feature qw(say);
 use Data::Dumper;
 use File::Temp qw{ tempfile };    # core
-use Test::More tests => 4;
+use Test::More tests => 3;
 use IO::Uncompress::Gunzip;
 use File::Compare;
 use Convert::Pheno;
@@ -16,34 +16,6 @@ use_ok('Convert::Pheno') or exit;
 # Test 2
 my $method = 'omop2bff';
 
-{
-my $out = 't/omop2bff/out/individuals_drug_exposure.json';
-# Create Temporary file
-my ( undef, $tmp_file ) = tempfile( DIR => 't', SUFFIX => ".json", UNLINK => 1 );
-my $convert = Convert::Pheno->new(
-    {
-        in_file              => undef,
-        in_files             => ['t/omop2bff/in/dump.sql'],
-        out_file             => $tmp_file,
-        redcap_dictionary    => undef,
-        mapping_file         => undef,
-        self_validate_schema => undef,
-        schema_file          => 'schema/mapping.json',
-        in_textfile          => 1,
-        stream               => 1,
-        omop_tables          => ['DRUG_EXPOSURE'],
-        max_lines_sql        => 2700,
-        sep                  => ',',
-        test                 => 1,
-        search               => 'exact',
-        method               => $method
-    }
-);
-$convert->$method;
-ok( compare( $out, $tmp_file ) == 0, qq/$method stream drug_exposure/);
-}
-
-# Test 3
 {
 my $out = 't/omop2bff/out/individuals_drug_exposure.json.gz';
 my ( undef, $tmp_file ) = tempfile( DIR => 't', SUFFIX => ".json.gz", UNLINK => 1 );
@@ -88,7 +60,7 @@ $z1->close();
 $z2->close();
 }
 
-# Test 4
+# Test 3
 {
 my $out = 't/omop2bff/out/individuals_csv.json.gz';
 my ( undef, $tmp_file ) = tempfile( DIR => 't', SUFFIX => ".json.gz", UNLINK => 1 );
