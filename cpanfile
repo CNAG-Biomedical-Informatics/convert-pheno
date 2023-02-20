@@ -14,6 +14,7 @@ requires 'DBD::SQLite';
 requires 'Mojolicious::Lite';
 requires 'XML::Fast';
 requires 'JSON::Validator';
+requires 'Types::Standard';
 
 # t
 requires 'Test::Deep';
