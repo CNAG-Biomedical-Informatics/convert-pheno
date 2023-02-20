@@ -19,6 +19,7 @@ requires 'JSON::Validator';
 requires 'Test::Deep';
 requires 'Test::Exception';
 requires 'Test::Warn';
+requires 'PerlIO::gzip';
 #requires 'Inline::Python';      # for t/protobuff.t (only local dev)
 
 # api
