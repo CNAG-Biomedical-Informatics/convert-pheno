@@ -9,6 +9,7 @@ use Text::CSV_XS          qw(csv);
 use Sort::Naturally       qw(nsort);
 use List::Util            qw(any);
 use File::Spec::Functions qw(catdir);
+
 #use Parallel::ForkManager;
 use Convert::Pheno;
 use Convert::Pheno::OMOP;
@@ -31,7 +32,7 @@ sub read_redcap_dictionary {
     my $filepath = shift;
 
     # Define split record separator from file extension
-    my ($separator, $encoding) = define_separator($filepath, undef);
+    my ( $separator, $encoding ) = define_separator( $filepath, undef );
 
     # We'll create an HoH using as 1D-key the 'Variable / Field Name'
     my $key = 'Variable / Field Name';
@@ -213,7 +214,8 @@ sub read_sqldump_stream {
             $count++;
 
             # Encode data
-            my $encoded_data = encode_omop_stream( $table_name, $tmp_hash, $person,
+            my $encoded_data =
+              encode_omop_stream( $table_name, $tmp_hash, $person,
                 $count, $self );
             say $fh_out $encoded_data if $encoded_data ne 'null';
 
@@ -258,13 +260,13 @@ sub read_sqldump {
     my $filepath = $arg->{in};
     my $self     = $arg->{self};
 
-# Before resorting to writting this subroutine I performed an exhaustive search on CPAN:
-# - Tested MySQL::Dump::Parser::XS but I could not make it work...
-# - App-MysqlUtils-0.022 has a CLI utility (mysql-sql-dump-extract-tables)
-# - Of course one can always use *nix tools (sed, grep, awk, etc) or other programming languages....
-# Anyway, I ended up writting the parser myself...
-# The parser is based in reading COPY paragraphs from PostgreSQL dump by using Perl's paragraph mode  $/ = "";
-# NB: Each paragraph (TABLE) is loaded into memory. Not great for large files.
+    # Before resorting to writting this subroutine I performed an exhaustive search on CPAN:
+    # - Tested MySQL::Dump::Parser::XS but I could not make it work...
+    # - App-MysqlUtils-0.022 has a CLI utility (mysql-sql-dump-extract-tables)
+    # - Of course one can always use *nix tools (sed, grep, awk, etc) or other programming languages....
+    # Anyway, I ended up writting the parser myself...
+    # The parser is based in reading COPY paragraphs from PostgreSQL dump by using Perl's paragraph mode  $/ = "";
+    # NB: Each paragraph (TABLE) is loaded into memory. Not great for large files.
 
     # Define variables that modify what we load
     my $max_lines_sql = $self->{max_lines_sql};
@@ -273,9 +275,9 @@ sub read_sqldump {
     # Set record separator to paragraph
     local $/ = "";
 
-#COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, attribute_description, attribute_type_concept_id, attribute_syntax) FROM stdin;
-# ......
-# \.
+    #COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, attribute_description, attribute_type_concept_id, attribute_syntax) FROM stdin;
+    # ......
+    # \.
 
     # Start reading the SQL dump
     my $fh = open_file( $filepath, 'r' );
@@ -294,8 +296,8 @@ sub read_sqldump {
         next unless scalar @lines > 2;
         pop @lines;    # last line eq '\.'
 
-# First line contains the headers
-#COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, ..., attribute_syntax) FROM stdin;
+        # First line contains the headers
+        #COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, ..., attribute_syntax) FROM stdin;
         $lines[0] =~ s/[\(\),]//g;    # getting rid of (),
         my @headers = split /\s+/, $lines[0];
         my $table_name =
@@ -304,6 +306,9 @@ sub read_sqldump {
         # Discarding non @$omop_tables:
         # This step improves RAM consumption
         next unless any { m/^$table_name$/ } @omop_tables;
+
+        # Say if verbose
+        say "Processing table ... <$table_name>" if $self->{verbose};
 
         # Discarding first line
         shift @lines;
@@ -350,7 +355,13 @@ sub read_sqldump {
 
             # adhoc filter to speed-up development
             last if $count == $max_lines_sql;
+            say "Rows processed: $count"
+              if ( $self->{verbose} && $count % 1_000 == 0 );
+
         }
+
+        # Print if verbose
+        say "==============\nRows total:     $count\n" if $self->{verbose};
     }
     close $fh;
     return $data;
@@ -413,35 +424,35 @@ sub transpose_omop_data_structure {
     #                      ]
     #        };
 
-# where all 'person_id' are together inside the TABLE_NAME.
-# But, BFF "ideally" works at the individual level so we are going to
-# transpose the data structure to end up into something like this
-# NB: MEASUREMENT and OBSERVATION (among others, i.e., CONDITION_OCCURRENCE, PROCEDURE_OCCURRENCE)
-#     can have multiple values for one 'person_id' so they will be loaded as arrays
-#
-#
-#$VAR1 = {
-#          '001' => {
-#                     'PERSON' => {
-#                                   'person_id' => '001'
-#                                 }
-#                   },
-#          '666' => {
-#                     'MEASUREMENT' => [
-#                                        {
-#                                          'measurement_concept_id' => '001',
-#                                          'person_id' => '666'
-#                                        },
-#                                        {
-#                                          'measurement_concept_id' => '002',
-#                                          'person_id' => '666'
-#                                        }
-#                                      ],
-#                     'PERSON' => {
-#                                   'person_id' => '666'
-#                                 }
-#                   }
-#        };
+    # where all 'person_id' are together inside the TABLE_NAME.
+    # But, BFF "ideally" works at the individual level so we are going to
+    # transpose the data structure to end up into something like this
+    # NB: MEASUREMENT and OBSERVATION (among others, i.e., CONDITION_OCCURRENCE, PROCEDURE_OCCURRENCE)
+    #     can have multiple values for one 'person_id' so they will be loaded as arrays
+    #
+    #
+    #$VAR1 = {
+    #          '001' => {
+    #                     'PERSON' => {
+    #                                   'person_id' => '001'
+    #                                 }
+    #                   },
+    #          '666' => {
+    #                     'MEASUREMENT' => [
+    #                                        {
+    #                                          'measurement_concept_id' => '001',
+    #                                          'person_id' => '666'
+    #                                        },
+    #                                        {
+    #                                          'measurement_concept_id' => '002',
+    #                                          'person_id' => '666'
+    #                                        }
+    #                                      ],
+    #                     'PERSON' => {
+    #                                   'person_id' => '666'
+    #                                 }
+    #                   }
+    #        };
 
     my $omop_person_id = {};
 
@@ -454,13 +465,12 @@ sub transpose_omop_data_structure {
 
                 # {person_id} can have multiple rows in a given table
                 if ( any { m/^$table$/ } @omop_array_tables ) {
-                    push @{ $omop_person_id->{$person_id}{$table} },
-                      $item;    # array
+                    push @{ $omop_person_id->{$person_id}{$table} }, $item;    # array
                 }
 
                 # {person_id} only has one value in a given TABLE
                 else {
-                    $omop_person_id->{$person_id}{$table} = $item;    # scalar
+                    $omop_person_id->{$person_id}{$table} = $item;             # scalar
                 }
             }
         }
@@ -503,7 +513,7 @@ sub read_csv {
     my $sep      = $arg->{sep};
 
     # Define split record separator from file extension
-    my ($separator, $encoding) = define_separator($filepath, $sep);
+    my ( $separator, $encoding ) = define_separator( $filepath, $sep );
 
     # Transform $filepath into an AoH
     # Using Text::CSV_XS functional interface
@@ -538,7 +548,8 @@ sub read_csv_stream {
     my $fileout = $self->{out_file};
 
     # Define split record separator from file extension
-    my ($separator, $encoding, $table_name) = define_separator($filein, $sep);
+    my ( $separator, $encoding, $table_name ) =
+      define_separator( $filein, $sep );
     my $table_name_lc = lc($table_name);
 
     # First we do a transformation from AoH to HoH to speed up the calculation
@@ -574,9 +585,9 @@ sub read_csv_stream {
         @{$tmp_hash}{@headers} = @$row;
 
         # Encode data
-            my $encoded_data = encode_omop_stream( $table_name, $tmp_hash, $person,
-                $count, $self );
-            say $fh_out $encoded_data if $encoded_data ne 'null';
+        my $encoded_data =
+          encode_omop_stream( $table_name, $tmp_hash, $person, $count, $self );
+        say $fh_out $encoded_data if $encoded_data ne 'null';
 
         # Increment $count
         $count++;
@@ -636,13 +647,13 @@ sub open_file {
 
 sub define_separator {
 
-    my ($filepath, $sep)  = @_;
+    my ( $filepath, $sep ) = @_;
 
     # Define split record separator from file extension
     my @exts = map { $_, $_ . '.gz' } qw(.csv .tsv .sql .txt);
     my ( undef, $table_name, $ext ) = fileparse( $filepath, @exts );
 
- # Defining separator character
+    # Defining separator character
     my $separator =
         $sep
       ? $sep
@@ -652,9 +663,10 @@ sub define_separator {
       : $ext eq '.tsv.gz' ? "\t"
       :                     "\t";
 
-  my $encoding = $ext =~ m/\.gz/ ? ':gzip:encoding(utf-8)'  : 'encoding(utf-8)';
+    my $encoding =
+      $ext =~ m/\.gz/ ? ':gzip:encoding(utf-8)' : 'encoding(utf-8)';
 
-  # Return 3 but some get only 2
-  return ($separator, $encoding, $table_name); 
+    # Return 3 but some get only 2
+    return ( $separator, $encoding, $table_name );
 }
 1;
