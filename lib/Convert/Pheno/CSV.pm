@@ -159,8 +159,8 @@ sub read_sqldump_stream {
     my $person = { map { $_->{person_id} => $_ } @{ $self->{data}{PERSON} } };
 
     # Open filehandles
-    my $fh_in  = open_file( $filein,  'r' );
-    my $fh_out = open_file( $fileout, 'w' );
+    my $fh_in  = open_filehandle( $filein,  'r' );
+    my $fh_out = open_filehandle( $fileout, 'a' );
 
     # Start printing the array
     #say $fh_out "[";
@@ -235,6 +235,7 @@ sub read_sqldump_stream {
 }
 
 sub encode_omop_stream {
+
     my ( $table_name, $tmp_hash, $person, $count, $self ) = @_;
 
     # IMPORTANT === We only print person_id ONCE!!!
@@ -251,7 +252,6 @@ sub encode_omop_stream {
     # Print line by line
     return JSON::XS->new->utf8->canonical->encode(
         Convert::Pheno::omop2bff_stream_processing( $self, $data ) );
-
 }
 
 sub read_sqldump {
@@ -280,7 +280,7 @@ sub read_sqldump {
     # \.
 
     # Start reading the SQL dump
-    my $fh = open_file( $filepath, 'r' );
+    my $fh = open_filehandle( $filepath, 'r' );
 
     # We'll store the data in the hashref $data
     my $data = {};
@@ -560,8 +560,8 @@ sub read_csv_stream {
         { binary => 1, auto_diag => 1, sep_char => $separator, eol => "\n" } );
 
     # Open filehandles
-    my $fh_in  = open_file( $filein,  'r' );
-    my $fh_out = open_file( $fileout, 'w' );
+    my $fh_in  = open_filehandle( $filein,  'r' );
+    my $fh_out = open_filehandle( $fileout, 'a' );
 
     # Get rid of \n on first line
     chomp( my $line = <$fh_in> );
@@ -625,22 +625,16 @@ sub print_csv {
     return 1;
 }
 
-sub open_file {
+sub open_filehandle {
 
     my ( $filepath, $mode ) = @_;
-    my $diamond = $mode eq 'w' ? '>' : '<';
+    my $handle = $mode eq 'a' ? '>>' : $mode eq 'w' ? '>' : '<';
     my $fh;
-
-    # To avoid issues with ZIP layers we use gzip to rw gz files
-    # See: https://perldoc.perl.org/IO::Compress::FAQ
-    #      https://www.biostars.org/p/94240/
-    #open my $fh_in, '-|', 'zcat', $filein;
-
     if ( $filepath =~ /\.gz$/ ) {
-        open $fh, qq($diamond:gzip:encoding(utf-8)), $filepath;
+        open $fh, qq($handle:gzip:encoding(utf-8)), $filepath;
     }
     else {
-        open $fh, qq($diamond:encoding(utf-8)), $filepath;
+        open $fh, qq($handle:encoding(utf-8)), $filepath;
     }
     return $fh;
 }

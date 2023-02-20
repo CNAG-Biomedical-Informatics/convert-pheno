@@ -28,7 +28,8 @@ ARG GID=1000
 RUN groupadd -g "${GID}" dockeruser \
   && useradd --create-home --no-log-init -u "${UID}" -g "${GID}" dockeruser
 
-USER dockeruser
+# To change default user from root -> dockeruser
+#USER dockeruser
 
 # Get back to entry dir
 WORKDIR /usr/share/convert-pheno

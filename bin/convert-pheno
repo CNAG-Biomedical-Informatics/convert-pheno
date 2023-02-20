@@ -67,6 +67,7 @@ GetOptions(
     'redcap-dictionary|rcd=s'     => \my $redcap_dictionary,                   # string
     'print-hidden-labels|phl'     => \my $print_hidden_labels,                 # flag
     'self-validate-schema|svs'    => \my $self_validate_schema,                # flag
+    'overwrite'                   => \my $overwrite,                           # flag
     'username=s'                  => \my $username,                            # string
     'log'                         => \my $log,                                 # flag
     'version|v'                   => sub { say "$0 Version $VERSION"; exit; }
@@ -110,9 +111,10 @@ pod2usage(
     -exitval => 1
 ) if ( $stream && $sql2csv );
 pod2usage(
-    -message => "The flag <--stream> only supports output files in <json|json.gz> format\n",
+    -message =>
+"The flag <--stream> only supports output files in <json|json.gz> format\n",
     -exitval => 1
-) if ( $stream  && $out_bff !~ m/\.json/i );
+) if ( $stream && $out_bff !~ m/\.json/i );
 pod2usage(
     -message =>
       "Please specify a valid schema for the mapping file --schema-file\n",
@@ -196,6 +198,9 @@ sub convert {
 
     my ( $o_file, $l_data ) = @_;
 
+    # Before proceeding we ask the user what to do
+    check_overwrite($o_file) unless $overwrite;
+
     if ($verbose) {
         print BOLD BLUE program_body($l_data);
         say BOLD GREEN "Writing <$o_file> file\n", RESET;
@@ -271,6 +276,28 @@ sub write_log {
     );
 }
 
+sub check_overwrite {
+
+    my $filepath = shift;
+
+    # If file exist we ask the user what to do
+    if ( -f $filepath ) {
+        say BOLD RED "<$filepath> exists. Overwrite? [Y/n]";
+        my $input = <STDIN>;
+        chomp $input;
+        $input = lc($input);
+        if ( $input eq 'y' ) {
+            unlink($filepath);
+        }
+        elsif ( $input eq 'n' ) {
+            die "You chose to stop\n";
+        }
+        else {
+            die "Invalid input\n";
+        }
+    }
+}
+
 =head1 NAME
 
 B<UNDER DEVELOPMENT>
@@ -309,6 +336,7 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
        -ohdsi-db                      Use Athena-OHDSI database (~2.4GB) with -iomop
        -omop-tables                   (Only valid with -iomop) OMOP-CDM tables to be processed. Tables <CONCEPT> and <PERSON> are always included.
        -out-dir                       Output (existing) directory
+       -overwrite                     Overwrite output file
        -phl|print-hidden-labels       Print original values (before DB mapping) of text fields <_labels>
        -rcd|redcap-dictionary         REDCap data dictionary CSV file
        -schema-file                   Alternative JSON Schema for mapping file
@@ -370,7 +398,9 @@ The command-line executable can be found at:
 
   /usr/share/convert-pheno/bin/convert-pheno
 
-The default container user is named C<dockeruser>.
+The default container user is C<root> but you can also run the container as C<$UID=1000> (C<dockeruser>). 
+
+  docker run --user 1000 -tid --name convert-pheno cnag/convert-pheno:latest
  
 Alternatively, you can use C<make> to perform all the previous steps:
 

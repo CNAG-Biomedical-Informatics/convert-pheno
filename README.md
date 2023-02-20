@@ -59,6 +59,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
        -ohdsi-db                      Use Athena-OHDSI database (~2.4GB) with -iomop
        -omop-tables                   (Only valid with -iomop) OMOP-CDM tables to be processed. Tables <CONCEPT> and <PERSON> are always included.
        -out-dir                       Output (existing) directory
+       -overwrite                     Overwrite output file
        -phl|print-hidden-labels       Print original values (before DB mapping) of text fields <_labels>
        -rcd|redcap-dictionary         REDCap data dictionary CSV file
        -schema-file                   Alternative JSON Schema for mapping file
@@ -120,7 +121,10 @@ The command-line executable can be found at:
 
     /usr/share/convert-pheno/bin/convert-pheno
 
-The default container user is named `dockeruser`.
+The default container user is `root` but you can also run the container as `$UID=1000` (`dockeruser`). 
+
+     docker run --user 1000 -tid --name convert-pheno cnag/convert-pheno:latest
+    
 
 Alternatively, you can use `make` to perform all the previous steps:
 
