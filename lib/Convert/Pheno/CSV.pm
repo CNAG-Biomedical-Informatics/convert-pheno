@@ -9,7 +9,7 @@ use Text::CSV_XS          qw(csv);
 use Sort::Naturally       qw(nsort);
 use List::Util            qw(any);
 use File::Spec::Functions qw(catdir);
-use Parallel::ForkManager;
+#use Parallel::ForkManager;
 use Convert::Pheno;
 use Convert::Pheno::OMOP;
 use Convert::Pheno::IO;
