@@ -67,7 +67,7 @@ OMOP-CDM databases are typically implemented as PostgreSQL instances. Based on o
         To choose incremental data processing we'll be using the flag `--stream`:
 
         !!! Warning " `--stream` mode supported output"
-            We only support output to BFF (`-obff`). Both the input and output files files can be gzipped to save space.
+            We only support output to BFF (`-obff`). Both the input and output files files can be **gzipped** to save space.
 
         #### All tables at once
 

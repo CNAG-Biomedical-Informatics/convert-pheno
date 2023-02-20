@@ -23,6 +23,9 @@ Due to this flexibility, it can be challenging to create a solution that can han
     2. REDCap data dictionary (CSV)
     3. Mapping file (YAML or JSON)
 
+    !!! Question "Can CSV files be compressed?"
+        Yes. We also accept as **input** files compressed with `gzip`.
+
     ```
     convert-pheno -iredcap redcap.csv --redcap-dictionary dictionary.csv --mapping-file mapping.yaml -obff individuals.json
     ```

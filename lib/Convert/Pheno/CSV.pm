@@ -31,14 +31,7 @@ sub read_redcap_dictionary {
     my $filepath = shift;
 
     # Define split record separator from file extension
-    my @exts = qw(.csv .tsv .txt);
-    my ( undef, undef, $ext ) = fileparse( $filepath, @exts );
-
-    # Defining separator
-    my $separator =
-        $ext eq '.csv' ? ';'
-      : $ext eq '.tsv' ? "\t"
-      :                  ' ';
+    my ($separator, $encoding) = define_separator($filepath, undef);
 
     # We'll create an HoH using as 1D-key the 'Variable / Field Name'
     my $key = 'Variable / Field Name';
@@ -54,11 +47,10 @@ sub read_redcap_dictionary {
 
         #binary    => 1, # default
         auto_diag => 1,
-        encoding  => 'UTF-8',
+        encoding  => $encoding,
         key       => $key,
         on_in     => sub { $_{_labels} = add_labels( $_{$labels} ) }
     );
-
     return $hoh;
 }
 
@@ -511,16 +503,7 @@ sub read_csv {
     my $sep      = $arg->{sep};
 
     # Define split record separator from file extension
-    my @exts = qw(.csv .tsv .txt);
-    my ( undef, undef, $ext ) = fileparse( $filepath, @exts );
-
-    # Defining separator character
-    my $separator =
-        $sep
-      ? $sep
-      : $ext eq '.csv' ? ';'     # Note we don't use comma but semicolon
-      : $ext eq '.tsv' ? "\t"
-      :                  "\t";
+    my ($separator, $encoding) = define_separator($filepath, $sep);
 
     # Transform $filepath into an AoH
     # Using Text::CSV_XS functional interface
@@ -531,7 +514,7 @@ sub read_csv {
         eol      => "\n",
 
         # binary    => 1, # default
-        encoding  => 'UTF-8',
+        encoding  => $encoding,
         auto_diag => 1
     );
 
@@ -555,26 +538,15 @@ sub read_csv_stream {
     my $fileout = $self->{out_file};
 
     # Define split record separator from file extension
-    my @exts = map { $_, $_ . '.gz' } qw(.csv .tsv .sql);
-    my ( undef, $table_name, $ext ) = fileparse( $filein, @exts );
+    my ($separator, $encoding, $table_name) = define_separator($filein, $sep);
     my $table_name_lc = lc($table_name);
-
-    # Defining separator character
-    my $separator =
-        $sep
-      ? $sep
-      : $ext eq '.csv'    ? ';'     # Note we don't use comma but semicolon
-      : $ext eq '.csv.gz' ? ';'     # idem
-      : $ext eq '.tsv'    ? "\t"
-      : $ext eq '.tsv.gz' ? "\t"
-      :                     "\t";
 
     # First we do a transformation from AoH to HoH to speed up the calculation
     my $person = { map { $_->{person_id} => $_ } @{ $self->{data}{PERSON} } };
 
     # Using Text::CSV_XS OO interface
     my $csv = Text::CSV_XS->new(
-        { binary => 1, auto_diag => 1, sep_char => $sep, eol => "\n" } );
+        { binary => 1, auto_diag => 1, sep_char => $separator, eol => "\n" } );
 
     # Open filehandles
     my $fh_in  = open_file( $filein,  'r' );
@@ -582,7 +554,7 @@ sub read_csv_stream {
 
     # Get rid of \n on first line
     chomp( my $line = <$fh_in> );
-    my @headers = split /$sep/, $line;
+    my @headers = split /$separator/, $line;
 
     my $tmp_hash;
     my $count = 0;
@@ -660,5 +632,29 @@ sub open_file {
         open $fh, qq($diamond:encoding(utf-8)), $filepath;
     }
     return $fh;
+}
+
+sub define_separator {
+
+    my ($filepath, $sep)  = @_;
+
+    # Define split record separator from file extension
+    my @exts = map { $_, $_ . '.gz' } qw(.csv .tsv .sql .txt);
+    my ( undef, $table_name, $ext ) = fileparse( $filepath, @exts );
+
+ # Defining separator character
+    my $separator =
+        $sep
+      ? $sep
+      : $ext eq '.csv'    ? ';'     # Note we don't use comma but semicolon
+      : $ext eq '.csv.gz' ? ';'     # idem
+      : $ext eq '.tsv'    ? "\t"
+      : $ext eq '.tsv.gz' ? "\t"
+      :                     "\t";
+
+  my $encoding = $ext =~ m/\.gz/ ? ':gzip:encoding(utf-8)'  : 'encoding(utf-8)';
+
+  # Return 3 but some get only 2
+  return ($separator, $encoding, $table_name); 
 }
 1;

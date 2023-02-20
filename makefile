@@ -3,11 +3,11 @@
 SHELL := /bin/bash
 
 install:
-	sudo apt-get install cpanminus
+	sudo apt-get install cpanminus libbz2-dev zlib1g-dev
 	cpanm --sudo --installdeps .	
 
 install-carton:
-	sudo apt-get install cpanminus
+	sudo apt-get install cpanminus libbz2-dev zlib1g-dev
 	cpanm --sudo Carton
 	carton install
 
