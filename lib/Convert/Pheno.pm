@@ -67,13 +67,10 @@ has min_text_similarity_score => (
 
 has username => (
 
-    # Strings from GetOptions will get 'default' values OK
-    default => ( $ENV{LOGNAME} || $ENV{USER} || getpwuid($<) ),
-    is      => 'ro'
-
-      # :-/
-      # # Undef will bypass default and Str will complain when undef
-      #isa     => Str|Undef
+    #default => ( $ENV{LOGNAME} || $ENV{USER} || getpwuid($<) ),
+    is      => 'ro',
+    coerce => sub { defined $_[0] ? $_[0] : ( $ENV{LOGNAME} || $ENV{USER} || getpwuid($<) ) },
+    isa     => Str
 );
 
 has max_lines_sql => (

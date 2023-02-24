@@ -256,7 +256,7 @@ sub encode_omop_stream {
         }
     };
 
-    # Print line by line
+    # Print line by line (->canonical has some overhead but needed for t/)
     return JSON::XS->new->utf8->canonical->encode(
         Convert::Pheno::omop2bff_stream_processing( $self, $data ) );
 }

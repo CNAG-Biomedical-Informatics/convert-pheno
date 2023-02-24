@@ -57,13 +57,15 @@ sub cdisc2redcap {
                     # Both will be loaded as []
                     if ( ref $ItemGroupData->{ItemData} eq ref [] ) {
                         for my $ItemData ( @{ $ItemGroupData->{ItemData} } ) {
-                            $individual->{ $ItemData->{'-ItemOID'} } = dotify_and_coerce_number( $ItemData->{'-Value'});
+                            $individual->{ $ItemData->{'-ItemOID'} } =
+                              dotify_and_coerce_number( $ItemData->{'-Value'} );
                         }
                     }
                     else {
                         # Converting from hash to 1-subject array
                         $individual->{ $ItemGroupData->{ItemData}{'-ItemOID'} }
-                          = dotify_and_coerce_number($ItemGroupData->{ItemData}{'-Value'});
+                          = dotify_and_coerce_number(
+                            $ItemGroupData->{ItemData}{'-Value'} );
                     }
                 }
             }

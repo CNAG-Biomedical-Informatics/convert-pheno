@@ -247,7 +247,7 @@ sub do_redcap2bff {
             }
         );
         $exposure->{unit}  = $unit;
-        $exposure->{value} = dotify_and_coerce_number($participant->{$field});
+        $exposure->{value} = dotify_and_coerce_number( $participant->{$field} );
         push @{ $individual->{exposures} }, $exposure
           if defined $exposure->{exposureCode};
     }
@@ -287,7 +287,7 @@ sub do_redcap2bff {
                     }
                   )
                   : $field =~ m/^consent/ ? {
-                    value => dotify_and_coerce_number($participant->{$field}),
+                    value => dotify_and_coerce_number( $participant->{$field} ),
                     map { $_ => $redcap_dic->{$field}{$_} } @redcap_field_types
                   }
                   : $participant->{$field};
@@ -416,8 +416,8 @@ sub do_redcap2bff {
         );
         $measure->{measurementValue} = {
             quantity => {
-                unit           => $unit,
-                value          => dotify_and_coerce_number($participant->{$field}),
+                unit  => $unit,
+                value => dotify_and_coerce_number( $participant->{$field} ),
                 referenceRange => map_reference_range(
                     {
                         unit       => $unit,
