@@ -6,20 +6,24 @@
 %%{init: {'theme':'neutral'}}%%
 graph LR
   A[Beacon v2 Models] -->|bff2pxf| B[Phenopackets v2]
-  C[CDISC-ODM] -->|cdisc2bff| A;
+  C[REDCap] -->|redcap2pxf| B;
   D[OMOP-CDM] -->|omop2bff| A;
+  E[CDISC-ODM] -->|cdisc2bff| A;
   B -->|pxf2bff| A;
-  C -->|cdisc2pxf| B;
+  C -->|redcap2bff| A;
   D -->|omop2pxf| B;
+  E -->|cdisc2pxf| B;
 
   style A fill: #6495ED
   style A stroke: #6495ED
   style B fill: #FF7F50
   style B stroke: #FF7F50
-  style C fill: #DDA0DD
-  style C stroke: #DDA0D
+  style C fill: #FF6965
+  style C stroke: #FF6965
   style D fill: #3CB371
   style D stroke: #3CB371
+  style E fill: #DDA0DD
+  style E stroke: #DDA0DD
 
 ```
   <figcaption>Convert-Pheno supported data conversions</figcaption>
