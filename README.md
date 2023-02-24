@@ -173,12 +173,10 @@ Now you have two choose between one of the 2 options below:
 ### System requirements
 
     * Ideally a Debian-based distribution (Ubuntu or Mint), but any other (e.g., CentOs, OpenSuse) should do as well.
-    * Perl 5 (>= 5.10 core; installed by default in most Linux distributions). Check the version with "perl -v"
-    * 4GB of RAM.
+    * Perl 5 (>= 5.10 core; installed by default in most Linux distributions). Check the version with "perl -v".
+    * >= 4GB of RAM
     * 1 core
-    * At least 16GB HDD.
-
-See note about RAM memory below.
+    * At least 16GB HDD
 
 # HOW TO RUN CONVERT-PHENO
 
@@ -202,9 +200,9 @@ For executing convert-pheno you will need:
 
     $ $path/convert-pheno -iredcap redcap.csv -opxf phenopackets.json --redcap-dictionary redcap_dict.csv --mapping-file mapping_file.yaml
 
-    $ $path/convert-pheno -iomop dump.sql -obff individuals.json 
+    $ $path/convert-pheno -iomop dump.sql -obff individuals.json
 
-    $ $path/convert-pheno -iomop dump.sql.gz -obff individuals.json.gz --stream -omop-tables measurement
+    $ $path/convert-pheno -iomop dump.sql.gz -obff individuals.json.gz --stream -omop-tables measurement -verbose
 
     $ $path/convert-pheno -cdisc cdisc_odm.xml -obff individuals.json --rcd redcap_dict.csv --mapping-file mapping_file.yaml --search mixed --min-text-similarity-score 0.6
 

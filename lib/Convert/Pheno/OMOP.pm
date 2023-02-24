@@ -420,26 +420,26 @@ sub do_omop2bff {
 
     # Examples:
 
-    #  "measurement_concept_id" : "3006322",
+    #  "measurement_concept_id" : 3006322,
     #  "measurement_date" : "1943-02-03",
     #  "measurement_datetime" : "1943-02-03 00:00:00",
-    #  "measurement_id" : "9852",
-    #  "measurement_source_concept_id" : "3006322",
+    #  "measurement_id" : 9852,
+    #  "measurement_source_concept_id" : 3006322,
     #  "measurement_source_value" : "8331-1",
     #  "measurement_time" : "1943-02-03",
-    #  "measurement_type_concept_id" : "5001",
-    #  "operator_concept_id" : "0",
-    #  "person_id" : "929",
-    #  "provider_id" : "0",
+    #  "measurement_type_concept_id" : 5001,
+    #  "operator_concept_id" : 0,
+    #  "person_id" : 929,
+    #  "provider_id" : 0,
     #  "range_high" : "\\N",
     #  "range_low" : "\\N",
-    #  "unit_concept_id" : "0",
+    #  "unit_concept_id" : 0,
     #  "unit_source_value" : null,
-    #  "value_as_concept_id" : "0",
+    #  "value_as_concept_id" : 0,
     #  "value_as_number" : "\\N",
     #  "value_source_value" : null,
-    #  "visit_detail_id" : "0",
-    #  "visit_occurrence_id" : "61837"
+    #  "visit_detail_id" : 0,
+    #  "visit_occurrence_id" : 61837
 
     if ( defined $participant->{$table} ) {
 
@@ -630,29 +630,29 @@ sub do_omop2bff {
 
     # Example:
 
-    #            'days_supply' => '35',
+    #            'days_supply' => 35,
     #            'dose_unit_source_value' => undef,
-    #            'drug_concept_id' => '19078461',
+    #            'drug_concept_id' => 19078461,
     #            'drug_exposure_end_date' => '2014-11-19',
     #            'drug_exposure_end_datetime' => '2014-11-19 00:00:00',
-    #            'drug_exposure_id' => '9656',
+    #            'drug_exposure_id' => 9656,
     #            'drug_exposure_start_date' => '2014-10-15',
     #            'drug_exposure_start_datetime' => '2014-10-15 00:00:00',
-    #            'drug_source_concept_id' => '19078461',
-    #            'drug_source_value' => '310965',
-    #            'drug_type_concept_id' => '38000177',
-    #            'lot_number' => '0',
-    #            'person_id' => '807',
-    #            'provider_id' => '0',
-    #            'quantity' => '0',
-    #            'refills' => '0',
-    #            'route_concept_id' => '0',
+    #            'drug_source_concept_id' => 19078461,
+    #            'drug_source_value' => 310965,
+    #            'drug_type_concept_id' => 38000177,
+    #            'lot_number' => 0,
+    #            'person_id' => 807,
+    #            'provider_id' => 0,
+    #            'quantity' => 0,
+    #            'refills' => 0,
+    #            'route_concept_id' => 0,
     #            'route_source_value' => undef,
-    #            'sig' => '',
-    #            'stop_reason' => '',
+    #            'sig' => undef,
+    #            'stop_reason' => undef,
     #            'verbatim_end_date' => '2014-11-19',
-    #            'visit_detail_id' => '0',
-    #            'visit_occurrence_id' => '53547'
+    #            'visit_detail_id' => 0,
+    #            'visit_occurrence_id' => 53547
     #          },
 
     if ( defined $participant->{$table} ) {

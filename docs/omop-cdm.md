@@ -39,7 +39,7 @@ OMOP-CDM databases are typically implemented as PostgreSQL instances. Based on o
 
         Using this approach you will be able to submit multiple jobs in **parallel**.
 
-        !!! Question  "What if my `CONCEPT` does not contain all standard `concept_id`"
+        !!! Question  "What if my `CONCEPT` table does not contain all standard `concept_id`(s)"
 
             In this case, you can use the flag `--ohdsi-db` that will enable checking an internal database whenever the `concept_id` can not be found inside your `CONCEPT` table.
 
@@ -47,14 +47,14 @@ OMOP-CDM databases are typically implemented as PostgreSQL instances. Based on o
             convert-pheno -iomop omop_dump.sql -obff individuals_measurement.json --omop-tables MEASUREMENT --ohdsi-db
             ```
 
-        !!! Danger "RAM memory usage when merging rows by atribute `person_id`"
-            When working with `-iomop` and `--no-stream` (default), `Convert-Pheno` will consolidate all the values corresponding to a given `person_id` under the same object. In order to do this, we need to store all data in the **RAM** memory. The reason for storing the data in RAM is because the rows are **not adjacent** (they are not pre-sorted by `person_id`) and can originate from **distinct tables**.
+        !!! Danger "RAM memory usage in `--no-stream` mode (default)"
+            When working with `-iomop` and `--no-stream`, `Convert-Pheno` will consolidate all the values corresponding to a given attribute `person_id` under the same object. In order to do this, we need to store all data in the **RAM** memory. The reason for storing the data in RAM is because the rows are **not adjacent** (they are not pre-sorted by `person_id`) and can originate from **distinct tables**.
 
-            Number of Rows | Estimated RAM memory |
-                   :---:     |   :---:
-                    100K   | 1GB
-                    500K   | 5GB
-                    1M     | 10GB
+            Number of rows | Estimated RAM memory | Estimated time
+                   :---:   |   :---:              | :---:
+                    100K   | 1GB                  | 5s
+                    500K   | 5GB                  | 20s
+                    1M     | 10GB                 | 40s
              
 
             If your computer only has 4GB-8GB of RAM and you plan to convert **large files** we recommend you to use the flag `--stream` which will process your tables **incrementally** (i.e.,line-by-line), instead of loading them into memory. 
@@ -67,7 +67,7 @@ OMOP-CDM databases are typically implemented as PostgreSQL instances. Based on o
         To choose incremental data processing we'll be using the flag `--stream`:
 
         !!! Warning " `--stream` mode supported output"
-            We only support output to BFF (`-obff`). Both the input and output files files can be **gzipped** to save space.
+            We only support output to BFF (`-obff`). Both the _input_ and _output_ files files can be **gzipped** to save space.
 
         #### All tables at once
 
@@ -86,21 +86,25 @@ OMOP-CDM databases are typically implemented as PostgreSQL instances. Based on o
         convert-pheno -iomop omop_dump.sql.gz -obff individuals_measurement.json.gz --omop-tables MEASUREMENT --stream
         ```
 
-        Running multiple jobs in stream mode will create -up with a bunch of `JSON` files instead of one. It's OK, as the files we're creating are **intermediate** files.
+        Running multiple jobs in `--stream` mode will create -up with a bunch of `JSON` files instead of one. It's OK, as the files we're creating are **intermediate** files.
 
-        !!! Danger "_Pros_ and _Cons_ of incremental data load"
+        !!! Danger "_Pros_ and _Cons_ of incremental data load (`--stream` mode)"
             Incremental data load facilitates the processing of huge files. The only substantive difference compared to the `--no-stream` mode is that the data will not be consolidated at the patient or individual level, which is merely a **cosmetic concern**. Ultimately, the data will be loaded into a **database**, such as _MongoDB_, where the linking of data through keys can be managed. In most cases, the implementation of a pre-built API, such as the one described in the [B2RI documentation](https://b2ri-documentation.readthedocs.io/en/latest), will be added to further enhance the functionality.
+
+            Number of rows | Estimated RAM memory | Estimated time
+                   :---:   |   :---:              | :---:
+                    100K   | 500MB                | 2s
+                    500K   | 500MB                | 8s
+                    1M     | 500MB                | 20s
 
             Note that the output JSON files generated in `--stream` mode will always include information from both the `PERSON` and `CONCEPT` tables. This is not a mandatory requirement, but it serves to facilitate subsequent [validation of the data against JSON schemas](https://github.com/EGA-archive/beacon2-ri-tools/tree/main/utils/bff_validator). In terms of the JSON Schema terminology, these files contain `required` properties for [BFF](bff.md) and [PXF](pxf.md).
 
-        !!! Tip "About Parallelization"
-            `Convert-Pheno` has been optimized for speed, and, in general the CLI results are generated almost immediatly. For instance, all tests with synthetic data take less than a second of a few seconds to complete. It should be noted that the speed of the results depends on the performance of the CPU and disk speed. If `Convert-Pheno` must retrieve ontologies from a database to annotate the data, the process may take longer.
+        !!! Tip "About parallelization and speed"
+            `Convert-Pheno` has been optimized for speed, and, in general the CLI results are generated almost immediatly. For instance, all tests with synthetic data take less than a second or a few seconds to complete. It should be noted that the speed of the results depends on the performance of the CPU and disk speed. If `Convert-Pheno` must retrieve ontologies from a database to annotate the data, the process may take longer.
 
-            The calculation is I/O limited and using internal [threads](https://en.wikipedia.org/wiki/Thread_(computing)) **did not speed up** the calculation. 
+            The calculation is I/O limited and using _internal_ [threads](https://en.wikipedia.org/wiki/Thread_(computing)) did not speed up the calculation. Another valid option is to run **simultaneous jobs** with external tools such as [GNU Parallel](https://www.gnu.org/software/parallel), but keep in mind that **SQLite** database _may_ complain.
 
-            Another valid option is to run simultaneous jobs with external tools such as [GNU Parallel](https://www.gnu.org/software/parallel), but keep in mind that **SQLite** database may complain.
-
-            As a final consideration, it is important to recall that pheno-clinical data conversions are executed only "once". The goal is obtaining **intermediate files** which will be later loaded into a database. If a large file has been converted, it is verly likely that the **performance bottleneck** will not occur at the `Convert-Pheno` step, but rather during the **database load**.
+            As a final consideration, it is important to remember that pheno-clinical data conversions are executed only "once". The goal is obtaining **intermediate files** which will be later loaded into a database. If a large file has been converted, it is verly likely that the **performance bottleneck** will not occur at the `Convert-Pheno` step, but rather during the **database load**.
 
 === "Module"
 

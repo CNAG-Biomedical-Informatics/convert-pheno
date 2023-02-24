@@ -41,8 +41,9 @@ sub read_redcap_dictionary {
     # We'll be adding the key <_labels>. See sub add_labels
     my $labels = 'Choices, Calculations, OR Slider Labels';
 
-    # NB: We want HoH and sub read_csv returns AoH
     # Loading data directly from Text::CSV_XS
+    # NB1: We want HoH and sub read_csv returns AoH
+    # NB2: By default the Text::CSV module treats all fields in a CSV file as strings, regardless of their actual data type.
     my $hoh = csv(
         in       => $filepath,
         sep_char => $separator,
@@ -114,11 +115,11 @@ sub remap_ohdsi_dictionary {
     #          {
     #            'concept_class_id' => '4-char billing code',
     #            'concept_code' => 'K92.2',
-    #            'concept_id' => '35208414',
+    #            'concept_id' => 35208414,
     #            'concept_name' => 'Gastrointestinal hemorrhage, unspecified',
     #            'domain_id' => 'Condition',
     #            'invalid_reason' => undef,
-    #            'standard_concept' => '',
+    #            'standard_concept' => undef,
     #            'valid_end_date' => '2099-12-31',
     #            'valid_start_date' => '2007-01-01',
     #            'vocabulary_id' => 'ICD10CM'
@@ -129,8 +130,8 @@ sub remap_ohdsi_dictionary {
     # $VAR1 = {
     #          '1107830' => {
     #                         'concept_class_id' => 'Ingredient',
-    #                         'concept_code' => '28889',
-    #                         'concept_id' => '1107830',
+    #                         'concept_code' => 28889,
+    #                         'concept_id' => 1107830,
     #                         'concept_name' => 'Loratadine',
     #                         'domain_id' => 'Drug',
     #                         'invalid_reason' => undef,
@@ -414,20 +415,20 @@ sub transpose_omop_data_structure {
     #$VAR1 = {
     #          'MEASUREMENT' => [
     #                             {
-    #                               'measurement_concept_id' => '001',
-    #                               'person_id' => '666'
+    #                               'measurement_concept_id' => 1,
+    #                               'person_id' => 666
     #                             },
     #                             {
-    #                               'measurement_concept_id' => '002',
-    #                               'person_id' => '666'
+    #                               'measurement_concept_id' => 2,
+    #                               'person_id' => 666
     #                             }
     #                           ],
     #          'PERSON' => [
     #                        {
-    #                          'person_id' => '666'
+    #                          'person_id' => 666
     #                        },
     #                        {
-    #                          'person_id' => '001'
+    #                          'person_id' => 1
     #                        }
     #                      ]
     #        };
@@ -440,24 +441,24 @@ sub transpose_omop_data_structure {
 #
 #
 #$VAR1 = {
-#          '001' => {
+#          '1' => {
 #                     'PERSON' => {
-#                                   'person_id' => '001'
+#                                   'person_id' => 1
 #                                 }
 #                   },
 #          '666' => {
 #                     'MEASUREMENT' => [
 #                                        {
-#                                          'measurement_concept_id' => '001',
-#                                          'person_id' => '666'
+#                                          'measurement_concept_id' => 1,
+#                                          'person_id' => 666
 #                                        },
 #                                        {
-#                                          'measurement_concept_id' => '002',
-#                                          'person_id' => '666'
+#                                          'measurement_concept_id' => 2,
+#                                          'person_id' => 666
 #                                        }
 #                                      ],
 #                     'PERSON' => {
-#                                   'person_id' => '666'
+#                                   'person_id' => 666
 #                                 }
 #                   }
 #        };
@@ -491,23 +492,23 @@ sub transpose_omop_data_structure {
     #$VAR1 = [
     #          {
     #            'PERSON' => {
-    #                          'person_id' => '001'
+    #                          'person_id' => 1
     #                        }
     #          },
     # ------------------------------------------------
     #          {
     #            'MEASUREMENT' => [
     #                               {
-    #                                 'measurement_concept_id' => '001',
-    #                                 'person_id' => '666'
+    #                                 'measurement_concept_id' => 1,
+    #                                 'person_id' => 666
     #                               },
     #                               {
-    #                                 'measurement_concept_id' => '002',
-    #                                 'person_id' => '666'
+    #                                 'measurement_concept_id' => 2,
+    #                                 'person_id' => 666
     #                               }
     #                             ],
     #            'PERSON' => {
-    #                          'person_id' => '666'
+    #                          'person_id' => 666
     #                        }
     #          }
     #        ];
@@ -539,9 +540,9 @@ sub read_csv {
 
     # $aoh = [
     #       {
-    #         'abdominal_mass' => '0',
-    #         'age_first_diagnosis' => '0',
-    #         'alcohol' => '4',
+    #         'abdominal_mass' => 0,
+    #         'age_first_diagnosis' => 0,
+    #         'alcohol' => 4,
     #        }, {},,,
     #      ]
 

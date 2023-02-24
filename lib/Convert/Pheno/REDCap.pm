@@ -48,11 +48,11 @@ sub do_redcap2bff {
 
     # $participant =
     #       {
-    #         'abdominal_mass' => '0',
-    #         'abdominal_pain' => '1',
-    #         'age' => '2',
-    #         'age_first_diagnosis' => '0',
-    #         'alcohol' => '4',
+    #         'abdominal_mass' => 0,
+    #         'abdominal_pain' => 1,
+    #         'age' => 2,
+    #         'age_first_diagnosis' => 0,
+    #         'alcohol' => 4,
     #        }
     print Dumper $redcap_dic
       if ( defined $self->{debug} && $self->{debug} > 4 );
