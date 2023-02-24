@@ -199,7 +199,7 @@ sub convert {
     my ( $o_file, $l_data ) = @_;
 
     # Before proceeding we ask the user what to do
-    check_overwrite($o_file) unless $overwrite;
+    ask_overwrite($o_file) unless $overwrite;
 
     if ($verbose) {
         print BOLD BLUE program_body($l_data);
@@ -276,24 +276,34 @@ sub write_log {
     );
 }
 
-sub check_overwrite {
+sub ask_overwrite {
 
     my $filepath = shift;
 
-    # If file exist we ask the user what to do
+    # If file exists we ask the user what to do
     if ( -f $filepath ) {
-        say BOLD RED "<$filepath> exists. Overwrite? [Y/n]";
-        my $input = <STDIN>;
-        chomp $input;
-        $input = lc($input);
-        if ( $input eq 'y' ) {
-            unlink($filepath);
-        }
-        elsif ( $input eq 'n' ) {
-            die "You chose to stop\n";
-        }
-        else {
-            die "Invalid input\n";
+
+      my $count = 0;
+      my $attempt = 5;
+      my $input;
+      INPUT: {
+            do {
+                say BOLD RED "<$filepath> exists. Overwrite? [Y/n]";
+                $input = <STDIN>;
+                chomp $input;
+                $input = lc($input);
+                if ( $input eq 'y' ) {
+                    unlink($filepath);
+                }
+                elsif ( $input eq 'n' ) {
+                    die "You chose to stop\n";
+                }
+                else {
+                    say "Invalid input";
+                }
+                $count++;
+                die "Sorry, too many atempts!\n" if $count == $attempt;
+            } until ( $input eq 'y' || $input eq 'n' );
         }
     }
 }

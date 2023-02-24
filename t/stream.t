@@ -55,6 +55,7 @@ my $content2 = do { local $/; <$z2> };
 
 # Compare the contents of the two files
 is($content1, $content2, qq/$method stream gzipped IO drug_exposure/);
+
 # Close the files
 $z1->close();
 $z2->close();

@@ -301,32 +301,6 @@ sub map_operator_concept_id {
     return $hashref;
 }
 
-sub map_info_field {
-
-    my $field = shift;
-
-    #############
-    # IMPORTANT #
-    #############
-    # WE DO NOT MODIFY ORIGINAL REFERENCE HERE
-
-    # Out data structure
-    my $hashref;
-
-    # Loop through the keys
-    for ( keys %{$field} ) {
-
-        # Only peform if defined (we can have '0')
-        if ( defined $field->{$_} ) {
-            $hashref->{$_} = dotify_and_coerce_number( $field->{$_} );
-        }
-        else {
-            $hashref->{$_} = undef;    # Note that <""> will become <null>
-        }
-    }
-    return $hashref;
-}
-
 sub is_multidimensional {
 
     return ref shift ? 1 : 0;

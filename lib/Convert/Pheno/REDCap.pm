@@ -73,8 +73,7 @@ sub do_redcap2bff {
     # **********************
     # We need to pass 'sex' info to external array elements from $participant
     # Thus, we are storing $participant->{sex} in $self !!!
-    if ( exists $participant->{$sex_field} && $participant->{$sex_field} ne '' )
-    {
+    if ( defined $participant->{$sex_field} ) {
         $self->{_info}{ $participant->{study_id} }{$sex_field} =
           $participant->{$sex_field};   # Dynamically adding attributes (setter)
     }
@@ -83,13 +82,8 @@ sub do_redcap2bff {
 
     # Premature return if fields don't exist
     return
-      unless (
-        (
-            exists $participant->{$studyId_field}
-            && $participant->{$studyId_field} ne ''
-        )
-        && $participant->{$sex_field} ne ''
-      );
+      unless ( defined $participant->{$studyId_field}
+        && $participant->{$sex_field} );
 
     # Data structure (hashref) for each individual
     my $individual;
@@ -147,9 +141,7 @@ sub do_redcap2bff {
                     labels      => 1
                 }
             )
-          )
-          if ( exists $participant->{$ageOfOnset_field}
-            && $participant->{$ageOfOnset_field} ne '' );
+        ) if defined $participant->{$ageOfOnset_field};
         $disease->{diseaseCode} = map_ontology(
             {
                 query    => $field,
@@ -167,9 +159,7 @@ sub do_redcap2bff {
                     labels      => 1
                 }
             )
-          )
-          if ( exists $participant->{$familyHistory_field}
-            && $participant->{$familyHistory_field} ne '' );
+        ) if defined $participant->{$familyHistory_field};
 
         #$disease->{notes}    = undef;
         $disease->{severity} = $default_ontology;
@@ -196,9 +186,7 @@ sub do_redcap2bff {
 
             }
         )
-      )
-      if ( exists $participant->{$ethnicity_field}
-        && $participant->{$ethnicity_field} ne '' );
+    ) if defined $participant->{$ethnicity_field};
 
     # =========
     # exposures
@@ -216,8 +204,7 @@ sub do_redcap2bff {
 
     for my $field (@exposures_fields) {
         next
-          unless ( exists $participant->{$field}
-            && $participant->{$field} ne '' );
+          unless defined $participant->{$field};
         my $exposure;
         $exposure->{ageAtExposure} = $default_ontology;
         $exposure->{date}          = '1900-01-01';
@@ -260,7 +247,7 @@ sub do_redcap2bff {
             }
         );
         $exposure->{unit}  = $unit;
-        $exposure->{value} = dotify_and_coerce_number( $participant->{$field} );
+        $exposure->{value} = dotify_and_coerce_number($participant->{$field});
         push @{ $individual->{exposures} }, $exposure
           if defined $exposure->{exposureCode};
     }
@@ -285,7 +272,7 @@ sub do_redcap2bff {
 
     my @info_fields = @{ $mapping_file->{info}{fields} };
     for my $field (@info_fields) {
-        if ( exists $participant->{$field} && $participant->{$field} ne '' ) {
+        if ( defined $participant->{$field} ) {
             if ( $project_id eq '3tr_ibd' ) {
                 $individual->{info}{$field} =
                   $field eq 'age'
@@ -300,7 +287,7 @@ sub do_redcap2bff {
                     }
                   )
                   : $field =~ m/^consent/ ? {
-                    value => dotify_and_coerce_number( $participant->{$field} ),
+                    value => dotify_and_coerce_number($participant->{$field}),
                     map { $_ => $redcap_dic->{$field}{$_} } @redcap_field_types
                   }
                   : $participant->{$field};
@@ -351,7 +338,7 @@ sub do_redcap2bff {
                     ontology => $interventions_ontology,
                     self     => $self
                 }
-            ) if ( exists $surgery{$field} && $surgery{$field} ne '' );
+            ) if defined $surgery{$field};
             push @{ $individual->{interventionsOrProcedures} }, $intervention
               if defined $intervention->{procedureCode};
         }
@@ -378,7 +365,7 @@ sub do_redcap2bff {
       : $project_ontology;
 
     for my $field (@measures_fields) {
-        next if $participant->{$field} eq '';
+        next unless defined $participant->{$field};
         my $measure;
 
         $measure->{assayCode} = map_ontology(
@@ -429,8 +416,8 @@ sub do_redcap2bff {
         );
         $measure->{measurementValue} = {
             quantity => {
-                unit  => $unit,
-                value => dotify_and_coerce_number( $participant->{$field} ),
+                unit           => $unit,
+                value          => dotify_and_coerce_number($participant->{$field}),
                 referenceRange => map_reference_range(
                     {
                         unit       => $unit,
@@ -499,7 +486,7 @@ sub do_redcap2bff {
     for my $field (@phenotypicFeatures_fields) {
         my $phenotypicFeature;
 
-        if (   exists $participant->{$field}
+        if (   defined $participant->{$field}
             && $participant->{$field} ne ''
             && $participant->{$field} == 1 )
         {
@@ -588,8 +575,7 @@ sub do_redcap2bff {
               ? $field . '_' . $route . '_status'
               : $field . '_status';
             next
-              unless ( exists $participant->{$tmp_var}
-                && $participant->{$tmp_var} ne '' );
+              unless defined $participant->{$tmp_var};
 
             # Initialize field $treatment
             my $treatment;

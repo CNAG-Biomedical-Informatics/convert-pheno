@@ -15,6 +15,7 @@ use Convert::Pheno;
 use Convert::Pheno::OMOP;
 use Convert::Pheno::IO;
 use Convert::Pheno::Schema;
+use Convert::Pheno::Mapping;
 use Exporter 'import';
 our @EXPORT =
   qw(read_csv read_csv_stream read_redcap_dic_and_mapping_file remap_ohdsi_dictionary read_sqldump_stream read_sqldump  sqldump2csv transpose_omop_data_structure);
@@ -168,13 +169,13 @@ sub read_sqldump_stream {
     # Now we we start processing line by line
     my $count = 0;
     while ( my $line = <$fh_in> ) {
-        chomp $line;
 
         # Only parsing $table_name_lc and discarding others
         # Note that double quotes are optional
         # - COPY "OMOP_cdm_eunomia".person
         # . COPY omop_cdm_eunomia_2.person
         if ( $line =~ /^COPY \"?(\w+)\"?\.$table_name_lc / ) {
+            chomp $line;
 
             # Create an array to hold the column names for this table
             $line =~ s/[\(\),]//g;    # getting rid of (),
@@ -186,13 +187,16 @@ sub read_sqldump_stream {
             # Turning on the switch for later
             $switch++;
 
-            # Jump one line and get rid of \n
-            chomp( $line = <$fh_in> );
+            # Jump one line
+            $line = <$fh_in>;
 
         }
 
         # Loading the data if $switch
         if ($switch) {
+
+            # get rid of \n
+            chomp $line;
 
             # Order matters. We exit before loading
             last if $line =~ /^\\\.$/;
@@ -202,7 +206,8 @@ sub read_sqldump_stream {
 
             # Using tmp hashref to load all fields at once with slice
             my $tmp_hash;
-            @{$tmp_hash}{@headers} = @fields;
+            @{$tmp_hash}{@headers} =
+              map { dotify_and_coerce_number($_) } @fields;
 
             # Initialize $data each time
             # Adding them as an array element (AoH)
@@ -217,6 +222,8 @@ sub read_sqldump_stream {
             my $encoded_data =
               encode_omop_stream( $table_name, $tmp_hash, $person,
                 $count, $self );
+
+            # Only after encoding we are able to discard 'null'
             say $fh_out $encoded_data if $encoded_data ne 'null';
 
             # Print if verbose
@@ -260,13 +267,13 @@ sub read_sqldump {
     my $filepath = $arg->{in};
     my $self     = $arg->{self};
 
-    # Before resorting to writting this subroutine I performed an exhaustive search on CPAN:
-    # - Tested MySQL::Dump::Parser::XS but I could not make it work...
-    # - App-MysqlUtils-0.022 has a CLI utility (mysql-sql-dump-extract-tables)
-    # - Of course one can always use *nix tools (sed, grep, awk, etc) or other programming languages....
-    # Anyway, I ended up writting the parser myself...
-    # The parser is based in reading COPY paragraphs from PostgreSQL dump by using Perl's paragraph mode  $/ = "";
-    # NB: Each paragraph (TABLE) is loaded into memory. Not great for large files.
+# Before resorting to writting this subroutine I performed an exhaustive search on CPAN:
+# - Tested MySQL::Dump::Parser::XS but I could not make it work...
+# - App-MysqlUtils-0.022 has a CLI utility (mysql-sql-dump-extract-tables)
+# - Of course one can always use *nix tools (sed, grep, awk, etc) or other programming languages....
+# Anyway, I ended up writting the parser myself...
+# The parser is based in reading COPY paragraphs from PostgreSQL dump by using Perl's paragraph mode  $/ = "";
+# NB: Each paragraph (TABLE) is loaded into memory. Not great for large files.
 
     # Define variables that modify what we load
     my $max_lines_sql = $self->{max_lines_sql};
@@ -275,9 +282,9 @@ sub read_sqldump {
     # Set record separator to paragraph
     local $/ = "";
 
-    #COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, attribute_description, attribute_type_concept_id, attribute_syntax) FROM stdin;
-    # ......
-    # \.
+#COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, attribute_description, attribute_type_concept_id, attribute_syntax) FROM stdin;
+# ......
+# \.
 
     # Start reading the SQL dump
     my $fh = open_filehandle( $filepath, 'r' );
@@ -291,13 +298,13 @@ sub read_sqldump {
         # Discarding paragraphs not having  m/^COPY/
         next unless $paragraph =~ m/^COPY/;
 
-        # Load all lines into an array
+        # Load all lines into an array (via "\n")
         my @lines = split /\n/, $paragraph;
         next unless scalar @lines > 2;
         pop @lines;    # last line eq '\.'
 
-        # First line contains the headers
-        #COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, ..., attribute_syntax) FROM stdin;
+# First line contains the headers
+#COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, ..., attribute_syntax) FROM stdin;
         $lines[0] =~ s/[\(\),]//g;    # getting rid of (),
         my @headers = split /\s+/, $lines[0];
         my $table_name =
@@ -348,7 +355,8 @@ sub read_sqldump {
 
             # Using tmp hashref to load all fields at once with slice
             my $tmp_hash;
-            @{$tmp_hash}{@headers} = @fields;
+            @{$tmp_hash}{@headers} =
+              map { dotify_and_coerce_number($_) } @fields;
 
             # Adding them as an array element (AoH)
             push @{ $data->{$table_name} }, $tmp_hash;
@@ -424,35 +432,35 @@ sub transpose_omop_data_structure {
     #                      ]
     #        };
 
-    # where all 'person_id' are together inside the TABLE_NAME.
-    # But, BFF "ideally" works at the individual level so we are going to
-    # transpose the data structure to end up into something like this
-    # NB: MEASUREMENT and OBSERVATION (among others, i.e., CONDITION_OCCURRENCE, PROCEDURE_OCCURRENCE)
-    #     can have multiple values for one 'person_id' so they will be loaded as arrays
-    #
-    #
-    #$VAR1 = {
-    #          '001' => {
-    #                     'PERSON' => {
-    #                                   'person_id' => '001'
-    #                                 }
-    #                   },
-    #          '666' => {
-    #                     'MEASUREMENT' => [
-    #                                        {
-    #                                          'measurement_concept_id' => '001',
-    #                                          'person_id' => '666'
-    #                                        },
-    #                                        {
-    #                                          'measurement_concept_id' => '002',
-    #                                          'person_id' => '666'
-    #                                        }
-    #                                      ],
-    #                     'PERSON' => {
-    #                                   'person_id' => '666'
-    #                                 }
-    #                   }
-    #        };
+# where all 'person_id' are together inside the TABLE_NAME.
+# But, BFF "ideally" works at the individual level so we are going to
+# transpose the data structure to end up into something like this
+# NB: MEASUREMENT and OBSERVATION (among others, i.e., CONDITION_OCCURRENCE, PROCEDURE_OCCURRENCE)
+#     can have multiple values for one 'person_id' so they will be loaded as arrays
+#
+#
+#$VAR1 = {
+#          '001' => {
+#                     'PERSON' => {
+#                                   'person_id' => '001'
+#                                 }
+#                   },
+#          '666' => {
+#                     'MEASUREMENT' => [
+#                                        {
+#                                          'measurement_concept_id' => '001',
+#                                          'person_id' => '666'
+#                                        },
+#                                        {
+#                                          'measurement_concept_id' => '002',
+#                                          'person_id' => '666'
+#                                        }
+#                                      ],
+#                     'PERSON' => {
+#                                   'person_id' => '666'
+#                                 }
+#                   }
+#        };
 
     my $omop_person_id = {};
 
@@ -460,17 +468,18 @@ sub transpose_omop_data_structure {
     for my $table ( @{ $omop_main_table->{$omop_version} } ) {    # global
         for my $item ( @{ $data->{$table} } ) {
 
-            if ( exists $item->{person_id} && $item->{person_id} ne '' ) {
+            if ( exists $item->{person_id} && $item->{person_id} ) {
                 my $person_id = $item->{person_id};
 
                 # {person_id} can have multiple rows in a given table
                 if ( any { m/^$table$/ } @omop_array_tables ) {
-                    push @{ $omop_person_id->{$person_id}{$table} }, $item;    # array
+                    push @{ $omop_person_id->{$person_id}{$table} },
+                      $item;    # array
                 }
 
                 # {person_id} only has one value in a given TABLE
                 else {
-                    $omop_person_id->{$person_id}{$table} = $item;             # scalar
+                    $omop_person_id->{$person_id}{$table} = $item;    # scalar
                 }
             }
         }
@@ -536,6 +545,10 @@ sub read_csv {
     #        }, {},,,
     #      ]
 
+    # Coercing the data before returning it
+    for my $i (@$aoh) {
+        $i = { map { $_ => dotify_and_coerce_number( $i->{$_} ) } keys %{$i} };
+    }
     return $aoh;
 }
 
@@ -582,11 +595,13 @@ sub read_csv_stream {
 
         # Load the values a a hash slice;
         my $tmp_hash;
-        @{$tmp_hash}{@headers} = @$row;
+        @{$tmp_hash}{@headers} = map { dotify_and_coerce_number($_) } @$row;
 
         # Encode data
         my $encoded_data =
           encode_omop_stream( $table_name, $tmp_hash, $person, $count, $self );
+
+        # Only after encoding we are able to discard 'null'
         say $fh_out $encoded_data if $encoded_data ne 'null';
 
         # Increment $count
