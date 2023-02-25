@@ -93,5 +93,5 @@ This page provides brief tutorials on how to perform data conversion by using `C
     Once you have created the mapping file you can proceed to run `convert-pheno` with the **command-line interface**. Please see how [here](omop-cdm.md#omop-as-input).
 
 !!! Question "More questions?"
-    Pease take a look to our [Frequently Asked Questions](faq.md).
+    Please take a look to our [Frequently Asked Questions](faq.md).
 
