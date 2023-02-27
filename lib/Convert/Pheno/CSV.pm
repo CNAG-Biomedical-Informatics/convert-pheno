@@ -9,6 +9,7 @@ use Text::CSV_XS          qw(csv);
 use Sort::Naturally       qw(nsort);
 use List::Util            qw(any);
 use File::Spec::Functions qw(catdir);
+use Devel::Size           qw(size total_size);
 
 #use Parallel::ForkManager;
 use Convert::Pheno;
@@ -18,7 +19,7 @@ use Convert::Pheno::Schema;
 use Convert::Pheno::Mapping;
 use Exporter 'import';
 our @EXPORT =
-  qw(read_csv read_csv_stream read_redcap_dic_and_mapping_file remap_ohdsi_dictionary read_sqldump_stream read_sqldump  sqldump2csv transpose_omop_data_structure);
+  qw(read_csv read_csv_stream read_redcap_dic_and_mapping_file remap_ohdsi_dictionary read_sqldump_stream read_sqldump sqldump2csv transpose_omop_data_structure open_filehandle);
 
 use constant DEVEL_MODE => 0;
 
@@ -41,9 +42,9 @@ sub read_redcap_dictionary {
     # We'll be adding the key <_labels>. See sub add_labels
     my $labels = 'Choices, Calculations, OR Slider Labels';
 
-    # Loading data directly from Text::CSV_XS
-    # NB1: We want HoH and sub read_csv returns AoH
-    # NB2: By default the Text::CSV module treats all fields in a CSV file as strings, regardless of their actual data type.
+# Loading data directly from Text::CSV_XS
+# NB1: We want HoH and sub read_csv returns AoH
+# NB2: By default the Text::CSV module treats all fields in a CSV file as strings, regardless of their actual data type.
     my $hoh = csv(
         in       => $filepath,
         sep_char => $separator,
@@ -143,6 +144,9 @@ sub remap_ohdsi_dictionary {
     #
     # NB: We store all columns yet we'll use 4:
     # 'concept_id', 'concept_code', 'concept_name', 'vocabulary_id'
+    say "remap_ohdsi_dictionary:",
+      to_gb( total_size( { map { $_->{$column} => $_ } @{$data} } ) )
+      if DEVEL_MODE;
     return { map { $_->{$column} => $_ } @{$data} };
 }
 
@@ -151,14 +155,12 @@ sub read_sqldump_stream {
     my $arg     = shift;
     my $filein  = $arg->{in};
     my $self    = $arg->{self};
+    my $person  = $arg->{person};
     my $fileout = $self->{out_file};
     my $switch  = 0;
     my @headers;
     my $table_name    = $self->{omop_tables}[0];
     my $table_name_lc = lc($table_name);
-
-    # First we do a transformation from AoH to HoH to speed up the calculation
-    my $person = { map { $_->{person_id} => $_ } @{ $self->{data}{PERSON} } };
 
     # Open filehandles
     my $fh_in  = open_filehandle( $filein,  'r' );
@@ -373,6 +375,8 @@ sub read_sqldump {
         say "==============\nRows total:     $count\n" if $self->{verbose};
     }
     close $fh;
+
+    #say total_size($data) and die;
     return $data;
 }
 
@@ -484,8 +488,10 @@ sub transpose_omop_data_structure {
                 }
             }
         }
-        delete $data->{$table};    # To get back unused memory for later...
     }
+
+    # To get back unused memory for later..
+    $data = undef;
 
     # Finally we get rid of the 'person_id' key and return values as an array
     #
@@ -513,7 +519,13 @@ sub transpose_omop_data_structure {
     #          }
     #        ];
     # NB: We nsort keys to always have the same result but it's not needed
-    return [ map { $omop_person_id->{$_} } nsort keys %{$omop_person_id} ];
+    my $aoh = [ map { $omop_person_id->{$_} } nsort keys %{$omop_person_id} ];
+    if (DEVEL_MODE) {
+        say 'transpose_omop_data_structure(omop_person_id):',
+          to_gb( total_size($omop_person_id) );
+        say 'transpose_omop_data_structure(map):', to_gb( total_size($aoh) );
+    }
+    return $aoh;
 }
 
 sub read_csv {
@@ -679,4 +691,12 @@ sub define_separator {
     # Return 3 but some get only 2
     return ( $separator, $encoding, $table_name );
 }
-1;
+
+sub to_gb {
+
+    my $bytes = shift;
+
+    # base 2 => 1,073,741,824
+    my $gb = $bytes / 1_073_741_824;
+    return sprintf( '%8.4f', $gb ) . ' GB';
+}

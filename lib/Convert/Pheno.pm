@@ -13,6 +13,8 @@ use Carp       qw(confess);
 use XML::Fast;
 use Moo;
 use Types::Standard qw(Str Int Num Enum ArrayRef Undef);
+
+#use Devel::Size     qw(size total_size);
 use Convert::Pheno::CSV;
 use Convert::Pheno::IO;
 use Convert::Pheno::SQLite;
@@ -68,9 +70,11 @@ has min_text_similarity_score => (
 has username => (
 
     #default => ( $ENV{LOGNAME} || $ENV{USER} || getpwuid($<) ),
-    is      => 'ro',
-    coerce => sub { defined $_[0] ? $_[0] : ( $ENV{LOGNAME} || $ENV{USER} || getpwuid($<) ) },
-    isa     => Str
+    is     => 'ro',
+    coerce => sub {
+        defined $_[0] ? $_[0] : ( $ENV{LOGNAME} || $ENV{USER} || getpwuid($<) );
+    },
+    isa => Str
 );
 
 has max_lines_sql => (
@@ -84,7 +88,10 @@ has omop_tables => (
 
     # Table <CONCEPT> is always required
     coerce => sub {
-        @{$_[0]}  ? $_[0] = [ map { uc($_) } ( uniq( @{ $_[0] }, 'CONCEPT', 'PERSON' ) ) ] : \@omop_essential_tables 
+        @{ $_[0] }
+          ? $_[0] =
+          [ map { uc($_) } ( uniq( @{ $_[0] }, 'CONCEPT', 'PERSON' ) ) ]
+          : \@omop_essential_tables;
     },
     is  => 'rw',
     isa => ArrayRef
@@ -205,7 +212,7 @@ sub omop2bff {
     # In many cases, because people are downsizing their DBs for data sharing,
     # PostgreSQL dumps or CSVs will be <500MB.
     # Providing we have enough memory (4-16GB), we'll able to load data in RAM,
-    # and consolidate individual values (MEASURES, DRUGS) and serialize ALL at once.
+    # and consolidate individual values (MEASURES, DRUGS)
 
     # HUMONGOUS FILES > 1GB
     # NB: Interesting read on the topic
@@ -387,18 +394,9 @@ sub omop2pxf {
 
     my $self = shift;
 
-    # First iteration: omop2bff
-    $self->{method} = 'omop2bff';    # setter - we have to change the value of attr {method}
-    my $bff = omop2bff($self);       # array
-
-    # Preparing for second iteration: bff2pxf
-    # NB: This 2nd round may take a while if #inviduals > 1000!!!
-    $self->{method}      = 'bff2pxf';    # setter
-    $self->{data}        = $bff;         # setter
-    $self->{in_textfile} = 0;            # setter
-
-    # Run second iteration
-    return array_dispatcher($self);
+    $self->{method_ori} = $self->{method};    # setter
+    $self->{method}     = 'omop2bff';         # setter
+    omop2bff($self);
 }
 
 ###############
@@ -484,16 +482,33 @@ sub array_dispatcher {
     # Open connection to SQLlite databases ONCE
     open_connections_SQLite($self) if $self->{method} ne 'bff2pxf';
 
+    #############
+    # IMPORTANT #
+    #############
+    # omop2[bffi|pxf] serialized by INDIVIDUAL  02-26-23 mrueda
+    $self->{method_ori} =
+      exists $self->{method_ori} ? $self->{method_ori} : '';    # setter;
+
+    # Open filehandle if omop2bff
+    my $fh_out;
+    if ( $self->{method} eq 'omop2bff' ) {
+        $fh_out = open_filehandle( $self->{out_file}, 'a' );
+        say $fh_out "[";
+    }
+
     # Proceed depending if we have an ARRAY or not
     my $out_data;
     if ( ref $in_data eq ref [] ) {
-        say "$self->{method}: ARRAY" if $self->{debug};
 
-        # Caution with the RAM (we store all in memory)
-        my $counter = 0;
+        # Caution with the RAM (we store all in memory except for omop2bff)
+        say "$self->{method}: ARRAY" if $self->{debug};
+        my $count    = 0;
+        my $total    = 0;
+        my $elements = scalar @{$in_data};
         for ( @{$in_data} ) {
-            say "[$counter] ARRAY ELEMENT" if $self->{debug};
-            $counter++;
+            $count++;
+
+            say "[$count] ARRAY ELEMENT from $elements" if $self->{debug};
 
             # In $self->{data} we have all participants data, but,
             # WE DELIBERATELY SEPARATE ARRAY ELEMENTS FROM $self->{data}
@@ -501,25 +516,69 @@ sub array_dispatcher {
             # NB: If we get "null" participants the validator will complain
             # about not having "id" or any other required property
             my $method_result = $func{ $self->{method} }->( $self, $_ );    # Method
-            push @{$out_data}, $method_result if $method_result;
+            if ($method_result) {
+                $total++;
+                say " - [$count] ARRAY ELEMENT is defined" if $self->{debug};
+                if ( $self->{method} eq 'omop2bff' ) {
+                    my $out;
+                    if ( $self->{method_ori} ne 'omop2pxf' ) {
+                        chomp(
+                            $out =
+                              JSON::XS->new->utf8->canonical->pretty->encode(
+                                $method_result)
+                        );
+                    }
+                    else {
+                        my $pxf = do_bff2pxf( $self, $method_result );
+                        chomp(
+                            $out =
+                              JSON::XS->new->utf8->canonical->pretty->encode(
+                                $pxf)
+                        );
+                    }
+                    print $fh_out $out;
+                    print $fh_out ",\n"
+                      unless ( $total == $elements
+                        || $total == $self->{max_lines_sql} );
+                    say "<individuals> processed: $total"
+                      if ( $self->{verbose} && $count % 10_000 == 0 );
+                }
+                else {
+                    push @{$out_data}, $method_result;
+
+                    #say total_size($out_data);
+                }
+            }
         }
+        say "==============\nIndividuals total:     $total\n"
+          if ( $self->{verbose} && $self->{method} eq 'omop2bff' );
+
     }
     else {
         say "$self->{method}: NOT ARRAY" if $self->{debug};
-        $out_data = $func{ $self->{method} }->( $self, $in_data );          # Method
+        $out_data = $func{ $self->{method} }->( $self, $in_data );    # Method
     }
 
     # Close connections ONCE
     close_connections_SQLite($self) unless $self->{method} eq 'bff2pxf';
 
+    # Close filehandle if omop2bff (w/ premature return)
+    if ( $self->{method} eq 'omop2bff' ) {
+
+        say $fh_out "\n]";
+        close $fh_out;
+        return 1;
+    }
+
+    # Return data
     return $out_data;
 }
 
 sub stream_dispatcher {
 
-    my $arg      = shift;
-    my $self     = $arg->{self};
-    my $filepath = $arg->{filepath};
+    my $arg         = shift;
+    my $self        = $arg->{self};
+    my $filepath    = $arg->{filepath};
     my $filepaths   = $arg->{filepaths};
     my $omop_tables = $self->{prev_omop_tables};
 
@@ -538,13 +597,20 @@ sub stream_dispatcher {
         }
     }
     else {
+
+        # First we do a transformation from AoH to HoH to speed up the calculation
+        my $person =
+          { map { $_->{person_id} => $_ } @{ $self->{data}{PERSON} } };
+
+        # Now iterate
         for my $table ( @{$omop_tables} ) {
 
             # We already loaded CONCEPT and PERSON
             next if any { /^$table$/ } (qw(CONCEPT PERSON));
             say "Processing table ... <$table>" if $self->{verbose};
             $self->{omop_tables} = [$table];
-            read_sqldump_stream( { in => $filepath, self => $self } );
+            read_sqldump_stream(
+                { in => $filepath, self => $self, person => $person } );
         }
     }
 

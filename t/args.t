@@ -48,6 +48,7 @@ for my $method ( sort keys %{$input} ) {
             in_textfile          => 1,
             sep                  => $input->{$method}{sep},
             test                 => 1,
+            out_file             => $tmp_file,
             omop_tables          => [],
             debug                => 2,
             search               => 'exact',
@@ -116,12 +117,18 @@ for my $method ( sort keys %{$input} ) {
         }
     };
     my $method  = 'omop2bff';
+
+    # Create Temporary file
+    my ( undef, $tmp_file ) =
+      tempfile( DIR => 't', SUFFIX => ".json", UNLINK => 1 );
+
     my $convert = Convert::Pheno->new(
         {
             in_files    => $input->{$method}{in_files},
             in_textfile => 1,
             search      => 'exact',
             stream      => 0,
+            out_file             => $tmp_file,
             omop_tables => [],
             ohdsi_db    => 1,        # Need ohdsi_db as we deal with few rows
             method      => $method

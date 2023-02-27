@@ -29,7 +29,7 @@ my $input = {
         redcap_dictionary =>
 't/redcap2bff/in/3TRKielTemplateExport01072022_DataDictionary_2022-07-03.csv',
         mapping_file         => 't/redcap2bff/in/redcap_3tr_mapping.yaml',
-        self_validate_schema => 1,       # SELF-VALIDATE-SCHEMA (OK - ONLY ONCE)
+        self_validate_schema => 1,                                           # SELF-VALIDATE-SCHEMA (OK - ONLY ONCE)
         sep                  => undef,
         out                  => 't/redcap2bff/out/individuals.json'
     },
@@ -93,6 +93,7 @@ for my $method ( sort keys %{$input} ) {
             schema_file          => 'schema/mapping.json',
             in_textfile          => 1,
             stream               => 0,
+            out_file             => $tmp_file,
             omop_tables          => [],
             sep                  => $input->{$method}{sep},
             test                 => 1,
@@ -100,12 +101,15 @@ for my $method ( sort keys %{$input} ) {
             method               => $method
         }
     );
-    io_yaml_or_json(
-        {
-            filepath => $tmp_file,
-            data     => $convert->$method,
-            mode     => 'write'
-        }
-    );
+    if ( $method !~ m/^omop2/ ) {
+        io_yaml_or_json(
+            {
+                filepath => $tmp_file,
+                data     => $convert->$method,
+                mode     => 'write'
+            }
+        )
+    } 
+    else { $convert->$method }
     ok( compare( $input->{$method}{out}, $tmp_file ) == 0, $method );
 }

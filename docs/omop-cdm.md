@@ -14,9 +14,9 @@ OMOP-CDM databases are typically implemented as PostgreSQL instances. Based on o
 
 === "Command-line"
 
-    When using the `convert-pheno` command-line interface, simply ensure the [correct syntax](https://github.com/mrueda/convert-pheno#synopsis) is provided.
+    When using the `convert-pheno` command-line interface, simply ensure the [correct syntax](https://github.com/mrueda/convert-pheno#synopsis) is provided. Both the _input_ and _output_ files files can be **gzipped** to save space
 
-    === "Small to medium-sized files (<500K rows)"
+    === "Small to medium-sized files (<1M rows)"
 
         #### All tables at once
 
@@ -24,6 +24,10 @@ OMOP-CDM databases are typically implemented as PostgreSQL instances. Based on o
 
         ```
         convert-pheno -iomop omop_dump.sql -obff individuals.json
+        ```
+        or when gzipped...
+        ```
+        convert-pheno -iomop omop_dump.sql.gz -obff individuals.json.gz
         ```
 
         #### Selected table(s)
@@ -53,21 +57,20 @@ OMOP-CDM databases are typically implemented as PostgreSQL instances. Based on o
             Number of rows | Estimated RAM memory | Estimated time
                    :---:   |   :---:              | :---:
                     100K   | 1GB                  | 5s
-                    500K   | 5GB                  | 20s
-                    1M     | 10GB                 | 40s
+                    500K   | 3GB                  | 20s
+                    1M     | 5GB                  | 40s
              
 
             If your computer only has 4GB-8GB of RAM and you plan to convert **large files** we recommend you to use the flag `--stream` which will process your tables **incrementally** (i.e.,line-by-line), instead of loading them into memory. 
 
-        
-    === "Large files (>500K rows)"
+    === "Large files (>1M rows)"
 
-        For large files, `Convert-Pheno` allows for a different approach. The files can be parsed incrementally and serialized (printed) line-by-line.
+        For large files, `Convert-Pheno` allows for a different approach. The files can be parsed incrementally (i.e., line-by-line).
 
         To choose incremental data processing we'll be using the flag `--stream`:
 
         !!! Warning " `--stream` mode supported output"
-            We only support output to BFF (`-obff`). Both the _input_ and _output_ files files can be **gzipped** to save space.
+            We only support output to BFF (`-obff`).
 
         #### All tables at once
 

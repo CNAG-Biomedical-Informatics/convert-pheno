@@ -114,7 +114,7 @@ pod2usage(
     -message =>
 "The flag <--stream> only supports output files in <json|json.gz> format\n",
     -exitval => 1
-) if ( $stream && $out_bff !~ m/\.json/i );
+) if ( $stream && (defined $out_bff && $out_bff !~ m/\.json/i ) || (defined $out_pxf && $out_pxf !~ m/\.json/i ));
 pod2usage(
     -message =>
       "Please specify a valid schema for the mapping file --schema-file\n",
@@ -212,7 +212,7 @@ sub convert {
     # Running $method and writing the results to $o_file
     my $method = $l_data->{method};
 
-    if ($stream) {
+    if ($stream || $method eq 'omop2bff' || $method eq 'omop2pxf') {
         $convert->$method;
     }
     else {
@@ -305,6 +305,7 @@ sub ask_overwrite {
                 die "Sorry, too many atempts!\n" if $count == $attempt;
             } until ( $input eq 'y' || $input eq 'n' );
         }
+    print RESET;
     }
 }
 

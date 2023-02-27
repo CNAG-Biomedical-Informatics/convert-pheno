@@ -36,6 +36,7 @@ for my $method ( sort keys %{$input} ) {
             test        => 1,
             stream      => 0,
             omop_tables => [],
+            out_file    => $tmp_file,
             search      => 'exact',
             ohdsi_db    => $input->{$method}{'ohdsi_db'},
             method      => $method
@@ -45,13 +46,6 @@ for my $method ( sort keys %{$input} ) {
   SKIP: {
         skip qq{because 'db/ohdsi.db' is required with <ohdsi_db>}, 1
           unless -f 'db/ohdsi.db';
-        io_yaml_or_json(
-            {
-                filepath => $tmp_file,
-                data     => $convert->$method,
-                mode     => 'write'
-            }
-          )
-          and ok( compare( $input->{$method}{out}, $tmp_file ) == 0, $method );
+          $convert->$method and ok( compare( $input->{$method}{out}, $tmp_file ) == 0, $method );
     }
 }
