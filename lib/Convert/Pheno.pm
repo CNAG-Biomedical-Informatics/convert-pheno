@@ -214,7 +214,7 @@ sub omop2bff {
     # Providing we have enough memory (4-16GB), we'll able to load data in RAM,
     # and consolidate individual values (MEASURES, DRUGS, etc.)
 
-    # HUMONGOUS FILES > 1M tows
+    # HUMONGOUS FILES > 1M rows
     # NB: Interesting read on the topic
     #     https://www.perlmonks.org/?node_id=1033692
     # Since we're relying heavily on hashes we need to resort to another strategy(es) to load the data

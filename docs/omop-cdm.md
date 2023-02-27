@@ -57,9 +57,9 @@ OMOP-CDM databases are typically implemented as PostgreSQL instances. Based on o
             Number of rows | Estimated RAM memory | Estimated time
                    :---:   |   :---:              | :---:
                     100K   | 1GB                  | 5s
-                    500K   | 2GB                  | 20s
-                    1M     | 4GB                  | 40s
-             
+                    500K   | 2.5GB                | 20s
+                    1M     | 5GB                  | 40s
+                    2M     | 10GB                 | 1m20s
 
             If your computer only has 4GB-8GB of RAM and you plan to convert **large files** we recommend you to use the flag `--stream` which will process your tables **incrementally** (i.e.,line-by-line), instead of loading them into memory. 
 
@@ -98,7 +98,8 @@ OMOP-CDM databases are typically implemented as PostgreSQL instances. Based on o
                    :---:   |   :---:              | :---:
                     100K   | 500MB                | 2s
                     500K   | 500MB                | 8s
-                    1M     | 500MB                | 20s
+                    1M     | 500MB                | 17s
+                    2M     | 500MB                | 35s
 
             Note that the output JSON files generated in `--stream` mode will always include information from both the `PERSON` and `CONCEPT` tables. This is not a mandatory requirement, but it serves to facilitate subsequent [validation of the data against JSON schemas](https://github.com/EGA-archive/beacon2-ri-tools/tree/main/utils/bff_validator). In terms of the JSON Schema terminology, these files contain `required` properties for [BFF](bff.md) and [PXF](pxf.md).
 
