@@ -57,8 +57,8 @@ OMOP-CDM databases are typically implemented as PostgreSQL instances. Based on o
             Number of rows | Estimated RAM memory | Estimated time
                    :---:   |   :---:              | :---:
                     100K   | 1GB                  | 5s
-                    500K   | 3GB                  | 20s
-                    1M     | 5GB                  | 40s
+                    500K   | 2GB                  | 20s
+                    1M     | 4GB                  | 40s
              
 
             If your computer only has 4GB-8GB of RAM and you plan to convert **large files** we recommend you to use the flag `--stream` which will process your tables **incrementally** (i.e.,line-by-line), instead of loading them into memory. 

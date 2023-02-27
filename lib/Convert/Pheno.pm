@@ -210,11 +210,11 @@ sub omop2bff {
     # SMALL TO MEDIUM FILES < 500MB-1GB
     #
     # In many cases, because people are downsizing their DBs for data sharing,
-    # PostgreSQL dumps or CSVs will be <500MB.
+    # PostgreSQL dumps or CSVs will be < 1M rows.
     # Providing we have enough memory (4-16GB), we'll able to load data in RAM,
-    # and consolidate individual values (MEASURES, DRUGS)
+    # and consolidate individual values (MEASURES, DRUGS, etc.)
 
-    # HUMONGOUS FILES > 1GB
+    # HUMONGOUS FILES > 1M tows
     # NB: Interesting read on the topic
     #     https://www.perlmonks.org/?node_id=1033692
     # Since we're relying heavily on hashes we need to resort to another strategy(es) to load the data
@@ -224,13 +224,13 @@ sub omop2bff {
     #    some sort of parallel processing (e.g., GNU parallel, snakemake, HPC, etc.)
     #    CONS: Concurrent jobs may fail due to SQLite been opened by multiple threads
     #
-    # * Option B *: Keeping data grouped at the individual-object level (as we do with small to medium files)
+    # * Option B *: Keeping data consolidated at the individual-object level (as we do with small to medium files)
     #   --no-stream
     #   To do this, we have two options:
     #     a) Externalize (save to file) THE WHOLE HASH w/ DBM:Deep (but it's very slow)
     #     b) First dump CSV (me or users) and then use *nix to sort by person_id (or loadSQLite and sort there).
     #   Then, since rows for each individual are adjacent, we can load individual data together. Still,
-    #   we'll by reading one table (e.g. MEASUREMENTS) at a time, thus, this is not relly helping much...
+    #   we'll by reading one table (e.g. MEASUREMENTS) at a time, thus, this is not relly helping much to consolidate...
     #
     # * Option C *: Parsing files line by line (one row of CSV/SQL per JSON object) <=========== IMPLEMENTED ==========
     #   --stream
@@ -394,6 +394,8 @@ sub omop2pxf {
 
     my $self = shift;
 
+    # $self->{method} will be always 'omop2bff'
+    # $self->{method_ori} will tell us the original one
     $self->{method_ori} = $self->{method};    # setter
     $self->{method}     = 'omop2bff';         # setter
     omop2bff($self);
@@ -485,7 +487,9 @@ sub array_dispatcher {
     #############
     # IMPORTANT #
     #############
-    # omop2[bffi|pxf] serialized by INDIVIDUAL  02-26-23 mrueda
+    # 02-26-23 => omop2[bff|pxf] serialized by INDIVIDUAL
+
+    # Only exists in omop2pxf, otherwise empty
     $self->{method_ori} =
       exists $self->{method_ori} ? $self->{method_ori} : '';    # setter;
 
@@ -497,28 +501,38 @@ sub array_dispatcher {
     }
 
     # Proceed depending if we have an ARRAY or not
+    # NB: Caution with RAM (we store all in memory except for omop2bff)
     my $out_data;
     if ( ref $in_data eq ref [] ) {
 
-        # Caution with the RAM (we store all in memory except for omop2bff)
+        # Print if we have ARRAY
         say "$self->{method}: ARRAY" if $self->{debug};
+
+        # Initialize needed variables
         my $count    = 0;
         my $total    = 0;
         my $elements = scalar @{$in_data};
+
+        # Start looping
+        # In $self->{data} we have all participants data, but,
+        # WE DELIBERATELY SEPARATE ARRAY ELEMENTS FROM $self->{data}
+
         for ( @{$in_data} ) {
             $count++;
 
+            # Print imfo
             say "[$count] ARRAY ELEMENT from $elements" if $self->{debug};
-
-            # In $self->{data} we have all participants data, but,
-            # WE DELIBERATELY SEPARATE ARRAY ELEMENTS FROM $self->{data}
 
             # NB: If we get "null" participants the validator will complain
             # about not having "id" or any other required property
             my $method_result = $func{ $self->{method} }->( $self, $_ );    # Method
+
+            # Only proceeding if we got value from method
             if ($method_result) {
                 $total++;
-                say " - [$count] ARRAY ELEMENT is defined" if $self->{debug};
+                say " * [$count] ARRAY ELEMENT is defined" if $self->{debug};
+
+                # For omop2bff and omop2pxf we serialize by individual
                 if ( $self->{method} eq 'omop2bff' ) {
                     my $out;
                     if ( $self->{method_ori} ne 'omop2pxf' ) {
@@ -543,6 +557,8 @@ sub array_dispatcher {
                     say "<individuals> processed: $total"
                       if ( $self->{verbose} && $count % 10_000 == 0 );
                 }
+
+                # For the other we have array_ref $out_data and serialize at once
                 else {
                     push @{$out_data}, $method_result;
 
@@ -554,6 +570,8 @@ sub array_dispatcher {
           if ( $self->{verbose} && $self->{method} eq 'omop2bff' );
 
     }
+
+    # NOT ARRAY
     else {
         say "$self->{method}: NOT ARRAY" if $self->{debug};
         $out_data = $func{ $self->{method} }->( $self, $in_data );    # Method
