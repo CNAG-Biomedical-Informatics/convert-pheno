@@ -198,8 +198,12 @@ sub convert {
 
     my ( $o_file, $l_data ) = @_;
 
-    # Before proceeding we ask the user what to do
-    ask_overwrite($o_file) unless $overwrite;
+    # Before proceeding we ask the user what to do with $o_file
+    if ($overwrite) {
+         unlink($o_file);
+    } else {
+        ask_overwrite($o_file);
+    }
 
     if ($verbose) {
         print BOLD BLUE program_body($l_data);

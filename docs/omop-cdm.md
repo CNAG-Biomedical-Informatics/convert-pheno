@@ -10,7 +10,7 @@ OMOP-CDM databases are typically implemented as PostgreSQL instances. Based on o
 ## OMOP as input
 
 !!! Hint "OMOP-CDM supported version(s)"
-         We currently support **v5.4**. We have everything ready for supporting v6 once we are able to test the code with v6 projects.
+         We currently support versions **5.3** and **5.4**. We have everything ready for supporting v6 once we are able to test the code with v6 projects.
 
 === "Command-line"
 

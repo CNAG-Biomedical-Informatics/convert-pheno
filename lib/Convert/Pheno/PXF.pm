@@ -175,7 +175,7 @@ sub get_metaData {
         submittedBy              => $user,
         phenopacketSchemaVersion => '2.0',
         resources                => $resources,
-        externalReference        => [
+        externalReferences       => [
             {
                 id        => 'PMID: 26262116',
                 reference =>
