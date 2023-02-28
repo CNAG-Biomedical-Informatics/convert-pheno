@@ -36,6 +36,7 @@ my $out_dir     = '.';
 my $schema_file = catfile( $Bin, '../schema/mapping.json' );
 my $color       = 1;
 my $stream      = 0;
+my $ohdsi_db    = 0;
 
 # Reading arguments
 GetOptions(
@@ -62,7 +63,7 @@ GetOptions(
     'stream!'                     => \$stream,                                 # flag
     'sql2csv'                     => \my $sql2csv,                             # flag
     'test'                        => \my $test,                                # flag
-    'ohdsi-db'                    => \my $ohdsi_db,                            # flag
+    'ohdsi-db'                    => $ohdsi_db,                                # flag
     'omop-tables=s{1,}'           => \my @omop_tables,                         # array
     'redcap-dictionary|rcd=s'     => \my $redcap_dictionary,                   # string
     'print-hidden-labels|phl'     => \my $print_hidden_labels,                 # flag

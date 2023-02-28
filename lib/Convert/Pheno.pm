@@ -69,7 +69,7 @@ has min_text_similarity_score => (
 
 has username => (
 
-    #default => ( $ENV{LOGNAME} || $ENV{USER} || getpwuid($<) ),
+    default => ( $ENV{LOGNAME} || $ENV{USER} || getpwuid($<) ),
     is     => 'ro',
     coerce => sub {
         defined $_[0] ? $_[0] : ( $ENV{LOGNAME} || $ENV{USER} || getpwuid($<) );
@@ -98,10 +98,10 @@ has omop_tables => (
 );
 
 # Miscellanea atrributes here
-has [qw /test ohdsi_db print_hidden_labels self_validate_schema/] =>
+has [qw /test print_hidden_labels self_validate_schema/] =>
   ( default => undef, is => 'ro' );
 
-has [qw /stream/] => ( default => 0, is => 'ro' );
+has [qw /stream ohdsi_db/] => ( default => 0, is => 'ro' );
 
 has [qw /in_files/] => ( default => sub { [] }, is => 'ro' );
 
