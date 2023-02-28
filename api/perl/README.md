@@ -10,7 +10,7 @@ At the time of writting this (Dec-2022) the API consists of **very basic functio
 * This API only accepts requests using `POST` http method.
 * This API only has one endpoint `/api`.
 * `/api` directly receives a `POST` request with the [request body](https://swagger.io/docs/specification/2-0/describing-request-body) (payload) as JSON object. All the needed data are inside the JSON object (i.e., it does not use request parameters). 
-* The incoming JSON data are validated against [OpenAPI schema](./openapi.md). However, the validation is superficial (i.e., we don't check clinical data themselves).
+* The incoming JSON data are validated against [OpenAPI schema](./openapi.json). However, the validation is superficial (i.e., we don't check clinical data themselves).
     
 ## Installation 
 

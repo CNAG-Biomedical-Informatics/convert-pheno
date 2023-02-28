@@ -42,7 +42,7 @@ our $VERSION = '0.0.0_alpha';
 # Complex defaults here
 has search => (
 
-    #default => 'exact',
+    default => 'exact',
     is     => 'ro',
     coerce => sub { defined $_[0] ? $_[0] : 'exact' },
     isa    => Enum [qw(exact mixed)]
@@ -87,10 +87,10 @@ has max_lines_sql => (
 has omop_tables => (
 
     # Table <CONCEPT> is always required
+    default => sub { [@omop_essential_tables] },
     coerce => sub {
-        @{ $_[0] }
-          ? $_[0] =
-          [ map { uc($_) } ( uniq( @{ $_[0] }, 'CONCEPT', 'PERSON' ) ) ]
+         @{ $_[0] } ? 
+          $_[0] = [ map { uc($_) } ( uniq( @{ $_[0] }, 'CONCEPT', 'PERSON' ) ) ]
           : \@omop_essential_tables;
     },
     is  => 'rw',
@@ -101,7 +101,7 @@ has omop_tables => (
 has [qw /test ohdsi_db print_hidden_labels self_validate_schema/] =>
   ( default => undef, is => 'ro' );
 
-has [qw /stream/] => ( default => 1, is => 'ro' );
+has [qw /stream/] => ( default => 0, is => 'ro' );
 
 has [qw /in_files/] => ( default => sub { [] }, is => 'ro' );
 
@@ -264,11 +264,13 @@ sub omop2bff {
     my $data;
     my $filepath;
     my @filepaths;
+    $self->{method_ori} = exists $self->{method_ori} ? $self->{method_ori} : 'omop2bff';    # setter
     $self->{prev_omop_tables} = [ @{ $self->{omop_tables} } ];    # setter - 1D clone
 
     # Check if data comes from variable or from file
     # Variable
     if ( exists $self->{data} ) {
+        $self->{omop_cli} = 0; # setter
         $data = $self->{data};
     }
 
@@ -276,8 +278,9 @@ sub omop2bff {
     else {
 
         # Read and load data from OMOP-CDM export
-        # First we need to know if we have PostgreSQL dump or a bunch of csv
+        $self->{omop_cli} = 1; # setter
 
+        # First we need to know if we have PostgreSQL dump or a bunch of csv
         # File extensions to check
         my @exts = map { $_, $_ . '.gz' } qw(.csv .tsv .sql);
 
@@ -372,7 +375,7 @@ sub omop2bff {
 
     # --stream
     if ( $self->{stream} ) {
-        stream_dispatcher(
+        omop_stream_dispatcher(
             { self => $self, filepath => $filepath, filepaths => \@filepaths }
         );
     }
@@ -394,11 +397,39 @@ sub omop2pxf {
 
     my $self = shift;
 
-    # $self->{method} will be always 'omop2bff'
-    # $self->{method_ori} will tell us the original one
-    $self->{method_ori} = $self->{method};    # setter
-    $self->{method}     = 'omop2bff';         # setter
-    omop2bff($self);
+    # We have two possibilities:
+    #
+    # 1 - Module (Variables)
+    # 2 - CLI (I/O files)
+
+    # Variable
+    if ( exists $self->{data} ) {
+
+        # First iteration: omop2bff
+        $self->{omop_cli} = 0;
+        $self->{method}   = 'omop2bff';    # setter - we have to change the value of attr {method}
+        my $bff = omop2bff($self);         # array
+
+        # Preparing for second iteration: bff2pxf
+        # NB: This 2nd round may take a while if #inviduals > 1000!!!
+        $self->{method}      = 'bff2pxf';    # setter
+        $self->{data}        = $bff;         # setter
+        $self->{in_textfile} = 0;            # setter
+
+        # Run second iteration
+        return array_dispatcher($self);
+
+    # CLI
+    } else {
+        # $self->{method} will be always 'omop2bff'
+        # $self->{method_ori} will tell us the original one
+        $self->{method_ori} = 'omop2pxf';        # setter
+        $self->{method}     = 'omop2bff';         # setter
+        $self->{omop_cli}   = 1;                  # setter
+        
+        # Run 1st and 2nd iteration
+        return omop2bff($self);
+    }
 }
 
 ###############
@@ -484,18 +515,9 @@ sub array_dispatcher {
     # Open connection to SQLlite databases ONCE
     open_connections_SQLite($self) if $self->{method} ne 'bff2pxf';
 
-    #############
-    # IMPORTANT #
-    #############
-    # 02-26-23 => omop2[bff|pxf] serialized by INDIVIDUAL
-
-    # Only exists in omop2pxf, otherwise empty
-    $self->{method_ori} =
-      exists $self->{method_ori} ? $self->{method_ori} : '';    # setter;
-
     # Open filehandle if omop2bff
     my $fh_out;
-    if ( $self->{method} eq 'omop2bff' ) {
+    if ( $self->{method} eq 'omop2bff' && $self->{omop_cli}) {
         $fh_out = open_filehandle( $self->{out_file}, 'a' );
         say $fh_out "[";
     }
@@ -533,29 +555,12 @@ sub array_dispatcher {
                 say " * [$count] ARRAY ELEMENT is defined" if $self->{debug};
 
                 # For omop2bff and omop2pxf we serialize by individual
-                if ( $self->{method} eq 'omop2bff' ) {
-                    my $out;
-                    if ( $self->{method_ori} ne 'omop2pxf' ) {
-                        chomp(
-                            $out =
-                              JSON::XS->new->utf8->canonical->pretty->encode(
-                                $method_result)
-                        );
-                    }
-                    else {
-                        my $pxf = do_bff2pxf( $self, $method_result );
-                        chomp(
-                            $out =
-                              JSON::XS->new->utf8->canonical->pretty->encode(
-                                $pxf)
-                        );
-                    }
-                    print $fh_out $out;
+                if ( exists $self->{omop_cli} && $self->{omop_cli} ) {
+                    my $out = omop_dispatcher( $self, $method_result );
+                    print $fh_out $$out;
                     print $fh_out ",\n"
                       unless ( $total == $elements
                         || $total == $self->{max_lines_sql} );
-                    say "<individuals> processed: $total"
-                      if ( $self->{verbose} && $count % 10_000 == 0 );
                 }
 
                 # For the other we have array_ref $out_data and serialize at once
@@ -566,9 +571,9 @@ sub array_dispatcher {
                 }
             }
         }
+
         say "==============\nIndividuals total:     $total\n"
           if ( $self->{verbose} && $self->{method} eq 'omop2bff' );
-
     }
 
     # NOT ARRAY
@@ -581,8 +586,7 @@ sub array_dispatcher {
     close_connections_SQLite($self) unless $self->{method} eq 'bff2pxf';
 
     # Close filehandle if omop2bff (w/ premature return)
-    if ( $self->{method} eq 'omop2bff' ) {
-
+    if ( exists $self->{omop_cli} && $self->{omop_cli} ) {
         say $fh_out "\n]";
         close $fh_out;
         return 1;
@@ -592,7 +596,28 @@ sub array_dispatcher {
     return $out_data;
 }
 
-sub stream_dispatcher {
+sub omop_dispatcher {
+
+    my ( $self, $method_result ) = @_;
+
+    # For omop2bff and omop2pxf we serialize by individual
+    my $out;
+
+    # omop2bff encode directly
+    if ( $self->{method_ori} ne 'omop2pxf' ) {
+        $out = JSON::XS->new->utf8->canonical->pretty->encode($method_result);
+    }
+
+    # omop2pxf convert to PXF
+    else {
+        my $pxf = do_bff2pxf( $self, $method_result );
+        $out = JSON::XS->new->utf8->canonical->pretty->encode($pxf);
+    }
+    chomp $out;
+    return \$out;
+}
+
+sub omop_stream_dispatcher {
 
     my $arg         = shift;
     my $self        = $arg->{self};

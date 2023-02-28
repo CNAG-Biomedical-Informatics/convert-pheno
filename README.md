@@ -59,7 +59,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
        -ohdsi-db                      Use Athena-OHDSI database (~2.4GB) with -iomop
        -omop-tables                   (Only valid with -iomop) OMOP-CDM tables to be processed. Tables <CONCEPT> and <PERSON> are always included.
        -out-dir                       Output (existing) directory
-       -overwrite                     Overwrite output file
+       -O                             Overwrite output file
        -phl|print-hidden-labels       Print original values (before DB mapping) of text fields <_labels>
        -rcd|redcap-dictionary         REDCap data dictionary CSV file
        -schema-file                   Alternative JSON Schema for mapping file

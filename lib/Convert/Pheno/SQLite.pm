@@ -70,7 +70,17 @@ sub close_connections_SQLite {
 sub open_db_SQLite {
 
     my $ontology = shift;
-    my $dbfile   = catfile( $Convert::Pheno::Bin, '../db', "$ontology.db" );
+
+    # Search file in two dirs
+    my $filename = qq/$ontology.db/;
+    my @dirs = map { $Convert::Pheno::Bin . '/' . $_ } ( '../db', '../../db' );
+    my $dbfile;
+    foreach my $dir (@dirs) {
+        $dbfile = catfile( $dir, $filename );
+        if ( -e $dbfile ) {
+            last;
+        }
+    }
     confess "Sorry we could not find <$dbfile> file" unless -f $dbfile;
 
     # Connect to the database

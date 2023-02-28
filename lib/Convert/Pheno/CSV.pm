@@ -9,6 +9,7 @@ use Text::CSV_XS          qw(csv);
 use Sort::Naturally       qw(nsort);
 use List::Util            qw(any);
 use File::Spec::Functions qw(catdir);
+
 #use Devel::Size           qw(size total_size);
 use Convert::Pheno;
 use Convert::Pheno::OMOP;
@@ -144,6 +145,7 @@ sub remap_ohdsi_dictionary {
     # 'concept_id', 'concept_code', 'concept_name', 'vocabulary_id'
     # Note that we're duplicating @$data with $hoh
     my $hoh = { map { $_->{$column} => $_ } @{$data} };
+
     #say "remap_ohdsi_dictionary:", to_gb( total_size($hoh) ) if DEVEL_MODE;
     return $hoh;
 }
@@ -522,10 +524,11 @@ sub transpose_omop_data_structure {
     # v2 - This version cleans memory after loading $aoh
     my $aoh;
     for my $key ( nsort keys %{$omop_person_id} ) {
-       push @{$aoh}, $omop_person_id->{$key};
-       delete $omop_person_id->{$key};
+        push @{$aoh}, $omop_person_id->{$key};
+        delete $omop_person_id->{$key};
     }
     if (DEVEL_MODE) {
+
         #say 'transpose_omop_data_structure(omop_person_id):',
         #  to_gb( total_size($omop_person_id) );
         #say 'transpose_omop_data_structure(map):', to_gb( total_size($aoh) );

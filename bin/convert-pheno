@@ -18,7 +18,7 @@ use strict;
 use warnings;
 use feature qw(say);
 use autodie;
-use Getopt::Long;
+use Getopt::Long qw(:config no_ignore_case);
 use Pod::Usage;
 use Data::Dumper;
 use Sys::Hostname;
@@ -67,7 +67,7 @@ GetOptions(
     'redcap-dictionary|rcd=s'     => \my $redcap_dictionary,                   # string
     'print-hidden-labels|phl'     => \my $print_hidden_labels,                 # flag
     'self-validate-schema|svs'    => \my $self_validate_schema,                # flag
-    'overwrite'                   => \my $overwrite,                           # flag
+    'O'                           => \my $overwrite,                           # flag
     'username=s'                  => \my $username,                            # string
     'log'                         => \my $log,                                 # flag
     'version|v'                   => sub { say "$0 Version $VERSION"; exit; }
@@ -347,7 +347,7 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
        -ohdsi-db                      Use Athena-OHDSI database (~2.4GB) with -iomop
        -omop-tables                   (Only valid with -iomop) OMOP-CDM tables to be processed. Tables <CONCEPT> and <PERSON> are always included.
        -out-dir                       Output (existing) directory
-       -overwrite                     Overwrite output file
+       -O                             Overwrite output file
        -phl|print-hidden-labels       Print original values (before DB mapping) of text fields <_labels>
        -rcd|redcap-dictionary         REDCap data dictionary CSV file
        -schema-file                   Alternative JSON Schema for mapping file
