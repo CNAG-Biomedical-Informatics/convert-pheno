@@ -4,12 +4,10 @@ use strict;
 use warnings;
 use autodie;
 use feature qw(say);
-use Carp    qw(confess);
+#use Carp    qw(confess);
 use DBI;
 use File::Spec::Functions qw(catdir catfile);
 use Data::Dumper;
-
-#use List::Util qw(any);
 use Text::Similarity::Overlaps;
 use Exporter 'import';
 our @EXPORT =
@@ -42,7 +40,8 @@ sub open_connections_SQLite {
 
     # Open databases
     my $dbh;
-    $dbh->{$_} = open_db_SQLite($_) for (@databases);
+    $dbh->{$_} = open_db_SQLite( $_, $self->{path_to_ohdsi_db} )
+      for (@databases);
 
     # Add $dbh HANDLE to $self
     $self->{dbh} = $dbh;                                             # Dynamically adding attributes (setter)
@@ -67,11 +66,14 @@ sub close_connections_SQLite {
 
 sub open_db_SQLite {
 
-    my $ontology = shift;
+    my ( $ontology, $path_to_ohdsi_db ) = @_;
 
-    # Search file in two dirs
+    # Search file in two dirs, except for ($ontology eq 'ohdsi' && defined $path_to_ohdsi_db)
     my $filename = qq/$ontology.db/;
-    my @dirs = map { $Convert::Pheno::Bin . '/' . $_ } ( '../db', '../../db' );
+    my @dirs =
+      ( $ontology eq 'ohdsi' && defined $path_to_ohdsi_db )
+      ? $path_to_ohdsi_db
+      : map { $Convert::Pheno::Bin . '/' . $_ } ( '../db', '../../db' );
     my $dbfile;
     foreach my $dir (@dirs) {
         $dbfile = catfile( $dir, $filename );
@@ -79,7 +81,7 @@ sub open_db_SQLite {
             last;
         }
     }
-    confess "Sorry we could not find <$dbfile> file" unless -f $dbfile;
+    die "Sorry we could not find <$dbfile> file\n" unless -f $dbfile;
 
     # Connect to the database
     my $user   = '';

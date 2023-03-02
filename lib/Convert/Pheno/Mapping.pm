@@ -3,7 +3,6 @@ package Convert::Pheno::Mapping;
 use strict;
 use warnings;
 use autodie;
-
 #use Carp    qw(confess);
 use feature qw(say);
 use utf8;

@@ -98,7 +98,7 @@ has omop_tables => (
 );
 
 # Miscellanea atrributes here
-has [qw /test print_hidden_labels self_validate_schema/] =>
+has [qw /test print_hidden_labels self_validate_schema path_to_ohdsi_db/] =>
   ( default => undef, is => 'ro' );
 
 has [qw /stream ohdsi_db/] => ( default => 0, is => 'ro' );

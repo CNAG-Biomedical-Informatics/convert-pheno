@@ -60,6 +60,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
        -omop-tables                   (Only valid with -iomop) OMOP-CDM tables to be processed. Tables <CONCEPT> and <PERSON> are always included.
        -out-dir                       Output (existing) directory
        -O                             Overwrite output file
+       -path-to-ohdsi-db              Directory for the file <ohdsi.db>
        -phl|print-hidden-labels       Print original values (before DB mapping) of text fields <_labels>
        -rcd|redcap-dictionary         REDCap data dictionary CSV file
        -schema-file                   Alternative JSON Schema for mapping file
@@ -164,7 +165,7 @@ Now you have two choose between one of the 2 options below:
     make install # (Will ask for sudo passwd)
     make test
 
-**Option 2:** Install the dependencies in a "virtual environment" (i.e., install the CPAN modules in the directory of the application). We'll be using the module <Carton> for that:
+**Option 2:** Install the dependencies in a "virtual environment" (i.e., install the CPAN modules in the directory of the application). We'll be using the module`Carton` for that:
 
     # NB: We're installing cpanminus and Carton as sudo. That's why you will be asked to provide sudo password.
     make install-carton
@@ -190,7 +191,23 @@ For executing convert-pheno you will need:
 
     Athena-OHDSI database
 
-    Please download it from this [link](https://drive.google.com/drive/folders/104_Bgl3IxM3U6u-wn-1LUvNZXevD2DRm?usp=sharing) (~2.4GB) and move it inside `db/` directory.
+    The database file is available at this [link](https://drive.google.com/drive/folders/104_Bgl3IxM3U6u-wn-1LUvNZXevD2DRm?usp=sharing) (~2.4GB). The database may be needed when using `-iomop`.
+
+    Regardless if you're using the containerized or non-containerized version, the download procedure is the same. In Linux you can use `wget` or `curl`:
+
+        $ wget 'https://drive.google.com/uc?export=download&id=104ciON3zRc3ScAzzrL_3GO14aCnBLh-c&confirm=t' -O ohdsi.db
+        or
+        $ curl -L 'https://drive.google.com/uc?export=download&id104ciON3zRc3ScAzzrL_3GO14aCnBLh-c' > ohdsi.db
+
+    (you can install `wget` or `curl` inside the container by typing `sudo apt install wget` or  `sudo apt install curl`.
+
+    Once downloaded, you have two options:
+
+    a) Move the file `ohdsi.db` inside the `db/` directory.
+
+    or
+
+    b) Use the option `--path-to-ohdsi-db`
 
 **Examples:**
 
