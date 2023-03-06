@@ -10,7 +10,7 @@ REDCap projects are inherently **"free format"**, meaning the project creator ha
 !!! Quote "REDCap project creation user’s guide" 
     _“We always recommend reviewing your variable names with a statistician or whoever will be analyzing your data. This is especially important if this is the first time you are building a database.”_ 
 
-Due to this flexibility, it can be challenging to create a solution that can handle the vast array of possibilities in REDCap projects. Despite this, we were able to successfully convert data from REDCap project exports to both Beacon v2 and Phenopackets v2 by utilizing a mapping file. These conversions were achieved as part of the [3TR Project](https://3tr-imi.eu).
+Due to the flexibility of REDCap projects, it can be challenging to develop a solution that accommodates the wide range of possibilities. Nonetheless, we were able to successfully convert data from REDCap project exports to both Beacon v2 and Phenopackets v2 formats using a mapping file. These conversions were achieved as part of the [3TR Project](https://3tr-imi.eu).
 
 === "Command-line"
 
@@ -35,7 +35,16 @@ Due to this flexibility, it can be challenging to create a solution that can han
 
 === "API"
 
-    While it is technically possible to send data via API, we have not yet encountered such a case. Therefore, we recommend using the **command-line** version by utilizing data exports.
+    While it is _technically possible_ to perform a transformation via API we don't think it's a viable option with REDCap projects.. Therefore, we recommend using the **command-line** version by utilizing REDCap data exports.
 
     !!! Warning "REDCap built in API"
         REDCap has a built-in API that in theory could be used to retrieve data in real-time (as opposed to data exports). However, the current version of `Convert-Pheno` does not support REDCap API calls.
+
+           Input           | CLI        |  UI        | Module | API
+                   :---:   |   :---:    | :---:      | :---:  | :---:
+        Beacon v2 Models   | YES        | YES   | YES   | YES
+        CDISC-ODM          | YES        | YES   | YES   | NO
+        Phenopackets v2    | YES        | YES   | YES   | YES
+        OMOP-CDM           | YES        | YES   | YES   | YES
+        REDCap             | YES        | YES   | YES   | NO
+

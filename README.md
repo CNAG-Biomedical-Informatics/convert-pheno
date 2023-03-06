@@ -49,6 +49,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
 
      Options:
        -debug                         Print debugging (from 1 to 5, being 5 max)
+       -exposures-file                CSV file with a list of 'concept_id' considered to be exposures (with -iomop)
        -h|help                        Brief help message
        -log                           Save <convert-pheno-log.json> file
        -man                           Full documentation
@@ -56,7 +57,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
        -max-lines-sql                 Maxium number of lines read from SQL dump [500]
        -min-text-similarity-score     Minimum score for cosine similarity (or Sorensen-Dice coefficient) [0.8] (to be used with --search mixed)
        -no-color                      Don't print colors to STDOUT [>color|no-color]
-       -ohdsi-db                      Use Athena-OHDSI database (~2.4GB) with -iomop
+       -ohdsi-db                      Use Athena-OHDSI database (~2.2GB) with -iomop
        -omop-tables                   (Only valid with -iomop) OMOP-CDM tables to be processed. Tables <CONCEPT> and <PERSON> are always included.
        -out-dir                       Output (existing) directory
        -O                             Overwrite output file
@@ -148,7 +149,7 @@ Then I will do something like this:
     alias convert-pheno='docker exec -ti convert-pheno-mount /usr/share/convert-pheno/bin/convert-pheno'
 
     # Now I use the alias to run the command (note that I use the flag --out-dir to specify the output directory)
-    convert-pheno -ibff /data/individuals.json -opxf pxf.bff --out-dir /data
+    convert-pheno -ibff /data/individuals.json -opxf pxf.json --out-dir /data
 
 ## Non containerized
 
@@ -191,15 +192,17 @@ For executing convert-pheno you will need:
 
     Athena-OHDSI database
 
-    The database file is available at this [link](https://drive.google.com/drive/folders/104_Bgl3IxM3U6u-wn-1LUvNZXevD2DRm?usp=sharing) (~2.4GB). The database may be needed when using `-iomop`.
+    The database file is available at this [link](https://drive.google.com/drive/folders/104_Bgl3IxM3U6u-wn-1LUvNZXevD2DRm?usp=sharing) (~2.2GB). The database may be needed when using `-iomop`.
 
-    Regardless if you're using the containerized or non-containerized version, the download procedure is the same. In Linux you can use `wget` or `curl`:
+    Regardless if you're using the containerized or non-containerized version, the download procedure is the same. In Linux you can use `wget`, `curl` or `aria2c`:
 
         $ wget 'https://drive.google.com/uc?export=download&id=104ciON3zRc3ScAzzrL_3GO14aCnBLh-c&confirm=t' -O ohdsi.db
         or
         $ curl -L 'https://drive.google.com/uc?export=download&id104ciON3zRc3ScAzzrL_3GO14aCnBLh-c' > ohdsi.db
+        or
+        $ aria2c -x2 'https://drive.google.com/uc?export=download&id=104ciON3zRc3ScAzzrL_3GO14aCnBLh-c&confirm=t' -o ohdsi.db
 
-    (you can install `wget` or `curl` inside the container by typing `sudo apt install wget` or  `sudo apt install curl`.
+    (you can install `wget`, `curl` or `aria2c` inside the container by typing `sudo apt install wget`, `sudo apt install curl` or `sudo apt install aria2`.
 
     Once downloaded, you have two options:
 

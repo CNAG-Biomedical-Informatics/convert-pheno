@@ -1,7 +1,8 @@
 {
   "openapi": "3.0.2",
   "info": {
-    "title": "Convert-Pheno Perl API",
+    "title": "Convert-Pheno API",
+    "description": "Convert-Pheno API configuration",
     "version": "0.1.0"
   },
   "paths": {
@@ -28,6 +29,10 @@
                   "data": {
                     "title": "Data",
                     "type": "object"
+                  },
+                  "ohdsi_db": {
+                    "title": "OHDSI-DB",
+                    "type": "string"
                   }
                 }
               }

@@ -4,7 +4,11 @@ use strict;
 use warnings;
 use autodie;
 use feature qw(say);
-use FindBin qw($Bin);
+
+#use FindBin qw($Bin);
+use Cwd                   qw(abs_path);
+use File::Spec::Functions qw(catdir catfile);
+use File::Basename        qw(dirname);
 use Data::Dumper;
 use Path::Tiny;
 use File::Basename;
@@ -33,7 +37,8 @@ our @EXPORT = qw($VERSION io_yaml_or_json omop2bff_stream_processing);    # Symb
 use constant DEVEL_MODE => 0;
 
 # Global variables:
-our $VERSION = '0.0.0_alpha';
+our $VERSION  = '0.0.0_alpha';
+our $lib_path = dirname( abs_path(__FILE__) );
 
 ############################################
 # Start declaring attributes for the class #
@@ -43,9 +48,9 @@ our $VERSION = '0.0.0_alpha';
 has search => (
 
     default => 'exact',
-    is     => 'ro',
-    coerce => sub { defined $_[0] ? $_[0] : 'exact' },
-    isa    => Enum [qw(exact mixed)]
+    is      => 'ro',
+    coerce  => sub { defined $_[0] ? $_[0] : 'exact' },
+    isa     => Enum [qw(exact mixed)]
 );
 
 has text_similarity_method => (
@@ -70,8 +75,8 @@ has min_text_similarity_score => (
 has username => (
 
     default => ( $ENV{LOGNAME} || $ENV{USER} || getpwuid($<) ),
-    is     => 'ro',
-    coerce => sub {
+    is      => 'ro',
+    coerce  => sub {
         defined $_[0] ? $_[0] : ( $ENV{LOGNAME} || $ENV{USER} || getpwuid($<) );
     },
     isa => Str
@@ -88,16 +93,30 @@ has omop_tables => (
 
     # Table <CONCEPT> is always required
     default => sub { [@omop_essential_tables] },
-    coerce => sub {
-         @{ $_[0] } ? 
-          $_[0] = [ map { uc($_) } ( uniq( @{ $_[0] }, 'CONCEPT', 'PERSON' ) ) ]
+    coerce  => sub {
+        @{ $_[0] }
+          ? $_[0] =
+          [ map { uc($_) } ( uniq( @{ $_[0] }, 'CONCEPT', 'PERSON' ) ) ]
           : \@omop_essential_tables;
     },
     is  => 'rw',
     isa => ArrayRef
 );
 
-# Miscellanea atrributes here
+has exposures_file => (
+
+    default =>
+      catfile( $lib_path, '../../db/concepts_candidates_2_exposure.csv' ),
+    coerce => sub {
+        defined $_[0]
+          ? $_[0]
+          : catfile( $lib_path, '../../db/concepts_candidates_2_exposure.csv' ),;
+    },
+    is  => 'ro',
+    isa => Str
+);
+
+# Miscellanea atributes here
 has [qw /test print_hidden_labels self_validate_schema path_to_ohdsi_db/] =>
   ( default => undef, is => 'ro' );
 
@@ -106,8 +125,10 @@ has [qw /stream ohdsi_db/] => ( default => 0, is => 'ro' );
 has [qw /in_files/] => ( default => sub { [] }, is => 'ro' );
 
 has [
-    qw /out_file data out_dir in_textfile in_file method sep sql2csv redcap_dictionary mapping_file schema_file debug log verbose/
-] => ( is => 'rw' );
+    qw /out_file out_dir in_textfile in_file sep sql2csv redcap_dictionary mapping_file schema_file debug log verbose/
+] => ( is => 'ro' );
+
+has [qw /data method /] => ( is => 'rw' );
 
 ##########################################
 # End declaring attributes for the class #
@@ -264,13 +285,14 @@ sub omop2bff {
     my $data;
     my $filepath;
     my @filepaths;
-    $self->{method_ori} = exists $self->{method_ori} ? $self->{method_ori} : 'omop2bff';    # setter
-    $self->{prev_omop_tables} = [ @{ $self->{omop_tables} } ];    # setter - 1D clone
+    $self->{method_ori} =
+      exists $self->{method_ori} ? $self->{method_ori} : 'omop2bff';    # setter
+    $self->{prev_omop_tables} = [ @{ $self->{omop_tables} } ];          # setter - 1D clone
 
     # Check if data comes from variable or from file
     # Variable
     if ( exists $self->{data} ) {
-        $self->{omop_cli} = 0; # setter
+        $self->{omop_cli} = 0;               # setter
         $data = $self->{data};
     }
 
@@ -278,7 +300,7 @@ sub omop2bff {
     else {
 
         # Read and load data from OMOP-CDM export
-        $self->{omop_cli} = 1; # setter
+        $self->{omop_cli} = 1;               # setter
 
         # First we need to know if we have PostgreSQL dump or a bunch of csv
         # File extensions to check
@@ -364,6 +386,9 @@ sub omop2bff {
     # We create a dictionary for $data->{CONCEPT}
     $self->{data_ohdsi_dic} = remap_ohdsi_dictionary( $data->{CONCEPT} );    # Dynamically adding attributes (setter)
 
+    # We load the allowed concept_id for exposures as hashref
+    $self->{exposures} = load_exposures( $self->{exposures_file} );          # Dynamically adding attributes (setter)
+
     # Now we need to perform a tranformation of the data where 'person_id' is one row of data
     # NB: Transformation is due ONLY IN $omop_main_table FIELDS, the rest of the tables are not used
     # The transformation is performed in --no-stream mode
@@ -419,14 +444,15 @@ sub omop2pxf {
         # Run second iteration
         return array_dispatcher($self);
 
-    # CLI
-    } else {
+        # CLI
+    }
+    else {
         # $self->{method} will be always 'omop2bff'
         # $self->{method_ori} will tell us the original one
-        $self->{method_ori} = 'omop2pxf';        # setter
-        $self->{method}     = 'omop2bff';         # setter
-        $self->{omop_cli}   = 1;                  # setter
-        
+        $self->{method_ori} = 'omop2pxf';    # setter
+        $self->{method}     = 'omop2bff';    # setter
+        $self->{omop_cli}   = 1;             # setter
+
         # Run 1st and 2nd iteration
         return omop2bff($self);
     }
@@ -517,7 +543,7 @@ sub array_dispatcher {
 
     # Open filehandle if omop2bff
     my $fh_out;
-    if ( $self->{method} eq 'omop2bff' && $self->{omop_cli}) {
+    if ( $self->{method} eq 'omop2bff' && $self->{omop_cli} ) {
         $fh_out = open_filehandle( $self->{out_file}, 'a' );
         say $fh_out "[";
     }

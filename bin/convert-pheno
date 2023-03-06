@@ -4,7 +4,7 @@
 #
 #   This file is part of Convert::Pheno
 #
-#   Last Modified: Feb/17/2023
+#   Last Modified: Mar/06/2023
 #
 #   $VERSION taken from Convert::Pheno
 #
@@ -60,10 +60,11 @@ GetOptions(
     'color!'                      => \$color,                                  # flag
     'separator|sep=s'             => \my $sep,                                 # str
     'schema-file=s'               => \$schema_file,                            # str
+    'exposures-file=s'            => \my $exposures_file,                      # str
     'stream!'                     => \$stream,                                 # flag
     'sql2csv'                     => \my $sql2csv,                             # flag
     'test'                        => \my $test,                                # flag
-    'ohdsi-db'                    => \$ohdsi_db,                                # flag
+    'ohdsi-db'                    => \$ohdsi_db,                               # flag
     'omop-tables=s{1,}'           => \my @omop_tables,                         # array
     'redcap-dictionary|rcd=s'     => \my $redcap_dictionary,                   # string
     'path-to-ohdsi-db=s'          => \my $path_to_ohdsi_db,                    # string
@@ -127,6 +128,11 @@ pod2usage(
       "Please specify a valid directory for the mapping file --path-to-ohdsi-db-\n",
     -exitval => 1
 ) if (defined $path_to_ohdsi_db && !-d $path_to_ohdsi_db);
+pod2usage(
+    -message =>
+      "Please specify a valid --exposures-file <$exposures_file>\n",
+    -exitval => 1
+) if ( $exposures_file && !-f $exposures_file);
 
 # Turning color off if argument <--no-color>
 $ENV{'ANSI_COLORS_DISABLED'} = 1 unless $color;
@@ -166,6 +172,7 @@ my $data = {
     sql2csv                   => $sql2csv,
     redcap_dictionary         => $redcap_dictionary,
     mapping_file              => $mapping_file,
+    exposures_file            => $exposures_file,
     search                    => $search,
     ohdsi_db                  => $ohdsi_db,
     omop_tables               => \@omop_tables,
@@ -208,7 +215,7 @@ sub convert {
 
     # Before proceeding we ask the user what to do with $o_file
     if ($overwrite) {
-         unlink($o_file);
+         unlink($o_file) if -e $o_file;
     } else {
         ask_overwrite($o_file);
     }
@@ -349,6 +356,7 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
 
      Options:
        -debug                         Print debugging (from 1 to 5, being 5 max)
+       -exposures-file                CSV file with a list of 'concept_id' considered to be exposures (with -iomop)
        -h|help                        Brief help message
        -log                           Save <convert-pheno-log.json> file
        -man                           Full documentation
@@ -356,7 +364,7 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
        -max-lines-sql                 Maxium number of lines read from SQL dump [500]
        -min-text-similarity-score     Minimum score for cosine similarity (or Sorensen-Dice coefficient) [0.8] (to be used with --search mixed)
        -no-color                      Don't print colors to STDOUT [>color|no-color]
-       -ohdsi-db                      Use Athena-OHDSI database (~2.4GB) with -iomop
+       -ohdsi-db                      Use Athena-OHDSI database (~2.2GB) with -iomop
        -omop-tables                   (Only valid with -iomop) OMOP-CDM tables to be processed. Tables <CONCEPT> and <PERSON> are always included.
        -out-dir                       Output (existing) directory
        -O                             Overwrite output file
@@ -447,7 +455,7 @@ Then I will do something like this:
   alias convert-pheno='docker exec -ti convert-pheno-mount /usr/share/convert-pheno/bin/convert-pheno'
 
   # Now I use the alias to run the command (note that I use the flag --out-dir to specify the output directory)
-  convert-pheno -ibff /data/individuals.json -opxf pxf.bff --out-dir /data
+  convert-pheno -ibff /data/individuals.json -opxf pxf.json --out-dir /data
 
 =head2 Non containerized
 
@@ -492,15 +500,17 @@ A text file in one of the accepted formats. With C<--iomop> I/O files can be gzi
 
 Athena-OHDSI database
 
-The database file is available at this L<link|https://drive.google.com/drive/folders/104_Bgl3IxM3U6u-wn-1LUvNZXevD2DRm?usp=sharing> (~2.4GB). The database may be needed when using C<-iomop>.
+The database file is available at this L<link|https://drive.google.com/drive/folders/104_Bgl3IxM3U6u-wn-1LUvNZXevD2DRm?usp=sharing> (~2.2GB). The database may be needed when using C<-iomop>.
 
-Regardless if you're using the containerized or non-containerized version, the download procedure is the same. In Linux you can use C<wget> or C<curl>:
+Regardless if you're using the containerized or non-containerized version, the download procedure is the same. In Linux you can use C<wget>, C<curl> or C<aria2c>:
 
  $ wget 'https://drive.google.com/uc?export=download&id=104ciON3zRc3ScAzzrL_3GO14aCnBLh-c&confirm=t' -O ohdsi.db
  or
  $ curl -L 'https://drive.google.com/uc?export=download&id104ciON3zRc3ScAzzrL_3GO14aCnBLh-c' > ohdsi.db
+ or
+ $ aria2c -x2 'https://drive.google.com/uc?export=download&id=104ciON3zRc3ScAzzrL_3GO14aCnBLh-c&confirm=t' -o ohdsi.db
 
-(you can install C<wget> or C<curl> inside the container by typing C<sudo apt install wget> or  C<sudo apt install curl>.
+(you can install C<wget>, C<curl> or C<aria2c> inside the container by typing C<sudo apt install wget>, C<sudo apt install curl> or C<sudo apt install aria2>.
 
 Once downloaded, you have two options:
 

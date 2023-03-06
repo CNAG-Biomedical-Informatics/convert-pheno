@@ -3,6 +3,7 @@ package Convert::Pheno::Mapping;
 use strict;
 use warnings;
 use autodie;
+
 #use Carp    qw(confess);
 use feature qw(say);
 use utf8;
@@ -197,8 +198,9 @@ sub map2ohdsi {
     # OPTION A: <CONCEPT> #
     #######################
 
-    # NB: Here we don't win any speed over using $seen as ...
+    # NB1: Here we don't win any speed over using $seen as ...
     # .. we are already searching in a hash
+    # NB2: $concept_id is stringified by hash
     my ( $data, $id, $label, $vocabulary ) = ( (undef) x 4 );
     if ( exists $ohdsi_dic->{$concept_id} ) {
         $id         = $ohdsi_dic->{$concept_id}{concept_code};

@@ -1,4 +1,4 @@
-In certain situations, using an API for sending and receiving data (as a microservice) may be more efficient. To accommodate this, we have created a lightweight API that enables sending `POST` requests and receiving `JSON` responses.
+In some cases, using an API for sending and receiving data as a microservice may be more efficient. To address this, we have developed a lightweight REST API that allows for sending `POST` requests and receiving `JSON` responses
 
 ## Usage
 
@@ -15,9 +15,12 @@ where `data.json` looks like the below:
 }
 ```
 
+!!! Note "Interactive API specification"
+    Please find [here](redoc-static.html) interactive documentation (built with [ReDoc](https://redocly.github.io/redoc/)).
+
 ## Included APIs
 
-We included two flavours of the same API, one in `Perl` and another in `Python`. Both should work out of the box with the [containerized version](https://github.com/mrueda/convert-pheno#containerized).
+We included two flavours of the same API, one in `Perl` and another in `Python`.Both APIs were created by using OpenAPI 3.0.2 schema and should work out of the box with the [containerized version](https://github.com/mrueda/convert-pheno#containerized).
 
 === "Perl version"
 
@@ -28,4 +31,4 @@ We included two flavours of the same API, one in `Perl` and another in `Python`.
     Please see more detailed instructions at this [README](https://github.com/mrueda/convert-pheno/tree/main/api/python#readme-convert-pheno-api-python-version).
 
 !!! Question "Local or remote installation?"
-    The API should be installed on a **local** server to enable federated data discovery.
+    The API should be installed on a **local** server.

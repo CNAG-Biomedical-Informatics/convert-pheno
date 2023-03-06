@@ -6,7 +6,7 @@
 
     * [Manuel Rueda](https://github.com/mrueda)
 
-=== "Graphical User Interface"
+=== "Web User Interface"
 
     * [Ivo C. Leist](https://github.com/IvoLeist)
   

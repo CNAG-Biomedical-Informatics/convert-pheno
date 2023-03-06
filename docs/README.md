@@ -6,4 +6,4 @@
 Welcome to the documentation for **Convert-Pheno**!
 
 
-This [documentation](https://mrueda.github.io/convert-pheno) presents the guidelines for the installation and utilization of a software tool designed for the conversion of standard phenotypic data models. Detailed instructions and explanations are provided for the proper implementation of the software, ensuring optimal performance and functionality.
+This [documentation](https://mrueda.github.io/convert-pheno) provides instructions and guidelines for installing and using a software tool specifically designed for converting standard phenotypic data models. It includes detailed explanations and instructions to ensure that the software is implemented properly and functions optimally.

@@ -18,7 +18,7 @@ use Convert::Pheno::Schema;
 use Convert::Pheno::Mapping;
 use Exporter 'import';
 our @EXPORT =
-  qw(read_csv read_csv_stream read_redcap_dic_and_mapping_file remap_ohdsi_dictionary read_sqldump_stream read_sqldump sqldump2csv transpose_omop_data_structure open_filehandle);
+  qw(read_csv read_csv_stream read_redcap_dic_and_mapping_file remap_ohdsi_dictionary read_sqldump_stream read_sqldump sqldump2csv transpose_omop_data_structure open_filehandle load_exposures);
 
 use constant DEVEL_MODE => 0;
 
@@ -708,3 +708,18 @@ sub to_gb {
     my $gb = $bytes / 1_073_741_824;
     return sprintf( '%8.4f', $gb ) . ' GB';
 }
+
+sub load_exposures {
+
+    my $data = read_csv( { in => shift, sep => "\t" } );
+
+    # We will only use the key 'concept_id' and discard the rest
+    #$VAR1 = {
+    #      '4138352' => 1
+    #    };
+    my %hash = map { $_->{concept_id} => 1 } @$data;
+
+    # Returning hashref
+    return \%hash;
+}
+1;
