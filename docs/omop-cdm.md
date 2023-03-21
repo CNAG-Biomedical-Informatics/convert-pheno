@@ -5,12 +5,14 @@
    <figcaption>Image extracted from www.ohdsi.org</figcaption>
 </figure>
 
-OMOP-CDM databases are typically implemented as PostgreSQL instances. Based on our experience, OMOP users will often export their databases periodically in either `.sql` or `.csv` format.
+The OMOP-CDM is designed to be database-agnostic, which means that it can be implemented using different relational database management systems (RDBMS) such as Oracle, PostgreSQL, Microsoft SQL Server or MySQL/MariaDB. Among these options, PostgreSQL is a popular choice within the community due to its open-source nature, strong compliance with SQL standards, and robust features for querying large datasets.
+
+Convert-Pheno is capable of performing both file-based conversions (from PostgreSQL exports in `.sql` or from any other SQL database via `.csv` files) and real-time conversions from WebAPI data or SQL queries (as long as the data has been converted to the accepted JSON format).
 
 ## OMOP as input
 
 !!! Hint "OMOP-CDM supported version(s)"
-         We currently support versions **5.3** and **5.4**. We have everything ready for supporting v6 once we are able to test the code with v6 projects.
+         Currently, Convert-Pheno supports versions **5.3** and **5.4** of OMOP-CDM, and its prepared to support v6 once we can test the code with v6 projects.
 
 === "Command-line"
 

@@ -40,12 +40,15 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
              -icdisc  (experimental)  CDISC-ODM v1 XML file
 
              (Wish-list)
-             #-ifhir                  HL7/FHIR
              #-openehr                openEHR
+             #-ifhir                  HL7/FHIR
 
        (output-type):
              -obff                    Beacon v2 Models JSON file
              -opxf                    Phenopacket v2 JSON file
+
+             (Wish-list)
+             #-oomop                  OMOP-CDM PostgreSQL dump
 
      Options:
        -debug                         Print debugging (from 1 to 5, being 5 max)

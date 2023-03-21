@@ -14,10 +14,10 @@
     Paper acceptance          :milestone, after m2, 0d
 
     section Formats
-    ODM v2.0        :crit, f1, 2023-07-15, 60d
-    Dataset-JSON    :      f2, after f1, 60d
-    HL7/FHIR        :      f3, after f2, 60d
-    OpenEHR         :      f4, after f3, 60d
+    OMOP-CDM (out)  :crit, f1, 2023-07-15, 60d
+    OpenEHR         :      f2, after f1, 60d
+    Dataset-JSON    :      f3, after f2, 60d
+    HL7/FHIR        :      f4, after f3, 60d
 
     section Extensions
     User interface  :crit, e1, 2023-01-01, 90d
