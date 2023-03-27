@@ -25,51 +25,51 @@ my $input = {
         out               => 't/pxf2bff/out/individuals.json'
     },
     redcap2bff => {
-        in_file           => 't/redcap2bff/in/Data_table_3TR_IBD_dummydata.csv',
+        in_file           => 't/redcap2bff/in/redcap_data.csv',
         redcap_dictionary =>
-'t/redcap2bff/in/3TRKielTemplateExport01072022_DataDictionary_2022-07-03.csv',
-        mapping_file         => 't/redcap2bff/in/redcap_3tr_mapping.yaml',
+'t/redcap2bff/in/redcap_dictionary.csv',
+        mapping_file         => 't/redcap2bff/in/redcap_mapping.yaml',
         self_validate_schema => 1,                                           # SELF-VALIDATE-SCHEMA (OK - ONLY ONCE)
         sep                  => undef,
         out                  => 't/redcap2bff/out/individuals.json'
     },
     redcap2pxf => {
-        in_file           => 't/redcap2bff/in/Data_table_3TR_IBD_dummydata.csv',
+        in_file           => 't/redcap2bff/in/redcap_data.csv',
         redcap_dictionary =>
-'t/redcap2bff/in/3TRKielTemplateExport01072022_DataDictionary_2022-07-03.csv',
-        mapping_file => 't/redcap2bff/in/redcap_3tr_mapping.yaml',
+'t/redcap2bff/in/redcap_dictionary.csv',
+        mapping_file => 't/redcap2bff/in/redcap_mapping.yaml',
         sep          => undef,
         out          => 't/redcap2pxf/out/pxf.json'
     },
     omop2bff => {
         in_file           => undef,
-        in_files          => ['t/omop2bff/in/dump.sql'],
+        in_files          => ['t/omop2bff/in/omop_cdm_eunomia.sql'],
         sep               => ',',
         redcap_dictionary => undef,
         out               => 't/omop2bff/out/individuals.json'
     },
     omop2pxf => {
         in_file           => undef,
-        in_files          => ['t/omop2bff/in/dump.sql'],
+        in_files          => ['t/omop2bff/in/omop_cdm_eunomia.sql'],
         sep               => ',',
         redcap_dictionary => undef,
         out               => 't/omop2pxf/out/pxf.json'
     },
     cdisc2bff => {
         in_file =>
-          't/cdisc2bff/in/3TRKielTemplateExpor_CDISC_ODM_2022-09-27_1822.xml',
+          't/cdisc2bff/in/cdisc_odm_data.xml',
         redcap_dictionary =>
-'t/redcap2bff/in/3TRKielTemplateExport01072022_DataDictionary_2022-07-03.csv',
-        mapping_file => 't/redcap2bff/in/redcap_3tr_mapping.yaml',
+'t/redcap2bff/in/redcap_dictionary.csv',
+        mapping_file => 't/redcap2bff/in/redcap_mapping.yaml',
         sep          => undef,
         out          => 't/cdisc2bff/out/individuals.json'
     },
     cdisc2pxf => {
         in_file =>
-          't/cdisc2bff/in/3TRKielTemplateExpor_CDISC_ODM_2022-09-27_1822.xml',
+          't/cdisc2bff/in/cdisc_odm_data.xml',
         redcap_dictionary =>
-'t/redcap2bff/in/3TRKielTemplateExport01072022_DataDictionary_2022-07-03.csv',
-        mapping_file => 't/redcap2bff/in/redcap_3tr_mapping.yaml',
+'t/redcap2bff/in/redcap_dictionary.csv',
+        mapping_file => 't/redcap2bff/in/redcap_mapping.yaml',
         sep          => undef,
         out          => 't/cdisc2pxf/out/pxf.json'
     }

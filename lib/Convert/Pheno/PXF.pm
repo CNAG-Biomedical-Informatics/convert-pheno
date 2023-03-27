@@ -23,10 +23,12 @@ sub do_pxf2bff {
 
     # We encountered that some PXF files have
     # /phenopacket
-    # /interpretation
+    # /interpretation (w/o s)
     # Get cursors for them if they exist
-    my $interpretation =
-      exists $data->{interpretation} ? $data->{interpretation} : undef;
+    my $interpretations =
+        exists $data->{interpretations} ? $data->{interpretations}
+      : $data->{interpretation}         ? $data->{interpretation}
+      :                                   undef;
     my $phenopacket =
       exists $data->{phenopacket} ? $data->{phenopacket} : $data;
 
@@ -34,7 +36,14 @@ sub do_pxf2bff {
     # START MAPPING TO BEACON V2 TERMS #
     ####################################
 
+    # *** IMPORTANT ***
+    # biosamples => can not be mapped to individuals (is Biosamples)
+    # interpretations => does not have equivalent
+    # files => idem
+    # They will added to {info}
+
     # NB: In PXF some terms are = []
+
     my $individual;
 
     # ========
@@ -57,31 +66,17 @@ sub do_pxf2bff {
     # info
     # ====
 
-    # **** $data->{phenopacket} ****
-    $individual->{info}{phenopacket}{dateOfBirth} =
-      $phenopacket->{subject}{dateOfBirth};
+    # *** IMPORTANT ***
+    # Here we set data that do not fit anywhere else
 
-# CNAG files have 'meta_data' nomenclature, but PHX documentation uses 'metaData'
-# We search for both 'meta_data' and 'metaData' and leave them untouched
-    for my $term (qw (dateOfBirth genes meta_data metaData variants)) {
-        $individual->{info}{phenopacket}{$term} = $phenopacket->{$term}
-          if exists $phenopacket->{$term};
-    }
-
-    # **** $data->{interpretation} ****
-    for my $term (qw (meta_data metaData)) {
-        $individual->{info}{interpretation}{phenopacket}{$term} =
-          $interpretation->{phenopacket}{$term}
-          if $interpretation->{phenopacket}{$term};
-    }
-
-# <diseases> and <phenotypicFeatures> are identical to those of $data->{phenopacket}{diseases,phenotypicFeatures}
+# CNAG files have 'meta_data' nomenclature, but PXF documentation uses 'metaData'
+# We search for both 'meta_data' and 'metaData' and simply display them
     for my $term (
-        qw (diagnosis diseases resolutionStatus phenotypicFeatures genes variants)
+        qw (dateOfBirth genes meta_data metaData variants interpretations files biosample)
       )
     {
-        $individual->{info}{interpretation}{$term} = $interpretation->{$term}
-          if exists $interpretation->{$term};
+        $individual->{info}{phenopacket}{$term} = $phenopacket->{$term}
+          if exists $phenopacket->{$term};
     }
 
     # ==================

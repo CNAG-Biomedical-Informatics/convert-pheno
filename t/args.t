@@ -16,10 +16,10 @@ use_ok('Convert::Pheno') or exit;
 
 my $input = {
     redcap2bff => {
-        in_file           => 't/redcap2bff/in/Data_table_3TR_IBD_dummydata.csv',
+        in_file           => 't/redcap2bff/in/redcap_data.csv',
         redcap_dictionary =>
-'t/redcap2bff/in/3TRKielTemplateExport01072022_DataDictionary_2022-07-03.csv',
-        mapping_file         => 't/redcap2bff/in/redcap_3tr_mapping.yaml',
+'t/redcap2bff/in/redcap_dictionary.csv',
+        mapping_file         => 't/redcap2bff/in/redcap_mapping.yaml',
         schema_file          => 'schema/mapping.json',
         self_validate_schema => 1,       # SELF-VALIDATE-SCHEMA (OK - ONLY ONCE)
         sep                  => undef,
@@ -138,7 +138,7 @@ for my $method ( sort keys %{$input} ) {
         skip qq{because 'db/ohdsi.db' is required with <ohdsi_db>}, 1
           unless -f 'db/ohdsi.db';
         warning_is { $convert->$method }
-        qq(<DUMMY> is not a valid table in OMOP-CDM),
-          'expecting warn: <DUMMY> is not a valid table in OMOP-CDM';
+        qq(<DUMMY> is not a valid table in OMOP-CDM\n),
+          "expecting warn: <DUMMY> is not a valid table in OMOP-CDM\n";
     }
 }

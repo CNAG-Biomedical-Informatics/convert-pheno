@@ -51,13 +51,13 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
              #-oomop                  OMOP-CDM PostgreSQL dump
 
      Options:
-       -debug                         Print debugging (from 1 to 5, being 5 max)
+       -debug                         Print debugging level (from 1 to 5, being 5 max)
        -exposures-file                CSV file with a list of 'concept_id' considered to be exposures (with -iomop)
        -h|help                        Brief help message
-       -log                           Save <convert-pheno-log.json> file
+       -log                           Save log file (JSON). If no argument is given then the log is named [convert-pheno-log.json]
        -man                           Full documentation
        -mapping-file                  Fields mapping YAML (or JSON) file
-       -max-lines-sql                 Maxium number of lines read from SQL dump [500]
+       -max-lines-sql                 Maximum number of lines read from SQL dump [500]
        -min-text-similarity-score     Minimum score for cosine similarity (or Sorensen-Dice coefficient) [0.8] (to be used with --search mixed)
        -no-color                      Don't print colors to STDOUT [>color|no-color]
        -ohdsi-db                      Use Athena-OHDSI database (~2.2GB) with -iomop
@@ -70,7 +70,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
        -schema-file                   Alternative JSON Schema for mapping file
        -search                        Type of search [>exact|mixed]
        -svs|self-validate-schema      Perform a self-validation of the JSON schema that defines mapping
-       -sep|separator                 Delimiter character for CSV files
+       -sep|separator                 Delimiter character for CSV files [;] e.g., --sep $'\t'
        -stream                        Enable incremental processing with -iomop and -obff [>no-stream|stream]
        -sql2csv                       Print SQL TABLES (only valid with -iomop). Mutually exclusive with --stream
        -test                          Does not print time-changing-events (useful for file-based cmp)

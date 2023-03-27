@@ -18,7 +18,7 @@ use Convert::Pheno::Schema;
 use Convert::Pheno::Mapping;
 use Exporter 'import';
 our @EXPORT =
-  qw(read_csv read_csv_stream read_redcap_dic_and_mapping_file remap_ohdsi_dictionary read_sqldump_stream read_sqldump sqldump2csv transpose_omop_data_structure open_filehandle load_exposures);
+  qw(read_csv read_csv_stream read_redcap_dic_and_mapping_file transpose_ohdsi_dictionary read_sqldump_stream read_sqldump sqldump2csv transpose_omop_data_structure open_filehandle load_exposures transpose_visit_occurrence);
 
 use constant DEVEL_MODE => 0;
 
@@ -41,9 +41,9 @@ sub read_redcap_dictionary {
     # We'll be adding the key <_labels>. See sub add_labels
     my $labels = 'Choices, Calculations, OR Slider Labels';
 
-# Loading data directly from Text::CSV_XS
-# NB1: We want HoH and sub read_csv returns AoH
-# NB2: By default the Text::CSV module treats all fields in a CSV file as strings, regardless of their actual data type.
+    # Loading data directly from Text::CSV_XS
+    # NB1: We want HoH and sub read_csv returns AoH
+    # NB2: By default the Text::CSV module treats all fields in a CSV file as strings, regardless of their actual data type.
     my $hoh = csv(
         in       => $filepath,
         sep_char => $separator,
@@ -103,7 +103,7 @@ sub read_redcap_dic_and_mapping_file {
     return ( $data_redcap_dic, $data_mapping_file );
 }
 
-sub remap_ohdsi_dictionary {
+sub transpose_ohdsi_dictionary {
 
     my $data   = shift;
     my $column = 'concept_id';
@@ -146,7 +146,7 @@ sub remap_ohdsi_dictionary {
     # Note that we're duplicating @$data with $hoh
     my $hoh = { map { $_->{$column} => $_ } @{$data} };
 
-    #say "remap_ohdsi_dictionary:", to_gb( total_size($hoh) ) if DEVEL_MODE;
+    #say "transpose_ohdsi_dictionary:", to_gb( total_size($hoh) ) if DEVEL_MODE;
     return $hoh;
 }
 
@@ -208,23 +208,23 @@ sub read_sqldump_stream {
             my @fields = split /\t/, $line;
 
             # Using tmp hashref to load all fields at once with slice
-            my $tmp_hash;
-            @{$tmp_hash}{@headers} =
+            my $hash_slice;
+            @{$hash_slice}{@headers} =
               map { dotify_and_coerce_number($_) } @fields;
 
             # Initialize $data each time
             # Adding them as an array element (AoH)
             die
-"We could not find person_id:$tmp_hash->{person_id}. Try increasing the #lines with --max-lines-sql\n"
-              unless exists $person->{ $tmp_hash->{person_id} };
+"We could not find person_id:$hash_slice->{person_id}. Try increasing the #lines with --max-lines-sql\n"
+              unless exists $person->{ $hash_slice->{person_id} };
 
             # Increase counter
             $count++;
 
             # Encode data
             my $encoded_data =
-              encode_omop_stream( $table_name, $tmp_hash, $person,
-                $count, $self );
+              encode_omop_stream( $table_name, $hash_slice, $person, $count,
+                $self );
 
             # Only after encoding we are able to discard 'null'
             say $fh_out $encoded_data if $encoded_data ne 'null';
@@ -246,15 +246,16 @@ sub read_sqldump_stream {
 
 sub encode_omop_stream {
 
-    my ( $table_name, $tmp_hash, $person, $count, $self ) = @_;
+    my ( $table_name, $hash_slice, $person, $count, $self ) = @_;
 
     # IMPORTANT === We only print person_id ONCE!!!
-    my $data = {
-        $table_name => [$tmp_hash],
+    my $person_id = $hash_slice->{person_id};
+    my $data      = {
+        $table_name => [$hash_slice],
         PERSON      => $count == 1
-        ? $person->{ $tmp_hash->{person_id} }
+        ? $person->{$person_id}
         : {
-            map { $_ => $person->{ $tmp_hash->{person_id} }{$_} }
+            map { $_ => $person->{$person_id}{$_} }
               qw(person_id gender_concept_id birth_datetime)
         }
     };
@@ -270,13 +271,13 @@ sub read_sqldump {
     my $filepath = $arg->{in};
     my $self     = $arg->{self};
 
-# Before resorting to writting this subroutine I performed an exhaustive search on CPAN:
-# - Tested MySQL::Dump::Parser::XS but I could not make it work...
-# - App-MysqlUtils-0.022 has a CLI utility (mysql-sql-dump-extract-tables)
-# - Of course one can always use *nix tools (sed, grep, awk, etc) or other programming languages....
-# Anyway, I ended up writting the parser myself...
-# The parser is based in reading COPY paragraphs from PostgreSQL dump by using Perl's paragraph mode  $/ = "";
-# NB: Each paragraph (TABLE) is loaded into memory. Not great for large files.
+    # Before resorting to writting this subroutine I performed an exhaustive search on CPAN:
+    # - Tested MySQL::Dump::Parser::XS but I could not make it work...
+    # - App-MysqlUtils-0.022 has a CLI utility (mysql-sql-dump-extract-tables)
+    # - Of course one can always use *nix tools (sed, grep, awk, etc) or other programming languages....
+    # Anyway, I ended up writting the parser myself...
+    # The parser is based in reading COPY paragraphs from PostgreSQL dump by using Perl's paragraph mode  $/ = "";
+    # NB: Each paragraph (TABLE) is loaded into memory. Not great for large files.
 
     # Define variables that modify what we load
     my $max_lines_sql = $self->{max_lines_sql};
@@ -285,9 +286,9 @@ sub read_sqldump {
     # Set record separator to paragraph
     local $/ = "";
 
-#COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, attribute_description, attribute_type_concept_id, attribute_syntax) FROM stdin;
-# ......
-# \.
+    #COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, attribute_description, attribute_type_concept_id, attribute_syntax) FROM stdin;
+    # ......
+    # \.
 
     # Start reading the SQL dump
     my $fh = open_filehandle( $filepath, 'r' );
@@ -306,8 +307,8 @@ sub read_sqldump {
         next unless scalar @lines > 2;
         pop @lines;    # last line eq '\.'
 
-# First line contains the headers
-#COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, ..., attribute_syntax) FROM stdin;
+        # First line contains the headers
+        #COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, ..., attribute_syntax) FROM stdin;
         $lines[0] =~ s/[\(\),]//g;    # getting rid of (),
         my @headers = split /\s+/, $lines[0];
         my $table_name =
@@ -357,12 +358,12 @@ sub read_sqldump {
             #         };
 
             # Using tmp hashref to load all fields at once with slice
-            my $tmp_hash;
-            @{$tmp_hash}{@headers} =
+            my $hash_slice;
+            @{$hash_slice}{@headers} =
               map { dotify_and_coerce_number($_) } @fields;
 
             # Adding them as an array element (AoH)
-            push @{ $data->{$table_name} }, $tmp_hash;
+            push @{ $data->{$table_name} }, $hash_slice;
 
             # adhoc filter to speed-up development
             last if $count == $max_lines_sql;
@@ -437,54 +438,55 @@ sub transpose_omop_data_structure {
     #                      ]
     #        };
 
-# where all 'person_id' are together inside the TABLE_NAME.
-# But, BFF "ideally" works at the individual level so we are going to
-# transpose the data structure to end up into something like this
-# NB: MEASUREMENT and OBSERVATION (among others, i.e., CONDITION_OCCURRENCE, PROCEDURE_OCCURRENCE)
-#     can have multiple values for one 'person_id' so they will be loaded as arrays
-#
-#
-#$VAR1 = {
-#          '1' => {
-#                     'PERSON' => {
-#                                   'person_id' => 1
-#                                 }
-#                   },
-#          '666' => {
-#                     'MEASUREMENT' => [
-#                                        {
-#                                          'measurement_concept_id' => 1,
-#                                          'person_id' => 666
-#                                        },
-#                                        {
-#                                          'measurement_concept_id' => 2,
-#                                          'person_id' => 666
-#                                        }
-#                                      ],
-#                     'PERSON' => {
-#                                   'person_id' => 666
-#                                 }
-#                   }
-#        };
+    # where all 'person_id' are together inside the TABLE_NAME.
+    # But, BFF "ideally" works at the individual level so we are going to
+    # transpose the data structure to end up into something like this
+    # NB: MEASUREMENT and OBSERVATION (among others, i.e., CONDITION_OCCURRENCE, PROCEDURE_OCCURRENCE)
+    #     can have multiple values for one 'person_id' so they will be loaded as arrays
+    #
+    #
+    #$VAR1 = {
+    #          '1' => {
+    #                     'PERSON' => {
+    #                                   'person_id' => 1
+    #                                 }
+    #                   },
+    #          '666' => {
+    #                     'MEASUREMENT' => [
+    #                                        {
+    #                                          'measurement_concept_id' => 1,
+    #                                          'person_id' => 666
+    #                                        },
+    #                                        {
+    #                                          'measurement_concept_id' => 2,
+    #                                          'person_id' => 666
+    #                                        }
+    #                                      ],
+    #                     'PERSON' => {
+    #                                   'person_id' => 666
+    #                                 }
+    #                   }
+    #        };
 
     my $omop_person_id = {};
 
     # Only performed for $omop_main_table
     for my $table ( @{ $omop_main_table->{$omop_version} } ) {    # global
+
+        # Loop over tables
         for my $item ( @{ $data->{$table} } ) {
 
             if ( exists $item->{person_id} && $item->{person_id} ) {
                 my $person_id = $item->{person_id};
 
-                # {person_id} can have multiple rows in a given table
+                # {person_id} can have multiple rows in @omop_array_tables
                 if ( any { m/^$table$/ } @omop_array_tables ) {
-                    push @{ $omop_person_id->{$person_id}{$table} },
-                      $item;    # array
+                    push @{ $omop_person_id->{$person_id}{$table} }, $item;    # array
                 }
 
-                # {person_id} only has one value in a given TABLE
+                # {person_id} only has one value in a given table
                 else {
-                    $omop_person_id->{$person_id}{$table} = $item;    # scalar
+                    $omop_person_id->{$person_id}{$table} = $item;             # scalar
                 }
             }
         }
@@ -521,7 +523,7 @@ sub transpose_omop_data_structure {
     # NB: We nsort keys to always have the same result but it's not needed
     # v1 - Easier but duplicates data structure
     # my $aoh = [ map { $omop_person_id->{$_} } nsort keys %{$omop_person_id} ];
-    # v2 - This version cleans memory after loading $aoh
+    # v2 - This version cleans memory after loading $aoh  <=== Implemented
     my $aoh;
     for my $key ( nsort keys %{$omop_person_id} ) {
         push @{$aoh}, $omop_person_id->{$key};
@@ -534,6 +536,30 @@ sub transpose_omop_data_structure {
         #say 'transpose_omop_data_structure(map):', to_gb( total_size($aoh) );
     }
     return $aoh;
+}
+
+sub transpose_visit_occurrence {
+
+    my $array = shift;    #arrayref
+
+    # Going from
+    #$VAR1 = [
+    #        {
+    #          'admitting_source_concept_id' => 0,
+    #          'visit_occurrence_id' => 85,
+    #          ...
+    #        }
+    #      ];
+
+    # To
+    #$VAR1 = {
+    #        '85' => {
+    #                  'admitting_source_concept_id' => 0,
+    #                  'visit_occurrence_id' => 85,
+    #                  ...
+    #                }
+    #      };
+    return { map { $_->{visit_occurrence_id} => $_ } @$array };
 }
 
 sub read_csv {
@@ -579,15 +605,13 @@ sub read_csv_stream {
     my $filein  = $arg->{in};
     my $self    = $arg->{self};
     my $sep     = $arg->{sep};
+    my $person  = $arg->{person};
     my $fileout = $self->{out_file};
 
-    # Define split record separator from file extension
+    # Define split record separator
     my ( $separator, $encoding, $table_name ) =
       define_separator( $filein, $sep );
     my $table_name_lc = lc($table_name);
-
-    # First we do a transformation from AoH to HoH to speed up the calculation
-    my $person = { map { $_->{person_id} => $_ } @{ $self->{data}{PERSON} } };
 
     # Using Text::CSV_XS OO interface
     my $csv = Text::CSV_XS->new(
@@ -601,7 +625,7 @@ sub read_csv_stream {
     chomp( my $line = <$fh_in> );
     my @headers = split /$separator/, $line;
 
-    my $tmp_hash;
+    my $hash_slice;
     my $count = 0;
 
     #############
@@ -615,12 +639,13 @@ sub read_csv_stream {
     while ( my $row = $csv->getline($fh_in) ) {
 
         # Load the values a a hash slice;
-        my $tmp_hash;
-        @{$tmp_hash}{@headers} = map { dotify_and_coerce_number($_) } @$row;
+        my $hash_slice;
+        @{$hash_slice}{@headers} = map { dotify_and_coerce_number($_) } @$row;
 
         # Encode data
         my $encoded_data =
-          encode_omop_stream( $table_name, $tmp_hash, $person, $count, $self );
+          encode_omop_stream( $table_name, $hash_slice, $person, $count,
+            $self );
 
         # Only after encoding we are able to discard 'null'
         say $fh_out $encoded_data if $encoded_data ne 'null';
@@ -681,7 +706,7 @@ sub define_separator {
 
     # Define split record separator from file extension
     my @exts = map { $_, $_ . '.gz' } qw(.csv .tsv .sql .txt);
-    my ( undef, $table_name, $ext ) = fileparse( $filepath, @exts );
+    my ( $table_name, undef, $ext ) = fileparse( $filepath, @exts );
 
     # Defining separator character
     my $separator =
@@ -722,4 +747,5 @@ sub load_exposures {
     # Returning hashref
     return \%hash;
 }
+
 1;

@@ -28,6 +28,9 @@ Phenopackets use [top-level](https://phenopacket-schema.readthedocs.io/en/latest
     convert-pheno -ipxf ipxf.json -obff individuals.json
     ```
 
+    !!! Warning "About `Biosample` and `Interpretation`"
+        If these properties are present, they will be included in `individuals.json` within the `info.phenopacket` field as unprocessed data, as they are not mapped to any specific entity within the Beacon v2 Models.
+
 === "Module"
 
     The concept is to pass the necessary information as a hash (in Perl) or dictionary (in Python).

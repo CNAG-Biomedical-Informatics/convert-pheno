@@ -10,7 +10,7 @@ Frequently Asked Questions
 
 ??? faq "Is `Convert-Pheno` free?"
 
-    Yes - Free as in Speech. 
+    Yes. See the [license](https://github.com/mrueda/convert-pheno/blob/main/LICENSE).
 
     ##### last change 2023-01-04 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
@@ -56,6 +56,24 @@ Frequently Asked Questions
     We support [NCI Thesaurus](https://ncithesaurus.nci.nih.gov/ncitbrowser), [ICD-10](https://icd.who.int/browse10), [CDISC](https://www.cdisc.org/standards/terminology/controlled-terminology) (Study Data Tabulation Model Terminology) and data from [Athena-OHDSI](https://athena.ohdsi.org/search-terms/start) which includes multiple ontologies, such as _SNOMED, RxNorm or LOINC_.
 
     ##### last change 2023-01-27 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
+
+??? faq "Are longitudinal data supported?"
+
+    Although Beacon v2 and Phenopackets v2 allow for storing time information in some properties, there is currently no way to associate medical visits to properties. To address this:
+
+    * `omop2bff` -  we added an _ad hoc_ property (**_visit**) to store medical visit information for longitudinal events in variables that have it (e.g., measures, observations, etc.).
+
+    * `redcap2bff` - In REDCap, visit/event information is not stored at the record level. We added this information inside `info` property.
+
+    We raised this issue to the respective communities in the hope of a more permanent solution.
+
+    ##### last change 2023-03-24 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
+
+??? faq "How are variables that cannot be mapped handled during the conversion process?"
+
+    When converting between different data standards, it is common to encounter situations where some variables cannot be directly mapped to their equivalent in the target standard. In such cases, we typically store the original variable under the _info_ property in the converted file.
+
+    ##### last change 2023-03-25 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
 ## Installation
 

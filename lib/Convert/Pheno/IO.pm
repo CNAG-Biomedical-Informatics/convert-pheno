@@ -59,21 +59,21 @@ sub io_yaml_or_json {
 
 sub write_json {
 
-    my $arg        = shift;
-    my $file       = $arg->{filepath};
-    my $json_array = $arg->{data};
-    my $json = JSON::XS->new->utf8->canonical->pretty->encode($json_array);
+    my $arg       = shift;
+    my $file      = $arg->{filepath};
+    my $json_data = $arg->{data};
+    my $json      = JSON::XS->new->utf8->canonical->pretty->encode($json_data);
     path($file)->spew_utf8($json);
     return 1;
 }
 
 sub write_yaml {
 
-    my $arg        = shift;
-    my $file       = $arg->{filepath};
-    my $json_array = $arg->{data};
+    my $arg       = shift;
+    my $file      = $arg->{filepath};
+    my $json_data = $arg->{data};
     local $YAML::XS::Boolean = 'JSON::PP';
-    DumpFile( $file, $json_array );
+    DumpFile( $file, $json_data );
     return 1;
 }
 1;

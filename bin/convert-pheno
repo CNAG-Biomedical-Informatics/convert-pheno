@@ -72,7 +72,7 @@ GetOptions(
     'self-validate-schema|svs'    => \my $self_validate_schema,                # flag
     'O'                           => \my $overwrite,                           # flag
     'username=s'                  => \my $username,                            # string
-    'log'                         => \my $log,                                 # flag
+    'log:s'                       => \my $log,                                 # opt-string
     'version|v'                   => sub { say "$0 Version $VERSION"; exit; }
 ) or pod2usage(2);
 pod2usage(1)                              if $help;
@@ -144,7 +144,7 @@ my $out_file =
   :            catfile( $out_dir, 'individuals.json' );
 
 # Defining $log_file
-my $log_file = catfile( $out_dir, 'convert-pheno-log.json' );
+my $log_file = catfile( $out_dir, ( $log ? $log : 'convert-pheno-log.json' ) ); # // works for undef
 
 # Defining method
 my $in_type =
@@ -197,7 +197,7 @@ print Dumper $data if $debug;
 say BOLD CYAN program_header($VERSION) if $verbose;
 
 # Save log file if $log (before $data gets blessed)
-write_log( $log_file, $data ) if $log;
+write_log( $log_file, $data ) if defined $log;
 
 #############################
 # START DATA TRANSFORMATION #
@@ -281,6 +281,8 @@ sub write_log {
         date     => ( strftime "%a %b %e %H:%M:%S %Y", localtime ),
         ncpuhost => ( 0 + $ncpuhost ),                                # coercing it to be a number
         hostname => hostname,
+        id       => time . substr( "00000$$", -5 ),                   # string
+        version  => $VERSION,
         user     => $ENV{LOGNAME} || $ENV{USER} || getpwuid($<)
     };
 
@@ -358,13 +360,13 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
              #-oomop                  OMOP-CDM PostgreSQL dump
 
      Options:
-       -debug                         Print debugging (from 1 to 5, being 5 max)
+       -debug                         Print debugging level (from 1 to 5, being 5 max)
        -exposures-file                CSV file with a list of 'concept_id' considered to be exposures (with -iomop)
        -h|help                        Brief help message
-       -log                           Save <convert-pheno-log.json> file
+       -log                           Save log file (JSON). If no argument is given then the log is named [convert-pheno-log.json]
        -man                           Full documentation
        -mapping-file                  Fields mapping YAML (or JSON) file
-       -max-lines-sql                 Maxium number of lines read from SQL dump [500]
+       -max-lines-sql                 Maximum number of lines read from SQL dump [500]
        -min-text-similarity-score     Minimum score for cosine similarity (or Sorensen-Dice coefficient) [0.8] (to be used with --search mixed)
        -no-color                      Don't print colors to STDOUT [>color|no-color]
        -ohdsi-db                      Use Athena-OHDSI database (~2.2GB) with -iomop
@@ -377,7 +379,7 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
        -schema-file                   Alternative JSON Schema for mapping file
        -search                        Type of search [>exact|mixed]
        -svs|self-validate-schema      Perform a self-validation of the JSON schema that defines mapping
-       -sep|separator                 Delimiter character for CSV files
+       -sep|separator                 Delimiter character for CSV files [;] e.g., --sep $'\t'
        -stream                        Enable incremental processing with -iomop and -obff [>no-stream|stream]
        -sql2csv                       Print SQL TABLES (only valid with -iomop). Mutually exclusive with --stream
        -test                          Does not print time-changing-events (useful for file-based cmp)

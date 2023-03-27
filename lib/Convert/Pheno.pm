@@ -110,7 +110,8 @@ has exposures_file => (
     coerce => sub {
         defined $_[0]
           ? $_[0]
-          : catfile( $lib_path, '../../db/concepts_candidates_2_exposure.csv' ),;
+          : catfile( $lib_path, '../../db/concepts_candidates_2_exposure.csv' )
+          ,;
     },
     is  => 'ro',
     isa => Str
@@ -228,7 +229,7 @@ sub omop2bff {
     # IMPORTANT #
     #############
 
-    # SMALL TO MEDIUM FILES < 500MB-1GB
+    # SMALL TO MEDIUM FILES < 1M rows
     #
     # In many cases, because people are downsizing their DBs for data sharing,
     # PostgreSQL dumps or CSVs will be < 1M rows.
@@ -273,8 +274,8 @@ sub omop2bff {
     #     2 - How to read line-by-line from an SQL dump
     #          If the PostgreSQL dump weights, say, 20GB, do we create CSV tables from it (another ~20GB)?
     #         Solutions:
-    #           a) Yep, we read <CONCEPT> and <PERSON> and export the needed tables to CSV and go from there.
-    #           b) Nope, we read PostgreSQL file twice, one time to load <CONCEPT> and <PERSON>
+    #           a) Yep, we read @stream_ram_memory_tables and  export the needed tables to CSV and go from there.
+    #           b) Nope, we read PostgreSQL file twice, one time to load @stream_ram_memory_tables
     #              and the second time to load the remaining TABLES. <=========== IMPLEMENTED ==========
     #     3 - In --stream mode, do we still allow for --sql2csv? NOPE !!!! <=========== IMPLEMENTED ==========
     #           We would need to go from functional mode (csv) to filehandles and it will take tons of space.
@@ -307,7 +308,7 @@ sub omop2bff {
         my @exts = map { $_, $_ . '.gz' } qw(.csv .tsv .sql);
 
         # Proceed
-        # The idea here is that we'll load ONLY ESSENTIAL TABLES $omop_main_table and @omop_extra_tables in $data,
+        # The idea here is that we'll load ONLY ESSENTIAL TABLES 
         # regardless of wheter they are concepts or truly records.
         # Dictionaries (e.g. <CONCEPT>) will be parsed latter from $data
 
@@ -332,8 +333,9 @@ sub omop2bff {
                 # --stream
                 else {
 
-                    # We'll ONLY load <CONCEPT> and <PERSON> in RAM and the other tables as $fh
-                    $self->{omop_tables} = [qw/CONCEPT PERSON/];    # setter
+                    # We'll ONLY load @stream_ram_memory_tables
+                    # in RAM and the other tables as $fh
+                    $self->{omop_tables} = [ @stream_ram_memory_tables ];    # setter
                     $data = read_sqldump( { in => $file, self => $self } );
                 }
 
@@ -346,12 +348,11 @@ sub omop2bff {
             else {
 
                 # We'll load all OMOP tables that the user is providing as -iomop
-                # as long as they have a match in 'main' or 'extra'
+                # as long as they have a match in @omop_essential_tables
                 # NB: --omop-tables has no effect
-                warn "<$table_name> is not a valid table in OMOP-CDM" and next
-                  unless any { /^$table_name$/ }
-                  ( @{ $omop_main_table->{$omop_version} },
-                    @omop_extra_tables );    # global
+                warn "<$table_name> is not a valid table in OMOP-CDM\n" and next
+                  #unless (any { /^$table_name$/ } @{ $omop_main_table->{$omop_version} };
+                  unless  any { /^$table_name$/ } @omop_essential_tables;    # global
 
                 # --no-stream
                 if ( !$self->{stream} ) {
@@ -363,8 +364,9 @@ sub omop2bff {
 
                 # --stream
                 else {
-                    # We'll ONLY load <CONCEPT> and <PERSON> in RAM and the other tables as $fh
-                    if ( any { /^$table_name$/ } qw/CONCEPT PERSON/ ) {
+                    # We'll ONLY load @stream_ram_memory_tables
+                    # in RAM and the other tables as $fh
+                    if ( any { /^$table_name$/ } @stream_ram_memory_tables ) {
                         $data->{$table_name} =
                           read_csv( { in => $file, sep => $self->{sep} } );
                     }
@@ -384,10 +386,16 @@ sub omop2bff {
       unless exists $data->{CONCEPT};
 
     # We create a dictionary for $data->{CONCEPT}
-    $self->{data_ohdsi_dic} = remap_ohdsi_dictionary( $data->{CONCEPT} );    # Dynamically adding attributes (setter)
+    $self->{data_ohdsi_dic} = transpose_ohdsi_dictionary( $data->{CONCEPT} );    # Dynamically adding attributes (setter)
 
-    # We load the allowed concept_id for exposures as hashref
+    # We load the allowed concept_id for exposures as hashref (for --no--stream and --stream)
     $self->{exposures} = load_exposures( $self->{exposures_file} );          # Dynamically adding attributes (setter)
+
+     # We transpose $self->{data}{VISIT_OCCURRENCE} if present 
+    if (exists $data->{VISIT_OCCURRENCE}) {
+     $self->{visit_occurrence} = transpose_visit_occurrence($data->{VISIT_OCCURRENCE}); # Dynamically adding attributes (setter)
+     delete $data->{VISIT_OCCURRENCE};
+    }
 
     # Now we need to perform a tranformation of the data where 'person_id' is one row of data
     # NB: Transformation is due ONLY IN $omop_main_table FIELDS, the rest of the tables are not used
@@ -654,28 +662,28 @@ sub omop_stream_dispatcher {
     # Open connection to SQLite databases ONCE
     open_connections_SQLite($self) if $self->{method} ne 'bff2pxf';
 
-    # CSVs we have the full filepath at @filepaths
-    #   - CONCEPT and PERSON were already filtered out:w
-    # SQL dumps, the tables come from @{$prev_omop_tables}
-    #   - may have CONCEPT and PERSON
+    # First we do transformations from AoH to HoH to speed up the calculation
+    my $person = { map { $_->{person_id} => $_ } @{ $self->{data}{PERSON} } };
 
+    # Give back memory to RAM
+    delete  $self->{data}{PERSON};
+
+    # CSVs
     if (@$filepaths) {
         for (@$filepaths) {
             say "Processing file ... <$_>" if $self->{verbose};
-            read_csv_stream( { in => $_, sep => $self->{sep}, self => $self } );
+            read_csv_stream( { in => $_, sep => $self->{sep}, self => $self, person => $person } );
         }
     }
-    else {
 
-        # First we do a transformation from AoH to HoH to speed up the calculation
-        my $person =
-          { map { $_->{person_id} => $_ } @{ $self->{data}{PERSON} } };
+    # PosgreSQL dump
+    else {
 
         # Now iterate
         for my $table ( @{$omop_tables} ) {
 
-            # We already loaded CONCEPT and PERSON
-            next if any { /^$table$/ } (qw(CONCEPT PERSON));
+            # We already loaded @stream_ram_memory_tables;
+            next if any { /^$table$/ } @stream_ram_memory_tables;
             say "Processing table ... <$table>" if $self->{verbose};
             $self->{omop_tables} = [$table];
             read_sqldump_stream(

@@ -17,7 +17,7 @@ use Convert::Pheno::SQLite;
 binmode STDOUT, ':encoding(utf-8)';
 use Exporter 'import';
 our @EXPORT =
-  qw( map_ethnicity map_ontology dotify_and_coerce_number iso8601_time _map2iso8601 map_reference_range map_age_range map2redcap_dic map2ohdsi convert2boolean find_age randStr map_operator_concept_id map_info_field);
+  qw(map_ethnicity map_ontology dotify_and_coerce_number iso8601_time _map2iso8601 map_reference_range map_age_range map2redcap_dic map2ohdsi convert2boolean find_age randStr map_operator_concept_id map_info_field map_omop_visit_occurrence);
 
 use constant DEVEL_MODE => 0;
 
@@ -300,6 +300,100 @@ sub map_operator_concept_id {
         }
     }
     return $hashref;
+}
+
+sub map_omop_visit_occurrence {
+
+    # key eq 'visit_occurrence_id'
+    # { '85' =>
+    #    {
+    #          'admitting_source_concept_id' => 0,
+    #          'admitting_source_value' => undef,
+    #          'care_site_id' => '\\N',
+    #          'discharge_to_concept_id' => 0,
+    #          'discharge_to_source_value' => undef,
+    #          'person_id' => 1,
+    #          'preceding_visit_occurrence_id' => 82,
+    #          'provider_id' => '\\N',
+    #          'visit_concept_id' => 9201,
+    #          'visit_end_date' => '1981-08-19',
+    #          'visit_end_datetime' => '1981-08-19 00:00:00',
+    #          'visit_occurrence_id' => 85,
+    #          'visit_source_concept_id' => 0,
+    #          'visit_source_value' => '7879d5b2-1af2-49a7-a801-121de124c6af',
+    #          'visit_start_date' => '1981-08-18',
+    #          'visit_start_datetime' => '1981-08-18 00:00:00',
+    #          'visit_type_concept_id' => 44818517
+    #        }
+    # }
+
+    my $arg                 = shift;
+    my $self                = $arg->{self};
+    my $ohdsi_dic           = $arg->{ohdsi_dic};
+    my $person_id           = $arg->{person_id};
+    my $visit_occurrence_id = $arg->{visit_occurrence_id};
+    my $visit_occurrence    = $self->{visit_occurrence};
+
+    # Premature return
+    return undef if $visit_occurrence_id eq '\\N';
+
+# *** IMPORTANT ***
+# EUNOMIA instance has mismatches between the person_id -- visit_occurrence_id
+# For instance, person_id = 1 has only visit_occurrence_id = 85, but on tables it has:
+# 82, 84, 42, 54, 41, 25, 76 and 81
+
+    # warn if we don't have $visit_occurrence_id in VISIT_OCURRENCE
+    unless ( exists $visit_occurrence->{$visit_occurrence_id} ) {
+        warn
+"Sorry, but <visit_occurrence_id:$visit_occurrence_id> does not exist for <person_id:$person_id>\n"
+          if DEVEL_MODE;
+
+        # Premature return
+        return undef;
+    }
+
+    # Getting pointer to the hash element
+    my $hashref = $visit_occurrence->{$visit_occurrence_id};
+
+    my $concept = map2ohdsi(
+        {
+            ohdsi_dic  => $ohdsi_dic,
+            concept_id => $hashref->{visit_concept_id},
+            self       => $self
+
+        }
+    );
+
+# *** IMPORTANT ***
+# Ad hoc to avoid using --ohdsi-db while we find a solution to EUNOMIA not being self-contained
+    my $ad_hoc_44818517 = {
+        id    => "Visit Type:OMOP4822465",
+        label => "Visit derived from encounter on claim"
+    };
+    my $type =
+        $hashref->{visit_type_concept_id} == 44818517
+      ? $ad_hoc_44818517
+      : map2ohdsi(
+        {
+            ohdsi_dic  => $ohdsi_dic,
+            concept_id => $hashref->{visit_type_concept_id},
+            self       => $self
+
+        }
+      );
+    my $start_date = _map2iso8601( $hashref->{visit_start_date} );
+    my $end_date   = _map2iso8601( $hashref->{visit_end_date} );
+    my $info       = { VISIT_OCCURENCE => { OMOP_columns => $hashref } };
+
+    return {
+        _info         => $info,
+        id            => $visit_occurrence_id,
+        concept       => $concept,
+        type          => $type,
+        start_date    => $start_date,
+        end_date      => $end_date,
+        occurrence_id => $hashref->{visit_occurrence_id}
+    };
 }
 
 sub is_multidimensional {

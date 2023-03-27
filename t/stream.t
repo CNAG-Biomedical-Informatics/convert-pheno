@@ -22,7 +22,7 @@ my ( undef, $tmp_file ) = tempfile( DIR => 't', SUFFIX => ".json.gz", UNLINK => 
 my $convert = Convert::Pheno->new(
     {
         in_file              => undef,
-        in_files             => ['t/omop2bff/in/gz/dump.sql.gz'],
+        in_files             => ['t/omop2bff/in/gz/omop_cdm_eunomia.sql.gz'],
         out_file             => $tmp_file,
         redcap_dictionary    => undef,
         mapping_file         => undef,
@@ -75,6 +75,7 @@ my $convert = Convert::Pheno->new(
         self_validate_schema => undef,
         schema_file          => 'schema/mapping.json',
         in_textfile          => 1,
+        ohdsi_db             => 1,
         stream               => 1,
         omop_tables          => [],
         max_lines_sql        => 2700,

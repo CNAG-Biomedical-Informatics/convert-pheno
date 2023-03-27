@@ -7,7 +7,7 @@ use feature qw(say);
 use Convert::Pheno::Mapping;
 use Exporter 'import';
 our @EXPORT =
-  qw(do_omop2bff $omop_version $omop_main_table @omop_extra_tables @omop_array_tables @omop_essential_tables);
+  qw(do_omop2bff $omop_version $omop_main_table @omop_array_tables @omop_essential_tables @stream_ram_memory_tables);
 
 use constant DEVEL_MODE => 0;
 
@@ -53,24 +53,13 @@ our $omop_main_table = {
     ]
 };
 
-our @omop_extra_tables = qw(
-  CDM_SOURCE
-  CONCEPT_ANCESTOR
-  CONCEPT
-  CONCEPT_RELATIONSHIP
-  CONCEPT_SYNONYM
-  CONDITION_ERA
-  DOMAIN
-  OBSERVATION_PERIOD
-  VOCABULARY
-);
-
 our @omop_array_tables = qw(
   MEASUREMENT
   OBSERVATION
   CONDITION_OCCURRENCE
   PROCEDURE_OCCURRENCE
   DRUG_EXPOSURE
+  VISIT_OCCURRENCE
 );
 
 our @omop_essential_tables = qw(
@@ -81,7 +70,10 @@ our @omop_essential_tables = qw(
   MEASUREMENT
   OBSERVATION
   DRUG_EXPOSURE
+  VISIT_OCCURRENCE
 );
+
+our @stream_ram_memory_tables = qw/CONCEPT PERSON VISIT_OCCURRENCE/;
 
 ##############
 ##############
@@ -189,6 +181,20 @@ sub do_omop2bff {
 
                 }
             ) if defined $field->{condition_status_concept_id};
+
+            # NB: PROVISIONAL
+            # Longitudinal data are not allowed yet in BFF/PXF
+            if ( exists $self->{visit_occurrence} ) {
+                my $visit = map_omop_visit_occurrence(
+                    {
+                        person_id           => $field->{person_id},
+                        visit_occurrence_id => $field->{visit_occurrence_id},
+                        self                => $self,
+                        ohdsi_dic           => $ohdsi_dic
+                    }
+                );
+                $disease->{_visit} = $visit if defined $visit;
+            }
 
             push @{ $individual->{diseases} }, $disease;
         }
@@ -298,6 +304,8 @@ sub do_omop2bff {
               $field->{value_as_number} eq '\\N'
               ? -1
               : $field->{value_as_number} + 0;
+
+            # NB: We do not include _visit in exposures
 
             push @{ $individual->{exposures} }, $exposure;
         }
@@ -541,6 +549,20 @@ sub do_omop2bff {
             };
             $measure->{procedure} = $measure->{assayCode};
 
+            # NB: PROVISIONAL
+            # Longitudinal data are not allowed yet in BFF/PXF
+            if ( exists $self->{visit_occurrence} ) {
+                my $visit = map_omop_visit_occurrence(
+                    {
+                        person_id           => $field->{person_id},
+                        visit_occurrence_id => $field->{visit_occurrence_id},
+                        self                => $self,
+                        ohdsi_dic           => $ohdsi_dic
+                    }
+                );
+                $measure->{_visit} = $visit if defined $visit;
+            }
+
             push @{ $individual->{measures} }, $measure;
         }
     }
@@ -625,6 +647,21 @@ sub do_omop2bff {
 
             #$phenotypicFeature->{resolution} = undef;
             #$phenotypicFeature->{severity} = undef;
+
+            # NB: PROVISIONAL
+            # Longitudinal data are not allowed yet in BFF/PXF
+            if ( exists $self->{visit_occurrence} ) {
+                my $visit = map_omop_visit_occurrence(
+                    {
+                        person_id           => $field->{person_id},
+                        visit_occurrence_id => $field->{visit_occurrence_id},
+                        self                => $self,
+                        ohdsi_dic           => $ohdsi_dic
+                    }
+                );
+                $phenotypicFeature->{_visit} = $visit if defined $visit;
+            }
+
             push @{ $individual->{phenotypicFeatures} }, $phenotypicFeature;
         }
     }
@@ -756,6 +793,20 @@ sub do_omop2bff {
                     self       => $self
                 }
             ) if defined $field->{drug_concept_id};
+
+            # NB: PROVISIONAL
+            # Longitudinal data are not allowed yet in BFF/PXF
+            if ( exists $self->{visit_occurrence} ) {
+                my $visit = map_omop_visit_occurrence(
+                    {
+                        person_id           => $field->{person_id},
+                        visit_occurrence_id => $field->{visit_occurrence_id},
+                        self                => $self,
+                        ohdsi_dic           => $ohdsi_dic
+                    }
+                );
+                $treatment->{_visit} = $visit if defined $visit;
+            }
 
             push @{ $individual->{treatments} }, $treatment;
         }

@@ -70,5 +70,691 @@
             "status" : "ALIVE"
          }
       }
+   },
+   {
+      "diseases" : [],
+      "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "LOINC:35925-4",
+               "label" : "BMI"
+            },
+            "value" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 25.62278441
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "LOINC:3141-9",
+               "label" : "Weight"
+            },
+            "value" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C28252",
+                     "label" : "Kilogram"
+                  },
+                  "value" : 64.5722
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "LOINC:8308-9",
+               "label" : "Height-standing"
+            },
+            "value" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C49668",
+                     "label" : "Centimeter"
+                  },
+                  "value" : 158.7485
+               }
+            }
+         }
+      ],
+      "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "OPCS4:K06.1",
+                  "label" : "OPCS(v4-0.0):Repositioning of transposed great arteries"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "subject" : {
+         "id" : "HG00097",
+         "sex" : "FEMALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
+   },
+   {
+      "diseases" : [],
+      "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "LOINC:35925-4",
+               "label" : "BMI"
+            },
+            "value" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 22.35976255
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "LOINC:3141-9",
+               "label" : "Weight"
+            },
+            "value" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C28252",
+                     "label" : "Kilogram"
+                  },
+                  "value" : 64.4364
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "LOINC:8308-9",
+               "label" : "Height-standing"
+            },
+            "value" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C49668",
+                     "label" : "Centimeter"
+                  },
+                  "value" : 169.7587
+               }
+            }
+         }
+      ],
+      "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "OPCS4:T89.4",
+                  "label" : "OPCS(v4-0.0):Cannulation of lymphatic duct"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "subject" : {
+         "id" : "HG00099",
+         "sex" : "FEMALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
+   },
+   {
+      "diseases" : [],
+      "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "LOINC:35925-4",
+               "label" : "BMI"
+            },
+            "value" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 28.27885509
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "LOINC:3141-9",
+               "label" : "Weight"
+            },
+            "value" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C28252",
+                     "label" : "Kilogram"
+                  },
+                  "value" : 74.4885
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "LOINC:8308-9",
+               "label" : "Height-standing"
+            },
+            "value" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C49668",
+                     "label" : "Centimeter"
+                  },
+                  "value" : 162.2982
+               }
+            }
+         }
+      ],
+      "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "OPCS4:T77.2",
+                  "label" : "OPCS(v4-0.0):Wide excision of muscle"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "subject" : {
+         "id" : "HG00100",
+         "sex" : "FEMALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
+   },
+   {
+      "diseases" : [],
+      "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "LOINC:35925-4",
+               "label" : "BMI"
+            },
+            "value" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 25.52066954
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "LOINC:3141-9",
+               "label" : "Weight"
+            },
+            "value" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C28252",
+                     "label" : "Kilogram"
+                  },
+                  "value" : 82.3472
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "LOINC:8308-9",
+               "label" : "Height-standing"
+            },
+            "value" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C49668",
+                     "label" : "Centimeter"
+                  },
+                  "value" : 179.6298
+               }
+            }
+         }
+      ],
+      "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "OPCS4:Z01.4",
+                  "label" : "OPCS(v4-0.0):Tissue of occipital lobe of brain"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "subject" : {
+         "id" : "HG00101",
+         "sex" : "MALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
+   },
+   {
+      "diseases" : [],
+      "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "LOINC:35925-4",
+               "label" : "BMI"
+            },
+            "value" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 30.94363585
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "LOINC:3141-9",
+               "label" : "Weight"
+            },
+            "value" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C28252",
+                     "label" : "Kilogram"
+                  },
+                  "value" : 81.8213
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "LOINC:8308-9",
+               "label" : "Height-standing"
+            },
+            "value" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C49668",
+                     "label" : "Centimeter"
+                  },
+                  "value" : 162.6101
+               }
+            }
+         }
+      ],
+      "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "OPCS4:E55.9",
+                  "label" : "OPCS(v4-0.0):Unspecified open extirpation of lesion of lung"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "subject" : {
+         "id" : "HG00102",
+         "sex" : "FEMALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "ICD10:J40",
+               "label" : "acute bronchitis"
+            }
+         }
+      ],
+      "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "LOINC:35925-4",
+               "label" : "BMI"
+            },
+            "value" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 29.09513933
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "LOINC:3141-9",
+               "label" : "Weight"
+            },
+            "value" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C28252",
+                     "label" : "Kilogram"
+                  },
+                  "value" : 80.6949
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "LOINC:8308-9",
+               "label" : "Height-standing"
+            },
+            "value" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C49668",
+                     "label" : "Centimeter"
+                  },
+                  "value" : 166.5378
+               }
+            }
+         }
+      ],
+      "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "OPCS4:Z98.6",
+                  "label" : "OPCS(v4-0.0):Short saphenous vein"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "subject" : {
+         "id" : "HG00103",
+         "sex" : "MALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "ICD10:G35",
+               "label" : "multiple sclerosis"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "ICD10:J11",
+               "label" : "influenza due to certain identified influenza virus"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "ICD10:I42",
+               "label" : "cardiomyopathy"
+            }
+         }
+      ],
+      "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "LOINC:35925-4",
+               "label" : "BMI"
+            },
+            "value" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 19.08115354
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "LOINC:3141-9",
+               "label" : "Weight"
+            },
+            "value" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C28252",
+                     "label" : "Kilogram"
+                  },
+                  "value" : 65.3527
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "LOINC:8308-9",
+               "label" : "Height-standing"
+            },
+            "value" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C49668",
+                     "label" : "Centimeter"
+                  },
+                  "value" : 185.0672
+               }
+            }
+         }
+      ],
+      "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "OPCS4:C46.3",
+                  "label" : "OPCS(v4-0.0):Penetrating graft to cornea"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "subject" : {
+         "id" : "HG00105",
+         "sex" : "MALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
+   },
+   {
+      "diseases" : [],
+      "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "LOINC:35925-4",
+               "label" : "BMI"
+            },
+            "value" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 28.17336761
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "LOINC:3141-9",
+               "label" : "Weight"
+            },
+            "value" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C28252",
+                     "label" : "Kilogram"
+                  },
+                  "value" : 94.9065
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "LOINC:8308-9",
+               "label" : "Height-standing"
+            },
+            "value" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C49668",
+                     "label" : "Centimeter"
+                  },
+                  "value" : 183.5391
+               }
+            }
+         }
+      ],
+      "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "OPCS4:C01.8",
+                  "label" : "OPCS(v4-0.0):Other specified excision of eye"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "subject" : {
+         "id" : "HG00106",
+         "sex" : "FEMALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "ICD10:J40",
+               "label" : "acute bronchitis"
+            }
+         }
+      ],
+      "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "LOINC:35925-4",
+               "label" : "BMI"
+            },
+            "value" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 15.28491438
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "LOINC:3141-9",
+               "label" : "Weight"
+            },
+            "value" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C28252",
+                     "label" : "Kilogram"
+                  },
+                  "value" : 44.8895
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "LOINC:8308-9",
+               "label" : "Height-standing"
+            },
+            "value" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C49668",
+                     "label" : "Centimeter"
+                  },
+                  "value" : 171.3724
+               }
+            }
+         }
+      ],
+      "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "OPCS4:H03.8",
+                  "label" : "OPCS(v4-0.0):Other specified other operations on appendix"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "subject" : {
+         "id" : "HG00107",
+         "sex" : "MALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
    }
 ]

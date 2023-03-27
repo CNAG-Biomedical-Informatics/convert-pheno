@@ -3,51 +3,7 @@
       "diseases" : [],
       "id" : "P0007500",
       "info" : {
-         "interpretation" : {
-            "diagnosis" : [],
-            "phenopacket" : {
-               "meta_data" : {
-                  "created" : "2021-04-21T09:37:19.994Z",
-                  "resources" : [
-                     {
-                        "id" : "hp",
-                        "iriPrefix" : "http://purl.obolibrary.org/obo/HP_",
-                        "name" : "Human Phenotype Ontology",
-                        "namespacePrefix" : "HP",
-                        "url" : "http://purl.obolibrary.org/obo/hp.owl",
-                        "version" : "2020-12-07"
-                     },
-                     {
-                        "id" : "orphanet",
-                        "iriPrefix" : "http://www.orpha.net/ORDO/Orphanet_",
-                        "name" : "Orphanet Rare Disease Ontology",
-                        "namespacePrefix" : "Orphanet",
-                        "url" : "http://orpha.net/ontology/ORDO_en_3.1.owl",
-                        "version" : "3.1"
-                     },
-                     {
-                        "id" : "hgnc",
-                        "iriPrefix" : "https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/",
-                        "name" : "HUGO Gene Nomenclature Committee",
-                        "namespacePrefix" : "HGNC",
-                        "url" : "https://www.genenames.org",
-                        "version" : "2021-01-13"
-                     },
-                     {
-                        "id" : "mim",
-                        "iriPrefix" : "https://omim.org/entry/",
-                        "name" : "Online Mendelian Inheritance in Man",
-                        "namespacePrefix" : "OMIM",
-                        "url" : "https://omim.org/",
-                        "version" : "2021-01-21"
-                     }
-                  ]
-               }
-            },
-            "resolutionStatus" : "UNSOLVED"
-         },
          "phenopacket" : {
-            "dateOfBirth" : "unknown-01-01T00:00:00Z",
             "genes" : [],
             "meta_data" : {
                "created" : "2021-04-21T09:37:19.994Z",
@@ -99,51 +55,7 @@
       "diseases" : [],
       "id" : "P0007499",
       "info" : {
-         "interpretation" : {
-            "diagnosis" : [],
-            "phenopacket" : {
-               "meta_data" : {
-                  "created" : "2021-04-21T09:33:50.417Z",
-                  "resources" : [
-                     {
-                        "id" : "hp",
-                        "iriPrefix" : "http://purl.obolibrary.org/obo/HP_",
-                        "name" : "Human Phenotype Ontology",
-                        "namespacePrefix" : "HP",
-                        "url" : "http://purl.obolibrary.org/obo/hp.owl",
-                        "version" : "2020-12-07"
-                     },
-                     {
-                        "id" : "orphanet",
-                        "iriPrefix" : "http://www.orpha.net/ORDO/Orphanet_",
-                        "name" : "Orphanet Rare Disease Ontology",
-                        "namespacePrefix" : "Orphanet",
-                        "url" : "http://orpha.net/ontology/ORDO_en_3.1.owl",
-                        "version" : "3.1"
-                     },
-                     {
-                        "id" : "hgnc",
-                        "iriPrefix" : "https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/",
-                        "name" : "HUGO Gene Nomenclature Committee",
-                        "namespacePrefix" : "HGNC",
-                        "url" : "https://www.genenames.org",
-                        "version" : "2021-01-13"
-                     },
-                     {
-                        "id" : "mim",
-                        "iriPrefix" : "https://omim.org/entry/",
-                        "name" : "Online Mendelian Inheritance in Man",
-                        "namespacePrefix" : "OMIM",
-                        "url" : "https://omim.org/",
-                        "version" : "2021-01-21"
-                     }
-                  ]
-               }
-            },
-            "resolutionStatus" : "UNSOLVED"
-         },
          "phenopacket" : {
-            "dateOfBirth" : "unknown-01-01T00:00:00Z",
             "genes" : [],
             "meta_data" : {
                "created" : "2021-04-21T09:33:50.417Z",
@@ -208,51 +120,7 @@
       ],
       "id" : "P0007498",
       "info" : {
-         "interpretation" : {
-            "diagnosis" : [],
-            "phenopacket" : {
-               "meta_data" : {
-                  "created" : "2021-04-21T09:32:38.488Z",
-                  "resources" : [
-                     {
-                        "id" : "hp",
-                        "iriPrefix" : "http://purl.obolibrary.org/obo/HP_",
-                        "name" : "Human Phenotype Ontology",
-                        "namespacePrefix" : "HP",
-                        "url" : "http://purl.obolibrary.org/obo/hp.owl",
-                        "version" : "2020-12-07"
-                     },
-                     {
-                        "id" : "orphanet",
-                        "iriPrefix" : "http://www.orpha.net/ORDO/Orphanet_",
-                        "name" : "Orphanet Rare Disease Ontology",
-                        "namespacePrefix" : "Orphanet",
-                        "url" : "http://orpha.net/ontology/ORDO_en_3.1.owl",
-                        "version" : "3.1"
-                     },
-                     {
-                        "id" : "hgnc",
-                        "iriPrefix" : "https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/",
-                        "name" : "HUGO Gene Nomenclature Committee",
-                        "namespacePrefix" : "HGNC",
-                        "url" : "https://www.genenames.org",
-                        "version" : "2021-01-13"
-                     },
-                     {
-                        "id" : "mim",
-                        "iriPrefix" : "https://omim.org/entry/",
-                        "name" : "Online Mendelian Inheritance in Man",
-                        "namespacePrefix" : "OMIM",
-                        "url" : "https://omim.org/",
-                        "version" : "2021-01-21"
-                     }
-                  ]
-               }
-            },
-            "resolutionStatus" : "SOLVED"
-         },
          "phenopacket" : {
-            "dateOfBirth" : "2013-01-01T00:00:00Z",
             "genes" : [],
             "meta_data" : {
                "created" : "2021-04-21T09:32:38.488Z",
@@ -382,51 +250,7 @@
       "diseases" : [],
       "id" : "P0007501",
       "info" : {
-         "interpretation" : {
-            "diagnosis" : [],
-            "phenopacket" : {
-               "meta_data" : {
-                  "created" : "2021-04-21T09:38:19.980Z",
-                  "resources" : [
-                     {
-                        "id" : "hp",
-                        "iriPrefix" : "http://purl.obolibrary.org/obo/HP_",
-                        "name" : "Human Phenotype Ontology",
-                        "namespacePrefix" : "HP",
-                        "url" : "http://purl.obolibrary.org/obo/hp.owl",
-                        "version" : "2020-12-07"
-                     },
-                     {
-                        "id" : "orphanet",
-                        "iriPrefix" : "http://www.orpha.net/ORDO/Orphanet_",
-                        "name" : "Orphanet Rare Disease Ontology",
-                        "namespacePrefix" : "Orphanet",
-                        "url" : "http://orpha.net/ontology/ORDO_en_3.1.owl",
-                        "version" : "3.1"
-                     },
-                     {
-                        "id" : "hgnc",
-                        "iriPrefix" : "https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/",
-                        "name" : "HUGO Gene Nomenclature Committee",
-                        "namespacePrefix" : "HGNC",
-                        "url" : "https://www.genenames.org",
-                        "version" : "2021-01-13"
-                     },
-                     {
-                        "id" : "mim",
-                        "iriPrefix" : "https://omim.org/entry/",
-                        "name" : "Online Mendelian Inheritance in Man",
-                        "namespacePrefix" : "OMIM",
-                        "url" : "https://omim.org/",
-                        "version" : "2021-01-21"
-                     }
-                  ]
-               }
-            },
-            "resolutionStatus" : "SOLVED"
-         },
          "phenopacket" : {
-            "dateOfBirth" : "1980-01-01T00:00:00Z",
             "genes" : [],
             "meta_data" : {
                "created" : "2021-04-21T09:38:19.980Z",
@@ -500,51 +324,7 @@
       "diseases" : [],
       "id" : "P0007502",
       "info" : {
-         "interpretation" : {
-            "diagnosis" : [],
-            "phenopacket" : {
-               "meta_data" : {
-                  "created" : "2021-04-21T09:38:48.402Z",
-                  "resources" : [
-                     {
-                        "id" : "hp",
-                        "iriPrefix" : "http://purl.obolibrary.org/obo/HP_",
-                        "name" : "Human Phenotype Ontology",
-                        "namespacePrefix" : "HP",
-                        "url" : "http://purl.obolibrary.org/obo/hp.owl",
-                        "version" : "2020-12-07"
-                     },
-                     {
-                        "id" : "orphanet",
-                        "iriPrefix" : "http://www.orpha.net/ORDO/Orphanet_",
-                        "name" : "Orphanet Rare Disease Ontology",
-                        "namespacePrefix" : "Orphanet",
-                        "url" : "http://orpha.net/ontology/ORDO_en_3.1.owl",
-                        "version" : "3.1"
-                     },
-                     {
-                        "id" : "hgnc",
-                        "iriPrefix" : "https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/",
-                        "name" : "HUGO Gene Nomenclature Committee",
-                        "namespacePrefix" : "HGNC",
-                        "url" : "https://www.genenames.org",
-                        "version" : "2021-01-13"
-                     },
-                     {
-                        "id" : "mim",
-                        "iriPrefix" : "https://omim.org/entry/",
-                        "name" : "Online Mendelian Inheritance in Man",
-                        "namespacePrefix" : "OMIM",
-                        "url" : "https://omim.org/",
-                        "version" : "2021-01-21"
-                     }
-                  ]
-               }
-            },
-            "resolutionStatus" : "UNSOLVED"
-         },
          "phenopacket" : {
-            "dateOfBirth" : "unknown-01-01T00:00:00Z",
             "genes" : [],
             "meta_data" : {
                "created" : "2021-04-21T09:38:48.402Z",
@@ -596,51 +376,7 @@
       "diseases" : [],
       "id" : "P0007503",
       "info" : {
-         "interpretation" : {
-            "diagnosis" : [],
-            "phenopacket" : {
-               "meta_data" : {
-                  "created" : "2021-04-21T09:39:45.571Z",
-                  "resources" : [
-                     {
-                        "id" : "hp",
-                        "iriPrefix" : "http://purl.obolibrary.org/obo/HP_",
-                        "name" : "Human Phenotype Ontology",
-                        "namespacePrefix" : "HP",
-                        "url" : "http://purl.obolibrary.org/obo/hp.owl",
-                        "version" : "2020-12-07"
-                     },
-                     {
-                        "id" : "orphanet",
-                        "iriPrefix" : "http://www.orpha.net/ORDO/Orphanet_",
-                        "name" : "Orphanet Rare Disease Ontology",
-                        "namespacePrefix" : "Orphanet",
-                        "url" : "http://orpha.net/ontology/ORDO_en_3.1.owl",
-                        "version" : "3.1"
-                     },
-                     {
-                        "id" : "hgnc",
-                        "iriPrefix" : "https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/",
-                        "name" : "HUGO Gene Nomenclature Committee",
-                        "namespacePrefix" : "HGNC",
-                        "url" : "https://www.genenames.org",
-                        "version" : "2021-01-13"
-                     },
-                     {
-                        "id" : "mim",
-                        "iriPrefix" : "https://omim.org/entry/",
-                        "name" : "Online Mendelian Inheritance in Man",
-                        "namespacePrefix" : "OMIM",
-                        "url" : "https://omim.org/",
-                        "version" : "2021-01-21"
-                     }
-                  ]
-               }
-            },
-            "resolutionStatus" : "UNSOLVED"
-         },
          "phenopacket" : {
-            "dateOfBirth" : "unknown-01-01T00:00:00Z",
             "genes" : [],
             "meta_data" : {
                "created" : "2021-04-21T09:39:45.571Z",
@@ -728,51 +464,7 @@
       "diseases" : [],
       "id" : "P0007505",
       "info" : {
-         "interpretation" : {
-            "diagnosis" : [],
-            "phenopacket" : {
-               "meta_data" : {
-                  "created" : "2021-04-21T09:40:55.665Z",
-                  "resources" : [
-                     {
-                        "id" : "hp",
-                        "iriPrefix" : "http://purl.obolibrary.org/obo/HP_",
-                        "name" : "Human Phenotype Ontology",
-                        "namespacePrefix" : "HP",
-                        "url" : "http://purl.obolibrary.org/obo/hp.owl",
-                        "version" : "2020-12-07"
-                     },
-                     {
-                        "id" : "orphanet",
-                        "iriPrefix" : "http://www.orpha.net/ORDO/Orphanet_",
-                        "name" : "Orphanet Rare Disease Ontology",
-                        "namespacePrefix" : "Orphanet",
-                        "url" : "http://orpha.net/ontology/ORDO_en_3.1.owl",
-                        "version" : "3.1"
-                     },
-                     {
-                        "id" : "hgnc",
-                        "iriPrefix" : "https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/",
-                        "name" : "HUGO Gene Nomenclature Committee",
-                        "namespacePrefix" : "HGNC",
-                        "url" : "https://www.genenames.org",
-                        "version" : "2021-01-13"
-                     },
-                     {
-                        "id" : "mim",
-                        "iriPrefix" : "https://omim.org/entry/",
-                        "name" : "Online Mendelian Inheritance in Man",
-                        "namespacePrefix" : "OMIM",
-                        "url" : "https://omim.org/",
-                        "version" : "2021-01-21"
-                     }
-                  ]
-               }
-            },
-            "resolutionStatus" : "UNSOLVED"
-         },
          "phenopacket" : {
-            "dateOfBirth" : "unknown-01-01T00:00:00Z",
             "genes" : [],
             "meta_data" : {
                "created" : "2021-04-21T09:40:55.665Z",
@@ -824,51 +516,7 @@
       "diseases" : [],
       "id" : "P0007506",
       "info" : {
-         "interpretation" : {
-            "diagnosis" : [],
-            "phenopacket" : {
-               "meta_data" : {
-                  "created" : "2021-04-21T09:41:40.867Z",
-                  "resources" : [
-                     {
-                        "id" : "hp",
-                        "iriPrefix" : "http://purl.obolibrary.org/obo/HP_",
-                        "name" : "Human Phenotype Ontology",
-                        "namespacePrefix" : "HP",
-                        "url" : "http://purl.obolibrary.org/obo/hp.owl",
-                        "version" : "2020-12-07"
-                     },
-                     {
-                        "id" : "orphanet",
-                        "iriPrefix" : "http://www.orpha.net/ORDO/Orphanet_",
-                        "name" : "Orphanet Rare Disease Ontology",
-                        "namespacePrefix" : "Orphanet",
-                        "url" : "http://orpha.net/ontology/ORDO_en_3.1.owl",
-                        "version" : "3.1"
-                     },
-                     {
-                        "id" : "hgnc",
-                        "iriPrefix" : "https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/",
-                        "name" : "HUGO Gene Nomenclature Committee",
-                        "namespacePrefix" : "HGNC",
-                        "url" : "https://www.genenames.org",
-                        "version" : "2021-01-13"
-                     },
-                     {
-                        "id" : "mim",
-                        "iriPrefix" : "https://omim.org/entry/",
-                        "name" : "Online Mendelian Inheritance in Man",
-                        "namespacePrefix" : "OMIM",
-                        "url" : "https://omim.org/",
-                        "version" : "2021-01-21"
-                     }
-                  ]
-               }
-            },
-            "resolutionStatus" : "UNSOLVED"
-         },
          "phenopacket" : {
-            "dateOfBirth" : "unknown-01-01T00:00:00Z",
             "genes" : [],
             "meta_data" : {
                "created" : "2021-04-21T09:41:40.867Z",
@@ -920,51 +568,7 @@
       "diseases" : [],
       "id" : "P0007504",
       "info" : {
-         "interpretation" : {
-            "diagnosis" : [],
-            "phenopacket" : {
-               "meta_data" : {
-                  "created" : "2021-04-21T09:40:31.348Z",
-                  "resources" : [
-                     {
-                        "id" : "hp",
-                        "iriPrefix" : "http://purl.obolibrary.org/obo/HP_",
-                        "name" : "Human Phenotype Ontology",
-                        "namespacePrefix" : "HP",
-                        "url" : "http://purl.obolibrary.org/obo/hp.owl",
-                        "version" : "2020-12-07"
-                     },
-                     {
-                        "id" : "orphanet",
-                        "iriPrefix" : "http://www.orpha.net/ORDO/Orphanet_",
-                        "name" : "Orphanet Rare Disease Ontology",
-                        "namespacePrefix" : "Orphanet",
-                        "url" : "http://orpha.net/ontology/ORDO_en_3.1.owl",
-                        "version" : "3.1"
-                     },
-                     {
-                        "id" : "hgnc",
-                        "iriPrefix" : "https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/",
-                        "name" : "HUGO Gene Nomenclature Committee",
-                        "namespacePrefix" : "HGNC",
-                        "url" : "https://www.genenames.org",
-                        "version" : "2021-01-13"
-                     },
-                     {
-                        "id" : "mim",
-                        "iriPrefix" : "https://omim.org/entry/",
-                        "name" : "Online Mendelian Inheritance in Man",
-                        "namespacePrefix" : "OMIM",
-                        "url" : "https://omim.org/",
-                        "version" : "2021-01-21"
-                     }
-                  ]
-               }
-            },
-            "resolutionStatus" : "UNSOLVED"
-         },
          "phenopacket" : {
-            "dateOfBirth" : "2002-01-01T00:00:00Z",
             "genes" : [],
             "meta_data" : {
                "created" : "2021-04-21T09:40:31.348Z",
@@ -1052,51 +656,7 @@
       "diseases" : [],
       "id" : "P0007507",
       "info" : {
-         "interpretation" : {
-            "diagnosis" : [],
-            "phenopacket" : {
-               "meta_data" : {
-                  "created" : "2021-04-21T09:42:24.702Z",
-                  "resources" : [
-                     {
-                        "id" : "hp",
-                        "iriPrefix" : "http://purl.obolibrary.org/obo/HP_",
-                        "name" : "Human Phenotype Ontology",
-                        "namespacePrefix" : "HP",
-                        "url" : "http://purl.obolibrary.org/obo/hp.owl",
-                        "version" : "2020-12-07"
-                     },
-                     {
-                        "id" : "orphanet",
-                        "iriPrefix" : "http://www.orpha.net/ORDO/Orphanet_",
-                        "name" : "Orphanet Rare Disease Ontology",
-                        "namespacePrefix" : "Orphanet",
-                        "url" : "http://orpha.net/ontology/ORDO_en_3.1.owl",
-                        "version" : "3.1"
-                     },
-                     {
-                        "id" : "hgnc",
-                        "iriPrefix" : "https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/",
-                        "name" : "HUGO Gene Nomenclature Committee",
-                        "namespacePrefix" : "HGNC",
-                        "url" : "https://www.genenames.org",
-                        "version" : "2021-01-13"
-                     },
-                     {
-                        "id" : "mim",
-                        "iriPrefix" : "https://omim.org/entry/",
-                        "name" : "Online Mendelian Inheritance in Man",
-                        "namespacePrefix" : "OMIM",
-                        "url" : "https://omim.org/",
-                        "version" : "2021-01-21"
-                     }
-                  ]
-               }
-            },
-            "resolutionStatus" : "SOLVED"
-         },
          "phenopacket" : {
-            "dateOfBirth" : "2012-01-01T00:00:00Z",
             "genes" : [
                {
                   "id" : "HGNC:",
@@ -1287,51 +847,7 @@
       "diseases" : [],
       "id" : "P0007508",
       "info" : {
-         "interpretation" : {
-            "diagnosis" : [],
-            "phenopacket" : {
-               "meta_data" : {
-                  "created" : "2021-04-21T09:42:56.635Z",
-                  "resources" : [
-                     {
-                        "id" : "hp",
-                        "iriPrefix" : "http://purl.obolibrary.org/obo/HP_",
-                        "name" : "Human Phenotype Ontology",
-                        "namespacePrefix" : "HP",
-                        "url" : "http://purl.obolibrary.org/obo/hp.owl",
-                        "version" : "2020-12-07"
-                     },
-                     {
-                        "id" : "orphanet",
-                        "iriPrefix" : "http://www.orpha.net/ORDO/Orphanet_",
-                        "name" : "Orphanet Rare Disease Ontology",
-                        "namespacePrefix" : "Orphanet",
-                        "url" : "http://orpha.net/ontology/ORDO_en_3.1.owl",
-                        "version" : "3.1"
-                     },
-                     {
-                        "id" : "hgnc",
-                        "iriPrefix" : "https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/",
-                        "name" : "HUGO Gene Nomenclature Committee",
-                        "namespacePrefix" : "HGNC",
-                        "url" : "https://www.genenames.org",
-                        "version" : "2021-01-13"
-                     },
-                     {
-                        "id" : "mim",
-                        "iriPrefix" : "https://omim.org/entry/",
-                        "name" : "Online Mendelian Inheritance in Man",
-                        "namespacePrefix" : "OMIM",
-                        "url" : "https://omim.org/",
-                        "version" : "2021-01-21"
-                     }
-                  ]
-               }
-            },
-            "resolutionStatus" : "UNSOLVED"
-         },
          "phenopacket" : {
-            "dateOfBirth" : "unknown-01-01T00:00:00Z",
             "genes" : [],
             "meta_data" : {
                "created" : "2021-04-21T09:42:56.635Z",
@@ -1383,51 +899,7 @@
       "diseases" : [],
       "id" : "P0007509",
       "info" : {
-         "interpretation" : {
-            "diagnosis" : [],
-            "phenopacket" : {
-               "meta_data" : {
-                  "created" : "2021-04-21T09:43:53.656Z",
-                  "resources" : [
-                     {
-                        "id" : "hp",
-                        "iriPrefix" : "http://purl.obolibrary.org/obo/HP_",
-                        "name" : "Human Phenotype Ontology",
-                        "namespacePrefix" : "HP",
-                        "url" : "http://purl.obolibrary.org/obo/hp.owl",
-                        "version" : "2020-12-07"
-                     },
-                     {
-                        "id" : "orphanet",
-                        "iriPrefix" : "http://www.orpha.net/ORDO/Orphanet_",
-                        "name" : "Orphanet Rare Disease Ontology",
-                        "namespacePrefix" : "Orphanet",
-                        "url" : "http://orpha.net/ontology/ORDO_en_3.1.owl",
-                        "version" : "3.1"
-                     },
-                     {
-                        "id" : "hgnc",
-                        "iriPrefix" : "https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/",
-                        "name" : "HUGO Gene Nomenclature Committee",
-                        "namespacePrefix" : "HGNC",
-                        "url" : "https://www.genenames.org",
-                        "version" : "2021-01-13"
-                     },
-                     {
-                        "id" : "mim",
-                        "iriPrefix" : "https://omim.org/entry/",
-                        "name" : "Online Mendelian Inheritance in Man",
-                        "namespacePrefix" : "OMIM",
-                        "url" : "https://omim.org/",
-                        "version" : "2021-01-21"
-                     }
-                  ]
-               }
-            },
-            "resolutionStatus" : "UNSOLVED"
-         },
          "phenopacket" : {
-            "dateOfBirth" : "unknown-01-01T00:00:00Z",
             "genes" : [],
             "meta_data" : {
                "created" : "2021-04-21T09:43:53.656Z",
@@ -1486,51 +958,7 @@
       ],
       "id" : "P0008909",
       "info" : {
-         "interpretation" : {
-            "diagnosis" : [],
-            "phenopacket" : {
-               "meta_data" : {
-                  "created" : "2021-04-21T09:45:31.121Z",
-                  "resources" : [
-                     {
-                        "id" : "hp",
-                        "iriPrefix" : "http://purl.obolibrary.org/obo/HP_",
-                        "name" : "Human Phenotype Ontology",
-                        "namespacePrefix" : "HP",
-                        "url" : "http://purl.obolibrary.org/obo/hp.owl",
-                        "version" : "2020-12-07"
-                     },
-                     {
-                        "id" : "orphanet",
-                        "iriPrefix" : "http://www.orpha.net/ORDO/Orphanet_",
-                        "name" : "Orphanet Rare Disease Ontology",
-                        "namespacePrefix" : "Orphanet",
-                        "url" : "http://orpha.net/ontology/ORDO_en_3.1.owl",
-                        "version" : "3.1"
-                     },
-                     {
-                        "id" : "hgnc",
-                        "iriPrefix" : "https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/",
-                        "name" : "HUGO Gene Nomenclature Committee",
-                        "namespacePrefix" : "HGNC",
-                        "url" : "https://www.genenames.org",
-                        "version" : "2021-01-13"
-                     },
-                     {
-                        "id" : "mim",
-                        "iriPrefix" : "https://omim.org/entry/",
-                        "name" : "Online Mendelian Inheritance in Man",
-                        "namespacePrefix" : "OMIM",
-                        "url" : "https://omim.org/",
-                        "version" : "2021-01-21"
-                     }
-                  ]
-               }
-            },
-            "resolutionStatus" : "UNSOLVED"
-         },
          "phenopacket" : {
-            "dateOfBirth" : "1982-01-01T00:00:00Z",
             "genes" : [],
             "meta_data" : {
                "created" : "2021-04-21T09:45:31.121Z",
@@ -1611,51 +1039,7 @@
       "diseases" : [],
       "id" : "P0008910",
       "info" : {
-         "interpretation" : {
-            "diagnosis" : [],
-            "phenopacket" : {
-               "meta_data" : {
-                  "created" : "2021-04-21T09:48:57.456Z",
-                  "resources" : [
-                     {
-                        "id" : "hp",
-                        "iriPrefix" : "http://purl.obolibrary.org/obo/HP_",
-                        "name" : "Human Phenotype Ontology",
-                        "namespacePrefix" : "HP",
-                        "url" : "http://purl.obolibrary.org/obo/hp.owl",
-                        "version" : "2020-12-07"
-                     },
-                     {
-                        "id" : "orphanet",
-                        "iriPrefix" : "http://www.orpha.net/ORDO/Orphanet_",
-                        "name" : "Orphanet Rare Disease Ontology",
-                        "namespacePrefix" : "Orphanet",
-                        "url" : "http://orpha.net/ontology/ORDO_en_3.1.owl",
-                        "version" : "3.1"
-                     },
-                     {
-                        "id" : "hgnc",
-                        "iriPrefix" : "https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/",
-                        "name" : "HUGO Gene Nomenclature Committee",
-                        "namespacePrefix" : "HGNC",
-                        "url" : "https://www.genenames.org",
-                        "version" : "2021-01-13"
-                     },
-                     {
-                        "id" : "mim",
-                        "iriPrefix" : "https://omim.org/entry/",
-                        "name" : "Online Mendelian Inheritance in Man",
-                        "namespacePrefix" : "OMIM",
-                        "url" : "https://omim.org/",
-                        "version" : "2021-01-21"
-                     }
-                  ]
-               }
-            },
-            "resolutionStatus" : "UNSOLVED"
-         },
          "phenopacket" : {
-            "dateOfBirth" : "unknown-01-01T00:00:00Z",
             "genes" : [],
             "meta_data" : {
                "created" : "2021-04-21T09:48:57.456Z",
@@ -1715,51 +1099,7 @@
       "diseases" : [],
       "id" : "P0008911",
       "info" : {
-         "interpretation" : {
-            "diagnosis" : [],
-            "phenopacket" : {
-               "meta_data" : {
-                  "created" : "2021-04-21T09:47:54.584Z",
-                  "resources" : [
-                     {
-                        "id" : "hp",
-                        "iriPrefix" : "http://purl.obolibrary.org/obo/HP_",
-                        "name" : "Human Phenotype Ontology",
-                        "namespacePrefix" : "HP",
-                        "url" : "http://purl.obolibrary.org/obo/hp.owl",
-                        "version" : "2020-12-07"
-                     },
-                     {
-                        "id" : "orphanet",
-                        "iriPrefix" : "http://www.orpha.net/ORDO/Orphanet_",
-                        "name" : "Orphanet Rare Disease Ontology",
-                        "namespacePrefix" : "Orphanet",
-                        "url" : "http://orpha.net/ontology/ORDO_en_3.1.owl",
-                        "version" : "3.1"
-                     },
-                     {
-                        "id" : "hgnc",
-                        "iriPrefix" : "https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/",
-                        "name" : "HUGO Gene Nomenclature Committee",
-                        "namespacePrefix" : "HGNC",
-                        "url" : "https://www.genenames.org",
-                        "version" : "2021-01-13"
-                     },
-                     {
-                        "id" : "mim",
-                        "iriPrefix" : "https://omim.org/entry/",
-                        "name" : "Online Mendelian Inheritance in Man",
-                        "namespacePrefix" : "OMIM",
-                        "url" : "https://omim.org/",
-                        "version" : "2021-01-21"
-                     }
-                  ]
-               }
-            },
-            "resolutionStatus" : "UNKNOWN"
-         },
          "phenopacket" : {
-            "dateOfBirth" : "unknown-01-01T00:00:00Z",
             "genes" : [],
             "meta_data" : {
                "created" : "2021-04-21T09:47:54.584Z",
@@ -1818,51 +1158,7 @@
       ],
       "id" : "P0130406",
       "info" : {
-         "interpretation" : {
-            "diagnosis" : [],
-            "phenopacket" : {
-               "meta_data" : {
-                  "created" : "2021-04-21T09:50:13.849Z",
-                  "resources" : [
-                     {
-                        "id" : "hp",
-                        "iriPrefix" : "http://purl.obolibrary.org/obo/HP_",
-                        "name" : "Human Phenotype Ontology",
-                        "namespacePrefix" : "HP",
-                        "url" : "http://purl.obolibrary.org/obo/hp.owl",
-                        "version" : "2020-12-07"
-                     },
-                     {
-                        "id" : "orphanet",
-                        "iriPrefix" : "http://www.orpha.net/ORDO/Orphanet_",
-                        "name" : "Orphanet Rare Disease Ontology",
-                        "namespacePrefix" : "Orphanet",
-                        "url" : "http://orpha.net/ontology/ORDO_en_3.1.owl",
-                        "version" : "3.1"
-                     },
-                     {
-                        "id" : "hgnc",
-                        "iriPrefix" : "https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/",
-                        "name" : "HUGO Gene Nomenclature Committee",
-                        "namespacePrefix" : "HGNC",
-                        "url" : "https://www.genenames.org",
-                        "version" : "2021-01-13"
-                     },
-                     {
-                        "id" : "mim",
-                        "iriPrefix" : "https://omim.org/entry/",
-                        "name" : "Online Mendelian Inheritance in Man",
-                        "namespacePrefix" : "OMIM",
-                        "url" : "https://omim.org/",
-                        "version" : "2021-01-21"
-                     }
-                  ]
-               }
-            },
-            "resolutionStatus" : "UNSOLVED"
-         },
          "phenopacket" : {
-            "dateOfBirth" : "2019-01-01T00:00:00Z",
             "genes" : [],
             "meta_data" : {
                "created" : "2021-04-21T09:50:13.849Z",
@@ -1950,51 +1246,7 @@
       "diseases" : [],
       "id" : "P0669040",
       "info" : {
-         "interpretation" : {
-            "diagnosis" : [],
-            "phenopacket" : {
-               "meta_data" : {
-                  "created" : "2021-04-21T09:52:45.533Z",
-                  "resources" : [
-                     {
-                        "id" : "hp",
-                        "iriPrefix" : "http://purl.obolibrary.org/obo/HP_",
-                        "name" : "Human Phenotype Ontology",
-                        "namespacePrefix" : "HP",
-                        "url" : "http://purl.obolibrary.org/obo/hp.owl",
-                        "version" : "2020-12-07"
-                     },
-                     {
-                        "id" : "orphanet",
-                        "iriPrefix" : "http://www.orpha.net/ORDO/Orphanet_",
-                        "name" : "Orphanet Rare Disease Ontology",
-                        "namespacePrefix" : "Orphanet",
-                        "url" : "http://orpha.net/ontology/ORDO_en_3.1.owl",
-                        "version" : "3.1"
-                     },
-                     {
-                        "id" : "hgnc",
-                        "iriPrefix" : "https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/",
-                        "name" : "HUGO Gene Nomenclature Committee",
-                        "namespacePrefix" : "HGNC",
-                        "url" : "https://www.genenames.org",
-                        "version" : "2021-01-13"
-                     },
-                     {
-                        "id" : "mim",
-                        "iriPrefix" : "https://omim.org/entry/",
-                        "name" : "Online Mendelian Inheritance in Man",
-                        "namespacePrefix" : "OMIM",
-                        "url" : "https://omim.org/",
-                        "version" : "2021-01-21"
-                     }
-                  ]
-               }
-            },
-            "resolutionStatus" : "UNKNOWN"
-         },
          "phenopacket" : {
-            "dateOfBirth" : "1986-01-01T00:00:00Z",
             "genes" : [],
             "meta_data" : {
                "created" : "2021-04-21T09:52:45.533Z",
@@ -2046,51 +1298,7 @@
       "diseases" : [],
       "id" : "P0244875",
       "info" : {
-         "interpretation" : {
-            "diagnosis" : [],
-            "phenopacket" : {
-               "meta_data" : {
-                  "created" : "2021-04-21T09:51:14.643Z",
-                  "resources" : [
-                     {
-                        "id" : "hp",
-                        "iriPrefix" : "http://purl.obolibrary.org/obo/HP_",
-                        "name" : "Human Phenotype Ontology",
-                        "namespacePrefix" : "HP",
-                        "url" : "http://purl.obolibrary.org/obo/hp.owl",
-                        "version" : "2020-12-07"
-                     },
-                     {
-                        "id" : "orphanet",
-                        "iriPrefix" : "http://www.orpha.net/ORDO/Orphanet_",
-                        "name" : "Orphanet Rare Disease Ontology",
-                        "namespacePrefix" : "Orphanet",
-                        "url" : "http://orpha.net/ontology/ORDO_en_3.1.owl",
-                        "version" : "3.1"
-                     },
-                     {
-                        "id" : "hgnc",
-                        "iriPrefix" : "https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/",
-                        "name" : "HUGO Gene Nomenclature Committee",
-                        "namespacePrefix" : "HGNC",
-                        "url" : "https://www.genenames.org",
-                        "version" : "2021-01-13"
-                     },
-                     {
-                        "id" : "mim",
-                        "iriPrefix" : "https://omim.org/entry/",
-                        "name" : "Online Mendelian Inheritance in Man",
-                        "namespacePrefix" : "OMIM",
-                        "url" : "https://omim.org/",
-                        "version" : "2021-01-21"
-                     }
-                  ]
-               }
-            },
-            "resolutionStatus" : "UNKNOWN"
-         },
          "phenopacket" : {
-            "dateOfBirth" : "1987-01-01T00:00:00Z",
             "genes" : [],
             "meta_data" : {
                "created" : "2021-04-21T09:51:14.643Z",

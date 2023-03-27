@@ -698,6 +698,43 @@
                }
             }
          },
+         "_visit" : {
+            "_info" : {
+               "VISIT_OCCURENCE" : {
+                  "OMOP_columns" : {
+                     "admitting_source_concept_id" : 0,
+                     "admitting_source_value" : null,
+                     "care_site_id" : "\\N",
+                     "discharge_to_concept_id" : 0,
+                     "discharge_to_source_value" : null,
+                     "person_id" : 3,
+                     "preceding_visit_occurrence_id" : 347,
+                     "provider_id" : "\\N",
+                     "visit_concept_id" : 9201,
+                     "visit_end_date" : "1972-12-21",
+                     "visit_end_datetime" : "1972-12-21 00:00:00",
+                     "visit_occurrence_id" : 312,
+                     "visit_source_concept_id" : 0,
+                     "visit_source_value" : "5d035dd1-30d9-4389-b94c-64947bf1f18c",
+                     "visit_start_date" : "1972-12-20",
+                     "visit_start_datetime" : "1972-12-20 00:00:00",
+                     "visit_type_concept_id" : 44818517
+                  }
+               }
+            },
+            "concept" : {
+               "id" : "Visit:IP",
+               "label" : "Inpatient Visit"
+            },
+            "end_date" : "1972-12-21T00:00:00Z",
+            "id" : "312",
+            "occurrence_id" : 312,
+            "start_date" : "1972-12-20T00:00:00Z",
+            "type" : {
+               "id" : "Visit Type:OMOP4822465",
+               "label" : "Visit derived from encounter on claim"
+            }
+         },
          "featureType" : {
             "id" : "SNOMED:428251008",
             "label" : "History of appendectomy"
@@ -780,6 +817,43 @@
                   "visit_detail_id" : 0,
                   "visit_occurrence_id" : 468
                }
+            }
+         },
+         "_visit" : {
+            "_info" : {
+               "VISIT_OCCURENCE" : {
+                  "OMOP_columns" : {
+                     "admitting_source_concept_id" : 0,
+                     "admitting_source_value" : null,
+                     "care_site_id" : "\\N",
+                     "discharge_to_concept_id" : 0,
+                     "discharge_to_source_value" : null,
+                     "person_id" : 5,
+                     "preceding_visit_occurrence_id" : 492,
+                     "provider_id" : "\\N",
+                     "visit_concept_id" : 9201,
+                     "visit_end_date" : "1990-04-08",
+                     "visit_end_datetime" : "1990-04-08 00:00:00",
+                     "visit_occurrence_id" : 468,
+                     "visit_source_concept_id" : 0,
+                     "visit_source_value" : "bca8ba94-5bc8-4e6c-916f-d19913ce9bde",
+                     "visit_start_date" : "1990-04-07",
+                     "visit_start_datetime" : "1990-04-07 00:00:00",
+                     "visit_type_concept_id" : 44818517
+                  }
+               }
+            },
+            "concept" : {
+               "id" : "Visit:IP",
+               "label" : "Inpatient Visit"
+            },
+            "end_date" : "1990-04-08T00:00:00Z",
+            "id" : "468",
+            "occurrence_id" : 468,
+            "start_date" : "1990-04-07T00:00:00Z",
+            "type" : {
+               "id" : "Visit Type:OMOP4822465",
+               "label" : "Visit derived from encounter on claim"
             }
          },
          "ageAtOnset" : {
@@ -13676,6 +13750,43 @@
                }
             }
          },
+         "_visit" : {
+            "_info" : {
+               "VISIT_OCCURENCE" : {
+                  "OMOP_columns" : {
+                     "admitting_source_concept_id" : 0,
+                     "admitting_source_value" : null,
+                     "care_site_id" : "\\N",
+                     "discharge_to_concept_id" : 0,
+                     "discharge_to_source_value" : null,
+                     "person_id" : 183,
+                     "preceding_visit_occurrence_id" : 12348,
+                     "provider_id" : "\\N",
+                     "visit_concept_id" : 9201,
+                     "visit_end_date" : "1986-10-24",
+                     "visit_end_datetime" : "1986-10-24 00:00:00",
+                     "visit_occurrence_id" : 12413,
+                     "visit_source_concept_id" : 0,
+                     "visit_source_value" : "ae58e360-93f6-482c-8250-040eb82d196b",
+                     "visit_start_date" : "1986-10-22",
+                     "visit_start_datetime" : "1986-10-22 00:00:00",
+                     "visit_type_concept_id" : 44818517
+                  }
+               }
+            },
+            "concept" : {
+               "id" : "Visit:IP",
+               "label" : "Inpatient Visit"
+            },
+            "end_date" : "1986-10-24T00:00:00Z",
+            "id" : "12413",
+            "occurrence_id" : 12413,
+            "start_date" : "1986-10-22T00:00:00Z",
+            "type" : {
+               "id" : "Visit Type:OMOP4822465",
+               "label" : "Visit derived from encounter on claim"
+            }
+         },
          "featureType" : {
             "id" : "SNOMED:428251008",
             "label" : "History of appendectomy"
@@ -17324,6 +17435,43 @@
                }
             }
          },
+         "_visit" : {
+            "_info" : {
+               "VISIT_OCCURENCE" : {
+                  "OMOP_columns" : {
+                     "admitting_source_concept_id" : 0,
+                     "admitting_source_value" : null,
+                     "care_site_id" : "\\N",
+                     "discharge_to_concept_id" : 0,
+                     "discharge_to_source_value" : null,
+                     "person_id" : 232,
+                     "preceding_visit_occurrence_id" : 15576,
+                     "provider_id" : "\\N",
+                     "visit_concept_id" : 9201,
+                     "visit_end_date" : "1963-11-01",
+                     "visit_end_datetime" : "1963-11-01 00:00:00",
+                     "visit_occurrence_id" : 15612,
+                     "visit_source_concept_id" : 0,
+                     "visit_source_value" : "ac9c442f-92f4-48af-9a22-1d18dea7fe4a",
+                     "visit_start_date" : "1963-10-30",
+                     "visit_start_datetime" : "1963-10-30 00:00:00",
+                     "visit_type_concept_id" : 44818517
+                  }
+               }
+            },
+            "concept" : {
+               "id" : "Visit:IP",
+               "label" : "Inpatient Visit"
+            },
+            "end_date" : "1963-11-01T00:00:00Z",
+            "id" : "15612",
+            "occurrence_id" : 15612,
+            "start_date" : "1963-10-30T00:00:00Z",
+            "type" : {
+               "id" : "Visit Type:OMOP4822465",
+               "label" : "Visit derived from encounter on claim"
+            }
+         },
          "featureType" : {
             "id" : "SNOMED:428251008",
             "label" : "History of appendectomy"
@@ -19387,6 +19535,43 @@
                }
             }
          },
+         "_visit" : {
+            "_info" : {
+               "VISIT_OCCURENCE" : {
+                  "OMOP_columns" : {
+                     "admitting_source_concept_id" : 0,
+                     "admitting_source_value" : null,
+                     "care_site_id" : "\\N",
+                     "discharge_to_concept_id" : 0,
+                     "discharge_to_source_value" : null,
+                     "person_id" : 273,
+                     "preceding_visit_occurrence_id" : 18233,
+                     "provider_id" : "\\N",
+                     "visit_concept_id" : 9201,
+                     "visit_end_date" : "2011-10-11",
+                     "visit_end_datetime" : "2011-10-11 00:00:00",
+                     "visit_occurrence_id" : 18192,
+                     "visit_source_concept_id" : 0,
+                     "visit_source_value" : "ad268ec8-d670-4ad8-8009-704a4ece6cd6",
+                     "visit_start_date" : "2011-10-10",
+                     "visit_start_datetime" : "2011-10-10 00:00:00",
+                     "visit_type_concept_id" : 44818517
+                  }
+               }
+            },
+            "concept" : {
+               "id" : "Visit:IP",
+               "label" : "Inpatient Visit"
+            },
+            "end_date" : "2011-10-11T00:00:00Z",
+            "id" : "18192",
+            "occurrence_id" : 18192,
+            "start_date" : "2011-10-10T00:00:00Z",
+            "type" : {
+               "id" : "Visit Type:OMOP4822465",
+               "label" : "Visit derived from encounter on claim"
+            }
+         },
          "ageOfOnset" : {
             "age" : {
                "iso8601duration" : "36Y"
@@ -21122,6 +21307,43 @@
                   "visit_detail_id" : 0,
                   "visit_occurrence_id" : 19503
                }
+            }
+         },
+         "_visit" : {
+            "_info" : {
+               "VISIT_OCCURENCE" : {
+                  "OMOP_columns" : {
+                     "admitting_source_concept_id" : 0,
+                     "admitting_source_value" : null,
+                     "care_site_id" : "\\N",
+                     "discharge_to_concept_id" : 0,
+                     "discharge_to_source_value" : null,
+                     "person_id" : 293,
+                     "preceding_visit_occurrence_id" : 19482,
+                     "provider_id" : "\\N",
+                     "visit_concept_id" : 9201,
+                     "visit_end_date" : "2005-10-06",
+                     "visit_end_datetime" : "2005-10-06 00:00:00",
+                     "visit_occurrence_id" : 19503,
+                     "visit_source_concept_id" : 0,
+                     "visit_source_value" : "985c8b8a-cda8-4a09-9ee7-a2a6e1386c4f",
+                     "visit_start_date" : "2005-10-04",
+                     "visit_start_datetime" : "2005-10-04 00:00:00",
+                     "visit_type_concept_id" : 44818517
+                  }
+               }
+            },
+            "concept" : {
+               "id" : "Visit:IP",
+               "label" : "Inpatient Visit"
+            },
+            "end_date" : "2005-10-06T00:00:00Z",
+            "id" : "19503",
+            "occurrence_id" : 19503,
+            "start_date" : "2005-10-04T00:00:00Z",
+            "type" : {
+               "id" : "Visit Type:OMOP4822465",
+               "label" : "Visit derived from encounter on claim"
             }
          },
          "featureType" : {
@@ -25042,6 +25264,43 @@
                }
             }
          },
+         "_visit" : {
+            "_info" : {
+               "VISIT_OCCURENCE" : {
+                  "OMOP_columns" : {
+                     "admitting_source_concept_id" : 0,
+                     "admitting_source_value" : null,
+                     "care_site_id" : "\\N",
+                     "discharge_to_concept_id" : 0,
+                     "discharge_to_source_value" : null,
+                     "person_id" : 351,
+                     "preceding_visit_occurrence_id" : 23348,
+                     "provider_id" : "\\N",
+                     "visit_concept_id" : 9201,
+                     "visit_end_date" : "2018-06-29",
+                     "visit_end_datetime" : "2018-06-29 00:00:00",
+                     "visit_occurrence_id" : 23432,
+                     "visit_source_concept_id" : 0,
+                     "visit_source_value" : "136ce991-7c36-4334-8e74-48cd53e207b1",
+                     "visit_start_date" : "2018-06-28",
+                     "visit_start_datetime" : "2018-06-28 00:00:00",
+                     "visit_type_concept_id" : 44818517
+                  }
+               }
+            },
+            "concept" : {
+               "id" : "Visit:IP",
+               "label" : "Inpatient Visit"
+            },
+            "end_date" : "2018-06-29T00:00:00Z",
+            "id" : "23432",
+            "occurrence_id" : 23432,
+            "start_date" : "2018-06-28T00:00:00Z",
+            "type" : {
+               "id" : "Visit Type:OMOP4822465",
+               "label" : "Visit derived from encounter on claim"
+            }
+         },
          "ageOfOnset" : {
             "age" : {
                "iso8601duration" : "40Y"
@@ -25151,6 +25410,43 @@
                   "visit_detail_id" : 0,
                   "visit_occurrence_id" : 23368
                }
+            }
+         },
+         "_visit" : {
+            "_info" : {
+               "VISIT_OCCURENCE" : {
+                  "OMOP_columns" : {
+                     "admitting_source_concept_id" : 0,
+                     "admitting_source_value" : null,
+                     "care_site_id" : "\\N",
+                     "discharge_to_concept_id" : 0,
+                     "discharge_to_source_value" : null,
+                     "person_id" : 351,
+                     "preceding_visit_occurrence_id" : 23369,
+                     "provider_id" : "\\N",
+                     "visit_concept_id" : 9201,
+                     "visit_end_date" : "2016-11-23",
+                     "visit_end_datetime" : "2016-11-23 00:00:00",
+                     "visit_occurrence_id" : 23368,
+                     "visit_source_concept_id" : 0,
+                     "visit_source_value" : "a0d44a50-c916-43ca-a70b-d19c964ef3f2",
+                     "visit_start_date" : "2016-11-21",
+                     "visit_start_datetime" : "2016-11-21 00:00:00",
+                     "visit_type_concept_id" : 44818517
+                  }
+               }
+            },
+            "concept" : {
+               "id" : "Visit:IP",
+               "label" : "Inpatient Visit"
+            },
+            "end_date" : "2016-11-23T00:00:00Z",
+            "id" : "23368",
+            "occurrence_id" : 23368,
+            "start_date" : "2016-11-21T00:00:00Z",
+            "type" : {
+               "id" : "Visit Type:OMOP4822465",
+               "label" : "Visit derived from encounter on claim"
             }
          },
          "ageOfOnset" : {
@@ -25337,6 +25633,43 @@
                   "visit_detail_id" : 0,
                   "visit_occurrence_id" : 23368
                }
+            }
+         },
+         "_visit" : {
+            "_info" : {
+               "VISIT_OCCURENCE" : {
+                  "OMOP_columns" : {
+                     "admitting_source_concept_id" : 0,
+                     "admitting_source_value" : null,
+                     "care_site_id" : "\\N",
+                     "discharge_to_concept_id" : 0,
+                     "discharge_to_source_value" : null,
+                     "person_id" : 351,
+                     "preceding_visit_occurrence_id" : 23369,
+                     "provider_id" : "\\N",
+                     "visit_concept_id" : 9201,
+                     "visit_end_date" : "2016-11-23",
+                     "visit_end_datetime" : "2016-11-23 00:00:00",
+                     "visit_occurrence_id" : 23368,
+                     "visit_source_concept_id" : 0,
+                     "visit_source_value" : "a0d44a50-c916-43ca-a70b-d19c964ef3f2",
+                     "visit_start_date" : "2016-11-21",
+                     "visit_start_datetime" : "2016-11-21 00:00:00",
+                     "visit_type_concept_id" : 44818517
+                  }
+               }
+            },
+            "concept" : {
+               "id" : "Visit:IP",
+               "label" : "Inpatient Visit"
+            },
+            "end_date" : "2016-11-23T00:00:00Z",
+            "id" : "23368",
+            "occurrence_id" : 23368,
+            "start_date" : "2016-11-21T00:00:00Z",
+            "type" : {
+               "id" : "Visit Type:OMOP4822465",
+               "label" : "Visit derived from encounter on claim"
             }
          },
          "featureType" : {
@@ -25719,6 +26052,43 @@
                   "visit_detail_id" : 0,
                   "visit_occurrence_id" : 23632
                }
+            }
+         },
+         "_visit" : {
+            "_info" : {
+               "VISIT_OCCURENCE" : {
+                  "OMOP_columns" : {
+                     "admitting_source_concept_id" : 0,
+                     "admitting_source_value" : null,
+                     "care_site_id" : "\\N",
+                     "discharge_to_concept_id" : 0,
+                     "discharge_to_source_value" : null,
+                     "person_id" : 357,
+                     "preceding_visit_occurrence_id" : 23639,
+                     "provider_id" : "\\N",
+                     "visit_concept_id" : 9201,
+                     "visit_end_date" : "1997-10-05",
+                     "visit_end_datetime" : "1997-10-05 00:00:00",
+                     "visit_occurrence_id" : 23632,
+                     "visit_source_concept_id" : 0,
+                     "visit_source_value" : "3389a009-d095-409a-ade4-e14861780982",
+                     "visit_start_date" : "1997-10-04",
+                     "visit_start_datetime" : "1997-10-04 00:00:00",
+                     "visit_type_concept_id" : 44818517
+                  }
+               }
+            },
+            "concept" : {
+               "id" : "Visit:IP",
+               "label" : "Inpatient Visit"
+            },
+            "end_date" : "1997-10-05T00:00:00Z",
+            "id" : "23632",
+            "occurrence_id" : 23632,
+            "start_date" : "1997-10-04T00:00:00Z",
+            "type" : {
+               "id" : "Visit Type:OMOP4822465",
+               "label" : "Visit derived from encounter on claim"
             }
          },
          "featureType" : {
@@ -30485,6 +30855,43 @@
                   "visit_detail_id" : 0,
                   "visit_occurrence_id" : 28295
                }
+            }
+         },
+         "_visit" : {
+            "_info" : {
+               "VISIT_OCCURENCE" : {
+                  "OMOP_columns" : {
+                     "admitting_source_concept_id" : 0,
+                     "admitting_source_value" : null,
+                     "care_site_id" : "\\N",
+                     "discharge_to_concept_id" : 0,
+                     "discharge_to_source_value" : null,
+                     "person_id" : 426,
+                     "preceding_visit_occurrence_id" : 28313,
+                     "provider_id" : "\\N",
+                     "visit_concept_id" : 9201,
+                     "visit_end_date" : "2007-01-05",
+                     "visit_end_datetime" : "2007-01-05 00:00:00",
+                     "visit_occurrence_id" : 28295,
+                     "visit_source_concept_id" : 0,
+                     "visit_source_value" : "29e53dc5-ea5e-4177-a56c-2fd5a5a19e67",
+                     "visit_start_date" : "2007-01-04",
+                     "visit_start_datetime" : "2007-01-04 00:00:00",
+                     "visit_type_concept_id" : 44818517
+                  }
+               }
+            },
+            "concept" : {
+               "id" : "Visit:IP",
+               "label" : "Inpatient Visit"
+            },
+            "end_date" : "2007-01-05T00:00:00Z",
+            "id" : "28295",
+            "occurrence_id" : 28295,
+            "start_date" : "2007-01-04T00:00:00Z",
+            "type" : {
+               "id" : "Visit Type:OMOP4822465",
+               "label" : "Visit derived from encounter on claim"
             }
          },
          "featureType" : {
@@ -43379,6 +43786,43 @@
                }
             }
          },
+         "_visit" : {
+            "_info" : {
+               "VISIT_OCCURENCE" : {
+                  "OMOP_columns" : {
+                     "admitting_source_concept_id" : 0,
+                     "admitting_source_value" : null,
+                     "care_site_id" : "\\N",
+                     "discharge_to_concept_id" : 0,
+                     "discharge_to_source_value" : null,
+                     "person_id" : 579,
+                     "preceding_visit_occurrence_id" : 38338,
+                     "provider_id" : "\\N",
+                     "visit_concept_id" : 9201,
+                     "visit_end_date" : "1999-11-07",
+                     "visit_end_datetime" : "1999-11-07 00:00:00",
+                     "visit_occurrence_id" : 38298,
+                     "visit_source_concept_id" : 0,
+                     "visit_source_value" : "9e6dbbeb-d715-4e60-b073-db4e5287cc47",
+                     "visit_start_date" : "1999-11-06",
+                     "visit_start_datetime" : "1999-11-06 00:00:00",
+                     "visit_type_concept_id" : 44818517
+                  }
+               }
+            },
+            "concept" : {
+               "id" : "Visit:IP",
+               "label" : "Inpatient Visit"
+            },
+            "end_date" : "1999-11-07T00:00:00Z",
+            "id" : "38298",
+            "occurrence_id" : 38298,
+            "start_date" : "1999-11-06T00:00:00Z",
+            "type" : {
+               "id" : "Visit Type:OMOP4822465",
+               "label" : "Visit derived from encounter on claim"
+            }
+         },
          "ageOfOnset" : {
             "age" : {
                "iso8601duration" : "38Y"
@@ -47112,6 +47556,43 @@
                   "visit_detail_id" : 0,
                   "visit_occurrence_id" : 41147
                }
+            }
+         },
+         "_visit" : {
+            "_info" : {
+               "VISIT_OCCURENCE" : {
+                  "OMOP_columns" : {
+                     "admitting_source_concept_id" : 0,
+                     "admitting_source_value" : null,
+                     "care_site_id" : "\\N",
+                     "discharge_to_concept_id" : 0,
+                     "discharge_to_source_value" : null,
+                     "person_id" : 616,
+                     "preceding_visit_occurrence_id" : 41086,
+                     "provider_id" : "\\N",
+                     "visit_concept_id" : 9201,
+                     "visit_end_date" : "1962-01-08",
+                     "visit_end_datetime" : "1962-01-08 00:00:00",
+                     "visit_occurrence_id" : 41147,
+                     "visit_source_concept_id" : 0,
+                     "visit_source_value" : "5ee09c00-ce88-48e4-bf8f-d45da12d109e",
+                     "visit_start_date" : "1962-01-03",
+                     "visit_start_datetime" : "1962-01-03 00:00:00",
+                     "visit_type_concept_id" : 44818517
+                  }
+               }
+            },
+            "concept" : {
+               "id" : "Visit:IP",
+               "label" : "Inpatient Visit"
+            },
+            "end_date" : "1962-01-08T00:00:00Z",
+            "id" : "41147",
+            "occurrence_id" : 41147,
+            "start_date" : "1962-01-03T00:00:00Z",
+            "type" : {
+               "id" : "Visit Type:OMOP4822465",
+               "label" : "Visit derived from encounter on claim"
             }
          },
          "featureType" : {
@@ -55423,6 +55904,43 @@
                }
             }
          },
+         "_visit" : {
+            "_info" : {
+               "VISIT_OCCURENCE" : {
+                  "OMOP_columns" : {
+                     "admitting_source_concept_id" : 0,
+                     "admitting_source_value" : null,
+                     "care_site_id" : "\\N",
+                     "discharge_to_concept_id" : 0,
+                     "discharge_to_source_value" : null,
+                     "person_id" : 830,
+                     "preceding_visit_occurrence_id" : 55001,
+                     "provider_id" : "\\N",
+                     "visit_concept_id" : 9201,
+                     "visit_end_date" : "1973-11-25",
+                     "visit_end_datetime" : "1973-11-25 00:00:00",
+                     "visit_occurrence_id" : 55003,
+                     "visit_source_concept_id" : 0,
+                     "visit_source_value" : "12409d79-f80d-4f02-86f2-3b3a46115037",
+                     "visit_start_date" : "1973-11-24",
+                     "visit_start_datetime" : "1973-11-24 00:00:00",
+                     "visit_type_concept_id" : 44818517
+                  }
+               }
+            },
+            "concept" : {
+               "id" : "Visit:IP",
+               "label" : "Inpatient Visit"
+            },
+            "end_date" : "1973-11-25T00:00:00Z",
+            "id" : "55003",
+            "occurrence_id" : 55003,
+            "start_date" : "1973-11-24T00:00:00Z",
+            "type" : {
+               "id" : "Visit Type:OMOP4822465",
+               "label" : "Visit derived from encounter on claim"
+            }
+         },
          "featureType" : {
             "id" : "SNOMED:428251008",
             "label" : "History of appendectomy"
@@ -58415,6 +58933,43 @@
                   "visit_detail_id" : 0,
                   "visit_occurrence_id" : 62467
                }
+            }
+         },
+         "_visit" : {
+            "_info" : {
+               "VISIT_OCCURENCE" : {
+                  "OMOP_columns" : {
+                     "admitting_source_concept_id" : 0,
+                     "admitting_source_value" : null,
+                     "care_site_id" : "\\N",
+                     "discharge_to_concept_id" : 0,
+                     "discharge_to_source_value" : null,
+                     "person_id" : 939,
+                     "preceding_visit_occurrence_id" : 62434,
+                     "provider_id" : "\\N",
+                     "visit_concept_id" : 9201,
+                     "visit_end_date" : "2003-07-10",
+                     "visit_end_datetime" : "2003-07-10 00:00:00",
+                     "visit_occurrence_id" : 62467,
+                     "visit_source_concept_id" : 0,
+                     "visit_source_value" : "5b98a098-f3f0-4f2b-b35c-ce5f0aa4bd16",
+                     "visit_start_date" : "2003-07-07",
+                     "visit_start_datetime" : "2003-07-07 00:00:00",
+                     "visit_type_concept_id" : 44818517
+                  }
+               }
+            },
+            "concept" : {
+               "id" : "Visit:IP",
+               "label" : "Inpatient Visit"
+            },
+            "end_date" : "2003-07-10T00:00:00Z",
+            "id" : "62467",
+            "occurrence_id" : 62467,
+            "start_date" : "2003-07-07T00:00:00Z",
+            "type" : {
+               "id" : "Visit Type:OMOP4822465",
+               "label" : "Visit derived from encounter on claim"
             }
          },
          "featureType" : {
@@ -62594,6 +63149,43 @@
                   "visit_detail_id" : 0,
                   "visit_occurrence_id" : 87438
                }
+            }
+         },
+         "_visit" : {
+            "_info" : {
+               "VISIT_OCCURENCE" : {
+                  "OMOP_columns" : {
+                     "admitting_source_concept_id" : 0,
+                     "admitting_source_value" : null,
+                     "care_site_id" : "\\N",
+                     "discharge_to_concept_id" : 0,
+                     "discharge_to_source_value" : null,
+                     "person_id" : 1318,
+                     "preceding_visit_occurrence_id" : 87378,
+                     "provider_id" : "\\N",
+                     "visit_concept_id" : 9201,
+                     "visit_end_date" : "1953-03-08",
+                     "visit_end_datetime" : "1953-03-08 00:00:00",
+                     "visit_occurrence_id" : 87438,
+                     "visit_source_concept_id" : 0,
+                     "visit_source_value" : "d61b63cc-c0f1-435a-bf75-f84b6ce32903",
+                     "visit_start_date" : "1953-03-06",
+                     "visit_start_datetime" : "1953-03-06 00:00:00",
+                     "visit_type_concept_id" : 44818517
+                  }
+               }
+            },
+            "concept" : {
+               "id" : "Visit:IP",
+               "label" : "Inpatient Visit"
+            },
+            "end_date" : "1953-03-08T00:00:00Z",
+            "id" : "87438",
+            "occurrence_id" : 87438,
+            "start_date" : "1953-03-06T00:00:00Z",
+            "type" : {
+               "id" : "Visit Type:OMOP4822465",
+               "label" : "Visit derived from encounter on claim"
             }
          },
          "featureType" : {

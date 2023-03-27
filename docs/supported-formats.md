@@ -35,7 +35,7 @@ graph LR
     * [Phenopacket v2 (JSON | YAML)](pxf.md)
     * [OMOP-CDM (SQL export | CSV)](omop-cdm.md)
     * [REDCap exports (CSV)](redcap.md)
-    * [CDISC-ODM v1 (XML)](cdisc.md)
+    * [CDISC-ODM v1 (XML)](cdisc-odm.md)
 
 === "Output formats (Jan-2023):"
 

@@ -1,74 +1,778 @@
 [
-  {
-    "ethnicity": {
-      "id": "NCIT:C42331",
-      "label": "African"
-    },
-    "id": "HG00096",
-    "info": {
-      "eid": "fake1"
-    },
-    "interventionsOrProcedures": [
-      {
-        "procedureCode": {
-          "id": "OPCS4:L46.3",
-          "label": "OPCS(v4-0.0):Ligation of visceral branch of abdominal aorta NEC"
-        }
-      }
-    ],
-    "measures": [
-      {
-        "assayCode": {
-          "id": "LOINC:35925-4",
-          "label": "BMI"
-        },
-        "date": "2021-09-24",
-        "measurementValue": {
-          "quantity": {
-            "unit": {
-              "id": "NCIT:C49671",
-              "label": "Kilogram per Square Meter"
-            },
-            "value": 26.63838307
-          }
-        }
+   {
+      "ethnicity" : {
+         "id" : "NCIT:C42331",
+         "label" : "African"
       },
-      {
-        "assayCode": {
-          "id": "LOINC:3141-9",
-          "label": "Weight"
-        },
-        "date": "2021-09-24",
-        "measurementValue": {
-          "quantity": {
-            "unit": {
-              "id": "NCIT:C28252",
-              "label": "Kilogram"
-            },
-            "value": 85.6358
-          }
-        }
+      "id" : "HG00096",
+      "info" : {
+         "eid" : "fake1"
       },
-      {
-        "assayCode": {
-          "id": "LOINC:8308-9",
-          "label": "Height-standing"
-        },
-        "date": "2021-09-24",
-        "measurementValue": {
-          "quantity": {
-            "unit": {
-              "id": "NCIT:C49668",
-              "label": "Centimeter"
+      "interventionsOrProcedures" : [
+         {
+            "procedureCode" : {
+               "id" : "OPCS4:L46.3",
+               "label" : "OPCS(v4-0.0):Ligation of visceral branch of abdominal aorta NEC"
+            }
+         }
+      ],
+      "measures" : [
+         {
+            "assayCode" : {
+               "id" : "LOINC:35925-4",
+               "label" : "BMI"
             },
-            "value": 179.2973
-          }
-        }
+            "date" : "2021-09-24",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 26.63838307
+               }
+            }
+         },
+         {
+            "assayCode" : {
+               "id" : "LOINC:3141-9",
+               "label" : "Weight"
+            },
+            "date" : "2021-09-24",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C28252",
+                     "label" : "Kilogram"
+                  },
+                  "value" : 85.6358
+               }
+            }
+         },
+         {
+            "assayCode" : {
+               "id" : "LOINC:8308-9",
+               "label" : "Height-standing"
+            },
+            "date" : "2021-09-24",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C49668",
+                     "label" : "Centimeter"
+                  },
+                  "value" : 179.2973
+               }
+            }
+         }
+      ],
+      "sex" : {
+         "id" : "NCIT:C20197",
+         "label" : "male"
       }
-    ],
-    "sex": {
-      "id": "NCIT:C20197",
-      "label": "male"
-    }
-  }
+   },
+   {
+      "ethnicity" : {
+         "id" : "NCIT:C41261",
+         "label" : "British"
+      },
+      "geographicOrigin" : {
+         "id" : "GAZ:00002641",
+         "label" : "England"
+      },
+      "id" : "HG00097",
+      "info" : {
+         "eid" : "fake2"
+      },
+      "interventionsOrProcedures" : [
+         {
+            "procedureCode" : {
+               "id" : "OPCS4:K06.1",
+               "label" : "OPCS(v4-0.0):Repositioning of transposed great arteries"
+            }
+         }
+      ],
+      "measures" : [
+         {
+            "assayCode" : {
+               "id" : "LOINC:35925-4",
+               "label" : "BMI"
+            },
+            "date" : "2021-09-24",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 25.62278441
+               }
+            }
+         },
+         {
+            "assayCode" : {
+               "id" : "LOINC:3141-9",
+               "label" : "Weight"
+            },
+            "date" : "2021-09-24",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C28252",
+                     "label" : "Kilogram"
+                  },
+                  "value" : 64.5722
+               }
+            }
+         },
+         {
+            "assayCode" : {
+               "id" : "LOINC:8308-9",
+               "label" : "Height-standing"
+            },
+            "date" : "2021-09-24",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C49668",
+                     "label" : "Centimeter"
+                  },
+                  "value" : 158.7485
+               }
+            }
+         }
+      ],
+      "sex" : {
+         "id" : "NCIT:C16576",
+         "label" : "female"
+      }
+   },
+   {
+      "ethnicity" : {
+         "id" : "NCIT:C41260",
+         "label" : "Asian or Asian British"
+      },
+      "geographicOrigin" : {
+         "id" : "GAZ:00002640",
+         "label" : "Wales"
+      },
+      "id" : "HG00099",
+      "info" : {
+         "eid" : "fake3"
+      },
+      "interventionsOrProcedures" : [
+         {
+            "procedureCode" : {
+               "id" : "OPCS4:T89.4",
+               "label" : "OPCS(v4-0.0):Cannulation of lymphatic duct"
+            }
+         }
+      ],
+      "measures" : [
+         {
+            "assayCode" : {
+               "id" : "LOINC:35925-4",
+               "label" : "BMI"
+            },
+            "date" : "2021-09-24",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 22.35976255
+               }
+            }
+         },
+         {
+            "assayCode" : {
+               "id" : "LOINC:3141-9",
+               "label" : "Weight"
+            },
+            "date" : "2021-09-24",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C28252",
+                     "label" : "Kilogram"
+                  },
+                  "value" : 64.4364
+               }
+            }
+         },
+         {
+            "assayCode" : {
+               "id" : "LOINC:8308-9",
+               "label" : "Height-standing"
+            },
+            "date" : "2021-09-24",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C49668",
+                     "label" : "Centimeter"
+                  },
+                  "value" : 169.7587
+               }
+            }
+         }
+      ],
+      "sex" : {
+         "id" : "NCIT:C16576",
+         "label" : "female"
+      }
+   },
+   {
+      "ethnicity" : {
+         "id" : "NCIT:C67109",
+         "label" : "White and Asian"
+      },
+      "id" : "HG00100",
+      "info" : {
+         "eid" : "fake4"
+      },
+      "interventionsOrProcedures" : [
+         {
+            "procedureCode" : {
+               "id" : "OPCS4:T77.2",
+               "label" : "OPCS(v4-0.0):Wide excision of muscle"
+            }
+         }
+      ],
+      "measures" : [
+         {
+            "assayCode" : {
+               "id" : "LOINC:35925-4",
+               "label" : "BMI"
+            },
+            "date" : "2021-09-24",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 28.27885509
+               }
+            }
+         },
+         {
+            "assayCode" : {
+               "id" : "LOINC:3141-9",
+               "label" : "Weight"
+            },
+            "date" : "2021-09-24",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C28252",
+                     "label" : "Kilogram"
+                  },
+                  "value" : 74.4885
+               }
+            }
+         },
+         {
+            "assayCode" : {
+               "id" : "LOINC:8308-9",
+               "label" : "Height-standing"
+            },
+            "date" : "2021-09-24",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C49668",
+                     "label" : "Centimeter"
+                  },
+                  "value" : 162.2982
+               }
+            }
+         }
+      ],
+      "sex" : {
+         "id" : "NCIT:C16576",
+         "label" : "female"
+      }
+   },
+   {
+      "ethnicity" : {
+         "id" : "NCIT:C67109",
+         "label" : "White and Black African"
+      },
+      "id" : "HG00101",
+      "info" : {
+         "eid" : "fake5"
+      },
+      "interventionsOrProcedures" : [
+         {
+            "procedureCode" : {
+               "id" : "OPCS4:Z01.4",
+               "label" : "OPCS(v4-0.0):Tissue of occipital lobe of brain"
+            }
+         }
+      ],
+      "measures" : [
+         {
+            "assayCode" : {
+               "id" : "LOINC:35925-4",
+               "label" : "BMI"
+            },
+            "date" : "2021-09-24",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 25.52066954
+               }
+            }
+         },
+         {
+            "assayCode" : {
+               "id" : "LOINC:3141-9",
+               "label" : "Weight"
+            },
+            "date" : "2021-09-24",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C28252",
+                     "label" : "Kilogram"
+                  },
+                  "value" : 82.3472
+               }
+            }
+         },
+         {
+            "assayCode" : {
+               "id" : "LOINC:8308-9",
+               "label" : "Height-standing"
+            },
+            "date" : "2021-09-24",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C49668",
+                     "label" : "Centimeter"
+                  },
+                  "value" : 179.6298
+               }
+            }
+         }
+      ],
+      "sex" : {
+         "id" : "NCIT:C20197",
+         "label" : "male"
+      }
+   },
+   {
+      "geographicOrigin" : {
+         "id" : "GAZ:00002638",
+         "label" : "Northern Ireland"
+      },
+      "id" : "HG00102",
+      "info" : {
+         "eid" : "fake6"
+      },
+      "interventionsOrProcedures" : [
+         {
+            "procedureCode" : {
+               "id" : "OPCS4:E55.9",
+               "label" : "OPCS(v4-0.0):Unspecified open extirpation of lesion of lung"
+            }
+         }
+      ],
+      "measures" : [
+         {
+            "assayCode" : {
+               "id" : "LOINC:35925-4",
+               "label" : "BMI"
+            },
+            "date" : "2021-09-24",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 30.94363585
+               }
+            }
+         },
+         {
+            "assayCode" : {
+               "id" : "LOINC:3141-9",
+               "label" : "Weight"
+            },
+            "date" : "2021-09-24",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C28252",
+                     "label" : "Kilogram"
+                  },
+                  "value" : 81.8213
+               }
+            }
+         },
+         {
+            "assayCode" : {
+               "id" : "LOINC:8308-9",
+               "label" : "Height-standing"
+            },
+            "date" : "2021-09-24",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C49668",
+                     "label" : "Centimeter"
+                  },
+                  "value" : 162.6101
+               }
+            }
+         }
+      ],
+      "sex" : {
+         "id" : "NCIT:C16576",
+         "label" : "female"
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "diseaseCode" : {
+               "id" : "ICD10:J40",
+               "label" : "acute bronchitis"
+            }
+         }
+      ],
+      "ethnicity" : {
+         "id" : "NCIT:C67109",
+         "label" : "Any other Asian background"
+      },
+      "id" : "HG00103",
+      "info" : {
+         "eid" : "fake7"
+      },
+      "interventionsOrProcedures" : [
+         {
+            "procedureCode" : {
+               "id" : "OPCS4:Z98.6",
+               "label" : "OPCS(v4-0.0):Short saphenous vein"
+            }
+         }
+      ],
+      "measures" : [
+         {
+            "assayCode" : {
+               "id" : "LOINC:35925-4",
+               "label" : "BMI"
+            },
+            "date" : "2021-09-24",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 29.09513933
+               }
+            }
+         },
+         {
+            "assayCode" : {
+               "id" : "LOINC:3141-9",
+               "label" : "Weight"
+            },
+            "date" : "2021-09-24",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C28252",
+                     "label" : "Kilogram"
+                  },
+                  "value" : 80.6949
+               }
+            }
+         },
+         {
+            "assayCode" : {
+               "id" : "LOINC:8308-9",
+               "label" : "Height-standing"
+            },
+            "date" : "2021-09-24",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C49668",
+                     "label" : "Centimeter"
+                  },
+                  "value" : 166.5378
+               }
+            }
+         }
+      ],
+      "sex" : {
+         "id" : "NCIT:C20197",
+         "label" : "male"
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "diseaseCode" : {
+               "id" : "ICD10:G35",
+               "label" : "multiple sclerosis"
+            }
+         },
+         {
+            "diseaseCode" : {
+               "id" : "ICD10:J11",
+               "label" : "influenza due to certain identified influenza virus"
+            }
+         },
+         {
+            "diseaseCode" : {
+               "id" : "ICD10:I42",
+               "label" : "cardiomyopathy"
+            }
+         }
+      ],
+      "ethnicity" : {
+         "id" : "NCIT:C67109",
+         "label" : "White and Black Caribbean"
+      },
+      "geographicOrigin" : {
+         "id" : "GAZ:00002640",
+         "label" : "Wales"
+      },
+      "id" : "HG00105",
+      "info" : {
+         "eid" : "fake8"
+      },
+      "interventionsOrProcedures" : [
+         {
+            "procedureCode" : {
+               "id" : "OPCS4:C46.3",
+               "label" : "OPCS(v4-0.0):Penetrating graft to cornea"
+            }
+         }
+      ],
+      "measures" : [
+         {
+            "assayCode" : {
+               "id" : "LOINC:35925-4",
+               "label" : "BMI"
+            },
+            "date" : "2021-09-24",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 19.08115354
+               }
+            }
+         },
+         {
+            "assayCode" : {
+               "id" : "LOINC:3141-9",
+               "label" : "Weight"
+            },
+            "date" : "2021-09-24",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C28252",
+                     "label" : "Kilogram"
+                  },
+                  "value" : 65.3527
+               }
+            }
+         },
+         {
+            "assayCode" : {
+               "id" : "LOINC:8308-9",
+               "label" : "Height-standing"
+            },
+            "date" : "2021-09-24",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C49668",
+                     "label" : "Centimeter"
+                  },
+                  "value" : 185.0672
+               }
+            }
+         }
+      ],
+      "sex" : {
+         "id" : "NCIT:C20197",
+         "label" : "male"
+      }
+   },
+   {
+      "ethnicity" : {
+         "id" : "NCIT:C16352",
+         "label" : "Black or Black British"
+      },
+      "geographicOrigin" : {
+         "id" : "GAZ:00002641",
+         "label" : "England"
+      },
+      "id" : "HG00106",
+      "info" : {
+         "eid" : "fake9"
+      },
+      "interventionsOrProcedures" : [
+         {
+            "procedureCode" : {
+               "id" : "OPCS4:C01.8",
+               "label" : "OPCS(v4-0.0):Other specified excision of eye"
+            }
+         }
+      ],
+      "measures" : [
+         {
+            "assayCode" : {
+               "id" : "LOINC:35925-4",
+               "label" : "BMI"
+            },
+            "date" : "2021-09-24",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 28.17336761
+               }
+            }
+         },
+         {
+            "assayCode" : {
+               "id" : "LOINC:3141-9",
+               "label" : "Weight"
+            },
+            "date" : "2021-09-24",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C28252",
+                     "label" : "Kilogram"
+                  },
+                  "value" : 94.9065
+               }
+            }
+         },
+         {
+            "assayCode" : {
+               "id" : "LOINC:8308-9",
+               "label" : "Height-standing"
+            },
+            "date" : "2021-09-24",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C49668",
+                     "label" : "Centimeter"
+                  },
+                  "value" : 183.5391
+               }
+            }
+         }
+      ],
+      "sex" : {
+         "id" : "NCIT:C16576",
+         "label" : "female"
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "diseaseCode" : {
+               "id" : "ICD10:J40",
+               "label" : "acute bronchitis"
+            }
+         }
+      ],
+      "ethnicity" : {
+         "id" : "NCIT:C67109",
+         "label" : "Any other mixed background"
+      },
+      "geographicOrigin" : {
+         "id" : "GAZ:00004018",
+         "label" : "Republic of Ireland"
+      },
+      "id" : "HG00107",
+      "info" : {
+         "eid" : "fake10"
+      },
+      "interventionsOrProcedures" : [
+         {
+            "procedureCode" : {
+               "id" : "OPCS4:H03.8",
+               "label" : "OPCS(v4-0.0):Other specified other operations on appendix"
+            }
+         }
+      ],
+      "measures" : [
+         {
+            "assayCode" : {
+               "id" : "LOINC:35925-4",
+               "label" : "BMI"
+            },
+            "date" : "2021-09-24",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 15.28491438
+               }
+            }
+         },
+         {
+            "assayCode" : {
+               "id" : "LOINC:3141-9",
+               "label" : "Weight"
+            },
+            "date" : "2021-09-24",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C28252",
+                     "label" : "Kilogram"
+                  },
+                  "value" : 44.8895
+               }
+            }
+         },
+         {
+            "assayCode" : {
+               "id" : "LOINC:8308-9",
+               "label" : "Height-standing"
+            },
+            "date" : "2021-09-24",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C49668",
+                     "label" : "Centimeter"
+                  },
+                  "value" : 171.3724
+               }
+            }
+         }
+      ],
+      "sex" : {
+         "id" : "NCIT:C20197",
+         "label" : "male"
+      }
+   }
 ]
