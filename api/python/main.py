@@ -14,7 +14,7 @@
 
 import sys
 from fastapi import Request, FastAPI, HTTPException
-from pydantic import BaseModel, parse_obj_as
+from pydantic import BaseModel, Field, parse_obj_as
 sys.path.append('../../lib/')
 from convertpheno import PythonBinding
 
@@ -23,8 +23,9 @@ app = FastAPI()
 
 
 class Data(BaseModel):
-    method: str
-    data: dict
+    method: str = Field(...,title="Method")
+    data: dict = Field(...,title="Data")
+    ohdsi_db: bool = Field(False, title="OHDSI-DB")
 
 
 @app.post(

@@ -53,9 +53,21 @@ Frequently Asked Questions
 
 ??? faq "Which ontologies are supported?"
 
-    We support [NCI Thesaurus](https://ncithesaurus.nci.nih.gov/ncitbrowser), [ICD-10](https://icd.who.int/browse10), [CDISC](https://www.cdisc.org/standards/terminology/controlled-terminology) (Study Data Tabulation Model Terminology) and data from [Athena-OHDSI](https://athena.ohdsi.org/search-terms/start) which includes multiple ontologies, such as _SNOMED, RxNorm or LOINC_.
+    If the input files contain ontologies, the ontologies will be preserved and remain intact after the conversion process (except for the property `sex` which is converted to [NCIt](https://ncithesaurus.nci.nih.gov/ncitbrowser)):
 
-    ##### last change 2023-01-27 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
+    |                | REDCap      | CDISC-ODM  | OMOP-CDM | Phenopackets v2| Beacon v2 Models |
+    | -----------    | ----------- | ---------- | -------  | -------------- | -----------------|
+    | Data mapping   | :heavy_check_mark: |  :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+    | Add ontologies | :heavy_check_mark: |  :heavy_check_mark: | `--ohdsi-db` |     |                  |
+
+    For [REDCap](redcap.md) and [CDISC-ODM](cdisc-odm.md) we support:
+
+    * [NCI Thesaurus](https://ncithesaurus.nci.nih.gov/ncitbrowser)
+    * [ICD-10](https://icd.who.int/browse10)
+    * [CDISC](https://www.cdisc.org/standards/terminology/controlled-terminology) (Study Data Tabulation Model Terminology)
+    * [Athena-OHDSI](https://athena.ohdsi.org/search-terms/start) which includes multiple ontologies, such as _SNOMED, RxNorm or LOINC_
+
+    ##### last change 2023-03-28 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
 ??? faq "Are longitudinal data supported?"
 
