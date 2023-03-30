@@ -27,20 +27,20 @@ sub do_redcap2bff {
     ##############################
     # <Variable> names in REDCap #
     ##############################
-#
-# REDCap does not enforce any particular "Variable" name.
-# Extracted from https://www.ctsi.ufl.edu/wordpress/files/2019/02/Project-Creation-User-Guide.pdf
-# ---
-# "Variable Names: Variable names are critical in the data analysis process. If you export your data to a
-# statistical software program, the variable names are what you or your statistician will use to conduct
-# the analysis"
-#
-# "We always recommend reviewing your variable names with a statistician or whoever will be
-# analyzing your data. This is especially important if this is the first time you are building a
-# database"
-#---
-# If "Variable" names are not consensuated, then we need to do the mapping manually "a posteriori".
-# This is what we are attempting here:
+    #
+    # REDCap does not enforce any particular "Variable" name.
+    # Extracted from https://www.ctsi.ufl.edu/wordpress/files/2019/02/Project-Creation-User-Guide.pdf
+    # ---
+    # "Variable Names: Variable names are critical in the data analysis process. If you export your data to a
+    # statistical software program, the variable names are what you or your statistician will use to conduct
+    # the analysis"
+    #
+    # "We always recommend reviewing your variable names with a statistician or whoever will be
+    # analyzing your data. This is especially important if this is the first time you are building a
+    # database"
+    #---
+    # If "Variable" names are not consensuated, then we need to do the mapping manually "a posteriori".
+    # This is what we are attempting here:
 
     ####################################
     # START MAPPING TO BEACON V2 TERMS #
@@ -75,7 +75,7 @@ sub do_redcap2bff {
     # Thus, we are storing $participant->{sex} in $self !!!
     if ( defined $participant->{$sex_field} ) {
         $self->{_info}{ $participant->{study_id} }{$sex_field} =
-          $participant->{$sex_field};   # Dynamically adding attributes (setter)
+          $participant->{$sex_field};    # Dynamically adding attributes (setter)
     }
     $participant->{$sex_field} =
       $self->{_info}{ $participant->{$studyId_field} }{$sex_field};
@@ -91,14 +91,19 @@ sub do_redcap2bff {
     # Default ontology for a bunch of required terms
     my $default_ontology = { id => 'NCIT:NA0000', label => 'NA' };
 
-    # Variable that will allows to perform adhoc changes for some projects
+    # More default values
+    my $default_date     = '1900-01-01';
+    my $default_duration = 'P999Y';
+
+    # Variable that will allow to perform ad hoc changes for some projects
     my $project_id = $mapping_file->{project}{id};
 
- # **********************
- # *** IMPORTANT STEP ***
- # **********************
- # Load the main ontology for the project
- # <sex> and <ethnicity> project_ontology are fixed (can't be changed granulary)
+    # **********************
+    # *** IMPORTANT STEP ***
+    # **********************
+    # Load the main ontology for the project
+    # <sex> and <ethnicity> project_ontology are fixed,
+    #  (can't be changed granulary)
 
     my $project_ontology = $mapping_file->{project}{ontology};
 
@@ -122,14 +127,18 @@ sub do_redcap2bff {
       exists $mapping_file->{diseases}{ontology}
       ? $mapping_file->{diseases}{ontology}
       : $project_ontology;
+    my %diseases_map =
+      exists $mapping_file->{diseases}{map}
+      ? %{ $mapping_file->{diseases}{map} }
+      : ();
 
     # Start looping over them
     for my $field (@diseases) {
         my $disease;
 
         # Load a few more variables from mapping file
-        my $ageOfOnset_field    = $mapping_file->{diseases}{map}{ageOfOnset};
-        my $familyHistory_field = $mapping_file->{diseases}{map}{familyHistory};
+        my $ageOfOnset_field    = $diseases_map{ageOfOnset};
+        my $familyHistory_field = $diseases_map{familyHistory};
 
         # Start mapping
         $disease->{ageOfOnset} = map_age_range(
@@ -194,21 +203,39 @@ sub do_redcap2bff {
 
     #$individual->{exposures} = undef;
     my @exposures_fields = @{ $mapping_file->{exposures}{fields} };
-    my %exposures_dict   = %{ $mapping_file->{exposures}{dict} };
+    my %exposures_dict =
+      exists $mapping_file->{exposures}{dict}
+      ? %{ $mapping_file->{exposures}{dict} }
+      : ();
+    my %exposures_map =
+      exists $mapping_file->{exposures}{map}
+      ? %{ $mapping_file->{exposures}{map} }
+      : ();
     my $exposures_radio =
-      $mapping_file->{exposures}{radio}; # DELIBERATE -- hashref instead of hash
+      exists $mapping_file->{exposures}{radio}
+      ? $mapping_file->{exposures}{radio}
+      : {};    # DELIBERATE -- hashref instead of hash
     my $exposures_ontology =
       exists $mapping_file->{exposures}{ontology}
       ? $mapping_file->{exposures}{ontology}
       : $project_ontology;
 
     for my $field (@exposures_fields) {
-        next
-          unless defined $participant->{$field};
+        next unless defined $participant->{$field};
+
         my $exposure;
-        $exposure->{ageAtExposure} = $default_ontology;
-        $exposure->{date}          = '1900-01-01';
-        $exposure->{duration}      = 'P999Y';
+        $exposure->{ageAtExposure} =
+          exists $exposures_map{ageAtExposure}
+          ? $exposures_map{ageAtExposure}
+          : $default_ontology;
+        $exposure->{date} =
+          exists $exposures_map{date} ? $exposures_map{date} : $default_date;
+        $exposure->{duration} =
+          exists $exposures_map{duration}
+          ? $exposures_map{duration}
+          : $default_duration;
+
+        # Query related
         my $exposure_query =
           exists $exposures_dict{$field} ? $exposures_dict{$field} : $field;
         $exposure->{exposureCode} = map_ontology(
@@ -262,7 +289,7 @@ sub do_redcap2bff {
     # id
     # ==
 
-    # It will will a concatentaion of the @id_fields from mapping file
+    # Concatenation of the values in @id_fields (mapping file)
     my @id_fields = @{ $mapping_file->{id}{fields} };
     $individual->{id} = join ':', map { $participant->{$_} } @id_fields;
 
@@ -273,6 +300,8 @@ sub do_redcap2bff {
     my @info_fields = @{ $mapping_file->{info}{fields} };
     for my $field (@info_fields) {
         if ( defined $participant->{$field} ) {
+
+            # Ad hoc for 3TR
             if ( $project_id eq '3tr_ibd' ) {
                 $individual->{info}{$field} =
                   $field eq 'age'
@@ -314,6 +343,7 @@ sub do_redcap2bff {
       ? $mapping_file->{interventionsOrProcedures}{ontology}
       : $project_ontology;
 
+    # HERERERERERERER
     my %surgery = ();
     for ( 1 .. 8, 99 ) {
         $surgery{ 'surgery_details___' . $_ } =
@@ -330,7 +360,7 @@ sub do_redcap2bff {
             $intervention->{dateOfProcedure} =
                 $field eq 'endoscopy_performed'
               ? $participant->{endoscopy_date}
-              : '1900-01-01';
+              : $default_date;
             $intervention->{procedureCode} = map_ontology(
                 {
                     query    => $surgery{$field},
@@ -358,7 +388,10 @@ sub do_redcap2bff {
 
     # lab_remarks was removed
     my @measures_fields = @{ $mapping_file->{measures}{fields} };
-    my %measures_dict   = %{ $mapping_file->{measures}{dict} };
+    my %measures_dict =
+      exists $mapping_file->{measures}{dict}
+      ? %{ $mapping_file->{measures}{dict} }
+      : ();
     my $measures_ontology =
       exists $mapping_file->{measures}{ontology}
       ? $mapping_file->{measures}{ontology}
@@ -378,7 +411,7 @@ sub do_redcap2bff {
                 self     => $self,
             }
         );
-        $measure->{date} = '1900-01-01';
+        $measure->{date} = $default_date;
 
         # We first extract 'unit' and %range' for <measurementValue>
         my $tmp_str =
@@ -491,9 +524,9 @@ sub do_redcap2bff {
             && $participant->{$field} == 1 )
         {
 
-       #$phenotypicFeature->{evidence} = undef;    # P32Y6M1D
-       #$phenotypicFeature->{excluded} =
-       #  { quantity => { unit => { id => '', label => '' }, value => undef } };
+            #$phenotypicFeature->{evidence} = undef;    # P32Y6M1D
+            #$phenotypicFeature->{excluded} =
+            #  { quantity => { unit => { id => '', label => '' }, value => undef } };
             $phenotypicFeature->{featureType} = map_ontology(
                 {
                     query    => $field =~ m/comorb/ ? 'Comorbidity' : $field,
@@ -549,8 +582,14 @@ sub do_redcap2bff {
     #$individual->{treatments} = undef;
 
     my @treatments_fields = @{ $mapping_file->{treatments}{fields} };
-    my %drug              = %{ $mapping_file->{treatments}{dict} };
-    my @routes            = @{ $mapping_file->{treatments}{routes} };
+    my %drug =
+      exists $mapping_file->{treatments}{dict}
+      ? %{ $mapping_file->{treatments}{dict} }
+      : ();
+    my @routesOfAdministration =
+      exists $mapping_file->{treatments}{routesOfAdministration}
+      ? @{ $mapping_file->{treatments}{routesOfAdministration} }
+      : ();
     my $treatments_ontology =
       exists $mapping_file->{treatments}{ontology}
       ? $mapping_file->{treatments}{ontology}
@@ -562,7 +601,7 @@ sub do_redcap2bff {
         my $treatment_name = exists $drug{$field} ? $drug{$field} : $field;
 
         # FOR ROUTES
-        for my $route (@routes) {
+        for my $route (@routesOfAdministration) {
 
             # Rectal route only happens in some drugs (ad hoc)
             next
@@ -599,15 +638,13 @@ sub do_redcap2bff {
                   qw(start dose duration)
             };    # ***** INTERNAL FIELD
             $treatment->{ageAtOnset} =
-              { age => { iso8601duration => "P999Y" } };
+              { age => { iso8601duration => $default_duration } };
             $treatment->{cumulativeDose} =
               { unit => $default_ontology, value => -1 };
             $treatment->{doseIntervals}         = [];
             $treatment->{routeOfAdministration} = map_ontology(
                 {
-                    query => ucfirst($route)
-                      . ' Route of Administration'
-                    ,    # Oral Route of Administration
+                    query    => ucfirst($route) . ' Route of Administration',  # Oral Route of Administration
                     column   => 'label',
                     ontology => $treatments_ontology,
                     self     => $self

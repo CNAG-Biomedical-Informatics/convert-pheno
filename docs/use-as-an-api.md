@@ -20,15 +20,15 @@ where `data.json` looks like the below:
 
 ## Included APIs
 
-We included two flavours of the same API, one in `Perl` and another in `Python`.Both APIs were created by using OpenAPI 3.0.2 schema and should work out of the box with the [containerized version](https://github.com/mrueda/convert-pheno#containerized).
+We included two flavours of the same API, one in `Perl` and another in `Python`.Both APIs were created by using OpenAPI 3.0.2 schema and should work out of the box with the [containerized version](https://github.com/cnag-biomedical-informatics/convert-pheno#containerized).
 
 === "Perl version"
 
-    Please see more detailed instructions at this [README](https://github.com/mrueda/convert-pheno/tree/main/api/perl#readme-convert-pheno-api-perl-version).
+    Please see more detailed instructions at this [README](https://github.com/cnag-biomedical-informatics/convert-pheno/tree/main/api/perl#readme-convert-pheno-api-perl-version).
 
 === "Python version"
 
-    Please see more detailed instructions at this [README](https://github.com/mrueda/convert-pheno/tree/main/api/python#readme-convert-pheno-api-python-version).
+    Please see more detailed instructions at this [README](https://github.com/cnag-biomedical-informatics/convert-pheno/tree/main/api/python#readme-convert-pheno-api-python-version).
 
 !!! Question "Local or remote installation?"
     The API should be installed on a **local** server.

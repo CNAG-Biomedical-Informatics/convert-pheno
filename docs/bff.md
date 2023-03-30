@@ -13,15 +13,15 @@
 !!! Tip "Browsing BFF vs `JSON` data"
     You can browse a public BFF v2 file with the following **JSON viewers**:
 
-    * [JSON Crack](https://jsoncrack.com/editor?json=https://raw.githubusercontent.com/mrueda/convert-pheno/main/t/bff2pxf/in/individuals.json)
-    * [JSON Hero](https://jsonhero.io/new?url=https://raw.githubusercontent.com/mrueda/convert-pheno/main/t/bff2pxf/in/individuals.json)
-    * [Datasette](https://lite.datasette.io/?json=https%3A%2F%2Fraw.githubusercontent.com%2Fmrueda%2Fconvert-pheno%2Fmain%2Ft%2Fomop2bff%2Fout%2Findividuals.json#/data?sql=select+*+from+individuals)
+    * [JSON Crack](https://jsoncrack.com/editor?json=https://raw.githubusercontent.com/cnag-biomedical-informatics/convert-pheno/main/t/bff2pxf/in/individuals.json)
+    * [JSON Hero](https://jsonhero.io/new?url=https://raw.githubusercontent.com/cnag-biomedical-informatics/convert-pheno/main/t/bff2pxf/in/individuals.json)
+    * [Datasette](https://lite.datasette.io/?json=https%3A%2F%2Fraw.githubusercontent.com%2Fcnag-biomedical-informatics%2Fconvert-pheno%2Fmain%2Ft%2Fomop2bff%2Fout%2Findividuals.json#/data?sql=select+*+from+individuals)
 
 ## BFF (individuals) as input ![BFF](https://avatars.githubusercontent.com/u/33450937?s=200&v=4){ width="20" }
 
 === "Command-line"
 
-    When using the `convert-pheno` command-line interface, simply ensure the [correct syntax](https://github.com/mrueda/convert-pheno#synopsis) is provided.
+    When using the `convert-pheno` command-line interface, simply ensure the [correct syntax](https://github.com/cnag-biomedical-informatics/convert-pheno#synopsis) is provided.
 
     !!! Tip "About `JSON` data in `individuals.json`"
         If the file `individuals.json` is a JSON array of objects (for which each object corresponds to an individual), the output `-opxf` file will also be a JSON array.

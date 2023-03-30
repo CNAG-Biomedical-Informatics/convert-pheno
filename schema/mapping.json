@@ -111,7 +111,7 @@
             "type": "object"
           }
         },
-        "routes": {
+        "routesOfAdministration": {
           "type": "array",
           "items": {
             "type": "string"

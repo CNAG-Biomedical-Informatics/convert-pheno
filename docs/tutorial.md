@@ -4,7 +4,7 @@
 This page provides brief tutorials on how to perform data conversion by using `Convert-Pheno`**command-line interface**.
 
 !!! Info "Note on installation"
-    Before proceeding, ensure that the software is properly installed. In the following instructions, it will be assumed that you have downloaded and installed the [containerized version](https://github.com/mrueda/convert-pheno#containerized).
+    Before proceeding, ensure that the software is properly installed. In the following instructions, it will be assumed that you have downloaded and installed the [containerized version](https://github.com/cnag-biomedical-informatics/convert-pheno#containerized).
 
 ### How to convert:
 
@@ -19,24 +19,24 @@ This page provides brief tutorials on how to perform data conversion by using `C
     * Since REDCap projects are "free-format," a mapping file is necessary to connect REDCap project variables (i.e. fields) to something meaningful for `Convert-Pheno`. This mapping file will be used in the conversion process.
 
     !!! Question "What is a `Convert-Pheno` mapping file?"
-        A mapping file is a text file in [YAML](https://en.wikipedia.org/wiki/YAML) format ([JSON]((https://en.wikipedia.org/wiki/JSON) is also accepted) that connects a set of variables to a format that is understood by `Convert-Pheno`. This file maps your variables to the required **terms** of the [individuals](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema) entity from the Beacon v2 models.
+        A mapping file is a text file in [YAML](https://en.wikipedia.org/wiki/YAML) format ([JSON]((https://en.wikipedia.org/wiki/JSON) is also accepted) that connects a set of variables to a format that is understood by `Convert-Pheno`. This file maps your variables to the required **terms** of the [individuals](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema) entity from the Beacon v2 models, which serves a center model.
 
     ### Creating a mapping file
 
-    To create a mapping file, start by reviewing the [example mapping file](https://github.com/mrueda/convert-pheno/blob/main/t/redcap2bff/in/redcap_3tr_mapping.yaml) provided with the installation. The goal is to replace the contents of such file with those from your REDCap project. The mapping file contains the following types of data:
+    To create a mapping file, start by reviewing the [example mapping file](https://github.com/cnag-biomedical-informatics/convert-pheno/blob/main/t/redcap2bff/in/redcap_mapping.yaml) provided with the installation. The goal is to replace the contents of such file with those from your REDCap project. The mapping file contains the following types of data:
 
     | Type        | Required    | Required properties | Optional properties |
     | ----------- | ----------- | ------------------- | ------------------- |
     | Internal    | `project`   | `id, source, ontology` | ` description` |
-    | Beacon v2 terms   | `diseases, exposures, id, info, interventionsOrProcedures, measures, phenotypicFeatures, sex, treatments` | `fields`| `dict, map, radio, ontology, routes` |
+    | Beacon v2 terms   | `diseases, exposures, id, info, interventionsOrProcedures, measures, phenotypicFeatures, sex, treatments` | `fields`| `dict, map, radio, ontology, routesOfAdministration` |
 
      * These are the properties needeed to map your data to the entity `individuals` in the Beacon v2 Models:
         - **fields**, is an `array` consisting of the name of the REDCap variables that map to that Beacon v2 term.
-        - **map**, is an `object` in the form of `key: value` that we use to map our REDCap variables to objects from a given Beacon v2 term. For instance, you may have a field named `age_first_diagnosis` that it's called `ageOgOnset` on Beacon v2. In this case you will use `ageOfOnset: age_first_diagnosis`.
+        - **map**, is an `object` in the form of `key: value` that we use to map our Beacon v2 objects to REDCap variables. For instance, you may have a field named `age_first_diagnosis` that it's called `ageOgOnset` on Beacon v2. In this case you will use `ageOfOnset: age_first_diagnosis`.
         - **dict**, is an `object` in the form of `key: value`. The `key` represents the original variable name in REDCap and the `value` represents the "phrase" that will be used to query a database to find an ontology candidate. For instance, you may have a variable named `cigarettes_days`, but you know that in [NCIT](https://www.ebi.ac.uk/ols/ontologies/ncit) the label is `Average Number Cigarettes Smoked a Day`. In this case you will use `cigarettes_days: Average Number Cigarettes Smoked a Day`.
         - **radio**, a nested `object` value with specific mappings.
         - **ontology**, it's an string to define more granularly the ontology for this particular Beacon v2 term. If not present, the script will use that from `project.ontology`.
-        - **routes**, an `array` with specific mappings.
+        - **routesOfAdministration**, an `array` with specific mappings for `treatments`.
 
     !!! Tip "Defining the values in the property `dict`"
         Before assigning values to `dict` it's important that you think about which ontologies you want to use. The field `project.ontology` defines the ontology for the whole project, but you can also specify a another antology at the Beacon v2 term level. Once you know which ontologies to use, then try searching for such term to get an accorate label for it. For example, if you have chosen `ncit`, you can search for the values within NCIT at [EBI Search](https://www.ebi.ac.uk/ols/ontologies/ncit). `Convert-Pheno` will use these values to retrieve the actual ontology from its internal databases.

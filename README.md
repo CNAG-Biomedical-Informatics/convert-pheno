@@ -1,24 +1,24 @@
 <p align="left">
-  <a href="https://github.com/mrueda/convert-pheno"><img src="https://github.com/mrueda/convert-pheno/blob/main/docs/img/CP-logo.png" width="220" alt="Convert-Pheno"></a>
-  <a href="https://github.com/mrueda/convert-pheno"><img src="https://github.com/mrueda/convert-pheno/blob/main/docs/img/CP-text.png" width="500" alt="Convert-Pheno"></a>
+  <a href="https://github.com/cnag-biomedical-informatics/convert-pheno"><img src="https://github.com/cnag-biomedical-informatics/convert-pheno/blob/main/docs/img/CP-logo.png" width="220" alt="Convert-Pheno"></a>
+  <a href="https://github.com/cnag-biomedical-informatics/convert-pheno"><img src="https://github.com/cnag-biomedical-informatics/convert-pheno/blob/main/docs/img/CP-text.png" width="500" alt="Convert-Pheno"></a>
 </p>
 <p align="center">
     <em>A software toolkit for the interconversion of standard data models for phenotypic data</em>
 </p>
 
-[![Build and Test](https://github.com/mrueda/convert-pheno/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/mrueda/convert-pheno/actions/workflows/build-and-test.yml)
-[![Coverage Status](https://coveralls.io/repos/github/mrueda/convert-pheno/badge.svg?branch=main)](https://coveralls.io/github/mrueda/convert-pheno?branch=main)
-[![Docker Build](https://github.com/mrueda/convert-pheno/actions/workflows/docker-build.yml/badge.svg)](https://github.com/mrueda/convert-pheno/actions/workflows/docker-build.yml)
+[![Build and Test](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/build-and-test.yml)
+[![Coverage Status](https://coveralls.io/repos/github/cnag-biomedical-informatics/convert-pheno/badge.svg?branch=main)](https://coveralls.io/github/cnag-biomedical-informatics/convert-pheno?branch=main)
+[![Docker Build](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/docker-build.yml/badge.svg)](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/docker-build.yml)
 [![Docker Pulls](https://badgen.net/docker/pulls/manuelrueda/convert-pheno?icon=docker&label=pulls)](https://hub.docker.com/r/manuelrueda/convert-pheno/)
 [![Docker Image Size](https://badgen.net/docker/size/manuelrueda/convert-pheno?icon=docker&label=image%20size)](https://hub.docker.com/r/manuelrueda/convert-pheno/)
-[![Documentation Status](https://github.com/mrueda/convert-pheno/actions/workflows/documentation.yml/badge.svg)](https://github.com/mrueda/convert-pheno/actions/workflows/documentation.yml)
+[![Documentation Status](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/documentation.yml/badge.svg)](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/documentation.yml)
 ![version](https://img.shields.io/badge/version-0.0.0_alpha-orange)
 [![License: Artistic-2.0](https://img.shields.io/badge/License-Artistic%202.0-0298c3.svg)](https://opensource.org/licenses/Artistic-2.0)
 
 
-**Documentation**: <a href="https://mrueda.github.io/convert-pheno" target="_blank">https://mrueda.github.io/convert-pheno</a>
+**Documentation**: <a href="https://cnag-biomedical-informatics.github.io/convert-pheno" target="_blank">https://cnag-biomedical-informatics.github.io/convert-pheno</a>
 
-**Source Code**: <a href="https://github.com/mrueda/convert-pheno" target="_blank">https://github.com/mrueda/convert-pheno</a>
+**Source Code**: <a href="https://github.com/cnag-biomedical-informatics/convert-pheno" target="_blank">https://github.com/cnag-biomedical-informatics/convert-pheno</a>
 
 
 # NAME
@@ -106,7 +106,7 @@ See additional instructions below.
 
 Please download the `Dockerfile` from the repo:
 
-    wget https://raw.githubusercontent.com/mrueda/convert-pheno/main/Dockerfile
+    wget https://raw.githubusercontent.com/cnag-biomedical-informatics/convert-pheno/main/Dockerfile
 
 And then run:
 
@@ -133,8 +133,8 @@ The default container user is `root` but you can also run the container as `$UID
 
 Alternatively, you can use `make` to perform all the previous steps:
 
-    wget https://raw.githubusercontent.com/mrueda/convert-pheno/main/Dockerfile
-    wget https://raw.githubusercontent.com/mrueda/convert-pheno/main/makefile.docker
+    wget https://raw.githubusercontent.com/cnag-biomedical-informatics/convert-pheno/main/Dockerfile
+    wget https://raw.githubusercontent.com/cnag-biomedical-informatics/convert-pheno/main/makefile.docker
     make -f makefile.docker install
     make -f makefile.docker run
     make -f makefile.docker enter
@@ -159,7 +159,7 @@ Then I will do something like this:
 The script runs on command-line Linux and it has been tested on Debian/RedHat based distributions (only showing commands for Debian's). Perl 5 is installed by default on Linux, 
 but we will install a few CPAN modules with `cpanminus`.
 
-    git clone https://github.com/mrueda/convert-pheno.git
+    git clone https://github.com/cnag-biomedical-informatics/convert-pheno.git
     cd convert-pheno
 
 Now you have two choose between one of the 2 options below:
@@ -247,7 +247,7 @@ For executing convert-pheno you will need:
 
 The author requests that any published work that utilizes `Convert-Pheno` includes a cite to the the following reference:
 
-Rueda, M et al., (2023). Convert-Pheno: A software toolkit for the interconversion of standard data models for phenotypic data \[Software\]. Available from https://github.com/mrueda/convert-pheno
+Rueda, M et al., (2023). Convert-Pheno: A software toolkit for the interconversion of standard data models for phenotypic data \[Software\]. Available from https://github.com/cnag-biomedical-informatics/convert-pheno
 
 # AUTHOR 
 

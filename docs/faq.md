@@ -22,7 +22,7 @@ Frequently Asked Questions
 
 ??? faq "There are multiple [download](download-and-installation.md) options, which one should I choose?"
 
-    We recommend using the [containerized version](https://github.com/mrueda/convert-pheno#containerized).
+    We recommend using the [containerized version](https://github.com/cnag-biomedical-informatics/convert-pheno#containerized).
  
     ##### last change 2023-01-04 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
@@ -83,13 +83,13 @@ Frequently Asked Questions
 
 ??? faq "How are variables that cannot be mapped handled during the conversion process?"
 
-    When converting between different data standards, it is common to encounter situations where some variables cannot be directly mapped to their equivalent in the target standard. In such cases, we typically store the original variable under the _info_ property in the converted file.
+    When converting between different data standards, it is common to encounter situations where some variables cannot be directly mapped to their equivalent in the target standard. In such cases, the original variable is typically stored under the `info` property in the converted file. While Beacon v2 has a flexible schema that allows for this, Phenopackets v2 schema is more restrictive in this regard.
 
     ##### last change 2023-03-25 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
 ## Installation
 
-??? faq "I am installing `Convert-Pheno` from source ([non-containerized version](https://github.com/mrueda/convert-pheno#non-containerized)) but I can't make it work. Any suggestions?"
+??? faq "I am installing `Convert-Pheno` from source ([non-containerized version](https://github.com/cnag-biomedical-informatics/convert-pheno#non-containerized)) but I can't make it work. Any suggestions?"
 
     #### Problems with Python / PyPerler
 

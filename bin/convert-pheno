@@ -415,7 +415,7 @@ See additional instructions below.
 
 Please download the C<Dockerfile> from the repo:
 
-  wget https://raw.githubusercontent.com/mrueda/convert-pheno/main/Dockerfile
+  wget https://raw.githubusercontent.com/cnag-biomedical-informatics/convert-pheno/main/Dockerfile
 
 And then run:
 
@@ -441,8 +441,8 @@ The default container user is C<root> but you can also run the container as C<$U
  
 Alternatively, you can use C<make> to perform all the previous steps:
 
-  wget https://raw.githubusercontent.com/mrueda/convert-pheno/main/Dockerfile
-  wget https://raw.githubusercontent.com/mrueda/convert-pheno/main/makefile.docker
+  wget https://raw.githubusercontent.com/cnag-biomedical-informatics/convert-pheno/main/Dockerfile
+  wget https://raw.githubusercontent.com/cnag-biomedical-informatics/convert-pheno/main/makefile.docker
   make -f makefile.docker install
   make -f makefile.docker run
   make -f makefile.docker enter
@@ -467,7 +467,7 @@ Then I will do something like this:
 The script runs on command-line Linux and it has been tested on Debian/RedHat based distributions (only showing commands for Debian's). Perl 5 is installed by default on Linux, 
 but we will install a few CPAN modules with C<cpanminus>.
 
-  git clone https://github.com/mrueda/convert-pheno.git
+  git clone https://github.com/cnag-biomedical-informatics/convert-pheno.git
   cd convert-pheno
 
 Now you have two choose between one of the 2 options below:
@@ -559,7 +559,7 @@ B<Examples:>
 
 The author requests that any published work that utilizes C<Convert-Pheno> includes a cite to the the following reference:
 
-Rueda, M et al., (2023). Convert-Pheno: A software toolkit for the interconversion of standard data models for phenotypic data [Software]. Available from https://github.com/mrueda/convert-pheno
+Rueda, M et al., (2023). Convert-Pheno: A software toolkit for the interconversion of standard data models for phenotypic data [Software]. Available from https://github.com/cnag-biomedical-informatics/convert-pheno
 
 =head1 AUTHOR 
 

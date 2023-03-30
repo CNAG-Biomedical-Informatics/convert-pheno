@@ -141,5 +141,5 @@
       asa: aspirin 
       mtx: methotrexate
       mp: mercaptopurine
-    routes: [oral,rectal]
+    routesOfAdministration: [oral,rectal]
     ontology: ncit

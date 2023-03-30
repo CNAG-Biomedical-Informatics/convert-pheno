@@ -7,17 +7,17 @@ We provide several alternatives (containerized and non-containerized) for downlo
 
 === "Method 1: From Docker Hub"
 
-    Please follow the instructions provided in this [README](https://github.com/mrueda/convert-pheno#method-1-from-docker-hub).
+    Please follow the instructions provided in this [README](https://github.com/cnag-biomedical-informatics/convert-pheno#method-1-from-docker-hub).
 
 === "Method 2: With Dockerfile"
 
-    Please follow the instructions provided in this [README](https://github.com/mrueda/convert-pheno#method-2-with-dockerfile).
+    Please follow the instructions provided in this [README](https://github.com/cnag-biomedical-informatics/convert-pheno#method-2-with-dockerfile).
 
 ## Non-Containerized
 
 === "Method 3: From Github"
 
-    Please follow the instructions provided in this [README](https://github.com/mrueda/convert-pheno#non-containerized).
+    Please follow the instructions provided in this [README](https://github.com/cnag-biomedical-informatics/convert-pheno#non-containerized).
 
 === "Method 4: From CPAN"
 
