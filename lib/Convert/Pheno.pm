@@ -49,7 +49,7 @@ has search => (
 
     default => 'exact',
     is      => 'ro',
-    coerce  => sub { defined $_[0] ? $_[0] : 'exact' },
+    coerce  => sub { $_[0] // 'exact' },
     isa     => Enum [qw(exact mixed)]
 );
 
@@ -57,7 +57,7 @@ has text_similarity_method => (
 
     #default => 'cosine',
     is     => 'ro',
-    coerce => sub { defined $_[0] ? $_[0] : 'cosine' },
+    coerce => sub { $_[0] // 'cosine' },
     isa    => Enum [qw(cosine dice)]
 );
 
@@ -65,7 +65,7 @@ has min_text_similarity_score => (
 
     #default => 0.8,
     is     => 'ro',
-    coerce => sub { defined $_[0] ? $_[0] : 0.8 },
+    coerce => sub { $_[0] // 0.8 },
     isa    => sub {
         die "Only values between 0 .. 1 supported!"
           unless ( $_[0] >= 0.0 && $_[0] <= 1.0 );
@@ -77,15 +77,15 @@ has username => (
     default => ( $ENV{LOGNAME} || $ENV{USER} || getpwuid($<) ),
     is      => 'ro',
     coerce  => sub {
-        defined $_[0] ? $_[0] : ( $ENV{LOGNAME} || $ENV{USER} || getpwuid($<) );
+        $_[0] // ( $ENV{LOGNAME} || $ENV{USER} || getpwuid($<) );
     },
     isa => Str
 );
 
 has max_lines_sql => (
-    default => 500,                                   # Limit to speed up runtime
+    default => 500,                    # Limit to speed up runtime
     is      => 'ro',
-    coerce  => sub { defined $_[0] ? $_[0] : 500 },
+    coerce  => sub { $_[0] // 500 },
     isa     => Int
 );
 
@@ -108,10 +108,8 @@ has exposures_file => (
     default =>
       catfile( $lib_path, '../../db/concepts_candidates_2_exposure.csv' ),
     coerce => sub {
-        defined $_[0]
-          ? $_[0]
-          : catfile( $lib_path, '../../db/concepts_candidates_2_exposure.csv' )
-          ,;
+        $_[0]
+          // catfile( $lib_path, '../../db/concepts_candidates_2_exposure.csv' );
     },
     is  => 'ro',
     isa => Str
@@ -308,7 +306,7 @@ sub omop2bff {
         my @exts = map { $_, $_ . '.gz' } qw(.csv .tsv .sql);
 
         # Proceed
-        # The idea here is that we'll load ONLY ESSENTIAL TABLES 
+        # The idea here is that we'll load ONLY ESSENTIAL TABLES
         # regardless of wheter they are concepts or truly records.
         # Dictionaries (e.g. <CONCEPT>) will be parsed latter from $data
 
@@ -335,7 +333,7 @@ sub omop2bff {
 
                     # We'll ONLY load @stream_ram_memory_tables
                     # in RAM and the other tables as $fh
-                    $self->{omop_tables} = [ @stream_ram_memory_tables ];    # setter
+                    $self->{omop_tables} = [@stream_ram_memory_tables];    # setter
                     $data = read_sqldump( { in => $file, self => $self } );
                 }
 
@@ -351,8 +349,9 @@ sub omop2bff {
                 # as long as they have a match in @omop_essential_tables
                 # NB: --omop-tables has no effect
                 warn "<$table_name> is not a valid table in OMOP-CDM\n" and next
+
                   #unless (any { /^$table_name$/ } @{ $omop_main_table->{$omop_version} };
-                  unless  any { /^$table_name$/ } @omop_essential_tables;    # global
+                  unless any { /^$table_name$/ } @omop_essential_tables;    # global
 
                 # --no-stream
                 if ( !$self->{stream} ) {
@@ -386,15 +385,16 @@ sub omop2bff {
       unless exists $data->{CONCEPT};
 
     # We create a dictionary for $data->{CONCEPT}
-    $self->{data_ohdsi_dic} = transpose_ohdsi_dictionary( $data->{CONCEPT} );    # Dynamically adding attributes (setter)
+    $self->{data_ohdsi_dic} = transpose_ohdsi_dictionary( $data->{CONCEPT} );  # Dynamically adding attributes (setter)
 
     # We load the allowed concept_id for exposures as hashref (for --no--stream and --stream)
-    $self->{exposures} = load_exposures( $self->{exposures_file} );          # Dynamically adding attributes (setter)
+    $self->{exposures} = load_exposures( $self->{exposures_file} );            # Dynamically adding attributes (setter)
 
-     # We transpose $self->{data}{VISIT_OCCURRENCE} if present 
-    if (exists $data->{VISIT_OCCURRENCE}) {
-     $self->{visit_occurrence} = transpose_visit_occurrence($data->{VISIT_OCCURRENCE}); # Dynamically adding attributes (setter)
-     delete $data->{VISIT_OCCURRENCE};
+    # We transpose $self->{data}{VISIT_OCCURRENCE} if present
+    if ( exists $data->{VISIT_OCCURRENCE} ) {
+        $self->{visit_occurrence} =
+          transpose_visit_occurrence( $data->{VISIT_OCCURRENCE} );             # Dynamically adding attributes (setter)
+        delete $data->{VISIT_OCCURRENCE};
     }
 
     # Now we need to perform a tranformation of the data where 'person_id' is one row of data
@@ -666,13 +666,20 @@ sub omop_stream_dispatcher {
     my $person = { map { $_->{person_id} => $_ } @{ $self->{data}{PERSON} } };
 
     # Give back memory to RAM
-    delete  $self->{data}{PERSON};
+    delete $self->{data}{PERSON};
 
     # CSVs
     if (@$filepaths) {
         for (@$filepaths) {
             say "Processing file ... <$_>" if $self->{verbose};
-            read_csv_stream( { in => $_, sep => $self->{sep}, self => $self, person => $person } );
+            read_csv_stream(
+                {
+                    in     => $_,
+                    sep    => $self->{sep},
+                    self   => $self,
+                    person => $person
+                }
+            );
         }
     }
 

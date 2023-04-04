@@ -12,4 +12,4 @@ We have created a user-friendly **web application** that simplifies the process 
 
 ## Installation
 
-The software is containerized. Please see the instructions [here]().
+The software is containerized. Please see the instructions [here](https://github.com/cnag-biomedical-informatics/convert-pheno-ui).

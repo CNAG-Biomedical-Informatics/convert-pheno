@@ -194,7 +194,7 @@ my $data = {
 print Dumper $data if $debug;
 
 # Start printing to STDOUT
-say BOLD CYAN program_header($VERSION) if $verbose;
+say BOLD CYAN program_header($VERSION), RESET if $verbose;
 
 # Save log file if $log (before $data gets blessed)
 write_log( $log_file, $data ) if defined $log;

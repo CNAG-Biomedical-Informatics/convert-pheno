@@ -88,6 +88,9 @@ sub do_omop2bff {
     my $ohdsi_dic = $self->{data_ohdsi_dic};
     my $sth       = $self->{sth};
 
+    # Set default values
+    my $default_duration = 'P0Y';
+
     ####################################
     # START MAPPING TO BEACON V2 TERMS #
     ####################################
@@ -100,10 +103,10 @@ sub do_omop2bff {
     # $person = cursor to $participant->PERSON
     # $individual = output data
 
- # ABOUT REQUIRED PROPERTIES
- # 'id' and 'sex' are required properties in <individuals> entry type
- # 'person_id' must exist at this point otherwise it would have not been created
- # Premature return as undef
+    # ABOUT REQUIRED PROPERTIES
+    # 'id' and 'sex' are required properties in <individuals> entry type
+    # 'person_id' must exist at this point otherwise it would have not been created
+    # Premature return as undef
     return unless defined $person->{gender_concept_id};
 
     # ========
@@ -139,8 +142,8 @@ sub do_omop2bff {
                 age => {
                     iso8601duration => find_age(
 
-           #_birth_datetime => $person->{birth_datetime}, # Property not allowed
-           #_procedure_date => $field->{procedure_date},  # Property not allowed
+                        #_birth_datetime => $person->{birth_datetime}, # Property not allowed
+                        #_procedure_date => $field->{procedure_date},  # Property not allowed
                         {
 
                             date      => $field->{condition_start_date},
@@ -206,8 +209,7 @@ sub do_omop2bff {
 
     $individual->{ethnicity} = map_ontology(
         {
-            query => $person->{race_source_value}
-            ,    # not getting it from *_concept_id
+            query    => $person->{race_source_value},    # not getting it from *_concept_id
             column   => 'label',
             ontology => 'ncit',
 
@@ -250,12 +252,12 @@ sub do_omop2bff {
 
         for my $field ( @{ $participant->{$table} } ) {
 
-# Note that these changes with DEVEL_MODE affect phenotypicFeatures (also uses OBSERVATION)
+            # Note that these changes with DEVEL_MODE affect phenotypicFeatures (also uses OBSERVATION)
             $field->{observation_concept_id} = 35609831
               if DEVEL_MODE;    # Note that it affects
                                 #$field->{value_as_number} = 10 if DEVEL_MODE;
 
-# NB: Values in key hashes are stringfied so make a copy to keep them as integer
+            # NB: Values in key hashes are stringfied so make a copy to keep them as integer
             my $field_observation_concept_id = $field->{observation_concept_id};
             next
               unless exists $self->{exposures}{$field_observation_concept_id};
@@ -275,9 +277,8 @@ sub do_omop2bff {
 
             };
 
-            $exposure->{date} = $field->{observation_date};
-
-            #$exposure->{duration} = undef;
+            $exposure->{date}     = $field->{observation_date};
+            $exposure->{duration} = $default_duration;
 
             # _info
             $exposure->{_info}{$table}{OMOP_columns} = $field;
@@ -399,8 +400,8 @@ sub do_omop2bff {
 
                     iso8601duration => find_age(
 
-           #_birth_datetime => $person->{birth_datetime}, # Property not allowed
-           #_procedure_date => $field->{procedure_date},  # Property not allowed
+                        #_birth_datetime => $person->{birth_datetime}, # Property not allowed
+                        #_procedure_date => $field->{procedure_date},  # Property not allowed
                         {
 
                             date      => $field->{procedure_date},
@@ -506,7 +507,7 @@ sub do_omop2bff {
                 }
             ) if defined $field->{measurement_concept_id};
 
-            $measure->{date} = $field->{measurement_datetime};
+            $measure->{date} = $field->{measurement_date};
 
             my $unit = map2ohdsi(
                 {
@@ -517,7 +518,20 @@ sub do_omop2bff {
                 }
             );
 
-            $measure->{measurementValue} = {
+            # *** IMPORTANT ***
+            # We can get value_as_concept_id or as value_as_number
+            # NB: EUNOMIA always -- $field->{value_as_concept_id} = 0;
+            $field->{value_as_concept_id} = 18753 if DEVEL_MODE;
+
+            $measure->{measurementValue} =
+              $field->{value_as_concept_id} ? map2ohdsi(
+                {
+                    ohdsi_dic  => $ohdsi_dic,
+                    concept_id => $field->{value_as_concept_id},
+                    self       => $self
+                }
+              )
+              : {
                 quantity => {
                     unit           => $unit,
                     value          => $field->{value_as_number},
@@ -532,7 +546,7 @@ sub do_omop2bff {
                       )
                     : undef
                 }
-            };
+              };
 
             # notes MUST be string
             # _info (Autovivification)
@@ -547,7 +561,7 @@ sub do_omop2bff {
                     )
                 }
             };
-            $measure->{procedure} = $measure->{assayCode};
+            $measure->{procedure} = { procedureCode => $measure->{assayCode} };
 
             # NB: PROVISIONAL
             # Longitudinal data are not allowed yet in BFF/PXF
@@ -607,7 +621,7 @@ sub do_omop2bff {
 
         for my $field ( @{ $participant->{$table} } ) {
 
-# NB: Values in key hashes are stringfied so make a copy to keep them as integer
+            # NB: Values in key hashes are stringfied so make a copy to keep them as integer
             my $field_observation_concept_id = $field->{observation_concept_id};
             next
               if exists $self->{exposures}{$field_observation_concept_id};
@@ -633,8 +647,8 @@ sub do_omop2bff {
 
             $phenotypicFeature->{onset} = {
 
-        #_birth_datetime   => $person->{birth_datetime}, # property not allowed
-        #_observation_date => $field->{observation_date}, # property not allowed
+                #_birth_datetime   => $person->{birth_datetime}, # property not allowed
+                #_observation_date => $field->{observation_date}, # property not allowed
 
                 iso8601duration => find_age(
                     {
@@ -757,8 +771,8 @@ sub do_omop2bff {
             $treatment->{ageAtOnset} = {
                 age => {
 
-# _birth_datetime               => $person->{birth_datetime}, # property not allowed
-# _drug_exposure_start_datetime => $field->{drug_exposure_start_date},
+                    # _birth_datetime               => $person->{birth_datetime}, # property not allowed
+                    # _drug_exposure_start_datetime => $field->{drug_exposure_start_date},
                     iso8601duration => find_age(
                         {
                             date      => $field->{drug_exposure_start_date},

@@ -53,14 +53,17 @@ Frequently Asked Questions
 
 ??? faq "Which ontologies are supported?"
 
-    If the input files contain ontologies, the ontologies will be preserved and remain intact after the conversion process (except for the property `sex` which is converted to [NCIt](https://ncithesaurus.nci.nih.gov/ncitbrowser)):
+    If the input files contain ontologies, the ontologies will be preserved and remain intact after the conversion process, except for:
+
+    * _Beacon v2 Models_ and _Phenopackets v2_: the property `sex` is converted to [NCI Thesaurust](https://ncithesaurus.nci.nih.gov/ncitbrowser).
+    * _OMOP-CDM_: the properties `sex`, `ethnicity`, and `geographicOrigin` are converted to [NCI Thesaurus](https://ncithesaurus.nci.nih.gov/ncitbrowser).
 
     |                | REDCap      | CDISC-ODM  | OMOP-CDM | Phenopackets v2| Beacon v2 Models |
     | -----------    | ----------- | ---------- | -------  | -------------- | -----------------|
     | Data mapping   | :heavy_check_mark: |  :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
     | Add ontologies | :heavy_check_mark: |  :heavy_check_mark: | `--ohdsi-db` |     |                  |
 
-    For [REDCap](redcap.md) and [CDISC-ODM](cdisc-odm.md) we support:
+    For _REDCap_ and _CDISC-ODM_ we support:
 
     * [NCI Thesaurus](https://ncithesaurus.nci.nih.gov/ncitbrowser)
     * [ICD-10](https://icd.who.int/browse10)

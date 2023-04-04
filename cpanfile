@@ -27,3 +27,6 @@ requires 'PerlIO::gzip';
 requires 'IO::Socket::SSL';
 requires 'Mojolicious::Plugin::OpenAPI';
 #requires 'Future::AsyncAwait';  # for async/wait     
+
+# utils
+requires 'Hash::Fold';
