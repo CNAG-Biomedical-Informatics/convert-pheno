@@ -1,0 +1,429 @@
+"Variable / Field Name";"Form Name";"Section Header";"Field Type";"Field Label";"Choices, Calculations, OR Slider Labels";"Field Note";"Text Validation Type OR Show Slider Number";"Text Validation Min";"Text Validation Max";Identifier?;"Branching Logic (Show field only if...)";"Required Field?";"Custom Alignment";"Question Number (surveys only)";"Matrix Group Name";"Matrix Ranking?";"Field Annotation"
+study_id;ids;;text;Study-ID;;;;;;;;;;;;;
+last_name;ids;;text;"Last Name";;;;;;y;;y;;;;;
+first_name;ids;;text;"First Name";;;;;;y;;y;;;;;
+dob;ids;;text;"Date of birth";;;date_dmy;;;y;;y;;;;;
+consent;consents_and_demographics;;yesno;"Patient consented to BFU+/CED?";;;;;;;;y;;;;;
+consent_date;consents_and_demographics;;text;"Date of consent";;;date_dmy;;;;"[consent] = '1'";y;;;;;
+consent_noneu;consents_and_demographics;;yesno;"Patient consented to transfer of data/samples to non-EU countries?";;;;;;;"[consent] = '1'";y;;;;;
+consent_devices;consents_and_demographics;;yesno;"Patient consented to device studies?";;;;;;;"[consent] = '1'";y;;;;;
+consent_recontact;consents_and_demographics;;yesno;"Patient consented for the possibility to be recontacted for study purposes?";;;;;;;"[consent] = '1'";y;;;;;
+consent_week2_endo;consents_and_demographics;;yesno;"Patient consented for endoscopy at week 2?";;;;;;;"[consent] = '1'";y;;;;;
+diagnosis;consents_and_demographics;;radio;Diagnosis;"1, Crohn's Disease (CD) | 2, Ulcerative Colitis (UC) | 3, Indeterminate Colitis";"Definite Diagnosis > 3 months";;;;;;y;;;;;
+diagnosis_year;consents_and_demographics;;text;"Year of diagnosis";;;;;;;;y;;;;;
+used_drug;consents_and_demographics;;dropdown;"Drug in this study cycle";"1, Infliximab | 2, Adalimumab | 3, Certolizumab | 4, Golimumab | 5, Vedolizumab | 6, Ustekinumab | 7, Tofacitinib | 8, other | 9, Filgotinib | 10, Ozanimod";;autocomplete;;;;;y;;;;;
+other_study_drug;consents_and_demographics;;text;"Please specify other drug in study";;;;;;;"[used_drug] = '8'";y;;;;;
+sex;consents_and_demographics;;radio;"Biological Sex";"1, Female | 2, Male";;;;;;;y;;;;;
+gender;consents_and_demographics;;radio;Gender;"1, Female|2, Male|3, Other|4, not available";;;;;;;y;;;;;
+age;consents_and_demographics;;radio;"Current age";"1, 18-24|2, 25-29|3, 30-39|4, 40-49|5, 50-59|6, 60-69|7, 70+";;;;;;;y;;;;;
+age_first_diagnosis;consents_and_demographics;;radio;"Age at first diagnosis";"0, 0-9|1, 10-16|2, 17-24|3, 25-39|4, 40-59|5, 60+";;;;;;;y;;;;;
+ethnicity;consents_and_demographics;;radio;Ethnicity;"1, Caucasian | 2, Hispanic | 3, Asian | 4, African/African-American | 5, Indigenous American | 6, Mixed | 9, Other";;;;;;;y;;;;;
+education;consents_and_demographics;;radio;"Highest level of education";"1, Less than a high-school diploma (below Fachhochschulreife/Abitur) | 2, high-school diploma (Fachhochschulreife/Abitur) | 3, University";;;;;;;;;;;;
+zipcode;consents_and_demographics;;text;"ZIP code of residence";;;;;;;;y;;;;;
+height;consents_and_demographics;;text;"Body height";;cm;integer;0;250;;;y;;;;;
+comorb_asthma;anamnesis;;yesno;"Comorbidities - Asthma";;;;;;;;y;;;;;
+comorb_copd;anamnesis;;yesno;"Comorbidities - COPD";;;;;;;;y;;;;;
+comorb_ms;anamnesis;;yesno;"Comorbidities - demyelating disease/multiple sclerosis";;;;;;;;y;;;;;
+comorb_sle;anamnesis;;yesno;"Comorbidities - systemic lupus erythematosus";;;;;;;;y;;;;;
+comorb_ra;anamnesis;;yesno;"Comorbidities - rheumatoid arthritis";;;;;;;;y;;;;;
+comorb_pso;anamnesis;;yesno;"Comorbidities - psoriasis";;;;;;;;y;;;;;
+comorb_ad;anamnesis;;yesno;"Comorbidities - atopic dermatitis";;;;;;;;y;;;;;
+comorb_cancer;anamnesis;;yesno;"Comorbidities - cancer";;;;;;;;y;;;;;
+comorb_cancer_specified;anamnesis;;text;"Specify cancer entity";;;;;;;;;;;;;
+comorb_hypertension;anamnesis;;yesno;"Comorbidities - hypertension";;;;;;;;y;;;;;
+comorb_diabetes;anamnesis;;yesno;"Comorbidities - diabetes mellitus";;;;;;;;y;;;;;
+comorb_lipids;anamnesis;;yesno;"Comorbidities - Hyper-/dyslipidemia";;;;;;;;y;;;;;
+comorb_stroke;anamnesis;;yesno;"Comorbidities - Stroke";;;;;;;;y;;;;;
+comorb_other_ai;anamnesis;;yesno;"Comorbidities - other autoimmune disease";;;;;;;;y;;;;;
+comorb_other_ai_specified;anamnesis;;text;"Specify other autoimmune disease";;;;;;;"[comorb_other_ai] = '1'";;;;;;
+diet;anamnesis;;radio;"Eating habits";"0, Meat-Eating | 1, Vegetarian | 2, Vegan | 3, Pescetarian | 4, Paleo | 9, Unknown";;;;;;;y;;;;;
+food_intolerance;anamnesis;;checkbox;"Any food intolerances?";"1, Lactose|2, Fructose|3, Gluten/Wheat|4, Soy|5, Other|6, No intolerances";;;;;;;y;;;;;
+allergies;anamnesis;;yesno;"Any allergies known?";;;;;;;;y;;;;;
+allergies_detail;anamnesis;;text;"Allergies against:";;;;;;;"[allergies] = '1'";y;;;;;
+smoking;anamnesis;;radio;"Smoking habits";"0, Never smoked | 1, Ex-smoker | 2, Current smoker";;;;;;;y;;;;;
+cigarettes_days;anamnesis;;text;"On average, how many cigarettes do/did you smoke per day?";;;integer;0;300;;"[smoking] = '2' or [smoking] = '1'";;;;;;
+cigarettes_years;anamnesis;;text;"For how many years have you been smoking/did you smoke?";;;integer;0;100;;"[smoking] = '2' or [smoking] = '1'";;;;;;
+packyears;anamnesis;;text;"Pack Years";;;integer;0;300;;"[smoking] = '2' or [smoking] = '1'";;;;;;
+smoking_quit;anamnesis;;text;"When did you quit smoking?";;year;integer;1980;2030;;"[smoking] = '2'";;;;;;
+alcohol;anamnesis;;radio;"Alcohol drinking habits";"0, Non-drinker | 1, Ex-drinker | 2, occasional drinking | 3, regular drinking | 4, unknown";;;;;;;y;;;;;
+recreational_drugs;anamnesis;;yesno;"Other recreational drugs?";;;;;;;;y;;;;;
+drugs_detail;anamnesis;;text;"Which kind of recreational drugs?";;;;;;;"[recreational_drugs] = '1'";;;;;;
+family_history;anamnesis;;radio;"Family history of IBD";"1, Yes|2, No|3, Unknown";;;;;;;y;;;;;
+familymember;anamnesis;;checkbox;"Which family member positive for IBD?";"1, Father|2, Mother|3, Sibling|4, Child|5, Uncle/Aunt|6, Nephew/Niece|7, Grandfather/Grandmother|8, Grandchild|9, Other";;;;;;"[family_history] = '1'";y;;;;;
+immunodeficiency;anamnesis;;yesno;"Primary immunodeficiency known?";;;;;;;;y;;;;;
+past_surgery;anamnesis;;yesno;"Intestinal surgery known?";;;;;;;;y;;;;;
+surgery_details;anamnesis;;checkbox;"Which kind of surgery?";"1, Ileal/ileocoecalr esection | 2, Colostoma | 3, Ileostoma | 4, Perianal fistula surgery | 5, Colectomy | 6, Hemicolectomy | 7, Colonic resection | 8, Strictureplasty | 99, other";;;;;;"[past_surgery] = '1'";y;;;;;
+prev_endosc_dilatation;anamnesis;;yesno;"Previous endoscopic dilatation?";;;;;;;;y;;;;;
+prev_endosc_dil_number;anamnesis;;text;"Number of previous endoscopic dilatation";;;integer;;;;;y;;;;;
+extraintestinal;anamnesis;;yesno;"Are extraintestinal manifestations known?";;;;;;;;y;;;;;
+extraintestinal_details;anamnesis;;checkbox;"Specify extraintestinal manifestations:";"1, Axial arthropathy | 2, peripheral arthropathy | 3, Cutaneous | 4, ocular | 5, Primary sclerosis cholangitis | 6, thrombosis";;;;;;"[extraintestinal] = '1'";y;;;;;
+starting_date_info;anamnesis;;descriptive;"<div class=""rich-text-field-label""><p>Starting date: Please use format MM/YYYY. <br /><span style=""font-weight: normal;"">If the month is unknown, please type XX/YYYY. </span><br /><span style=""font-weight: normal;"">If the year is unknown, please type XX/XXXX.</span></p></div>";;;;;;;;;;;;;
+ibd_drugs;anamnesis;;descriptive;"<div class=""rich-text-field-label""><p> </p> <table style=""width: 100%; height: 189px; border-collapse: collapse;"" border=""1""> <tbody> <tr style=""height: 21px;""> <td style=""width: 17.9421%; height: 21px;"">IBD-related drugs</td> <td style=""width: 23.3106%; height: 21px;"">Status of medication</td> <td style=""width: 18.8664%; height: 21px;"">Dosage</td> <td style=""width: 15.7605%; height: 21px;"">If active: since when?</td> <td style=""width: 15.7605%;"">If active: starting date?</td> </tr> <tr style=""height: 21px;""> <td style=""width: 17.9421%; height: 21px;""><span style=""font-weight: normal;"">Prednisolone or equivalent</span></td> <td style=""width: 23.3106%; height: 21px;""><span style=""font-weight: normal;"">{prednisolone_status}</span></td> <td style=""width: 18.8664%; height: 21px;""> <p><span style=""font-weight: normal;"">{prednisolone_dose} </span></p> <p><span style=""font-weight: normal;"">mg/d</span></p> </td> <td style=""width: 15.7605%; height: 21px;""><span style=""font-weight: normal;"">{prednisolone_duration} weeks</span></td> <td style=""width: 15.7605%;""><span style=""font-weight: normal;"">{prednisolone_start}</span></td> </tr> <tr style=""height: 21px;""> <td style=""width: 17.9421%; height: 21px;""><span style=""font-weight: normal;"">Budesonid oral</span></td> <td style=""width: 23.3106%; height: 21px;""><span style=""font-weight: normal;"">{budesonide_oral_status}</span></td> <td style=""width: 18.8664%; height: 21px;""> <p><span style=""font-weight: normal;"">{budesonide_oral_dose} </span></p> <p><span style=""font-weight: normal;"">mg/d</span></p> </td> <td style=""width: 15.7605%; height: 21px;""><span style=""font-weight: normal;"">{budesonide_oral_duration} weeks</span></td> <td style=""width: 15.7605%;""><span style=""font-weight: normal;""> {budesonide_oral_start}</span></td> </tr> <tr style=""height: 21px;""> <td style=""width: 17.9421%; height: 21px;""><span style=""font-weight: normal;"">Budesonid rectal</span></td> <td style=""width: 23.3106%; height: 21px;""><span style=""font-weight: normal;"">{budesonide_rectal_status}</span></td> <td style=""width: 18.8664%; height: 21px;""> <p><span style=""font-weight: normal;"">{budesonide_rectal_dose} </span></p> <p><span style=""font-weight: normal;"">mg/d</span></p> </td> <td style=""width: 15.7605%; height: 21px;""><span style=""font-weight: normal;"">{budesonide_rectal_duration} weeks</span></td> <td style=""width: 15.7605%;""><span style=""font-weight: normal;""> {budesonide_rectal_start}</span></td> </tr> <tr style=""height: 21px;""> <td style=""width: 17.9421%; height: 21px;""><span style=""font-weight: normal;"">5-ASA oral</span></td> <td style=""width: 23.3106%; height: 21px;""><span style=""font-weight: normal;"">{asa_oral_status}</span></td> <td style=""width: 18.8664%; height: 21px;""> <p><span style=""font-weight: normal;"">{asa_oral_dose} </span></p> <p><span style=""font-weight: normal;"">mg/d</span></p> </td> <td style=""width: 15.7605%; height: 21px;""><span style=""font-weight: normal;"">{asa_oral_duration} weeks</span></td> <td style=""width: 15.7605%;""><span style=""font-weight: normal;""> {asa_oral_start}</span></td> </tr> <tr style=""height: 21px;""> <td style=""width: 17.9421%; height: 21px;""><span style=""font-weight: normal;"">5-ASA rectal</span></td> <td style=""width: 23.3106%; height: 21px;""><span style=""font-weight: normal;"">{asa_rectal_status}</span></td> <td style=""width: 18.8664%; height: 21px;""> <p><span style=""font-weight: normal;"">{asa_rectal_dose} </span></p> <p><span style=""font-weight: normal;"">mg/d</span></p> </td> <td style=""width: 15.7605%; height: 21px;""><span style=""font-weight: normal;"">{asa_rectal_duration} weeks</span></td> <td style=""width: 15.7605%;""><span style=""font-weight: normal;""> {asa_rectal_start}</span></td> </tr> <tr style=""height: 21px;""> <td style=""width: 17.9421%; height: 21px;""><span style=""font-weight: normal;"">MTX</span></td> <td style=""width: 23.3106%; height: 21px;""><span style=""font-weight: normal;"">{mtx_status}</span></td> <td style=""width: 18.8664%; height: 21px;""> <p><span style=""font-weight: normal;"">{mtx_dose} </span></p> <p><span style=""font-weight: normal;"">mg/weeks</span></p> </td> <td style=""width: 15.7605%; height: 21px;""><span style=""font-weight: normal;"">{mtx_duration} weeks</span></td> <td style=""width: 15.7605%;""><span style=""font-weight: normal;""> {mtx_start}</span></td> </tr> <tr style=""height: 21px;""> <td style=""width: 17.9421%; height: 21px;""><span style=""font-weight: normal;"">AZA</span></td> <td style=""width: 23.3106%; height: 21px;""><span style=""font-weight: normal;"">{aza_status}</span></td> <td style=""width: 18.8664%; height: 21px;""> <p><span style=""font-weight: normal;"">{aza_dose} </span></p> <p><span style=""font-weight: normal;"">mg/d</span></p> </td> <td style=""width: 15.7605%; height: 21px;""><span style=""font-weight: normal;"">{aza_duration} weeks</span></td> <td style=""width: 15.7605%;""><span style=""font-weight: normal;""> {aza_start}</span></td> </tr> <tr style=""height: 21px;""> <td style=""width: 17.9421%; height: 21px;""><span style=""font-weight: normal;"">6-MP</span></td> <td style=""width: 23.3106%; height: 21px;""><span style=""font-weight: normal;"">{mp_status}</span></td> <td style=""width: 18.8664%; height: 21px;""> <p><span style=""font-weight: normal;"">{mp_dose} </span></p> <p><span style=""font-weight: normal;"">mg/d</span></p> </td> <td style=""width: 15.7605%; height: 21px;""><span style=""font-weight: normal;"">{mp_duration} weeks</span></td> <td style=""width: 15.7605%;""><span style=""font-weight: normal;""> {mp_start}</span></td> </tr> </tbody> </table> <p> </p></div>";;;;;;;;;;;;;
+prior_biologics;anamnesis;;checkbox;"Prior exposure to another biological drug?";"1, Infliximab|2, Adalimumab|3, Certolizumab pegol|4, Golimumab|5, Vedolizumab|6, Ustekinumab|7, Tofacitinib|8, Phase II/III drug (no placebo)|9, None of the above";;;;;;;y;;;;;
+prednisolone_status;anamnesis;;dropdown;"Prednisolone status";"1, never treated|2, former treatment|3, current treatment";;;;;;;y;;;;;
+prednisolone_dose;anamnesis;;text;"Prednisolone dose";;mg/d;number;;;;"[prednisolone_status] = '3'";y;;;;;
+prednisolone_duration;anamnesis;;text;"Prednisolone duration";;weeks;integer;;;;"[prednisolone_status] = '3'";y;;;;;
+prednisolone_start;anamnesis;;text;"Prednisolone starting date";;;;;;;"[prednisolone_status] = '3'";;;;;;
+budesonide_oral_status;anamnesis;;dropdown;"Budesonide oral status";"1, never treated|2, former treatment|3, current treatment";;;;;;;y;;;;;
+budesonide_oral_dose;anamnesis;;text;"Budesonide oral dose";;;number;;;;"[budesonide_oral_status] = '3'";y;;;;;
+budesonide_oral_duration;anamnesis;;text;"Budesonide oral duration";;weeks;integer;;;;"[budesonide_oral_status] = '3'";y;;;;;
+budesonide_oral_start;anamnesis;;text;"Budesonide oral starting date";;;;;;;"[budesonide_oral_status] = '3'";;;;;;
+budesonide_rectal_status;anamnesis;;dropdown;"Budesonide rectal status";"1, never treated|2, former treatment|3, current treatment";;;;;;;y;;;;;
+budesonide_rectal_dose;anamnesis;;text;"Budesonide rectal dose";;mg/d;number;;;;"[budesonide_rectal_status] = '3'";y;;;;;
+budesonide_rectal_duration;anamnesis;;text;"Budesonide rectal duration";;weeks;integer;;;;"[budesonide_rectal_status] = '3'";y;;;;;
+budesonide_rectal_start;anamnesis;;text;"Budesonide rectal starting date";;;;;;;"[budesonide_rectal_status] = '3'";;;;;;
+asa_oral_status;anamnesis;;dropdown;"5-ASA oral status";"1, never treated|2, former treatment|3, current treatment";;;;;;;y;;;;;
+asa_oral_dose;anamnesis;;text;"5-ASA oral dose";;;number;;;;"[asa_oral_status] = '3'";y;;;;;
+asa_oral_duration;anamnesis;;text;"5-ASA oral duration";;;integer;;;;"[asa_oral_status] = '3'";y;;;;;
+asa_oral_start;anamnesis;;text;"5-ASA oral starting date";;;;;;;"[asa_oral_status] = '3'";;;;;;
+asa_rectal_status;anamnesis;;dropdown;"5-ASA rectal status";"1, never treated|2, former treatment|3, current treatment";;;;;;;y;;;;;
+asa_rectal_dose;anamnesis;;text;"5-ASA dose";;;number;;;;"[asa_rectal_status] = '3'";y;;;;;
+asa_rectal_duration;anamnesis;;text;"5-ASA duration";;;integer;;;;"[asa_rectal_status] = '3'";y;;;;;
+asa_rectal_start;anamnesis;;text;"5-ASA starting date";;;;;;;"[asa_rectal_status] = '3'";;;;;;
+mtx_status;anamnesis;;dropdown;"MTX status";"1, never treated|2, former treatment|3, current treatment";;;;;;;y;;;;;
+mtx_dose;anamnesis;;text;"MTX dose";;;number;;;;"[mtx_status] = '3'";y;;;;;
+mtx_duration;anamnesis;;text;"MTX duration";;;integer;;;;"[mtx_status] = '3'";y;;;;;
+mtx_start;anamnesis;;text;"MTX starting date";;;;;;;"[mtx_status] = '3'";;;;;;
+aza_status;anamnesis;;dropdown;"AZA status";"1, never treated|2, former treatment|3, current treatment";;;;;;;y;;;;;
+aza_dose;anamnesis;;text;"AZA dose";;;number;;;;"[aza_status] = '3'";y;;;;;
+aza_duration;anamnesis;;text;"AZA duration";;;integer;;;;"[aza_status] = '3'";y;;;;;
+aza_start;anamnesis;;text;"AZA starting date";;;;;;;"[aza_status] = '3'";;;;;;
+mp_status;anamnesis;;dropdown;"6-MP status";"1, never treated|2, former treatment|3, current treatment";;;;;;;y;;;;;
+mp_dose;anamnesis;;text;"6-MP dose";;;number;;;;"[mp_status] = '3'";y;;;;;
+mp_duration;anamnesis;;text;"6-MP duration";;;integer;;;;"[mp_status] = '3'";y;;;;;
+mp_start;anamnesis;;text;"6-MP starting date";;;;;;;"[mp_status] = '3'";;;;;;
+covid_questions;covid19;;yesno;"Did the patient return COVID-19 questionnaire or is he/she willing to take questions on COVID-19?";;;;;;;;y;;;;;
+covid_diagnosis;covid19;;yesno;"Have you been diagnosed with COVID-19?";;;;;;;"[covid_questions] = '1'";y;;;;;
+covid_diagnostic_test;covid19;;yesno;"Has your diagnosis been confirmed by a test (e.g. PCR or swab test, antigen test, autoantibody levels)?";;;;;;;"[covid_questions] = '1' and [covid_diagnosis] = '1'";;;;;;
+covid_hospitalised;covid19;;yesno;"Have you been hospitalised due to COVID-19?";;;;;;;"[covid_questions] = '1' and [covid_diagnosis] = '1'";;;;;;
+covid_vaccine;covid19;;yesno;"Have you been vaccinated against COVID-19?";;;;;;;"[covid_questions] = '1'";y;;;;;
+covid_vaccine_doses;covid19;;radio;"How many doses have you received?";"1, 1 shot | 2, 2 shots | 3, 3 shots | 4, 4 shots";;;;;;"[covid_questions] = '1' and [covid_vaccine] = '1'";;;;;;
+covid_vaccine_first;covid19;;radio;"Which vaccine did you receive the first time?";"1, Pfizer/Biontech vaccine (Comirnaty) | 2, Moderna vaccine | 3, AstraZeneca vaccine | 4, Johnson&Johnson vaccine | 5, SputnikV | 9, other";;;;;;"[covid_questions] = '1' and [covid_vaccine_doses] >= '1'";;;;;;
+covid_vaccine_second;covid19;;radio;"Which vaccine did you receive the second time?";"1, Pfizer/Biontech vaccine (Comirnaty) | 2, Moderna vaccine | 3, AstraZeneca vaccine | 4, Johnson&Johnson vaccine | 5, SputnikV | 9, other";;;;;;"[covid_questions] = '1' and [covid_vaccine_doses] >= '2'";;;;;;
+covid_vaccine_third;covid19;;radio;"Which vaccine did you receive the third time?";"1, Pfizer/Biontech vaccine (Comirnaty) | 2, Moderna vaccine | 3, AstraZeneca vaccine | 4, Johnson&Johnson vaccine | 5, SputnikV | 9, other";;;;;;"[covid_questions] = '1' and [covid_vaccine_doses] >= '3'";;;;;;
+covid_vaccine_forth;covid19;;radio;"Which vaccine did you receive the forth time?";"1, Pfizer/Biontech vaccine (Comirnaty) | 2, Moderna vaccine | 3, AstraZeneca vaccine | 4, Johnson&Johnson vaccine | 5, SputnikV | 9, other";;;;;;"[covid_questions] = '1' and [covid_vaccine_doses] = '4'";;;;;;
+date_visit;clinical_visit;;text;"Date of clinical visit";;;date_dmy;;;;;y;;;;;
+height_linked;clinical_visit;;calc;"Body height";[week_0_arm_1][height];cm;;;;;;;;;;;
+standard_weight;clinical_visit;;calc;"Standard weight";"round(100*(if([gender] = 2, [week_0_arm_1][height]*[week_0_arm_1][height]/10000*22.1, [week_0_arm_1][height]*[week_0_arm_1][height]/10000*22.1)))/100";;;;;;;;;;;;
+current_weight;clinical_visit;;text;"Current weight";;kg;integer;;;;;y;;;;;
+bmi;clinical_visit;;calc;BMI;round([current_weight]*1000000/([week_0_arm_1][height]*[week_0_arm_1][height]))/100;kg/m²;;;;;;;;;;;
+pga;clinical_visit;;radio;"Physician's global assessment";"0, 0 (normal)|1, 1 (mild disease)|2, 2 (moderate disease)|3, 3 (severe disease)";;;;;;;y;;;;;
+wellbeing;clinical_visit;;radio;"Patient well-being";"0, 0 = generally well | 1, 1 = slightly below par | 2, 2 = poor | 3, 3 = very poor | 4, 4 = terrible";;;;;;;y;;;;;
+treatment_intensification;clinical_visit;;yesno;"Treatment intensification including introduction of toxic long-term therapies (i.e. systemic glucocorticoids) since last visit?";;;;;;;;y;;;;;
+hospitalisation;clinical_visit;;yesno;"Hospitalisation since the last visit?";;;;;;;;y;;;;;
+current_infections;clinical_visit;;yesno;"Current infections or infections since the last visit?";;;;;;;;y;;;;;
+intestinal_surgery;clinical_visit;;yesno;"Intestinal surgery since the last visit?";;;;;;;;y;;;;;
+liver_disease;clinical_visit;;yesno;"New liver disease diagnosed since last visit?";;;;;;;;y;;;;;
+psoriasiformic;clinical_visit;;yesno;"New psoriasiformic skin lesions?";;;;;;;;y;;;;;
+clinical_symptoms;clinical_visit;;checkbox;"New clinically significant symptoms?";"1, Head/Throat|2, Circulation|3, Respiration|4, Renal|5, Limbs|6, Skin|7, CNS|8, Urogenital|9, None of the above";;;;;;;y;;;;;
+stool_frequency;clinical_visit;;radio;"Stool frequency score";"0, 0 (normal number of stools)|1, 1 (1-2 more than normal)|2, 2 (3-4 more than normal)|3, 3 (≥ 5 more than normal)";;;;;;;y;;;;;
+stool_liquid;clinical_visit;;text;"Number of liquid stools per day";;;number;0;40;;;y;;;;;
+antidiarrhea_drug;clinical_visit;;yesno;"Antidiarrheal drugs, e.g. Immodium";;;;;;;;y;;;;;
+rectal_bleeding;clinical_visit;;radio;"Rectal bleeding score";"0, 0 (none)|1, 1 (streaks of blood with stool in in less than half of the cases)|2, 2 (obvious blood with stools in most cases)|3, 3 (blood alone passes)";;;;;;;y;;;;;
+abdominal_pain;clinical_visit;;radio;"Abdominal pain";"0, 0 = none | 1, 1 = mild | 2, 2 = moderate | 3, 3 = severe";;;;;;;y;;;;;
+abdominal_mass;clinical_visit;;radio;"Abdominal mass";"5, Definite|2, Questionable|0, No";;;;;;;;;;;;
+joints;clinical_visit;"Extraintestinal manifestations";radio;Arthritis/Arthralgia;"1, yes|0, no";;;;;;;y;;;extraintestinal_manifestations;;
+eyes;clinical_visit;;radio;Iritis/Uveitis;"1, yes|0, no";;;;;;;y;;;extraintestinal_manifestations;;
+skin_ulcer;clinical_visit;;radio;"Erythema nodosum, Pyoderma gangrenosum, aphthous stomatitis";"1, yes|0, no";;;;;;;y;;;extraintestinal_manifestations;;
+anal;clinical_visit;;radio;"Anal fissure, fistula or abscess";"1, yes|0, no";;;;;;;y;;;extraintestinal_manifestations;;
+other_fistula;clinical_visit;;radio;"Other fistula";"1, yes|0, no";;;;;;;y;;;extraintestinal_manifestations;;
+fever;clinical_visit;;radio;"Fever over 37.8°C during past 7 days";"1, yes|0, no";;;;;;;y;;;extraintestinal_manifestations;;
+cd_pro2;clinical_visit;;calc;"PRO2 (CD)";"if([week_0_arm_1][diagnosis] = 1, [stool_liquid]*2+[abdominal_pain]*5, """")";;;;;;"[week_0_arm_1][diagnosis] = '1'";;;;;;
+cd_pro3;clinical_visit;;calc;"PRO3 (CD)";"if([week_0_arm_1][diagnosis] = 1, [stool_liquid]*2+[abdominal_pain]*5+[wellbeing]*7, """")";;;;;;"[week_0_arm_1][diagnosis] = '1'";;;;;;
+cdai;clinical_visit;;calc;CDAI;"if([week_0_arm_1][diagnosis] = 1, 
+round(
+[stool_liquid]*14+
+[abdominal_pain]*35+
+[wellbeing]*49+
+[joints]*20+[eyes]*20+[skin_ulcer]*20+[anal]*20+[other_fistula]*20+[fever]*20+
+[abdominal_mass]*10+
+[antidiarrhea_drug]*30+
+if ( ( if ( [week_0_arm_1][gender] = 2 , 47, 42) - [hematokrit]) < 0 , 0, (if([week_0_arm_1][gender] = 2 , 47, 42)-[hematokrit]))*6+
+if ( ( 100*( ( [week_0_arm_1][standard_weight]-[current_weight] ) / [week_0_arm_1][standard_weight] ) ) < -10, -10, 100*( ( [week_0_arm_1][standard_weight]-[current_weight] ) /[week_0_arm_1][standard_weight] ) ) )
+, """")";;;;;;"[week_0_arm_1][diagnosis] = '1'";;;;;;
+uc_pro2;clinical_visit;;calc;"PRO2 (UC)";"if([week_0_arm_1][diagnosis] = 2, [stool_frequency]+[rectal_bleeding], """")";;;;;;"[week_0_arm_1][diagnosis] = '2'";;;;;;
+partial_mayo;clinical_visit;;calc;"Partial Mayo score";"if([week_0_arm_1][diagnosis] = 2, [stool_frequency]+[rectal_bleeding]+[pga], """")";;;;;;"[week_0_arm_1][diagnosis] = '2'";;;;;;
+complete_mayo;clinical_visit;;calc;"Complete Mayo score";"if([week_0_arm_1][diagnosis] = 2, [stool_frequency]+[rectal_bleeding]+[pga]+[endo_mayo], """")";;;;;;"[endoscopy_performed] = '1' AND [week_0_arm_1][diagnosis] = '2'";;;;;;
+used_drug_2;clinical_visit;;descriptive;"<div class=""rich-text-field-label""><p>Current biologics agent:                                 [week_0_arm_1][used_drug]</p></div>";;;;;;;;;;;;;
+current_prednisolon_dose;clinical_visit;;text;"Current prednisolon dose";;mg/d;number;;;;;y;;;;;
+current_dose;clinical_visit;;text;"Current dose (incl today's treatment)";;mg;number;;;;;y;;;;;
+cumulative_dose;clinical_visit;;text;"Cumulative dose (with today's treatment)";;mg;number;;;;;y;;;;;
+response;clinical_visit;;yesno;"Has the patient achieved a satisfactory response to treatment?";;"No at baseline/week 0";;;;;;y;RH;;;;
+low_activity;clinical_visit;;yesno;"Is the patient in a low disease activity state?";;;;;;;;y;RH;;;;
+remission;clinical_visit;;yesno;"Is the patient in remission?";;;;;;;;y;RH;;;;
+phga;clinical_visit;;slider;"Physician's global assessment
+
+How do you rate your patient's current disease
+activity?
+
+The bar indicates a scale from 0 to 100.";"0 - complete inactivity |  | 100 - maximal possible activity";;number;;;;;y;RH;;;;
+paga;clinical_visit;;slider;"Patient's global assessment
+
+Considering all the ways your disease has affected
+you, how active do you feel your disease has been
+during the last week?
+
+The bar indicates a scale from 0 to 100. ";"0 - complete inactivity |  | 100 - maximal possible activity";;number;;;;;;RH;;;;
+hemoglobin;routine_lab_values;;text;Hemoglobin;;"xx.x g/dl";number;0;20;;;y;;;;;
+leucocytes;routine_lab_values;;text;Leucocytes;;"xx.xx /10^-9 l";number;0;200;;;y;;;;;
+hematokrit;routine_lab_values;;text;Hematokrit;;"xx.x %";number;0;100;;;y;;;;;
+mcv;routine_lab_values;;text;"Mean red cell volume (MCV)";;"xx.x fl";number;0;200;;;y;;;;;
+mhc;routine_lab_values;;text;"Mean red cell haemoglobin (MCH)";;"xx.x pg";number;0;100;;;y;;;;;
+thrombocytes;routine_lab_values;;text;Thrombocytes;;"xxxx /10^-9 l";number;0;2000;;;y;;;;;
+neutrophils;routine_lab_values;;text;Neutrophils;;"x.xx /10^-9 l";number;0;100;;;;;;;;
+lymphocytes;routine_lab_values;;text;Lymphocytes;;"x.xx /10^-9 l";number;0;100;;;;;;;;
+eosinophils;routine_lab_values;;text;Eosinophils;;"x.xx /10^-9 l";number;0;100;;;;;;;;
+creatinine;routine_lab_values;;text;Creatinine;;"xxx µmol/l";number;0;10000;;;y;;;;;
+gfr;routine_lab_values;;text;"GFR CKD-Epi";;"xxx ml/min/1.73";number;0;200;;;y;;;;;
+bilirubin;routine_lab_values;;text;Bilirubin;;"xxx.x µmol/l";number;0;10000;;;y;;;;;
+gpt;routine_lab_values;;text;GPT;;"xx.x U/l";number;0;10000;;;y;;;;;
+ggt;routine_lab_values;;text;gammaGT;;"xx.x U/l";number;0;10000;;;y;;;;;
+lipase;routine_lab_values;;text;Lipase;;"xx.x U/l";number;0;10000;;;;;;;;
+crp;routine_lab_values;;text;CRP;;"xxx.x mg/l";number;0;1000;;;y;;;;;
+iron;routine_lab_values;;text;Iron;;"xx.x µmol/l";number;0;1000;;;;;;;;
+il6;routine_lab_values;;text;IL-6;;"xxxx.x ng/l";number;0;10000;;;;;;;;
+lab_remarks;routine_lab_values;;text;"Remarks on the blood values";;;;;;;;;;;;;
+stool_diagnostic;routine_lab_values;;descriptive;"Stool Diagnostics";;;;;;;;;;;;;
+calprotectin;routine_lab_values;;text;Calprotectin;;"mg/kg stool";integer;;;;;;;;;;
+endoscopy_performed;endoscopy;;yesno;"Endoscopy performed?";;;;;;;;y;;;;;
+endoscopy_date;endoscopy;;text;"Date of endoscopy";;;date_dmy;;;;"[endoscopy_performed] = '1'";y;;;;;
+sescd;endoscopy;;text;"SES-CD score";;;integer;;;;"[endoscopy_performed] = '1' AND [week_0_arm_1][diagnosis] = '1'";y;;;;;
+cdeis;endoscopy;;text;CDEIS;;;integer;;;;"[endoscopy_performed] = '1' AND [week_0_arm_1][diagnosis] = '1'";;;;;;
+cd_location;endoscopy;;radio;"Location of inflammation";"1, terminal ileal +/- limited ceacal disease | 2, colonic | 3, ileocolonic | 4, only upper GI disease | 9, no inflammation";;;;;;"[endoscopy_performed] = '1' AND [week_0_arm_1][diagnosis] = '1'";y;;;;;
+cd_disease_behaviour;endoscopy;;radio;"Behaviour of disease";"1, Non stricturing non penetrating|2, Stricturing|3, Penetrating";;;;;;"[endoscopy_performed] = '1' AND [week_0_arm_1][diagnosis] = '1'";y;;;;;
+cd_perianal;endoscopy;;yesno;"Perianal fistula?";;;;;;;"[endoscopy_performed] = '1' AND [week_0_arm_1][diagnosis] = '1'";y;;;;;
+extent_uc;endoscopy;;radio;"Extent of the disease";"0, Proctitis | 1, Rectosigmoiditis | 2, Left-sided collitis | 3, Pancolitis | 4, Other | 5, No inflammation";;;;;;"[endoscopy_performed] = '1' AND [week_0_arm_1][diagnosis] = '2'";y;;;;;
+extent_uc_hidden;endoscopy;;calc;"Extent Hidden";"if ([extent_uc] = 0, 1, if ([extent_uc] = 1, 2, if ([extent_uc] = 2, 2, if ([extent_uc] = 3, 3, """"))))";;;;;;"[endoscopy_performed] = '1' AND [week_0_arm_1][diagnosis] = '2'";;;;;;" @HIDDEN"
+endo_mayo;endoscopy;;radio;"Endoscopic Mayo score";"0, 0|1, 1|2, 2|3, 3";;;;;;"[endoscopy_performed] = '1' AND [week_0_arm_1][diagnosis] = '2'";y;;;;;
+uc_montreal;endoscopy;;descriptive;"<div class=""rich-text-field-label""><p>Montreal classification (UC):                                                                  E[extent_uc_hidden] S[endo_mayo]</p></div>";;;;;;;"[endoscopy_performed] = '1' AND [week_0_arm_1][diagnosis] = '2'";;;;;;
+nancy_index;endoscopy;;text;"Nancy histology index (grade)";;;integer;0;4;;"[endoscopy_performed] = '1' AND [week_0_arm_1][diagnosis] = '2'";y;;;;;
+nancy_explanation;endoscopy;;descriptive;"<div class=""rich-text-field-label""><table style=""border-collapse: collapse; width: 43.2914%; height: 113px;"" border=""1""> <tbody> <tr> <td style=""width: 14.6466%; text-align: center;"">Nancy Index</td> <td style=""width: 14.6466%; text-align: center;""><span style=""font-weight: normal;"">0</span></td> <td style=""width: 14.6466%; text-align: center;""><span style=""font-weight: normal;"">1</span></td> <td style=""width: 14.6466%; text-align: center;""><span style=""font-weight: normal;"">2</span></td> <td style=""width: 14.6466%; text-align: center;""><span style=""font-weight: normal;"">3</span></td> <td style=""width: 14.6466%; text-align: center;""><span style=""font-weight: normal;"">4</span></td> </tr> <tr> <td style=""width: 14.6466%; text-align: center;"">Sum of subscores</td> <td style=""width: 14.6466%; text-align: center;""><span style=""font-weight: normal;"">0</span></td> <td style=""width: 14.6466%; text-align: center;""><span style=""font-weight: normal;"">1-3</span></td> <td style=""width: 14.6466%; text-align: center;""><span style=""font-weight: normal;"">5</span></td> <td style=""width: 14.6466%; text-align: center;""><span style=""font-weight: normal;"">6-7</span></td> <td style=""width: 14.6466%; text-align: center;""><span style=""font-weight: normal;"">8-9</span></td> </tr> </tbody> </table></div>";;;;;;;"[endoscopy_performed] = '1' AND [week_0_arm_1][diagnosis] = '2'";;;;;;
+nancy_index_ulceration;endoscopy;;radio;"Nancy histology index: Ulceration";"0, 0 - none|2, 2 - yes";;;;;;"[endoscopy_performed] = '1' AND [week_0_arm_1][diagnosis] = '2'";y;;;;;
+nancy_index_acute;endoscopy;;radio;"Nancy histology index: Acute inflammatory cell infiltrate";"0, 0 - none|2, 2 - mild|3, 3 - moderate|4, 4 - severe";;;;;;"[endoscopy_performed] = '1' AND [week_0_arm_1][diagnosis] = '2'";y;;;;;
+nancy_index_chronic;endoscopy;;radio;"Nancy histology index: Chronic inflammatory infiltrates";"0, 0 - none|1, 1 - mild|3, 3 - moderate or marked increase";;;;;;"[endoscopy_performed] = '1' AND [week_0_arm_1][diagnosis] = '2'";y;;;;;
+pro_available;prosquestionnaires;;yesno;"Did the patient receive, fill out and return the questionnaires?";;;;;;;;y;LV;;;;
+urgency_nrs;prosquestionnaires;;radio;"Bowel Urgency/Stuhldrang";"0, 0 | 1, 1 | 2, 2 | 3, 3 | 4, 4 | 5, 5 | 6, 6 | 7, 7 | 8, 8 | 9, 9 | 10, 10";;;;;;"[pro_available] = '1'";;LH;;;;
+eq5d_vas;prosquestionnaires;"<div class=""rich-text-field-label""><h2>EQ-5D questionnaire</h2></div>";slider;"EQ-5D - Visual Analog Scale";"0 |  | 100";;number;;;;"[pro_available] = '1'";y;RH;;;;
+eq5d_q1;prosquestionnaires;;radio;"EQ-5D - Question 1 (Mobility)";"1, 1|2, 2|3, 3|4, 4|5, 5|6, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+eq5d_q2;prosquestionnaires;;radio;"EQ-5D - Question 2 (Self-care)";"1, 1|2, 2|3, 3|4, 4|5, 5|6, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+eq5d_q3;prosquestionnaires;;radio;"EQ-5D - Question 3 (Usual activities)";"1, 1|2, 2|3, 3|4, 4|5, 5|6, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+eq5d_q4;prosquestionnaires;;radio;"EQ-5D - Question 4 (Pain/Discomfort)";"1, 1|2, 2|3, 3|4, 4|5, 5|6, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+eq5d_q5;prosquestionnaires;;radio;"EQ-5D - Question 5 (Anxiety/Depression)";"1, 1|2, 2|3, 3|4, 4|5, 5|6, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+facit_gp1;prosquestionnaires;"<div class=""rich-text-field-label""><h2>FACIT-F questionnaire (Version 4)</h2></div><br><br>Physical Wellbeing";radio;GP1;"0, 0|1, 1|2, 2|3, 3|4, 4|5, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+facit_gp1_count;prosquestionnaires;;calc;"GP1 count";"if ([facit_gp1] = ""5"", 0, if ([facit_gp1] < ""5"", 1, 0))";;;;;;;;;;;;" @HIDDEN"
+facit_gp2;prosquestionnaires;;radio;GP2;"0, 0|1, 1|2, 2|3, 3|4, 4|5, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+facit_gp2_count;prosquestionnaires;;calc;"GP2 count";"if ([facit_gp2] = ""5"", 0, if ([facit_gp2] < ""5"", 1, 0))";;;;;;;;;;;;" @HIDDEN"
+facit_gp3;prosquestionnaires;;radio;GP3;"0, 0|1, 1|2, 2|3, 3|4, 4|5, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+facit_gp3_count;prosquestionnaires;;calc;"GP3 count";"if ([facit_gp3] = ""5"", 0, if ([facit_gp3] < ""5"", 1, 0))";;;;;;;;;;;;" @HIDDEN"
+facit_gp4;prosquestionnaires;;radio;GP4;"0, 0|1, 1|2, 2|3, 3|4, 4|5, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+facit_gp4_count;prosquestionnaires;;calc;"GP4 count";"if ([facit_gp4] = ""5"", 0, if ([facit_gp4] < ""5"", 1, 0))";;;;;;;;;;;;" @HIDDEN"
+facit_gp5;prosquestionnaires;;radio;GP5;"0, 0|1, 1|2, 2|3, 3|4, 4|5, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+facit_gp5_count;prosquestionnaires;;calc;"GP5 count";"if ([facit_gp5] = ""5"", 0, if ([facit_gp5] < ""5"", 1, 0))";;;;;;;;;;;;" @HIDDEN"
+facit_gp6;prosquestionnaires;;radio;GP6;"0, 0|1, 1|2, 2|3, 3|4, 4|5, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+facit_gp6_count;prosquestionnaires;;calc;"GP6 count";"if ([facit_gp6] = ""5"", 0, if ([facit_gp6] < ""5"", 1, 0))";;;;;;;;;;;;" @HIDDEN"
+facit_gp7;prosquestionnaires;;radio;GP7;"0, 0|1, 1|2, 2|3, 3|4, 4|5, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+facit_gp7_count;prosquestionnaires;;calc;"GP7 count";"if ([facit_gp7] = ""5"", 0, if ([facit_gp7] < ""5"", 1, 0))";;;;;;;;;;;;" @HIDDEN"
+facit_pwb_score;prosquestionnaires;;calc;"PWB score";"((if([facit_gp1] < ""5"", 4-[facit_gp1], 0))+(if([facit_gp2] < ""5"", 4-[facit_gp2], 0))+(if([facit_gp3] < ""5"", 4-[facit_gp3], 0))+(if([facit_gp4] < ""5"", 4-[facit_gp4], 0))+(if([facit_gp5] < ""5"", 4-[facit_gp5], 0))+(if([facit_gp6] < ""5"", 4-[facit_gp6], 0))+
+(if([facit_gp7] < ""5"", 4-[facit_gp7], 0)))*7/([facit_gp1_count]+[facit_gp2_count]+[facit_gp3_count]+[facit_gp4_count]+[facit_gp5_count]+[facit_gp6_count]+[facit_gp7_count])";;;;;;;;;;;;" @HIDDEN"
+facit_gs1;prosquestionnaires;"Social Function";radio;GS1;"0, 0|1, 1|2, 2|3, 3|4, 4|5, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+facit_gs1_count;prosquestionnaires;;calc;"GS1 count";"if ([facit_gs1] = ""5"", 0, if ([facit_gs1] < ""5"", 1, 0))";;;;;;;;;;;;" @HIDDEN"
+facit_gs2;prosquestionnaires;;radio;GS2;"0, 0|1, 1|2, 2|3, 3|4, 4|5, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+facit_gs2_count;prosquestionnaires;;calc;"GS2 count";"if ([facit_gs2] = ""5"", 0, if ([facit_gs2] < ""5"", 1, 0))";;;;;;;;;;;;" @HIDDEN"
+facit_gs3;prosquestionnaires;;radio;GS3;"0, 0|1, 1|2, 2|3, 3|4, 4|5, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+facit_gs3_count;prosquestionnaires;;calc;"GS3 count";"if ([facit_gs3] = ""5"", 0, if ([facit_gs3] < ""5"", 1, 0))";;;;;;;;;;;;" @HIDDEN"
+facit_gs4;prosquestionnaires;;radio;GS4;"0, 0|1, 1|2, 2|3, 3|4, 4|5, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+facit_gs4_count;prosquestionnaires;;calc;"GS4 count";"if ([facit_gs4] = ""5"", 0, if ([facit_gs4] < ""5"", 1, 0))";;;;;;;;;;;;" @HIDDEN"
+facit_gs5;prosquestionnaires;;radio;GS5;"0, 0|1, 1|2, 2|3, 3|4, 4|5, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+facit_gs5_count;prosquestionnaires;;calc;"GS5 count";"if ([facit_gs5] = ""5"", 0, if ([facit_gs5] < ""5"", 1, 0))";;;;;;;;;;;;" @HIDDEN"
+facit_gs6;prosquestionnaires;;radio;GS6;"0, 0|1, 1|2, 2|3, 3|4, 4|5, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+facit_gs6_count;prosquestionnaires;;calc;"GS6 count";"if ([facit_gs6] = ""5"", 0, if ([facit_gs6] < ""5"", 1, 0))";;;;;;;;;;;;" @HIDDEN"
+facit_q1;prosquestionnaires;;checkbox;Q1;"1, Yes";;;;;;"[pro_available] = '1'";;LH;;;;
+facit_gs7;prosquestionnaires;;radio;GS7;"0, 0|1, 1|2, 2|3, 3|4, 4|5, no data";;;;;;"[facit_q1(1)] = '1'";y;LH;;;;
+facit_gs7_count;prosquestionnaires;;calc;"GS7 count";"if ([facit_gs7] = ""5"", 0, if ([facit_gs7] < ""5"", 1, 0))";;;;;;;;;;;;" @HIDDEN"
+facit_swb_score;prosquestionnaires;;calc;"SWB score";"((if([facit_gs1] < ""5"", [facit_gs1], 0))+(if([facit_gs2] < ""5"", [facit_gs2], 0))+(if([facit_gs3] < ""5"", [facit_gs3], 0))+(if([facit_gs4] < ""5"", [facit_gs4], 0))+(if([facit_gs5] < ""5"", [facit_gs5], 0))+(if([facit_gs6] < ""5"", [facit_gs6], 0))+
+(if([facit_gs7] < ""5"", [facit_gs7], 0)))*7/([facit_gs1_count]+[facit_gs2_count]+[facit_gs3_count]+[facit_gs4_count]+[facit_gs5_count]+[facit_gs6_count]+[facit_gs7_count])";;;;;;;;;;;;" @HIDDEN"
+facit_ge1;prosquestionnaires;"Emotional Wellbeing";radio;GE1;"0, 0|1, 1|2, 2|3, 3|4, 4|5, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+facit_ge1_count;prosquestionnaires;;calc;"GE1 count";"if ([facit_ge1] = ""5"", 0, if ([facit_ge1] < ""5"", 1, 0))";;;;;;;;;;;;" @HIDDEN"
+facit_ge2;prosquestionnaires;;radio;GE2;"0, 0|1, 1|2, 2|3, 3|4, 4|5, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+facit_ge2_count;prosquestionnaires;;calc;"GE2 count";"if ([facit_ge2] = ""5"", 0, if ([facit_ge2] < ""5"", 1, 0))";;;;;;;;;;;;" @HIDDEN"
+facit_ge3;prosquestionnaires;;radio;GE3;"0, 0|1, 1|2, 2|3, 3|4, 4|5, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+facit_ge3_count;prosquestionnaires;;calc;"GE3 count";"if ([facit_ge3] = ""5"", 0, if ([facit_ge3] < ""5"", 1, 0))";;;;;;;;;;;;" @HIDDEN"
+facit_ge4;prosquestionnaires;;radio;GE4;"0, 0|1, 1|2, 2|3, 3|4, 4|5, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+facit_ge4_count;prosquestionnaires;;calc;"GE4 count";"if ([facit_ge4] = ""5"", 0, if ([facit_ge4] < ""5"", 1, 0))";;;;;;;;;;;;" @HIDDEN"
+facit_ge5;prosquestionnaires;;radio;GE5;"0, 0|1, 1|2, 2|3, 3|4, 4|5, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+facit_ge5_count;prosquestionnaires;;calc;"GE5 count";"if ([facit_ge5] = ""5"", 0, if ([facit_ge5] < ""5"", 1, 0))";;;;;;;;;;;;" @HIDDEN"
+facit_ge6;prosquestionnaires;;radio;GE6;"0, 0|1, 1|2, 2|3, 3|4, 4|5, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+facit_ge6_count;prosquestionnaires;;calc;"GE6 count";"if ([facit_ge6] = ""5"", 0, if ([facit_ge6] < ""5"", 1, 0))";;;;;;;;;;;;" @HIDDEN"
+facit_ewb_score;prosquestionnaires;;calc;"EWB score";"((if([facit_ge1] < ""5"", 4-[facit_ge1], 0))+(if([facit_ge2] < ""5"", [facit_ge2], 0))+(if([facit_ge3] < ""5"", 4-[facit_ge3], 0))+(if([facit_ge4] < ""5"", 4-[facit_ge4], 0))+(if([facit_ge5] < ""5"", 4-[facit_ge5], 0))+(if([facit_ge6] < ""5"", 4-[facit_ge6], 0)))*7/([facit_ge1_count]+[facit_ge2_count]+[facit_ge3_count]+[facit_ge4_count]+[facit_ge5_count]+[facit_ge6_count])";;;;;;;;;;;;" @HIDDEN"
+facit_gf1;prosquestionnaires;Functionality;radio;GF1;"0, 0|1, 1|2, 2|3, 3|4, 4|5, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+facit_gf1_count;prosquestionnaires;;calc;"GF1 count";"if ([facit_gf1] = ""5"", 0, if ([facit_gf1] < ""5"", 1, 0))";;;;;;;;;;;;" @HIDDEN"
+facit_gf2;prosquestionnaires;;radio;GF2;"0, 0|1, 1|2, 2|3, 3|4, 4|5, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+facit_gf2_count;prosquestionnaires;;calc;"GF2 count";"if ([facit_gf2] = ""5"", 0, if ([facit_gf2] < ""5"", 1, 0))";;;;;;;;;;;;" @HIDDEN"
+facit_gf3;prosquestionnaires;;radio;GF3;"0, 0|1, 1|2, 2|3, 3|4, 4|5, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+facit_gf3_count;prosquestionnaires;;calc;"GF3 count";"if ([facit_gf3] = ""5"", 0, if ([facit_gf3] < ""5"", 1, 0))";;;;;;;;;;;;" @HIDDEN"
+facit_gf4;prosquestionnaires;;radio;GF4;"0, 0|1, 1|2, 2|3, 3|4, 4|5, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+facit_gf4_count;prosquestionnaires;;calc;"GF4 count";"if ([facit_gf4] = ""5"", 0, if ([facit_gf4] < ""5"", 1, 0))";;;;;;;;;;;;" @HIDDEN"
+facit_gf5;prosquestionnaires;;radio;GF5;"0, 0|1, 1|2, 2|3, 3|4, 4|5, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+facit_gf5_count;prosquestionnaires;;calc;"GF5 count";"if ([facit_gf5] = ""5"", 0, if ([facit_gf5] < ""5"", 1, 0))";;;;;;;;;;;;" @HIDDEN"
+facit_gf6;prosquestionnaires;;radio;GF6;"0, 0|1, 1|2, 2|3, 3|4, 4|5, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+facit_gf6_count;prosquestionnaires;;calc;"GF6 count";"if ([facit_gf6] = ""5"", 0, if ([facit_gf6] < ""5"", 1, 0))";;;;;;;;;;;;" @HIDDEN"
+facit_gf7;prosquestionnaires;;radio;GF7;"0, 0|1, 1|2, 2|3, 3|4, 4|5, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+facit_gf7_count;prosquestionnaires;;calc;"GF7 count";"if ([facit_gf7] = ""5"", 0, if ([facit_gf7] < ""5"", 1, 0))";;;;;;;;;;;;" @HIDDEN"
+facit_fwb_score;prosquestionnaires;;calc;"FWB score";"((if([facit_gf1] < ""5"", [facit_gf1], 0))+(if([facit_gf2] < ""5"", [facit_gf2], 0))+(if([facit_gf3] < ""5"", [facit_gf3], 0))+(if([facit_gf4] < ""5"", [facit_gf4], 0))+(if([facit_gf5] < ""5"", [facit_gf5], 0))+(if([facit_gf6] < ""5"", [facit_gf6], 0))+
+(if([facit_gf7] < ""5"", [facit_gf7], 0)))*7/([facit_gf1_count]+[facit_gf2_count]+[facit_gf3_count]+[facit_gf4_count]+[facit_gf5_count]+[facit_gf6_count]+[facit_gf7_count])";;;;;;;;;;;;" @HIDDEN"
+facit_hi7;prosquestionnaires;"Additional factors";radio;HI7;"0, 0|1, 1|2, 2|3, 3|4, 4|5, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+facit_hi7_count;prosquestionnaires;;calc;"HI7 count";"if ([facit_hi7] = ""5"", 0, if ([facit_hi7] < ""5"", 1, 0))";;;;;;;;;;;;" @HIDDEN"
+facit_hi12;prosquestionnaires;;radio;HI12;"0, 0|1, 1|2, 2|3, 3|4, 4|5, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+facit_hi12_count;prosquestionnaires;;calc;"HI12 count";"if ([facit_hi12] = ""5"", 0, if ([facit_hi12] < ""5"", 1, 0))";;;;;;;;;;;;" @HIDDEN"
+facit_an1;prosquestionnaires;;radio;An1;"0, 0|1, 1|2, 2|3, 3|4, 4|5, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+facit_an1_count;prosquestionnaires;;calc;"An1 count";"if ([facit_an1] = ""5"", 0, if ([facit_an1] < ""5"", 1, 0))";;;;;;;;;;;;" @HIDDEN"
+facit_an2;prosquestionnaires;;radio;An2;"0, 0|1, 1|2, 2|3, 3|4, 4|5, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+facit_an2_count;prosquestionnaires;;calc;"An2 count";"if ([facit_an2] = ""5"", 0, if ([facit_an2] < ""5"", 1, 0))";;;;;;;;;;;;" @HIDDEN"
+facit_an3;prosquestionnaires;;radio;An3;"0, 0|1, 1|2, 2|3, 3|4, 4|5, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+facit_an3_count;prosquestionnaires;;calc;"An3 count";"if ([facit_an3] = ""5"", 0, if ([facit_an3] < ""5"", 1, 0))";;;;;;;;;;;;" @HIDDEN"
+facit_an4;prosquestionnaires;;radio;An4;"0, 0|1, 1|2, 2|3, 3|4, 4|5, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+facit_an4_count;prosquestionnaires;;calc;"An4 count";"if ([facit_an4] = ""5"", 0, if ([facit_an4] < ""5"", 1, 0))";;;;;;;;;;;;" @HIDDEN"
+facit_an5;prosquestionnaires;;radio;An5;"0, 0|1, 1|2, 2|3, 3|4, 4|5, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+facit_an5_count;prosquestionnaires;;calc;"An5 count";"if ([facit_an5] = ""5"", 0, if ([facit_an5] < ""5"", 1, 0))";;;;;;;;;;;;" @HIDDEN"
+facit_an7;prosquestionnaires;;radio;An7;"0, 0|1, 1|2, 2|3, 3|4, 4|5, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+facit_an7_count;prosquestionnaires;;calc;"An7 count";"if ([facit_an7] = ""5"", 0, if ([facit_an7] < ""5"", 1, 0))";;;;;;;;;;;;" @HIDDEN"
+facit_an8;prosquestionnaires;;radio;An8;"0, 0|1, 1|2, 2|3, 3|4, 4|5, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+facit_an8_count;prosquestionnaires;;calc;"An8 count";"if ([facit_an8] = ""5"", 0, if ([facit_an8] < ""5"", 1, 0))";;;;;;;;;;;;" @HIDDEN"
+facit_an12;prosquestionnaires;;radio;An12;"0, 0|1, 1|2, 2|3, 3|4, 4|5, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+facit_an12_count;prosquestionnaires;;calc;"An12 count";"if ([facit_an12] = ""5"", 0, if ([facit_an12] < ""5"", 1, 0))";;;;;;;;;;;;" @HIDDEN"
+facit_an14;prosquestionnaires;;radio;An14;"0, 0|1, 1|2, 2|3, 3|4, 4|5, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+facit_an14_count;prosquestionnaires;;calc;"An14 count";"if ([facit_an14] = ""5"", 0, if ([facit_an14] < ""5"", 1, 0))";;;;;;;;;;;;" @HIDDEN"
+facit_an15;prosquestionnaires;;radio;An15;"0, 0|1, 1|2, 2|3, 3|4, 4|5, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+facit_an15_count;prosquestionnaires;;calc;"An15 count";"if ([facit_an15] = ""5"", 0, if ([facit_an15] < ""5"", 1, 0))";;;;;;;;;;;;" @HIDDEN"
+facit_an16;prosquestionnaires;;radio;An16;"0, 0|1, 1|2, 2|3, 3|4, 4|5, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+facit_an16_count;prosquestionnaires;;calc;"An16 count";"if ([facit_an16] = ""5"", 0, if ([facit_an16] < ""5"", 1, 0))";;;;;;;;;;;;" @HIDDEN"
+facit_fs;prosquestionnaires;;calc;"Fatigue subscale";"((if([facit_hi7] < ""5"", 4-[facit_hi7], 0))+
+(if([facit_hi12] < ""5"", 4-[facit_hi12], 0))+
+(if([facit_an1] < ""5"", 4-[facit_an1], 0))+
+(if([facit_an2] < ""5"", 4-[facit_an2], 0))+
+(if([facit_an3] < ""5"", 4-[facit_an3], 0))+
+(if([facit_an4] < ""5"", 4-[facit_an4], 0))+
+(if([facit_an5] < ""5"", [facit_an5], 0))+
+(if([facit_an7] < ""5"", [facit_an7], 0))+
+(if([facit_an8] < ""5"", 4-[facit_an8], 0))+
+(if([facit_an12] < ""5"", 4-[facit_an12], 0))+
+(if([facit_an14] < ""5"", 4-[facit_an14], 0))+
+(if([facit_an15] < ""5"", 4-[facit_an15], 0))+
+(if([facit_an16] < ""5"", 4-[facit_an16], 0)))
+*13/([facit_hi7_count]+[facit_hi12_count]+[facit_an1_count]+[facit_an2_count]+[facit_an3_count]+[facit_an4_count]+[facit_an5_count]+[facit_an7_count]+[facit_an8_count]+[facit_an12_count]+[facit_an14_count]+[facit_an15_count]+[facit_an16_count])";;;;;;;;;;;;" @HIDDEN"
+facit_toi;prosquestionnaires;;calc;"FACIT-F Trial Outcome Index";[facit_pwb_score]+[facit_fwb_score]+[facit_fs];;;;;;;;;;;;" @HIDDEN"
+facit_fact_g_score;prosquestionnaires;;calc;"FACT-G total score";[facit_pwb_score]+[facit_swb_score]+[facit_ewb_score]+[facit_fwb_score];;;;;;;;;;;;" @HIDDEN"
+facit_total_score;prosquestionnaires;;calc;"FACIT-F total score";[facit_pwb_score]+[facit_swb_score]+[facit_ewb_score]+[facit_fwb_score]+[facit_fs];;;;;;;;;;;;" @HIDDEN"
+promis_eddep04;prosquestionnaires;"<div class=""rich-text-field-label""><h2>PROMIS Depression Short Form 8a</h2></div>";radio;"EDDEP 04";"1, 1|2, 2|3, 3|4, 4|5, 5|6, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+promis_eddep06;prosquestionnaires;;radio;"EDDEP 06";"1, 1|2, 2|3, 3|4, 4|5, 5|6, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+promis_eddep29;prosquestionnaires;;radio;"EDDEP 29";"1, 1|2, 2|3, 3|4, 4|5, 5|6, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+promis_eddep41;prosquestionnaires;;radio;"EDDEP 41";"1, 1|2, 2|3, 3|4, 4|5, 5|6, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+promis_eddep22;prosquestionnaires;;radio;"EDDEP 22";"1, 1|2, 2|3, 3|4, 4|5, 5|6, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+promis_eddep36;prosquestionnaires;;radio;"EDDEP 36";"1, 1|2, 2|3, 3|4, 4|5, 5|6, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+promis_eddep05;prosquestionnaires;;radio;"EDDEP 05";"1, 1|2, 2|3, 3|4, 4|5, 5|6, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+promis_eddep09;prosquestionnaires;;radio;"EDDEP 09";"1, 1|2, 2|3, 3|4, 4|5, 5|6, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+sf36_q1;prosquestionnaires;"<div class=""rich-text-field-label""><h2>SF-36 questionnaire</h2></div>";radio;"SF-36 : Question 1";"1, 1|2, 2|3, 3|4, 4|5, 5|6, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+sf36_q2;prosquestionnaires;;radio;"SF-36 : Question 2";"1, 1|2, 2|3, 3|4, 4|5, 5|6, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+sf36_q3a;prosquestionnaires;"SF-36 : Question 3";radio;a;"1, 1|2, 2|3, 3|4, no data";;;;;;"[pro_available] = '1'";y;;;sf36_q3;;
+sf36_q3b;prosquestionnaires;;radio;b;"1, 1|2, 2|3, 3|4, no data";;;;;;"[pro_available] = '1'";y;;;sf36_q3;;
+sf36_q3c;prosquestionnaires;;radio;c;"1, 1|2, 2|3, 3|4, no data";;;;;;"[pro_available] = '1'";y;;;sf36_q3;;
+sf36_q3d;prosquestionnaires;;radio;d;"1, 1|2, 2|3, 3|4, no data";;;;;;"[pro_available] = '1'";y;;;sf36_q3;;
+sf36_q3e;prosquestionnaires;;radio;e;"1, 1|2, 2|3, 3|4, no data";;;;;;"[pro_available] = '1'";y;;;sf36_q3;;
+sf36_q3f;prosquestionnaires;;radio;f;"1, 1|2, 2|3, 3|4, no data";;;;;;"[pro_available] = '1'";y;;;sf36_q3;;
+sf36_q3g;prosquestionnaires;;radio;g;"1, 1|2, 2|3, 3|4, no data";;;;;;"[pro_available] = '1'";y;;;sf36_q3;;
+sf36_q3h;prosquestionnaires;;radio;h;"1, 1|2, 2|3, 3|4, no data";;;;;;"[pro_available] = '1'";y;;;sf36_q3;;
+sf36_q3i;prosquestionnaires;;radio;i;"1, 1|2, 2|3, 3|4, no data";;;;;;"[pro_available] = '1'";y;;;sf36_q3;;
+sf36_q3j;prosquestionnaires;;radio;j;"1, 1|2, 2|3, 3|4, no data";;;;;;"[pro_available] = '1'";y;;;sf36_q3;;
+sf36_q4a;prosquestionnaires;"SF-36 : Question 4";radio;a;"1, 1|2, 2|3, no data";;;;;;"[pro_available] = '1'";y;;;sf36_q4;;
+sf36_q4b;prosquestionnaires;;radio;b;"1, 1|2, 2|3, no data";;;;;;"[pro_available] = '1'";y;;;sf36_q4;;
+sf36_q4c;prosquestionnaires;;radio;c;"1, 1|2, 2|3, no data";;;;;;"[pro_available] = '1'";y;;;sf36_q4;;
+sf36_q4d;prosquestionnaires;;radio;d;"1, 1|2, 2|3, no data";;;;;;"[pro_available] = '1'";y;;;sf36_q4;;
+sf36_q5a;prosquestionnaires;"SF-36 : Question 5";radio;a;"1, 1|2, 2|3, no data";;;;;;"[pro_available] = '1'";y;;;sf36_q5;;
+sf36_q5b;prosquestionnaires;;radio;b;"1, 1|2, 2|3, no data";;;;;;"[pro_available] = '1'";y;;;sf36_q5;;
+sf36_q5c;prosquestionnaires;;radio;c;"1, 1|2, 2|3, no data";;;;;;"[pro_available] = '1'";y;;;sf36_q5;;
+sf36_q6;prosquestionnaires;;radio;"SF-36 : Question 6";"1, 1|2, 2|3, 3|4, 4|5, 5|6, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+sf36_q7;prosquestionnaires;;radio;"SF-36 : Question 7";"1, 1|2, 2|3, 3|4, 4|5, 5|6, 6|7, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+sf36_q8;prosquestionnaires;;radio;"SF-36 : Question 8";"1, 1|2, 2|3, 3|4, 4|5, 5|6, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+sf36_q9a;prosquestionnaires;"SF 36 : Question 9";radio;a;"1, 1|2, 2|3, 3|4, 4|5, 5|6, 6|7, no data";;;;;;"[pro_available] = '1'";y;;;sf36_q9;;
+sf36_q9b;prosquestionnaires;;radio;b;"1, 1|2, 2|3, 3|4, 4|5, 5|6, 6|7, no data";;;;;;"[pro_available] = '1'";y;;;sf36_q9;;
+sf36_q9c;prosquestionnaires;;radio;c;"1, 1|2, 2|3, 3|4, 4|5, 5|6, 6|7, no data";;;;;;"[pro_available] = '1'";y;;;sf36_q9;;
+sf36_q9d;prosquestionnaires;;radio;d;"1, 1|2, 2|3, 3|4, 4|5, 5|6, 6|7, no data";;;;;;"[pro_available] = '1'";y;;;sf36_q9;;
+sf36_q9e;prosquestionnaires;;radio;e;"1, 1|2, 2|3, 3|4, 4|5, 5|6, 6|7, no data";;;;;;"[pro_available] = '1'";y;;;sf36_q9;;
+sf36_q9f;prosquestionnaires;;radio;f;"1, 1|2, 2|3, 3|4, 4|5, 5|6, 6|7, no data";;;;;;"[pro_available] = '1'";y;;;sf36_q9;;
+sf36_q9g;prosquestionnaires;;radio;g;"1, 1|2, 2|3, 3|4, 4|5, 5|6, 6|7, no data";;;;;;"[pro_available] = '1'";y;;;sf36_q9;;
+sf36_q9h;prosquestionnaires;;radio;h;"1, 1|2, 2|3, 3|4, 4|5, 5|6, 6|7, no data";;;;;;"[pro_available] = '1'";y;;;sf36_q9;;
+sf36_q9i;prosquestionnaires;;radio;i;"1, 1|2, 2|3, 3|4, 4|5, 5|6, 6|7, no data";;;;;;"[pro_available] = '1'";y;;;sf36_q9;;
+sf36_q10;prosquestionnaires;;radio;"SF-36 : Question 10";"1, 1|2, 2|3, 3|4, 4|5, 5|6, no data";;;;;;"[pro_available] = '1'";y;LH;;;;
+sf36_q11a;prosquestionnaires;"SF-36 : Question 11";radio;a;"1, 1|2, 2|3, 3|4, 4|5, 5|6, no data";;;;;;"[pro_available] = '1'";y;;;sf36_q11;;
+sf36_q11b;prosquestionnaires;;radio;b;"1, 1|2, 2|3, 3|4, 4|5, 5|6, no data";;;;;;"[pro_available] = '1'";y;;;sf36_q11;;
+sf36_q11c;prosquestionnaires;;radio;c;"1, 1|2, 2|3, 3|4, 4|5, 5|6, no data";;;;;;"[pro_available] = '1'";y;;;sf36_q11;;
+sf36_q11d;prosquestionnaires;;radio;d;"1, 1|2, 2|3, 3|4, 4|5, 5|6, no data";;;;;;"[pro_available] = '1'";y;;;sf36_q11;;
+audit_c_1;prosquestionnaires;"<div class=""rich-text-field-label""><h2>AUDIT-C</h2></div>";radio;"How often do you drink alcohol?";"0, never | 1, 1x/month | 2, 2-4x/month | 3, 2-3x/week | 4, 4x or more/week | 9, no data";;;;;;;;LH;;;;
+audit_c_2;prosquestionnaires;;radio;"If you drink alcohol, how many alcoholic drinks do you usually drink?";"0, 1-2 | 1, 3-4 | 2, 5-6 | 3, 7-8 | 4, 10 or more | 9, no data";;;;;;;;LH;;;;
+audit_c_3;prosquestionnaires;;radio;"How often did you drink 6 or more drinks on a day within the last year?";"0, never | 1, fewer than 1x/month | 2, 1x/month | 3, 1x/week | 4, daily or almost daily | 9, no data";;;;;;;;LH;;;;
+who5_header;prosquestionnaires;;descriptive;"<div class=""rich-text-field-label""><h2>WHO-5</h2></div>";;;;;;;;;;;;;
+who5_1;prosquestionnaires;WHO5;radio;"question 1";"5, All of the time | 4, Most of the time | 3, More than half the time | 2, Less than half the time | 1, Some of the time | 0, At no time | 9, no data";;;;;;;y;;;who5;;
+who5_2;prosquestionnaires;;radio;"question 2";"5, All of the time | 4, Most of the time | 3, More than half the time | 2, Less than half the time | 1, Some of the time | 0, At no time | 9, no data";;;;;;;y;;;who5;;
+who5_3;prosquestionnaires;;radio;"question 3";"5, All of the time | 4, Most of the time | 3, More than half the time | 2, Less than half the time | 1, Some of the time | 0, At no time | 9, no data";;;;;;;y;;;who5;;
+who5_4;prosquestionnaires;;radio;"question 4";"5, All of the time | 4, Most of the time | 3, More than half the time | 2, Less than half the time | 1, Some of the time | 0, At no time | 9, no data";;;;;;;y;;;who5;;
+who5_5;prosquestionnaires;;radio;"question 5";"5, All of the time | 4, Most of the time | 3, More than half the time | 2, Less than half the time | 1, Some of the time | 0, At no time | 9, no data";;;;;;;y;;;who5;;
+study_blood_available;biosampling;;yesno;"Was study blood sampled?";;;;;;;;y;;;;;
+study_blood_date;biosampling;;text;"Date of blood collection";;;date_dmy;;;;"[study_blood_available] = '1'";;LV;;;;
+blood_set;biosampling;;checkbox;"Which blood samples arrived and have been processed?";"1, 2x EDTA | 2, 1x Heparin | 3, 1x Serum | 4, 1x EDTA-Plasma | 5, 1x PAX";;;;;;"[study_blood_available] = '1'";y;LH;;;;
+blood_overview;biosampling;;descriptive;"<div class=""rich-text-field-label""><table style=""width: 90.35%; height: 154px; border-collapse: collapse;"" border=""1""> <tbody> <tr style=""height: 22px;""> <td style=""width: 18.77%; height: 22px;"">Samples</td> <td style=""width: 75.15%; height: 22px;"">IDs</td> <td style=""width: 1.64%; height: 22px;"">Aliquot numbers</td> </tr> <tr style=""height: 22px;""> <td style=""width: 18.77%; height: 22px;"">2x EDTA</td> <td style=""width: 75.15%; height: 22px;"">{id_pbmc}</td> <td style=""width: 1.64%; height: 22px;"">{number_pbmc}</td> </tr> <tr style=""height: 44px;""> <td style=""width: 18.77%; height: 44px;"">1x EDTA (Smarttube)</td> <td style=""width: 75.15%; height: 44px;"">{id_smart}</td> <td style=""width: 1.64%; height: 44px;"">{number_smart}</td> </tr> <tr> <td style=""width: 18.77%;"">1x Smarttube + CisPt</td> <td style=""width: 75.15%;"">{id_cispt}</td> <td style=""width: 1.64%;"">{number_cispt}</td> </tr> <tr style=""height: 44px;""> <td style=""width: 18.77%; height: 44px;"">1x Serum</td> <td style=""width: 75.15%; height: 44px;"">{id_serum}</td> <td style=""width: 1.64%; height: 44px;"">{number_serum}</td> </tr> <tr> <td style=""width: 18.77%;"">1x EDTA-Plasma</td> <td style=""width: 75.15%;"">{id_plasma}</td> <td style=""width: 1.64%;"">{number_plasma}</td> </tr> <tr style=""height: 22px;""> <td style=""width: 18.77%; height: 22px;"">1x PAX</td> <td style=""width: 75.15%; height: 22px;"">{id_pax}</td> <td style=""width: 1.64%; height: 22px;"">{number_pax}</td> </tr> </tbody> </table></div>";;;;;;;;;;;;;
+id_pbmc;biosampling;;text;"ID of the PBMC tubes";;;;;;;"[blood_set(1)] = '1'";y;LV;;;;
+number_pbmc;biosampling;;text;"Number of PBMC aliquots à 1500 µl";;;number;0;9;;"[blood_set(1)] = '1'";y;LV;;;;
+id_smart;biosampling;;text;"ID of stabilized blood";;"Heparinized blood + SmartTube Stabilizer";;;;;"[blood_set(2)] = '1'";y;LV;;;;
+number_smart;biosampling;;text;"Number of SmartTube aliquots à 1800 µl";;;number;0;9;;"[blood_set(2)] = '1'";y;LV;;;;
+id_serum;biosampling;;text;"ID of the serum tubes";;;;;;;"[blood_set(3)] = '1'";y;LV;;;;
+number_serum;biosampling;;text;"Number of serum aliquots à 500 µl";;;number;0;10;;"[blood_set(3)] = '1'";y;LV;;;;
+id_cispt;biosampling;;text;"ID of the cispt tubes";;;;;;;"[blood_set(2)] = '1'";;LV;;;;
+number_cispt;biosampling;;text;"Number of cispt aliquots à 500 µl";;;number;0;10;;"[blood_set(2)] = '1'";;LV;;;;
+id_plasma;biosampling;;text;"ID of the EDTA-Plasma tubes";;;;;;;"[blood_set(4)] = '1'";y;LV;;;;
+number_plasma;biosampling;;text;"Number of Plasma aliquots ";;;number;0;10;;"[blood_set(4)] = '1'";y;LV;;;;
+id_pax;biosampling;;text;"ID of the PAXGene tube";;;;;;;"[blood_set(5)] = '1'";y;LV;;;;
+number_pax;biosampling;;text;"Number of PAXGene tubes";;;number;0;9;;"[blood_set(5)] = '1'";y;LV;;;;
+study_blood_remarks;biosampling;;notes;"Remarks on the blood samples";;;;;;;;;LV;;;;
+biopsies_available;biosampling;;yesno;"Biopsies available from endoscopy?";;"Only week 0, 2, 14, 52";;;;;;y;;;;;
+date_endoscopy;biosampling;;descriptive;"<div class=""rich-text-field-label""><p>Date of endoscopy and biopsy taking:                                             [endoscopy_date]</p></div>";;;;;;;"[biopsies_available] = '1'";;;;;;
+biopsy_details;biosampling;;checkbox;"Which biopsies are available?";"1, Biopsies from least inflamed tissue|2, Biopsies from most inflamed tissue";;;;;;"[biopsies_available] = '1'";;;;;;
+least_segment;biosampling;;dropdown;"Segment of least inflammed tissue";"1, Rectum|2, Sigmoid colon|3, Descending colon|4, Left flexure|5, Transverse colon|6, Right flexure|7, Ascending colon|8, Caecum|9, Ileum";;;;;;"[biopsy_details(1)] = '1'";y;;;;;
+least_segment_2;biosampling;;dropdown;"Segment of least inflammed tissue";"1, Rectum|2, Sigmoid colon|3, Descending colon|4, Left flexure|5, Transverse colon|6, Right flexure|7, Ascending colon|8, Caecum|9, Ileum";;;;;;"[biopsy_details(1)] = '1'";;;;;;
+least_grade;biosampling;;dropdown;"Inflammation grade of least inflammed tissue";"0, Not inflamed|1, Mildly inflamed|2, Moderately inflamed|3, Severely inflamed";;;;;;"[biopsy_details(1)] = '1'";y;;;;;
+least_grade_2;biosampling;;dropdown;"Inflammation grade of least inflammed tissue";"0, Not inflamed|1, Mildly inflamed|2, Moderately inflamed|3, Severely inflamed";;;;;;"[biopsy_details(1)] = '1'";;;;;;
+most_segment;biosampling;;dropdown;"Segment of most inflammed tissue";"1, Rectum|2, Sigmoid colon|3, Descending colon|4, Left flexure|5, Transverse colon|6, Right flexure|7, Ascending colon|8, Caecum|9, Ileum";;;;;;"[biopsy_details(2)] = '1'";y;;;;;
+most_segment_2;biosampling;;dropdown;"Segment of most inflammed tissue";"1, Rectum|2, Sigmoid colon|3, Descending colon|4, Left flexure|5, Transverse colon|6, Right flexure|7, Ascending colon|8, Caecum|9, Ileum";;;;;;"[biopsy_details(2)] = '1'";;;;;;
+most_grade;biosampling;;dropdown;"Inflammation grade of most inflammed tissue";"0, Not inflamed|1, Mildly inflamed|2, Moderately inflamed|3, Severely inflamed";;;;;;"[biopsy_details(2)] = '1'";y;;;;;
+most_grade_2;biosampling;;dropdown;"Inflammation grade of most inflammed tissue";"0, Not inflamed|1, Mildly inflamed|2, Moderately inflamed|3, Severely inflamed";;;;;;"[biopsy_details(2)] = '1'";;;;;;
+biopsies_overview;biosampling;;descriptive;"<div class=""rich-text-field-label""><table style=""border-collapse: collapse; width: 100%; height: 156px; border-style: solid;"" border=""2""> <tbody> <tr style=""height: 22px;""> <td style=""width: 20.8799%; height: 22px; text-align: center;"" colspan=""2""> <p>Location</p> </td> <td style=""width: 16.61%; height: 22px; text-align: center;""> <p> Grade of Inflammation</p> </td> <td style=""width: 15.86%; height: 22px; text-align: center;""> <p>Medium</p> </td> <td style=""width: 38.29%; height: 22px; text-align: center;""> <p>IDs</p> </td> <td style=""width: 10.73%; height: 22px; text-align: center;""> <p>Aliquot numbers</p> </td> </tr> <tr style=""height: 22px;""> <td style=""width: 2.21%; height: 68px; text-align: center;"" rowspan=""4""> <p>Least inflamed</p> </td> <td style=""padding: 0.4rem; border: 1px solid #cccccc; height: 68px; text-align: center; width: 18.6699%;"" rowspan=""2""> <p>{least_segment}</p> </td> <td style=""height: 68px; width: 16.61%;"" rowspan=""2""> <p>{least_grade}</p> </td> <td style=""padding: 0.4rem; border: 1px solid #cccccc; width: 15.86%; height: 24px; text-align: center;""> <p>native</p> </td> <td style=""width: 38.29%; height: 24px;""> <p>{id_least_bio_native}</p> </td> <td style=""width: 10.73%; height: 24px;""> <p>{number_least_bio_native}</p> </td> </tr> <tr style=""height: 44px;""> <td style=""padding: 0.4rem; border: 1px solid #cccccc; width: 15.86%; height: 44px; text-align: center;""> <p>freezing medium</p> </td> <td style=""width: 38.29%; height: 44px;""> <p>{id_least_bio_freezing}</p> </td> <td style=""width: 10.73%; height: 44px;""> <p>{number_least_bio_freezing}</p> </td> </tr> <tr> <td style=""padding: 0.4rem; border: 1px solid #cccccc; text-align: center; width: 18.6699%;"" rowspan=""2""> <p>{least_segment_2}</p> </td> <td style=""width: 16.61%;"" rowspan=""2""> <p>{least_grade_2}</p> </td> <td style=""padding: 0.4rem; border: 1px solid #cccccc; width: 15.86%; text-align: center;""> <p>native</p> </td> <td style=""width: 38.29%;""> <p>{id_least_bio_native_2}</p> </td> <td style=""width: 10.73%;""> <p>{number_least_bio_native_2}</p> </td> </tr> <tr> <td style=""padding: 0.4rem; border: 1px solid #cccccc; width: 15.86%; text-align: center;""> <p>freezing medium</p> </td> <td style=""width: 38.29%;""> <p>{id_least_bio_freezing_2}</p> </td> <td style=""width: 10.73%;""> <p>{number_least_bio_freezing_2}</p> </td> </tr> <tr style=""height: 22px;""> <td style=""padding: 0.4rem; border: 1px solid #cccccc; width: 2.21%; height: 66px; text-align: center;"" rowspan=""4""> <p>Most inflamed</p> <p> </p> <p> </p> </td> <td style=""padding: 0.4rem; border: 1px solid #cccccc; height: 66px; text-align: center; width: 18.6699%;"" rowspan=""2""> <p>{most_segment}</p> </td> <td style=""padding: 0.4rem; border: 1px solid #cccccc; height: 66px; width: 16.61%;"" rowspan=""2""> <p>{most_grade}</p> </td> <td style=""padding: 0.4rem; border: 1px solid #cccccc; width: 15.86%; height: 22px; text-align: center;""> <p>native</p> </td> <td style=""padding: 0.4rem; border: 1px solid #cccccc; width: 38.29%; height: 22px;""> <p>{id_most_bio_native}</p> </td> <td style=""padding: 0.4rem; border: 1px solid #cccccc; width: 10.73%; height: 22px;""> <p>{number_most_bio_native}</p> </td> </tr> <tr style=""height: 44px;""> <td style=""padding: 0.4rem; border: 1px solid #cccccc; width: 15.86%; height: 44px; text-align: center;""> <p>freezing medium</p> </td> <td style=""padding: 0.4rem; border: 1px solid #cccccc; width: 38.29%; height: 44px;""> <p>{id_most_bio_freezing}</p> </td> <td style=""padding: 0.4rem; border: 1px solid #cccccc; width: 10.73%; height: 44px;""> <p>{number_most_bio_freezing}</p> </td> </tr> <tr> <td style=""padding: 0.4rem; border: 1px solid #cccccc; text-align: center; width: 18.6699%;"" rowspan=""2""> <p>{most_segment_2}</p> </td> <td style=""padding: 0.4rem; border: 1px solid #cccccc; width: 16.61%;"" rowspan=""2""> <p>{most_grade_2}</p> </td> <td style=""padding: 0.4rem; border: 1px solid #cccccc; width: 15.86%; height: 22px; text-align: center;""> <p>native</p> </td> <td style=""padding: 0.4rem; border: 1px solid #cccccc; width: 38.29%;""> <p>{id_most_bio_native_2}</p> </td> <td style=""padding: 0.4rem; border: 1px solid #cccccc; width: 10.73%;""> <p>{number_most_bio_native_2}</p> </td> </tr> <tr style=""height: 44px;""> <td style=""padding: 0.4rem; border: 1px solid #cccccc; width: 15.86%; height: 44px; text-align: center;""> <p>freezing medium</p> </td> <td style=""padding: 0.4rem; border: 1px solid #cccccc; width: 38.29%;""> <p>{id_most_bio_freezing_2}</p> </td> <td style=""padding: 0.4rem; border: 1px solid #cccccc; width: 10.73%;""> <p>{number_most_bio_freezing_2}</p> </td> </tr> </tbody> </table> <p> </p></div>";;;;;;;;;;;;;
+id_least_bio_native;biosampling;;text;"ID of native biopsies, least inflamed";;;;;;;"[biopsy_details(1)] = '1'";y;LV;;;;
+id_least_bio_native_2;biosampling;;text;"ID of native biopsies, least inflamed";;;;;;;"[biopsy_details(1)] = '1'";;LV;;;;
+number_least_bio_native;biosampling;;text;"Number of native biopsies vials, most inflamed";;;number;0;9;;"[biopsy_details(1)] = '1'";y;LV;;;;
+number_least_bio_native_2;biosampling;;text;"Number of native biopsies vials, most inflamed";;;number;0;9;;"[biopsy_details(1)] = '1'";;LV;;;;
+id_least_bio_freezing;biosampling;;text;"ID of biopsies in freezing medium, least inflamed";;;;;;;"[biopsy_details(1)] = '1'";y;LV;;;;
+id_least_bio_freezing_2;biosampling;;text;"ID of biopsies in freezing medium, least inflamed";;;;;;;"[biopsy_details(1)] = '1'";;LV;;;;
+number_least_bio_freezing;biosampling;;text;"Number of vials with freezing medium, least inflamed";;;number;0;9;;"[biopsy_details(1)] = '1'";y;LV;;;;
+number_least_bio_freezing_2;biosampling;;text;"Number of vials with freezing medium, least inflamed";;;number;0;9;;"[biopsy_details(1)] = '1'";;LV;;;;
+id_most_bio_native;biosampling;;text;"ID of native biopsies, most inflamed";;;;;;;"[biopsy_details(2)] = '1'";y;LV;;;;
+id_most_bio_native_2;biosampling;;text;"ID of native biopsies, most inflamed";;;;;;;"[biopsy_details(2)] = '1'";;LV;;;;
+number_most_bio_native;biosampling;;text;"Number of native biopsies vials, most inflamed";;;number;0;9;;"[biopsy_details(2)] = '1'";y;LV;;;;
+number_most_bio_native_2;biosampling;;text;"Number of native biopsies vials, most inflamed";;;number;0;9;;"[biopsy_details(2)] = '1'";;LV;;;;
+id_most_bio_freezing;biosampling;;text;"ID of biopsies in freezing medium, most inflamed";;;;;;;"[biopsy_details(2)] = '1'";y;LV;;;;
+id_most_bio_freezing_2;biosampling;;text;"ID of biopsies in freezing medium, most inflamed";;;;;;;"[biopsy_details(2)] = '1'";;LV;;;;
+number_most_bio_freezing;biosampling;;text;"Number of vials with freezing medium, mostinflamed";;;number;0;9;;"[biopsy_details(2)] = '1'";y;LV;;;;
+number_most_bio_freezing_2;biosampling;;text;"Number of vials with freezing medium, mostinflamed";;;number;0;9;;"[biopsy_details(2)] = '1'";;LV;;;;
+biopsy_remarks;biosampling;;notes;"Remarks on biopsy samples";;;;;;;;;LV;;;;
+stool_arrive;biosampling;"Popgen Samples";yesno;"Popgen received stool samples?";;;;;;;;y;;;;;
+stool_tubes;biosampling;;checkbox;"Which stool tubes arrived?";"1, native|2, stratec";;;;;;"[stool_arrive] = '1'";y;;;;;
+biobank_samples;biosampling;;yesno;"Biobank samples arrived Popgen?";;;;;;;;y;;;;;
+biobank_blood_details;biosampling;;checkbox;"Which blood samples arrived to Popgen?";"1, PAX|2, PAX|3, EDTA|4, EDTA|5, Serum";;;;;;"[biobank_samples] = '1'";y;;;;;
+w14_summary_header;week_14_summary;;descriptive;"<div class=""rich-text-field-label""><p><span style=""color: #000000;"">Disease: [week_0_arm_1][diagnosis]</span></p> <p><span style=""color: #000000;"">Drug: [week_0_arm1][used_drug]</span></p></div>";;;;;;;;;;;;;sadf
+w14_conference;week_14_summary;;text;"Date of post-W14 conference";;;date_dmy;;;;;y;;;;;
+summary_uc;week_14_summary;;descriptive;"<div class=""rich-text-field-label""><table style=""border-collapse: collapse; width: 100%; height: 132px;"" border=""1""> <tbody> <tr style=""height: 22px;""> <td style=""width: 9.37809%; height: 22px;"" rowspan=""2""> </td> <td style=""width: 6.46019%; height: 44px; text-align: center;"" rowspan=""2"">Date</td> <td style=""width: 7.94387%; height: 44px; text-align: center;"" rowspan=""2"">pMayo</td> <td style=""width: 3.97194%; text-align: center; height: 44px;"" rowspan=""2"">Mayo</td> <td style=""width: 1.48948%; height: 22px; text-align: center;"" colspan=""2"">Blood</td> <td style=""width: 0.496493%; text-align: center; height: 44px;"" rowspan=""2"">Stool</td> <td style=""width: 31.7755%; height: 22px; text-align: center;"" colspan=""4"">Endoscopy</td> <td style=""width: 7.94387%; height: 44px; text-align: center;"" rowspan=""2"">PRO</td> </tr> <tr style=""height: 22px;""> <td style=""width: 0.992985%; text-align: center; height: 22px;"">Popgen</td> <td style=""width: 0.496493%; text-align: center; height: 22px;"">Study blood</td> <td style=""width: 7.94387%; height: 22px; text-align: center;"">Date</td> <td style=""width: 7.94387%; height: 22px; text-align: center;"">Mayo</td> <td style=""width: 7.94387%; height: 22px; text-align: center;"">Nancy</td> <td style=""width: 7.94387%; height: 22px; text-align: center;"">Biopsy</td> </tr> <tr style=""height: 22px;""> <td style=""width: 9.37809%; height: 22px; text-align: center;"">Week 0</td> <td style=""width: 6.46019%; height: 22px; text-align: center;"">[week_0_arm_1][date_visit]</td> <td style=""width: 7.94387%; height: 22px; text-align: center;"">[week_0_arm_1][partial_mayo]</td> <td style=""width: 3.97194%; text-align: center; height: 22px;"">[week_0_arm_1][complete_mayo]</td> <td style=""width: 0.992985%; text-align: center; height: 22px;"">[week_0_arm_1][biobank_samples]</td> <td style=""width: 0.496493%; text-align: center; height: 22px;"">[week_0_arm_1][study_blood_available]</td> <td style=""width: 0.496493%; text-align: center; height: 22px;"">[week_0_arm_1][stool_arrive]</td> <td style=""width: 7.94387%; text-align: center; height: 22px;"">[week_0_arm_1][endoscopy_date]</td> <td style=""width: 7.94387%; text-align: center; height: 22px;"">[week_0_arm_1][endo_mayo]</td> <td style=""width: 7.94387%; text-align: center; height: 22px;"">[week_0_arm_1][nancy_index]</td> <td style=""width: 7.94387%; text-align: center; height: 22px;"">[week_0_arm_1][biopsies_available]</td> <td style=""width: 7.94387%; height: 22px; text-align: center;"">[week_0_arm_1][pro_available]</td> </tr> <tr style=""height: 22px;""> <td style=""width: 9.37809%; height: 22px; text-align: center;"">Week 2</td> <td style=""width: 6.46019%; height: 22px; text-align: center;"">[week_2_arm_1][date_visit]</td> <td style=""width: 7.94387%; height: 22px; text-align: center;"">[week_2_arm_1][partial_mayo]</td> <td style=""width: 3.97194%; text-align: center; height: 22px;"">[week_2_arm_1][complete_mayo]</td> <td style=""width: 0.992985%; text-align: center; height: 22px;"">[week_2_arm_1][biobank_samples]</td> <td style=""width: 0.496493%; text-align: center; height: 22px;"">[week_2_arm_1][study_blood_available]</td> <td style=""width: 0.496493%; text-align: center; height: 22px;"">[week_2_arm_1][stool_arrive]</td> <td style=""width: 7.94387%; text-align: center; height: 22px;"">[week_2_arm_1][endoscopy_date]</td> <td style=""width: 7.94387%; text-align: center; height: 22px;"">[week_2_arm_1][endo_mayo]</td> <td style=""width: 7.94387%; text-align: center; height: 22px;"">[week_2_arm_1][nancy_index]</td> <td style=""width: 7.94387%; text-align: center; height: 22px;"">[week_2_arm_1][biopsies_available]</td> <td style=""width: 7.94387%; height: 22px; text-align: center;"">[week_2_arm_1][pro_available]</td> </tr> <tr style=""height: 22px;""> <td style=""width: 9.37809%; height: 22px; text-align: center;"">Week 14</td> <td style=""width: 6.46019%; height: 22px; text-align: center;"">[week_14_arm_1][date_visit]</td> <td style=""width: 7.94387%; height: 22px; text-align: center;"">[week_14_arm_1][partial_mayo]</td> <td style=""width: 3.97194%; text-align: center; height: 22px;"">[week_14_arm_1][complete_mayo]</td> <td style=""width: 0.992985%; text-align: center; height: 22px;"">[week_14_arm_1][biobank_samples]</td> <td style=""width: 0.496493%; text-align: center; height: 22px;"">[week_14_arm_1][study_blood_available]</td> <td style=""width: 0.496493%; text-align: center; height: 22px;"">[week_14_arm_1][stool_arrive]</td> <td style=""width: 7.94387%; text-align: center; height: 22px;"">[week_14_arm_1][endoscopy_date]</td> <td style=""width: 7.94387%; text-align: center; height: 22px;"">[week_14_arm_1][endo_mayo]</td> <td style=""width: 7.94387%; text-align: center; height: 22px;"">[week_14_arm_1][nancy_index]</td> <td style=""width: 7.94387%; text-align: center; height: 22px;"">[week_14_arm_1][biopsies_available]</td> <td style=""width: 7.94387%; height: 22px; text-align: center;"">[week_14_arm_1][pro_available]</td> </tr> </tbody> </table></div>";;;;;;;"[week_0_arm_1][diagnosis] = '2'";;;;;;
+summary_cd;week_14_summary;;descriptive;"<div class=""rich-text-field-label""><table style=""border-collapse: collapse; width: 100%; height: 132px;"" border=""1""> <tbody> <tr style=""height: 22px;""> <td style=""width: 9.37809%; height: 44px;"" rowspan=""2""> </td> <td style=""width: 6.46019%; height: 44px; text-align: center;"" rowspan=""2"">Date</td> <td style=""width: 3.97194%; text-align: center; height: 44px;"" rowspan=""2"">CDAI</td> <td style=""width: 1.48948%; height: 22px; text-align: center;"" colspan=""2"">Blood</td> <td style=""width: 0.496493%; text-align: center; height: 44px;"" rowspan=""2"">Stool</td> <td style=""width: 23.8316%; height: 22px; text-align: center;"" colspan=""3"">Endoscopy</td> <td style=""width: 7.94387%; height: 44px; text-align: center;"" rowspan=""2"">PRO</td> </tr> <tr style=""height: 22px;""> <td style=""width: 0.992985%; text-align: center; height: 22px;"">Popgen</td> <td style=""width: 0.496493%; text-align: center; height: 22px;"">Study blood</td> <td style=""width: 7.94387%; height: 22px; text-align: center;"">Date</td> <td style=""width: 7.94387%; height: 22px; text-align: center;"">SES-CD</td> <td style=""width: 7.94387%; height: 22px; text-align: center;"">Biopsy</td> </tr> <tr style=""height: 22px;""> <td style=""width: 9.37809%; height: 22px; text-align: center;"">Week 0</td> <td style=""width: 6.46019%; height: 22px; text-align: center;"">[week_0_arm_1][date_visit]</td> <td style=""width: 3.97194%; text-align: center; height: 22px;"">[week_0_arm_1][cdai]</td> <td style=""width: 0.992985%; text-align: center; height: 22px;"">[week_0_arm_1][biobank_samples]</td> <td style=""width: 0.496493%; text-align: center; height: 22px;"">[week_0_arm_1][study_blood_available]</td> <td style=""width: 0.496493%; text-align: center; height: 22px;"">[week_0_arm_1][stool_arrive]</td> <td style=""width: 7.94387%; text-align: center; height: 22px;"">[week_0_arm_1][endoscopy_date]</td> <td style=""width: 7.94387%; text-align: center; height: 22px;"">[week_0_arm_1][sescd]</td> <td style=""width: 7.94387%; text-align: center; height: 22px;"">[week_0_arm_1][biopsies_available]</td> <td style=""width: 7.94387%; height: 22px; text-align: center;"">[week_0_arm_1][pro_available]</td> </tr> <tr style=""height: 22px;""> <td style=""width: 9.37809%; height: 22px; text-align: center;"">Week 2</td> <td style=""width: 6.46019%; height: 22px; text-align: center;"">[week_2_arm_1][date_visit]</td> <td style=""width: 3.97194%; text-align: center; height: 22px;"">[week_2_arm_1][cdai]</td> <td style=""width: 0.992985%; text-align: center; height: 22px;"">[week_2_arm_1][biobank_samples]</td> <td style=""width: 0.496493%; text-align: center; height: 22px;"">[week_2_arm_1][study_blood_available]</td> <td style=""width: 0.496493%; text-align: center; height: 22px;"">[week_2_arm_1][stool_arrive]</td> <td style=""width: 7.94387%; text-align: center; height: 22px;"">[week_2_arm_1][endoscopy_date]</td> <td style=""width: 7.94387%; text-align: center; height: 22px;"">[week_2_arm_1][sescd]</td> <td style=""width: 7.94387%; text-align: center; height: 22px;"">[week_2_arm_1][biopsies_available]</td> <td style=""width: 7.94387%; height: 22px; text-align: center;"">[week_2_arm_1][pro_available]</td> </tr> <tr style=""height: 22px;""> <td style=""width: 9.37809%; height: 22px; text-align: center;"">Week 14</td> <td style=""width: 6.46019%; height: 22px; text-align: center;"">[week_14_arm_1][date_visit]</td> <td style=""width: 3.97194%; text-align: center; height: 22px;"">[week_14_arm_1][cdai]</td> <td style=""width: 0.992985%; text-align: center; height: 22px;"">[week_14_arm_1][biobank_samples]</td> <td style=""width: 0.496493%; text-align: center; height: 22px;"">[week_14_arm_1][study_blood_available]</td> <td style=""width: 0.496493%; text-align: center; height: 22px;"">[week_14_arm_1][stool_arrive]</td> <td style=""width: 7.94387%; text-align: center; height: 22px;"">[week_14_arm_1][endoscopy_date]</td> <td style=""width: 7.94387%; text-align: center; height: 22px;"">[week_14_arm_1][sescd]</td> <td style=""width: 7.94387%; text-align: center; height: 22px;"">[week_14_arm_1][biopsies_available]</td> <td style=""width: 7.94387%; height: 22px; text-align: center;"">[week_14_arm_1][pro_available]</td> </tr> </tbody> </table></div>";;;;;;;"[week_0_arm_1][diagnosis] = '1'";;;;;;
+response_definition_uc;week_14_summary;;descriptive;"<div class=""rich-text-field-label""><table style=""border-collapse: collapse; width: 92.6791%; height: 256px;"" border=""1""> <tbody> <tr style=""height: 22px;""> <td style=""width: 25.3544%; height: 22px;"">Response definition</td> <td style=""width: 27.1348%; height: 22px;"">Clinical criterion</td> <td style=""width: 33.9605%; height: 22px;"">endoMayo</td> </tr> <tr style=""height: 92px;""> <td style=""width: 25.3544%; height: 92px;"">Super-Response</td> <td style=""width: 27.1348%; height: 92px;""> <p>Total Mayo 0-2</p> </td> <td style=""width: 33.9605%; height: 92px;""> <p>endoMayo 0-1,</p> <p>bleeding score 0</p> </td> </tr> <tr style=""height: 44px;""> <td style=""width: 25.3544%; height: 44px;"">Response</td> <td style=""width: 27.1348%; height: 44px;"">Total Mayo reduction > 50% </td> <td style=""width: 33.9605%; height: 44px;"">Reduction of endoMayo</td> </tr> <tr style=""height: 44px;""> <td style=""width: 25.3544%; height: 44px;"">Partial Response</td> <td style=""width: 27.1348%; height: 44px;"">Total Mayo reduction > 30%</td> <td style=""width: 33.9605%; height: 44px;"">No formal improvement, but slight improvement in overall assessment</td> </tr> <tr style=""height: 54px;""> <td style=""width: 25.3544%; height: 54px;""> <p>Non-Response</p> </td> <td style=""width: 27.1348%; height: 54px;"">Total Mayo reduction < 30%</td> <td style=""width: 33.9605%; height: 54px;""> no improvement</td> </tr> </tbody> </table> <p> </p></div>";;;;;;;"[week_0_arm_1][diagnosis] = '2'";;;;;;
+response_definition_cd;week_14_summary;;descriptive;"<div class=""rich-text-field-label""><table style=""border-collapse: collapse; width: 92.6791%;"" border=""1""> <tbody> <tr> <td style=""width: 25.3544%;"">Response definition</td> <td style=""width: 27.1348%;"">Clinical criterion</td> <td style=""width: 33.9605%;"">Endoscopic criterion</td> </tr> <tr> <td style=""width: 25.3544%;"">Super-Response</td> <td style=""width: 27.1348%;"">CDAI < 150</td> <td style=""width: 33.9605%;"">SES-CD 0-4, 2 points reduction vs. week 0</td> </tr> <tr> <td style=""width: 25.3544%;"">Response</td> <td style=""width: 27.1348%;"">CDAI reduction > 100 </td> <td style=""width: 33.9605%;"">SES-CD reduction >50%</td> </tr> <tr> <td style=""width: 25.3544%;"">Partial Response</td> <td style=""width: 27.1348%;"">CDAI reduction > 70</td> <td style=""width: 33.9605%;"">SES-CD reduction < 50%, but overall improvement</td> </tr> <tr> <td style=""width: 25.3544%;""> <p>Non-Response</p> </td> <td style=""width: 27.1348%;"">CDAI reduction < 70</td> <td style=""width: 33.9605%;"">SES-CD reduction < 50% and no overall improvement</td> </tr> </tbody> </table></div>";;;;;;;"[week_0_arm_1][diagnosis] = '1'";;;;;;
+response_w14;week_14_summary;;radio;"Response at week 14?";"1, Super-response | 2, Response | 3, Partial response | 4, Non-response | 5, Allergic reaction | 9, low disease activity";;;;;;;y;;;;;
+continuation;week_14_summary;;yesno;"Continuation of drug?";;;;;;;;y;;;;;
+new_biological;week_14_summary;;yesno;"Restart with new biological agent?";;;;;;;"[continuation] = '0'";y;;;;;
+which_new_biological;week_14_summary;;radio;"Which new biological agent will be used?";"1, Infliximab | 2, Adalimumab | 3, Certolizumab | 4, Golimumab | 5, Vedolizumab | 6, Ustekinumab | 7, Tofacitinib | 8, Other | 9, Filgotinib | 10, Ozanimod";;;;;;"[continuation] = '0' and [new_biological] = '1'";y;;;;;
