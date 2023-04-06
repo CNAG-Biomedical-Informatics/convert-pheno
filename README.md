@@ -76,8 +76,8 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
        -test                          Does not print time-changing-events (useful for file-based cmp)
        -text-similarity-method        The method used to compare values to DB [>cosine|dice]
        -u|username                    Set the username
-       -verbose                       Verbosity on
-       -v                             Print Version
+       -v|verbose                     Verbosity on
+       -V|version                     Print Version
 
 # DESCRIPTION
 

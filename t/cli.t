@@ -19,7 +19,7 @@ my $input = {
         out               => 't/bff2pxf/out/pxf.json'
     },
     pxf2bff => {
-        in_file           => 't/pxf2bff/in/all.json',
+        in_file           => 't/pxf2bff/in/pxf.json',
         redcap_dictionary => undef,
         sep               => undef,
         out               => 't/pxf2bff/out/individuals.json'

@@ -56,7 +56,7 @@ GetOptions(
     'text-similarity-method=s'    => \my $text_similarity_method,              # string
     'min-text-similarity-score=f' => \my $min_text_similarity_score,           # floating
     'debug=i'                     => \my $debug,                               # integer
-    'verbose'                     => \my $verbose,                             # flag
+    'verbose|v'                   => \my $verbose,                             # flag
     'color!'                      => \$color,                                  # flag
     'separator|sep=s'             => \my $sep,                                 # str
     'schema-file=s'               => \$schema_file,                            # str
@@ -73,7 +73,7 @@ GetOptions(
     'O'                           => \my $overwrite,                           # flag
     'username=s'                  => \my $username,                            # string
     'log:s'                       => \my $log,                                 # opt-string
-    'version|v'                   => sub { say "$0 Version $VERSION"; exit; }
+    'version|V'                   => sub { say "$0 Version $VERSION"; exit; }
 ) or pod2usage(2);
 pod2usage(1)                              if $help;
 pod2usage( -verbose => 2, -exitval => 0 ) if $man;
@@ -385,8 +385,8 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
        -test                          Does not print time-changing-events (useful for file-based cmp)
        -text-similarity-method        The method used to compare values to DB [>cosine|dice]
        -u|username                    Set the username
-       -verbose                       Verbosity on
-       -v                             Print Version
+       -v|verbose                     Verbosity on
+       -V|version                     Print Version
 
 =head1 DESCRIPTION
 

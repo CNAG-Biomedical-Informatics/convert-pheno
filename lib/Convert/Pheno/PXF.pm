@@ -69,8 +69,8 @@ sub do_pxf2bff {
     # *** IMPORTANT ***
     # Here we set data that do not fit anywhere else
 
-# CNAG files have 'meta_data' nomenclature, but PXF documentation uses 'metaData'
-# We search for both 'meta_data' and 'metaData' and simply display them
+    # CNAG files have 'meta_data' nomenclature, but PXF documentation uses 'metaData'
+    # We search for both 'meta_data' and 'metaData' and simply display them
     for my $term (
         qw (dateOfBirth genes meta_data metaData variants interpretations files biosample)
       )
@@ -82,18 +82,27 @@ sub do_pxf2bff {
     # ==================
     # phenotypicFeatures
     # ==================
+    if ( exists $phenopacket->{phenotypicFeatures} ) {
+        for ( @{ $phenopacket->{phenotypicFeatures} } ) {
+            my $phenotypicFeature;
 
-    $individual->{phenotypicFeatures} = [
-        map {
-            $_ = {
-                "excluded" => (
-                    exists $_->{negated} ? JSON::XS::true : JSON::XS::false
-                ),
-                "featureType" => $_->{type}
-            }
-        } @{ $phenopacket->{phenotypicFeatures} }
-      ]
-      if exists $phenopacket->{phenotypicFeatures};
+            # v2.0.0 BFF 'evidence' is object but PXF is array of objects
+            $phenotypicFeature->{evidence} = $_->{evidence}
+            if exists $_->{evidence};
+            $phenotypicFeature->{excluded} =
+              exists $_->{negated} ? JSON::XS::true : JSON::XS::false,
+            $phenotypicFeature->{featureType} = $_->{type} if exists $_->{type};
+            $phenotypicFeature->{modifiers}   = $_->{modifiers}
+              if exists $_->{modifiers};
+            $phenotypicFeature->{notes} = $_->{notes} if exists $_->{notes};
+            $phenotypicFeature->{onset} = $_->{onset} if exists $_->{onset};
+            $phenotypicFeature->{resolution} = $_->{resolution}
+              if exists $_->{resolution};
+            $phenotypicFeature->{severity} = $_->{severity}
+              if exists $_->{severity};
+            push @{ $individual->{phenotypicFeatures} }, $phenotypicFeature;
+        }
+    }
 
     # ===
     # sex
