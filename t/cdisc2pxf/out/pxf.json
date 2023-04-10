@@ -342,6 +342,110 @@
                   "timestamp" : "2021-02-01T00:00:00Z"
                }
             }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C769",
+                  "label" : "Prednisolone"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C290",
+                  "label" : "Azathioprine"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C642",
+                  "label" : "Methotrexate"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C195",
+                  "label" : "Mercaptopurine"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
          }
       ],
       "metaData" : null,
@@ -1468,6 +1572,110 @@
                },
                "performed" : {
                   "timestamp" : "2020-11-16T00:00:00Z"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C769",
+                  "label" : "Prednisolone"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C290",
+                  "label" : "Azathioprine"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C642",
+                  "label" : "Methotrexate"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C195",
+                  "label" : "Mercaptopurine"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
                }
             }
          }
@@ -3876,6 +4084,110 @@
                   "timestamp" : "2020-12-14T00:00:00Z"
                }
             }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C769",
+                  "label" : "Prednisolone"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C290",
+                  "label" : "Azathioprine"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C642",
+                  "label" : "Methotrexate"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C195",
+                  "label" : "Mercaptopurine"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
          }
       ],
       "metaData" : null,
@@ -5969,7 +6281,7 @@
             "onset" : {
                "ageRange" : {
                   "end" : {
-                     "iso8601duration" : "P9999Y"
+                     "iso8601duration" : "P999Y"
                   },
                   "start" : {
                      "iso8601duration" : "P60Y"
@@ -6464,6 +6776,110 @@
                },
                "performed" : {
                   "timestamp" : "2021-10-28T00:00:00Z"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C769",
+                  "label" : "Prednisolone"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C290",
+                  "label" : "Azathioprine"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C642",
+                  "label" : "Methotrexate"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C195",
+                  "label" : "Mercaptopurine"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
                }
             }
          }
@@ -8429,6 +8845,110 @@
                   "timestamp" : "2021-01-04T00:00:00Z"
                }
             }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C769",
+                  "label" : "Prednisolone"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C290",
+                  "label" : "Azathioprine"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C642",
+                  "label" : "Methotrexate"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C195",
+                  "label" : "Mercaptopurine"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
          }
       ],
       "metaData" : null,
@@ -10130,6 +10650,110 @@
                   "timestamp" : "2021-01-04T00:00:00Z"
                }
             }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C769",
+                  "label" : "Prednisolone"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C290",
+                  "label" : "Azathioprine"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C642",
+                  "label" : "Methotrexate"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C195",
+                  "label" : "Mercaptopurine"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
          }
       ],
       "metaData" : null,
@@ -11373,6 +11997,110 @@
                },
                "performed" : {
                   "timestamp" : "2021-01-05T00:00:00Z"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C769",
+                  "label" : "Prednisolone"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C290",
+                  "label" : "Azathioprine"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C642",
+                  "label" : "Methotrexate"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C195",
+                  "label" : "Mercaptopurine"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
                }
             }
          }
@@ -13405,6 +14133,110 @@
                },
                "performed" : {
                   "timestamp" : "2021-04-12T00:00:00Z"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C1027",
+                  "label" : "Budesonide"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C769",
+                  "label" : "Prednisolone"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C287",
+                  "label" : "Aspirin"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38295",
+                  "label" : "Rectal Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C290",
+                  "label" : "Azathioprine"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C642",
+                  "label" : "Methotrexate"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C195",
+                  "label" : "Mercaptopurine"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
                }
             }
          }

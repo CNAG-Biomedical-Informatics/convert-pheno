@@ -33,7 +33,11 @@
       },
       "exposures" : [
          {
-            "ageAtExposure" : "P999Y",
+            "ageAtExposure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
@@ -44,10 +48,14 @@
                "id" : "NCIT:C17998",
                "label" : "Unknown"
             },
-            "value" : -1
+            "value" : 4
          },
          {
-            "ageAtExposure" : "P999Y",
+            "ageAtExposure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
@@ -58,13 +66,20 @@
                "id" : "NCIT:NA0000",
                "label" : "NA"
             },
-            "value" : -1
+            "value" : 0
          }
       ],
       "id" : "107:week_0_arm_1",
       "info" : {
          "age" : {
-            "iso8601duration" : "P25-29Y"
+            "ageRange" : {
+               "end" : {
+                  "iso8601duration" : "P29Y"
+               },
+               "start" : {
+                  "iso8601duration" : "P25Y"
+               }
+            }
          },
          "consent" : {
             "Field Label" : "Patient consented to BFU+/CED?",
@@ -116,6 +131,11 @@
       },
       "interventionsOrProcedures" : [
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -127,6 +147,11 @@
             }
          },
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -653,7 +678,281 @@
       "sex" : {
          "id" : "NCIT:C20197",
          "label" : "Male"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "budesonide",
+               "drug_name" : "budesonide",
+               "duration" : null,
+               "field" : "budesonide_oral_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "former treatment",
+               "value" : 2
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C1027",
+               "label" : "Budesonide"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "budesonide",
+               "drug_name" : "budesonide",
+               "duration" : null,
+               "field" : "budesonide_rectal_status",
+               "route" : "rectal",
+               "start" : null,
+               "status" : "never treated",
+               "value" : 1
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38295",
+               "label" : "Rectal Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C1027",
+               "label" : "Budesonide"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "prednisolone",
+               "drug_name" : "prednisolone",
+               "duration" : null,
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "current treatment",
+               "value" : 3
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "asa",
+               "drug_name" : "aspirin",
+               "duration" : null,
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "former treatment",
+               "value" : 2
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C287",
+               "label" : "Aspirin"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "asa",
+               "drug_name" : "aspirin",
+               "duration" : null,
+               "field" : "asa_rectal_status",
+               "route" : "rectal",
+               "start" : null,
+               "status" : "never treated",
+               "value" : 1
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38295",
+               "label" : "Rectal Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C287",
+               "label" : "Aspirin"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "aza",
+               "drug_name" : "azathioprine",
+               "duration" : null,
+               "field" : "aza_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "never treated",
+               "value" : 1
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "mtx",
+               "drug_name" : "methotrexate",
+               "duration" : null,
+               "field" : "mtx_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "never treated",
+               "value" : 1
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C642",
+               "label" : "Methotrexate"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "mp",
+               "drug_name" : "mercaptopurine",
+               "duration" : null,
+               "field" : "mp_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "never treated",
+               "value" : 1
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C195",
+               "label" : "Mercaptopurine"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -680,6 +979,11 @@
       },
       "interventionsOrProcedures" : [
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -691,6 +995,11 @@
             }
          },
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -1597,7 +1906,11 @@
       },
       "exposures" : [
          {
-            "ageAtExposure" : "P999Y",
+            "ageAtExposure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
@@ -1608,10 +1921,14 @@
                "id" : "NCIT:C126379",
                "label" : "Non-Drinker"
             },
-            "value" : -1
+            "value" : 0
          },
          {
-            "ageAtExposure" : "P999Y",
+            "ageAtExposure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
@@ -1622,13 +1939,20 @@
                "id" : "NCIT:NA0000",
                "label" : "NA"
             },
-            "value" : -1
+            "value" : 0
          }
       ],
       "id" : "125:week_0_arm_1",
       "info" : {
          "age" : {
-            "iso8601duration" : "P25-29Y"
+            "ageRange" : {
+               "end" : {
+                  "iso8601duration" : "P29Y"
+               },
+               "start" : {
+                  "iso8601duration" : "P25Y"
+               }
+            }
          },
          "consent" : {
             "Field Label" : "Patient consented to BFU+/CED?",
@@ -1679,6 +2003,11 @@
       },
       "interventionsOrProcedures" : [
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -1690,6 +2019,11 @@
             }
          },
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -2125,7 +2459,281 @@
       "sex" : {
          "id" : "NCIT:C20197",
          "label" : "Male"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "budesonide",
+               "drug_name" : "budesonide",
+               "duration" : null,
+               "field" : "budesonide_oral_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "former treatment",
+               "value" : 2
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C1027",
+               "label" : "Budesonide"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "budesonide",
+               "drug_name" : "budesonide",
+               "duration" : null,
+               "field" : "budesonide_rectal_status",
+               "route" : "rectal",
+               "start" : null,
+               "status" : "never treated",
+               "value" : 1
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38295",
+               "label" : "Rectal Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C1027",
+               "label" : "Budesonide"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "prednisolone",
+               "drug_name" : "prednisolone",
+               "duration" : null,
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "former treatment",
+               "value" : 2
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "asa",
+               "drug_name" : "aspirin",
+               "duration" : null,
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "current treatment",
+               "value" : 3
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C287",
+               "label" : "Aspirin"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "asa",
+               "drug_name" : "aspirin",
+               "duration" : null,
+               "field" : "asa_rectal_status",
+               "route" : "rectal",
+               "start" : null,
+               "status" : "former treatment",
+               "value" : 2
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38295",
+               "label" : "Rectal Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C287",
+               "label" : "Aspirin"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "aza",
+               "drug_name" : "azathioprine",
+               "duration" : null,
+               "field" : "aza_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "never treated",
+               "value" : 1
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "mtx",
+               "drug_name" : "methotrexate",
+               "duration" : null,
+               "field" : "mtx_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "never treated",
+               "value" : 1
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C642",
+               "label" : "Methotrexate"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "mp",
+               "drug_name" : "mercaptopurine",
+               "duration" : null,
+               "field" : "mp_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "never treated",
+               "value" : 1
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C195",
+               "label" : "Mercaptopurine"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -2152,6 +2760,11 @@
       },
       "interventionsOrProcedures" : [
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -2163,6 +2776,11 @@
             }
          },
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -2618,6 +3236,11 @@
       },
       "interventionsOrProcedures" : [
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -3515,6 +4138,11 @@
       },
       "interventionsOrProcedures" : [
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -3526,6 +4154,11 @@
             }
          },
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -4711,7 +5344,11 @@
       },
       "exposures" : [
          {
-            "ageAtExposure" : "P999Y",
+            "ageAtExposure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
@@ -4722,10 +5359,14 @@
                "id" : "NCIT:NA0000",
                "label" : "NA"
             },
-            "value" : -1
+            "value" : 3
          },
          {
-            "ageAtExposure" : "P999Y",
+            "ageAtExposure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
@@ -4736,13 +5377,20 @@
                "id" : "NCIT:NA0000",
                "label" : "NA"
             },
-            "value" : -1
+            "value" : 1
          }
       ],
       "id" : "215:week_0_arm_1",
       "info" : {
          "age" : {
-            "iso8601duration" : "P60-69Y"
+            "ageRange" : {
+               "end" : {
+                  "iso8601duration" : "P69Y"
+               },
+               "start" : {
+                  "iso8601duration" : "P60Y"
+               }
+            }
          },
          "consent" : {
             "Field Label" : "Patient consented to BFU+/CED?",
@@ -4793,6 +5441,11 @@
       },
       "interventionsOrProcedures" : [
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -4804,6 +5457,11 @@
             }
          },
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -4815,6 +5473,11 @@
             }
          },
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -4826,6 +5489,11 @@
             }
          },
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -4837,6 +5505,11 @@
             }
          },
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -5396,7 +6069,281 @@
       "sex" : {
          "id" : "NCIT:C20197",
          "label" : "Male"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "budesonide",
+               "drug_name" : "budesonide",
+               "duration" : null,
+               "field" : "budesonide_oral_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "never treated",
+               "value" : 1
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C1027",
+               "label" : "Budesonide"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "budesonide",
+               "drug_name" : "budesonide",
+               "duration" : null,
+               "field" : "budesonide_rectal_status",
+               "route" : "rectal",
+               "start" : null,
+               "status" : "never treated",
+               "value" : 1
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38295",
+               "label" : "Rectal Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C1027",
+               "label" : "Budesonide"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "prednisolone",
+               "drug_name" : "prednisolone",
+               "duration" : null,
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "current treatment",
+               "value" : 3
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "asa",
+               "drug_name" : "aspirin",
+               "duration" : null,
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "current treatment",
+               "value" : 3
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C287",
+               "label" : "Aspirin"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "asa",
+               "drug_name" : "aspirin",
+               "duration" : null,
+               "field" : "asa_rectal_status",
+               "route" : "rectal",
+               "start" : null,
+               "status" : "never treated",
+               "value" : 1
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38295",
+               "label" : "Rectal Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C287",
+               "label" : "Aspirin"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "aza",
+               "drug_name" : "azathioprine",
+               "duration" : null,
+               "field" : "aza_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "never treated",
+               "value" : 1
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "mtx",
+               "drug_name" : "methotrexate",
+               "duration" : null,
+               "field" : "mtx_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "never treated",
+               "value" : 1
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C642",
+               "label" : "Methotrexate"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "mp",
+               "drug_name" : "mercaptopurine",
+               "duration" : null,
+               "field" : "mp_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "never treated",
+               "value" : 1
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C195",
+               "label" : "Mercaptopurine"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -5423,6 +6370,11 @@
       },
       "interventionsOrProcedures" : [
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -5434,6 +6386,11 @@
             }
          },
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -5445,6 +6402,11 @@
             }
          },
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -5456,6 +6418,11 @@
             }
          },
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -6035,6 +7002,11 @@
       },
       "interventionsOrProcedures" : [
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -6046,6 +7018,11 @@
             }
          },
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -6470,6 +7447,11 @@
       },
       "interventionsOrProcedures" : [
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -6894,6 +7876,11 @@
       },
       "interventionsOrProcedures" : [
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -6905,6 +7892,11 @@
             }
          },
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -6916,6 +7908,11 @@
             }
          },
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -8135,7 +9132,7 @@
             "ageOfOnset" : {
                "ageRange" : {
                   "end" : {
-                     "iso8601duration" : "P9999Y"
+                     "iso8601duration" : "P999Y"
                   },
                   "start" : {
                      "iso8601duration" : "P60Y"
@@ -8163,7 +9160,11 @@
       },
       "exposures" : [
          {
-            "ageAtExposure" : "P999Y",
+            "ageAtExposure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
@@ -8174,10 +9175,14 @@
                "id" : "NCIT:C17998",
                "label" : "Unknown"
             },
-            "value" : -1
+            "value" : 4
          },
          {
-            "ageAtExposure" : "P999Y",
+            "ageAtExposure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
@@ -8188,13 +9193,20 @@
                "id" : "NCIT:NA0000",
                "label" : "NA"
             },
-            "value" : -1
+            "value" : 0
          }
       ],
       "id" : "257:week_0_arm_1",
       "info" : {
          "age" : {
-            "iso8601duration" : "P70+Y"
+            "ageRange" : {
+               "end" : {
+                  "iso8601duration" : "P999Y"
+               },
+               "start" : {
+                  "iso8601duration" : "P70Y"
+               }
+            }
          },
          "consent" : {
             "Field Label" : "Patient consented to BFU+/CED?",
@@ -8245,6 +9257,11 @@
       },
       "interventionsOrProcedures" : [
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -8256,6 +9273,11 @@
             }
          },
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -8267,6 +9289,11 @@
             }
          },
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -8278,6 +9305,11 @@
             }
          },
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -8990,7 +10022,281 @@
       "sex" : {
          "id" : "NCIT:C16576",
          "label" : "Female"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "budesonide",
+               "drug_name" : "budesonide",
+               "duration" : null,
+               "field" : "budesonide_oral_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "never treated",
+               "value" : 1
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C1027",
+               "label" : "Budesonide"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "budesonide",
+               "drug_name" : "budesonide",
+               "duration" : null,
+               "field" : "budesonide_rectal_status",
+               "route" : "rectal",
+               "start" : null,
+               "status" : "never treated",
+               "value" : 1
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38295",
+               "label" : "Rectal Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C1027",
+               "label" : "Budesonide"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "prednisolone",
+               "drug_name" : "prednisolone",
+               "duration" : null,
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "former treatment",
+               "value" : 2
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "asa",
+               "drug_name" : "aspirin",
+               "duration" : null,
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "current treatment",
+               "value" : 3
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C287",
+               "label" : "Aspirin"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "asa",
+               "drug_name" : "aspirin",
+               "duration" : null,
+               "field" : "asa_rectal_status",
+               "route" : "rectal",
+               "start" : null,
+               "status" : "never treated",
+               "value" : 1
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38295",
+               "label" : "Rectal Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C287",
+               "label" : "Aspirin"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "aza",
+               "drug_name" : "azathioprine",
+               "duration" : null,
+               "field" : "aza_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "former treatment",
+               "value" : 2
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "mtx",
+               "drug_name" : "methotrexate",
+               "duration" : null,
+               "field" : "mtx_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "never treated",
+               "value" : 1
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C642",
+               "label" : "Methotrexate"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "mp",
+               "drug_name" : "mercaptopurine",
+               "duration" : null,
+               "field" : "mp_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "never treated",
+               "value" : 1
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C195",
+               "label" : "Mercaptopurine"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -9017,6 +10323,11 @@
       },
       "interventionsOrProcedures" : [
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -9028,6 +10339,11 @@
             }
          },
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -9638,6 +10954,11 @@
       },
       "interventionsOrProcedures" : [
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -9649,6 +10970,11 @@
             }
          },
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -10896,7 +12222,11 @@
       },
       "exposures" : [
          {
-            "ageAtExposure" : "P999Y",
+            "ageAtExposure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
@@ -10907,10 +12237,14 @@
                "id" : "NCIT:NA0000",
                "label" : "NA"
             },
-            "value" : -1
+            "value" : 3
          },
          {
-            "ageAtExposure" : "P999Y",
+            "ageAtExposure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
@@ -10921,13 +12255,20 @@
                "id" : "NCIT:NA0000",
                "label" : "NA"
             },
-            "value" : -1
+            "value" : 0
          }
       ],
       "id" : "275:week_0_arm_1",
       "info" : {
          "age" : {
-            "iso8601duration" : "P18-24Y"
+            "ageRange" : {
+               "end" : {
+                  "iso8601duration" : "P24Y"
+               },
+               "start" : {
+                  "iso8601duration" : "P18Y"
+               }
+            }
          },
          "consent" : {
             "Field Label" : "Patient consented to BFU+/CED?",
@@ -10978,6 +12319,11 @@
       },
       "interventionsOrProcedures" : [
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -10989,6 +12335,11 @@
             }
          },
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -11000,6 +12351,11 @@
             }
          },
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -11011,6 +12367,11 @@
             }
          },
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -11570,7 +12931,281 @@
       "sex" : {
          "id" : "NCIT:C16576",
          "label" : "Female"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "budesonide",
+               "drug_name" : "budesonide",
+               "duration" : null,
+               "field" : "budesonide_oral_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "never treated",
+               "value" : 1
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C1027",
+               "label" : "Budesonide"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "budesonide",
+               "drug_name" : "budesonide",
+               "duration" : null,
+               "field" : "budesonide_rectal_status",
+               "route" : "rectal",
+               "start" : null,
+               "status" : "former treatment",
+               "value" : 2
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38295",
+               "label" : "Rectal Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C1027",
+               "label" : "Budesonide"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "prednisolone",
+               "drug_name" : "prednisolone",
+               "duration" : null,
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "current treatment",
+               "value" : 3
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "asa",
+               "drug_name" : "aspirin",
+               "duration" : null,
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "current treatment",
+               "value" : 3
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C287",
+               "label" : "Aspirin"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "asa",
+               "drug_name" : "aspirin",
+               "duration" : null,
+               "field" : "asa_rectal_status",
+               "route" : "rectal",
+               "start" : null,
+               "status" : "never treated",
+               "value" : 1
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38295",
+               "label" : "Rectal Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C287",
+               "label" : "Aspirin"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "aza",
+               "drug_name" : "azathioprine",
+               "duration" : null,
+               "field" : "aza_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "never treated",
+               "value" : 1
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "mtx",
+               "drug_name" : "methotrexate",
+               "duration" : null,
+               "field" : "mtx_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "never treated",
+               "value" : 1
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C642",
+               "label" : "Methotrexate"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "mp",
+               "drug_name" : "mercaptopurine",
+               "duration" : null,
+               "field" : "mp_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "never treated",
+               "value" : 1
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C195",
+               "label" : "Mercaptopurine"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -11597,6 +13232,11 @@
       },
       "interventionsOrProcedures" : [
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -11608,6 +13248,11 @@
             }
          },
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -11619,6 +13264,11 @@
             }
          },
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -12074,6 +13724,11 @@
       },
       "interventionsOrProcedures" : [
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -12085,6 +13740,11 @@
             }
          },
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -12540,6 +14200,11 @@
       },
       "interventionsOrProcedures" : [
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -12551,6 +14216,11 @@
             }
          },
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -12562,6 +14232,11 @@
             }
          },
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -13305,7 +14980,11 @@
       },
       "exposures" : [
          {
-            "ageAtExposure" : "P999Y",
+            "ageAtExposure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
@@ -13316,10 +14995,14 @@
                "id" : "NCIT:NA0000",
                "label" : "NA"
             },
-            "value" : -1
+            "value" : 3
          },
          {
-            "ageAtExposure" : "P999Y",
+            "ageAtExposure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
@@ -13330,10 +15013,14 @@
                "id" : "NCIT:C67147",
                "label" : "Current Smoker"
             },
-            "value" : -1
+            "value" : 2
          },
          {
-            "ageAtExposure" : "P999Y",
+            "ageAtExposure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
@@ -13350,7 +15037,14 @@
       "id" : "305:week_0_arm_1",
       "info" : {
          "age" : {
-            "iso8601duration" : "P25-29Y"
+            "ageRange" : {
+               "end" : {
+                  "iso8601duration" : "P29Y"
+               },
+               "start" : {
+                  "iso8601duration" : "P25Y"
+               }
+            }
          },
          "consent" : {
             "Field Label" : "Patient consented to BFU+/CED?",
@@ -13401,6 +15095,11 @@
       },
       "interventionsOrProcedures" : [
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -13412,6 +15111,11 @@
             }
          },
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -13423,6 +15127,11 @@
             }
          },
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -13434,6 +15143,11 @@
             }
          },
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -13900,7 +15614,281 @@
       "sex" : {
          "id" : "NCIT:C16576",
          "label" : "Female"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "budesonide",
+               "drug_name" : "budesonide",
+               "duration" : null,
+               "field" : "budesonide_oral_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "current treatment",
+               "value" : 3
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C1027",
+               "label" : "Budesonide"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "budesonide",
+               "drug_name" : "budesonide",
+               "duration" : null,
+               "field" : "budesonide_rectal_status",
+               "route" : "rectal",
+               "start" : null,
+               "status" : "never treated",
+               "value" : 1
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38295",
+               "label" : "Rectal Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C1027",
+               "label" : "Budesonide"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "prednisolone",
+               "drug_name" : "prednisolone",
+               "duration" : null,
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "current treatment",
+               "value" : 3
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "asa",
+               "drug_name" : "aspirin",
+               "duration" : null,
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "never treated",
+               "value" : 1
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C287",
+               "label" : "Aspirin"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "asa",
+               "drug_name" : "aspirin",
+               "duration" : null,
+               "field" : "asa_rectal_status",
+               "route" : "rectal",
+               "start" : null,
+               "status" : "never treated",
+               "value" : 1
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38295",
+               "label" : "Rectal Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C287",
+               "label" : "Aspirin"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "aza",
+               "drug_name" : "azathioprine",
+               "duration" : null,
+               "field" : "aza_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "never treated",
+               "value" : 1
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "mtx",
+               "drug_name" : "methotrexate",
+               "duration" : null,
+               "field" : "mtx_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "never treated",
+               "value" : 1
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C642",
+               "label" : "Methotrexate"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "mp",
+               "drug_name" : "mercaptopurine",
+               "duration" : null,
+               "field" : "mp_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "never treated",
+               "value" : 1
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C195",
+               "label" : "Mercaptopurine"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -14369,6 +16357,11 @@
       },
       "interventionsOrProcedures" : [
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -14988,7 +16981,11 @@
       },
       "exposures" : [
          {
-            "ageAtExposure" : "P999Y",
+            "ageAtExposure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
@@ -14999,10 +16996,14 @@
                "id" : "NCIT:NA0000",
                "label" : "NA"
             },
-            "value" : -1
+            "value" : 3
          },
          {
-            "ageAtExposure" : "P999Y",
+            "ageAtExposure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
@@ -15013,13 +17014,20 @@
                "id" : "NCIT:NA0000",
                "label" : "NA"
             },
-            "value" : -1
+            "value" : 1
          }
       ],
       "id" : "365:week_0_arm_1",
       "info" : {
          "age" : {
-            "iso8601duration" : "P40-49Y"
+            "ageRange" : {
+               "end" : {
+                  "iso8601duration" : "P49Y"
+               },
+               "start" : {
+                  "iso8601duration" : "P40Y"
+               }
+            }
          },
          "consent" : {
             "Field Label" : "Patient consented to BFU+/CED?",
@@ -15070,6 +17078,11 @@
       },
       "interventionsOrProcedures" : [
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -15081,6 +17094,11 @@
             }
          },
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -15092,6 +17110,11 @@
             }
          },
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -15103,6 +17126,11 @@
             }
          },
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -15631,7 +17659,281 @@
       "sex" : {
          "id" : "NCIT:C16576",
          "label" : "Female"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "budesonide",
+               "drug_name" : "budesonide",
+               "duration" : null,
+               "field" : "budesonide_oral_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "never treated",
+               "value" : 1
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C1027",
+               "label" : "Budesonide"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "budesonide",
+               "drug_name" : "budesonide",
+               "duration" : null,
+               "field" : "budesonide_rectal_status",
+               "route" : "rectal",
+               "start" : null,
+               "status" : "current treatment",
+               "value" : 3
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38295",
+               "label" : "Rectal Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C1027",
+               "label" : "Budesonide"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "prednisolone",
+               "drug_name" : "prednisolone",
+               "duration" : null,
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "current treatment",
+               "value" : 3
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "asa",
+               "drug_name" : "aspirin",
+               "duration" : null,
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "current treatment",
+               "value" : 3
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C287",
+               "label" : "Aspirin"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "asa",
+               "drug_name" : "aspirin",
+               "duration" : null,
+               "field" : "asa_rectal_status",
+               "route" : "rectal",
+               "start" : null,
+               "status" : "never treated",
+               "value" : 1
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38295",
+               "label" : "Rectal Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C287",
+               "label" : "Aspirin"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "aza",
+               "drug_name" : "azathioprine",
+               "duration" : null,
+               "field" : "aza_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "never treated",
+               "value" : 1
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "mtx",
+               "drug_name" : "methotrexate",
+               "duration" : null,
+               "field" : "mtx_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "never treated",
+               "value" : 1
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C642",
+               "label" : "Methotrexate"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "mp",
+               "drug_name" : "mercaptopurine",
+               "duration" : null,
+               "field" : "mp_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "never treated",
+               "value" : 1
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C195",
+               "label" : "Mercaptopurine"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -15658,6 +17960,11 @@
       },
       "interventionsOrProcedures" : [
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -15669,6 +17976,11 @@
             }
          },
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -15680,6 +17992,11 @@
             }
          },
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -16166,6 +18483,11 @@
       },
       "interventionsOrProcedures" : [
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -16177,6 +18499,11 @@
             }
          },
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -17105,6 +19432,11 @@
       },
       "interventionsOrProcedures" : [
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -17724,7 +20056,11 @@
       },
       "exposures" : [
          {
-            "ageAtExposure" : "P999Y",
+            "ageAtExposure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
@@ -17735,10 +20071,14 @@
                "id" : "NCIT:C17998",
                "label" : "Unknown"
             },
-            "value" : -1
+            "value" : 4
          },
          {
-            "ageAtExposure" : "P999Y",
+            "ageAtExposure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
@@ -17749,13 +20089,20 @@
                "id" : "NCIT:NA0000",
                "label" : "NA"
             },
-            "value" : -1
+            "value" : 0
          }
       ],
       "id" : "527:week_0_arm_1",
       "info" : {
          "age" : {
-            "iso8601duration" : "P18-24Y"
+            "ageRange" : {
+               "end" : {
+                  "iso8601duration" : "P24Y"
+               },
+               "start" : {
+                  "iso8601duration" : "P18Y"
+               }
+            }
          },
          "consent" : {
             "Field Label" : "Patient consented to BFU+/CED?",
@@ -17806,6 +20153,11 @@
       },
       "interventionsOrProcedures" : [
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -17817,6 +20169,11 @@
             }
          },
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -18498,7 +20855,281 @@
       "sex" : {
          "id" : "NCIT:C20197",
          "label" : "Male"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "budesonide",
+               "drug_name" : "budesonide",
+               "duration" : null,
+               "field" : "budesonide_oral_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "never treated",
+               "value" : 1
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C1027",
+               "label" : "Budesonide"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "budesonide",
+               "drug_name" : "budesonide",
+               "duration" : null,
+               "field" : "budesonide_rectal_status",
+               "route" : "rectal",
+               "start" : null,
+               "status" : "never treated",
+               "value" : 1
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38295",
+               "label" : "Rectal Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C1027",
+               "label" : "Budesonide"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "prednisolone",
+               "drug_name" : "prednisolone",
+               "duration" : null,
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "current treatment",
+               "value" : 3
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "asa",
+               "drug_name" : "aspirin",
+               "duration" : null,
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "current treatment",
+               "value" : 3
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C287",
+               "label" : "Aspirin"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "asa",
+               "drug_name" : "aspirin",
+               "duration" : null,
+               "field" : "asa_rectal_status",
+               "route" : "rectal",
+               "start" : null,
+               "status" : "current treatment",
+               "value" : 3
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38295",
+               "label" : "Rectal Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C287",
+               "label" : "Aspirin"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "aza",
+               "drug_name" : "azathioprine",
+               "duration" : null,
+               "field" : "aza_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "never treated",
+               "value" : 1
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "mtx",
+               "drug_name" : "methotrexate",
+               "duration" : null,
+               "field" : "mtx_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "never treated",
+               "value" : 1
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C642",
+               "label" : "Methotrexate"
+            }
+         },
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "mp",
+               "drug_name" : "mercaptopurine",
+               "duration" : null,
+               "field" : "mp_status",
+               "route" : "oral",
+               "start" : null,
+               "status" : "never treated",
+               "value" : 1
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C195",
+               "label" : "Mercaptopurine"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -18525,6 +21156,11 @@
       },
       "interventionsOrProcedures" : [
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -18536,6 +21172,11 @@
             }
          },
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"
@@ -19928,6 +22569,11 @@
       },
       "interventionsOrProcedures" : [
          {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "bodySite" : {
                "id" : "NCIT:C12736",
                "label" : "intestine"

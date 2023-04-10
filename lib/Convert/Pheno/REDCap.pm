@@ -94,7 +94,7 @@ sub do_redcap2bff {
     # More default values
     my $default_date     = '1900-01-01';
     my $default_duration = 'P999Y';
-    my $default_age      = 'P999Y';
+    my $default_age      = { age => {iso8601duration => 'P999Y' }};
 
     # Variable that will allow to perform ad hoc changes for specific projects
     my $project_id = $mapping_file->{project}{id};
@@ -124,6 +124,11 @@ sub do_redcap2bff {
 
     # Perform the mapping for this participant
     for my $field (@fields2map) {
+
+        # First we keep track of the original value in case need it
+        $participant->{$field.'_ori'} = $participant->{$field}; 
+
+        # Now overwrite the original value with the ditionary one
         $participant->{$field} = map2redcap_dic(
             {
                 redcap_dic  => $redcap_dic,
@@ -142,20 +147,15 @@ sub do_redcap2bff {
     # NB: Inflamatory Bowel Disease --- Note the 2 mm in infla-mm-atory
 
     # Load hashref with cursors for mapping
-    my $mapping = map2hash( $mapping_file, 'diseases' );
+    my $mapping = remap_hash( $mapping_file, 'diseases' );
 
     # Start looping over them
     for my $field ( @{ $mapping->{fields} } ) {
         my $disease;
 
         # Load a few more variables from mapping file
-        my $ageOfOnset_field    = $mapping->{map}{ageOfOnset};
-        my $familyHistory_field = $mapping->{map}{familyHistory};
-
         # Start mapping
-        $disease->{ageOfOnset} =
-          map_age_range( $participant->{$ageOfOnset_field} )
-          if defined $participant->{$ageOfOnset_field};
+        $disease->{ageOfOnset} = map_age_range( $participant->{$mapping->{map}{ageOfOnset}}) if  (exists $mapping->{map}{ageOfOnset} && defined $participant->{$mapping->{map}{ageOfOnset}});
         $disease->{diseaseCode} = map_ontology(
             {
                 query    => $field,
@@ -164,9 +164,8 @@ sub do_redcap2bff {
                 self     => $self
             }
         );
-        $disease->{familyHistory} =
-          convert2boolean( $participant->{$familyHistory_field} )
-          if defined $participant->{$familyHistory_field};
+        $disease->{familyHistory} = 
+          convert2boolean( $participant->{$mapping->{map}{familyHistory}} ) if (exists $mapping->{map}{familyHistory} && defined $participant->{$mapping->{map}{familyHistory}});
 
         #$disease->{notes}    = undef;
         $disease->{severity} = $default_ontology;
@@ -192,21 +191,18 @@ sub do_redcap2bff {
     #$individual->{exposures} = undef;
 
     # Load hashref with cursors for mapping
-    $mapping = map2hash( $mapping_file, 'exposures' );
+    $mapping = remap_hash( $mapping_file, 'exposures' );
 
     for my $field ( @{ $mapping->{fields} } ) {
         next unless defined $participant->{$field};
 
         my $exposure;
-        $exposure->{ageAtExposure} =
-          exists $mapping->{map}{ageAtExposure}
-          ? $mapping->{map}{ageAtExposure}
-          : $default_age;
+        $exposure->{ageAtExposure} =  (exists $mapping->{map}{ageAtExposure} && defined $participant->{$mapping->{map}{ageAtExposure}}) ? map_age_range($participant->{$mapping->{map}{ageAtExposure}}) : $default_age;
         $exposure->{date} =
-          exists $mapping->{map}{date} ? $mapping->{map}{date} : $default_date;
+          exists $mapping->{map}{date} ? $participant->{$mapping->{map}{date}} : $default_date;
         $exposure->{duration} =
           exists $mapping->{map}{duration}
-          ? $mapping->{map}{duration}
+          ? $participant->{$mapping->{map}{duration}}
           : $default_duration;
 
         # Query related
@@ -241,7 +237,7 @@ sub do_redcap2bff {
             }
         );
         $exposure->{unit}  = $unit;
-        $exposure->{value} = -1;
+        $exposure->{value} = $participant->{$field.'_ori'} // -1;
         push @{ $individual->{exposures} }, $exposure
           if defined $exposure->{exposureCode};
     }
@@ -265,7 +261,7 @@ sub do_redcap2bff {
     # ====
 
     # Load hashref with cursors for mapping
-    $mapping = map2hash( $mapping_file, 'info' );
+    $mapping = remap_hash( $mapping_file, 'info' );
 
     for my $field ( @{ $mapping->{fields} } ) {
         if ( defined $participant->{$field} ) {
@@ -274,7 +270,7 @@ sub do_redcap2bff {
             if ( $project_id eq '3tr_ibd' ) {
                 $individual->{info}{$field} =
                   $field eq 'age'
-                  ? { iso8601duration => 'P' . $participant->{$field} . 'Y' }
+                  ? map_age_range ( $participant->{$field}) 
                   : $field =~ m/^consent/ ? {
                     value => dotify_and_coerce_number( $participant->{$field} ),
                     map { $_ => $redcap_dic->{$field}{$_} } @redcap_field_types
@@ -297,7 +293,7 @@ sub do_redcap2bff {
     #$individual->{interventionsOrProcedures} = [];
 
     # Load hashref with cursors for mapping
-    $mapping = map2hash( $mapping_file, 'interventionsOrProcedures' );
+    $mapping = remap_hash( $mapping_file, 'interventionsOrProcedures' );
 
     for my $field ( @{ $mapping->{fields} } ) {
         if ( $participant->{$field} ) {
@@ -308,16 +304,23 @@ sub do_redcap2bff {
                 && $field eq $mapping->{map}{dateOfProcedure} );
             my $intervention;
 
-            #$intervention->{ageAtProcedure} = $ageAtProcedure_field;
+            $intervention->{ageAtProcedure} = ( exists $mapping->{map}{ageAtProcedure}
+                  && defined $mapping->{map}{ageAtProcedure} )
+              ? map_age_range(
+                $participant->{ $mapping->{map}{ageAtProcedure} } )
+              : $default_age;
+
             $intervention->{bodySite} =
               { "id" => "NCIT:C12736", "label" => "intestine" }
               if ( $project_id eq '3tr_ibd' );
+
             $intervention->{dateOfProcedure} =
               ( exists $mapping->{map}{dateOfProcedure}
                   && defined $mapping->{map}{dateOfProcedure} )
               ? dot_date2iso(
                 $participant->{ $mapping->{map}{dateOfProcedure} } )
               : $default_date;
+
             $intervention->{procedureCode} = map_ontology(
                 {
                     query => exists $mapping->{dict}{$field}
@@ -346,7 +349,7 @@ sub do_redcap2bff {
     $individual->{measures} = undef;
 
     # Load hashref with cursors for mapping
-    $mapping = map2hash( $mapping_file, 'measures' );
+    $mapping = remap_hash( $mapping_file, 'measures' );
 
     for my $field ( @{ $mapping->{fields} } ) {
         next unless defined $participant->{$field};
@@ -455,7 +458,7 @@ sub do_redcap2bff {
     #$individual->{phenotypicFeatures} = [];
 
     # Load hashref with cursors for mapping
-    $mapping = map2hash( $mapping_file, 'phenotypicFeatures' );
+    $mapping = remap_hash( $mapping_file, 'phenotypicFeatures' );
 
     for my $field ( @{ $mapping->{fields} } ) {
         my $phenotypicFeature;
@@ -511,7 +514,7 @@ sub do_redcap2bff {
 
     #$individual->{treatments} = undef;
 
-    $mapping = map2hash( $mapping_file, 'treatments' );
+    $mapping = remap_hash( $mapping_file, 'treatments' );
 
     for my $field ( @{ $mapping->{fields} } ) {
 
@@ -549,14 +552,13 @@ sub do_redcap2bff {
                 field     => $tmp_var,
                 drug      => $field,
                 drug_name => $treatment_name,
-                status    => $tmp_var,
+                status   => $participant->{$tmp_var},
                 route     => $route,
-                value     => $participant->{$tmp_var},
+                value     => $participant->{$tmp_var.'_ori'},
                 map { $_ => $participant->{ $field . $_ } }
                   qw(start dose duration)
             };    # ***** INTERNAL FIELD
-            $treatment->{ageAtOnset} =
-              { age => { iso8601duration => $default_duration } };
+            $treatment->{ageAtOnset} = $default_age;
             $treatment->{cumulativeDose} =
               { unit => $default_ontology, value => -1 };
             $treatment->{doseIntervals}         = [];
@@ -589,7 +591,7 @@ sub do_redcap2bff {
     return $individual;
 }
 
-sub map2hash {
+sub remap_hash {
 
     my ( $mapping_file, $term ) = @_;
     my %hash_out = map {
@@ -601,6 +603,7 @@ sub map2hash {
       exists $mapping_file->{$term}{ontology}
       ? $mapping_file->{$term}{ontology}
       : $mapping_file->{project}{ontology};
+    $hash_out{routesOfAdministration} = $mapping_file->{$term}{routesOfAdministration} if $term eq 'treatments';
     return \%hash_out;
 }
 

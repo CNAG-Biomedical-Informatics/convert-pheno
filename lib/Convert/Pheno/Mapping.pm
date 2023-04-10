@@ -156,7 +156,12 @@ sub map_reference_range {
 sub map_age_range {
 
     my $str = shift;
-    $str =~ s/\+/-9999/;    #60+#
+     
+    # Premature return if not range
+    return { age => {iso8601duration => 'P' . dotify_and_coerce_number($str) . 'Y' }} unless $str =~ m/\-|\+/;
+
+    # if range
+    $str =~ s/\+/\-999/;    # from '70+' '70-999'
     my ( $start, $end ) = split /\-/, $str;
 
     return {

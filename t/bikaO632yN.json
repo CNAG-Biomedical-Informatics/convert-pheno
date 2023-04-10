@@ -1,0 +1,35 @@
+[
+{
+   "ethnicity" : {
+      "id" : "NCIT:C41261",
+      "label" : "White"
+   },
+   "geographicOrigin" : {
+      "id" : "NCIT:C43857",
+      "label" : "Italian"
+   },
+   "id" : "1",
+   "info" : {
+      "PERSON" : {
+         "OMOP_columns" : {
+            "birth_datetime" : "1949-01-27 00:00:00",
+            "care_site_id" : "\\N",
+            "day_of_birth" : 27,
+            "ethnicity_concept_id" : 0,
+            "ethnicity_source_concept_id" : 0,
+            "ethnicity_source_value" : "italian",
+            "gender_concept_id" : 8507,
+            "gender_source_concept_id" : 0,
+            "gender_source_value" : "M",
+            "location_id" : "\\N",
+            "month_of_birth" : 1,
+            "person_id" : 1,
+            "person_source_value" : "000728a7-80de-420a-9286-2c20e81cb7b8",
+            "provider_id" : "\\N",
+            "race_concept_id" : 8527,
+            "race_source_concept_id" : 0,
+            "race_source_value" : "white",
+            "year_of_birth" : 1949
+         }
+      },
+      "da
