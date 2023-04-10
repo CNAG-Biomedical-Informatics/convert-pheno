@@ -5,22 +5,23 @@
 
     section Relases
     Alpha                     :done,      r1, 2023-01-01, 90d
-    Beta                      :active,    r2, after r1, 90d
-    v1                        :           r3, after r2, 250d
+    Beta                      :active,    r2, after r1, 185d
+    v1                        :           r3, after r2, 365d
 
     section Publication
-    Write manuscript          :active,     m1, 2023-01-01, 90d
-    Submission                :            m2, after m1, 90d
+    Write manuscript          :done,      m1, 2023-01-01, 90d
+    Submission                :active,    m2, after m1, 90d
     Paper acceptance          :milestone, after m2, 0d
 
     section Formats
-    OMOP-CDM (out)  :crit, f1, 2023-07-15, 60d
-    OpenEHR         :      f2, after f1, 60d
-    Dataset-JSON    :      f3, after f2, 60d
-    HL7/FHIR        :      f4, after f3, 60d
+    OMOP-CDM (out)  :crit, f1, 2023-07-01, 120d
+    OpenEHR         :      f2, after f1, 120d
+    Dataset-JSON    :      f3, after f2, 120d
+    HL7/FHIR        :      f4, after f3, 120d
 
     section Extensions
-    User interface  :crit, e1, 2023-01-01, 90d
+    User interface            :done,   e1, 2023-01-01, 90d
+    User interface (Extended) :        after m2, 360d
 ```
 
-##### last change 2023-03-21 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
+##### last change 2023-04-10 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)

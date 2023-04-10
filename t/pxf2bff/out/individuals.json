@@ -45,7 +45,6 @@
             "variants" : []
          }
       },
-      "phenotypicFeatures" : [],
       "sex" : {
          "id" : "NCIT:C16576",
          "label" : "Female"
@@ -97,7 +96,6 @@
             "variants" : []
          }
       },
-      "phenotypicFeatures" : [],
       "sex" : {
          "id" : "NCIT:C20197",
          "label" : "Male"
@@ -164,7 +162,6 @@
       },
       "phenotypicFeatures" : [
          {
-            "evidence" : {},
             "excluded" : true,
             "featureType" : {
                "id" : "HP:0001249",
@@ -172,7 +169,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0000467",
@@ -180,7 +176,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0001252",
@@ -188,7 +183,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0001319",
@@ -196,7 +190,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0001374",
@@ -204,7 +197,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0002540",
@@ -212,7 +204,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0002783",
@@ -220,7 +211,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0002804",
@@ -228,7 +218,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0003202",
@@ -236,7 +225,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0005684",
@@ -244,7 +232,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0030319",
@@ -305,7 +292,6 @@
       },
       "phenotypicFeatures" : [
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0007663",
@@ -313,7 +299,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0007703",
@@ -321,7 +306,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0007722",
@@ -380,7 +364,6 @@
             "variants" : []
          }
       },
-      "phenotypicFeatures" : [],
       "sex" : {
          "id" : "NCIT:C20197",
          "label" : "Male"
@@ -434,7 +417,6 @@
       },
       "phenotypicFeatures" : [
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0000529",
@@ -442,7 +424,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0000575",
@@ -450,7 +431,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0007703",
@@ -458,7 +438,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0008002",
@@ -466,7 +445,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0012508",
@@ -525,7 +503,6 @@
             "variants" : []
          }
       },
-      "phenotypicFeatures" : [],
       "sex" : {
          "id" : "NCIT:C20197",
          "label" : "Male"
@@ -577,7 +554,6 @@
             "variants" : []
          }
       },
-      "phenotypicFeatures" : [],
       "sex" : {
          "id" : "NCIT:C16576",
          "label" : "Female"
@@ -631,7 +607,6 @@
       },
       "phenotypicFeatures" : [
          {
-            "evidence" : {},
             "excluded" : true,
             "featureType" : {
                "id" : "HP:0003236",
@@ -639,7 +614,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0001324",
@@ -647,7 +621,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0003326",
@@ -655,7 +628,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0003560",
@@ -663,7 +635,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0009050",
@@ -729,7 +700,6 @@
       },
       "phenotypicFeatures" : [
          {
-            "evidence" : {},
             "excluded" : true,
             "featureType" : {
                "id" : "HP:0007281",
@@ -737,7 +707,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0000252",
@@ -745,7 +714,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0001250",
@@ -753,7 +721,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0001270",
@@ -761,7 +728,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0002013",
@@ -769,7 +735,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0002240",
@@ -777,7 +742,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0002333",
@@ -785,7 +749,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0002376",
@@ -793,7 +756,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0002490",
@@ -801,7 +763,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0002922",
@@ -809,7 +770,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0003128",
@@ -817,7 +777,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0003390",
@@ -825,7 +784,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0003739",
@@ -833,7 +791,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0004325",
@@ -841,7 +798,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0006887",
@@ -849,7 +805,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0007002",
@@ -857,7 +812,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0012758",
@@ -865,7 +819,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0100543",
@@ -873,7 +826,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0200134",
@@ -932,7 +884,6 @@
             "variants" : []
          }
       },
-      "phenotypicFeatures" : [],
       "sex" : {
          "id" : "NCIT:C20197",
          "label" : "Male"
@@ -984,7 +935,6 @@
             "variants" : []
          }
       },
-      "phenotypicFeatures" : [],
       "sex" : {
          "id" : "NCIT:C16576",
          "label" : "Female"
@@ -1045,7 +995,6 @@
       },
       "phenotypicFeatures" : [
          {
-            "evidence" : {},
             "excluded" : true,
             "featureType" : {
                "id" : "HP:0000144",
@@ -1053,7 +1002,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : true,
             "featureType" : {
                "id" : "HP:0003003",
@@ -1061,7 +1009,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0003002",
@@ -1069,7 +1016,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0100013",
@@ -1130,7 +1076,6 @@
       },
       "phenotypicFeatures" : [
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0100615",
@@ -1189,7 +1134,6 @@
             "variants" : []
          }
       },
-      "phenotypicFeatures" : [],
       "sex" : {
          "id" : "NCIT:C20197",
          "label" : "Male"
@@ -1250,7 +1194,6 @@
       },
       "phenotypicFeatures" : [
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0000467",
@@ -1258,7 +1201,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0005684",
@@ -1266,7 +1208,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0008936",
@@ -1274,7 +1215,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0003202",
@@ -1282,7 +1222,6 @@
             }
          },
          {
-            "evidence" : {},
             "excluded" : false,
             "featureType" : {
                "id" : "HP:0001319",
@@ -1341,7 +1280,6 @@
             "variants" : []
          }
       },
-      "phenotypicFeatures" : [],
       "sex" : {
          "id" : "NCIT:C16576",
          "label" : "Female"
@@ -1393,7 +1331,6 @@
             "variants" : []
          }
       },
-      "phenotypicFeatures" : [],
       "sex" : {
          "id" : "NCIT:C20197",
          "label" : "Male"
