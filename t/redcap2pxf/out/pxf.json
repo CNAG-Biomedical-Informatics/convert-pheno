@@ -324,121 +324,112 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C157823",
+                  "label" : "Colon Resection"
+               },
+               "performed" : {
+                  "timestamp" : "2021-02-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "performed" : {
-                  "timestamp" : "1900-01-01T00:00:00Z"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C1027",
-                  "label" : "Budesonide"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C1027",
-                  "label" : "Budesonide"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38295",
-                  "label" : "Rectal Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C769",
-                  "label" : "Prednisolone"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C287",
-                  "label" : "Aspirin"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C287",
-                  "label" : "Aspirin"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38295",
-                  "label" : "Rectal Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C290",
-                  "label" : "Azathioprine"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C642",
-                  "label" : "Methotrexate"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C195",
-                  "label" : "Mercaptopurine"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
+                  "timestamp" : "2021-02-01T00:00:00Z"
                }
             }
          }
       ],
       "metaData" : null,
       "phenotypicFeatures" : [
+         {
+            "type" : {
+               "id" : "NCIT:C16457",
+               "label" : "Comorbidity"
+            }
+         },
+         {
+            "type" : {
+               "id" : "NCIT:C16457",
+               "label" : "Comorbidity"
+            }
+         },
+         {
+            "type" : {
+               "id" : "NCIT:C16457",
+               "label" : "Comorbidity"
+            }
+         },
+         {
+            "type" : {
+               "id" : "NCIT:C16457",
+               "label" : "Comorbidity"
+            }
+         },
+         {
+            "type" : {
+               "id" : "NCIT:C16457",
+               "label" : "Comorbidity"
+            }
+         },
+         {
+            "type" : {
+               "id" : "NCIT:C16457",
+               "label" : "Comorbidity"
+            }
+         },
+         {
+            "type" : {
+               "id" : "NCIT:C16457",
+               "label" : "Comorbidity"
+            }
+         },
+         {
+            "type" : {
+               "id" : "NCIT:C16457",
+               "label" : "Comorbidity"
+            }
+         },
+         {
+            "type" : {
+               "id" : "NCIT:C16457",
+               "label" : "Comorbidity"
+            }
+         },
+         {
+            "type" : {
+               "id" : "NCIT:C16457",
+               "label" : "Comorbidity"
+            }
+         },
+         {
+            "type" : {
+               "id" : "NCIT:C16457",
+               "label" : "Comorbidity"
+            }
+         },
+         {
+            "type" : {
+               "id" : "NCIT:C16457",
+               "label" : "Comorbidity"
+            }
+         },
+         {
+            "type" : {
+               "id" : "NCIT:C16457",
+               "label" : "Comorbidity"
+            }
+         },
+         {
+            "type" : {
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
+            }
+         },
          {
             "type" : {
                "id" : "NCIT:NA0000",
@@ -766,7 +757,39 @@
             }
          }
       ],
+      "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "2021-07-12T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "2021-07-12T00:00:00Z"
+               }
+            }
+         }
+      ],
       "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "type" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
       "subject" : {
          "id" : "107:week_14_arm_1",
          "sex" : "MALE",
@@ -1427,112 +1450,36 @@
       ],
       "medicalActions" : [
          {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C1027",
-                  "label" : "Budesonide"
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
                },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
+               "performed" : {
+                  "timestamp" : "2020-11-16T00:00:00Z"
                }
             }
          },
          {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C1027",
-                  "label" : "Budesonide"
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
                },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38295",
-                  "label" : "Rectal Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C769",
-                  "label" : "Prednisolone"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C287",
-                  "label" : "Aspirin"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C287",
-                  "label" : "Aspirin"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38295",
-                  "label" : "Rectal Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C290",
-                  "label" : "Azathioprine"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C642",
-                  "label" : "Methotrexate"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C195",
-                  "label" : "Mercaptopurine"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
+               "performed" : {
+                  "timestamp" : "2020-11-16T00:00:00Z"
                }
             }
          }
       ],
       "metaData" : null,
       "phenotypicFeatures" : [
+         {
+            "type" : {
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
+            }
+         },
          {
             "type" : {
                "id" : "NCIT:NA0000",
@@ -1860,7 +1807,39 @@
             }
          }
       ],
+      "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "2021-03-13T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "2021-03-13T00:00:00Z"
+               }
+            }
+         }
+      ],
       "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "type" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
       "subject" : {
          "id" : "125:week_14_arm_1",
          "sex" : "MALE",
@@ -2181,7 +2160,28 @@
             }
          }
       ],
+      "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         }
+      ],
       "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "type" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
       "subject" : {
          "id" : "125:week_2_arm_1",
          "sex" : "MALE",
@@ -2503,6 +2503,14 @@
          }
       ],
       "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "type" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
       "subject" : {
          "id" : "125:week_26_arm_1",
          "sex" : "MALE",
@@ -2938,7 +2946,39 @@
             }
          }
       ],
+      "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "2021-08-25T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "2021-08-25T00:00:00Z"
+               }
+            }
+         }
+      ],
       "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "type" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
       "subject" : {
          "id" : "125:week_52_arm_1",
          "sex" : "MALE",
@@ -3352,6 +3392,14 @@
          }
       ],
       "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "type" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
       "subject" : {
          "id" : "125:week_78_arm_1",
          "sex" : "MALE",
@@ -3781,117 +3829,63 @@
                   "label" : "Hemicolectomy"
                },
                "performed" : {
-                  "timestamp" : "1900-01-01T00:00:00Z"
+                  "timestamp" : "2020-12-14T00:00:00Z"
                }
             }
          },
          {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C1027",
-                  "label" : "Budesonide"
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
                },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
+               "performed" : {
+                  "timestamp" : "2020-12-14T00:00:00Z"
                }
             }
          },
          {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C1027",
-                  "label" : "Budesonide"
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
                },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38295",
-                  "label" : "Rectal Route of Administration"
+               "performed" : {
+                  "timestamp" : "2020-12-14T00:00:00Z"
                }
             }
          },
          {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C769",
-                  "label" : "Prednisolone"
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
                },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
+               "performed" : {
+                  "timestamp" : "2020-12-14T00:00:00Z"
                }
             }
          },
          {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C287",
-                  "label" : "Aspirin"
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
                },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C287",
-                  "label" : "Aspirin"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38295",
-                  "label" : "Rectal Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C290",
-                  "label" : "Azathioprine"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C642",
-                  "label" : "Methotrexate"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C195",
-                  "label" : "Mercaptopurine"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
+               "performed" : {
+                  "timestamp" : "2020-12-14T00:00:00Z"
                }
             }
          }
       ],
       "metaData" : null,
       "phenotypicFeatures" : [
+         {
+            "type" : {
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
+            }
+         },
          {
             "type" : {
                "id" : "NCIT:NA0000",
@@ -4311,6 +4305,52 @@
             }
          }
       ],
+      "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "2021-05-29T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "2021-05-29T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "2021-05-29T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "2021-05-29T00:00:00Z"
+               }
+            }
+         }
+      ],
       "metaData" : null,
       "phenotypicFeatures" : [
          {
@@ -4613,6 +4653,30 @@
                      "label" : "Nanogram per Liter"
                   },
                   "value" : 2.42
+               }
+            }
+         }
+      ],
+      "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
                }
             }
          }
@@ -4923,7 +4987,28 @@
             }
          }
       ],
+      "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         }
+      ],
       "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "type" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
       "subject" : {
          "id" : "215:week_26_arm_1",
          "sex" : "MALE",
@@ -5451,7 +5536,50 @@
             }
          }
       ],
+      "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "2022-03-03T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "2022-03-03T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "2022-03-03T00:00:00Z"
+               }
+            }
+         }
+      ],
       "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "type" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
       "subject" : {
          "id" : "215:week_52_arm_1",
          "sex" : "MALE",
@@ -5819,6 +5947,14 @@
          }
       ],
       "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "type" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
       "subject" : {
          "id" : "215:week_78_arm_1",
          "sex" : "MALE",
@@ -6288,106 +6424,46 @@
       ],
       "medicalActions" : [
          {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C1027",
-                  "label" : "Budesonide"
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
                },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
+               "performed" : {
+                  "timestamp" : "2021-10-28T00:00:00Z"
                }
             }
          },
          {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C1027",
-                  "label" : "Budesonide"
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
                },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38295",
-                  "label" : "Rectal Route of Administration"
+               "performed" : {
+                  "timestamp" : "2021-10-28T00:00:00Z"
                }
             }
          },
          {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C769",
-                  "label" : "Prednisolone"
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
                },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
+               "performed" : {
+                  "timestamp" : "2021-10-28T00:00:00Z"
                }
             }
          },
          {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C287",
-                  "label" : "Aspirin"
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
                },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C287",
-                  "label" : "Aspirin"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38295",
-                  "label" : "Rectal Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C290",
-                  "label" : "Azathioprine"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C642",
-                  "label" : "Methotrexate"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C195",
-                  "label" : "Mercaptopurine"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
+               "performed" : {
+                  "timestamp" : "2021-10-28T00:00:00Z"
                }
             }
          }
@@ -6404,6 +6480,84 @@
             "type" : {
                "id" : "NCIT:C16457",
                "label" : "Comorbidity"
+            }
+         },
+         {
+            "type" : {
+               "id" : "NCIT:C16457",
+               "label" : "Comorbidity"
+            }
+         },
+         {
+            "type" : {
+               "id" : "NCIT:C16457",
+               "label" : "Comorbidity"
+            }
+         },
+         {
+            "type" : {
+               "id" : "NCIT:C16457",
+               "label" : "Comorbidity"
+            }
+         },
+         {
+            "type" : {
+               "id" : "NCIT:C16457",
+               "label" : "Comorbidity"
+            }
+         },
+         {
+            "type" : {
+               "id" : "NCIT:C16457",
+               "label" : "Comorbidity"
+            }
+         },
+         {
+            "type" : {
+               "id" : "NCIT:C16457",
+               "label" : "Comorbidity"
+            }
+         },
+         {
+            "type" : {
+               "id" : "NCIT:C16457",
+               "label" : "Comorbidity"
+            }
+         },
+         {
+            "type" : {
+               "id" : "NCIT:C16457",
+               "label" : "Comorbidity"
+            }
+         },
+         {
+            "type" : {
+               "id" : "NCIT:C16457",
+               "label" : "Comorbidity"
+            }
+         },
+         {
+            "type" : {
+               "id" : "NCIT:C16457",
+               "label" : "Comorbidity"
+            }
+         },
+         {
+            "type" : {
+               "id" : "NCIT:C16457",
+               "label" : "Comorbidity"
+            }
+         },
+         {
+            "type" : {
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
+            }
+         },
+         {
+            "type" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             }
          }
       ],
@@ -6842,7 +6996,39 @@
             }
          }
       ],
+      "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         }
+      ],
       "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "type" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
       "subject" : {
          "id" : "257:week_14_arm_1",
          "sex" : "FEMALE",
@@ -7274,6 +7460,30 @@
                      "label" : "Nanogram per Liter"
                   },
                   "value" : 22.76
+               }
+            }
+         }
+      ],
+      "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
                }
             }
          }
@@ -7746,6 +7956,14 @@
          }
       ],
       "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "type" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
       "subject" : {
          "id" : "257:week_26_arm_1",
          "sex" : "FEMALE",
@@ -8169,112 +8387,58 @@
       ],
       "medicalActions" : [
          {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C1027",
-                  "label" : "Budesonide"
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
                },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
+               "performed" : {
+                  "timestamp" : "2021-01-04T00:00:00Z"
                }
             }
          },
          {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C1027",
-                  "label" : "Budesonide"
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
                },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38295",
-                  "label" : "Rectal Route of Administration"
+               "performed" : {
+                  "timestamp" : "2021-01-04T00:00:00Z"
                }
             }
          },
          {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C769",
-                  "label" : "Prednisolone"
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
                },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
+               "performed" : {
+                  "timestamp" : "2021-01-04T00:00:00Z"
                }
             }
          },
          {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C287",
-                  "label" : "Aspirin"
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
                },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C287",
-                  "label" : "Aspirin"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38295",
-                  "label" : "Rectal Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C290",
-                  "label" : "Azathioprine"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C642",
-                  "label" : "Methotrexate"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C195",
-                  "label" : "Mercaptopurine"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
+               "performed" : {
+                  "timestamp" : "2021-01-04T00:00:00Z"
                }
             }
          }
       ],
       "metaData" : null,
       "phenotypicFeatures" : [
+         {
+            "type" : {
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
+            }
+         },
          {
             "type" : {
                "id" : "NCIT:NA0000",
@@ -8602,7 +8766,50 @@
             }
          }
       ],
+      "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "2021-04-19T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "2021-04-19T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "2021-04-19T00:00:00Z"
+               }
+            }
+         }
+      ],
       "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "type" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
       "subject" : {
          "id" : "275:week_14_arm_1",
          "sex" : "FEMALE",
@@ -8923,7 +9130,39 @@
             }
          }
       ],
+      "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         }
+      ],
       "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "type" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
       "subject" : {
          "id" : "275:week_2_arm_1",
          "sex" : "FEMALE",
@@ -9451,7 +9690,50 @@
             }
          }
       ],
+      "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "2022-08-13T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "2022-08-13T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "2022-08-13T00:00:00Z"
+               }
+            }
+         }
+      ],
       "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "type" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
       "subject" : {
          "id" : "275:week_52_arm_1",
          "sex" : "FEMALE",
@@ -9808,120 +10090,63 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C157858",
+                  "label" : "Fistula Repair"
+               },
+               "performed" : {
+                  "timestamp" : "2021-01-04T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
                "performed" : {
-                  "timestamp" : "1900-01-01T00:00:00Z"
+                  "timestamp" : "2021-01-04T00:00:00Z"
                }
             }
          },
          {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C1027",
-                  "label" : "Budesonide"
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
                },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
+               "performed" : {
+                  "timestamp" : "2021-01-04T00:00:00Z"
                }
             }
          },
          {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C1027",
-                  "label" : "Budesonide"
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
                },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38295",
-                  "label" : "Rectal Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C769",
-                  "label" : "Prednisolone"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C287",
-                  "label" : "Aspirin"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C287",
-                  "label" : "Aspirin"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38295",
-                  "label" : "Rectal Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C290",
-                  "label" : "Azathioprine"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C642",
-                  "label" : "Methotrexate"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C195",
-                  "label" : "Mercaptopurine"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
+               "performed" : {
+                  "timestamp" : "2021-01-04T00:00:00Z"
                }
             }
          }
       ],
       "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "type" : {
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
+            }
+         },
+         {
+            "type" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
       "subject" : {
          "id" : "305:week_0_arm_1",
          "sex" : "FEMALE",
@@ -10243,6 +10468,14 @@
          }
       ],
       "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "type" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
       "subject" : {
          "id" : "305:week_26_arm_1",
          "sex" : "FEMALE",
@@ -10678,7 +10911,28 @@
             }
          }
       ],
+      "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         }
+      ],
       "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "type" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
       "subject" : {
          "id" : "305:week_52_arm_1",
          "sex" : "FEMALE",
@@ -11079,112 +11333,58 @@
       ],
       "medicalActions" : [
          {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C1027",
-                  "label" : "Budesonide"
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
                },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
+               "performed" : {
+                  "timestamp" : "2021-01-05T00:00:00Z"
                }
             }
          },
          {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C1027",
-                  "label" : "Budesonide"
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
                },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38295",
-                  "label" : "Rectal Route of Administration"
+               "performed" : {
+                  "timestamp" : "2021-01-05T00:00:00Z"
                }
             }
          },
          {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C769",
-                  "label" : "Prednisolone"
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
                },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
+               "performed" : {
+                  "timestamp" : "2021-01-05T00:00:00Z"
                }
             }
          },
          {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C287",
-                  "label" : "Aspirin"
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
                },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C287",
-                  "label" : "Aspirin"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38295",
-                  "label" : "Rectal Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C290",
-                  "label" : "Azathioprine"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C642",
-                  "label" : "Methotrexate"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C195",
-                  "label" : "Mercaptopurine"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
+               "performed" : {
+                  "timestamp" : "2021-01-05T00:00:00Z"
                }
             }
          }
       ],
       "metaData" : null,
       "phenotypicFeatures" : [
+         {
+            "type" : {
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
+            }
+         },
          {
             "type" : {
                "id" : "NCIT:NA0000",
@@ -11535,7 +11735,50 @@
             }
          }
       ],
+      "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "2021-04-16T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "2021-04-16T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "2021-04-16T00:00:00Z"
+               }
+            }
+         }
+      ],
       "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "type" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
       "subject" : {
          "id" : "365:week_14_arm_1",
          "sex" : "FEMALE",
@@ -11852,6 +12095,30 @@
                      "label" : "Nanogram per Liter"
                   },
                   "value" : 3.43
+               }
+            }
+         }
+      ],
+      "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
                }
             }
          }
@@ -12209,6 +12476,14 @@
          }
       ],
       "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "type" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
       "subject" : {
          "id" : "365:week_26_arm_1",
          "sex" : "FEMALE",
@@ -12644,7 +12919,28 @@
             }
          }
       ],
+      "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         }
+      ],
       "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "type" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
       "subject" : {
          "id" : "365:week_52_arm_1",
          "sex" : "FEMALE",
@@ -13091,112 +13387,114 @@
       ],
       "medicalActions" : [
          {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C1027",
-                  "label" : "Budesonide"
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
                },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
+               "performed" : {
+                  "timestamp" : "2021-04-12T00:00:00Z"
                }
             }
          },
          {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C1027",
-                  "label" : "Budesonide"
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
                },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38295",
-                  "label" : "Rectal Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C769",
-                  "label" : "Prednisolone"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C287",
-                  "label" : "Aspirin"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C287",
-                  "label" : "Aspirin"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38295",
-                  "label" : "Rectal Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C290",
-                  "label" : "Azathioprine"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C642",
-                  "label" : "Methotrexate"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C195",
-                  "label" : "Mercaptopurine"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
+               "performed" : {
+                  "timestamp" : "2021-04-12T00:00:00Z"
                }
             }
          }
       ],
       "metaData" : null,
       "phenotypicFeatures" : [
+         {
+            "type" : {
+               "id" : "NCIT:C16457",
+               "label" : "Comorbidity"
+            }
+         },
+         {
+            "type" : {
+               "id" : "NCIT:C16457",
+               "label" : "Comorbidity"
+            }
+         },
+         {
+            "type" : {
+               "id" : "NCIT:C16457",
+               "label" : "Comorbidity"
+            }
+         },
+         {
+            "type" : {
+               "id" : "NCIT:C16457",
+               "label" : "Comorbidity"
+            }
+         },
+         {
+            "type" : {
+               "id" : "NCIT:C16457",
+               "label" : "Comorbidity"
+            }
+         },
+         {
+            "type" : {
+               "id" : "NCIT:C16457",
+               "label" : "Comorbidity"
+            }
+         },
+         {
+            "type" : {
+               "id" : "NCIT:C16457",
+               "label" : "Comorbidity"
+            }
+         },
+         {
+            "type" : {
+               "id" : "NCIT:C16457",
+               "label" : "Comorbidity"
+            }
+         },
+         {
+            "type" : {
+               "id" : "NCIT:C16457",
+               "label" : "Comorbidity"
+            }
+         },
+         {
+            "type" : {
+               "id" : "NCIT:C16457",
+               "label" : "Comorbidity"
+            }
+         },
+         {
+            "type" : {
+               "id" : "NCIT:C16457",
+               "label" : "Comorbidity"
+            }
+         },
+         {
+            "type" : {
+               "id" : "NCIT:C16457",
+               "label" : "Comorbidity"
+            }
+         },
+         {
+            "type" : {
+               "id" : "NCIT:C16457",
+               "label" : "Comorbidity"
+            }
+         },
+         {
+            "type" : {
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
+            }
+         },
          {
             "type" : {
                "id" : "NCIT:NA0000",
@@ -13524,7 +13822,39 @@
             }
          }
       ],
+      "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "2021-09-06T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "2021-09-06T00:00:00Z"
+               }
+            }
+         }
+      ],
       "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "type" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
       "subject" : {
          "id" : "527:week_14_arm_1",
          "sex" : "MALE",
@@ -14213,6 +14543,14 @@
          }
       ],
       "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "type" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
       "subject" : {
          "id" : "527:week_26_arm_1",
          "sex" : "MALE",
@@ -14648,7 +14986,28 @@
             }
          }
       ],
+      "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         }
+      ],
       "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "type" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
       "subject" : {
          "id" : "527:week_52_arm_1",
          "sex" : "MALE",

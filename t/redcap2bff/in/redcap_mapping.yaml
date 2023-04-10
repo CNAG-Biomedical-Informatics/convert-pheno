@@ -66,7 +66,20 @@
 
   # Term: interventionsOrProcedures
   interventionsOrProcedures: 
-    fields: [surgery_details___1,surgery_details___2,surgery_details___3,surgery_details___4,surgery_details___5,surgery_details___6,surgery_details___7,surgery_details___8,surgery_details___99,endoscopy_performed,intestinal_surgery,partial_mayo,complete_mayo,prev_endosc_dilatation]
+    fields: [surgery_details___1,surgery_details___2,surgery_details___3,surgery_details___4,surgery_details___5,surgery_details___6,surgery_details___7,surgery_details___8,surgery_details___99,endoscopy_performed,endoscopy_complete,endoscopy_date,intestinal_surgery,partial_mayo,complete_mayo,prev_endosc_dilatation]
+    dict:
+      surgery_details___1: Ileocolectomy
+      surgery_details___2: Colostomy
+      surgery_details___3: Ileostomy
+      surgery_details___4: Fistula Repair
+      surgery_details___5: Colectomy
+      surgery_details___6: Hemicolectomy
+      surgery_details___7: Colon Resection
+      surgery_details___8: Strictureplasty
+      surgery_details___99: Other
+      endoscopy_peformed: Gastrointestinal Endoscopy
+    map:
+      dateOfProcedure: endoscopy_date
 
   # Term: karyotypicSex
   # karyotypicSex: null

@@ -398,7 +398,16 @@ sub map_omop_visit_occurrence {
 
 sub dot_date2iso {
 
-    my ($d, $m, $y) = split /\./, shift;
+    # We can get
+    # '', '1990.12.25',  '1990-12-25'
+    my $date = shift // '';
+
+    # Premature returns
+    return '1900-01-01' if $date eq '';
+    return $date        if $date =~ m/^(\d{4})\-(\d{2})\-(\d{2})$/;
+
+    # Split '1990.12.25'
+    my ( $d, $m, $y ) = split /\./, $date;
 
     # YYYYMMDD
     return qq/$y-$m-$d/;

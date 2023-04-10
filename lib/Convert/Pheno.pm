@@ -37,7 +37,7 @@ our @EXPORT = qw($VERSION io_yaml_or_json omop2bff_stream_processing);    # Symb
 use constant DEVEL_MODE => 0;
 
 # Global variables:
-our $VERSION  = '0.0.0_alpha';
+our $VERSION  = '0.0.0_beta';
 our $lib_path = dirname( abs_path(__FILE__) );
 
 ############################################
