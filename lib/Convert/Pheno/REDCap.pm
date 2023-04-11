@@ -485,9 +485,9 @@ sub do_redcap2bff {
         if ( defined $participant->{$field} && $participant->{$field} ne '' ) {
 
             #$phenotypicFeature->{evidence} = undef;    # P32Y6M1D
-            my $tmp_str = $field;
-            if ( $field =~ m/comorb/i ) {
-                ( undef, $tmp_str ) = split / \- /,
+            my $tmp_var = $field;
+            if ( $project_id eq '3tr_ibd' && $field =~ m/comorb/i ) {
+                ( undef, $tmp_var ) = split / \- /,
                   $redcap_dict->{$field}{'Field Label'};
             }
 
@@ -501,7 +501,7 @@ sub do_redcap2bff {
 
             $phenotypicFeature->{featureType} = map_ontology(
                 {
-                    query    => $tmp_str,
+                    query    => exists $mapping->{dict}{$tmp_var} ? $mapping->{dict}{$tmp_var} : $tmp_var,
                     column   => 'label',
                     ontology => $mapping->{ontology},
                     self     => $self
