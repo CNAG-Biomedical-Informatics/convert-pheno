@@ -452,80 +452,80 @@
       "phenotypicFeatures" : [
          {
             "type" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C3201",
+               "label" : "Systemic Lupus Erythematosus"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C2884",
+               "label" : "Rheumatoid Arthritis"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C3346",
+               "label" : "Psoriasis"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C3390",
+               "label" : "Stroke"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             }
          },
          {
@@ -6888,80 +6888,80 @@
       "phenotypicFeatures" : [
          {
             "type" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C3201",
+               "label" : "Systemic Lupus Erythematosus"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C2884",
+               "label" : "Rheumatoid Arthritis"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C3346",
+               "label" : "Psoriasis"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C3390",
+               "label" : "Stroke"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             }
          },
          {
@@ -14245,80 +14245,80 @@
       "phenotypicFeatures" : [
          {
             "type" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C3201",
+               "label" : "Systemic Lupus Erythematosus"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C2884",
+               "label" : "Rheumatoid Arthritis"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C3346",
+               "label" : "Psoriasis"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C3390",
+               "label" : "Stroke"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             }
          },
          {

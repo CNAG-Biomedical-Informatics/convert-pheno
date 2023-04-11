@@ -18,7 +18,7 @@ use Convert::Pheno::Schema;
 use Convert::Pheno::Mapping;
 use Exporter 'import';
 our @EXPORT =
-  qw(read_csv read_csv_stream read_redcap_dic_and_mapping_file transpose_ohdsi_dictionary read_sqldump_stream read_sqldump sqldump2csv transpose_omop_data_structure open_filehandle load_exposures transpose_visit_occurrence);
+  qw(read_csv read_csv_stream read_redcap_dict_and_mapping_file transpose_ohdsi_dictionary read_sqldump_stream read_sqldump sqldump2csv transpose_omop_data_structure open_filehandle load_exposures transpose_visit_occurrence);
 
 use constant DEVEL_MODE => 0;
 
@@ -41,9 +41,9 @@ sub read_redcap_dictionary {
     # We'll be adding the key <_labels>. See sub add_labels
     my $labels = 'Choices, Calculations, OR Slider Labels';
 
-    # Loading data directly from Text::CSV_XS
-    # NB1: We want HoH and sub read_csv returns AoH
-    # NB2: By default the Text::CSV module treats all fields in a CSV file as strings, regardless of their actual data type.
+# Loading data directly from Text::CSV_XS
+# NB1: We want HoH and sub read_csv returns AoH
+# NB2: By default the Text::CSV module treats all fields in a CSV file as strings, regardless of their actual data type.
     my $hoh = csv(
         in       => $filepath,
         sep_char => $separator,
@@ -78,12 +78,12 @@ sub add_labels {
     return @tmp % 2 == 0 ? {@tmp} : undef;
 }
 
-sub read_redcap_dic_and_mapping_file {
+sub read_redcap_dict_and_mapping_file {
 
     my $arg = shift;
 
     # Read and load REDCap CSV dictionary
-    my $data_redcap_dic = read_redcap_dictionary( $arg->{redcap_dictionary} );
+    my $data_redcap_dict = read_redcap_dictionary( $arg->{redcap_dictionary} );
 
     # Read and load mapping file
     my $data_mapping_file =
@@ -100,7 +100,7 @@ sub read_redcap_dic_and_mapping_file {
     $jv->json_validate;
 
     # Return if succesful
-    return ( $data_redcap_dic, $data_mapping_file );
+    return ( $data_redcap_dict, $data_mapping_file );
 }
 
 sub transpose_ohdsi_dictionary {
@@ -271,13 +271,13 @@ sub read_sqldump {
     my $filepath = $arg->{in};
     my $self     = $arg->{self};
 
-    # Before resorting to writting this subroutine I performed an exhaustive search on CPAN:
-    # - Tested MySQL::Dump::Parser::XS but I could not make it work...
-    # - App-MysqlUtils-0.022 has a CLI utility (mysql-sql-dump-extract-tables)
-    # - Of course one can always use *nix tools (sed, grep, awk, etc) or other programming languages....
-    # Anyway, I ended up writting the parser myself...
-    # The parser is based in reading COPY paragraphs from PostgreSQL dump by using Perl's paragraph mode  $/ = "";
-    # NB: Each paragraph (TABLE) is loaded into memory. Not great for large files.
+# Before resorting to writting this subroutine I performed an exhaustive search on CPAN:
+# - Tested MySQL::Dump::Parser::XS but I could not make it work...
+# - App-MysqlUtils-0.022 has a CLI utility (mysql-sql-dump-extract-tables)
+# - Of course one can always use *nix tools (sed, grep, awk, etc) or other programming languages....
+# Anyway, I ended up writting the parser myself...
+# The parser is based in reading COPY paragraphs from PostgreSQL dump by using Perl's paragraph mode  $/ = "";
+# NB: Each paragraph (TABLE) is loaded into memory. Not great for large files.
 
     # Define variables that modify what we load
     my $max_lines_sql = $self->{max_lines_sql};
@@ -286,9 +286,9 @@ sub read_sqldump {
     # Set record separator to paragraph
     local $/ = "";
 
-    #COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, attribute_description, attribute_type_concept_id, attribute_syntax) FROM stdin;
-    # ......
-    # \.
+#COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, attribute_description, attribute_type_concept_id, attribute_syntax) FROM stdin;
+# ......
+# \.
 
     # Start reading the SQL dump
     my $fh = open_filehandle( $filepath, 'r' );
@@ -307,8 +307,8 @@ sub read_sqldump {
         next unless scalar @lines > 2;
         pop @lines;    # last line eq '\.'
 
-        # First line contains the headers
-        #COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, ..., attribute_syntax) FROM stdin;
+# First line contains the headers
+#COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, ..., attribute_syntax) FROM stdin;
         $lines[0] =~ s/[\(\),]//g;    # getting rid of (),
         my @headers = split /\s+/, $lines[0];
         my $table_name =
@@ -438,35 +438,35 @@ sub transpose_omop_data_structure {
     #                      ]
     #        };
 
-    # where all 'person_id' are together inside the TABLE_NAME.
-    # But, BFF "ideally" works at the individual level so we are going to
-    # transpose the data structure to end up into something like this
-    # NB: MEASUREMENT and OBSERVATION (among others, i.e., CONDITION_OCCURRENCE, PROCEDURE_OCCURRENCE)
-    #     can have multiple values for one 'person_id' so they will be loaded as arrays
-    #
-    #
-    #$VAR1 = {
-    #          '1' => {
-    #                     'PERSON' => {
-    #                                   'person_id' => 1
-    #                                 }
-    #                   },
-    #          '666' => {
-    #                     'MEASUREMENT' => [
-    #                                        {
-    #                                          'measurement_concept_id' => 1,
-    #                                          'person_id' => 666
-    #                                        },
-    #                                        {
-    #                                          'measurement_concept_id' => 2,
-    #                                          'person_id' => 666
-    #                                        }
-    #                                      ],
-    #                     'PERSON' => {
-    #                                   'person_id' => 666
-    #                                 }
-    #                   }
-    #        };
+# where all 'person_id' are together inside the TABLE_NAME.
+# But, BFF "ideally" works at the individual level so we are going to
+# transpose the data structure to end up into something like this
+# NB: MEASUREMENT and OBSERVATION (among others, i.e., CONDITION_OCCURRENCE, PROCEDURE_OCCURRENCE)
+#     can have multiple values for one 'person_id' so they will be loaded as arrays
+#
+#
+#$VAR1 = {
+#          '1' => {
+#                     'PERSON' => {
+#                                   'person_id' => 1
+#                                 }
+#                   },
+#          '666' => {
+#                     'MEASUREMENT' => [
+#                                        {
+#                                          'measurement_concept_id' => 1,
+#                                          'person_id' => 666
+#                                        },
+#                                        {
+#                                          'measurement_concept_id' => 2,
+#                                          'person_id' => 666
+#                                        }
+#                                      ],
+#                     'PERSON' => {
+#                                   'person_id' => 666
+#                                 }
+#                   }
+#        };
 
     my $omop_person_id = {};
 
@@ -481,12 +481,13 @@ sub transpose_omop_data_structure {
 
                 # {person_id} can have multiple rows in @omop_array_tables
                 if ( any { m/^$table$/ } @omop_array_tables ) {
-                    push @{ $omop_person_id->{$person_id}{$table} }, $item;    # array
+                    push @{ $omop_person_id->{$person_id}{$table} },
+                      $item;    # array
                 }
 
                 # {person_id} only has one value in a given table
                 else {
-                    $omop_person_id->{$person_id}{$table} = $item;             # scalar
+                    $omop_person_id->{$person_id}{$table} = $item;    # scalar
                 }
             }
         }

@@ -63,8 +63,8 @@
                "label" : "Smoking"
             },
             "unit" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C65108",
+               "label" : "Never Smoker"
             },
             "value" : 0
          }
@@ -570,97 +570,111 @@
       ],
       "phenotypicFeatures" : [
          {
+            "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
             },
             "notes" : "comorb_asthma /// Field Label=Comorbidities - Asthma /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "notes" : "comorb_copd /// Field Label=Comorbidities - COPD /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "notes" : "comorb_ms /// Field Label=Comorbidities - demyelating disease/multiple sclerosis /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C3201",
+               "label" : "Systemic Lupus Erythematosus"
             },
             "notes" : "comorb_sle /// Field Label=Comorbidities - systemic lupus erythematosus /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C2884",
+               "label" : "Rheumatoid Arthritis"
             },
             "notes" : "comorb_ra /// Field Label=Comorbidities - rheumatoid arthritis /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C3346",
+               "label" : "Psoriasis"
             },
             "notes" : "comorb_pso /// Field Label=Comorbidities - psoriasis /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "notes" : "comorb_ad /// Field Label=Comorbidities - atopic dermatitis /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "notes" : "comorb_cancer /// Field Label=Comorbidities - cancer /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
             },
             "notes" : "comorb_hypertension /// Field Label=Comorbidities - hypertension /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
             },
             "notes" : "comorb_diabetes /// Field Label=Comorbidities - diabetes mellitus /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "notes" : "comorb_lipids /// Field Label=Comorbidities - Hyper-/dyslipidemia /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C3390",
+               "label" : "Stroke"
             },
             "notes" : "comorb_stroke /// Field Label=Comorbidities - Stroke /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "notes" : "comorb_other_ai /// Field Label=Comorbidities - other autoimmune disease /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : true,
             "featureType" : {
                "id" : "NCIT:C39725",
                "label" : "Immunodeficiency"
@@ -1936,8 +1950,8 @@
                "label" : "Smoking"
             },
             "unit" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C65108",
+               "label" : "Never Smoker"
             },
             "value" : 0
          }
@@ -2442,6 +2456,7 @@
       ],
       "phenotypicFeatures" : [
          {
+            "excluded" : true,
             "featureType" : {
                "id" : "NCIT:C39725",
                "label" : "Immunodeficiency"
@@ -5356,8 +5371,8 @@
                "label" : "Alcohol"
             },
             "unit" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C156821",
+               "label" : "Alcohol Consumption More than 2 Drinks per Day for Men and More than 1 Drink per Day for Women"
             },
             "value" : 3
          },
@@ -5374,8 +5389,8 @@
                "label" : "Smoking"
             },
             "unit" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C67148",
+               "label" : "Former Smoker"
             },
             "value" : 1
          }
@@ -6052,6 +6067,7 @@
       ],
       "phenotypicFeatures" : [
          {
+            "excluded" : true,
             "featureType" : {
                "id" : "NCIT:C39725",
                "label" : "Immunodeficiency"
@@ -9190,8 +9206,8 @@
                "label" : "Smoking"
             },
             "unit" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C65108",
+               "label" : "Never Smoker"
             },
             "value" : 0
          }
@@ -9914,97 +9930,111 @@
       ],
       "phenotypicFeatures" : [
          {
+            "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
             },
             "notes" : "comorb_asthma /// Field Label=Comorbidities - Asthma /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "notes" : "comorb_copd /// Field Label=Comorbidities - COPD /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "notes" : "comorb_ms /// Field Label=Comorbidities - demyelating disease/multiple sclerosis /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C3201",
+               "label" : "Systemic Lupus Erythematosus"
             },
             "notes" : "comorb_sle /// Field Label=Comorbidities - systemic lupus erythematosus /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C2884",
+               "label" : "Rheumatoid Arthritis"
             },
             "notes" : "comorb_ra /// Field Label=Comorbidities - rheumatoid arthritis /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C3346",
+               "label" : "Psoriasis"
             },
             "notes" : "comorb_pso /// Field Label=Comorbidities - psoriasis /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "notes" : "comorb_ad /// Field Label=Comorbidities - atopic dermatitis /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "notes" : "comorb_cancer /// Field Label=Comorbidities - cancer /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : false,
             "featureType" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
             },
             "notes" : "comorb_hypertension /// Field Label=Comorbidities - hypertension /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : false,
             "featureType" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
             },
             "notes" : "comorb_diabetes /// Field Label=Comorbidities - diabetes mellitus /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "notes" : "comorb_lipids /// Field Label=Comorbidities - Hyper-/dyslipidemia /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C3390",
+               "label" : "Stroke"
             },
             "notes" : "comorb_stroke /// Field Label=Comorbidities - Stroke /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "notes" : "comorb_other_ai /// Field Label=Comorbidities - other autoimmune disease /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : true,
             "featureType" : {
                "id" : "NCIT:C39725",
                "label" : "Immunodeficiency"
@@ -12234,8 +12264,8 @@
                "label" : "Alcohol"
             },
             "unit" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C156821",
+               "label" : "Alcohol Consumption More than 2 Drinks per Day for Men and More than 1 Drink per Day for Women"
             },
             "value" : 3
          },
@@ -12252,8 +12282,8 @@
                "label" : "Smoking"
             },
             "unit" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C65108",
+               "label" : "Never Smoker"
             },
             "value" : 0
          }
@@ -12914,6 +12944,7 @@
       ],
       "phenotypicFeatures" : [
          {
+            "excluded" : true,
             "featureType" : {
                "id" : "NCIT:C39725",
                "label" : "Immunodeficiency"
@@ -14992,8 +15023,8 @@
                "label" : "Alcohol"
             },
             "unit" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C156821",
+               "label" : "Alcohol Consumption More than 2 Drinks per Day for Men and More than 1 Drink per Day for Women"
             },
             "value" : 3
          },
@@ -15597,6 +15628,7 @@
       ],
       "phenotypicFeatures" : [
          {
+            "excluded" : true,
             "featureType" : {
                "id" : "NCIT:C39725",
                "label" : "Immunodeficiency"
@@ -16993,8 +17025,8 @@
                "label" : "Alcohol"
             },
             "unit" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C156821",
+               "label" : "Alcohol Consumption More than 2 Drinks per Day for Men and More than 1 Drink per Day for Women"
             },
             "value" : 3
          },
@@ -17011,8 +17043,8 @@
                "label" : "Smoking"
             },
             "unit" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C67148",
+               "label" : "Former Smoker"
             },
             "value" : 1
          }
@@ -17642,6 +17674,7 @@
       ],
       "phenotypicFeatures" : [
          {
+            "excluded" : true,
             "featureType" : {
                "id" : "NCIT:C39725",
                "label" : "Immunodeficiency"
@@ -20086,8 +20119,8 @@
                "label" : "Smoking"
             },
             "unit" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C65108",
+               "label" : "Never Smoker"
             },
             "value" : 0
          }
@@ -20747,97 +20780,111 @@
       ],
       "phenotypicFeatures" : [
          {
+            "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
             },
             "notes" : "comorb_asthma /// Field Label=Comorbidities - Asthma /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "notes" : "comorb_copd /// Field Label=Comorbidities - COPD /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "notes" : "comorb_ms /// Field Label=Comorbidities - demyelating disease/multiple sclerosis /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C3201",
+               "label" : "Systemic Lupus Erythematosus"
             },
             "notes" : "comorb_sle /// Field Label=Comorbidities - systemic lupus erythematosus /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C2884",
+               "label" : "Rheumatoid Arthritis"
             },
             "notes" : "comorb_ra /// Field Label=Comorbidities - rheumatoid arthritis /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C3346",
+               "label" : "Psoriasis"
             },
             "notes" : "comorb_pso /// Field Label=Comorbidities - psoriasis /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "notes" : "comorb_ad /// Field Label=Comorbidities - atopic dermatitis /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "notes" : "comorb_cancer /// Field Label=Comorbidities - cancer /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
             },
             "notes" : "comorb_hypertension /// Field Label=Comorbidities - hypertension /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
             },
             "notes" : "comorb_diabetes /// Field Label=Comorbidities - diabetes mellitus /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "notes" : "comorb_lipids /// Field Label=Comorbidities - Hyper-/dyslipidemia /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:C3390",
+               "label" : "Stroke"
             },
             "notes" : "comorb_stroke /// Field Label=Comorbidities - Stroke /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C16457",
-               "label" : "Comorbidity"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "notes" : "comorb_other_ai /// Field Label=Comorbidities - other autoimmune disease /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : true,
             "featureType" : {
                "id" : "NCIT:C39725",
                "label" : "Immunodeficiency"

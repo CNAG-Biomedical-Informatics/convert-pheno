@@ -8,6 +8,7 @@ use List::Util qw(any);
 use Convert::Pheno::Mapping;
 use Convert::Pheno::PXF;
 use Data::Dumper;
+use Scalar::Util qw(looks_like_number);
 use Exporter 'import';
 our @EXPORT = qw(do_redcap2bff);
 
@@ -20,27 +21,27 @@ our @EXPORT = qw(do_redcap2bff);
 sub do_redcap2bff {
 
     my ( $self, $participant ) = @_;
-    my $redcap_dic   = $self->{data_redcap_dic};
+    my $redcap_dict  = $self->{data_redcap_dict};
     my $mapping_file = $self->{data_mapping_file};
     my $sth          = $self->{sth};
 
     ##############################
     # <Variable> names in REDCap #
     ##############################
-    #
-    # REDCap does not enforce any particular variable name.
-    # Extracted from https://www.ctsi.ufl.edu/wordpress/files/2019/02/Project-Creation-User-Guide.pdf
-    # ---
-    # "Variable Names: Variable names are critical in the data analysis process. If you export your data to a
-    # statistical software program, the variable names are what you or your statistician will use to conduct
-    # the analysis"
-    #
-    # "We always recommend reviewing your variable names with a statistician or whoever will be
-    # analyzing your data. This is especially important if this is the first time you are building a
-    # database"
-    #---
-    # If variable names are not consensuated, then we need to do the mapping manually "a posteriori".
-    # This is what we are attempting here:
+#
+# REDCap does not enforce any particular variable name.
+# Extracted from https://www.ctsi.ufl.edu/wordpress/files/2019/02/Project-Creation-User-Guide.pdf
+# ---
+# "Variable Names: Variable names are critical in the data analysis process. If you export your data to a
+# statistical software program, the variable names are what you or your statistician will use to conduct
+# the analysis"
+#
+# "We always recommend reviewing your variable names with a statistician or whoever will be
+# analyzing your data. This is especially important if this is the first time you are building a
+# database"
+#---
+# If variable names are not consensuated, then we need to do the mapping manually "a posteriori".
+# This is what we are attempting here:
 
     ####################################
     # START MAPPING TO BEACON V2 TERMS #
@@ -54,7 +55,7 @@ sub do_redcap2bff {
     #         'age_first_diagnosis' => 0,
     #         'alcohol' => 4,
     #        }
-    print Dumper $redcap_dic
+    print Dumper $redcap_dict
       if ( defined $self->{debug} && $self->{debug} > 4 );
     print Dumper $participant
       if ( defined $self->{debug} && $self->{debug} > 4 );
@@ -62,7 +63,7 @@ sub do_redcap2bff {
     # *** ABOUT REQUIRED PROPERTIES ***
     # 'id' and 'sex' are required properties in <individuals> entry type
 
-    my @redcap_field_types = ( "Field Label", "Field Note", "Field Type" );
+    my @redcap_field_types = ( 'Field Label', 'Field Note', 'Field Type' );
 
     # Getting the field name from mapping file (note that we add _field suffix)
     my $sex_field     = $mapping_file->{sex};
@@ -75,7 +76,7 @@ sub do_redcap2bff {
     # Thus, we are storing $participant->{sex} in $self !!!
     if ( defined $participant->{$sex_field} ) {
         $self->{_info}{ $participant->{study_id} }{$sex_field} =
-          $participant->{$sex_field};    # Dynamically adding attributes (setter)
+          $participant->{$sex_field};   # Dynamically adding attributes (setter)
     }
     $participant->{$sex_field} =
       $self->{_info}{ $participant->{$studyId_field} }{$sex_field};
@@ -94,7 +95,7 @@ sub do_redcap2bff {
     # More default values
     my $default_date     = '1900-01-01';
     my $default_duration = 'P999Y';
-    my $default_age      = { age => {iso8601duration => 'P999Y' }};
+    my $default_age      = { age => { iso8601duration => 'P999Y' } };
 
     # Variable that will allow to perform ad hoc changes for specific projects
     my $project_id = $mapping_file->{project}{id};
@@ -118,20 +119,22 @@ sub do_redcap2bff {
     # **********************
     # *** IMPORTANT STEP ***
     # **********************
-    # Loading fields that must to be mapped to redcap_dic in bulk
+    # Loading fields that must to be mapped to redcap_dict in bulk
     my @fields2map =
-      grep { defined $redcap_dic->{$_}{_labels} } sort keys %{$redcap_dic};
+      grep { defined $redcap_dict->{$_}{_labels} } sort keys %{$redcap_dict};
 
     # Perform the mapping for this participant
     for my $field (@fields2map) {
 
-        # First we keep track of the original value in case need it
-        $participant->{$field.'_ori'} = $participant->{$field}; 
+        # *** IMPORTANT ***
+        # First we keep track of the original value (in case need it)
+        # as $field . '_ori'
+        $participant->{ $field . '_ori' } = $participant->{$field};
 
-        # Now overwrite the original value with the ditionary one
-        $participant->{$field} = map2redcap_dic(
+        # Now iwe overwrite the original value with the ditionary one
+        $participant->{$field} = map2redcap_dict(
             {
-                redcap_dic  => $redcap_dic,
+                redcap_dict => $redcap_dict,
                 participant => $participant,
                 field       => $field,
                 labels      => 1
@@ -147,7 +150,7 @@ sub do_redcap2bff {
     # NB: Inflamatory Bowel Disease --- Note the 2 mm in infla-mm-atory
 
     # Load hashref with cursors for mapping
-    my $mapping = remap_hash( $mapping_file, 'diseases' );
+    my $mapping = remap_mapping_hash( $mapping_file, 'diseases' );
 
     # Start looping over them
     for my $field ( @{ $mapping->{fields} } ) {
@@ -155,7 +158,10 @@ sub do_redcap2bff {
 
         # Load a few more variables from mapping file
         # Start mapping
-        $disease->{ageOfOnset} = map_age_range( $participant->{$mapping->{map}{ageOfOnset}}) if  (exists $mapping->{map}{ageOfOnset} && defined $participant->{$mapping->{map}{ageOfOnset}});
+        $disease->{ageOfOnset} =
+          map_age_range( $participant->{ $mapping->{map}{ageOfOnset} } )
+          if ( exists $mapping->{map}{ageOfOnset}
+            && defined $participant->{ $mapping->{map}{ageOfOnset} } );
         $disease->{diseaseCode} = map_ontology(
             {
                 query    => $field,
@@ -164,8 +170,10 @@ sub do_redcap2bff {
                 self     => $self
             }
         );
-        $disease->{familyHistory} = 
-          convert2boolean( $participant->{$mapping->{map}{familyHistory}} ) if (exists $mapping->{map}{familyHistory} && defined $participant->{$mapping->{map}{familyHistory}});
+        $disease->{familyHistory} =
+          convert2boolean( $participant->{ $mapping->{map}{familyHistory} } )
+          if ( exists $mapping->{map}{familyHistory}
+            && defined $participant->{ $mapping->{map}{familyHistory} } );
 
         #$disease->{notes}    = undef;
         $disease->{severity} = $default_ontology;
@@ -191,18 +199,24 @@ sub do_redcap2bff {
     #$individual->{exposures} = undef;
 
     # Load hashref with cursors for mapping
-    $mapping = remap_hash( $mapping_file, 'exposures' );
+    $mapping = remap_mapping_hash( $mapping_file, 'exposures' );
 
     for my $field ( @{ $mapping->{fields} } ) {
         next unless defined $participant->{$field};
 
         my $exposure;
-        $exposure->{ageAtExposure} =  (exists $mapping->{map}{ageAtExposure} && defined $participant->{$mapping->{map}{ageAtExposure}}) ? map_age_range($participant->{$mapping->{map}{ageAtExposure}}) : $default_age;
+        $exposure->{ageAtExposure} =
+          ( exists $mapping->{map}{ageAtExposure}
+              && defined $participant->{ $mapping->{map}{ageAtExposure} } )
+          ? map_age_range( $participant->{ $mapping->{map}{ageAtExposure} } )
+          : $default_age;
         $exposure->{date} =
-          exists $mapping->{map}{date} ? $participant->{$mapping->{map}{date}} : $default_date;
+          exists $mapping->{map}{date}
+          ? $participant->{ $mapping->{map}{date} }
+          : $default_date;
         $exposure->{duration} =
           exists $mapping->{map}{duration}
-          ? $participant->{$mapping->{map}{duration}}
+          ? $participant->{ $mapping->{map}{duration} }
           : $default_duration;
 
         # Query related
@@ -222,6 +236,7 @@ sub do_redcap2bff {
 
         # We first extract 'unit' that supposedly will be used in in
         # <measurementValue> and <referenceRange>??
+        #  e.g. radio.alcohol ? alcohol
         my $subkey = exists $mapping->{radio}{$field} ? $field : 'dummy';
         my $unit   = map_ontology(
             {
@@ -229,7 +244,9 @@ sub do_redcap2bff {
                 # 1 - Check for subkey
                 # 2 - Check for field
                 query => $subkey ne 'dummy'
-                ? $participant->{$subkey}
+
+                  #  radio.alcohol.Never smoked =>  Never Smoker
+                ? $mapping->{radio}{$field}{ $participant->{$subkey} }
                 : $exposure_query,
                 column   => 'label',
                 ontology => $mapping->{ontology},
@@ -237,7 +254,7 @@ sub do_redcap2bff {
             }
         );
         $exposure->{unit}  = $unit;
-        $exposure->{value} = $participant->{$field.'_ori'} // -1;
+        $exposure->{value} = $participant->{ $field . '_ori' } // -1;
         push @{ $individual->{exposures} }, $exposure
           if defined $exposure->{exposureCode};
     }
@@ -261,7 +278,7 @@ sub do_redcap2bff {
     # ====
 
     # Load hashref with cursors for mapping
-    $mapping = remap_hash( $mapping_file, 'info' );
+    $mapping = remap_mapping_hash( $mapping_file, 'info' );
 
     for my $field ( @{ $mapping->{fields} } ) {
         if ( defined $participant->{$field} ) {
@@ -269,11 +286,11 @@ sub do_redcap2bff {
             # Ad hoc for 3TR
             if ( $project_id eq '3tr_ibd' ) {
                 $individual->{info}{$field} =
-                  $field eq 'age'
-                  ? map_age_range ( $participant->{$field}) 
+                  $field eq 'age' ? map_age_range( $participant->{$field} )
                   : $field =~ m/^consent/ ? {
                     value => dotify_and_coerce_number( $participant->{$field} ),
-                    map { $_ => $redcap_dic->{$field}{$_} } @redcap_field_types
+                    map { $_ => $redcap_dict->{$field}{$_} }
+                      @redcap_field_types
                   }
                   : $participant->{$field};
             }
@@ -293,7 +310,7 @@ sub do_redcap2bff {
     #$individual->{interventionsOrProcedures} = [];
 
     # Load hashref with cursors for mapping
-    $mapping = remap_hash( $mapping_file, 'interventionsOrProcedures' );
+    $mapping = remap_mapping_hash( $mapping_file, 'interventionsOrProcedures' );
 
     for my $field ( @{ $mapping->{fields} } ) {
         if ( $participant->{$field} ) {
@@ -304,7 +321,8 @@ sub do_redcap2bff {
                 && $field eq $mapping->{map}{dateOfProcedure} );
             my $intervention;
 
-            $intervention->{ageAtProcedure} = ( exists $mapping->{map}{ageAtProcedure}
+            $intervention->{ageAtProcedure} =
+              ( exists $mapping->{map}{ageAtProcedure}
                   && defined $mapping->{map}{ageAtProcedure} )
               ? map_age_range(
                 $participant->{ $mapping->{map}{ageAtProcedure} } )
@@ -349,7 +367,7 @@ sub do_redcap2bff {
     $individual->{measures} = undef;
 
     # Load hashref with cursors for mapping
-    $mapping = remap_hash( $mapping_file, 'measures' );
+    $mapping = remap_mapping_hash( $mapping_file, 'measures' );
 
     for my $field ( @{ $mapping->{fields} } ) {
         next unless defined $participant->{$field};
@@ -368,9 +386,9 @@ sub do_redcap2bff {
         $measure->{date} = $default_date;
 
         # We first extract 'unit' and %range' for <measurementValue>
-        my $tmp_str = map2redcap_dic(
+        my $tmp_str = map2redcap_dict(
             {
-                redcap_dic  => $redcap_dic,
+                redcap_dict => $redcap_dict,
                 participant => $participant,
                 field       => $field,
                 labels      => 0               # will get 'Field Note'
@@ -381,7 +399,8 @@ sub do_redcap2bff {
         # We can have  $participant->{$field} eq '2 - Mild'
         if ( $participant->{$field} =~ m/ \- / ) {
             my ( $tmp_val, $tmp_scale ) = split / \- /, $participant->{$field};
-            $participant->{$field} = $tmp_val;
+            $participant->{$field} =
+              $tmp_val;    # should be equal to $participant->{$field.'_ori'}
             $tmp_str = $tmp_scale;
         }
 
@@ -401,15 +420,15 @@ sub do_redcap2bff {
                 value => dotify_and_coerce_number( $participant->{$field} ),
                 referenceRange => map_reference_range(
                     {
-                        unit       => $unit,
-                        redcap_dic => $redcap_dic,
-                        field      => $field
+                        unit        => $unit,
+                        redcap_dict => $redcap_dict,
+                        field       => $field
                     }
                 )
             }
         };
         $measure->{notes} = join ' /// ', $field,
-          ( map { qq/$_=$redcap_dic->{$field}{$_}/ } @redcap_field_types );
+          ( map { qq/$_=$redcap_dict->{$field}{$_}/ } @redcap_field_types );
 
         #$measure->{observationMoment} = undef;          # Age
         $measure->{procedure} = {
@@ -458,7 +477,7 @@ sub do_redcap2bff {
     #$individual->{phenotypicFeatures} = [];
 
     # Load hashref with cursors for mapping
-    $mapping = remap_hash( $mapping_file, 'phenotypicFeatures' );
+    $mapping = remap_mapping_hash( $mapping_file, 'phenotypicFeatures' );
 
     for my $field ( @{ $mapping->{fields} } ) {
         my $phenotypicFeature;
@@ -466,11 +485,23 @@ sub do_redcap2bff {
         if ( defined $participant->{$field} && $participant->{$field} ne '' ) {
 
             #$phenotypicFeature->{evidence} = undef;    # P32Y6M1D
-            #$phenotypicFeature->{excluded} =
-            #  { quantity => { unit => { id => '', label => '' }, value => undef } };
+            my $tmp_str = $field;
+            if ( $field =~ m/comorb/i ) {
+                ( undef, $tmp_str ) = split / \- /,
+                  $redcap_dict->{$field}{'Field Label'};
+            }
+
+            # Excluded (or Included) properties
+            # 1 => included ( == not excluded )
+            $phenotypicFeature->{excluded} =
+              $participant->{$field} ? JSON::XS::false : JSON::XS::true
+              if looks_like_number( $participant->{$field} );
+
+            #$phenotypicFeature->{excluded_ori} = $participant->{$field};
+
             $phenotypicFeature->{featureType} = map_ontology(
                 {
-                    query    => $field =~ m/comorb/ ? 'Comorbidity' : $field,
+                    query    => $tmp_str,
                     column   => 'label',
                     ontology => $mapping->{ontology},
                     self     => $self
@@ -482,7 +513,7 @@ sub do_redcap2bff {
             $phenotypicFeature->{notes} = join ' /// ',
               (
                 $field,
-                map { qq/$_=$redcap_dic->{$field}{$_}/ } @redcap_field_types
+                map { qq/$_=$redcap_dict->{$field}{$_}/ } @redcap_field_types
               );
 
             #$phenotypicFeature->{onset}       = { id => '', label => '' };
@@ -514,7 +545,7 @@ sub do_redcap2bff {
 
     #$individual->{treatments} = undef;
 
-    $mapping = remap_hash( $mapping_file, 'treatments' );
+    $mapping = remap_mapping_hash( $mapping_file, 'treatments' );
 
     for my $field ( @{ $mapping->{fields} } ) {
 
@@ -552,9 +583,9 @@ sub do_redcap2bff {
                 field     => $tmp_var,
                 drug      => $field,
                 drug_name => $treatment_name,
-                status   => $participant->{$tmp_var},
+                status    => $participant->{$tmp_var},
                 route     => $route,
-                value     => $participant->{$tmp_var.'_ori'},
+                value     => $participant->{ $tmp_var . '_ori' },
                 map { $_ => $participant->{ $field . $_ } }
                   qw(start dose duration)
             };    # ***** INTERNAL FIELD
@@ -564,7 +595,9 @@ sub do_redcap2bff {
             $treatment->{doseIntervals}         = [];
             $treatment->{routeOfAdministration} = map_ontology(
                 {
-                    query    => ucfirst($route) . ' Route of Administration',  # Oral Route of Administration
+                    query => ucfirst($route)
+                      . ' Route of Administration'
+                    ,    # Oral Route of Administration
                     column   => 'label',
                     ontology => $mapping->{ontology},
                     self     => $self
@@ -589,22 +622,6 @@ sub do_redcap2bff {
     ##################################
 
     return $individual;
-}
-
-sub remap_hash {
-
-    my ( $mapping_file, $term ) = @_;
-    my %hash_out = map {
-            $_, exists $mapping_file->{$term}{$_}
-          ? $mapping_file->{$term}{$_}
-          : undef
-    } (qw/fields dict map radio/);
-    $hash_out{ontology} =
-      exists $mapping_file->{$term}{ontology}
-      ? $mapping_file->{$term}{ontology}
-      : $mapping_file->{project}{ontology};
-    $hash_out{routesOfAdministration} = $mapping_file->{$term}{routesOfAdministration} if $term eq 'treatments';
-    return \%hash_out;
 }
 
 1;

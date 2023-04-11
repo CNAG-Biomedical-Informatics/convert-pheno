@@ -17,7 +17,7 @@ use Convert::Pheno::SQLite;
 binmode STDOUT, ':encoding(utf-8)';
 use Exporter 'import';
 our @EXPORT =
-  qw(map_ethnicity map_ontology dotify_and_coerce_number iso8601_time _map2iso8601 map_reference_range map_age_range map2redcap_dic map2ohdsi convert2boolean find_age randStr map_operator_concept_id map_info_field map_omop_visit_occurrence dot_date2iso);
+  qw(map_ethnicity map_ontology dotify_and_coerce_number iso8601_time _map2iso8601 map_reference_range map_age_range map2redcap_dict map2ohdsi convert2boolean find_age randStr map_operator_concept_id map_info_field map_omop_visit_occurrence dot_date2iso remap_mapping_hash);
 
 use constant DEVEL_MODE => 0;
 
@@ -35,7 +35,7 @@ sub map_ethnicity {
     my $str       = shift;
     my %ethnicity = ( map { $_ => 'NCIT:C41261' } ( 'caucasian', 'white' ) );
 
-    # 1, Caucasian | 2, Hispanic | 3, Asian | 4, African/African-American | 5, Indigenous American | 6, Mixed | 9, Other";
+# 1, Caucasian | 2, Hispanic | 3, Asian | 4, African/African-American | 5, Indigenous American | 6, Mixed | 9, Other";
     return { id => $ethnicity{ lc($str) }, label => $str };
 }
 
@@ -95,7 +95,7 @@ sub map_ontology {
     # Add result to global $seen
     $seen->{$tmp_query} = { id => $id, label => $label };    # global
 
-    # id and label come from <db> _label is the original string (can change on partial matches)
+# id and label come from <db> _label is the original string (can change on partial matches)
     return $print_hidden_labels
       ? { id => $id, label => $label, _label => $tmp_query }
       : { id => $id, label => $label };
@@ -117,10 +117,10 @@ sub dotify_and_coerce_number {
 
 sub iso8601_time {
 
-    # Standard modules (gmtime()===>Coordinated Universal Time(UTC))
-    # NB: The T separates the date portion from the time-of-day portion.
-    #     The Z on the end means UTC (that is, an offset-from-UTC of zero hours-minutes-seconds).
-    #     - The Z is pronounced “Zulu”.
+# Standard modules (gmtime()===>Coordinated Universal Time(UTC))
+# NB: The T separates the date portion from the time-of-day portion.
+#     The Z on the end means UTC (that is, an offset-from-UTC of zero hours-minutes-seconds).
+#     - The Z is pronounced “Zulu”.
     my $now = time();
     return strftime( '%Y-%m-%dT%H:%M:%SZ', gmtime($now) );
 }
@@ -136,10 +136,10 @@ sub _map2iso8601 {
 
 sub map_reference_range {
 
-    my $arg        = shift;
-    my $field      = $arg->{field};
-    my $redcap_dic = $arg->{redcap_dic};
-    my $unit       = $arg->{unit};
+    my $arg         = shift;
+    my $field       = $arg->{field};
+    my $redcap_dict = $arg->{redcap_dict};
+    my $unit        = $arg->{unit};
     my %hash = ( low => 'Text Validation Min', high => 'Text Validation Max' );
     my $hashref = {
         unit => $unit,
@@ -147,7 +147,7 @@ sub map_reference_range {
     };    # Initialize low,high to undef
     for my $range (qw (low high)) {
         $hashref->{$range} =
-          dotify_and_coerce_number( $redcap_dic->{$field}{ $hash{$range} } );
+          dotify_and_coerce_number( $redcap_dict->{$field}{ $hash{$range} } );
     }
 
     return $hashref;
@@ -156,9 +156,11 @@ sub map_reference_range {
 sub map_age_range {
 
     my $str = shift;
-     
+
     # Premature return if not range
-    return { age => {iso8601duration => 'P' . dotify_and_coerce_number($str) . 'Y' }} unless $str =~ m/\-|\+/;
+    return { age =>
+          { iso8601duration => 'P' . dotify_and_coerce_number($str) . 'Y' } }
+      unless $str =~ m/\-|\+/;
 
     # if range
     $str =~ s/\+/\-999/;    # from '70+' '70-999'
@@ -175,12 +177,12 @@ sub map_age_range {
     };
 }
 
-sub map2redcap_dic {
+sub map2redcap_dict {
 
     my $arg = shift;
-    my ( $redcap_dic, $participant, $field, $labels ) = (
-        $arg->{redcap_dic}, $arg->{participant},
-        $arg->{field},      $arg->{labels}
+    my ( $redcap_dict, $participant, $field, $labels ) = (
+        $arg->{redcap_dict}, $arg->{participant},
+        $arg->{field},       $arg->{labels}
     );
 
     # Options:
@@ -189,8 +191,8 @@ sub map2redcap_dic {
     #  labels = 0
     #    'Field Note'
     return $labels
-      ? $redcap_dic->{$field}{_labels}{ $participant->{$field} }
-      : $redcap_dic->{$field}{'Field Note'};
+      ? $redcap_dict->{$field}{_labels}{ $participant->{$field} }
+      : $redcap_dict->{$field}{'Field Note'};
 }
 
 sub map2ohdsi {
@@ -237,7 +239,7 @@ sub convert2boolean {
     return
         ( $val eq 'true'  || $val eq 'yes' ) ? JSON::XS::true
       : ( $val eq 'false' || $val eq 'no' )  ? JSON::XS::false
-      :                                        undef;            # unknown = undef
+      :                                        undef;          # unknown = undef
 
 }
 
@@ -342,10 +344,10 @@ sub map_omop_visit_occurrence {
     # Premature return
     return undef if $visit_occurrence_id eq '\\N';
 
-    # *** IMPORTANT ***
-    # EUNOMIA instance has mismatches between the person_id -- visit_occurrence_id
-    # For instance, person_id = 1 has only visit_occurrence_id = 85, but on tables it has:
-    # 82, 84, 42, 54, 41, 25, 76 and 81
+# *** IMPORTANT ***
+# EUNOMIA instance has mismatches between the person_id -- visit_occurrence_id
+# For instance, person_id = 1 has only visit_occurrence_id = 85, but on tables it has:
+# 82, 84, 42, 54, 41, 25, 76 and 81
 
     # warn if we don't have $visit_occurrence_id in VISIT_OCURRENCE
     unless ( exists $visit_occurrence->{$visit_occurrence_id} ) {
@@ -369,8 +371,8 @@ sub map_omop_visit_occurrence {
         }
     );
 
-    # *** IMPORTANT ***
-    # Ad hoc to avoid using --ohdsi-db while we find a solution to EUNOMIA not being self-contained
+# *** IMPORTANT ***
+# Ad hoc to avoid using --ohdsi-db while we find a solution to EUNOMIA not being self-contained
     my $ad_hoc_44818517 = {
         id    => "Visit Type:OMOP4822465",
         label => "Visit derived from encounter on claim"
@@ -421,6 +423,24 @@ sub dot_date2iso {
 sub is_multidimensional {
 
     return ref shift ? 1 : 0;
+}
+
+sub remap_mapping_hash {
+
+    my ( $mapping_file, $term ) = @_;
+    my %hash_out = map {
+            $_, exists $mapping_file->{$term}{$_}
+          ? $mapping_file->{$term}{$_}
+          : undef
+    } (qw/fields dict map radio/);
+    $hash_out{ontology} =
+      exists $mapping_file->{$term}{ontology}
+      ? $mapping_file->{$term}{ontology}
+      : $mapping_file->{project}{ontology};
+    $hash_out{routesOfAdministration} =
+      $mapping_file->{$term}{routesOfAdministration}
+      if $term eq 'treatments';
+    return \%hash_out;
 }
 
 1;
