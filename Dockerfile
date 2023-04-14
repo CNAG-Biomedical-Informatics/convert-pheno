@@ -11,7 +11,7 @@ RUN apt-get update && \
 
 # Download Convert-Pheno
 WORKDIR /usr/share/
-RUN git clone https://github.com/mrueda/convert-pheno.git
+RUN git clone https://github.com/CNAG-Biomedical-Informatics/convert-pheno.git
 
 # Install Perl modules
 WORKDIR /usr/share/convert-pheno

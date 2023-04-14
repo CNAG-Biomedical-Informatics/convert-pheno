@@ -316,7 +316,7 @@ sub read_sqldump {
 
         # Discarding non @$omop_tables:
         # This step improves RAM consumption
-        next unless any { m/^$table_name$/ } @omop_tables;
+        next unless any { $_ eq $table_name } @omop_tables;
 
         # Say if verbose
         say "Processing table ... <$table_name>" if $self->{verbose};
@@ -480,7 +480,7 @@ sub transpose_omop_data_structure {
                 my $person_id = $item->{person_id};
 
                 # {person_id} can have multiple rows in @omop_array_tables
-                if ( any { m/^$table$/ } @omop_array_tables ) {
+                if ( any { $_ eq $table } @omop_array_tables ) {
                     push @{ $omop_person_id->{$person_id}{$table} },
                       $item;    # array
                 }

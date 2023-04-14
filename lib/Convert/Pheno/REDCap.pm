@@ -564,7 +564,7 @@ sub do_redcap2bff {
 
                 # Rectal route only happens in some drugs (ad hoc)
                 next
-                  if ( $route eq 'rectal' && !any { /^$field$/ }
+                  if ( $route eq 'rectal' && !any { $_ eq $field }
                     qw(budesonide asa) );
 
                 # Discarding if drug_route_status is empty

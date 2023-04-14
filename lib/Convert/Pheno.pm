@@ -350,8 +350,8 @@ sub omop2bff {
                 # NB: --omop-tables has no effect
                 warn "<$table_name> is not a valid table in OMOP-CDM\n" and next
 
-                  #unless (any { /^$table_name$/ } @{ $omop_main_table->{$omop_version} };
-                  unless any { /^$table_name$/ } @omop_essential_tables;    # global
+                  #unless (any { $_ eq $table_name } @{ $omop_main_table->{$omop_version} };
+                  unless any { $_ eq $table_name } @omop_essential_tables;    # global
 
                 # --no-stream
                 if ( !$self->{stream} ) {
@@ -365,7 +365,7 @@ sub omop2bff {
                 else {
                     # We'll ONLY load @stream_ram_memory_tables
                     # in RAM and the other tables as $fh
-                    if ( any { /^$table_name$/ } @stream_ram_memory_tables ) {
+                    if ( any { $_ eq $table_name } @stream_ram_memory_tables ) {
                         $data->{$table_name} =
                           read_csv( { in => $file, sep => $self->{sep} } );
                     }
@@ -690,7 +690,7 @@ sub omop_stream_dispatcher {
         for my $table ( @{$omop_tables} ) {
 
             # We already loaded @stream_ram_memory_tables;
-            next if any { /^$table$/ } @stream_ram_memory_tables;
+            next if any { $_ eq $table } @stream_ram_memory_tables;
             say "Processing table ... <$table>" if $self->{verbose};
             $self->{omop_tables} = [$table];
             read_sqldump_stream(
