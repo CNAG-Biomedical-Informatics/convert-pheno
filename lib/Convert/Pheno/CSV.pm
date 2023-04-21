@@ -144,7 +144,11 @@ sub transpose_ohdsi_dictionary {
     # NB: We store all columns yet we'll use 4:
     # 'concept_id', 'concept_code', 'concept_name', 'vocabulary_id'
     # Note that we're duplicating @$data with $hoh
-    my $hoh = { map { $_->{$column} => $_ } @{$data} };
+    #my $hoh = { map { $_->{$column} => $_ } @{$data} }; <--map is slower than for
+    my $hoh;
+    for my $item (@{$data}) {
+        $hoh->{ $item->{$column} } = $item;
+    }
 
     #say "transpose_ohdsi_dictionary:", to_gb( total_size($hoh) ) if DEVEL_MODE;
     return $hoh;
@@ -541,7 +545,7 @@ sub transpose_omop_data_structure {
 
 sub transpose_visit_occurrence {
 
-    my $array = shift;    #arrayref
+    my $data = shift;    # arrayref
 
     # Going from
     #$VAR1 = [
@@ -560,7 +564,13 @@ sub transpose_visit_occurrence {
     #                  ...
     #                }
     #      };
-    return { map { $_->{visit_occurrence_id} => $_ } @$array };
+    #my $hash = { map { $_->{visit_occurrence_id} => $_ } @$data }; # map is slower than for
+    my $hash;
+    for my $item (@$data) {
+         my $key = $item->{visit_occurrence_id}; # otherwise $item->{visit_occurrence_id} gets stringified and tests fail
+         $hash->{$key} = $item;
+    }
+    return $hash;
 }
 
 sub read_csv {
@@ -594,9 +604,12 @@ sub read_csv {
     #      ]
 
     # Coercing the data before returning it
-    for my $i (@$aoh) {
-        $i = { map { $_ => dotify_and_coerce_number( $i->{$_} ) } keys %{$i} };
+    for my $item (@$aoh) {
+        for my $key (keys %{$item}) {
+            $item->{$key} = dotify_and_coerce_number( $item->{$key} );
+        }
     }
+
     return $aoh;
 }
 
