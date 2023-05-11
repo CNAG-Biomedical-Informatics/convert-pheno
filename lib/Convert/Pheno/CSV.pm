@@ -567,7 +567,7 @@ sub transpose_visit_occurrence {
     #my $hash = { map { $_->{visit_occurrence_id} => $_ } @$data }; # map is slower than for
     my $hash;
     for my $item (@$data) {
-         my $key = $item->{visit_occurrence_id}; # otherwise $item->{visit_occurrence_id} gets stringified and tests fail
+         my $key = $item->{visit_occurrence_id}; # otherwise $item->{visit_occurrence_id} goes from Int to Str in JSON and tests fail
          $hash->{$key} = $item;
     }
     return $hash;

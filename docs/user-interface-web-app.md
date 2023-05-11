@@ -8,7 +8,7 @@ We have created a user-friendly **web application** that simplifies the process 
 !!! Hint "UI Web App playground"
     We have developed a **secure testing environment**, or playground, for the app. This environment allows users to test the app using synthetic data as well as upload their own data.
 
-    https://convert-pheno.cnag.crg.eu
+    https://convert-pheno.cnag.cat
 
 ## Installation
 
