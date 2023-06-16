@@ -32,7 +32,7 @@
                   },
                   "ohdsi_db": {
                     "title": "OHDSI-DB",
-                    "type": "string"
+                    "type": "boolean"
                   }
                 }
               }

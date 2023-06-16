@@ -119,7 +119,7 @@ has exposures_file => (
 has [qw /test print_hidden_labels self_validate_schema path_to_ohdsi_db/] =>
   ( default => undef, is => 'ro' );
 
-has [qw /stream ohdsi_db/] => ( default => 0, is => 'ro' );
+has [qw /stream ohdsi_db/] => ( default => 0, is => 'ro' )
 
 has [qw /in_files/] => ( default => sub { [] }, is => 'ro' );
 
@@ -127,7 +127,7 @@ has [
     qw /out_file out_dir in_textfile in_file sep sql2csv redcap_dictionary mapping_file schema_file debug log verbose/
 ] => ( is => 'ro' );
 
-has [qw /data method /] => ( is => 'rw' );
+has [qw /data method/] => ( is => 'rw' );
 
 ##########################################
 # End declaring attributes for the class #

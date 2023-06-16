@@ -13,8 +13,8 @@
 #   License: Artistic License 2.0
 
 import sys
-from fastapi import Request, FastAPI, HTTPException
-from pydantic import BaseModel, Field, parse_obj_as
+from fastapi import Request, FastAPI, HTTPException # MIT license
+from pydantic import BaseModel, Field, parse_obj_as # MIT license
 sys.path.append('../../lib/')
 from convertpheno import PythonBinding
 

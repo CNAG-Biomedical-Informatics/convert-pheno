@@ -21,8 +21,8 @@ our @EXPORT =
 
 use constant DEVEL_MODE => 0;
 
-# Global hasref
-my $seen = {};
+# Global hash
+my %seen = ();
 
 #############################
 #############################
@@ -48,16 +48,16 @@ sub map_ontology {
 
     #return { id => 'dummy', label => 'dummy' } # test speed
 
-    # Checking for existance in %$seen
+    # Checking for existance in %seen
     my $tmp_query = $_[0]->{query};
     say "Skipping searching for <$tmp_query> as it already exists"
-      if DEVEL_MODE && exists $seen->{$tmp_query};
+      if DEVEL_MODE && exists $seen{$tmp_query};
 
     # return if terms has already been searched and exists
     # Not a big fan of global stuff...
     #  ¯\_(ツ)_/¯
     # Premature return
-    return $seen->{$tmp_query} if exists $seen->{$tmp_query};    # global
+    return $seen{$tmp_query} if exists $seen{$tmp_query};    # global
 
     say "searching for <$tmp_query>" if DEVEL_MODE;
 
@@ -92,8 +92,8 @@ sub map_ontology {
         }
     );
 
-    # Add result to global $seen
-    $seen->{$tmp_query} = { id => $id, label => $label };    # global
+    # Add result to global %seen
+    $seen{$tmp_query} = { id => $id, label => $label };    # global
 
 # id and label come from <db> _label is the original string (can change on partial matches)
     return $print_hidden_labels
@@ -205,7 +205,7 @@ sub map2ohdsi {
     # OPTION A: <CONCEPT> #
     #######################
 
-    # NB1: Here we don't win any speed over using $seen as ...
+    # NB1: Here we don't win any speed over using %seen as ...
     # .. we are already searching in a hash
     # NB2: $concept_id is stringified by hash
     my ( $data, $id, $label, $vocabulary ) = ( (undef) x 4 );

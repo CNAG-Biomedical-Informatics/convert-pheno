@@ -18,7 +18,11 @@
 
 **Documentation**: <a href="https://cnag-biomedical-informatics.github.io/convert-pheno" target="_blank">https://cnag-biomedical-informatics.github.io/convert-pheno</a>
 
-**Source Code**: <a href="https://github.com/cnag-biomedical-informatics/convert-pheno" target="_blank">https://github.com/cnag-biomedical-informatics/convert-pheno</a>
+**CLI Source Code**: <a href="https://github.com/cnag-biomedical-informatics/convert-pheno" target="_blank">https://github.com/cnag-biomedical-informatics/convert-pheno</a>
+
+**Web APP Playground**: <a href="https://convert-pheno.cnag.cat" target="_blank">https://convert-pheno.cnag.cat</a>
+
+**Web App Source Code**: <a href="https://github.com/cnag-biomedical-informatics/convert-pheno-ui" target="_blank">https://github.com/cnag-biomedical-informatics/convert-pheno-ui</a>
 
 
 # NAME
@@ -33,7 +37,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
 
      Arguments:                       
        (input-type): 
-             -ibff                    Beacon v2 Models (JSON|YAML) file
+             -ibff                    Beacon v2 Models ("individuals" JSON|YAML) file
              -iomop                   OMOP-CDM CSV files or PostgreSQL dump
              -ipxf                    Phenopacket v2 (JSON|YAML) file
              -iredcap (experimental)  REDCap (raw data) export CSV file
@@ -44,22 +48,17 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
              #-ifhir                  HL7/FHIR
 
        (output-type):
-             -obff                    Beacon v2 Models JSON file
-             -opxf                    Phenopacket v2 JSON file
+             -obff                    Beacon v2 Models ("invididuals" JSON|YAML) file
+             -opxf                    Phenopacket v2 (JSON|YAML) file
 
              (Wish-list)
              #-oomop                  OMOP-CDM PostgreSQL dump
 
      Options:
-       -debug                         Print debugging level (from 1 to 5, being 5 max)
        -exposures-file                CSV file with a list of 'concept_id' considered to be exposures (with -iomop)
-       -h|help                        Brief help message
-       -log                           Save log file (JSON). If no argument is given then the log is named [convert-pheno-log.json]
-       -man                           Full documentation
        -mapping-file                  Fields mapping YAML (or JSON) file
        -max-lines-sql                 Maximum number of lines read from SQL dump [500]
        -min-text-similarity-score     Minimum score for cosine similarity (or Sorensen-Dice coefficient) [0.8] (to be used with --search mixed)
-       -no-color                      Don't print colors to STDOUT [>color|no-color]
        -ohdsi-db                      Use Athena-OHDSI database (~2.2GB) with -iomop
        -omop-tables                   (Only valid with -iomop) OMOP-CDM tables to be processed. Tables <CONCEPT> and <PERSON> are always included.
        -out-dir                       Output (existing) directory
@@ -76,6 +75,13 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
        -test                          Does not print time-changing-events (useful for file-based cmp)
        -text-similarity-method        The method used to compare values to DB [>cosine|dice]
        -u|username                    Set the username
+
+     Generic Options:
+       -debug                         Print debugging level (from 1 to 5, being 5 max)
+       -h|help                        Brief help message
+       -log                           Save log file (JSON). If no argument is given then the log is named [convert-pheno-log.json]
+       -man                           Full documentation
+       -no-color                      Don't print colors to STDOUT [>color|no-color]
        -v|verbose                     Verbosity on
        -V|version                     Print Version
 
