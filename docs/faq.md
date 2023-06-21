@@ -37,7 +37,7 @@ Frequently Asked Questions
       <figcaption>Beacon v2 RI integration</figcaption>
     </figure>
 
-    ##### last change 2023-01-04 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
+    ##### last change 2023-06-20 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
 ??? faq "What is the difference between Beacon v2 Models and Beacon v2?"
 
