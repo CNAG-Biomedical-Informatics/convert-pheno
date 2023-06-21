@@ -3,7 +3,7 @@
 `Convert-Pheno` is a software toolkit for the interconversion of standard data models for phenotypic data.
 
 <figure markdown>
- ![Convert-Pheno](img/convert-pheno-schema.png){width="550"}
+ ![Convert-Pheno](img/convert-pheno-schema.png){width="500"}
  <figcaption>Convert-Pheno schematic view</figcaption>
 </figure>
 
