@@ -6,29 +6,22 @@ on:
   #  types: [created]
 
 jobs:
-  build:
+jobs:
+  build-and-release:
     runs-on: ubuntu-latest
+    name: Build and release Acme::Automatix to CPAN
     steps:
-      - name: Check out code
-        uses: actions/checkout@v2
-
-      - name: Set up Perl environment
-        uses: shogo82148/actions-setup-perl@v1
-        with:
-          perl-version: '5.32'
-
-      - name: Install dependencies
-        run: |
-          cpan App::cpanminus
-          cpanm --installdeps .
-
-      - name: Test
-        run: prove -lv t
-
-      - name: Publish to CPAN
-        uses: pause-playground/actions-upload-to-pause@v1
-        with:
-          distribution: .
+    - uses: actions/checkout@v2
+    - name: Configure
+      run: perl Makefile.PL
+    - name: Build
+      run: make
+    - name: Deliver locally
+      run: make dist
+    - name: Upload to CPAN
+      id: upload
+      uses: thibaultduponchelle/action-upload-to-cpan@master
+      with:
           username: ${{ secrets.CPAN_USER }}
           password: ${{ secrets.CPAN_PASSWORD }}
 
