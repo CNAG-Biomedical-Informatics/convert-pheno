@@ -6,7 +6,6 @@ on:
   #  types: [created]
 
 jobs:
-jobs:
   build-and-release:
     runs-on: ubuntu-latest
     name: Build and release Acme::Automatix to CPAN
