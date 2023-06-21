@@ -13,6 +13,8 @@ jobs:
     - uses: actions/checkout@v2
     - name: Configure
       run: perl Makefile.PL
+    - name: Create MANIFEST
+      run: make -f Makefile manifest
     - name: Build
       run: make -f Makefile
     - name: Deliver locally
