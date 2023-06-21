@@ -3,7 +3,7 @@ use warnings;
 use utf8;
 use ExtUtils::MakeMaker;
 
-my $GITHUB_URL  = 'https://github.com/mrueda/convert-pheno';
+my $GITHUB_URL  = 'https://github.com/CNAG-Biomedical-Informatics/convert-pheno';
 
 WriteMakefile(
   NAME          => 'Convert::Pheno',

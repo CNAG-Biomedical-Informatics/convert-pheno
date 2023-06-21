@@ -1,0 +1,34 @@
+name: Publish to CPAN
+
+on:
+  workflow_dispatch
+  #release:
+  #  types: [created]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Set up Perl environment
+        uses: shogo82148/actions-setup-perl@v1
+        with:
+          perl-version: '5.32'
+
+      - name: Install dependencies
+        run: |
+          cpan App::cpanminus
+          cpanm --installdeps .
+
+      - name: Test
+        run: prove -lv t
+
+      - name: Publish to CPAN
+        uses: pause-playground/actions-upload-to-pause@v1
+        with:
+          distribution: .
+          username: ${{ secrets.CPAN_USER }}
+          password: ${{ secrets.CPAN_PASSWORD }}
+
