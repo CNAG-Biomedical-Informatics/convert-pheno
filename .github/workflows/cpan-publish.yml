@@ -8,15 +8,15 @@ on:
 jobs:
   build-and-release:
     runs-on: ubuntu-latest
-    name: Build and release Acme::Automatix to CPAN
+    name: Build and release Convert::Pheno to CPAN
     steps:
     - uses: actions/checkout@v2
     - name: Configure
       run: perl Makefile.PL
     - name: Build
-      run: make
+      run: make -f Makefile
     - name: Deliver locally
-      run: make dist
+      run: make -f Makefile dist
     - name: Upload to CPAN
       id: upload
       uses: thibaultduponchelle/action-upload-to-cpan@master
