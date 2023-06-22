@@ -172,14 +172,14 @@ Now you have two choose between one of the 2 options below:
 
 **Option 1:** Install dependencies (they're harmless to your system) as `sudo`:
 
-    make install # (Will ask for sudo passwd)
-    make test
+    make -f makefile.install install # (Will ask for sudo passwd)
+    make -f makefile.install test
 
 **Option 2:** Install the dependencies in a "virtual environment" (i.e., install the CPAN modules in the directory of the application). We'll be using the module`Carton` for that:
 
     # NB: We're installing cpanminus and Carton as sudo. That's why you will be asked to provide sudo password.
-    make install-carton
-    make test
+    make -f makefile.install install-carton
+    make -f makefile.install test
 
 ### From CPAN
 
