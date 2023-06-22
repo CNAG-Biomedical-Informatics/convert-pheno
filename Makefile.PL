@@ -26,7 +26,7 @@ WriteMakefile(
         },
         'x_contributors' => [],
     },
-    PREREQ_PM => PREREQ_PM => {
+    PREREQ_PM => {
         'JSON::XS'                     => '4.03',
         'YAML::XS'                     => '0.88',
         'Path::Tiny'                   => '0.144',
