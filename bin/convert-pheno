@@ -333,8 +333,6 @@ sub ask_overwrite {
 
 =head1 NAME
 
-B<UNDER DEVELOPMENT>
-
 convert-pheno - A script to interconvert common data models for phenotypic data
 
 =head1 SYNOPSIS

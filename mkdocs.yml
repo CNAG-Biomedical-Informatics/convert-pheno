@@ -54,10 +54,10 @@ nav:
       - Supported formats: supported-formats.md
   - 'Download & Installation': download-and-installation.md
   - Use:
-      - As a command-line interface: use-as-a-command-line-tool.md
+      - As a command-line interface: use-as-a-command-line-interface.md
       - As a module: use-as-a-module.md
       - As an API: use-as-an-api.md
-      - Web App iser interface: web-app-user-interface.md
+      - Web App User interface: web-app-user-interface.md
   - Formats accepted:
       - Beacon v2 Models (BFF): bff.md
       - Phenopacket v2 (PXF): pxf.md
