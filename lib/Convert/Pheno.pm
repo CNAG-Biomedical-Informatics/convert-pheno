@@ -37,7 +37,7 @@ our @EXPORT = qw($VERSION io_yaml_or_json omop2bff_stream_processing);    # Symb
 use constant DEVEL_MODE => 0;
 
 # Global variables:
-our $VERSION  = '0.0.0_beta';
+our $VERSION  = '0.01';
 our $lib_path = dirname( abs_path(__FILE__) );
 
 ############################################
@@ -119,7 +119,7 @@ has exposures_file => (
 has [qw /test print_hidden_labels self_validate_schema path_to_ohdsi_db/] =>
   ( default => undef, is => 'ro' );
 
-has [qw /stream ohdsi_db/] => ( default => 0, is => 'ro' )
+has [qw /stream ohdsi_db/] => ( default => 0, is => 'ro' );
 
 has [qw /in_files/] => ( default => sub { [] }, is => 'ro' );
 

@@ -7,15 +7,15 @@ my $GITHUB_URL  = 'https://github.com/CNAG-Biomedical-Informatics/convert-pheno'
 
 WriteMakefile(
   NAME          => 'Convert::Pheno',
-  ABSTRACT_FROM => 'lib/Convert/Pheno.pm',
+  ABSTRACT_FROM => 'bin/convert-pheno',
   AUTHOR        => q{Manuel Rueda <mrueda@cpan.org>},
   LICENSE       => 'perl',
   VERSION_FROM  => 'lib/Convert/Pheno.pm',
   META_MERGE    => {
     'dynamic_config' => 0,
-  #  'meta-spec'      => {version   => 0},
-  #  'no_index'       => {directory => [qw(examples t)]},
-  #  'prereqs'        => {runtime   => {requires => {perl => '5.016'}}},
+    'meta-spec'      => {version   => 0},
+    'no_index'       => {directory => [qw(api docs db ex t)]},
+    'prereqs'        => {runtime   => {requires => {perl => '5.30'}}},
     'resources'      => {
       bugtracker => {web => "$GITHUB_URL/issues"},
       homepage   => $GITHUB_URL,
@@ -25,6 +25,7 @@ WriteMakefile(
     'x_contributors' => [],
   },
   PREREQ_PM     => {},
+  EXE_FILES => ['bin/convert-pheno'],
   TEST_REQUIRES => {'Test::More' => '1.30'},
   test          => {TESTS        => 't/*.t'}
 );

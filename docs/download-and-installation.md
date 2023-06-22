@@ -21,8 +21,15 @@ We provide several alternatives (containerized and non-containerized) for downlo
 
 === "Method 4: From CPAN"
 
-    !!! Danger "Disclaimer"
-        This installation method will be available once the paper is accepted.
+    !!! Warning "Required system-level libraries"
+        * `libbz2-dev:` This is the development library for bzip2, which is used for data compression. There is no direct CPAN replacement, but Perl does have modules for handling bzip2 compressed data, such as IO::Compress::Bzip2 and Compress::Bzip2. However, these modules still rely on the system having the necessary libraries.
+
+        * `zlib1g-dev:` This is the development library for zlib, which is another data compression library. Similar to bzip2, Perl has modules for zlib compression and decompression like Compress::Zlib, IO::Compress::Gzip, and IO::Uncompress::Gunzip. But these also depend on the system's zlib library.
+
+        * `libperl-dev:` This package contains the headers and libraries necessary to compile C or C++ programs to link against the Perl library, enabling you to write Perl modules in C or C++. There is no CPAN alternative for this.
+
+        * `libssl-dev:` This package is part of OpenSSL, which provides secure socket layer (SSL) capabilities. For SSL/TLS related tasks in Perl, you can use modules such as IO::Socket::SSL or Net::SSLeay, but these modules also require OpenSSL to be installed on the system.
+
 
     The software is implemented in `Perl` language and packaged as a Perl Module in the Comprehensive Perl Archive Network (CPAN). See the description [here](https://metacpan.org/pod/Convert::Pheno).
 
@@ -30,6 +37,13 @@ We provide several alternatives (containerized and non-containerized) for downlo
 
         sudo apt-get install cpanminus
 
-    Then the install the module:
+    Then, to install the module (system level):
 
         cpanm --sudo Convert::Pheno
+
+    Alternatively, if you want to peform a local installation:
+
+        cpanm --sudo Carton
+        carton install
+        carton exec -- bin/convert-pheno
+
