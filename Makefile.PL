@@ -46,7 +46,7 @@ WriteMakefile(
         'Test::Warn'                   => '0.37',
         'PerlIO::gzip'                 => '0.20',
         'IO::Socket::SSL'              => '2.083',
-        'Mojolicious::Plugin::OpenAPI' => '5.09',
+        'Mojolicious::Plugin::OpenAPI' => '5.09'
     },
     EXE_FILES     => ['bin/convert-pheno'],
     TEST_REQUIRES => { 'Test::More' => '1.30' },
