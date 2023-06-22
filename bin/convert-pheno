@@ -395,8 +395,6 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
 
 C<convert-pheno> is a command-line front-end to the CPAN's module L<Convert::Pheno>.
 
-The module will be uploaded to CPAN once the paper is submitted.
-
 =head1 SUMMARY
 
 A script that uses L<Convert::Pheno> to interconvert common data models for phenotypic data
@@ -470,6 +468,8 @@ Then I will do something like this:
 The script runs on command-line Linux and it has been tested on Debian/RedHat based distributions (only showing commands for Debian's). Perl 5 is installed by default on Linux, 
 but we will install a few CPAN modules with C<cpanminus>.
 
+=head3 From Github
+
   git clone https://github.com/cnag-biomedical-informatics/convert-pheno.git
   cd convert-pheno
 
@@ -485,6 +485,16 @@ B<Option 2:> Install the dependencies in a "virtual environment" (i.e., install 
   # NB: We're installing cpanminus and Carton as sudo. That's why you will be asked to provide sudo password.
   make install-carton
   make test
+
+=head3 From CPAN
+
+Install system level dependencies:
+
+  sudo apt-get install cpanminus libbz2-dev zlib1g-dev libperl-dev libssl-dev
+
+Download iand install the module with C<cpanm>:
+
+  cpanm Convert::Pheno
 
 =head3 System requirements
 

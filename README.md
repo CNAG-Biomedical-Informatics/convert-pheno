@@ -89,8 +89,6 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
 
 `convert-pheno` is a command-line front-end to the CPAN's module [Convert::Pheno](https://metacpan.org/pod/Convert%3A%3APheno).
 
-The module will be uploaded to CPAN once the paper is submitted.
-
 # SUMMARY
 
 A script that uses [Convert::Pheno](https://metacpan.org/pod/Convert%3A%3APheno) to interconvert common data models for phenotypic data
@@ -165,6 +163,8 @@ Then I will do something like this:
 The script runs on command-line Linux and it has been tested on Debian/RedHat based distributions (only showing commands for Debian's). Perl 5 is installed by default on Linux, 
 but we will install a few CPAN modules with `cpanminus`.
 
+### From Github
+
     git clone https://github.com/cnag-biomedical-informatics/convert-pheno.git
     cd convert-pheno
 
@@ -180,6 +180,16 @@ Now you have two choose between one of the 2 options below:
     # NB: We're installing cpanminus and Carton as sudo. That's why you will be asked to provide sudo password.
     make install-carton
     make test
+
+### From CPAN
+
+Install system level dependencies:
+
+    sudo apt-get install cpanminus libbz2-dev zlib1g-dev libperl-dev libssl-dev
+
+Download iand install the module with `cpanm`:
+
+    cpanm Convert::Pheno
 
 ### System requirements
 
