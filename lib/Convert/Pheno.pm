@@ -748,7 +748,7 @@ For a better description, please read the following documentation:
 
 =over
 
-=item Input file(s):
+=item General:
 
 L<https://cnag-biomedical-informatics.github.io/convert-pheno>
 
