@@ -37,7 +37,7 @@ our @EXPORT = qw($VERSION io_yaml_or_json omop2bff_stream_processing);    # Symb
 use constant DEVEL_MODE => 0;
 
 # Global variables:
-our $VERSION  = '0.01';
+our $VERSION  = '0.02';
 our $lib_path = dirname( abs_path(__FILE__) );
 
 ############################################
@@ -744,11 +744,26 @@ Convert::Pheno - A module to interconvert common data models for phenotypic data
 
 =head1 DESCRIPTION
 
+For a better description, please read the following documentation:
+
+=over
+
+=item Input file(s):
+
+L<https://cnag-biomedical-informatics.github.io/convert-pheno>
+
+=item Command-Line Interface:
+
+L<https://github.com/CNAG-Biomedical-Informatics/convert-pheno#readme>
+
+=back
+
+
 =head1 CITATION
 
 The author requests that any published work that utilizes C<Convert-Pheno> includes a cite to the the following reference:
 
-Rueda, M. "Convert-Pheno: A software toolkit for the interconversion of standard data models for phenotypic data". I<iManuscript in preparation>.
+Rueda, M. et al. "Convert-Pheno: A software toolkit for the interconversion of standard data models for phenotypic data". (2013), I<Manuscript in preparation>.
 
 =head1 AUTHOR
 
@@ -756,13 +771,7 @@ Written by Manuel Rueda, PhD. Info about CNAG can be found at L<https://www.cnag
 
 =head1 METHODS
 
-=head2 COMMON ERRORS AND SOLUTIONS
-
- * Error message: Foo
-   Solution: Bar
-
- * Error message: Foo
-   Solution: Bar
+See L<https://cnag-biomedical-informatics.github.io/convert-pheno/use-as-a-module>.
 
 =head1 COPYRIGHT
 
