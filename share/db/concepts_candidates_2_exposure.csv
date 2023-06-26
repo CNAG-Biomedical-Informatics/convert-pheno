@@ -1,0 +1,214 @@
+"concept_id"	"concept_name"	"domain_id"	"vocabulary_id"	"concept_class_id"	"standard_concept"	"concept_code"	"valid_start_date"	"valid_end_date"	"invalid_reason"
+4138352	Seen by community-based occupational therapy service	Observation	SNOMED	Clinical Finding	S	"305853006"	2002-01-31	2099-12-31	
+4139708	Under care of occupational therapist	Observation	SNOMED	Clinical Finding	S	"305605005"	2002-01-31	2099-12-31	
+44810729	Seen by occupational therapy technical instructor higher level	Observation	SNOMED	Clinical Finding	S	"870161000000109"	2013-04-01	2099-12-31	
+35609831	HIV-PrEP (Human immunodeficiency virus pre-exposure prophylaxis) eligibility criterion 1	Observation	SNOMED	Clinical Finding	S	"1086551000000106"	2017-10-01	2099-12-31	
+35609832	HIV-PrEP (Human immunodeficiency virus pre-exposure prophylaxis) eligibility criterion 2	Observation	SNOMED	Clinical Finding	S	"1086561000000109"	2017-10-01	2099-12-31	
+35609833	HIV-PrEP (Human immunodeficiency virus pre-exposure prophylaxis) eligibility criterion 3	Observation	SNOMED	Clinical Finding	S	"1086571000000102"	2017-10-01	2099-12-31	
+44810728	Seen by occupational therapy technician	Observation	SNOMED	Clinical Finding	S	"870101000000105"	2013-04-01	2099-12-31	
+4019959	Occupational environmental problem	Observation	SNOMED	Clinical Finding	S	"105482003"	2002-01-31	2099-12-31	
+46284072	Seen by occupational health advisor	Observation	SNOMED	Clinical Finding	S	"939031000000103"	2015-04-01	2099-12-31	
+4268843	Tobacco use and exposure - finding	Observation	SNOMED	Clinical Finding	S	"365980008"	2002-01-31	2099-12-31	
+4139709	Under care of hospital-based occupational therapist	Observation	SNOMED	Clinical Finding	S	"305608007"	2002-01-31	2099-12-31	
+46273081	No known exposure to tobacco smoke	Observation	SNOMED	Clinical Finding	S	"711563001"	2015-07-31	2099-12-31	
+4063244	Reason for obesity therapy - occupational	Observation	SNOMED	Clinical Finding	S	"170807005"	2002-01-31	2099-12-31	
+44808837	Did not attend post exposure diphtheria, tetanus, acellular pertussis and inactivated polio vaccination	Observation	SNOMED	Clinical Finding	S	"842821000000109"	2012-10-01	2099-12-31	
+4139897	Seen by hospital-based occupational therapy service	Observation	SNOMED	Clinical Finding	S	"305855004"	2002-01-31	2099-12-31	
+4085779	Seen by occupational therapist	Observation	SNOMED	Clinical Finding	S	"185287009"	2002-01-31	2099-12-31	
+4059503	Domiciliary occupational therapy	Observation	SNOMED	Clinical Finding	S	"160780003"	2002-01-31	2099-12-31	
+4125686	Seen by occupational health physician	Observation	SNOMED	Clinical Finding	S	"305692002"	2002-01-31	2099-12-31	
+4140791	Seen by hospital-based occupational therapist	Observation	SNOMED	Clinical Finding	S	"305776000"	2002-01-31	2099-12-31	
+4140925	Seen in social services occupational therapy service	Observation	SNOMED	Clinical Finding	S	"305854000"	2002-01-31	2099-12-31	
+4140933	Seen by occupational health service	Observation	SNOMED	Clinical Finding	S	"305877000"	2002-01-31	2099-12-31	
+4136471	Under care of occupational health physician	Observation	SNOMED	Clinical Finding	S	"305523007"	2002-01-31	2099-12-31	
+4136492	Under care of community-based occupational therapist	Observation	SNOMED	Clinical Finding	S	"305606006"	2002-01-31	2099-12-31	
+4136493	Under care of social services department occupational therapist	Observation	SNOMED	Clinical Finding	S	"305607002"	2002-01-31	2099-12-31	
+4138216	Seen by community-based occupational therapist	Observation	SNOMED	Clinical Finding	S	"305774002"	2002-01-31	2099-12-31	
+4138217	Seen by social services department occupational therapist	Observation	SNOMED	Clinical Finding	S	"305775001"	2002-01-31	2099-12-31	
+4138351	Seen by occupational therapy service	Observation	SNOMED	Clinical Finding	S	"305852001"	2002-01-31	2099-12-31	
+46285972	Education on provision of occupational skills training to service user	Observation	SNOMED	Context-dependent	S	"979391000000102"	2015-10-01	2099-12-31	
+4263813	Chemotherapy AND/OR radiation therapy prior to lymphadenectomy	Observation	SNOMED	Context-dependent	S	"396780003"	2003-07-31	2099-12-31	
+4287023	No chemotherapy AND/OR radiation therapy prior to lymphadenectomy	Observation	SNOMED	Context-dependent	S	"396781004"	2003-07-31	2099-12-31	
+756049	History of Suspected exposure (but ruled out after evaluation) to Severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2) in the 14 days prior to illness onset	Observation	OMOP Extension	Context-dependent	S	OMOP4873925	2020-03-18	2099-12-31	
+756063	History of Animal exposure in the 14 days prior to illness onset	Observation	OMOP Extension	Context-dependent	S	OMOP4873939	2020-03-18	2099-12-31	
+756040	History of Close exposure to Severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2) in the 14 days prior to illness onset	Observation	OMOP Extension	Context-dependent	S	OMOP4873943	2020-03-18	2099-12-31	
+756048	History of Suspected exposure to Severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2) in the 14 days prior to illness onset	Observation	OMOP Extension	Context-dependent	S	OMOP4873923	2020-03-18	2099-12-31	
+762538	Mother receiving radiation therapy	Observation	SNOMED	Context-dependent	S	"428641000124103"	2012-09-01	2099-12-31	
+4079773	Patient advised about exposure to the sun	Observation	SNOMED	Context-dependent	S	"183079004"	2002-01-31	2099-12-31	
+4327716	Family history of radiation therapy	Observation	SNOMED	Context-dependent	S	"430786004"	2008-07-31	2099-12-31	
+35609834	Daily HIV-PrEP (human immunodeficiency virus pre-exposure prophylaxis) commenced	Observation	SNOMED	Context-dependent	S	"1086581000000100"	2017-10-01	2099-12-31	
+35609835	Event-based HIV-PrEP (human immunodeficiency virus pre-exposure prophylaxis) commenced	Observation	SNOMED	Context-dependent	S	"1086591000000103"	2017-10-01	2099-12-31	
+35609836	HIV-PrEP (human immunodeficiency virus pre-exposure prophylaxis) declined	Observation	SNOMED	Context-dependent	S	"1086601000000109"	2017-10-01	2099-12-31	
+35609855	HIV-PrEP (human immunodeficiency virus pre-exposure prophylaxis) discontinued	Observation	SNOMED	Context-dependent	S	"1086781000000107"	2017-10-01	2099-12-31	
+36683665	Fetal exposure to methamphetamine	Observation	SNOMED	Context-dependent	S	"781699006"	2019-01-31	2099-12-31	
+36714396	Rabies post exposure prophylaxis contraindicated	Observation	SNOMED	Context-dependent	S	"719603008"	2017-01-31	2099-12-31	
+37016704	Assessment of environmental risk done	Observation	SNOMED	Context-dependent	S	"712805000"	2016-01-31	2099-12-31	
+37311537	Fetal exposure to anticonvulsant	Observation	SNOMED	Context-dependent	S	"789377005"	2020-01-31	2099-12-31	
+40484564	Risk of exposure to communicable disease	Observation	SNOMED	Context-dependent	S	"443999008"	2010-01-31	2099-12-31	
+40485501	Risk of exposure to Leptospira	Observation	SNOMED	Context-dependent	S	"444237009"	2010-01-31	2099-12-31	
+4176613	No known environmental allergy	Observation	SNOMED	Context-dependent	S	"428607008"	2008-01-31	2099-12-31	
+44802266	Exposure to occupational risk factor	Observation	SNOMED	Context-dependent	S	"525831000000103"	2010-04-01	2099-12-31	
+44808907	Post exposure diphtheria, tetanus, acellular pertussis and inactivated polio vaccination declined	Observation	SNOMED	Context-dependent	S	"842881000000105"	2012-10-01	2099-12-31	
+44810448	No H/O exposure to occupational risk factor	Observation	SNOMED	Context-dependent	S	"887991000000105"	2013-10-01	2099-12-31	
+45771039	No known exposure to Ebola virus	Observation	SNOMED	Context-dependent	S	"707855006"	2015-01-31	2099-12-31	
+45772691	Maternal exposure to radiation	Observation	SNOMED	Context-dependent	S	"704071002"	2015-01-31	2099-12-31	
+46271325	Fetal exposure to toxin	Observation	SNOMED	Context-dependent	S	"709426002"	2015-07-31	2099-12-31	
+46272240	Fetal exposure to angiotensin converting enzyme inhibitor agent	Observation	SNOMED	Context-dependent	S	"710570008"	2015-07-31	2099-12-31	
+46272991	Fetal exposure to drug	Observation	SNOMED	Context-dependent	S	"711456004"	2015-07-31	2099-12-31	
+46273759	Fetal exposure to alcohol	Observation	SNOMED	Context-dependent	S	"709462001"	2015-07-31	2099-12-31	
+4219731	Absence of signs and symptoms of radiation injury	Observation	SNOMED	Context-dependent	S	"397606006"	2003-07-31	2099-12-31	
+43530888	Suspected fetal damage from radiation	Observation	SNOMED	Context-dependent	S	"609422004"	2013-07-31	2099-12-31	
+43530889	Suspected fetal damage from environmental toxin	Observation	SNOMED	Context-dependent	S	"609423009"	2013-07-31	2099-12-31	
+2108539	Therapeutic exercise for the involved joint(s) instructed or physical or occupational therapy prescribed (OA)	Observation	CPT4	CPT4	S	"4018F"	2006-02-13	2099-12-31	
+2108679	"3-dimensional conformal radiotherapy (3D-CRT) or intensity modulated radiation therapy (IMRT) received (PRCA)"	Observation	CPT4	CPT4	S	"4165F"	2009-04-06	2099-12-31	
+2106970	Pathology report confirming malignancy documented in the medical record and reviewed prior to the initiation of radiation therapy (ONC)	Observation	CPT4	CPT4	S	"3318F"	2009-04-06	2099-12-31	
+2101842	Radiation dose limits to normal tissues established prior to the initiation of a course of 3D conformal radiation for a minimum of 2 tissue/organ (ONC)	Observation	CPT4	CPT4	S	"0520F"	2009-04-06	2099-12-31	
+2108695	Conformal radiation therapy received (NMA-No Measure Associated)	Observation	CPT4	CPT4	S	"4181F"	2009-04-06	2099-12-31	
+42742404	Smoking status and exposure to second hand smoke in the home assessed (Asthma)	Observation	CPT4	CPT4	S	"1031F"	2012-05-07	2099-12-31	
+2108704	Conformal radiation therapy not received (NMA-No Measure Associated)	Observation	CPT4	CPT4	S	"4182F"	2009-04-06	2099-12-31	
+2108724	External beam radiotherapy as primary therapy to prostate with or without nodal irradiation (PRCA)	Observation	CPT4	CPT4	S	"4200F"	2009-04-06	2099-12-31	
+2110381	Use of appropriate radiation dose reduction devices OR manual techniques for appropriate moderation of exposure, documented (RAD)	Observation	CPT4	CPT4	S	"6040F"	2009-04-06	2099-12-31	
+2108725	External beam radiotherapy with or without nodal irradiation as adjuvant or salvage therapy for prostate cancer patient (PRCA)	Observation	CPT4	CPT4	S	"4201F"	2009-04-06	2099-12-31	
+2110382	Radiation exposure or exposure time in final report for procedure using fluoroscopy, documented (RAD)	Observation	CPT4	CPT4	S	"6045F"	2009-04-06	2099-12-31	
+4054482	Accidental exposure to metallic mercury	Observation	SNOMED	Event	S	"242377000"	2002-01-31	2099-12-31	
+4054483	Accidental exposure to arsine	Observation	SNOMED	Event	S	"242382007"	2002-01-31	2099-12-31	
+4054776	Exposure to ionizing radiation from cosmic sources	Observation	SNOMED	Event	S	"242796004"	2002-01-31	2099-12-31	
+4054778	Exposure of patient to radiation from diagnostic isotopes	Observation	SNOMED	Event	S	"242812009"	2002-01-31	2099-12-31	
+4054779	Exposure to medical therapeutic radiation	Observation	SNOMED	Event	S	"242815006"	2002-01-31	2099-12-31	
+4054780	Exposure of member of staff to medical therapeutic radiation	Observation	SNOMED	Event	S	"242817003"	2002-01-31	2099-12-31	
+4054781	Exposure to direct ionizing radiation from nuclear explosion	Observation	SNOMED	Event	S	"242820006"	2002-01-31	2099-12-31	
+4055055	Exposure to radiation from nuclear reactor because of meltdown	Observation	SNOMED	Event	S	"242801009"	2002-01-31	2099-12-31	
+4055056	Exposure to medical diagnostic radiation	Observation	SNOMED	Event	S	"242806004"	2002-01-31	2099-12-31	
+4055057	Exposure of member of public to radiation from diagnostic medical isotopes	Observation	SNOMED	Event	S	"242814005"	2002-01-31	2099-12-31	
+4055523	Exposure to radiation from nuclear reactor	Observation	SNOMED	Event	S	"242798003"	2002-01-31	2099-12-31	
+4055524	Exposure to ionizing radiation in nuclear fuel processing	Observation	SNOMED	Event	S	"242803007"	2002-01-31	2099-12-31	
+4055525	Exposure to ionizing radiation in nuclear weapons manufacture	Observation	SNOMED	Event	S	"242804001"	2002-01-31	2099-12-31	
+4055526	Exposure to ionizing radiation from medical sources	Observation	SNOMED	Event	S	"242805000"	2002-01-31	2099-12-31	
+4055528	Exposure of member of staff to radiation from diagnostic medical isotopes	Observation	SNOMED	Event	S	"242813004"	2002-01-31	2099-12-31	
+4055529	Exposure to radiation from nuclear explosion	Observation	SNOMED	Event	S	"242819000"	2002-01-31	2099-12-31	
+4055530	Exposure to ionizing radiation from fall-out from nuclear explosion	Observation	SNOMED	Event	S	"242821005"	2002-01-31	2099-12-31	
+433680	Overexposure to lasers	Observation	SNOMED	Event	S	"218208005"	2002-01-31	2099-12-31	
+4072806	Accidental exposure to gluphosphate	Observation	SNOMED	Event	S	"242282009"	2002-01-31	2099-12-31	
+4072807	Accidental exposure to nitrile herbicide	Observation	SNOMED	Event	S	"242286007"	2002-01-31	2099-12-31	
+4072927	Accidental exposure to alphachloralose	Observation	SNOMED	Event	S	"242288008"	2002-01-31	2099-12-31	
+4072952	Accidental exposure to arsenic compounds	Observation	SNOMED	Event	S	"242380004"	2002-01-31	2099-12-31	
+4072953	Accidental exposure to trivalent arsenic compound	Observation	SNOMED	Event	S	"242381000"	2002-01-31	2099-12-31	
+4073360	Exposure to ionizing radiation from geological sources	Observation	SNOMED	Event	S	"242795000"	2002-01-31	2099-12-31	
+4073361	Exposure to ionizing radiation from industrial sources	Observation	SNOMED	Event	S	"242797008"	2002-01-31	2099-12-31	
+4073362	Exposure to radiation from nuclear reactor because of failure of containment	Observation	SNOMED	Event	S	"242799006"	2002-01-31	2099-12-31	
+4073363	Exposure to radiation from nuclear reactor because of reactor malfunction	Observation	SNOMED	Event	S	"242800005"	2002-01-31	2099-12-31	
+4073364	Exposure to ionizing radiation from nuclear waste	Observation	SNOMED	Event	S	"242802002"	2002-01-31	2099-12-31	
+4073366	Exposure of patient to medical therapeutic radiation	Observation	SNOMED	Event	S	"242816007"	2002-01-31	2099-12-31	
+4073367	Exposure of member of public to medical therapeutic radiation	Observation	SNOMED	Event	S	"242818008"	2002-01-31	2099-12-31	
+4122900	Ultraviolet exposure accident	Observation	SNOMED	Event	S	"288300005"	2002-01-31	2099-12-31	
+4126078	X-ray exposure accident	Observation	SNOMED	Event	S	"288301009"	2002-01-31	2099-12-31	
+4155230	Infrared exposure accident	Observation	SNOMED	Event	S	"269799002"	2002-01-31	2099-12-31	
+4167568	Accidental exposure to potentially harmful entity	Observation	SNOMED	Event	S	"418098005"	2006-01-31	2099-12-31	
+4171559	Overexposure to radiation	Observation	SNOMED	Event	S	"419201009"	2006-01-31	2099-12-31	
+4174505	Asphyxiation by environmental toxic gas	Observation	SNOMED	Event	S	"50363002"	2002-01-31	2099-12-31	
+4230931	Accidental exposure to mycotoxin	Observation	SNOMED	Event	S	"407154000"	2004-01-31	2099-12-31	
+4248090	Indirect exposure to biological agent via animal bite	Observation	SNOMED	Event	S	"409512004"	2004-07-31	2099-12-31	
+4248224	Accidental exposure to mycotoxin T2	Observation	SNOMED	Event	S	"407155004"	2004-01-31	2099-12-31	
+4260060	Inhalational exposure to biological agent	Observation	SNOMED	Event	S	"409510007"	2004-07-31	2099-12-31	
+4301229	Occupational noise exposure	Observation	SNOMED	Event	S	"78427001"	2002-01-31	2099-12-31	
+4303091	Accidental exposure to exhaust gas in aircraft	Observation	SNOMED	Event	S	"419577008"	2006-01-31	2099-12-31	
+4311919	Accident due to hunger, thirst, exposure and neglect	Observation	SNOMED	Event	S	"217632008"	2002-01-31	2099-12-31	
+4313118	Accident due to exposure to humidity	Observation	SNOMED	Event	S	"217643000"	2002-01-31	2099-12-31	
+4315503	Overexposure to radar radiation	Observation	SNOMED	Event	S	"218193000"	2002-01-31	2099-12-31	
+4315504	Overexposure to black light source	Observation	SNOMED	Event	S	"218198009"	2002-01-31	2099-12-31	
+4315506	Overexposure to artificially accelerated beams of ionized particles generated by betatrons	Observation	SNOMED	Event	S	"218214003"	2002-01-31	2099-12-31	
+4316852	Overexposure to arc lamp radiation	Observation	SNOMED	Event	S	"218197004"	2002-01-31	2099-12-31	
+4316853	Overexposure to electrical welding arc	Observation	SNOMED	Event	S	"218199001"	2002-01-31	2099-12-31	
+4316854	Overexposure to oxygas welding torch	Observation	SNOMED	Event	S	"218200003"	2002-01-31	2099-12-31	
+4316856	Overexposure to radiopharmaceuticals	Observation	SNOMED	Event	S	"218211006"	2002-01-31	2099-12-31	
+4316857	Overexposure to artificially accelerated beams of ionized particles generated by synchrotrons	Observation	SNOMED	Event	S	"218215002"	2002-01-31	2099-12-31	
+4316861	Accident caused by exposure to noise	Observation	SNOMED	Event	S	"218226008"	2002-01-31	2099-12-31	
+4317932	Overexposure to sun rays	Observation	SNOMED	Event	S	"218201004"	2002-01-31	2099-12-31	
+4317934	Overexposure to radioactive isotopes	Observation	SNOMED	Event	S	"218209002"	2002-01-31	2099-12-31	
+4317935	Overexposure to radiobiologicals	Observation	SNOMED	Event	S	"218210007"	2002-01-31	2099-12-31	
+4320000	Overexposure to microwave radiation	Observation	SNOMED	Event	S	"218192005"	2002-01-31	2099-12-31	
+4320003	Overexposure to gamma rays	Observation	SNOMED	Event	S	"218204007"	2002-01-31	2099-12-31	
+4320004	Overexposure to hard X-rays	Observation	SNOMED	Event	S	"218205008"	2002-01-31	2099-12-31	
+4320005	Overexposure to soft X-rays	Observation	SNOMED	Event	S	"218206009"	2002-01-31	2099-12-31	
+4320027	Exposure to extreme temperature, non-occupational	Observation	SNOMED	Event	S	"95866005"	2002-01-31	2099-12-31	
+35622979	Occupational exposure to extreme temperature	Observation	SNOMED	Event	S	"765226004"	2018-07-31	2099-12-31	
+37310260	Close exposure to SARS-CoV-2 (severe acute respiratory syndrome coronavirus 2) infection	Observation	SNOMED	Event	S	"1240441000000108"	2020-02-04	2099-12-31	
+42535209	Occupational exposure to radiation	Observation	SNOMED	Event	S	"16090451000119101"	2018-01-31	2099-12-31	
+42535211	Occupational exposure to toxic agents	Observation	SNOMED	Event	S	"16090571000119109"	2018-01-31	2099-12-31	
+42535212	Occupational exposure to risk factor	Observation	SNOMED	Event	S	"16090731000119102"	2018-01-31	2099-12-31	
+42535213	Occupational exposure to environmental tobacco smoke	Observation	SNOMED	Event	S	"16090771000119104"	2018-01-31	2099-12-31	
+42536905	Occupational exposure to vibration	Observation	SNOMED	Event	S	"735932007"	2018-01-31	2099-12-31	
+42539211	Occupational exposure to dust	Observation	SNOMED	Event	S	"16090691000119109"	2018-01-31	2099-12-31	
+42539703	Occupational exposure to ergonomic risk	Observation	SNOMED	Event	S	"737348000"	2018-01-31	2099-12-31	
+44790569	Accident due to water exposure	Observation	SNOMED	Event	S	"240911000000102"	2006-10-02	2099-12-31	
+4072805	Accidental exposure to bipyridium compound herbicide	Observation	SNOMED	Event	S	"242279004"	2002-01-31	2099-12-31	
+434543	Overexposure to visual and ultraviolet light sources	Observation	SNOMED	Event	S	"218196008"	2002-01-31	2099-12-31	
+435160	Inadvertent exposure of patient to radiation during medical care	Observation	SNOMED	Event	S	"216959006"	2002-01-31	2099-12-31	
+437453	Accident due to environmental factor	Observation	SNOMED	Event	S	"217591008"	2002-01-31	2099-12-31	
+438321	Accident due to exposure to weather conditions	Observation	SNOMED	Event	S	"242575009"	2002-01-31	2099-12-31	
+438327	Overdose of radiation in therapy	Observation	SNOMED	Event	S	"216958003"	2002-01-31	2099-12-31	
+438630	Exposure to radiation	Observation	SNOMED	Event	S	"218190002"	2002-01-31	2099-12-31	
+439220	Overexposure to radiofrequency radiation	Observation	SNOMED	Event	S	"218191003"	2002-01-31	2099-12-31	
+440608	Overexposure to infrared heater or lamp	Observation	SNOMED	Event	S	"218195007"	2002-01-31	2099-12-31	
+442042	Exposure to radiation from diagnostic isotopes	Observation	SNOMED	Event	S	"242811002"	2002-01-31	2099-12-31	
+443065	Accidental exposure to metals or their compounds	Observation	SNOMED	Event	S	"242373001"	2002-01-31	2099-12-31	
+444046	Cold exposure	Observation	SNOMED	Event	S	"40537000"	2002-01-31	2099-12-31	
+444128	Exposure to ionizing radiation	Observation	SNOMED	Event	S	"122866006"	2002-01-31	2099-12-31	
+604443	Occupational exposure to SARS-CoV-2	Observation	SNOMED	Event	S	"897036007"	2021-01-31	2099-12-31	
+756064	Suspected exposure (but ruled out after evaluation) to Severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2)	Observation	OMOP Extension	Event	S	OMOP4873946	2020-03-18	2099-12-31	
+756083	Suspected exposure to Severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2)	Observation	OMOP Extension	Event	S	OMOP4873962	2020-03-18	2099-12-31	
+4008044	Exposure to polluted water, occupational	Observation	SNOMED	Event	S	"102428006"	2002-01-31	2099-12-31	
+4008045	Exposure to polluted water, non-occupational	Observation	SNOMED	Event	S	"102429003"	2002-01-31	2099-12-31	
+4008150	Exposure to toxic waste, occupational	Observation	SNOMED	Event	S	"102439009"	2002-01-31	2099-12-31	
+4008152	Exposure to toxic dust, non-occupational	Observation	SNOMED	Event	S	"102446000"	2002-01-31	2099-12-31	
+4009857	Exposure to environmental pollution, non-occupational	Observation	SNOMED	Event	S	"102423002"	2002-01-31	2099-12-31	
+4009858	Exposure to polluted air, occupational	Observation	SNOMED	Event	S	"102425009"	2002-01-31	2099-12-31	
+4009863	Exposure to toxic waste, non-occupational	Observation	SNOMED	Event	S	"102440006"	2002-01-31	2099-12-31	
+4010326	Exposure to environmental pollution	Observation	SNOMED	Event	S	"102421000"	2002-01-31	2099-12-31	
+4010327	Exposure to polluted air, non-occupational	Observation	SNOMED	Event	S	"102426005"	2002-01-31	2099-12-31	
+4010328	Exposure to polluted soil, occupational	Observation	SNOMED	Event	S	"102433005"	2002-01-31	2099-12-31	
+4010329	Exposure to chemical pollution, occupational	Observation	SNOMED	Event	S	"102436002"	2002-01-31	2099-12-31	
+4010330	Exposure to chemical pollution, non-occupational	Observation	SNOMED	Event	S	"102437006"	2002-01-31	2099-12-31	
+4010331	Exposure to toxic agricultural agents, occupational	Observation	SNOMED	Event	S	"102442003"	2002-01-31	2099-12-31	
+4010332	Exposure to toxic dust, occupational	Observation	SNOMED	Event	S	"102445001"	2002-01-31	2099-12-31	
+4010817	Exposure to environmental pollution, occupational	Observation	SNOMED	Event	S	"102422007"	2002-01-31	2099-12-31	
+4010819	Exposure to polluted soil, non-occupational	Observation	SNOMED	Event	S	"102434004"	2002-01-31	2099-12-31	
+4010822	Exposure to toxic agricultural agents, non-occupational	Observation	SNOMED	Event	S	"102443008"	2002-01-31	2099-12-31	
+4045434	Asphyxiation by environmental oxygen lack	Observation	SNOMED	Event	S	"12994004"	2002-01-31	2099-12-31	
+4053784	Accidental exposure to alcohol	Observation	SNOMED	Event	S	"242263000"	2002-01-31	2099-12-31	
+4053785	Accidental exposure to ethanol	Observation	SNOMED	Event	S	"242265007"	2002-01-31	2099-12-31	
+4053786	Accidental exposure to cleaning agent	Observation	SNOMED	Event	S	"242266008"	2002-01-31	2099-12-31	
+4053787	Accidental exposure to liquid paint	Observation	SNOMED	Event	S	"242269001"	2002-01-31	2099-12-31	
+4053788	Accidental exposure to aerosol paint	Observation	SNOMED	Event	S	"242271001"	2002-01-31	2099-12-31	
+4053789	Accidental exposure to DNOC	Observation	SNOMED	Event	S	"242284005"	2002-01-31	2099-12-31	
+4053790	Accidental exposure to anticoagulant-based rodenticide	Observation	SNOMED	Event	S	"242287003"	2002-01-31	2099-12-31	
+4053859	Accidental exposure to inorganic lead compound	Observation	SNOMED	Event	S	"242376009"	2002-01-31	2099-12-31	
+4053860	Accidental exposure to organic mercury compound	Observation	SNOMED	Event	S	"242378005"	2002-01-31	2099-12-31	
+4053861	Accidental exposure to inorganic mercury compound	Observation	SNOMED	Event	S	"242379002"	2002-01-31	2099-12-31	
+4053862	Accidental exposure to carbon monoxide	Observation	SNOMED	Event	S	"242383002"	2002-01-31	2099-12-31	
+4053953	Accident due to exposure to excessive humidity	Observation	SNOMED	Event	S	"242564005"	2002-01-31	2099-12-31	
+4054007	Accidental exposure to special finish paint	Observation	SNOMED	Event	S	"242273003"	2002-01-31	2099-12-31	
+4054008	Accidental exposure to anticlimbing paint	Observation	SNOMED	Event	S	"242274009"	2002-01-31	2099-12-31	
+4054009	Accidental exposure to antigraffiti paint	Observation	SNOMED	Event	S	"242275005"	2002-01-31	2099-12-31	
+4054010	Accidental exposure to antifouling paint	Observation	SNOMED	Event	S	"242276006"	2002-01-31	2099-12-31	
+4054011	Accidental exposure to phenoxyacid derivative herbicide	Observation	SNOMED	Event	S	"242278007"	2002-01-31	2099-12-31	
+4054012	Accidental exposure to urea herbicide	Observation	SNOMED	Event	S	"242280001"	2002-01-31	2099-12-31	
+4054013	Accidental exposure to triazine and triazole herbicide	Observation	SNOMED	Event	S	"242285006"	2002-01-31	2099-12-31	
+4054014	Accidental exposure to corrosive or caustic chemical	Observation	SNOMED	Event	S	"242292001"	2002-01-31	2099-12-31	
+4054081	Accidental exposure to metallic lead	Observation	SNOMED	Event	S	"242374007"	2002-01-31	2099-12-31	
+4054082	Accidental exposure to organic lead compound	Observation	SNOMED	Event	S	"242375008"	2002-01-31	2099-12-31	
+4054083	Accidental exposure to exhaust gas from motor vehicle in motion	Observation	SNOMED	Event	S	"242384008"	2002-01-31	2099-12-31	
+4054084	Accidental exposure to carbon monoxide from domestic gas fire or heater	Observation	SNOMED	Event	S	"242385009"	2002-01-31	2099-12-31	
+4054085	Accidental exposure to carbon monoxide in industry	Observation	SNOMED	Event	S	"242386005"	2002-01-31	2099-12-31	
+4054366	Exposure to ionizing radiation due to atomic power plant malfunction on watercraft	Observation	SNOMED	Event	S	"242189007"	2002-01-31	2099-12-31	
+4054386	Accidental exposure to bleach	Observation	SNOMED	Event	S	"242267004"	2002-01-31	2099-12-31	
+4054387	Accidental exposure to paint	Observation	SNOMED	Event	S	"242268009"	2002-01-31	2099-12-31	
+4054388	Accidental exposure to solid paint	Observation	SNOMED	Event	S	"242270000"	2002-01-31	2099-12-31	
+4054389	Accidental exposure to blacking	Observation	SNOMED	Event	S	"242272008"	2002-01-31	2099-12-31	
+4054390	Accidental exposure to pyrethroid insecticide	Observation	SNOMED	Event	S	"242277002"	2002-01-31	2099-12-31	
+4054391	Accidental exposure to organophosphorus herbicide	Observation	SNOMED	Event	S	"242281002"	2002-01-31	2099-12-31	
+4054465	Accidental exposure to dinitro compound herbicide	Observation	SNOMED	Event	S	"242283004"	2002-01-31	2099-12-31	
+4054466	Accidental exposure to molluscicide	Observation	SNOMED	Event	S	"242289000"	2002-01-31	2099-12-31	
+4054467	Accidental exposure to plant food	Observation	SNOMED	Event	S	"242290009"	2002-01-31	2099-12-31	
+4054468	Accidental exposure to fertilizer	Observation	SNOMED	Event	S	"242291008"	2002-01-31	2099-12-31	
+4054481	Accidental exposure to white spirit	Observation	SNOMED	Event	S	"242372006"	2002-01-31	2099-12-31	

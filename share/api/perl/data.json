@@ -1,0 +1,75 @@
+{
+  "method": "bff2pxf",
+  "data": {
+    "ethnicity": {
+      "id": "NCIT:C42331",
+      "label": "African"
+    },
+    "id": "HG00096",
+    "info": {
+      "eid": "fake1"
+    },
+    "interventionsOrProcedures": [
+      {
+        "procedureCode": {
+          "id": "OPCS4:L46.3",
+          "label": "OPCS(v4-0.0):Ligation of visceral branch of abdominal aorta NEC"
+        }
+      }
+    ],
+    "measures": [
+      {
+        "assayCode": {
+          "id": "LOINC:35925-4",
+          "label": "BMI"
+        },
+        "date": "2021-09-24",
+        "measurementValue": {
+          "quantity": {
+            "unit": {
+              "id": "NCIT:C49671",
+              "label": "Kilogram per Square Meter"
+            },
+            "value": 26.63838307
+          }
+        }
+      },
+      {
+        "assayCode": {
+          "id": "LOINC:3141-9",
+          "label": "Weight"
+        },
+        "date": "2021-09-24",
+        "measurementValue": {
+          "quantity": {
+            "unit": {
+              "id": "NCIT:C28252",
+              "label": "Kilogram"
+            },
+            "value": 85.6358
+          }
+        }
+      },
+      {
+        "assayCode": {
+          "id": "LOINC:8308-9",
+          "label": "Height-standing"
+        },
+        "date": "2021-09-24",
+        "measurementValue": {
+          "quantity": {
+            "unit": {
+              "id": "NCIT:C49668",
+              "label": "Centimeter"
+            },
+            "value": 179.2973
+          }
+        }
+      }
+    ],
+    "sex": {
+      "id": "NCIT:C20197",
+      "label": "male"
+    }
+  }
+}

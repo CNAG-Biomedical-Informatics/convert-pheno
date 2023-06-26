@@ -1,0 +1,42 @@
+#!/usr/bin/env perl
+#
+#   A simple API to interact with Convert::Pheno
+#
+#   This file is part of Convert::Pheno
+#
+#   Last Modified: Dec/10/2022
+#
+#   $VERSION taken from Convert::Pheno
+#
+#   Copyright (C) 2022-2023 Manuel Rueda - CNAG (manuel.rueda@cnag.crg.eu)
+#
+#   License: Artistic License 2.0
+
+#use Mojolicious::Lite -signatures; # No go for CentOs Perl v5.16
+use Mojolicious::Lite;
+use FindBin qw($Bin);
+use lib "$Bin/../../../lib";
+use Convert::Pheno;
+
+post '/api' =>  sub {
+
+    # Validate input request or return an error document
+    my $c = shift;
+    $c->openapi->valid_input or return;
+
+    # Get payload
+    my $hash = $c->req->json;
+
+    # Create new object
+    my $convert = Convert::Pheno->new($hash);
+
+    # Render the result as JSON
+    my $method = $hash->{method};
+    $c->render( json => $convert->$method );
+  },
+  'post_data';  # Must match 'operationId' or 'x-mojo-name'
+
+# Load specification and start web server
+plugin OpenAPI => { url => 'file://openapi.json', schema => 'v3' };
+app->config( hypnotoad => { listen => ['https://*:8080'] } );
+app->start;
