@@ -12,8 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install cpanminus
-      run: |
-        curl -L https://cpanmin.us | perl - --sudo App::cpanminus
+      run: curl -L https://cpanmin.us | perl - --sudo App::cpanminus
     - name: Install dependencies
       run cpanm File::ShareDir::Install
     - name: Configure
@@ -30,4 +29,3 @@ jobs:
       with:
           username: ${{ secrets.CPAN_USER }}
           password: ${{ secrets.CPAN_PASSWORD }}
-
