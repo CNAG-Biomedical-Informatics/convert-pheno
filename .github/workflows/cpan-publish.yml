@@ -10,22 +10,22 @@ jobs:
     runs-on: ubuntu-latest
     name: Build and release Convert::Pheno to CPAN
     steps:
-    - uses: actions/checkout@v2
-    - name: Install cpanminus
-      run: curl -L https://cpanmin.us | perl - --sudo App::cpanminus
-    - name: Install dependencies
-      run: cpanm File::ShareDir::Install
-    - name: Configure
-      run: perl Makefile.PL
-    - name: Create MANIFEST
-      run: make manifest
-    - name: Build
-      run: make
-    - name: Deliver locally
-      run: make dist
-    - name: Upload to CPAN
-      id: upload
-      uses: thibaultduponchelle/action-upload-to-cpan@master
-      with:
+      - uses: actions/checkout@v2
+      - name: Install cpanminus
+        run: curl -L https://cpanmin.us | perl - --sudo App::cpanminus
+      - name: Install dependencies
+        run: cpanm File::ShareDir::Install
+      - name: Configure
+        run: perl Makefile.PL
+      - name: Create MANIFEST
+        run: make manifest
+      - name: Build
+        run: make
+      - name: Deliver locally
+        run: make dist
+      - name: Upload to CPAN
+        id: upload
+        uses: thibaultduponchelle/action-upload-to-cpan@master
+        with:
           username: ${{ secrets.CPAN_USER }}
           password: ${{ secrets.CPAN_PASSWORD }}
