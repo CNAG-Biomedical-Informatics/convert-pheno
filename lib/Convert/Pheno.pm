@@ -4,20 +4,19 @@ use strict;
 use warnings;
 use autodie;
 use feature qw(say);
-
-#use FindBin qw($Bin);
-use Cwd                   qw(abs_path);
+#use Cwd                   qw(abs_path);
 use File::Spec::Functions qw(catdir catfile);
-use File::Basename        qw(dirname);
+#use File::Basename        qw(dirname);
 use Data::Dumper;
 use Path::Tiny;
 use File::Basename;
+use File::ShareDir::ProjectDistDir;
 use List::Util qw(any uniq);
 use Carp       qw(confess);
 use XML::Fast;
 use Moo;
 use Types::Standard qw(Str Int Num Enum ArrayRef Undef);
-
+use File::ShareDir::ProjectDistDir qw(dist_dir);
 #use Devel::Size     qw(size total_size);
 use Convert::Pheno::CSV;
 use Convert::Pheno::IO;
@@ -30,15 +29,16 @@ use Convert::Pheno::CDISC;
 use Convert::Pheno::REDCap;
 
 use Exporter 'import';
-our @EXPORT = qw($VERSION io_yaml_or_json omop2bff_stream_processing);    # Symbols imported by default
+our @EXPORT = qw($VERSION io_yaml_or_json omop2bff_stream_processing share_dir);    # Symbols imported by default
 
 #our @EXPORT_OK = qw(foo bar);       # Symbols imported by request
 
 use constant DEVEL_MODE => 0;
 
 # Global variables:
-our $VERSION  = '0.04';
-our $lib_path = dirname( abs_path(__FILE__) );
+our $VERSION  = '0.05';
+#our $lib_path = dirname( abs_path(__FILE__) );
+our $share_dir = dist_dir('Convert-Pheno');
 
 ############################################
 # Start declaring attributes for the class #
@@ -106,10 +106,10 @@ has omop_tables => (
 has exposures_file => (
 
     default =>
-      catfile( $lib_path, '../../db/concepts_candidates_2_exposure.csv' ),
+      catfile( $share_dir, 'db','/concepts_candidates_2_exposure.csv' ),
     coerce => sub {
         $_[0]
-          // catfile( $lib_path, '../../db/concepts_candidates_2_exposure.csv' );
+          // catfile( $share_dir, 'db', 'concepts_candidates_2_exposure.csv' );
     },
     is  => 'ro',
     isa => Str
