@@ -1,0 +1,17 @@
+~$
+\#$
+\.#
+\.bak$
+\.old$
+\.perltidyrc$
+\.swp$
+\.tmp$
+\bblib/
+\bcover_db\b
+\bcovered\b
+\bnode_modules\b
+\bpm_to_blib$
+\bpm_to_blib\.ts$
+^MANIFEST\.SKIP
+^MYMETA\.
+^README\.md

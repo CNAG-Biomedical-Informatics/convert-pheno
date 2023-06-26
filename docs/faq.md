@@ -60,8 +60,8 @@ Frequently Asked Questions
 
     |                | REDCap      | CDISC-ODM  | OMOP-CDM | Phenopackets v2| Beacon v2 Models |
     | -----------    | ----------- | ---------- | -------  | -------------- | -----------------|
-    | Data mapping   | :heavy_check_mark: |  :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
-    | Add ontologies | :heavy_check_mark: |  :heavy_check_mark: | `--ohdsi-db` |     |                  |
+    | Data mapping   | ✓ |  ✓ | ✓ | ✓ | ✓ |
+    | Add ontologies | ✓ |  ✓ | `--ohdsi-db` |     |                  |
 
     For _REDCap_ and _CDISC-ODM_ we support:
 

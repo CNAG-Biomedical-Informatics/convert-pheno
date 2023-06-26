@@ -20,7 +20,7 @@ my $input = {
         redcap_dictionary =>
 't/redcap2bff/in/redcap_dictionary.csv',
         mapping_file         => 't/redcap2bff/in/redcap_mapping.yaml',
-        schema_file          => 'schema/mapping.json',
+        schema_file          => 'share/schema/mapping.json',
         self_validate_schema => 1,       # SELF-VALIDATE-SCHEMA (OK - ONLY ONCE)
         sep                  => undef,
         out                  => 't/redcap2bff/out/individuals.json'

@@ -3,7 +3,7 @@
 
 We provide several alternatives (containerized and non-containerized) for download and installation.
 
-## Containerized
+## Containerized (Recommended Method)
 
 === "Method 1: From Docker Hub"
 
@@ -35,7 +35,7 @@ We provide several alternatives (containerized and non-containerized) for downlo
 
     To install it, we'll be using `cpanminus` (with sudo privileges):
 
-        sudo apt-get install cpanminus
+        sudo apt-get install cpanminus libbz2-dev zlib1g-dev libperl-dev libssl-dev
 
     Then, to install the module (system level):
 
@@ -43,7 +43,7 @@ We provide several alternatives (containerized and non-containerized) for downlo
 
     Alternatively, if you want to peform a local installation:
 
-        cpanm --sudo Carton
+        cpanm --sudo Carton # We recommend using Carton
         carton install
-        carton exec -- bin/convert-pheno
+        carton exec -- convert-pheno
 
