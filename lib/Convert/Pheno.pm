@@ -36,7 +36,7 @@ our @EXPORT = qw($VERSION io_yaml_or_json omop2bff_stream_processing share_dir);
 use constant DEVEL_MODE => 0;
 
 # Global variables:
-our $VERSION  = '0.07';
+our $VERSION  = '0.08';
 #our $lib_path = dirname( abs_path(__FILE__) );
 our $share_dir = dist_dir('Convert-Pheno');
 
