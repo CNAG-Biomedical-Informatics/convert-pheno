@@ -15,10 +15,10 @@ RUN git clone https://github.com/CNAG-Biomedical-Informatics/convert-pheno.git
 
 # Install Perl modules
 WORKDIR /usr/share/convert-pheno
-RUN cpanm --installdeps .
+RUN cpanm --notest --installdeps .
 
 # Install PyPerler
-WORKDIR ex/pyperler
+WORKDIR share/ex/pyperler
 RUN make install 2> install.log
 
 # Add user "dockeruser"
