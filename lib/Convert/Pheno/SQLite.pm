@@ -74,7 +74,7 @@ sub open_db_SQLite {
     my $path =
       ( $ontology eq 'ohdsi' && defined $path_to_ohdsi_db )
       ? $path_to_ohdsi_db
-      : catdir( $Convert::Pheno::lib_path, '../../db' );
+      : catdir( $Convert::Pheno::share_dir, 'db' );
     my $dbfile = catfile( $path, $filename );
     die "Sorry we could not find <$dbfile> file\n" unless -f $dbfile;
 

@@ -1,25 +1,20 @@
-Revision history for Perl extension {{$dist->name}}
+Revision history for Perl distribution Convert-Pheno
 
-{{$NEXT}}
+0.05  2023-06-26T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
+ - CPAN test
 
-0.00  2023-03-01T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
-  - original version
+0.04  2023-06-22T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
+ - CPAN test
 
-##### 
-  [Bug Fixes]
-  - Foo
+0.03  2023-06-22T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
+ - CPAN test
 
-  [API Changes]
-  - Bar
+0.02  2023-06-22T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
+ - CPAN test
 
-  [New Attributes]
-  - Foo
+0.01  2023-06-22T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
+ - CPAN test
 
-  [convert-pheno script]
-  - Foo
+0  2023-06-22T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
+ - CPAN test
 
-  [Documentation]
-  - Bar
-
-  [New Packages]
-  - Foo

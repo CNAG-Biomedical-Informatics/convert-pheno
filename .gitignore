@@ -17,6 +17,6 @@ __pycache__/
 bck/
 old/
 _Inline/
-/db/ohdsi.db
+/share/db/ohdsi.db
 /t/protobuff.t
 /t/test.json
