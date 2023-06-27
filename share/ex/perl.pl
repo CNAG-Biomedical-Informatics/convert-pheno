@@ -16,12 +16,15 @@ use strict;
 use warnings;
 use Data::Dumper;
 
-##############################
-# Only if the module WAS NOT #
-# installed from CPAN        #
-##############################
-# - We have to provide the path to <convert-pheno/lib>
-use lib '../lib';
+# *** IMPORTANT ***
+###############################
+# We have to provide the path #
+# to <convert-pheno/lib>      #
+# if the module WAS NOT       #
+# installed from CPAN         #
+###############################
+use lib '../lib';             #
+###############################
 use Convert::Pheno;
 
 # Define method

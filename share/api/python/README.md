@@ -16,7 +16,12 @@ At the time of writting this (Dec-2022) the API consists of **very basic functio
 
 ### From CPAN 
 
-    $ cpanm --sudo Convert::Pheno # Once the paper is published !!!
+For simplicity we'll be showing how to install it with `sudo`, but a local installation is also possible.
+
+    $ sudo apt-get install cpanminus libssl-dev
+    $ wget https://raw.githubusercontent.com/CNAG-Biomedical-Informatics/convert-pheno/main/share/api/perl/cpanfile
+    $ cpanm --sudo --installdeps .
+    $ cpanm --sudo Convert::Pheno
 
 You need to install a few Python packages:
 
@@ -44,7 +49,7 @@ With `uvicorn` for production:
 
 With `uvicorn` for development:
 
-    $ docker container run -p 8000:8000 --name convert-pheno-uvicoroxe cnag/convert-pheno:latest uvicorn api.python.main:app --host 0.0.0.0
+    $ docker container run -p 8000:8000 --name convert-pheno-uvicoroxe cnag/convert-pheno:latest uvicorn share.api.python.main:app --host 0.0.0.0
 
 ## Examples
 

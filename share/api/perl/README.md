@@ -2,7 +2,7 @@
 
 Here we provide a light API to enable requests/responses to `Convert::Pheno`. 
 
-At the time of writting this (Dec-2022) the API consists of **very basic functionalities**, but this might change depening on the community adoption.
+At the time of writting this (Jun-2023) the API consists of **very basic functionalities**, but this might change depening on the community adoption.
 
 ### Notes:
 
@@ -16,7 +16,21 @@ At the time of writting this (Dec-2022) the API consists of **very basic functio
 
 ### From CPAN 
 
-    $ cpanm --sudo Convert::Pheno # Once the paper is published !!!
+System level installation:
+
+    $ sudo apt-get install cpanminus libssl-dev
+    $ wget https://raw.githubusercontent.com/CNAG-Biomedical-Informatics/convert-pheno/main/share/api/perl/cpanfile
+    $ cpanm --sudo --installdeps .
+    $ cpanm --sudo Convert::Pheno
+
+In a local environment:
+
+    $ sudo apt-get install cpanminus libssl-dev # sys-level
+    $ cpanm --sudo Carton # sys-level
+    $ wget https://raw.githubusercontent.com/CNAG-Biomedical-Informatics/convert-pheno/main/share/api/perl/cpanfile
+    $ echo "requires 'Convert::Pheno'" >> cpanfile
+    $ carton install 
+    $ carton exec -- convert-pheno
 
 ### With Docker
 
@@ -42,15 +56,15 @@ or with `hypnotoad`:
 
 With `morbo` for development:
 
-    $ docker container run -p 3000:3000 --name convert-pheno-morbo cnag/convert-pheno:latest morbo api/perl/convert-pheno-api
+    $ docker container run -p 3000:3000 --name convert-pheno-morbo cnag/convert-pheno:latest morbo share/api/perl/convert-pheno-api
 
 If you want to use a self-signed certificate:
 
-    $ docker container run -p 3000:3000 --name convert-pheno-morbo cnag/convert-pheno:latest morbo api/perl/convert-pheno-api daemon -l https://*:3000
+    $ docker container run -p 3000:3000 --name convert-pheno-morbo cnag/convert-pheno:latest morbo share/api/perl/convert-pheno-api daemon -l https://*:3000
 
 or with `hypnotoad`:
 
-    $ docker container run -p 8080:8080 --name convert-pheno-hypnptoad cnag/convert-pheno:latest hypnotoad -f api/perl/convert-pheno-api
+    $ docker container run -p 8080:8080 --name convert-pheno-hypnptoad cnag/convert-pheno:latest hypnotoad -f share/api/perl/convert-pheno-api
 
 ## Examples
 

@@ -3,7 +3,7 @@
 
 We provide several alternatives (containerized and non-containerized) for download and installation.
 
-## Containerized
+## Containerized (Recommended Method)
 
 === "Method 1: From Docker Hub"
 
@@ -21,7 +21,12 @@ We provide several alternatives (containerized and non-containerized) for downlo
 
 === "Method 4: From CPAN"
 
+    The core of software is module implemented in `Perl` and it is available in the Comprehensive Perl Archive Network (CPAN). See the description [here](https://metacpan.org/pod/Convert::Pheno).
+
     !!! Warning "Required system-level libraries"
+
+        Before procesing with installation, we will need to install a few system level dependencies:
+
         * `libbz2-dev:` This is the development library for bzip2, which is used for data compression. There is no direct CPAN replacement, but Perl does have modules for handling bzip2 compressed data, such as IO::Compress::Bzip2 and Compress::Bzip2. However, these modules still rely on the system having the necessary libraries.
 
         * `zlib1g-dev:` This is the development library for zlib, which is another data compression library. Similar to bzip2, Perl has modules for zlib compression and decompression like Compress::Zlib, IO::Compress::Gzip, and IO::Uncompress::Gunzip. But these also depend on the system's zlib library.
@@ -31,11 +36,9 @@ We provide several alternatives (containerized and non-containerized) for downlo
         * `libssl-dev:` This package is part of OpenSSL, which provides secure socket layer (SSL) capabilities. For SSL/TLS related tasks in Perl, you can use modules such as IO::Socket::SSL or Net::SSLeay, but these modules also require OpenSSL to be installed on the system.
 
 
-    The software is implemented in `Perl` language and packaged as a Perl Module in the Comprehensive Perl Archive Network (CPAN). See the description [here](https://metacpan.org/pod/Convert::Pheno).
+    To install the software we'll be using `cpanminus`. We'll be using `sudo` privileges for the sake of simplicity):
 
-    To install it, we'll be using `cpanminus` (with sudo privileges):
-
-        sudo apt-get install cpanminus
+        sudo apt-get install cpanminus libbz2-dev zlib1g-dev libperl-dev libssl-dev
 
     Then, to install the module (system level):
 
@@ -43,7 +46,7 @@ We provide several alternatives (containerized and non-containerized) for downlo
 
     Alternatively, if you want to peform a local installation:
 
-        cpanm --sudo Carton
+        cpanm --sudo Carton # We recommend using Carton
+        echo "requires 'Convert::Pheno'" > cpanfile
         carton install
-        carton exec -- bin/convert-pheno
-
+        carton exec -- convert-pheno

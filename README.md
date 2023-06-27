@@ -10,7 +10,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/CNAG-Biomedical-Informatics/convert-pheno/badge.svg?branch=main)](https://coveralls.io/github/CNAG-Biomedical-Informatics/convert-pheno?branch=main)
 [![CPAN Publish](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/cpan-publish.yml/badge.svg)](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/cpan-publish.yml)
 [![Kwalitee Score](https://cpants.cpanauthors.org/dist/Convert-Pheno.svg)](https://cpants.cpanauthors.org/dist/Convert-Pheno)
-![version](https://img.shields.io/badge/version-0.04_beta-orange)
+![version](https://img.shields.io/badge/version-0.05_beta-orange)
 [![Docker Build](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/docker-build.yml/badge.svg)](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/docker-build.yml)
 [![Docker Pulls](https://badgen.net/docker/pulls/manuelrueda/convert-pheno?icon=docker&label=pulls)](https://hub.docker.com/r/manuelrueda/convert-pheno/)
 [![Docker Image Size](https://badgen.net/docker/size/manuelrueda/convert-pheno?icon=docker&label=image%20size)](https://hub.docker.com/r/manuelrueda/convert-pheno/)
@@ -78,7 +78,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
 
      Generic Options:
        -debug                         Print debugging level (from 1 to 5, being 5 max)
-       -h|help                        Brief help message
+       -help                        Brief help message
        -log                           Save log file (JSON). If no argument is given then the log is named [convert-pheno-log.json]
        -man                           Full documentation
        -no-color                      Don't print colors to STDOUT [>color|no-color]
@@ -95,7 +95,7 @@ A script that uses [Convert::Pheno](https://metacpan.org/pod/Convert%3A%3APheno)
 
 # INSTALLATION
 
-## Containerized
+## Containerized (Recommended Method)
 
 ### Method 1: From Docker Hub
 
@@ -187,7 +187,7 @@ Install system level dependencies:
 
     sudo apt-get install cpanminus libbz2-dev zlib1g-dev libperl-dev libssl-dev
 
-Download iand install the module with `cpanm`:
+Download and install the module with `cpanm`:
 
     cpanm Convert::Pheno
 
@@ -225,7 +225,7 @@ For executing convert-pheno you will need:
 
     Once downloaded, you have two options:
 
-    a) Move the file `ohdsi.db` inside the `db/` directory.
+    a) Move the file `ohdsi.db` inside the `share/db/` directory.
 
     or
 

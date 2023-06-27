@@ -90,7 +90,7 @@ for my $method ( sort keys %{$input} ) {
             redcap_dictionary    => $input->{$method}{redcap_dictionary},
             mapping_file         => $input->{$method}{mapping_file},
             self_validate_schema => $input->{$method}{self_validate_schema},
-            schema_file          => 'schema/mapping.json',
+            schema_file          => 'share/schema/mapping.json',
             in_textfile          => 1,
             stream               => 0,
             omop_tables          => [],

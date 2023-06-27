@@ -4,7 +4,7 @@
 #
 #   This file is part of Convert::Pheno
 #
-#   Last Modified: Mar/06/2023
+#   Last Modified: Jun/27/2023
 #
 #   $VERSION taken from Convert::Pheno
 #
@@ -25,15 +25,18 @@ use Sys::Hostname;
 use POSIX                 qw(strftime);
 use File::Spec::Functions qw(catdir catfile);
 use File::Basename;
+use File::ShareDir::ProjectDistDir qw(dist_dir);
 use FindBin qw($Bin);
 use lib "$Bin/../lib";
 use Term::ANSIColor qw(:constants);
 use Convert::Pheno;
+
 $Data::Dumper::Sortkeys = 1;
 
 # Defining a few variables
 my $out_dir     = '.';
-my $schema_file = catfile( $Bin, '../schema/mapping.json' );
+my $share_dir = dist_dir('Convert-Pheno');
+my $schema_file = catfile( $Bin, 'schema', 'mapping.json' );
 my $color       = 1;
 my $stream      = 0;
 my $ohdsi_db    = 0;
@@ -382,7 +385,7 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
 
      Generic Options:
        -debug                         Print debugging level (from 1 to 5, being 5 max)
-       -h|help                        Brief help message
+       -help                        Brief help message
        -log                           Save log file (JSON). If no argument is given then the log is named [convert-pheno-log.json]
        -man                           Full documentation
        -no-color                      Don't print colors to STDOUT [>color|no-color]
@@ -401,7 +404,7 @@ A script that uses L<Convert::Pheno> to interconvert common data models for phen
 
 =head1 INSTALLATION
 
-=head2 Containerized
+=head2 Containerized (Recommended Method)
 
 =head3 Method 1: From Docker Hub
 
@@ -492,7 +495,7 @@ Install system level dependencies:
 
   sudo apt-get install cpanminus libbz2-dev zlib1g-dev libperl-dev libssl-dev
 
-Download iand install the module with C<cpanm>:
+Download and install the module with C<cpanm>:
 
   cpanm Convert::Pheno
 
@@ -532,7 +535,7 @@ Regardless if you're using the containerized or non-containerized version, the d
 
 Once downloaded, you have two options:
 
-a) Move the file C<ohdsi.db> inside the C<db/> directory.
+a) Move the file C<ohdsi.db> inside the C<share/db/> directory.
 
 or
 

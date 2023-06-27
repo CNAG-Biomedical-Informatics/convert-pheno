@@ -4,7 +4,7 @@ use utf8;
 use ExtUtils::MakeMaker;
 use File::ShareDir::Install;
 
-install_share 'share';
+install_share dist => 'share';
 
 my $GITHUB_URL = 'https://github.com/CNAG-Biomedical-Informatics/convert-pheno';
 
@@ -42,7 +42,7 @@ WriteMakefile(
         'Moo'                            => '2.005005',
         'DBD::SQLite'                    => '1.72',
 
-        #        'Mojolicious'                  => '9.33',
+        'Mojolicious'     => '9.33',
         'XML::Fast'       => '0.17',
         'JSON::Validator' => '5.14',
         'Types::Standard' => '2.004000',
@@ -51,10 +51,13 @@ WriteMakefile(
         'Test::Warn'      => '0.37',
         'PerlIO::gzip'    => '0.20',
 
-        #        'IO::Socket::SSL'              => '2.083',
-        #        'Mojolicious::Plugin::OpenAPI' => '5.09'
+        'IO::Socket::SSL'              => '2.083',
+        'Mojolicious::Plugin::OpenAPI' => '5.09'
     },
-    EXE_FILES     => ['bin/convert-pheno'],
+    EXE_FILES => [ 'bin/convert-pheno', 'share/api/perl/convert-pheno-api' ],
     TEST_REQUIRES => { 'Test::More' => '1.30' },
     test          => { TESTS        => 't/*.t' }
 );
+
+package MY;
+use File::ShareDir::Install 'postamble';
