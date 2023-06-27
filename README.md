@@ -78,7 +78,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
 
      Generic Options:
        -debug                         Print debugging level (from 1 to 5, being 5 max)
-       -help                        Brief help message
+       -help                          Brief help message
        -log                           Save log file (JSON). If no argument is given then the log is named [convert-pheno-log.json]
        -man                           Full documentation
        -no-color                      Don't print colors to STDOUT [>color|no-color]

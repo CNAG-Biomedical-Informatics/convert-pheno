@@ -41,7 +41,6 @@ WriteMakefile(
         'DBI'                            => '1.643',
         'Moo'                            => '2.005005',
         'DBD::SQLite'                    => '1.72',
-
         'Mojolicious'     => '9.33',
         'XML::Fast'       => '0.17',
         'JSON::Validator' => '5.14',
@@ -50,7 +49,6 @@ WriteMakefile(
         'Test::Exception' => '0.43',
         'Test::Warn'      => '0.37',
         'PerlIO::gzip'    => '0.20',
-
         'IO::Socket::SSL'              => '2.083',
         'Mojolicious::Plugin::OpenAPI' => '5.09'
     },
