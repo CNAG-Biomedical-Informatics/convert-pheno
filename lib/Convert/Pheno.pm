@@ -4,9 +4,7 @@ use strict;
 use warnings;
 use autodie;
 use feature qw(say);
-#use Cwd                   qw(abs_path);
 use File::Spec::Functions qw(catdir catfile);
-#use File::Basename        qw(dirname);
 use Data::Dumper;
 use Path::Tiny;
 use File::Basename;
@@ -36,8 +34,7 @@ our @EXPORT = qw($VERSION io_yaml_or_json omop2bff_stream_processing share_dir);
 use constant DEVEL_MODE => 0;
 
 # Global variables:
-our $VERSION  = '0.08';
-#our $lib_path = dirname( abs_path(__FILE__) );
+our $VERSION  = '0.09';
 our $share_dir = dist_dir('Convert-Pheno');
 
 ############################################
