@@ -36,7 +36,7 @@ We provide several alternatives (containerized and non-containerized) for downlo
         * `libssl-dev:` This package is part of OpenSSL, which provides secure socket layer (SSL) capabilities. For SSL/TLS related tasks in Perl, you can use modules such as IO::Socket::SSL or Net::SSLeay, but these modules also require OpenSSL to be installed on the system.
 
 
-    To install the software we'll be using `cpanminus`. We'll be using `sudo` privileges for the sake of simplicity):
+    To install it, we'll be using `cpanminus` (with sudo privileges):
 
         sudo apt-get install cpanminus libbz2-dev zlib1g-dev libperl-dev libssl-dev
 
@@ -46,7 +46,7 @@ We provide several alternatives (containerized and non-containerized) for downlo
 
     Alternatively, if you want to peform a local installation:
 
-        cpanm --sudo Carton # We recommend using Carton
+        cpanm --sudo Carton # sys-level
         echo "requires 'Convert::Pheno'" > cpanfile
         carton install
         carton exec -- convert-pheno
