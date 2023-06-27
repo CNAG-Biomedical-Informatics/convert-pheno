@@ -19,9 +19,13 @@ We provide several alternatives (containerized and non-containerized) for downlo
 
     Please follow the instructions provided in this [README](https://github.com/cnag-biomedical-informatics/convert-pheno#non-containerized).
 
-=== "Method 4: From CPAN"
+=== "Method 4: From BioConda"
 
-    The core of software is module implemented in `Perl` and it is available in the Comprehensive Perl Archive Network (CPAN). See the description [here](https://metacpan.org/pod/Convert::Pheno).
+    TBA
+
+=== "Method 5: From CPAN"
+
+    The core of software is a module implemented in `Perl` and it is available in the Comprehensive Perl Archive Network (CPAN). See the description [here](https://metacpan.org/pod/Convert::Pheno). Along with the module, you'll get the [CLI](use-as-a-command-line-interface.md).
 
     !!! Warning "Required system-level libraries"
 

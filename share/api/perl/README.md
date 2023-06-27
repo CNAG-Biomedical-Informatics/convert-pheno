@@ -20,6 +20,8 @@ System level installation:
 
     $ sudo apt-get install cpanminus libssl-dev
     $ wget https://raw.githubusercontent.com/CNAG-Biomedical-Informatics/convert-pheno/main/share/api/perl/cpanfile
+    $ wget https://raw.githubusercontent.com/CNAG-Biomedical-Informatics/convert-pheno/main/share/api/perl/convert-pheno-api
+    $ wget https://raw.githubusercontent.com/CNAG-Biomedical-Informatics/convert-pheno/main/share/api/perl/openapi.json
     $ cpanm --sudo --installdeps .
     $ cpanm --sudo Convert::Pheno
 
@@ -28,9 +30,11 @@ In a local environment:
     $ sudo apt-get install cpanminus libssl-dev # sys-level
     $ cpanm --sudo Carton # sys-level
     $ wget https://raw.githubusercontent.com/CNAG-Biomedical-Informatics/convert-pheno/main/share/api/perl/cpanfile
+    $ wget https://raw.githubusercontent.com/CNAG-Biomedical-Informatics/convert-pheno/main/share/api/perl/convert-pheno-api
+    $ wget https://raw.githubusercontent.com/CNAG-Biomedical-Informatics/convert-pheno/main/share/api/perl/openapi.json
     $ echo "requires 'Convert::Pheno'" >> cpanfile
     $ carton install 
-    $ carton exec -- convert-pheno
+    $ carton exec -- morbo convert-pheno-api
 
 ### With Docker
 

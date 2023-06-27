@@ -17,7 +17,7 @@ WriteMakefile(
     META_MERGE    => {
         'dynamic_config' => 0,
         'meta-spec' => { version   => 0 },
-        'no_index'  => { directory => [qw(docs t)] },
+        'no_index'  => { directory => [qw(docs t share/api)] },
         'prereqs'   => { runtime   => { requires => { perl => '5.016' } } },
         'resources' => {
             bugtracker => { web => "$GITHUB_URL/issues" },
@@ -41,7 +41,7 @@ WriteMakefile(
         'DBI'                            => '1.643',
         'Moo'                            => '2.005005',
         'DBD::SQLite'                    => '1.72',
-        'Mojolicious'     => '9.33',
+        #'Mojolicious'     => '9.33',
         'XML::Fast'       => '0.17',
         'JSON::Validator' => '5.14',
         'Types::Standard' => '2.004000',
@@ -49,10 +49,10 @@ WriteMakefile(
         'Test::Exception' => '0.43',
         'Test::Warn'      => '0.37',
         'PerlIO::gzip'    => '0.20',
-        'IO::Socket::SSL'              => '2.083',
-        'Mojolicious::Plugin::OpenAPI' => '5.09'
+        #'IO::Socket::SSL'              => '2.083',
+        #'Mojolicious::Plugin::OpenAPI' => '5.09'
     },
-    EXE_FILES => [ 'bin/convert-pheno', 'share/api/perl/convert-pheno-api' ],
+    EXE_FILES => [ 'bin/convert-pheno'],
     TEST_REQUIRES => { 'Test::More' => '1.30' },
     test          => { TESTS        => 't/*.t' }
 );

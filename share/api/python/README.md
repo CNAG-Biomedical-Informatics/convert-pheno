@@ -20,6 +20,8 @@ For simplicity we'll be showing how to install it with `sudo`, but a local insta
 
     $ sudo apt-get install cpanminus libssl-dev
     $ wget https://raw.githubusercontent.com/CNAG-Biomedical-Informatics/convert-pheno/main/share/api/perl/cpanfile
+    $ wget https://raw.githubusercontent.com/CNAG-Biomedical-Informatics/convert-pheno/main/share/api/perl/convert-pheno-api
+    $ wget https://raw.githubusercontent.com/CNAG-Biomedical-Informatics/convert-pheno/main/share/api/perl/openapi.json
     $ cpanm --sudo --installdeps .
     $ cpanm --sudo Convert::Pheno
 
