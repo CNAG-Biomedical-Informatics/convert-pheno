@@ -15,6 +15,7 @@ requires 'Mojolicious::Lite';
 requires 'XML::Fast';
 requires 'JSON::Validator';
 requires 'Types::Standard';
+requires 'File::ShareDir::ProjectDistDir';
 
 # t
 requires 'Test::Deep';
