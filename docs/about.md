@@ -6,13 +6,14 @@
 
     * [Manuel Rueda](https://github.com/mrueda)
 
-=== "Web User Interface"
+=== "Web App User Interface"
 
     * [Ivo C. Leist](https://github.com/IvoLeist)
   
 === "Documentation"
 
     * [Manuel Rueda](https://github.com/mrueda)
+    * [Ivo C. Leist](https://github.com/IvoLeist) - [UI](https://cnag-biomedical-informatics.github.io/convert-pheno-ui)
 
 ## Acknowledgments
 
@@ -20,6 +21,7 @@
 
     * [Ivo G. Gut](https://scholar.google.com/citations?user=YKdDEVYAAAAJ)
     * [Davide Piscia](https://github.com/dpiscia) and his [team](https://www.cnag.crg.eu/teams/bioinformatics-unit/data-platforms-and-tools-development)
+    * Sofia Chavez - Design and UX
 
 === "External"
 

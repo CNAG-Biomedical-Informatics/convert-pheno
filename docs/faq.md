@@ -16,15 +16,17 @@ Frequently Asked Questions
 
 ??? faq "Can I use `Convert-Pheno` in _production_ software?"
 
-    Nope. We're working on it as we speak.
+    It's still in Beta so expect some bumps ahead.
 
-    ##### last change 2023-01-04 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
+    ##### last change 2023-06-27 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
 ??? faq "There are multiple [download](download-and-installation.md) options, which one should I choose?"
 
     We recommend using the [containerized version](https://github.com/cnag-biomedical-informatics/convert-pheno#containerized).
  
-    ##### last change 2023-01-04 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
+    The reason for this is that you'll get **all functionalities** working **out-of-the-box**.
+ 
+    ##### last change 2023-06-27 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
 ??? faq "If I use `Convert-Pheno` to convert my data to [Beacon v2 Models](bff.md), does this mean I have a Beacon v2?"
 

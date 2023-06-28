@@ -255,7 +255,7 @@ sub program_header {
 ****************************************
 *  Phenotypic Data Model Convert Tool  *
 *          - CONVERT-PHENO -           *
-*          Version: $version         *
+*            Version: $version     *
 *   (C) 2022-2023 Manuel Rueda, CNAG   *
 *       The Artistic License 2.0       *
 ****************************************

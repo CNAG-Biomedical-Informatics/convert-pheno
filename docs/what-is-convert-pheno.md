@@ -7,7 +7,7 @@
  <figcaption>Convert-Pheno schematic view</figcaption>
 </figure>
 
-!!! Tip "Use"
+!!! Tip "Modes of operation:"
 
     `Convert-Pheno` can be operated as a:
 

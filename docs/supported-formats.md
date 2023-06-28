@@ -55,7 +55,7 @@ graph LR
 === "Mapping steps:"
 
     Internally, all models are mapped to the [Beacon v2 Models](bff.md). 
-    !!! Hint "Why use Beacon v2 as target model"
+    !!! Hint "Why use Beacon v2 as target model?"
         The reason for selecting Beacon v2 Model as the target for the conversion is its **schema flexibility**, which allows for the inclusion of variables that may not be present in the original schema definition. In contrast, Phenopackets v2 has stricter schema requirements. This flexibility offered by Beacon v2 schemas enables us to handle a wider range of phenotypic data and accommodate **additional variables**, enhancing the utility and applicability of our tool.
 
     <figure markdown>

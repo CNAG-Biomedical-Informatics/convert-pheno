@@ -142,6 +142,13 @@
   phenotypicFeatures: 
     fields: [comorb_asthma,comorb_copd,comorb_ms,comorb_sle,comorb_ra,comorb_pso,comorb_ad,comorb_cancer,comorb_cancer_specified,comorb_hypertension,comorb_diabetes,comorb_lipids,comorb_stroke,comorb_other_ai,comorb_other_ai_specified,immunodeficiency,rectal_bleeding]
     ontology: ncit
+    dict:
+      atopic dermatitis: eczema
+      cancer: Cancer Patient
+      COPD: Chronic Obstructive Pulmonary Disease
+      'demyelating disease/multiple sclerosis': Multiple Sclerosis
+      'Hyper-/dyslipidemia': Dyslipidemia
+      'Primary immunodeficiency known?': Primary Immunodeficiency Syndrome
 
   # Term: sex
   sex: sex

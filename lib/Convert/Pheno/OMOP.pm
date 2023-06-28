@@ -243,7 +243,7 @@ sub do_omop2bff {
     #          'visit_occurrence_id' => 98529
 
     #**************************************************
-    # IMPORTANT
+    # *** IMPORTANT ***
     # We'll only process if exist in $self->{exposures};
     #*************************************************
     #
@@ -611,10 +611,8 @@ sub do_omop2bff {
     #          'visit_detail_id' => 0,
     #          'visit_occurrence_id' => 98529
 
-    #**************************************************
-    # IMPORTANT
+    # *** IMPORTANT ***
     # We'll only process if not exist in $self->{exposures};
-    #*************************************************
 
     if ( defined $participant->{$table} ) {
 

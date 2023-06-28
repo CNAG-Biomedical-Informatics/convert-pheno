@@ -267,6 +267,12 @@ sub execute_query_SQLite {
     my $ontology                  = $arg->{ontology};
     my $match                     = $arg->{match};
 
+    # set $id and $label to undef
+    my ($id, $label) = (undef, undef);
+
+    # Premature return if $query eq '' 
+    return ($id, $label) if $query eq '';
+
 #  Columns in DBs
 #     *<ncit.db>, <icd10.db> and <cdisc.db> were pre-processed to have "id" and "label" columns only
 #       label [0]
@@ -294,17 +300,14 @@ sub execute_query_SQLite {
 
     # NB: Order matters in the changes below
     $query =~ s/^\d+\s+\-\s+//;                            # for ALL SEARCHES!!!
-    $query =~ tr/_,-/ / if $match eq 'full_text_search';   # FTS
+    $query =~ tr#_,-/# # if $match eq 'full_text_search';   # FTS
     $query =~
-      tr/ //s;    # remove duplicate spaces            # for ALL SEARCHES!!!
+      tr/ //s;    # remove duplicated spaces            # for ALL SEARCHES!!!
 
     # Execute query
     $sth->bind_param( 1, $query )
       ;           # docstore.mik.ua/orelly/linux/dbi/ch05_03.htm
     $sth->execute();    # eq to $sth->execute($query);
-
-    my $id    = undef;
-    my $label = undef;
 
     if ( $match eq 'exact_match' ) {
 

@@ -61,9 +61,7 @@ sub add_labels {
 
     my $value = shift;
 
-    #############
-    # IMPORTANT #
-    #############
+    # *** IMPORTANT ***
     # This sub can return undef, i.e., $_{labels} = undef
     # That's OK as we won't perform exists $_{_label}
     # Note that in $hoh (above) empty columns are  key = ''.
@@ -252,7 +250,8 @@ sub encode_omop_stream {
 
     my ( $table_name, $hash_slice, $person, $count, $self ) = @_;
 
-    # IMPORTANT === We only print person_id ONCE!!!
+    # *** IMPORTANT ***
+    # We only print person_id ONCE!!!
     my $person_id = $hash_slice->{person_id};
     my $data      = {
         $table_name => [$hash_slice],
@@ -642,9 +641,7 @@ sub read_csv_stream {
     my $hash_slice;
     my $count = 0;
 
-    #############
-    # IMPORTANT #
-    #############
+    # *** IMPORTANT ***
     # On Feb-19-2023 I tested Parallel::ForkManager and:
     # 1 - The performance was by far slower than w/o it
     # 2 - We hot SQLite errors for concurring fh

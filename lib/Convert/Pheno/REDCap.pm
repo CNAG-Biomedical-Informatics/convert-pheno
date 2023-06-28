@@ -28,20 +28,20 @@ sub do_redcap2bff {
     ##############################
     # <Variable> names in REDCap #
     ##############################
-#
-# REDCap does not enforce any particular variable name.
-# Extracted from https://www.ctsi.ufl.edu/wordpress/files/2019/02/Project-Creation-User-Guide.pdf
-# ---
-# "Variable Names: Variable names are critical in the data analysis process. If you export your data to a
-# statistical software program, the variable names are what you or your statistician will use to conduct
-# the analysis"
-#
-# "We always recommend reviewing your variable names with a statistician or whoever will be
-# analyzing your data. This is especially important if this is the first time you are building a
-# database"
-#---
-# If variable names are not consensuated, then we need to do the mapping manually "a posteriori".
-# This is what we are attempting here:
+    #
+    # REDCap does not enforce any particular variable name.
+    # Extracted from https://www.ctsi.ufl.edu/wordpress/files/2019/02/Project-Creation-User-Guide.pdf
+    # ---
+    # "Variable Names: Variable names are critical in the data analysis process. If you export your data to a
+    # statistical software program, the variable names are what you or your statistician will use to conduct
+    # the analysis"
+    #
+    # "We always recommend reviewing your variable names with a statistician or whoever will be
+    # analyzing your data. This is especially important if this is the first time you are building a
+    # database"
+    #---
+    # If variable names are not consensuated, then we need to do the mapping manually "a posteriori".
+    # This is what we are attempting here:
 
     ####################################
     # START MAPPING TO BEACON V2 TERMS #
@@ -76,7 +76,7 @@ sub do_redcap2bff {
     # Thus, we are storing $participant->{sex} in $self !!!
     if ( defined $participant->{$sex_field} ) {
         $self->{_info}{ $participant->{study_id} }{$sex_field} =
-          $participant->{$sex_field};   # Dynamically adding attributes (setter)
+          $participant->{$sex_field};    # Dynamically adding attributes (setter)
     }
     $participant->{$sex_field} =
       $self->{_info}{ $participant->{$studyId_field} }{$sex_field};
@@ -399,8 +399,7 @@ sub do_redcap2bff {
         # We can have  $participant->{$field} eq '2 - Mild'
         if ( $participant->{$field} =~ m/ \- / ) {
             my ( $tmp_val, $tmp_scale ) = split / \- /, $participant->{$field};
-            $participant->{$field} =
-              $tmp_val;    # should be equal to $participant->{$field.'_ori'}
+            $participant->{$field} = $tmp_val;     # should be equal to $participant->{$field.'_ori'}
             $tmp_str = $tmp_scale;
         }
 
@@ -485,7 +484,10 @@ sub do_redcap2bff {
         if ( defined $participant->{$field} && $participant->{$field} ne '' ) {
 
             #$phenotypicFeature->{evidence} = undef;    # P32Y6M1D
-            my $tmp_var = $field;
+            my $tmp_var = $redcap_dict->{$field}{'Field Label'};
+
+            # *** IMPORTANT ***
+            # Ad hoc change for 3TR
             if ( $project_id eq '3tr_ibd' && $field =~ m/comorb/i ) {
                 ( undef, $tmp_var ) = split / \- /,
                   $redcap_dict->{$field}{'Field Label'};
@@ -501,7 +503,9 @@ sub do_redcap2bff {
 
             $phenotypicFeature->{featureType} = map_ontology(
                 {
-                    query    => exists $mapping->{dict}{$tmp_var} ? $mapping->{dict}{$tmp_var} : $tmp_var,
+                    query => exists $mapping->{dict}{$tmp_var}
+                    ? $mapping->{dict}{$tmp_var}
+                    : $tmp_var,
                     column   => 'label',
                     ontology => $mapping->{ontology},
                     self     => $self
@@ -595,9 +599,7 @@ sub do_redcap2bff {
             $treatment->{doseIntervals}         = [];
             $treatment->{routeOfAdministration} = map_ontology(
                 {
-                    query => ucfirst($route)
-                      . ' Route of Administration'
-                    ,    # Oral Route of Administration
+                    query    => ucfirst($route) . ' Route of Administration',  # Oral Route of Administration
                     column   => 'label',
                     ontology => $mapping->{ontology},
                     self     => $self

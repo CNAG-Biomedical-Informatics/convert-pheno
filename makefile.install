@@ -4,7 +4,7 @@ SHELL := /bin/bash
 
 install:
 	sudo apt-get install cpanminus libbz2-dev zlib1g-dev libperl-dev libssl-dev
-	cpanm --sudo --installdeps .	
+	cpanm --notest --sudo --installdeps .	
 
 install-carton:
 	sudo apt-get install cpanminus libbz2-dev zlib1g-dev libperl-dev libssl-dev

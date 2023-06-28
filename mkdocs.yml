@@ -51,13 +51,14 @@ markdown_extensions:
 nav:
   - Introduction:
       - What is Convert-Pheno?: what-is-convert-pheno.md
+      - Implementation: implementation.md
       - Supported formats: supported-formats.md
   - 'Download & Installation': download-and-installation.md
   - Use:
       - As a command-line interface: use-as-a-command-line-interface.md
       - As a module: use-as-a-module.md
       - As an API: use-as-an-api.md
-      - Web App User interface: web-app-user-interface.md
+      - Web App User interface: https://cnag-biomedical-informatics.github.io/convert-pheno-ui/
   - Formats accepted:
       - Beacon v2 Models (BFF): bff.md
       - Phenopacket v2 (PXF): pxf.md

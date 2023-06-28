@@ -24,11 +24,11 @@ We included two flavours of the same API, one in `Perl` and another in `Python`.
 
 === "Perl version"
 
-    Please see more detailed instructions at this [README](https://github.com/cnag-biomedical-informatics/convert-pheno/tree/main/api/perl#readme-convert-pheno-api-perl-version).
+    Please see more detailed instructions at this [README](https://github.com/cnag-biomedical-informatics/convert-pheno/tree/main/share/api/perl#readme-convert-pheno-api-perl-version).
 
 === "Python version"
 
-    Please see more detailed instructions at this [README](https://github.com/cnag-biomedical-informatics/convert-pheno/tree/main/api/python#readme-convert-pheno-api-python-version).
+    Please see more detailed instructions at this [README](https://github.com/cnag-biomedical-informatics/convert-pheno/tree/main/share/api/python#readme-convert-pheno-api-python-version).
 
 !!! Question "Local or remote installation?"
     The API should be installed on a **local** server.
