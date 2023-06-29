@@ -1,6 +1,8 @@
 !!! Tip "Google Colab version"
     We created a [Google Colab version](https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6) of the tutorial. Users can view notebooks shared publicly without sign-in, but you need a google account to execute code.
 
+    We also have a local copy of the notebook that can be downloaded from the [repo](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/nb/convert_pheno_cli_tutorial.ipynb). 
+
 This page provides brief tutorials on how to perform data conversion by using `Convert-Pheno`**command-line interface**.
 
 !!! Info "Note on installation"

@@ -82,9 +82,9 @@ Frequently Asked Questions
 
 ??? faq "How are variables that cannot be mapped handled during the conversion process?"
 
-    When converting between different data standards, it is common to encounter situations where some variables cannot be directly mapped to their equivalent in the target standard. In such cases, the original variable is typically stored under the `info` property in the converted file. While Beacon v2 has a flexible schema that allows for this, Phenopackets v2 schema is more restrictive in this regard. For instance, `biosample` information on PXF will end up in BFF `_info`.
+    During the conversion process, when encountering variables that **cannot be directly mapped** to the target standard, two situations may arise. In the first situation, if the target format allows for additional properties, the variable will be stored under the _info property. This commonly occurs when converting from OMOP-CDM to BFFs. In the second situation, if the variable maps to other entities within Beacon v2 Models, it will be stored within BFF's _info term. An example of this is the storage of _biosample_ information in PXF files.
 
-    ##### last change 2023-03-25 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
+    ##### last change 2023-06-29 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
 ## Installation
 

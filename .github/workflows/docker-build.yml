@@ -17,6 +17,17 @@ jobs:
         id: get_version
         run: echo "::set-output name=VERSION::$(cat VERSION)"
 
+      - name: Set up Git user
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+      - name: Create tag
+        run: git tag -a ${{ steps.get_version.outputs.VERSION }} -m 'Tagging version ${{ steps.get_version.outputs.VERSION }}' ${{ github.sha }}
+
+      - name: Push tag to repository
+        run: git push origin ${{ steps.get_version.outputs.VERSION }}
+
       - name: Build Docker image
         run: |
           docker build -t manuelrueda/convert-pheno:${{ steps.get_version.outputs.VERSION }} .
