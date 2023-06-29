@@ -18,7 +18,9 @@ WORKDIR /usr/share/convert-pheno
 RUN cpanm --notest --installdeps .
 
 # Install PyPerler
-WORKDIR share/ex/pyperler
+WORKDIR share/ex
+RUN git clone https://github.com/tkluck/pyperler
+WORKDIR pyperler
 RUN make install 2> install.log
 
 # Add user "dockeruser"
