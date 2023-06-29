@@ -580,16 +580,16 @@
          {
             "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C3199",
+               "label" : "Chronic Obstructive Pulmonary Disease"
             },
             "notes" : "comorb_copd /// Field Label=Comorbidities - COPD /// Field Note= /// Field Type=yesno"
          },
          {
             "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C3243",
+               "label" : "Multiple Sclerosis"
             },
             "notes" : "comorb_ms /// Field Label=Comorbidities - demyelating disease/multiple sclerosis /// Field Note= /// Field Type=yesno"
          },
@@ -620,16 +620,16 @@
          {
             "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C3001",
+               "label" : "Eczema"
             },
             "notes" : "comorb_ad /// Field Label=Comorbidities - atopic dermatitis /// Field Note= /// Field Type=yesno"
          },
          {
             "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C19700",
+               "label" : "Cancer Patient"
             },
             "notes" : "comorb_cancer /// Field Label=Comorbidities - cancer /// Field Note= /// Field Type=yesno"
          },
@@ -652,8 +652,8 @@
          {
             "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             },
             "notes" : "comorb_lipids /// Field Label=Comorbidities - Hyper-/dyslipidemia /// Field Note= /// Field Type=yesno"
          },
@@ -676,8 +676,8 @@
          {
             "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C39725",
-               "label" : "Immunodeficiency"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             },
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
@@ -2458,8 +2458,8 @@
          {
             "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C39725",
-               "label" : "Immunodeficiency"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             },
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
@@ -6069,8 +6069,8 @@
          {
             "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C39725",
-               "label" : "Immunodeficiency"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             },
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
@@ -9940,16 +9940,16 @@
          {
             "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C3199",
+               "label" : "Chronic Obstructive Pulmonary Disease"
             },
             "notes" : "comorb_copd /// Field Label=Comorbidities - COPD /// Field Note= /// Field Type=yesno"
          },
          {
             "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C3243",
+               "label" : "Multiple Sclerosis"
             },
             "notes" : "comorb_ms /// Field Label=Comorbidities - demyelating disease/multiple sclerosis /// Field Note= /// Field Type=yesno"
          },
@@ -9980,16 +9980,16 @@
          {
             "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C3001",
+               "label" : "Eczema"
             },
             "notes" : "comorb_ad /// Field Label=Comorbidities - atopic dermatitis /// Field Note= /// Field Type=yesno"
          },
          {
             "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C19700",
+               "label" : "Cancer Patient"
             },
             "notes" : "comorb_cancer /// Field Label=Comorbidities - cancer /// Field Note= /// Field Type=yesno"
          },
@@ -10012,8 +10012,8 @@
          {
             "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             },
             "notes" : "comorb_lipids /// Field Label=Comorbidities - Hyper-/dyslipidemia /// Field Note= /// Field Type=yesno"
          },
@@ -10036,8 +10036,8 @@
          {
             "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C39725",
-               "label" : "Immunodeficiency"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             },
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
@@ -12946,8 +12946,8 @@
          {
             "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C39725",
-               "label" : "Immunodeficiency"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             },
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
@@ -15630,8 +15630,8 @@
          {
             "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C39725",
-               "label" : "Immunodeficiency"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             },
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
@@ -17676,8 +17676,8 @@
          {
             "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C39725",
-               "label" : "Immunodeficiency"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             },
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
@@ -20790,16 +20790,16 @@
          {
             "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C3199",
+               "label" : "Chronic Obstructive Pulmonary Disease"
             },
             "notes" : "comorb_copd /// Field Label=Comorbidities - COPD /// Field Note= /// Field Type=yesno"
          },
          {
             "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C3243",
+               "label" : "Multiple Sclerosis"
             },
             "notes" : "comorb_ms /// Field Label=Comorbidities - demyelating disease/multiple sclerosis /// Field Note= /// Field Type=yesno"
          },
@@ -20830,16 +20830,16 @@
          {
             "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C3001",
+               "label" : "Eczema"
             },
             "notes" : "comorb_ad /// Field Label=Comorbidities - atopic dermatitis /// Field Note= /// Field Type=yesno"
          },
          {
             "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C19700",
+               "label" : "Cancer Patient"
             },
             "notes" : "comorb_cancer /// Field Label=Comorbidities - cancer /// Field Note= /// Field Type=yesno"
          },
@@ -20862,8 +20862,8 @@
          {
             "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             },
             "notes" : "comorb_lipids /// Field Label=Comorbidities - Hyper-/dyslipidemia /// Field Note= /// Field Type=yesno"
          },
@@ -20886,8 +20886,8 @@
          {
             "excluded" : true,
             "featureType" : {
-               "id" : "NCIT:C39725",
-               "label" : "Immunodeficiency"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             },
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },

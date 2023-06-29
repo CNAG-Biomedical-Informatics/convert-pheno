@@ -458,14 +458,14 @@
          },
          {
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C3199",
+               "label" : "Chronic Obstructive Pulmonary Disease"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C3243",
+               "label" : "Multiple Sclerosis"
             }
          },
          {
@@ -488,14 +488,14 @@
          },
          {
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C3001",
+               "label" : "Eczema"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C19700",
+               "label" : "Cancer Patient"
             }
          },
          {
@@ -512,8 +512,8 @@
          },
          {
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             }
          },
          {
@@ -530,8 +530,8 @@
          },
          {
             "type" : {
-               "id" : "NCIT:C39725",
-               "label" : "Immunodeficiency"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
@@ -1684,8 +1684,8 @@
       "phenotypicFeatures" : [
          {
             "type" : {
-               "id" : "NCIT:C39725",
-               "label" : "Immunodeficiency"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
@@ -4194,8 +4194,8 @@
       "phenotypicFeatures" : [
          {
             "type" : {
-               "id" : "NCIT:C39725",
-               "label" : "Immunodeficiency"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
@@ -6894,14 +6894,14 @@
          },
          {
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C3199",
+               "label" : "Chronic Obstructive Pulmonary Disease"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C3243",
+               "label" : "Multiple Sclerosis"
             }
          },
          {
@@ -6924,14 +6924,14 @@
          },
          {
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C3001",
+               "label" : "Eczema"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C19700",
+               "label" : "Cancer Patient"
             }
          },
          {
@@ -6948,8 +6948,8 @@
          },
          {
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             }
          },
          {
@@ -6966,8 +6966,8 @@
          },
          {
             "type" : {
-               "id" : "NCIT:C39725",
-               "label" : "Immunodeficiency"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
@@ -8955,8 +8955,8 @@
       "phenotypicFeatures" : [
          {
             "type" : {
-               "id" : "NCIT:C39725",
-               "label" : "Immunodeficiency"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
@@ -10760,8 +10760,8 @@
       "phenotypicFeatures" : [
          {
             "type" : {
-               "id" : "NCIT:C39725",
-               "label" : "Immunodeficiency"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
@@ -12109,8 +12109,8 @@
       "phenotypicFeatures" : [
          {
             "type" : {
-               "id" : "NCIT:C39725",
-               "label" : "Immunodeficiency"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
@@ -14251,14 +14251,14 @@
          },
          {
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C3199",
+               "label" : "Chronic Obstructive Pulmonary Disease"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C3243",
+               "label" : "Multiple Sclerosis"
             }
          },
          {
@@ -14281,14 +14281,14 @@
          },
          {
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C3001",
+               "label" : "Eczema"
             }
          },
          {
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C19700",
+               "label" : "Cancer Patient"
             }
          },
          {
@@ -14305,8 +14305,8 @@
          },
          {
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             }
          },
          {
@@ -14323,8 +14323,8 @@
          },
          {
             "type" : {
-               "id" : "NCIT:C39725",
-               "label" : "Immunodeficiency"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {

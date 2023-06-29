@@ -20,14 +20,6 @@ Frequently Asked Questions
 
     ##### last change 2023-06-27 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
-??? faq "There are multiple [download](download-and-installation.md) options, which one should I choose?"
-
-    We recommend using the [containerized version](https://github.com/cnag-biomedical-informatics/convert-pheno#containerized).
- 
-    The reason for this is that you'll get **all functionalities** working **out-of-the-box**.
- 
-    ##### last change 2023-06-27 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
-
 ??? faq "If I use `Convert-Pheno` to convert my data to [Beacon v2 Models](bff.md), does this mean I have a Beacon v2?"
 
     I am afraid not. Beacon v2 is an [API specification](https://docs.genomebeacons.org), and the [Beacon v2 Models](bff.md) are merely a component of it. In order to _light a Beacon v2_, it is necessary to load the `JSON` files into a **database** and add an an **API** on top. Currently, it is advisable to utilize the [Beacon v2 Reference Implementation](https://b2ri-documentation.readthedocs.io/en/latest) which includes the database, the Beacon v2 API, and other necessary components.
@@ -95,6 +87,15 @@ Frequently Asked Questions
     ##### last change 2023-03-25 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
 ## Installation
+
+??? faq "There are multiple [download](download-and-installation.md) options, which one should I choose?"
+
+    We recommend using the [containerized version](https://github.com/cnag-biomedical-informatics/convert-pheno#containerized).
+
+    The reason for this is that you'll get **all functionalities** working **out-of-the-box**.
+
+    ##### last change 2023-06-27 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
+
 
 ??? faq "I am installing `Convert-Pheno` from source ([non-containerized version](https://github.com/cnag-biomedical-informatics/convert-pheno#non-containerized)) but I can't make it work. Any suggestions?"
 
