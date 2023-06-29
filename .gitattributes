@@ -1,5 +1,4 @@
 *.pl linguist-language=Perl
 *.pm linguist-language=Perl
 *.t linguist-language=Perl
-share/ex/pyperler/** linguist-vendored
-share/nb/** linguist-vendored
+nb/** linguist-vendored

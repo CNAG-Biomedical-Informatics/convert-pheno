@@ -14,27 +14,18 @@ At the time of writting this (Jun-2023) the API consists of **very basic functio
     
 ## Installation 
 
-### From CPAN 
+### From GitHub + CPAN 
 
-System level installation:
+System-level installation:
 
-    $ sudo apt-get install cpanminus libssl-dev
-    $ wget https://raw.githubusercontent.com/CNAG-Biomedical-Informatics/convert-pheno/main/share/api/perl/cpanfile
-    $ wget https://raw.githubusercontent.com/CNAG-Biomedical-Informatics/convert-pheno/main/share/api/perl/convert-pheno-api
-    $ wget https://raw.githubusercontent.com/CNAG-Biomedical-Informatics/convert-pheno/main/share/api/perl/openapi.json
-    $ cpanm --sudo --installdeps .
-    $ cpanm --sudo Convert::Pheno
+    $ make install
 
 In a local environment:
 
-    $ sudo apt-get install cpanminus libssl-dev # sys-level
-    $ cpanm --sudo Carton # sys-level
-    $ wget https://raw.githubusercontent.com/CNAG-Biomedical-Informatics/convert-pheno/main/share/api/perl/cpanfile
-    $ wget https://raw.githubusercontent.com/CNAG-Biomedical-Informatics/convert-pheno/main/share/api/perl/convert-pheno-api
-    $ wget https://raw.githubusercontent.com/CNAG-Biomedical-Informatics/convert-pheno/main/share/api/perl/openapi.json
-    $ echo "requires 'Convert::Pheno'" >> cpanfile
-    $ carton install 
-    $ carton exec -- morbo convert-pheno-api
+    First of all navigate to the directory where you want to install it. Then run:
+    (Note that it will ask for sudo credentials to install Debian-level dependencies. It's OK)
+
+    $ make install-carton
 
 ### With Docker
 
@@ -47,6 +38,10 @@ Please see installation instructions [here](https://github.com/mrueda/convert-ph
 With `morbo` for development:
 
     $ morbo convert-pheno-api # development (default: port 3000)
+    
+If you installed it in a local environment then use `carton exec -- `:
+
+    $ carton exec -- morbo convert-pheno-api
 
 If you want to use a self-signed certificate:
 

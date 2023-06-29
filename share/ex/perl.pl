@@ -23,7 +23,7 @@ use Data::Dumper;
 # if the module WAS NOT       #
 # installed from CPAN         #
 ###############################
-use lib '../lib';             #
+use lib '../../lib';             #
 ###############################
 use Convert::Pheno;
 

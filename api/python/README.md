@@ -14,22 +14,14 @@ At the time of writting this (Dec-2022) the API consists of **very basic functio
 
 ## Installation 
 
-### From CPAN 
+## From GitHub + CPAN 
 
-For simplicity we'll be showing how to install it with `sudo`, but a local installation is also possible.
+In a local environment:
 
-    $ sudo apt-get install cpanminus libssl-dev
-    $ wget https://raw.githubusercontent.com/CNAG-Biomedical-Informatics/convert-pheno/main/share/api/perl/cpanfile
-    $ wget https://raw.githubusercontent.com/CNAG-Biomedical-Informatics/convert-pheno/main/share/api/perl/convert-pheno-api
-    $ wget https://raw.githubusercontent.com/CNAG-Biomedical-Informatics/convert-pheno/main/share/api/perl/openapi.json
-    $ cpanm --sudo --installdeps .
-    $ cpanm --sudo Convert::Pheno
+    First of all navigate to the directory where you want to install it. Then run:
 
-You need to install a few Python packages:
-
-    $ pip3 install "fastapi[all]"
-
-Please take a look to how to run `Convert-Pheno`in [Python](https://convert-pheno.readthedocs.io/en/latest/use-as-a-module/#inside-python).
+    $ make install-carton
+    $ export PATH=$PATH:local/lib/perl5
 
 ### With Docker
 

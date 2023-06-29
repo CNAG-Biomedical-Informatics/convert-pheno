@@ -121,8 +121,11 @@ pod2usage(
 "The flag <--stream> only supports output files in <json|json.gz> format\n",
     -exitval => 1
   )
-  if ( $stream && ( defined $out_bff && $out_bff !~ m/\.json/i )
-    || ( defined $out_pxf && $out_pxf !~ m/\.json/i ) );
+  if (
+    $stream
+    && (   ( defined $out_bff && $out_bff !~ m/\.json/i )
+        || ( defined $out_pxf && $out_pxf !~ m/\.json/i ) )
+  );
 pod2usage(
     -message =>
       "Please specify a valid schema for the mapping file --schema-file\n",

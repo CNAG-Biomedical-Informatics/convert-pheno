@@ -14,7 +14,7 @@
 
 import json
 import sys
-sys.path.append('../lib/')
+sys.path.append('../../lib/')
 from convertpheno import PythonBinding
 
 

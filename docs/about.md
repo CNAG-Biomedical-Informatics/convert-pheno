@@ -21,7 +21,7 @@
 
     * [Ivo G. Gut](https://scholar.google.com/citations?user=YKdDEVYAAAAJ)
     * [Davide Piscia](https://github.com/dpiscia) and his [team](https://www.cnag.crg.eu/teams/bioinformatics-unit/data-platforms-and-tools-development)
-    * Sofia Chavez - Design and UX
+    * [Sofia Chaves](https://fiichaves.com) - Design and UX
 
 === "External"
 

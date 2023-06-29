@@ -17,7 +17,7 @@ RUN git clone https://github.com/CNAG-Biomedical-Informatics/convert-pheno.git
 WORKDIR /usr/share/convert-pheno
 RUN cpanm --notest --installdeps .
 
-# Install PyPerler
+# Download and install PyPerler
 WORKDIR share/ex
 RUN git clone https://github.com/tkluck/pyperler
 WORKDIR pyperler
