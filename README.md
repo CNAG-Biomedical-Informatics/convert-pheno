@@ -183,6 +183,8 @@ Now you have two choose between one of the 2 options below:
 
     make -f makefile.install install-carton
     make -f makefile.install test-carton
+    cpanm --local-lib=~/perl5 local::lib && eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
+    export PERL5LIB=local/lib/perl5:$PERL5LIB
 
 ### From CPAN
 
