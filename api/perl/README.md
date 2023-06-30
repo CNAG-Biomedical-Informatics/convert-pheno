@@ -16,15 +16,21 @@ At the time of writting this (Jun-2023) the API consists of **very basic functio
 
 ### From GitHub + CPAN 
 
-System-level installation:
+First we download the `makefile`:
+
+    $ wget https://raw.githubusercontent.com/CNAG-Biomedical-Informatics/convert-pheno/main/api/perl/makefile
+
+Now we install sys-level dependencies:
+
+    $ sudo apt-get install cpanminus libbz2-dev zlib1g-dev libperl-dev libssl-dev
+
+Option 1: System-level installation:
 
     $ make install
 
-In a local environment:
+Option 2: In a local environment:
 
-    First of all navigate to the directory where you want to install it. Then run:
-    (Note that it will ask for sudo credentials to install Debian-level dependencies. It's OK)
-
+    $ cpanm --local-lib=~/perl5 local::lib && eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
     $ make install-carton
 
 ### With Docker

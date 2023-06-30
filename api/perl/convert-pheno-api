@@ -15,7 +15,7 @@
 #use Mojolicious::Lite -signatures; # No go for CentOs Perl v5.16
 use Mojolicious::Lite;
 use FindBin qw($Bin);
-use lib "$Bin/../../lib";
+use lib ("$Bin/../../lib", "$Bin/local/lib/perl5");
 use Convert::Pheno;
 
 post '/api' =>  sub {

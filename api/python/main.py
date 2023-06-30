@@ -16,6 +16,7 @@ import sys
 from fastapi import Request, FastAPI, HTTPException # MIT license
 from pydantic import BaseModel, Field, parse_obj_as # MIT license
 sys.path.append('../../lib/')
+sys.path.append('local/lib/perl5')
 from convertpheno import PythonBinding
 
 # Here we start the API
