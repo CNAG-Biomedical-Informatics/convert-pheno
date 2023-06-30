@@ -168,6 +168,10 @@ but we will install a few CPAN modules with `cpanminus`.
     git clone https://github.com/cnag-biomedical-informatics/convert-pheno.git
     cd convert-pheno
 
+Install system level dependencies:
+
+    sudo apt-get install cpanminus libbz2-dev zlib1g-dev libperl-dev libssl-dev
+
 Now you have two choose between one of the 2 options below:
 
 **Option 1:** Install dependencies (they're harmless to your system) as `sudo`:
@@ -177,7 +181,6 @@ Now you have two choose between one of the 2 options below:
 
 **Option 2:** Install the dependencies in a "virtual environment" (i.e., install the CPAN modules in the directory of the application). We'll be using the module`Carton` for that:
 
-    # NB: We're installing cpanminus and Carton as sudo. That's why you will be asked to provide sudo password.
     make -f makefile.install install-carton
     make -f makefile.install test-carton
 
