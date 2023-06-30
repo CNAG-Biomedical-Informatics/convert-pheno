@@ -178,6 +178,7 @@ Now you have two choose between one of the 2 options below:
 
     make -f makefile.install install # (Will ask for sudo passwd)
     make -f makefile.install test
+    convert-pheno --help
 
 **Option 2:** Install the dependencies in a "virtual environment" (i.e., install the CPAN modules in the directory of the application). We'll be using the module`Carton` for that:
 
@@ -185,6 +186,7 @@ Now you have two choose between one of the 2 options below:
     make -f makefile.install test-carton
     cpanm --local-lib=~/perl5 local::lib && eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
     export PERL5LIB=local/lib/perl5:$PERL5LIB
+    carton exec -- convert-pheno --help
 
 ### From CPAN
 
