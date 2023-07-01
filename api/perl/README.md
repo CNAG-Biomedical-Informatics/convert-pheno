@@ -18,39 +18,38 @@ At the time of writting this (Jun-2023) the API consists of **very basic functio
 
 First we download ithe needed files:
 
-  wget https://raw.githubusercontent.com/CNAG-Biomedical-Informatics/convert-pheno/main/api/perl/cpanfile
-  wget https://raw.githubusercontent.com/CNAG-Biomedical-Informatics/convert-pheno/main/api/perl/convert-pheno-api
-  wget https://raw.githubusercontent.com/CNAG-Biomedical-Informatics/convert-pheno/main/api/perl/openapi.json 
+    wget https://raw.githubusercontent.com/CNAG-Biomedical-Informatics/convert-pheno/main/api/perl/cpanfile
+    wget https://raw.githubusercontent.com/CNAG-Biomedical-Informatics/convert-pheno/main/api/perl/convert-pheno-api
+    wget https://raw.githubusercontent.com/CNAG-Biomedical-Informatics/convert-pheno/main/api/perl/openapi.json 
 
 Now we install sys-level dependencies:
 
-  sudo apt-get install cpanminus libbz2-dev zlib1g-dev libperl-dev libssl-dev
+    sudo apt-get install cpanminus libbz2-dev zlib1g-dev libperl-dev libssl-dev
 
 Now you have two choose between one of the 3 options below:
 
 Option 1: System-level installation:
 
-  echo "requires 'Convert::Pheno';" >> cpanfile
-  cpanm --notest --sudo --installdeps .
+    echo "requires 'Convert::Pheno';" >> cpanfile
+    cpanm --notest --sudo --installdeps .
 
 Option 2: Install the dependencies at `~/perl5`:
 
-  cpanm --local-lib=~/perl5 local::lib && eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
-  echo "requires 'Convert::Pheno';" >> cpanfile
-  cpanm --notest --installdeps .
+    cpanm --local-lib=~/perl5 local::lib && eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
+    echo "requires 'Convert::Pheno';" >> cpanfile
+    cpanm --notest --installdeps .
 
 Option 3: Install Convert-Pheno and the dependencies in a "virtual environment" (at `local/`) . We'll be using the module `Carton` for that:
 
-  mkdir local
-  cpanm --local-lib=local/ Carton
-  export PATH=$PATH:local/bin; export PERL5LIB=local/lib/perl5:$PERL5LIB
-  echo "requires 'Convert::Pheno';" >> cpanfile
-  carton install
-
+    mkdir local
+    cpanm --local-lib=local/ Carton
+    export PATH=$PATH:local/bin; export PERL5LIB=local/lib/perl5:$PERL5LIB
+    echo "requires 'Convert::Pheno';" >> cpanfile
+    carton install
 
 ### With Docker
 
-Please see installation instructions [here](https://github.com/mrueda/convert-pheno#containerized).
+Please see installation instructions [here](https://github.com/CNAG-Biomedical-Informatics/convert-pheno#containerized-recommended-method).
 
 ## How to run
 
