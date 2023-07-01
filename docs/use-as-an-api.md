@@ -20,7 +20,7 @@ where `data.json` looks like the below:
 
 ## Included APIs
 
-We included two flavours of the same API, one in `Perl` and another in `Python`.Both APIs were created by using OpenAPI 3.0.2 schema and should work out of the box with the [containerized version](https://github.com/cnag-biomedical-informatics/convert-pheno#containerized).
+We included two flavours of the same API, one in `Perl` and another in `Python`.Both APIs were created by using OpenAPI 3.0.2 schema and should work out of the box with the [containerized version](https://github.com/CNAG-Biomedical-Informatics/convert-pheno#containerized-recommended-method).
 
 === "Perl version"
 

@@ -90,7 +90,7 @@ Frequently Asked Questions
 
 ??? faq "There are multiple [download](download-and-installation.md) options, which one should I choose?"
 
-    We recommend using the [containerized version](https://github.com/cnag-biomedical-informatics/convert-pheno#containerized).
+    We recommend using the [containerized version](https://github.com/CNAG-Biomedical-Informatics/convert-pheno#containerized-recommended-method).
 
     The reason for this is that you'll get **all functionalities** working **out-of-the-box**.
 

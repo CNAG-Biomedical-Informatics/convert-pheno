@@ -18,15 +18,13 @@ At the time of writting this (Dec-2022) the API consists of **very basic functio
 
 First install sys-level dependencies:
 
-    $ sudo apt-get install cpanminus libbz2-dev zlib1g-dev libperl-dev libssl-dev python3-pip # sys-level
+    sudo apt-get install cpanminus libbz2-dev zlib1g-dev libperl-dev libssl-dev python3-pip # sys-level
 
-In a local environment:
+We'll install Convert-Pheno and the dependencies in a "virtual environment" (at `local/`) . We'll be using the module `Carton` for that:
 
-    First of all navigate to the directory where you want to install it. Then run:
-
-    $ cpanm --local-lib=~/perl5 local::lib && eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
-    $ wget https://raw.githubusercontent.com/CNAG-Biomedical-Informatics/convert-pheno/main/api/python/makefile
-    $ make install-carton
+    wget https://raw.githubusercontent.com/CNAG-Biomedical-Informatics/convert-pheno/main/api/install.sh
+    export PATH=$PATH:local/bin; export PERL5LIB=local/lib/perl5:$PERL5LIB
+    ./install.sh 
 
 ### With Docker
 

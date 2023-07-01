@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 use Mojo::Base -strict;
 use Test::Mojo;
-use Test::More tests => 3;
+use Test::More tests => 4;
 
 use Mojolicious::Lite;
 
@@ -12,10 +12,10 @@ post '/api' => sub {
   },
   'post_data';
 
-plugin OpenAPI => {url => 'file://../openapi.json', schema => 'v3'};
+plugin OpenAPI => {url => 'file://openapi.json', schema => 'v3'};
 
 my $t = Test::Mojo->new();
 
 note 'Valid request should be ok';
 $t->post_ok('/api', json => {method => "pxf2bff", data => {}, ohdsi_db => 0} )->status_is(200);
-$t->post_ok('/api', json => {method => "pxf2bff", data => {}, ohdsi_db => 'foo'} )->status_is(200);
+$t->post_ok('/api', json => {method => "pxf2bff", data => {}, ohdsi_db => 'foo'} )->status_is(400);

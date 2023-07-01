@@ -6,7 +6,7 @@
 This page provides brief tutorials on how to perform data conversion by using `Convert-Pheno`**command-line interface**.
 
 !!! Info "Note on installation"
-    Before proceeding, ensure that the software is properly installed. In the following instructions, it will be assumed that you have downloaded and installed the [containerized version](https://github.com/cnag-biomedical-informatics/convert-pheno#containerized).
+    Before proceeding, ensure that the software is properly installed. In the following instructions, it will be assumed that you have downloaded and installed the [containerized version](https://github.com/CNAG-Biomedical-Informatics/convert-pheno#containerized-recommended-method).
 
 ### How to convert:
 

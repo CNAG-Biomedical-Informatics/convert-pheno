@@ -177,13 +177,13 @@ Now you have two choose between one of the 3 options below:
     cpanm --notest --sudo --installdeps .
     bin/convert-pheno --help            
 
-**Option 2:** Install the dependencies at `~/perl5`
+**Option 2:** Install the dependencies at `~/perl5`:
 
     cpanm --local-lib=~/perl5 local::lib && eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
     cpanm --notest --installdeps .
     bin/convert-pheno --help
 
-**Option 3:** Install the dependencies in a "virtual environment" (at `local/`) . We'll be using the module`Carton` for that:
+**Option 3:** Install the dependencies in a "virtual environment" (at `local/`) . We'll be using the module `Carton` for that:
 
     mkdir local
     cpanm --local-lib=local/ Carton
@@ -197,7 +197,9 @@ First install system level dependencies:
 
     sudo apt-get install cpanminus libbz2-dev zlib1g-dev libperl-dev libssl-dev
 
-**Option 1:** Sys-level installation:
+Now you have two choose between one of the 3 options below:
+
+**Option 1:** System-level installation:
 
     cpanm --notest --sudo Convert::Pheno
     convert-pheno -h
@@ -208,7 +210,7 @@ First install system level dependencies:
     cpanm --notest Convert::Pheno
     convert-pheno --help
 
-**Option 3:** Install Convert-Pheno and the dependencies in a "virtual environment" (at `local/`) . We'll be using the module`Carton` for that:
+**Option 3:** Install Convert-Pheno and the dependencies in a "virtual environment" (at `local/`) . We'll be using the module `Carton` for that:
 
     mkdir local
     cpanm --local-lib=local/ Carton
