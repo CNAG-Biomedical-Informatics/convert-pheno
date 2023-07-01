@@ -22,9 +22,7 @@
 
 **CLI Source Code**: <a href="https://github.com/cnag-biomedical-informatics/convert-pheno" target="_blank">https://github.com/cnag-biomedical-informatics/convert-pheno</a>
 
-**Web APP Playground**: <a href="https://convert-pheno.cnag.cat" target="_blank">https://convert-pheno.cnag.cat</a>
-
-**Web App Source Code**: <a href="https://github.com/cnag-biomedical-informatics/convert-pheno-ui" target="_blank">https://github.com/cnag-biomedical-informatics/convert-pheno-ui</a>
+**Web App UI Source Code**: <a href="https://github.com/cnag-biomedical-informatics/convert-pheno-ui" target="_blank">https://github.com/cnag-biomedical-informatics/convert-pheno-ui</a>
 
 
 # NAME
@@ -172,20 +170,26 @@ Install system level dependencies:
 
     sudo apt-get install cpanminus libbz2-dev zlib1g-dev libperl-dev libssl-dev
 
-Now you have two choose between one of the 2 options below:
+Now you have two choose between one of the 3 options below:
 
 **Option 1:** Install dependencies (they're harmless to your system) as `sudo`:
 
-    make -f makefile.install install # (Will ask for sudo passwd)
-    make -f makefile.install test
+    cpanm --notest --sudo --installdeps .
+    bin/convert-pheno --help            
+
+**Option 2:** Install the dependencies at `~/perl5`
+
+    cpanm --local-lib=~/perl5 local::lib && eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
+    cpanm --notest --installdeps .
     bin/convert-pheno --help
 
-**Option 2:** Install the dependencies in a "virtual environment" (i.e., install the CPAN modules in the directory of the application). We'll be using the module`Carton` for that:
+**Option 3:** Install the dependencies in a "virtual environment" (at `local/`) . We'll be using the module`Carton` for that:
 
-    make -f makefile.install install-carton
-    make -f makefile.install test-carton
-    cpanm --local-lib=~/perl5 local::lib && eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
-    carton exec -- bin/convert-pheno --help
+    mkdir local
+    cpanm --local-lib=local/ Carton
+    export PATH=$PATH:local/bin; export PERL5LIB=local/lib/perl5:$PERL5LIB
+    carton install
+    carton exec -- bin/convert-pheno -help
 
 ### From CPAN
 
@@ -198,12 +202,19 @@ First install system level dependencies:
     cpanm --notest --sudo Convert::Pheno
     convert-pheno -h
 
-**Option 2:** Local installation:
+**Option 2:** Install Convert-Pheno and the dependencies at `~/perl5`
 
-    cpanm --local-lib=~/perl5 local::lib && eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib) # Set up local::lib
-    cpanm Carton # install Perl dependency manager Carton at ~/perl5
+    cpanm --local-lib=~/perl5 local::lib && eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
+    cpanm --notest Convert::Pheno
+    convert-pheno --help
+
+**Option 3:** Install Convert-Pheno and the dependencies in a "virtual environment" (at `local/`) . We'll be using the module`Carton` for that:
+
+    mkdir local
+    cpanm --local-lib=local/ Carton
     echo "requires 'Convert::Pheno';" > cpanfile
-    carton install # install dependencies at local/
+    export PATH=$PATH:local/bin; export PERL5LIB=local/lib/perl5:$PERL5LIB
+    carton install
     carton exec -- convert-pheno -help
 
 ### System requirements
