@@ -2,8 +2,12 @@
 set -euo pipefail
 
 wget https://raw.githubusercontent.com/CNAG-Biomedical-Informatics/convert-pheno/main/api/python/main.py
-mkdir local
-cpanm --local-lib=local/ Carton
+
+if [ ! -d "local" ]; then
+  mkdir local
+fi
+
+cpanm --notest --local-lib=local/ Carton
 echo "requires 'Convert::Pheno';" > cpanfile
 carton install
 pip3 install "fastapi[all]"

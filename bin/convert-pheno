@@ -502,8 +502,8 @@ B<Option 2:> Install the dependencies at C<~/perl5>:
 B<Option 3:> Install the dependencies in a "virtual environment" (at C<local/>) . We'll be using the module C<Carton> for that:
 
   mkdir local
-  cpanm --local-lib=local/ Carton
-  export PATH=$PATH:local/bin; export PERL5LIB=local/lib/perl5:$PERL5LIB
+  cpanm --notest --local-lib=local/ Carton
+  export PATH=$PATH:local/bin; export PERL5LIB=$(pwd)/local/lib/perl5:$PERL5LIB
   carton install
   carton exec -- bin/convert-pheno -help
 
@@ -529,7 +529,7 @@ B<Option 2:> Install Convert-Pheno and the dependencies at C<~/perl5>
 B<Option 3:> Install Convert-Pheno and the dependencies in a "virtual environment" (at C<local/>) . We'll be using the module C<Carton> for that:
 
   mkdir local
-  cpanm --local-lib=local/ Carton
+  cpanm --notest --local-lib=local/ Carton
   echo "requires 'Convert::Pheno';" > cpanfile
   export PATH=$PATH:local/bin; export PERL5LIB=local/lib/perl5:$PERL5LIB
   carton install
