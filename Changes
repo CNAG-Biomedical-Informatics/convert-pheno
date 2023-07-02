@@ -1,31 +1,7 @@
 Revision history for Perl distribution Convert-Pheno
 
-0.09  2023-06-27T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
- - CPAN test
+NOTE: All versions prior to 0.10 were used for testing deployment via CPAN.
 
-0.08  2023-06-27T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
- - CPAN test
-
-0.07  2023-06-27T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
- - CPAN test
-
-0.06  2023-06-26T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
- - CPAN test
-
-0.05  2023-06-26T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
- - CPAN test
-
-0.04  2023-06-22T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
- - CPAN test
-
-0.03  2023-06-22T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
- - CPAN test
-
-0.02  2023-06-22T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
- - CPAN test
-
-0.01  2023-06-22T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
- - CPAN test
-
-0  2023-06-22T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
- - CPAN test
+0.10  2023-07-03T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
+ - Added share/db/{omim,hpo}.db SQLite databases
+ - Modified source to accomodate such dbs

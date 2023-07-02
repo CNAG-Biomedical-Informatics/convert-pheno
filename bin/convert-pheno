@@ -531,7 +531,7 @@ B<Option 3:> Install Convert-Pheno and the dependencies in a "virtual environmen
   mkdir local
   cpanm --notest --local-lib=local/ Carton
   echo "requires 'Convert::Pheno';" > cpanfile
-  export PATH=$PATH:local/bin; export PERL5LIB=local/lib/perl5:$PERL5LIB
+  export PATH=$PATH:local/bin; export PERL5LIB=$(pwd)/local/lib/perl5:$PERL5LIB
   carton install
   carton exec -- convert-pheno -help
 

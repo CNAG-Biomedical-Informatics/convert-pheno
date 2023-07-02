@@ -37,12 +37,7 @@
           ]
         },
         "ontology": {
-          "type": "string",
-          "enum": [
-            "ncit",
-            "ohdsi",
-            "cdisc"
-          ]
+          "$ref": "#/$defs/objectField/properties/ontology"
         },
         "description": {
           "type": "string"
@@ -122,8 +117,9 @@
           "enum": [
             "ncit",
             "ohdsi",
-            "icd10",
-            "cdisc"
+            "cdisc",
+            "omim",
+            "hpo"
           ]
         },
         "map": {

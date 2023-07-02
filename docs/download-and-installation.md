@@ -35,21 +35,52 @@ We provide several alternatives (containerized and non-containerized) for downlo
 
         * `libssl-dev:` This package is part of OpenSSL, which provides secure socket layer (SSL) capabilities. For SSL/TLS related tasks in Perl, you can use modules such as IO::Socket::SSL or Net::SSLeay, but these modules also require OpenSSL to be installed on the system.
 
-    To install it, we'll be using `cpanminus` (with sudo privileges):
+    To install it, plese see this [README](https://github.com/CNAG-Biomedical-Informatics/convert-pheno#from-cpan).
 
-        sudo apt-get install cpanminus libbz2-dev zlib1g-dev libperl-dev libssl-dev
+=== "Method 5: From Bioconda"
 
-    Then, to install the module (system level):
+    Installing [Bioconda Package](https://github.com/bioconda/bioconda-recipes/tree/master/recipes/convert-pheno) in Ubuntu.
+    
+    
+    ### Step 1: Install Miniconda
+    
+    1. Download the Miniconda installer for Linux with the following command:
+    
+        ```bash
+        wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+        ```
+    
+    2. Run the installer:
+    
+        ```bash
+        bash Miniconda3-latest-Linux-x86_64.sh
+        ```
+    
+        Follow the prompts on the installer screens.
+    
+    3. Close and re-open your terminal window for the installation to take effect.
+    
+    ### Step 2: Set Up Channels
+    
+    Once you have Conda installed, set up the channels. Bioconda depends on the `conda-forge` and `defaults` channel.
+    
+    Add these channels with the following commands:
+    
+    ```bash
+    conda config --add channels defaults
+    conda config --add channels bioconda
+    conda config --add channels conda-forge
+    ```
 
-        cpanm --sudo Convert::Pheno
+   Note: It's recommended to use a new Conda environment when installing new packages to avoid dependency conflicts. You can create and activate a new environment with the following commands:
 
-    Alternatively, if you want to peform a local installation:
+    ```bash
+    conda create -n myenv
+    conda activate myenv
+    ```
 
-        cpanm --sudo Carton # sys-level
-        echo "requires 'Convert::Pheno'" > cpanfile
-        carton install
-        carton exec -- convert-pheno
+    Replace myenv with the name you want to give to your environment.
 
-=== "Method 5: From BioConda"
+    Then you can install your package in the myenv environment:
 
-    TBA
+    `conda install -n myenv convert-pheno`

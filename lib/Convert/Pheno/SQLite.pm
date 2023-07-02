@@ -14,7 +14,7 @@ use Exporter 'import';
 our @EXPORT =
   qw( $VERSION open_connections_SQLite close_connections_SQLite get_ontology);
 
-my @sqlites = qw(ncit icd10 ohdsi cdisc);
+my @sqlites = qw(ncit icd10 ohdsi cdisc omim hpo);
 my @matches = qw(exact_match full_text_search contains);
 use constant DEVEL_MODE => 0;
 
@@ -287,7 +287,7 @@ sub execute_query_SQLite {
     # Define a hash for column position on databases
     # We may encounter a situation where order of columns is different
     my $position = {};
-    $position->{$_} = { label => 0, id => 1 } for (qw/ncit icd10 cdisc ohdsi/);
+    $position->{$_} = { label => 0, id => 1 } for (@sqlites);
     my $id_column    = $position->{$ontology}{id};
     my $label_column = $position->{$ontology}{label};
 
