@@ -63,10 +63,10 @@ Frequently Asked Questions
     * [NCI Thesaurus](https://ncithesaurus.nci.nih.gov/ncitbrowser)
     * [ICD-10](https://icd.who.int/browse10)
     * [CDISC](https://www.cdisc.org/standards/terminology/controlled-terminology) (Study Data Tabulation Model Terminology)
-    * [OMIM]()
-    * [HPO]()
+    * [OMIM](https://www.omim.org/) Online Mendelian Inheritance in Man
+    * [HPO](https://hpo.jax.org/app) Human Phenotype Ontology (Note that prefixes are `HP:`, without the `O`)
 
-    ##### last change 2023-06-27 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
+    ##### last change 2023-07-03 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
 ??? faq "Are longitudinal data supported?"
 

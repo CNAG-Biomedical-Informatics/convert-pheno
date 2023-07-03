@@ -27,7 +27,7 @@
       ],
       "properties": {
         "id": {
-          "type": "string"
+          "$ref": "#/$defs/stringField"
         },
         "source": {
           "type": "string",
@@ -40,7 +40,7 @@
           "$ref": "#/$defs/objectField/properties/ontology"
         },
         "description": {
-          "type": "string"
+          "$ref": "#/$defs/stringField"
         }
       }
     },

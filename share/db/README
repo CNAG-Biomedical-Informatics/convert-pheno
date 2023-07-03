@@ -24,7 +24,7 @@ Downloaded May-22-2023
 wget https://raw.githubusercontent.com/macarthur-lab/omim/master/data/full_omim_table.txt
 dos2unix full_omim_table.txt
 
-# HPO
-# Downloaded Apr-14-2023
+# HPO (Prefix eq 'HP:') 
+Downloaded Apr-14-2023
 https://hpo.jax.org/app/data/ontology
 - v2023-04-05
