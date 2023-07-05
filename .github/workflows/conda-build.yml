@@ -1,0 +1,35 @@
+name: Conda build
+ 
+on:
+     workflow_dispatch
+#    push:
+#        branches: 'main'
+#    pull_request:
+#        branches: '*'
+#    schedule:
+#        - cron: '42 5 * * 0'
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: ['macos-12.6']
+        perl: [ '5.34']
+    name: Perl ${{ matrix.perl }} on ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run tests (no coverage)
+        uses: shogo82148/actions-setup-perl@v1
+        with:
+          perl-version: ${{ matrix.perl }}
+      - run: perl -V
+      - run: cpanm --installdeps .
+      - run: prove -l t
+      - name: Run tests (with coverage)
+        if: ${{ matrix.perl }} == '5.30'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          perl Makefile.PL
+          cpanm -n Devel::Cover::Report::Coveralls
+          cover -test -report Coveralls
