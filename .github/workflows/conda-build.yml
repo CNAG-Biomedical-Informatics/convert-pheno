@@ -13,7 +13,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: ['macos-12.6']
+        os: ['macos-12']
         perl: [ '5.34']
     name: Perl ${{ matrix.perl }} on ${{ matrix.os }}
     steps:
