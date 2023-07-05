@@ -39,7 +39,7 @@ We provide several alternatives (containerized and non-containerized) for downlo
 
 === "Method 5: From Bioconda"
 
-    Installing [Bioconda Package](https://github.com/bioconda/bioconda-recipes/tree/master/recipes/convert-pheno) in Ubuntu.
+    These are the steps for installing [Convert-Pheno Bioconda Package](https://github.com/bioconda/bioconda-recipes/tree/master/recipes/convert-pheno) in Ubuntu.
     
     
     ### Step 1: Install Miniconda
@@ -72,7 +72,8 @@ We provide several alternatives (containerized and non-containerized) for downlo
     conda config --add channels conda-forge
     ```
 
-   Note: It's recommended to use a new Conda environment when installing new packages to avoid dependency conflicts. You can create and activate a new environment with the following commands:
+    Note: It's recommended to use a new Conda environment when installing new packages to avoid dependency conflicts. You can create and activate a new environment with the following commands:
+
 
     ```bash
     conda create -n myenv
