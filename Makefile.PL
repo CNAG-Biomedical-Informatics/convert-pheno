@@ -41,7 +41,7 @@ WriteMakefile(
         'DBI'                            => '1.643',
         'Moo'                            => '2.005005',
         'DBD::SQLite'                    => '1.72',
-        #'Mojolicious'     => '9.33',
+        'Mojolicious'     => '9.33',
         'XML::Fast'       => '0.17',
         'JSON::Validator' => '5.14',
         'Types::Standard' => '2.004000',
@@ -54,7 +54,11 @@ WriteMakefile(
     },
     EXE_FILES => [ 'bin/convert-pheno'],
     TEST_REQUIRES => { 'Test::More' => '1.30' },
-    test          => { TESTS        => 't/*.t' }
+    test          => { TESTS        => 't/*.t' },
+    CONFIGURE_REQUIRES => {
+        'File::ShareDir::Install' => '0.14',
+        'ExtUtils::MakeMaker' => '7.70',
+    }
 );
 
 package MY;
