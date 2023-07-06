@@ -13,8 +13,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: Install cpanminus
         run: curl -L https://cpanmin.us | perl - --sudo App::cpanminus
-      - name: Install dependencies
-        run: cpanm --sudo File::ShareDir::Install
+#      - name: Install dependencies
+#        run: cpanm --sudo File::ShareDir::Install
       - name: Configure
         run: perl Makefile.PL
       - name: Create MANIFEST
