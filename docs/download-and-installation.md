@@ -37,10 +37,8 @@ We provide several alternatives (containerized and non-containerized) for downlo
 
     To install it, plese see this [README](https://github.com/CNAG-Biomedical-Informatics/convert-pheno#from-cpan).
 
-=== "Method 5: From Bioconda"
+=== "Method 5: From CPAN in a **Conda** environment"
 
-    These are the steps for installing [Convert-Pheno Bioconda Package](https://github.com/bioconda/bioconda-recipes/tree/master/recipes/convert-pheno) in Ubuntu.
-    
     
     ### Step 1: Install Miniconda
     
@@ -64,24 +62,38 @@ We provide several alternatives (containerized and non-containerized) for downlo
     
     Once you have Conda installed, set up the channels. Bioconda depends on the `conda-forge` and `defaults` channel.
     
-    Add these channels with the following commands:
+    Add bioconda channels with the following command:
     
     ```bash
-    conda config --add channels defaults
     conda config --add channels bioconda
-    conda config --add channels conda-forge
     ```
 
     Note: It's recommended to use a new Conda environment when installing new packages to avoid dependency conflicts. You can create and activate a new environment with the following commands:
 
+
+    ### Step 3: Installation
 
     ```bash
     conda create -n myenv
     conda activate myenv
     ```
 
-    Replace myenv with the name you want to give to your environment.
+    (Replace myenv with the name you want to give to your environment)
 
-    Then you can install your package in the myenv environment:
+    Then you can to run the following commands:
 
-    `conda install -n myenv convert-pheno`
+    ```bash
+    conda install gcc_linux-64
+    conda install -c anaconda perl
+    conda install -c bioconda perl-perlio-gzip perl-app-cpanminus
+    cpanm --notest Convert::Pheno
+    ```
+
+    You can execute `Convert::Pheno` *CLI*  by typing:
+
+    `convert-pheno --help`
+
+    To deactivate:
+   
+    `conda deactivate -n myenv`
+   
