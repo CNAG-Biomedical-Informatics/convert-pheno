@@ -137,7 +137,10 @@ sub get_metaData {
 
     # Setting a few variables
     my $user = $self->{username};
-    chomp( my $ncpuhost = qx{/usr/bin/nproc} ) // 1;
+
+    # NB: Darwin does not have nproc to show #logical-cores, using sysctl instead
+    chomp( my $os = qx{uname} );
+    chomp( my $ncpuhost = $os eq 'Darwin' ? qx{/usr/sbin/sysctl -n hw.logicalcpu} : qx{/usr/bin/nproc} // 1 );
     $ncpuhost = 0 + $ncpuhost;    # coercing it to be a number
     my $info = {
         user            => $user,
