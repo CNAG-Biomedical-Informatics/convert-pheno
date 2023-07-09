@@ -2,8 +2,15 @@ Revision history for Perl distribution Convert-Pheno
 
 NOTE: All versions prior to 0.10 were used for testing deployment via CPAN.
 
+0.12_dev 2023-07-09T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
+
+ - Reverted change in Makefile.PL for 'IO::Socket::SSL'
+ - IO::Socker::SSL only is used in if installed
+ - Modified Python binding to work in Conda env
+
 0.11  2023-07-09T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
  - Uncommented 'IO::Socket::SSL' in Makefile.PL to pass self-validation of mapping schema in t/
+ - Changed cnag.crg.eu to cnag.eu
  
 0.10  2023-07-03T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
  - Added share/db/{omim,hpo}.db SQLite databases

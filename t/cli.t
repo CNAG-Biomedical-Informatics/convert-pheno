@@ -29,7 +29,6 @@ my $input = {
         redcap_dictionary =>
 't/redcap2bff/in/redcap_dictionary.csv',
         mapping_file         => 't/redcap2bff/in/redcap_mapping.yaml',
-        self_validate_schema => 1,                                           # SELF-VALIDATE-SCHEMA (OK - ONLY ONCE)
         sep                  => undef,
         out                  => 't/redcap2bff/out/individuals.json'
     },
@@ -89,7 +88,7 @@ for my $method ( sort keys %{$input} ) {
             : [],
             redcap_dictionary    => $input->{$method}{redcap_dictionary},
             mapping_file         => $input->{$method}{mapping_file},
-            self_validate_schema => $input->{$method}{self_validate_schema},
+            self_validate_schema => 0,
             schema_file          => 'share/schema/mapping.json',
             in_textfile          => 1,
             stream               => 0,

@@ -1,5 +1,5 @@
 !!! Info "Where should I install it?"
-    `Convert-Pheno` is a software that must be installed **locally** in a Linux server/workstation. 
+    `Convert-Pheno` is a software that must be installed **locally** in a Linux (or MacOS) server/workstation. 
 
 We provide several alternatives (containerized and non-containerized) for download and installation.
 
@@ -83,9 +83,8 @@ We provide several alternatives (containerized and non-containerized) for downlo
     Then you can to run the following commands:
 
     ```bash
-    conda install gcc_linux-64
-    conda install -c anaconda perl
-    conda install -c bioconda perl-perlio-gzip perl-app-cpanminus
+    conda install -c conda-forge gcc_linux-64 perl perl-app-cpanminus
+    conda install -c bioconda perl-perlio-gzip
     cpanm --notest Convert::Pheno
     ```
 
@@ -96,4 +95,31 @@ We provide several alternatives (containerized and non-containerized) for downlo
     To deactivate:
    
     `conda deactivate -n myenv`
-   
+
+    ### Optional: Using Convert::Pheno `Perl` module in `Python`
+
+    First we will download and install `PyPerler`
+
+    ```bash
+    git clone https://github.com/tkluck/pyperler
+    cd pyperler
+    make install 2> install.log
+    ```
+
+    Now you should be able to execute this file:
+
+    `~/miniconda3/envs/myenv/lib/perl5/site_perl/auto/share/dist/Convert-Pheno/ex/python.py` 
+
+    This is the expected output:
+ 
+    ```json
+    {
+    "id": "P0007500",
+    "sex": {
+        "id": "NCIT:C16576",
+        "label": "Female"
+          }
+    }
+    ```
+
+    Feel free to copy that file and use for your own purposes.

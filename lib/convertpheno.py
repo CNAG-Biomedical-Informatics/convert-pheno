@@ -30,7 +30,9 @@ class PythonBinding:
         # We have to provide the path to <convert-pheno/lib>
         bindir = pathlib.Path(__file__).resolve().parent
         lib_str = "lib '" + str(bindir) + "'"
+        lib_str_conda = "lib '" + str(bindir) + '/lib/perl5/site_perl/' + "'" # conda
         i.use(lib_str)
+        i.use(lib_str_conda)
 
         # Load the module
         CP = i.use('Convert::Pheno')

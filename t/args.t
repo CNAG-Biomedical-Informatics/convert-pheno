@@ -14,14 +14,15 @@ use Convert::Pheno;
 
 use_ok('Convert::Pheno') or exit;
 
+use constant HAS_IO_SOCKET_SSL => defined eval { require IO::Socket::SSL };
+
 my $input = {
     redcap2bff => {
-        in_file           => 't/redcap2bff/in/redcap_data.csv',
-        redcap_dictionary =>
-'t/redcap2bff/in/redcap_dictionary.csv',
+        in_file              => 't/redcap2bff/in/redcap_data.csv',
+        redcap_dictionary    => 't/redcap2bff/in/redcap_dictionary.csv',
         mapping_file         => 't/redcap2bff/in/redcap_mapping.yaml',
         schema_file          => 'share/schema/mapping.json',
-        self_validate_schema => 1,       # SELF-VALIDATE-SCHEMA (OK - ONLY ONCE)
+        self_validate_schema => HAS_IO_SOCKET_SSL + 0,
         sep                  => undef,
         out                  => 't/redcap2bff/out/individuals.json'
     }
@@ -54,7 +55,6 @@ for my $method ( sort keys %{$input} ) {
             search               => 'exact',
             verbose              => 1,
             method               => $method
-
         }
     );
     io_yaml_or_json(
@@ -88,7 +88,9 @@ for my $method ( sort keys %{$input} ) {
                 redcap_dictionary => $input->{$method}{redcap_dictionary},
                 mapping_file      => $err eq 'ERR2' ? 'dummy'
                 : $input->{$method}{mapping_file},
-                self_validate_schema => $err eq 'ERR4' ? 1 : 0,
+                self_validate_schema =>
+                  ( $err eq 'ERR4' && HAS_IO_SOCKET_SSL ) ? 1
+                : 0,
                 schema_file => $err eq 'ERR4' ? 't/schema/malformed.json'
                 : $input->{$method}{schema_file},
                 in_textfile => 1,
@@ -116,7 +118,7 @@ for my $method ( sort keys %{$input} ) {
             ],
         }
     };
-    my $method  = 'omop2bff';
+    my $method = 'omop2bff';
 
     # Create Temporary file
     my ( undef, $tmp_file ) =
@@ -128,9 +130,9 @@ for my $method ( sort keys %{$input} ) {
             in_textfile => 1,
             search      => 'exact',
             stream      => 0,
-            out_file             => $tmp_file,
+            out_file    => $tmp_file,
             omop_tables => [],
-            ohdsi_db    => 1,        # Need ohdsi_db as we deal with few rows
+            ohdsi_db    => 1,                             # Need ohdsi_db as we deal with few rows
             method      => $method
         }
     );

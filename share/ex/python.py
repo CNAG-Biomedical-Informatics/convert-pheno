@@ -15,6 +15,7 @@
 import json
 import sys
 sys.path.append('../../lib/')
+sys.path.append('lib/perl5/site_perl/')
 from convertpheno import PythonBinding
 
 
