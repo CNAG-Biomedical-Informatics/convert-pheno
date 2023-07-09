@@ -295,7 +295,7 @@ Rueda, M et al., (2023). Convert-Pheno: A software toolkit for the interconversi
 
 # AUTHOR 
 
-Written by Manuel Rueda, PhD. Info about CNAG can be found at [https://www.cnag.crg.eu](https://www.cnag.crg.eu).
+Written by Manuel Rueda, PhD. Info about CNAG can be found at [https://www.cnag.eu](https://www.cnag.eu).
 
 # COPYRIGHT AND LICENSE
 

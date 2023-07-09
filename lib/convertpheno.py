@@ -9,7 +9,7 @@ __credits__ = ["None"]
 __license__ = "Artistic License 2.0"
 __version__ = "0.0.0_beta"
 __maintainer__ = "Manuel Rueda"
-__email__ = "manuel.rueda@cnag.crg.eu"
+__email__ = "manuel.rueda@cnag.eu"
 __status__ = "Production"
 
 

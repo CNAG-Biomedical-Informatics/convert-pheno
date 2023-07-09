@@ -8,7 +8,7 @@
 #
 #   $VERSION taken from Convert::Pheno
 #
-#   Copyright (C) 2022-2023 Manuel Rueda - CNAG (manuel.rueda@cnag.crg.eu)
+#   Copyright (C) 2022-2023 Manuel Rueda - CNAG (manuel.rueda@cnag.eu)
 #
 #   License: Artistic License 2.0
 
@@ -615,7 +615,7 @@ Rueda, M et al., (2023). Convert-Pheno: A software toolkit for the interconversi
 
 =head1 AUTHOR 
 
-Written by Manuel Rueda, PhD. Info about CNAG can be found at L<https://www.cnag.crg.eu>.
+Written by Manuel Rueda, PhD. Info about CNAG can be found at L<https://www.cnag.eu>.
 
 =head1 COPYRIGHT AND LICENSE
 

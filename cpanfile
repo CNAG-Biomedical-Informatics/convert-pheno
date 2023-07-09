@@ -14,6 +14,7 @@ requires 'DBD::SQLite';
 requires 'Mojolicious::Lite';
 requires 'XML::Fast';
 requires 'JSON::Validator';
+requires 'IO::Socket::SSL';
 requires 'Types::Standard';
 requires 'File::ShareDir::ProjectDistDir';
 
@@ -25,6 +26,5 @@ requires 'PerlIO::gzip';
 #requires 'Inline::Python';      # for t/protobuff.t (only local dev)
 
 # api
-requires 'IO::Socket::SSL';
 requires 'Mojolicious::Plugin::OpenAPI';
 #requires 'Future::AsyncAwait';  # for async/wait     

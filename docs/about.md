@@ -1,4 +1,4 @@
-**Convert-Pheno** has been developed at [CNAG](https://cnag.crg.eu), Barcelona, Spain.
+**Convert-Pheno** has been developed at [CNAG](https://cnag.eu), Barcelona, Spain.
 
 ## Developers
 
@@ -20,7 +20,7 @@
 === "CNAG"
 
     * [Ivo G. Gut](https://scholar.google.com/citations?user=YKdDEVYAAAAJ)
-    * [Davide Piscia](https://github.com/dpiscia) and his [team](https://www.cnag.crg.eu/teams/bioinformatics-unit/data-platforms-and-tools-development)
+    * [Davide Piscia](https://github.com/dpiscia) and his [team](https://www.cnag.eu/teams/bioinformatics-unit/data-platforms-and-tools-development)
     * [Sofia Chaves](https://fiichaves.com) - Design and UX
 
 === "External"

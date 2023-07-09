@@ -2,7 +2,7 @@ FROM ubuntu
 #FROM perl:5.36-bullseye # Build fails with PyPerler
 
 # File Author / Maintainer
-MAINTAINER Manuel Rueda <manuel.rueda@cnag.crg.eu>
+MAINTAINER Manuel Rueda <manuel.rueda@cnag.eu>
 
 # Install Linux tools
 RUN apt-get update && \

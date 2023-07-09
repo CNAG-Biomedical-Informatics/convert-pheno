@@ -764,7 +764,7 @@ Rueda, M. et al. "Convert-Pheno: A software toolkit for the interconversion of s
 
 =head1 AUTHOR
 
-Written by Manuel Rueda, PhD. Info about CNAG can be found at L<https://www.cnag.crg.eu>.
+Written by Manuel Rueda, PhD. Info about CNAG can be found at L<https://www.cnag.eu>.
 
 =head1 METHODS
 
