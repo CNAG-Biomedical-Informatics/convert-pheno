@@ -10,7 +10,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/CNAG-Biomedical-Informatics/convert-pheno/badge.svg?branch=main)](https://coveralls.io/github/CNAG-Biomedical-Informatics/convert-pheno?branch=main)
 [![CPAN Publish](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/cpan-publish.yml/badge.svg)](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/cpan-publish.yml)
 [![Kwalitee Score](https://cpants.cpanauthors.org/dist/Convert-Pheno.svg)](https://cpants.cpanauthors.org/dist/Convert-Pheno)
-![version](https://img.shields.io/badge/version-0.11_1_beta-orange)
+![version](https://img.shields.io/badge/version-0.12_beta-orange)
 [![Docker Build](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/docker-build.yml/badge.svg)](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/docker-build.yml)
 [![Docker Pulls](https://badgen.net/docker/pulls/manuelrueda/convert-pheno?icon=docker&label=pulls)](https://hub.docker.com/r/manuelrueda/convert-pheno/)
 [![Docker Image Size](https://badgen.net/docker/size/manuelrueda/convert-pheno?icon=docker&label=image%20size)](https://hub.docker.com/r/manuelrueda/convert-pheno/)
@@ -66,7 +66,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
        -rcd|redcap-dictionary         REDCap data dictionary CSV file
        -schema-file                   Alternative JSON Schema for mapping file
        -search                        Type of search [>exact|mixed]
-       -svs|self-validate-schema      Perform a self-validation of the JSON schema that defines mapping
+       -svs|self-validate-schema      Perform a self-validation of the JSON schema that defines mapping (requires IO::Socket::SSL)
        -sep|separator                 Delimiter character for CSV files [;] e.g., --sep $'\t'
        -stream                        Enable incremental processing with -iomop and -obff [>no-stream|stream]
        -sql2csv                       Print SQL TABLES (only valid with -iomop). Mutually exclusive with --stream
@@ -158,7 +158,7 @@ Then I will do something like this:
 
 ## Non containerized
 
-The script runs on command-line Linux and it has been tested on Debian/RedHat based distributions (only showing commands for Debian's). Perl 5 is installed by default on Linux, 
+The script runs on command-line Linux and it has been tested on Debian/RedHat/MacOS based distributions (only showing commands for Debian's). Perl 5 is installed by default on Linux, 
 but we will install a few CPAN modules with `cpanminus`.
 
 ### From Github

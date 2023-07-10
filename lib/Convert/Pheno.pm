@@ -34,7 +34,7 @@ our @EXPORT = qw($VERSION io_yaml_or_json omop2bff_stream_processing share_dir);
 use constant DEVEL_MODE => 0;
 
 # Global variables:
-our $VERSION  = '0.11_1';
+our $VERSION  = '0.12';
 our $share_dir = dist_dir('Convert-Pheno');
 
 ############################################
@@ -760,7 +760,7 @@ L<https://github.com/CNAG-Biomedical-Informatics/convert-pheno#readme>
 
 The author requests that any published work that utilizes C<Convert-Pheno> includes a cite to the the following reference:
 
-Rueda, M. et al. "Convert-Pheno: A software toolkit for the interconversion of standard data models for phenotypic data". (2013), I<Manuscript in preparation>.
+Rueda, M. et al. "Convert-Pheno: A software toolkit for the interconversion of standard data models for phenotypic data". (2013), I<Submitted>.
 
 =head1 AUTHOR
 

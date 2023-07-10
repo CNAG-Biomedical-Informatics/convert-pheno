@@ -381,7 +381,7 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
        -rcd|redcap-dictionary         REDCap data dictionary CSV file
        -schema-file                   Alternative JSON Schema for mapping file
        -search                        Type of search [>exact|mixed]
-       -svs|self-validate-schema      Perform a self-validation of the JSON schema that defines mapping
+       -svs|self-validate-schema      Perform a self-validation of the JSON schema that defines mapping (requires IO::Socket::SSL)
        -sep|separator                 Delimiter character for CSV files [;] e.g., --sep $'\t'
        -stream                        Enable incremental processing with -iomop and -obff [>no-stream|stream]
        -sql2csv                       Print SQL TABLES (only valid with -iomop). Mutually exclusive with --stream
@@ -474,7 +474,7 @@ Then I will do something like this:
 
 =head2 Non containerized
 
-The script runs on command-line Linux and it has been tested on Debian/RedHat based distributions (only showing commands for Debian's). Perl 5 is installed by default on Linux, 
+The script runs on command-line Linux and it has been tested on Debian/RedHat/MacOS based distributions (only showing commands for Debian's). Perl 5 is installed by default on Linux, 
 but we will install a few CPAN modules with C<cpanminus>.
 
 =head3 From Github

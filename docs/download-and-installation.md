@@ -85,6 +85,7 @@ We provide several alternatives (containerized and non-containerized) for downlo
     ```bash
     conda install -c conda-forge gcc_linux-64 perl perl-app-cpanminus
     conda install -c bioconda perl-perlio-gzip
+    #conda install -c bioconda perl-mac-systemdirectory # (MacOS only)
     cpanm --notest Convert::Pheno
     ```
 
