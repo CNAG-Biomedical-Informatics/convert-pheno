@@ -538,7 +538,7 @@ B<Option 3:> Install Convert-Pheno and the dependencies in a "virtual environmen
 =head3 System requirements
 
   * Ideally a Debian-based distribution (Ubuntu or Mint), but any other (e.g., CentOs, OpenSuse) should do as well.
-  * Perl 5 (>= 5.10 core; installed by default in most Linux distributions). Check the version with "perl -v".
+  * Perl 5 (>= 5.26 core; installed by default in most Linux distributions). Check the version with "perl -v".
   * >= 4GB of RAM
   * 1 core
   * At least 16GB HDD

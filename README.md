@@ -10,7 +10,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/CNAG-Biomedical-Informatics/convert-pheno/badge.svg?branch=main)](https://coveralls.io/github/CNAG-Biomedical-Informatics/convert-pheno?branch=main)
 [![CPAN Publish](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/cpan-publish.yml/badge.svg)](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/cpan-publish.yml)
 [![Kwalitee Score](https://cpants.cpanauthors.org/dist/Convert-Pheno.svg)](https://cpants.cpanauthors.org/dist/Convert-Pheno)
-![version](https://img.shields.io/badge/version-0.12_beta-orange)
+![version](https://img.shields.io/badge/version-0.11_2_beta-orange)
 [![Docker Build](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/docker-build.yml/badge.svg)](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/docker-build.yml)
 [![Docker Pulls](https://badgen.net/docker/pulls/manuelrueda/convert-pheno?icon=docker&label=pulls)](https://hub.docker.com/r/manuelrueda/convert-pheno/)
 [![Docker Image Size](https://badgen.net/docker/size/manuelrueda/convert-pheno?icon=docker&label=image%20size)](https://hub.docker.com/r/manuelrueda/convert-pheno/)
@@ -222,7 +222,7 @@ Now you have two choose between one of the 3 options below:
 ### System requirements
 
     * Ideally a Debian-based distribution (Ubuntu or Mint), but any other (e.g., CentOs, OpenSuse) should do as well.
-    * Perl 5 (>= 5.10 core; installed by default in most Linux distributions). Check the version with "perl -v".
+    * Perl 5 (>= 5.26 core; installed by default in most Linux distributions). Check the version with "perl -v".
     * >= 4GB of RAM
     * 1 core
     * At least 16GB HDD
