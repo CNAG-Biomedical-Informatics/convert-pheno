@@ -4,7 +4,7 @@ Revision history for Perl distribution Convert-Pheno
 
  - Changed getpwuid to $ENV{'USERNAME'} to make it Windows compatible
 
-0.11_2 2023-07-09T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
+0.11_2 2023-07-10T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
  - Modified Python binding to work in Conda env
  - Increased Perl version from 5.16 to 5.26
