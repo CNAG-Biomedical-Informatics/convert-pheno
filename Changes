@@ -1,8 +1,12 @@
 Revision history for Perl distribution Convert-Pheno
 
+0.11_4 2023-07-17T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
+
+ - Modified t/args.t to make it 'MSWin32' and 'cygwin' compatible
+
 0.11_3 2023-07-17T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
- - Changed getpwuid to $ENV{'USERNAME'} to make it Windows compatible
+ - Changed getpwuid to $ENV{'USERNAME'} to make 'MSWin32' compatible
 
 0.11_2 2023-07-10T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 

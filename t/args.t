@@ -14,7 +14,10 @@ use Convert::Pheno;
 
 use_ok('Convert::Pheno') or exit;
 
+# NB: Define constants to allows pass tests
 use constant HAS_IO_SOCKET_SSL => defined eval { require IO::Socket::SSL };
+use constant IS_WINDOWS        => $^O eq 'MSWin32' || $^O eq 'cygwin';
+my $SELF_VALIDATE = IS_WINDOWS ? 0 : HAS_IO_SOCKET_SSL ? 1 : 0;
 
 my $input = {
     redcap2bff => {
@@ -22,7 +25,7 @@ my $input = {
         redcap_dictionary    => 't/redcap2bff/in/redcap_dictionary.csv',
         mapping_file         => 't/redcap2bff/in/redcap_mapping.yaml',
         schema_file          => 'share/schema/mapping.json',
-        self_validate_schema => HAS_IO_SOCKET_SSL + 0,
+        self_validate_schema => $SELF_VALIDATE,
         sep                  => undef,
         out                  => 't/redcap2bff/out/individuals.json'
     }
@@ -88,8 +91,7 @@ for my $method ( sort keys %{$input} ) {
                 redcap_dictionary => $input->{$method}{redcap_dictionary},
                 mapping_file      => $err eq 'ERR2' ? 'dummy'
                 : $input->{$method}{mapping_file},
-                self_validate_schema =>
-                  ( $err eq 'ERR4' && HAS_IO_SOCKET_SSL ) ? 1
+                self_validate_schema => ( $err eq 'ERR4' && $SELF_VALIDATE ) ? 1
                 : 0,
                 schema_file => $err eq 'ERR4' ? 't/schema/malformed.json'
                 : $input->{$method}{schema_file},
