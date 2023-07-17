@@ -3,7 +3,7 @@ package Convert::Pheno;
 use strict;
 use warnings;
 use autodie;
-use feature qw(say);
+use feature               qw(say);
 use File::Spec::Functions qw(catdir catfile);
 use Data::Dumper;
 use Path::Tiny;
@@ -13,8 +13,9 @@ use List::Util qw(any uniq);
 use Carp       qw(confess);
 use XML::Fast;
 use Moo;
-use Types::Standard qw(Str Int Num Enum ArrayRef Undef);
+use Types::Standard                qw(Str Int Num Enum ArrayRef Undef);
 use File::ShareDir::ProjectDistDir qw(dist_dir);
+
 #use Devel::Size     qw(size total_size);
 use Convert::Pheno::CSV;
 use Convert::Pheno::IO;
@@ -27,14 +28,15 @@ use Convert::Pheno::CDISC;
 use Convert::Pheno::REDCap;
 
 use Exporter 'import';
-our @EXPORT = qw($VERSION io_yaml_or_json omop2bff_stream_processing share_dir);    # Symbols imported by default
+our @EXPORT =
+  qw($VERSION io_yaml_or_json omop2bff_stream_processing share_dir);    # Symbols imported by default
 
 #our @EXPORT_OK = qw(foo bar);       # Symbols imported by request
 
 use constant DEVEL_MODE => 0;
 
 # Global variables:
-our $VERSION  = '0.11_2';
+our $VERSION   = '0.11_2';
 our $share_dir = dist_dir('Convert-Pheno');
 
 ############################################
@@ -71,10 +73,11 @@ has min_text_similarity_score => (
 
 has username => (
 
-    default => ( $ENV{LOGNAME} || $ENV{USER} || getpwuid($<) ),
+    #default => ( $ENV{LOGNAME} || $ENV{USER} || getpwuid($<) ) , # getpwuid not implemented in Windows
+    default => ( $ENV{'LOGNAME'} || $ENV{'USER'} || $ENV{'USERNAME'} ),
     is      => 'ro',
     coerce  => sub {
-        $_[0] // ( $ENV{LOGNAME} || $ENV{USER} || getpwuid($<) );
+        $_[0] // ( $ENV{'LOGNAME'} || $ENV{'USER'} || $ENV{'USERNAME'} );
     },
     isa => Str
 );
@@ -103,7 +106,7 @@ has omop_tables => (
 has exposures_file => (
 
     default =>
-      catfile( $share_dir, 'db','/concepts_candidates_2_exposure.csv' ),
+      catfile( $share_dir, 'db', '/concepts_candidates_2_exposure.csv' ),
     coerce => sub {
         $_[0]
           // catfile( $share_dir, 'db', 'concepts_candidates_2_exposure.csv' );
@@ -180,7 +183,7 @@ sub redcap2bff {
 
     # Load data in $self
     $self->{data}              = $data;                 # Dynamically adding attributes (setter)
-    $self->{data_redcap_dict}   = $data_redcap_dict;      # Dynamically adding attributes (setter)
+    $self->{data_redcap_dict}  = $data_redcap_dict;     # Dynamically adding attributes (setter)
     $self->{data_mapping_file} = $data_mapping_file;    # Dynamically adding attributes (setter)
 
     # array_dispatcher will deal with JSON arrays
@@ -488,7 +491,7 @@ sub cdisc2bff {
 
     # Load data in $self
     $self->{data}              = $data;                 # Dynamically adding attributes (setter)
-    $self->{data_redcap_dict}   = $data_redcap_dict;      # Dynamically adding attributes (setter)
+    $self->{data_redcap_dict}  = $data_redcap_dict;     # Dynamically adding attributes (setter)
     $self->{data_mapping_file} = $data_mapping_file;    # Dynamically adding attributes (setter)
 
     # array_dispatcher will deal with JSON arrays

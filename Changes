@@ -1,12 +1,18 @@
 Revision history for Perl distribution Convert-Pheno
 
-NOTE: All versions prior to 0.10 were used for testing deployment via CPAN.
+0.11_3 2023-07-17T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
-0.12_dev 2023-07-09T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
+ - Changed getpwuid to $ENV{'USERNAME'} to make it Windows compatible
+
+0.11_2 2023-07-09T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
+
+ - Modified Python binding to work in Conda env
+ - Increased Perl version from 5.16 to 5.26
+
+0.11_1 2023-07-09T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
  - Reverted change in Makefile.PL for 'IO::Socket::SSL'
  - IO::Socker::SSL only is used in if installed
- - Modified Python binding to work in Conda env
 
 0.11  2023-07-09T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
  - Uncommented 'IO::Socket::SSL' in Makefile.PL to pass self-validation of mapping schema in t/
@@ -15,3 +21,5 @@ NOTE: All versions prior to 0.10 were used for testing deployment via CPAN.
 0.10  2023-07-03T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
  - Added share/db/{omim,hpo}.db SQLite databases
  - Modified source to accomodate such dbs
+
+NOTE: All versions prior to 0.10 were used for testing deployment via CPAN.
