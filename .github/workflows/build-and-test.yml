@@ -24,7 +24,7 @@ jobs:
         with:
           perl-version: ${{ matrix.perl }}
       - run: perl -V
-      - run: cpanm --installdeps .
+      - run: cpanm -n --installdeps .
       - run: prove -l t
       - name: Run tests (with coverage)
         if: ${{ matrix.perl }} == '5.30'
