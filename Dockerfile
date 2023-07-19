@@ -21,6 +21,7 @@ RUN cpanm --notest --installdeps .
 WORKDIR share/ex
 RUN git clone https://github.com/tkluck/pyperler
 WORKDIR pyperler
+RUN pip3 install --upgrade setuptools
 RUN make install 2>&1 install.log
 
 # Add user "dockeruser"
