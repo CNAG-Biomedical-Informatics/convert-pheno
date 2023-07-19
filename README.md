@@ -120,7 +120,7 @@ And then run:
 
 To run the container (detached) execute:
 
-    docker run -tid --name convert-pheno cnag/convert-pheno:latest
+    docker run -tid -e USERNAME=root --name convert-pheno cnag/convert-pheno:latest
 
 To enter:
 

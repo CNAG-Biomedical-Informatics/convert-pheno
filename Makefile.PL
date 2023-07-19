@@ -18,7 +18,7 @@ WriteMakefile(
         'dynamic_config' => 0,
         'meta-spec' => { version   => 0 },
         'no_index'  => { directory => [qw(docs t share/api)] },
-        'prereqs'   => { runtime   => { requires => { perl => '5.0261' } } },
+        'prereqs'   => { runtime   => { requires => { perl => '5.026000' } } },
         'resources' => {
             bugtracker => { web => "$GITHUB_URL/issues" },
             homepage   => $GITHUB_URL,

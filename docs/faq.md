@@ -102,9 +102,9 @@ Frequently Asked Questions
     #### Problems with Python / PyPerler
 
     !!! Failure "About PyPerler installation"
-        Apart from [PypPerler](https://github.com/tkluck/pyperler#quick-install) itself, you may need to install `libperl-dev` to make it work.
+        Apart from [PypPerler](https://github.com/tkluck/pyperler#quick-install) itself, you may need to install `cython3` and `libperl-dev` to make it work.
 
-        `sudo apt-get install libperl-dev`
+        `sudo apt-get install cython3 libperl-dev`
 
 
     ##### last change 2023-01-04 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)

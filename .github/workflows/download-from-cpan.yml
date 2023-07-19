@@ -28,5 +28,5 @@ jobs:
         with:
           perl-version: ${{ matrix.perl }}
       - run: perl -V
-      - run: cpanm Convert::Pheno@${{ steps.get_version.outputs.VERSION }}
+      - run: cpanm -n Convert::Pheno@${{ steps.get_version.outputs.VERSION }}
       - run: prove -l t
