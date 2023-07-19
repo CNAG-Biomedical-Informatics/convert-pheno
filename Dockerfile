@@ -21,7 +21,7 @@ RUN cpanm --notest --installdeps .
 WORKDIR share/ex
 RUN git clone https://github.com/tkluck/pyperler
 WORKDIR pyperler
-RUN make install 2> install.log
+RUN make install 2>&1 install.log
 
 # Add user "dockeruser"
 ARG UID=1000
