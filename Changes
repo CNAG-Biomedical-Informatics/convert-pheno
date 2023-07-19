@@ -1,5 +1,9 @@
 Revision history for Perl distribution Convert-Pheno
 
+0.12 2023-07-19T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
+
+ - Pushing new version after passing all tests
+
 0.11_4 2023-07-17T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
  - Modified t/args.t to make it 'MSWin32' and 'cygwin' compatible
@@ -27,3 +31,4 @@ Revision history for Perl distribution Convert-Pheno
  - Modified source to accomodate such dbs
 
 NOTE: All versions prior to 0.10 were used for testing deployment via CPAN.
+

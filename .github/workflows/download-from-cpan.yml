@@ -1,4 +1,4 @@
-name: Conda build
+name: Download from CPAN
  
 on:
      workflow_dispatch
@@ -13,23 +13,20 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: ['macos-12']
-        perl: [ '5.34']
+        os: ['ubuntu-latest','macos-latest','macos-12']
+        perl: [ '5.30']
     name: Perl ${{ matrix.perl }} on ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
-      - name: Run tests (no coverage)
+
+      - name: Get version
+        id: get_version
+        run: echo "::set-output name=VERSION::$(cat VERSION)"
+
+      - name: Install and test (no coverage)
         uses: shogo82148/actions-setup-perl@v1
         with:
           perl-version: ${{ matrix.perl }}
       - run: perl -V
-      - run: cpanm --installdeps .
+      - run: cpanm Convert::Pheno@${{ steps.get_version.outputs.VERSION }}
       - run: prove -l t
-      - name: Run tests (with coverage)
-        if: ${{ matrix.perl }} == '5.30'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          perl Makefile.PL
-          cpanm -n Devel::Cover::Report::Coveralls
-          cover -test -report Coveralls
