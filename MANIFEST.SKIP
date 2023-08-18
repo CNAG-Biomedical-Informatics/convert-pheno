@@ -15,3 +15,6 @@
 ^MANIFEST\.SKIP
 ^MYMETA\.
 ^README\.md
+^\.git/
+^docs/
+^api/

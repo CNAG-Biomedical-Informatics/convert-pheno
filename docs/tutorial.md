@@ -21,7 +21,7 @@ This page provides brief tutorials on how to perform data conversion by using `C
     * Since REDCap projects are "free-format," a mapping file is necessary to connect REDCap project variables (i.e. fields) to something meaningful for `Convert-Pheno`. This mapping file will be used in the conversion process.
 
     !!! Question "What is a `Convert-Pheno` mapping file?"
-        A mapping file is a text file in [YAML](https://en.wikipedia.org/wiki/YAML) format ([JSON]((https://en.wikipedia.org/wiki/JSON) is also accepted) that connects a set of variables to a format that is understood by `Convert-Pheno`. This file maps your variables to the required **terms** of the [individuals](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema) entity from the Beacon v2 models, which serves a center model.
+        A mapping file is a text file in [YAML](https://en.wikipedia.org/wiki/YAML) format ([JSON](https://en.wikipedia.org/wiki/JSON) is also accepted) that connects a set of variables to a format that is understood by `Convert-Pheno`. This file maps your variables to the required **terms** of the [individuals](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema) entity from the Beacon v2 models, which serves a center model.
 
     ### Creating a mapping file
 
@@ -37,7 +37,7 @@ This page provides brief tutorials on how to perform data conversion by using `C
         - **map**, is an `object` in the form of `key: value` that we use to map our Beacon v2 objects to REDCap variables. For instance, you may have a field named `age_first_diagnosis` that it's called `ageOgOnset` on Beacon v2. In this case you will use `ageOfOnset: age_first_diagnosis`.
         - **dict**, is an `object` in the form of `key: value`. The `key` represents the original variable name in REDCap and the `value` represents the "phrase" that will be used to query a database to find an ontology candidate. For instance, you may have a variable named `cigarettes_days`, but you know that in [NCIT](https://www.ebi.ac.uk/ols/ontologies/ncit) the label is `Average Number Cigarettes Smoked a Day`. In this case you will use `cigarettes_days: Average Number Cigarettes Smoked a Day`.
         - **radio**, a nested `object` value with specific mappings.
-        - **ontology**, it's an string to define more granularly the ontology for this particular Beacon v2 term. If not present, the script will use that from `project.ontology`.
+        - **ontology**, it's an `string` to define more granularly the ontology for this particular Beacon v2 term. If not present, the script will use that from `project.ontology`.
         - **routesOfAdministration**, an `array` with specific mappings for `treatments`.
 
     !!! Tip "Defining the values in the property `dict`"

@@ -67,10 +67,11 @@ sub add_labels {
     # Note that in $hoh (above) empty columns are  key = ''.
 
     # Premature return if empty ('' = 0)
-    return undef unless $value;
+    return undef unless $value;    # perlcritic Severity: 5
 
     # We'll skip values that don't provide even number of key-values
-    my @tmp = map { s/^\s//; s/\s+$//; $_; } ( split /\||,/, $value );
+    my @tmp = map { s/^\s//; s/\s+$//; $_; }
+      ( split /\||,/, $value );    # perlcritic Severity: 5
 
     # Return undef for non-valid entries
     return @tmp % 2 == 0 ? {@tmp} : undef;
@@ -106,45 +107,45 @@ sub transpose_ohdsi_dictionary {
     my $data   = shift;
     my $column = 'concept_id';
 
-    # The idea is the following:
-    # $data comes as an array (from SQL/CSV)
-    #
-    # $VAR1 = [
-    #          {
-    #            'concept_class_id' => '4-char billing code',
-    #            'concept_code' => 'K92.2',
-    #            'concept_id' => 35208414,
-    #            'concept_name' => 'Gastrointestinal hemorrhage, unspecified',
-    #            'domain_id' => 'Condition',
-    #            'invalid_reason' => undef,
-    #            'standard_concept' => undef,
-    #            'valid_end_date' => '2099-12-31',
-    #            'valid_start_date' => '2007-01-01',
-    #            'vocabulary_id' => 'ICD10CM'
-    #          },
-    #
-    # and we convert it to hash to allow for quick searches by 'concept_id'
-    #
-    # $VAR1 = {
-    #          '1107830' => {
-    #                         'concept_class_id' => 'Ingredient',
-    #                         'concept_code' => 28889,
-    #                         'concept_id' => 1107830,
-    #                         'concept_name' => 'Loratadine',
-    #                         'domain_id' => 'Drug',
-    #                         'invalid_reason' => undef,
-    #                         'standard_concept' => 'S',
-    #                         'valid_end_date' => '2099-12-31',
-    #                         'valid_start_date' => '1970-01-01',
-    #                         'vocabulary_id' => 'RxNorm'
-    #                         },
-    #
-    # NB: We store all columns yet we'll use 4:
-    # 'concept_id', 'concept_code', 'concept_name', 'vocabulary_id'
-    # Note that we're duplicating @$data with $hoh
-    #my $hoh = { map { $_->{$column} => $_ } @{$data} }; <--map is slower than for
+  # The idea is the following:
+  # $data comes as an array (from SQL/CSV)
+  #
+  # $VAR1 = [
+  #          {
+  #            'concept_class_id' => '4-char billing code',
+  #            'concept_code' => 'K92.2',
+  #            'concept_id' => 35208414,
+  #            'concept_name' => 'Gastrointestinal hemorrhage, unspecified',
+  #            'domain_id' => 'Condition',
+  #            'invalid_reason' => undef,
+  #            'standard_concept' => undef,
+  #            'valid_end_date' => '2099-12-31',
+  #            'valid_start_date' => '2007-01-01',
+  #            'vocabulary_id' => 'ICD10CM'
+  #          },
+  #
+  # and we convert it to hash to allow for quick searches by 'concept_id'
+  #
+  # $VAR1 = {
+  #          '1107830' => {
+  #                         'concept_class_id' => 'Ingredient',
+  #                         'concept_code' => 28889,
+  #                         'concept_id' => 1107830,
+  #                         'concept_name' => 'Loratadine',
+  #                         'domain_id' => 'Drug',
+  #                         'invalid_reason' => undef,
+  #                         'standard_concept' => 'S',
+  #                         'valid_end_date' => '2099-12-31',
+  #                         'valid_start_date' => '1970-01-01',
+  #                         'vocabulary_id' => 'RxNorm'
+  #                         },
+  #
+  # NB: We store all columns yet we'll use 4:
+  # 'concept_id', 'concept_code', 'concept_name', 'vocabulary_id'
+  # Note that we're duplicating @$data with $hoh
+  #my $hoh = { map { $_->{$column} => $_ } @{$data} }; <--map is slower than for
     my $hoh;
-    for my $item (@{$data}) {
+    for my $item ( @{$data} ) {
         $hoh->{ $item->{$column} } = $item;
     }
 
@@ -555,19 +556,20 @@ sub transpose_visit_occurrence {
     #        }
     #      ];
 
-    # To
-    #$VAR1 = {
-    #        '85' => {
-    #                  'admitting_source_concept_id' => 0,
-    #                  'visit_occurrence_id' => 85,
-    #                  ...
-    #                }
-    #      };
-    #my $hash = { map { $_->{visit_occurrence_id} => $_ } @$data }; # map is slower than for
+# To
+#$VAR1 = {
+#        '85' => {
+#                  'admitting_source_concept_id' => 0,
+#                  'visit_occurrence_id' => 85,
+#                  ...
+#                }
+#      };
+#my $hash = { map { $_->{visit_occurrence_id} => $_ } @$data }; # map is slower than for
     my $hash;
     for my $item (@$data) {
-         my $key = $item->{visit_occurrence_id}; # otherwise $item->{visit_occurrence_id} goes from Int to Str in JSON and tests fail
-         $hash->{$key} = $item;
+        my $key = $item->{visit_occurrence_id}
+          ; # otherwise $item->{visit_occurrence_id} goes from Int to Str in JSON and tests fail
+        $hash->{$key} = $item;
     }
     return $hash;
 }
@@ -604,7 +606,7 @@ sub read_csv {
 
     # Coercing the data before returning it
     for my $item (@$aoh) {
-        for my $key (keys %{$item}) {
+        for my $key ( keys %{$item} ) {
             $item->{$key} = dotify_and_coerce_number( $item->{$key} );
         }
     }

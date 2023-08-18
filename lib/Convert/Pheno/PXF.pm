@@ -51,7 +51,7 @@ sub do_pxf2bff {
     # ========
 
     $individual->{diseases} =
-      [ map { $_ = { diseaseCode => $_->{term} } }
+      [ map { my $val = $_; { diseaseCode => $val->{term} } }
           @{ $phenopacket->{diseases} } ]
       if exists $phenopacket->{diseases};
 
@@ -138,9 +138,12 @@ sub get_metaData {
     # Setting a few variables
     my $user = $self->{username};
 
-    # NB: Darwin does not have nproc to show #logical-cores, using sysctl instead
+   # NB: Darwin does not have nproc to show #logical-cores, using sysctl instead
     chomp( my $os = qx{uname} );
-    chomp( my $ncpuhost = $os eq 'Darwin' ? qx{/usr/sbin/sysctl -n hw.logicalcpu} : qx{/usr/bin/nproc} // 1 );
+    chomp( my $ncpuhost =
+          $os eq 'Darwin'
+        ? qx{/usr/sbin/sysctl -n hw.logicalcpu}
+        : qx{/usr/bin/nproc} // 1 );
     $ncpuhost = 0 + $ncpuhost;    # coercing it to be a number
     my $info = {
         user            => $user,

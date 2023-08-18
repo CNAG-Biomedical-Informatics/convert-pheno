@@ -216,7 +216,8 @@ sub get_ontology {
     #    2 - contains
     #       for which we rank by similarity w/ Text:Similarity
 
-    my $default_id    = uc($ontology) . ':NA0000';
+    my $default_id =
+      $ontology eq 'hpo' ? 'HP:NA0000' : uc($ontology) . ':NA0000';
     my $default_label = 'NA';
 
     # exact_match (always performed)
@@ -268,10 +269,10 @@ sub execute_query_SQLite {
     my $match                     = $arg->{match};
 
     # set $id and $label to undef
-    my ($id, $label) = (undef, undef);
+    my ( $id, $label ) = ( undef, undef );
 
-    # Premature return if $query eq '' 
-    return ($id, $label) if $query eq '';
+    # Premature return if $query eq ''
+    return ( $id, $label ) if $query eq '';
 
 #  Columns in DBs
 #     *<ncit.db>, <icd10.db> and <cdisc.db> were pre-processed to have "id" and "label" columns only
@@ -300,7 +301,7 @@ sub execute_query_SQLite {
 
     # NB: Order matters in the changes below
     $query =~ s/^\d+\s+\-\s+//;                            # for ALL SEARCHES!!!
-    $query =~ tr#_,-/# # if $match eq 'full_text_search';   # FTS
+    $query =~ tr#_,-/# # if $match eq 'full_text_search';  # FTS
     $query =~
       tr/ //s;    # remove duplicated spaces            # for ALL SEARCHES!!!
 
@@ -309,6 +310,10 @@ sub execute_query_SQLite {
       ;           # docstore.mik.ua/orelly/linux/dbi/ch05_03.htm
     $sth->execute();    # eq to $sth->execute($query);
 
+    # Prune 'hpo' ontology for being printed as HP:
+    $ontology = 'hp' if $ontology eq 'hpo';
+
+    # Process depending on typf of match
     if ( $match eq 'exact_match' ) {
 
         # Parse query
