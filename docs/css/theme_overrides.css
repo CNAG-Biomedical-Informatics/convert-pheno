@@ -15,3 +15,12 @@ h3 {
     color: #888;
     text-decoration: underline;
 }
+
+.mermaid {
+    text-align: center;
+}
+
+.mermaid svg {
+    margin: auto;
+    display: block;
+}

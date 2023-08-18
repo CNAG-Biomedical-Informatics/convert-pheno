@@ -1,7 +1,5 @@
 # Supported formats
 
-<figure markdown>
-
 ```mermaid
 %%{init: {'theme':'neutral'}}%%
 graph LR
@@ -29,9 +27,7 @@ graph LR
   style E fill: #DDA0DD
   style E stroke: #DDA0DD
 ```
-
-  <figcaption>Convert-Pheno supported data conversions</figcaption>
-</figure>
+<figcaption>Convert-Pheno supported data conversions</figcaption>
 
 === "Input formats:"
 
@@ -58,7 +54,6 @@ graph LR
     !!! Hint "Why use Beacon v2 as target model?"
         The reason for selecting Beacon v2 Model as the target for the conversion is its **schema flexibility**, which allows for the inclusion of variables that may not be present in the original schema definition. In contrast, Phenopackets v2 has stricter schema requirements. This flexibility offered by Beacon v2 schemas enables us to handle a wider range of phenotypic data and accommodate **additional variables**, enhancing the utility and applicability of our tool.
 
-    <figure markdown>
     ```mermaid
     %%{init: {'theme':'neutral'}}%%
     graph LR
@@ -78,5 +73,4 @@ graph LR
       style D fill: #3CB371, stroke: #3CB371
       style E fill: #DDA0DD, stroke: #DDA0DD
     ```
-      <figcaption>Convert-Pheno internal mapping steps</figcaption>
-    </figure>
+    <figcaption>Convert-Pheno internal mapping steps</figcaption>
