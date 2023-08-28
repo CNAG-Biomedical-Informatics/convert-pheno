@@ -287,6 +287,7 @@ sub write_log {
     # NB: Darwin does not have nproc to show #logical-cores, using sysctl instead
     chomp( my $os = qx{uname} );
     chomp( my $ncpuhost = $os eq 'Darwin' ? qx{/usr/sbin/sysctl -n hw.logicalcpu} : qx{/usr/bin/nproc} // 1 );
+
     my $info = {
         date     => ( strftime "%a %b %e %H:%M:%S %Y", localtime ),
         ncpuhost => ( 0 + $ncpuhost ),                                # coercing it to be a number
@@ -557,15 +558,14 @@ A text file in one of the accepted formats. With C<--iomop> I/O files can be gzi
 
 Athena-OHDSI database
 
-The database file is available at this L<link|https://drive.google.com/drive/folders/104_Bgl3IxM3U6u-wn-1LUvNZXevD2DRm?usp=sharing> (~2.2GB). The database may be needed when using C<-iomop>.
+The database file is available at this L<link|https://drive.google.com/drive/folders/1-5Ywf-hhwb8bX1sRNV2Tf3EjH4TCaC8P?usp=sharing> (~2.2GB). The database may be needed when using C<-iomop>.
 
 Regardless if you're using the containerized or non-containerized version, the download procedure is the same. In Linux you can use C<wget>, C<curl> or C<aria2c>:
-
- $ wget 'https://drive.google.com/uc?export=download&id=104ciON3zRc3ScAzzrL_3GO14aCnBLh-c&confirm=t' -O ohdsi.db
+ $ wget 'https://drive.google.com/uc?export=download&id=1-Ls1nmgxp-iW-8LkRIuNNdNytXa8kgNw&confirm=t' -O ohdsi.db --no-check-certificate
  or
- $ curl -L 'https://drive.google.com/uc?export=download&id104ciON3zRc3ScAzzrL_3GO14aCnBLh-c' > ohdsi.db
+ $ curl -L 'https://drive.google.com/uc?export=download&id=1-Ls1nmgxp-iW-8LkRIuNNdNytXa8kgNw&confirm=t' > ohdsi.db
  or
- $ aria2c -x2 'https://drive.google.com/uc?export=download&id=104ciON3zRc3ScAzzrL_3GO14aCnBLh-c&confirm=t' -o ohdsi.db
+ $ aria2c -x2 'https://drive.google.com/uc?export=download&id=1-Ls1nmgxp-iW-8LkRIuNNdNytXa8kgNw&confirm=t' -o ohdsi.db
 
 (you can install C<wget>, C<curl> or C<aria2c> inside the container by typing C<sudo apt install wget>, C<sudo apt install curl> or C<sudo apt install aria2>.
 
