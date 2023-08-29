@@ -1,0 +1,10 @@
+#!/usr/bin/env make
+
+SHELL := /bin/bash
+
+install:
+	sudo apt-get install cpanminus libbz2-dev zlib1g-dev libperl-dev libssl-dev
+	cpanm --installdeps .	
+
+test:
+	prove -l
