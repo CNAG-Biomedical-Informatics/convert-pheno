@@ -244,11 +244,12 @@ For executing convert-pheno you will need:
     The database file is available at this [link](https://drive.google.com/drive/folders/1-5Ywf-hhwb8bX1sRNV2Tf3EjH4TCaC8P?usp=sharing) (~2.2GB). The database may be needed when using `-iomop`.
 
     Regardless if you're using the containerized or non-containerized version, the download procedure is the same. In Linux you can use `wget`, `curl` or `aria2c`:
-     $ wget 'https://drive.google.com/uc?export=download&id=1-Ls1nmgxp-iW-8LkRIuNNdNytXa8kgNw&confirm=t' -O ohdsi.db --no-check-certificate
-     or
-     $ curl -L 'https://drive.google.com/uc?export=download&id=1-Ls1nmgxp-iW-8LkRIuNNdNytXa8kgNw&confirm=t' > ohdsi.db
-     or
-     $ aria2c -x2 'https://drive.google.com/uc?export=download&id=1-Ls1nmgxp-iW-8LkRIuNNdNytXa8kgNw&confirm=t' -o ohdsi.db
+
+        $ wget 'https://drive.google.com/uc?export=download&id=1-Ls1nmgxp-iW-8LkRIuNNdNytXa8kgNw&confirm=t' -O ohdsi.db --no-check-certificate
+        or
+        $ curl -L 'https://drive.google.com/uc?export=download&id=1-Ls1nmgxp-iW-8LkRIuNNdNytXa8kgNw&confirm=t' > ohdsi.db
+        or
+        $ aria2c -x2 'https://drive.google.com/uc?export=download&id=1-Ls1nmgxp-iW-8LkRIuNNdNytXa8kgNw&confirm=t' -o ohdsi.db
 
     (you can install `wget`, `curl` or `aria2c` inside the container by typing `sudo apt install wget`, `sudo apt install curl` or `sudo apt install aria2`.
 

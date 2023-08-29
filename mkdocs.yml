@@ -12,7 +12,9 @@ extra_javascript: [js/theme_overrides.js]
 plugins:
   - search
   - macros
-  - mermaid2
+  - mermaid2:
+      arguments:
+        startOnLoad: true
 
 markdown_extensions:
     - toc:
@@ -101,7 +103,7 @@ theme:
         - content.tabs.link
         - search.highlight
         - search.share
-        - navigation.instant
+        # - navigation.instant # otherwise blocks rendering of mermaid on page load
         - navigation.tracking
         - navigation.sections
         - toc.integrate
@@ -109,8 +111,6 @@ theme:
 # Options
 extra:
   social:
-#    - icon: fontawesome/brands/twitter 
-#      link: https://twitter.com/genomebeacons
     - icon: fontawesome/brands/github 
       link: https://github.com/mrueda
 

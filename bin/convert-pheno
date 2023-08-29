@@ -561,6 +561,7 @@ Athena-OHDSI database
 The database file is available at this L<link|https://drive.google.com/drive/folders/1-5Ywf-hhwb8bX1sRNV2Tf3EjH4TCaC8P?usp=sharing> (~2.2GB). The database may be needed when using C<-iomop>.
 
 Regardless if you're using the containerized or non-containerized version, the download procedure is the same. In Linux you can use C<wget>, C<curl> or C<aria2c>:
+
  $ wget 'https://drive.google.com/uc?export=download&id=1-Ls1nmgxp-iW-8LkRIuNNdNytXa8kgNw&confirm=t' -O ohdsi.db --no-check-certificate
  or
  $ curl -L 'https://drive.google.com/uc?export=download&id=1-Ls1nmgxp-iW-8LkRIuNNdNytXa8kgNw&confirm=t' > ohdsi.db
