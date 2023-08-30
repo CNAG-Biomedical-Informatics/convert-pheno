@@ -1,4 +1,9 @@
 Revision history for Perl distribution Convert-Pheno
+0.12_1 xxxxx
+
+ - Added changes to documentation
+ - Excluded unnecessary files in CPAN via MANIFEST.SKIP
+ - Changed Google Drive location of ohdsi.db
 
 0.12 2023-07-19T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
@@ -20,7 +25,7 @@ Revision history for Perl distribution Convert-Pheno
 0.11_1 2023-07-09T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
  - Reverted change in Makefile.PL for 'IO::Socket::SSL'
- - IO::Socker::SSL only is used in if installed
+ - IO::Socker::SSL only is used if installed
 
 0.11  2023-07-09T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
  - Uncommented 'IO::Socket::SSL' in Makefile.PL to pass self-validation of mapping schema in t/

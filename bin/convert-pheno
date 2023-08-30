@@ -294,7 +294,7 @@ sub write_log {
         hostname => hostname,
         id       => time . substr( "00000$$", -5 ),                   # string
         version  => $VERSION,
-        user     =>  $ENV{'LOGNAME'} || $ENV{'USER'} || $ENV{'USERNAME'} 
+        user     =>  $ENV{'LOGNAME'} || $ENV{'USER'} || $ENV{'USERNAME'} || 'dummy-user' 
     };
 
     # Saving file

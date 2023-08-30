@@ -332,7 +332,7 @@ sub do_omop2bff {
 
     $individual->{id} = $person->{person_id};
 
-    # Forcing string w/o changing orig ref
+    # Forcing string w/o changing orig ref ($person)
     $individual->{id} = qq/$individual->{id}/;
 
     # ====

@@ -36,7 +36,7 @@ our @EXPORT =
 use constant DEVEL_MODE => 0;
 
 # Global variables:
-our $VERSION   = '0.12';
+our $VERSION   = '0.12_1';
 our $share_dir = dist_dir('Convert-Pheno');
 
 ############################################
@@ -74,10 +74,10 @@ has min_text_similarity_score => (
 has username => (
 
     #default => ( $ENV{LOGNAME} || $ENV{USER} || getpwuid($<) ) , # getpwuid not implemented in Windows
-    default => ( $ENV{'LOGNAME'} || $ENV{'USER'} || $ENV{'USERNAME'} ),
+    default => $ENV{'LOGNAME'} || $ENV{'USER'} || $ENV{'USERNAME'} || 'dummy-user',
     is      => 'ro',
     coerce  => sub {
-        $_[0] // ( $ENV{'LOGNAME'} || $ENV{'USER'} || $ENV{'USERNAME'} );
+        $_[0] // ( $ENV{'LOGNAME'} || $ENV{'USER'} || $ENV{'USERNAME'} || 'dummy-user' );
     },
     isa => Str
 );
