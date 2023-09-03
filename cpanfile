@@ -17,6 +17,7 @@ requires 'JSON::Validator';
 requires 'IO::Socket::SSL';
 requires 'Types::Standard';
 requires 'File::ShareDir::ProjectDistDir';
+requires 'Data::Leaf::Walker';
 
 # t
 requires 'Test::Deep';

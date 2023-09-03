@@ -44,7 +44,7 @@ sub pxf {
       "measurements" : [
          {
             "assay" : {
-               "id" : "LOINC:35925-4",
+               "id" : "LOINC:39156-5",
                "label" : "BMI"
             },
             "value" : {
@@ -136,7 +136,7 @@ sub bff {
     "measures": [
       {
         "assayCode": {
-          "id": "LOINC:35925-4",
+          "id": "LOINC:39156-5",
           "label": "BMI"
         },
         "date": "2021-09-24",

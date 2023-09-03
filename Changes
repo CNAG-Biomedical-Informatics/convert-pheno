@@ -1,9 +1,10 @@
 Revision history for Perl distribution Convert-Pheno
 0.12_1 xxxxx
 
- - Added changes to documentation
+ - Extended the documentation (e.g., docs/tbl/*md)
  - Excluded unnecessary files in CPAN via MANIFEST.SKIP
  - Changed Google Drive location of ohdsi.db
+ - Increased coverage of PXF<-->BFF term mapping
 
 0.12 2023-07-19T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 

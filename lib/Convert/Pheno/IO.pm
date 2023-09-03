@@ -7,9 +7,11 @@ use feature qw(say);
 use Path::Tiny;
 use File::Basename;
 use List::Util qw(any);
-use YAML::XS   qw(LoadFile DumpFile);
+use YAML::XS qw(LoadFile DumpFile);
+$YAML::XS::Boolean = 'JSON::PP';    # use JSON::PP::Boolean objects
 use JSON::XS;
 use Sort::Naturally qw(nsort);
+use Data::Leaf::Walker;
 use Exporter 'import';
 our @EXPORT = qw(read_json read_yaml io_yaml_or_json write_json write_yaml);
 
@@ -27,7 +29,10 @@ sub read_json {
 
 sub read_yaml {
 
-    return LoadFile(shift);      # Decode to Perl data structure
+    my $data = LoadFile(shift);    # Decode to Perl data structure
+    traverse_yaml_data_to_coerce_numbers($data)
+      ;    # revert floatings getting stringified by YAML::XS
+    return $data;
 }
 
 sub io_yaml_or_json {
@@ -72,8 +77,20 @@ sub write_yaml {
     my $arg       = shift;
     my $file      = $arg->{filepath};
     my $json_data = $arg->{data};
-    local $YAML::XS::Boolean = 'JSON::PP';
     DumpFile( $file, $json_data );
     return 1;
+}
+
+sub traverse_yaml_data_to_coerce_numbers {
+
+    my $data = shift;
+
+    # Traversing the data to force numbers to be numbers
+    # NB: Changing the original data structure
+    my $walker = Data::Leaf::Walker->new($data);
+    while ( my ( $key_path, $value ) = $walker->each ) {
+        $walker->store( $key_path, $value + 0 )
+          if Scalar::Util::looks_like_number $value;
+    }
 }
 1;

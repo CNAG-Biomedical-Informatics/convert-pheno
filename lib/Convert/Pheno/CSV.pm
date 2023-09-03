@@ -5,9 +5,9 @@ use warnings;
 use autodie;
 use feature qw(say);
 use File::Basename;
-use Text::CSV_XS          qw(csv);
-use Sort::Naturally       qw(nsort);
-use List::Util            qw(any);
+use Text::CSV_XS qw(csv);
+use Sort::Naturally qw(nsort);
+use List::Util qw(any);
 use File::Spec::Functions qw(catdir);
 
 #use Devel::Size           qw(size total_size);

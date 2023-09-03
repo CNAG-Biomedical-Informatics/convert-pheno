@@ -32,6 +32,32 @@ sub do_pxf2bff {
     my $phenopacket =
       exists $data->{phenopacket} ? $data->{phenopacket} : $data;
 
+    # Normalize the hash for medical_actions + medicalActions = medicalActions
+    if ( exists $phenopacket->{medical_actions} ) {
+
+        # NB: The delete function returns the value of the deleted key-value pair
+        $phenopacket->{medicalActions} = delete $phenopacket->{medical_actions};
+    }
+
+    # CNAG files have 'meta_data' nomenclature, but PXF documentation uses 'metaData'
+    # We search for both 'meta_data' and 'metaData' and simply display the
+    if ( exists $phenopacket->{meta_data} ) {
+
+        # NB: The delete function returns the value of the deleted key-value pair
+        $phenopacket->{metaData} = delete $phenopacket->{meta_data};
+    }
+
+    # Define defaults
+    my $default_date            = '1900-01-01';
+    my $default_duration        = 'P999Y';
+    my $default_timestamp       = '1900-01-01T00:00:00Z';
+    my $default_iso8601duration = { iso8601duration => $default_duration };
+    my $default_ontology        = { id => 'NCIT:NA0000', label => 'NA' };
+    my $default_quantity        = {
+        unit  => $default_ontology,
+        value => -1
+    };
+
     ####################################
     # START MAPPING TO BEACON V2 TERMS #
     ####################################
@@ -50,10 +76,63 @@ sub do_pxf2bff {
     # diseases
     # ========
 
-    $individual->{diseases} =
-      [ map { my $val = $_; { diseaseCode => $val->{term} } }
-          @{ $phenopacket->{diseases} } ]
-      if exists $phenopacket->{diseases};
+    if ( exists $phenopacket->{diseases} ) {
+        for my $pxf_disease ( @{ $phenopacket->{diseases} } ) {
+            my $disease = $pxf_disease;    # Ref-copy-only
+            $disease->{diseaseCode} = $disease->{term};
+            $disease->{ageOfOnset}  = $disease->{onset}
+              if exists $disease->{onset};
+            $disease->{excluded} =
+              ( exists $disease->{negated} || exists $disease->{excluded} )
+              ? JSON::XS::true
+              : JSON::XS::false;
+
+            # Clean analog terms if exist
+            for (qw/term onset/) {
+                delete $disease->{$_}
+                  if exists $disease->{$_};
+            }
+
+            push @{ $individual->{diseases} }, $disease;
+        }
+    }
+
+    # ========
+    # ethnicity
+    # ========
+    # NA
+
+    # ========
+    # exposures
+    # ========
+    if ( exists $phenopacket->{exposures} ) {
+        for my $pxf_exposure ( @{ $phenopacket->{exposures} } ) {
+            my $exposure = $pxf_exposure;    # Ref-copy-only
+            $exposure->{exposureCode} = $exposure->{type};
+            $exposure->{date} =
+              substr( $exposure->{occurrence}{timestamp}, 0, 10 );
+
+            # Required properties
+            $exposure->{ageAtExposure} = $default_iso8601duration;
+            $exposure->{duration}      = $default_duration;
+            unless ( exists $exposure->{unit} ) {
+                $exposure->{unit} = $default_ontology;
+            }
+
+            # Clean analog terms if exist
+            for (qw/type occurence/) {
+                delete $exposure->{$_}
+                  if exists $exposure->{$_};
+            }
+
+            push @{ $individual->{exposures} }, $exposure;
+        }
+    }
+
+    # ================
+    # geographicOrigin
+    # ================
+    # NA
 
     # ==
     # id
@@ -69,38 +148,104 @@ sub do_pxf2bff {
     # *** IMPORTANT ***
     # Here we set data that do not fit anywhere else
 
-# CNAG files have 'meta_data' nomenclature, but PXF documentation uses 'metaData'
-# We search for both 'meta_data' and 'metaData' and simply display them
+    # Miscelanea
     for my $term (
-        qw (dateOfBirth genes meta_data metaData variants interpretations files biosample)
-      )
+        qw (dateOfBirth genes metaData variants files biosamples pedigree))
     {
         $individual->{info}{phenopacket}{$term} = $phenopacket->{$term}
           if exists $phenopacket->{$term};
     }
 
+    # interpretations
+    $individual->{info}{interpretations} = $interpretations
+      if defined $interpretations;
+
+    # =========================
+    # interventionsOrProcedures
+    # ========================
+
+    if ( exists $phenopacket->{medicalActions} ) {
+        for my $action ( @{ $phenopacket->{medicalActions} } ) {
+            if ( exists $action->{procedure} ) {
+                my $procedure = $action->{procedure};    # Ref-copy-only
+                $procedure->{procedureCode} =
+                  exists $action->{procedure}{code}
+                  ? $action->{procedure}{code}
+                  : $default_ontology;
+                $procedure->{ageOfProcedure} =
+                  exists $action->{procedure}{performed}
+                  ? $action->{procedure}{performed}
+                  : $default_timestamp;
+
+                # Clean analog terms if exist
+                for (qw/code performed/) {
+
+                    delete $procedure->{$_}
+                      if exists $procedure->{$_};
+                }
+
+                push @{ $individual->{interventionsOrProcedures} }, $procedure;
+            }
+        }
+    }
+
+    # =============
+    # karyotypicSex
+    # =============
+    $individual->{karyotypicSex} = $phenopacket->{subject}{karyotypicSex}
+      if exists $phenopacket->{subject}{karyotypicSex};
+
+    # =========
+    # measures
+    # =========
+    if ( exists $phenopacket->{measurements} ) {
+        for my $measurement ( @{ $phenopacket->{measurements} } ) {
+            my $measure = $measurement;    # Ref-copy-only
+
+            $measure->{assayCode}         = $measure->{assay};
+            $measure->{measurementValue}  = $measure->{value};
+            $measure->{observationMoment} = $measure->{timeObserved}
+              if exists $measure->{timeObserved};
+
+            # Clean analog terms if exist
+            for (qw/assay value/) {
+                delete $measure->{$_}
+                  if exists $measure->{$_};
+            }
+
+            push @{ $individual->{measures} }, $measure;
+        }
+    }
+
+    # =========
+    # pedigrees
+    # =========
+    # See above {info}{phenopacket}{pedigree} => singular!!!
+
     # ==================
     # phenotypicFeatures
     # ==================
     if ( exists $phenopacket->{phenotypicFeatures} ) {
-        for ( @{ $phenopacket->{phenotypicFeatures} } ) {
-            my $phenotypicFeature;
+        for my $feature ( @{ $phenopacket->{phenotypicFeatures} } ) {
+            my $phenotypicFeature = $feature;    # Ref-copy-only
 
-            # v2.0.0 BFF 'evidence' is object but PXF is array of objects
-            $phenotypicFeature->{evidence} = $_->{evidence}
-              if exists $_->{evidence};
+            # *** IMPORTANT ****
+            # In v2.0.0 BFF 'evidence' is object but in PXF is array of objects
+
             $phenotypicFeature->{excluded} =
-              exists $_->{negated} ? JSON::XS::true : JSON::XS::false,
-              $phenotypicFeature->{featureType} = $_->{type}
-              if exists $_->{type};
-            $phenotypicFeature->{modifiers} = $_->{modifiers}
-              if exists $_->{modifiers};
-            $phenotypicFeature->{notes} = $_->{notes} if exists $_->{notes};
-            $phenotypicFeature->{onset} = $_->{onset} if exists $_->{onset};
-            $phenotypicFeature->{resolution} = $_->{resolution}
-              if exists $_->{resolution};
-            $phenotypicFeature->{severity} = $_->{severity}
-              if exists $_->{severity};
+              (      exists $phenotypicFeature->{negated}
+                  || exists $phenotypicFeature->{excluded} )
+              ? JSON::XS::true
+              : JSON::XS::false,
+              $phenotypicFeature->{featureType} = $phenotypicFeature->{type}
+              if exists $phenotypicFeature->{type};
+
+            # Clean analog terms if exist
+            for (qw/negated type/) {
+                delete $phenotypicFeature->{$_}
+                  if exists $phenotypicFeature->{$_};
+            }
+
             push @{ $individual->{phenotypicFeatures} }, $phenotypicFeature;
         }
     }
@@ -120,6 +265,49 @@ sub do_pxf2bff {
       if ( exists $phenopacket->{subject}{sex}
         && $phenopacket->{subject}{sex} ne '' );
 
+    # ==========
+    # treatments
+    # ==========
+
+    if ( exists $phenopacket->{medicalActions} ) {
+        for my $action ( @{ $phenopacket->{medicalActions} } ) {
+            if ( exists $action->{treatment} ) {
+                my $treatment = $action->{treatment};    # Ref-copy-only
+                $treatment->{treatmentCode} =
+                  exists $action->{treatment}{agent}
+                  ? $action->{treatment}{agent}
+                  : $default_ontology;
+
+                # Clean analog terms if exist
+                delete $treatment->{agent}
+                  if exists $treatment->{agent};
+
+                # doseIntervals needs some parsing
+                if ( exists $treatment->{doseIntervals} ) {
+
+                    # Required properties:
+                    #   - scheduleFrequency
+                    #   - quantity
+
+                    for ( @{ $treatment->{doseIntervals} } ) {
+
+                        # quantity
+                        unless ( exists $_->{quantity} ) {
+                            $_->{quantity} = $default_quantity;
+                        }
+
+                        #scheduleFrequency
+                        unless ( exists $_->{scheduleFrequency} ) {
+                            $_->{scheduleFrequency} = $default_ontology;
+                        }
+                    }
+                }
+
+                push @{ $individual->{treatments} }, $treatment;
+            }
+        }
+    }
+
     ##################################
     # END MAPPING TO BEACON V2 TERMS #
     ##################################
@@ -133,17 +321,19 @@ sub get_metaData {
     my $self = shift;
 
     # NB: Q: Why inside PXF.pm and not inside BFF.pm?
-    #   : A: Because it's easier to remember
+    #   : A: Because it's easier to remember (used in REDCap,pm, BFF.pm)
 
     # Setting a few variables
     my $user = $self->{username};
 
-   # NB: Darwin does not have nproc to show #logical-cores, using sysctl instead
+    # NB: Darwin does not have nproc to show #logical-cores, using sysctl instead
     chomp( my $os = qx{uname} );
-    chomp( my $ncpuhost =
+    chomp(
+        my $ncpuhost =
           $os eq 'Darwin'
         ? qx{/usr/sbin/sysctl -n hw.logicalcpu}
-        : qx{/usr/bin/nproc} // 1 );
+        : qx{/usr/bin/nproc} // 1
+    );
     $ncpuhost = 0 + $ncpuhost;    # coercing it to be a number
     my $info = {
         user            => $user,
@@ -197,4 +387,5 @@ sub get_metaData {
         ]
     };
 }
+
 1;

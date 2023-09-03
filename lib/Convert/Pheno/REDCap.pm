@@ -3,7 +3,7 @@ package Convert::Pheno::REDCap;
 use strict;
 use warnings;
 use autodie;
-use feature    qw(say);
+use feature qw(say);
 use List::Util qw(any);
 use Convert::Pheno::Mapping;
 use Convert::Pheno::PXF;
@@ -569,8 +569,10 @@ sub do_redcap2bff {
 
                 # Rectal route only happens in some drugs (ad hoc)
                 next
-                  if ( $route eq 'rectal' && !any { $_ eq $field }
-                    qw(budesonide asa) );
+                  if (
+                    $route eq 'rectal' && !any { $_ eq $field }
+                    qw(budesonide asa)
+                  );
 
                 # Discarding if drug_route_status is empty
                 $tmp_var =

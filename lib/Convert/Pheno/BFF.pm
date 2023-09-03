@@ -9,8 +9,6 @@ use Convert::Pheno::PXF;
 use Exporter 'import';
 our @EXPORT = qw(do_bff2pxf);
 
-my $DEFAULT_timestamp = '1900-01-01T00:00:00Z';
-
 #############
 #############
 #  BFF2PXF  #
@@ -19,17 +17,22 @@ my $DEFAULT_timestamp = '1900-01-01T00:00:00Z';
 
 sub do_bff2pxf {
 
-    my ( $self, $data ) = @_;
+    my ( $self, $bff ) = @_;
 
     # Premature return
-    return unless defined($data);
+    return unless defined($bff);
+
+    # Define defaults
+    my $default_timestamp = '1900-01-01T00:00:00Z';
 
     #########################################
     # START MAPPING TO PHENOPACKET V2 TERMS #
     #########################################
 
 # We need to shuffle a bit some Beacon v2 properties to be Phenopacket compliant
-# https://phenopacket-schema.readthedocs.io/en/latest/phenopacket.html
+# Order of terms (not alphabetical) taken from:
+# - https://phenopacket-schema.readthedocs.io/en/latest/phenopacket.html
+
     my $pxf;
 
     # ==
@@ -43,37 +46,43 @@ sub do_bff2pxf {
     # =======
 
     $pxf->{subject} = {
-        id => $data->{id},
+        id => $bff->{id},
 
         #alternateIds => [],
-        #_age => $data->{info}{age}
+        #_age => $bff->{info}{age}
         #timeAtLastEncounter => {},
         vitalStatus => { status => 'ALIVE' }
         ,    #["UNKNOWN_STATUS", "ALIVE", "DECEASED"]
-        sex => uc( $data->{sex}{label} ),
+        sex => uc( $bff->{sex}{label} ),
 
-        #taxonomy => {}
-        #_age => $data->{info}{age}
+        #taxonomy => {} ;
+        #_age => $bff->{info}{age}
     };
 
-    for (qw(dateOfBirth karyotypicSex)) {
-        $pxf->{subject}{$_} = $data->{info}{$_} if exists $data->{info}{$_};
+    # Miscellanea
+    for (qw(dateOfBirth)) {
+        $pxf->{subject}{$_} = $bff->{info}{$_} if exists $bff->{info}{$_};
     }
 
+    # karyotypicSex
+    $pxf->{subject}{karyotypicSex} = $bff->{karyotypicSex}
+      if exists $bff->{karyotypicSex};
+
     # ===================
-    # phenotypic_features
+    # phenotypicFeatures
     # ===================
 
     $pxf->{phenotypicFeatures} = [
         map {
             {
-                type => $_->{featureType}
+                type     => delete $_->{featureType},
+                excluded => delete $_->{excluded}
 
                   #_notes => $_->{notes}
             }
-        } @{ $data->{phenotypicFeatures} }
+        } @{ $bff->{phenotypicFeatures} }
       ]
-      if defined $data->{phenotypicFeatures};
+      if defined $bff->{phenotypicFeatures};
 
     # ============
     # measurements
@@ -87,9 +96,9 @@ sub do_bff2pxf {
       #timeObserved => exists $_->{date} ? $_->{date} : undef, # Not valid in v2
                 value => $_->{measurementValue}
             }
-        } @{ $data->{measures} }
+        } @{ $bff->{measures} }
       ]
-      if defined $data->{measures};   # Only 1 element at $_->{measurementValue}
+      if defined $bff->{measures};    # Only 1 element at $_->{measurementValue}
 
     # ==========
     # biosamples
@@ -99,7 +108,7 @@ sub do_bff2pxf {
     # interpretations
     # ===============
 
-    #$data->{interpretation} = {};
+    #$bff->{interpretation} = {};
 
     # ========
     # diseases
@@ -107,10 +116,10 @@ sub do_bff2pxf {
 
     $pxf->{diseases} =
       [ map { { term => $_->{diseaseCode}, onset => $_->{ageOfOnset} } }
-          @{ $data->{diseases} } ];
+          @{ $bff->{diseases} } ];
 
     # ===============
-    # medical_actions
+    # medicalActions
     # ===============
 
     # **** procedures ****
@@ -121,11 +130,11 @@ sub do_bff2pxf {
                 performed => {
                     timestamp => exists $_->{dateOfProcedure}
                     ? _map2iso8601( $_->{dateOfProcedure} )
-                    : $DEFAULT_timestamp
+                    : $default_timestamp
                 }
             }
         }
-    } @{ $data->{interventionsOrProcedures} };
+    } @{ $bff->{interventionsOrProcedures} };
 
     # **** treatments ****
     my @treatments = map {
@@ -138,7 +147,7 @@ sub do_bff2pxf {
 #performed => { timestamp => exists $_->{dateOfProcedure} ? $_->{dateOfProcedure} : undef}
             }
         }
-    } @{ $data->{treatments} };
+    } @{ $bff->{treatments} };
 
     # Load
     push @{ $pxf->{medicalActions} }, @procedures if @procedures;
@@ -149,14 +158,35 @@ sub do_bff2pxf {
     # =====
 
     # =========
-    # meta_data
+    # metaData
     # =========
 
     # Depending on the origion (redcap) , _info and resources may exist
     $pxf->{metaData} =
-        $self->{test}                  ? undef
-      : exists $data->{info}{metaData} ? $data->{info}{metaData}
-      :                                  get_metaData($self);
+        $self->{test}                 ? undef
+      : exists $bff->{info}{metaData} ? $bff->{info}{metaData}
+      :                                 get_metaData($self);
+
+    # =========
+    # exposures
+    # =========
+
+    # Can't be mapped as Sept-2023 from pxf-tools
+    # Message type "org.phenopackets.schema.v2.Phenopacket" has no field named "exposures" at "Phenopacket".
+#  Available Fields(except extensions): "['id', 'subject', 'phenotypicFeatures', 'measurements', 'biosamples', 'interpretations', 'diseases', 'medicalActions', 'files', 'metaData']" at line 22
+    
+
+#   $pxf->{exposures} =
+#
+#      [
+#        map {
+#            {
+#                type       => $_->{exposureCode},
+#                occurrence => { timestamp => $_->{date} }
+#            }
+#        } @{ $bff->{exposures} }
+#      ]
+#      if exists $bff->{exposures};
 
     #######################################
     # END MAPPING TO PHENOPACKET V2 TERMS #
@@ -164,4 +194,5 @@ sub do_bff2pxf {
 
     return $pxf;
 }
+
 1;

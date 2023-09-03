@@ -285,7 +285,7 @@ sub write_log {
     my ( $log, $data ) = @_;
 
     # NB: Darwin does not have nproc to show #logical-cores, using sysctl instead
-    chomp( my $os = qx{uname} );
+    my $os = $^O;
     chomp( my $ncpuhost = $os eq 'Darwin' ? qx{/usr/sbin/sysctl -n hw.logicalcpu} : qx{/usr/bin/nproc} // 1 );
 
     my $info = {

@@ -212,6 +212,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:428251008",
             "label" : "History of appendectomy"
@@ -300,6 +301,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:703151001",
             "label" : "History of single seizure"
@@ -1331,6 +1333,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:428251008",
             "label" : "History of appendectomy"
@@ -1455,6 +1458,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:429007001",
             "label" : "History of cardiac arrest"
@@ -2438,6 +2442,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:399211009",
             "label" : "History of myocardial infarction"
@@ -2691,6 +2696,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:399211009",
             "label" : "History of myocardial infarction"
@@ -3617,6 +3623,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:703151001",
             "label" : "History of single seizure"
@@ -4306,6 +4313,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:428251008",
             "label" : "History of appendectomy"
@@ -5034,6 +5042,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:429007001",
             "label" : "History of cardiac arrest"
@@ -5107,6 +5116,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:703151001",
             "label" : "History of single seizure"
@@ -5233,6 +5243,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:703151001",
             "label" : "History of single seizure"
@@ -5441,6 +5452,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:428251008",
             "label" : "History of appendectomy"
@@ -5462,6 +5474,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:703151001",
             "label" : "History of single seizure"
@@ -5496,6 +5509,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:399211009",
             "label" : "History of myocardial infarction"
@@ -6646,6 +6660,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:428251008",
             "label" : "History of appendectomy"
@@ -7781,24 +7796,28 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:419263009",
             "label" : "Allergy to tree pollen"
          }
       },
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:419474003",
             "label" : "Allergy to mold"
          }
       },
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:418689008",
             "label" : "Allergy to grass pollen"
          }
       },
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:232350006",
             "label" : "Allergy to house dust mite"
@@ -7961,6 +7980,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:428251008",
             "label" : "History of appendectomy"
@@ -8076,12 +8096,14 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:91930004",
             "label" : "Allergy to eggs"
          }
       },
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:428251008",
             "label" : "History of appendectomy"
@@ -8437,6 +8459,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:419474003",
             "label" : "Allergy to mold"
@@ -8484,6 +8507,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:429007001",
             "label" : "History of cardiac arrest"
@@ -8646,6 +8670,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:703151001",
             "label" : "History of single seizure"
@@ -8796,6 +8821,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:399211009",
             "label" : "History of myocardial infarction"
@@ -8933,18 +8959,21 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:232350006",
             "label" : "Allergy to house dust mite"
          }
       },
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:418689008",
             "label" : "Allergy to grass pollen"
          }
       },
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:419474003",
             "label" : "Allergy to mold"
@@ -9569,6 +9598,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:428251008",
             "label" : "History of appendectomy"
@@ -10054,6 +10084,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:703151001",
             "label" : "History of single seizure"
@@ -10164,6 +10195,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:428251008",
             "label" : "History of appendectomy"
@@ -10372,6 +10404,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:428251008",
             "label" : "History of appendectomy"
@@ -10721,6 +10754,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:429007001",
             "label" : "History of cardiac arrest"
@@ -11531,6 +11565,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:429007001",
             "label" : "History of cardiac arrest"
@@ -12225,6 +12260,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:428251008",
             "label" : "History of appendectomy"
@@ -12464,18 +12500,21 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:399211009",
             "label" : "History of myocardial infarction"
          }
       },
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:429007001",
             "label" : "History of cardiac arrest"
          }
       },
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:703151001",
             "label" : "History of single seizure"
@@ -12497,6 +12536,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:417532002",
             "label" : "Allergy to fish"
@@ -12959,6 +12999,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:419474003",
             "label" : "Allergy to mold"
@@ -13424,42 +13465,49 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:300913006",
             "label" : "Shellfish allergy"
          }
       },
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:419263009",
             "label" : "Allergy to tree pollen"
          }
       },
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:91934008",
             "label" : "Allergy to nut"
          }
       },
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:300916003",
             "label" : "Latex allergy"
          }
       },
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:91935009",
             "label" : "Allergy to peanuts"
          }
       },
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:419474003",
             "label" : "Allergy to mold"
          }
       },
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:232347008",
             "label" : "Allergy to animal dander"
@@ -14277,6 +14325,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:429007001",
             "label" : "History of cardiac arrest"
@@ -14755,6 +14804,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:428251008",
             "label" : "History of appendectomy"
@@ -14985,6 +15035,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:429007001",
             "label" : "History of cardiac arrest"
@@ -15006,6 +15057,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:429007001",
             "label" : "History of cardiac arrest"
@@ -15430,6 +15482,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:428251008",
             "label" : "History of appendectomy"
@@ -16166,6 +16219,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:429007001",
             "label" : "History of cardiac arrest"
@@ -17029,6 +17083,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:428251008",
             "label" : "History of appendectomy"
@@ -17445,6 +17500,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:428251008",
             "label" : "History of appendectomy"
@@ -17544,6 +17600,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:429007001",
             "label" : "History of cardiac arrest"
@@ -18097,6 +18154,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:429007001",
             "label" : "History of cardiac arrest"
@@ -18157,12 +18215,14 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:420174000",
             "label" : "Allergy to wheat"
          }
       },
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:232347008",
             "label" : "Allergy to animal dander"
@@ -18404,6 +18464,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:428251008",
             "label" : "History of appendectomy"
@@ -18425,12 +18486,14 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:429007001",
             "label" : "History of cardiac arrest"
          }
       },
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:399211009",
             "label" : "History of myocardial infarction"
@@ -18569,12 +18632,14 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:428251008",
             "label" : "History of appendectomy"
          }
       },
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:703151001",
             "label" : "History of single seizure"
@@ -18862,6 +18927,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:703151001",
             "label" : "History of single seizure"
@@ -19246,6 +19312,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:429007001",
             "label" : "History of cardiac arrest"
@@ -19451,12 +19518,14 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:429007001",
             "label" : "History of cardiac arrest"
          }
       },
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:399211009",
             "label" : "History of myocardial infarction"
@@ -19558,42 +19627,49 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:232350006",
             "label" : "Allergy to house dust mite"
          }
       },
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:91930004",
             "label" : "Allergy to eggs"
          }
       },
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:232347008",
             "label" : "Allergy to animal dander"
          }
       },
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:419474003",
             "label" : "Allergy to mold"
          }
       },
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:417532002",
             "label" : "Allergy to fish"
          }
       },
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:419263009",
             "label" : "Allergy to tree pollen"
          }
       },
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:300913006",
             "label" : "Shellfish allergy"
@@ -19693,6 +19769,7 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:428251008",
             "label" : "History of appendectomy"
@@ -19779,12 +19856,14 @@
    "metaData" : null,
    "phenotypicFeatures" : [
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:419474003",
             "label" : "Allergy to mold"
          }
       },
       {
+         "excluded" : null,
          "type" : {
             "id" : "SNOMED:714035009",
             "label" : "Allergy to soy"

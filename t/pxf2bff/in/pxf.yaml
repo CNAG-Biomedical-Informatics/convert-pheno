@@ -1,0 +1,189 @@
+id: "example case"
+subject:
+  id: "patient1"
+  dateOfBirth: "1964-03-15T00:00:00Z"
+  sex: "MALE"
+diseases:
+- term:
+    id: "NCIT:C2985"
+    label: "Diabetes Mellitus"
+  excluded: true
+- term:
+    id: "NCIT:C34830"
+    label: "Cardiomyopathy"
+- term:
+    id: "NCIT:C80389"
+    label: "Chronic Kidney Disease, Stage 3"
+- term:
+    id: "NCIT:C3283"
+    label: "Obesity"
+- term:
+    id: "MONDO:0100096"
+    label: "COVID-19"
+  onset:
+    timestamp: "2020-03-17T00:00:00Z"
+measurements:
+- assay:
+    id: "NCIT:C113237"
+    label: "Absolute Blood Lymphocyte Count"
+  value:
+    quantity:
+      unit:
+        id: "NCIT:C67245"
+        label: "Thousand Cells"
+      value: 1.4
+      referenceRange:
+        unit:
+          id: "NCIT:C67245"
+          label: "Thousand Cells"
+        low: 1.0
+        high: 4.5
+  timeObserved:
+    interval:
+      start: "2019-09-01T00:00:00Z"
+      end: "2020-03-01T00:00:00Z"
+- assay:
+    id: "NCIT:C113237"
+    label: "Absolute Blood Lymphocyte Count"
+  value:
+    quantity:
+      unit:
+        id: "NCIT:C67245"
+        label: "Thousand Cells"
+      value: 0.7
+      referenceRange:
+        unit:
+          id: "NCIT:C67245"
+          label: "Thousand Cells"
+        low: 1.0
+        high: 4.5
+  timeObserved:
+    timestamp: "2020-03-20T00:00:00Z"
+medicalActions:
+- procedure:
+    code:
+      id: "NCIT:C116648"
+      label: "Tracheal Intubation"
+    performed:
+      timestamp: "2020-03-22T00:00:00Z"
+- procedure:
+    code:
+      id: "NCIT:C80473"
+      label: "Left Ventricular Assist Device"
+    performed:
+      timestamp: "2016-01-01T00:00:00Z"
+- treatment:
+    agent:
+      id: "NCIT:C722"
+      label: "Oxygen"
+    routeOfAdministration:
+      id: "NCIT:C38284"
+      label: "Nasal Route of Administration"
+    doseIntervals:
+    - quantity:
+
+        unit:
+          id: "NCIT:C67388"
+          label: "Liter per Minute"
+        value: 2.0
+      interval:
+        start: "2020-03-20T00:00:00Z"
+        end: "2020-03-22T00:00:00Z"
+    - quantity:
+        unit:
+          id: "NCIT:C67388"
+          label: "Liter per Minute"
+        value: 50.0
+      interval:
+        start: "2020-03-22T00:00:00Z"
+        end: "2020-03-23T00:00:00Z"
+- treatment:
+    agent:
+      id: "NCIT:C557"
+      label: "Hydroxychloroquine"
+    doseIntervals:
+    - quantity:
+        unit:
+          id: "NCIT:C28253"
+          label: "mg"
+        value: 450.0
+      scheduleFrequency:
+        id: "NCIT:C64496"
+        label: "Twice Daily"
+      interval:
+        start: "2020-03-20T00:00:00Z"
+        end: "2020-03-20T00:00:00Z"
+    - quantity:
+        unit:
+          id: "NCIT:C28253"
+          label: "mg"
+        value: 450.0
+      scheduleFrequency:
+        id: "NCIT:C125004"
+        label: "Once Daily"
+      interval:
+        start: "2020-03-21T00:00:00Z"
+        end: "2020-03-22T00:00:00Z"
+- treatment:
+    agent:
+      id: "NCIT:C722"
+      label: "Oxygen"
+    routeOfAdministration:
+      id: "NCIT:C50254"
+      label: "Positive end Expiratory Pressure Valve Device"
+    doseIntervals:
+    - quantity:
+        unit:
+          id: "NCIT:C91060"
+          label: "Centimeters of Water"
+        value: 14.0
+      interval:
+        start: "2020-03-22T00:00:00Z"
+        end: "2020-03-28T00:00:00Z"
+- treatment:
+    agent:
+      id: "NCIT:C84217"
+      label: "Tocilizumab"
+    doseIntervals:
+    - interval:
+        start: "2020-03-24T00:00:00Z"
+        end: "2020-03-28T00:00:00Z"
+exposures:
+ - type:
+     id: ECTO:9000032
+     label: arsenic atom exposure
+   description: accidental arsenic ingestion from a herbal medicine product
+   evidence:
+     id: ECO:0006154
+     label: self-reported patient statement evidence
+   occurrence:
+     timestamp: 2018-03-01T00:00:00Z
+   route:
+     id: NCIT:C28229
+     label: Ingestion
+pedigree:
+ persons:
+ - familyId: "family 1"
+   individualId: "kindred 1A"
+   paternalId: "FATHER"
+   maternalId: "MOTHER"
+   sex: "MALE"
+   affectedStatus: "AFFECTED"
+ - familyId: "family 1"
+   individualId: "kindred 1B"
+   paternalId: "FATHER"
+   maternalId: "MOTHER"
+   sex: "MALE"
+   affectedStatus: "AFFECTED"
+ - familyId: "family 1"
+   individualId: "MOTHER"
+   paternalId: "0"
+   maternalId: "0"
+   sex: "FEMALE"
+   affectedStatus: "UNAFFECTED"
+ - familyId: "family 1"
+   individualId: "FATHER"
+   paternalId: "0"
+   maternalId: "0"
+   sex: "MALE"
+   affectedStatus: "UNAFFECTED"

@@ -1,0 +1,205 @@
+---
+diseases:
+- diseaseCode:
+    id: NCIT:C2985
+    label: Diabetes Mellitus
+  excluded: true
+- diseaseCode:
+    id: NCIT:C34830
+    label: Cardiomyopathy
+  excluded: false
+- diseaseCode:
+    id: NCIT:C80389
+    label: Chronic Kidney Disease, Stage 3
+  excluded: false
+- diseaseCode:
+    id: NCIT:C3283
+    label: Obesity
+  excluded: false
+- ageOfOnset:
+    timestamp: 2020-03-17T00:00:00Z
+  diseaseCode:
+    id: MONDO:0100096
+    label: COVID-19
+  excluded: false
+exposures:
+- ageAtExposure:
+    iso8601duration: P999Y
+  date: 2018-03-01
+  description: accidental arsenic ingestion from a herbal medicine product
+  duration: P999Y
+  evidence:
+    id: ECO:0006154
+    label: self-reported patient statement evidence
+  exposureCode:
+    id: ECTO:9000032
+    label: arsenic atom exposure
+  occurrence:
+    timestamp: 2018-03-01T00:00:00Z
+  route:
+    id: NCIT:C28229
+    label: Ingestion
+  unit: &1
+    id: NCIT:NA0000
+    label: NA
+id: patient1
+info:
+  phenopacket:
+    pedigree:
+      persons:
+      - affectedStatus: AFFECTED
+        familyId: family 1
+        individualId: kindred 1A
+        maternalId: MOTHER
+        paternalId: FATHER
+        sex: MALE
+      - affectedStatus: AFFECTED
+        familyId: family 1
+        individualId: kindred 1B
+        maternalId: MOTHER
+        paternalId: FATHER
+        sex: MALE
+      - affectedStatus: UNAFFECTED
+        familyId: family 1
+        individualId: MOTHER
+        maternalId: 0
+        paternalId: 0
+        sex: FEMALE
+      - affectedStatus: UNAFFECTED
+        familyId: family 1
+        individualId: FATHER
+        maternalId: 0
+        paternalId: 0
+        sex: MALE
+interventionsOrProcedures:
+- ageOfProcedure:
+    timestamp: 2020-03-22T00:00:00Z
+  procedureCode:
+    id: NCIT:C116648
+    label: Tracheal Intubation
+- ageOfProcedure:
+    timestamp: 2016-01-01T00:00:00Z
+  procedureCode:
+    id: NCIT:C80473
+    label: Left Ventricular Assist Device
+measures:
+- assayCode:
+    id: NCIT:C113237
+    label: Absolute Blood Lymphocyte Count
+  measurementValue:
+    quantity:
+      referenceRange:
+        high: 4.5
+        low: 1
+        unit:
+          id: NCIT:C67245
+          label: Thousand Cells
+      unit:
+        id: NCIT:C67245
+        label: Thousand Cells
+      value: 1.4
+  observationMoment: &2
+    interval:
+      end: 2020-03-01T00:00:00Z
+      start: 2019-09-01T00:00:00Z
+  timeObserved: *2
+- assayCode:
+    id: NCIT:C113237
+    label: Absolute Blood Lymphocyte Count
+  measurementValue:
+    quantity:
+      referenceRange:
+        high: 4.5
+        low: 1
+        unit:
+          id: NCIT:C67245
+          label: Thousand Cells
+      unit:
+        id: NCIT:C67245
+        label: Thousand Cells
+      value: 0.7
+  observationMoment: &3
+    timestamp: 2020-03-20T00:00:00Z
+  timeObserved: *3
+sex:
+  id: NCIT:C20197
+  label: Male
+treatments:
+- doseIntervals:
+  - interval:
+      end: 2020-03-22T00:00:00Z
+      start: 2020-03-20T00:00:00Z
+    quantity:
+      unit:
+        id: NCIT:C67388
+        label: Liter per Minute
+      value: 2
+    scheduleFrequency: *1
+  - interval:
+      end: 2020-03-23T00:00:00Z
+      start: 2020-03-22T00:00:00Z
+    quantity:
+      unit:
+        id: NCIT:C67388
+        label: Liter per Minute
+      value: 50
+    scheduleFrequency: *1
+  routeOfAdministration:
+    id: NCIT:C38284
+    label: Nasal Route of Administration
+  treatmentCode:
+    id: NCIT:C722
+    label: Oxygen
+- doseIntervals:
+  - interval:
+      end: 2020-03-20T00:00:00Z
+      start: 2020-03-20T00:00:00Z
+    quantity:
+      unit:
+        id: NCIT:C28253
+        label: mg
+      value: 450
+    scheduleFrequency:
+      id: NCIT:C64496
+      label: Twice Daily
+  - interval:
+      end: 2020-03-22T00:00:00Z
+      start: 2020-03-21T00:00:00Z
+    quantity:
+      unit:
+        id: NCIT:C28253
+        label: mg
+      value: 450
+    scheduleFrequency:
+      id: NCIT:C125004
+      label: Once Daily
+  treatmentCode:
+    id: NCIT:C557
+    label: Hydroxychloroquine
+- doseIntervals:
+  - interval:
+      end: 2020-03-28T00:00:00Z
+      start: 2020-03-22T00:00:00Z
+    quantity:
+      unit:
+        id: NCIT:C91060
+        label: Centimeters of Water
+      value: 14
+    scheduleFrequency: *1
+  routeOfAdministration:
+    id: NCIT:C50254
+    label: Positive end Expiratory Pressure Valve Device
+  treatmentCode:
+    id: NCIT:C722
+    label: Oxygen
+- doseIntervals:
+  - interval:
+      end: 2020-03-28T00:00:00Z
+      start: 2020-03-24T00:00:00Z
+    quantity:
+      unit: *1
+      value: -1
+    scheduleFrequency: *1
+  treatmentCode:
+    id: NCIT:C84217
+    label: Tocilizumab

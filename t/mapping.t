@@ -12,7 +12,7 @@ my $input = {
         in_file           => 't/redcap2bff/in/redcap_data.csv',
         redcap_dictionary =>
 't/redcap2bff/in/redcap_dictionary.csv',
-        self_validate_schema => 0,       # SELF-VALIDATE-SCHEMA (OK - ONLY ONCE)
+        self_validate_schema => 0,
         sep                  => undef,
         out                  => 't/redcap2bff/out/individuals.json'
     }

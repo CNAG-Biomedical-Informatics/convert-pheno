@@ -5,7 +5,7 @@ use lib ( './lib', '../lib' );
 use feature qw(say);
 use Data::Dumper;
 use File::Temp qw{ tempfile };    # core
-use Test::More tests => 9;
+use Test::More tests => 10;
 use File::Compare;
 use Convert::Pheno;
 
@@ -23,6 +23,12 @@ my $input = {
         redcap_dictionary => undef,
         sep               => undef,
         out               => 't/pxf2bff/out/individuals.json'
+    },
+    pxf2bff_yaml => {
+        in_file           => 't/pxf2bff/in/pxf.json',
+        redcap_dictionary => undef,
+        sep               => undef,
+        out               => 't/pxf2bff/out/inviduals.yaml'
     },
     redcap2bff => {
         in_file           => 't/redcap2bff/in/redcap_data.csv',
@@ -76,6 +82,7 @@ my $input = {
 
 #for my $method (qw/redcap2bff/){
 for my $method ( sort keys %{$input} ) {
+    $method = $method eq 'pxf2bff_yaml' ? 'pxf2bff' : $method ;
 
     # Create Temporary file
     my ( undef, $tmp_file ) =

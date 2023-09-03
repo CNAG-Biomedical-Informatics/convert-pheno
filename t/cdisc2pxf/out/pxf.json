@@ -451,90 +451,105 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C28397",
                "label" : "Asthma"
             }
          },
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C3199",
                "label" : "Chronic Obstructive Pulmonary Disease"
             }
          },
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C3243",
                "label" : "Multiple Sclerosis"
             }
          },
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C3201",
                "label" : "Systemic Lupus Erythematosus"
             }
          },
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C2884",
                "label" : "Rheumatoid Arthritis"
             }
          },
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C3346",
                "label" : "Psoriasis"
             }
          },
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C3001",
                "label" : "Eczema"
             }
          },
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C19700",
                "label" : "Cancer Patient"
             }
          },
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C3117",
                "label" : "Hypertension"
             }
          },
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C2985",
                "label" : "Diabetes Mellitus"
             }
          },
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C80385",
                "label" : "Dyslipidemia"
             }
          },
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C3390",
                "label" : "Stroke"
             }
          },
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
             }
          },
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C152105",
                "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
+            "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -864,6 +879,7 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -1217,6 +1233,7 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -1683,12 +1700,14 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C152105",
                "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
+            "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -2031,6 +2050,7 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -2384,6 +2404,7 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -2713,6 +2734,7 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -3181,6 +3203,7 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -3602,6 +3625,7 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -4193,12 +4217,14 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C152105",
                "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
+            "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -4529,6 +4555,7 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -4996,6 +5023,7 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -5315,6 +5343,7 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -5886,6 +5915,7 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -6261,6 +6291,7 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -6887,90 +6918,105 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C28397",
                "label" : "Asthma"
             }
          },
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C3199",
                "label" : "Chronic Obstructive Pulmonary Disease"
             }
          },
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C3243",
                "label" : "Multiple Sclerosis"
             }
          },
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C3201",
                "label" : "Systemic Lupus Erythematosus"
             }
          },
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C2884",
                "label" : "Rheumatoid Arthritis"
             }
          },
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C3346",
                "label" : "Psoriasis"
             }
          },
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C3001",
                "label" : "Eczema"
             }
          },
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C19700",
                "label" : "Cancer Patient"
             }
          },
          {
+            "excluded" : false,
             "type" : {
                "id" : "NCIT:C3117",
                "label" : "Hypertension"
             }
          },
          {
+            "excluded" : false,
             "type" : {
                "id" : "NCIT:C2985",
                "label" : "Diabetes Mellitus"
             }
          },
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C80385",
                "label" : "Dyslipidemia"
             }
          },
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C3390",
                "label" : "Stroke"
             }
          },
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
             }
          },
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C152105",
                "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
+            "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -7439,6 +7485,7 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -7907,6 +7954,7 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -8374,6 +8422,7 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -8954,12 +9003,14 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C152105",
                "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
+            "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -9313,6 +9364,7 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -9677,6 +9729,7 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -10248,6 +10301,7 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -10759,12 +10813,14 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C152105",
                "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
+            "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -11094,6 +11150,7 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -11551,6 +11608,7 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -12108,12 +12166,14 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C152105",
                "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
+            "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -12467,6 +12527,7 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -12854,6 +12915,7 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -13206,6 +13268,7 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -13663,6 +13726,7 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -14244,90 +14308,105 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C28397",
                "label" : "Asthma"
             }
          },
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C3199",
                "label" : "Chronic Obstructive Pulmonary Disease"
             }
          },
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C3243",
                "label" : "Multiple Sclerosis"
             }
          },
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C3201",
                "label" : "Systemic Lupus Erythematosus"
             }
          },
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C2884",
                "label" : "Rheumatoid Arthritis"
             }
          },
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C3346",
                "label" : "Psoriasis"
             }
          },
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C3001",
                "label" : "Eczema"
             }
          },
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C19700",
                "label" : "Cancer Patient"
             }
          },
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C3117",
                "label" : "Hypertension"
             }
          },
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C2985",
                "label" : "Diabetes Mellitus"
             }
          },
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C80385",
                "label" : "Dyslipidemia"
             }
          },
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C3390",
                "label" : "Stroke"
             }
          },
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
             }
          },
          {
+            "excluded" : true,
             "type" : {
                "id" : "NCIT:C152105",
                "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
+            "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -15002,6 +15081,7 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -15377,6 +15457,7 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -15834,6 +15915,7 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"

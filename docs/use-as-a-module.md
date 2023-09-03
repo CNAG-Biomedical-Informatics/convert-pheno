@@ -1,4 +1,4 @@
-**Convert-Pheno** core is a [Perl module](https://metacpan.org/search?size=20&q=Convert%3A%3APheno). 
+`Convert-Pheno` core is a Perl module available at [CPAN](https://metacpan.org/search?size=20&q=Convert%3A%3APheno). 
 
 ## Usage
 
