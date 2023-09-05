@@ -31,7 +31,7 @@ NA
 |  :---:                                                      | :---:                                                       |
 |  dateOfBirth, genes, metaData, variants, interpretations, files, biosample | info                                                        |
 
-## interventionsOrProcedures XXX
+## interventionsOrProcedures
 |  PXF JSON path                                              | BFF JSON path                                               |
 |  :---:                                                      | :---:                                                       |
 |  medicalActions.procedure                                   | interventionsOrProcedures                                   |
@@ -43,7 +43,7 @@ NA
 |  :---:                                                      | :---:                                                       |
 |  subject.karyotypicSex                                      | karyotypicSex                                               |
 
-## measures XXX
+## measures
 |  PXF JSON path                                              | BFF JSON path                                               |
 |  :---:                                                      | :---:                                                       |
 |  measurements                                               | measures                                                    |
