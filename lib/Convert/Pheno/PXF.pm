@@ -382,14 +382,22 @@ sub get_metaData {
     my $user = $self->{username};
 
     # NB: Darwin does not have nproc to show #logical-cores, using sysctl instead
-    chomp( my $os = qx{uname} );
+    my $os = $^O;
     chomp(
         my $ncpuhost =
-          $os eq 'Darwin'
-        ? qx{/usr/sbin/sysctl -n hw.logicalcpu}
-        : qx{/usr/bin/nproc} // 1
+          $os eq 'Darwin' ? qx{/usr/sbin/sysctl -n hw.logicalcpu}
+        : $os eq 'MSWin32' ? qx{wmic cpu get NumberOfLogicalProcessors}
+        :                    qx{/usr/bin/nproc} // 1
     );
+
+    # For the Windows command, the result will also contain the string
+    # "NumberOfLogicalProcessors" which is the header of the output.
+    # So we need to extract the actual number from it:
+    if ( $os eq 'MSWin32' ) {
+        ($ncpuhost) = $ncpuhost =~ /(\d+)/;
+    }
     $ncpuhost = 0 + $ncpuhost;    # coercing it to be a number
+
     my $info = {
         user            => $user,
         ncpuhost        => $ncpuhost,
