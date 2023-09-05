@@ -29,9 +29,9 @@ sub do_bff2pxf {
     # START MAPPING TO PHENOPACKET V2 TERMS #
     #########################################
 
-# We need to shuffle a bit some Beacon v2 properties to be Phenopacket compliant
-# Order of terms (not alphabetical) taken from:
-# - https://phenopacket-schema.readthedocs.io/en/latest/phenopacket.html
+    # We need to shuffle a bit some Beacon v2 properties to be Phenopacket compliant
+    # Order of terms (not alphabetical) taken from:
+    # - https://phenopacket-schema.readthedocs.io/en/latest/phenopacket.html
 
     my $pxf;
 
@@ -51,9 +51,8 @@ sub do_bff2pxf {
         #alternateIds => [],
         #_age => $bff->{info}{age}
         #timeAtLastEncounter => {},
-        vitalStatus => { status => 'ALIVE' }
-        ,    #["UNKNOWN_STATUS", "ALIVE", "DECEASED"]
-        sex => uc( $bff->{sex}{label} ),
+        vitalStatus => { status => 'ALIVE' },      #["UNKNOWN_STATUS", "ALIVE", "DECEASED"]
+        sex         => uc( $bff->{sex}{label} ),
 
         #taxonomy => {} ;
         #_age => $bff->{info}{age}
@@ -87,18 +86,31 @@ sub do_bff2pxf {
     # ============
     # measurements
     # ============
+    if ( defined $bff->{measures} ) {
+        $pxf->{measurements} = [];    # Initialize as an empty array reference
 
-    $pxf->{measurements} = [
-        map {
-            {
-                assay => $_->{assayCode},
+        for my $measure ( @{ $bff->{measures} } ) {
 
-      #timeObserved => exists $_->{date} ? $_->{date} : undef, # Not valid in v2
-                value => $_->{measurementValue}
+            # Check if measurementValue hash contain the typedQuantities key
+            my $has_typedQuantities =
+              exists $measure->{measurementValue}{typedQuantities} ? 1 : 0;
+
+            # Construct the hash
+            my $result = { assay => $measure->{assayCode} };
+
+            # Add the complexValue key if typedQuantities was found
+            if ($has_typedQuantities) {
+                $result->{complexValue} = $measure->{measurementValue};
             }
-        } @{ $bff->{measures} }
-      ]
-      if defined $bff->{measures};    # Only 1 element at $_->{measurementValue}
+            else {
+                $result->{value} = $measure->{measurementValue};
+
+            }
+
+            # Push the resulting hash onto the pxf measurements array
+            push @{ $pxf->{measurements} }, $result;
+        }
+    }
 
     # ==========
     # biosamples
@@ -144,7 +156,7 @@ sub do_bff2pxf {
                 routeOfAdministration => $_->{routeOfAdministration},
                 doseIntervals         => $_->{doseIntervals}
 
-#performed => { timestamp => exists $_->{dateOfProcedure} ? $_->{dateOfProcedure} : undef}
+                  #performed => { timestamp => exists $_->{dateOfProcedure} ? $_->{dateOfProcedure} : undef}
             }
         }
     } @{ $bff->{treatments} };
@@ -173,20 +185,19 @@ sub do_bff2pxf {
 
     # Can't be mapped as Sept-2023 from pxf-tools
     # Message type "org.phenopackets.schema.v2.Phenopacket" has no field named "exposures" at "Phenopacket".
-#  Available Fields(except extensions): "['id', 'subject', 'phenotypicFeatures', 'measurements', 'biosamples', 'interpretations', 'diseases', 'medicalActions', 'files', 'metaData']" at line 22
-    
+    #  Available Fields(except extensions): "['id', 'subject', 'phenotypicFeatures', 'measurements', 'biosamples', 'interpretations', 'diseases', 'medicalActions', 'files', 'metaData']" at line 22
 
-#   $pxf->{exposures} =
-#
-#      [
-#        map {
-#            {
-#                type       => $_->{exposureCode},
-#                occurrence => { timestamp => $_->{date} }
-#            }
-#        } @{ $bff->{exposures} }
-#      ]
-#      if exists $bff->{exposures};
+    #   $pxf->{exposures} =
+    #
+    #      [
+    #        map {
+    #            {
+    #                type       => $_->{exposureCode},
+    #                occurrence => { timestamp => $_->{date} }
+    #            }
+    #        } @{ $bff->{exposures} }
+    #      ]
+    #      if exists $bff->{exposures};
 
     #######################################
     # END MAPPING TO PHENOPACKET V2 TERMS #

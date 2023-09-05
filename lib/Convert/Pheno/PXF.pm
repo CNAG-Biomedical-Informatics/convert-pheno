@@ -21,16 +21,31 @@ sub do_pxf2bff {
     my ( $self, $data ) = @_;
     my $sth = $self->{sth};
 
-    # We encountered that some PXF files have
-    # /phenopacket
-    # /interpretation (w/o s)
-    # Get cursors for them if they exist
-    my $interpretations =
-        exists $data->{interpretations} ? $data->{interpretations}
-      : $data->{interpretation}         ? $data->{interpretation}
-      :                                   undef;
+    # *** IMPORTANT ****
+    # PXF three top-level elements are usually split in files:
+    # - phenopacket.json ( usually - 1 individual per file)
+    # - cohort.json (info on mutliple individuals)
+    # - family.json (info related to one or multiple individuals).
+    # These 3 files dont't contain their respective objects at the root level (/).
+    #
+    # However, top-elements might be combined into a single file (e.g., pxf.json),
+    # as a result, certain files may contain objects for top-level elements:
+    # - /phenopacket
+    # - /cohort
+    # - /family
+    #
+    # In this context, we only accept top-level phenopackets,
+    # while the other two types will be categorized as "info".
+
+    # We create cursors for top-level elements
+    # 1 - phenopacket (mandatory)
     my $phenopacket =
       exists $data->{phenopacket} ? $data->{phenopacket} : $data;
+
+    # 2, 3 - /cohort and /family (unlikely)
+    # NB: They usually contain info on many individuals and their own files)
+    my $cohort = exists $data->{family} ? $data->{cohort} : undef;
+    my $family = exists $data->{family} ? $data->{family} : undef;
 
     # Normalize the hash for medical_actions + medicalActions = medicalActions
     if ( exists $phenopacket->{medical_actions} ) {
@@ -50,12 +65,13 @@ sub do_pxf2bff {
     # Define defaults
     my $default_date            = '1900-01-01';
     my $default_duration        = 'P999Y';
+    my $default_value           = -1;
     my $default_timestamp       = '1900-01-01T00:00:00Z';
     my $default_iso8601duration = { iso8601duration => $default_duration };
     my $default_ontology        = { id => 'NCIT:NA0000', label => 'NA' };
     my $default_quantity        = {
         unit  => $default_ontology,
-        value => -1
+        value => $default_value
     };
 
     ####################################
@@ -148,17 +164,18 @@ sub do_pxf2bff {
     # *** IMPORTANT ***
     # Here we set data that do not fit anywhere else
 
-    # Miscelanea
+    # Miscelanea for top-level 'phenopacket'
     for my $term (
-        qw (dateOfBirth genes metaData variants files biosamples pedigree))
+        qw (dateOfBirth genes interpretations metaData variants files biosamples pedigree)
+      )
     {
         $individual->{info}{phenopacket}{$term} = $phenopacket->{$term}
           if exists $phenopacket->{$term};
     }
 
-    # interpretations
-    $individual->{info}{interpretations} = $interpretations
-      if defined $interpretations;
+    # Miscelanea for top-levels 'cohort' and 'family'
+    $individual->{info}{cohort} = $cohort if defined $cohort;
+    $individual->{info}{family} = $family if defined $family;
 
     # =========================
     # interventionsOrProcedures
@@ -202,13 +219,23 @@ sub do_pxf2bff {
         for my $measurement ( @{ $phenopacket->{measurements} } ) {
             my $measure = $measurement;    # Ref-copy-only
 
-            $measure->{assayCode}         = $measure->{assay};
-            $measure->{measurementValue}  = $measure->{value};
+            $measure->{assayCode} = $measure->{assay};
+
+            # Process remotely compleValue
+            # s/type/quantityType/
+            map_complexValue( $measure->{complexValue} )
+              if exists $measure->{complexValue};
+
+            # Assign dependeing on PXF
+            $measure->{measurementValue} =
+                exists $measure->{value}        ? $measure->{value}
+              : exists $measure->{complexValue} ? $measure->{complexValue}
+              :                                   $default_value;
             $measure->{observationMoment} = $measure->{timeObserved}
               if exists $measure->{timeObserved};
 
             # Clean analog terms if exist
-            for (qw/assay value/) {
+            for (qw/assay value complexValue/) {
                 delete $measure->{$_}
                   if exists $measure->{$_};
             }
@@ -314,6 +341,34 @@ sub do_pxf2bff {
 
     # print Dumper $individual;
     return $individual;
+}
+
+sub map_complexValue {
+
+    my $complexValue = shift;
+
+    # "typedQuantities": [
+    #            {
+    #              "type": {
+    #                "label": "Visual Acuity",
+    #                "id": "NCIT:C87149"
+    #              },
+    #              "quantity": {
+    #                "unit": {
+    #                  "id": "NCIT:C48570",
+    #                  "label": "Percent Unit"
+    #                },
+    #                "value": 100
+    #              }
+    #            }
+    #  }
+
+    # Modifying the orginal ref
+    for ( @{ $complexValue->{typedQuantities} } ) {
+        $_->{quantityType} = delete $_->{type};
+    }
+
+    return 1;
 }
 
 sub get_metaData {

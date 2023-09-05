@@ -5,6 +5,8 @@ Revision history for Perl distribution Convert-Pheno
  - Excluded unnecessary files in CPAN via MANIFEST.SKIP
  - Changed Google Drive location of ohdsi.db
  - Increased coverage of PXF<-->BFF term mapping
+ - Added READMEs to t/*/in/
+ - Updated t/pxf2bff/in/pxf.json and added YAML version
 
 0.12 2023-07-19T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 

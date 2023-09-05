@@ -3,7 +3,23 @@
 
 We provide several alternatives (containerized and non-containerized) for download and installation.
 
-## Containerized (Recommended Method)
+!!! Hint "Which download method should I use?"
+    It depends in which components you want to use and your fluency in performing installations on Linux environments. Usually, most people use the [CLI](use-as-a-command-line-interface.md).
+
+    | Use case | Method  |
+    | --  | -- |
+    | CLI |  3 (CPAN) |
+    | CLI (conda) | 4 (CPAN in Conda env)|
+    | API | 1 or 2 (Docker) |
+    | Web App UI | [Here](https://cnag-biomedical-informatics.github.io/convert-pheno-ui)
+
+## Containerized
+
+With the containerized version you get:
+
+* Module
+* CLI
+* APIs
 
 === "Method 1: From Docker Hub"
 
@@ -15,13 +31,14 @@ We provide several alternatives (containerized and non-containerized) for downlo
 
 ## Non-Containerized
 
-=== "Method 3: From Github"
+=== "Method 3: From CPAN"
 
-    Please follow the instructions provided in this [README](https://github.com/cnag-biomedical-informatics/convert-pheno#non-containerized).
+    The core of software is a module implemented in `Perl` and it is available in the Comprehensive Perl Archive Network (CPAN). See the description [here](https://metacpan.org/pod/Convert::Pheno).
 
-=== "Method 4: From CPAN"
+    With the CPAN version you get:
 
-    The core of software is a module implemented in `Perl` and it is available in the Comprehensive Perl Archive Network (CPAN). See the description [here](https://metacpan.org/pod/Convert::Pheno). Along with the module, you'll get the [CLI](use-as-a-command-line-interface.md).
+    * Module
+    * CLI
 
     !!! Warning "Required system-level libraries"
 
@@ -37,9 +54,13 @@ We provide several alternatives (containerized and non-containerized) for downlo
 
     To install it, plese see this [README](https://github.com/CNAG-Biomedical-Informatics/convert-pheno#from-cpan).
 
-=== "Method 5: From CPAN in a **Conda** environment"
+=== "Method 4: From CPAN in a **Conda** environment"
 
-    
+     With the CPAN version you get:
+
+    * Module
+    * CLI
+
     ### Step 1: Install Miniconda
     
     1. Download the Miniconda installer for Linux with the following command:
@@ -124,3 +145,15 @@ We provide several alternatives (containerized and non-containerized) for downlo
     ```
 
     Feel free to copy that file and use for your own purposes.
+
+=== "Method 5: From Github"
+
+    With the non-containerized version from Github you get:
+
+    * Module
+    * CLI
+    * APIs
+
+    Please follow the instructions provided in this [README](https://github.com/cnag-biomedical-informatics/convert-pheno#non-containerized).
+
+

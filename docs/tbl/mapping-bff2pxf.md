@@ -18,14 +18,15 @@
 |  BFF JSON path                                              | PXF JSON path                                               |
 |  :---:                                                      | :---:                                                       |
 |  phenotypicFeatures.featureType                             | phenotypicFeatures.type                                     |
-|  phenotypicFeatures.excluded                             | phenotypicFeatures.excluded                                     |
+|  phenotypicFeatures.excluded                                | phenotypicFeatures.excluded                                 |
 
 
-# measurements XXX
+# measurements
 |  BFF JSON path                                              | PXF JSON path                                               |
 |  :---:                                                      | :---:                                                       |
 |  measures.assayCode                                         | measurements.assay                                          |
 |  measures.measurementValue                                  | measurements.value                                          |
+|  measures.measurementValue.typedQuantities.quantityType    | measurements.complexValue.typedQuantities.type              |
 
 ## biosamples
 |  BFF JSON path                                              | PXF JSON path                                               |
@@ -43,7 +44,7 @@
 |  diseases.diseaseCode                                       | diseases.term                                               |
 |  diseases.ageOfOnset                                        | diseases.onset                                              |
 
-# medicalActions XXX
+# medicalActions
 |  BFF JSON path                                              | PXF JSON path                                               |
 |  :---:                                                      | :---:                                                       |
 |  interventionsOrProcedures.procedureCode                    | medicalActions.procedure.code                               |
@@ -63,5 +64,3 @@ NA
 |  :---:                                                      | :---:                                                       |
 |  exposures.exposureCode                                     | exposures.type                                              |
 |  exposures.date                                             | exposures.occurrence.timestamp                              |
-
-## pedigrees

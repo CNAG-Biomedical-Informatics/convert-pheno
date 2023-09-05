@@ -49,6 +49,7 @@ NA
 |  measurements                                               | measures                                                    |
 |  measurements.assay                                         | measures.assayCode                                          |
 |  measurements.value                                         | measures.measurementValue                                   |
+|  measurements.complexValue.typedQuantities.type             | measures.measurementValue.typedQuantities.quantityType      |
 |  measurements.timeObserved                                  | measures.observationMoment                                  |
 
 ## pedigrees
@@ -60,6 +61,7 @@ NA
 |  phenotypicFeatures                                         | phenotypicFeatures                                          |
 |  phenotypicFeatures.type                                    | phenotypicFeatures.featureType                              |
 |  phenotypicFeatures.negated                                 | phenotypicFeatures.excluded                                 |
+|  phenotypicFeatures.evidence (array)                        | phenotypicFeatures.evidence (v2.0.0 still object)           |
 
 ## sex
 |  PXF JSON path                                              | BFF JSON path                                               |
@@ -71,6 +73,3 @@ NA
 |  :---:                                                      | :---:                                                       |
 |  medicalActions.treatment                                   | treatments                                                  |
 |  medicalActions.treatment.agent                             | treatments.treatmentCode                                    |
-
-!!! Note "Notes"
-    * TBD 

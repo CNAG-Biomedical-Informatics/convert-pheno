@@ -92,6 +92,3 @@ NA
 |                                                             | DEFAULT                                                    | treatments.routeOfAdministration                            |
 |  DRUG_EXPOSURE                                              | drug_concept_id                                            | treatments.treatmentCode                                    |
 |  DRUG_EXPOSURE                                              | person_id, visit_occurrence_id                             | treatments._visit                                           |
-
-!!! Note "Notes"
-    * Beacon v2 schema requires some properties to exist in order to pass the validation, that's why we have to use DEFAULT values

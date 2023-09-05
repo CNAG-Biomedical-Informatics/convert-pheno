@@ -80,22 +80,7 @@ Frequently Asked Questions
 
     ##### last change 2023-03-24 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
-??? faq "How are variables that cannot be mapped handled during the conversion process?"
-
-    During the conversion process, when encountering variables that **cannot be directly mapped** to the target standard, two situations may arise. In the first situation, if the target format allows for additional properties, the variable will be stored under the _info property. This commonly occurs when converting from OMOP-CDM to BFFs. In the second situation, if the variable maps to other entities within Beacon v2 Models, it will be stored within BFF's _info term. An example of this is the storage of _biosample_ information in PXF files.
-
-    ##### last change 2023-06-29 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
-
 ## Installation
-
-??? faq "There are multiple [download](download-and-installation.md) options, which one should I choose?"
-
-    We recommend using the [containerized version](https://github.com/CNAG-Biomedical-Informatics/convert-pheno#containerized-recommended-method).
-
-    The reason for this is that you'll get **all functionalities** working **out-of-the-box**.
-
-    ##### last change 2023-06-27 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
-
 
 ??? faq "I am installing `Convert-Pheno` from source ([non-containerized version](https://github.com/cnag-biomedical-informatics/convert-pheno#non-containerized)) but I can't make it work. Any suggestions?"
 

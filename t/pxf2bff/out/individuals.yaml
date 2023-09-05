@@ -1,205 +1,2596 @@
 ---
-diseases:
-- diseaseCode:
-    id: NCIT:C2985
-    label: Diabetes Mellitus
-  excluded: true
-- diseaseCode:
-    id: NCIT:C34830
-    label: Cardiomyopathy
-  excluded: false
-- diseaseCode:
-    id: NCIT:C80389
-    label: Chronic Kidney Disease, Stage 3
-  excluded: false
-- diseaseCode:
-    id: NCIT:C3283
-    label: Obesity
-  excluded: false
-- ageOfOnset:
-    timestamp: 2020-03-17T00:00:00Z
-  diseaseCode:
-    id: MONDO:0100096
-    label: COVID-19
-  excluded: false
-exposures:
-- ageAtExposure:
-    iso8601duration: P999Y
-  date: 2018-03-01
-  description: accidental arsenic ingestion from a herbal medicine product
-  duration: P999Y
-  evidence:
-    id: ECO:0006154
-    label: self-reported patient statement evidence
-  exposureCode:
-    id: ECTO:9000032
-    label: arsenic atom exposure
-  occurrence:
-    timestamp: 2018-03-01T00:00:00Z
-  route:
-    id: NCIT:C28229
-    label: Ingestion
-  unit: &1
-    id: NCIT:NA0000
-    label: NA
-id: patient1
-info:
-  phenopacket:
-    pedigree:
-      persons:
-      - affectedStatus: AFFECTED
-        familyId: family 1
-        individualId: kindred 1A
-        maternalId: MOTHER
-        paternalId: FATHER
-        sex: MALE
-      - affectedStatus: AFFECTED
-        familyId: family 1
-        individualId: kindred 1B
-        maternalId: MOTHER
-        paternalId: FATHER
-        sex: MALE
-      - affectedStatus: UNAFFECTED
-        familyId: family 1
-        individualId: MOTHER
-        maternalId: 0
-        paternalId: 0
-        sex: FEMALE
-      - affectedStatus: UNAFFECTED
-        familyId: family 1
-        individualId: FATHER
-        maternalId: 0
-        paternalId: 0
-        sex: MALE
-interventionsOrProcedures:
-- ageOfProcedure:
-    timestamp: 2020-03-22T00:00:00Z
-  procedureCode:
-    id: NCIT:C116648
-    label: Tracheal Intubation
-- ageOfProcedure:
-    timestamp: 2016-01-01T00:00:00Z
-  procedureCode:
-    id: NCIT:C80473
-    label: Left Ventricular Assist Device
-measures:
-- assayCode:
-    id: NCIT:C113237
-    label: Absolute Blood Lymphocyte Count
-  measurementValue:
-    quantity:
-      referenceRange:
-        high: 4.5
-        low: 1
+- diseases:
+  - ageOfOnset:
+      ontologyClass:
+        id: HP:0011463
+        label: Childhood onset
+    diseaseCode:
+      id: MONDO:0100308
+      label: atactic disorder
+    excluded: true
+  id: 16-year-old boy
+  info:
+    phenopacket:
+      interpretations:
+      - diagnosis:
+          disease:
+            id: MONDO:0100340
+            label: Friedreich ataxia 1
+          genomicInterpretations:
+          - gene:
+              symbol: FXN
+              valueId: HGNC:3951
+            interpretationStatus: REJECTED
+            subjectOrBiosampleId: 16-year-old boy
+        id: interpretation.1
+        progressStatus: COMPLETED
+        summary: Genetic analysis of the frataxin gene confirmed two alleles in the
+          normal size range and no evidence of an expansion.
+      - diagnosis:
+          disease:
+            id: MONDO:0010188
+            label: familial isolated deficiency of vitamin E
+          genomicInterpretations:
+          - interpretationStatus: CAUSATIVE
+            subjectOrBiosampleId: 16-year-old boy
+            variantInterpretation:
+              acmgPathogenicityClassification: PATHOGENIC
+              therapeuticActionability: ACTIONABLE
+              variationDescriptor:
+                allelicState:
+                  id: GENO:0000136
+                  label: homozygous
+                expressions:
+                - syntax: hgvs.c
+                  value: NM_000370.3(TTPA):c.706del
+                - syntax: transcript_reference
+                  value: NM_000370.3
+                geneContext:
+                  symbol: TTPA
+                  valueId: HGNC:12404
+                id: variant.1
+                label: NP_000361.1:p.(His236IlefsTer28)
+                moleculeContext: genomic
+                variation:
+                  allele:
+                    literalSequenceExpression: {}
+                    sequenceLocation:
+                      sequenceId: refseq:NC_000008.11
+                      sequenceInterval:
+                        endNumber:
+                          value: 63061383
+                        startNumber:
+                          value: 63061382
+                vcfRecord:
+                  alt: T
+                  chrom: NC_000008.11
+                  genomeAssembly: GRCh38
+                  pos: 63061382
+                  ref: TG
+        id: interpretation.2
+        progressStatus: SOLVED
+      metaData:
+        created: 2022-04-21T10:35:00Z
+        createdBy: anonymous biocurator
+        externalReferences:
+        - description: 'Ataxia due to vitamin E deficiency: A case report and updated
+            review'
+          id: doi:10.1002/ccr3.6303
+        phenopacketSchemaVersion: 2.0.0
+        resources:
+        - id: ncit
+          iriPrefix: http://purl.obolibrary.org/obo/NCIT_
+          name: NCI Thesaurus
+          namespacePrefix: NCIT
+          url: http://purl.obolibrary.org/obo/ncit.owl
+          version: 21.05d
+        - id: hp
+          iriPrefix: http://purl.obolibrary.org/obo/HP_
+          name: human phenotype ontology
+          namespacePrefix: HP
+          url: http://purl.obolibrary.org/obo/hp.owl
+          version: 2022-06-11
+        - id: mondo
+          iriPrefix: http://purl.obolibrary.org/obo/MONDO_
+          name: Mondo Disease Ontology
+          namespacePrefix: MONDO
+          url: http://purl.obolibrary.org/obo/mondo.obo
+          version: 2022-04-04
+        - id: uberon
+          iriPrefix: http://purl.obolibrary.org/obo/UBERON_
+          name: Uber-anatomy ontology
+          namespacePrefix: UBERON
+          url: http://purl.obolibrary.org/obo/uberon.owl
+          version: 2021-07-27
+        - id: loinc
+          iriPrefix: https://loinc.org/
+          name: Logical Observation Identifiers Names and Codes
+          namespacePrefix: LOINC
+          url: https://loinc.org
+          version: 2.73
+        - id: ucum
+          iriPrefix: https://units-of-measurement.org/
+          name: Unified Code for Units of Measure
+          namespacePrefix: UCUM
+          url: https://ucum.org
+          version: 2.1
+        - id: geno
+          iriPrefix: http://purl.obolibrary.org/obo/GENO_
+          name: Genotype Ontology
+          namespacePrefix: GENO
+          url: http://purl.obolibrary.org/obo/geno.owl
+          version: 2022-03-05
+        - id: drugcentral
+          iriPrefix: https://drugcentral.org/drugcard/
+          name: Drug Central
+          namespacePrefix: DrugCentral
+          url: https://drugcentral.org/
+          version: 2022-08-22
+  karyotypicSex: UNKNOWN_KARYOTYPE
+  measures:
+  - assayCode:
+      id: LOINC:2923-1
+      label: Retinol [Mass/volume] in Serum or Plasma
+    measurementValue:
+      quantity:
+        referenceRange:
+          high: 60
+          low: 20
+          unit:
+            id: UCUM:ug.dL-1
+            label: microgram per deciliter
+        unit:
+          id: UCUM:ug.dL-1
+          label: microgram per deciliter
+        value: 45
+    observationMoment: &1
+      age:
+        iso8601duration: P16Y
+    timeObserved: *1
+  - assayCode:
+      id: LOINC:1823-4
+      label: Alpha tocopherol [Mass/volume] in Serum or Plasma
+    measurementValue:
+      quantity:
+        referenceRange:
+          high: 10
+          low: 6
+          unit:
+            id: UCUM:mg.dL-1
+            label: milligram per deciliter
+        unit:
+          id: UCUM:mg.dL-1
+          label: milligram per deciliter
+        value: 3.9
+    observationMoment: &2
+      age:
+        iso8601duration: P16Y
+    timeObserved: *2
+  - assayCode:
+      id: LOINC:2157-6
+      label: Creatine kinase [Enzymatic activity/volume] in Serum or Plasma
+    measurementValue:
+      quantity:
+        referenceRange:
+          high: 198
+          low: 22
+          unit:
+            id: UCUM:U.L-1
+            label: enzyme unit per liter
+        unit:
+          id: UCUM:U.L-1
+          label: enzyme unit per liter
+        value: 80
+    observationMoment: &3
+      age:
+        iso8601duration: P16Y
+    timeObserved: *3
+  - assayCode:
+      id: LOINC:1823-4
+      label: Alpha tocopherol [Mass/volume] in Serum or Plasma
+    measurementValue:
+      quantity:
+        referenceRange:
+          high: 10
+          low: 6
+          unit:
+            id: UCUM:mg.dL-1
+            label: milligram per deciliter
+        unit:
+          id: UCUM:mg.dL-1
+          label: milligram per deciliter
+        value: 17.34
+    observationMoment: &4
+      age:
+        iso8601duration: P16Y6M
+    timeObserved: *4
+  phenotypicFeatures:
+  - excluded: true
+    featureType:
+      id: HP:0001288
+      label: Gait disturbance
+    onset:
+      age:
+        iso8601duration: P10Y
+  - excluded: true
+    featureType:
+      id: HP:0001324
+      label: Muscle weakness
+    modifiers:
+    - id: HP:0012837
+      label: Generalized
+    onset:
+      age:
+        iso8601duration: P10Y
+  - excluded: true
+    featureType:
+      id: HP:0002066
+      label: Gait ataxia
+    onset:
+      age:
+        iso8601duration: P16Y
+  - excluded: true
+    featureType:
+      id: HP:0001308
+      label: Tongue fasciculations
+    onset:
+      age:
+        iso8601duration: P16Y
+  - excluded: true
+    featureType:
+      id: HP:0002080
+      label: Intention tremor
+    onset:
+      age:
+        iso8601duration: P16Y
+  - excluded: true
+    featureType:
+      id: HP:0002075
+      label: Dysdiadochokinesis
+    onset:
+      age:
+        iso8601duration: P16Y
+  - excluded: true
+    featureType:
+      id: HP:0001251
+      label: Ataxia
+    onset:
+      age:
+        iso8601duration: P16Y
+  - excluded: true
+    featureType:
+      id: HP:0001284
+      label: Areflexia
+    onset:
+      age:
+        iso8601duration: P16Y
+  - excluded: true
+    featureType:
+      id: HP:0011448
+      label: Ankle clonus
+    onset:
+      age:
+        iso8601duration: P16Y
+  - excluded: true
+    featureType:
+      id: HP:0003690
+      label: Limb muscle weakness
+    onset:
+      age:
+        iso8601duration: P16Y
+  - excluded: true
+    featureType:
+      id: HP:0003474
+      label: Somatic sensory dysfunction
+    onset:
+      age:
+        iso8601duration: P16Y
+  - excluded: true
+    featureType:
+      id: HP:0002599
+      label: Head titubation
+    onset:
+      age:
+        iso8601duration: P16Y
+  - excluded: true
+    featureType:
+      id: HP:0031910
+      label: Abnormal cranial nerve physiology
+    onset:
+      age:
+        iso8601duration: P16Y
+  sex:
+    id: NCIT:C16576
+    label: Female
+  treatments:
+  - drugType: UNKNOWN_DRUG_TYPE
+    routeOfAdministration:
+      id: NCIT:C38288
+      label: Oral Route of Administration
+    treatmentCode:
+      id: DrugCentral:257
+      label: Vitamin E
+- id: proband A
+  info:
+    phenopacket:
+      interpretations:
+      - diagnosis:
+          disease:
+            id: OMIM:158810
+            label: Bethlem myopathy 1
+          genomicInterpretations:
+          - interpretationStatus: CAUSATIVE
+            subjectOrBiosampleId: arbitrary interpretation id
+            variantInterpretation:
+              acmgPathogenicityClassification: PATHOGENIC
+              therapeuticActionability: UNKNOWN_ACTIONABILITY
+              variationDescriptor:
+                allelicState:
+                  id: GENO:0000135
+                  label: heterozygous
+                expressions:
+                - syntax: hgvs
+                  value: NM_001848.2:c.877G>A
+                geneContext:
+                  symbol: COL6A1
+                  valueId: HGNC:2211
+                id: variant id
+                moleculeContext: unspecified_molecule_context
+                vcfRecord:
+                  alt: A
+                  chrom: chr21
+                  genomeAssembly: GRCh38
+                  pos: 45989626
+                  ref: G
+        id: arbitrary interpretation id
+        progressStatus: COMPLETED
+      metaData:
+        created: 2021-05-14T10:35:00Z
+        createdBy: anonymous biocurator
+        externalReferences:
+        - description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent
+            hematuria: a case report'
+          id: PMID:30808312
+        phenopacketSchemaVersion: 2.0.0
+        resources:
+        - id: hp
+          iriPrefix: http://purl.obolibrary.org/obo/HP_
+          name: human phenotype ontology
+          namespacePrefix: HP
+          url: http://purl.obolibrary.org/obo/hp.owl
+          version: 2021-08-02
+        - id: geno
+          iriPrefix: http://purl.obolibrary.org/obo/GENO_
+          name: Genotype Ontology
+          namespacePrefix: GENO
+          url: http://purl.obolibrary.org/obo/geno.owl
+          version: 2020-03-08
+        - id: eco
+          iriPrefix: http://purl.obolibrary.org/obo/ECO_
+          name: Evidence & Conclusion Ontology (ECO)
+          namespacePrefix: ECO
+          url: http://purl.obolibrary.org/obo/eco.owl
+          version: 2022-08-05
+        - id: omim
+          iriPrefix: https://www.omim.org/entry/
+          name: An Online Catalog of Human Genes and Genetic Disorders
+          namespacePrefix: OMIM
+          url: https://www.omim.org
+          version: 2022-11-23
+  karyotypicSex: UNKNOWN_KARYOTYPE
+  phenotypicFeatures:
+  - evidence:
+    - evidenceCode:
+        id: ECO:0000033
+        label: author statement supported by traceable reference
+      reference:
+        description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria:
+          a case report'
+        id: PMID:30808312
+    excluded: true
+    featureType:
+      id: HP:0001629
+      label: Ventricular septal defect
+    onset:
+      ontologyClass:
+        id: HP:0003577
+        label: Congenital onset
+  - evidence:
+    - evidenceCode:
+        id: ECO:0000033
+        label: author statement supported by traceable reference
+      reference:
+        description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria:
+          a case report'
+        id: PMID:30808312
+    excluded: true
+    featureType:
+      id: HP:0000280
+      label: Coarse facial features
+  - evidence:
+    - evidenceCode:
+        id: ECO:0000033
+        label: author statement supported by traceable reference
+      reference:
+        description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria:
+          a case report'
+        id: PMID:30808312
+    excluded: true
+    featureType:
+      id: HP:0008689
+      label: Bilateral cryptorchidism
+    onset:
+      ontologyClass:
+        id: HP:0003577
+        label: Congenital onset
+  - evidence:
+    - evidenceCode:
+        id: ECO:0000033
+        label: author statement supported by traceable reference
+      reference:
+        description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria:
+          a case report'
+        id: PMID:30808312
+    excluded: true
+    featureType:
+      id: HP:0001561
+      label: Polyhydramnios
+    onset:
+      ontologyClass:
+        id: HP:0011461
+        label: Fetal onset
+  - evidence:
+    - evidenceCode:
+        id: ECO:0000033
+        label: author statement supported by traceable reference
+      reference:
+        description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria:
+          a case report'
+        id: PMID:30808312
+    excluded: true
+    featureType:
+      id: HP:0000054
+      label: Micropenis
+    onset:
+      ontologyClass:
+        id: HP:0003577
+        label: Congenital onset
+  - evidence:
+    - evidenceCode:
+        id: ECO:0000033
+        label: author statement supported by traceable reference
+      reference:
+        description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria:
+          a case report'
+        id: PMID:30808312
+    excluded: true
+    featureType:
+      id: HP:0001798
+      label: Anonychia
+    onset:
+      ontologyClass:
+        id: HP:0003577
+        label: Congenital onset
+  - evidence:
+    - evidenceCode:
+        id: ECO:0000033
+        label: author statement supported by traceable reference
+      reference:
+        description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria:
+          a case report'
+        id: PMID:30808312
+    excluded: true
+    featureType:
+      id: HP:0001320
+      label: Cerebellar vermis hypoplasia
+  - evidence:
+    - evidenceCode:
+        id: ECO:0000033
+        label: author statement supported by traceable reference
+      reference:
+        description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria:
+          a case report'
+        id: PMID:30808312
+    excluded: true
+    featureType:
+      id: HP:0000518
+      label: Cataract
+    onset:
+      ontologyClass:
+        id: HP:0003593
+        label: Infantile onset
+  - evidence:
+    - evidenceCode:
+        id: ECO:0000033
+        label: author statement supported by traceable reference
+      reference:
+        description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria:
+          a case report'
+        id: PMID:30808312
+    excluded: true
+    featureType:
+      id: HP:0002198
+      label: Dilated fourth ventricle
+  - evidence:
+    - evidenceCode:
+        id: ECO:0000033
+        label: author statement supported by traceable reference
+      reference:
+        description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria:
+          a case report'
+        id: PMID:30808312
+    excluded: true
+    featureType:
+      id: HP:0100333
+      label: Unilateral cleft lip
+    onset:
+      ontologyClass:
+        id: HP:0003577
+        label: Congenital onset
+  sex:
+    id: NCIT:C20197
+    label: Male
+- diseases:
+  - diseaseCode:
+      id: MONDO:0005015
+      label: diabetes mellitus
+    excluded: true
+  - diseaseCode:
+      id: MONDO:0004994
+      label: cardiomyopathy
+    excluded: true
+  - ageOfOnset:
+      timestamp: 2020-03-17T00:00:00Z
+    diseaseCode:
+      id: MONDO:0100096
+      label: COVID-19
+    excluded: true
+  id: P123542
+  info:
+    phenopacket:
+      metaData:
+        created: 2021-08-17T00:00:00Z
+        createdBy: anonymous biocurator
+        externalReferences:
+        - description: 'The Imperfect Cytokine Storm: Severe COVID-19 With ARDS in
+            a Patient on Durable LVAD Support'
+          id: DOI:10.1016/j.jaccas.2020.04.001
+          reference: PMID:32292915
+        phenopacketSchemaVersion: 2.0.0
+        resources:
+        - id: hp
+          iriPrefix: http://purl.obolibrary.org/obo/HP_
+          name: human phenotype ontology
+          namespacePrefix: HP
+          url: http://purl.obolibrary.org/obo/hp.owl
+          version: 2021-08-02
+        - id: ncit
+          iriPrefix: http://purl.obolibrary.org/obo/NCIT_
+          name: NCI Thesaurus
+          namespacePrefix: NCIT
+          url: http://purl.obolibrary.org/obo/ncit.owl
+          version: 21.05d
+        - id: mondo
+          iriPrefix: http://purl.obolibrary.org/obo/MONDO_
+          name: Mondo Disease Ontology
+          namespacePrefix: MONDO
+          url: http://purl.obolibrary.org/obo/mondo.obo
+          version: 2022-04-04
+        - id: loinc
+          iriPrefix: https://loinc.org/
+          name: Logical Observation Identifiers Names and Codes
+          namespacePrefix: LOINC
+          url: https://loinc.org
+          version: 2.73
+        - id: pato
+          iriPrefix: http://purl.obolibrary.org/obo/PATO_
+          name: PhenotypicFeature And Trait Ontology
+          namespacePrefix: PATO
+          url: http://purl.obolibrary.org/obo/pato.owl
+          version: 2022-08-31
+        - id: chebi
+          iriPrefix: https://purl.obolibrary.org/obo/CHEBI_
+          name: Chemical Entities of Biological Interest
+          namespacePrefix: CHEBI
+          url: https://www.ebi.ac.uk/chebi
+          version: 2022-11-23
+        - id: ucum
+          iriPrefix: https://units-of-measurement.org/
+          name: Unified Code for Units of Measure
+          namespacePrefix: UCUM
+          url: https://ucum.org
+          version: 2.1
+  interventionsOrProcedures:
+  - ageOfProcedure:
+      timestamp: 2016-01-01T00:00:00Z
+    procedureCode:
+      id: NCIT:C80473
+      label: Left Ventricular Assist Device
+  - ageOfProcedure:
+      timestamp: 2020-03-22T00:00:00Z
+    procedureCode:
+      id: NCIT:C116648
+      label: Tracheal Intubation
+  karyotypicSex: UNKNOWN_KARYOTYPE
+  measures:
+  - assayCode:
+      id: LOINC:26474-7
+      label: Lymphocytes [#/volume] in Blood
+    measurementValue:
+      quantity:
         unit:
           id: NCIT:C67245
           label: Thousand Cells
-      unit:
-        id: NCIT:C67245
-        label: Thousand Cells
-      value: 1.4
-  observationMoment: &2
-    interval:
-      end: 2020-03-01T00:00:00Z
-      start: 2019-09-01T00:00:00Z
-  timeObserved: *2
-- assayCode:
-    id: NCIT:C113237
-    label: Absolute Blood Lymphocyte Count
-  measurementValue:
-    quantity:
-      referenceRange:
-        high: 4.5
-        low: 1
+        value: 1.4
+    observationMoment: &5
+      interval:
+        end: 2020-03-01T00:00:00Z
+        start: 2019-09-01T00:00:00Z
+    timeObserved: *5
+  - assayCode:
+      id: LOINC:26474-7
+      label: Lymphocytes [#/volume] in Blood
+    measurementValue:
+      quantity:
         unit:
           id: NCIT:C67245
           label: Thousand Cells
-      unit:
-        id: NCIT:C67245
-        label: Thousand Cells
-      value: 0.7
-  observationMoment: &3
-    timestamp: 2020-03-20T00:00:00Z
-  timeObserved: *3
-sex:
-  id: NCIT:C20197
-  label: Male
-treatments:
-- doseIntervals:
-  - interval:
-      end: 2020-03-22T00:00:00Z
-      start: 2020-03-20T00:00:00Z
-    quantity:
-      unit:
-        id: NCIT:C67388
-        label: Liter per Minute
-      value: 2
-    scheduleFrequency: *1
-  - interval:
-      end: 2020-03-23T00:00:00Z
-      start: 2020-03-22T00:00:00Z
-    quantity:
-      unit:
-        id: NCIT:C67388
-        label: Liter per Minute
-      value: 50
-    scheduleFrequency: *1
-  routeOfAdministration:
-    id: NCIT:C38284
-    label: Nasal Route of Administration
-  treatmentCode:
-    id: NCIT:C722
-    label: Oxygen
-- doseIntervals:
-  - interval:
-      end: 2020-03-20T00:00:00Z
-      start: 2020-03-20T00:00:00Z
-    quantity:
-      unit:
-        id: NCIT:C28253
-        label: mg
-      value: 450
-    scheduleFrequency:
-      id: NCIT:C64496
-      label: Twice Daily
-  - interval:
-      end: 2020-03-22T00:00:00Z
-      start: 2020-03-21T00:00:00Z
-    quantity:
-      unit:
-        id: NCIT:C28253
-        label: mg
-      value: 450
-    scheduleFrequency:
-      id: NCIT:C125004
-      label: Once Daily
-  treatmentCode:
-    id: NCIT:C557
-    label: Hydroxychloroquine
-- doseIntervals:
-  - interval:
-      end: 2020-03-28T00:00:00Z
-      start: 2020-03-22T00:00:00Z
-    quantity:
-      unit:
-        id: NCIT:C91060
-        label: Centimeters of Water
-      value: 14
-    scheduleFrequency: *1
-  routeOfAdministration:
-    id: NCIT:C50254
-    label: Positive end Expiratory Pressure Valve Device
-  treatmentCode:
-    id: NCIT:C722
-    label: Oxygen
-- doseIntervals:
-  - interval:
-      end: 2020-03-28T00:00:00Z
-      start: 2020-03-24T00:00:00Z
-    quantity:
-      unit: *1
-      value: -1
-    scheduleFrequency: *1
-  treatmentCode:
-    id: NCIT:C84217
-    label: Tocilizumab
+        value: 0.7
+    observationMoment: &6
+      timestamp: 2020-03-20T00:00:00Z
+    timeObserved: *6
+  phenotypicFeatures:
+  - excluded: true
+    featureType:
+      id: HP:0001945
+      label: 'Fever '
+    onset:
+      timestamp: 2021-02-01T05:00:00Z
+  - excluded: true
+    featureType:
+      id: HP:0030157
+      label: Flank pain
+    onset:
+      timestamp: 2021-02-01T05:00:00Z
+  - excluded: true
+    featureType:
+      id: HP:0000790
+      label: Hematuria
+    onset:
+      timestamp: 2021-02-01T05:00:00Z
+  - excluded: true
+    featureType:
+      id: HP:0012625
+      label: Stage 3 chronic kidney disease
+    onset:
+      timestamp: 2021-02-01T05:00:00Z
+  - excluded: true
+    featureType:
+      id: HP:0003326
+      label: Myalgia
+    onset:
+      interval:
+        end: 2020-03-20T00:00:00Z
+        start: 2020-03-18T00:00:00Z
+  - excluded: true
+    featureType:
+      id: HP:0002014
+      label: Diarrhea
+    onset:
+      interval:
+        end: 2020-03-20T00:00:00Z
+        start: 2020-03-18T00:00:00Z
+  - excluded: true
+    featureType:
+      id: HP:0002094
+      label: Dyspnea
+    onset:
+      interval:
+        end: 2020-03-20T00:00:00Z
+        start: 2020-03-18T00:00:00Z
+  - excluded: true
+    featureType:
+      id: HP:0033677
+      label: Acute respiratory distress syndrome
+    onset:
+      timestamp: 2020-03-20T00:00:00Z
+  sex: &7
+    id: NCIT:C20197
+    label: Male
+  treatments:
+  - doseIntervals:
+    - interval:
+        end: 2021-02-02T08:22:42Z
+        start: 2021-02-01T18:58:43Z
+      quantity:
+        unit:
+          id: NCIT:C67388
+          label: Liter per Minute
+        value: 2
+      scheduleFrequency:
+        id: PATO:0000689
+        label: continuous
+    - interval:
+        end: 2021-02-02T12:22:42Z
+        start: 2021-02-02T08:22:42Z
+      quantity:
+        unit:
+          id: NCIT:C67388
+          label: Liter per Minute
+        value: 50
+      scheduleFrequency:
+        id: PATO:0000689
+        label: continuous
+    drugType: UNKNOWN_DRUG_TYPE
+    routeOfAdministration:
+      id: NCIT:C38284
+      label: Nasal Route of Administration
+    treatmentCode:
+      id: NCIT:C722
+      label: Oxygen
+  - doseIntervals:
+    - interval:
+        end: 2020-03-30T00:00:00Z
+        start: 2020-03-20T00:00:00Z
+      quantity:
+        unit:
+          id: UCUM:mg
+          label: milligram
+        value: 6
+      scheduleFrequency:
+        id: NCIT:C125004
+        label: Once Daily
+    drugType: UNKNOWN_DRUG_TYPE
+    treatmentCode:
+      id: CHEBI:41879
+      label: dexamethasone
+  - doseIntervals:
+    - interval:
+        end: 2020-03-28T00:00:00Z
+        start: 2020-03-22T00:00:00Z
+      quantity:
+        unit:
+          id: NCIT:C91060
+          label: Centimeters of Water
+        value: 14
+      scheduleFrequency:
+        id: PATO:0000689
+        label: continuous
+    drugType: UNKNOWN_DRUG_TYPE
+    routeOfAdministration:
+      id: NCIT:C50254
+      label: Positive end Expiratory Pressure Valve Device
+    treatmentCode:
+      id: NCIT:C722
+      label: Oxygen
+  - doseIntervals:
+    - interval:
+        end: 2020-03-28T00:00:00Z
+        start: 2020-03-24T00:00:00Z
+      quantity:
+        unit:
+          id: NCIT:C124458
+          label: Milligram per Kilogram per Dose
+        value: 4
+      scheduleFrequency:
+        id: NCIT:C64529
+        label: Every Four Weeks
+    drugType: UNKNOWN_DRUG_TYPE
+    treatmentCode:
+      id: NCIT:C84217
+      label: Tocilizumab
+- id: 10-year old boy
+  info:
+    phenopacket:
+      interpretations:
+      - diagnosis:
+          disease:
+            id: MONDO:0010679
+            label: Duchenne muscular dystrophy
+          genomicInterpretations:
+          - interpretationStatus: CAUSATIVE
+            subjectOrBiosampleId: 10-year old boy
+            variantInterpretation:
+              acmgPathogenicityClassification: PATHOGENIC
+              therapeuticActionability: UNKNOWN_ACTIONABILITY
+              variationDescriptor:
+                allelicState:
+                  id: GENO:0000134
+                  label: hemizygous
+                expressions:
+                - syntax: hgvs.c
+                  value: NM_004006.3:c.7310-11543_7359del
+                - syntax: transcript_reference
+                  value: NM_004006.3
+                geneContext:
+                  symbol: DMD
+                  valueId: HGNC:2928
+                id: variant-id
+                moleculeContext: genomic
+                variation:
+                  copyNumber:
+                    derivedSequenceExpression:
+                      location:
+                        sequenceId: refseq:NC_000023.11
+                        sequenceInterval:
+                          endNumber:
+                            value: 31785736
+                          startNumber:
+                            value: 31774144
+                      reverseComplement: 0
+                    number:
+                      value: 1
+        id: interpretation.id
+        progressStatus: SOLVED
+      metaData:
+        created: 2021-05-14T10:35:00Z
+        createdBy: anonymous biocurator
+        phenopacketSchemaVersion: 2.0.0
+        resources:
+        - id: hp
+          iriPrefix: http://purl.obolibrary.org/obo/HP_
+          name: human phenotype ontology
+          namespacePrefix: HP
+          url: http://purl.obolibrary.org/obo/hp.owl
+          version: 2022-06-11
+        - id: mondo
+          iriPrefix: http://purl.obolibrary.org/obo/MONDO_
+          name: Mondo Disease Ontology
+          namespacePrefix: MONDO
+          url: http://purl.obolibrary.org/obo/mondo.obo
+          version: 2022-04-04
+        - id: geno
+          iriPrefix: http://purl.obolibrary.org/obo/GENO_
+          name: Genotype Ontology
+          namespacePrefix: GENO
+          url: http://purl.obolibrary.org/obo/geno.owl
+          version: 2022-03-05
+  karyotypicSex: UNKNOWN_KARYOTYPE
+  phenotypicFeatures:
+  - excluded: true
+    featureType:
+      id: HP:0031936
+      label: Delayed ability to walk
+    onset:
+      age:
+        iso8601duration: P1Y6M
+  - excluded: true
+    featureType:
+      id: HP:0003707
+      label: Calf muscle pseudohypertrophy
+    onset:
+      ontologyClass:
+        id: HP:0011463
+        label: Childhood onset
+  - excluded: true
+    featureType:
+      id: HP:0009046
+      label: Difficulty running
+    onset:
+      ontologyClass:
+        id: HP:0011463
+        label: Childhood onset
+  - excluded: true
+    featureType:
+      id: HP:0003458
+      label: 'EMG: myopathic abnormalities'
+    onset:
+      age:
+        iso8601duration: P10Y
+  - excluded: true
+    featureType:
+      id: HP:0003236
+      label: Elevated circulating creatine kinase concentration
+    onset:
+      age:
+        iso8601duration: P10Y
+  sex: *7
+- id: nine-month old infant
+  info:
+    phenopacket:
+      interpretations:
+      - diagnosis:
+          disease:
+            id: OMIM:609637
+            label: Holoprosencephaly 5
+          genomicInterpretations:
+          - interpretationStatus: CAUSATIVE
+            subjectOrBiosampleId: genomic interpretation id
+            variantInterpretation:
+              acmgPathogenicityClassification: PATHOGENIC
+              therapeuticActionability: UNKNOWN_ACTIONABILITY
+              variationDescriptor:
+                allelicState:
+                  id: GENO:0000135
+                  label: heterozygous
+                expressions:
+                - syntax: hgvs
+                  value: NM_007129.3:c.1069C>G
+                geneContext:
+                  symbol: ZIC2
+                  valueId: 'HGNC:12873 '
+                id: variant id
+                moleculeContext: unspecified_molecule_context
+                vcfRecord:
+                  alt: G
+                  chrom: NC_000013.11
+                  genomeAssembly: GRCh38
+                  pos: 99983133
+                  ref: C
+        id: arbitrary interpretation id
+        progressStatus: COMPLETED
+      metaData:
+        created: 2021-05-14T10:35:00Z
+        createdBy: anonymous biocurator
+        externalReferences:
+        - description: Xiong J, et al., 2019
+          id: PMID:30855487
+        phenopacketSchemaVersion: 2.0.0
+        resources:
+        - id: hp
+          iriPrefix: http://purl.obolibrary.org/obo/HP_
+          name: human phenotype ontology
+          namespacePrefix: HP
+          url: http://purl.obolibrary.org/obo/hp.owl
+          version: 2021-08-02
+        - id: geno
+          iriPrefix: http://purl.obolibrary.org/obo/GENO_
+          name: Genotype Ontology
+          namespacePrefix: GENO
+          url: http://purl.obolibrary.org/obo/geno.owl
+          version: 2020-03-08
+        - id: eco
+          iriPrefix: http://purl.obolibrary.org/obo/ECO_
+          name: Evidence & Conclusion Ontology (ECO)
+          namespacePrefix: ECO
+          url: http://purl.obolibrary.org/obo/eco.owl
+          version: 2022-08-05
+        - id: omim
+          iriPrefix: https://www.omim.org/entry/
+          name: An Online Catalog of Human Genes and Genetic Disorders
+          namespacePrefix: OMIM
+          url: https://www.omim.org
+          version: 2022-11-23
+  karyotypicSex: UNKNOWN_KARYOTYPE
+  phenotypicFeatures:
+  - evidence:
+    - evidenceCode:
+        id: ECO:0000033
+        label: author statement supported by traceable reference
+      reference:
+        description: Xiong J, et al., 2019
+        id: PMID:30855487
+    excluded: true
+    featureType:
+      id: HP:0000238
+      label: Hydrocephalus
+    onset:
+      gestationalAge:
+        weeks: 40
+  - evidence:
+    - evidenceCode:
+        id: ECO:0000033
+        label: author statement supported by traceable reference
+      reference:
+        description: Xiong J, et al., 2019
+        id: PMID:30855487
+    excluded: true
+    featureType:
+      id: HP:0002507
+      label: Semilobar holoprosencephaly
+    onset:
+      ontologyClass:
+        id: HP:0003577
+        label: Congenital onset
+  - evidence:
+    - evidenceCode:
+        id: ECO:0000033
+        label: author statement supported by traceable reference
+      reference:
+        description: Xiong J, et al., 2019
+        id: PMID:30855487
+    excluded: true
+    featureType:
+      id: HP:0001750
+      label: Single ventricle
+    onset:
+      gestationalAge:
+        weeks: 40
+  - evidence:
+    - evidenceCode:
+        id: ECO:0000033
+        label: author statement supported by traceable reference
+      reference:
+        description: Xiong J, et al., 2019
+        id: PMID:30855487
+    excluded: true
+    featureType:
+      id: HP:0001272
+      label: Cerebellar atrophy
+    onset:
+      age:
+        iso8601duration: P9M
+  - evidence:
+    - evidenceCode:
+        id: ECO:0000033
+        label: author statement supported by traceable reference
+      reference:
+        description: Xiong J, et al., 2019
+        id: PMID:30855487
+    excluded: true
+    featureType:
+      id: HP:0100702
+      label: Arachnoid cyst
+    onset:
+      age:
+        iso8601duration: P9M
+  - evidence:
+    - evidenceCode:
+        id: ECO:0000033
+        label: author statement supported by traceable reference
+      reference:
+        description: Xiong J, et al., 2019
+        id: PMID:30855487
+    excluded: true
+    featureType:
+      id: HP:0001272
+      label: Cerebellar atrophy
+    onset:
+      age:
+        iso8601duration: P9M
+  - evidence:
+    - evidenceCode:
+        id: ECO:0000033
+        label: author statement supported by traceable reference
+      reference:
+        description: Xiong J, et al., 2019
+        id: PMID:30855487
+    excluded: true
+    featureType:
+      id: HP:0001263
+      label: Global developmental delay
+    onset:
+      ontologyClass:
+        id: HP:0003593
+        label: Infantile onset
+  - evidence:
+    - evidenceCode:
+        id: ECO:0000033
+        label: author statement supported by traceable reference
+      reference:
+        description: Xiong J, et al., 2019
+        id: PMID:30855487
+    excluded: true
+    featureType:
+      id: HP:0001347
+      label: Hyperreflexia
+    onset:
+      gestationalAge:
+        weeks: 40
+  sex: &8
+    id: NCIT:C16576
+    label: Female
+- diseases:
+  - diseaseCode:
+      id: OMIM:154700
+      label: Marfan syndrome
+    excluded: true
+  id: proband C
+  info:
+    phenopacket:
+      metaData:
+        created: 2021-05-14T10:35:00Z
+        createdBy: anonymous biocurator
+        phenopacketSchemaVersion: 2.0.0
+        resources:
+        - id: hp
+          iriPrefix: http://purl.obolibrary.org/obo/HP_
+          name: human phenotype ontology
+          namespacePrefix: HP
+          url: http://purl.obolibrary.org/obo/hp.owl
+          version: 2021-08-02
+        - id: omim
+          iriPrefix: https://www.omim.org/entry/
+          name: An Online Catalog of Human Genes and Genetic Disorders
+          namespacePrefix: OMIM
+          url: https://www.omim.org
+          version: 2022-11-23
+        - id: drugcentral
+          iriPrefix: https://drugcentral.org/drugcard/
+          name: Drug Central
+          namespacePrefix: DrugCentral
+          url: https://drugcentral.org/
+          version: 2022-08-22
+        - id: ncit
+          iriPrefix: http://purl.obolibrary.org/obo/NCIT_
+          name: NCI Thesaurus
+          namespacePrefix: NCIT
+          url: http://purl.obolibrary.org/obo/ncit.owl
+          version: 21.05d
+        - id: ucum
+          iriPrefix: https://units-of-measurement.org/
+          name: Unified Code for Units of Measure
+          namespacePrefix: UCUM
+          url: https://ucum.org
+          version: 2.1
+  karyotypicSex: UNKNOWN_KARYOTYPE
+  phenotypicFeatures:
+  - excluded: true
+    featureType:
+      id: HP:0002616
+      label: Aortic root aneurysm
+  sex: *8
+  treatments:
+  - doseIntervals:
+    - interval:
+        end: 2021-03-20T00:00:00Z
+        start: 2019-03-20T00:00:00Z
+      quantity:
+        unit:
+          id: UCUM:mg
+          label: milligram
+        value: 30
+      scheduleFrequency:
+        id: NCIT:C64496
+        label: Twice Daily
+    drugType: UNKNOWN_DRUG_TYPE
+    routeOfAdministration:
+      id: NCIT:C38288
+      label: Oral Route of Administration
+    treatmentCode:
+      id: DrugCentral:1610
+      label: losartan
+- id: proband A
+  info:
+    phenopacket:
+      biosamples:
+      - id: biosample.1
+        phenotypicFeatures:
+        - excluded: 0
+          type:
+            id: HP:0003798
+            label: Nemaline bodies
+        procedure:
+          bodySite:
+            id: UBERON:0002378
+            label: muscle of abdomen
+          code:
+            id: NCIT:C51895
+            label: Muscle Biopsy
+          performed:
+            age:
+              iso8601duration: P1D
+        sampledTissue:
+          id: UBERON:0002378
+          label: muscle of abdomen
+      interpretations:
+      - diagnosis:
+          disease:
+            id: MONDO:0014138
+            label: nemaline myopathy 8
+          genomicInterpretations:
+          - interpretationStatus: CAUSATIVE
+            subjectOrBiosampleId: interpretation.1
+            variantInterpretation:
+              acmgPathogenicityClassification: PATHOGENIC
+              therapeuticActionability: UNKNOWN_ACTIONABILITY
+              variationDescriptor:
+                allelicState:
+                  id: GENO:0000135
+                  label: heterozygous
+                expressions:
+                - syntax: hgvs.c
+                  value: NM_152393.4(KLHL40):c.602G>A
+                - syntax: transcript_reference
+                  value: NM_152393.4
+                geneContext:
+                  symbol: KLHL40
+                  valueId: HGNC:30372
+                id: rs397509420
+                label: NM_152393.4(KLHL40):c.602G>A (p.Trp201Ter)
+                moleculeContext: transcript
+                variation:
+                  allele:
+                    literalSequenceExpression:
+                      sequence: A
+                    sequenceLocation:
+                      sequenceId: NC_000003.12
+                      sequenceInterval:
+                        endNumber:
+                          value: 42686220
+                        startNumber:
+                          value: 42686219
+          - interpretationStatus: CAUSATIVE
+            subjectOrBiosampleId: interpretation.2
+            variantInterpretation:
+              acmgPathogenicityClassification: PATHOGENIC
+              therapeuticActionability: UNKNOWN_ACTIONABILITY
+              variationDescriptor:
+                allelicState:
+                  id: GENO:0000135
+                  label: heterozygous
+                expressions:
+                - syntax: hgvs.c
+                  value: NM_152393.4(KLHL40):c.1516A>C
+                - syntax: transcript_reference
+                  value: NM_152393.4
+                geneContext:
+                  symbol: KLHL40
+                  valueId: HGNC:30372
+                id: rs778022582
+                label: NM_152393.4(KLHL40):c.1516A>C (p.Thr506Pro)
+                moleculeContext: transcript
+                variation:
+                  allele:
+                    literalSequenceExpression:
+                      sequence: C
+                    sequenceLocation:
+                      sequenceId: NC_000003.12
+                      sequenceInterval:
+                        endNumber:
+                          value: 42688963
+                        startNumber:
+                          value: 42688962
+        id: interpretation.id
+        progressStatus: SOLVED
+      metaData:
+        created: 2021-05-14T10:35:00Z
+        createdBy: anonymous biocurator
+        phenopacketSchemaVersion: 2.0.0
+        resources:
+        - id: ncit
+          iriPrefix: http://purl.obolibrary.org/obo/NCIT_
+          name: NCI Thesaurus
+          namespacePrefix: NCIT
+          url: http://purl.obolibrary.org/obo/ncit.owl
+          version: 21.05d
+        - id: hp
+          iriPrefix: http://purl.obolibrary.org/obo/HP_
+          name: human phenotype ontology
+          namespacePrefix: HP
+          url: http://purl.obolibrary.org/obo/hp.owl
+          version: 2022-02
+        - id: mondo
+          iriPrefix: http://purl.obolibrary.org/obo/MONDO_
+          name: Mondo Disease Ontology
+          namespacePrefix: MONDO
+          url: http://purl.obolibrary.org/obo/mondo.obo
+          version: 2022-04-04
+        - id: uberon
+          iriPrefix: http://purl.obolibrary.org/obo/UBERON_
+          name: Uber-anatomy ontology
+          namespacePrefix: UBERON
+          url: http://purl.obolibrary.org/obo/uberon.owl
+          version: 2021-07-27
+        - id: geno
+          iriPrefix: http://purl.obolibrary.org/obo/GENO_
+          name: Genotype Ontology
+          namespacePrefix: GENO
+          url: http://purl.obolibrary.org/obo/geno.owl
+          version: 2022-03-05
+  karyotypicSex: UNKNOWN_KARYOTYPE
+  phenotypicFeatures:
+  - excluded: true
+    featureType:
+      id: HP:0001558
+      label: Decreased fetal movement
+    onset:
+      gestationalAge:
+        weeks: 23
+  - excluded: true
+    featureType:
+      id: HP:0025672
+      label: Fetal skin edema
+    onset:
+      gestationalAge:
+        days: 4
+        weeks: 32
+  - excluded: true
+    featureType:
+      id: HP:0010557
+      label: Overlapping fingers
+    onset:
+      gestationalAge:
+        days: 4
+        weeks: 32
+  - excluded: true
+    featureType:
+      id: HP:0001561
+      label: Polyhydramnios
+    modifiers:
+    - id: HP:0012827
+      label: Borderline
+    onset:
+      gestationalAge:
+        days: 4
+        weeks: 32
+  - excluded: true
+    featureType:
+      id: HP:0030931
+      label: 1-minute APGAR score of 4
+    onset:
+      ontologyClass:
+        id: HP:0003577
+        label: Congenital onset
+  - excluded: true
+    featureType:
+      id: HP:0030922
+      label: 5-minute APGAR score of 2
+    onset:
+      ontologyClass:
+        id: HP:0003577
+        label: Congenital onset
+  - excluded: true
+    featureType:
+      id: HP:0033469
+      label: 10-minute APGAR score of 1
+    onset:
+      ontologyClass:
+        id: HP:0003577
+        label: Congenital onset
+  - excluded: true
+    featureType:
+      id: HP:0012027
+      label: Laryngeal edema
+    onset:
+      ontologyClass:
+        id: HP:0003577
+        label: Congenital onset
+  - excluded: true
+    featureType:
+      id: HP:0001290
+      label: Generalized hypotonia
+    onset:
+      ontologyClass:
+        id: HP:0003577
+        label: Congenital onset
+  sex: *7
+- diseases:
+  - ageOfOnset:
+      ontologyClass:
+        id: HP:0003581
+        label: Adult onset
+    diseaseCode:
+      id: MONDO:0008327
+      label: exfoliation syndrome
+    excluded: true
+    primarySite:
+      id: UBERON:0004549
+      label: right eye
+  id: proband A
+  info:
+    phenopacket:
+      metaData:
+        created: 2021-05-14T10:35:00Z
+        createdBy: anonymous biocurator
+        phenopacketSchemaVersion: 2.0.0
+        resources:
+        - id: uberon
+          iriPrefix: http://purl.obolibrary.org/obo/UBERON_
+          name: Uber-anatomy ontology
+          namespacePrefix: UBERON
+          url: http://purl.obolibrary.org/obo/uberon.owl
+          version: 2022-08-19
+        - id: ncit
+          iriPrefix: http://purl.obolibrary.org/obo/NCIT_
+          name: NCI Thesaurus
+          namespacePrefix: NCIT
+          url: http://purl.obolibrary.org/obo/ncit.owl
+          version: 22.07d
+        - id: hp
+          iriPrefix: http://purl.obolibrary.org/obo/HP_
+          name: human phenotype ontology
+          namespacePrefix: HP
+          url: http://purl.obolibrary.org/obo/hp.owl
+          version: 2022-06-11
+        - id: ucum
+          iriPrefix: https://units-of-measurement.org/
+          name: Unified Code for Units of Measure
+          namespacePrefix: UCUM
+          url: https://ucum.org
+          version: 2.1
+        - id: loinc
+          iriPrefix: https://loinc.org/
+          name: Logical Observation Identifiers Names and Codes
+          namespacePrefix: LOINC
+          url: https://loinc.org
+          version: 2.73
+        - id: mondo
+          iriPrefix: http://purl.obolibrary.org/obo/MONDO_
+          name: Mondo Disease Ontology
+          namespacePrefix: MONDO
+          url: http://purl.obolibrary.org/obo/mondo.obo
+          version: 2022-04-04
+        - id: drugcentral
+          iriPrefix: https://drugcentral.org/drugcard/
+          name: Drug Central
+          namespacePrefix: DrugCentral
+          url: https://drugcentral.org/
+          version: 2022-08-22
+        - id: snomedct
+          iriPrefix: https://browser.ihtsdotools.org/?perspective=full&edition=MAIN/2023-03-31&release=&languages=en&conceptId1=
+          name: SNOMED CT
+          namespacePrefix: SNOMEDCT
+          url: https://www.snomed.org/
+          version: 2023-03-31
+  interventionsOrProcedures:
+  - ageOfProcedure:
+      age:
+        iso8601duration: P70Y
+    bodySite:
+      id: UBERON:0004549
+      label: right eye
+    procedureCode:
+      id: NCIT:C157809
+      label: Cataract Surgery
+  - ageOfProcedure:
+      age:
+        iso8601duration: P70Y6W
+    bodySite:
+      id: UBERON:0004548
+      label: left eye
+    procedureCode:
+      id: NCIT:C157809
+      label: Cataract Surgery
+  - ageOfProcedure:
+      age:
+        iso8601duration: P71Y1M
+    bodySite:
+      id: UBERON:0004549
+      label: right eye
+    procedureCode:
+      id: LOINC:29031-2
+      label: Right eye YAG mode
+  karyotypicSex: XY
+  measures:
+  - assayCode:
+      id: LOINC:79892-6
+      label: Right eye Intraocular pressure
+    measurementValue:
+      quantity:
+        referenceRange:
+          high: 21
+          low: 10
+          unit:
+            id: LOINC:56844-4
+            label: Intraocular pressure of Eye
+        unit:
+          id: UCUM:mm[Hg]
+          label: millimetres of mercury
+        value: 14
+    observationMoment: &9
+      age:
+        iso8601duration: P71Y1M1D
+    timeObserved: *9
+  - assayCode:
+      id: NCIT:C156778
+      label: Vision Assessment
+    measurementValue:
+      typedQuantities:
+      - quantity:
+          unit:
+            id: NCIT:C48570
+            label: Percent Unit
+          value: 100
+        quantityType:
+          id: NCIT:C87149
+          label: Visual Acuity
+  - assayCode:
+      id: SNOMEDCT:397312009
+      label: Intraocular lens anterior chamber depth
+    measurementValue:
+      quantity:
+        referenceRange:
+          high: 21
+          low: 10
+          unit:
+            id: LOINC:56844-4
+            label: Intraocular pressure of Eye
+        unit:
+          id: UCUM:mm
+          label: millimeter
+        value: 3.93
+    observationMoment: &10
+      age:
+        iso8601duration: P71Y1M1D
+    timeObserved: *10
+  - assayCode:
+      id: SNOMEDCT:397312009
+      label: Intraocular lens anterior chamber depth
+    measurementValue:
+      quantity:
+        referenceRange:
+          high: 21
+          low: 10
+          unit:
+            id: LOINC:56844-4
+            label: Intraocular pressure of Eye
+        unit:
+          id: UCUM:mm
+          label: millimeter
+        value: 5.21
+    observationMoment: &11
+      age:
+        iso8601duration: P71Y1M1D
+    timeObserved: *11
+  - assayCode:
+      id: NCIT:C156778
+      label: Vision Assessment
+    measurementValue:
+      typedQuantities:
+      - quantity:
+          unit:
+            id: NCIT:C48570
+            label: Percent Unit
+          value: 100
+        quantityType:
+          id: NCIT:C87149
+          label: Visual Acuity
+    observationMoment: &12
+      age:
+        iso8601duration: P70Y1W
+    timeObserved: *12
+  - assayCode:
+      id: LOINC:79895-9
+      label: Subjective refraction method
+    measurementValue:
+      quantity:
+        referenceRange:
+          high: 30
+          low: -30
+          unit:
+            id: LOINC:79895-9
+            label: Subjective refraction method
+        unit:
+          id: UCUM:[diop]
+          label: diopter
+        value: -0.25
+    observationMoment: &13
+      age:
+        iso8601duration: P70Y1W
+    timeObserved: *13
+  - assayCode:
+      id: SNOMEDCT:252886007
+      label: Refraction assessment (procedure)
+    measurementValue:
+      typedQuantities:
+      - quantity:
+          referenceRange:
+            high: 30
+            low: -30
+            unit:
+              id: LOINC:79895-9
+              label: Subjective refraction method
+          unit:
+            id: UCUM:[diop]
+            label: diopter
+          value: -0.5
+        quantityType:
+          id: LOINC:79846-2
+          label: Right eye cylindrical refraction
+      - quantity:
+          referenceRange:
+            high: 30
+            low: -30
+            unit:
+              id: LOINC:79895-9
+              label: Subjective refraction method
+          unit:
+            id: UCUM:degree
+            label: degree (plane angle)
+          value: 110
+        quantityType:
+          id: LOINC:9829-8
+          label: Recht eye cylindrical degree
+    observationMoment: &14
+      age:
+        iso8601duration: P70Y1W
+    timeObserved: *14
+  - assayCode:
+      id: LOINC:79850-4
+      label: Right eye spherical refraction
+    measurementValue:
+      quantity:
+        referenceRange:
+          high: 30
+          low: -30
+          unit:
+            id: LOINC:79895-9
+            label: Subjective refraction method
+        unit:
+          id: UCUM:[diop]
+          label: diopter
+        value: -0.25
+    observationMoment: &15
+      age:
+        iso8601duration: P70Y1W
+    timeObserved: *15
+  - assayCode:
+      id: LOINC:79892-6
+      label: Right eye Intraocular pressure
+    measurementValue:
+      quantity:
+        referenceRange:
+          high: 21
+          low: 10
+          unit:
+            id: LOINC:56844-4
+            label: Intraocular pressure of Eye
+        unit:
+          id: UCUM:mm[Hg]
+          label: millimetres of mercury
+        value: 29
+    observationMoment: &16
+      age:
+        iso8601duration: P71Y1M
+    timeObserved: *16
+  phenotypicFeatures:
+  - excluded: true
+    featureType:
+      id: HP:0000539
+      label: Abnormality of refraction
+    modifiers:
+    - id: HP:0012834
+      label: Right
+    onset:
+      age:
+        iso8601duration: P70Y
+  - excluded: true
+    featureType:
+      id: HP:0000545
+      label: Myopia
+    modifiers:
+    - id: HP:0012834
+      label: Right
+    onset:
+      age:
+        iso8601duration: P71Y1M
+  - excluded: true
+    featureType:
+      id: NCIT:C50618
+      label: Intraocular Pressure Increased
+    modifiers:
+    - id: HP:0012834
+      label: Right
+    onset:
+      age:
+        iso8601duration: P71Y1M
+  - excluded: true
+    featureType:
+      id: HP:0007686
+      label: Abnormal pupillary function
+  - excluded: true
+    featureType:
+      id: HP:0012629
+      label: Phakodonesis
+  - excluded: true
+    featureType:
+      id: SNOMEDCT:414775001
+      label: monovision
+  sex: *7
+  treatments:
+  - doseIntervals:
+    - interval:
+        end: 2022-07-07T00:00:00Z
+        start: 2022-07-07T00:00:00Z
+      quantity:
+        unit:
+          id: UCUM:mg.kg-1
+          label: milligram per kilogram
+        value: 0.002
+      scheduleFrequency:
+        id: NCIT:C64576
+        label: Once
+    drugType: UNKNOWN_DRUG_TYPE
+    routeOfAdministration:
+      id: NCIT:C29302
+      label: Ophthalmic Solution
+    treatmentCode:
+      id: DrugCentral:395
+      label: brimonidine
+- diseases:
+  - ageOfOnset:
+      age:
+        iso8601duration: P4M
+    clinicalTnmFinding:
+    - id: NCIT:C140678
+      label: Retinoblastoma cM0 TNM Finding v8
+    diseaseCode:
+      id: NCIT:C7541
+      label: Retinoblastoma
+    diseaseStage:
+    - id: LOINC:LA24739-7
+      label: Group E
+    excluded: true
+    primarySite:
+      id: UBERON:0004548
+      label: left eye
+  id: proband A
+  info:
+    phenopacket:
+      biosamples:
+      - files:
+        - fileAttributes:
+            fileFormat: VCF
+            genomeAssembly: GRCh38
+          individualToFileIdentifiers:
+            biosample.1: specimen.1
+          uri: file://data/fileSomaticWgs.vcf.gz
+        id: biosample.1
+        measurements:
+        - assay:
+            id: LOINC:33728-7
+            label: Size.maximum dimension in Tumor
+          timeObserved:
+            age:
+              iso8601duration: P8M2W
+          value:
+            quantity:
+              unit:
+                id: UCUM:mm
+                label: millimeter
+              value: 15
+        pathologicalTnmFinding:
+        - id: NCIT:C140720
+          label: Retinoblastoma pT3 TNM Finding v8
+        - id: NCIT:C140711
+          label: Retinoblastoma pN0 TNM Finding v8
+        phenotypicFeatures:
+        - excluded: 0
+          type:
+            id: NCIT:C35941
+            label: Flexner-Wintersteiner Rosette Formation
+        - excluded: 0
+          type:
+            id: NCIT:C132485
+            label: Apoptosis and Necrosis
+        procedure:
+          bodySite:
+            id: UBERON:0004548
+            label: left eye
+          code:
+            id: NCIT:C48601
+            label: Enucleation
+          performed:
+            age:
+              iso8601duration: P8M2W
+        sampledTissue:
+          id: UBERON:0000970
+          label: eye
+        tumorProgression:
+          id: NCIT:C8509
+          label: Primary Neoplasm
+      files:
+      - fileAttributes:
+          fileFormat: VCF
+          genomeAssembly: GRCh38
+        individualToFileIdentifiers:
+          proband A: sample1
+        uri: file://data/germlineWgs.vcf.gz
+      interpretations:
+      - diagnosis:
+          disease:
+            id: NCIT:C7541
+            label: Retinoblastoma
+          genomicInterpretations:
+          - interpretationStatus: CAUSATIVE
+            subjectOrBiosampleId: proband A
+            variantInterpretation:
+              acmgPathogenicityClassification: PATHOGENIC
+              therapeuticActionability: ACTIONABLE
+              variationDescriptor:
+                extensions:
+                - name: mosaicism
+                  value: 40.0%
+                id: variant-id
+                moleculeContext: unspecified_molecule_context
+                variation:
+                  copyNumber:
+                    derivedSequenceExpression:
+                      location:
+                        sequenceId: refseq:NC_000013.14
+                        sequenceInterval:
+                          endNumber:
+                            value: 61706822
+                          startNumber:
+                            value: 25981249
+                      reverseComplement: 0
+                    number:
+                      value: 1
+          - interpretationStatus: CAUSATIVE
+            subjectOrBiosampleId: biosample.1
+            variantInterpretation:
+              acmgPathogenicityClassification: PATHOGENIC
+              therapeuticActionability: ACTIONABLE
+              variationDescriptor:
+                allelicState:
+                  id: GENO:0000135
+                  label: heterozygous
+                expressions:
+                - syntax: hgvs.c
+                  value: NM_000321.2:c.958C>T
+                - syntax: transcript_reference
+                  value: NM_000321.2
+                extensions:
+                - name: allele-frequency
+                  value: 25.0%
+                geneContext:
+                  symbol: RB1
+                  valueId: HGNC:9884
+                id: rs121913300
+                label: RB1 c.958C>T (p.Arg320Ter)
+                moleculeContext: genomic
+                variation:
+                  allele:
+                    literalSequenceExpression:
+                      sequence: T
+                    sequenceLocation:
+                      sequenceId: refseq:NC_000013.11
+                      sequenceInterval:
+                        endNumber:
+                          value: 48367512
+                        startNumber:
+                          value: 48367511
+                vcfRecord:
+                  alt: T
+                  chrom: NC_000013.11
+                  genomeAssembly: GRCh38
+                  pos: 48367512
+                  ref: C
+        id: interpretation.id
+        progressStatus: SOLVED
+      metaData:
+        created: 2021-05-14T10:35:00Z
+        createdBy: anonymous biocurator
+        phenopacketSchemaVersion: 2.0.0
+        resources:
+        - id: ncit
+          iriPrefix: http://purl.obolibrary.org/obo/NCIT_
+          name: NCI Thesaurus
+          namespacePrefix: NCIT
+          url: http://purl.obolibrary.org/obo/ncit.owl
+          version: 21.05d
+        - id: efo
+          iriPrefix: http://purl.obolibrary.org/obo/EFO_
+          name: Experimental Factor Ontology
+          namespacePrefix: EFO
+          url: http://www.ebi.ac.uk/efo/efo.owl
+          version: 3.34.0
+        - id: uberon
+          iriPrefix: http://purl.obolibrary.org/obo/UBERON_
+          name: Uber-anatomy ontology
+          namespacePrefix: UBERON
+          url: http://purl.obolibrary.org/obo/uberon.owl
+          version: 2021-07-27
+        - id: ncbitaxon
+          iriPrefix: http://purl.obolibrary.org/obo/NCBITaxon_
+          name: NCBI organismal classification
+          namespacePrefix: NCBITaxon
+          url: http://purl.obolibrary.org/obo/ncbitaxon.owl
+          version: 2021-06-10
+        - id: hp
+          iriPrefix: http://purl.obolibrary.org/obo/HP_
+          name: human phenotype ontology
+          namespacePrefix: HP
+          url: http://purl.obolibrary.org/obo/hp.owl
+          version: 2022-06-11
+        - id: loinc
+          iriPrefix: https://loinc.org/
+          name: Logical Observation Identifiers Names and Codes
+          namespacePrefix: LOINC
+          url: https://loinc.org
+          version: 2.73
+        - id: ucum
+          iriPrefix: https://units-of-measurement.org/
+          name: Unified Code for Units of Measure
+          namespacePrefix: UCUM
+          url: https://ucum.org
+          version: 2.1
+        - id: geno
+          iriPrefix: http://purl.obolibrary.org/obo/GENO_
+          name: Genotype Ontology
+          namespacePrefix: GENO
+          url: http://purl.obolibrary.org/obo/geno.owl
+          version: 2022-03-05
+        - id: drugcentral
+          iriPrefix: https://drugcentral.org/drugcard/
+          name: Drug Central
+          namespacePrefix: DrugCentral
+          url: https://drugcentral.org/
+          version: 2022-08-22
+  interventionsOrProcedures:
+  - ageOfProcedure:
+      age:
+        iso8601duration: P8M2W
+    bodySite:
+      id: UBERON:0004548
+      label: left eye
+    procedureCode:
+      id: NCIT:C48601
+      label: Enucleation
+  karyotypicSex: XX
+  measures:
+  - assayCode:
+      id: LOINC:79893-4
+      label: Left eye Intraocular pressure
+    measurementValue:
+      quantity:
+        referenceRange:
+          high: 21
+          low: 10
+          unit:
+            id: LOINC:56844-4
+            label: Intraocular pressure of Eye
+        unit:
+          id: UCUM:mm[Hg]
+          label: millimetres of mercury
+        value: 25
+    observationMoment: &17
+      age:
+        iso8601duration: P6M
+    timeObserved: *17
+  - assayCode:
+      id: LOINC:79892-6
+      label: Right eye Intraocular pressure
+    measurementValue:
+      quantity:
+        referenceRange:
+          high: 21
+          low: 10
+          unit:
+            id: LOINC:56844-4
+            label: Intraocular pressure of Eye
+        unit:
+          id: UCUM:mm[Hg]
+          label: millimetres of mercury
+        value: 15
+    observationMoment: &18
+      age:
+        iso8601duration: P6M
+    timeObserved: *18
+  phenotypicFeatures:
+  - excluded: true
+    featureType:
+      id: HP:0030084
+      label: Clinodactyly
+    modifiers:
+    - id: HP:0012834
+      label: Right
+    onset:
+      age:
+        iso8601duration: P3M
+  - excluded: true
+    featureType:
+      id: HP:0000555
+      label: Leukocoria
+    modifiers:
+    - id: HP:0012835
+      label: Left
+    onset:
+      age:
+        iso8601duration: P4M
+  - excluded: true
+    featureType:
+      id: HP:0000486
+      label: Strabismus
+    modifiers:
+    - id: HP:0012835
+      label: Left
+    onset:
+      age:
+        iso8601duration: P5M15D
+  - excluded: true
+    featureType:
+      id: HP:0000541
+      label: Retinal detachment
+    modifiers:
+    - id: HP:0012835
+      label: Left
+    onset:
+      age:
+        iso8601duration: P6M
+  sex: *8
+  treatments:
+  - doseIntervals:
+    - interval:
+        end: 2020-09-02T00:00:00Z
+        start: 2020-09-02T00:00:00Z
+      quantity:
+        unit:
+          id: UCUM:mg.kg-1
+          label: milligram per kilogram
+        value: 0.4
+      scheduleFrequency:
+        id: NCIT:C64576
+        label: Once
+    drugType: UNKNOWN_DRUG_TYPE
+    routeOfAdministration:
+      id: NCIT:C38222
+      label: Intraarterial Route of Administration
+    treatmentCode:
+      id: DrugCentral:1678
+      label: melphalan
+- diseases:
+  - clinicalTnmFinding:
+    - id: NCIT:C48724
+      label: T2 Stage Finding
+    - id: NCIT:C48706
+      label: N1 Stage Finding
+    - id: NCIT:C48699
+      label: M0 Stage Finding
+    diseaseCode:
+      id: NCIT:C4024
+      label: Esophageal Squamous Cell Carcinoma
+    excluded: true
+  id: proband A
+  info:
+    phenopacket:
+      biosamples:
+      - id: biosample 1
+        individualId: proband A
+        procedure:
+          code:
+            id: NCIT:C15189
+            label: Biopsy
+        sampledTissue:
+          id: NCIT:C12389
+          label: Esophagus
+        timeOfCollection:
+          age:
+            iso8601duration: P49Y2M
+        tumorProgression:
+          id: NCIT:C4813
+          label: Recurrent Malignant Neoplasm
+      - diagnosticMarkers:
+        - id: NCIT:C131711
+          label: Human Papillomavirus-18 Positive
+        histologicalDiagnosis:
+          id: NCIT:C4024
+          label: Esophageal Squamous Cell Carcinoma
+        id: biosample 2
+        individualId: proband A
+        procedure:
+          code:
+            id: NCIT:C15189
+            label: Biopsy
+        sampledTissue:
+          id: NCIT:C139196
+          label: Esophageal Lymph Node
+        timeOfCollection:
+          age:
+            iso8601duration: P48Y3M
+        tumorProgression:
+          id: NCIT:C84509
+          label: Primary Malignant Neoplasm
+      - id: biosample 3
+        individualId: proband A
+        procedure:
+          code:
+            id: NCIT:C15189
+            label: Biopsy
+        sampledTissue:
+          id: NCIT:C12468
+          label: Lung
+        timeOfCollection:
+          age:
+            iso8601duration: P50Y7M
+        tumorProgression:
+          id: NCIT:C3261
+          label: Metastatic Neoplasm
+      metaData:
+        created: 2021-05-14T10:35:00Z
+        createdBy: anonymous biocurator
+        phenopacketSchemaVersion: 2.0.0
+        resources:
+        - id: ncit
+          iriPrefix: http://purl.obolibrary.org/obo/NCIT_
+          name: NCI Thesaurus
+          namespacePrefix: NCIT
+          url: http://purl.obolibrary.org/obo/ncit.owl
+          version: 21.05d
+        - id: efo
+          iriPrefix: http://purl.obolibrary.org/obo/EFO_
+          name: Experimental Factor Ontology
+          namespacePrefix: EFO
+          url: http://www.ebi.ac.uk/efo/efo.owl
+          version: 3.34.0
+        - id: uberon
+          iriPrefix: http://purl.obolibrary.org/obo/UBERON_
+          name: Uber-anatomy ontology
+          namespacePrefix: UBERON
+          url: http://purl.obolibrary.org/obo/uberon.owl
+          version: 2021-07-27
+        - id: ncbitaxon
+          iriPrefix: http://purl.obolibrary.org/obo/NCBITaxon_
+          name: NCBI organismal classification
+          namespacePrefix: NCBITaxon
+          url: http://purl.obolibrary.org/obo/ncbitaxon.owl
+          version: 2021-06-10
+  karyotypicSex: UNKNOWN_KARYOTYPE
+  sex: *7
+- diseases:
+  - ageOfOnset:
+      age:
+        iso8601duration: P55Y
+    diseaseCode:
+      id: MONDO:0005148
+      label: type 2 diabetes mellitus
+    excluded: true
+  - ageOfOnset:
+      age:
+        iso8601duration: P55Y
+    diseaseCode:
+      id: MONDO:0001134
+      label: essential hypertension
+    excluded: true
+  id: 65-year-old man
+  info:
+    phenopacket:
+      metaData:
+        created: 2022-04-21T10:35:00Z
+        createdBy: anonymous biocurator
+        externalReferences:
+        - description: Severe statin-induced autoimmune myopathy successfully treated
+            with intravenous immunoglobulin
+          id: PMID:32444443
+        phenopacketSchemaVersion: 2.0.0
+        resources:
+        - id: ncit
+          iriPrefix: http://purl.obolibrary.org/obo/NCIT_
+          name: NCI Thesaurus
+          namespacePrefix: NCIT
+          url: http://purl.obolibrary.org/obo/ncit.owl
+          version: 21.05d
+        - id: hp
+          iriPrefix: http://purl.obolibrary.org/obo/HP_
+          name: human phenotype ontology
+          namespacePrefix: HP
+          url: http://purl.obolibrary.org/obo/hp.owl
+          version: 2022-06-11
+        - id: loinc
+          iriPrefix: https://loinc.org/
+          name: Logical Observation Identifiers Names and Codes
+          namespacePrefix: LOINC
+          url: https://loinc.org
+          version: 2.73
+        - id: ucum
+          iriPrefix: https://units-of-measurement.org/
+          name: Unified Code for Units of Measure
+          namespacePrefix: UCUM
+          url: https://ucum.org
+          version: 2.1
+        - id: mondo
+          iriPrefix: http://purl.obolibrary.org/obo/MONDO_
+          name: Mondo Disease Ontology
+          namespacePrefix: MONDO
+          url: http://purl.obolibrary.org/obo/mondo.obo
+          version: 2022-04-04
+        - id: drugcentral
+          iriPrefix: https://drugcentral.org/drugcard/
+          name: Drug Central
+          namespacePrefix: DrugCentral
+          url: https://drugcentral.org/
+          version: 2022-08-22
+  karyotypicSex: UNKNOWN_KARYOTYPE
+  measures:
+  - assayCode:
+      id: LOINC:2157-6
+      label: Creatine kinase [Enzymatic activity/volume] in Serum or Plasma
+    measurementValue:
+      quantity:
+        referenceRange:
+          high: 200
+          low: 20
+          unit:
+            id: UCUM:U.L-1
+            label: enzyme unit per liter
+        unit:
+          id: UCUM:U.L-1
+          label: enzyme unit per liter
+        value: 4292
+  - assayCode:
+      id: LOINC:1742-6
+      label: Alanine aminotransferase [Enzymatic activity/volume] in Serum or Plasma
+    measurementValue:
+      quantity:
+        referenceRange:
+          high: 36
+          low: 4
+          unit:
+            id: UCUM:U.L-1
+            label: enzyme unit per liter
+        unit:
+          id: UCUM:U.L-1
+          label: enzyme unit per liter
+        value: 234
+  phenotypicFeatures:
+  - excluded: true
+    featureType:
+      id: HP:0008994
+      label: Proximal muscle weakness in lower limbs
+    onset:
+      age:
+        iso8601duration: P65Y
+  - excluded: true
+    featureType:
+      id: HP:0007289
+      label: Limb fasciculations
+    onset:
+      age:
+        iso8601duration: P65Y
+  - excluded: true
+    featureType:
+      id: HP:0008956
+      label: Proximal lower limb amyotrophy
+    onset:
+      age:
+        iso8601duration: P65Y
+  - excluded: true
+    featureType:
+      id: HP:0003808
+      label: Abnormal muscle tone
+    onset:
+      age:
+        iso8601duration: P65Y
+  - excluded: true
+    featureType:
+      id: HP:0003391
+      label: Gowers sign
+    onset:
+      age:
+        iso8601duration: P65Y
+  - excluded: true
+    featureType:
+      id: HP:0003551
+      label: Difficulty climbing stairs
+    onset:
+      age:
+        iso8601duration: P65Y
+  - excluded: true
+    featureType:
+      id: HP:0006886
+      label: Impaired distal vibration sensation
+    onset:
+      age:
+        iso8601duration: P65Y
+  sex: *7
+  treatments:
+  - doseIntervals:
+    - interval:
+        end: 2020-09-02T00:00:00Z
+        start: 2010-09-02T00:00:00Z
+      quantity:
+        unit:
+          id: UCUM:mg
+          label: milligram
+        value: 10
+      scheduleFrequency:
+        id: NCIT:C125004
+        label: Once Daily
+    drugType: UNKNOWN_DRUG_TYPE
+    routeOfAdministration:
+      id: NCIT:C38288
+      label: Oral Route of Administration
+    treatmentCode:
+      id: DrugCentral:257
+      label: atorvastatin
+  - doseIntervals:
+    - interval:
+        end: 2020-09-02T00:00:00Z
+        start: 2010-09-02T00:00:00Z
+      quantity:
+        unit:
+          id: UCUM:mg
+          label: milligram
+        value: 75
+      scheduleFrequency:
+        id: NCIT:C125004
+        label: Once Daily
+    drugType: UNKNOWN_DRUG_TYPE
+    routeOfAdministration:
+      id: NCIT:C38288
+      label: Oral Route of Administration
+    treatmentCode:
+      id: DrugCentral:74
+      label: acetylsalicylic acid
+  - doseIntervals:
+    - interval:
+        end: 2020-09-02T00:00:00Z
+        start: 2010-09-02T00:00:00Z
+      quantity:
+        unit:
+          id: UCUM:mg
+          label: milligram
+        value: 10
+      scheduleFrequency:
+        id: NCIT:C125004
+        label: Once Daily
+    drugType: UNKNOWN_DRUG_TYPE
+    routeOfAdministration:
+      id: NCIT:C38288
+      label: Oral Route of Administration
+    treatmentCode:
+      id: DrugCentral:2356
+      label: ramipril
+  - doseIntervals:
+    - interval:
+        end: 2020-09-02T00:00:00Z
+        start: 2010-09-02T00:00:00Z
+      quantity:
+        unit:
+          id: UCUM:mg
+          label: milligram
+        value: 500
+      scheduleFrequency:
+        id: NCIT:C64527
+        label: Three Times Daily
+    drugType: UNKNOWN_DRUG_TYPE
+    routeOfAdministration:
+      id: NCIT:C38288
+      label: Oral Route of Administration
+    treatmentCode:
+      id: DrugCentral:1725
+      label: metformin
+  - doseIntervals:
+    - interval:
+        end: 2021-03-02T00:00:00Z
+        start: 2020-09-02T00:00:00Z
+      quantity:
+        unit:
+          id: UCUM:g.kg-1
+          label: gram per kilogram
+        value: 1.6
+      scheduleFrequency:
+        id: NCIT:C89788
+        label: Every Six Weeks
+    drugType: UNKNOWN_DRUG_TYPE
+    routeOfAdministration:
+      id: NCIT:C38276
+      label: Intravenous Route of Administration
+    treatmentCode:
+      id: NCIT:C121331
+      label: Intravenous Immunoglobulin Therapy
+- diseases:
+  - clinicalTnmFinding:
+    - id: NCIT:C48766
+      label: pT2b Stage Finding
+    - id: NCIT:C48750
+      label: pN2 Stage Finding
+    - id: NCIT:C48700
+      label: M1 Stage Finding
+    diseaseCode:
+      id: NCIT:C39853
+      label: Infiltrating Urothelial Carcinoma
+    diseaseStage:
+    - id: NCIT:C27971
+      label: Stage IV
+    excluded: true
+  id: patient1
+  info:
+    phenopacket:
+      biosamples:
+      - histologicalDiagnosis:
+          id: NCIT:C5596
+          label: Prostate Acinar Adenocarcinoma
+        id: prostate biosample ID
+        individualId: patient1
+        procedure:
+          code:
+            id: NCIT:C15189
+            label: Biopsy
+        sampledTissue:
+          id: UBERON:0002367
+          label: prostate gland
+        timeOfCollection:
+          age:
+            iso8601duration: P52Y2M
+        tumorGrade:
+          id: NCIT:C28091
+          label: Gleason Score 7
+        tumorProgression:
+          id: NCIT:C95606
+          label: Second Primary Malignant Neoplasm
+      - histologicalDiagnosis:
+          id: NCIT:C38757
+          label: Negative Finding
+        id: right ureter biosample ID
+        individualId: patient1
+        procedure:
+          code:
+            id: NCIT:C15189
+            label: Biopsy
+        sampledTissue:
+          id: UBERON:0001222
+          label: right ureter
+        timeOfCollection:
+          age:
+            iso8601duration: P52Y2M
+      - histologicalDiagnosis:
+          id: NCIT:C38757
+          label: Negative Finding
+        id: left ureter biosample ID
+        individualId: patient1
+        procedure:
+          code:
+            id: NCIT:C15189
+            label: Biopsy
+        sampledTissue:
+          id: UBERON:0001223
+          label: left ureter
+        timeOfCollection:
+          age:
+            iso8601duration: P52Y2M
+      - files:
+        - fileAttributes:
+            description: Urothelial carcinoma sample
+            fileFormat: vcf
+            genomeAssembly: GRCh38
+          individualToFileIdentifiers:
+            sample1: BS342730
+          uri: file://data/genomes/urothelial_ca_wgs.vcf.gz
+        histologicalDiagnosis:
+          id: NCIT:C39853
+          label: Infiltrating Urothelial Carcinoma
+        id: bladder biopsy id
+        individualId: patient1
+        procedure:
+          code:
+            id: NCIT:C5189
+            label: Radical Cystoprostatectomy
+        sampledTissue:
+          id: UBERON:0001256
+          label: wall of urinary bladder
+        timeOfCollection:
+          age:
+            iso8601duration: P52Y2M
+        tumorProgression:
+          id: NCIT:C84509
+          label: Primary Malignant Neoplasm
+      - files:
+        - fileAttributes:
+            description: lymph node metastasis sample
+            fileFormat: vcf
+            genomeAssembly: GRCh38
+          individualToFileIdentifiers:
+            sample5: BS730275
+          uri: file://data/genomes/metastasis_wgs.vcf.gz
+        id: pelvic lymph node biosample ID
+        individualId: patient1
+        procedure:
+          code:
+            id: NCIT:C15189
+            label: Biopsy
+        sampledTissue:
+          id: UBERON:0015876
+          label: pelvic lymph node
+        timeOfCollection:
+          age:
+            iso8601duration: P52Y2M
+        tumorProgression:
+          id: NCIT:C3261
+          label: Metastatic Neoplasm
+      files:
+      - fileAttributes:
+          description: Matched normal germline sample
+          fileFormat: vcf
+          genomeAssembly: GRCh38
+        individualToFileIdentifiers:
+          example case: NA12345
+        uri: file://data/genomes/germline_wgs.vcf.gz
+      metaData:
+        created: 2021-05-14T10:35:00Z
+        createdBy: anonymous biocurator
+        phenopacketSchemaVersion: 2.0.0
+        resources:
+        - id: ncit
+          iriPrefix: http://purl.obolibrary.org/obo/NCIT_
+          name: NCI Thesaurus
+          namespacePrefix: NCIT
+          url: http://purl.obolibrary.org/obo/ncit.owl
+          version: 21.05d
+        - id: efo
+          iriPrefix: http://purl.obolibrary.org/obo/EFO_
+          name: Experimental Factor Ontology
+          namespacePrefix: EFO
+          url: http://www.ebi.ac.uk/efo/efo.owl
+          version: 3.34.0
+        - id: uberon
+          iriPrefix: http://purl.obolibrary.org/obo/UBERON_
+          name: Uber-anatomy ontology
+          namespacePrefix: UBERON
+          url: http://purl.obolibrary.org/obo/uberon.owl
+          version: 2021-07-27
+        - id: ncbitaxon
+          iriPrefix: http://purl.obolibrary.org/obo/NCBITaxon_
+          name: NCBI organismal classification
+          namespacePrefix: NCBITaxon
+          url: http://purl.obolibrary.org/obo/ncbitaxon.owl
+          version: 2021-06-10
+        - id: hp
+          iriPrefix: http://purl.obolibrary.org/obo/HP_
+          name: human phenotype ontology
+          namespacePrefix: HP
+          url: http://purl.obolibrary.org/obo/hp.owl
+          version: 2022-06-11
+  karyotypicSex: UNKNOWN_KARYOTYPE
+  phenotypicFeatures:
+  - excluded: true
+    featureType:
+      id: HP:0100518
+      label: Dysuria
+    severity:
+      id: HP:0012828
+      label: Severe
+  - excluded: true
+    featureType:
+      id: HP:0000790
+      label: Hematuria
+  sex: *7
+- diseases:
+  - ageOfOnset:
+      age:
+        iso8601duration: P4D
+    diseaseCode:
+      id: MONDO:0016649
+      label: Warburg micro syndrome
+    excluded: true
+  id: case1
+  info:
+    phenopacket:
+      metaData:
+        created: 2022-04-17T10:35:00Z
+        createdBy: biocurator
+        phenopacketSchemaVersion: 2.0.0
+        resources:
+        - id: hp
+          iriPrefix: http://purl.obolibrary.org/obo/HP_
+          name: human phenotype ontology
+          namespacePrefix: HP
+          url: http://purl.obolibrary.org/obo/hp.owl
+          version: 2022-04-15
+        - id: mondo
+          iriPrefix: http://purl.obolibrary.org/obo/MONDO_
+          name: Mondo Disease Ontology
+          namespacePrefix: MONDO
+          url: http://purl.obolibrary.org/obo/mondo.obo
+          version: v2022-04-04
+  karyotypicSex: UNKNOWN_KARYOTYPE
+  phenotypicFeatures:
+  - excluded: true
+    featureType:
+      id: HP:0034248
+      label: Increased fetal lens echogenicity
+    onset:
+      gestationalAge:
+        days: 2
+        weeks: 27
+  - excluded: true
+    featureType:
+      id: HP:0000568
+      label: Microphthalmia
+    onset:
+      gestationalAge:
+        days: 2
+        weeks: 27
+  - excluded: true
+    featureType:
+      id: HP:0000369
+      label: Low-set ears
+    onset:
+      age:
+        iso8601duration: P4D
+  - excluded: true
+    featureType:
+      id: HP:0008936
+      label: Axial hypotonia
+    onset:
+      age:
+        iso8601duration: P4D
+  - excluded: true
+    featureType:
+      id: HP:0000568
+      label: Microphthalmia
+    onset:
+      age:
+        iso8601duration: P4D
+  sex: *7

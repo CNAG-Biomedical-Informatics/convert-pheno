@@ -25,7 +25,7 @@ my $input = {
         out               => 't/pxf2bff/out/individuals.json'
     },
     pxf2bff_yaml => {
-        in_file           => 't/pxf2bff/in/pxf.json',
+        in_file           => 't/pxf2bff/in/pxf.yaml',
         redcap_dictionary => undef,
         sep               => undef,
         out               => 't/pxf2bff/out/inviduals.yaml'

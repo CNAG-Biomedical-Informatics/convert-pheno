@@ -12,6 +12,7 @@ extra_javascript: [js/theme_overrides.js]
 plugins:
   - search
   - macros
+#  - external-markdown
   - mermaid2:
       arguments:
         startOnLoad: true
@@ -31,7 +32,6 @@ markdown_extensions:
     - pymdownx.mark
     - pymdownx.tilde
     - pymdownx.saneheaders
-    - pymdownx.superfences
     - pymdownx.magiclink:
         hide_protocol: true
     - pymdownx.tabbed:
@@ -50,11 +50,12 @@ markdown_extensions:
             - name: mermaid
               class: mermaid
               format: !!python/name:mermaid2.fence_mermaid   
+    - pymdownx.snippets:
+        base_path: docs
 
 nav:
   - Introduction:
       - What is Convert-Pheno?: what-is-convert-pheno.md
-      - Implementation: implementation.md
       - Supported formats: supported-formats.md
   - 'Download & Installation': download-and-installation.md
   - Use:
@@ -68,6 +69,13 @@ nav:
       - REDCap: redcap.md
       - OMOP-CDM: omop-cdm.md
       - CDISC-ODM: cdisc-odm.md
+  - Technical details:
+      - Implementation: implementation.md
+      - Mapping steps: mapping-steps.md
+      - Mapping tables:
+        - OMOP to BFF: omop2bff.md
+        - PXF to BFF: pxf2bff.md
+        - BFF to PXF: bff2pxf.md 
   - Help:
       - Tutorial: tutorial.md
       - Google colab: https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6
