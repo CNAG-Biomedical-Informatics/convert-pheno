@@ -34,7 +34,9 @@ graph TB
 
 ## Software architecture
 
-The [core module](https://metacpan.org/pod/Convert::Pheno) is divided into several components. Within the package `Convert::Pheno`, the class initialization is conducted and it utilizes the `Moo` module alongside `Types::Standard` for data validation. Then, method chosen by the user (e.g., `pxf2bff`) is executed, and the data is forwarded to independent modules, [each designed for a specific input format](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/tree/main/lib/Convert/Pheno).
+The [core module](https://metacpan.org/pod/Convert::Pheno) is divided into several components. Within the package `Convert::Pheno`, the class initialization is conducted and it utilizes the `Moo` module alongside `Types::Standard` for data validation. Then, method chosen by the user (e.g., `pxf2bff`) is executed, and the data is forwarded to independent modules, [each designed for a specific input format](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/tree/main/lib/Convert/Pheno). 
+
+Initially, our aspiration was to employ configuration files, rather than hardcoded solutions, to guide the mapping process. However, given the intricate nested nature of the data structures, we soon realized this approach wasn't viable. Consequently, we opted for hardcoded mappings. It's worth noting, though, that conversions for [REDCap](redcap.md) and [CDISC-ODM](cdisc-odm.md) still need a configuration file.
 
 !!! Question "Why Perl?"
     The choice of Perl as a language is attributed to its inherent **speed in text processing** and its use of **sigils to distinguish data types** within intricate data structures, which facilitate the conversion process.
