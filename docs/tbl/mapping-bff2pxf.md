@@ -26,7 +26,7 @@
 |  :---:                                                      | :---:                                                       |
 |  measures.assayCode                                         | measurements.assay                                          |
 |  measures.measurementValue                                  | measurements.value                                          |
-|  measures.measurementValue.typedQuantities.quantityType    | measurements.complexValue.typedQuantities.type              |
+|  measures.measurementValue.typedQuantities.quantityType     | measurements.complexValue.typedQuantities.type              |
 
 ## biosamples
 |  BFF JSON path                                              | PXF JSON path                                               |

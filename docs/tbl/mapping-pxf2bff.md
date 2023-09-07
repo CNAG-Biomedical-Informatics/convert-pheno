@@ -16,7 +16,7 @@ NA
 |  :---:                                                      | :---:                                                       |
 |  exposures                                                  | exposures                                                   |
 |  exposures.type                                             | exposures.exposureCode                                      |
-|  exposures.occurrence.timestamp                             | exposures.date)                                             |
+|  exposures.occurrence.timestamp                             | exposures.date                                              |
 
 ## geographicOrigin
 NA
