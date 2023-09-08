@@ -223,7 +223,7 @@ Now you have two choose between one of the 3 options below:
 
 ### System requirements
 
-    * Ideally a Debian-based distribution (Ubuntu or Mint), but any other (e.g., CentOs, OpenSuse) should do as well.
+    * Ideally a Debian-based distribution (Ubuntu or Mint), but any other (e.g., CentOs, OpenSuse, MacOS) should do as well.
     * Perl 5 (>= 5.26 core; installed by default in most Linux distributions). Check the version with "perl -v".
     * >= 4GB of RAM
     * 1 core

@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM ubuntu:22.04
 #FROM perl:5.36-bullseye # Build fails with PyPerler
 
 # File Author / Maintainer

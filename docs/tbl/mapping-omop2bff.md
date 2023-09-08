@@ -38,7 +38,7 @@
 ## info
 |  OMOP Table(s)                                              | OMOP Variable                                              | BFF JSON path                                               |
 |  :---:                                                      | :---:                                                      | :---:                                                       |
-|  PERSON                                                     | All variables                                              | info                                                        |
+|  PERSON                                                     | All variables                                              | info.PERSON                                                 |
 |  PERSON                                                     | birth_datetime                                             | info.dateOfBirth                                            |
 
 ## interventionsOrProcedures
