@@ -18,13 +18,12 @@ requires 'IO::Socket::SSL';
 requires 'Types::Standard';
 requires 'File::ShareDir::ProjectDistDir';
 requires 'Data::Leaf::Walker';
-requires 'PerlIO::gzip'; # Win32
 
 # t
 requires 'Test::Deep';
 requires 'Test::Exception';
 requires 'Test::Warn';
-requires 'PerlIO::gzip';
+requires 'IO::Uncompress::Gunzip';
 #requires 'Inline::Python';      # for t/protobuff.t (only local dev)
 
 # api
