@@ -1,5 +1,5 @@
 !!! Info "Where should I install it?"
-    `Convert-Pheno` is a software that must be installed **locally** in a Linux, MacOS (or Windows) server/workstation. 
+    `Convert-Pheno` is a software that must be installed **locally** in a Linux (or MacOS) server/workstation. 
 
 We provide several alternatives (containerized and non-containerized) for download and installation.
 
