@@ -14,6 +14,7 @@ requires 'DBD::SQLite';
 requires 'Mojolicious::Lite';
 requires 'XML::Fast';
 requires 'JSON::Validator';
+requires 'PerlIO::gzip';
 requires 'IO::Socket::SSL';
 requires 'Types::Standard';
 requires 'File::ShareDir::ProjectDistDir';
@@ -23,7 +24,6 @@ requires 'Data::Leaf::Walker';
 requires 'Test::Deep';
 requires 'Test::Exception';
 requires 'Test::Warn';
-requires 'IO::Uncompress::Gunzip';
 #requires 'Inline::Python';      # for t/protobuff.t (only local dev)
 
 # api

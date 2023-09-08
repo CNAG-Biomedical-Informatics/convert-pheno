@@ -7,7 +7,7 @@ use Data::Dumper;
 use File::Temp qw{ tempfile };    # core
 #use Test::More tests => 3;
 use Test::More qw(no_plan);
-use IO::Uncompress::Gunzip;
+use IO::Uncompress::Gunzip; # core
 use File::Compare;
 use Convert::Pheno;
 
