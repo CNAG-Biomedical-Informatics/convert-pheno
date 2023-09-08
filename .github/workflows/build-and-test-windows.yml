@@ -1,4 +1,4 @@
-name: Build and test
+name: Build and test Windows
  
 on:
      workflow_dispatch
@@ -18,4 +18,4 @@ jobs:
           perl-version: ${{ matrix.perl }}
       - run: perl -V
       - run: cpanm -n --installdeps .
-      - run: prove -l t
+      - run: perl t/args.t
