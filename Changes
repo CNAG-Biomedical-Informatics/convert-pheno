@@ -1,5 +1,9 @@
 Revision history for Perl distribution Convert-Pheno
 
+0.12_3 2023-x9-xxT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
+
+ - Replaced PerlIO::gzip by core IO::Uncompress::G[un]zip
+
 0.12_2 2023-09-07T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
  - Added Data::Leaf::Walker to Makefile.PL
