@@ -48,7 +48,6 @@ WriteMakefile(
         'Test::Deep'                     => '1.204',
         'Test::Exception'                => '0.43',
         'Test::Warn'                     => '0.37',
-        'PerlIO::gzip'                   => '0.20',
        	'Data::Leaf::Walker'	         => '0.21'
         #'IO::Socket::SSL'              => '2.083'
         #'Mojolicious::Plugin::OpenAPI' => '5.09'

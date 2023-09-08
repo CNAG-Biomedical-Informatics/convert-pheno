@@ -9,6 +9,8 @@ use Text::CSV_XS qw(csv);
 use Sort::Naturally qw(nsort);
 use List::Util qw(any);
 use File::Spec::Functions qw(catdir);
+use IO::Compress::Gzip qw($GzipError);
+use IO::Uncompress::Gunzip qw($GunzipError);
 
 #use Devel::Size           qw(size total_size);
 use Convert::Pheno;
@@ -704,11 +706,17 @@ sub open_filehandle {
     my ( $filepath, $mode ) = @_;
     my $handle = $mode eq 'a' ? '>>' : $mode eq 'w' ? '>' : '<';
     my $fh;
-    if ( $filepath =~ /\.gz$/ ) {
-        open $fh, qq($handle:gzip:encoding(utf-8)), $filepath;
+    if ($filepath =~ /\.gz$/) {
+        if ($mode eq 'a' || $mode eq 'w') {
+            $fh = IO::Compress::Gzip->new($filepath, Append => ($mode eq 'a' ? 1 : 0));
+        }
+        else {
+            $fh = IO::Uncompress::Gunzip->new($filepath, MultiStream => 1);
+        }
+        binmode($fh, ":encoding(UTF-8)");
     }
     else {
-        open $fh, qq($handle:encoding(utf-8)), $filepath;
+        open $fh, qq($handle:encoding(UTF-8)), $filepath;
     }
     return $fh;
 }

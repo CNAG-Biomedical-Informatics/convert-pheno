@@ -29,12 +29,12 @@ graph TB
 ```
 <figcaption>Diagram showing Convert-Pheno implementation</figcaption>
 
-!!! Tip "Which one should I use"
+!!! Tip "Which one should I use?"
     You can start by playing with data in the [Web App UI Playground](https://convert-pheno.cnag.cat) and when ready you can use the [CLI](use-as-a-command-line-interface.md).
 
 ## Software architecture
 
-The [core module](https://metacpan.org/pod/Convert::Pheno) is divided into several components. Within the package `Convert::Pheno`, the class initialization is conducted and it utilizes the [Moo](https://metacpan.org/pod/Moo) module alongside [Types::Standard](https://metacpan.org/pod/Types::Standard) for data validation. Then, method chosen by the user (e.g., `pxf2bff`) is executed, and the data is forwarded to independent modules, [each designed for a specific input format](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/tree/main/lib/Convert/Pheno). 
+The [core module](https://metacpan.org/pod/Convert::Pheno) is divided into several components. Within the package `Convert::Pheno`, the class initialization is conducted and it utilizes the [Moo](https://metacpan.org/pod/Moo) module alongside [Types::Standard](https://metacpan.org/pod/Types::Standard) for data validation. Then, method chosen by the user (e.g., `pxf2bff`) is executed, and the data is forwarded to [independent modules]https://github.com/CNAG-Biomedical-Informatics/convert-pheno/tree/main/lib/Convert/Pheno), each designed for a specific input format.
 
 Initially, our aspiration was to employ configuration files, rather than hardcoded solutions, to guide the mapping process. However, given the intricate nested nature of the data structures, we soon realized this approach wasn't viable. Consequently, we opted for hardcoded mappings. It's worth noting, though, that conversions for [REDCap](redcap.md) and [CDISC-ODM](cdisc-odm.md) still need a configuration file.
 

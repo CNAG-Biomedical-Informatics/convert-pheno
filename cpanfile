@@ -14,7 +14,6 @@ requires 'DBD::SQLite';
 requires 'Mojolicious::Lite';
 requires 'XML::Fast';
 requires 'JSON::Validator';
-requires 'PerlIO::gzip';
 requires 'IO::Socket::SSL';
 requires 'Types::Standard';
 requires 'File::ShareDir::ProjectDistDir';
