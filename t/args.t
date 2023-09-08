@@ -16,7 +16,7 @@ use_ok('Convert::Pheno') or exit;
 
 # NB: Define constants to allows pass tests
 use constant HAS_IO_SOCKET_SSL => defined eval { require IO::Socket::SSL };
-use constant IS_WINDOWS        => $^O eq 'MSWin32' || $^O eq 'cygwin';
+use constant IS_WINDOWS        => ( $^O eq 'MSWin32' || $^O eq 'cygwin' ) ? 1 : 0 ;
 my $SELF_VALIDATE = IS_WINDOWS ? 0 : HAS_IO_SOCKET_SSL ? 1 : 0;
 
 my $input = {
