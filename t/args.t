@@ -69,6 +69,7 @@ for my $method ( sort keys %{$input} ) {
             mode     => 'write'
         }
     ) and say "io yaml passed";
+    system("perl -pi -e's/\015\012/\012/g' $tmp_file");
     ok( compare( $input->{$method}{out}, $tmp_file ) == 0, $method );
 }
 
@@ -84,7 +85,7 @@ my %err = (
 '<malformed.json> "type": "foo" does not self-validate against JSON Schema'
 );
 for my $method ( sort keys %{$input} ) {
-    for my $err ( keys %err ) {
+    for my $err ( sort keys %err ) {
         my $convert = Convert::Pheno->new(
             {
                 in_file => $err eq 'ERR1' ? 'dummy'
