@@ -158,7 +158,9 @@ sub normalize_windows_file {
 open my $in, '<:raw', $filein or die "Can't open windows file: $!";
 open my $out, '>:raw', $fileout or die "Can't open output file: $!";
 while (<$in>) {
+    print;
     s/\015\012/\012/g; # Replace CRLF with LF
+    print;
     print $out $_;
 }
 close $in;
