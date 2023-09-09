@@ -27,7 +27,7 @@ my $input = {
         mapping_file         => 't/redcap2bff/in/redcap_mapping.yaml',
         schema_file          => 'share/schema/mapping.json',
        # self_validate_schema => $SELF_VALIDATE,
-        self_validate_schema => 0;
+        self_validate_schema => 0,
         sep                  => undef,
         out                  => 't/redcap2bff/out/individuals.json'
     }
@@ -69,6 +69,7 @@ for my $method ( sort keys %{$input} ) {
             mode     => 'write'
         }
     );
+    say "io yaml passed"
     ok( compare( $input->{$method}{out}, $tmp_file ) == 0, $method );
 }
 
