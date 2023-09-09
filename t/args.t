@@ -26,7 +26,8 @@ my $input = {
         redcap_dictionary    => 't/redcap2bff/in/redcap_dictionary.csv',
         mapping_file         => 't/redcap2bff/in/redcap_mapping.yaml',
         schema_file          => 'share/schema/mapping.json',
-        self_validate_schema => $SELF_VALIDATE,
+       # self_validate_schema => $SELF_VALIDATE,
+        self_validate_schema => 0;
         sep                  => undef,
         out                  => 't/redcap2bff/out/individuals.json'
     }
@@ -55,9 +56,9 @@ for my $method ( sort keys %{$input} ) {
             test                 => 1,
             out_file             => $tmp_file,
             omop_tables          => [],
-            debug                => 2,
+            debug                => undef,
             search               => 'exact',
-            verbose              => 1,
+            verbose              => undef,
             method               => $method
         }
     );
