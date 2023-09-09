@@ -68,8 +68,7 @@ for my $method ( sort keys %{$input} ) {
             data     => $convert->$method,
             mode     => 'write'
         }
-    );
-    say "io yaml passed"
+    ) and say "io yaml passed";
     ok( compare( $input->{$method}{out}, $tmp_file ) == 0, $method );
 }
 
