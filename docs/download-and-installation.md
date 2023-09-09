@@ -1,5 +1,5 @@
 !!! Info "Where should I install it?"
-    `Convert-Pheno` is a software that must be installed **locally** in a Linux (or MacOS) server/workstation. 
+    `Convert-Pheno` is software designed for local installation on Linux or MacOS server/workstations. It is also compatible with Windows Server OS for Windows users.
 
 We provide several alternatives (containerized and non-containerized) for download and installation.
 
@@ -40,7 +40,7 @@ With the containerized version you get:
     * Module
     * CLI
 
-    !!! Warning "Required system-level libraries"
+    !!! Warning "Linux: Required system-level libraries"
 
         Before procesing with installation, we will need to install a few system level dependencies:
 

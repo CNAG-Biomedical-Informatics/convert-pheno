@@ -34,7 +34,7 @@ graph TB
 
 ## Software architecture
 
-The [core module](https://metacpan.org/pod/Convert::Pheno) is divided into several components. Within the package `Convert::Pheno`, the class initialization is conducted and it utilizes the [Moo](https://metacpan.org/pod/Moo) module alongside [Types::Standard](https://metacpan.org/pod/Types::Standard) for data validation. Then, method chosen by the user (e.g., `pxf2bff`) is executed, and the data is forwarded to [independent modules]https://github.com/CNAG-Biomedical-Informatics/convert-pheno/tree/main/lib/Convert/Pheno), each designed for a specific input format.
+The [core module](https://metacpan.org/pod/Convert::Pheno) is divided into several components. Within the package `Convert::Pheno`, the class initialization is conducted and it utilizes the [Moo](https://metacpan.org/pod/Moo) module alongside [Types::Standard](https://metacpan.org/pod/Types::Standard) for data validation. Then, method chosen by the user (e.g., `pxf2bff`) is executed, and the data is forwarded to [independent modules](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/tree/main/lib/Convert/Pheno), each designed for a specific input format.
 
 Initially, our aspiration was to employ configuration files, rather than hardcoded solutions, to guide the mapping process. However, given the intricate nested nature of the data structures, we soon realized this approach wasn't viable. Consequently, we opted for hardcoded mappings. It's worth noting, though, that conversions for [REDCap](redcap.md) and [CDISC-ODM](cdisc-odm.md) still need a configuration file.
 

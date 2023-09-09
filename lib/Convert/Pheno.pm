@@ -36,7 +36,7 @@ our @EXPORT =
 use constant DEVEL_MODE => 0;
 
 # Global variables:
-our $VERSION   = '0.12_2';
+our $VERSION   = '0.12_3';
 our $share_dir = dist_dir('Convert-Pheno');
 
 ############################################
@@ -734,13 +734,28 @@ Convert::Pheno - A module to interconvert common data models for phenotypic data
 
  use Convert::Pheno;
 
- # Create a new object
- 
- my $convert = Convert::Pheno->new($input);
- 
+ # Define data
+ my $my_pxf_json_data = {
+    "phenopacket" => {
+        "id"      => "P0007500",
+        "subject" => {
+            "id"          => "P0007500",
+            "dateOfBirth" => "unknown-01-01T00:00:00Z",
+            "sex"         => "FEMALE"
+        }
+    }
+  };
+
+ # Create object
+ my $convert = Convert::Pheno->new(
+    {
+        data   => $my_pxf_json_data,
+        method => 'pxf2json'
+    }
+ );
+
  # Apply a method 
- 
- my $data = $convert->redcap2bff;
+ my $data = $convert->pxf2json;
 
 =head1 DESCRIPTION
 
@@ -758,12 +773,11 @@ L<https://github.com/CNAG-Biomedical-Informatics/convert-pheno#readme>
 
 =back
 
-
 =head1 CITATION
 
 The author requests that any published work that utilizes C<Convert-Pheno> includes a cite to the the following reference:
 
-Rueda, M. et al. "Convert-Pheno: A software toolkit for the interconversion of standard data models for phenotypic data". (2013), I<Submitted>.
+Rueda, M. et al. "Convert-Pheno: A software toolkit for the interconversion of standard data models for phenotypic data", (2023), I<Journal of Biomedical Informatics>.
 
 =head1 AUTHOR
 

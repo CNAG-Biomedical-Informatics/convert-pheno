@@ -69,7 +69,7 @@ for my $method ( sort keys %{$input} ) {
     );
  SKIP: {
         # see below _normalize_windows_file
-        skip qq{Files input->{$method}{out} $tmp_file are indentical yet compare fails windows-latest}, 1
+        skip qq{Files <$input->{$method}{out}> <$tmp_file> are indentical? yet compare fails with windows-latest}, 1
           if IS_WINDOWS;
     ok( compare( $input->{$method}{out}, $tmp_file) == 0, $method );
     }
