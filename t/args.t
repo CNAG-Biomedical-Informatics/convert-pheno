@@ -69,7 +69,7 @@ for my $method ( sort keys %{$input} ) {
             mode     => 'write'
         }
     ) and say "io yaml passed";
-    system("perl -pi -e's/\015\012/\012/g' $tmp_file");
+    system("perl -pi -e \"s/\\015\\012/\\012/g\" $tmp_file");
     ok( compare( $input->{$method}{out}, $tmp_file ) == 0, $method );
 }
 
