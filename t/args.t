@@ -157,11 +157,28 @@ sub normalize_windows_file {
 # For the Windows file
 open my $in, '<:raw', $filein or die "Can't open windows file: $!";
 open my $out, '>:raw', $fileout or die "Can't open output file: $!";
+my $line_number = 0;
 while (<$in>) {
-    print;
-    s/\015\012/\012/g; # Replace CRLF with LF
-    print;
+    #print;
+    #print;
     print $out $_;
+     $line_number++;
+    
+    if (/\r\n/) {
+        print "Line $line_number: Windows (CRLF) newline\n";
+    }
+    elsif (/\n/) {
+        print "Line $line_number: Linux (LF) newline\n";
+    }
+    elsif (/\r/) {
+        print "Line $line_number: Old Mac (CR) newline\n";
+    }
+    else {
+        print "Line $line_number: No newline character found\n";
+    }
+
+       s/\015\012/\012/g; # Replace CRLF with LF
+
 }
 close $in;
 close $out;
