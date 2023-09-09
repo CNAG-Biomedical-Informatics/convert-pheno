@@ -70,7 +70,8 @@ for my $method ( sort keys %{$input} ) {
         }
     ) and say "io yaml passed";
     system("perl -pi -e \"s/\\015\\012/\\012/g\" $tmp_file");
-    ok( compare( $input->{$method}{out}, $tmp_file ) == 0, $method );
+    normalize_windows_file($tmp_file, "$tmp_file.norm");
+    ok( compare( $input->{$method}{out}, "$tmp_file.norm" ) == 0, $method );
 }
 
 ########################
@@ -148,4 +149,19 @@ for my $method ( sort keys %{$input} ) {
         qq(<DUMMY> is not a valid table in OMOP-CDM\n),
           "expecting warn: <DUMMY> is not a valid table in OMOP-CDM\n";
     }
+}
+
+sub normalize_windows_file {
+
+   my ($filein, $fileout) = @_;
+# For the Windows file
+open my $in, '<:raw', $filein or die "Can't open windows file: $!";
+open my $out, '>:raw', $fileout or die "Can't open output file: $!";
+while (<$in>) {
+    s/\015\012/\012/g; # Replace CRLF with LF
+    print $out $_;
+}
+close $in;
+close $out;
+
 }
