@@ -288,7 +288,7 @@ sub write_log {
     my $os = $^O;
     chomp(
         my $ncpuhost =
-          $os eq 'Darwin' ? qx{/usr/sbin/sysctl -n hw.logicalcpu}
+          lc($os) eq 'darwin' ? qx{/usr/sbin/sysctl -n hw.logicalcpu}
         : $os eq 'MSWin32' ? qx{wmic cpu get NumberOfLogicalProcessors}
         :                    qx{/usr/bin/nproc} // 1
     );

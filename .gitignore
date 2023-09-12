@@ -5,6 +5,7 @@
 *.swp
 *.pyc
 test.pl
+TO_DO.md
 clean.sh
 nytprof.out
 /blib/
