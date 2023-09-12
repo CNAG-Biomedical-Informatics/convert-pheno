@@ -36,7 +36,7 @@ our @EXPORT =
 use constant DEVEL_MODE => 0;
 
 # Global variables:
-our $VERSION   = '0.12_3';
+our $VERSION   = '0.12_4';
 our $share_dir = dist_dir('Convert-Pheno');
 
 ############################################
