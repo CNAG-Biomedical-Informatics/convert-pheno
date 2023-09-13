@@ -61,7 +61,7 @@ NA
 |  phenotypicFeatures                                         | phenotypicFeatures                                          |
 |  phenotypicFeatures.type                                    | phenotypicFeatures.featureType                              |
 |  phenotypicFeatures.negated                                 | phenotypicFeatures.excluded                                 |
-|  phenotypicFeatures.evidence (array)                        | phenotypicFeatures.evidence (v2.0.0 still object)           |
+|  phenotypicFeatures.evidence (array)                        | phenotypicFeatures.evidence (v2.0.0 is still object)        |
 
 ## sex
 |  PXF JSON path                                              | BFF JSON path                                               |
