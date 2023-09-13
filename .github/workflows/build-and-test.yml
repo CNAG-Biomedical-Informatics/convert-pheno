@@ -28,7 +28,7 @@ jobs:
       - run: cpanm -n --installdeps .
       - run: prove -l t
       - name: Run tests (with coverage)
-        if: ${{ matrix.perl }} == '5.30'
+        if: ${{ matrix.perl }} == '5.30' && matrix.os == 'ubuntu-latest'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
