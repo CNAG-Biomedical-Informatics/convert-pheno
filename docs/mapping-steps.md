@@ -1,7 +1,6 @@
-Internally, all models are mapped to the [Beacon v2 Models](bff.md). If the output is set to [Phenopackets v2](pheonpacket.md) then a second step (`bff2pxf`) is performed (see diagram below).
+## Step 1: Conversion to the target model
 
-!!! Hint "Why use Beacon v2 as target model?"
-    The reason for selecting Beacon v2 Model as the target for the conversion is its **schema flexibility**, which allows for the inclusion of variables that may not be present in the original schema definition. In contrast, Phenopackets v2 has stricter schema requirements. This flexibility offered by Beacon v2 schemas enables us to handle a wider range of phenotypic data and accommodate **additional variables**, enhancing the utility and applicability of our tool.
+Internally, all models are mapped to the [Beacon v2 Models](bff.md).
 
 ```mermaid
 %%{init: {'theme':'neutral'}}%%
@@ -22,13 +21,50 @@ graph LR
   style C fill: #FF6965, stroke: #FF6965
   style D fill: #3CB371, stroke: #3CB371
   style E fill: #DDA0DD, stroke: #DDA0DD
+  style F fill: #FF7F50, stroke: #FF7F50
 ```
 <figcaption>Convert-Pheno internal mapping steps</figcaption>
 
-!!! Question "How are variables that cannot be mapped handled during the conversion process?"
+!!! Question "Why use Beacon v2 as target model?"
+    * **JSON Schema Utilization:** Beacon v2 employs JSON Schema for model content definition, facilitating transparency and accessibility in a collaborative environment compared to Phenopackets' Protobuf usage.
+    * **Accommodation of Additional Properties:** The Beacon v2 Models schema permits additional properties, enhancing adaptability and enabling near-lossless conversion, especially when using JSON in non-relational databases.
+    * **Beacon v2 API Compatibility:** The BFF is directly compatible with the Beacon v2 API ecosystem, a feature not available in Phenopackets without additional mapping.
+    * **Expansion Possibility:** Being based at CNAG, a genomics institution, the potential to extend Convert-Pheno's mapping to encompass other Beacon v2 entities was a significant consideration.
+    * **Overlap with Phenopackets v2:** Despite minor differences in nomenclature or hierarchy, many essential terms remain identical, encouraging interoperability.
 
-    During the conversion process, handling variables that **cannot be directly mapped** can result in one of two scenarios:
+### Lossless or lossy conversion?
 
-    1. If the target format accommodates extra properties in a given term (BFF does), unmapped variables find a place under the `_info` property. This is a usual occurrence in conversions from OMOP-CDM to BFF.
+One of the advantages of Beacon v2/Phenopackets is that they do not prescribe the use of specific ontologies, thus allowing us to retain the original ontologies, except to fill in missing terms in required fields.
+
+During the conversion process, handling variables that **cannot be directly mapped** can result in one of two scenarios:
+
+1. If the target format accommodates extra properties in a given term (BFF does), unmapped variables find a place under the `_info` property. This is a usual occurrence in conversions from OMOP-CDM to BFF.
+2. When a variable corresponds with other entities in the Beacon v2 Models, it gets stored within the `info` term of BFF. For instance, `biosamples` from PXF files are housed in BFF `info` under `info.phenopacket.biosamples`.
+
+!!! Question "Which ontologies are supported?"
+     
+    If the input files contain ontologies, the ontologies will be preserved and remain intact after the conversion process, except for:
+     
+    * _Beacon v2 Models_ and _Phenopackets v2_: the property `sex` is converted to [NCI Thesaurus](https://ncithesaurus.nci.nih.gov/ncitbrowser).
+    * _OMOP-CDM_: the properties `sex`, `ethnicity`, and `geographicOrigin` are converted to [NCI Thesaurus](https://ncithesaurus.nci.nih.gov/ncitbrowser).
+    
+    |                | REDCap      | CDISC-ODM  | OMOP-CDM | Phenopackets v2| Beacon v2 Models |
+    | -----------    | ----------- | ---------- | -------  | -------------- | -----------------|
+    | Data mapping   | ✓ |  ✓ | ✓ | ✓ | ✓ |
+    | Add ontologies | ✓ |  ✓ | `--ohdsi-db` |     |                  |
    
-    2. When a variable corresponds with other entities in the Beacon v2 Models, it gets stored within the `info` term of BFF. For instance, `biosamples` from PXF files are housed in BFF `info` under `info.phenopacket.biosamples`.
+    For _REDCap_ and _CDISC-ODM_ we support:
+  
+    * [Athena-OHDSI](https://athena.ohdsi.org/search-terms/start) which includes multiple ontologies, such as _SNOMED, RxNorm or LOINC_
+    * [NCI Thesaurus](https://ncithesaurus.nci.nih.gov/ncitbrowser)
+    * [ICD-10](https://icd.who.int/browse10)
+    * [CDISC](https://www.cdisc.org/standards/terminology/controlled-terminology) (Study Data Tabulation Model Terminology)
+    * [OMIM](https://www.omim.org/) Online Mendelian Inheritance in Man
+    * [HPO](https://hpo.jax.org/app) Human Phenotype Ontology (Note that prefixes are `HP:`, without the `O`)
+
+## Step 2: Conversion to the final model
+
+If the output is set to [Phenopackets v2](pheonpacket.md) then a second step (`bff2pxf`) is performed (see diagram above).
+
+!!! Tip "BFF and PXF community alignment"
+    Currently, we are prioritizing the mapping of terms that, in our assessment, hold the most significance. Our hope is that Beacon v2 Models will increasingly align with Phenopackets v2, streamlining the conversion process in the future.

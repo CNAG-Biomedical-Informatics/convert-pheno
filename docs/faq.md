@@ -45,29 +45,6 @@ Frequently Asked Questions
 
     ##### last change 2023-01-04 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
-??? faq "Which ontologies are supported?"
-
-    If the input files contain ontologies, the ontologies will be preserved and remain intact after the conversion process, except for:
-
-    * _Beacon v2 Models_ and _Phenopackets v2_: the property `sex` is converted to [NCI Thesaurust](https://ncithesaurus.nci.nih.gov/ncitbrowser).
-    * _OMOP-CDM_: the properties `sex`, `ethnicity`, and `geographicOrigin` are converted to [NCI Thesaurus](https://ncithesaurus.nci.nih.gov/ncitbrowser).
-
-    |                | REDCap      | CDISC-ODM  | OMOP-CDM | Phenopackets v2| Beacon v2 Models |
-    | -----------    | ----------- | ---------- | -------  | -------------- | -----------------|
-    | Data mapping   | ✓ |  ✓ | ✓ | ✓ | ✓ |
-    | Add ontologies | ✓ |  ✓ | `--ohdsi-db` |     |                  |
-
-    For _REDCap_ and _CDISC-ODM_ we support:
-
-    * [Athena-OHDSI](https://athena.ohdsi.org/search-terms/start) which includes multiple ontologies, such as _SNOMED, RxNorm or LOINC_
-    * [NCI Thesaurus](https://ncithesaurus.nci.nih.gov/ncitbrowser)
-    * [ICD-10](https://icd.who.int/browse10)
-    * [CDISC](https://www.cdisc.org/standards/terminology/controlled-terminology) (Study Data Tabulation Model Terminology)
-    * [OMIM](https://www.omim.org/) Online Mendelian Inheritance in Man
-    * [HPO](https://hpo.jax.org/app) Human Phenotype Ontology (Note that prefixes are `HP:`, without the `O`)
-
-    ##### last change 2023-07-03 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
-
 ??? faq "Are longitudinal data supported?"
 
     Although Beacon v2 and Phenopackets v2 allow for storing time information in some properties, there is currently no way to associate medical visits to properties. To address this:
