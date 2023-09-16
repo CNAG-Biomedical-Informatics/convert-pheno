@@ -1,4 +1,4 @@
-!!! Info "BFF to PXF - Information"
+!!! Note "BFF to PXF - Schemas"
     * [Beacon v2 Models - individuals](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema)
     * [Phenopacket v2 schema](https://phenopacket-schema.readthedocs.io/en/latest/phenopacket.html)
 

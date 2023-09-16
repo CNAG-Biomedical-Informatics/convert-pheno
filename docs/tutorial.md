@@ -35,44 +35,60 @@ This page provides brief tutorials on how to perform data conversion by using `C
      * These are the properties needeed to map your data to the entity `individuals` in the Beacon v2 Models:
         - **fields**, is an `array` consisting of the name of the REDCap variables that map to that Beacon v2 term.
         - **map**, is an `object` in the form of `key: value` that we use to map our Beacon v2 objects to REDCap variables. For instance, you may have a field named `age_first_diagnosis` that it's called `ageOgOnset` on Beacon v2. In this case you will use `ageOfOnset: age_first_diagnosis`.
-        - **dict**, is an `object` in the form of `key: value`. The `key` represents the original variable name in REDCap and the `value` represents the "phrase" that will be used to query a database to find an ontology candidate. For instance, you may have a variable named `cigarettes_days`, but you know that in [NCIT](https://www.ebi.ac.uk/ols/ontologies/ncit) the label is `Average Number Cigarettes Smoked a Day`. In this case you will use `cigarettes_days: Average Number Cigarettes Smoked a Day`.
+        - **dict**, is an `object` in the form of `key: value`. The `key` represents the original variable name in REDCap and the `value` represents the "phrase" that will be used to query a database to find an ontology candidate. For instance, you may have a variable named `cigarettes_days`, but you know that in [NCIt](https://www.ebi.ac.uk/ols/ontologies/ncit) the label is `Average Number Cigarettes Smoked a Day`. In this case you will use `cigarettes_days: Average Number Cigarettes Smoked a Day`.
         - **radio**, a nested `object` value with specific mappings.
         - **ontology**, it's an `string` to define more granularly the ontology for this particular Beacon v2 term. If not present, the script will use that from `project.ontology`.
         - **routesOfAdministration**, an `array` with specific mappings for `treatments`.
 
     !!! Tip "Defining the values in the property `dict`"
-        Before assigning values to `dict` it's important that you think about which ontologies you want to use. The field `project.ontology` defines the ontology for the whole project, but you can also specify a another antology at the Beacon v2 term level. Once you know which ontologies to use, then try searching for such term to get an accorate label for it. For example, if you have chosen `ncit`, you can search for the values within NCIT at [EBI Search](https://www.ebi.ac.uk/ols/ontologies/ncit). `Convert-Pheno` will use these values to retrieve the actual ontology from its internal databases.
+        Before assigning values to `dict` it's important that you think about which ontologies you want to use. The field `project.ontology` defines the ontology for the whole project, but you can also specify a another antology at the Beacon v2 term level. Once you know which ontologies to use, then try searching for such term to get an accorate label for it. For example, if you have chosen `ncit`, you can search for the values within NCIt at [EBI Search](https://www.ebi.ac.uk/ols/ontologies/ncit). `Convert-Pheno` will use these values to retrieve the actual ontology from its internal databases.
 
-    !!! Warning "About text similarity in database searches"
+    !!! Abstract "About text similarity in database searches"
         `Convert-Pheno` comes with a few pre-configured databases and it will search for ontologies there. Two two types of searches can be performed:
 
          1. `exact` (default)
 
-             Retrieves only exact matches for a specified 'label'
+             Retrieves only exact matches for a specified 'label'.
 
          2. `mixed` (needs `--search mixed`)
 
              The script will begin by attempting an exact match for 'label', and if it is unsuccessful, it will then conduct a search based on string (phrase) similarity and select the ontology with the highest score. 
-         Example (NCIT ontology): 
 
-          Search phrase: **Exercise pain management** with `exact` search.
+         Example (NCIt ontology): 
 
-          - exact match: Exercise Pain Management
+         Search phrase: **Exercise pain management** with `exact` search.
 
-          Search phrase: **Brain Hemorrhage** with `mixed` search.
+         - exact match: Exercise Pain Management
 
-          - exact match: NA
+         Search phrase: **Brain Hemorrhage** with `mixed` search.
 
-          - similarity match: Intraventricular Brain Hemorrhage
+         - exact match: NA
 
-          `--min-text-similarity-score` sets the minimum value for the Cosine / Sorensen-Dice coefficient. The default value (0.8) is very conservative.
+         - similarity match: Intraventricular Brain Hemorrhage
+
+         `--min-text-similarity-score` sets the minimum value for the Cosine / Sorensen-Dice coefficient. The default value (0.8) is very conservative.
 
          Note that `mixed` search requires more computational time and its results can be unpredictable. Please use it with caution.
 
+         **Example:** 
+  
+         Find below an example of the resulfs for the query `Sudden Death Syndrome` on the local [NCIt](https://ncithesaurus.nci.nih.gov/ncitbrowser) database.
+
+
+         | Query                 | Search method  |NCIt match (label) | NCIt code (id) | Cosine | Dice |
+         |                       |                |        |      |     |     |
+         | Sudden Death Syndrome | `exact` |           `NA`                                    |    `NA`      | `NA` | `NA`|
+         |                       | `mixed` | CDISC SDTM Sudden Death Syndrome Type Terminology | NCIT:C101852 | 0.65 | 0.6 |
+         |                       |         | Family History of Sudden Arrythmia Death Syndrome | NCIT:C168019 | 0.65 | 0.6 |
+         |                       |         | Family History of Sudden Infant Death Syndrome    | NCIT:C168209 | 0.65 | 0.6 |
+         |                       |         | Sudden Infant Death Syndrome                      | NCIT:C85173  | 0.86 | 0.86|
+
+         Here, utilizing the default `--search` method (`exact`) will yield no matches. However, by employing `--search mixed`, we would identify `Sudden Infant Death Syndrome` as it registers the highest `cosine` score. If we had configured the `--min-text-similarity-score` to 0.9, we would not have found any matches.
+
     ### Running `Convert-Pheno`
 
-    Once you have created the mapping file you can proceed to run `convert-pheno` with the **command-line interface**. Please see how [here](redcap.md#redcap-as-input).
- 
+    Now you can proceed to run `convert-pheno` with the **command-line interface**. Please see how [here](redcap.md#redcap-as-input).
+
 === "OMOP-CDM to Beacon v2 Models"
 
     This section provides a summary of the steps to convert an OMOP-CDM export to Beacon v2 Models. The starting point is either a PostgreSQL export in the form of `.sql` or `.csv` files. The process is the same for both.
@@ -92,7 +108,7 @@ This page provides brief tutorials on how to perform data conversion by using `C
 
     ### Running `Convert-Pheno`
 
-    Once you have created the mapping file you can proceed to run `convert-pheno` with the **command-line interface**. Please see how [here](omop-cdm.md#omop-as-input).
+    Now you can proceed to run `convert-pheno` with the **command-line interface**. Please see how [here](omop-cdm.md#omop-as-input).
 
 !!! Question "More questions?"
     Please take a look to our [Frequently Asked Questions](faq.md).

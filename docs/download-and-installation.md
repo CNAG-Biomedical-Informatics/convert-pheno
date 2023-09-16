@@ -3,7 +3,7 @@
 
 We provide several alternatives (containerized and non-containerized) for download and installation.
 
-!!! Hint "Which download method should I use?"
+!!! Question "Which download method should I use?"
     It depends in which components you want to use and your fluency in performing installations on Linux environments. Usually, most people use the [CLI](use-as-a-command-line-interface.md).
 
     | Use case | Method  |

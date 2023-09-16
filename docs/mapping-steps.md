@@ -26,7 +26,7 @@ graph LR
 <figcaption>Convert-Pheno internal mapping steps</figcaption>
 
 !!! Question "Why use Beacon v2 as target model?"
-    * **JSON Schema Utilization:** Beacon v2 employs JSON Schema for model content definition, facilitating transparency and accessibility in a collaborative environment compared to Phenopackets' Protobuf usage.
+    * **JSON Schema Utilization:** Beacon v2 employs [JSON Schema](https://github.com/ga4gh-beacon/beacon-v2/tree/main/models) for model content definition, facilitating transparency and accessibility in a collaborative environment compared to Phenopackets' Protobuf usage.
     * **Accommodation of Additional Properties:** The Beacon v2 Models schema permits additional properties, enhancing adaptability and enabling near-lossless conversion, especially when using JSON in non-relational databases.
     * **Beacon v2 API Compatibility:** The BFF is directly compatible with the Beacon v2 API ecosystem, a feature not available in Phenopackets without additional mapping.
     * **Expansion Possibility:** Being based at CNAG, a genomics institution, the potential to extend Convert-Pheno's mapping to encompass other Beacon v2 entities was a significant consideration.
@@ -34,7 +34,7 @@ graph LR
 
 ### Lossless or lossy conversion?
 
-One of the advantages of Beacon v2/Phenopackets is that they do not prescribe the use of specific ontologies, thus allowing us to retain the original ontologies, except to fill in missing terms in required fields.
+One of the advantages of **Beacon/Phenopackets v2** is that they **do not prescribe the use of specific ontologies**, thus allowing us to retain the original ontologies, except to fill in missing terms in required fields.
 
 During the conversion process, handling variables that **cannot be directly mapped** can result in one of two scenarios:
 
@@ -55,12 +55,14 @@ During the conversion process, handling variables that **cannot be directly mapp
    
     For _REDCap_ and _CDISC-ODM_ we support:
   
-    * [Athena-OHDSI](https://athena.ohdsi.org/search-terms/start) which includes multiple ontologies, such as _SNOMED, RxNorm or LOINC_
+    * [Athena-OHDSI](https://athena.ohdsi.org/search-terms/start) standardized vocabulary, which includes multiple ontologies, such as _SNOMED, RxNorm or LOINC_
     * [NCI Thesaurus](https://ncithesaurus.nci.nih.gov/ncitbrowser)
     * [ICD-10](https://icd.who.int/browse10)
     * [CDISC](https://www.cdisc.org/standards/terminology/controlled-terminology) (Study Data Tabulation Model Terminology)
     * [OMIM](https://www.omim.org/) Online Mendelian Inheritance in Man
     * [HPO](https://hpo.jax.org/app) Human Phenotype Ontology (Note that prefixes are `HP:`, without the `O`)
+
+    See an example of how the **ontology similarity search** it's performed in the [REDCap tutorial](tutorial.md##creating-a-mapping-file).
 
 ## Step 2: Conversion to the final model
 

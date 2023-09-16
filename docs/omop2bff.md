@@ -1,7 +1,9 @@
-!!! Info "OMOP to BFF - Information"
-    * The Beacon v2 schema enforces the presence of specific properties to achieve successful validation. In cases where no suitable match is found, DEFAULT values are employed to guarantee conformity.
+!!! Note "OMOP to BFF - Schemas"
     * [OMOP-CDM v5.4 tables](https://ohdsi.github.io/CommonDataModel/cdm54.html)
     * [Beacon v2 Models - individuals](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema)
+
+!!! Info "Information"
+     The Beacon v2 schema enforces the presence of specific properties to achieve successful validation. In cases where no suitable match is found, DEFAULT values are employed to guarantee conformity.
 
 --8<-- "tbl/mapping-omop2bff.md"
 

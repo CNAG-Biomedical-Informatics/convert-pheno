@@ -33,9 +33,6 @@ Due to the flexibility of REDCap projects, it can be challenging to develop a so
     convert-pheno -iredcap redcap.csv --redcap-dictionary dictionary.csv --mapping-file mapping.yaml -obff individuals.json
     ```
 
-    !!! Abstract "Ontologies used"
-        During the data transformation process, **ontologies** are automatically added to standardize the content of the variables. We use [NCI Thesaurus](https://ncithesaurus.nci.nih.gov/ncitbrowser), [ICD-10](https://icd.who.int/browse10), and data from [Athena-OHDSI](https://athena.ohdsi.org/search-terms/start).
-
 === "API"
 
     While it is _technically possible_ to perform a transformation via API we don't think it's a viable option with REDCap projects.. Therefore, we recommend using the **command-line** version by utilizing REDCap data exports.

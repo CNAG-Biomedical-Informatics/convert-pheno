@@ -41,12 +41,12 @@ The [core module](https://metacpan.org/pod/Convert::Pheno) is divided into vario
 
 ## Implementing a new conversion
 
+### Schema mapping
+
 When creating a new conversion between two data models, the first step is to **match the variables** between the two data schemas. At the time of writting this (Sep-2023) the mapping of variables is still performed **manually** by human brains :cold_sweat:.
 
 !!! Info "Mapping strategy: External or hard-coded?"
-    Our initial approach leaned towards utilizing configuration files to steer the mapping process, as opposed to resorting to hardcoded solutions. However, we encountered challenges due to the complex, nested nature of the data structures, which rendered this strategy unfeasible. As a result, we chose to implement hardcoded mappings. Nevertheless, it is important to highlight that the conversions for [REDCap](redcap.md) and [CDISC-ODM](cdisc-odm.md) continue to require a configuration file.
-
-### Mapping tables
+    Our initial approach leaned towards utilizing configuration files to steer the mapping process, as opposed to resorting to hardcoded solutions. However, we encountered challenges due to the complex, nested nature of the data structures, which rendered this strategy unfeasible. As a result, we chose to implement **hardcoded** mappings. Nevertheless, it is important to highlight that the conversions for [REDCap](redcap.md) and [CDISC-ODM](cdisc-odm.md) continue to require a configuration file.
 
 In the **Mapping tables** section (accessible via the 'Technical Details' tab on the left navigation bar), we outline the equivalencies between different schemas. These tables fulfill several purposes:
 
@@ -56,7 +56,7 @@ In the **Mapping tables** section (accessible via the 'Technical Details' tab on
 
 ### From mapping to code
 
-While creating the code for a new format can be challenging, modifying properties in an existing one is much easier. The whole process is simpler when all the data fits in the RAM memory. Feel free to reach us should you plan to contribute.
+While creating the code for a new format can be challenging, modifying properties in an existing one is much easier. Feel free to [reach us](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/issues) should you plan to contribute.
 
-!!! Warning "Notice"
-    Please note that accurately mapping, even between two standards, is a substantial undertaking. While we possess expertise in certain areas, we certainly don't claim mastery in all :pray:. We sincerely **welcome** any **suggestions** or feedback.
+!!! Bug "Notice"
+    Please note that accurately mapping, even between two standards, is a substantial undertaking. While we possess expertise in certain areas, we certainly don't claim mastery in all :pray:. We sincerely welcome any **suggestions** or feedback.

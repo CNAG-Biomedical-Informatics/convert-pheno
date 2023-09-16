@@ -43,6 +43,14 @@ graph LR
     * [Phenopacket v2 (JSON | YAML)](pxf.md)
 
     !!! Question "Why start with these two?"
-        [Beacon v2](https://docs.genomebeacons.org) and [Phenopackets v2](https://phenopacket-schema.readthedocs.io/en/latest) are data exchange standards from the [G4AGH](https://www.ga4gh.org). Apart from phenotypic data, both standars allows for storing **genomic** data, which is a key component of today's research.
+        [Beacon v2](https://docs.genomebeacons.org) and [Phenopackets v2](https://phenopacket-schema.readthedocs.io/en/latest) are data exchange standards from the [GA4GH](https://www.ga4gh.org). They:
+         
+        - Allow for storing both phenotypic and **genomic** data, a key component in today's research
+        - Play a central role in mapping exercises due to their structured and compact data schemas
+        - Are designed to encapsulate diverse data relevant to bio-medical-genomics research
+        - Accommodate a wide variety of data from different fields
+        - Are not intended to replace or encompass FHIR and other EHR data models
+        - Facilitate streamlined data representation in genomic and biomedical research environments
+        - Foster effective data sharing and integration initiatives
 
-        Note that these output files are **intermediate** files that reach their full potential when loaded into a database. Once in the database their fields can be queried through an **API**, such as the [Beacon v2 API](https://docs.genomebeacons.org).
+        Note that these output files are **intermediate** files that reach their full potential when loaded into a database. For instance, [BFF](bff.md) can be loaded into a MongoDB database and their fields can be queried through an **API**, such as the [Beacon v2 API](https://docs.genomebeacons.org).
