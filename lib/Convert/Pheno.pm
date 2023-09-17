@@ -734,28 +734,27 @@ Convert::Pheno - A module to interconvert common data models for phenotypic data
 
  use Convert::Pheno;
 
- # Define data
  my $my_pxf_json_data = {
-    "phenopacket" => {
-        "id"      => "P0007500",
-        "subject" => {
-            "id"          => "P0007500",
-            "dateOfBirth" => "unknown-01-01T00:00:00Z",
-            "sex"         => "FEMALE"
-        }
-    }
-  };
+     "phenopacket" => {
+         "id"      => "P0007500",
+         "subject" => {
+             "id"          => "P0007500",
+             "dateOfBirth" => "unknown-01-01T00:00:00Z",
+             "sex"         => "FEMALE"
+         }
+     }
+ };
 
  # Create object
  my $convert = Convert::Pheno->new(
-    {
-        data   => $my_pxf_json_data,
-        method => 'pxf2json'
-    }
+     {
+         data   => $my_pxf_json_data,
+         method => 'pxf2bff'
+     }
  );
 
- # Apply a method 
- my $data = $convert->pxf2json;
+ # Apply a method
+ my $data = $convert->pxf2bff;
 
 =head1 DESCRIPTION
 
