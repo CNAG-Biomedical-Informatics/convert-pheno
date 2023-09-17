@@ -5,7 +5,7 @@
    <figcaption>Figure extracted from www.ga4gh.org</figcaption>
 </figure>
 
-Phenopackets use [top-level](https://phenopacket-schema.readthedocs.io/en/latest/toplevel.html) elements in order to structure the information. We'll be focussing on the element **Phenopacket**.
+Phenopackets use [top-level](https://phenopacket-schema.readthedocs.io/en/latest/toplevel.html) elements in order to structure the information. We'll be focussing on the element [Phenopacket](https://phenopacket-schema.readthedocs.io/en/latest/phenopacket.html).
 
 !!! Tip "Browsing PXF vs `JSON` data"
 

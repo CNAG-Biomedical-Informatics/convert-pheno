@@ -43,7 +43,7 @@ During the conversion process, handling variables that **cannot be directly mapp
 
 !!! Question "Which ontologies are supported?"
      
-    If the input files contain ontologies, the ontologies will be preserved and remain intact after the conversion process, except for:
+    If the input files contain ontologies, the **ontologies will be preserved** and remain intact after the conversion process, except for:
      
     * _Beacon v2 Models_ and _Phenopackets v2_: the property `sex` is converted to [NCI Thesaurus](https://ncithesaurus.nci.nih.gov/ncitbrowser).
     * _OMOP-CDM_: the properties `sex`, `ethnicity`, and `geographicOrigin` are converted to [NCI Thesaurus](https://ncithesaurus.nci.nih.gov/ncitbrowser).

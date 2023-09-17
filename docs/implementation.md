@@ -30,7 +30,9 @@ graph TB
 <figcaption>Diagram showing Convert-Pheno implementation</figcaption>
 
 !!! Tip "Which one should I use?"
-    You can start by playing with data in the [Web App UI Playground](https://convert-pheno.cnag.cat) and when ready you can use the [CLI](use-as-a-command-line-interface.md).
+    Most users find the [CLI](use-as-a-command-line-interface.md) suitable for their needs. Begin by experimenting with the data in the [Web App UI Playground](https://convert-pheno.cnag.cat).
+
+    Power users may want to check the [module](use-as-a-module.md) or the [API](use-as-an-api.md) version. 
 
 ## Software architecture
 
@@ -45,8 +47,8 @@ The [core module](https://metacpan.org/pod/Convert::Pheno) is divided into vario
 
 When creating a new conversion between two data models, the first step is to **match the variables** between the two data schemas. At the time of writting this (Sep-2023) the mapping of variables is still performed **manually** by human brains :cold_sweat:.
 
-!!! Info "Mapping strategy: External or hard-coded?"
-    Our initial approach leaned towards utilizing configuration files to steer the mapping process, as opposed to resorting to hardcoded solutions. However, we encountered challenges due to the complex, nested nature of the data structures, which rendered this strategy unfeasible. As a result, we chose to implement **hardcoded** mappings. Nevertheless, it is important to highlight that the conversions for [REDCap](redcap.md) and [CDISC-ODM](cdisc-odm.md) continue to require a configuration file.
+!!! Info "Mapping strategy: External or hardcoded?"
+    At first, we planned to use configuration files to direct the mapping process instead of hardcoded solutions. But the data structures were too complex and nested, making this approach unworkable. So, we decided on **hardcoded** mappings. However, note that [REDCap](redcap.md) and [CDISC-ODM](cdisc-odm.md) conversions still need a configuration file.
 
 In the **Mapping tables** section (accessible via the 'Technical Details' tab on the left navigation bar), we outline the equivalencies between different schemas. These tables fulfill several purposes:
 
@@ -54,7 +56,7 @@ In the **Mapping tables** section (accessible via the 'Technical Details' tab on
 2. Experts can check it out and suggest changes without digging into all the code.
 3. If you want to chip in and create a new conversion, you can start by making a mapping table. 
 
-### From mapping to code
+### From mappings to code
 
 While creating the code for a new format can be challenging, modifying properties in an existing one is much easier. Feel free to [reach us](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/issues) should you plan to contribute.
 

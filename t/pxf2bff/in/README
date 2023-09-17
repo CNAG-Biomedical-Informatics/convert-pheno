@@ -1,2 +1,12 @@
 # https://github.com/phenopackets/phenopacket-tools
-## ./pxf-tools-cli examples
+./pxf-tools-cli examples (v1.0.0-RC3)
+
+
+## Sep-17-2023 - Fixed error on:
+id" : "DrugCentral:257",
+      "label" : "Vitamin E"
+
+https://drugcentral.org/drugcard/257 => atorvastatin
+
+id" : "DrugCentral:257",
+      "label" : "atorvastatin"

@@ -1,5 +1,10 @@
 Revision history for Perl distribution Convert-Pheno
 
+0.14 2023-XX-XXT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
+
+ - Fixed error on pxf.{json,yaml} @pxf-tools-cli examples (v1.0.0-RC3)
+   o label": "Vitamin E" -> label": "atorvastatin"
+
 0.13 2023-09-12T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
  - Pushing new version after passing all tests
@@ -8,8 +13,8 @@ Revision history for Perl distribution Convert-Pheno
 
  - Added support for Windows Server OS
  - Added changes to pass windows-latest tests in GitHub
-    o Replaced PerlIO::gzip by core IO::Uncompress::G[un]zip
-    o Adapted t/{args,cli.t}
+   o Replaced PerlIO::gzip by core IO::Uncompress::G[un]zip
+   o Adapted t/{args,cli.t}
 
 0.12_2 2023-09-07T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 

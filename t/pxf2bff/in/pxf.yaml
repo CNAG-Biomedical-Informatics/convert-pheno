@@ -147,7 +147,7 @@
     treatment:
       agent:
         id: DrugCentral:257
-        label: Vitamin E
+        label: atorvastatin 
       drugType: UNKNOWN_DRUG_TYPE
       routeOfAdministration:
         id: NCIT:C38288

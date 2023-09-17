@@ -57,6 +57,19 @@ Frequently Asked Questions
 
     ##### last change 2023-03-24 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
+
+??? faq "I have a set of PXF files encoded with HPO and ICD-10 ontologies and I want to convert them to BFF but encoded with OMIM and SNOMED-CT ontologies. Can you help me?"
+
+    Neither Phenopackets v2 nor Beacon v2 prescribe the use of a specific ontology; they simply provide **recommendations** on their websites. Thereby, `Convert-Pheno` does not change the source ontologies.
+
+    Now, IMHO, it's generally easier to inter-convert ontologies than to inter-convert raw data to ontologies. So there is that advantage... :smile:.
+
+    !!! Abstract "Nota Bene:"
+        A  standard that does enforce the use of an **standardized vocabulary** is [OMOP-CDM](omop-cdm.md), you may wanna check it out.
+
+    ##### last change 2023-09-16 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
+
+
 ## Installation
 
 ??? faq "I am installing `Convert-Pheno` from source ([non-containerized version](https://github.com/cnag-biomedical-informatics/convert-pheno#non-containerized)) but I can't make it work. Any suggestions?"

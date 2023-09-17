@@ -2,7 +2,7 @@
 
 ## Developers
 
-=== "Module"
+=== "CLI - Module - API"
 
     * [Manuel Rueda](https://github.com/mrueda)
 

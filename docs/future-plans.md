@@ -1,6 +1,6 @@
 ```mermaid
   gantt
-    title Convert-Pheno Roadmap
+    title Convert-Pheno Roadmap*
     dateFormat  YYYY-MM-DD
 
     section Relases
@@ -22,5 +22,7 @@
     User interface            :done,   e1, 2023-01-01, 90d
     User interface (Extended) :        after m2, 545d
 ```
+
+`*The roadmap is subject to revisions and may evolve over time`
 
 ##### last change 2023-09-06 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
