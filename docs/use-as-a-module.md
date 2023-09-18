@@ -4,6 +4,32 @@
 
 The module can be used within a `Perl` script, but it can also be utilized in scripts written in other languages, such as `Python`. 
 
+```Perl
+use Convert::Pheno;
+
+my $my_pxf_json_data = {
+    "phenopacket" => {
+        "id"      => "P0007500",
+        "subject" => {
+            "id"          => "P0007500",
+            "dateOfBirth" => "unknown-01-01T00:00:00Z",
+            "sex"         => "FEMALE"
+        }
+    }
+};
+
+# Create object
+my $convert = Convert::Pheno->new(
+    {
+        data   => $my_pxf_json_data,
+        method => 'pxf2bff'
+    }
+);
+
+# Apply a method
+my $data = $convert->pxf2bff;
+```
+
 === "Inside Perl"
 
     Find [here](https://github.com/cnag-biomedical-informatics/convert-pheno/blob/main/share/ex/perl.pl) an example script.

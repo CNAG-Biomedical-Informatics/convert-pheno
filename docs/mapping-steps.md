@@ -36,8 +36,173 @@ graph LR
 
 During the conversion process, handling variables that **cannot be directly mapped** can result in one of two scenarios:
 
-1. If the target format accommodates extra properties in a given term (BFF does), unmapped variables find a place under the `_info` property. This is a usual occurrence in conversions from OMOP-CDM to BFF.
-2. When a variable corresponds with other entities in the Beacon v2 Models, it gets stored within the `info` term of BFF. For instance, `biosamples` from PXF files are housed in BFF `info` under `info.phenopacket.biosamples`.
+=== "Unmappable variables"
+
+    Often, the input data model has variables that don't directly map to the target but are still useful to retain in the output format. If the target format allows for extra properties in a term (as BFF does), these original variables are stored under the `_info` property (or `_` + property). This commonly happens in conversions from OMOP-CDM to BFF. 
+
+    Example extracted from `omop2bff` [conversion](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/t/omop2bff/out/individuals.json):
+     
+    ```json
+    "interventionsOrProcedures" : [
+           {
+              "_info" : {
+                 "PROCEDURE_OCCURRENCE" : {
+                    "OMOP_columns" : {
+                       "modifier_concept_id" : 0,
+                       "modifier_source_value" : null,
+                       "person_id" : 2,
+                       "procedure_concept_id" : 4163872,
+                       "procedure_date" : "1955-10-22",
+                       "procedure_datetime" : "1955-10-22 00:00:00",
+                       "procedure_occurrence_id" : 6,
+                       "procedure_source_concept_id" : 4163872,
+                       "procedure_source_value" : 399208008,
+                       "procedure_type_concept_id" : 38000275,
+                       "provider_id" : "\\N",
+                       "quantity" : "\\N", 
+                       "visit_detail_id" : 0,
+                       "visit_occurrence_id" : 103
+                    }
+                 }
+              },
+              "ageAtProcedure" : {
+                 "age" : {
+                    "iso8601duration" : "35Y"
+                 }
+              },
+              "dateOfProcedure" : "1955-10-22",
+              "procedureCode" : {
+                 "id" : "SNOMED:399208008",
+                 "label" : "Plain chest X-ray"
+              }
+           }
+     ]
+    ```
+
+    Example extracted from `redcap2bff` [conversion](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/t/redcap2bff/out/individuals.json):
+
+    ```json
+    "treatments" : [
+           {
+              "_info" : {
+                 "dose" : null,
+                 "drug" : "budesonide",
+                 "drug_name" : "budesonide",
+                 "duration" : null,
+                 "field" : "budesonide_oral_status",
+                 "route" : "oral",
+                 "start" : null,
+                 "status" : "never treated",
+                 "value" : 1
+              },
+              "doseIntervals" : [],
+              "routeOfAdministration" : {
+                 "id" : "NCIT:C38288",
+                 "label" : "Oral Route of Administration"
+              },
+              "treatmentCode" : {
+                 "id" : "NCIT:C1027",
+                 "label" : "Budesonide"
+              }
+           }
+    ]
+    ```
+
+    Example of longitudinal data stored under `_visit` in a `omop2bff` [conversion](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/t/omop2bff/out/individuals.json):
+
+    ```json
+    "_visit" : {
+            "_info" : {
+               "VISIT_OCCURENCE" : {
+                  "OMOP_columns" : {
+                     "admitting_source_concept_id" : 0,
+                     "admitting_source_value" : null,
+                     "care_site_id" : "\\N",
+                     "discharge_to_concept_id" : 0,
+                     "discharge_to_source_value" : null,
+                     "person_id" : 3,
+                     "preceding_visit_occurrence_id" : 347,
+                     "provider_id" : "\\N",
+                     "visit_concept_id" : 9201,
+                     "visit_end_date" : "1972-12-21",
+                     "visit_end_datetime" : "1972-12-21 00:00:00",
+                     "visit_occurrence_id" : 312,
+                     "visit_source_concept_id" : 0,
+                     "visit_source_value" : "5d035dd1-30d9-4389-b94c-64947bf1f18c",
+                     "visit_start_date" : "1972-12-20",
+                     "visit_start_datetime" : "1972-12-20 00:00:00",
+                     "visit_type_concept_id" : 44818517
+                  }
+               }
+            },
+            "concept" : {
+               "id" : "Visit:IP",
+               "label" : "Inpatient Visit"
+            },
+            "end_date" : "1972-12-21T00:00:00Z",
+            "id" : "312",
+            "occurrence_id" : 312,
+            "start_date" : "1972-12-20T00:00:00Z",
+            "type" : {
+               "id" : "Visit Type:OMOP4822465",
+               "label" : "Visit derived from encounter on claim"
+            }
+         },
+         "featureType" : {
+            "id" : "SNOMED:428251008",
+            "label" : "History of appendectomy"
+         },
+         "onset" : {
+            "iso8601duration" : "56Y"
+         }
+    }
+    ```
+
+=== "Match to a different entity"
+
+    When a variable corresponds with other entities in the Beacon v2 Models, it gets stored within the `info` term of BFF. For instance, `biosamples` from PXF files are housed in BFF `info` under `info.phenopacket.biosamples`.
+     
+    Example extracted from `pxf2bff` [conversion](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/t/pxf2bff/out/individuals.json):
+     
+    ```json
+    "info" : {
+              "phenopacket" : {
+                 "biosamples" : [
+                    {
+                       "id" : "biosample.1",
+                       "phenotypicFeatures" : [
+                          {
+                             "excluded" : false,
+                             "type" : {
+                                "id" : "HP:0003798",
+                                "label" : "Nemaline bodies"
+                             }
+                          }
+                       ],
+                       "procedure" : {
+                          "bodySite" : {
+                             "id" : "UBERON:0002378",
+                             "label" : "muscle of abdomen"
+                          },
+                          "code" : {
+                             "id" : "NCIT:C51895",
+                             "label" : "Muscle Biopsy"
+                          },
+                          "performed" : {
+                             "age" : {
+                                "iso8601duration" : "P1D"
+                             }
+                          }
+                       },
+                       "sampledTissue" : {
+                          "id" : "UBERON:0002378",
+                          "label" : "muscle of abdomen"
+                       }
+                    }
+                 ]
+           }
+    }
+    ```
 
 ### Ontology preservation
 
@@ -70,5 +235,5 @@ One of the advantages of **Beacon/Phenopackets v2** is that they **do not prescr
 
 If the output is set to [Phenopackets v2](pheonpacket.md) then a second step (`bff2pxf`) is performed (see diagram above).
 
-!!! Tip "BFF and PXF community alignment"
-    Currently, we are prioritizing the mapping of terms that, in our assessment, hold the most significance. Our hope is that Beacon v2 Models will increasingly align with Phenopackets v2, streamlining the conversion process in the future.
+!!! Warning "BFF and PXF community alignment"
+    At present, we have prioritized mapping the terms that we deem most critical in facilitating basic semantic interoperability. We anticipate that Beacon v2 Models will become more aligned with Phenopackets v2, which will simplify the conversion process in future updates. We aim to refine the mappings in future iterations, with the community providing a wider range of case studies.
