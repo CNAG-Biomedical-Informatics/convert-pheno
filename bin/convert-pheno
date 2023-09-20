@@ -24,7 +24,6 @@ use Data::Dumper;
 use Sys::Hostname;
 use POSIX qw(strftime);
 use File::Spec::Functions qw(catdir catfile);
-use File::Basename;
 use File::ShareDir::ProjectDistDir qw(dist_dir);
 use FindBin qw($Bin);
 use lib "$Bin/../lib";

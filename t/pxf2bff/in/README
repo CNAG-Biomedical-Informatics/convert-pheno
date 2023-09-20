@@ -2,7 +2,7 @@
 ./pxf-tools-cli examples (v1.0.0-RC3)
 
 
-## Sep-17-2023 - Fixed error on:
+## Sep-17-2023 - Fixed error on in/out/*{json,yaml}):
 id" : "DrugCentral:257",
       "label" : "Vitamin E"
 

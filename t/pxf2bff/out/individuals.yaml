@@ -309,7 +309,7 @@
       label: Oral Route of Administration
     treatmentCode:
       id: DrugCentral:257
-      label: Vitamin E
+      label: atorvastatin
 - id: proband A
   info:
     phenopacket:

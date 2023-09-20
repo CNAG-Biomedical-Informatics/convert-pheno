@@ -106,7 +106,7 @@ has omop_tables => (
 has exposures_file => (
 
     default =>
-      catfile( $share_dir, 'db', '/concepts_candidates_2_exposure.csv' ),
+      catfile( $share_dir, 'db', 'concepts_candidates_2_exposure.csv' ),
     coerce => sub {
         $_[0]
           // catfile( $share_dir, 'db', 'concepts_candidates_2_exposure.csv' );

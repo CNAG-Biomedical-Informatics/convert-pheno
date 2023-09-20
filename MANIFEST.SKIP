@@ -13,8 +13,10 @@
 \bpm_to_blib$
 \bpm_to_blib\.ts$
 ^MANIFEST\.SKIP
+^Makefile
 ^MYMETA\.
 ^README\.md
 ^\.git/
+^\.github/
 ^docs/
 ^api/
