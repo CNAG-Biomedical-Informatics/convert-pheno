@@ -17,7 +17,7 @@ WriteMakefile(
     META_MERGE    => {
         'dynamic_config' => 0,
         'meta-spec' => { version   => 0 },
-        'no_index'  => { directory => [qw(docs t share/api)] },
+        'no_index'  => { directory => [qw(docs t)] },
         'prereqs'   => { runtime   => { requires => { perl => '5.026000' } } },
         'resources' => {
             bugtracker => { web => "$GITHUB_URL/issues" },

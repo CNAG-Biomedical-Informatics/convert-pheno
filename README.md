@@ -96,7 +96,7 @@ A script that uses [Convert::Pheno](https://metacpan.org/pod/Convert%3A%3APheno)
 
 ## Containerized (Recommended Method)
 
-### Method 1: From Docker Hub
+### Method 1: From Docker Hub (amd64|x86-64)
 
 Download a docker image (latest version) from [Docker Hub](https://hub.docker.com/r/manuelrueda/convert-pheno) by executing:
 

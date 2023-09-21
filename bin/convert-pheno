@@ -428,7 +428,7 @@ A script that uses L<Convert::Pheno> to interconvert common data models for phen
 
 =head2 Containerized (Recommended Method)
 
-=head3 Method 1: From Docker Hub
+=head3 Method 1: From Docker Hub (amd64|x86-64)
 
 Download a docker image (latest version) from L<Docker Hub|https://hub.docker.com/r/manuelrueda/convert-pheno> by executing:
 
