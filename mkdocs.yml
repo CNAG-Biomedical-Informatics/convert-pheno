@@ -40,8 +40,8 @@ markdown_extensions:
         custom_checkbox: true
     - tables
     - mdx_gh_links:
-        user: ga4gh-beacon
-        repo: beacon-v2
+        user: CNAG-Biomedical-Informatics
+        repo: convert-pheno
     - pymdownx.emoji:
           emoji_index: !!python/name:materialx.emoji.twemoji
           emoji_generator: !!python/name:materialx.emoji.to_svg

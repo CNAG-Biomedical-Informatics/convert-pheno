@@ -13,9 +13,9 @@
 \bpm_to_blib$
 \bpm_to_blib\.ts$
 ^MANIFEST\.SKIP
-^Makefile
+^Makefile$
 ^MYMETA\.
-^README\.md
+^README\.md$
 ^\.git/
 ^\.github/
 ^docs/
