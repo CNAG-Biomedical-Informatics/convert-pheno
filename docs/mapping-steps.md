@@ -233,7 +233,7 @@ One of the advantages of **Beacon/Phenopackets v2** is that they **do not prescr
 
 ## Step 2: Conversion to the final model
 
-If the output is set to [Phenopackets v2](pheonpacket.md) then a second step (`bff2pxf`) is performed (see diagram above).
+If the output is set to [Phenopackets v2](pxf.md) then a second step (`bff2pxf`) is performed (see diagram above).
 
 !!! Warning "BFF and PXF community alignment"
     At present, we have prioritized mapping the terms that we deem most critical in facilitating basic semantic interoperability. We anticipate that Beacon v2 Models will become more aligned with Phenopackets v2, which will simplify the conversion process in future updates. We aim to refine the mappings in future iterations, with the community providing a wider range of case studies.

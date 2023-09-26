@@ -23,11 +23,11 @@ With the containerized version you get:
 
 === "Method 1: From Docker Hub"
 
-    Please follow the instructions provided in this [README](https://github.com/cnag-biomedical-informatics/convert-pheno#method-1-from-docker-hub).
+    Please follow the instructions provided in this [README](usage.md#method-1-from-docker-hub).
 
 === "Method 2: With Dockerfile"
 
-    Please follow the instructions provided in this [README](https://github.com/cnag-biomedical-informatics/convert-pheno#method-2-with-dockerfile).
+    Please follow the instructions provided in this [README](usage.md#method-2-with-dockerfile).
 
 ## Non-Containerized
 
@@ -52,7 +52,7 @@ With the containerized version you get:
 
         * `libssl-dev:` This package is part of OpenSSL, which provides secure socket layer (SSL) capabilities. For SSL/TLS related tasks in Perl, you can use modules such as IO::Socket::SSL or Net::SSLeay, but these modules also require OpenSSL to be installed on the system.
 
-    To install it, plese see this [README](https://github.com/CNAG-Biomedical-Informatics/convert-pheno#from-cpan).
+    To install it, plese see this [README](usage.md#from-cpan).
 
 === "Method 4: From CPAN in a **Conda** environment"
 
@@ -105,7 +105,6 @@ With the containerized version you get:
 
     ```bash
     conda install -c conda-forge gcc_linux-64 perl perl-app-cpanminus
-    conda install -c bioconda perl-perlio-gzip
     #conda install -c bioconda perl-mac-systemdirectory # (MacOS only)
     cpanm --notest Convert::Pheno
     ```
@@ -154,6 +153,6 @@ With the containerized version you get:
     * CLI
     * APIs
 
-    Please follow the instructions provided in this [README](https://github.com/cnag-biomedical-informatics/convert-pheno#non-containerized).
+    Please follow the instructions provided in this [README](usage.md#non-containerized).
 
 

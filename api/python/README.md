@@ -57,7 +57,7 @@ With `uvicorn` for development:
     $ curl -k -d "@data.json" -X POST https://localhost:8000/api # -k tells cURL to accept self-signed certificates
 
 [data.json](data.json) contents:
-```
+```json
 {
   "method": "bff2pfx",
   "data": {

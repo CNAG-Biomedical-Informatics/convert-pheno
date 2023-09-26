@@ -93,7 +93,7 @@ or with `hypnotoad`:
     $ curl -k -d "@data.json" -H 'Content-Type: application/json' -X POST https://localhost:3000/api # -k tells cURL to accept self-signed certificates
 
 [data.json](data.json) contents:
-```
+```json
 {
   "method": "bff2pfx",
   "data": {
