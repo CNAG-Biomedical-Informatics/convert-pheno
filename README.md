@@ -184,6 +184,10 @@ Now you have two choose between one of the 3 options below:
     cpanm --notest --installdeps .
     bin/convert-pheno --help
 
+To ensure Perl recognizes your local modules every time you start a new terminal, you should type:
+
+    echo 'eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)' >> ~/.bashrc
+
 **Option 3:** Install the dependencies in a "virtual environment" (at `local/`) . We'll be using the module `Carton` for that:
 
     mkdir local
@@ -210,6 +214,10 @@ Now you have two choose between one of the 3 options below:
     cpanm --local-lib=~/perl5 local::lib && eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
     cpanm --notest Convert::Pheno
     convert-pheno --help
+
+To ensure Perl recognizes your local modules every time you start a new terminal, you should type:
+
+    echo 'eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)' >> ~/.bashrc
 
 **Option 3:** Install Convert-Pheno and the dependencies in a "virtual environment" (at `local/`) . We'll be using the module `Carton` for that:
 

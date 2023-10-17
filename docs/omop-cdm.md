@@ -73,7 +73,7 @@ The **OMOP-CDM** is designed to be database-agnostic, which means it can be impl
                     1M     | 5GB                  | 30s
                     2M     | 10GB                 | 1m
 
-            (Intel(R) Xeon(R) W-1350P @ 4.00GHz - 32GB RAM - SSD)
+             1 x Intel(R) Xeon(R) W-1350P @ 4.00GHz - 32GB RAM - SSD
 
             If your computer only has 4GB-8GB of RAM and you plan to convert **large files** we recommend you to use the flag `--stream` which will process your tables **incrementally** (i.e.,line-by-line), instead of loading them into memory. 
 
@@ -115,7 +115,7 @@ The **OMOP-CDM** is designed to be database-agnostic, which means it can be impl
                     1M     | 500MB                | 35s
                     2M     | 500MB                | 1m5s
 
-            (Intel(R) Xeon(R) W-1350P @ 4.00GHz - 32GB RAM - SSD)
+            1 x Intel(R) Xeon(R) W-1350P @ 4.00GHz - 32GB RAM - SSD
 
             Note that the output JSON files generated in `--stream` mode will always include information from both the `PERSON` and `CONCEPT` tables. This is not a mandatory requirement, but it serves to facilitate subsequent [validation of the data against JSON schemas](https://github.com/EGA-archive/beacon2-ri-tools/tree/main/utils/bff_validator). In terms of the JSON Schema terminology, these files contain `required` properties for [BFF](bff.md) and [PXF](pxf.md).
 

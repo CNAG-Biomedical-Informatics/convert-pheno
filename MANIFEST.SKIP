@@ -14,9 +14,12 @@
 \bpm_to_blib\.ts$
 ^MANIFEST\.SKIP
 ^Makefile$
+^makefile\.install$
+^makefile\.docker$
 ^MYMETA\.
 ^README\.md$
 ^\.git/
 ^\.github/
 ^docs/
 ^api/
+^nb/
