@@ -21,7 +21,7 @@
 |  phenotypicFeatures.excluded                                | phenotypicFeatures.excluded                                 |
 
 
-# measurements
+## measurements
 |  BFF JSON path                                              | PXF JSON path                                               |
 |  :---:                                                      | :---:                                                       |
 |  measures.assayCode                                         | measurements.assay                                          |
@@ -44,7 +44,7 @@
 |  diseases.diseaseCode                                       | diseases.term                                               |
 |  diseases.ageOfOnset                                        | diseases.onset                                              |
 
-# medicalActions
+## medicalActions
 |  BFF JSON path                                              | PXF JSON path                                               |
 |  :---:                                                      | :---:                                                       |
 |  interventionsOrProcedures.procedureCode                    | medicalActions.procedure.code                               |
