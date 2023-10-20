@@ -5,7 +5,7 @@
 |  :---:                                                      | :---:                                                       |
 |  (UNIQUE ID)                                                | id                                                          |
 
-# subject
+## subject
 |  BFF JSON path                                              | PXF JSON path                                               |
 |  :---:                                                      | :---:                                                       |
 |  id                                                         | subject.id                                                  |

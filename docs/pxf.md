@@ -7,7 +7,7 @@
 
 Phenopackets use [top-level](https://phenopacket-schema.readthedocs.io/en/latest/toplevel.html) elements in order to structure the information. We'll be focussing on the element [Phenopacket](https://phenopacket-schema.readthedocs.io/en/latest/phenopacket.html).
 
-!!! Tip "Browsing PXF vs `JSON` data"
+!!! Tip "Browsing PXF `JSON` data"
 
     You can browse a public Phenopackets v2 file with onf of teh following **JSON viewers**:
 
