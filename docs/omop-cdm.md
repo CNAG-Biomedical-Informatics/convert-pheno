@@ -10,12 +10,12 @@ The **OMOP-CDM** is designed to be database-agnostic, which means it can be impl
 `Convert-Pheno` is capable of performing both **file-based conversions** (from PostgreSQL exports in `.sql` or from any other SQL database via `.csv` files) and **real-time conversions** (e.g., from [WebAPI](https://github.com/OHDSI/WebAPI) data or [SQL queries](http://cdmqueries.omop.org)) as long as the data has been converted to the accepted JSON format.
 
 !!! Warning "About OMOP-CDM longitudinal data"
-         OMOP-CDM stores `visit_occurrence_id` for each `person_id` in the `VISIT_OCCURRENCE table`. However, [Beacon v2 Models](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema) currently lack a way to store longitudinal data. To address this, we added a property named `_visit` to each record, which stores visit information. This property will be serialized only if the `VISIT_OCCURRENCE` table is provided.
+    OMOP-CDM stores `visit_occurrence_id` for each `person_id` in the `VISIT_OCCURRENCE table`. However, [Beacon v2 Models](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema) currently lack a way to store longitudinal data. To address this, we added a property named `_visit` to each record, which stores visit information. This property will be serialized only if the `VISIT_OCCURRENCE` table is provided.
 
 ## OMOP as input
 
 !!! Hint "OMOP-CDM supported version(s)"
-         Currently, Convert-Pheno supports versions **5.3** and **5.4** of OMOP-CDM, and its prepared to support v6 once we can test the code with v6 projects.
+    Currently, Convert-Pheno supports versions **5.3** and **5.4** of OMOP-CDM, and its prepared to support v6 once we can test the code with v6 projects.
 
 === "Command-line"
 
@@ -56,7 +56,6 @@ The **OMOP-CDM** is designed to be database-agnostic, which means it can be impl
         Using this approach you will be able to submit multiple jobs in **parallel**.
 
         !!! Question  "What if my `CONCEPT` table does not contain all standard `concept_id`(s)"
-
             In this case, you can use the flag `--ohdsi-db` that will enable checking an internal database whenever the `concept_id` can not be found inside your `CONCEPT` table.
 
             ```

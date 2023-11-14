@@ -4,6 +4,7 @@ Revision history for Perl distribution Convert-Pheno
 
  - Fixed error on pxf.{json,yaml} @pxf-tools-cli examples (v1.0.0-RC3)
    o label": "Vitamin E" -> label": "atorvastatin"
+ - Updated docs
 
 0.13 2023-09-12T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
