@@ -32,6 +32,30 @@ graph LR
     * **Expansion Possibility:** Being based at CNAG, a genomics institution, the potential to extend Convert-Pheno's mapping to encompass other Beacon v2 entities was a significant consideration.
     * **Overlap with Phenopackets v2:** Despite minor differences in nomenclature or hierarchy, many essential terms remain identical, encouraging interoperability.
 
+
+### Schema mapping
+
+When creating a new conversion between two data models, the first step is to **match the variables** between the two data schemas. At the time of writting this (Sep-2023) the mapping of variables is still performed **manually** by human brains :cold_sweat:.
+
+!!! Info "Mapping strategy: External or hardcoded?"
+    In the early stages of development, we explored the possibility of employing configuration files to guide the mapping process as an alternative to hardcoded solutions. However, it became evident that JSON data structures posed significant complexity due to nesting, rendering this approach unfeasible for most scenarios, except for [REDCap](redcap.md) and [CDISC-ODM](cdisc-odm.md)  data, which are mapped to Beacon v2 Models via configuration files.
+
+In the **Mapping tables** section (accessible via the 'Technical Details' tab on the left navigation bar), we outline the equivalencies between different schemas. These tables fulfill several purposes:
+
+1. It's a quick way to help out the _Health Data_ community.
+2. Experts can check it out and suggest changes without digging into all the code.
+3. If you want to chip in and create a new conversion, you can start by making a mapping table.
+
+!!! Bug "Notice"
+    Please note that accurately mapping, even between two standards, is a substantial undertaking. While we possess expertise in certain areas, we certainly don't claim mastery in all :pray:. We sincerely welcome any **suggestions** or feedback.
+
+### From table mappings to code
+
+The tables function as a reference for implementing the source code of Convert-Pheno. For each format conversion, there is a dedicated Perl [submodule](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/tree/main/lib/Convert/Pheno).
+
+!!! Info "Contributing"
+    While creating the code for a new format can be challenging, modifying properties in an existing one is much easier. Feel free to [reach us](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/issues) should you plan to contribute.
+
 ### Lossless or lossy conversion?
 
 During the conversion process, handling variables that **cannot be directly mapped** can result in one of two scenarios:
@@ -204,7 +228,7 @@ During the conversion process, handling variables that **cannot be directly mapp
     }
     ```
 
-### Ontology preservation
+### Preservation and augmentation of ontologies
 
 One of the advantages of **Beacon/Phenopackets v2** is that they **do not prescribe the use of specific ontologies**, thus allowing us to retain the original ontologies, except to fill in missing terms in required fields.
 
@@ -236,4 +260,4 @@ One of the advantages of **Beacon/Phenopackets v2** is that they **do not prescr
 If the output is set to [Phenopackets v2](pxf.md) then a second step (`bff2pxf`) is performed (see diagram above).
 
 !!! Warning "BFF and PXF community alignment"
-    At present, we have prioritized mapping the terms that we deem most critical in facilitating basic semantic interoperability. We anticipate that Beacon v2 Models will become more aligned with Phenopackets v2, which will simplify the conversion process in future updates. We aim to refine the mappings in future iterations, with the community providing a wider range of case studies.
+    At present, we have prioritized mapping the terms that we deem most critical in facilitating **basic semantic interoperability**. We anticipate that Beacon v2 Models will become more aligned with Phenopackets v2, which will simplify the conversion process in future updates. We aim to refine the mappings in future iterations, with the community providing a wider range of case studies.

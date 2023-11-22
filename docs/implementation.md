@@ -39,26 +39,4 @@ graph TB
 The [core module](https://metacpan.org/pod/Convert::Pheno) is divided into various sub-modules. The main package, `Convert::Pheno`, handles class initialization and employs the [Moo](https://metacpan.org/pod/Moo) module along with [Types::Standard](https://metacpan.org/pod/Types::Standard) for data validation. After validation, the user-selected method (e.g., `pxf2bff`) is executed, directing the data to the respective [independent modules](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/tree/main/lib/Convert/Pheno), each tailored for converting a specific input format.
 
 !!! Question "Why Perl?"
-    The choice of Perl as a language is attributed to its inherent **speed in text processing** and its use of **sigils to distinguish data types** within intricate data structures.
-
-## Implementing a new conversion
-
-### Schema mapping
-
-When creating a new conversion between two data models, the first step is to **match the variables** between the two data schemas. At the time of writting this (Sep-2023) the mapping of variables is still performed **manually** by human brains :cold_sweat:.
-
-!!! Info "Mapping strategy: External or hardcoded?"
-    At first, we planned to use configuration files to direct the mapping process instead of hardcoded solutions. But the data structures were too complex and nested, making this approach unworkable. So, we decided on **hardcoded** mappings. However, note that [REDCap](redcap.md) and [CDISC-ODM](cdisc-odm.md) conversions still need a configuration file.
-
-In the **Mapping tables** section (accessible via the 'Technical Details' tab on the left navigation bar), we outline the equivalencies between different schemas. These tables fulfill several purposes:
-
-1. It's a quick way to help out the _Health Data_ community.
-2. Experts can check it out and suggest changes without digging into all the code.
-3. If you want to chip in and create a new conversion, you can start by making a mapping table. 
-
-### From mappings to code
-
-While creating the code for a new format can be challenging, modifying properties in an existing one is much easier. Feel free to [reach us](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/issues) should you plan to contribute.
-
-!!! Bug "Notice"
-    Please note that accurately mapping, even between two standards, is a substantial undertaking. While we possess expertise in certain areas, we certainly don't claim mastery in all :pray:. We sincerely welcome any **suggestions** or feedback.
+    The choice of Perl as a language is due to its inherent **speed in text processing** and its use of **sigils to distinguish data types** within intricate data structures.

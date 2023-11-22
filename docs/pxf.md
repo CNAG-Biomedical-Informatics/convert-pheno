@@ -1,7 +1,7 @@
 **PXF** stands for **P**henotype e**X**change **F**ormat. Phenopackets v2 [documentation](https://phenopacket-schema.readthedocs.io/en/latest/basics.html).
 
 <figure markdown>
-   ![Phenopackets v2](https://www.ga4gh.org/wp-content/uploads/phenopachets-v2-final.jpeg){ width="500" }
+   ![Phenopackets v2](https://www.ga4gh.org/wp-content/uploads/2022/02/phenopachets-v2-final-1.jpeg){ width="500" }
    <figcaption>Figure extracted from www.ga4gh.org</figcaption>
 </figure>
 
@@ -21,15 +21,16 @@ Phenopackets use [top-level](https://phenopacket-schema.readthedocs.io/en/latest
 
     When using the `convert-pheno` command-line interface, simply ensure the [correct syntax](https://github.com/cnag-biomedical-informatics/convert-pheno#synopsis) is provided.
 
-    !!! Tip "About `JSON` data in `individuals.json`"
-        Note that the input `-ipxf` file can consist of one individual (one JSON object) or a list of individuals (a JSON array of objects). The output `--obff` file will replicate the data organization of the input file.
-
     ```
     convert-pheno -ipxf ipxf.json -obff individuals.json
     ```
 
+    !!! Tip "About `JSON` data structure in I/O files"
+        Note that the input `-ipxf` file can consist of one individual (one JSON object) or a list of individuals (a JSON array of objects). The output `--obff` file will replicate the data structure of the input file.
+
+
     !!! Warning "About `biosamples` and `interpretations`"
-        If these properties are present, they will be included in `individuals.json` within the `info.phenopacket` field as unprocessed data, as they are not mapped to any specific entity within the Beacon v2 Models.
+        If these properties are present, they will be included in `individuals.json` within the `info.phenopacket` field as unprocessed data, as they are not mapped to any specific entity within the Beacon v2 Models. See additional info [here](mapping-steps.md).
 
 === "Module"
 

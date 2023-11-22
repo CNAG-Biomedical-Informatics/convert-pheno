@@ -35,7 +35,7 @@ Due to the flexibility of REDCap projects, it can be challenging to develop a so
 
 === "API"
 
-    While it is _technically possible_ to perform a transformation via API we don't think it's a viable option with REDCap projects.. Therefore, we recommend using the **command-line** version by utilizing REDCap data exports.
+    While it is _technically possible_ to perform a transformation via API we don't think it's a viable option with REDCap projects. Therefore, we recommend using the **command-line** version by utilizing REDCap data exports.
 
     !!! Warning "REDCap built in API"
         REDCap has a built-in API that in theory could be used to retrieve data in real-time (as opposed to data exports). However, the current version of `Convert-Pheno` does not support REDCap API calls.
