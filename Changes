@@ -1,6 +1,6 @@
 Revision history for Perl distribution Convert-Pheno
 
-0.14 2023-XX-XXT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
+0.14 2023-11-21T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
  - Fixed error on pxf.{json,yaml} @pxf-tools-cli examples (v1.0.0-RC3)
    o label": "Vitamin E" -> label": "atorvastatin"
