@@ -23,6 +23,7 @@ jobs:
       - run: prove -l t
 
       - name: Upload Log Files
+        if: always()
         uses: actions/upload-artifact@v2
         with:
           name: log-files
