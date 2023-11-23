@@ -7,7 +7,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: ['windows-latest']
+        os: ['windows-2019']
         perl: ['5.34']
     name: Perl ${{ matrix.perl }} on ${{ matrix.os }}
     steps:
