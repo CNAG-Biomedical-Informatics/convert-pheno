@@ -12,20 +12,12 @@ jobs:
     name: Perl ${{ matrix.perl }} on ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
-      - name: Display Log Files
-        shell: powershell
-        run: |
-          Get-ChildItem -Path "C:\Users\RUNNER~1\.cpanm\work\" -Recurse -Filter *.log | ForEach-Object {
-            Write-Host "Showing log file: $($_.FullName)"
-            Get-Content -Path $_.FullName
-          }
       - name: Run tests (no coverage)
         uses: shogo82148/actions-setup-perl@v1
         with:
           perl-version: ${{ matrix.perl }}
       - run: perl -V
       - run: cpanm -n --installdeps .
-      - run: 
       - run: perl t/args.t
       - run: perl t/cli.t
       - run: prove -l t

@@ -5,7 +5,7 @@ requires 'JSON::XS';
 requires 'YAML::XS';
 requires 'Path::Tiny';
 requires 'Term::ANSIColor';
-requires 'Text::CSV_XS', '== 1.50'; # GHA windows-latest
+requires 'Text::CSV_XS';
 requires 'Text::Similarity';
 requires 'Sort::Naturally';
 requires 'DBI';
