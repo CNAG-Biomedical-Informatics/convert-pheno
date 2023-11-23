@@ -12,18 +12,20 @@ jobs:
     name: Perl ${{ matrix.perl }} on ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
-      - name: Install Chocolatey and GCC
+      - name: Display Log Files
+        shell: powershell
         run: |
-          Set-ExecutionPolicy Bypass -Scope Process -Force
-          [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
-          Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-          choco install mingw -y
+          Get-ChildItem -Path "C:\Users\RUNNER~1\.cpanm\work\" -Recurse -Filter *.log | ForEach-Object {
+          Write-Host "Showing log file: $($_.FullName)"
+          Get-Content -Path $_.FullName
+          }
       - name: Run tests (no coverage)
         uses: shogo82148/actions-setup-perl@v1
         with:
           perl-version: ${{ matrix.perl }}
       - run: perl -V
       - run: cpanm -n --installdeps .
+      - run: 
       - run: perl t/args.t
       - run: perl t/cli.t
       - run: prove -l t
