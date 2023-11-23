@@ -21,3 +21,9 @@ jobs:
       - run: perl t/args.t
       - run: perl t/cli.t
       - run: prove -l t
+
+      - name: Upload Log Files
+        uses: actions/upload-artifact@v2
+        with:
+          name: log-files
+          path: C:\Users\RUNNER~1\.cpanm\work\**\*.log
