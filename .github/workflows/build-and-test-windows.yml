@@ -15,10 +15,10 @@ jobs:
       - name: Display Log Files
         shell: powershell
         run: |
-             Get-ChildItem -Path "C:\Users\RUNNER~1\.cpanm\work\" -Recurse -Filter *.log | ForEach-Object {
-             Write-Host "Showing log file: $($_.FullName)"
-             Get-Content -Path $_.FullName
-             }
+          Get-ChildItem -Path "C:\Users\RUNNER~1\.cpanm\work\" -Recurse -Filter *.log | ForEach-Object {
+            Write-Host "Showing log file: $($_.FullName)"
+            Get-Content -Path $_.FullName
+          }
       - name: Run tests (no coverage)
         uses: shogo82148/actions-setup-perl@v1
         with:
