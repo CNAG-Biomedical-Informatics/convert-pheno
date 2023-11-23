@@ -12,6 +12,8 @@ jobs:
     name: Perl ${{ matrix.perl }} on ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
+      - name: Install MinGW (GCC)
+        run: choco install mingw -y
       - name: Run tests (no coverage)
         uses: shogo82148/actions-setup-perl@v1
         with:
