@@ -35,10 +35,10 @@ graph LR
 
 ### Schema mapping
 
-When creating a new conversion between two data models, the first step is to **match the variables** between the two data schemas. At the time of writting this (Sep-2023) the mapping of variables is still performed **manually** by human brains :cold_sweat:.
+When starting a new conversion between two data models, the first step is to **map variables** between the two data schemas. At the time of writting this (Sep-2023) the mapping of variables is still performed **manually** by human brains :cold_sweat:.
 
 !!! Info "Mapping strategy: External or hardcoded?"
-    In the early stages of development, we explored the possibility of employing configuration files to guide the mapping process as an alternative to hardcoded solutions. However, it became evident that JSON data structures posed significant complexity due to nesting, rendering this approach unfeasible for most scenarios, except for [REDCap](redcap.md) and [CDISC-ODM](cdisc-odm.md)  data, which are mapped to Beacon v2 Models via configuration files.
+    In the early stages of development, we explored the possibility of employing configuration files to guide the mapping process as an alternative to hardcoded solutions. However, JSON data structures' complexity, mainly due to nesting, made this approach impractical for most scenarios, except for [REDCap](redcap.md) and [CDISC-ODM](cdisc-odm.md) data, which are mapped to Beacon v2 Models via configuration files.
 
 In the **Mapping tables** section (accessible via the 'Technical Details' tab on the left navigation bar), we outline the equivalencies between different schemas. These tables fulfill several purposes:
 
@@ -58,11 +58,13 @@ The tables function as a reference for implementing the source code of Convert-P
 
 ### Lossless or lossy conversion?
 
-During the conversion process, handling variables that **cannot be directly mapped** can result in one of two scenarios:
+When converting data from one data standard to another, it is important to consider the possibility of losing information due to differences in schema and field mapping. To mitigate this, we aimed for a **lossless** conversion by incorporating non-mappable variables as `additionalProperties` within the Beacon v2 Models [schema](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema/). This allows users to access the original variables and their values through database queries, especially when using non-relational databases like MongoDB. 
+
+During the conversion process, handling variables that cannot be directly mapped can result in one of two scenarios:
 
 === "Unmappable variables"
 
-    Often, the input data model has variables that don't directly map to the target but are still useful to retain in the output format. If the target format allows for extra properties in a term (as BFF does), these original variables are stored under the `_info` property (or `_` + property). This commonly happens in conversions from OMOP-CDM to BFF. 
+    Often, the input data model has variables that do not directly map to the target but are still useful to retain in the output format. If the target format allows for extra properties in a given term (as BFF does), these original variables are stored under the `_info` property (or `_` + ‘property name’). This commonly happens in conversions from OMOP-CDM to BFF. 
 
     Example extracted from `omop2bff` [conversion](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/t/omop2bff/out/individuals.json):
      
@@ -184,7 +186,7 @@ During the conversion process, handling variables that **cannot be directly mapp
 
 === "Match to a different entity"
 
-    When a variable corresponds with other entities in the Beacon v2 Models, it gets stored within the `info` term of BFF. For instance, `biosamples` from PXF files are housed in BFF `info` under `info.phenopacket.biosamples`.
+    When a variable corresponds to other entities in [Beacon v2 Models](https://github.com/ga4gh-beacon/beacon-v2), it is stored within the `info` term of the [individuals](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema/) entity. For instance, a `PXF` file may contain the [biosamples](https://phenopacket-schema.readthedocs.io/en/latest/phenopacket.html) property, which doesn't find a direct match in the [individuals](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema/) entity as it corresponds to the [biosamples](https://docs.genomebeacons.org/schemas-md/biosamples_defaultSchema/) entity in Beacon v2 Models. To ensure the retention of this information, we place it under `info.phenopacket.biosamples`.
      
     Example extracted from `pxf2bff` [conversion](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/t/pxf2bff/out/individuals.json):
      
