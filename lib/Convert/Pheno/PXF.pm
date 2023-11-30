@@ -86,6 +86,7 @@ sub do_pxf2bff {
 
     # NB: In PXF some terms are = []
 
+    # Initiate BFF structure
     my $individual;
 
     # ========

@@ -94,6 +94,8 @@ sub do_omop2bff {
     ####################################
     # START MAPPING TO BEACON V2 TERMS #
     ####################################
+
+    # Initiate BFF structure
     my $individual;
 
     # Get cursors for 1D terms
