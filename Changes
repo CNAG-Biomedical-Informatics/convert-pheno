@@ -1,5 +1,10 @@
 Revision history for Perl distribution Convert-Pheno
 
+0.15 2023-xx-xxT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
+
+ - Changed 'windows-latest' to 'windows-2019' in GHA build-and-test.yml
+ - Refactored .pm to improve readibility and maintanability
+
 0.14 2023-11-21T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
  - Fixed error on pxf.{json,yaml} @pxf-tools-cli examples (v1.0.0-RC3)
@@ -60,5 +65,4 @@ Revision history for Perl distribution Convert-Pheno
  - Added share/db/{omim,hpo}.db SQLite databases
  - Modified source to accomodate such dbs
 
-NOTE: All versions prior to 0.10 were used for testing deployment via CPAN.
-
+Note: Versions < 0.10 were primarily for testing deployment on CPAN

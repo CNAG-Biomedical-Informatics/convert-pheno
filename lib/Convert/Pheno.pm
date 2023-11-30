@@ -3,17 +3,17 @@ package Convert::Pheno;
 use strict;
 use warnings;
 use autodie;
-use feature               qw(say);
+use feature qw(say);
 use File::Spec::Functions qw(catdir catfile);
 use Data::Dumper;
 use Path::Tiny;
 use File::Basename;
 use File::ShareDir::ProjectDistDir;
 use List::Util qw(any uniq);
-use Carp       qw(confess);
+use Carp qw(confess);
 use XML::Fast;
 use Moo;
-use Types::Standard                qw(Str Int Num Enum ArrayRef Undef);
+use Types::Standard qw(Str Int Num Enum ArrayRef Undef);
 use File::ShareDir::ProjectDistDir qw(dist_dir);
 
 #use Devel::Size     qw(size total_size);
@@ -35,8 +35,12 @@ our @EXPORT =
 
 use constant DEVEL_MODE => 0;
 
+# Personalize warn and die functions
+$SIG{__WARN__} = sub { warn "Warn: ", @_ };
+$SIG{__DIE__}  = sub { die "Error: ", @_ };
+
 # Global variables:
-our $VERSION   = '0.14';
+our $VERSION   = '0.15';
 our $share_dir = dist_dir('Convert-Pheno');
 
 ############################################
@@ -74,10 +78,16 @@ has min_text_similarity_score => (
 has username => (
 
     #default => ( $ENV{LOGNAME} || $ENV{USER} || getpwuid($<) ) , # getpwuid not implemented in Windows
-    default => $ENV{'LOGNAME'} || $ENV{'USER'} || $ENV{'USERNAME'} || 'dummy-user',
-    is      => 'ro',
-    coerce  => sub {
-        $_[0] // ( $ENV{'LOGNAME'} || $ENV{'USER'} || $ENV{'USERNAME'} || 'dummy-user' );
+    default => $ENV{'LOGNAME'}
+      || $ENV{'USER'}
+      || $ENV{'USERNAME'}
+      || 'dummy-user',
+    is     => 'ro',
+    coerce => sub {
+        $_[0] // ( $ENV{'LOGNAME'}
+              || $ENV{'USER'}
+              || $ENV{'USERNAME'}
+              || 'dummy-user' );
     },
     isa => Str
 );
@@ -89,15 +99,18 @@ has max_lines_sql => (
     isa     => Int
 );
 
-has omop_tables => (
-
-    # Table <CONCEPT> is always required
+has 'omop_tables' => (
     default => sub { [@omop_essential_tables] },
     coerce  => sub {
-        @{ $_[0] }
-          ? $_[0] =
-          [ map { uc($_) } ( uniq( @{ $_[0] }, 'CONCEPT', 'PERSON' ) ) ]
+        my $tables = shift;
+
+        # If tables are provided, process them; otherwise, use default essential tables
+        $tables =
+          @$tables
+          ? [ uniq( map { uc($_) } ( 'CONCEPT', 'PERSON', @$tables ) ) ]
           : \@omop_essential_tables;
+
+        return $tables;
     },
     is  => 'rw',
     isa => ArrayRef
@@ -227,58 +240,46 @@ sub omop2bff {
     # IMPORTANT #
     #############
 
-    # SMALL TO MEDIUM FILES < 1M rows
+    # File Size Considerations for Data Processing
     #
-    # In many cases, because people are downsizing their DBs for data sharing,
-    # PostgreSQL dumps or CSVs will be < 1M rows.
-    # Providing we have enough memory (4-16GB), we'll able to load data in RAM,
-    # and consolidate individual values (MEASURES, DRUGS, etc.)
-
-    # HUMONGOUS FILES > 1M rows
-    # NB: Interesting read on the topic
-    #     https://www.perlmonks.org/?node_id=1033692
-    # Since we're relying heavily on hashes we need to resort to another strategy(es) to load the data
+    # For SMALL TO MEDIUM FILES (< 1M rows):
+    # Commonly, database downsizing for data sharing results in PostgreSQL dumps or CSVs being less than 1 million rows.
+    # With adequate memory (4-16GB), we can efficiently load this data into RAM and effectively consolidate individual data points (e.g., MEASURES, DRUGS).
     #
-    # * Option A *: Parellel processing - No change in our code
-    #    Without changing the code, we ask the user to create mini-instances (or split CSV's in chunks) and use
-    #    some sort of parallel processing (e.g., GNU parallel, snakemake, HPC, etc.)
-    #    CONS: Concurrent jobs may fail due to SQLite been opened by multiple threads
+    # For HUMONGOUS FILES (> 1M rows):
+    # As we heavily use hashes, larger files necessitate alternative data loading strategies:
     #
-    # * Option B *: Keeping data consolidated at the individual-object level (as we do with small to medium files)
+    # * Option A: Parallel Processing (No code modification required)
+    #   Users can split their data into smaller chunks or mini-instances, employing parallel processing tools (like GNU parallel, snakemake, HPC, etc.).
+    #   Caveat: SQLite’s limitations with concurrent access by multiple threads.
+    #
+    # * Option B: Data Consolidation at Individual Object Level
     #   --no-stream
-    #   To do this, we have two options:
-    #     a) Externalize (save to file) THE WHOLE HASH w/ DBM:Deep (but it's very slow)
-    #     b) First dump CSV (me or users) and then use *nix to sort by person_id (or loadSQLite and sort there).
-    #   Then, since rows for each individual are adjacent, we can load individual data together. Still,
-    #   we'll by reading one table (e.g. MEASUREMENTS) at a time, thus, this is not relly helping much to consolidate...
+    #   Two approaches for this:
+    #     a) Externalize the complete hash using DBM:Deep (although it's significantly slower).
+    #     b) Initially dump data as CSV (either by the user or automatically), then sort it (using *nix or SQLite) by 'person_id'.
+    #        This method doesn't substantially help with data consolidation since we still process one table at a time.
     #
-    # * Option C *: Parsing files line by line (one row of CSV/SQL per JSON object) <=========== IMPLEMENTED ==========
+    # * Option C: Line-by-Line File Parsing (One row of CSV/SQL per JSON object) <===== CURRENT IMPLEMENTATION
     #   --stream
-    #   BFF / PXF JSONs are just intermediate files. It's nice that they contain data grouped by individual
-    #   (for visually inspection and display), but at the end of the day they'll end up in Mongo DB.
-    #   If all entries contain the primary key 'person_id' then it's up to the Beacon v2 API to deal with them.
-    #   It's a similar issue to the one we had with genomicVariations in the B2RI, where a given variant belong to many individuals.
-    #   Here, multiple JSON documents/objects (MEASUREMENTS, DRUGS, etc.) will belong to the same individual.
-    #   Now, since we allow for CSV and SQL as an input, we need to minimize the numer of steps to a minimum.
+    #   Note: BFF / PXF JSON files serve as intermediate stages. They group data by individual for easier inspection but are ultimately stored in Mongo DB.
+    #   Similar to the genomicVariations issue in B2RI, multiple JSON objects (like MEASUREMENTS, DRUGS) can correspond to a single individual.
     #
-    #   - Problems that may arise:
-    #     1 - <CONCEPT> table is mandatory, but it can be so huge that it takes all RAM memory.
-    #         For instance, <CONCEPT.csv> with 5_808_095 lines = 735 MB
-    #                       <CONCEPT_light.csv> with 5_808_094 lines but only 4 columns = 501 MB
-    #                       Anything more than 2M lines kills a 8GB Ram machine.
-    #         Solutions:
-    #           a) Not loading the table at all and resort to --ohdsi-db
-    #           b) Creating a temporary SQLite instance for <CONCEPT>
-    #     2 - How to read line-by-line from an SQL dump
-    #          If the PostgreSQL dump weights, say, 20GB, do we create CSV tables from it (another ~20GB)?
-    #         Solutions:
-    #           a) Yep, we read @stream_ram_memory_tables and  export the needed tables to CSV and go from there.
-    #           b) Nope, we read PostgreSQL file twice, one time to load @stream_ram_memory_tables
-    #              and the second time to load the remaining TABLES. <=========== IMPLEMENTED ==========
-    #     3 - In --stream mode, do we still allow for --sql2csv? NOPE !!!! <=========== IMPLEMENTED ==========
-    #           We would need to go from functional mode (csv) to filehandles and it will take tons of space.
-    #           Then, --stream and -sql2csv are mutually exclusive.
+    #   Potential Issues and Solutions:
+    #     1. Mandatory <CONCEPT> Table:
+    #        It can be extremely large, potentially consuming all available RAM (e.g., a 735 MB <CONCEPT.csv> with over 5.8 million lines).
+    #        Solutions:
+    #          a) Avoid loading the <CONCEPT> table entirely, using --ohdsi-db instead.
+    #          b) Use a temporary SQLite instance for the <CONCEPT> table.
+    #     2. Reading SQL Dumps Line-by-Line:
+    #        For large SQL dumps (e.g., 20GB), should we convert them into CSV (also ~20GB)?
+    #        Solutions:
+    #          a) Yes, first export required tables to CSV and then proceed.
+    #          b) No, read the PostgreSQL dump twice - first to load specified tables, then the rest.
+    #     3. Streaming Mode Restrictions:
+    #        In --stream mode, --sql2csv is not allowed to prevent excessive space usage and complexity.
     #
+    # Further reading on handling large files: https://www.perlmonks.org/?node_id=1033692
 
     # Load variables
     my $data;
@@ -659,47 +660,53 @@ sub omop_stream_dispatcher {
     my $filepaths   = $arg->{filepaths};
     my $omop_tables = $self->{prev_omop_tables};
 
-    # Open connection to SQLite databases ONCE
+    # Open a SQLite database connection if required
     open_connections_SQLite($self) if $self->{method} ne 'bff2pxf';
 
-    # First we do transformations from AoH to HoH to speed up the calculation
+    # Transform Array of Hashes (AoH) to Hash of Hashes (HoH) for faster computation
+    my $person = transform_aoh_to_hoh($self);
+
+    # Process files based on the input type (CSV or PostgreSQL dump)
+    return @$filepaths
+      ? process_csv_files( $self, $filepaths, $person )
+      : process_sqldump( $self, $filepath, $omop_tables, $person );
+}
+
+sub transform_aoh_to_hoh {
+
+    my $self   = shift;
     my $person = { map { $_->{person_id} => $_ } @{ $self->{data}{PERSON} } };
+    delete $self->{data}{PERSON};    # Free up memory
+    return $person;
+}
 
-    # Give back memory to RAM
-    delete $self->{data}{PERSON};
+sub process_csv_files {
 
-    # CSVs
-    if (@$filepaths) {
-        for (@$filepaths) {
-            say "Processing file ... <$_>" if $self->{verbose};
-            read_csv_stream(
-                {
-                    in     => $_,
-                    sep    => $self->{sep},
-                    self   => $self,
-                    person => $person
-                }
-            );
-        }
+    my ( $self, $filepaths, $person ) = @_;
+    for my $file (@$filepaths) {
+        say "Processing file ... <$file>" if $self->{verbose};
+        read_csv_stream(
+            {
+                in     => $file,
+                sep    => $self->{sep},
+                self   => $self,
+                person => $person
+            }
+        );
     }
+    return 1;
+}
 
-    # PosgreSQL dump
-    else {
+sub process_sqldump {
 
-        # Now iterate
-        for my $table ( @{$omop_tables} ) {
-
-            # We already loaded @stream_ram_memory_tables;
-            next if any { $_ eq $table } @stream_ram_memory_tables;
-            say "Processing table ... <$table>" if $self->{verbose};
-            $self->{omop_tables} = [$table];
-            read_sqldump_stream(
-                { in => $filepath, self => $self, person => $person } );
-        }
+    my ( $self, $filepath, $omop_tables, $person ) = @_;
+    for my $table (@$omop_tables) {
+        next if any { $_ eq $table } @stream_ram_memory_tables;
+        say "Processing table ... <$table>" if $self->{verbose};
+        $self->{omop_tables} = [$table];
+        read_sqldump_stream(
+            { in => $filepath, self => $self, person => $person } );
     }
-
-    # Close connections ONCE
-    close_connections_SQLite($self) unless $self->{method} eq 'bff2pxf';
     return 1;
 }
 

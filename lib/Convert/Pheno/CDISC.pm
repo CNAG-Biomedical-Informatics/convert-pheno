@@ -27,51 +27,71 @@ sub cdisc2redcap {
 
     my $data = shift;
 
-    # We take $subject information from the nested data structure
-    my $subjects = $data->{ODM}{ClinicalData}{SubjectData};
-
-    # Now we iterate over the array of subjects
+    # Extract subject information from nested data structure
+    my $subjects    = $data->{ODM}{ClinicalData}{SubjectData};
     my $individuals = [];
-    for my $subject ( @{$subjects} ) {
 
   # The data in CDISC-ODM  has the following hierarchy
   # StudyEventData->'-redcap:UniqueEventName'->FormData->ItemGroupData->ItemData
 
-        # StudyEventData
-        for my $StudyEventData ( @{ $subject->{'StudyEventData'} } ) {
-
-            # We'll store the new data on $individual
-            my $individual = {
-                study_id          => $subject->{'-SubjectKey'},
-                redcap_event_name =>
-                  $StudyEventData->{'-redcap:UniqueEventName'}
-            };
-
-            # FormData
-            for my $FormData ( @{ $StudyEventData->{FormData} } ) {
-
-                # ItemGroupData
-                for my $ItemGroupData ( @{ $FormData->{ItemGroupData} } ) {
-
-                    # The elements can arrive as {} or []
-                    # Both will be loaded as []
-                    if ( ref $ItemGroupData->{ItemData} eq ref [] ) {
-                        for my $ItemData ( @{ $ItemGroupData->{ItemData} } ) {
-                            $individual->{ $ItemData->{'-ItemOID'} } =
-                              dotify_and_coerce_number( $ItemData->{'-Value'} );
-                        }
-                    }
-                    else {
-                        # Converting from hash to 1-subject array
-                        $individual->{ $ItemGroupData->{ItemData}{'-ItemOID'} }
-                          = dotify_and_coerce_number(
-                            $ItemGroupData->{ItemData}{'-Value'} );
-                    }
-                }
-            }
-            push @{$individuals}, $individual;
-        }
+    # Iterate over each subject
+    foreach my $subject ( @{$subjects} ) {
+        process_subject( $subject, $individuals );
     }
+
     return $individuals;
 }
+
+sub process_subject {
+
+    my ( $subject, $individuals ) = @_;
+
+    # Iterate over StudyEventData for each subject
+    foreach my $StudyEventData ( @{ $subject->{'StudyEventData'} } ) {
+
+        # Initialize individual's data structure
+        my $individual = {
+            study_id          => $subject->{'-SubjectKey'},
+            redcap_event_name => $StudyEventData->{'-redcap:UniqueEventName'}
+        };
+
+        # Process each Study Event Data
+        process_study_event_data( $StudyEventData, $individual );
+        push @{$individuals}, $individual;
+    }
+}
+
+sub process_study_event_data {
+
+    my ( $StudyEventData, $individual ) = @_;
+
+    # Iterate over FormData
+    foreach my $FormData ( @{ $StudyEventData->{FormData} } ) {
+
+        # Iterate over ItemGroupData
+        foreach my $ItemGroupData ( @{ $FormData->{ItemGroupData} } ) {
+            process_item_group_data( $ItemGroupData, $individual );
+        }
+    }
+}
+
+sub process_item_group_data {
+
+    my ( $ItemGroupData, $individual ) = @_;
+
+    # Handle both array and hash structures for ItemData
+    my $items =
+      ref $ItemGroupData->{ItemData} eq 'ARRAY'
+      ? $ItemGroupData->{ItemData}
+      : [ $ItemGroupData->{ItemData} ];
+
+    # Iterate over ItemData
+    foreach my $ItemData ( @{$items} ) {
+
+        # Store each item in the individual's data
+        $individual->{ $ItemData->{'-ItemOID'} } =
+          dotify_and_coerce_number( $ItemData->{'-Value'} );
+    }
+}
+
 1;

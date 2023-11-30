@@ -29,10 +29,11 @@ sub do_bff2pxf {
     # START MAPPING TO PHENOPACKET V2 TERMS #
     #########################################
 
-    # We need to shuffle a bit some Beacon v2 properties to be Phenopacket compliant
-    # Order of terms (not alphabetical) taken from:
-    # - https://phenopacket-schema.readthedocs.io/en/latest/phenopacket.html
+# We need to shuffle a bit some Beacon v2 properties to be Phenopacket compliant
+# Order of terms (not alphabetical) taken from:
+# - https://phenopacket-schema.readthedocs.io/en/latest/phenopacket.html
 
+    # Initiate PXF structure
     my $pxf;
 
     # ==
@@ -51,8 +52,9 @@ sub do_bff2pxf {
         #alternateIds => [],
         #_age => $bff->{info}{age}
         #timeAtLastEncounter => {},
-        vitalStatus => { status => 'ALIVE' },      #["UNKNOWN_STATUS", "ALIVE", "DECEASED"]
-        sex         => uc( $bff->{sex}{label} ),
+        vitalStatus => { status => 'ALIVE' }
+        ,    #["UNKNOWN_STATUS", "ALIVE", "DECEASED"]
+        sex => uc( $bff->{sex}{label} ),
 
         #taxonomy => {} ;
         #_age => $bff->{info}{age}
@@ -156,7 +158,7 @@ sub do_bff2pxf {
                 routeOfAdministration => $_->{routeOfAdministration},
                 doseIntervals         => $_->{doseIntervals}
 
-                  #performed => { timestamp => exists $_->{dateOfProcedure} ? $_->{dateOfProcedure} : undef}
+#performed => { timestamp => exists $_->{dateOfProcedure} ? $_->{dateOfProcedure} : undef}
             }
         }
     } @{ $bff->{treatments} };
@@ -183,9 +185,9 @@ sub do_bff2pxf {
     # exposures
     # =========
 
-    # Can't be mapped as Sept-2023 from pxf-tools
-    # Message type "org.phenopackets.schema.v2.Phenopacket" has no field named "exposures" at "Phenopacket".
-    #  Available Fields(except extensions): "['id', 'subject', 'phenotypicFeatures', 'measurements', 'biosamples', 'interpretations', 'diseases', 'medicalActions', 'files', 'metaData']" at line 22
+# Can't be mapped as Sept-2023 from pxf-tools
+# Message type "org.phenopackets.schema.v2.Phenopacket" has no field named "exposures" at "Phenopacket".
+#  Available Fields(except extensions): "['id', 'subject', 'phenotypicFeatures', 'measurements', 'biosamples', 'interpretations', 'diseases', 'medicalActions', 'files', 'metaData']" at line 22
 
     #   $pxf->{exposures} =
     #

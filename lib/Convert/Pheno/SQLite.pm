@@ -359,7 +359,7 @@ sub text_similarity {
     my $label_column           = $arg->{label_column};
     my $min_score              = $arg->{min_text_similarity_score};
     my $text_similarity_method = $arg->{text_similarity_method};
-    die "--text-similarity-method <$text_similarity_method> not allowed"
+    die "--text-similarity-method <$text_similarity_method> not allowed\n"
       unless ( $text_similarity_method eq 'dice'
         || $text_similarity_method eq 'cosine' );
 

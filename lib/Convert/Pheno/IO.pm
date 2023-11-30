@@ -45,7 +45,7 @@ sub io_yaml_or_json {
     # Checking only for qw(.yaml .yml .json)
     my @exts = qw(.yaml .yml .json);
     my $msg  = qq(Can't recognize <$file> extension. Extensions allowed are: )
-      . join ',', @exts;
+      . ( join ',', @exts ) . "\n";
     my ( undef, undef, $ext ) = fileparse( $file, @exts );
     die $msg unless any { $_ eq $ext } @exts;
 

@@ -21,21 +21,21 @@ sub do_pxf2bff {
     my ( $self, $data ) = @_;
     my $sth = $self->{sth};
 
-    # *** IMPORTANT ****
-    # PXF three top-level elements are usually split in files:
-    # - phenopacket.json ( usually - 1 individual per file)
-    # - cohort.json (info on mutliple individuals)
-    # - family.json (info related to one or multiple individuals).
-    # These 3 files dont't contain their respective objects at the root level (/).
-    #
-    # However, top-elements might be combined into a single file (e.g., pxf.json),
-    # as a result, certain files may contain objects for top-level elements:
-    # - /phenopacket
-    # - /cohort
-    # - /family
-    #
-    # In this context, we only accept top-level phenopackets,
-    # while the other two types will be categorized as "info".
+  # *** IMPORTANT ****
+  # PXF three top-level elements are usually split in files:
+  # - phenopacket.json ( usually - 1 individual per file)
+  # - cohort.json (info on mutliple individuals)
+  # - family.json (info related to one or multiple individuals).
+  # These 3 files dont't contain their respective objects at the root level (/).
+  #
+  # However, top-elements might be combined into a single file (e.g., pxf.json),
+  # as a result, certain files may contain objects for top-level elements:
+  # - /phenopacket
+  # - /cohort
+  # - /family
+  #
+  # In this context, we only accept top-level phenopackets,
+  # while the other two types will be categorized as "info".
 
     # We create cursors for top-level elements
     # 1 - phenopacket (mandatory)
@@ -50,15 +50,15 @@ sub do_pxf2bff {
     # Normalize the hash for medical_actions + medicalActions = medicalActions
     if ( exists $phenopacket->{medical_actions} ) {
 
-        # NB: The delete function returns the value of the deleted key-value pair
+       # NB: The delete function returns the value of the deleted key-value pair
         $phenopacket->{medicalActions} = delete $phenopacket->{medical_actions};
     }
 
-    # CNAG files have 'meta_data' nomenclature, but PXF documentation uses 'metaData'
-    # We search for both 'meta_data' and 'metaData' and simply display the
+# CNAG files have 'meta_data' nomenclature, but PXF documentation uses 'metaData'
+# We search for both 'meta_data' and 'metaData' and simply display the
     if ( exists $phenopacket->{meta_data} ) {
 
-        # NB: The delete function returns the value of the deleted key-value pair
+       # NB: The delete function returns the value of the deleted key-value pair
         $phenopacket->{metaData} = delete $phenopacket->{meta_data};
     }
 
@@ -381,7 +381,7 @@ sub get_metaData {
     # Setting a few variables
     my $user = $self->{username};
 
-    # NB: Darwin does not have nproc to show #logical-cores, using sysctl instead
+   # NB: Darwin does not have nproc to show #logical-cores, using sysctl instead
     my $os = $^O;
     chomp(
         my $ncpuhost =

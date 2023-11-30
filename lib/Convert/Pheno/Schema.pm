@@ -67,9 +67,8 @@ sub self_validate {
 
     my $validator = JSON::Validator::Schema->new(shift);
     my @errors    = $validator->is_invalid;
-    say BOLD RED
-"ERROR: The schema does not follow JSON Schema specification\nSee https://json-schema.org/draft/2020-12/schema"
-      and die
+    die
+"The schema does not follow JSON Schema specification\nSee https://json-schema.org/draft/2020-12/schema\n"
       if $validator->is_invalid;
 }
 

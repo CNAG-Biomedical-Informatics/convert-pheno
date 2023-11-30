@@ -706,14 +706,15 @@ sub open_filehandle {
     my ( $filepath, $mode ) = @_;
     my $handle = $mode eq 'a' ? '>>' : $mode eq 'w' ? '>' : '<';
     my $fh;
-    if ($filepath =~ /\.gz$/) {
-        if ($mode eq 'a' || $mode eq 'w') {
-            $fh = IO::Compress::Gzip->new($filepath, Append => ($mode eq 'a' ? 1 : 0));
+    if ( $filepath =~ /\.gz$/ ) {
+        if ( $mode eq 'a' || $mode eq 'w' ) {
+            $fh = IO::Compress::Gzip->new( $filepath,
+                Append => ( $mode eq 'a' ? 1 : 0 ) );
         }
         else {
-            $fh = IO::Uncompress::Gunzip->new($filepath, MultiStream => 1);
+            $fh = IO::Uncompress::Gunzip->new( $filepath, MultiStream => 1 );
         }
-        binmode($fh, ":encoding(UTF-8)");
+        binmode( $fh, ":encoding(UTF-8)" );
     }
     else {
         open $fh, qq($handle:encoding(UTF-8)), $filepath;
