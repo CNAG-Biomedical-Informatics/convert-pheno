@@ -94,7 +94,7 @@ A script that uses [Convert::Pheno](https://metacpan.org/pod/Convert%3A%3APheno)
 
 # INSTALLATION
 
-## Containerized (Recommended Method)
+## Containerized
 
 ### Method 1: From Docker Hub
 

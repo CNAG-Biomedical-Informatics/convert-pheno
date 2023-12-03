@@ -426,7 +426,7 @@ A script that uses L<Convert::Pheno> to interconvert common data models for phen
 
 =head1 INSTALLATION
 
-=head2 Containerized (Recommended Method)
+=head2 Containerized
 
 =head3 Method 1: From Docker Hub
 
