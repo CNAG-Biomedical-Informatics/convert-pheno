@@ -9,7 +9,7 @@ The **OMOP-CDM** is designed to be database-agnostic, which means it can be impl
 
 `Convert-Pheno` is capable of performing both **file-based conversions** (from PostgreSQL exports in `.sql` or from any other SQL database via `.csv` files) and **real-time conversions** (e.g., from [WebAPI](https://github.com/OHDSI/WebAPI) data or [SQL queries](http://cdmqueries.omop.org)) as long as the data has been converted to the accepted JSON format.
 
-!!! Warning "About OMOP-CDM longitudinal data"
+??? Warning "About OMOP-CDM longitudinal data"
     OMOP-CDM stores `visit_occurrence_id` for each `person_id` in the `VISIT_OCCURRENCE table`. However, [Beacon v2 Models](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema) currently lack a way to store longitudinal data. To address this, we added a property named `_visit` to each record, which stores visit information. This property will be serialized only if the `VISIT_OCCURRENCE` table is provided.
 
 ## OMOP as input
@@ -21,7 +21,7 @@ The **OMOP-CDM** is designed to be database-agnostic, which means it can be impl
 
     When using the `convert-pheno` command-line interface, simply ensure the [correct syntax](https://github.com/cnag-biomedical-informatics/convert-pheno#synopsis) is provided. Both the _input_ and _output_ files files can be **gzipped** to save space
 
-    !!! Warning "About `--max-lines-sql` default value"
+    ??? Danger "About `--max-lines-sql` default value"
         Please note that for PostgreSQL dumps, we have configured `--max-lines-sql=500` which is suitable for testing purposes. However, for real data, it is recommended to **increase this limit** to match the size of your largest table.
 
     === "Small to medium-sized files (<1M rows)"
@@ -55,14 +55,14 @@ The **OMOP-CDM** is designed to be database-agnostic, which means it can be impl
 
         Using this approach you will be able to submit multiple jobs in **parallel**.
 
-        !!! Question  "What if my `CONCEPT` table does not contain all standard `concept_id`(s)"
+        ??? Question  "What if my `CONCEPT` table does not contain all standard `concept_id`(s)"
             In this case, you can use the flag `--ohdsi-db` that will enable checking an internal database whenever the `concept_id` can not be found inside your `CONCEPT` table.
 
             ```
             convert-pheno -iomop omop_dump.sql -obff individuals_measurement.json --omop-tables MEASUREMENT --ohdsi-db
             ```
 
-        !!! Danger "RAM memory usage in `--no-stream` mode (default)"
+        ??? Danger "RAM memory usage in `--no-stream` mode (default)"
             When working with `-iomop` and `--no-stream`, `Convert-Pheno` will consolidate all the values corresponding to a given attribute `person_id` under the same object. In order to do this, we need to store all data in the **RAM** memory. The reason for storing the data in RAM is because the rows are **not adjacent** (they are not pre-sorted by `person_id`) and can originate from **distinct tables**.
 
             Number of rows | Estimated RAM memory | Estimated time
@@ -82,7 +82,7 @@ The **OMOP-CDM** is designed to be database-agnostic, which means it can be impl
 
         To choose incremental data processing we'll be using the flag `--stream`:
 
-        !!! Warning " `--stream` mode supported output"
+        ??? Danger " `--stream` mode supported output"
             We only support output to BFF (`-obff`).
 
         #### All tables at once
@@ -104,7 +104,7 @@ The **OMOP-CDM** is designed to be database-agnostic, which means it can be impl
 
         Running multiple jobs in `--stream` mode will create -up with a bunch of `JSON` files instead of one. It's OK, as the files we're creating are **intermediate** files.
 
-        !!! Danger "_Pros_ and _Cons_ of incremental data load (`--stream` mode)"
+        ??? Danger "_Pros_ and _Cons_ of incremental data load (`--stream` mode)"
             Incremental data load facilitates the processing of huge files. The only substantive difference compared to the `--no-stream` mode is that the data will not be consolidated at the patient or individual level, which is merely a **cosmetic concern**. Ultimately, the data will be loaded into a **database**, such as _MongoDB_, where the linking of data through keys can be managed. In most cases, the implementation of a pre-built API, such as the one described in the [B2RI documentation](https://b2ri-documentation.readthedocs.io/en/latest), will be added to further enhance the functionality.
 
             Number of rows | Estimated RAM memory | Estimated time
@@ -118,7 +118,7 @@ The **OMOP-CDM** is designed to be database-agnostic, which means it can be impl
 
             Note that the output JSON files generated in `--stream` mode will always include information from both the `PERSON` and `CONCEPT` tables. This is not a mandatory requirement, but it serves to facilitate subsequent [validation of the data against JSON schemas](https://github.com/EGA-archive/beacon2-ri-tools/tree/main/utils/bff_validator). In terms of the JSON Schema terminology, these files contain `required` properties for [BFF](bff.md) and [PXF](pxf.md).
 
-        !!! Tip "About parallelization and speed"
+        ??? Tip "About parallelization and speed"
             `Convert-Pheno` has been optimized for speed, and, in general the CLI results are generated almost immediatly. For instance, all tests with synthetic data take less than a second or a few seconds to complete. It should be noted that the speed of the results depends on the performance of the CPU and disk speed. When `Convert-Pheno` has to retrieve ontologies from a database to annotate the data, the processing takes longer.
 
             The calculation is I/O limited and using _internal_ [threads](https://en.wikipedia.org/wiki/Thread_(computing)) did not speed up the calculation. Another valid option is to run **simultaneous jobs** with external tools such as [GNU Parallel](https://www.gnu.org/software/parallel), but keep in mind that **SQLite** database _may_ complain.

@@ -42,7 +42,7 @@ graph LR
     * [Beacon v2 Models (JSON | YAML)](bff.md)
     * [Phenopacket v2 (JSON | YAML)](pxf.md)
 
-    !!! Question "Why start with these two?"
+    ??? Question "Why start with these two?"
         [Beacon v2](https://docs.genomebeacons.org) and [Phenopackets v2](https://phenopacket-schema.readthedocs.io/en/latest) are data exchange standards from the [GA4GH](https://www.ga4gh.org). They:
          
         - Allow for storing both **phenotypic** and **genomic** data, a key component in today's research

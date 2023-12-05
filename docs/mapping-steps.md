@@ -25,7 +25,7 @@ graph LR
 ```
 <figcaption>Convert-Pheno internal mapping steps</figcaption>
 
-!!! Question "Why use Beacon v2 as target model?"
+??? Question "Why use Beacon v2 as target model?"
     * **JSON Schema Utilization:** Beacon v2 employs [JSON Schema](https://github.com/ga4gh-beacon/beacon-v2/tree/main/models) for model content definition, facilitating transparency and accessibility in a collaborative environment compared to Phenopackets' Protobuf usage.
     * **Accommodation of Additional Properties:** The Beacon v2 Models schema permits additional properties, enhancing adaptability and enabling near-lossless conversion, especially when using JSON in non-relational databases.
     * **Beacon v2 API Compatibility:** The BFF is directly compatible with the Beacon v2 API ecosystem, a feature not available in Phenopackets without additional mapping.
@@ -37,7 +37,7 @@ graph LR
 
 When starting a new conversion between two data models, the first step is to **map variables** between the two data schemas. At the time of writting this (Sep-2023) the mapping of variables is still performed **manually** by human brains :cold_sweat:.
 
-!!! Info "Mapping strategy: External or hardcoded?"
+??? Info "Mapping strategy: External or hardcoded?"
     In the early stages of development, we explored the possibility of employing configuration files to guide the mapping process as an alternative to hardcoded solutions. However, JSON data structures' complexity, mainly due to nesting, made this approach impractical for most scenarios, except for [REDCap](redcap.md) and [CDISC-ODM](cdisc-odm.md) data, which are mapped to Beacon v2 Models via configuration files.
 
 In the **Mapping tables** section (accessible via the 'Technical Details' tab on the left navigation bar), we outline the equivalencies between different schemas. These tables fulfill several purposes:
@@ -234,7 +234,7 @@ During the conversion process, handling variables that cannot be directly mapped
 
 One of the advantages of **Beacon/Phenopackets v2** is that they **do not prescribe the use of specific ontologies**, thus allowing us to retain the original ontologies, except to fill in missing terms in required fields.
 
-!!! Question "Which ontologies are supported?"
+???+ Question "Which ontologies are supported?"
      
     If the input files contain ontologies, the **ontologies will be preserved** and remain intact after the conversion process, except for:
      
@@ -261,5 +261,5 @@ One of the advantages of **Beacon/Phenopackets v2** is that they **do not prescr
 
 If the output is set to [Phenopackets v2](pxf.md) then a second step (`bff2pxf`) is performed (see diagram above).
 
-!!! Warning "BFF and PXF community alignment"
+??? Warning "BFF and PXF community alignment"
     At present, we have prioritized mapping the terms that we deem most critical in facilitating **basic semantic interoperability**. We anticipate that Beacon v2 Models will become more aligned with Phenopackets v2, which will simplify the conversion process in future updates. We aim to refine the mappings in future iterations, with the community providing a wider range of case studies.

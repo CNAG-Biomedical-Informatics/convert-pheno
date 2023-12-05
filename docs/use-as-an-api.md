@@ -15,7 +15,7 @@ where `data.json` looks like the below:
 }
 ```
 
-!!! Note "Interactive API specification"
+??? Note "Interactive API specification"
     Please find [here](redoc-static.html) interactive documentation (built with [ReDoc](https://redocly.github.io/redoc/)).
 
 ## Included APIs

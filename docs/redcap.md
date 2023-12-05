@@ -12,12 +12,12 @@ REDCap projects are inherently **"free format"**, meaning the project creator ha
 
 Due to the flexibility of REDCap projects, it can be challenging to develop a solution that accommodates the wide range of possibilities. Nonetheless, we were able to successfully convert data from REDCap project exports to both Beacon v2 and Phenopackets v2 formats using a mapping file. These conversions were achieved as part of the [3TR Project](https://3tr-imi.eu).
 
-!!! Warning "About REDCap longitudinal data"
+??? Warning "About REDCap longitudinal data"
          REDCap stores `event` information, however, [Beacon v2 Models](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema) currently lack a way to store longitudinal data. To address this, we will store `event` data under the propery `info`.
 
 === "Command-line"
 
-    !!! Tip "About REDCap export formats"
+    ??? Tip "About REDCap export formats"
         REDCap provides various options for exporting data. We accept the option "All data (all records and fields)" including CSV and Microsoft Excel format, along with a accompanying data dictionary in CSV format. Exportation in REDCap CDISC ODM (XML) format is discussed in the section on [CDISC-ODM](cdisc-odm.md).
 
     We'll need three files:
@@ -26,7 +26,7 @@ Due to the flexibility of REDCap projects, it can be challenging to develop a so
     2. REDCap data dictionary (CSV)
     3. Mapping file (YAML or JSON)
 
-    !!! Question "Can CSV files be compressed?"
+    ??? Question "Can CSV files be compressed?"
         Yes. We also accept as **input** files compressed with `gzip`.
 
     ```
@@ -37,7 +37,7 @@ Due to the flexibility of REDCap projects, it can be challenging to develop a so
 
     While it is _technically possible_ to perform a transformation via API we don't think it's a viable option with REDCap projects. Therefore, we recommend using the **command-line** version by utilizing REDCap data exports.
 
-    !!! Warning "REDCap built in API"
+    ???+ Warning "REDCap built in API"
         REDCap has a built-in API that in theory could be used to retrieve data in real-time (as opposed to data exports). However, the current version of `Convert-Pheno` does not support REDCap API calls.
 
            Input           | CLI        |  UI        | Module | API

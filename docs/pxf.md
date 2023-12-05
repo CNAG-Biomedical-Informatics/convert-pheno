@@ -7,7 +7,7 @@
 
 Phenopackets use [top-level](https://phenopacket-schema.readthedocs.io/en/latest/toplevel.html) elements in order to structure the information. We'll be focussing on the element [Phenopacket](https://phenopacket-schema.readthedocs.io/en/latest/phenopacket.html).
 
-!!! Tip "Browsing PXF `JSON` data"
+??? Tip "Browsing PXF `JSON` data"
 
     You can browse a public Phenopackets v2 file with onf of teh following **JSON viewers**:
 
@@ -25,11 +25,11 @@ Phenopackets use [top-level](https://phenopacket-schema.readthedocs.io/en/latest
     convert-pheno -ipxf ipxf.json -obff individuals.json
     ```
 
-    !!! Tip "About `JSON` data structure in I/O files"
+    ??? Tip "About `JSON` data structure in I/O files"
         Note that the input `-ipxf` file can consist of one individual (one JSON object) or a list of individuals (a JSON array of objects). The output `--obff` file will replicate the data structure of the input file.
 
 
-    !!! Warning "About `biosamples` and `interpretations`"
+    ??? Warning "About `biosamples` and `interpretations`"
         If these properties are present, they will be included in `individuals.json` within the `info.phenopacket` field as unprocessed data, as they are not mapped to any specific entity within the Beacon v2 Models. See additional info [here](mapping-steps.md).
 
 === "Module"
