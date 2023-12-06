@@ -25,7 +25,7 @@ graph LR
 ```
 <figcaption>Convert-Pheno internal mapping steps</figcaption>
 
-??? Question "Why use Beacon v2 as target model?"
+??? Question "Why use Beacon v2 as the target model?"
     * **JSON Schema Utilization:** Beacon v2 employs [JSON Schema](https://github.com/ga4gh-beacon/beacon-v2/tree/main/models) for model content definition, facilitating transparency and accessibility in a collaborative environment compared to Phenopackets' Protobuf usage.
     * **Accommodation of Additional Properties:** The Beacon v2 Models schema permits additional properties, enhancing adaptability and enabling near-lossless conversion, especially when using JSON in non-relational databases.
     * **Beacon v2 API Compatibility:** The BFF is directly compatible with the Beacon v2 API ecosystem, a feature not available in Phenopackets without additional mapping.

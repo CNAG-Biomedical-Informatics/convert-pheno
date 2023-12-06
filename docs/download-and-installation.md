@@ -111,11 +111,15 @@ With the containerized version you get:
 
     You can execute `Convert::Pheno` *CLI*  by typing:
 
-    `convert-pheno --help`
+    ```bash
+    convert-pheno --help
+    ```
 
     To deactivate:
    
-    `conda deactivate -n myenv`
+    ```
+    conda deactivate -n myenv
+    ```
 
     ### Optional: Using Convert::Pheno `Perl` module in `Python`
 
@@ -129,7 +133,9 @@ With the containerized version you get:
 
     Now you should be able to execute this file:
 
-    `~/miniconda3/envs/myenv/lib/perl5/site_perl/auto/share/dist/Convert-Pheno/ex/python.py` 
+    ```bash
+    ~/miniconda3/envs/myenv/lib/perl5/site_perl/auto/share/dist/Convert-Pheno/ex/python.py
+    ```
 
     This is the expected output:
  

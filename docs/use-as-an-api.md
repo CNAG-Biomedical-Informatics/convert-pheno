@@ -4,7 +4,9 @@ In some cases, using an API for sending and receiving data as a microservice may
 
 Just make sure to send your `POST` data in the proper format. 
 
-`curl -d "@data.json" -H 'Content-Type: application/json' -X POST http://localhost:3000/api`
+```bash
+curl -d "@data.json" -H 'Content-Type: application/json' -X POST http://localhost:3000/api
+```
 
 where `data.json` looks like the below:
 

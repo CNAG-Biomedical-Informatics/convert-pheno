@@ -45,14 +45,19 @@ markdown_extensions:
     - pymdownx.emoji:
         emoji_index: !!python/name:material.extensions.emoji.twemoji
         emoji_generator: !!python/name:material.extensions.emoji.to_svg
+    - pymdownx.highlight:
+        anchor_linenums: true
+        line_spans: __span
+        pygments_lang_class: true
+    - pymdownx.inlinehilite
+    - pymdownx.snippets:
+        base_path: docs
+        url_download: true
     - pymdownx.superfences:
         custom_fences:
             - name: mermaid
               class: mermaid
-              format: !!python/name:mermaid2.fence_mermaid   
-    - pymdownx.snippets:
-        base_path: docs
-        url_download: true
+              format: !!python/name:mermaid2.fence_mermaid
 
 nav:
   - Introduction:
@@ -110,6 +115,8 @@ theme:
   icon:
       repo: fontawesome/brands/github-alt 
   features:
+        - content.code.select
+        - content.code.copy
         - content.tabs.link
         - search.highlight
         - search.share
