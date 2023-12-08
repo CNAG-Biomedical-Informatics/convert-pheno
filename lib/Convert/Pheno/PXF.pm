@@ -42,6 +42,9 @@ sub do_pxf2bff {
     my $phenopacket =
       exists $data->{phenopacket} ? $data->{phenopacket} : $data;
 
+    # Validate format
+    die "Are you sure that your input is not already a bff?\n" unless validate_format($phenopacket, 'pxf');
+
     # 2, 3 - /cohort and /family (unlikely)
     # NB: They usually contain info on many individuals and their own files)
     my $cohort = exists $data->{family} ? $data->{cohort} : undef;

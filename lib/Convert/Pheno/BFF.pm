@@ -22,6 +22,9 @@ sub do_bff2pxf {
     # Premature return
     return unless defined($bff);
 
+    # Validate format
+    die "Are you sure that your input is not already a pxf?\n" unless validate_format($bff, 'bff');
+
     # Define defaults
     my $default_timestamp = '1900-01-01T00:00:00Z';
 
