@@ -1,8 +1,8 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 title: "Convert-Pheno: A software toolkit for the interconversion of standard data models for phenotypic data"
-#version: "0.14" # Assuming the version number of your software, replace with actual version
-#date-released: 2023-01-01 # Replace with the actual date of release
+version: "0.15"
+date-released: 2023-11-28
 
 authors:
 - family-names: "Rueda"
@@ -10,7 +10,7 @@ authors:
   orcid: "https://orcid.org/0000-0001-9280-058X"
 - family-names: "Leist"
   given-names: "Ivo Christopher"
-  orcid: "https://orcid.org/0000-0002-9772-443X
+  orcid: "https://orcid.org/0000-0002-9772-443X"
 - family-names: "Gut"
   given-names: "Ivo Glynne"
   orcid: "https://orcid.org/0000-0001-7219-632X"
