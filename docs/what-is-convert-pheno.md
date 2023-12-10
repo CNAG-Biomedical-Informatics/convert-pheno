@@ -14,4 +14,4 @@
     * [Command-line interface](use-as-a-command-line-interface.md) 
     * [Module](use-as-a-module.md)
     * [API](use-as-an-api.md)
-    * [Web App User Interface](https://cnag-biomedical-informaticsegithub.io/convert-pheno-ui)
+    * [Web App User Interface](https://cnag-biomedical-informatics.github.io/convert-pheno-ui)

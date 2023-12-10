@@ -62,6 +62,10 @@ With the containerized version you get:
     * CLI
 
     ### Step 1: Install Miniconda
+
+    !!! Warning "Instructions for x86_64"
+
+        The following instructions work for `amd64|x86_64` architectures. If you have a new Mac please use `amd64`.
     
     1. Download the Miniconda installer for Linux with the following command:
     
