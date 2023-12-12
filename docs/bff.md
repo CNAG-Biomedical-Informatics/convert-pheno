@@ -8,7 +8,7 @@
 !!! Abstract "About Beacon v2 Models' entities"
     Of the seven entities (a.k.a., entry types) in the Beacon v2 Models, [individuals](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema) is typically the only one that contains phenotypic data. Other entities such as [datasets](https://docs.genomebeacons.org/schemas-md/datasets_defaultSchema) or [biosamples](https://docs.genomebeacons.org/schemas-md/biosamples_defaultSchema) may also contain useful information, but they are generally easier to convert as they mainly consist of plain text and have fewer nested properties.
 
-   `Convert-Pheno` accepts as input data from the [individuals](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema) entity in [BFF](https://b2ri-documentation.readthedocs.io/en/latest/data-ingestion) format (`individuals.json`).
+   As an input, `Convert-Pheno` accepts data from the [individuals](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema) entity, serialized in [BFF](https://b2ri-documentation.readthedocs.io/en/latest/data-ingestion) format (`individuals.json`).
 
 ??? Tip "Browsing BFF `JSON` data"
     You can browse a public BFF v2 file with the following **JSON viewers**:

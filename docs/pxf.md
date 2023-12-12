@@ -5,7 +5,7 @@
    <figcaption>Figure extracted from www.ga4gh.org</figcaption>
 </figure>
 
-Phenopackets use [top-level](https://phenopacket-schema.readthedocs.io/en/latest/toplevel.html) elements in order to structure the information. We'll be focussing on the element [Phenopacket](https://phenopacket-schema.readthedocs.io/en/latest/phenopacket.html).
+Phenopackets organize information using [top-level elements](https://phenopacket-schema.readthedocs.io/en/latest/toplevel.html). Our software, `Convert-Pheno`, specifically processes data from the [Phenopacket element](https://phenopacket-schema.readthedocs.io/en/latest/phenopacket.html), serialized in [PXF](http://phenopackets.org/) format.
 
 ??? Tip "Browsing PXF `JSON` data"
 
