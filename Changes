@@ -1,9 +1,11 @@
 Revision history for Perl distribution Convert-Pheno
 
-0.15 2023-xx-xxT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
+0.15 2023-xx-26T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
  - Changed 'windows-latest' to 'windows-2019' in GHA build-and-test.yml
  - Refactored .pm to improve readibility and maintanability
+ - Implemented restriction on I/O format duplication
+ - Updated docs
 
 0.14 2023-11-21T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
