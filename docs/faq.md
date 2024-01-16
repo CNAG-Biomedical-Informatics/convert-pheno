@@ -62,12 +62,187 @@ Frequently Asked Questions
 
     Neither Phenopackets v2 nor Beacon v2 prescribe the use of a specific ontology; they simply provide **recommendations** on their websites. Thereby, `Convert-Pheno` does not change the source ontologies.
 
-    Now, IMHO, it's generally easier to inter-convert ontologies than to inter-convert raw data to ontologies. So there is that advantage... :smile:.
+    Now, IMHO, it's generally easier to inter-convert ontologies (it's just a mapping exercise) than to inter-convert data schemas...so here is that:smile:.
 
     !!! Abstract "Nota Bene:"
         A  standard that does enforce the use of an **standardized vocabulary** is [OMOP-CDM](omop-cdm.md), you may wanna check it out.
 
-    ##### last change 2023-09-16 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
+    ##### last change 2024-01-16 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
+
+## Analytics
+
+??? faq " I want to get some statistics on the content of `individuals.json` and I am not familiar with `JSON`. Any suggestion?"
+
+    My first recommendation is to use `jq`, which like a `grep` for JSON.
+
+    Let's start by creating a `TSV` where each row is one individual and the columns are the array variables:
+
+    ```bash
+    jq -r '["id", "diseases", "exposures", "interventionsOrProcedures", "measures", "phenotypicFeatures", "treatments"], (.[] | [.id, (.diseases | length), (.exposures | length), (.interventionsOrProcedures | length), (.measures | length), (.phenotypicFeatures | length), (.treatments | length)]) | @tsv' < individuals.json > results.tsv
+    ```
+
+    Another valid option to acomplish the same task is to resort to a scripting language such as `Python`:
+
+    ??? Abstract "Python code"
+        ```python
+        import json
+        import pandas as pd
+
+        # Load the JSON data from individuals.json
+        with open('individuals.json', 'r') as json_file:
+            data = json.load(json_file)
+
+        # Define the keys you want to extract
+        keys = [ "diseases", "exposures", "interventionsOrProcedures", "measures", "phenotypicFeatures", "treatments"]
+
+        # Create a list of dictionaries with the extracted values
+        result_data = [
+            {
+                "id": item["id"],
+                **{key: len(item.get(key, [])) for key in keys}
+            }
+            for item in data
+        ]
+
+        # Create a DataFrame from the list of dictionaries
+        df = pd.DataFrame(result_data)
+
+        # Save the DataFrame to results.tsv with tab as the separator
+        df.to_csv('results.tsv', sep='\t', index=False)
+        ```
+
+    ??? Example "See result"
+        When this is run in, for instance, this [file](https://github.com/mrueda/beacon2-ri-tools/blob/main/CINECA_synthetic_cohort_EUROPE_UK1/bff/individuals.json) we'll get a text file of the form of:
+
+        |     id    | diseases | exposures | interventionsOrProcedures | measures | phenotypicFeatures | treatments |
+        |:---------:|:--------:|:---------:|:-------------------------:|:--------:|:------------------:|:----------:|
+        |  HG00096  |    0     |     0     |            1              |    3     |         0          |     0      |
+        |  HG00097  |    0     |     0     |            1              |    3     |         0          |     0      |
+        |  HG00099  |    0     |     0     |            1              |    3     |         0          |     0      |
+        |  HG00100  |    0     |     0     |            1              |    3     |         0          |     0      |
+        |  HG00101  |    0     |     0     |            1              |    3     |         0          |     0      |
+        |  HG00102  |    0     |     0     |            1              |    3     |         0          |     0      |
+        |  HG00103  |    1     |     0     |            1              |    3     |         0          |     0      |
+        |  HG00105  |    3     |     0     |            1              |    3     |         0          |     0      |
+        ...
+
+
+    Once you have the data in that form you can process the way you want. Find below a couple of examples:
+
+    ??? Example "Example 1"
+        ```python
+        import pandas as pd
+
+        # Load TSV file
+        df = pd.read_csv('results.tsv', sep='\t')
+        
+        # Exclude the first column (assuming it's 'id')
+        df = df.iloc[:, 1:]
+        
+        # Initialize a dictionary to hold the statistics
+        stats = {
+            'Statistic': ['Mean', 'Median', 'Max', 'Min', '25th Percentile', '75th Percentile', 'IQR', 'Standard Deviation']
+        }
+        
+        # Calculate statistics for each column and add to the dictionary
+        for column in df.columns:
+            percentile_25 = df[column].quantile(0.25)
+            percentile_75 = df[column].quantile(0.75)
+        
+            stats[column] = [
+                df[column].mean(),
+                df[column].median(),
+                df[column].max(),
+                df[column].min(),
+                percentile_25,
+                percentile_75,
+                percentile_75 - percentile_25,
+                df[column].std()
+            ]
+        
+        # Create a new DataFrame from the stats dictionary
+        stats_df = pd.DataFrame(stats)
+        
+        # Save the statistics DataFrame to a CSV file
+        stats_df.to_csv('column_statistics.csv', index=False)
+        ```
+
+        |     Statistic     | diseases | exposures | interventionsOrProcedures | measures | phenotypicFeatures | treatments |
+        |:-----------------:|:--------:|:---------:|:-------------------------:|:--------:|:------------------:|:----------:|
+        |       Mean        | 1.02     |    0.0    |           1.0           |    3.0    |         0.0         |    0.0     |
+        |      Median       | 1.0      |    0.0    |           1.0           |    3.0    |         0.0         |    0.0     |
+        |        Max        | 5.0      |    0.0    |           1.0           |    3.0    |         0.0         |    0.0     |
+        |        Min        | 0.0      |    0.0    |           1.0           |    3.0    |         0.0         |    0.0     |
+        | 25th Percentile   | 0.0      |    0.0    |           1.0           |    3.0    |         0.0         |    0.0     |
+        | 75th Percentile   | 2.0      |    0.0    |           1.0           |    3.0    |         0.0         |    0.0     |
+        |        IQR        | 2.0      |    0.0    |           0.0           |    0.0    |         0.0         |    0.0     |
+        | Standard Deviation| 0.92     |    0.0    |           0.0           |    0.0    |         0.0         |    0.0     |
+
+
+        A similar approach but in `R`:
+
+        ```R
+        # Load TSV file
+        df <- read.csv("results.tsv", sep = "\t")
+        
+        # Exclude the first column (assuming it's 'id')
+        df <- df[-1]
+        
+        # Calculate summary statistics for each numeric column
+        summary_stats <- summary(df)
+        
+        # Save the summary statistics to a CSV file
+        write.csv(summary_stats, file = 'column_statistics.csv')
+        ```
+
+        |   diseases |   exposures |   interventionsOrProcedures |   measures |   phenotypicFeatures |   treatments |
+        |------------|-------------|-----------------------------|------------|----------------------|--------------|
+        |   Min. :0.000 |   Min. :0   |   Min. :1   |   Min. :3   |   Min. :0   |   Min. :0   |
+        |   1st Qu.:0.000 |   1st Qu.:0   |   1st Qu.:1   |   1st Qu.:3   |   1st Qu.:0   |   1st Qu.:0   |
+        |   Median :1.000 |   Median :0   |   Median :1   |   Median :3   |   Median :0   |   Median :0   |
+        |   Mean   :1.023 |   Mean   :0   |   Mean   :1   |   Mean   :3   |   Mean   :0   |   Mean   :0   |
+        |   3rd Qu.:2.000 |   3rd Qu.:0   |   3rd Qu.:1   |   3rd Qu.:3   |   3rd Qu.:0   |   3rd Qu.:0   |
+        |   Max.   :5.000 |   Max.   :0   |   Max.   :1   |   Max.   :3   |   Max.   :0   |   Max.   :0   |
+        
+    ??? Example "Example 2"
+        ```python
+        import pandas as pd
+        import matplotlib.pyplot as plt
+         
+        # Load your data
+        df = pd.read_csv('results.tsv', delimiter='\t')
+         
+        # Exclude the first column (assuming it's 'Statistic')
+        df = df.iloc[:, 1:]
+         
+        # Determine the number of rows and columns for the subplots
+        n_rows = len(df.columns) // 2 + len(df.columns) % 2
+        n_cols = 2
+         
+        # Create a figure with subplots
+        fig, axes = plt.subplots(n_rows, n_cols, figsize=(15, 5 * n_rows))  # Adjust the size as needed
+        fig.subplots_adjust(hspace=0.4, wspace=0.3)  # Adjust the spacing as needed
+         
+        for i, column in enumerate(df.columns):
+            ax = axes[i // n_cols, i % n_cols]
+            df[column].hist(bins=20, ax=ax)  # Adjust the number of bins as needed
+            ax.set_title(f'Histogram for {column}', fontsize=10)
+            ax.set_xlabel(column, fontsize=9)
+            ax.set_ylabel('Frequency', fontsize=9)
+         
+        # Hide any unused subplots
+        for j in range(i + 1, n_rows * n_cols):
+            axes[j // n_cols, j % n_cols].axis('off')
+         
+        plt.savefig('combined_histograms.png')  # Save the figure as an image
+        ```
+
+        <figure markdown>
+         ![Histograms](img/combined_histograms.png){ width="800" }
+         <figcaption>Histograms for individuals.json</figcaption>
+        </figure>
+
+    ##### last change 2024-01-16 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
 
 ## Installation
