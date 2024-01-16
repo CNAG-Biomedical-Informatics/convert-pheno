@@ -73,9 +73,9 @@ Frequently Asked Questions
 
 ??? faq " I want to get some statistics on the content of `individuals.json` and I am not familiar with `JSON`. Any suggestion?"
 
-    My first recommendation is to use `jq`, which like a `grep` for JSON.
+    My first recommendation is to use `jq`, which is like `grep` for `JSON`.
 
-    Let's start by creating a `TSV` where each row is one individual and the columns are the array variables:
+    Let's begin by generating a `TSV` (Tab-Separated Values) file where each row represents an individual, and the columns correspond to the array variables:
 
     ```bash
     jq -r '["id", "diseases", "exposures", "interventionsOrProcedures", "measures", "phenotypicFeatures", "treatments"], (.[] | [.id, (.diseases | length), (.exposures | length), (.interventionsOrProcedures | length), (.measures | length), (.phenotypicFeatures | length), (.treatments | length)]) | @tsv' < individuals.json > results.tsv
@@ -112,7 +112,7 @@ Frequently Asked Questions
         ```
 
     ??? Example "See result"
-        When this is run in, for instance, this [file](https://github.com/mrueda/beacon2-ri-tools/blob/main/CINECA_synthetic_cohort_EUROPE_UK1/bff/individuals.json) we'll get a text file of the form of:
+        When you run this in, for example, this [file](https://github.com/mrueda/beacon2-ri-tools/blob/main/CINECA_synthetic_cohort_EUROPE_UK1/bff/individuals.json), you'll obtain a text file in the following format:
 
         |     id    | diseases | exposures | interventionsOrProcedures | measures | phenotypicFeatures | treatments |
         |:---------:|:--------:|:---------:|:-------------------------:|:--------:|:------------------:|:----------:|
@@ -127,7 +127,7 @@ Frequently Asked Questions
         ...
 
 
-    Once you have the data in that form you can process the way you want. Find below a couple of examples:
+    Once you have the data in that format, you can process it however you prefer. Below, you'll find a couple of examples:
 
     ??? Example "Example 1"
         ```python
