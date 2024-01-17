@@ -35,7 +35,7 @@ Frequently Asked Questions
 
 ??? faq "What is the difference between Beacon v2 Models and Beacon v2?"
 
-    **Beacon v2** is a specification to build an [API](https://docs.genomebeacons.org). The [Beacon v2 Models](https://docs.genomebeacons.org/models/) define the format for the API's responses to queries regarding biological data. With the help of `Convert-Pheno`, text files ([BFF](bff.md)) that align with this response format can be generated. By doing so, the BFF files can be integrated into a non-SQL database, such as MongoDB, without the API having to perform any additional data transformations internally.
+    **Beacon v2** is a specification to build an [API](https://docs.genomebeacons.org). The [Beacon v2 Models](https://docs.genomebeacons.org/models/) define the format for the API's responses to queries regarding biological data. With the help of `Convert-Pheno`, data exchange text files ([BFF](bff.md)) that align with this response format can be generated. By doing so, the BFF files can be integrated into a non-SQL database, such as MongoDB, without the API having to perform any additional data transformations internally.
 
     ##### last change 2023-02-13 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
@@ -58,7 +58,7 @@ Frequently Asked Questions
     ##### last change 2023-03-24 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
 
-??? faq "I have a set of PXF files encoded with HPO and ICD-10 ontologies and I want to convert them to BFF but encoded with OMIM and SNOMED-CT ontologies. Can you help me?"
+??? faq "I have a collection of PXF files encoded using HPO and ICD-10 ontologies, and I need to convert them to BFF format, but with encoding in OMIM and SNOMED-CT ontologies. Can you assist me with this?"
 
     Neither Phenopackets v2 nor Beacon v2 prescribe the use of a specific ontology; they simply provide **recommendations** on their websites. Thereby, `Convert-Pheno` does not change the source ontologies.
 
@@ -71,7 +71,7 @@ Frequently Asked Questions
 
 ## Analytics
 
-??? faq " I want to get some statistics on the content of `individuals.json` and I am not familiar with `JSON`. Any suggestion?"
+??? faq "How can I obtain statistics from the `individuals.json` file if I'm not familiar with `JSON` format? Any suggestions?"
 
     My first recommendation is to use `jq`, which is like `grep` for `JSON`.
 
@@ -81,7 +81,7 @@ Frequently Asked Questions
     jq -r '["id", "diseases", "exposures", "interventionsOrProcedures", "measures", "phenotypicFeatures", "treatments"], (.[] | [.id, (.diseases | length), (.exposures | length), (.interventionsOrProcedures | length), (.measures | length), (.phenotypicFeatures | length), (.treatments | length)]) | @tsv' < individuals.json > results.tsv
     ```
 
-    Another valid option to acomplish the same task is to resort to a scripting language such as `Python`:
+    Another valid option to acomplish the same task is to resort to a scripting language such as `Python` or `Perl`:
 
     ??? Abstract "Python code"
         ```python
@@ -111,6 +111,39 @@ Frequently Asked Questions
         df.to_csv('results.tsv', sep='\t', index=False)
         ```
 
+    ??? Abstract "Perl code"
+        ```perl
+        use strict;
+        use warnings;
+        use autodie;
+        use JSON::XS;
+        use Text::CSV_XS qw(csv);
+         
+        # Open the JSON file and read the data
+        open my $json_file, '<', 'individuals.json';
+        my $json_text = do { local $/; <$json_file> };
+        my $data = decode_json($json_text);
+        close $json_file;
+         
+        # Define the keys you want to extract
+        my @keys = ("diseases", "exposures", "interventionsOrProcedures", "measures", "phenotypicFeatures", "treatments");
+         
+        # Initialize the data array with the header row
+        my $aoa = [["id", @keys]];
+         
+        # Process the data
+        foreach my $item (@$data) {
+            my @row = ($item->{"id"});
+            foreach my $key (@keys) {
+                push @row, scalar @{$item->{$key} // []};
+            }
+            push @$aoa, \@row;
+        }
+         
+        # Write array of arrays as csv file
+        csv(in => $aoa, out => "results.tsv", sep_char => "\t", eol => "\n");
+        ```
+
     ??? Example "See result"
         When you run this in, for example, this [file](https://github.com/mrueda/beacon2-ri-tools/blob/main/CINECA_synthetic_cohort_EUROPE_UK1/bff/individuals.json), you'll obtain a text file in the following format:
 
@@ -127,9 +160,9 @@ Frequently Asked Questions
         ...
 
 
-    Once you have the data in that format, you can process it however you prefer. Below, you'll find a couple of examples:
+    Once you have the data in that format, you can process it however you prefer. Below, you'll find an example:
 
-    ??? Example "Example 1"
+    ??? Example "Example: Basic stats"
         ```python
         import pandas as pd
 
@@ -204,45 +237,31 @@ Frequently Asked Questions
         |   3rd Qu.:2.000 |   3rd Qu.:0   |   3rd Qu.:1   |   3rd Qu.:3   |   3rd Qu.:0   |   3rd Qu.:0   |
         |   Max.   :5.000 |   Max.   :0   |   Max.   :1   |   Max.   :3   |   Max.   :0   |   Max.   :0   |
         
-    ??? Example "Example 2"
-        ```python
-        import pandas as pd
-        import matplotlib.pyplot as plt
-         
-        # Load your data
-        df = pd.read_csv('results.tsv', delimiter='\t')
-         
-        # Exclude the first column (assuming it's 'Statistic')
-        df = df.iloc[:, 1:]
-         
-        # Determine the number of rows and columns for the subplots
-        n_rows = len(df.columns) // 2 + len(df.columns) % 2
-        n_cols = 2
-         
-        # Create a figure with subplots
-        fig, axes = plt.subplots(n_rows, n_cols, figsize=(15, 5 * n_rows))  # Adjust the size as needed
-        fig.subplots_adjust(hspace=0.4, wspace=0.3)  # Adjust the spacing as needed
-         
-        for i, column in enumerate(df.columns):
-            ax = axes[i // n_cols, i % n_cols]
-            df[column].hist(bins=20, ax=ax)  # Adjust the number of bins as needed
-            ax.set_title(f'Histogram for {column}', fontsize=10)
-            ax.set_xlabel(column, fontsize=9)
-            ax.set_ylabel('Frequency', fontsize=9)
-         
-        # Hide any unused subplots
-        for j in range(i + 1, n_rows * n_cols):
-            axes[j // n_cols, j % n_cols].axis('off')
-         
-        plt.savefig('combined_histograms.png')  # Save the figure as an image
-        ```
+    ??? Example "Example: Plots"
 
-        <figure markdown>
-         ![Histograms](img/combined_histograms.png){ width="800" }
-         <figcaption>Histograms for individuals.json</figcaption>
-        </figure>
+        For plotting, we recommend using one of Pheno-Ranker's [utilities](https://cnag-biomedical-informatics.github.io/pheno-ranker/bff-pxf-plot).
 
-    ##### last change 2024-01-16 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
+    ##### last change 2024-01-17 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
+
+??? faq "How can I compare all individuals in one or multiple cohorts?"
+
+    We recommend using [Pheno-Ranker](https://cnag-biomedical-informatics.github.io/pheno-ranker) in [cohort mode](https://cnag-biomedical-informatics.github.io/pheno-ranker/cohort/).    
+
+    ##### last change 2024-01-17 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
+
+??? faq "How can I match patients similar to mine in a cohort(s)?"
+
+    We recommend using [Pheno-Ranker](https://cnag-biomedical-informatics.github.io/pheno-ranker) in [patient mode](https://cnag-biomedical-informatics.github.io/pheno-ranker/patient/).
+
+    ##### last change 2024-01-17 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
+
+
+??? faq "How can I create synthetic data in BFF or PXF data exchange formats?""
+
+    We recommend using one of Pheno-Ranker's [utilities](https://cnag-biomedical-informatics.github.io/pheno-ranker/bff-pxf-simulator).
+
+    ##### last change 2024-01-17 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
+
 
 
 ## Installation

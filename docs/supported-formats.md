@@ -51,4 +51,4 @@ graph LR
         - Are not intended to replace or encompass FHIR and other EHR data models
         - Foster effective data sharing and integration initiatives
 
-        Note that these output formats are **intermediate** files that reach their full potential when loaded into a database. For instance, [BFF](bff.md) can be loaded into a MongoDB database and their fields can be queried through an **API**, such as the [Beacon v2 API](https://docs.genomebeacons.org).
+        Note that these output formats are **data exchange** files that reach their full potential when loaded into a database. For instance, [BFF](bff.md) can be loaded into a MongoDB database and their fields can be queried through an **API**, such as the [Beacon v2 API](https://docs.genomebeacons.org).
