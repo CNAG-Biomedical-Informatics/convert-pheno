@@ -700,7 +700,7 @@
          },
          "_visit" : {
             "_info" : {
-               "VISIT_OCCURENCE" : {
+               "VISIT_OCCURRENCE" : {
                   "OMOP_columns" : {
                      "admitting_source_concept_id" : 0,
                      "admitting_source_value" : null,
@@ -821,7 +821,7 @@
          },
          "_visit" : {
             "_info" : {
-               "VISIT_OCCURENCE" : {
+               "VISIT_OCCURRENCE" : {
                   "OMOP_columns" : {
                      "admitting_source_concept_id" : 0,
                      "admitting_source_value" : null,
@@ -13752,7 +13752,7 @@
          },
          "_visit" : {
             "_info" : {
-               "VISIT_OCCURENCE" : {
+               "VISIT_OCCURRENCE" : {
                   "OMOP_columns" : {
                      "admitting_source_concept_id" : 0,
                      "admitting_source_value" : null,
@@ -17437,7 +17437,7 @@
          },
          "_visit" : {
             "_info" : {
-               "VISIT_OCCURENCE" : {
+               "VISIT_OCCURRENCE" : {
                   "OMOP_columns" : {
                      "admitting_source_concept_id" : 0,
                      "admitting_source_value" : null,
@@ -19537,7 +19537,7 @@
          },
          "_visit" : {
             "_info" : {
-               "VISIT_OCCURENCE" : {
+               "VISIT_OCCURRENCE" : {
                   "OMOP_columns" : {
                      "admitting_source_concept_id" : 0,
                      "admitting_source_value" : null,
@@ -21311,7 +21311,7 @@
          },
          "_visit" : {
             "_info" : {
-               "VISIT_OCCURENCE" : {
+               "VISIT_OCCURRENCE" : {
                   "OMOP_columns" : {
                      "admitting_source_concept_id" : 0,
                      "admitting_source_value" : null,
@@ -25266,7 +25266,7 @@
          },
          "_visit" : {
             "_info" : {
-               "VISIT_OCCURENCE" : {
+               "VISIT_OCCURRENCE" : {
                   "OMOP_columns" : {
                      "admitting_source_concept_id" : 0,
                      "admitting_source_value" : null,
@@ -25414,7 +25414,7 @@
          },
          "_visit" : {
             "_info" : {
-               "VISIT_OCCURENCE" : {
+               "VISIT_OCCURRENCE" : {
                   "OMOP_columns" : {
                      "admitting_source_concept_id" : 0,
                      "admitting_source_value" : null,
@@ -25637,7 +25637,7 @@
          },
          "_visit" : {
             "_info" : {
-               "VISIT_OCCURENCE" : {
+               "VISIT_OCCURRENCE" : {
                   "OMOP_columns" : {
                      "admitting_source_concept_id" : 0,
                      "admitting_source_value" : null,
@@ -26056,7 +26056,7 @@
          },
          "_visit" : {
             "_info" : {
-               "VISIT_OCCURENCE" : {
+               "VISIT_OCCURRENCE" : {
                   "OMOP_columns" : {
                      "admitting_source_concept_id" : 0,
                      "admitting_source_value" : null,
@@ -30859,7 +30859,7 @@
          },
          "_visit" : {
             "_info" : {
-               "VISIT_OCCURENCE" : {
+               "VISIT_OCCURRENCE" : {
                   "OMOP_columns" : {
                      "admitting_source_concept_id" : 0,
                      "admitting_source_value" : null,
@@ -43788,7 +43788,7 @@
          },
          "_visit" : {
             "_info" : {
-               "VISIT_OCCURENCE" : {
+               "VISIT_OCCURRENCE" : {
                   "OMOP_columns" : {
                      "admitting_source_concept_id" : 0,
                      "admitting_source_value" : null,
@@ -47560,7 +47560,7 @@
          },
          "_visit" : {
             "_info" : {
-               "VISIT_OCCURENCE" : {
+               "VISIT_OCCURRENCE" : {
                   "OMOP_columns" : {
                      "admitting_source_concept_id" : 0,
                      "admitting_source_value" : null,
@@ -55906,7 +55906,7 @@
          },
          "_visit" : {
             "_info" : {
-               "VISIT_OCCURENCE" : {
+               "VISIT_OCCURRENCE" : {
                   "OMOP_columns" : {
                      "admitting_source_concept_id" : 0,
                      "admitting_source_value" : null,
@@ -58937,7 +58937,7 @@
          },
          "_visit" : {
             "_info" : {
-               "VISIT_OCCURENCE" : {
+               "VISIT_OCCURRENCE" : {
                   "OMOP_columns" : {
                      "admitting_source_concept_id" : 0,
                      "admitting_source_value" : null,
@@ -63153,7 +63153,7 @@
          },
          "_visit" : {
             "_info" : {
-               "VISIT_OCCURENCE" : {
+               "VISIT_OCCURRENCE" : {
                   "OMOP_columns" : {
                      "admitting_source_concept_id" : 0,
                      "admitting_source_value" : null,

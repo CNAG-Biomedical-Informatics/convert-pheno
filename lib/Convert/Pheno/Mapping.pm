@@ -390,7 +390,7 @@ sub map_omop_visit_occurrence {
       );
     my $start_date = _map2iso8601( $hashref->{visit_start_date} );
     my $end_date   = _map2iso8601( $hashref->{visit_end_date} );
-    my $info       = { VISIT_OCCURENCE => { OMOP_columns => $hashref } };
+    my $info       = { VISIT_OCCURRENCE => { OMOP_columns => $hashref } };
 
     return {
         _info         => $info,
