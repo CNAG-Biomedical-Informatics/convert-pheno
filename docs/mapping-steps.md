@@ -139,7 +139,7 @@ During the conversion process, handling variables that cannot be directly mapped
     ```json
     "_visit" : {
             "_info" : {
-               "VISIT_OCCURENCE" : {
+               "VISIT_OCCURRENCE" : {
                   "OMOP_columns" : {
                      "admitting_source_concept_id" : 0,
                      "admitting_source_value" : null,

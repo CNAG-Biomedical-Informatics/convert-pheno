@@ -3,10 +3,11 @@ Revision history for Perl distribution Convert-Pheno
 0.17 2024-XX-XXT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
  - Updated docs
+ - Fixed typo in {_info}{VISIT_OCCURENCE} -> {_info}{VISIT_OCCURRENCE}
 
 0.16 2023-12-26T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
- - Implemented restriction on I/O format duplication
+ - Implemented restriction on I/O format duplication (ibff->obff)
  - Updated docs
 
 0.15 2023-11-30T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
