@@ -3,7 +3,7 @@
   "info": {
     "title": "Convert-Pheno API",
     "description": "Convert-Pheno API configuration",
-    "version": "0.15"
+    "version": "0.17"
   },
   "paths": {
     "/api": {

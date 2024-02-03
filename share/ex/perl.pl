@@ -8,7 +8,7 @@
 #
 #   $VERSION taken from Convert::Pheno
 #
-#   Copyright (C) 2022-2023 Manuel Rueda - CNAG (manuel.rueda@cnag.crg.eu)
+#   Copyright (C) 2022-2024 Manuel Rueda - CNAG (manuel.rueda@cnag.eu)
 #
 #   License: Artistic License 2.0 
 
