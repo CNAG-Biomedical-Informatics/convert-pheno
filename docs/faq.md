@@ -69,6 +69,23 @@ Frequently Asked Questions
 
     ##### last change 2024-01-16 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
+??? faq "Error Handling for `CSV_XS ERROR: 2023 - EIQ - QUO character not allowed @ rec 1 pos 21 field 1`"
+
+
+    This indicates a problem with the character used to separate data fields in your file. Our script automatically detects the separator based on the file extension (e.g., it expects commas for `.csv` files). However, discrepancies can arise if the actual data separator doesn't match the expected one based on the file extension.
+
+    ### Solutions
+
+    - **Ensure Consistent Separator Use**: If you're using REDCap for input, verify that both `--iredcap` and `--rcd` files are configured to use the identical separator. This consistency is crucial for correct data processing.
+
+    - **Specify Separator Manually in Command Line**: In cases where the default separator detection fails, you can manually specify the correct separator. For example, to use a tab as your separator, utilize the following syntax in the CLI:
+
+    ```bash
+    --sep $'\t'
+    ```
+
+    ##### last change 2024-02-06 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
+
 ## Analytics
 
 ??? faq "How can I obtain statistics from the `individuals.json` file if I'm not familiar with `JSON` format? Any suggestions?"
