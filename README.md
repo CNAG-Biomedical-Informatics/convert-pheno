@@ -113,7 +113,7 @@ Please download the `Dockerfile` from the repo:
 
 And then run:
 
-    docker build -t cnag/convert-pheno:latest .
+    docker buildx build -t cnag/convert-pheno:latest .
 
 ### Additional instructions for Methods 1 and 2
 
