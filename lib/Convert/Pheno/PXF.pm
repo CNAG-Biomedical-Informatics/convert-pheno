@@ -21,21 +21,21 @@ sub do_pxf2bff {
     my ( $self, $data ) = @_;
     my $sth = $self->{sth};
 
-  # *** IMPORTANT ****
-  # PXF three top-level elements are usually split in files:
-  # - phenopacket.json ( usually - 1 individual per file)
-  # - cohort.json (info on mutliple individuals)
-  # - family.json (info related to one or multiple individuals).
-  # These 3 files dont't contain their respective objects at the root level (/).
-  #
-  # However, top-elements might be combined into a single file (e.g., pxf.json),
-  # as a result, certain files may contain objects for top-level elements:
-  # - /phenopacket
-  # - /cohort
-  # - /family
-  #
-  # In this context, we only accept top-level phenopackets,
-  # while the other two types will be categorized as "info".
+    # *** IMPORTANT ****
+    # PXF three top-level elements are usually split in files:
+    # - phenopacket.json ( usually - 1 individual per file)
+    # - cohort.json (info on mutliple individuals)
+    # - family.json (info related to one or multiple individuals).
+    # These 3 files dont't contain their respective objects at the root level (/).
+    #
+    # However, top-elements might be combined into a single file (e.g., pxf.json),
+    # as a result, certain files may contain objects for top-level elements:
+    # - /phenopacket
+    # - /cohort
+    # - /family
+    #
+    # In this context, we only accept top-level phenopackets,
+    # while the other two types will be categorized as "info".
 
     # We create cursors for top-level elements
     # 1 - phenopacket (mandatory)
@@ -43,7 +43,8 @@ sub do_pxf2bff {
       exists $data->{phenopacket} ? $data->{phenopacket} : $data;
 
     # Validate format
-    die "Are you sure that your input is not already a bff?\n" unless validate_format($phenopacket, 'pxf');
+    die "Are you sure that your input is not already a bff?\n"
+      unless validate_format( $phenopacket, 'pxf' );
 
     # 2, 3 - /cohort and /family (unlikely)
     # NB: They usually contain info on many individuals and their own files)
@@ -53,15 +54,15 @@ sub do_pxf2bff {
     # Normalize the hash for medical_actions + medicalActions = medicalActions
     if ( exists $phenopacket->{medical_actions} ) {
 
-       # NB: The delete function returns the value of the deleted key-value pair
+        # NB: The delete function returns the value of the deleted key-value pair
         $phenopacket->{medicalActions} = delete $phenopacket->{medical_actions};
     }
 
-# CNAG files have 'meta_data' nomenclature, but PXF documentation uses 'metaData'
-# We search for both 'meta_data' and 'metaData' and simply display the
+    # CNAG files have 'meta_data' nomenclature, but PXF documentation uses 'metaData'
+    # We search for both 'meta_data' and 'metaData' and simply display the
     if ( exists $phenopacket->{meta_data} ) {
 
-       # NB: The delete function returns the value of the deleted key-value pair
+        # NB: The delete function returns the value of the deleted key-value pair
         $phenopacket->{metaData} = delete $phenopacket->{meta_data};
     }
 
@@ -385,7 +386,7 @@ sub get_metaData {
     # Setting a few variables
     my $user = $self->{username};
 
-   # NB: Darwin does not have nproc to show #logical-cores, using sysctl instead
+    # NB: Darwin does not have nproc to show #logical-cores, using sysctl instead
     my $os = $^O;
     chomp(
         my $ncpuhost =
@@ -411,7 +412,7 @@ sub get_metaData {
     };
     my $resources = [
         {
-            id   => 'ICD10',
+            id   => 'icd10',
             name =>
 'International Statistical Classification of Diseases and Related Health Problems 10th Revision',
             url             => 'https://icd.who.int/browse10/2019/en#',
@@ -420,7 +421,7 @@ sub get_metaData {
             iriPrefix       => 'https://icd.who.int/browse10/2019/en#/'
         },
         {
-            id              => 'NCIT',
+            id              => 'ncit',
             name            => 'NCI Thesaurus',
             url             => 'http://purl.obolibrary.org/obo/ncit.owl',
             version         => '22.03d',
@@ -428,12 +429,37 @@ sub get_metaData {
             iriPrefix       => 'http://purl.obolibrary.org/obo/NCIT_'
         },
         {
-            id              => 'Athena-OHDSI',
+            id              => 'athena-ohdsi',
             name            => 'Athena-OHDSI',
             url             => 'https://athena.ohdsi.org',
             version         => 'v5.3.1',
             namespacePrefix => 'OHDSI',
             iriPrefix       => 'http://www.fakeurl.com/OHDSI_'
+        },
+        {
+            id              => 'hp',
+            name            => 'Human Phenotype Ontology',
+            url             => 'http://purl.obolibrary.org/obo/hp.owl',
+            version         => '2023-04-05',
+            namespacePrefix => 'HP',
+            iriPrefix       => 'http://purl.obolibrary.org/obo/HP_'
+        },
+        {
+            id              => 'omim',
+            name            => 'Online Mendelian Inheritance in Man',
+            url             => 'https://www.omim.org',
+            version         => '2023-05-22',
+            namespacePrefix => 'OMIM',
+            iriPrefix       => 'http://omim.org/entry/'
+        },
+        {
+            id   => 'cdisc-terminology',
+            name => 'CDISC Terminology',
+            url  =>
+'https://www.cdisc.org/standards/terminology/controlled-terminology',
+            version         => '2023-01-24',
+            namespacePrefix => 'CDISC',
+            iriPrefix       => 'http://www.fakeurl.com/CDISC_'
         }
     ];
     return {
