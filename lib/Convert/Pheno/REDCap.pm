@@ -303,6 +303,9 @@ sub do_redcap2bff {
     # When we use --test we do not serialize changing (metaData) information
     $individual->{info}{metaData} = $self->{test} ? undef : get_metaData($self);
 
+    # We finally add all REDCap columns
+    $individual->{info}{REDCap_columns} = $participant;
+
     # =========================
     # interventionsOrProcedures
     # =========================

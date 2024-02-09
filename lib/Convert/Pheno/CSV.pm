@@ -591,8 +591,7 @@ sub read_csv {
         in       => $filepath,
         sep_char => $separator,
         headers  => "auto",
-        eol      => "\n",
-
+        # eol      => "\n", # Let the code figure it out
         # binary    => 1, # default
         encoding  => $encoding,
         auto_diag => 1
@@ -632,7 +631,7 @@ sub read_csv_stream {
 
     # Using Text::CSV_XS OO interface
     my $csv = Text::CSV_XS->new(
-        { binary => 1, auto_diag => 1, sep_char => $separator, eol => "\n" } );
+        { binary => 1, auto_diag => 1, sep_char => $separator } );
 
     # Open filehandles
     my $fh_in  = open_filehandle( $filein,  'r' );
