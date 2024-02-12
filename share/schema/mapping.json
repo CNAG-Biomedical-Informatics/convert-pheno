@@ -87,6 +87,7 @@
   "$defs": {
     "objectField": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
         "fields": {
           "type": "array",

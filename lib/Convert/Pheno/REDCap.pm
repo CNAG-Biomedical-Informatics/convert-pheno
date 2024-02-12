@@ -28,20 +28,20 @@ sub do_redcap2bff {
     ##############################
     # <Variable> names in REDCap #
     ##############################
-#
-# REDCap does not enforce any particular variable name.
-# Extracted from https://www.ctsi.ufl.edu/wordpress/files/2019/02/Project-Creation-User-Guide.pdf
-# ---
-# "Variable Names: Variable names are critical in the data analysis process. If you export your data to a
-# statistical software program, the variable names are what you or your statistician will use to conduct
-# the analysis"
-#
-# "We always recommend reviewing your variable names with a statistician or whoever will be
-# analyzing your data. This is especially important if this is the first time you are building a
-# database"
-#---
-# If variable names are not consensuated, then we need to do the mapping manually "a posteriori".
-# This is what we are attempting here:
+    #
+    # REDCap does not enforce any particular variable name.
+    # Extracted from https://www.ctsi.ufl.edu/wordpress/files/2019/02/Project-Creation-User-Guide.pdf
+    # ---
+    # "Variable Names: Variable names are critical in the data analysis process. If you export your data to a
+    # statistical software program, the variable names are what you or your statistician will use to conduct
+    # the analysis"
+    #
+    # "We always recommend reviewing your variable names with a statistician or whoever will be
+    # analyzing your data. This is especially important if this is the first time you are building a
+    # database"
+    #---
+    # If variable names are not consensuated, then we need to do the mapping manually "a posteriori".
+    # This is what we are attempting here:
 
     ###############
     # Field Types #
@@ -56,7 +56,6 @@ sub do_redcap2bff {
     #'slider'
     #'text'
     #'yesno'
-
 
     ####################################
     # START MAPPING TO BEACON V2 TERMS #
@@ -91,7 +90,7 @@ sub do_redcap2bff {
     # Thus, we are storing $participant->{sex} in $self !!!
     if ( defined $participant->{$sex_field} ) {
         $self->{_info}{ $participant->{study_id} }{$sex_field} =
-          $participant->{$sex_field};   # Dynamically adding attributes (setter)
+          $participant->{$sex_field};    # Dynamically adding attributes (setter)
     }
     $participant->{$sex_field} =
       $self->{_info}{ $participant->{$studyId_field} }{$sex_field};
@@ -144,17 +143,20 @@ sub do_redcap2bff {
         # *** IMPORTANT ***
         # First we keep track of the original value (in case need it)
         # as $field . '_ori'
-        $participant->{ $field . '_ori' } = $participant->{$field};
 
-        # Now iwe overwrite the original value with the ditionary one
-        $participant->{$field} = map2redcap_dict(
-            {
-                redcap_dict => $redcap_dict,
-                participant => $participant,
-                field       => $field,
-                labels      => 1
-            }
-        ) if defined $participant->{$field};
+        if ( defined $participant->{$field} ) {
+            $participant->{ $field . '_ori' } = $participant->{$field};
+
+            # Now we overwrite the original value with the dictionary one
+            $participant->{$field} = map2redcap_dict(
+                {
+                    redcap_dict => $redcap_dict,
+                    participant => $participant,
+                    field       => $field,
+                    labels      => 1
+                }
+            );
+        }
     }
 
     # ========
@@ -186,7 +188,8 @@ sub do_redcap2bff {
             }
         );
         $disease->{familyHistory} =
-          convert2boolean( $participant->{ $mapping->{mapping}{familyHistory} } )
+          convert2boolean(
+            $participant->{ $mapping->{mapping}{familyHistory} } )
           if ( exists $mapping->{mapping}{familyHistory}
             && defined $participant->{ $mapping->{mapping}{familyHistory} } );
 
@@ -223,7 +226,8 @@ sub do_redcap2bff {
         $exposure->{ageAtExposure} =
           ( exists $mapping->{mapping}{ageAtExposure}
               && defined $participant->{ $mapping->{mapping}{ageAtExposure} } )
-          ? map_age_range( $participant->{ $mapping->{mapping}{ageAtExposure} } )
+          ? map_age_range(
+            $participant->{ $mapping->{mapping}{ageAtExposure} } )
           : $default_age;
         $exposure->{date} =
           exists $mapping->{mapping}{date}
@@ -251,8 +255,8 @@ sub do_redcap2bff {
 
         # We first extract 'unit' that supposedly will be used in in
         # <measurementValue> and <referenceRange>??
-        #  e.g. radio.alcohol ? alcohol
-        my $subkey = exists $mapping->{radio}{$field} ? $field : 'dummy';
+        #  e.g. selector.alcohol ? alcohol
+        my $subkey = exists $mapping->{selector}{$field} ? $field : 'dummy';
         my $unit   = map_ontology(
             {
                 # order on the ternary operator matters
@@ -260,8 +264,8 @@ sub do_redcap2bff {
                 # 2 - Check for field
                 query => $subkey ne 'dummy'
 
-                  #  radio.alcohol.Never smoked =>  Never Smoker
-                ? $mapping->{radio}{$field}{ $participant->{$subkey} }
+                  #  selector.alcohol.Never smoked =>  Never Smoker
+                ? $mapping->{selector}{$field}{ $participant->{$subkey} }
                 : $exposure_query,
                 column   => 'label',
                 ontology => $mapping->{ontology},
@@ -319,6 +323,7 @@ sub do_redcap2bff {
     $individual->{info}{metaData} = $self->{test} ? undef : get_metaData($self);
 
     # We finally add all REDCap columns
+    # NB: _ori are values before adding _labels
     $individual->{info}{REDCap_columns} = $participant;
 
     # =========================
@@ -417,8 +422,7 @@ sub do_redcap2bff {
         # We can have  $participant->{$field} eq '2 - Mild'
         if ( $participant->{$field} =~ m/ \- / ) {
             my ( $tmp_val, $tmp_scale ) = split / \- /, $participant->{$field};
-            $participant->{$field} =
-              $tmp_val;    # should be equal to $participant->{$field.'_ori'}
+            $participant->{$field} = $tmp_val;     # should be equal to $participant->{$field.'_ori'}
             $tmp_str = $tmp_scale;
         }
 
@@ -620,9 +624,7 @@ sub do_redcap2bff {
             $treatment->{doseIntervals}         = [];
             $treatment->{routeOfAdministration} = map_ontology(
                 {
-                    query => ucfirst($route)
-                      . ' Route of Administration'
-                    ,    # Oral Route of Administration
+                    query    => ucfirst($route) . ' Route of Administration',  # Oral Route of Administration
                     column   => 'label',
                     ontology => $mapping->{ontology},
                     self     => $self
