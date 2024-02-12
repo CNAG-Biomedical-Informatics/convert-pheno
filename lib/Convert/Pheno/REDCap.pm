@@ -43,6 +43,21 @@ sub do_redcap2bff {
 # If variable names are not consensuated, then we need to do the mapping manually "a posteriori".
 # This is what we are attempting here:
 
+    ###############
+    # Field Types #
+    ###############
+
+    #'calc'
+    #'checkbox'
+    #'descriptive'
+    #'dropdown'
+    #'notes'
+    #'radio'
+    #'slider'
+    #'text'
+    #'yesno'
+
+
     ####################################
     # START MAPPING TO BEACON V2 TERMS #
     ####################################
@@ -67,7 +82,7 @@ sub do_redcap2bff {
 
     # Getting the field name from mapping file (note that we add _field suffix)
     my $sex_field     = $mapping_file->{sex};
-    my $studyId_field = $mapping_file->{info}{map}{studyId};
+    my $studyId_field = $mapping_file->{info}{mapping}{studyId};
 
     # **********************
     # *** IMPORTANT STEP ***
@@ -159,9 +174,9 @@ sub do_redcap2bff {
         # Load a few more variables from mapping file
         # Start mapping
         $disease->{ageOfOnset} =
-          map_age_range( $participant->{ $mapping->{map}{ageOfOnset} } )
-          if ( exists $mapping->{map}{ageOfOnset}
-            && defined $participant->{ $mapping->{map}{ageOfOnset} } );
+          map_age_range( $participant->{ $mapping->{mapping}{ageOfOnset} } )
+          if ( exists $mapping->{mapping}{ageOfOnset}
+            && defined $participant->{ $mapping->{mapping}{ageOfOnset} } );
         $disease->{diseaseCode} = map_ontology(
             {
                 query    => $field,
@@ -171,9 +186,9 @@ sub do_redcap2bff {
             }
         );
         $disease->{familyHistory} =
-          convert2boolean( $participant->{ $mapping->{map}{familyHistory} } )
-          if ( exists $mapping->{map}{familyHistory}
-            && defined $participant->{ $mapping->{map}{familyHistory} } );
+          convert2boolean( $participant->{ $mapping->{mapping}{familyHistory} } )
+          if ( exists $mapping->{mapping}{familyHistory}
+            && defined $participant->{ $mapping->{mapping}{familyHistory} } );
 
         #$disease->{notes}    = undef;
         $disease->{severity} = $default_ontology;
@@ -206,23 +221,23 @@ sub do_redcap2bff {
 
         my $exposure;
         $exposure->{ageAtExposure} =
-          ( exists $mapping->{map}{ageAtExposure}
-              && defined $participant->{ $mapping->{map}{ageAtExposure} } )
-          ? map_age_range( $participant->{ $mapping->{map}{ageAtExposure} } )
+          ( exists $mapping->{mapping}{ageAtExposure}
+              && defined $participant->{ $mapping->{mapping}{ageAtExposure} } )
+          ? map_age_range( $participant->{ $mapping->{mapping}{ageAtExposure} } )
           : $default_age;
         $exposure->{date} =
-          exists $mapping->{map}{date}
-          ? $participant->{ $mapping->{map}{date} }
+          exists $mapping->{mapping}{date}
+          ? $participant->{ $mapping->{mapping}{date} }
           : $default_date;
         $exposure->{duration} =
-          exists $mapping->{map}{duration}
-          ? $participant->{ $mapping->{map}{duration} }
+          exists $mapping->{mapping}{duration}
+          ? $participant->{ $mapping->{mapping}{duration} }
           : $default_duration;
 
         # Query related
         my $exposure_query =
-          exists $mapping->{dict}{$field}
-          ? $mapping->{dict}{$field}
+          exists $mapping->{dictionary}{$field}
+          ? $mapping->{dictionary}{$field}
           : $field;
 
         $exposure->{exposureCode} = map_ontology(
@@ -320,15 +335,15 @@ sub do_redcap2bff {
 
             # Why this
             next
-              if ( exists $mapping->{map}{dateOfProcedure}
-                && $field eq $mapping->{map}{dateOfProcedure} );
+              if ( exists $mapping->{mapping}{dateOfProcedure}
+                && $field eq $mapping->{mapping}{dateOfProcedure} );
             my $intervention;
 
             $intervention->{ageAtProcedure} =
-              ( exists $mapping->{map}{ageAtProcedure}
-                  && defined $mapping->{map}{ageAtProcedure} )
+              ( exists $mapping->{mapping}{ageAtProcedure}
+                  && defined $mapping->{mapping}{ageAtProcedure} )
               ? map_age_range(
-                $participant->{ $mapping->{map}{ageAtProcedure} } )
+                $participant->{ $mapping->{mapping}{ageAtProcedure} } )
               : $default_age;
 
             $intervention->{bodySite} =
@@ -336,16 +351,16 @@ sub do_redcap2bff {
               if ( $project_id eq '3tr_ibd' );
 
             $intervention->{dateOfProcedure} =
-              ( exists $mapping->{map}{dateOfProcedure}
-                  && defined $mapping->{map}{dateOfProcedure} )
+              ( exists $mapping->{mapping}{dateOfProcedure}
+                  && defined $mapping->{mapping}{dateOfProcedure} )
               ? dot_date2iso(
-                $participant->{ $mapping->{map}{dateOfProcedure} } )
+                $participant->{ $mapping->{mapping}{dateOfProcedure} } )
               : $default_date;
 
             $intervention->{procedureCode} = map_ontology(
                 {
-                    query => exists $mapping->{dict}{$field}
-                    ? $mapping->{dict}{$field}
+                    query => exists $mapping->{dictionary}{$field}
+                    ? $mapping->{dictionary}{$field}
                     : $field,
                     column   => 'label',
                     ontology => $mapping->{ontology},
@@ -378,8 +393,8 @@ sub do_redcap2bff {
 
         $measure->{assayCode} = map_ontology(
             {
-                query => exists $mapping->{dict}{$field}
-                ? $mapping->{dict}{$field}
+                query => exists $mapping->{dictionary}{$field}
+                ? $mapping->{dictionary}{$field}
                 : $field,
                 column   => 'label',
                 ontology => $mapping->{ontology},
@@ -409,8 +424,8 @@ sub do_redcap2bff {
 
         my $unit = map_ontology(
             {
-                query => exists $mapping->{dict}{$tmp_str}
-                ? $mapping->{dict}{$tmp_str}
+                query => exists $mapping->{dictionary}{$tmp_str}
+                ? $mapping->{dictionary}{$tmp_str}
                 : $tmp_str,
                 column   => 'label',
                 ontology => $mapping->{ontology},
@@ -507,8 +522,8 @@ sub do_redcap2bff {
 
             $phenotypicFeature->{featureType} = map_ontology(
                 {
-                    query => exists $mapping->{dict}{$tmp_var}
-                    ? $mapping->{dict}{$tmp_var}
+                    query => exists $mapping->{dictionary}{$tmp_var}
+                    ? $mapping->{dictionary}{$tmp_var}
                     : $tmp_var,
                     column   => 'label',
                     ontology => $mapping->{ontology},
@@ -559,8 +574,8 @@ sub do_redcap2bff {
 
         # Getting the right name for the drug (if any)
         my $treatment_name =
-          exists $mapping->{dict}{$field}
-          ? $mapping->{dict}{$field}
+          exists $mapping->{dictionary}{$field}
+          ? $mapping->{dictionary}{$field}
           : $field;
 
         # FOR ROUTES

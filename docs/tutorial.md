@@ -30,18 +30,18 @@ This page provides brief tutorials on how to perform data conversion by using `C
     | Type        | Required    | Required properties | Optional properties |
     | ----------- | ----------- | ------------------- | ------------------- |
     | Internal    | `project`   | `id, source, ontology` | ` description` |
-    | Beacon v2 terms   | `diseases, exposures, id, info, interventionsOrProcedures, measures, phenotypicFeatures, sex, treatments` | `fields`| `dict, map, radio, ontology, routesOfAdministration` |
+    | Beacon v2 terms   | `diseases, exposures, id, info, interventionsOrProcedures, measures, phenotypicFeatures, sex, treatments` | `fields`| `dictionary, mapping, selector, ontology, routesOfAdministration` |
 
      * These are the properties needeed to map your data to the entity `individuals` in the Beacon v2 Models:
+        - **dictionary**, is an `object` in the form of `key: value`. The `key` represents the original variable name in REDCap and the `value` represents the "phrase" that will be used to query a database to find an ontology candidate. For instance, you may have a variable named `cigarettes_days`, but you know that in [NCIt](https://www.ebi.ac.uk/ols/ontologies/ncit) the label is `Average Number Cigarettes Smoked a Day`. In this case you will use `cigarettes_days: Average Number Cigarettes Smoked a Day`.
         - **fields**, is an `array` consisting of the name of the REDCap variables that map to that Beacon v2 term.
-        - **map**, is an `object` in the form of `key: value` that we use to map our Beacon v2 objects to REDCap variables. For instance, you may have a field named `age_first_diagnosis` that it's called `ageOgOnset` on Beacon v2. In this case you will use `ageOfOnset: age_first_diagnosis`.
-        - **dict**, is an `object` in the form of `key: value`. The `key` represents the original variable name in REDCap and the `value` represents the "phrase" that will be used to query a database to find an ontology candidate. For instance, you may have a variable named `cigarettes_days`, but you know that in [NCIt](https://www.ebi.ac.uk/ols/ontologies/ncit) the label is `Average Number Cigarettes Smoked a Day`. In this case you will use `cigarettes_days: Average Number Cigarettes Smoked a Day`.
-        - **radio**, a nested `object` value with specific mappings.
+        - **mapping**, is an `object` in the form of `key: value` that we use to map our Beacon v2 objects to REDCap variables. For instance, you may have a field named `age_first_diagnosis` that it's called `ageOgOnset` on Beacon v2. In this case you will use `ageOfOnset: age_first_diagnosis`.
+        - **selector**, a nested `object` value with specific mappings.
         - **ontology**, it's an `string` to define more granularly the ontology for this particular Beacon v2 term. If not present, the script will use that from `project.ontology`.
         - **routesOfAdministration**, an `array` with specific mappings for `treatments`.
 
-    ??? Tip "Defining the values in the property `dict`"
-        Before assigning values to `dict` it's important that you think about which ontologies you want to use. The field `project.ontology` defines the ontology for the whole project, but you can also specify a another antology at the Beacon v2 term level. Once you know which ontologies to use, then try searching for such term to get an accorate label for it. For example, if you have chosen `ncit`, you can search for the values within NCIt at [EBI Search](https://www.ebi.ac.uk/ols/ontologies/ncit). `Convert-Pheno` will use these values to retrieve the actual ontology from its internal databases.
+    ??? Tip "Defining the values in the property `dictionary`"
+        Before assigning values to `dictionary` it's important that you think about which ontologies you want to use. The field `project.ontology` defines the ontology for the whole project, but you can also specify a another antology at the Beacon v2 term level. Once you know which ontologies to use, then try searching for such term to get an accorate label for it. For example, if you have chosen `ncit`, you can search for the values within NCIt at [EBI Search](https://www.ebi.ac.uk/ols/ontologies/ncit). `Convert-Pheno` will use these values to retrieve the actual ontology from its internal databases.
 
     ??? Abstract "About text similarity in database searches"
         `Convert-Pheno` comes with a few pre-configured databases and it will search for ontologies there. Two two types of searches can be performed:

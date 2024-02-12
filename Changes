@@ -4,6 +4,11 @@ Revision history for Perl distribution Convert-Pheno
 
  - Updated docs
  - Updated resources in PXF.pm
+ - Added {info}{REDCap_columns} to REDCap.pm
+ - Renamed keys in REDCap mapping (schema|src|files):
+   o radio -> selector
+   o dict  -> dictionary 
+   o map   -> mapping
 
 0.17 2024-02-03T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 

@@ -15,7 +15,7 @@
   # Term: diseases
   diseases:
     fields: [Inflammatory Bowel Disease]
-    map:
+    mapping:
       ageOfOnset: age_first_diagnosis
       familyHistory: family_history
 
@@ -25,21 +25,20 @@
   # Term: exposures
   exposures: 
     fields: [alcohol,smoking,cigarettes_days,cigarettes_years,packyears,smoking_quit]
-    dict:
+    dictionary:
       alcohol: Alcohol
       smoking: Smoking
       cigarettes_days: Average Number Cigarettes Smoked a Day
       cigarettes_years: Total Years Have Smoked Cigarettes
       packyears: Pack Year
       smoking_quit: Smoking Cessation Year
-    radio:
+    selector:
       #alcohol;anamnesis;;radio;Alcohol drinking habits";"0, Non-drinker | 1, Ex-drinker | 2, occasional drinking | 3, regular drinking | 4, unknown";;;;;;;y;;;;;
       #smoking;anamnesis;;radio;"Smoking habits";"0, Never smoked | 1, Ex-smoker | 2, Current smoker";;;;;;;y;;;;;
       #cigarettes_days;anamnesis;;text;"On average, how many cigarettes do/did you smoke per day?";;;integer;0;300;;"[smoking] = '2' or [smoking] = '1'";;;;;;
       #cigarettes_years;anamnesis;;text;"For how many years have you been smoking/did you smoke?";;;integer;0;100;;"[smoking] = '2' or [smoking] = '1'";;;;;;
       #packyears;anamnesis;;text;"Pack Years";;;integer;0;300;;"[smoking] = '2' or [smoking] = '1'";;;;;;
       #smoking_quit;anamnesis;;text;"When did you quit smoking?";;year;integer;1980;2030;;"[smoking] = '2'";;;;;;
-      # radio
       smoking:
         Never smoked: Never Smoker
         Ex-smoker: Former Smoker
@@ -61,13 +60,13 @@
   # Term: info
   info:
    fields: [study_id,dob,diet,redcap_event_name,age,first_name,last_name,consent,consent_date,consent_noneu,consent_devices,consent_recontact,consent_week2_endo,education,zipcode,consents_and_demographics_complete]
-   map:
+   mapping:
      studyId: study_id
 
   # Term: interventionsOrProcedures
   interventionsOrProcedures: 
     fields: [surgery_details___1,surgery_details___2,surgery_details___3,surgery_details___4,surgery_details___5,surgery_details___6,surgery_details___7,surgery_details___8,surgery_details___99,endoscopy_performed,endoscopy_complete,endoscopy_date,intestinal_surgery,partial_mayo,complete_mayo,prev_endosc_dilatation]
-    dict:
+    dictionary:
       surgery_details___1: Ileocolectomy
       surgery_details___2: Colostomy
       surgery_details___3: Ileostomy
@@ -78,7 +77,7 @@
       surgery_details___8: Strictureplasty
       surgery_details___99: Other
       endoscopy_peformed: Gastrointestinal Endoscopy
-    map:
+    mapping:
       dateOfProcedure: endoscopy_date
 
   # Term: karyotypicSex
@@ -87,7 +86,7 @@
   # Term: measures
   measures: 
     fields: [leucocytes,hemoglobin,hematokrit,mcv,mhc,thrombocytes,neutrophils,lymphocytes,eosinophils,creatinine,gfr,bilirubin,gpt,ggt,lipase,crp,iron,il6,calprotectin,nancy_index_acute,nancy_index_chronic,nancy_index_ulceration,endo_mayo]
-    dict:
+    dictionary:
       # Unit
       xx.xx /10^-9 l: Cells per Microliter
       x.xx /10^-9 l: Cells per Microliter
@@ -142,7 +141,7 @@
   phenotypicFeatures: 
     fields: [comorb_asthma,comorb_copd,comorb_ms,comorb_sle,comorb_ra,comorb_pso,comorb_ad,comorb_cancer,comorb_cancer_specified,comorb_hypertension,comorb_diabetes,comorb_lipids,comorb_stroke,comorb_other_ai,comorb_other_ai_specified,immunodeficiency,rectal_bleeding]
     ontology: ncit
-    dict:
+    dictionary:
       atopic dermatitis: eczema
       cancer: Cancer Patient
       COPD: Chronic Obstructive Pulmonary Disease
@@ -156,7 +155,7 @@
   # Term: treatments
   treatments:
     fields: [budesonide,prednisolone,asa,aza,mtx,mp]
-    dict:
+    dictionary:
       aza: azathioprine
       asa: aspirin 
       mtx: methotrexate

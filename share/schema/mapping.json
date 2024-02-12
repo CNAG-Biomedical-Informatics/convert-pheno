@@ -94,13 +94,13 @@
             "type": "string"
           }
         },
-        "dict": {
+        "dictionary": {
           "type": "object",
           "additionalProperties": {
             "type": "string"
           }
         },
-        "radio": {
+        "selector": {
           "type": "object",
           "additionalProperties": {
             "type": "object"
@@ -122,7 +122,7 @@
             "hpo"
           ]
         },
-        "map": {
+        "mapping": {
           "type": "object",
           "additionalProperties": {
             "type": "string"
