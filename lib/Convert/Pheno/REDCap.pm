@@ -68,6 +68,7 @@ sub do_redcap2bff {
     #         'age' => 2,
     #         'age_first_diagnosis' => 0,
     #         'alcohol' => 4,
+    #          ...
     #        }
     print Dumper $redcap_dict
       if ( defined $self->{debug} && $self->{debug} > 4 );
@@ -100,16 +101,13 @@ sub do_redcap2bff {
       unless ( defined $participant->{$studyId_field}
         && $participant->{$sex_field} );
 
-    # Data structure (hashref) for each individual
-    my $individual;
-
-    # Default ontology for a bunch of required terms
-    my $default_ontology = { id => 'NCIT:NA0000', label => 'NA' };
-
-    # More default values
-    my $default_date     = '1900-01-01';
-    my $default_duration = 'P999Y';
-    my $default_age      = { age => { iso8601duration => 'P999Y' } };
+    # Default values to be used accross the module
+    my %default = (
+        ontology => { id => 'NCIT:NA0000', label => 'NA' },
+        date     => '1900-01-01',
+        duration => 'P999Y',
+        age      => { age => { iso8601duration => 'P999Y' } }
+    );
 
     # Variable that will allow to perform ad hoc changes for specific projects
     my $project_id = $mapping_file->{project}{id};
@@ -123,6 +121,9 @@ sub do_redcap2bff {
 
     my $project_ontology = $mapping_file->{project}{ontology};
 
+    # Data structure (hashref) for each individual
+    my $individual;
+
     # NB: We don't need to initialize (unless required)
     # e.g.,
     # $individual->{diseases} = undef;
@@ -133,16 +134,18 @@ sub do_redcap2bff {
     # **********************
     # *** IMPORTANT STEP ***
     # **********************
-    # Loading fields that must to be mapped to redcap_dict in bulk
+    # Loading in bulk fields that must to be mapped to redcap_dict
+    # i.e., with defined $redcap_dict->{$_}{_labels}
     my @fields2map =
       grep { defined $redcap_dict->{$_}{_labels} } sort keys %{$redcap_dict};
 
-    # Perform the mapping for this participant
+    # Perform map2redcap_dict for this participant's fields2map
     for my $field (@fields2map) {
 
         # *** IMPORTANT ***
         # First we keep track of the original value (in case need it)
         # as $field . '_ori'
+        # NB: If the file is not defined it will still appear as null at @info
 
         if ( defined $participant->{$field} ) {
             $participant->{ $field . '_ori' } = $participant->{$field};
@@ -194,8 +197,8 @@ sub do_redcap2bff {
             && defined $participant->{ $mapping->{mapping}{familyHistory} } );
 
         #$disease->{notes}    = undef;
-        $disease->{severity} = $default_ontology;
-        $disease->{stage}    = $default_ontology;
+        $disease->{severity} = $default{ontology};
+        $disease->{stage}    = $default{ontology};
 
         push @{ $individual->{diseases} }, $disease
           if defined $disease->{diseaseCode};
@@ -228,15 +231,13 @@ sub do_redcap2bff {
               && defined $participant->{ $mapping->{mapping}{ageAtExposure} } )
           ? map_age_range(
             $participant->{ $mapping->{mapping}{ageAtExposure} } )
-          : $default_age;
-        $exposure->{date} =
-          exists $mapping->{mapping}{date}
-          ? $participant->{ $mapping->{mapping}{date} }
-          : $default_date;
-        $exposure->{duration} =
-          exists $mapping->{mapping}{duration}
-          ? $participant->{ $mapping->{mapping}{duration} }
-          : $default_duration;
+          : $default{age};
+
+         for my $item (qw/date duration/) { 
+          $exposure->{$item} = exists $mapping->{mapping}{$item}
+          ? $participant->{ $mapping->{mapping}{$item} }
+          : $default{$item};
+         }
 
         # Query related
         my $exposure_query =
@@ -349,7 +350,7 @@ sub do_redcap2bff {
                   && defined $mapping->{mapping}{ageAtProcedure} )
               ? map_age_range(
                 $participant->{ $mapping->{mapping}{ageAtProcedure} } )
-              : $default_age;
+              : $default{age};
 
             $intervention->{bodySite} =
               { "id" => "NCIT:C12736", "label" => "intestine" }
@@ -360,7 +361,7 @@ sub do_redcap2bff {
                   && defined $mapping->{mapping}{dateOfProcedure} )
               ? dot_date2iso(
                 $participant->{ $mapping->{mapping}{dateOfProcedure} } )
-              : $default_date;
+              : $default{date};
 
             $intervention->{procedureCode} = map_ontology(
                 {
@@ -406,7 +407,7 @@ sub do_redcap2bff {
                 self     => $self,
             }
         );
-        $measure->{date} = $default_date;
+        $measure->{date} = $default{date};
 
         # We first extract 'unit' and %range' for <measurementValue>
         my $tmp_str = map2redcap_dict(
@@ -618,9 +619,9 @@ sub do_redcap2bff {
                 map { $_ => $participant->{ $field . $_ } }
                   qw(start dose duration)
             };    # ***** INTERNAL FIELD
-            $treatment->{ageAtOnset} = $default_age;
+            $treatment->{ageAtOnset} = $default{age};
             $treatment->{cumulativeDose} =
-              { unit => $default_ontology, value => -1 };
+              { unit => $default{ontology}, value => -1 };
             $treatment->{doseIntervals}         = [];
             $treatment->{routeOfAdministration} = map_ontology(
                 {

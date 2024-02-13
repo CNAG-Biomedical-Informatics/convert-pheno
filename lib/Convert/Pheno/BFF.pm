@@ -25,8 +25,10 @@ sub do_bff2pxf {
     # Validate format
     die "Are you sure that your input is not already a pxf?\n" unless validate_format($bff, 'bff');
 
-    # Define defaults
-    my $default_timestamp = '1900-01-01T00:00:00Z';
+    # Default values to be used accross the module
+    my %default = (
+        timestamp => '1900-01-01T00:00:00Z'
+    );
 
     #########################################
     # START MAPPING TO PHENOPACKET V2 TERMS #
@@ -147,7 +149,7 @@ sub do_bff2pxf {
                 performed => {
                     timestamp => exists $_->{dateOfProcedure}
                     ? _map2iso8601( $_->{dateOfProcedure} )
-                    : $default_timestamp
+                    : $default{timestamp}
                 }
             }
         }

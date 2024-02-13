@@ -229,9 +229,11 @@ sub get_ontology {
     #    2 - contains
     #       for which we rank by similarity with Text:Similarity
 
-    my $default_id =
-      $ontology eq 'hpo' ? 'HP:NA0000' : uc($ontology) . ':NA0000';
-    my $default_label = 'NA';
+    # Default values to be used accross the module
+    my %default = (
+        id    => $ontology eq 'hpo' ? 'HP:NA0000' : uc($ontology) . ':NA0000',
+        label => 'NA'
+    );
 
     # exact_match (always performed)
     my ( $id, $label ) = execute_query_SQLite(
@@ -260,8 +262,8 @@ sub get_ontology {
     }
 
     # Set defaults if undefined
-    $id    = $id    // $default_id;
-    $label = $label // $default_label;
+    $id    = $id    // $default{id};
+    $label = $label // $default{label};
 
     #############
     # END QUERY #

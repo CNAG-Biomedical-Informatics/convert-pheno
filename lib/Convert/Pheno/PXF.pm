@@ -66,16 +66,18 @@ sub do_pxf2bff {
         $phenopacket->{metaData} = delete $phenopacket->{meta_data};
     }
 
-    # Define defaults
-    my $default_date            = '1900-01-01';
-    my $default_duration        = 'P999Y';
-    my $default_value           = -1;
-    my $default_timestamp       = '1900-01-01T00:00:00Z';
-    my $default_iso8601duration = { iso8601duration => $default_duration };
-    my $default_ontology        = { id => 'NCIT:NA0000', label => 'NA' };
-    my $default_quantity        = {
-        unit  => $default_ontology,
-        value => $default_value
+    # Default values to be used accross the module
+    my %default = (
+        ontology  => { id => 'NCIT:NA0000', label => 'NA' },
+        date      => '1900-01-01',
+        duration  => 'P999Y',
+        value     => -1,
+        timestamp => '1900-01-01T00:00:00Z',
+    );
+    $default{iso8601duration} = { iso8601duration => $default{duration} };
+    $default{quantity}        = {
+        unit  => $default{ontology},
+        value => $default{value}
     };
 
     ####################################
@@ -134,10 +136,10 @@ sub do_pxf2bff {
               substr( $exposure->{occurrence}{timestamp}, 0, 10 );
 
             # Required properties
-            $exposure->{ageAtExposure} = $default_iso8601duration;
-            $exposure->{duration}      = $default_duration;
+            $exposure->{ageAtExposure} = $default{iso8601duration};
+            $exposure->{duration}      = $default{duration};
             unless ( exists $exposure->{unit} ) {
-                $exposure->{unit} = $default_ontology;
+                $exposure->{unit} = $default{ontology};
             }
 
             # Clean analog terms if exist
@@ -193,11 +195,11 @@ sub do_pxf2bff {
                 $procedure->{procedureCode} =
                   exists $action->{procedure}{code}
                   ? $action->{procedure}{code}
-                  : $default_ontology;
+                  : $default{ontology};
                 $procedure->{ageOfProcedure} =
                   exists $action->{procedure}{performed}
                   ? $action->{procedure}{performed}
-                  : $default_timestamp;
+                  : $default{timestamp};
 
                 # Clean analog terms if exist
                 for (qw/code performed/) {
@@ -235,7 +237,7 @@ sub do_pxf2bff {
             $measure->{measurementValue} =
                 exists $measure->{value}        ? $measure->{value}
               : exists $measure->{complexValue} ? $measure->{complexValue}
-              :                                   $default_value;
+              :                                   $default{value};
             $measure->{observationMoment} = $measure->{timeObserved}
               if exists $measure->{timeObserved};
 
@@ -308,7 +310,7 @@ sub do_pxf2bff {
                 $treatment->{treatmentCode} =
                   exists $action->{treatment}{agent}
                   ? $action->{treatment}{agent}
-                  : $default_ontology;
+                  : $default{ontology};
 
                 # Clean analog terms if exist
                 delete $treatment->{agent}
@@ -325,12 +327,12 @@ sub do_pxf2bff {
 
                         # quantity
                         unless ( exists $_->{quantity} ) {
-                            $_->{quantity} = $default_quantity;
+                            $_->{quantity} = $default{quantity};
                         }
 
                         #scheduleFrequency
                         unless ( exists $_->{scheduleFrequency} ) {
-                            $_->{scheduleFrequency} = $default_ontology;
+                            $_->{scheduleFrequency} = $default{ontology};
                         }
                     }
                 }
