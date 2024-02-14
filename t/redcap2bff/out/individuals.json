@@ -49,7 +49,7 @@
                "id" : "NCIT:C17998",
                "label" : "Unknown"
             },
-            "value" : 4
+            "value" : -1
          },
          {
             "_info" : "smoking",
@@ -68,7 +68,7 @@
                "id" : "NCIT:C65108",
                "label" : "Never Smoker"
             },
-            "value" : 0
+            "value" : -1
          }
       ],
       "id" : "107:week_0_arm_1",
@@ -3792,7 +3792,7 @@
                "id" : "NCIT:C126379",
                "label" : "Non-Drinker"
             },
-            "value" : 0
+            "value" : -1
          },
          {
             "_info" : "smoking",
@@ -3811,7 +3811,7 @@
                "id" : "NCIT:C65108",
                "label" : "Never Smoker"
             },
-            "value" : 0
+            "value" : -1
          }
       ],
       "id" : "125:week_0_arm_1",
@@ -10696,7 +10696,7 @@
                "id" : "NCIT:C156821",
                "label" : "Alcohol Consumption More than 2 Drinks per Day for Men and More than 1 Drink per Day for Women"
             },
-            "value" : 3
+            "value" : -1
          },
          {
             "_info" : "smoking",
@@ -10715,7 +10715,7 @@
                "id" : "NCIT:C67148",
                "label" : "Former Smoker"
             },
-            "value" : 1
+            "value" : -1
          }
       ],
       "id" : "215:week_0_arm_1",
@@ -18102,7 +18102,7 @@
                "id" : "NCIT:C17998",
                "label" : "Unknown"
             },
-            "value" : 4
+            "value" : -1
          },
          {
             "_info" : "smoking",
@@ -18121,7 +18121,7 @@
                "id" : "NCIT:C65108",
                "label" : "Never Smoker"
             },
-            "value" : 0
+            "value" : -1
          }
       ],
       "id" : "257:week_0_arm_1",
@@ -23640,7 +23640,7 @@
                "id" : "NCIT:C156821",
                "label" : "Alcohol Consumption More than 2 Drinks per Day for Men and More than 1 Drink per Day for Women"
             },
-            "value" : 3
+            "value" : -1
          },
          {
             "_info" : "smoking",
@@ -23659,7 +23659,7 @@
                "id" : "NCIT:C65108",
                "label" : "Never Smoker"
             },
-            "value" : 0
+            "value" : -1
          }
       ],
       "id" : "275:week_0_arm_1",
@@ -28769,7 +28769,7 @@
                "id" : "NCIT:C156821",
                "label" : "Alcohol Consumption More than 2 Drinks per Day for Men and More than 1 Drink per Day for Women"
             },
-            "value" : 3
+            "value" : -1
          },
          {
             "_info" : "smoking",
@@ -28788,7 +28788,7 @@
                "id" : "NCIT:C67147",
                "label" : "Current Smoker"
             },
-            "value" : 2
+            "value" : -1
          },
          {
             "_info" : "packyears",
@@ -28807,7 +28807,7 @@
                "id" : "NCIT:C73993",
                "label" : "Pack Year"
             },
-            "value" : -1
+            "value" : 4
          }
       ],
       "id" : "305:week_0_arm_1",
@@ -32613,7 +32613,7 @@
                "id" : "NCIT:C156821",
                "label" : "Alcohol Consumption More than 2 Drinks per Day for Men and More than 1 Drink per Day for Women"
             },
-            "value" : 3
+            "value" : -1
          },
          {
             "_info" : "smoking",
@@ -32632,7 +32632,7 @@
                "id" : "NCIT:C67148",
                "label" : "Former Smoker"
             },
-            "value" : 1
+            "value" : -1
          }
       ],
       "id" : "365:week_0_arm_1",
@@ -38749,7 +38749,7 @@
                "id" : "NCIT:C17998",
                "label" : "Unknown"
             },
-            "value" : 4
+            "value" : -1
          },
          {
             "_info" : "smoking",
@@ -38768,7 +38768,7 @@
                "id" : "NCIT:C65108",
                "label" : "Never Smoker"
             },
-            "value" : 0
+            "value" : -1
          }
       ],
       "id" : "527:week_0_arm_1",

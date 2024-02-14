@@ -14,7 +14,11 @@ This page provides brief tutorials on how to perform data conversion by using `C
 
     This section provides a summary of the steps to convert a REDCap project to Phenopackets v2. 
 
-    * The starting point is to log in to your REDCap system and export the data to CSV format. If you need more information on REDCap, we recommend consulting the comprehensive [documentation](https://confluence.research.cchmc.org/display/CCTSTRED/Cincinnati+REDCap+Resource+Center) provided by the Cincinnati Children's Hospital Medical Center.
+    * The starting point is to log in to your REDCap system and export the data to CSV / Microsoft Excel (raw data) format. If you need more information on REDCap, we recommend consulting the comprehensive [documentation](https://confluence.research.cchmc.org/display/CCTSTRED/Cincinnati+REDCap+Resource+Center) provided by the Cincinnati Children's Hospital Medical Center.
+
+    ??? Note "Can I export CSV / Microsoft Excel (labels) file?"
+
+        You can export it for you as as a reference, but as Feb-2024 `Convert-Pheno` works only with raw data.
 
     * After exporting the data, you must also download the REDCap dictionary in CSV format. This can be done within REDCap by navigating to `Project Setup/Data Dictionary/Download the current`.
 

@@ -262,13 +262,13 @@ sub do_redcap2bff {
         # We first extract 'unit' that supposedly will be used in in
         # <measurementValue> and <referenceRange>??
         # Load selector fields
-        my $subkey = exists $mapping->{selector}{$field} ? $field : 'dummy';
+        my $subkey = exists $mapping->{selector}{$field} ? $field : undef;
         my $unit   = map_ontology(
             {
                 # order on the ternary operator matters
                 # 1 - Check for subkey
                 # 2 - Check for field
-                query => $subkey ne 'dummy'
+                query => defined $subkey
 
                   #  selector.alcohol.Never smoked =>  Never Smoker
                 ? $mapping->{selector}{$field}{ $participant->{$subkey} }
@@ -279,7 +279,7 @@ sub do_redcap2bff {
             }
         );
         $exposure->{unit}  = $unit;
-        $exposure->{value} = $participant->{ $field . '_ori' } // -1;
+        $exposure->{value} =  looks_like_number($participant->{$field}) ? $participant->{$field} : -1;
         push @{ $individual->{exposures} }, $exposure
           if defined $exposure->{exposureCode};
     }

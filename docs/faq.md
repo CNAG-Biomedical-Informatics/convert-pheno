@@ -86,6 +86,13 @@ Frequently Asked Questions
 
     ##### last change 2024-02-06 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
+??? faq "Should I export my REDCap project as _raw data_ or as _labels_ to be used with `Convert-Pheno`?"
+
+    `Convert-Pheno` only accepts as a redcap input **CSV / Microsoft Excel (raw data)** exports, accompanied by the respective dictionary file. See more info [here](https://cnag-biomedical-informatics.github.io/convert-pheno/tutorial/#how-to-convert).
+
+    ##### last change 2024-02-14 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
+
+
 ## Analytics
 
 ??? faq "How can I obtain statistics from the `individuals.json` file if I'm not familiar with `JSON` format? Any suggestions?"
