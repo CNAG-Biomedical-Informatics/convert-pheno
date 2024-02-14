@@ -17,7 +17,7 @@ use Convert::Pheno::SQLite;
 binmode STDOUT, ':encoding(utf-8)';
 use Exporter 'import';
 our @EXPORT =
-  qw(map_ethnicity map_ontology dotify_and_coerce_number iso8601_time _map2iso8601 map_reference_range map_age_range map2redcap_dict map2ohdsi convert2boolean find_age randStr map_operator_concept_id map_info_field map_omop_visit_occurrence dot_date2iso remap_mapping_hash validate_format);
+  qw(map_ethnicity map_ontology dotify_and_coerce_number iso8601_time _map2iso8601 map_reference_range map_age_range map2redcap_dict map2ohdsi convert2boolean find_age randStr map_operator_concept_id map_info_field map_omop_visit_occurrence dot_date2iso remap_mapping_hash_term validate_format);
 
 use constant DEVEL_MODE => 0;
 
@@ -425,11 +425,11 @@ sub is_multidimensional {
     return ref shift ? 1 : 0;
 }
 
-sub remap_mapping_hash {
+sub remap_mapping_hash_term {
 
     my ( $mapping_file, $term ) = @_;
     my %hash_out = map {
-            $_, exists $mapping_file->{$term}{$_}
+          $_ => exists $mapping_file->{$term}{$_}
           ? $mapping_file->{$term}{$_}
           : undef
     } (qw/fields dictionary mapping selector/);

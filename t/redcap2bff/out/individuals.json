@@ -33,6 +33,7 @@
       },
       "exposures" : [
          {
+            "_info" : "alcohol",
             "ageAtExposure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -51,6 +52,7 @@
             "value" : 4
          },
          {
+            "_info" : "smoking",
             "ageAtExposure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -685,6 +687,109 @@
       },
       "interventionsOrProcedures" : [
          {
+            "_info" : "surgery_details___1",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-02-01",
+            "procedureCode" : {
+               "id" : "NCIT:C51793",
+               "label" : "Ileocolectomy"
+            }
+         },
+         {
+            "_info" : "surgery_details___2",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-02-01",
+            "procedureCode" : {
+               "id" : "NCIT:C15211",
+               "label" : "Colostomy"
+            }
+         },
+         {
+            "_info" : "surgery_details___3",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-02-01",
+            "procedureCode" : {
+               "id" : "NCIT:C15257",
+               "label" : "Ileostomy"
+            }
+         },
+         {
+            "_info" : "surgery_details___4",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-02-01",
+            "procedureCode" : {
+               "id" : "NCIT:C157858",
+               "label" : "Fistula Repair"
+            }
+         },
+         {
+            "_info" : "surgery_details___5",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-02-01",
+            "procedureCode" : {
+               "id" : "NCIT:C15209",
+               "label" : "Colectomy"
+            }
+         },
+         {
+            "_info" : "surgery_details___6",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-02-01",
+            "procedureCode" : {
+               "id" : "NCIT:C86074",
+               "label" : "Hemicolectomy"
+            }
+         },
+         {
+            "_info" : "surgery_details___7",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -701,6 +806,41 @@
             }
          },
          {
+            "_info" : "surgery_details___8",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-02-01",
+            "procedureCode" : {
+               "id" : "NCIT:C157993",
+               "label" : "Strictureplasty"
+            }
+         },
+         {
+            "_info" : "surgery_details___99",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-02-01",
+            "procedureCode" : {
+               "id" : "NCIT:C17649",
+               "label" : "Other"
+            }
+         },
+         {
+            "_info" : "endoscopy_performed",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -714,6 +854,40 @@
             "procedureCode" : {
                "id" : "NCIT:C78162",
                "label" : "Gastrointestinal Endoscopy"
+            }
+         },
+         {
+            "_info" : "endoscopy_complete",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-02-01",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "intestinal_surgery",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-02-01",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             }
          }
       ],
@@ -2085,6 +2259,7 @@
       },
       "interventionsOrProcedures" : [
          {
+            "_info" : "endoscopy_performed",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -2101,6 +2276,24 @@
             }
          },
          {
+            "_info" : "endoscopy_complete",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-07-12",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "intestinal_surgery",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -3094,6 +3287,42 @@
          "redcap_event_name" : "week_2_arm_1",
          "study_id" : "107"
       },
+      "interventionsOrProcedures" : [
+         {
+            "_info" : "endoscopy_complete",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "1900-01-01",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "intestinal_surgery",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "1900-01-01",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
       "measures" : [
          {
             "assayCode" : {
@@ -3547,6 +3776,7 @@
       },
       "exposures" : [
          {
+            "_info" : "alcohol",
             "ageAtExposure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -3565,6 +3795,7 @@
             "value" : 0
          },
          {
+            "_info" : "smoking",
             "ageAtExposure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -4198,6 +4429,160 @@
       },
       "interventionsOrProcedures" : [
          {
+            "_info" : "surgery_details___1",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2020-11-16",
+            "procedureCode" : {
+               "id" : "NCIT:C51793",
+               "label" : "Ileocolectomy"
+            }
+         },
+         {
+            "_info" : "surgery_details___2",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2020-11-16",
+            "procedureCode" : {
+               "id" : "NCIT:C15211",
+               "label" : "Colostomy"
+            }
+         },
+         {
+            "_info" : "surgery_details___3",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2020-11-16",
+            "procedureCode" : {
+               "id" : "NCIT:C15257",
+               "label" : "Ileostomy"
+            }
+         },
+         {
+            "_info" : "surgery_details___4",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2020-11-16",
+            "procedureCode" : {
+               "id" : "NCIT:C157858",
+               "label" : "Fistula Repair"
+            }
+         },
+         {
+            "_info" : "surgery_details___5",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2020-11-16",
+            "procedureCode" : {
+               "id" : "NCIT:C15209",
+               "label" : "Colectomy"
+            }
+         },
+         {
+            "_info" : "surgery_details___6",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2020-11-16",
+            "procedureCode" : {
+               "id" : "NCIT:C86074",
+               "label" : "Hemicolectomy"
+            }
+         },
+         {
+            "_info" : "surgery_details___7",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2020-11-16",
+            "procedureCode" : {
+               "id" : "NCIT:C157823",
+               "label" : "Colon Resection"
+            }
+         },
+         {
+            "_info" : "surgery_details___8",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2020-11-16",
+            "procedureCode" : {
+               "id" : "NCIT:C157993",
+               "label" : "Strictureplasty"
+            }
+         },
+         {
+            "_info" : "surgery_details___99",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2020-11-16",
+            "procedureCode" : {
+               "id" : "NCIT:C17649",
+               "label" : "Other"
+            }
+         },
+         {
+            "_info" : "endoscopy_performed",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -4214,6 +4599,24 @@
             }
          },
          {
+            "_info" : "endoscopy_complete",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2020-11-16",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "intestinal_surgery",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -5494,6 +5897,7 @@
       },
       "interventionsOrProcedures" : [
          {
+            "_info" : "endoscopy_performed",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -5510,6 +5914,24 @@
             }
          },
          {
+            "_info" : "endoscopy_complete",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-03-13",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "intestinal_surgery",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -6505,6 +6927,41 @@
       },
       "interventionsOrProcedures" : [
          {
+            "_info" : "endoscopy_performed",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "1900-01-01",
+            "procedureCode" : {
+               "id" : "NCIT:C78162",
+               "label" : "Gastrointestinal Endoscopy"
+            }
+         },
+         {
+            "_info" : "endoscopy_complete",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "1900-01-01",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "intestinal_surgery",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -7498,6 +7955,42 @@
          "redcap_event_name" : "week_26_arm_1",
          "study_id" : "125"
       },
+      "interventionsOrProcedures" : [
+         {
+            "_info" : "endoscopy_complete",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "1900-01-01",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "intestinal_surgery",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "1900-01-01",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
       "measures" : [
          {
             "assayCode" : {
@@ -8391,6 +8884,7 @@
       },
       "interventionsOrProcedures" : [
          {
+            "_info" : "endoscopy_performed",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -8407,6 +8901,24 @@
             }
          },
          {
+            "_info" : "endoscopy_complete",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-08-25",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "intestinal_surgery",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -9555,6 +10067,42 @@
          "redcap_event_name" : "week_78_arm_1",
          "study_id" : "125"
       },
+      "interventionsOrProcedures" : [
+         {
+            "_info" : "endoscopy_complete",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "1900-01-01",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "intestinal_surgery",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "1900-01-01",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
       "measures" : [
          {
             "assayCode" : {
@@ -10132,6 +10680,7 @@
       },
       "exposures" : [
          {
+            "_info" : "alcohol",
             "ageAtExposure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -10150,6 +10699,7 @@
             "value" : 3
          },
          {
+            "_info" : "smoking",
             "ageAtExposure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -10787,6 +11337,92 @@
       },
       "interventionsOrProcedures" : [
          {
+            "_info" : "surgery_details___1",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2020-12-14",
+            "procedureCode" : {
+               "id" : "NCIT:C51793",
+               "label" : "Ileocolectomy"
+            }
+         },
+         {
+            "_info" : "surgery_details___2",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2020-12-14",
+            "procedureCode" : {
+               "id" : "NCIT:C15211",
+               "label" : "Colostomy"
+            }
+         },
+         {
+            "_info" : "surgery_details___3",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2020-12-14",
+            "procedureCode" : {
+               "id" : "NCIT:C15257",
+               "label" : "Ileostomy"
+            }
+         },
+         {
+            "_info" : "surgery_details___4",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2020-12-14",
+            "procedureCode" : {
+               "id" : "NCIT:C157858",
+               "label" : "Fistula Repair"
+            }
+         },
+         {
+            "_info" : "surgery_details___5",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2020-12-14",
+            "procedureCode" : {
+               "id" : "NCIT:C15209",
+               "label" : "Colectomy"
+            }
+         },
+         {
+            "_info" : "surgery_details___6",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -10803,6 +11439,58 @@
             }
          },
          {
+            "_info" : "surgery_details___7",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2020-12-14",
+            "procedureCode" : {
+               "id" : "NCIT:C157823",
+               "label" : "Colon Resection"
+            }
+         },
+         {
+            "_info" : "surgery_details___8",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2020-12-14",
+            "procedureCode" : {
+               "id" : "NCIT:C157993",
+               "label" : "Strictureplasty"
+            }
+         },
+         {
+            "_info" : "surgery_details___99",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2020-12-14",
+            "procedureCode" : {
+               "id" : "NCIT:C17649",
+               "label" : "Other"
+            }
+         },
+         {
+            "_info" : "endoscopy_performed",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -10819,6 +11507,7 @@
             }
          },
          {
+            "_info" : "endoscopy_complete",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -10835,6 +11524,7 @@
             }
          },
          {
+            "_info" : "intestinal_surgery",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -10851,6 +11541,24 @@
             }
          },
          {
+            "_info" : "partial_mayo",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2020-12-14",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "complete_mayo",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -12259,6 +12967,7 @@
       },
       "interventionsOrProcedures" : [
          {
+            "_info" : "endoscopy_performed",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -12275,6 +12984,7 @@
             }
          },
          {
+            "_info" : "endoscopy_complete",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -12291,6 +13001,7 @@
             }
          },
          {
+            "_info" : "intestinal_surgery",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -12307,6 +13018,24 @@
             }
          },
          {
+            "_info" : "partial_mayo",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-05-29",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "complete_mayo",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -13426,6 +14155,24 @@
       },
       "interventionsOrProcedures" : [
          {
+            "_info" : "endoscopy_performed",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "1900-01-01",
+            "procedureCode" : {
+               "id" : "NCIT:C78162",
+               "label" : "Gastrointestinal Endoscopy"
+            }
+         },
+         {
+            "_info" : "endoscopy_complete",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -13442,6 +14189,24 @@
             }
          },
          {
+            "_info" : "intestinal_surgery",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "1900-01-01",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "partial_mayo",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -14406,6 +15171,41 @@
       },
       "interventionsOrProcedures" : [
          {
+            "_info" : "endoscopy_complete",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "1900-01-01",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "intestinal_surgery",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "1900-01-01",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "partial_mayo",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -15376,6 +16176,7 @@
       },
       "interventionsOrProcedures" : [
          {
+            "_info" : "endoscopy_performed",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -15392,6 +16193,7 @@
             }
          },
          {
+            "_info" : "endoscopy_complete",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -15408,6 +16210,41 @@
             }
          },
          {
+            "_info" : "intestinal_surgery",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2022-03-03",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "partial_mayo",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2022-03-03",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "complete_mayo",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -16681,6 +17518,59 @@
          "redcap_event_name" : "week_78_arm_1",
          "study_id" : "215"
       },
+      "interventionsOrProcedures" : [
+         {
+            "_info" : "endoscopy_complete",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "1900-01-01",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "intestinal_surgery",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "1900-01-01",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "partial_mayo",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "1900-01-01",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
       "measures" : [
          {
             "assayCode" : {
@@ -17196,6 +18086,7 @@
       },
       "exposures" : [
          {
+            "_info" : "alcohol",
             "ageAtExposure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -17214,6 +18105,7 @@
             "value" : 4
          },
          {
+            "_info" : "smoking",
             "ageAtExposure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -17848,6 +18740,160 @@
       },
       "interventionsOrProcedures" : [
          {
+            "_info" : "surgery_details___1",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-10-28",
+            "procedureCode" : {
+               "id" : "NCIT:C51793",
+               "label" : "Ileocolectomy"
+            }
+         },
+         {
+            "_info" : "surgery_details___2",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-10-28",
+            "procedureCode" : {
+               "id" : "NCIT:C15211",
+               "label" : "Colostomy"
+            }
+         },
+         {
+            "_info" : "surgery_details___3",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-10-28",
+            "procedureCode" : {
+               "id" : "NCIT:C15257",
+               "label" : "Ileostomy"
+            }
+         },
+         {
+            "_info" : "surgery_details___4",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-10-28",
+            "procedureCode" : {
+               "id" : "NCIT:C157858",
+               "label" : "Fistula Repair"
+            }
+         },
+         {
+            "_info" : "surgery_details___5",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-10-28",
+            "procedureCode" : {
+               "id" : "NCIT:C15209",
+               "label" : "Colectomy"
+            }
+         },
+         {
+            "_info" : "surgery_details___6",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-10-28",
+            "procedureCode" : {
+               "id" : "NCIT:C86074",
+               "label" : "Hemicolectomy"
+            }
+         },
+         {
+            "_info" : "surgery_details___7",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-10-28",
+            "procedureCode" : {
+               "id" : "NCIT:C157823",
+               "label" : "Colon Resection"
+            }
+         },
+         {
+            "_info" : "surgery_details___8",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-10-28",
+            "procedureCode" : {
+               "id" : "NCIT:C157993",
+               "label" : "Strictureplasty"
+            }
+         },
+         {
+            "_info" : "surgery_details___99",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-10-28",
+            "procedureCode" : {
+               "id" : "NCIT:C17649",
+               "label" : "Other"
+            }
+         },
+         {
+            "_info" : "endoscopy_performed",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -17864,6 +18910,7 @@
             }
          },
          {
+            "_info" : "endoscopy_complete",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -17880,6 +18927,7 @@
             }
          },
          {
+            "_info" : "intestinal_surgery",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -17896,6 +18944,24 @@
             }
          },
          {
+            "_info" : "partial_mayo",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-10-28",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "complete_mayo",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -19464,6 +20530,24 @@
       },
       "interventionsOrProcedures" : [
          {
+            "_info" : "endoscopy_performed",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "1900-01-01",
+            "procedureCode" : {
+               "id" : "NCIT:C78162",
+               "label" : "Gastrointestinal Endoscopy"
+            }
+         },
+         {
+            "_info" : "endoscopy_complete",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -19480,6 +20564,24 @@
             }
          },
          {
+            "_info" : "intestinal_surgery",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "1900-01-01",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "partial_mayo",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -20630,6 +21732,24 @@
       },
       "interventionsOrProcedures" : [
          {
+            "_info" : "endoscopy_performed",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "1900-01-01",
+            "procedureCode" : {
+               "id" : "NCIT:C78162",
+               "label" : "Gastrointestinal Endoscopy"
+            }
+         },
+         {
+            "_info" : "endoscopy_complete",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -20646,6 +21766,24 @@
             }
          },
          {
+            "_info" : "intestinal_surgery",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "1900-01-01",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "partial_mayo",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -21794,6 +22932,59 @@
          "redcap_event_name" : "week_26_arm_1",
          "study_id" : "257"
       },
+      "interventionsOrProcedures" : [
+         {
+            "_info" : "endoscopy_complete",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "1900-01-01",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "intestinal_surgery",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "1900-01-01",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "partial_mayo",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "1900-01-01",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
       "measures" : [
          {
             "assayCode" : {
@@ -22433,6 +23624,7 @@
       },
       "exposures" : [
          {
+            "_info" : "alcohol",
             "ageAtExposure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -22451,6 +23643,7 @@
             "value" : 3
          },
          {
+            "_info" : "smoking",
             "ageAtExposure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -23088,6 +24281,160 @@
       },
       "interventionsOrProcedures" : [
          {
+            "_info" : "surgery_details___1",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-01-04",
+            "procedureCode" : {
+               "id" : "NCIT:C51793",
+               "label" : "Ileocolectomy"
+            }
+         },
+         {
+            "_info" : "surgery_details___2",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-01-04",
+            "procedureCode" : {
+               "id" : "NCIT:C15211",
+               "label" : "Colostomy"
+            }
+         },
+         {
+            "_info" : "surgery_details___3",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-01-04",
+            "procedureCode" : {
+               "id" : "NCIT:C15257",
+               "label" : "Ileostomy"
+            }
+         },
+         {
+            "_info" : "surgery_details___4",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-01-04",
+            "procedureCode" : {
+               "id" : "NCIT:C157858",
+               "label" : "Fistula Repair"
+            }
+         },
+         {
+            "_info" : "surgery_details___5",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-01-04",
+            "procedureCode" : {
+               "id" : "NCIT:C15209",
+               "label" : "Colectomy"
+            }
+         },
+         {
+            "_info" : "surgery_details___6",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-01-04",
+            "procedureCode" : {
+               "id" : "NCIT:C86074",
+               "label" : "Hemicolectomy"
+            }
+         },
+         {
+            "_info" : "surgery_details___7",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-01-04",
+            "procedureCode" : {
+               "id" : "NCIT:C157823",
+               "label" : "Colon Resection"
+            }
+         },
+         {
+            "_info" : "surgery_details___8",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-01-04",
+            "procedureCode" : {
+               "id" : "NCIT:C157993",
+               "label" : "Strictureplasty"
+            }
+         },
+         {
+            "_info" : "surgery_details___99",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-01-04",
+            "procedureCode" : {
+               "id" : "NCIT:C17649",
+               "label" : "Other"
+            }
+         },
+         {
+            "_info" : "endoscopy_performed",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -23104,6 +24451,7 @@
             }
          },
          {
+            "_info" : "endoscopy_complete",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -23120,6 +24468,7 @@
             }
          },
          {
+            "_info" : "intestinal_surgery",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -23136,6 +24485,24 @@
             }
          },
          {
+            "_info" : "partial_mayo",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-01-04",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "complete_mayo",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -24540,6 +25907,7 @@
       },
       "interventionsOrProcedures" : [
          {
+            "_info" : "endoscopy_performed",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -24556,6 +25924,7 @@
             }
          },
          {
+            "_info" : "endoscopy_complete",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -24572,6 +25941,41 @@
             }
          },
          {
+            "_info" : "intestinal_surgery",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-04-19",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "partial_mayo",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-04-19",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "complete_mayo",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -25568,6 +26972,24 @@
       },
       "interventionsOrProcedures" : [
          {
+            "_info" : "endoscopy_performed",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "1900-01-01",
+            "procedureCode" : {
+               "id" : "NCIT:C78162",
+               "label" : "Gastrointestinal Endoscopy"
+            }
+         },
+         {
+            "_info" : "endoscopy_complete",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -25584,6 +27006,24 @@
             }
          },
          {
+            "_info" : "intestinal_surgery",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "1900-01-01",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "partial_mayo",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -26496,6 +27936,7 @@
       },
       "interventionsOrProcedures" : [
          {
+            "_info" : "endoscopy_performed",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -26512,6 +27953,7 @@
             }
          },
          {
+            "_info" : "endoscopy_complete",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -26528,6 +27970,41 @@
             }
          },
          {
+            "_info" : "intestinal_surgery",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2022-08-13",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "partial_mayo",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2022-08-13",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "complete_mayo",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -27276,6 +28753,7 @@
       },
       "exposures" : [
          {
+            "_info" : "alcohol",
             "ageAtExposure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -27294,6 +28772,7 @@
             "value" : 3
          },
          {
+            "_info" : "smoking",
             "ageAtExposure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -27312,6 +28791,7 @@
             "value" : 2
          },
          {
+            "_info" : "packyears",
             "ageAtExposure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -27947,6 +29427,58 @@
       },
       "interventionsOrProcedures" : [
          {
+            "_info" : "surgery_details___1",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-01-04",
+            "procedureCode" : {
+               "id" : "NCIT:C51793",
+               "label" : "Ileocolectomy"
+            }
+         },
+         {
+            "_info" : "surgery_details___2",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-01-04",
+            "procedureCode" : {
+               "id" : "NCIT:C15211",
+               "label" : "Colostomy"
+            }
+         },
+         {
+            "_info" : "surgery_details___3",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-01-04",
+            "procedureCode" : {
+               "id" : "NCIT:C15257",
+               "label" : "Ileostomy"
+            }
+         },
+         {
+            "_info" : "surgery_details___4",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -27963,6 +29495,92 @@
             }
          },
          {
+            "_info" : "surgery_details___5",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-01-04",
+            "procedureCode" : {
+               "id" : "NCIT:C15209",
+               "label" : "Colectomy"
+            }
+         },
+         {
+            "_info" : "surgery_details___6",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-01-04",
+            "procedureCode" : {
+               "id" : "NCIT:C86074",
+               "label" : "Hemicolectomy"
+            }
+         },
+         {
+            "_info" : "surgery_details___7",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-01-04",
+            "procedureCode" : {
+               "id" : "NCIT:C157823",
+               "label" : "Colon Resection"
+            }
+         },
+         {
+            "_info" : "surgery_details___8",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-01-04",
+            "procedureCode" : {
+               "id" : "NCIT:C157993",
+               "label" : "Strictureplasty"
+            }
+         },
+         {
+            "_info" : "surgery_details___99",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-01-04",
+            "procedureCode" : {
+               "id" : "NCIT:C17649",
+               "label" : "Other"
+            }
+         },
+         {
+            "_info" : "endoscopy_performed",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -27979,6 +29597,7 @@
             }
          },
          {
+            "_info" : "endoscopy_complete",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -27995,6 +29614,7 @@
             }
          },
          {
+            "_info" : "intestinal_surgery",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -29302,6 +30922,42 @@
          "redcap_event_name" : "week_26_arm_1",
          "study_id" : "305"
       },
+      "interventionsOrProcedures" : [
+         {
+            "_info" : "endoscopy_complete",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "1900-01-01",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "intestinal_surgery",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "1900-01-01",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
       "measures" : [
          {
             "assayCode" : {
@@ -30282,6 +31938,41 @@
       },
       "interventionsOrProcedures" : [
          {
+            "_info" : "endoscopy_performed",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "1900-01-01",
+            "procedureCode" : {
+               "id" : "NCIT:C78162",
+               "label" : "Gastrointestinal Endoscopy"
+            }
+         },
+         {
+            "_info" : "endoscopy_complete",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "1900-01-01",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "intestinal_surgery",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -30906,6 +32597,7 @@
       },
       "exposures" : [
          {
+            "_info" : "alcohol",
             "ageAtExposure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -30924,6 +32616,7 @@
             "value" : 3
          },
          {
+            "_info" : "smoking",
             "ageAtExposure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -31562,6 +33255,160 @@
       },
       "interventionsOrProcedures" : [
          {
+            "_info" : "surgery_details___1",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-01-05",
+            "procedureCode" : {
+               "id" : "NCIT:C51793",
+               "label" : "Ileocolectomy"
+            }
+         },
+         {
+            "_info" : "surgery_details___2",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-01-05",
+            "procedureCode" : {
+               "id" : "NCIT:C15211",
+               "label" : "Colostomy"
+            }
+         },
+         {
+            "_info" : "surgery_details___3",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-01-05",
+            "procedureCode" : {
+               "id" : "NCIT:C15257",
+               "label" : "Ileostomy"
+            }
+         },
+         {
+            "_info" : "surgery_details___4",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-01-05",
+            "procedureCode" : {
+               "id" : "NCIT:C157858",
+               "label" : "Fistula Repair"
+            }
+         },
+         {
+            "_info" : "surgery_details___5",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-01-05",
+            "procedureCode" : {
+               "id" : "NCIT:C15209",
+               "label" : "Colectomy"
+            }
+         },
+         {
+            "_info" : "surgery_details___6",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-01-05",
+            "procedureCode" : {
+               "id" : "NCIT:C86074",
+               "label" : "Hemicolectomy"
+            }
+         },
+         {
+            "_info" : "surgery_details___7",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-01-05",
+            "procedureCode" : {
+               "id" : "NCIT:C157823",
+               "label" : "Colon Resection"
+            }
+         },
+         {
+            "_info" : "surgery_details___8",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-01-05",
+            "procedureCode" : {
+               "id" : "NCIT:C157993",
+               "label" : "Strictureplasty"
+            }
+         },
+         {
+            "_info" : "surgery_details___99",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-01-05",
+            "procedureCode" : {
+               "id" : "NCIT:C17649",
+               "label" : "Other"
+            }
+         },
+         {
+            "_info" : "endoscopy_performed",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -31578,6 +33425,7 @@
             }
          },
          {
+            "_info" : "endoscopy_complete",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -31594,6 +33442,7 @@
             }
          },
          {
+            "_info" : "intestinal_surgery",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -31610,6 +33459,24 @@
             }
          },
          {
+            "_info" : "partial_mayo",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-01-05",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "complete_mayo",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -32984,6 +34851,7 @@
       },
       "interventionsOrProcedures" : [
          {
+            "_info" : "endoscopy_performed",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -33000,6 +34868,7 @@
             }
          },
          {
+            "_info" : "endoscopy_complete",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -33016,6 +34885,41 @@
             }
          },
          {
+            "_info" : "intestinal_surgery",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-04-16",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "partial_mayo",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-04-16",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "complete_mayo",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -34043,6 +35947,24 @@
       },
       "interventionsOrProcedures" : [
          {
+            "_info" : "endoscopy_performed",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "1900-01-01",
+            "procedureCode" : {
+               "id" : "NCIT:C78162",
+               "label" : "Gastrointestinal Endoscopy"
+            }
+         },
+         {
+            "_info" : "endoscopy_complete",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -34059,6 +35981,24 @@
             }
          },
          {
+            "_info" : "intestinal_surgery",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "1900-01-01",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "partial_mayo",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -35053,6 +36993,59 @@
          "redcap_event_name" : "week_26_arm_1",
          "study_id" : "365"
       },
+      "interventionsOrProcedures" : [
+         {
+            "_info" : "endoscopy_complete",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "1900-01-01",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "intestinal_surgery",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "1900-01-01",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "partial_mayo",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "1900-01-01",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
       "measures" : [
          {
             "assayCode" : {
@@ -36064,6 +38057,58 @@
       },
       "interventionsOrProcedures" : [
          {
+            "_info" : "endoscopy_performed",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "1900-01-01",
+            "procedureCode" : {
+               "id" : "NCIT:C78162",
+               "label" : "Gastrointestinal Endoscopy"
+            }
+         },
+         {
+            "_info" : "endoscopy_complete",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "1900-01-01",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "intestinal_surgery",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "1900-01-01",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "partial_mayo",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -36688,6 +38733,7 @@
       },
       "exposures" : [
          {
+            "_info" : "alcohol",
             "ageAtExposure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -36706,6 +38752,7 @@
             "value" : 4
          },
          {
+            "_info" : "smoking",
             "ageAtExposure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -37341,6 +39388,160 @@
       },
       "interventionsOrProcedures" : [
          {
+            "_info" : "surgery_details___1",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-04-12",
+            "procedureCode" : {
+               "id" : "NCIT:C51793",
+               "label" : "Ileocolectomy"
+            }
+         },
+         {
+            "_info" : "surgery_details___2",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-04-12",
+            "procedureCode" : {
+               "id" : "NCIT:C15211",
+               "label" : "Colostomy"
+            }
+         },
+         {
+            "_info" : "surgery_details___3",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-04-12",
+            "procedureCode" : {
+               "id" : "NCIT:C15257",
+               "label" : "Ileostomy"
+            }
+         },
+         {
+            "_info" : "surgery_details___4",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-04-12",
+            "procedureCode" : {
+               "id" : "NCIT:C157858",
+               "label" : "Fistula Repair"
+            }
+         },
+         {
+            "_info" : "surgery_details___5",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-04-12",
+            "procedureCode" : {
+               "id" : "NCIT:C15209",
+               "label" : "Colectomy"
+            }
+         },
+         {
+            "_info" : "surgery_details___6",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-04-12",
+            "procedureCode" : {
+               "id" : "NCIT:C86074",
+               "label" : "Hemicolectomy"
+            }
+         },
+         {
+            "_info" : "surgery_details___7",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-04-12",
+            "procedureCode" : {
+               "id" : "NCIT:C157823",
+               "label" : "Colon Resection"
+            }
+         },
+         {
+            "_info" : "surgery_details___8",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-04-12",
+            "procedureCode" : {
+               "id" : "NCIT:C157993",
+               "label" : "Strictureplasty"
+            }
+         },
+         {
+            "_info" : "surgery_details___99",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-04-12",
+            "procedureCode" : {
+               "id" : "NCIT:C17649",
+               "label" : "Other"
+            }
+         },
+         {
+            "_info" : "endoscopy_performed",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -37357,6 +39558,41 @@
             }
          },
          {
+            "_info" : "endoscopy_complete",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-04-12",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "intestinal_surgery",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-04-12",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "prev_endosc_dilatation",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -38897,6 +41133,7 @@
       },
       "interventionsOrProcedures" : [
          {
+            "_info" : "endoscopy_performed",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -38913,6 +41150,24 @@
             }
          },
          {
+            "_info" : "endoscopy_complete",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "2021-09-06",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "intestinal_surgery",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"
@@ -39806,6 +42061,25 @@
          "redcap_event_name" : "week_2_arm_1",
          "study_id" : "527"
       },
+      "interventionsOrProcedures" : [
+         {
+            "_info" : "endoscopy_complete",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "1900-01-01",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
       "measures" : [
          {
             "assayCode" : {
@@ -40775,6 +43049,42 @@
          "redcap_event_name" : "week_26_arm_1",
          "study_id" : "527"
       },
+      "interventionsOrProcedures" : [
+         {
+            "_info" : "endoscopy_complete",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "1900-01-01",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "intestinal_surgery",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "1900-01-01",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
       "measures" : [
          {
             "assayCode" : {
@@ -41817,6 +44127,41 @@
       },
       "interventionsOrProcedures" : [
          {
+            "_info" : "endoscopy_performed",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "1900-01-01",
+            "procedureCode" : {
+               "id" : "NCIT:C78162",
+               "label" : "Gastrointestinal Endoscopy"
+            }
+         },
+         {
+            "_info" : "endoscopy_complete",
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C12736",
+               "label" : "intestine"
+            },
+            "dateOfProcedure" : "1900-01-01",
+            "procedureCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "_info" : "intestinal_surgery",
             "ageAtProcedure" : {
                "age" : {
                   "iso8601duration" : "P999Y"

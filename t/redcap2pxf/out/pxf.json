@@ -324,6 +324,72 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C51793",
+                  "label" : "Ileocolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-02-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15211",
+                  "label" : "Colostomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-02-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15257",
+                  "label" : "Ileostomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-02-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157858",
+                  "label" : "Fistula Repair"
+               },
+               "performed" : {
+                  "timestamp" : "2021-02-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15209",
+                  "label" : "Colectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-02-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C86074",
+                  "label" : "Hemicolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-02-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:C157823",
                   "label" : "Colon Resection"
                },
@@ -335,8 +401,52 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C157993",
+                  "label" : "Strictureplasty"
+               },
+               "performed" : {
+                  "timestamp" : "2021-02-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C17649",
+                  "label" : "Other"
+               },
+               "performed" : {
+                  "timestamp" : "2021-02-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:C78162",
                   "label" : "Gastrointestinal Endoscopy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-02-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "2021-02-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
                },
                "performed" : {
                   "timestamp" : "2021-02-01T00:00:00Z"
@@ -898,6 +1008,17 @@
                   "timestamp" : "2021-07-12T00:00:00Z"
                }
             }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "2021-07-12T00:00:00Z"
+               }
+            }
          }
       ],
       "metaData" : null,
@@ -1226,6 +1347,30 @@
                      "label" : "Nanogram per Liter"
                   },
                   "value" : 2.37
+               }
+            }
+         }
+      ],
+      "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
                }
             }
          }
@@ -1573,8 +1718,118 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C51793",
+                  "label" : "Ileocolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2020-11-16T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15211",
+                  "label" : "Colostomy"
+               },
+               "performed" : {
+                  "timestamp" : "2020-11-16T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15257",
+                  "label" : "Ileostomy"
+               },
+               "performed" : {
+                  "timestamp" : "2020-11-16T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157858",
+                  "label" : "Fistula Repair"
+               },
+               "performed" : {
+                  "timestamp" : "2020-11-16T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15209",
+                  "label" : "Colectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2020-11-16T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C86074",
+                  "label" : "Hemicolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2020-11-16T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157823",
+                  "label" : "Colon Resection"
+               },
+               "performed" : {
+                  "timestamp" : "2020-11-16T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157993",
+                  "label" : "Strictureplasty"
+               },
+               "performed" : {
+                  "timestamp" : "2020-11-16T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C17649",
+                  "label" : "Other"
+               },
+               "performed" : {
+                  "timestamp" : "2020-11-16T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:C78162",
                   "label" : "Gastrointestinal Endoscopy"
+               },
+               "performed" : {
+                  "timestamp" : "2020-11-16T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
                },
                "performed" : {
                   "timestamp" : "2020-11-16T00:00:00Z"
@@ -2056,6 +2311,17 @@
                   "timestamp" : "2021-03-13T00:00:00Z"
                }
             }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "2021-03-13T00:00:00Z"
+               }
+            }
          }
       ],
       "metaData" : null,
@@ -2389,6 +2655,28 @@
          }
       ],
       "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C78162",
+                  "label" : "Gastrointestinal Endoscopy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
          {
             "procedure" : {
                "code" : {
@@ -2727,6 +3015,30 @@
                      "label" : "Nanogram per Liter"
                   },
                   "value" : 3.43
+               }
+            }
+         }
+      ],
+      "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
                }
             }
          }
@@ -3198,6 +3510,17 @@
                   "timestamp" : "2021-08-25T00:00:00Z"
                }
             }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "2021-08-25T00:00:00Z"
+               }
+            }
          }
       ],
       "metaData" : null,
@@ -3618,6 +3941,30 @@
                      "label" : "Nanogram per Liter"
                   },
                   "value" : 3.77
+               }
+            }
+         }
+      ],
+      "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
                }
             }
          }
@@ -4057,6 +4404,61 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C51793",
+                  "label" : "Ileocolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2020-12-14T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15211",
+                  "label" : "Colostomy"
+               },
+               "performed" : {
+                  "timestamp" : "2020-12-14T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15257",
+                  "label" : "Ileostomy"
+               },
+               "performed" : {
+                  "timestamp" : "2020-12-14T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157858",
+                  "label" : "Fistula Repair"
+               },
+               "performed" : {
+                  "timestamp" : "2020-12-14T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15209",
+                  "label" : "Colectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2020-12-14T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:C86074",
                   "label" : "Hemicolectomy"
                },
@@ -4068,8 +4470,52 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C157823",
+                  "label" : "Colon Resection"
+               },
+               "performed" : {
+                  "timestamp" : "2020-12-14T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157993",
+                  "label" : "Strictureplasty"
+               },
+               "performed" : {
+                  "timestamp" : "2020-12-14T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C17649",
+                  "label" : "Other"
+               },
+               "performed" : {
+                  "timestamp" : "2020-12-14T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:C78162",
                   "label" : "Gastrointestinal Endoscopy"
+               },
+               "performed" : {
+                  "timestamp" : "2020-12-14T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
                },
                "performed" : {
                   "timestamp" : "2020-12-14T00:00:00Z"
@@ -4687,6 +5133,17 @@
                   "timestamp" : "2021-05-29T00:00:00Z"
                }
             }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "2021-05-29T00:00:00Z"
+               }
+            }
          }
       ],
       "metaData" : null,
@@ -4997,6 +5454,28 @@
          }
       ],
       "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C78162",
+                  "label" : "Gastrointestinal Endoscopy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
          {
             "procedure" : {
                "code" : {
@@ -5328,6 +5807,28 @@
          }
       ],
       "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
          {
             "procedure" : {
                "code" : {
@@ -5910,6 +6411,28 @@
                   "timestamp" : "2022-03-03T00:00:00Z"
                }
             }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "2022-03-03T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "2022-03-03T00:00:00Z"
+               }
+            }
          }
       ],
       "metaData" : null,
@@ -6284,6 +6807,41 @@
                      "label" : "Nanogram per Liter"
                   },
                   "value" : 3.44
+               }
+            }
+         }
+      ],
+      "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
                }
             }
          }
@@ -6769,8 +7327,118 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C51793",
+                  "label" : "Ileocolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-10-28T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15211",
+                  "label" : "Colostomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-10-28T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15257",
+                  "label" : "Ileostomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-10-28T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157858",
+                  "label" : "Fistula Repair"
+               },
+               "performed" : {
+                  "timestamp" : "2021-10-28T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15209",
+                  "label" : "Colectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-10-28T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C86074",
+                  "label" : "Hemicolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-10-28T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157823",
+                  "label" : "Colon Resection"
+               },
+               "performed" : {
+                  "timestamp" : "2021-10-28T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157993",
+                  "label" : "Strictureplasty"
+               },
+               "performed" : {
+                  "timestamp" : "2021-10-28T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C17649",
+                  "label" : "Other"
+               },
+               "performed" : {
+                  "timestamp" : "2021-10-28T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:C78162",
                   "label" : "Gastrointestinal Endoscopy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-10-28T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
                },
                "performed" : {
                   "timestamp" : "2021-10-28T00:00:00Z"
@@ -7462,6 +8130,28 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C78162",
+                  "label" : "Gastrointestinal Endoscopy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
@@ -7928,6 +8618,28 @@
          }
       ],
       "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C78162",
+                  "label" : "Gastrointestinal Endoscopy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
          {
             "procedure" : {
                "code" : {
@@ -8419,6 +9131,41 @@
             }
          }
       ],
+      "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         }
+      ],
       "metaData" : null,
       "phenotypicFeatures" : [
          {
@@ -8854,8 +9601,118 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C51793",
+                  "label" : "Ileocolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-01-04T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15211",
+                  "label" : "Colostomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-01-04T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15257",
+                  "label" : "Ileostomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-01-04T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157858",
+                  "label" : "Fistula Repair"
+               },
+               "performed" : {
+                  "timestamp" : "2021-01-04T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15209",
+                  "label" : "Colectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-01-04T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C86074",
+                  "label" : "Hemicolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-01-04T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157823",
+                  "label" : "Colon Resection"
+               },
+               "performed" : {
+                  "timestamp" : "2021-01-04T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157993",
+                  "label" : "Strictureplasty"
+               },
+               "performed" : {
+                  "timestamp" : "2021-01-04T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C17649",
+                  "label" : "Other"
+               },
+               "performed" : {
+                  "timestamp" : "2021-01-04T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:C78162",
                   "label" : "Gastrointestinal Endoscopy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-01-04T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
                },
                "performed" : {
                   "timestamp" : "2021-01-04T00:00:00Z"
@@ -9370,6 +10227,28 @@
                   "timestamp" : "2021-04-19T00:00:00Z"
                }
             }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "2021-04-19T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "2021-04-19T00:00:00Z"
+               }
+            }
          }
       ],
       "metaData" : null,
@@ -9703,6 +10582,28 @@
          }
       ],
       "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C78162",
+                  "label" : "Gastrointestinal Endoscopy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
          {
             "procedure" : {
                "code" : {
@@ -10296,6 +11197,28 @@
                   "timestamp" : "2022-08-13T00:00:00Z"
                }
             }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "2022-08-13T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "2022-08-13T00:00:00Z"
+               }
+            }
          }
       ],
       "metaData" : null,
@@ -10664,8 +11587,96 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C51793",
+                  "label" : "Ileocolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-01-04T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15211",
+                  "label" : "Colostomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-01-04T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15257",
+                  "label" : "Ileostomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-01-04T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:C157858",
                   "label" : "Fistula Repair"
+               },
+               "performed" : {
+                  "timestamp" : "2021-01-04T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15209",
+                  "label" : "Colectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-01-04T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C86074",
+                  "label" : "Hemicolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-01-04T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157823",
+                  "label" : "Colon Resection"
+               },
+               "performed" : {
+                  "timestamp" : "2021-01-04T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157993",
+                  "label" : "Strictureplasty"
+               },
+               "performed" : {
+                  "timestamp" : "2021-01-04T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C17649",
+                  "label" : "Other"
                },
                "performed" : {
                   "timestamp" : "2021-01-04T00:00:00Z"
@@ -11147,6 +12158,30 @@
             }
          }
       ],
+      "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         }
+      ],
       "metaData" : null,
       "phenotypicFeatures" : [
          {
@@ -11596,6 +12631,28 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C78162",
+                  "label" : "Gastrointestinal Endoscopy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
@@ -12017,8 +13074,118 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C51793",
+                  "label" : "Ileocolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-01-05T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15211",
+                  "label" : "Colostomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-01-05T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15257",
+                  "label" : "Ileostomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-01-05T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157858",
+                  "label" : "Fistula Repair"
+               },
+               "performed" : {
+                  "timestamp" : "2021-01-05T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15209",
+                  "label" : "Colectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-01-05T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C86074",
+                  "label" : "Hemicolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-01-05T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157823",
+                  "label" : "Colon Resection"
+               },
+               "performed" : {
+                  "timestamp" : "2021-01-05T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157993",
+                  "label" : "Strictureplasty"
+               },
+               "performed" : {
+                  "timestamp" : "2021-01-05T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C17649",
+                  "label" : "Other"
+               },
+               "performed" : {
+                  "timestamp" : "2021-01-05T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:C78162",
                   "label" : "Gastrointestinal Endoscopy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-01-05T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
                },
                "performed" : {
                   "timestamp" : "2021-01-05T00:00:00Z"
@@ -12556,6 +13723,28 @@
                   "timestamp" : "2021-04-16T00:00:00Z"
                }
             }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "2021-04-16T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "2021-04-16T00:00:00Z"
+               }
+            }
          }
       ],
       "metaData" : null,
@@ -12889,6 +14078,28 @@
          }
       ],
       "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C78162",
+                  "label" : "Gastrointestinal Endoscopy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
          {
             "procedure" : {
                "code" : {
@@ -13261,6 +14472,41 @@
                      "label" : "Microgram per Kilogram"
                   },
                   "value" : 21
+               }
+            }
+         }
+      ],
+      "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
                }
             }
          }
@@ -13711,6 +14957,39 @@
          }
       ],
       "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C78162",
+                  "label" : "Gastrointestinal Endoscopy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
          {
             "procedure" : {
                "code" : {
@@ -14181,8 +15460,129 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C51793",
+                  "label" : "Ileocolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-04-12T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15211",
+                  "label" : "Colostomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-04-12T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15257",
+                  "label" : "Ileostomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-04-12T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157858",
+                  "label" : "Fistula Repair"
+               },
+               "performed" : {
+                  "timestamp" : "2021-04-12T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15209",
+                  "label" : "Colectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-04-12T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C86074",
+                  "label" : "Hemicolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-04-12T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157823",
+                  "label" : "Colon Resection"
+               },
+               "performed" : {
+                  "timestamp" : "2021-04-12T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157993",
+                  "label" : "Strictureplasty"
+               },
+               "performed" : {
+                  "timestamp" : "2021-04-12T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C17649",
+                  "label" : "Other"
+               },
+               "performed" : {
+                  "timestamp" : "2021-04-12T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:C78162",
                   "label" : "Gastrointestinal Endoscopy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-04-12T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "2021-04-12T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
                },
                "performed" : {
                   "timestamp" : "2021-04-12T00:00:00Z"
@@ -14755,6 +16155,17 @@
                   "timestamp" : "2021-09-06T00:00:00Z"
                }
             }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "2021-09-06T00:00:00Z"
+               }
+            }
          }
       ],
       "metaData" : null,
@@ -15083,6 +16494,19 @@
                      "label" : "Nanogram per Liter"
                   },
                   "value" : 3.17
+               }
+            }
+         }
+      ],
+      "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
                }
             }
          }
@@ -15450,6 +16874,30 @@
                      "label" : "Nanogram per Liter"
                   },
                   "value" : 3.45
+               }
+            }
+         }
+      ],
+      "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
                }
             }
          }
@@ -15900,6 +17348,28 @@
          }
       ],
       "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C78162",
+                  "label" : "Gastrointestinal Endoscopy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
          {
             "procedure" : {
                "code" : {

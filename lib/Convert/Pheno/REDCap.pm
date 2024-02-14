@@ -170,7 +170,7 @@ sub do_redcap2bff {
     # NB: Inflamatory Bowel Disease --- Note the 2 mm in infla-mm-atory
 
     # Load hashref with cursors for mapping
-    my $mapping = remap_mapping_hash( $mapping_file, 'diseases' );
+    my $mapping = remap_mapping_hash_term( $mapping_file, 'diseases' );
 
     # Start looping over them
     for my $field ( @{ $mapping->{fields} } ) {
@@ -190,11 +190,14 @@ sub do_redcap2bff {
                 self     => $self
             }
         );
-        $disease->{familyHistory} =
-          convert2boolean(
-            $participant->{ $mapping->{mapping}{familyHistory} } )
-          if ( exists $mapping->{mapping}{familyHistory}
-            && defined $participant->{ $mapping->{mapping}{familyHistory} } );
+        if ( exists $mapping->{mapping}{familyHistory}
+            && defined $participant->{ $mapping->{mapping}{familyHistory} } )
+        {
+            my $family_history = convert2boolean(
+                $participant->{ $mapping->{mapping}{familyHistory} } );
+            $disease->{familyHistory} = $family_history
+              if defined $family_history;
+        }
 
         #$disease->{notes}    = undef;
         $disease->{severity} = $default{ontology};
@@ -220,7 +223,7 @@ sub do_redcap2bff {
     #$individual->{exposures} = undef;
 
     # Load hashref with cursors for mapping
-    $mapping = remap_mapping_hash( $mapping_file, 'exposures' );
+    $mapping = remap_mapping_hash_term( $mapping_file, 'exposures' );
 
     for my $field ( @{ $mapping->{fields} } ) {
         next unless defined $participant->{$field};
@@ -253,9 +256,12 @@ sub do_redcap2bff {
             }
         );
 
+        # Ad hoc term to check $field
+        $exposure->{_info} = $field;
+
         # We first extract 'unit' that supposedly will be used in in
         # <measurementValue> and <referenceRange>??
-        #  e.g. selector.alcohol ? alcohol
+        # Load selector fields
         my $subkey = exists $mapping->{selector}{$field} ? $field : 'dummy';
         my $unit   = map_ontology(
             {
@@ -297,7 +303,7 @@ sub do_redcap2bff {
     # ====
 
     # Load hashref with cursors for mapping
-    $mapping = remap_mapping_hash( $mapping_file, 'info' );
+    $mapping = remap_mapping_hash_term( $mapping_file, 'info' );
 
     for my $field ( @{ $mapping->{fields} } ) {
         if ( defined $participant->{$field} ) {
@@ -333,12 +339,13 @@ sub do_redcap2bff {
     #$individual->{interventionsOrProcedures} = [];
 
     # Load hashref with cursors for mapping
-    $mapping = remap_mapping_hash( $mapping_file, 'interventionsOrProcedures' );
+    $mapping =
+      remap_mapping_hash_term( $mapping_file, 'interventionsOrProcedures' );
 
     for my $field ( @{ $mapping->{fields} } ) {
-        if ( $participant->{$field} ) {
+        if ( defined $participant->{$field} ) {
 
-             my $intervention;
+            my $intervention;
 
             $intervention->{ageAtProcedure} =
               ( exists $mapping->{mapping}{ageAtProcedure}
@@ -347,8 +354,10 @@ sub do_redcap2bff {
                 $participant->{ $mapping->{mapping}{ageAtProcedure} } )
               : $default{age};
 
-            $intervention->{bodySite} = { "id" => "NCIT:C12736", "label" => "intestine" } if $project_id eq '3tr_ibd' ;
-
+            $intervention->{bodySite} =
+              $project_id eq '3tr_ibd'
+              ? { "id" => "NCIT:C12736", "label" => "intestine" }
+              : $default{ontology};
             $intervention->{dateOfProcedure} =
               ( exists $mapping->{mapping}{dateOfProcedure}
                   && defined $mapping->{mapping}{dateOfProcedure} )
@@ -356,14 +365,21 @@ sub do_redcap2bff {
                 $participant->{ $mapping->{mapping}{dateOfProcedure} } )
               : $default{date};
 
+            # Ad hoc term to check $field
+            $intervention->{_info} = $field;
+
+            # Load selector fields
+            my $subkey = exists $mapping->{selector}{$field} ? $field : undef;
             $intervention->{procedureCode} = map_ontology(
                 {
-                    query =>  exists_mapping_dictionary_field( $mapping, $field ),
+                    query => defined $subkey
+                    ? $mapping->{selector}{$subkey}{ $participant->{$field} }
+                    : exists_mapping_dictionary_field( $mapping, $field ),
                     column   => 'label',
                     ontology => $mapping->{ontology},
                     self     => $self
                 }
-            ) if defined $field;
+            );
             push @{ $individual->{interventionsOrProcedures} }, $intervention
               if defined $intervention->{procedureCode};
         }
@@ -379,10 +395,10 @@ sub do_redcap2bff {
     # measures
     # ========
 
-    $individual->{measures} = undef;
+    $individual->{measures} = [];
 
     # Load hashref with cursors for mapping
-    $mapping = remap_mapping_hash( $mapping_file, 'measures' );
+    $mapping = remap_mapping_hash_term( $mapping_file, 'measures' );
 
     for my $field ( @{ $mapping->{fields} } ) {
         next unless defined $participant->{$field};
@@ -487,7 +503,7 @@ sub do_redcap2bff {
     #$individual->{phenotypicFeatures} = [];
 
     # Load hashref with cursors for mapping
-    $mapping = remap_mapping_hash( $mapping_file, 'phenotypicFeatures' );
+    $mapping = remap_mapping_hash_term( $mapping_file, 'phenotypicFeatures' );
 
     for my $field ( @{ $mapping->{fields} } ) {
         my $phenotypicFeature;
@@ -559,7 +575,7 @@ sub do_redcap2bff {
 
     #$individual->{treatments} = undef;
 
-    $mapping = remap_mapping_hash( $mapping_file, 'treatments' );
+    $mapping = remap_mapping_hash_term( $mapping_file, 'treatments' );
 
     for my $field ( @{ $mapping->{fields} } ) {
 
