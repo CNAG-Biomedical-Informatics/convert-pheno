@@ -3,7 +3,7 @@ package Convert::Pheno::REDCap;
 use strict;
 use warnings;
 use autodie;
-use feature qw(say);
+use feature    qw(say);
 use List::Util qw(any);
 use Convert::Pheno::Mapping;
 use Convert::Pheno::PXF;
@@ -233,17 +233,16 @@ sub do_redcap2bff {
             $participant->{ $mapping->{mapping}{ageAtExposure} } )
           : $default{age};
 
-         for my $item (qw/date duration/) { 
-          $exposure->{$item} = exists $mapping->{mapping}{$item}
-          ? $participant->{ $mapping->{mapping}{$item} }
-          : $default{$item};
-         }
+        for my $item (qw/date duration/) {
+            $exposure->{$item} =
+              exists $mapping->{mapping}{$item}
+              ? $participant->{ $mapping->{mapping}{$item} }
+              : $default{$item};
+        }
 
         # Query related
         my $exposure_query =
-          exists $mapping->{dictionary}{$field}
-          ? $mapping->{dictionary}{$field}
-          : $field;
+          exists_mapping_dictionary_field( $mapping, $field );
 
         $exposure->{exposureCode} = map_ontology(
             {
@@ -339,11 +338,7 @@ sub do_redcap2bff {
     for my $field ( @{ $mapping->{fields} } ) {
         if ( $participant->{$field} ) {
 
-            # Why this
-            next
-              if ( exists $mapping->{mapping}{dateOfProcedure}
-                && $field eq $mapping->{mapping}{dateOfProcedure} );
-            my $intervention;
+             my $intervention;
 
             $intervention->{ageAtProcedure} =
               ( exists $mapping->{mapping}{ageAtProcedure}
@@ -352,9 +347,7 @@ sub do_redcap2bff {
                 $participant->{ $mapping->{mapping}{ageAtProcedure} } )
               : $default{age};
 
-            $intervention->{bodySite} =
-              { "id" => "NCIT:C12736", "label" => "intestine" }
-              if ( $project_id eq '3tr_ibd' );
+            $intervention->{bodySite} = { "id" => "NCIT:C12736", "label" => "intestine" } if $project_id eq '3tr_ibd' ;
 
             $intervention->{dateOfProcedure} =
               ( exists $mapping->{mapping}{dateOfProcedure}
@@ -365,9 +358,7 @@ sub do_redcap2bff {
 
             $intervention->{procedureCode} = map_ontology(
                 {
-                    query => exists $mapping->{dictionary}{$field}
-                    ? $mapping->{dictionary}{$field}
-                    : $field,
+                    query =>  exists_mapping_dictionary_field( $mapping, $field ),
                     column   => 'label',
                     ontology => $mapping->{ontology},
                     self     => $self
@@ -399,9 +390,7 @@ sub do_redcap2bff {
 
         $measure->{assayCode} = map_ontology(
             {
-                query => exists $mapping->{dictionary}{$field}
-                ? $mapping->{dictionary}{$field}
-                : $field,
+                query    => exists_mapping_dictionary_field( $mapping, $field ),
                 column   => 'label',
                 ontology => $mapping->{ontology},
                 self     => $self,
@@ -429,10 +418,8 @@ sub do_redcap2bff {
 
         my $unit = map_ontology(
             {
-                query => exists $mapping->{dictionary}{$tmp_str}
-                ? $mapping->{dictionary}{$tmp_str}
-                : $tmp_str,
-                column   => 'label',
+                query  => exists_mapping_dictionary_field( $mapping, $tmp_str ),
+                column => 'label',
                 ontology => $mapping->{ontology},
                 self     => $self
             }
@@ -527,9 +514,8 @@ sub do_redcap2bff {
 
             $phenotypicFeature->{featureType} = map_ontology(
                 {
-                    query => exists $mapping->{dictionary}{$tmp_var}
-                    ? $mapping->{dictionary}{$tmp_var}
-                    : $tmp_var,
+                    query =>
+                      exists_mapping_dictionary_field( $mapping, $tmp_var ),
                     column   => 'label',
                     ontology => $mapping->{ontology},
                     self     => $self
@@ -579,9 +565,7 @@ sub do_redcap2bff {
 
         # Getting the right name for the drug (if any)
         my $treatment_name =
-          exists $mapping->{dictionary}{$field}
-          ? $mapping->{dictionary}{$field}
-          : $field;
+          exists_mapping_dictionary_field( $mapping, $field );
 
         # FOR ROUTES
         for my $route ( @{ $mapping->{routesOfAdministration} } ) {
@@ -592,10 +576,8 @@ sub do_redcap2bff {
 
                 # Rectal route only happens in some drugs (ad hoc)
                 next
-                  if (
-                    $route eq 'rectal' && !any { $_ eq $field }
-                    qw(budesonide asa)
-                  );
+                  if ( $route eq 'rectal' && !any { $_ eq $field }
+                    qw(budesonide asa) );
 
                 # Discarding if drug_route_status is empty
                 $tmp_var =
@@ -650,6 +632,15 @@ sub do_redcap2bff {
     ##################################
 
     return $individual;
+}
+
+sub exists_mapping_dictionary_field {
+
+    my ( $mapping, $field ) = @_;
+    return
+      exists $mapping->{dictionary}{$field}
+      ? $mapping->{dictionary}{$field}
+      : $field;
 }
 
 1;

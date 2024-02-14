@@ -432,7 +432,7 @@ sub remap_mapping_hash {
             $_, exists $mapping_file->{$term}{$_}
           ? $mapping_file->{$term}{$_}
           : undef
-    } (qw/fields dictonary mapping selector/);
+    } (qw/fields dictionary mapping selector/);
     $hash_out{ontology} =
       exists $mapping_file->{$term}{ontology}
       ? $mapping_file->{$term}{ontology}
