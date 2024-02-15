@@ -86,9 +86,22 @@ Frequently Asked Questions
 
     ##### last change 2024-02-06 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
-??? faq "Should I export my REDCap project as _raw data_ or as _labels_ to be used with `Convert-Pheno`?"
+??? faq "Should I export my REDCap project as _raw data_ or as _labels_ for use with `Convert-Pheno`?"
 
-    `Convert-Pheno` only accepts as a redcap input **CSV / Microsoft Excel (raw data)** exports, accompanied by the respective dictionary file. See more info [here](https://cnag-biomedical-informatics.github.io/convert-pheno/tutorial/#how-to-convert).
+    For use with `Convert-Pheno`, you should export your REDCap project as **CSV / Microsoft Excel (raw data)**. It's important to include the corresponding dictionary file with your export. For detailed instructions on how to prepare your export correctly, refer to the [Convert-Pheno tutorial](https://cnag-biomedical-informatics.github.io/convert-pheno/tutorial/#how-to-convert).
+
+    <figure markdown>
+      ![REDCap export](img/redcap-export.png){ width="300" }
+      <figcaption>Example of REDCap export settings. Source: [CDC](https://www.cdc.gov/nhsn/pdfs/validation/2022/export-data-from-redcap.pdf)
+    </figure>
+
+    Additionally, when configuring your export settings, ensure that in the **Additional report options**, the option "Combine checkbox options into single column of only the checked-off options" is **not** selected.
+
+    <figure markdown>
+      ![Checkbox export](img/redcap-checkbox.png){ width="600" }
+      <figcaption>REDCap checkbox export settings</figcaption>
+    </figure>
+
 
     ##### last change 2024-02-14 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 

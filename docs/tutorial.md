@@ -18,7 +18,9 @@ This page provides brief tutorials on how to perform data conversion by using `C
 
     ??? Note "Can I export CSV / Microsoft Excel (labels) file?"
 
-        You can export it for you as as a reference, but as Feb-2024 `Convert-Pheno` works only with raw data.
+        You are able to export a CSV or Microsoft Excel file with labels for your reference. However, as of February 2024, `Convert-Pheno` supports only raw data formats. 
+
+        For more detailed information and other common questions, please refer to the [FAQ](faq.md#general).
 
     * After exporting the data, you must also download the REDCap dictionary in CSV format. This can be done within REDCap by navigating to `Project Setup/Data Dictionary/Download the current`.
 
