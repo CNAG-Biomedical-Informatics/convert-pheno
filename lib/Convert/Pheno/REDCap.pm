@@ -151,13 +151,15 @@ sub do_redcap2bff {
             $participant->{ $field . '_ori' } = $participant->{$field};
 
             # Now we overwrite the original value with the dictionary one
-            $participant->{$field} = map2redcap_dict(
-                {
-                    redcap_dict => $redcap_dict,
-                    participant => $participant,
-                    field       => $field,
-                    labels      => 1
-                }
+            $participant->{$field} = dotify_and_coerce_number(
+                map2redcap_dict(
+                    {
+                        redcap_dict => $redcap_dict,
+                        participant => $participant,
+                        field       => $field,
+                        labels      => 1
+                    }
+                )
             );
         }
     }
@@ -278,8 +280,11 @@ sub do_redcap2bff {
                 self     => $self
             }
         );
-        $exposure->{unit}  = $unit;
-        $exposure->{value} =  looks_like_number($participant->{$field}) ? $participant->{$field} : -1;
+        $exposure->{unit} = $unit;
+        $exposure->{value} =
+          looks_like_number( $participant->{$field} )
+          ? $participant->{$field}
+          : -1;
         push @{ $individual->{exposures} }, $exposure
           if defined $exposure->{exposureCode};
     }
@@ -370,6 +375,7 @@ sub do_redcap2bff {
 
             # Load selector fields
             my $subkey = exists $mapping->{selector}{$field} ? $field : undef;
+
             $intervention->{procedureCode} = map_ontology(
                 {
                     query => defined $subkey
@@ -511,13 +517,13 @@ sub do_redcap2bff {
         if ( defined $participant->{$field} && $participant->{$field} ne '' ) {
 
             #$phenotypicFeature->{evidence} = undef;    # P32Y6M1D
-            my $tmp_var = $redcap_dict->{$field}{'Field Label'};
 
+            my $tmp_var = $redcap_dict->{$field}{'Field Label'};
             # *** IMPORTANT ***
             # Ad hoc change for 3TR
             if ( $project_id eq '3tr_ibd' && $field =~ m/comorb/i ) {
-                ( undef, $tmp_var ) = split / \- /,
-                  $redcap_dict->{$field}{'Field Label'};
+                ( undef, $tmp_var ) = split / \- /, $tmp_var
+                  if $tmp_var =~ m/\-/;
             }
 
             # Excluded (or Included) properties
@@ -528,6 +534,7 @@ sub do_redcap2bff {
 
             #$phenotypicFeature->{excluded_ori} = $participant->{$field};
 
+            # print "#$field#$participant->{$field}#$tmp_var#\n";
             $phenotypicFeature->{featureType} = map_ontology(
                 {
                     query =>
@@ -653,8 +660,7 @@ sub do_redcap2bff {
 sub exists_mapping_dictionary_field {
 
     my ( $mapping, $field ) = @_;
-    return
-      exists $mapping->{dictionary}{$field}
+    return ( defined $field && exists $mapping->{dictionary}{$field} )
       ? $mapping->{dictionary}{$field}
       : $field;
 }

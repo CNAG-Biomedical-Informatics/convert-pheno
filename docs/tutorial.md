@@ -16,7 +16,7 @@ This page provides brief tutorials on how to perform data conversion by using `C
 
     * The starting point is to log in to your REDCap system and export the data to CSV / Microsoft Excel (raw data) format. If you need more information on REDCap, we recommend consulting the comprehensive [documentation](https://confluence.research.cchmc.org/display/CCTSTRED/Cincinnati+REDCap+Resource+Center) provided by the Cincinnati Children's Hospital Medical Center.
 
-    ??? Note "Can I export CSV / Microsoft Excel (labels) file?"
+    ??? Question "Can I export CSV / Microsoft Excel (labels) file?"
 
         You are able to export a CSV or Microsoft Excel file with labels for your reference. However, as of February 2024, `Convert-Pheno` supports only raw data formats. 
 

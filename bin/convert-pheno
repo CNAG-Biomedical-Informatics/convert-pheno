@@ -373,7 +373,8 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
              -icdisc  (experimental)  CDISC-ODM v1 XML file
 
              (Wish-list)
-             #-openehr                openEHR
+             #-icsv                   Raw data CSV 
+             #-iopenehr               openEHR
              #-ifhir                  HL7/FHIR
 
        (output-type):
