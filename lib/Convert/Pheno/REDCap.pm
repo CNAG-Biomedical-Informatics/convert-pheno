@@ -518,35 +518,43 @@ sub do_redcap2bff {
 
             #$phenotypicFeature->{evidence} = undef;    # P32Y6M1D
 
-            my $tmp_var = $redcap_dict->{$field}{'Field Label'};
+            my $tmp_var = $field;
+
             # *** IMPORTANT ***
             # Ad hoc change for 3TR
             if ( $project_id eq '3tr_ibd' && $field =~ m/comorb/i ) {
+                $tmp_var = $redcap_dict->{$field}{'Field Label'};
                 ( undef, $tmp_var ) = split / \- /, $tmp_var
                   if $tmp_var =~ m/\-/;
             }
 
             # Excluded (or Included) properties
             # 1 => included ( == not excluded )
+            $phenotypicFeature->{excluded_ori} =
+              dotify_and_coerce_number( $participant->{$field} );
             $phenotypicFeature->{excluded} =
               $participant->{$field} ? JSON::XS::false : JSON::XS::true
               if looks_like_number( $participant->{$field} );
 
-            #$phenotypicFeature->{excluded_ori} = $participant->{$field};
-
             # print "#$field#$participant->{$field}#$tmp_var#\n";
+            # Load selector fields
+            my $subkey =
+              exists $mapping->{selector}{$tmp_var} ? $tmp_var : undef;
             $phenotypicFeature->{featureType} = map_ontology(
                 {
-                    query =>
-                      exists_mapping_dictionary_field( $mapping, $tmp_var ),
+                    query => defined $subkey
+                    ? $mapping->{selector}{$subkey}{ $participant->{$tmp_var} }
+                    : exists_mapping_dictionary_field( $mapping, $tmp_var ),
                     column   => 'label',
                     ontology => $mapping->{ontology},
                     self     => $self
-
                 }
             );
 
             #$phenotypicFeature->{modifiers}   = { id => '', label => '' };
+
+            # Prune ___\d+
+            $field =~ s/___\w+$// if $field =~ m/___\w+$/;
             $phenotypicFeature->{notes} = join ' /// ',
               (
                 $field,

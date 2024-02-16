@@ -1299,6 +1299,7 @@
       "phenotypicFeatures" : [
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
                "id" : "NCIT:C28397",
                "label" : "Asthma"
@@ -1307,6 +1308,7 @@
          },
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
                "id" : "NCIT:C3199",
                "label" : "Chronic Obstructive Pulmonary Disease"
@@ -1315,6 +1317,7 @@
          },
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
                "id" : "NCIT:C3243",
                "label" : "Multiple Sclerosis"
@@ -1323,6 +1326,7 @@
          },
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
                "id" : "NCIT:C3201",
                "label" : "Systemic Lupus Erythematosus"
@@ -1331,6 +1335,7 @@
          },
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
                "id" : "NCIT:C2884",
                "label" : "Rheumatoid Arthritis"
@@ -1339,6 +1344,7 @@
          },
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
                "id" : "NCIT:C3346",
                "label" : "Psoriasis"
@@ -1347,6 +1353,7 @@
          },
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
                "id" : "NCIT:C3001",
                "label" : "Eczema"
@@ -1355,6 +1362,7 @@
          },
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
                "id" : "NCIT:C19700",
                "label" : "Cancer Patient"
@@ -1363,6 +1371,7 @@
          },
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
                "id" : "NCIT:C3117",
                "label" : "Hypertension"
@@ -1371,6 +1380,7 @@
          },
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
                "id" : "NCIT:C2985",
                "label" : "Diabetes Mellitus"
@@ -1379,6 +1389,7 @@
          },
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
                "id" : "NCIT:C80385",
                "label" : "Dyslipidemia"
@@ -1387,6 +1398,7 @@
          },
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
                "id" : "NCIT:C3390",
                "label" : "Stroke"
@@ -1395,6 +1407,7 @@
          },
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -1403,13 +1416,15 @@
          },
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C152105",
-               "label" : "Primary Immunodeficiency Syndrome"
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
             },
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded_ori" : "1 (streaks of blood with stool in in less than half of the cases)",
             "featureType" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -2717,6 +2732,7 @@
       ],
       "phenotypicFeatures" : [
          {
+            "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -3730,6 +3746,7 @@
       ],
       "phenotypicFeatures" : [
          {
+            "excluded_ori" : "1 (streaks of blood with stool in in less than half of the cases)",
             "featureType" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -5041,13 +5058,15 @@
       "phenotypicFeatures" : [
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C152105",
-               "label" : "Primary Immunodeficiency Syndrome"
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
             },
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded_ori" : "1 (streaks of blood with stool in in less than half of the cases)",
             "featureType" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -6355,6 +6374,7 @@
       ],
       "phenotypicFeatures" : [
          {
+            "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -7385,6 +7405,7 @@
       ],
       "phenotypicFeatures" : [
          {
+            "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -8398,6 +8419,7 @@
       ],
       "phenotypicFeatures" : [
          {
+            "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -9497,6 +9519,7 @@
       ],
       "phenotypicFeatures" : [
          {
+            "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -10634,6 +10657,7 @@
       ],
       "phenotypicFeatures" : [
          {
+            "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -12107,13 +12131,15 @@
       "phenotypicFeatures" : [
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C152105",
-               "label" : "Primary Immunodeficiency Syndrome"
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
             },
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded_ori" : "1 (streaks of blood with stool in in less than half of the cases)",
             "featureType" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -13583,6 +13609,7 @@
       ],
       "phenotypicFeatures" : [
          {
+            "excluded_ori" : "1 (streaks of blood with stool in in less than half of the cases)",
             "featureType" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -14599,6 +14626,7 @@
       ],
       "phenotypicFeatures" : [
          {
+            "excluded_ori" : "1 (streaks of blood with stool in in less than half of the cases)",
             "featureType" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -15598,6 +15626,7 @@
       ],
       "phenotypicFeatures" : [
          {
+            "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -16947,6 +16976,7 @@
       ],
       "phenotypicFeatures" : [
          {
+            "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -18040,6 +18070,7 @@
       ],
       "phenotypicFeatures" : [
          {
+            "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -19572,6 +19603,7 @@
       "phenotypicFeatures" : [
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
                "id" : "NCIT:C28397",
                "label" : "Asthma"
@@ -19580,6 +19612,7 @@
          },
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
                "id" : "NCIT:C3199",
                "label" : "Chronic Obstructive Pulmonary Disease"
@@ -19588,6 +19621,7 @@
          },
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
                "id" : "NCIT:C3243",
                "label" : "Multiple Sclerosis"
@@ -19596,6 +19630,7 @@
          },
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
                "id" : "NCIT:C3201",
                "label" : "Systemic Lupus Erythematosus"
@@ -19604,6 +19639,7 @@
          },
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
                "id" : "NCIT:C2884",
                "label" : "Rheumatoid Arthritis"
@@ -19612,6 +19648,7 @@
          },
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
                "id" : "NCIT:C3346",
                "label" : "Psoriasis"
@@ -19620,6 +19657,7 @@
          },
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
                "id" : "NCIT:C3001",
                "label" : "Eczema"
@@ -19628,6 +19666,7 @@
          },
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
                "id" : "NCIT:C19700",
                "label" : "Cancer Patient"
@@ -19636,6 +19675,7 @@
          },
          {
             "excluded" : false,
+            "excluded_ori" : 1,
             "featureType" : {
                "id" : "NCIT:C3117",
                "label" : "Hypertension"
@@ -19644,6 +19684,7 @@
          },
          {
             "excluded" : false,
+            "excluded_ori" : 1,
             "featureType" : {
                "id" : "NCIT:C2985",
                "label" : "Diabetes Mellitus"
@@ -19652,6 +19693,7 @@
          },
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
                "id" : "NCIT:C80385",
                "label" : "Dyslipidemia"
@@ -19660,6 +19702,7 @@
          },
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
                "id" : "NCIT:C3390",
                "label" : "Stroke"
@@ -19668,6 +19711,7 @@
          },
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -19676,13 +19720,15 @@
          },
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C152105",
-               "label" : "Primary Immunodeficiency Syndrome"
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
             },
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -21160,6 +21206,7 @@
       ],
       "phenotypicFeatures" : [
          {
+            "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -22362,6 +22409,7 @@
       ],
       "phenotypicFeatures" : [
          {
+            "excluded_ori" : "1 (streaks of blood with stool in in less than half of the cases)",
             "featureType" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -23578,6 +23626,7 @@
       ],
       "phenotypicFeatures" : [
          {
+            "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -25051,13 +25100,15 @@
       "phenotypicFeatures" : [
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C152105",
-               "label" : "Primary Immunodeficiency Syndrome"
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
             },
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded_ori" : "1 (streaks of blood with stool in in less than half of the cases)",
             "featureType" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -26399,6 +26450,7 @@
       ],
       "phenotypicFeatures" : [
          {
+            "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -27447,6 +27499,7 @@
       ],
       "phenotypicFeatures" : [
          {
+            "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -28707,6 +28760,7 @@
       ],
       "phenotypicFeatures" : [
          {
+            "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -30070,13 +30124,15 @@
       "phenotypicFeatures" : [
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C152105",
-               "label" : "Primary Immunodeficiency Syndrome"
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
             },
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -31365,6 +31421,7 @@
       ],
       "phenotypicFeatures" : [
          {
+            "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -32551,6 +32608,7 @@
       ],
       "phenotypicFeatures" : [
          {
+            "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -33994,13 +34052,15 @@
       "phenotypicFeatures" : [
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C152105",
-               "label" : "Primary Immunodeficiency Syndrome"
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
             },
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded_ori" : "1 (streaks of blood with stool in in less than half of the cases)",
             "featureType" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -35374,6 +35434,7 @@
       ],
       "phenotypicFeatures" : [
          {
+            "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -36422,6 +36483,7 @@
       ],
       "phenotypicFeatures" : [
          {
+            "excluded_ori" : "1 (streaks of blood with stool in in less than half of the cases)",
             "featureType" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -37484,6 +37546,7 @@
       ],
       "phenotypicFeatures" : [
          {
+            "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -38687,6 +38750,7 @@
       ],
       "phenotypicFeatures" : [
          {
+            "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -40172,6 +40236,7 @@
       "phenotypicFeatures" : [
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
                "id" : "NCIT:C28397",
                "label" : "Asthma"
@@ -40180,6 +40245,7 @@
          },
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
                "id" : "NCIT:C3199",
                "label" : "Chronic Obstructive Pulmonary Disease"
@@ -40188,6 +40254,7 @@
          },
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
                "id" : "NCIT:C3243",
                "label" : "Multiple Sclerosis"
@@ -40196,6 +40263,7 @@
          },
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
                "id" : "NCIT:C3201",
                "label" : "Systemic Lupus Erythematosus"
@@ -40204,6 +40272,7 @@
          },
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
                "id" : "NCIT:C2884",
                "label" : "Rheumatoid Arthritis"
@@ -40212,6 +40281,7 @@
          },
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
                "id" : "NCIT:C3346",
                "label" : "Psoriasis"
@@ -40220,6 +40290,7 @@
          },
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
                "id" : "NCIT:C3001",
                "label" : "Eczema"
@@ -40228,6 +40299,7 @@
          },
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
                "id" : "NCIT:C19700",
                "label" : "Cancer Patient"
@@ -40236,6 +40308,7 @@
          },
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
                "id" : "NCIT:C3117",
                "label" : "Hypertension"
@@ -40244,6 +40317,7 @@
          },
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
                "id" : "NCIT:C2985",
                "label" : "Diabetes Mellitus"
@@ -40252,6 +40326,7 @@
          },
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
                "id" : "NCIT:C80385",
                "label" : "Dyslipidemia"
@@ -40260,6 +40335,7 @@
          },
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
                "id" : "NCIT:C3390",
                "label" : "Stroke"
@@ -40268,6 +40344,7 @@
          },
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -40276,13 +40353,15 @@
          },
          {
             "excluded" : true,
+            "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C152105",
-               "label" : "Primary Immunodeficiency Syndrome"
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
             },
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded_ori" : "1 (streaks of blood with stool in in less than half of the cases)",
             "featureType" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -41591,6 +41670,7 @@
       ],
       "phenotypicFeatures" : [
          {
+            "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -43554,6 +43634,7 @@
       ],
       "phenotypicFeatures" : [
          {
+            "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -44740,6 +44821,7 @@
       ],
       "phenotypicFeatures" : [
          {
+            "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
