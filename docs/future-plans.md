@@ -14,7 +14,7 @@
     Paper acceptance          :milestone, after m2, 0d
 
     section Formats
-    OMOP-CDM (out)  :crit, f1, 2024-01-01, 230d
+    OMOP CDM (out)  :crit, f1, 2024-01-01, 230d
     OpenEHR         :      f2, after f1, 150d
     HL7/FHIR        :      f3, after f2, 150d
 

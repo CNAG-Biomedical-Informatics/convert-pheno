@@ -1,5 +1,5 @@
 !!! Note "OMOP to BFF - Schemas"
-    * [OMOP-CDM v5.4 tables](https://ohdsi.github.io/CommonDataModel/cdm54.html)
+    * [OMOP CDM v5.4 tables](https://ohdsi.github.io/CommonDataModel/cdm54.html)
     * [Beacon v2 Models - individuals](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema)
 
 !!! Info "Information"

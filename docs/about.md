@@ -27,5 +27,5 @@
 
     * Florian Tran (Christian Albrechts University Kiel) - REDCap / CDISC-ODM
     * Ioannis Parodis (Karolinska Institutet) - REDCap
-    * Juan Manuel Ramirez and M. A. Mayer ([IMIM](https://www.imim.es/IMIM2019/integrative-biomedical-informatics.html)) - OMOP-CDM
-    * Alberto Labarga and Sergi Aguilo (BSC) - OMOP-CDM
+    * Juan Manuel Ramirez and M. A. Mayer ([IMIM](https://www.imim.es/IMIM2019/integrative-biomedical-informatics.html)) - OMOP CDM
+    * Alberto Labarga and Sergi Aguilo (BSC) - OMOP CDM

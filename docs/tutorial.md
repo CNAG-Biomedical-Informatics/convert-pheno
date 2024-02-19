@@ -95,9 +95,9 @@ This page provides brief tutorials on how to perform data conversion by using `C
 
     Now you can proceed to run `convert-pheno` with the **command-line interface**. Please see how [here](redcap.md#redcap-as-input).
 
-=== "OMOP-CDM to Beacon v2 Models"
+=== "OMOP CDM to Beacon v2 Models"
 
-    This section provides a summary of the steps to convert an OMOP-CDM export to Beacon v2 Models. The starting point is either a PostgreSQL export in the form of `.sql` or `.csv` files. The process is the same for both.
+    This section provides a summary of the steps to convert an OMOP CDM export to Beacon v2 Models. The starting point is either a PostgreSQL export in the form of `.sql` or `.csv` files. The process is the same for both.
 
     Two possibilities may arise:
 

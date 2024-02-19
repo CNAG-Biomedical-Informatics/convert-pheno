@@ -305,7 +305,7 @@ For executing convert-pheno you will need:
 
 The author requests that any published work that utilizes `Convert-Pheno` includes a cite to the the following reference:
 
-Rueda, M et al., (2023). Convert-Pheno: A software toolkit for the interconversion of standard data models for phenotypic data. Journal of Biomedical Informatics. [DOI](https://doi.org/10.1016/j.jbi.2023.104558)
+Rueda, M et al., (2024). Convert-Pheno: A software toolkit for the interconversion of standard data models for phenotypic data. Journal of Biomedical Informatics. [DOI](https://doi.org/10.1016/j.jbi.2023.104558)
 
 # AUTHOR 
 
@@ -313,6 +313,6 @@ Written by Manuel Rueda, PhD. Info about CNAG can be found at [https://www.cnag.
 
 # COPYRIGHT AND LICENSE
 
-Copyright (C) 2022-2023, Manuel Rueda - CNAG.
+Copyright (C) 2022-2024, Manuel Rueda - CNAG.
 
 This program is free software, you can redistribute it and/or modify it under the terms of the [Artistic License version 2.0](https://metacpan.org/pod/perlartistic).

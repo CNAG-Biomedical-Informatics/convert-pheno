@@ -24,7 +24,7 @@ Frequently Asked Questions
 
     I am afraid not. Beacon v2 is an [API specification](https://docs.genomebeacons.org), and the [Beacon v2 Models](bff.md) are merely a component of it. In order to _light a Beacon v2_, it is necessary to load the `JSON` files into a **database** and add an an **API** on top. Currently, it is advisable to utilize the [Beacon v2 Reference Implementation](https://b2ri-documentation.readthedocs.io/en/latest) which includes the database, the Beacon v2 API, and other necessary components.
 
-    See below an example in how to integrate an OMOP-CDM export from SQL with Beacon v2.
+    See below an example in how to integrate an OMOP CDM export from SQL with Beacon v2.
 
     <figure markdown>
       ![B2RI](img/convert-pheno-beacon-integration.png){ width="600" }
@@ -65,7 +65,7 @@ Frequently Asked Questions
     Now, IMHO, it's generally easier to inter-convert ontologies (it's just a mapping exercise) than to inter-convert data schemas...so here is that:smile:.
 
     !!! Abstract "Nota Bene:"
-        A  standard that does enforce the use of an **standardized vocabulary** is [OMOP-CDM](omop-cdm.md), you may wanna check it out.
+        A  standard that does enforce the use of an **standardized vocabulary** is [OMOP CDM](omop-cdm.md), you may wanna check it out.
 
     ##### last change 2024-01-16 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 

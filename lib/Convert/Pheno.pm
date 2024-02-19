@@ -783,7 +783,7 @@ L<https://github.com/CNAG-Biomedical-Informatics/convert-pheno#readme>
 
 The author requests that any published work that utilizes C<Convert-Pheno> includes a cite to the the following reference:
 
-Rueda, M. et al. "Convert-Pheno: A software toolkit for the interconversion of standard data models for phenotypic data", (2023), I<Journal of Biomedical Informatics>.
+Rueda, M et al., (2024). Convert-Pheno: A software toolkit for the interconversion of standard data models for phenotypic data. Journal of Biomedical Informatics. L<DOI|https://doi.org/10.1016/j.jbi.2023.104558>
 
 =head1 AUTHOR
 
