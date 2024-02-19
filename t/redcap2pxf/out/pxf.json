@@ -654,8 +654,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C152105",
-               "label" : "Primary Immunodeficiency Syndrome"
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
             }
          },
          {
@@ -1957,8 +1957,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C152105",
-               "label" : "Primary Immunodeficiency Syndrome"
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
             }
          },
          {
@@ -4665,8 +4665,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C152105",
-               "label" : "Primary Immunodeficiency Syndrome"
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
             }
          },
          {
@@ -7679,8 +7679,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C152105",
-               "label" : "Primary Immunodeficiency Syndrome"
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
             }
          },
          {
@@ -9862,8 +9862,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C152105",
-               "label" : "Primary Immunodeficiency Syndrome"
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
             }
          },
          {
@@ -11826,8 +11826,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C152105",
-               "label" : "Primary Immunodeficiency Syndrome"
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
             }
          },
          {
@@ -13335,8 +13335,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C152105",
-               "label" : "Primary Immunodeficiency Syndrome"
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
             }
          },
          {
@@ -15801,8 +15801,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C152105",
-               "label" : "Primary Immunodeficiency Syndrome"
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
             }
          },
          {

@@ -29,8 +29,9 @@ sub read_json {
 
 sub read_yaml {
 
-    my $data = LoadFile(shift);                     # Decode to Perl data structure
-    traverse_yaml_data_to_coerce_numbers($data);    # revert floatings getting stringified by YAML::XS
+    my $data = LoadFile(shift);    # Decode to Perl data structure
+    traverse_yaml_data_to_coerce_numbers($data)
+      ;    # revert floatings getting stringified by YAML::XS
     return $data;
 }
 

@@ -89,9 +89,7 @@ sub do_omop2bff {
     my $sth       = $self->{sth};
 
     # Default values to be used accross the module
-    my %default = (
-        duration => 'P0Y'
-    );
+    my %default = ( duration => 'P0Y' );
 
     ####################################
     # START MAPPING TO BEACON V2 TERMS #
@@ -371,6 +369,12 @@ sub do_omop2bff {
     # Hard-coded $individual->{info}{dateOfBirth}
     $individual->{info}{dateOfBirth} =
       _map2iso8601( $person->{birth_datetime} );
+
+    # Add metadata unless $test
+    unless ( $self->{test} ) {
+        $individual->{info}{metaData}     = get_metaData($self);
+        $individual->{info}{convertPheno} = get_info($self);
+    }
 
     # =========================
     # interventionsOrProcedures

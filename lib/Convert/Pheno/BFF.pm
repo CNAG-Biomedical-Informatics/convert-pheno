@@ -5,7 +5,6 @@ use warnings;
 use autodie;
 use feature qw(say);
 use Convert::Pheno::Mapping;
-use Convert::Pheno::PXF;
 use Exporter 'import';
 our @EXPORT = qw(do_bff2pxf);
 
@@ -23,12 +22,11 @@ sub do_bff2pxf {
     return unless defined($bff);
 
     # Validate format
-    die "Are you sure that your input is not already a pxf?\n" unless validate_format($bff, 'bff');
+    die "Are you sure that your input is not already a pxf?\n"
+      unless validate_format( $bff, 'bff' );
 
     # Default values to be used accross the module
-    my %default = (
-        timestamp => '1900-01-01T00:00:00Z'
-    );
+    my %default = ( timestamp => '1900-01-01T00:00:00Z' );
 
     #########################################
     # START MAPPING TO PHENOPACKET V2 TERMS #

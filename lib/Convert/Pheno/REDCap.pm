@@ -3,10 +3,9 @@ package Convert::Pheno::REDCap;
 use strict;
 use warnings;
 use autodie;
-use feature    qw(say);
+use feature qw(say);
 use List::Util qw(any);
 use Convert::Pheno::Mapping;
-use Convert::Pheno::PXF;
 use Data::Dumper;
 use Scalar::Util qw(looks_like_number);
 use Exporter 'import';
@@ -28,20 +27,20 @@ sub do_redcap2bff {
     ##############################
     # <Variable> names in REDCap #
     ##############################
-    #
-    # REDCap does not enforce any particular variable name.
-    # Extracted from https://www.ctsi.ufl.edu/wordpress/files/2019/02/Project-Creation-User-Guide.pdf
-    # ---
-    # "Variable Names: Variable names are critical in the data analysis process. If you export your data to a
-    # statistical software program, the variable names are what you or your statistician will use to conduct
-    # the analysis"
-    #
-    # "We always recommend reviewing your variable names with a statistician or whoever will be
-    # analyzing your data. This is especially important if this is the first time you are building a
-    # database"
-    #---
-    # If variable names are not consensuated, then we need to do the mapping manually "a posteriori".
-    # This is what we are attempting here:
+#
+# REDCap does not enforce any particular variable name.
+# Extracted from https://www.ctsi.ufl.edu/wordpress/files/2019/02/Project-Creation-User-Guide.pdf
+# ---
+# "Variable Names: Variable names are critical in the data analysis process. If you export your data to a
+# statistical software program, the variable names are what you or your statistician will use to conduct
+# the analysis"
+#
+# "We always recommend reviewing your variable names with a statistician or whoever will be
+# analyzing your data. This is especially important if this is the first time you are building a
+# database"
+#---
+# If variable names are not consensuated, then we need to do the mapping manually "a posteriori".
+# This is what we are attempting here:
 
     ###############
     # Field Types #
@@ -91,7 +90,7 @@ sub do_redcap2bff {
     # Thus, we are storing $participant->{sex} in $self !!!
     if ( defined $participant->{$sex_field} ) {
         $self->{_info}{ $participant->{study_id} }{$sex_field} =
-          $participant->{$sex_field};    # Dynamically adding attributes (setter)
+          $participant->{$sex_field};   # Dynamically adding attributes (setter)
     }
     $participant->{$sex_field} =
       $self->{_info}{ $participant->{$studyId_field} }{$sex_field};
@@ -331,7 +330,10 @@ sub do_redcap2bff {
     }
 
     # When we use --test we do not serialize changing (metaData) information
-    $individual->{info}{metaData} = $self->{test} ? undef : get_metaData($self);
+    unless ( $self->{test} ) {
+        $individual->{info}{metaData}     = get_metaData($self);
+        $individual->{info}{convertPheno} = get_info($self);
+    }
 
     # We finally add all REDCap columns
     # NB: _ori are values before adding _labels
@@ -434,7 +436,8 @@ sub do_redcap2bff {
         # We can have  $participant->{$field} eq '2 - Mild'
         if ( $participant->{$field} =~ m/ \- / ) {
             my ( $tmp_val, $tmp_scale ) = split / \- /, $participant->{$field};
-            $participant->{$field} = $tmp_val;     # should be equal to $participant->{$field.'_ori'}
+            $participant->{$field} =
+              $tmp_val;    # should be equal to $participant->{$field.'_ori'}
             $tmp_str = $tmp_scale;
         }
 
@@ -607,8 +610,10 @@ sub do_redcap2bff {
 
                 # Rectal route only happens in some drugs (ad hoc)
                 next
-                  if ( $route eq 'rectal' && !any { $_ eq $field }
-                    qw(budesonide asa) );
+                  if (
+                    $route eq 'rectal' && !any { $_ eq $field }
+                    qw(budesonide asa)
+                  );
 
                 # Discarding if drug_route_status is empty
                 $tmp_var =
@@ -638,7 +643,9 @@ sub do_redcap2bff {
             $treatment->{doseIntervals}         = [];
             $treatment->{routeOfAdministration} = map_ontology(
                 {
-                    query    => ucfirst($route) . ' Route of Administration',  # Oral Route of Administration
+                    query => ucfirst($route)
+                      . ' Route of Administration'
+                    ,    # Oral Route of Administration
                     column   => 'label',
                     ontology => $mapping->{ontology},
                     self     => $self

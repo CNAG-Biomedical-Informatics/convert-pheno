@@ -4,11 +4,9 @@ use strict;
 use warnings;
 use autodie;
 use feature qw(say);
-use Sys::Hostname;
-use Cwd qw(cwd abs_path);
 use Convert::Pheno::Mapping;
 use Exporter 'import';
-our @EXPORT = qw(do_pxf2bff get_metaData);
+our @EXPORT = qw(do_pxf2bff);
 
 #############
 #############
@@ -21,21 +19,21 @@ sub do_pxf2bff {
     my ( $self, $data ) = @_;
     my $sth = $self->{sth};
 
-    # *** IMPORTANT ****
-    # PXF three top-level elements are usually split in files:
-    # - phenopacket.json ( usually - 1 individual per file)
-    # - cohort.json (info on mutliple individuals)
-    # - family.json (info related to one or multiple individuals).
-    # These 3 files dont't contain their respective objects at the root level (/).
-    #
-    # However, top-elements might be combined into a single file (e.g., pxf.json),
-    # as a result, certain files may contain objects for top-level elements:
-    # - /phenopacket
-    # - /cohort
-    # - /family
-    #
-    # In this context, we only accept top-level phenopackets,
-    # while the other two types will be categorized as "info".
+  # *** IMPORTANT ****
+  # PXF three top-level elements are usually split in files:
+  # - phenopacket.json ( usually - 1 individual per file)
+  # - cohort.json (info on mutliple individuals)
+  # - family.json (info related to one or multiple individuals).
+  # These 3 files dont't contain their respective objects at the root level (/).
+  #
+  # However, top-elements might be combined into a single file (e.g., pxf.json),
+  # as a result, certain files may contain objects for top-level elements:
+  # - /phenopacket
+  # - /cohort
+  # - /family
+  #
+  # In this context, we only accept top-level phenopackets,
+  # while the other two types will be categorized as "info".
 
     # We create cursors for top-level elements
     # 1 - phenopacket (mandatory)
@@ -54,15 +52,15 @@ sub do_pxf2bff {
     # Normalize the hash for medical_actions + medicalActions = medicalActions
     if ( exists $phenopacket->{medical_actions} ) {
 
-        # NB: The delete function returns the value of the deleted key-value pair
+       # NB: The delete function returns the value of the deleted key-value pair
         $phenopacket->{medicalActions} = delete $phenopacket->{medical_actions};
     }
 
-    # CNAG files have 'meta_data' nomenclature, but PXF documentation uses 'metaData'
-    # We search for both 'meta_data' and 'metaData' and simply display the
+# CNAG files have 'meta_data' nomenclature, but PXF documentation uses 'metaData'
+# We search for both 'meta_data' and 'metaData' and simply display the
     if ( exists $phenopacket->{meta_data} ) {
 
-        # NB: The delete function returns the value of the deleted key-value pair
+       # NB: The delete function returns the value of the deleted key-value pair
         $phenopacket->{metaData} = delete $phenopacket->{meta_data};
     }
 
@@ -376,111 +374,6 @@ sub map_complexValue {
     }
 
     return 1;
-}
-
-sub get_metaData {
-
-    my $self = shift;
-
-    # NB: Q: Why inside PXF.pm and not inside BFF.pm?
-    #   : A: Because it's easier to remember (used in REDCap,pm, BFF.pm)
-
-    # Setting a few variables
-    my $user = $self->{username};
-
-    # NB: Darwin does not have nproc to show #logical-cores, using sysctl instead
-    my $os = $^O;
-    chomp(
-        my $ncpuhost =
-          lc($os) eq 'darwin' ? qx{/usr/sbin/sysctl -n hw.logicalcpu}
-        : $os eq 'MSWin32' ? qx{wmic cpu get NumberOfLogicalProcessors}
-        :                    qx{/usr/bin/nproc} // 1
-    );
-
-    # For the Windows command, the result will also contain the string
-    # "NumberOfLogicalProcessors" which is the header of the output.
-    # So we need to extract the actual number from it:
-    if ( $os eq 'MSWin32' ) {
-        ($ncpuhost) = $ncpuhost =~ /(\d+)/;
-    }
-    $ncpuhost = 0 + $ncpuhost;    # coercing it to be a number
-
-    my $info = {
-        user            => $user,
-        ncpuhost        => $ncpuhost,
-        cwd             => cwd,
-        hostname        => hostname,
-        'Convert-Pheno' => $::VERSION
-    };
-    my $resources = [
-        {
-            id   => 'icd10',
-            name =>
-'International Statistical Classification of Diseases and Related Health Problems 10th Revision',
-            url             => 'https://icd.who.int/browse10/2019/en#',
-            version         => '2019',
-            namespacePrefix => 'ICD10',
-            iriPrefix       => 'https://icd.who.int/browse10/2019/en#/'
-        },
-        {
-            id              => 'ncit',
-            name            => 'NCI Thesaurus',
-            url             => 'http://purl.obolibrary.org/obo/ncit.owl',
-            version         => '22.03d',
-            namespacePrefix => 'NCIT',
-            iriPrefix       => 'http://purl.obolibrary.org/obo/NCIT_'
-        },
-        {
-            id              => 'athena-ohdsi',
-            name            => 'Athena-OHDSI',
-            url             => 'https://athena.ohdsi.org',
-            version         => 'v5.3.1',
-            namespacePrefix => 'OHDSI',
-            iriPrefix       => 'http://www.fakeurl.com/OHDSI_'
-        },
-        {
-            id              => 'hp',
-            name            => 'Human Phenotype Ontology',
-            url             => 'http://purl.obolibrary.org/obo/hp.owl',
-            version         => '2023-04-05',
-            namespacePrefix => 'HP',
-            iriPrefix       => 'http://purl.obolibrary.org/obo/HP_'
-        },
-        {
-            id              => 'omim',
-            name            => 'Online Mendelian Inheritance in Man',
-            url             => 'https://www.omim.org',
-            version         => '2023-05-22',
-            namespacePrefix => 'OMIM',
-            iriPrefix       => 'http://omim.org/entry/'
-        },
-        {
-            id   => 'cdisc-terminology',
-            name => 'CDISC Terminology',
-            url  =>
-'https://www.cdisc.org/standards/terminology/controlled-terminology',
-            version         => '2023-01-24',
-            namespacePrefix => 'CDISC',
-            iriPrefix       => 'http://www.fakeurl.com/CDISC_'
-        }
-    ];
-    return {
-        #_info => $info,         # Not allowed
-        created                  => iso8601_time(),
-        createdBy                => $user,
-        submittedBy              => $user,
-        phenopacketSchemaVersion => '2.0',
-        resources                => $resources,
-        externalReferences       => [
-            {
-                id        => 'PMID: 26262116',
-                reference =>
-                  'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4815923',
-                description =>
-'Observational Health Data Sciences and Informatics (OHDSI): Opportunities for Observational Researchers'
-            }
-        ]
-    };
 }
 
 1;

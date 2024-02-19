@@ -681,7 +681,6 @@
          },
          "diet" : "Unknown",
          "education" : "high-school diploma (Fachhochschulreife/Abitur)",
-         "metaData" : null,
          "redcap_event_name" : "week_0_arm_1",
          "study_id" : "107"
       },
@@ -2268,7 +2267,6 @@
             "which_new_biological" : null,
             "zipcode" : null
          },
-         "metaData" : null,
          "redcap_event_name" : "week_14_arm_1",
          "study_id" : "107"
       },
@@ -3299,7 +3297,6 @@
             "which_new_biological" : null,
             "zipcode" : null
          },
-         "metaData" : null,
          "redcap_event_name" : "week_2_arm_1",
          "study_id" : "107"
       },
@@ -4440,7 +4437,6 @@
             "value" : 1
          },
          "diet" : "Meat-Eating",
-         "metaData" : null,
          "redcap_event_name" : "week_0_arm_1",
          "study_id" : "125"
       },
@@ -5910,7 +5906,6 @@
             "which_new_biological" : null,
             "zipcode" : null
          },
-         "metaData" : null,
          "redcap_event_name" : "week_14_arm_1",
          "study_id" : "125"
       },
@@ -6941,7 +6936,6 @@
             "which_new_biological" : null,
             "zipcode" : null
          },
-         "metaData" : null,
          "redcap_event_name" : "week_2_arm_1",
          "study_id" : "125"
       },
@@ -7972,7 +7966,6 @@
             "which_new_biological" : null,
             "zipcode" : null
          },
-         "metaData" : null,
          "redcap_event_name" : "week_26_arm_1",
          "study_id" : "125"
       },
@@ -8900,7 +8893,6 @@
             "which_new_biological" : null,
             "zipcode" : null
          },
-         "metaData" : null,
          "redcap_event_name" : "week_52_arm_1",
          "study_id" : "125"
       },
@@ -10086,7 +10078,6 @@
             "which_new_biological" : null,
             "zipcode" : null
          },
-         "metaData" : null,
          "redcap_event_name" : "week_78_arm_1",
          "study_id" : "125"
       },
@@ -11355,7 +11346,6 @@
             "value" : 1
          },
          "diet" : "Unknown",
-         "metaData" : null,
          "redcap_event_name" : "week_0_arm_1",
          "study_id" : "215"
       },
@@ -12987,7 +12977,6 @@
             "which_new_biological" : null,
             "zipcode" : null
          },
-         "metaData" : null,
          "redcap_event_name" : "week_14_arm_1",
          "study_id" : "215"
       },
@@ -14176,7 +14165,6 @@
             "which_new_biological" : null,
             "zipcode" : null
          },
-         "metaData" : null,
          "redcap_event_name" : "week_2_arm_1",
          "study_id" : "215"
       },
@@ -15193,7 +15181,6 @@
             "which_new_biological" : null,
             "zipcode" : null
          },
-         "metaData" : null,
          "redcap_event_name" : "week_26_arm_1",
          "study_id" : "215"
       },
@@ -16199,7 +16186,6 @@
             "which_new_biological" : null,
             "zipcode" : null
          },
-         "metaData" : null,
          "redcap_event_name" : "week_52_arm_1",
          "study_id" : "215"
       },
@@ -17544,7 +17530,6 @@
             "which_new_biological" : null,
             "zipcode" : null
          },
-         "metaData" : null,
          "redcap_event_name" : "week_78_arm_1",
          "study_id" : "215"
       },
@@ -18765,7 +18750,6 @@
             "value" : 1
          },
          "diet" : "Unknown",
-         "metaData" : null,
          "redcap_event_name" : "week_0_arm_1",
          "study_id" : "257"
       },
@@ -20570,7 +20554,6 @@
             "which_new_biological" : null,
             "zipcode" : null
          },
-         "metaData" : null,
          "redcap_event_name" : "week_14_arm_1",
          "study_id" : "257"
       },
@@ -21773,7 +21756,6 @@
             "which_new_biological" : null,
             "zipcode" : null
          },
-         "metaData" : null,
          "redcap_event_name" : "week_2_arm_1",
          "study_id" : "257"
       },
@@ -22976,7 +22958,6 @@
             "which_new_biological" : null,
             "zipcode" : null
          },
-         "metaData" : null,
          "redcap_event_name" : "week_26_arm_1",
          "study_id" : "257"
       },
@@ -24324,7 +24305,6 @@
             "value" : 1
          },
          "diet" : "Unknown",
-         "metaData" : null,
          "redcap_event_name" : "week_0_arm_1",
          "study_id" : "275"
       },
@@ -25952,7 +25932,6 @@
             "which_new_biological" : null,
             "zipcode" : null
          },
-         "metaData" : null,
          "redcap_event_name" : "week_14_arm_1",
          "study_id" : "275"
       },
@@ -27018,7 +26997,6 @@
             "which_new_biological" : null,
             "zipcode" : null
          },
-         "metaData" : null,
          "redcap_event_name" : "week_2_arm_1",
          "study_id" : "275"
       },
@@ -27983,7 +27961,6 @@
             "which_new_biological" : null,
             "zipcode" : null
          },
-         "metaData" : null,
          "redcap_event_name" : "week_52_arm_1",
          "study_id" : "275"
       },
@@ -29475,7 +29452,6 @@
             "value" : 1
          },
          "diet" : "Meat-Eating",
-         "metaData" : null,
          "redcap_event_name" : "week_0_arm_1",
          "study_id" : "305"
       },
@@ -30974,7 +30950,6 @@
             "which_new_biological" : null,
             "zipcode" : null
          },
-         "metaData" : null,
          "redcap_event_name" : "week_26_arm_1",
          "study_id" : "305"
       },
@@ -31989,7 +31964,6 @@
             "which_new_biological" : null,
             "zipcode" : null
          },
-         "metaData" : null,
          "redcap_event_name" : "week_52_arm_1",
          "study_id" : "305"
       },
@@ -33307,7 +33281,6 @@
             "value" : 1
          },
          "diet" : "Meat-Eating",
-         "metaData" : null,
          "redcap_event_name" : "week_0_arm_1",
          "study_id" : "365"
       },
@@ -34905,7 +34878,6 @@
             "which_new_biological" : null,
             "zipcode" : null
          },
-         "metaData" : null,
          "redcap_event_name" : "week_14_arm_1",
          "study_id" : "365"
       },
@@ -36002,7 +35974,6 @@
             "which_new_biological" : null,
             "zipcode" : null
          },
-         "metaData" : null,
          "redcap_event_name" : "week_2_arm_1",
          "study_id" : "365"
       },
@@ -37051,7 +37022,6 @@
             "which_new_biological" : null,
             "zipcode" : null
          },
-         "metaData" : null,
          "redcap_event_name" : "week_26_arm_1",
          "study_id" : "365"
       },
@@ -38114,7 +38084,6 @@
             "which_new_biological" : null,
             "zipcode" : null
          },
-         "metaData" : null,
          "redcap_event_name" : "week_52_arm_1",
          "study_id" : "365"
       },
@@ -39446,7 +39415,6 @@
             "value" : 1
          },
          "diet" : "Unknown",
-         "metaData" : null,
          "redcap_event_name" : "week_0_arm_1",
          "study_id" : "527"
       },
@@ -41206,7 +41174,6 @@
             "which_new_biological" : null,
             "zipcode" : null
          },
-         "metaData" : null,
          "redcap_event_name" : "week_14_arm_1",
          "study_id" : "527"
       },
@@ -42137,7 +42104,6 @@
             "which_new_biological" : null,
             "zipcode" : null
          },
-         "metaData" : null,
          "redcap_event_name" : "week_2_arm_1",
          "study_id" : "527"
       },
@@ -43125,7 +43091,6 @@
             "which_new_biological" : null,
             "zipcode" : null
          },
-         "metaData" : null,
          "redcap_event_name" : "week_26_arm_1",
          "study_id" : "527"
       },
@@ -44202,7 +44167,6 @@
             "which_new_biological" : null,
             "zipcode" : null
          },
-         "metaData" : null,
          "redcap_event_name" : "week_52_arm_1",
          "study_id" : "527"
       },

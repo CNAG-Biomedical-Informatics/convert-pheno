@@ -591,6 +591,7 @@ sub read_csv {
         in       => $filepath,
         sep_char => $separator,
         headers  => "auto",
+
         # eol      => "\n", # Let the code figure it out
         # binary    => 1, # default
         encoding  => $encoding,

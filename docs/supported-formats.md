@@ -33,7 +33,7 @@ graph LR
 
     * [Beacon v2 Models (JSON | YAML)](bff.md)
     * [Phenopacket v2 (JSON | YAML)](pxf.md)
-    * [OMOP CDM (SQL export | CSV)](omop-cdm.md)
+    * [OMOP-CDM (SQL export | CSV)](omop-cdm.md)
     * [REDCap exports (CSV)](redcap.md)
     * [CDISC-ODM v1 (XML)](cdisc-odm.md)
 

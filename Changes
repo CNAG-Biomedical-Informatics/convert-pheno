@@ -9,6 +9,7 @@ Revision history for Perl distribution Convert-Pheno
    o radio -> selector
    o dict  -> dictionary 
    o map   -> mapping
+ - Added {info}{convertPheno} to individuals.json
 
 0.17 2024-02-03T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
