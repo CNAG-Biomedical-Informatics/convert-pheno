@@ -370,10 +370,10 @@ sub do_omop2bff {
     $individual->{info}{dateOfBirth} =
       _map2iso8601( $person->{birth_datetime} );
 
-    # Add metadata unless $test
+    # When we use --test we do not serialize changing (metaData) information
     unless ( $self->{test} ) {
-        $individual->{info}{metaData}     = get_metaData($self);
-        $individual->{info}{convertPheno} = get_info($self);
+        $individual->{info}{metaData}     = $self->{metaData};
+        $individual->{info}{convertPheno} = $self->{convertPheno};
     }
 
     # =========================

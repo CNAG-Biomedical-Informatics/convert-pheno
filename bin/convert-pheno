@@ -165,7 +165,7 @@ my $out_type = $out_pxf ? 'pxf' : $out_bff ? 'bff' : 'bff';
 my $method   = $in_type . '2' . $out_type;
 
 #Define job id
-my $job_id = time . substr( "00000$$", -5 );
+my $id = time . substr( "00000$$", -5 );
 
 # Defining data as a hashref
 my $data = {
@@ -196,7 +196,7 @@ my $data = {
     stream                    => $stream,
     schema_file               => $schema_file,
     out_file                  => $out_file,
-    job_id                    => $job_id,
+    id                        => $id,
     test                      => $test,
     debug                     => $debug,
     log                       => $log,
@@ -308,7 +308,7 @@ sub write_log {
         date      => ( strftime "%a %b %e %H:%M:%S %Y", localtime ),
         ncpuhost  => $ncpuhost,
         hostname  => hostname,
-        job_id    => $data->{job_id}, # string
+        id        => $data->{id}, # string
         version   => $VERSION,
              user => $ENV{'LOGNAME'}
           || $ENV{'USER'}

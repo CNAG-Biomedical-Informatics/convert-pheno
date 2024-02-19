@@ -92,6 +92,15 @@ has username => (
     isa => Str
 );
 
+has id => (
+    default => time . substr( "00000$$", -5 ),
+    is      => 'ro',
+    coerce  => sub {
+        $_[0] // time . substr( "00000$$", -5 );
+    },
+    isa => Str
+);
+
 has max_lines_sql => (
     default => 500,                    # Limit to speed up runtime
     is      => 'ro',
@@ -198,6 +207,8 @@ sub redcap2bff {
     $self->{data}              = $data;                 # Dynamically adding attributes (setter)
     $self->{data_redcap_dict}  = $data_redcap_dict;     # Dynamically adding attributes (setter)
     $self->{data_mapping_file} = $data_mapping_file;    # Dynamically adding attributes (setter)
+    $self->{metaData}          = get_metaData($self);
+    $self->{convertPheno}      = get_info($self);
 
     # array_dispatcher will deal with JSON arrays
     return array_dispatcher($self);
@@ -406,6 +417,10 @@ sub omop2bff {
 
     # Giving some memory back to the system
     $data = undef;
+
+    # Adding miscellanea metadata
+    $self->{metaData}     = get_metaData($self);                         # setter
+    $self->{convertPheno} = get_info($self);                             # setter
 
     # --stream
     if ( $self->{stream} ) {

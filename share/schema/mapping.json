@@ -23,7 +23,8 @@
       "required": [
         "id",
         "source",
-        "ontology"
+        "ontology",
+        "version"
       ],
       "properties": {
         "id": {
@@ -38,6 +39,9 @@
         },
         "ontology": {
           "$ref": "#/$defs/objectField/properties/ontology"
+        },
+        "version": {
+          "$ref": "#/$defs/stringField"
         },
         "description": {
           "$ref": "#/$defs/stringField"

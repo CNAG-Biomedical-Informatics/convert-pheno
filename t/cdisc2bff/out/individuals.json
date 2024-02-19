@@ -683,7 +683,8 @@
          "diet" : "Unknown",
          "education" : "high-school diploma (Fachhochschulreife/Abitur)",
          "redcap_event_name" : "week_0_arm_1",
-         "study_id" : "107"
+         "study_id" : "107",
+         "version" : "3TR-dev-0.1"
       },
       "interventionsOrProcedures" : [
          {
@@ -2130,7 +2131,8 @@
             "who5_5" : null
          },
          "redcap_event_name" : "week_2_arm_1",
-         "study_id" : "107"
+         "study_id" : "107",
+         "version" : "3TR-dev-0.1"
       },
       "interventionsOrProcedures" : [
          {
@@ -3018,7 +3020,8 @@
             "who5_5" : null
          },
          "redcap_event_name" : "week_14_arm_1",
-         "study_id" : "107"
+         "study_id" : "107",
+         "version" : "3TR-dev-0.1"
       },
       "interventionsOrProcedures" : [
          {
@@ -4176,7 +4179,8 @@
          },
          "diet" : "Meat-Eating",
          "redcap_event_name" : "week_0_arm_1",
-         "study_id" : "125"
+         "study_id" : "125",
+         "version" : "3TR-dev-0.1"
       },
       "interventionsOrProcedures" : [
          {
@@ -5506,7 +5510,8 @@
             "who5_5" : null
          },
          "redcap_event_name" : "week_2_arm_1",
-         "study_id" : "125"
+         "study_id" : "125",
+         "version" : "3TR-dev-0.1"
       },
       "interventionsOrProcedures" : [
          {
@@ -6411,7 +6416,8 @@
             "who5_5" : null
          },
          "redcap_event_name" : "week_14_arm_1",
-         "study_id" : "125"
+         "study_id" : "125",
+         "version" : "3TR-dev-0.1"
       },
       "interventionsOrProcedures" : [
          {
@@ -7305,7 +7311,8 @@
             "who5_5" : null
          },
          "redcap_event_name" : "week_26_arm_1",
-         "study_id" : "125"
+         "study_id" : "125",
+         "version" : "3TR-dev-0.1"
       },
       "interventionsOrProcedures" : [
          {
@@ -8096,7 +8103,8 @@
             "who5_5" : null
          },
          "redcap_event_name" : "week_52_arm_1",
-         "study_id" : "125"
+         "study_id" : "125",
+         "version" : "3TR-dev-0.1"
       },
       "interventionsOrProcedures" : [
          {
@@ -9145,7 +9153,8 @@
             "who5_5" : null
          },
          "redcap_event_name" : "week_78_arm_1",
-         "study_id" : "125"
+         "study_id" : "125",
+         "version" : "3TR-dev-0.1"
       },
       "interventionsOrProcedures" : [
          {
@@ -10414,7 +10423,8 @@
          },
          "diet" : "Unknown",
          "redcap_event_name" : "week_0_arm_1",
-         "study_id" : "215"
+         "study_id" : "215",
+         "version" : "3TR-dev-0.1"
       },
       "interventionsOrProcedures" : [
          {
@@ -11902,7 +11912,8 @@
             "who5_5" : null
          },
          "redcap_event_name" : "week_2_arm_1",
-         "study_id" : "215"
+         "study_id" : "215",
+         "version" : "3TR-dev-0.1"
       },
       "interventionsOrProcedures" : [
          {
@@ -12797,7 +12808,8 @@
             "who5_5" : null
          },
          "redcap_event_name" : "week_14_arm_1",
-         "study_id" : "215"
+         "study_id" : "215",
+         "version" : "3TR-dev-0.1"
       },
       "interventionsOrProcedures" : [
          {
@@ -13849,7 +13861,8 @@
             "who5_5" : null
          },
          "redcap_event_name" : "week_26_arm_1",
-         "study_id" : "215"
+         "study_id" : "215",
+         "version" : "3TR-dev-0.1"
       },
       "interventionsOrProcedures" : [
          {
@@ -14718,7 +14731,8 @@
             "who5_5" : null
          },
          "redcap_event_name" : "week_52_arm_1",
-         "study_id" : "215"
+         "study_id" : "215",
+         "version" : "3TR-dev-0.1"
       },
       "interventionsOrProcedures" : [
          {
@@ -15926,7 +15940,8 @@
             "who5_5" : null
          },
          "redcap_event_name" : "week_78_arm_1",
-         "study_id" : "215"
+         "study_id" : "215",
+         "version" : "3TR-dev-0.1"
       },
       "interventionsOrProcedures" : [
          {
@@ -17147,7 +17162,8 @@
          },
          "diet" : "Unknown",
          "redcap_event_name" : "week_0_arm_1",
-         "study_id" : "257"
+         "study_id" : "257",
+         "version" : "3TR-dev-0.1"
       },
       "interventionsOrProcedures" : [
          {
@@ -18814,7 +18830,8 @@
             "who5_5" : null
          },
          "redcap_event_name" : "week_2_arm_1",
-         "study_id" : "257"
+         "study_id" : "257",
+         "version" : "3TR-dev-0.1"
       },
       "interventionsOrProcedures" : [
          {
@@ -19889,7 +19906,8 @@
             "who5_5" : null
          },
          "redcap_event_name" : "week_14_arm_1",
-         "study_id" : "257"
+         "study_id" : "257",
+         "version" : "3TR-dev-0.1"
       },
       "interventionsOrProcedures" : [
          {
@@ -20955,7 +20973,8 @@
             "who5_5" : null
          },
          "redcap_event_name" : "week_26_arm_1",
-         "study_id" : "257"
+         "study_id" : "257",
+         "version" : "3TR-dev-0.1"
       },
       "interventionsOrProcedures" : [
          {
@@ -22303,7 +22322,8 @@
          },
          "diet" : "Unknown",
          "redcap_event_name" : "week_0_arm_1",
-         "study_id" : "275"
+         "study_id" : "275",
+         "version" : "3TR-dev-0.1"
       },
       "interventionsOrProcedures" : [
          {
@@ -23792,7 +23812,8 @@
             "who5_5" : null
          },
          "redcap_event_name" : "week_2_arm_1",
-         "study_id" : "275"
+         "study_id" : "275",
+         "version" : "3TR-dev-0.1"
       },
       "interventionsOrProcedures" : [
          {
@@ -24714,7 +24735,8 @@
             "who5_5" : null
          },
          "redcap_event_name" : "week_14_arm_1",
-         "study_id" : "275"
+         "study_id" : "275",
+         "version" : "3TR-dev-0.1"
       },
       "interventionsOrProcedures" : [
          {
@@ -25559,7 +25581,8 @@
             "who5_5" : null
          },
          "redcap_event_name" : "week_52_arm_1",
-         "study_id" : "275"
+         "study_id" : "275",
+         "version" : "3TR-dev-0.1"
       },
       "interventionsOrProcedures" : [
          {
@@ -27051,7 +27074,8 @@
          },
          "diet" : "Meat-Eating",
          "redcap_event_name" : "week_0_arm_1",
-         "study_id" : "305"
+         "study_id" : "305",
+         "version" : "3TR-dev-0.1"
       },
       "interventionsOrProcedures" : [
          {
@@ -28413,7 +28437,8 @@
             "who5_5" : null
          },
          "redcap_event_name" : "week_26_arm_1",
-         "study_id" : "305"
+         "study_id" : "305",
+         "version" : "3TR-dev-0.1"
       },
       "interventionsOrProcedures" : [
          {
@@ -29291,7 +29316,8 @@
             "who5_5" : null
          },
          "redcap_event_name" : "week_52_arm_1",
-         "study_id" : "305"
+         "study_id" : "305",
+         "version" : "3TR-dev-0.1"
       },
       "interventionsOrProcedures" : [
          {
@@ -30609,7 +30635,8 @@
          },
          "diet" : "Meat-Eating",
          "redcap_event_name" : "week_0_arm_1",
-         "study_id" : "365"
+         "study_id" : "365",
+         "version" : "3TR-dev-0.1"
       },
       "interventionsOrProcedures" : [
          {
@@ -32067,7 +32094,8 @@
             "who5_5" : null
          },
          "redcap_event_name" : "week_2_arm_1",
-         "study_id" : "365"
+         "study_id" : "365",
+         "version" : "3TR-dev-0.1"
       },
       "interventionsOrProcedures" : [
          {
@@ -32990,7 +33018,8 @@
             "who5_5" : null
          },
          "redcap_event_name" : "week_14_arm_1",
-         "study_id" : "365"
+         "study_id" : "365",
+         "version" : "3TR-dev-0.1"
       },
       "interventionsOrProcedures" : [
          {
@@ -33950,7 +33979,8 @@
             "who5_5" : null
          },
          "redcap_event_name" : "week_26_arm_1",
-         "study_id" : "365"
+         "study_id" : "365",
+         "version" : "3TR-dev-0.1"
       },
       "interventionsOrProcedures" : [
          {
@@ -34876,7 +34906,8 @@
             "who5_5" : null
          },
          "redcap_event_name" : "week_52_arm_1",
-         "study_id" : "365"
+         "study_id" : "365",
+         "version" : "3TR-dev-0.1"
       },
       "interventionsOrProcedures" : [
          {
@@ -36208,7 +36239,8 @@
          },
          "diet" : "Unknown",
          "redcap_event_name" : "week_0_arm_1",
-         "study_id" : "527"
+         "study_id" : "527",
+         "version" : "3TR-dev-0.1"
       },
       "interventionsOrProcedures" : [
          {
@@ -37727,7 +37759,8 @@
             "who5_5" : null
          },
          "redcap_event_name" : "week_2_arm_1",
-         "study_id" : "527"
+         "study_id" : "527",
+         "version" : "3TR-dev-0.1"
       },
       "interventionsOrProcedures" : [
          {
@@ -38589,7 +38622,8 @@
             "who5_5" : null
          },
          "redcap_event_name" : "week_14_arm_1",
-         "study_id" : "527"
+         "study_id" : "527",
+         "version" : "3TR-dev-0.1"
       },
       "interventionsOrProcedures" : [
          {
@@ -39484,7 +39518,8 @@
             "who5_5" : null
          },
          "redcap_event_name" : "week_26_arm_1",
-         "study_id" : "527"
+         "study_id" : "527",
+         "version" : "3TR-dev-0.1"
       },
       "interventionsOrProcedures" : [
          {
@@ -40424,7 +40459,8 @@
             "who5_5" : null
          },
          "redcap_event_name" : "week_52_arm_1",
-         "study_id" : "527"
+         "study_id" : "527",
+         "version" : "3TR-dev-0.1"
       },
       "interventionsOrProcedures" : [
          {

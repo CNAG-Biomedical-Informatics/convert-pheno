@@ -20,27 +20,27 @@ our @EXPORT = qw(do_redcap2bff);
 sub do_redcap2bff {
 
     my ( $self, $participant ) = @_;
-    my $redcap_dict  = $self->{data_redcap_dict};
-    my $mapping_file = $self->{data_mapping_file};
-    my $sth          = $self->{sth};
+    my $redcap_dict       = $self->{data_redcap_dict};
+    my $data_mapping_file = $self->{data_mapping_file};
+    my $sth               = $self->{sth};
 
     ##############################
     # <Variable> names in REDCap #
     ##############################
-#
-# REDCap does not enforce any particular variable name.
-# Extracted from https://www.ctsi.ufl.edu/wordpress/files/2019/02/Project-Creation-User-Guide.pdf
-# ---
-# "Variable Names: Variable names are critical in the data analysis process. If you export your data to a
-# statistical software program, the variable names are what you or your statistician will use to conduct
-# the analysis"
-#
-# "We always recommend reviewing your variable names with a statistician or whoever will be
-# analyzing your data. This is especially important if this is the first time you are building a
-# database"
-#---
-# If variable names are not consensuated, then we need to do the mapping manually "a posteriori".
-# This is what we are attempting here:
+    #
+    # REDCap does not enforce any particular variable name.
+    # Extracted from https://www.ctsi.ufl.edu/wordpress/files/2019/02/Project-Creation-User-Guide.pdf
+    # ---
+    # "Variable Names: Variable names are critical in the data analysis process. If you export your data to a
+    # statistical software program, the variable names are what you or your statistician will use to conduct
+    # the analysis"
+    #
+    # "We always recommend reviewing your variable names with a statistician or whoever will be
+    # analyzing your data. This is especially important if this is the first time you are building a
+    # database"
+    #---
+    # If variable names are not consensuated, then we need to do the mapping manually "a posteriori".
+    # This is what we are attempting here:
 
     ###############
     # Field Types #
@@ -80,8 +80,8 @@ sub do_redcap2bff {
     my @redcap_field_types = ( 'Field Label', 'Field Note', 'Field Type' );
 
     # Getting the field name from mapping file (note that we add _field suffix)
-    my $sex_field     = $mapping_file->{sex};
-    my $studyId_field = $mapping_file->{info}{mapping}{studyId};
+    my $sex_field     = $data_mapping_file->{sex};
+    my $studyId_field = $data_mapping_file->{info}{mapping}{studyId};
 
     # **********************
     # *** IMPORTANT STEP ***
@@ -90,7 +90,7 @@ sub do_redcap2bff {
     # Thus, we are storing $participant->{sex} in $self !!!
     if ( defined $participant->{$sex_field} ) {
         $self->{_info}{ $participant->{study_id} }{$sex_field} =
-          $participant->{$sex_field};   # Dynamically adding attributes (setter)
+          $participant->{$sex_field};    # Dynamically adding attributes (setter)
     }
     $participant->{$sex_field} =
       $self->{_info}{ $participant->{$studyId_field} }{$sex_field};
@@ -109,7 +109,7 @@ sub do_redcap2bff {
     );
 
     # Variable that will allow to perform ad hoc changes for specific projects
-    my $project_id = $mapping_file->{project}{id};
+    my $project_id = $data_mapping_file->{project}{id};
 
     # **********************
     # *** IMPORTANT STEP ***
@@ -118,7 +118,7 @@ sub do_redcap2bff {
     # <sex> and <ethnicity> project_ontology are fixed,
     #  (can't be changed granulary)
 
-    my $project_ontology = $mapping_file->{project}{ontology};
+    my $project_ontology = $data_mapping_file->{project}{ontology};
 
     # Data structure (hashref) for each individual
     my $individual;
@@ -171,7 +171,7 @@ sub do_redcap2bff {
     # NB: Inflamatory Bowel Disease --- Note the 2 mm in infla-mm-atory
 
     # Load hashref with cursors for mapping
-    my $mapping = remap_mapping_hash_term( $mapping_file, 'diseases' );
+    my $mapping = remap_mapping_hash_term( $data_mapping_file, 'diseases' );
 
     # Start looping over them
     for my $field ( @{ $mapping->{fields} } ) {
@@ -213,7 +213,7 @@ sub do_redcap2bff {
     # =========
 
     # Load field name from mapping file
-    my $ethnicity_field = $mapping_file->{ethnicity};
+    my $ethnicity_field = $data_mapping_file->{ethnicity};
     $individual->{ethnicity} = map_ethnicity( $participant->{$ethnicity_field} )
       if defined $participant->{$ethnicity_field};
 
@@ -224,7 +224,7 @@ sub do_redcap2bff {
     #$individual->{exposures} = undef;
 
     # Load hashref with cursors for mapping
-    $mapping = remap_mapping_hash_term( $mapping_file, 'exposures' );
+    $mapping = remap_mapping_hash_term( $data_mapping_file, 'exposures' );
 
     for my $field ( @{ $mapping->{fields} } ) {
         next unless defined $participant->{$field};
@@ -300,14 +300,14 @@ sub do_redcap2bff {
 
     # Concatenation of the values in @id_fields (mapping file)
     $individual->{id} = join ':',
-      map { $participant->{$_} } @{ $mapping_file->{id}{fields} };
+      map { $participant->{$_} } @{ $data_mapping_file->{id}{fields} };
 
     # ====
     # info
     # ====
 
     # Load hashref with cursors for mapping
-    $mapping = remap_mapping_hash_term( $mapping_file, 'info' );
+    $mapping = remap_mapping_hash_term( $data_mapping_file, 'info' );
 
     for my $field ( @{ $mapping->{fields} } ) {
         if ( defined $participant->{$field} ) {
@@ -331,9 +331,12 @@ sub do_redcap2bff {
 
     # When we use --test we do not serialize changing (metaData) information
     unless ( $self->{test} ) {
-        $individual->{info}{metaData}     = get_metaData($self);
-        $individual->{info}{convertPheno} = get_info($self);
+        $individual->{info}{metaData}     = $self->{metaData};
+        $individual->{info}{convertPheno} = $self->{convertPheno};
     }
+
+    # Add version (from mapping file)
+    $individual->{info}{version} = $data_mapping_file->{project}{version};
 
     # We finally add all REDCap columns
     # NB: _ori are values before adding _labels
@@ -347,7 +350,8 @@ sub do_redcap2bff {
 
     # Load hashref with cursors for mapping
     $mapping =
-      remap_mapping_hash_term( $mapping_file, 'interventionsOrProcedures' );
+      remap_mapping_hash_term( $data_mapping_file,
+        'interventionsOrProcedures' );
 
     for my $field ( @{ $mapping->{fields} } ) {
         if ( defined $participant->{$field} ) {
@@ -406,7 +410,7 @@ sub do_redcap2bff {
     $individual->{measures} = [];
 
     # Load hashref with cursors for mapping
-    $mapping = remap_mapping_hash_term( $mapping_file, 'measures' );
+    $mapping = remap_mapping_hash_term( $data_mapping_file, 'measures' );
 
     for my $field ( @{ $mapping->{fields} } ) {
         next unless defined $participant->{$field};
@@ -436,8 +440,7 @@ sub do_redcap2bff {
         # We can have  $participant->{$field} eq '2 - Mild'
         if ( $participant->{$field} =~ m/ \- / ) {
             my ( $tmp_val, $tmp_scale ) = split / \- /, $participant->{$field};
-            $participant->{$field} =
-              $tmp_val;    # should be equal to $participant->{$field.'_ori'}
+            $participant->{$field} = $tmp_val;     # should be equal to $participant->{$field.'_ori'}
             $tmp_str = $tmp_scale;
         }
 
@@ -491,7 +494,7 @@ sub do_redcap2bff {
     #$individual->{pedigrees} = [];
 
     # disease, id, members, numSubjects
-    #my @pedigrees = @{ $mapping_file->{pedigrees}{fields} };
+    #my @pedigrees = @{ $data_mapping_file->{pedigrees}{fields} };
     #for my $field (@pedigrees) {
     #
     #        my $pedigree;
@@ -512,7 +515,8 @@ sub do_redcap2bff {
     #$individual->{phenotypicFeatures} = [];
 
     # Load hashref with cursors for mapping
-    $mapping = remap_mapping_hash_term( $mapping_file, 'phenotypicFeatures' );
+    $mapping =
+      remap_mapping_hash_term( $data_mapping_file, 'phenotypicFeatures' );
 
     for my $field ( @{ $mapping->{fields} } ) {
         my $phenotypicFeature;
@@ -593,7 +597,7 @@ sub do_redcap2bff {
 
     #$individual->{treatments} = undef;
 
-    $mapping = remap_mapping_hash_term( $mapping_file, 'treatments' );
+    $mapping = remap_mapping_hash_term( $data_mapping_file, 'treatments' );
 
     for my $field ( @{ $mapping->{fields} } ) {
 
@@ -643,9 +647,7 @@ sub do_redcap2bff {
             $treatment->{doseIntervals}         = [];
             $treatment->{routeOfAdministration} = map_ontology(
                 {
-                    query => ucfirst($route)
-                      . ' Route of Administration'
-                    ,    # Oral Route of Administration
+                    query    => ucfirst($route) . ' Route of Administration',  # Oral Route of Administration
                     column   => 'label',
                     ontology => $mapping->{ontology},
                     self     => $self

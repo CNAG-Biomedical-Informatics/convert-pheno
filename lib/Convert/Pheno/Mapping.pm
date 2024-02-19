@@ -37,7 +37,7 @@ sub map_ethnicity {
     my $str       = shift;
     my %ethnicity = ( map { $_ => 'NCIT:C41261' } ( 'caucasian', 'white' ) );
 
-    # 1, Caucasian | 2, Hispanic | 3, Asian | 4, African/African-American | 5, Indigenous American | 6, Mixed | 9, Other";
+# 1, Caucasian | 2, Hispanic | 3, Asian | 4, African/African-American | 5, Indigenous American | 6, Mixed | 9, Other";
     return { id => $ethnicity{ lc($str) }, label => $str };
 }
 
@@ -97,7 +97,7 @@ sub map_ontology {
     # Add result to global %seen
     $seen{$tmp_query} = { id => $id, label => $label };    # global
 
-    # id and label come from <db> _label is the original string (can change on partial matches)
+# id and label come from <db> _label is the original string (can change on partial matches)
     return $print_hidden_labels
       ? { id => $id, label => $label, _label => $tmp_query }
       : { id => $id, label => $label };
@@ -123,10 +123,10 @@ sub dotify_and_coerce_number {
 
 sub iso8601_time {
 
-    # Standard modules (gmtime()===>Coordinated Universal Time(UTC))
-    # NB: The T separates the date portion from the time-of-day portion.
-    #     The Z on the end means UTC (that is, an offset-from-UTC of zero hours-minutes-seconds).
-    #     - The Z is pronounced “Zulu”.
+# Standard modules (gmtime()===>Coordinated Universal Time(UTC))
+# NB: The T separates the date portion from the time-of-day portion.
+#     The Z on the end means UTC (that is, an offset-from-UTC of zero hours-minutes-seconds).
+#     - The Z is pronounced “Zulu”.
     my $now = time();
     return strftime( '%Y-%m-%dT%H:%M:%SZ', gmtime($now) );
 }
@@ -247,7 +247,7 @@ sub convert2boolean {
     return
         ( $val eq 'true'  || $val eq 'yes' ) ? JSON::XS::true
       : ( $val eq 'false' || $val eq 'no' )  ? JSON::XS::false
-      :                                        undef;            # unknown = undef
+      :                                        undef;          # unknown = undef
 
 }
 
@@ -352,10 +352,10 @@ sub map_omop_visit_occurrence {
     # Premature return
     return undef if $visit_occurrence_id eq '\\N';    # perlcritic Severity: 5
 
-    # *** IMPORTANT ***
-    # EUNOMIA instance has mismatches between the person_id -- visit_occurrence_id
-    # For instance, person_id = 1 has only visit_occurrence_id = 85, but on tables it has:
-    # 82, 84, 42, 54, 41, 25, 76 and 81
+# *** IMPORTANT ***
+# EUNOMIA instance has mismatches between the person_id -- visit_occurrence_id
+# For instance, person_id = 1 has only visit_occurrence_id = 85, but on tables it has:
+# 82, 84, 42, 54, 41, 25, 76 and 81
 
     # warn if we don't have $visit_occurrence_id in VISIT_OCURRENCE
     unless ( exists $visit_occurrence->{$visit_occurrence_id} ) {
@@ -379,8 +379,8 @@ sub map_omop_visit_occurrence {
         }
     );
 
-    # *** IMPORTANT ***
-    # Ad hoc to avoid using --ohdsi-db while we find a solution to EUNOMIA not being self-contained
+# *** IMPORTANT ***
+# Ad hoc to avoid using --ohdsi-db while we find a solution to EUNOMIA not being self-contained
     my $ad_hoc_44818517 = {
         id    => "Visit Type:OMOP4822465",
         label => "Visit derived from encounter on claim"
@@ -435,18 +435,18 @@ sub is_multidimensional {
 
 sub remap_mapping_hash_term {
 
-    my ( $mapping_file, $term ) = @_;
+    my ( $mapping_file_data, $term ) = @_;
     my %hash_out = map {
-            $_ => exists $mapping_file->{$term}{$_}
-          ? $mapping_file->{$term}{$_}
+            $_ => exists $mapping_file_data->{$term}{$_}
+          ? $mapping_file_data->{$term}{$_}
           : undef
     } (qw/fields dictionary mapping selector/);
     $hash_out{ontology} =
-      exists $mapping_file->{$term}{ontology}
-      ? $mapping_file->{$term}{ontology}
-      : $mapping_file->{project}{ontology};
+      exists $mapping_file_data->{$term}{ontology}
+      ? $mapping_file_data->{$term}{ontology}
+      : $mapping_file_data->{project}{ontology};
     $hash_out{routesOfAdministration} =
-      $mapping_file->{$term}{routesOfAdministration}
+      $mapping_file_data->{$term}{routesOfAdministration}
       if $term eq 'treatments';
     return \%hash_out;
 }
@@ -473,7 +473,7 @@ sub get_info {
 
     my $self = shift;
 
-    # NB: Darwin does not have nproc to show #logical-cores, using sysctl instead
+   # NB: Darwin does not have nproc to show #logical-cores, using sysctl instead
     my $os = $^O;
     chomp(
         my $ncpuhost =
@@ -498,7 +498,7 @@ sub get_info {
         username => $self->{username},
         ncpuhost => $ncpuhost,
         cwd      => cwd,
-        job_id   => $self->{job_id},
+        id       => $self->{id},
         hostname => hostname,
         version  => $::VERSION
     };

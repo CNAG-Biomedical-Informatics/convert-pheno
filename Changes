@@ -4,17 +4,18 @@ Revision history for Perl distribution Convert-Pheno
 
  - Updated docs
  - Updated resources in PXF.pm
- - Added {info}{REDCap_columns} to REDCap.pm
+ - Added info.REDCap_columns to REDCap.pm
  - Renamed keys in REDCap mapping (schema|src|files):
    o radio -> selector
    o dict  -> dictionary 
    o map   -> mapping
- - Added {info}{convertPheno} to individuals.json
+ - Added info.convertPheno to individuals.json
+ - Added project.version to mapping (schema|src|files)
 
 0.17 2024-02-03T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
  - Updated docs
- - Fixed typo in {_info}{VISIT_OCCURENCE} -> {_info}{VISIT_OCCURRENCE}
+ - Fixed typo in _info.VISIT_OCCURENCE -> _info.VISIT_OCCURRENCE
 
 0.16 2023-12-26T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
