@@ -1,4 +1,4 @@
-package Convert::Pheno::CSV;
+package Convert::Pheno::IO::CSVHandler;
 
 use strict;
 use warnings;
@@ -14,8 +14,8 @@ use IO::Uncompress::Gunzip qw($GunzipError);
 
 #use Devel::Size           qw(size total_size);
 use Convert::Pheno;
+use Convert::Pheno::IO::FileIO;
 use Convert::Pheno::OMOP;
-use Convert::Pheno::IO;
 use Convert::Pheno::Schema;
 use Convert::Pheno::Mapping;
 use Exporter 'import';

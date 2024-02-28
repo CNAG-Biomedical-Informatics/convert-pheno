@@ -11,6 +11,7 @@ Revision history for Perl distribution Convert-Pheno
    o map   -> mapping
  - Added info.convertPheno to individuals.json
  - Added project.version to mapping (schema|src|files)
+ - Refactored CSV.pm and IO.pm to IO::CSVHandler and IO::FileIO
 
 0.17 2024-02-03T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 

@@ -8,7 +8,7 @@ use Moo;
 use File::Spec::Functions qw(catfile);
 use JSON::Validator;
 use Term::ANSIColor qw(:constants);
-use Convert::Pheno::IO;
+use Convert::Pheno::IO::FileIO;
 
 # Declate attribute classes
 has data => (

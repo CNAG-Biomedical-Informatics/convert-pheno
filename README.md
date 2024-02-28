@@ -38,7 +38,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
 
      Arguments:                       
        (input-type): 
-             -ibff                    Beacon v2 Models ("individuals" JSON|YAML) file
+             -ibff                    Beacon v2 Models ('individuals' JSON|YAML) file
              -iomop                   OMOP-CDM CSV files or PostgreSQL dump
              -ipxf                    Phenopacket v2 (JSON|YAML) file
              -iredcap (experimental)  REDCap (raw data) export CSV file
@@ -52,6 +52,7 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
        (output-type):
              -obff                    Beacon v2 Models ("invididuals" JSON|YAML) file
              -opxf                    Phenopacket v2 (JSON|YAML) file
+             -ocsv                    Flattened Beacon v2 Models 'invididuals' entity
 
              (Wish-list)
              #-oomop                  OMOP-CDM PostgreSQL dump

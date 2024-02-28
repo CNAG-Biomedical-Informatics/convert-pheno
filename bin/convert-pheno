@@ -4,11 +4,11 @@
 #
 #   This file is part of Convert::Pheno
 #
-#   Last Modified: Jul/26/2023
+#   Last Modified: Feb/28/2024
 #
 #   $VERSION taken from Convert::Pheno
 #
-#   Copyright (C) 2022-2023 Manuel Rueda - CNAG (manuel.rueda@cnag.eu)
+#   Copyright (C) 2022-2024 Manuel Rueda - CNAG (manuel.rueda@cnag.eu)
 #
 #   License: Artistic License 2.0
 
@@ -49,6 +49,7 @@ GetOptions(
     'iomop=s{1,}'                 => \my @omop_files,                          # array
     'obff=s'                      => \my $out_bff,                             # string
     'opxf=s'                      => \my $out_pxf,                             # string
+    'ocsv=s'                      => \my $out_csv,                             # string
     'out-dir=s'                   => \$out_dir,                                # string
     'help|?'                      => \my $help,                                # flag
     'man'                         => \my $man,                                 # flag
@@ -147,6 +148,7 @@ $ENV{'ANSI_COLORS_DISABLED'} = 1 unless $color;
 my $out_file =
     $out_pxf ? catfile( $out_dir, $out_pxf )
   : $out_bff ? catfile( $out_dir, $out_bff )
+  : $out_csv ? catfile( $out_dir, $out_csv )
   :            catfile( $out_dir, 'individuals.json' );
 
 # Defining $log_file
@@ -161,7 +163,7 @@ my $in_type =
   : $in_cdisc   ? 'cdisc'
   : @omop_files ? 'omop'
   :               'bff';
-my $out_type = $out_pxf ? 'pxf' : $out_bff ? 'bff' : 'bff';
+my $out_type = $out_pxf ? 'pxf' : $out_bff ? 'bff' :  $out_csv ? 'csv':  'bff';
 my $method   = $in_type . '2' . $out_type;
 
 #Define job id
@@ -370,7 +372,7 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
 
      Arguments:                       
        (input-type): 
-             -ibff                    Beacon v2 Models ("individuals" JSON|YAML) file
+             -ibff                    Beacon v2 Models ('individuals' JSON|YAML) file
              -iomop                   OMOP-CDM CSV files or PostgreSQL dump
              -ipxf                    Phenopacket v2 (JSON|YAML) file
              -iredcap (experimental)  REDCap (raw data) export CSV file
@@ -384,6 +386,7 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
        (output-type):
              -obff                    Beacon v2 Models ("invididuals" JSON|YAML) file
              -opxf                    Phenopacket v2 (JSON|YAML) file
+             -ocsv                    Flattened Beacon v2 Models 'invididuals' entity
 
              (Wish-list)
              #-oomop                  OMOP-CDM PostgreSQL dump

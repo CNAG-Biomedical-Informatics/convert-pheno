@@ -17,8 +17,8 @@ use Types::Standard qw(Str Int Num Enum ArrayRef Undef);
 use File::ShareDir::ProjectDistDir qw(dist_dir);
 
 #use Devel::Size     qw(size total_size);
-use Convert::Pheno::CSV;
-use Convert::Pheno::IO;
+use Convert::Pheno::IO::CSVHandler;
+use Convert::Pheno::IO::FileIO;
 use Convert::Pheno::SQLite;
 use Convert::Pheno::Mapping;
 use Convert::Pheno::OMOP;
@@ -537,6 +537,19 @@ sub cdisc2pxf {
     return array_dispatcher($self);
 }
 
+#############
+#############
+#  BFF2CSV  #
+#############
+#############
+
+sub bff2csv {
+
+    # <array_dispatcher> will deal with JSON arrays
+    return array_dispatcher(shift);
+}
+
+
 ######################
 ######################
 #  MISCELLANEA SUBS  #
@@ -559,7 +572,8 @@ sub array_dispatcher {
         redcap2bff => \&do_redcap2bff,
         cdisc2bff  => \&do_cdisc2bff,
         omop2bff   => \&do_omop2bff,
-        bff2pxf    => \&do_bff2pxf
+        bff2pxf    => \&do_bff2pxf,
+        bff2csv    => \&do_bff2csv
     );
 
     # Open connection to SQLlite databases ONCE

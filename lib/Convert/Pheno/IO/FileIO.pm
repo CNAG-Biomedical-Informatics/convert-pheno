@@ -1,4 +1,4 @@
-package Convert::Pheno::IO;
+package Convert::Pheno::IO::FileIO;
 
 use strict;
 use warnings;
