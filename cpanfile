@@ -18,6 +18,7 @@ requires 'IO::Socket::SSL';
 requires 'Types::Standard';
 requires 'File::ShareDir::ProjectDistDir';
 requires 'Data::Leaf::Walker';
+requires 'Hash::Fold';
 
 # t
 requires 'Test::Deep';
