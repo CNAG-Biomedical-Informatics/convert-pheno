@@ -3,17 +3,17 @@ package Convert::Pheno;
 use strict;
 use warnings;
 use autodie;
-use feature qw(say);
+use feature               qw(say);
 use File::Spec::Functions qw(catdir catfile);
 use Data::Dumper;
 use Path::Tiny;
 use File::Basename;
 use File::ShareDir::ProjectDistDir;
 use List::Util qw(any uniq);
-use Carp qw(confess);
+use Carp       qw(confess);
 use XML::Fast;
 use Moo;
-use Types::Standard qw(Str Int Num Enum ArrayRef Undef);
+use Types::Standard                qw(Str Int Num Enum ArrayRef Undef);
 use File::ShareDir::ProjectDistDir qw(dist_dir);
 
 #use Devel::Size     qw(size total_size);
@@ -21,6 +21,7 @@ use Convert::Pheno::IO::CSVHandler;
 use Convert::Pheno::IO::FileIO;
 use Convert::Pheno::SQLite;
 use Convert::Pheno::Mapping;
+use Convert::Pheno::CSV;
 use Convert::Pheno::OMOP;
 use Convert::Pheno::PXF;
 use Convert::Pheno::BFF;
@@ -159,11 +160,11 @@ has [qw /data method/] => ( is => 'rw' );
 
 #############
 #############
-#  PXF2BFF  #
+#  BFF2PXF  #
 #############
 #############
 
-sub pxf2bff {
+sub bff2pxf {
 
     # <array_dispatcher> will deal with JSON arrays
     return array_dispatcher(shift);
@@ -171,11 +172,23 @@ sub pxf2bff {
 
 #############
 #############
-#  BFF2PXF  #
+#  BFF2CSV  #
 #############
 #############
 
-sub bff2pxf {
+sub bff2csv {
+
+    # <array_dispatcher> will deal with JSON arrays
+    return array_dispatcher(shift);
+}
+
+#############
+#############
+# BFF2JSONF #
+#############
+#############
+
+sub bff2jsonf {
 
     # <array_dispatcher> will deal with JSON arrays
     return array_dispatcher(shift);
@@ -539,16 +552,15 @@ sub cdisc2pxf {
 
 #############
 #############
-#  BFF2CSV  #
+#  PXF2BFF  #
 #############
 #############
 
-sub bff2csv {
+sub pxf2bff {
 
     # <array_dispatcher> will deal with JSON arrays
     return array_dispatcher(shift);
 }
-
 
 ######################
 ######################
@@ -568,12 +580,13 @@ sub array_dispatcher {
 
     # Define the methods to call (naming 'func' to avoid confussion with $self->{method})
     my %func = (
-        pxf2bff    => \&do_pxf2bff,
         redcap2bff => \&do_redcap2bff,
         cdisc2bff  => \&do_cdisc2bff,
         omop2bff   => \&do_omop2bff,
         bff2pxf    => \&do_bff2pxf,
-        bff2csv    => \&do_bff2csv
+        bff2csv    => \&do_bff2csv,
+        bff2jsonf  => \&do_bff2csv,      # Not a typo, is the same as above
+        pxf2bff    => \&do_pxf2bff
     );
 
     # Open connection to SQLlite databases ONCE

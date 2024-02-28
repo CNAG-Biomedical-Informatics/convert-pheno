@@ -5,11 +5,11 @@ use warnings;
 use autodie;
 use feature qw(say);
 use File::Basename;
-use Text::CSV_XS qw(csv);
-use Sort::Naturally qw(nsort);
-use List::Util qw(any);
-use File::Spec::Functions qw(catdir);
-use IO::Compress::Gzip qw($GzipError);
+use Text::CSV_XS           qw(csv);
+use Sort::Naturally        qw(nsort);
+use List::Util             qw(any);
+use File::Spec::Functions  qw(catdir);
+use IO::Compress::Gzip     qw($GzipError);
 use IO::Uncompress::Gunzip qw($GunzipError);
 
 #use Devel::Size           qw(size total_size);
@@ -20,7 +20,7 @@ use Convert::Pheno::Schema;
 use Convert::Pheno::Mapping;
 use Exporter 'import';
 our @EXPORT =
-  qw(read_csv read_csv_stream read_redcap_dict_and_mapping_file transpose_ohdsi_dictionary read_sqldump_stream read_sqldump sqldump2csv transpose_omop_data_structure open_filehandle load_exposures transpose_visit_occurrence);
+  qw(read_csv read_csv_stream read_redcap_dict_and_mapping_file transpose_ohdsi_dictionary read_sqldump_stream read_sqldump sqldump2csv transpose_omop_data_structure write_csv open_filehandle load_exposures transpose_visit_occurrence get_headers);
 
 use constant DEVEL_MODE => 0;
 
@@ -685,6 +685,13 @@ sub write_csv {
     my $filepath = $arg->{filepath};
     my $headers  = $arg->{headers};
 
+    my @exts = qw(.csv .tsv);
+    my $msg =
+      qq(Can't recognize <$filepath> extension. Extensions allowed are: )
+      . ( join ',', @exts ) . "\n";
+    my ( undef, undef, $ext ) = fileparse( $filepath, @exts );
+    die $msg unless any { $_ eq $ext } @exts;
+
     # Using Text::CSV_XS functional interface
     # NB: About speed:
     #     https://metacpan.org/pod/Text::CSV#csv1
@@ -768,6 +775,21 @@ sub load_exposures {
 
     # Returning hashref
     return \%hash;
+}
+
+sub get_headers {
+
+    my $data = shift;
+
+    # Step 1 & 2: Collect all unique keys from all hashes.
+    my %all_keys;
+    foreach my $row (@$data) {
+        @all_keys{ keys %$row } = ();
+    }
+
+    # Step 3: Sort keys for consistency.
+    my @headers = sort keys %all_keys;
+    return \@headers;
 }
 
 1;

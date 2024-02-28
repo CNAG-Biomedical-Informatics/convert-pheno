@@ -50,12 +50,15 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
              #-ifhir                  HL7/FHIR
 
        (output-type):
-             -obff                    Beacon v2 Models ("invididuals" JSON|YAML) file
+             -obff                    Beacon v2 Models ('individuals' JSON|YAML) file
              -opxf                    Phenopacket v2 (JSON|YAML) file
-             -ocsv                    Flattened Beacon v2 Models 'invididuals' entity
 
              (Wish-list)
              #-oomop                  OMOP-CDM PostgreSQL dump
+
+             Compatible with -ibff:
+             -ocsv                    Flattened to CSV Beacon v2 Models 'individuals' entity
+             -ojsonf                  Flattened to 1D  Beacon v2 Models 'individuals' entity
 
      Options:
        -exposures-file                CSV file with a list of 'concept_id' considered to be exposures (with -iomop)

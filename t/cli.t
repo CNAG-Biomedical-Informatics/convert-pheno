@@ -5,9 +5,10 @@ use lib ( './lib', '../lib' );
 use feature qw(say);
 use Data::Dumper;
 use File::Temp qw{ tempfile };    # core
-use Test::More tests => 10;
+use Test::More tests => 12;
 use File::Compare;
 use Convert::Pheno;
+use Convert::Pheno::IO::CSVHandler;
 
 use constant IS_WINDOWS => ( $^O eq 'MSWin32' || $^O eq 'cygwin' ) ? 1 : 0;
 
@@ -73,10 +74,20 @@ my $input = {
         mapping_file      => 't/redcap2bff/in/redcap_mapping.yaml',
         sep               => undef,
         out               => 't/cdisc2pxf/out/pxf.json'
+    },
+    bff2csv => {
+        in_file => 't/bff2pxf/in/individuals.json',
+        sep     => undef,
+        out     => 't/bff2csv/out/individuals.csv'
+    },
+    bff2jsonf => {
+        in_file => 't/bff2pxf/in/individuals.json',
+        sep     => undef,
+        out     => 't/bff2jsonf/out/individuals.fold.json'
     }
 };
 
-#for my $method (qw/redcap2bff/){
+#for my $method (qw/bff2csv/) {
 for my $method ( sort keys %{$input} ) {
     $method = $method eq 'pxf2bff_yaml' ? 'pxf2bff' : $method;
 
@@ -105,19 +116,31 @@ for my $method ( sort keys %{$input} ) {
     );
   SKIP: {
 
-         # Fails
-         # non-omop in Github windows-latest
-         # omop in Win32 CPAN
+        # Fails
+        # non-omop in Github windows-latest
+        # omop in Win32 CPAN
         skip
 qq{Files <$input->{$method}{out}> <$tmp_file> are suppossedly indentical yet compare fails with windows-latest|Win32},
           1
           if IS_WINDOWS;
-        if ( $method !~ m/^omop2/ ) {
+        if ( $method !~ m/^omop2/ && $method ne 'bff2csv' ) {
             io_yaml_or_json(
                 {
                     filepath => $tmp_file,
                     data     => $convert->$method,
                     mode     => 'write'
+                }
+            );
+        }
+        elsif ( $method eq 'bff2csv' ) {
+            my $data = $convert->$method;
+            $tmp_file = $tmp_file . '.csv';
+            write_csv(    # Print data as CSV
+                {
+                    sep      => ';',
+                    filepath => $tmp_file,
+                    headers  => get_headers($data),
+                    data     => $data
                 }
             );
         }

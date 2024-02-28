@@ -7,7 +7,7 @@ use feature qw(say);
 use Path::Tiny;
 use File::Basename;
 use List::Util qw(any);
-use YAML::XS qw(LoadFile DumpFile);
+use YAML::XS   qw(LoadFile DumpFile);
 $YAML::XS::Boolean = 'JSON::PP';    # use JSON::PP::Boolean objects
 use JSON::XS;
 use Sort::Naturally qw(nsort);

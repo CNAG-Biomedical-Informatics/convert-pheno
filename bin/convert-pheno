@@ -17,18 +17,19 @@ package main;
 use strict;
 use warnings;
 use autodie;
-use feature qw(say);
+use feature      qw(say);
 use Getopt::Long qw(:config no_ignore_case);
 use Pod::Usage;
 use Data::Dumper;
 use Sys::Hostname;
-use POSIX qw(strftime);
-use File::Spec::Functions qw(catdir catfile);
+use POSIX                          qw(strftime);
+use File::Spec::Functions          qw(catdir catfile);
 use File::ShareDir::ProjectDistDir qw(dist_dir);
-use FindBin qw($Bin);
+use FindBin                        qw($Bin);
 use lib "$Bin/../lib";
 use Term::ANSIColor qw(:constants);
 use Convert::Pheno;
+use Convert::Pheno::IO::CSVHandler;
 
 $Data::Dumper::Sortkeys = 1;
 
@@ -50,6 +51,7 @@ GetOptions(
     'obff=s'                      => \my $out_bff,                             # string
     'opxf=s'                      => \my $out_pxf,                             # string
     'ocsv=s'                      => \my $out_csv,                             # string
+    'ojsonf=s'                    => \my $out_jsonf,                           # string
     'out-dir=s'                   => \$out_dir,                                # string
     'help|?'                      => \my $help,                                # flag
     'man'                         => \my $man,                                 # flag
@@ -146,10 +148,11 @@ $ENV{'ANSI_COLORS_DISABLED'} = 1 unless $color;
 
 # Defining $out_file
 my $out_file =
-    $out_pxf ? catfile( $out_dir, $out_pxf )
-  : $out_bff ? catfile( $out_dir, $out_bff )
-  : $out_csv ? catfile( $out_dir, $out_csv )
-  :            catfile( $out_dir, 'individuals.json' );
+    $out_pxf   ? catfile( $out_dir, $out_pxf )
+  : $out_bff   ? catfile( $out_dir, $out_bff )
+  : $out_csv   ? catfile( $out_dir, $out_csv )
+  : $out_jsonf ? catfile( $out_dir, $out_jsonf )
+  :              catfile( $out_dir, 'individuals.json' );
 
 # Defining $log_file
 my $log_file =
@@ -163,8 +166,13 @@ my $in_type =
   : $in_cdisc   ? 'cdisc'
   : @omop_files ? 'omop'
   :               'bff';
-my $out_type = $out_pxf ? 'pxf' : $out_bff ? 'bff' :  $out_csv ? 'csv':  'bff';
-my $method   = $in_type . '2' . $out_type;
+my $out_type =
+    $out_pxf   ? 'pxf'
+  : $out_bff   ? 'bff'
+  : $out_csv   ? 'csv'
+  : $out_jsonf ? 'jsonf'
+  :              'bff';
+my $method = $in_type . '2' . $out_type;
 
 #Define job id
 my $id = time . substr( "00000$$", -5 );
@@ -249,6 +257,17 @@ sub convert {
     if ( $stream || $method eq 'omop2bff' || $method eq 'omop2pxf' ) {
         $convert->$method;
     }
+    elsif ( $method eq 'bff2csv' ) {
+        my $data = $convert->$method;
+        write_csv(    # Print data as CSV
+            {
+                sep      => $l_data->{sep} // ';',
+                filepath => $o_file,
+                headers  => get_headers($data),
+                data     => $data
+            }
+        );
+    }
     else {
         io_yaml_or_json(
             { filepath => $o_file, mode => 'write', data => $convert->$method }
@@ -310,7 +329,7 @@ sub write_log {
         date      => ( strftime "%a %b %e %H:%M:%S %Y", localtime ),
         ncpuhost  => $ncpuhost,
         hostname  => hostname,
-        id        => $data->{id}, # string
+        id        => $data->{id},                                      # string
         version   => $VERSION,
              user => $ENV{'LOGNAME'}
           || $ENV{'USER'}
@@ -384,12 +403,15 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
              #-ifhir                  HL7/FHIR
 
        (output-type):
-             -obff                    Beacon v2 Models ("invididuals" JSON|YAML) file
+             -obff                    Beacon v2 Models ('individuals' JSON|YAML) file
              -opxf                    Phenopacket v2 (JSON|YAML) file
-             -ocsv                    Flattened Beacon v2 Models 'invididuals' entity
 
              (Wish-list)
              #-oomop                  OMOP-CDM PostgreSQL dump
+
+             Compatible with -ibff:
+             -ocsv                    Flattened to CSV Beacon v2 Models 'individuals' entity
+             -ojsonf                  Flattened to 1D  Beacon v2 Models 'individuals' entity
 
      Options:
        -exposures-file                CSV file with a list of 'concept_id' considered to be exposures (with -iomop)
