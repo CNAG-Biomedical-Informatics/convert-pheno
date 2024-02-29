@@ -677,13 +677,19 @@ sub read_csv_stream {
     return 1;
 }
 
+
 sub write_csv {
 
     my $arg      = shift;
     my $sep      = $arg->{sep};
-    my $aoh      = $arg->{data};
+    my $data     = $arg->{data};
     my $filepath = $arg->{filepath};
     my $headers  = $arg->{headers};
+
+    # Ensure $data is an array reference of hashes
+    if (ref $data eq 'HASH') {
+        $data = [$data];  # Convert to an array reference containing one hash
+    }
 
     my @exts = qw(.csv .tsv);
     my $msg =
@@ -692,18 +698,14 @@ sub write_csv {
     my ( undef, undef, $ext ) = fileparse( $filepath, @exts );
     die $msg unless any { $_ eq $ext } @exts;
 
-    # Using Text::CSV_XS functional interface
-    # NB: About speed:
-    #     https://metacpan.org/pod/Text::CSV#csv1
+    # Use Text::CSV_XS to write to CSV, ensuring $data is always an AoH
     csv(
-        in       => $aoh,
+        in       => $data,  # This now can be an AoH or a single hash converted to AoH
         out      => $filepath,
         sep_char => $sep,
         eol      => "\n",
-
-        #binary   => 1,   # default
         encoding => 'UTF-8',
-        headers  => $arg->{headers}
+        headers  => $headers  # Ensure headers are defined or auto-detection is enabled
     );
     return 1;
 }
@@ -778,13 +780,22 @@ sub load_exposures {
 }
 
 sub get_headers {
-
     my $data = shift;
 
-    # Step 1 & 2: Collect all unique keys from all hashes.
+    # Ensure $data is an array reference, wrap it in an array if it's a hash reference.
+    $data = [$data] unless ref $data eq 'ARRAY';
+
+    # Step 1 & 2: Collect all unique keys from all hashes, ignoring hash references.
     my %all_keys;
     foreach my $row (@$data) {
-        @all_keys{ keys %$row } = ();
+        foreach my $key (keys %$row) {
+            # Skip any key where the value is a reference (including hash references)
+            # Why?
+            # In pxf2csv I encountered HASH(foobarbaz) as header. This is actually
+            # a deeper issue I have to investigate
+            next if ref $row->{$key};
+            $all_keys{$key} = ();
+        }
     }
 
     # Step 3: Sort keys for consistency.

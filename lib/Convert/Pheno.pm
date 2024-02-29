@@ -21,7 +21,7 @@ use Convert::Pheno::IO::CSVHandler;
 use Convert::Pheno::IO::FileIO;
 use Convert::Pheno::SQLite;
 use Convert::Pheno::Mapping;
-use Convert::Pheno::CSV;
+use Convert::Pheno::CSV qw(do_bff2csv do_pxf2csv);
 use Convert::Pheno::OMOP;
 use Convert::Pheno::PXF;
 use Convert::Pheno::BFF;
@@ -562,6 +562,30 @@ sub pxf2bff {
     return array_dispatcher(shift);
 }
 
+#############
+#############
+#  PXF2CSV  #
+#############
+#############
+
+sub pxf2csv {
+
+    # <array_dispatcher> will deal with JSON arrays
+    return array_dispatcher(shift);
+}
+
+#############
+#############
+# PXFJSONF #
+#############
+#############
+
+sub pxf2jsonf {
+
+    # <array_dispatcher> will deal with JSON arrays
+    return array_dispatcher(shift);
+}
+
 ######################
 ######################
 #  MISCELLANEA SUBS  #
@@ -586,7 +610,9 @@ sub array_dispatcher {
         bff2pxf    => \&do_bff2pxf,
         bff2csv    => \&do_bff2csv,
         bff2jsonf  => \&do_bff2csv,      # Not a typo, is the same as above
-        pxf2bff    => \&do_pxf2bff
+        pxf2bff    => \&do_pxf2bff,
+        pxf2csv    => \&do_pxf2csv,
+        pxf2jsonf  => \&do_pxf2csv      # Not a typo, is the same as above
     );
 
     # Open connection to SQLlite databases ONCE

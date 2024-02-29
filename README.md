@@ -56,9 +56,9 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
              (Wish-list)
              #-oomop                  OMOP-CDM PostgreSQL dump
 
-             Compatible with -ibff:
-             -ocsv                    Flattened to CSV Beacon v2 Models 'individuals' entity
-             -ojsonf                  Flattened to 1D  Beacon v2 Models 'individuals' entity
+             Compatible with -i(bff|pxf):
+             -ocsv                    Data flattened to CSV
+             -ojsonf                  Data flattened to 1D
 
      Options:
        -exposures-file                CSV file with a list of 'concept_id' considered to be exposures (with -iomop)

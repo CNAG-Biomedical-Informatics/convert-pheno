@@ -7,7 +7,7 @@ use feature qw(say);
 use Data::Dumper;
 use Hash::Fold fold => { array_delimiter => ':' };
 use Exporter 'import';
-our @EXPORT = qw(do_bff2csv);
+our @EXPORT_OK = qw(do_bff2csv do_pxf2csv);
 #$Data::Dumper::Sortkeys = 1;
 
 ###############
@@ -25,6 +25,26 @@ sub do_bff2csv {
 
     # Flatten the hash to 1D
     my $csv= fold($bff);
+
+    # Return the flattened hash
+    return $csv;
+}
+
+###############
+###############
+#  PXF2CSV    #
+###############
+###############
+
+sub do_pxf2csv {
+
+    my ( $self, $pxf ) = @_;
+
+    # Premature return
+    return unless defined($pxf);
+
+    # Flatten the hash to 1D
+    my $csv= fold($pxf);
 
     # Return the flattened hash
     return $csv;

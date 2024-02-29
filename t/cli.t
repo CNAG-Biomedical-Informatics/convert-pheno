@@ -5,7 +5,7 @@ use lib ( './lib', '../lib' );
 use feature qw(say);
 use Data::Dumper;
 use File::Temp qw{ tempfile };    # core
-use Test::More tests => 12;
+use Test::More tests => 14;
 use File::Compare;
 use Convert::Pheno;
 use Convert::Pheno::IO::CSVHandler;
@@ -84,10 +84,20 @@ my $input = {
         in_file => 't/bff2pxf/in/individuals.json',
         sep     => undef,
         out     => 't/bff2jsonf/out/individuals.fold.json'
+    },
+    pxf2csv => {
+        in_file => 't/pxf2bff/in/pxf.json',
+        sep     => undef,
+        out     => 't/pxf2csv/out/pxf.csv'
+    },
+    pxf2jsonf => { 
+        in_file => 't/pxf2bff/in/pxf.json',
+        sep     => undef,
+        out     => 't/pxf2jsonf/out/pxf.fold.json'
     }
 };
 
-#for my $method (qw/bff2csv/) {
+#for my $method (qw/pxf2csv/) {
 for my $method ( sort keys %{$input} ) {
     $method = $method eq 'pxf2bff_yaml' ? 'pxf2bff' : $method;
 
@@ -123,7 +133,7 @@ for my $method ( sort keys %{$input} ) {
 qq{Files <$input->{$method}{out}> <$tmp_file> are suppossedly indentical yet compare fails with windows-latest|Win32},
           1
           if IS_WINDOWS;
-        if ( $method !~ m/^omop2/ && $method ne 'bff2csv' ) {
+        if ( $method !~ m/^omop2/ && $method ne 'bff2csv' && $method ne 'pxf2csv') {
             io_yaml_or_json(
                 {
                     filepath => $tmp_file,
@@ -132,7 +142,7 @@ qq{Files <$input->{$method}{out}> <$tmp_file> are suppossedly indentical yet com
                 }
             );
         }
-        elsif ( $method eq 'bff2csv' ) {
+        elsif ( $method eq 'bff2csv' || $method eq 'pxf2csv') {
             my $data = $convert->$method;
             $tmp_file = $tmp_file . '.csv';
             write_csv(    # Print data as CSV

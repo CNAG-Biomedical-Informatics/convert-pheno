@@ -257,7 +257,7 @@ sub convert {
     if ( $stream || $method eq 'omop2bff' || $method eq 'omop2pxf' ) {
         $convert->$method;
     }
-    elsif ( $method eq 'bff2csv' ) {
+    elsif ( $method eq 'bff2csv' ||  $method eq 'pxf2csv' ) {
         my $data = $convert->$method;
         write_csv(    # Print data as CSV
             {
@@ -409,9 +409,9 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
              (Wish-list)
              #-oomop                  OMOP-CDM PostgreSQL dump
 
-             Compatible with -ibff:
-             -ocsv                    Flattened to CSV Beacon v2 Models 'individuals' entity
-             -ojsonf                  Flattened to 1D  Beacon v2 Models 'individuals' entity
+             Compatible with -i(bff|pxf):
+             -ocsv                    Data flattened to CSV
+             -ojsonf                  Data flattened to 1D
 
      Options:
        -exposures-file                CSV file with a list of 'concept_id' considered to be exposures (with -iomop)
