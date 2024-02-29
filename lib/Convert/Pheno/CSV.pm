@@ -8,6 +8,7 @@ use Data::Dumper;
 use Hash::Fold fold => { array_delimiter => ':' };
 use Exporter 'import';
 our @EXPORT_OK = qw(do_bff2csv do_pxf2csv);
+
 #$Data::Dumper::Sortkeys = 1;
 
 ###############
@@ -24,7 +25,7 @@ sub do_bff2csv {
     return unless defined($bff);
 
     # Flatten the hash to 1D
-    my $csv= fold($bff);
+    my $csv = fold($bff);
 
     # Return the flattened hash
     return $csv;
@@ -44,7 +45,7 @@ sub do_pxf2csv {
     return unless defined($pxf);
 
     # Flatten the hash to 1D
-    my $csv= fold($pxf);
+    my $csv = fold($pxf);
 
     # Return the flattened hash
     return $csv;

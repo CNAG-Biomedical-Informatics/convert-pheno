@@ -17,15 +17,15 @@ package main;
 use strict;
 use warnings;
 use autodie;
-use feature      qw(say);
+use feature qw(say);
 use Getopt::Long qw(:config no_ignore_case);
 use Pod::Usage;
 use Data::Dumper;
 use Sys::Hostname;
-use POSIX                          qw(strftime);
-use File::Spec::Functions          qw(catdir catfile);
+use POSIX qw(strftime);
+use File::Spec::Functions qw(catdir catfile);
 use File::ShareDir::ProjectDistDir qw(dist_dir);
-use FindBin                        qw($Bin);
+use FindBin qw($Bin);
 use lib "$Bin/../lib";
 use Term::ANSIColor qw(:constants);
 use Convert::Pheno;
@@ -83,65 +83,89 @@ GetOptions(
 pod2usage(1)                              if $help;
 pod2usage( -verbose => 2, -exitval => 0 ) if $man;
 
-# Here we will validate a few CLI specific options
-# NB: Order matters
-pod2usage(
-    -message => "Please specify a valid input file(s) -i <json|yaml|csv>\n",
-    -exitval => 1
-) unless ( $in_pxf || $in_bff || $in_redcap || $in_cdisc || @omop_files );
-pod2usage(
-    -message => "Please specify a valid directory for --out-dir\n",
-    -exitval => 1
-) if ( !-d $out_dir );
-pod2usage(
-    -message => "Please specify a valid REDCap data dictionary --rcd\n",
-    -exitval => 1
-) if ( ( $in_redcap || $in_cdisc ) && !-f $redcap_dictionary );
-pod2usage(
-    -message => "Please specify a valid field-mapping file --mapping-file\n",
-    -exitval => 1
-) if ( ( $in_redcap || $in_cdisc ) && !-f $mapping_file );
-pod2usage(
-    -message => "Please specify a valid OMOP-CDM file(s) (e.g, *csv or .sql)\n",
-    -exitval => 1
-) if ( @omop_files && $omop_files[0] !~ m/\.csv|\.sql|\.tsv/i );
-pod2usage(
-    -message => "The flag <--omop-tables> is only valid with <-iomop>)\n",
-    -exitval => 1
-) if ( @omop_tables && !@omop_files );
-pod2usage(
-    -message => "The flag <--stream> is only valid with <-obff>\n",
-    -exitval => 1
-) if ( $stream && $out_pxf );
-pod2usage(
-    -message =>
+# Validate certain CLI options
+# NB: The sequence of validations is important
+my @validation_checks = (
+    {
+        condition => sub {
+              !(
+                 ( defined $in_pxf    && -f $in_pxf )
+              || ( defined $in_bff    && -f $in_bff )
+              || ( defined $in_redcap && -f $in_redcap )
+              || ( defined $in_cdisc  && -f $in_cdisc )
+              || ( @omop_files        && -f $omop_files[0] )
+              )
+        },
+        message => "Please specify a valid input file(s) -i <json|yaml|csv>\n",
+    },
+    {
+        condition => sub { !-d $out_dir },
+        message   => "Please specify a valid directory for --out-dir\n",
+    },
+    {
+        condition =>
+          sub { ( $in_redcap || $in_cdisc ) && !-f $redcap_dictionary },
+        message => "Please specify a valid REDCap data dictionary --rcd\n",
+    },
+    {
+        condition => sub { ( $in_redcap || $in_cdisc ) && !-f $mapping_file },
+        message => "Please specify a valid field-mapping file --mapping-file\n",
+    },
+    {
+        condition =>
+          sub { @omop_files && $omop_files[0] !~ m/\.csv|\.sql|\.tsv/i },
+        message =>
+          "Please specify a valid OMOP-CDM file(s) (e.g., *csv or .sql)\n",
+    },
+    {
+        condition => sub { @omop_tables && !@omop_files },
+        message   => "The flag <--omop-tables> is only valid with <-iomop>\n",
+    },
+    {
+        condition => sub { $stream && $out_pxf },
+        message   => "The flag <--stream> is only valid with <-obff>\n",
+    },
+    {
+        condition => sub { $stream && $sql2csv },
+        message   =>
 "The flags <--stream> and <--sql2csv> are mutually exclusive.\nIf you are using <--stream> is because you are likely processing huge files and we don't want to duplicate them in your HDD\n",
-    -exitval => 1
-) if ( $stream && $sql2csv );
-pod2usage(
-    -message =>
+    },
+    {
+        condition => sub {
+            $stream
+              && ( ( defined $out_bff && $out_bff !~ m/\.json/i )
+                || ( defined $out_pxf && $out_pxf !~ m/\.json/i ) );
+        },
+        message =>
 "The flag <--stream> only supports output files in <json|json.gz> format\n",
-    -exitval => 1
-  )
-  if (
-    $stream
-    && (   ( defined $out_bff && $out_bff !~ m/\.json/i )
-        || ( defined $out_pxf && $out_pxf !~ m/\.json/i ) )
-  );
-pod2usage(
-    -message =>
-      "Please specify a valid schema for the mapping file --schema-file\n",
-    -exitval => 1
-) unless -f $schema_file;
-pod2usage(
-    -message =>
+    },
+    {
+        condition => sub { !-f $schema_file },
+        message   =>
+          "Please specify a valid schema for the mapping file --schema-file\n",
+    },
+    {
+        condition => sub { defined $path_to_ohdsi_db && !-d $path_to_ohdsi_db },
+        message   =>
 "Please specify a valid directory for the mapping file --path-to-ohdsi-db-\n",
-    -exitval => 1
-) if ( defined $path_to_ohdsi_db && !-d $path_to_ohdsi_db );
-pod2usage(
-    -message => "Please specify a valid --exposures-file <$exposures_file>\n",
-    -exitval => 1
-) if ( $exposures_file && !-f $exposures_file );
+    },
+    {
+        condition => sub { $exposures_file && !-f $exposures_file },
+        message   => "Please specify a valid <--exposures-file>\n",
+    },
+    {
+        condition =>
+          sub { ( $out_csv || $out_jsonf ) && ( !$in_bff && !$in_pxf ) },
+        message =>
+"Sorry, <--ocsv> and <--ojsonf> are only compatible with <--ibff> or <--ipxf>\n",
+    },
+);
+
+foreach my $check (@validation_checks) {
+    if ( $check->{condition}->() ) {
+        pod2usage( -message => $check->{message}, -exitval => 1 );
+    }
+}
 
 # Turning color off if argument <--no-color>
 $ENV{'ANSI_COLORS_DISABLED'} = 1 unless $color;
@@ -257,7 +281,7 @@ sub convert {
     if ( $stream || $method eq 'omop2bff' || $method eq 'omop2pxf' ) {
         $convert->$method;
     }
-    elsif ( $method eq 'bff2csv' ||  $method eq 'pxf2csv' ) {
+    elsif ( $method eq 'bff2csv' || $method eq 'pxf2csv' ) {
         my $data = $convert->$method;
         write_csv(    # Print data as CSV
             {
@@ -410,8 +434,8 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
              #-oomop                  OMOP-CDM PostgreSQL dump
 
              Compatible with -i(bff|pxf):
-             -ocsv                    Data flattened to CSV
-             -ojsonf                  Data flattened to 1D-JSON
+             -ocsv                    Flatten data to CSV
+             -ojsonf                  Flatten data to 1D-JSON (or 1D-YAML if suffix is .yml|.yaml)
 
      Options:
        -exposures-file                CSV file with a list of 'concept_id' considered to be exposures (with -iomop)

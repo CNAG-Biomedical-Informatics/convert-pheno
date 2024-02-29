@@ -5,11 +5,11 @@ use warnings;
 use autodie;
 use feature qw(say);
 use File::Basename;
-use Text::CSV_XS           qw(csv);
-use Sort::Naturally        qw(nsort);
-use List::Util             qw(any);
-use File::Spec::Functions  qw(catdir);
-use IO::Compress::Gzip     qw($GzipError);
+use Text::CSV_XS qw(csv);
+use Sort::Naturally qw(nsort);
+use List::Util qw(any);
+use File::Spec::Functions qw(catdir);
+use IO::Compress::Gzip qw($GzipError);
 use IO::Uncompress::Gunzip qw($GunzipError);
 
 #use Devel::Size           qw(size total_size);
@@ -677,7 +677,6 @@ sub read_csv_stream {
     return 1;
 }
 
-
 sub write_csv {
 
     my $arg      = shift;
@@ -687,8 +686,8 @@ sub write_csv {
     my $headers  = $arg->{headers};
 
     # Ensure $data is an array reference of hashes
-    if (ref $data eq 'HASH') {
-        $data = [$data];  # Convert to an array reference containing one hash
+    if ( ref $data eq 'HASH' ) {
+        $data = [$data];    # Convert to an array reference containing one hash
     }
 
     my @exts = qw(.csv .tsv);
@@ -700,12 +699,13 @@ sub write_csv {
 
     # Use Text::CSV_XS to write to CSV, ensuring $data is always an AoH
     csv(
-        in       => $data,  # This now can be an AoH or a single hash converted to AoH
+        in => $data,  # This now can be an AoH or a single hash converted to AoH
         out      => $filepath,
         sep_char => $sep,
         eol      => "\n",
         encoding => 'UTF-8',
-        headers  => $headers  # Ensure headers are defined or auto-detection is enabled
+        headers  =>
+          $headers    # Ensure headers are defined or auto-detection is enabled
     );
     return 1;
 }
@@ -782,17 +782,18 @@ sub load_exposures {
 sub get_headers {
     my $data = shift;
 
-    # Ensure $data is an array reference, wrap it in an array if it's a hash reference.
+# Ensure $data is an array reference, wrap it in an array if it's a hash reference.
     $data = [$data] unless ref $data eq 'ARRAY';
 
-    # Step 1 & 2: Collect all unique keys from all hashes, ignoring hash references.
+# Step 1 & 2: Collect all unique keys from all hashes, ignoring hash references.
     my %all_keys;
     foreach my $row (@$data) {
-        foreach my $key (keys %$row) {
-            # Skip any key where the value is a reference (including hash references)
-            # Why?
-            # In pxf2csv I encountered HASH(foobarbaz) as header. This is actually
-            # a deeper issue I have to investigate
+        foreach my $key ( keys %$row ) {
+
+       # Skip any key where the value is a reference (including hash references)
+       # Why?
+       # In pxf2csv I encountered HASH(foobarbaz) as header. This is actually
+       # a deeper issue I have to investigate
             next if ref $row->{$key};
             $all_keys{$key} = ();
         }

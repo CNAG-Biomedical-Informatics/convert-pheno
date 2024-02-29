@@ -57,8 +57,8 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
              #-oomop                  OMOP-CDM PostgreSQL dump
 
              Compatible with -i(bff|pxf):
-             -ocsv                    Data flattened to CSV
-             -ojsonf                  Data flattened to 1D-JSON
+             -ocsv                    Flatten data to CSV
+             -ojsonf                  Flatten data to 1D-JSON (or 1D-YAML if suffix is .yml|.yaml)
 
      Options:
        -exposures-file                CSV file with a list of 'concept_id' considered to be exposures (with -iomop)
