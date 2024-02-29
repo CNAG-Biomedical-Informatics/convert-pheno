@@ -54,7 +54,9 @@ graph LR
         Note that these output formats are **data exchange** files that reach their full potential when loaded into a database. For instance, [BFF](bff.md) can be loaded into a MongoDB database and their fields can be queried through an **API**, such as the [Beacon v2 API](https://docs.genomebeacons.org).
 
     ??? Info "Additional formats"
-        When using -ibff and -pxf as input file it is possible to serialize the data to:
+        When using `-ibff` and `-ipxf` as input file it is possible to serialize the data to:
 
-        - CSV
-        - Flattened JSON
+        - `-ocsv` CSV
+        - `-ojsonf` JSON flattened
+
+        Note that you can go from any accepted format to either `BFF`or `PXF`.
