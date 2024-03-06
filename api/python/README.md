@@ -47,7 +47,7 @@ With `uvicorn` for production:
 
 With `uvicorn` for development:
 
-    $ docker container run -p 8000:8000 --name convert-pheno-uvicoroxe cnag/convert-pheno:latest uvicorn share.api.python.main:app --host 0.0.0.0
+    $ docker container run -p 8000:8000 --name convert-pheno-uvicorn cnag/convert-pheno:latest uvicorn share.api.python.main:app --host 0.0.0.0
 
 ## Examples
 

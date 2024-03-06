@@ -4,7 +4,7 @@
 #
 #   This file is part of Convert::Pheno
 #
-#   Last Modified: Feb/28/2024
+#   Last Modified: Mar/06/2024
 #
 #   $VERSION taken from Convert::Pheno
 #
@@ -150,7 +150,7 @@ my @validation_checks = (
 "Please specify a valid directory for the mapping file --path-to-ohdsi-db-\n",
     },
     {
-        condition => sub { $exposures_file && !-f $exposures_file },
+        condition => sub { defined $exposures_file && !-f $exposures_file },
         message   => "Please specify a valid <--exposures-file>\n",
     },
     {
@@ -436,6 +436,7 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
              Compatible with -i(bff|pxf):
              -ocsv                    Flatten data to CSV
              -ojsonf                  Flatten data to 1D-JSON (or 1D-YAML if suffix is .yml|.yaml)
+             #-ojsonld                JSON-LD (compatible with RDF ecosystem)
 
      Options:
        -exposures-file                CSV file with a list of 'concept_id' considered to be exposures (with -iomop)
