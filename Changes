@@ -3,6 +3,8 @@ Revision history for Perl distribution Convert-Pheno
 0.19 2024-0X-XXT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
  - Updated docs
+ - Updated how to obtain nproc for FreeBSD
+ - Moved t/{ohdsi,protobuff}.t to xt
 
 0.18 2024-02-29T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 

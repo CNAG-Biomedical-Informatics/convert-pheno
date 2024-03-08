@@ -42,8 +42,8 @@ sub io_yaml_or_json {
     my $mode = $arg->{mode};
     my $data = $mode eq 'write' ? $arg->{data} : undef;
 
-    # Checking only for qw(.yaml .yml .json)
-    my @exts = qw(.yaml .yml .json);
+    # Checking for the below extension
+    my @exts = qw(.yaml .yml .json .jsonld .yamlld);
     my $msg  = qq(Can't recognize <$file> extension. Extensions allowed are: )
       . ( join ',', @exts ) . "\n";
     my ( undef, undef, $ext ) = fileparse( $file, @exts );
@@ -51,6 +51,7 @@ sub io_yaml_or_json {
 
     # To simplify return values, we create a hash
     $ext =~ tr/a.//d;    # Unify $ext (delete 'a' and '.')
+    $ext =~ s/ld$//;     # delete ending ld
     my $return = {
         read  => { json => \&read_json,  yml => \&read_yaml },
         write => { json => \&write_json, yml => \&write_yaml }

@@ -52,6 +52,7 @@ GetOptions(
     'opxf=s'                      => \my $out_pxf,                             # string
     'ocsv=s'                      => \my $out_csv,                             # string
     'ojsonf=s'                    => \my $out_jsonf,                           # string
+    'ojsonld=s'                   => \my $out_jsonld,                          # string
     'out-dir=s'                   => \$out_dir,                                # string
     'help|?'                      => \my $help,                                # flag
     'man'                         => \my $man,                                 # flag
@@ -152,10 +153,12 @@ my @validation_checks = (
         message   => "Please specify a valid <--exposures-file>\n",
     },
     {
-        condition =>
-          sub { ( $out_csv || $out_jsonf ) && ( !$in_bff && !$in_pxf ) },
+        condition => sub {
+            ( $out_csv || $out_jsonf || $out_jsonld )
+              && ( !$in_bff && !$in_pxf );
+        },
         message =>
-"Sorry, <--ocsv> and <--ojsonf> are only compatible with <--ibff> or <--ipxf>\n",
+"Sorry, <--ocsv>, <--ojsonf> and <--ojsonf> are only compatible with <--ibff> or <--ipxf>\n",
     },
 );
 
@@ -170,11 +173,12 @@ $ENV{'ANSI_COLORS_DISABLED'} = 1 unless $color;
 
 # Defining $out_file
 my $out_file =
-    $out_pxf   ? catfile( $out_dir, $out_pxf )
-  : $out_bff   ? catfile( $out_dir, $out_bff )
-  : $out_csv   ? catfile( $out_dir, $out_csv )
-  : $out_jsonf ? catfile( $out_dir, $out_jsonf )
-  :              catfile( $out_dir, 'individuals.json' );
+    $out_pxf    ? catfile( $out_dir, $out_pxf )
+  : $out_bff    ? catfile( $out_dir, $out_bff )
+  : $out_csv    ? catfile( $out_dir, $out_csv )
+  : $out_jsonf  ? catfile( $out_dir, $out_jsonf )
+  : $out_jsonld ? catfile( $out_dir, $out_jsonld )
+  :               catfile( $out_dir, 'individuals.json' );
 
 # Defining $log_file
 my $log_file =
@@ -189,11 +193,12 @@ my $in_type =
   : @omop_files ? 'omop'
   :               'bff';
 my $out_type =
-    $out_pxf   ? 'pxf'
-  : $out_bff   ? 'bff'
-  : $out_csv   ? 'csv'
-  : $out_jsonf ? 'jsonf'
-  :              'bff';
+    $out_pxf    ? 'pxf'
+  : $out_bff    ? 'bff'
+  : $out_csv    ? 'csv'
+  : $out_jsonf  ? 'jsonf'
+  : $out_jsonld ? 'jsonld'
+  :               'bff';
 my $method = $in_type . '2' . $out_type;
 
 #Define job id
@@ -435,7 +440,7 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
              Compatible with -i(bff|pxf):
              -ocsv                    Flatten data to CSV
              -ojsonf                  Flatten data to 1D-JSON (or 1D-YAML if suffix is .yml|.yaml)
-             #-ojsonld                JSON-LD (compatible with RDF ecosystem)
+             -ojsonld (experimental)  JSON-LD (compatible with RDF ecosystem)
 
      Options:
        -exposures-file                CSV file with a list of 'concept_id' considered to be exposures (with -iomop)

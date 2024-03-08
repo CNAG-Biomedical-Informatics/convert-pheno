@@ -22,6 +22,7 @@ use Convert::Pheno::IO::FileIO;
 use Convert::Pheno::SQLite;
 use Convert::Pheno::Mapping;
 use Convert::Pheno::CSV qw(do_bff2csv do_pxf2csv);
+use Convert::Pheno::RDF qw(do_bff2jsonld);
 use Convert::Pheno::OMOP;
 use Convert::Pheno::PXF;
 use Convert::Pheno::BFF;
@@ -193,6 +194,18 @@ sub bff2jsonf {
     # <array_dispatcher> will deal with JSON arrays
     return array_dispatcher(shift);
 }
+##############
+##############
+# BFF2JSONLD #
+##############
+##############
+
+sub bff2jsonld {
+
+    # <array_dispatcher> will deal with JSON arrays
+    return array_dispatcher(shift);
+}
+
 
 ################
 ################
@@ -610,6 +623,7 @@ sub array_dispatcher {
         bff2pxf    => \&do_bff2pxf,
         bff2csv    => \&do_bff2csv,
         bff2jsonf  => \&do_bff2csv,      # Not a typo, is the same as above
+        bff2jsonld => \&do_bff2jsonld,      
         pxf2bff    => \&do_pxf2bff,
         pxf2csv    => \&do_pxf2csv,
         pxf2jsonf  => \&do_pxf2csv      # Not a typo, is the same as above
