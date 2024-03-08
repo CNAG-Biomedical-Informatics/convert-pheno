@@ -43,7 +43,7 @@ sub io_yaml_or_json {
     my $data = $mode eq 'write' ? $arg->{data} : undef;
 
     # Checking for the below extension
-    my @exts = qw(.yaml .yml .json .jsonld .yamlld);
+    my @exts = qw(.yaml .yml .json .jsonld .ymlld .yamlld);
     my $msg  = qq(Can't recognize <$file> extension. Extensions allowed are: )
       . ( join ',', @exts ) . "\n";
     my ( undef, undef, $ext ) = fileparse( $file, @exts );

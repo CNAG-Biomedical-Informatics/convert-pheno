@@ -22,7 +22,7 @@ use Convert::Pheno::IO::FileIO;
 use Convert::Pheno::SQLite;
 use Convert::Pheno::Mapping;
 use Convert::Pheno::CSV qw(do_bff2csv do_pxf2csv);
-use Convert::Pheno::RDF qw(do_bff2jsonld);
+use Convert::Pheno::RDF qw(do_bff2jsonld do_pxf2jsonld);
 use Convert::Pheno::OMOP;
 use Convert::Pheno::PXF;
 use Convert::Pheno::BFF;
@@ -599,6 +599,18 @@ sub pxf2jsonf {
     return array_dispatcher(shift);
 }
 
+##############
+##############
+# PXF2JSONLD #
+##############
+##############
+
+sub pxf2jsonld {
+
+    # <array_dispatcher> will deal with JSON arrays
+    return array_dispatcher(shift);
+}
+
 ######################
 ######################
 #  MISCELLANEA SUBS  #
@@ -626,7 +638,8 @@ sub array_dispatcher {
         bff2jsonld => \&do_bff2jsonld,      
         pxf2bff    => \&do_pxf2bff,
         pxf2csv    => \&do_pxf2csv,
-        pxf2jsonf  => \&do_pxf2csv      # Not a typo, is the same as above
+        pxf2jsonf  => \&do_pxf2csv,     # Not a typo, is the same as above
+        pxf2jsonld => \&do_pxf2jsonld
     );
 
     # Open connection to SQLlite databases ONCE

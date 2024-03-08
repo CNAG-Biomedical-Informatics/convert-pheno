@@ -19,6 +19,7 @@ requires 'Types::Standard';
 requires 'File::ShareDir::ProjectDistDir';
 requires 'Data::Leaf::Walker';
 requires 'Hash::Fold';
+requires 'JSONLD';
 
 # t
 requires 'Test::Deep';
