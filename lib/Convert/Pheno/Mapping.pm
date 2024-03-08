@@ -473,11 +473,12 @@ sub get_info {
 
     my $self = shift;
 
-   # NB: Darwin does not have nproc to show #logical-cores, using sysctl instead
+    # Detecting the number of logical CPUs across different OSes
     my $os = $^O;
     chomp(
         my $ncpuhost =
-          lc($os) eq 'darwin' ? qx{/usr/sbin/sysctl -n hw.logicalcpu}
+          lc($os) eq 'darwin'
+          || lc($os) eq 'freebsd' ? qx{/usr/sbin/sysctl -n hw.ncpu}
         : $os eq 'MSWin32' ? qx{wmic cpu get NumberOfLogicalProcessors}
         :                    qx{/usr/bin/nproc} // 1
     );

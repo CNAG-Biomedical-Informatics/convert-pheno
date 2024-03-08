@@ -17,15 +17,15 @@ package main;
 use strict;
 use warnings;
 use autodie;
-use feature qw(say);
+use feature      qw(say);
 use Getopt::Long qw(:config no_ignore_case);
 use Pod::Usage;
 use Data::Dumper;
 use Sys::Hostname;
-use POSIX qw(strftime);
-use File::Spec::Functions qw(catdir catfile);
+use POSIX                          qw(strftime);
+use File::Spec::Functions          qw(catdir catfile);
 use File::ShareDir::ProjectDistDir qw(dist_dir);
-use FindBin qw($Bin);
+use FindBin                        qw($Bin);
 use lib "$Bin/../lib";
 use Term::ANSIColor qw(:constants);
 use Convert::Pheno;
@@ -88,13 +88,11 @@ pod2usage( -verbose => 2, -exitval => 0 ) if $man;
 my @validation_checks = (
     {
         condition => sub {
-              !(
-                 ( defined $in_pxf    && -f $in_pxf )
-              || ( defined $in_bff    && -f $in_bff )
-              || ( defined $in_redcap && -f $in_redcap )
-              || ( defined $in_cdisc  && -f $in_cdisc )
-              || ( @omop_files        && -f $omop_files[0] )
-              )
+            !(     ( defined $in_pxf && -f $in_pxf )
+                || ( defined $in_bff    && -f $in_bff )
+                || ( defined $in_redcap && -f $in_redcap )
+                || ( defined $in_cdisc  && -f $in_cdisc )
+                || ( @omop_files        && -f $omop_files[0] ) );
         },
         message => "Please specify a valid input file(s) -i <json|yaml|csv>\n",
     },
@@ -332,11 +330,12 @@ sub write_log {
 
     my ( $log, $data ) = @_;
 
-    # NB: Darwin does not have nproc to show #logical-cores, using sysctl instead
+    # Detecting the number of logical CPUs across different OSes
     my $os = $^O;
     chomp(
         my $ncpuhost =
-          lc($os) eq 'darwin' ? qx{/usr/sbin/sysctl -n hw.logicalcpu}
+          lc($os) eq 'darwin'
+          || lc($os) eq 'freebsd' ? qx{/usr/sbin/sysctl -n hw.ncpu}
         : $os eq 'MSWin32' ? qx{wmic cpu get NumberOfLogicalProcessors}
         :                    qx{/usr/bin/nproc} // 1
     );
@@ -480,6 +479,8 @@ C<convert-pheno> is a command-line front-end to the CPAN's module L<Convert::Phe
 A script that uses L<Convert::Pheno> to interconvert common data models for phenotypic data
 
 =head1 INSTALLATION
+
+If you plan to only use the CLI, we recommend installing it via CPAN. See details below.
 
 =head2 Containerized
 

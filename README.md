@@ -102,6 +102,8 @@ A script that uses [Convert::Pheno](https://metacpan.org/pod/Convert%3A%3APheno)
 
 # INSTALLATION
 
+If you plan to only use the CLI, we recommend installing it via CPAN. See details below.
+
 ## Containerized
 
 ### Method 1: From Docker Hub
