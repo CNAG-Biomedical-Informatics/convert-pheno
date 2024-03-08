@@ -20,5 +20,4 @@ bck/
 old/
 _Inline/
 /share/db/ohdsi.db
-/t/protobuff.t
 /t/test.json
