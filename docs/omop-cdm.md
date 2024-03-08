@@ -102,7 +102,7 @@ The **OMOP CDM** is designed to be database-agnostic, which means it can be impl
         convert-pheno -iomop omop_dump.sql.gz -obff individuals_measurement.json.gz --omop-tables MEASUREMENT --stream
         ```
 
-        Running multiple jobs in `--stream` mode will create -up with a bunch of `JSON` files instead of one. It's OK, as the files we're creating are **intermediate** files.
+        Running multiple jobs in `--stream` mode will create a bunch of `JSON` files instead of one. It's OK, as the files we're creating are **intermediate** files.
 
         ??? Danger "_Pros_ and _Cons_ of incremental data load (`--stream` mode)"
             Incremental data load facilitates the processing of huge files. The only substantive difference compared to the `--no-stream` mode is that the data will not be consolidated at the patient or individual level, which is merely a **cosmetic concern**. Ultimately, the data will be loaded into a **database**, such as _MongoDB_, where the linking of data through keys can be managed. In most cases, the implementation of a pre-built API, such as the one described in the [B2RI documentation](https://b2ri-documentation.readthedocs.io/en/latest), will be added to further enhance the functionality.
