@@ -158,5 +158,6 @@ qq{Files <$input->{$method}{out}> <$tmp_file> are suppossedly indentical yet com
             $convert->$method;
         }
         ok( compare( $input->{$method}{out}, $tmp_file ) == 0, $method );
+        unlink($tmp_file) if -f $tmp_file;
     }
 }

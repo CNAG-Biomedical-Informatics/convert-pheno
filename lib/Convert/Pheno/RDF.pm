@@ -27,14 +27,35 @@ sub do_bff2jsonld {
     # Create new JSONLD object
     my $jld = JSONLD->new();
 
+    my $context = { 
+        '@vocab'             => 'https://ncithesaurus.nci.nih.gov/ncitbrowser/',
+        'bff'                => 'https://github.com/ga4gh-beacon/beacon-v2/tree/main/models/src/beacon-v2-default-model/individuals',
+        'HP'                 => 'http://purl.obolibrary.org/obo/HP_',
+        'OMIM'               => 'http://purl.obolibrary.org/obo/OMIM_',
+        'id'                 => 'id',
+        'type'               => 'type',
+        'subject'            => 'bff:subject',
+        'phenotypicFeatures' => 'bff:phenotypicFeatures',
+        'description'        => 'bff:description',
+        'severity'           => 'bff:severity',
+        'diagnosis'          => 'bff:diagnosis',
+        'disease'            => 'bff:disease',
+        'ageAtCollection'    => 'bff:ageAtCollection',
+        'sex'                => 'bff:sex',
+        'MALE'               => 'bff:MALE',
+    };
+
     # Add key for @contect
-    $bff->{'@context'} = { '@vocab' => 'http://example.org/' };
+    $bff->{'@context'} = $context;
+
+    # Compact the data 
+    my $compact = $jld->compact($bff);
 
     # Expand the data
-    my $expanded = $jld->expand($bff);
+    #my $expanded = $jld->expand($bff);
 
-    # Return the expanded data
-    return $expanded;
+    # Return the transformed data
+    return $compact;
 }
 
 ###############
@@ -53,14 +74,39 @@ sub do_pxf2jsonld {
     # Create new JSONLD object
     my $jld = JSONLD->new();
 
-    # Add key for @contect
-    $pxf->{'@context'} = { '@vocab' => 'http://example.org/' };
+    my $context = {
+        '@vocab'             => 'https://ncithesaurus.nci.nih.gov/ncitbrowser/',
+        'pxf'               => 'https://phenopacket-schema.readthedocs.io/en/latest/schema.html#version-2-0/',
+        'HP'                 => 'http://purl.obolibrary.org/obo/HP_',
+        'OMIM'               => 'http://purl.obolibrary.org/obo/OMIM_',
+        'id'                 => 'id',
+        'type'               => 'type',
+        'subject'            => 'pxf:subject',
+        'phenotypicFeatures' => 'pxf:phenotypicFeatures',
+        'description'        => 'pxf:description',
+        'severity'           => 'pxf:severity',
+        'diagnosis'          => 'pxf:diagnosis',
+        'disease'            => 'pxf:disease',
+        'ageAtCollection'    => 'pxf:ageAtCollection',
+        'sex'                => 'pxf:sex',
+        'MALE'               => 'pxf:MALE',
+    };
+
+    # Add key for @context 
+    # NB: arg [expandContext => $ctx] was not viable
+    $pxf->{'@context'} = $context;
+
+    # Compact the data 
+    my $compact = $jld->compact($pxf);
 
     # Expand the data
     my $expanded = $jld->expand($pxf);
 
-    # Return the expanded data
-    return $expanded;
+    # Convert to RDF
+    #my $rdf =  $jld->to_rdf($pxf);
+
+    # Return the transformed data
+    return $compact;
 }
 
 1;
