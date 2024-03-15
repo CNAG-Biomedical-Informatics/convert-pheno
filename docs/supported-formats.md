@@ -37,7 +37,7 @@ graph LR
     * [REDCap exports (CSV)](redcap.md)
     * [CDISC-ODM v1 (XML)](cdisc-odm.md)
 
-=== "Output formats (Jun-2023):"
+=== "Output formats:"
 
     * [Beacon v2 Models (JSON | YAML)](bff.md)
     * [Phenopacket v2 (JSON | YAML)](pxf.md)
@@ -53,10 +53,43 @@ graph LR
 
         Note that these output formats are **data exchange** files that reach their full potential when loaded into a database. For instance, [BFF](bff.md) can be loaded into a MongoDB database and their fields can be queried through an **API**, such as the [Beacon v2 API](https://docs.genomebeacons.org).
 
-    ??? Info "Additional formats"
-        When using `-ibff` and `-ipxf` as input file it is possible to serialize the data to:
+=== "Additional Output Formats"
 
-        - `-ocsv` CSV
-        - `-ojsonf` JSON flattened
+    Because Beacon v2 Models and Phenopackets v2 data exchange formats encode data as a tree-like structure, this approach is not analytics-friendly. For this reason, we allow the user to convert from `BFF/PXF` to:
 
-        Note that you can go from any accepted format to either `BFF`or `PXF`.
+    - "Flattened" (a.k.a., folded) JSON or YAML with the option `--ojsonf`
+    - CSV with the option `--ocsv`
+
+    Additionally, we are working on a conversion to [JSON-LD](https://en.wikipedia.org/wiki/JSON-LD), a format that is compatible with the [RDF](https://en.wikipedia.org/wiki/Resource_Description_Framework) ecosystem, used in many healthcare-related data systems.
+
+    - JSON-LD (or YAML-LD) with the option `--jsonld`
+
+    !!! Hint "Hint"
+        Note that you can convert from any accepted input format to either `BFF` or `PXF`.
+
+    ```mermaid
+    %%{init: {'theme':'neutral'}}%%
+    graph LR
+    
+      A[Beacon v2 Models] -->|bff2jsonf| C[JSON Flattened];
+      A -->|bff2csv| D[CSV];
+      A -->|bff2jsonld| E[JSON-LD];
+
+
+      B[Phenopackets v2] -->|pxf2jsonf| C;
+      B -->|pxf2csv| D;
+      B -->|pxfbff2jsonld| E[JSON-LD];
+
+    
+      style A fill: #6495ED
+      style A stroke: #6495ED
+      style B fill: #FF7F50
+      style B stroke: #FF7F50
+      style C fill: #FFFF00
+      style C stroke: #FFFF00
+      style D fill: #EOEOEO
+      style D stroke: #EOEOEO
+      style E fill: #9999FF
+      style E stroke: #9999FF
+    ```
+    <figcaption>Convert-Pheno additional data conversions</figcaption>
