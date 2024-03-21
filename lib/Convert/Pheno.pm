@@ -623,7 +623,7 @@ sub array_dispatcher {
 
     # Load the input data as Perl data structure
     my $in_data =
-      ( $self->{in_textfile} && $self->{method} !~ m/^redcap2|^omop2|^cdisc2/ )
+      ( $self->{in_textfile} && $self->{method} !~ m/^(redcap2|omop2|cdisc2)/ )
       ? io_yaml_or_json( { filepath => $self->{in_file}, mode => 'read' } )
       : $self->{data};
 

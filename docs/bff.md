@@ -3,7 +3,7 @@
 
 <figure markdown>
    ![Beacon v2](img/beacon-v2-models.png){ width="400" }
-   <figcaption> Entities in Beacon v2 Models</figcaption>
+   <figcaption>Entities in Beacon v2 Models</figcaption>
 </figure>
 
 !!! Abstract "About Beacon v2 Models' entities"

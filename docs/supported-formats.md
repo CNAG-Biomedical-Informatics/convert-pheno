@@ -55,7 +55,7 @@ graph LR
 
 === "Additional Output Formats"
 
-     Because Beacon v2 Models and Phenopackets v2 data exchange formats encode data as a tree-like structure, this approach is not analytics-friendly. For this reason, we allow the user to convert from `BFF/PXF` to:
+    Given that Beacon v2 Models and Phenopackets v2 utilize JSON to encode data in a complex tree-like structure, this format presents challenges for straightforward analytics. To mitigate this and enhance data usability, we provide options to convert from `BFF/PXF` to more analytics-friendly formats:
 
     - "Flattened" (a.k.a., folded) JSON or YAML with the option `--ojsonf`
     - CSV with the option `--ocsv`

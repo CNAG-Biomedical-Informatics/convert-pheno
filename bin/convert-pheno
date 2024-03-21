@@ -112,7 +112,7 @@ my @validation_checks = (
     },
     {
         condition =>
-          sub { @omop_files && $omop_files[0] !~ m/\.csv|\.sql|\.tsv/i },
+          sub { @omop_files && $omop_files[0] !~ m/\.(csv|sql|tsv)/i },
         message =>
           "Please specify a valid OMOP-CDM file(s) (e.g., *csv or .sql)\n",
     },
