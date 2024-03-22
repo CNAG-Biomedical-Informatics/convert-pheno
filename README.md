@@ -24,7 +24,7 @@
 
 **CLI Source Code**: <a href="https://github.com/cnag-biomedical-informatics/convert-pheno" target="_blank">https://github.com/cnag-biomedical-informatics/convert-pheno</a>
 
-**CPAN Module**: <a href="https://metacpan.org/pod/Convert::Pheno" target="_blank">https://metacpan.org/pod/Convert::Pheno</a>
+**CPAN Distribution**: <a href="https://metacpan.org/pod/Convert::Pheno" target="_blank">https://metacpan.org/pod/Convert::Pheno</a>
 
 **Web App UI Source Code**: <a href="https://github.com/cnag-biomedical-informatics/convert-pheno-ui" target="_blank">https://github.com/cnag-biomedical-informatics/convert-pheno-ui</a>
 
