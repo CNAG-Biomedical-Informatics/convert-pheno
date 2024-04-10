@@ -50,7 +50,7 @@ This page provides brief tutorials on how to perform data conversion by using `C
         Before assigning values to `dictionary` it's important that you think about which ontologies you want to use. The field `project.ontology` defines the ontology for the whole project, but you can also specify a another antology at the Beacon v2 term level. Once you know which ontologies to use, then try searching for such term to get an accorate label for it. For example, if you have chosen `ncit`, you can search for the values within NCIt at [EBI Search](https://www.ebi.ac.uk/ols/ontologies/ncit). `Convert-Pheno` will use these values to retrieve the actual ontology from its internal databases.
 
     ??? Abstract "About text similarity in database searches"
-        `Convert-Pheno` comes with a few pre-configured databases and it will search for ontologies there. Two two types of searches can be performed:
+        `Convert-Pheno` comes with a few pre-configured databases and it will search for ontologies/terminologies there. Two two types of searches can be performed:
 
          1. `exact` (default)
 
@@ -106,11 +106,11 @@ This page provides brief tutorials on how to perform data conversion by using `C
 
     #### Full export 
 
-    In a full export, all ontologies are included in the `CONCEPT` table, thus Convert-Pheno does not need to search any additional databases for ontologies (with a few exceptions). 
+    In a full export, all standardized terms are included in the `CONCEPT` table, thus Convert-Pheno does not need to search any additional databases for terminology (with a few exceptions). 
 
     #### Partial export
 
-    In a partial export, many ontologies may be missing from the `CONCEPT` table, as a result, `Convert-Pheno` will perform a search on the included **ATHENA-OHDSI** database. To enable this search you should use the flag `--ohdsi-db`.
+    In a partial export, many standardized terms may be missing from the `CONCEPT` table, as a result, `Convert-Pheno` will perform a search on the included **ATHENA-OHDSI** database. To enable this search you should use the flag `--ohdsi-db`.
 
     ### Running `Convert-Pheno`
 

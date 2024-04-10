@@ -234,9 +234,9 @@ During the conversion process, handling variables that cannot be directly mapped
 
 One of the advantages of **Beacon/Phenopackets v2** is that they **do not prescribe the use of specific ontologies**, thus allowing us to retain the original ontologies, except to fill in missing terms in required fields.
 
-???+ Question "Which ontologies are supported?"
+???+ Question "Which ontologies/terminologies are supported?"
      
-    If the input files contain ontologies, the **ontologies will be preserved** and remain intact after the conversion process, except for:
+    If the input files contain ontology tems, the **ontologies will be preserved** and remain intact after the conversion process, except for:
      
     * _Beacon v2 Models_ and _Phenopackets v2_: the property `sex` is converted to [NCI Thesaurus](https://ncithesaurus.nci.nih.gov/ncitbrowser).
     * _OMOP CDM_: the properties `sex`, `ethnicity`, and `geographicOrigin` are converted to [NCI Thesaurus](https://ncithesaurus.nci.nih.gov/ncitbrowser).
@@ -248,9 +248,9 @@ One of the advantages of **Beacon/Phenopackets v2** is that they **do not prescr
    
     For _REDCap_ and _CDISC-ODM_ we support:
   
-    * [Athena-OHDSI](https://athena.ohdsi.org/search-terms/start) standardized vocabulary, which includes multiple ontologies, such as _SNOMED, RxNorm or LOINC_
+    * [Athena-OHDSI](https://athena.ohdsi.org/search-terms/start) standardized vocabulary, which includes multiple terminologies, such as _SNOMED, RxNorm or LOINC_
     * [NCI Thesaurus](https://ncithesaurus.nci.nih.gov/ncitbrowser)
-    * [ICD-10](https://icd.who.int/browse10)
+    * [ICD-10](https://icd.who.int/browse10) terminology
     * [CDISC](https://www.cdisc.org/standards/terminology/controlled-terminology) (Study Data Tabulation Model Terminology)
     * [OMIM](https://www.omim.org/) Online Mendelian Inheritance in Man
     * [HPO](https://hpo.jax.org/app) Human Phenotype Ontology (Note that prefixes are `HP:`, without the `O`)
