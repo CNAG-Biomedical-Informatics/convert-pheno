@@ -57,12 +57,17 @@ Frequently Asked Questions
 
     ##### last change 2023-03-24 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
+??? faq "What is an "ontology" in Beacon v2 and Phenopacket v2 context?"
+
+    In the context of Phenopackets and Beacon v2, the terms [ontologyClass](https://phenopacket-schema.readthedocs.io/en/latest/ontologyclass.html) and [ontologyTerm](https://github.com/ga4gh-beacon/beacon-v2/blob/main/framework/src/common/ontologyTerm.yaml) denote standardized identifiers derived from ontologies such as [HPO](https://en.wikipedia.org/wiki/Human_Phenotype_Ontology) or [NCIt](https://ncithesaurus.nci.nih.gov/ncitbrowser/), and terminologies like [LOINC](https://en.wikipedia.org/wiki/LOINC) or [RxNorm](https://en.wikipedia.org/wiki/RxNorm). The use of "ontology" here is broad, covering both actual ontologies—with their complex semantic relationships and inference abilities—and classifications like LOINC and RxNorm, which, despite not fitting the strict definition of an ontology, serve similar purposes in data standardization.
+
+    ##### last change 2024-04-01 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
 ??? faq "I have a collection of PXF files encoded using HPO and ICD-10 terms, and I need to convert them to BFF format, but encoded in OMIM and SNOMED-CT terminologies. Can you assist me with this?"
 
-    Neither Phenopackets v2 nor Beacon v2 prescribe the use of a specific ontology; they simply provide **recommendations** on their websites. Thereby, `Convert-Pheno` does not change the source ontologies.
+    Neither Phenopacket v2 nor Beacon v2 prescribe the use of a specific ontology; they simply provide [recommendations](https://phenopacket-schema.readthedocs.io/en/latest/recommended-ontologies.html) on their websites. Thereby, `Convert-Pheno` does not change the source ontologies.
 
-    Now, IMHO, it's generally easier to inter-convert terminologies (it's just a mapping exercise) than to inter-convert data schemas...so here is that:smile:.
+    Now, IMHO, it's generally easier to inter-convert ontology terms (it's just a mapping exercise) than to inter-convert data schemas...so here is that:smile:.
 
     !!! Abstract "Nota Bene:"
         A  standard that does enforce the use of an **standardized vocabulary** is [OMOP CDM](omop-cdm.md), you may wanna check it out.
@@ -299,6 +304,11 @@ Frequently Asked Questions
 
     ##### last change 2024-01-17 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
+??? faq "How can I convert my BFF/PXF data into Machine Learning features?"
+
+    We recommend using [Pheno-Ranker](https://cnag-biomedical-informatics.github.io/pheno-ranker/) that performs `one-hot` encoding while preserving the hierarchical relationships of the JSON data.
+
+    ##### last change 2024-01-17 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
 
 ## Installation

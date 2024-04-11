@@ -47,7 +47,7 @@ This page provides brief tutorials on how to perform data conversion by using `C
         - **routesOfAdministration**, an `array` with specific mappings for `treatments`.
 
     ??? Tip "Defining the values in the property `dictionary`"
-        Before assigning values to `dictionary` it's important that you think about which ontologies you want to use. The field `project.ontology` defines the ontology for the whole project, but you can also specify a another antology at the Beacon v2 term level. Once you know which ontologies to use, then try searching for such term to get an accorate label for it. For example, if you have chosen `ncit`, you can search for the values within NCIt at [EBI Search](https://www.ebi.ac.uk/ols/ontologies/ncit). `Convert-Pheno` will use these values to retrieve the actual ontology from its internal databases.
+        Before assigning values to `dictionary` it's important that you think about which ontologies/terminologies you want to use. The field `project.ontology` defines the ontology for the whole project, but you can also specify a another antology at the Beacon v2 term level. Once you know which ontologies to use, then try searching for such term to get an accorate label for it. For example, if you have chosen `ncit`, you can search for the values within NCIt at [EBI Search](https://www.ebi.ac.uk/ols/ontologies/ncit). `Convert-Pheno` will use these values to retrieve the actual ontology term from its internal databases.
 
     ??? Abstract "About text similarity in database searches"
         `Convert-Pheno` comes with a few pre-configured databases and it will search for ontologies/terminologies there. Two two types of searches can be performed:
@@ -58,7 +58,7 @@ This page provides brief tutorials on how to perform data conversion by using `C
 
          2. `mixed` (needs `--search mixed`)
 
-             The script will begin by attempting an exact match for 'label', and if it is unsuccessful, it will then conduct a search based on string (phrase) similarity and select the ontology with the highest score. 
+             The script will begin by attempting an exact match for 'label', and if it is unsuccessful, it will then conduct a search based on string (phrase) similarity and select the ontology term with the highest score. 
 
          Example (NCIt ontology): 
 
