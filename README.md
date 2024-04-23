@@ -64,29 +64,29 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
              -ojsonld (experimental)  JSON-LD (interoperable w/ RDF ecosystem; YAML-LD if suffix is .ymlld|.yamlld)
 
      Options:
-       -exposures-file                CSV file with a list of 'concept_id' considered to be exposures (with -iomop)
-       -mapping-file                  Fields mapping YAML (or JSON) file
-       -max-lines-sql                 Maximum number of lines read from SQL dump [500]
-       -min-text-similarity-score     Minimum score for cosine similarity (or Sorensen-Dice coefficient) [0.8] (to be used with --search mixed)
+       -exposures-file <file>         CSV file with a list of 'concept_id' considered to be exposures (with -iomop)
+       -mapping-file <file>           Fields mapping YAML (or JSON) file
+       -max-lines-sql <number>        Maximum number of lines read from SQL dump [500]
+       -min-text-similarity-score <score> Minimum score for cosine similarity (or Sorensen-Dice coefficient) [0.8] (to be used with --search mixed)
        -ohdsi-db                      Use Athena-OHDSI database (~2.2GB) with -iomop
-       -omop-tables                   (Only valid with -iomop) OMOP-CDM tables to be processed. Tables <CONCEPT> and <PERSON> are always included.
-       -out-dir                       Output (existing) directory
+       -omop-tables <tables>          OMOP-CDM tables to be processed. Tables <CONCEPT> and <PERSON> are always included.
+       -out-dir <directory>           Output (existing) directory
        -O                             Overwrite output file
-       -path-to-ohdsi-db              Directory for the file <ohdsi.db>
+       -path-to-ohdsi-db <directory>  Directory for the file <ohdsi.db>
        -phl|print-hidden-labels       Print original values (before DB mapping) of text fields <_labels>
-       -rcd|redcap-dictionary         REDCap data dictionary CSV file
-       -schema-file                   Alternative JSON Schema for mapping file
-       -search                        Type of search [>exact|mixed]
+       -rcd|redcap-dictionary <file>  REDCap data dictionary CSV file
+       -schema-file <file>            Alternative JSON Schema for mapping file
+       -search <type>                 Type of search [>exact|mixed]
        -svs|self-validate-schema      Perform a self-validation of the JSON schema that defines mapping (requires IO::Socket::SSL)
-       -sep|separator                 Delimiter character for CSV files [;] e.g., --sep $'\t'
+       -sep|separator <char>          Delimiter character for CSV files [;] e.g., --sep $'\t'
        -stream                        Enable incremental processing with -iomop and -obff [>no-stream|stream]
        -sql2csv                       Print SQL TABLES (only valid with -iomop). Mutually exclusive with --stream
        -test                          Does not print time-changing-events (useful for file-based cmp)
-       -text-similarity-method        The method used to compare values to DB [>cosine|dice]
-       -u|username                    Set the username
+       -text-similarity-method <method> The method used to compare values to DB [>cosine|dice]
+       -u|username <username>         Set the username
 
      Generic Options:
-       -debug                         Print debugging level (from 1 to 5, being 5 max)
+       -debug <level>                 Print debugging level (from 1 to 5, being 5 max)
        -help                          Brief help message
        -log                           Save log file (JSON). If no argument is given then the log is named [convert-pheno-log.json]
        -man                           Full documentation
