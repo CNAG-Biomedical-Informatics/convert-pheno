@@ -6,6 +6,7 @@ Revision history for Perl distribution Convert-Pheno
  - Updated how to obtain nproc for FreeBSD
  - Moved t/{ohdsi,protobuff}.t to xt
  - Added experimental -ojsond (JSON-LD) (to be used with -i{bff|pxf}
+ - Improved utf-8 support
 
 0.18 2024-02-29T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 

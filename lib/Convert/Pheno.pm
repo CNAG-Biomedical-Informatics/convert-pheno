@@ -237,7 +237,7 @@ sub redcap2bff {
     $self->{convertPheno}      = get_info($self);
 
     # array_dispatcher will deal with JSON arrays
-    return array_dispatcher($self);
+    return $self->array_dispatcher;
 }
 
 ################
@@ -260,7 +260,7 @@ sub redcap2pxf {
     $self->{in_textfile} = 0;            # setter
 
     # Run second iteration
-    return array_dispatcher($self);
+    return $self->array_dispatcher;
 }
 
 ##############
@@ -458,7 +458,7 @@ sub omop2bff {
     # --no-stream
     else {
         # array_dispatcher will deal with JSON arrays
-        return array_dispatcher($self);
+        return $self->array_dispatcher;
     }
 }
 
@@ -492,7 +492,7 @@ sub omop2pxf {
         $self->{in_textfile} = 0;            # setter
 
         # Run second iteration
-        return array_dispatcher($self);
+        return $self->array_dispatcher;
 
         # CLI
     }
@@ -537,7 +537,7 @@ sub cdisc2bff {
     $self->{data_mapping_file} = $data_mapping_file;    # Dynamically adding attributes (setter)
 
     # array_dispatcher will deal with JSON arrays
-    return array_dispatcher($self);
+    return $self->array_dispatcher;
 }
 
 ###############
@@ -560,7 +560,7 @@ sub cdisc2pxf {
     $self->{in_textfile} = 0;            # setter
 
     # Run second iteration
-    return array_dispatcher($self);
+    return $self->array_dispatcher;
 }
 
 #############

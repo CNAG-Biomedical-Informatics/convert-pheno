@@ -1040,7 +1040,7 @@
                   "value" : 76
                }
             },
-            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx Âµmol/l /// Field Type=text",
+            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -1102,7 +1102,7 @@
                   "value" : 3.5
                }
             },
-            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x Âµmol/l /// Field Type=text",
+            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -1257,7 +1257,7 @@
                   "value" : 3.7
                }
             },
-            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x Âµmol/l /// Field Type=text",
+            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -2318,7 +2318,7 @@
                   "value" : 74
                }
             },
-            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx Âµmol/l /// Field Type=text",
+            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -2380,7 +2380,7 @@
                   "value" : 7.3
                }
             },
-            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x Âµmol/l /// Field Type=text",
+            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -2535,7 +2535,7 @@
                   "value" : 3.4
                }
             },
-            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x Âµmol/l /// Field Type=text",
+            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -3224,7 +3224,7 @@
                   "value" : 86
                }
             },
-            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx Âµmol/l /// Field Type=text",
+            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -3286,7 +3286,7 @@
                   "value" : 3.9
                }
             },
-            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x Âµmol/l /// Field Type=text",
+            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -3441,7 +3441,7 @@
                   "value" : 11.5
                }
             },
-            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x Âµmol/l /// Field Type=text",
+            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -4536,7 +4536,7 @@
                   "value" : 99
                }
             },
-            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx Âµmol/l /// Field Type=text",
+            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -4598,7 +4598,7 @@
                   "value" : 8.1
                }
             },
-            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x Âµmol/l /// Field Type=text",
+            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -4753,7 +4753,7 @@
                   "value" : 43
                }
             },
-            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x Âµmol/l /// Field Type=text",
+            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -5488,7 +5488,7 @@
             "skin_ulcer_ori" : 0,
             "standard_weight" : 74.01,
             "stool_arrive" : 0,
-            "stool_frequency" : "3 (â¥ 5 more than normal)",
+            "stool_frequency" : "3 (≥ 5 more than normal)",
             "stool_frequency_ori" : 3,
             "stool_liquid" : 6,
             "stool_tubes___1" : 0,
@@ -5714,7 +5714,7 @@
                   "value" : 90
                }
             },
-            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx Âµmol/l /// Field Type=text",
+            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -5776,7 +5776,7 @@
                   "value" : 8.7
                }
             },
-            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x Âµmol/l /// Field Type=text",
+            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -5931,7 +5931,7 @@
                   "value" : 22.8
                }
             },
-            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x Âµmol/l /// Field Type=text",
+            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -6620,7 +6620,7 @@
                   "value" : 84
                }
             },
-            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx Âµmol/l /// Field Type=text",
+            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -6682,7 +6682,7 @@
                   "value" : 6.8
                }
             },
-            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x Âµmol/l /// Field Type=text",
+            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -6837,7 +6837,7 @@
                   "value" : 20.9
                }
             },
-            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x Âµmol/l /// Field Type=text",
+            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -7498,7 +7498,7 @@
                   "value" : 90
                }
             },
-            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx Âµmol/l /// Field Type=text",
+            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -7560,7 +7560,7 @@
                   "value" : 8.7
                }
             },
-            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x Âµmol/l /// Field Type=text",
+            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -7715,7 +7715,7 @@
                   "value" : 26.6
                }
             },
-            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x Âµmol/l /// Field Type=text",
+            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -8462,7 +8462,7 @@
                   "value" : 92
                }
             },
-            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx Âµmol/l /// Field Type=text",
+            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -8524,7 +8524,7 @@
                   "value" : 9.3
                }
             },
-            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x Âµmol/l /// Field Type=text",
+            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -8679,7 +8679,7 @@
                   "value" : 29.4
                }
             },
-            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x Âµmol/l /// Field Type=text",
+            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -9464,7 +9464,7 @@
                   "value" : 80
                }
             },
-            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx Âµmol/l /// Field Type=text",
+            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -9526,7 +9526,7 @@
                   "value" : 6.7
                }
             },
-            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x Âµmol/l /// Field Type=text",
+            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -9681,7 +9681,7 @@
                   "value" : 20.8
                }
             },
-            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x Âµmol/l /// Field Type=text",
+            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -10336,7 +10336,7 @@
             "smoking_quit" : null,
             "standard_weight" : 75.64,
             "stool_arrive" : 1,
-            "stool_frequency" : "3 (â¥ 5 more than normal)",
+            "stool_frequency" : "3 (≥ 5 more than normal)",
             "stool_frequency_ori" : 3,
             "stool_liquid" : 5,
             "stool_tubes___1" : 1,
@@ -10814,7 +10814,7 @@
                   "value" : 130
                }
             },
-            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx Âµmol/l /// Field Type=text",
+            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -10876,7 +10876,7 @@
                   "value" : 7.4
                }
             },
-            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x Âµmol/l /// Field Type=text",
+            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -11031,7 +11031,7 @@
                   "value" : 164
                }
             },
-            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x Âµmol/l /// Field Type=text",
+            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -12133,7 +12133,7 @@
                   "value" : 110
                }
             },
-            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx Âµmol/l /// Field Type=text",
+            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -12195,7 +12195,7 @@
                   "value" : 6.4
                }
             },
-            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x Âµmol/l /// Field Type=text",
+            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -13046,7 +13046,7 @@
                   "value" : 135
                }
             },
-            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx Âµmol/l /// Field Type=text",
+            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -13108,7 +13108,7 @@
                   "value" : 15.3
                }
             },
-            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x Âµmol/l /// Field Type=text",
+            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -13263,7 +13263,7 @@
                   "value" : 5
                }
             },
-            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x Âµmol/l /// Field Type=text",
+            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -14065,7 +14065,7 @@
                   "value" : 122
                }
             },
-            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx Âµmol/l /// Field Type=text",
+            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -14127,7 +14127,7 @@
                   "value" : 0
                }
             },
-            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x Âµmol/l /// Field Type=text",
+            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -15124,7 +15124,7 @@
                   "value" : 106
                }
             },
-            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx Âµmol/l /// Field Type=text",
+            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -15186,7 +15186,7 @@
                   "value" : 11.5
                }
             },
-            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x Âµmol/l /// Field Type=text",
+            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -15341,7 +15341,7 @@
                   "value" : 5.8
                }
             },
-            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x Âµmol/l /// Field Type=text",
+            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -16206,7 +16206,7 @@
                   "value" : 104
                }
             },
-            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx Âµmol/l /// Field Type=text",
+            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -16268,7 +16268,7 @@
                   "value" : 13.1
                }
             },
-            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x Âµmol/l /// Field Type=text",
+            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -16423,7 +16423,7 @@
                   "value" : 8.2
                }
             },
-            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x Âµmol/l /// Field Type=text",
+            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -17708,7 +17708,7 @@
                   "value" : 84
                }
             },
-            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx Âµmol/l /// Field Type=text",
+            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -17770,7 +17770,7 @@
                   "value" : 5.1
                }
             },
-            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x Âµmol/l /// Field Type=text",
+            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -17925,7 +17925,7 @@
                   "value" : 8
                }
             },
-            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x Âµmol/l /// Field Type=text",
+            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -18808,7 +18808,7 @@
             "skin_ulcer_ori" : 0,
             "standard_weight" : 60.9,
             "stool_arrive" : 1,
-            "stool_frequency" : "3 (â¥ 5 more than normal)",
+            "stool_frequency" : "3 (≥ 5 more than normal)",
             "stool_frequency_ori" : 3,
             "stool_liquid" : 6,
             "stool_tubes___1" : 1,
@@ -19206,7 +19206,7 @@
                   "value" : 87
                }
             },
-            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx Âµmol/l /// Field Type=text",
+            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -19268,7 +19268,7 @@
                   "value" : 6.2
                }
             },
-            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x Âµmol/l /// Field Type=text",
+            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -19423,7 +19423,7 @@
                   "value" : 5.4
                }
             },
-            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x Âµmol/l /// Field Type=text",
+            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -20282,7 +20282,7 @@
                   "value" : 76
                }
             },
-            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx Âµmol/l /// Field Type=text",
+            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -20344,7 +20344,7 @@
                   "value" : 5.6
                }
             },
-            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x Âµmol/l /// Field Type=text",
+            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -20499,7 +20499,7 @@
                   "value" : 4.2
                }
             },
-            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x Âµmol/l /// Field Type=text",
+            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -21332,7 +21332,7 @@
                   "value" : 80
                }
             },
-            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx Âµmol/l /// Field Type=text",
+            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -21394,7 +21394,7 @@
                   "value" : 4.4
                }
             },
-            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x Âµmol/l /// Field Type=text",
+            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -21549,7 +21549,7 @@
                   "value" : 6
                }
             },
-            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x Âµmol/l /// Field Type=text",
+            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -22235,7 +22235,7 @@
             "smoking_quit" : null,
             "standard_weight" : 68.46,
             "stool_arrive" : 0,
-            "stool_frequency" : "3 (â¥ 5 more than normal)",
+            "stool_frequency" : "3 (≥ 5 more than normal)",
             "stool_frequency_ori" : 3,
             "stool_liquid" : 15,
             "stool_tubes___1" : 0,
@@ -22713,7 +22713,7 @@
                   "value" : 52
                }
             },
-            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx Âµmol/l /// Field Type=text",
+            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -22775,7 +22775,7 @@
                   "value" : 4.2
                }
             },
-            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x Âµmol/l /// Field Type=text",
+            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -22930,7 +22930,7 @@
                   "value" : 23.6
                }
             },
-            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x Âµmol/l /// Field Type=text",
+            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -24033,7 +24033,7 @@
                   "value" : 69
                }
             },
-            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx Âµmol/l /// Field Type=text",
+            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -24095,7 +24095,7 @@
                   "value" : 8.1
                }
             },
-            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x Âµmol/l /// Field Type=text",
+            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -24250,7 +24250,7 @@
                   "value" : 8.7
                }
             },
-            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x Âµmol/l /// Field Type=text",
+            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -24973,7 +24973,7 @@
                   "value" : 68
                }
             },
-            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx Âµmol/l /// Field Type=text",
+            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -25035,7 +25035,7 @@
                   "value" : 14.3
                }
             },
-            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x Âµmol/l /// Field Type=text",
+            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -25190,7 +25190,7 @@
                   "value" : 26.5
                }
             },
-            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x Âµmol/l /// Field Type=text",
+            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -25974,7 +25974,7 @@
                   "value" : 70
                }
             },
-            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx Âµmol/l /// Field Type=text",
+            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -26036,7 +26036,7 @@
                   "value" : 7.6
                }
             },
-            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x Âµmol/l /// Field Type=text",
+            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -26191,7 +26191,7 @@
                   "value" : 11.6
                }
             },
-            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x Âµmol/l /// Field Type=text",
+            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -26987,7 +26987,7 @@
             "smoking_quit" : null,
             "standard_weight" : 55.17,
             "stool_arrive" : 0,
-            "stool_frequency" : "3 (â¥ 5 more than normal)",
+            "stool_frequency" : "3 (≥ 5 more than normal)",
             "stool_frequency_ori" : 3,
             "stool_liquid" : 0,
             "stool_tubes___1" : 0,
@@ -27431,7 +27431,7 @@
                   "value" : 63
                }
             },
-            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx Âµmol/l /// Field Type=text",
+            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -27493,7 +27493,7 @@
                   "value" : 2
                }
             },
-            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x Âµmol/l /// Field Type=text",
+            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -27648,7 +27648,7 @@
                   "value" : 8.9
                }
             },
-            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x Âµmol/l /// Field Type=text",
+            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -28624,7 +28624,7 @@
                   "value" : 65
                }
             },
-            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx Âµmol/l /// Field Type=text",
+            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -28686,7 +28686,7 @@
                   "value" : 3.6
                }
             },
-            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x Âµmol/l /// Field Type=text",
+            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -28841,7 +28841,7 @@
                   "value" : 7.6
                }
             },
-            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x Âµmol/l /// Field Type=text",
+            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -29675,7 +29675,7 @@
                   "value" : 65
                }
             },
-            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx Âµmol/l /// Field Type=text",
+            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -29737,7 +29737,7 @@
                   "value" : 3.4
                }
             },
-            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x Âµmol/l /// Field Type=text",
+            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -29892,7 +29892,7 @@
                   "value" : 12.8
                }
             },
-            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x Âµmol/l /// Field Type=text",
+            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -30548,7 +30548,7 @@
             "smoking_quit" : null,
             "standard_weight" : 61.63,
             "stool_arrive" : 1,
-            "stool_frequency" : "3 (â¥ 5 more than normal)",
+            "stool_frequency" : "3 (≥ 5 more than normal)",
             "stool_frequency_ori" : 3,
             "stool_liquid" : 7,
             "stool_tubes___1" : 1,
@@ -31026,7 +31026,7 @@
                   "value" : 85
                }
             },
-            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx Âµmol/l /// Field Type=text",
+            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -31088,7 +31088,7 @@
                   "value" : 5.4
                }
             },
-            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x Âµmol/l /// Field Type=text",
+            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -32315,7 +32315,7 @@
                   "value" : 71
                }
             },
-            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx Âµmol/l /// Field Type=text",
+            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -32377,7 +32377,7 @@
                   "value" : 4.5
                }
             },
-            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x Âµmol/l /// Field Type=text",
+            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -32532,7 +32532,7 @@
                   "value" : 11.6
                }
             },
-            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x Âµmol/l /// Field Type=text",
+            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -33256,7 +33256,7 @@
                   "value" : 76
                }
             },
-            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx Âµmol/l /// Field Type=text",
+            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -33318,7 +33318,7 @@
                   "value" : 4.6
                }
             },
-            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x Âµmol/l /// Field Type=text",
+            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -33473,7 +33473,7 @@
                   "value" : 22.6
                }
             },
-            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x Âµmol/l /// Field Type=text",
+            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -34183,7 +34183,7 @@
                   "value" : 72
                }
             },
-            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx Âµmol/l /// Field Type=text",
+            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -34245,7 +34245,7 @@
                   "value" : 5.3
                }
             },
-            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x Âµmol/l /// Field Type=text",
+            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -34400,7 +34400,7 @@
                   "value" : 18.3
                }
             },
-            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x Âµmol/l /// Field Type=text",
+            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -35282,7 +35282,7 @@
                   "value" : 75
                }
             },
-            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx Âµmol/l /// Field Type=text",
+            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -35344,7 +35344,7 @@
                   "value" : 6
                }
             },
-            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x Âµmol/l /// Field Type=text",
+            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -35499,7 +35499,7 @@
                   "value" : 26.6
                }
             },
-            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x Âµmol/l /// Field Type=text",
+            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -36768,7 +36768,7 @@
                   "value" : 88
                }
             },
-            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx Âµmol/l /// Field Type=text",
+            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -36830,7 +36830,7 @@
                   "value" : 3.3
                }
             },
-            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x Âµmol/l /// Field Type=text",
+            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -36985,7 +36985,7 @@
                   "value" : 14.7
                }
             },
-            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x Âµmol/l /// Field Type=text",
+            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -37929,7 +37929,7 @@
                   "value" : 90
                }
             },
-            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx Âµmol/l /// Field Type=text",
+            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -37991,7 +37991,7 @@
                   "value" : 4.9
                }
             },
-            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x Âµmol/l /// Field Type=text",
+            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -38146,7 +38146,7 @@
                   "value" : 9.7
                }
             },
-            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x Âµmol/l /// Field Type=text",
+            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -38826,7 +38826,7 @@
                   "value" : 85
                }
             },
-            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx Âµmol/l /// Field Type=text",
+            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -38888,7 +38888,7 @@
                   "value" : 6.4
                }
             },
-            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x Âµmol/l /// Field Type=text",
+            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -39043,7 +39043,7 @@
                   "value" : 11.3
                }
             },
-            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x Âµmol/l /// Field Type=text",
+            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -39767,7 +39767,7 @@
                   "value" : 87
                }
             },
-            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx Âµmol/l /// Field Type=text",
+            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -39829,7 +39829,7 @@
                   "value" : 5.8
                }
             },
-            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x Âµmol/l /// Field Type=text",
+            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -39984,7 +39984,7 @@
                   "value" : 11.3
                }
             },
-            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x Âµmol/l /// Field Type=text",
+            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -40818,7 +40818,7 @@
                   "value" : 89
                }
             },
-            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx Âµmol/l /// Field Type=text",
+            "notes" : "creatinine /// Field Label=Creatinine /// Field Note=xxx µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -40880,7 +40880,7 @@
                   "value" : 6.8
                }
             },
-            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x Âµmol/l /// Field Type=text",
+            "notes" : "bilirubin /// Field Label=Bilirubin /// Field Note=xxx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",
@@ -41035,7 +41035,7 @@
                   "value" : 13.3
                }
             },
-            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x Âµmol/l /// Field Type=text",
+            "notes" : "iron /// Field Label=Iron /// Field Note=xx.x µmol/l /// Field Type=text",
             "procedure" : {
                "procedureCode" : {
                   "id" : "NCIT:C27232",

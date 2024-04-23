@@ -69,7 +69,7 @@ sub write_json {
     my $file      = $arg->{filepath};
     my $json_data = $arg->{data};
     my $json      = JSON::XS->new->utf8->canonical->pretty->encode($json_data);
-    path($file)->spew_utf8($json);
+    path($file)->spew($json);
     return 1;
 }
 
