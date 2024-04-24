@@ -28,9 +28,11 @@ jobs:
       - name: Install dependencies excluding JSONLD
         run: |
           # Exclude JSONLD module from cpanfile for Windows only
-          grep -v JSONLD cpanfile > cpanfile.tmp
-          mv cpanfile.tmp cpanfile
-          cpanm -n --installdeps .
+          Get-Content cpanfile | Where-Object { $_ -notmatch 'JSONLD' } | Set-Content cpanfile.tmp
+
+          # Use the temporary cpanfile to install dependencies
+          cpanm -n --installdeps cpanfile.tmp
+        shell: pwsh
 
       # Run specific test files
       - name: Run tests (no coverage)
