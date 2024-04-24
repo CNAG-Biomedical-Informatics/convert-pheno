@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         os: ['windows-2019', 'windows-latest']
-        perl: ['5.34']
+        perl: ['5.34', '5.32', '5.30', '5.28', '5.26']
     name: Perl ${{ matrix.perl }} on ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
@@ -38,8 +38,8 @@ jobs:
       # Run specific test files
       - name: Run tests (no coverage)
         run: |
-          perl t/args.t
-          perl t/cli.t
+          #perl t/args.t
+          #perl t/cli.t
           prove -l t
 
       # Upload log files
