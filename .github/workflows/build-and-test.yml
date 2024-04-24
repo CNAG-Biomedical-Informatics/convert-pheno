@@ -1,31 +1,45 @@
 name: Build and test
- 
+
 on:
-     workflow_dispatch
-#    push:
-#        branches: 'main'
-#    pull_request:
-#        branches: '*'
-#    schedule:
-#        - cron: '42 5 * * 0'
+  workflow_dispatch
+  # Uncomment below to activate on these events
+  # push:
+  #   branches: 'main'
+  # pull_request:
+  #   branches: '*'
+  # schedule:
+  #   - cron: '42 5 * * 0'
+
 jobs:
   build:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        #os: ['ubuntu-latest', 'macos-latest']
-        os: ['ubuntu-latest', 'macos-latest', 'windows-2019']
+        os: ['ubuntu-latest', 'macos-latest', 'windows-latest']
         perl: ['5.34', '5.32', '5.30', '5.28', '5.26']
     name: Perl ${{ matrix.perl }} on ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
-      - name: Run tests (no coverage)
+      
+      - name: Set up Perl
         uses: shogo82148/actions-setup-perl@v1
         with:
           perl-version: ${{ matrix.perl }}
+      
       - run: perl -V
-      - run: cpanm -n --installdeps .
+      
+      - name: Install dependencies conditionally excluding JSONLD for Windows
+        run: |
+          if (${{ matrix.os }} -eq 'windows-latest') {
+            # Exclude JSONLD module from cpanfile for Windows only and overwrite the original cpanfile
+            Get-Content cpanfile | Where-Object { $_ -notmatch 'JSONLD' } | Set-Content cpanfile.tmp
+            Move-Item -Path cpanfile.tmp -Destination cpanfile -Force
+          }
+          cpanm -n --installdeps .
+        shell: pwsh
+
       - run: prove -l t
+
       - name: Run tests (with coverage)
         if: ${{ matrix.perl == '5.30' && matrix.os == 'ubuntu-latest' }}
         env:
