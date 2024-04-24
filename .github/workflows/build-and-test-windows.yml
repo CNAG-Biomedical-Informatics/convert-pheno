@@ -1,29 +1,45 @@
 name: Build and test Windows
- 
+
 on:
-     workflow_dispatch
+  workflow_dispatch
+
 jobs:
   build:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: ['windows-2019','windows-latest']
+        os: ['windows-2019', 'windows-latest']
         perl: ['5.34']
     name: Perl ${{ matrix.perl }} on ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
-#      - name: Install MinGW (GCC)
-#        run: choco install mingw -y
-      - name: Run tests (no coverage)
+
+      # Set up Perl environment
+      - name: Set up Perl
         uses: shogo82148/actions-setup-perl@v1
         with:
           perl-version: ${{ matrix.perl }}
-      - run: perl -V
-      - run: cpanm -n --installdeps .
-      - run: perl t/args.t
-      - run: perl t/cli.t
-      - run: prove -l t
 
+      # Display Perl version
+      - name: Display Perl version
+        run: perl -V
+
+      # Install dependencies conditionally excluding JSONLD for Windows
+      - name: Install dependencies excluding JSONLD
+        run: |
+          # Exclude JSONLD module from cpanfile for Windows only
+          grep -v JSONLD cpanfile > cpanfile.tmp
+          mv cpanfile.tmp cpanfile
+          cpanm -n --installdeps .
+
+      # Run specific test files
+      - name: Run tests (no coverage)
+        run: |
+          perl t/args.t
+          perl t/cli.t
+          prove -l t
+
+      # Upload log files
       - name: Upload Log Files
         if: always()
         uses: actions/upload-artifact@v2
