@@ -1,8 +1,11 @@
 Revision history for Perl distribution Convert-Pheno
 
-0.19 2024-0X-XXT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
+0.20 2024-XX-XXT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
- - Updated docs
+ - Foo
+
+0.19 2024-04-24T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
+
  - Updated how to obtain nproc for FreeBSD
  - Moved t/{ohdsi,protobuff}.t to xt/
  - Added experimental -ojsond (JSON-LD) (to be used with -i{bff|pxf}
@@ -12,7 +15,6 @@ Revision history for Perl distribution Convert-Pheno
 
 0.18 2024-02-29T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
- - Updated docs
  - Updated resources in PXF.pm
  - Added info.REDCap_columns to REDCap.pm
  - Renamed keys in REDCap mapping (schema|src|files):
@@ -26,13 +28,11 @@ Revision history for Perl distribution Convert-Pheno
 
 0.17 2024-02-03T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
- - Updated docs
  - Fixed typo in _info.VISIT_OCCURENCE -> _info.VISIT_OCCURRENCE
 
 0.16 2023-12-26T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
  - Implemented restriction on I/O format duplication (ibff->obff)
- - Updated docs
 
 0.15 2023-11-30T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
@@ -43,7 +43,6 @@ Revision history for Perl distribution Convert-Pheno
 
  - Fixed error on pxf.{json,yaml} @pxf-tools-cli examples (v1.0.0-RC3)
    o label": "Vitamin E" -> label": "atorvastatin"
- - Updated docs
 
 0.13 2023-09-12T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
