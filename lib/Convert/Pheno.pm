@@ -735,13 +735,16 @@ sub omop_dispatcher {
 
     # omop2bff encode directly
     if ( $self->{method_ori} ne 'omop2pxf' ) {
-        $out = JSON::XS->new->utf8->canonical->pretty->encode($method_result);
+
+        # Watch out!! Don't double encode by using utf8 here. $fh is already utf-8!!!
+        #out = JSON::XS->new->utf8->canonical->pretty->encode($method_result);
+        $out = JSON::XS->new->canonical->pretty->encode($method_result);
     }
 
     # omop2pxf convert to PXF
     else {
         my $pxf = do_bff2pxf( $self, $method_result );
-        $out = JSON::XS->new->utf8->canonical->pretty->encode($pxf);
+        $out = JSON::XS->new->canonical->pretty->encode($pxf);
     }
     chomp $out;
     return \$out;

@@ -68,8 +68,8 @@ sub write_json {
     my $arg       = shift;
     my $file      = $arg->{filepath};
     my $json_data = $arg->{data};
-    my $json      = JSON::XS->new->utf8->canonical->pretty->encode($json_data);
-    path($file)->spew($json);
+    my $json      = JSON::XS->new->utf8->canonical->pretty->encode($json_data); # utf-8
+    path($file)->spew($json); # already need utf-8
     return 1;
 }
 

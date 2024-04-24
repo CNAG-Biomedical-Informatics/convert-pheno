@@ -4,9 +4,11 @@ Revision history for Perl distribution Convert-Pheno
 
  - Updated docs
  - Updated how to obtain nproc for FreeBSD
- - Moved t/{ohdsi,protobuff}.t to xt
+ - Moved t/{ohdsi,protobuff}.t to xt/
  - Added experimental -ojsond (JSON-LD) (to be used with -i{bff|pxf}
- - Improved utf-8 support
+ - Extended Unicode support
+ - Separated Windows builds into a distinct workflow due to JSONLD dependency issues
+ - Dynamically load JSONLD module with require (if installed)
 
 0.18 2024-02-29T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 

@@ -266,9 +266,13 @@ sub encode_omop_stream {
         }
     };
 
-    # Print line by line (->canonical has some overhead but needed for t/)
-    return JSON::XS->new->utf8->canonical->encode(
-        Convert::Pheno::omop2bff_stream_processing( $self, $data ) );
+    # Obtain 
+    my $stream = Convert::Pheno::omop2bff_stream_processing( $self, $data );
+
+    # Return JSON string
+    #  - canonical has some overhead but needed for t/)
+    #  - $fh is already utf-8, no need to encode again here
+    return JSON::XS->new->canonical->encode($stream);
 }
 
 sub read_sqldump {
