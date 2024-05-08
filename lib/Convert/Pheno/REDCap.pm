@@ -89,7 +89,7 @@ sub do_redcap2bff {
     # We need to pass 'sex' info to external array elements from $participant
     # Thus, we are storing $participant->{sex} in $self !!!
     if ( defined $participant->{$sex_field} ) {
-        $self->{_info}{ $participant->{study_id} }{$sex_field} =
+        $self->{_info}{ $participant->{$studyId_field} }{$sex_field} =
           $participant->{$sex_field};    # Dynamically adding attributes (setter)
     }
     $participant->{$sex_field} =
@@ -300,7 +300,7 @@ sub do_redcap2bff {
 
     # Concatenation of the values in @id_fields (mapping file)
     $individual->{id} = join ':',
-      map { $participant->{$_} } @{ $data_mapping_file->{id}{fields} };
+      map { $participant->{$_} // 'NA' } @{ $data_mapping_file->{id}{fields} };
 
     # ====
     # info
