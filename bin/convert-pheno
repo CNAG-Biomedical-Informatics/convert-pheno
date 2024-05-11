@@ -4,7 +4,7 @@
 #
 #   This file is part of Convert::Pheno
 #
-#   Last Modified: Mar/06/2024
+#   Last Modified: May/10/2024
 #
 #   $VERSION taken from Convert::Pheno
 #
@@ -48,6 +48,7 @@ GetOptions(
     'iredcap=s'                   => \my $in_redcap,                           # string
     'icdisc=s'                    => \my $in_cdisc,                            # string
     'iomop=s{1,}'                 => \my @omop_files,                          # array
+    'icsv=s'                      => \my $in_csv,                              # string
     'obff=s'                      => \my $out_bff,                             # string
     'opxf=s'                      => \my $out_pxf,                             # string
     'ocsv=s'                      => \my $out_csv,                             # string
@@ -93,6 +94,7 @@ my @validation_checks = (
                 || ( defined $in_bff    && -f $in_bff )
                 || ( defined $in_redcap && -f $in_redcap )
                 || ( defined $in_cdisc  && -f $in_cdisc )
+                || ( defined $in_csv    && -f $in_csv )
                 || ( @omop_files        && -f $omop_files[0] ) );
         },
         message => "Please specify a valid input file(s) -i <json|yaml|csv>\n",
@@ -107,7 +109,7 @@ my @validation_checks = (
         message => "Please specify a valid REDCap data dictionary --rcd\n",
     },
     {
-        condition => sub { ( $in_redcap || $in_cdisc ) && !-f $mapping_file },
+        condition => sub { ( $in_redcap || $in_cdisc || $in_csv ) && !-f $mapping_file },
         message => "Please specify a valid field-mapping file --mapping-file\n",
     },
     {
@@ -190,6 +192,7 @@ my $in_type =
   : $in_bff     ? 'bff'
   : $in_redcap  ? 'redcap'
   : $in_cdisc   ? 'cdisc'
+  : $in_csv     ? 'csv'
   : @omop_files ? 'omop'
   :               'bff';
 my $out_type =
@@ -212,6 +215,7 @@ my $data = {
     : $in_bff    ? $in_bff
     : $in_redcap ? $in_redcap
     : $in_cdisc  ? $in_cdisc
+    : $in_csv    ? $in_csv
     : undef,
     in_files                  => \@omop_files // undef,        # only for Omop
     method                    => $method,
@@ -424,9 +428,9 @@ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
              -ipxf                    Phenopacket v2 (JSON|YAML) file
              -iredcap (experimental)  REDCap (raw data) export CSV file
              -icdisc  (experimental)  CDISC-ODM v1 XML file
+             -icsv    (experimental)  Raw data CSV
 
              (Wish-list)
-             #-icsv                   Raw data CSV 
              #-iopenehr               openEHR
              #-ifhir                  HL7/FHIR
 

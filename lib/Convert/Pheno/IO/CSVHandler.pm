@@ -20,7 +20,7 @@ use Convert::Pheno::Schema;
 use Convert::Pheno::Mapping;
 use Exporter 'import';
 our @EXPORT =
-  qw(read_csv read_csv_stream read_redcap_dict_and_mapping_file transpose_ohdsi_dictionary read_sqldump_stream read_sqldump sqldump2csv transpose_omop_data_structure write_csv open_filehandle load_exposures transpose_visit_occurrence get_headers);
+  qw(read_csv read_csv_stream read_redcap_dict_file read_mapping_file transpose_ohdsi_dictionary read_sqldump_stream read_sqldump sqldump2csv transpose_omop_data_structure write_csv open_filehandle load_exposures transpose_visit_occurrence get_headers);
 
 use constant DEVEL_MODE => 0;
 
@@ -79,12 +79,17 @@ sub add_labels {
     return @tmp % 2 == 0 ? {@tmp} : undef;
 }
 
-sub read_redcap_dict_and_mapping_file {
+sub read_redcap_dict_file {
 
     my $arg = shift;
 
     # Read and load REDCap CSV dictionary
-    my $data_redcap_dict = read_redcap_dictionary( $arg->{redcap_dictionary} );
+    return read_redcap_dictionary( $arg->{redcap_dictionary} );
+}
+
+sub read_mapping_file {
+
+    my $arg = shift;
 
     # Read and load mapping file
     my $data_mapping_file =
@@ -101,7 +106,7 @@ sub read_redcap_dict_and_mapping_file {
     $jv->json_validate;
 
     # Return if succesful
-    return ( $data_redcap_dict, $data_mapping_file );
+    return $data_mapping_file;
 }
 
 sub transpose_ohdsi_dictionary {

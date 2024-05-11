@@ -213,9 +213,29 @@ sub do_redcap2bff {
     # =========
 
     # Load field name from mapping file
-    my $ethnicity_field = $data_mapping_file->{ethnicity};
-    $individual->{ethnicity} = map_ethnicity( $participant->{$ethnicity_field} )
-      if defined $participant->{$ethnicity_field};
+    # *** IMPORTANT ***
+    # ethnicity is an object (eq to diseases, etc.)
+    # We are reusing fields even thouh is an array
+    my $ethnicity_field = @{ $data_mapping_file->{ethnicity}{fields} }[0];
+    if ( defined $participant->{$ethnicity_field} ) {
+
+        # Load hashref with cursors for mapping
+        my $mapping =
+          remap_mapping_hash_term( $data_mapping_file, 'ethnicity' );
+
+        # Load corrected field to search
+        my $field = $mapping->{dictionary}{ $participant->{$ethnicity_field} };
+
+        # Search
+        $individual->{ethnicity} = map_ontology(
+            {
+                query    => $field,
+                column   => 'label',
+                ontology => $mapping->{ontology},
+                self     => $self
+            }
+        );
+    }
 
     # =========
     # exposures

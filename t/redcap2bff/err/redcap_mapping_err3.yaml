@@ -19,7 +19,11 @@
       ageOfOnset: age_first_diagnosis
       familyHistory: family_history
 
-  ethnicity: ethnicity
+  # Term: ethnicity
+  ethnicity:
+    fields: [ethnicity]
+    dictionary:
+      Caucasian: White
 
   # exposures
   exposures: 

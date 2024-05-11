@@ -29,7 +29,7 @@
       ],
       "ethnicity" : {
          "id" : "NCIT:C41261",
-         "label" : "Caucasian"
+         "label" : "White"
       },
       "exposures" : [
          {
@@ -3789,7 +3789,7 @@
       ],
       "ethnicity" : {
          "id" : "NCIT:C41261",
-         "label" : "Caucasian"
+         "label" : "White"
       },
       "exposures" : [
          {
@@ -10700,7 +10700,7 @@
       ],
       "ethnicity" : {
          "id" : "NCIT:C41261",
-         "label" : "Caucasian"
+         "label" : "White"
       },
       "exposures" : [
          {
@@ -18113,7 +18113,7 @@
       ],
       "ethnicity" : {
          "id" : "NCIT:C41261",
-         "label" : "Caucasian"
+         "label" : "White"
       },
       "exposures" : [
          {
@@ -23669,7 +23669,7 @@
       ],
       "ethnicity" : {
          "id" : "NCIT:C41261",
-         "label" : "Caucasian"
+         "label" : "White"
       },
       "exposures" : [
          {
@@ -28803,7 +28803,7 @@
       ],
       "ethnicity" : {
          "id" : "NCIT:C41261",
-         "label" : "Caucasian"
+         "label" : "White"
       },
       "exposures" : [
          {
@@ -32651,7 +32651,7 @@
       ],
       "ethnicity" : {
          "id" : "NCIT:C41261",
-         "label" : "Caucasian"
+         "label" : "White"
       },
       "exposures" : [
          {
@@ -38793,7 +38793,7 @@
       ],
       "ethnicity" : {
          "id" : "NCIT:C41261",
-         "label" : "Caucasian"
+         "label" : "White"
       },
       "exposures" : [
          {

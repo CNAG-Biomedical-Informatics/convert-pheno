@@ -19,7 +19,7 @@ use Convert::Pheno::SQLite;
 binmode STDOUT, ':encoding(utf-8)';
 use Exporter 'import';
 our @EXPORT =
-  qw(map_ethnicity map_ontology dotify_and_coerce_number iso8601_time _map2iso8601 map_reference_range map_age_range map2redcap_dict map2ohdsi convert2boolean find_age randStr map_operator_concept_id map_info_field map_omop_visit_occurrence dot_date2iso remap_mapping_hash_term validate_format get_metaData get_info);
+  qw(map_ontology dotify_and_coerce_number iso8601_time _map2iso8601 map_reference_range map_age_range map2redcap_dict map2ohdsi convert2boolean find_age randStr map_operator_concept_id map_info_field map_omop_visit_occurrence dot_date2iso remap_mapping_hash_term validate_format get_metaData get_info);
 
 use constant DEVEL_MODE => 0;
 
@@ -31,15 +31,6 @@ my %seen = ();
 #  SUBROUTINES FOR MAPPING  #
 #############################
 #############################
-
-sub map_ethnicity {
-
-    my $str       = shift;
-    my %ethnicity = ( map { $_ => 'NCIT:C41261' } ( 'caucasian', 'white' ) );
-
-# 1, Caucasian | 2, Hispanic | 3, Asian | 4, African/African-American | 5, Indigenous American | 6, Mixed | 9, Other";
-    return { id => $ethnicity{ lc($str) }, label => $str };
-}
 
 sub map_ontology {
 

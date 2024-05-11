@@ -45,9 +45,9 @@ convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-o
              -ipxf                    Phenopacket v2 (JSON|YAML) file
              -iredcap (experimental)  REDCap (raw data) export CSV file
              -icdisc  (experimental)  CDISC-ODM v1 XML file
+             -icsv    (experimental)  Raw data CSV
 
              (Wish-list)
-             #-icsv                   Raw data CSV 
              #-iopenehr               openEHR
              #-ifhir                  HL7/FHIR
 

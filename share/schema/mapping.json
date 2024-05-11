@@ -34,7 +34,8 @@
           "type": "string",
           "enum": [
             "redcap",
-            "cdisc-odm"
+            "cdisc-odm",
+            "csv"
           ]
         },
         "ontology": {
@@ -52,7 +53,7 @@
       "$ref": "#/$defs/objectField"
     },
     "ethnicity": {
-      "$ref": "#/$defs/stringField"
+      "$ref": "#/$defs/objectField"
     },
     "exposures": {
       "$ref": "#/$defs/objectField"

@@ -21,7 +21,10 @@
       familyHistory: family_history
 
   # Term: ethnicity
-  ethnicity: ethnicity
+  ethnicity:
+    fields: [ethnicity]
+    dictionary:
+      Caucasian: White
 
   # Term: exposures
   exposures: 

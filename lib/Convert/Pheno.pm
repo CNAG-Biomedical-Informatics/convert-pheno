@@ -206,7 +206,6 @@ sub bff2jsonld {
     return array_dispatcher(shift);
 }
 
-
 ################
 ################
 #  REDCAP2BFF  #
@@ -218,16 +217,19 @@ sub redcap2bff {
     my $self = shift;
 
     # Read and load data from REDCap export
-    my $data = read_csv( { in => $self->{in_file}, sep => undef } );
-    my ( $data_redcap_dict, $data_mapping_file ) =
-      read_redcap_dict_and_mapping_file(
+    my $data             = read_csv( { in => $self->{in_file}, sep =>  $self->{sep} } );
+    my $data_redcap_dict = read_redcap_dict_file(
         {
-            redcap_dictionary    => $self->{redcap_dictionary},
+            redcap_dictionary => $self->{redcap_dictionary},
+        }
+    );
+    my $data_mapping_file = read_mapping_file(
+        {
             mapping_file         => $self->{mapping_file},
             self_validate_schema => $self->{self_validate_schema},
             schema_file          => $self->{schema_file}
         }
-      );
+    );
 
     # Load data in $self
     $self->{data}              = $data;                 # Dynamically adding attributes (setter)
@@ -521,15 +523,18 @@ sub cdisc2bff {
     my $hash = xml2hash $str, attr => '-', text => '~';
     my $data = cdisc2redcap($hash);
 
-    my ( $data_redcap_dict, $data_mapping_file ) =
-      read_redcap_dict_and_mapping_file(
+    my $data_redcap_dict = read_redcap_dict_file(
         {
-            redcap_dictionary    => $self->{redcap_dictionary},
+            redcap_dictionary => $self->{redcap_dictionary},
+        }
+    );
+    my $data_mapping_file = read_mapping_file(
+        {
             mapping_file         => $self->{mapping_file},
             self_validate_schema => $self->{self_validate_schema},
             schema_file          => $self->{schema_file}
         }
-      );
+    );
 
     # Load data in $self
     $self->{data}              = $data;                 # Dynamically adding attributes (setter)
@@ -573,6 +578,38 @@ sub pxf2bff {
 
     # <array_dispatcher> will deal with JSON arrays
     return array_dispatcher(shift);
+}
+
+#############
+#############
+#  CSV2BFF  #
+#############
+#############
+
+sub csv2bff {
+
+    my $self = shift;
+
+    # Read and load data from CSV
+    my $data             = read_csv( { in => $self->{in_file}, sep =>  $self->{sep} } );
+
+    # Read and load mapping file
+    my $data_mapping_file = read_mapping_file(
+        {
+            mapping_file         => $self->{mapping_file},
+            self_validate_schema => $self->{self_validate_schema},
+            schema_file          => $self->{schema_file}
+        }
+    );
+
+    # Load data in $self
+    $self->{data}              = $data;                 # Dynamically adding attributes (setter)
+    $self->{data_mapping_file} = $data_mapping_file;    # Dynamically adding attributes (setter)
+                                                        #$self->{metaData}          = get_metaData($self);
+                                                        #$self->{convertPheno}      = get_info($self);
+
+    # array_dispatcher will deal with JSON arrays
+    return $self->array_dispatcher;
 }
 
 #############
@@ -635,10 +672,10 @@ sub array_dispatcher {
         bff2pxf    => \&do_bff2pxf,
         bff2csv    => \&do_bff2csv,
         bff2jsonf  => \&do_bff2csv,      # Not a typo, is the same as above
-        bff2jsonld => \&do_bff2jsonld,      
+        bff2jsonld => \&do_bff2jsonld,
         pxf2bff    => \&do_pxf2bff,
         pxf2csv    => \&do_pxf2csv,
-        pxf2jsonf  => \&do_pxf2csv,     # Not a typo, is the same as above
+        pxf2jsonf  => \&do_pxf2csv,      # Not a typo, is the same as above
         pxf2jsonld => \&do_pxf2jsonld
     );
 
