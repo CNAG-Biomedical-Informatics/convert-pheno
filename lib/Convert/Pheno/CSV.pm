@@ -83,8 +83,8 @@ sub do_csv2bff {
     # 'id' and 'sex' are required properties in <individuals> entry type
 
     # Getting the field name from mapping file (note that we add _field suffix)
-    my $sex_field     = $data_mapping_file->{sex};
-    my $studyId_field = $data_mapping_file->{info}{mapping}{studyId};
+    my $sex_field     = $data_mapping_file->{sex}{fields};
+    my $id_field      = $data_mapping_file->{id}{fields};
 
     # **********************
     # *** IMPORTANT STEP ***
@@ -92,15 +92,15 @@ sub do_csv2bff {
     # We need to pass 'sex' info to external array elements from $participant
     # Thus, we are storing $participant->{sex} in $self !!!
     if ( defined $participant->{$sex_field} ) {
-        $self->{_info}{ $participant->{$studyId_field} }{$sex_field} =
+        $self->{_info}{ $participant->{$id_field} }{$sex_field} =
           $participant->{$sex_field};    # Dynamically adding attributes (setter)
     }
     $participant->{$sex_field} =
-      $self->{_info}{ $participant->{$studyId_field} }{$sex_field};
+      $self->{_info}{ $participant->{$id_field} }{$sex_field};
 
     # Premature return if fields don't exist
     return
-      unless ( defined $participant->{$studyId_field}
+      unless ( defined $participant->{$id_field}
         && $participant->{$sex_field} );
 
     # Default values to be used accross the module
@@ -181,10 +181,24 @@ sub do_csv2bff {
     # ethnicity
     # =========
 
-    # Load field name from mapping file
-    my $ethnicity_field = $data_mapping_file->{ethnicity};
-    $individual->{ethnicity} = map_ethnicity( $participant->{$ethnicity_field} )
-      if defined $participant->{$ethnicity_field};
+    # Load field name from mapping file (string, as opossed to array)
+    my $ethnicity_field = $data_mapping_file->{ethnicity}{fields};
+
+    # Load hashref with cursors for mapping
+    $mapping = remap_mapping_hash_term( $data_mapping_file, 'ethnicity' );
+
+    # Load corrected field to search
+    my $field = $mapping->{dictionary}{ $participant->{$ethnicity_field} };
+
+    # Search
+    $individual->{ethnicity} = map_ontology(
+        {
+            query    => $field,
+            column   => 'label',
+            ontology => $mapping->{ontology},
+            self     => $self
+        }
+    ) if defined $participant->{$ethnicity_field};
 
     # =========
     # exposures
@@ -280,7 +294,7 @@ sub do_csv2bff {
 
     for my $field ( @{ $mapping->{fields} } ) {
         if ( defined $participant->{$field} ) {
-           $individual->{info}{$field} = $participant->{$field};
+            $individual->{info}{$field} = $participant->{$field};
         }
     }
 
@@ -384,7 +398,7 @@ sub do_csv2bff {
         # We first extract 'unit' and %range' for <measurementValue>
         my $tmp_str = map2redcap_dict(
             {
-           #     redcap_dict => $redcap_dict,
+                #     redcap_dict => $redcap_dict,
                 participant => $participant,
                 field       => $field,
                 labels      => 0               # will get 'Field Note'
@@ -413,13 +427,15 @@ sub do_csv2bff {
                 value => dotify_and_coerce_number( $participant->{$field} ),
                 referenceRange => map_reference_range(
                     {
-                        unit        => $unit,
+                        unit => $unit,
+
                         #redcap_dict => $redcap_dict,
-                        field       => $field
+                        field => $field
                     }
                 )
             }
         };
+
         #$measure->{notes} = join ' /// ', $field,
         #  ( map { qq/$_=$redcap_dict->{$field}{$_}/ } @redcap_field_types );
 
@@ -517,6 +533,7 @@ sub do_csv2bff {
 
             # Prune ___\d+
             $field =~ s/___\w+$// if $field =~ m/___\w+$/;
+
             #$phenotypicFeature->{notes} = join ' /// ',
             #  (
             #    $field,

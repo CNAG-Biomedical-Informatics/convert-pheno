@@ -83,7 +83,7 @@
       "$ref": "#/$defs/objectField"
     },
     "sex": {
-      "$ref": "#/$defs/stringField"
+      "$ref": "#/$defs/objectField"
     },
     "treatments": {
       "$ref": "#/$defs/objectField"
@@ -95,10 +95,17 @@
       "additionalProperties": false,
       "properties": {
         "fields": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
         },
         "dictionary": {
           "type": "object",

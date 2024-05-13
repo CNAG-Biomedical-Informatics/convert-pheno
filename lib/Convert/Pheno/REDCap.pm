@@ -80,24 +80,26 @@ sub do_redcap2bff {
     my @redcap_field_types = ( 'Field Label', 'Field Note', 'Field Type' );
 
     # Getting the field name from mapping file (note that we add _field suffix)
-    my $sex_field     = $data_mapping_file->{sex};
-    my $studyId_field = $data_mapping_file->{info}{mapping}{studyId};
+    my $sex_field = $data_mapping_file->{sex}{fields};
+    my $id_field  = $data_mapping_file->{id}{mapping}{primary_key};
 
     # **********************
     # *** IMPORTANT STEP ***
     # **********************
-    # We need to pass 'sex' info to external array elements from $participant
+    # We need to pass 'sex' info to other array elements from $participant
+    # where sex field is empty. Th ereason being that demographisc is compiled only at baseline
+    # It's is mandatory that the row that contains demographics comes before the empty
     # Thus, we are storing $participant->{sex} in $self !!!
     if ( defined $participant->{$sex_field} ) {
-        $self->{_info}{ $participant->{$studyId_field} }{$sex_field} =
+        $self->{_info}{ $participant->{$id_field} }{$sex_field} =
           $participant->{$sex_field};    # Dynamically adding attributes (setter)
     }
     $participant->{$sex_field} =
-      $self->{_info}{ $participant->{$studyId_field} }{$sex_field};
+      $self->{_info}{ $participant->{$id_field} }{$sex_field};
 
-    # Premature return if fields don't exist
+    # Premature return if fields are not defined or present
     return
-      unless ( defined $participant->{$studyId_field}
+      unless ( defined $participant->{$id_field}
         && $participant->{$sex_field} );
 
     # Default values to be used accross the module
@@ -212,11 +214,8 @@ sub do_redcap2bff {
     # ethnicity
     # =========
 
-    # Load field name from mapping file
-    # *** IMPORTANT ***
-    # ethnicity is an object (eq to diseases, etc.)
-    # We are reusing fields even thouh is an array
-    my $ethnicity_field = @{ $data_mapping_file->{ethnicity}{fields} }[0];
+    # Load field name from mapping file (string, as opossed to array)
+    my $ethnicity_field = $data_mapping_file->{ethnicity}{fields};
     if ( defined $participant->{$ethnicity_field} ) {
 
         # Load hashref with cursors for mapping
@@ -602,9 +601,18 @@ sub do_redcap2bff {
     # sex
     # ===
 
+    # Load hashref with cursors for mapping
+    $mapping = remap_mapping_hash_term( $data_mapping_file, 'sex' );
+
+    # Load corrected field to search
+    my $field =
+      $mapping->{dictionary}{ $participant->{$sex_field} };
+
+    # Search
+
     $individual->{sex} = map_ontology(
         {
-            query    => $participant->{$sex_field},
+            query    => $field,
             column   => 'label',
             ontology => $project_ontology,
             self     => $self

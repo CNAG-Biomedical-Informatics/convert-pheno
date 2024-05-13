@@ -21,7 +21,7 @@
 
   # Term: ethnicity
   ethnicity:
-    fields: [ethnicity]
+    fields: ethnicity
     dictionary:
       Caucasian: White
 
@@ -59,8 +59,6 @@
   # info
   info:
    fields: [study_id,dob,diet,redcap_event_name,age,first_name,last_name,consent,consent_date,consent_noneu,consent_devices,consent_recontact,consent_week2_endo,education,zipcode,consents_and_demographics_complete]
-   dict:
-     studyId: study_id
 
   # interventionsOrProcedures
   interventionsOrProcedures: 
@@ -130,7 +128,14 @@
   # phenotypicFeatures
   phenotypicFeatures: 
     fields: [comorb_asthma,comorb_copd,comorb_ms,comorb_sle,comorb_ra,comorb_pso,comorb_ad,comorb_cancer,comorb_cancer_specified,comorb_hypertension,comorb_diabetes,comorb_lipids,comorb_stroke,comorb_other_ai,comorb_other_ai_specified,immunodeficiency,rectal_bleeding]
-  sex: sex
+
+  # Term: sex
+  sex:
+    fields: sex
+    dictionary:
+      Female: Female
+      Male: Male
+
   treatments:
     fields: [budesonide,prednisolone,asa,aza,mtx,mp]
     dict:

@@ -22,7 +22,7 @@
 
   # Term: ethnicity
   ethnicity:
-    fields: [ethnicity]
+    fields: ethnicity
     dictionary:
       Caucasian: White
 
@@ -60,12 +60,12 @@
   # Term: id
   id:
     fields: [study_id,redcap_event_name]
+    mapping:
+      primary_key: study_id 
 
   # Term: info
   info:
    fields: [study_id,dob,diet,redcap_event_name,age,first_name,last_name,consent,consent_date,consent_noneu,consent_devices,consent_recontact,consent_week2_endo,education,zipcode,consents_and_demographics_complete]
-   mapping:
-     studyId: study_id
 
   # Term: interventionsOrProcedures
   interventionsOrProcedures: 
@@ -154,7 +154,11 @@
       'Primary immunodeficiency known?': Primary Immunodeficiency Syndrome
 
   # Term: sex
-  sex: sex
+  sex: 
+    fields: sex
+    dictionary:
+      Female: Female
+      Male: Male
 
   # Term: treatments
   treatments:

@@ -40,7 +40,7 @@ This page provides brief tutorials on how to perform data conversion by using `C
 
      * These are the properties needeed to map your data to the entity `individuals` in the Beacon v2 Models:
         - **dictionary**, is an `object` in the form of `key: value`. The `key` represents the original variable name in REDCap and the `value` represents the "phrase" that will be used to query a database to find an ontology candidate. For instance, you may have a variable named `cigarettes_days`, but you know that in [NCIt](https://www.ebi.ac.uk/ols/ontologies/ncit) the label is `Average Number Cigarettes Smoked a Day`. In this case you will use `cigarettes_days: Average Number Cigarettes Smoked a Day`.
-        - **fields**, is an `array` consisting of the name of the REDCap variables that map to that Beacon v2 term.
+        - **fields**, can be either an `string` or an `array` consisting of the name of the REDCap variables that map to that Beacon v2 term.
         - **mapping**, is an `object` in the form of `key: value` that we use to map our Beacon v2 objects to REDCap variables. For instance, you may have a field named `age_first_diagnosis` that it's called `ageOgOnset` on Beacon v2. In this case you will use `ageOfOnset: age_first_diagnosis`.
         - **selector**, a nested `object` value with specific mappings.
         - **ontology**, it's an `string` to define more granularly the ontology for this particular Beacon v2 term. If not present, the script will use that from `project.ontology`.
