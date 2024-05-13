@@ -5,6 +5,7 @@ use warnings;
 use autodie;
 use feature qw(say);
 use Convert::Pheno::Mapping;
+use Convert::Pheno::REDCap;
 use Data::Dumper;
 use Hash::Fold fold => { array_delimiter => ':' };
 use Exporter 'import';
@@ -64,6 +65,8 @@ sub do_csv2bff {
     my $data_mapping_file = $self->{data_mapping_file};
     my $sth               = $self->{sth};
 
+    #my @redcap_field_types = ( 'Field Label', 'Field Note', 'Field Type' );
+
     ####################################
     # START MAPPING TO BEACON V2 TERMS #
     ####################################
@@ -81,39 +84,18 @@ sub do_csv2bff {
 
     # *** ABOUT REQUIRED PROPERTIES ***
     # 'id' and 'sex' are required properties in <individuals> entry type
-
-    my @redcap_field_types = ( 'Field Label', 'Field Note', 'Field Type' );
-
-    # Getting the field name from mapping file (note that we add _field suffix)
-    my $sex_field = $data_mapping_file->{sex}{fields};
-    my $id_field  = $data_mapping_file->{id}{mapping}{primary_key};
-
-    # **********************
-    # *** IMPORTANT STEP ***
-    # **********************
-    # We need to pass 'sex' info to other array elements from $participant
-    # where sex field is empty. Th ereason being that demographisc is compiled only at baseline
-    # It's is mandatory that the row that contains demographics comes before the empty
-    # Thus, we are storing $participant->{sex} in $self !!!
-    if ( defined $participant->{$sex_field} ) {
-        $self->{_info}{ $participant->{$id_field} }{$sex_field} =
-          $participant->{$sex_field};    # Dynamically adding attributes (setter)
-    }
-    $participant->{$sex_field} =
-      $self->{_info}{ $participant->{$id_field} }{$sex_field};
+    my $sub_param = {
+            data_mapping_file => $data_mapping_file,
+            participant       => $participant,
+            self              => $self,
+        };
+    $sub_param->{lock_keys} = ['lock_keys', keys %$sub_param];
+    my ( $sex_field, $id_field ) = check_mandatory_terms($sub_param);
 
     # Premature return if fields are not defined or present
     return
       unless ( defined $participant->{$id_field}
         && $participant->{$sex_field} );
-
-    # Default values to be used accross the module
-    my %default = (
-        ontology => { id => 'NCIT:NA0000', label => 'NA' },
-        date     => '1900-01-01',
-        duration => 'P999Y',
-        age      => { age => { iso8601duration => 'P999Y' } }
-    );
 
     # Variable that will allow to perform ad hoc changes for specific projects
     my $project_id = $data_mapping_file->{project}{id};

@@ -8,8 +8,17 @@ use List::Util qw(any);
 use Convert::Pheno::Mapping;
 use Data::Dumper;
 use Scalar::Util qw(looks_like_number);
+use Hash::Util qw(lock_keys);
 use Exporter 'import';
-our @EXPORT = qw(do_redcap2bff);
+our @EXPORT = qw(%default do_redcap2bff check_mandatory_terms);
+
+# Default values to be used accross the module
+my %default = (
+    ontology => { id => 'NCIT:NA0000', label => 'NA' },
+    date     => '1900-01-01',
+    duration => 'P999Y',
+    age      => { age => { iso8601duration => 'P999Y' } }
+);
 
 ################
 ################
@@ -56,6 +65,8 @@ sub do_redcap2bff {
     #'text'
     #'yesno'
 
+    my @redcap_field_types = ( 'Field Label', 'Field Note', 'Field Type' );
+
     ####################################
     # START MAPPING TO BEACON V2 TERMS #
     ####################################
@@ -76,39 +87,18 @@ sub do_redcap2bff {
 
     # *** ABOUT REQUIRED PROPERTIES ***
     # 'id' and 'sex' are required properties in <individuals> entry type
+    my $sub_param = {
+            data_mapping_file => $data_mapping_file,
+            participant       => $participant,
+            self              => $self,
+        };
+    $sub_param->{lock_keys} = ['lock_keys', keys %$sub_param];
+    my ( $sex_field, $id_field ) = check_mandatory_terms($sub_param);
 
-    my @redcap_field_types = ( 'Field Label', 'Field Note', 'Field Type' );
-
-    # Getting the field name from mapping file (note that we add _field suffix)
-    my $sex_field = $data_mapping_file->{sex}{fields};
-    my $id_field  = $data_mapping_file->{id}{mapping}{primary_key};
-
-    # **********************
-    # *** IMPORTANT STEP ***
-    # **********************
-    # We need to pass 'sex' info to other array elements from $participant
-    # where sex field is empty. Th ereason being that demographisc is compiled only at baseline
-    # It's is mandatory that the row that contains demographics comes before the empty
-    # Thus, we are storing $participant->{sex} in $self !!!
-    if ( defined $participant->{$sex_field} ) {
-        $self->{_info}{ $participant->{$id_field} }{$sex_field} =
-          $participant->{$sex_field};    # Dynamically adding attributes (setter)
-    }
-    $participant->{$sex_field} =
-      $self->{_info}{ $participant->{$id_field} }{$sex_field};
-
-    # Premature return if fields are not defined or present
+    # Premature return (undef) if fields are not defined or present
     return
       unless ( defined $participant->{$id_field}
         && $participant->{$sex_field} );
-
-    # Default values to be used accross the module
-    my %default = (
-        ontology => { id => 'NCIT:NA0000', label => 'NA' },
-        date     => '1900-01-01',
-        duration => 'P999Y',
-        age      => { age => { iso8601duration => 'P999Y' } }
-    );
 
     # Variable that will allow to perform ad hoc changes for specific projects
     my $project_id = $data_mapping_file->{project}{id};
@@ -223,12 +213,14 @@ sub do_redcap2bff {
           remap_mapping_hash_term( $data_mapping_file, 'ethnicity' );
 
         # Load corrected field to search
-        my $field = $mapping->{dictionary}{ $participant->{$ethnicity_field} };
+        my $ethnicity_query =
+          replace_field_with_dictionary_if_exists( $mapping,
+            $participant->{$ethnicity_field} );
 
         # Search
         $individual->{ethnicity} = map_ontology(
             {
-                query    => $field,
+                query    => $ethnicity_query,
                 column   => 'label',
                 ontology => $mapping->{ontology},
                 self     => $self
@@ -265,7 +257,7 @@ sub do_redcap2bff {
 
         # Query related
         my $exposure_query =
-          exists_mapping_dictionary_field( $mapping, $field );
+          replace_field_with_dictionary_if_exists( $mapping, $field );
 
         $exposure->{exposureCode} = map_ontology(
             {
@@ -405,7 +397,9 @@ sub do_redcap2bff {
                 {
                     query => defined $subkey
                     ? $mapping->{selector}{$subkey}{ $participant->{$field} }
-                    : exists_mapping_dictionary_field( $mapping, $field ),
+                    : replace_field_with_dictionary_if_exists(
+                        $mapping, $field
+                    ),
                     column   => 'label',
                     ontology => $mapping->{ontology},
                     self     => $self
@@ -437,7 +431,8 @@ sub do_redcap2bff {
 
         $measure->{assayCode} = map_ontology(
             {
-                query    => exists_mapping_dictionary_field( $mapping, $field ),
+                query =>
+                  replace_field_with_dictionary_if_exists( $mapping, $field ),
                 column   => 'label',
                 ontology => $mapping->{ontology},
                 self     => $self,
@@ -465,8 +460,9 @@ sub do_redcap2bff {
 
         my $unit = map_ontology(
             {
-                query  => exists_mapping_dictionary_field( $mapping, $tmp_str ),
-                column => 'label',
+                query =>
+                  replace_field_with_dictionary_if_exists( $mapping, $tmp_str ),
+                column   => 'label',
                 ontology => $mapping->{ontology},
                 self     => $self
             }
@@ -570,7 +566,9 @@ sub do_redcap2bff {
                 {
                     query => defined $subkey
                     ? $mapping->{selector}{$subkey}{ $participant->{$tmp_var} }
-                    : exists_mapping_dictionary_field( $mapping, $tmp_var ),
+                    : replace_field_with_dictionary_if_exists(
+                        $mapping, $tmp_var
+                    ),
                     column   => 'label',
                     ontology => $mapping->{ontology},
                     self     => $self
@@ -605,14 +603,14 @@ sub do_redcap2bff {
     $mapping = remap_mapping_hash_term( $data_mapping_file, 'sex' );
 
     # Load corrected field to search
-    my $field =
-      $mapping->{dictionary}{ $participant->{$sex_field} };
+    my $sex_query =
+      replace_field_with_dictionary_if_exists( $mapping,
+        $participant->{$sex_field} );
 
     # Search
-
     $individual->{sex} = map_ontology(
         {
-            query    => $field,
+            query    => $sex_query,
             column   => 'label',
             ontology => $project_ontology,
             self     => $self
@@ -631,7 +629,7 @@ sub do_redcap2bff {
 
         # Getting the right name for the drug (if any)
         my $treatment_name =
-          exists_mapping_dictionary_field( $mapping, $field );
+          replace_field_with_dictionary_if_exists( $mapping, $field );
 
         # FOR ROUTES
         for my $route ( @{ $mapping->{routesOfAdministration} } ) {
@@ -702,12 +700,43 @@ sub do_redcap2bff {
     return $individual;
 }
 
-sub exists_mapping_dictionary_field {
+sub replace_field_with_dictionary_if_exists {
 
     my ( $mapping, $field ) = @_;
     return ( defined $field && exists $mapping->{dictionary}{$field} )
       ? $mapping->{dictionary}{$field}
       : $field;
+}
+
+sub check_mandatory_terms {
+
+    my $arg = shift;
+    lock_keys( %$arg, @{ $arg->{lock_keys} } );
+
+    my $data_mapping_file = $arg->{data_mapping_file};
+    my $participant       = $arg->{participant};
+    my $self              = $arg->{self};
+
+    # Getting the field name from mapping file (note that we add _field suffix)
+    my $sex_field = $data_mapping_file->{sex}{fields};
+    my $id_field  = $data_mapping_file->{id}{mapping}{primary_key};
+
+    # **********************
+    # *** IMPORTANT STEP ***
+    # **********************
+    # We need to pass 'sex' info to other array elements from $participant
+    # where sex field is empty. Th ereason being that demographisc is compiled only at baseline
+    # It's is mandatory that the row that contains demographics comes before the empty
+    # Thus, we are storing $participant->{sex} in $self !!!
+    # NB: Modifying source data from $arg
+    if ( defined $participant->{$sex_field} ) {
+        $self->{_info}{ $participant->{$id_field} }{$sex_field} =
+          $participant->{$sex_field};    # Dynamically adding attributes (setter)
+    }
+    $participant->{$sex_field} =
+      $self->{_info}{ $participant->{$id_field} }{$sex_field};
+
+    return ( $sex_field, $id_field );
 }
 
 1;
