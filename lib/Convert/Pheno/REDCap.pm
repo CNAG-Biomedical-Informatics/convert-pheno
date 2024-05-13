@@ -10,7 +10,11 @@ use Data::Dumper;
 use Scalar::Util qw(looks_like_number);
 use Hash::Util qw(lock_keys);
 use Exporter 'import';
-our @EXPORT = qw(%default do_redcap2bff check_mandatory_terms);
+# Symbols to export by default
+our @EXPORT = qw(do_redcap2bff);
+
+# Symbols to export on demand
+our @EXPORT_OK = qw(%default check_mandatory_terms);
 
 # Default values to be used accross the module
 my %default = (

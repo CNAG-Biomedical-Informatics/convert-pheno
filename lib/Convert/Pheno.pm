@@ -21,7 +21,7 @@ use Convert::Pheno::IO::CSVHandler;
 use Convert::Pheno::IO::FileIO;
 use Convert::Pheno::SQLite;
 use Convert::Pheno::Mapping;
-use Convert::Pheno::CSV qw(do_bff2csv do_pxf2csv);
+use Convert::Pheno::CSV;
 use Convert::Pheno::RDF qw(do_bff2jsonld do_pxf2jsonld);
 use Convert::Pheno::OMOP;
 use Convert::Pheno::PXF;
@@ -660,7 +660,7 @@ sub array_dispatcher {
 
     # Load the input data as Perl data structure
     my $in_data =
-      ( $self->{in_textfile} && $self->{method} !~ m/^(redcap2|omop2|cdisc2)/ )
+      ( $self->{in_textfile} && $self->{method} !~ m/^(redcap2|omop2|cdisc2|csv)/ )
       ? io_yaml_or_json( { filepath => $self->{in_file}, mode => 'read' } )
       : $self->{data};
 
@@ -669,6 +669,7 @@ sub array_dispatcher {
         redcap2bff => \&do_redcap2bff,
         cdisc2bff  => \&do_cdisc2bff,
         omop2bff   => \&do_omop2bff,
+        csv2bff    => \&do_csv2bff,
         bff2pxf    => \&do_bff2pxf,
         bff2csv    => \&do_bff2csv,
         bff2jsonf  => \&do_bff2csv,      # Not a typo, is the same as above

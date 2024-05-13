@@ -5,11 +5,11 @@ use warnings;
 use autodie;
 use feature qw(say);
 use Convert::Pheno::Mapping;
-use Convert::Pheno::REDCap;
+use Convert::Pheno::REDCap qw(%default check_mandatory_terms);
 use Data::Dumper;
 use Hash::Fold fold => { array_delimiter => ':' };
 use Exporter 'import';
-our @EXPORT_OK = qw(do_bff2csv do_pxf2csv do_csv2bff);
+our @EXPORT = qw(do_bff2csv do_pxf2csv do_csv2bff);
 
 #$Data::Dumper::Sortkeys = 1;
 
