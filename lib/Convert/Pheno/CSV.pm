@@ -82,14 +82,18 @@ sub do_csv2bff {
     # *** ABOUT REQUIRED PROPERTIES ***
     # 'id' and 'sex' are required properties in <individuals> entry type
 
+    my @redcap_field_types = ( 'Field Label', 'Field Note', 'Field Type' );
+
     # Getting the field name from mapping file (note that we add _field suffix)
-    my $sex_field     = $data_mapping_file->{sex}{fields};
-    my $id_field      = $data_mapping_file->{id}{fields};
+    my $sex_field = $data_mapping_file->{sex}{fields};
+    my $id_field  = $data_mapping_file->{id}{mapping}{primary_key};
 
     # **********************
     # *** IMPORTANT STEP ***
     # **********************
-    # We need to pass 'sex' info to external array elements from $participant
+    # We need to pass 'sex' info to other array elements from $participant
+    # where sex field is empty. Th ereason being that demographisc is compiled only at baseline
+    # It's is mandatory that the row that contains demographics comes before the empty
     # Thus, we are storing $participant->{sex} in $self !!!
     if ( defined $participant->{$sex_field} ) {
         $self->{_info}{ $participant->{$id_field} }{$sex_field} =
@@ -98,7 +102,7 @@ sub do_csv2bff {
     $participant->{$sex_field} =
       $self->{_info}{ $participant->{$id_field} }{$sex_field};
 
-    # Premature return if fields don't exist
+    # Premature return if fields are not defined or present
     return
       unless ( defined $participant->{$id_field}
         && $participant->{$sex_field} );
@@ -183,22 +187,25 @@ sub do_csv2bff {
 
     # Load field name from mapping file (string, as opossed to array)
     my $ethnicity_field = $data_mapping_file->{ethnicity}{fields};
+    if ( defined $participant->{$ethnicity_field} ) {
 
-    # Load hashref with cursors for mapping
-    $mapping = remap_mapping_hash_term( $data_mapping_file, 'ethnicity' );
+        # Load hashref with cursors for mapping
+        my $mapping =
+          remap_mapping_hash_term( $data_mapping_file, 'ethnicity' );
 
-    # Load corrected field to search
-    my $field = $mapping->{dictionary}{ $participant->{$ethnicity_field} };
+        # Load corrected field to search
+        my $field = $mapping->{dictionary}{ $participant->{$ethnicity_field} };
 
-    # Search
-    $individual->{ethnicity} = map_ontology(
-        {
-            query    => $field,
-            column   => 'label',
-            ontology => $mapping->{ontology},
-            self     => $self
-        }
-    ) if defined $participant->{$ethnicity_field};
+        # Search
+        $individual->{ethnicity} = map_ontology(
+            {
+                query    => $field,
+                column   => 'label',
+                ontology => $mapping->{ontology},
+                self     => $self
+            }
+        );
+    }
 
     # =========
     # exposures
@@ -554,18 +561,23 @@ sub do_csv2bff {
     # sex
     # ===
 
+    # Load hashref with cursors for mapping
+    $mapping = remap_mapping_hash_term( $data_mapping_file, 'sex' );
+
+    # Load corrected field to search
+    my $field =
+      $mapping->{dictionary}{ $participant->{$sex_field} };
+
+    # Search
+
     $individual->{sex} = map_ontology(
         {
-            query    => $participant->{$sex_field},
+            query    => $field,
             column   => 'label',
             ontology => $project_ontology,
             self     => $self
         }
     );
-
-    # ==========
-    # treatments
-    # ==========
 
     #$individual->{treatments} = undef;
 

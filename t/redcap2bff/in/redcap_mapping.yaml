@@ -156,9 +156,6 @@
   # Term: sex
   sex: 
     fields: sex
-    dictionary:
-      Female: Female
-      Male: Male
 
   # Term: treatments
   treatments:
