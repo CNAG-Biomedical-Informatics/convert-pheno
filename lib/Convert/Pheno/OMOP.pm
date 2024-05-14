@@ -53,6 +53,7 @@ our $omop_main_table = {
     ]
 };
 
+# NB: Direct export w/o encapsulation in subroutine
 our @omop_array_tables = qw(
   MEASUREMENT
   OBSERVATION
@@ -62,6 +63,7 @@ our @omop_array_tables = qw(
   VISIT_OCCURRENCE
 );
 
+# NB: Direct export w/o encapsulation in subroutine
 our @omop_essential_tables = qw(
   CONCEPT
   CONDITION_OCCURRENCE
@@ -73,6 +75,7 @@ our @omop_essential_tables = qw(
   VISIT_OCCURRENCE
 );
 
+# NB: Direct export w/o encapsulation in subroutine
 our @stream_ram_memory_tables = qw/CONCEPT PERSON VISIT_OCCURRENCE/;
 
 ##############

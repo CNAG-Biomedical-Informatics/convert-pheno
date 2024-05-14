@@ -10,14 +10,16 @@ use Data::Dumper;
 use Scalar::Util qw(looks_like_number);
 use Hash::Util qw(lock_keys);
 use Exporter 'import';
+
 # Symbols to export by default
 our @EXPORT = qw(do_redcap2bff);
 
 # Symbols to export on demand
-our @EXPORT_OK = qw(%default check_mandatory_terms);
+our @EXPORT_OK = qw(%default_value get_required_terms map_diseases);
 
-# Default values to be used accross the module
-my %default = (
+# Default values to be used accross the module and in CSV.pm
+# NB: Direct export w/o encapsulation in subroutine
+my %default_value = (
     ontology => { id => 'NCIT:NA0000', label => 'NA' },
     date     => '1900-01-01',
     duration => 'P999Y',
@@ -92,12 +94,12 @@ sub do_redcap2bff {
     # *** ABOUT REQUIRED PROPERTIES ***
     # 'id' and 'sex' are required properties in <individuals> entry type
     my $sub_param = {
-            data_mapping_file => $data_mapping_file,
-            participant       => $participant,
-            self              => $self,
-        };
-    $sub_param->{lock_keys} = ['lock_keys', keys %$sub_param];
-    my ( $sex_field, $id_field ) = check_mandatory_terms($sub_param);
+        data_mapping_file => $data_mapping_file,
+        participant       => $participant,
+        self              => $self,
+    };
+    $sub_param->{lock_keys} = [ 'lock_keys', keys %$sub_param ];
+    my ( $sex_field, $id_field ) = get_required_terms($sub_param);
 
     # Premature return (undef) if fields are not defined or present
     return
@@ -117,7 +119,7 @@ sub do_redcap2bff {
     my $project_ontology = $data_mapping_file->{project}{ontology};
 
     # Data structure (hashref) for each individual
-    my $individual;
+    my $individual = {};
 
     # NB: We don't need to initialize (unless required)
     # e.g.,
@@ -163,46 +165,14 @@ sub do_redcap2bff {
     # diseases
     # ========
 
-    #$individual->{diseases} = [];
-    # NB: Inflamatory Bowel Disease --- Note the 2 mm in infla-mm-atory
-
-    # Load hashref with cursors for mapping
-    my $mapping = remap_mapping_hash_term( $data_mapping_file, 'diseases' );
-
-    # Start looping over them
-    for my $field ( @{ $mapping->{fields} } ) {
-        my $disease;
-
-        # Load a few more variables from mapping file
-        # Start mapping
-        $disease->{ageOfOnset} =
-          map_age_range( $participant->{ $mapping->{mapping}{ageOfOnset} } )
-          if ( exists $mapping->{mapping}{ageOfOnset}
-            && defined $participant->{ $mapping->{mapping}{ageOfOnset} } );
-        $disease->{diseaseCode} = map_ontology(
-            {
-                query    => $field,
-                column   => 'label',
-                ontology => $mapping->{ontology},
-                self     => $self
-            }
-        );
-        if ( exists $mapping->{mapping}{familyHistory}
-            && defined $participant->{ $mapping->{mapping}{familyHistory} } )
-        {
-            my $family_history = convert2boolean(
-                $participant->{ $mapping->{mapping}{familyHistory} } );
-            $disease->{familyHistory} = $family_history
-              if defined $family_history;
-        }
-
-        #$disease->{notes}    = undef;
-        $disease->{severity} = $default{ontology};
-        $disease->{stage}    = $default{ontology};
-
-        push @{ $individual->{diseases} }, $disease
-          if defined $disease->{diseaseCode};
-    }
+    $sub_param = {
+        data_mapping_file => $data_mapping_file,
+        participant       => $participant,
+        self              => $self,
+        individual        => $individual
+    };
+    $sub_param->{lock_keys} = [ 'lock_keys', keys %$sub_param ];
+    map_diseases($sub_param);
 
     # =========
     # ethnicity
@@ -239,7 +209,7 @@ sub do_redcap2bff {
     #$individual->{exposures} = undef;
 
     # Load hashref with cursors for mapping
-    $mapping = remap_mapping_hash_term( $data_mapping_file, 'exposures' );
+    my $mapping = remap_mapping_hash_term( $data_mapping_file, 'exposures' );
 
     for my $field ( @{ $mapping->{fields} } ) {
         next unless defined $participant->{$field};
@@ -250,13 +220,13 @@ sub do_redcap2bff {
               && defined $participant->{ $mapping->{mapping}{ageAtExposure} } )
           ? map_age_range(
             $participant->{ $mapping->{mapping}{ageAtExposure} } )
-          : $default{age};
+          : $default_value{age};
 
         for my $item (qw/date duration/) {
             $exposure->{$item} =
               exists $mapping->{mapping}{$item}
               ? $participant->{ $mapping->{mapping}{$item} }
-              : $default{$item};
+              : $default_value{$item};
         }
 
         # Query related
@@ -378,18 +348,18 @@ sub do_redcap2bff {
                   && defined $mapping->{mapping}{ageAtProcedure} )
               ? map_age_range(
                 $participant->{ $mapping->{mapping}{ageAtProcedure} } )
-              : $default{age};
+              : $default_value{age};
 
             $intervention->{bodySite} =
               $project_id eq '3tr_ibd'
               ? { "id" => "NCIT:C12736", "label" => "intestine" }
-              : $default{ontology};
+              : $default_value{ontology};
             $intervention->{dateOfProcedure} =
               ( exists $mapping->{mapping}{dateOfProcedure}
                   && defined $mapping->{mapping}{dateOfProcedure} )
               ? dot_date2iso(
                 $participant->{ $mapping->{mapping}{dateOfProcedure} } )
-              : $default{date};
+              : $default_value{date};
 
             # Ad hoc term to check $field
             $intervention->{_info} = $field;
@@ -442,7 +412,7 @@ sub do_redcap2bff {
                 self     => $self,
             }
         );
-        $measure->{date} = $default{date};
+        $measure->{date} = $default_value{date};
 
         # We first extract 'unit' and %range' for <measurementValue>
         my $tmp_str = map2redcap_dict(
@@ -671,9 +641,9 @@ sub do_redcap2bff {
                 map { $_ => $participant->{ $field . $_ } }
                   qw(start dose duration)
             };    # ***** INTERNAL FIELD
-            $treatment->{ageAtOnset} = $default{age};
+            $treatment->{ageAtOnset} = $default_value{age};
             $treatment->{cumulativeDose} =
-              { unit => $default{ontology}, value => -1 };
+              { unit => $default_value{ontology}, value => -1 };
             $treatment->{doseIntervals}         = [];
             $treatment->{routeOfAdministration} = map_ontology(
                 {
@@ -712,7 +682,7 @@ sub replace_field_with_dictionary_if_exists {
       : $field;
 }
 
-sub check_mandatory_terms {
+sub get_required_terms {
 
     my $arg = shift;
     lock_keys( %$arg, @{ $arg->{lock_keys} } );
@@ -741,6 +711,62 @@ sub check_mandatory_terms {
       $self->{_info}{ $participant->{$id_field} }{$sex_field};
 
     return ( $sex_field, $id_field );
+}
+
+sub map_diseases {
+
+    my $arg = shift;
+    lock_keys( %$arg, @{ $arg->{lock_keys} } );
+
+    my $data_mapping_file = $arg->{data_mapping_file};
+    my $participant       = $arg->{participant};
+    my $self              = $arg->{self};
+    my $individual        = $arg->{individual};
+
+    # Getting the field name from mapping file (note that we add _field suffix)
+    #my $sex_field = $data_mapping_file->{sex}{fields};
+    #my $id_field  = $data_mapping_file->{id}{mapping}{primary_key};
+
+    #$individual->{diseases} = [];
+    # NB: Inflamatory Bowel Disease --- Note the 2 mm in infla-mm-atory
+
+    # Load hashref with cursors for mapping
+    my $mapping = remap_mapping_hash_term( $data_mapping_file, 'diseases' );
+
+    # Start looping over them
+    for my $field ( @{ $mapping->{fields} } ) {
+        my $disease;
+
+        # Load a few more variables from mapping file
+        # Start mapping
+        $disease->{ageOfOnset} =
+          map_age_range( $participant->{ $mapping->{mapping}{ageOfOnset} } )
+          if ( exists $mapping->{mapping}{ageOfOnset}
+            && defined $participant->{ $mapping->{mapping}{ageOfOnset} } );
+        $disease->{diseaseCode} = map_ontology(
+            {
+                query    => $field,
+                column   => 'label',
+                ontology => $mapping->{ontology},
+                self     => $self
+            }
+        );
+        if ( exists $mapping->{mapping}{familyHistory}
+            && defined $participant->{ $mapping->{mapping}{familyHistory} } )
+        {
+            my $family_history = convert2boolean(
+                $participant->{ $mapping->{mapping}{familyHistory} } );
+            $disease->{familyHistory} = $family_history
+              if defined $family_history;
+        }
+
+        #$disease->{notes}    = undef;
+        $disease->{severity} = $default_value{ontology};
+        $disease->{stage}    = $default_value{ontology};
+
+        push @{ $individual->{diseases} }, $disease
+          if defined $disease->{diseaseCode};
+    }
 }
 
 1;

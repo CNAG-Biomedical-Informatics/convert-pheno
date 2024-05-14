@@ -469,7 +469,7 @@ sub get_info {
     chomp(
         my $ncpuhost =
           lc($os) eq 'darwin'
-          || lc($os) eq 'freebsd' ? qx{/usr/sbin/sysctl -n hw.ncpu}
+          || lc($os) eq 'freebsd' ? qx{sysctl -n hw.ncpu}
         : $os eq 'MSWin32' ? qx{wmic cpu get NumberOfLogicalProcessors}
         :                    qx{/usr/bin/nproc} // 1
     );
