@@ -231,8 +231,8 @@ sub get_ontology {
     #    2 - contains
     #       for which we rank by similarity with Text:Similarity
 
-    # Default values to be used accross the module
-    my %default = (
+    # Default values
+    my %default_value = (
         id    => $ontology eq 'hpo' ? 'HP:NA0000' : uc($ontology) . ':NA0000',
         label => 'NA'
     );
@@ -264,8 +264,8 @@ sub get_ontology {
     }
 
     # Set defaults if undefined
-    $id    = $id    // $default{id};
-    $label = $label // $default{label};
+    $id    = $id    // $default_value{id};
+    $label = $label // $default_value{label};
 
     #############
     # END QUERY #

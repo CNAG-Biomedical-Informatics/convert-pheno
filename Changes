@@ -2,7 +2,9 @@ Revision history for Perl distribution Convert-Pheno
 
 0.20 2024-XX-XXT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
- - Foo
+ - Encapsulated Default values in Deafult.pm
+ - Refactored REDCap.pm code to be used with CSV.pm
+ - Implemented basic CSV(in) conversion
 
 0.19 2024-04-24T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 

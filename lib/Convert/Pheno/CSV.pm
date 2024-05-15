@@ -4,14 +4,16 @@ use strict;
 use warnings;
 use autodie;
 use feature qw(say);
-use Convert::Pheno::Mapping;
-use Convert::Pheno::REDCap qw(%default_value get_required_terms map_diseases);
+use Convert::Pheno::Default qw(get_defaults);
+use Convert::Pheno::REDCap qw(get_required_terms map_diseases map_ethnicity map_exposures);
 use Data::Dumper;
 use Hash::Fold fold => { array_delimiter => ':' };
 use Exporter 'import';
 our @EXPORT = qw(do_bff2csv do_pxf2csv do_csv2bff);
 
 #$Data::Dumper::Sortkeys = 1;
+
+my $DEFAULT = get_defaults();
 
 ###############
 ###############
@@ -106,7 +108,6 @@ sub do_csv2bff {
     # Load the main ontology for the project
     # <sex> and <ethnicity> project_ontology are fixed,
     #  (can't be changed granulary)
-
     my $project_ontology = $data_mapping_file->{project}{ontology};
 
     # Data structure (hashref) for each individual
@@ -136,98 +137,13 @@ sub do_csv2bff {
     # ethnicity
     # =========
 
-    # Load field name from mapping file (string, as opossed to array)
-    my $ethnicity_field = $data_mapping_file->{ethnicity}{fields};
-    if ( defined $participant->{$ethnicity_field} ) {
-
-        # Load hashref with cursors for mapping
-        my $mapping =
-          remap_mapping_hash_term( $data_mapping_file, 'ethnicity' );
-
-        # Load corrected field to search
-        my $field = $mapping->{dictionary}{ $participant->{$ethnicity_field} };
-
-        # Search
-        $individual->{ethnicity} = map_ontology(
-            {
-                query    => $field,
-                column   => 'label',
-                ontology => $mapping->{ontology},
-                self     => $self
-            }
-        );
-    }
+    map_ethnicity($sub_param);
 
     # =========
     # exposures
     # =========
 
-    #$individual->{exposures} = undef;
-
-    # Load hashref with cursors for mapping
-    my $mapping = remap_mapping_hash_term( $data_mapping_file, 'exposures' );
-
-    for my $field ( @{ $mapping->{fields} } ) {
-        next unless defined $participant->{$field};
-
-        my $exposure;
-        $exposure->{ageAtExposure} =
-          ( exists $mapping->{mapping}{ageAtExposure}
-              && defined $participant->{ $mapping->{mapping}{ageAtExposure} } )
-          ? map_age_range(
-            $participant->{ $mapping->{mapping}{ageAtExposure} } )
-          : $default_value{age};
-
-        for my $item (qw/date duration/) {
-            $exposure->{$item} =
-              exists $mapping->{mapping}{$item}
-              ? $participant->{ $mapping->{mapping}{$item} }
-              : $default_value{$item};
-        }
-
-        # Query related
-        my $exposure_query =
-          exists_mapping_dictionary_field( $mapping, $field );
-
-        $exposure->{exposureCode} = map_ontology(
-            {
-                query    => $exposure_query,
-                column   => 'label',
-                ontology => $mapping->{ontology},
-                self     => $self
-            }
-        );
-
-        # Ad hoc term to check $field
-        $exposure->{_info} = $field;
-
-        # We first extract 'unit' that supposedly will be used in in
-        # <measurementValue> and <referenceRange>??
-        # Load selector fields
-        my $subkey = exists $mapping->{selector}{$field} ? $field : undef;
-        my $unit   = map_ontology(
-            {
-                # order on the ternary operator matters
-                # 1 - Check for subkey
-                # 2 - Check for field
-                query => defined $subkey
-
-                  #  selector.alcohol.Never smoked =>  Never Smoker
-                ? $mapping->{selector}{$field}{ $participant->{$subkey} }
-                : $exposure_query,
-                column   => 'label',
-                ontology => $mapping->{ontology},
-                self     => $self
-            }
-        );
-        $exposure->{unit} = $unit;
-        $exposure->{value} =
-          looks_like_number( $participant->{$field} )
-          ? $participant->{$field}
-          : -1;
-        push @{ $individual->{exposures} }, $exposure
-          if defined $exposure->{exposureCode};
-    }
+    map_exposures($sub_param);
 
     # ================
     # geographicOrigin
@@ -248,7 +164,7 @@ sub do_csv2bff {
     # ====
 
     # Load hashref with cursors for mapping
-    $mapping = remap_mapping_hash_term( $data_mapping_file, 'info' );
+    my $mapping = remap_mapping_hash_term( $data_mapping_file, 'info' );
 
     for my $field ( @{ $mapping->{fields} } ) {
         if ( defined $participant->{$field} ) {
@@ -290,18 +206,18 @@ sub do_csv2bff {
                   && defined $mapping->{mapping}{ageAtProcedure} )
               ? map_age_range(
                 $participant->{ $mapping->{mapping}{ageAtProcedure} } )
-              : $default_value{age};
+              : $DEFAULT->{age};
 
             $intervention->{bodySite} =
               $project_id eq '3tr_ibd'
               ? { "id" => "NCIT:C12736", "label" => "intestine" }
-              : $default_value{ontology};
+              : $DEFAULT->{ontology};
             $intervention->{dateOfProcedure} =
               ( exists $mapping->{mapping}{dateOfProcedure}
                   && defined $mapping->{mapping}{dateOfProcedure} )
               ? dot_date2iso(
                 $participant->{ $mapping->{mapping}{dateOfProcedure} } )
-              : $default_value{date};
+              : $DEFAULT->{date};
 
             # Ad hoc term to check $field
             $intervention->{_info} = $field;
@@ -351,7 +267,7 @@ sub do_csv2bff {
                 self     => $self,
             }
         );
-        $measure->{date} = $default_value{date};
+        $measure->{date} = $DEFAULT->{date};
 
         # We first extract 'unit' and %range' for <measurementValue>
         my $tmp_str = map2redcap_dict(
@@ -576,9 +492,9 @@ sub do_csv2bff {
                 map { $_ => $participant->{ $field . $_ } }
                   qw(start dose duration)
             };    # ***** INTERNAL FIELD
-            $treatment->{ageAtOnset} = $default_value{age};
+            $treatment->{ageAtOnset} = $DEFAULT->{age};
             $treatment->{cumulativeDose} =
-              { unit => $default_value{ontology}, value => -1 };
+              { unit => $DEFAULT->{ontology}, value => -1 };
             $treatment->{doseIntervals}         = [];
             $treatment->{routeOfAdministration} = map_ontology(
                 {

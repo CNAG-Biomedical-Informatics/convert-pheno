@@ -4,9 +4,12 @@ use strict;
 use warnings;
 use autodie;
 use feature qw(say);
+use Convert::Pheno::Default qw(get_defaults);
 use Convert::Pheno::Mapping;
 use Exporter 'import';
 our @EXPORT = qw(do_bff2pxf);
+
+my $DEFAULT = get_defaults();
 
 #############
 #############
@@ -24,9 +27,6 @@ sub do_bff2pxf {
     # Validate format
     die "Are you sure that your input is not already a pxf?\n"
       unless validate_format( $bff, 'bff' );
-
-    # Default values to be used accross the module
-    my %default = ( timestamp => '1900-01-01T00:00:00Z' );
 
     #########################################
     # START MAPPING TO PHENOPACKET V2 TERMS #
@@ -147,7 +147,7 @@ sub do_bff2pxf {
                 performed => {
                     timestamp => exists $_->{dateOfProcedure}
                     ? _map2iso8601( $_->{dateOfProcedure} )
-                    : $default{timestamp}
+                    : $DEFAULT->{timestamp}
                 }
             }
         }

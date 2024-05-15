@@ -4,10 +4,13 @@ use strict;
 use warnings;
 use autodie;
 use feature qw(say);
+use Convert::Pheno::Default qw(get_defaults);
 use Convert::Pheno::Mapping;
 use Exporter 'import';
 our @EXPORT =
   qw(do_omop2bff $omop_version $omop_main_table @omop_array_tables @omop_essential_tables @stream_ram_memory_tables);
+
+my $DEFAULT = get_defaults();
 
 use constant DEVEL_MODE => 0;
 
@@ -90,9 +93,6 @@ sub do_omop2bff {
 
     my $ohdsi_dic = $self->{data_ohdsi_dic};
     my $sth       = $self->{sth};
-
-    # Default values to be used accross the module
-    my %default = ( duration => 'P0Y' );
 
     ####################################
     # START MAPPING TO BEACON V2 TERMS #
@@ -284,7 +284,7 @@ sub do_omop2bff {
             };
 
             $exposure->{date}     = $field->{observation_date};
-            $exposure->{duration} = $default{duration};
+            $exposure->{duration} = $DEFAULT->{duration_OMOP};
 
             # _info
             $exposure->{_info}{$table}{OMOP_columns} = $field;
