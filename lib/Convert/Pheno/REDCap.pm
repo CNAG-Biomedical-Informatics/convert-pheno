@@ -16,9 +16,26 @@ use Exporter 'import';
 our @EXPORT = qw(do_redcap2bff);
 
 # Symbols to export on demand
-our @EXPORT_OK = qw(get_required_terms map_diseases map_ethnicity map_exposures);
+our @EXPORT_OK =
+  qw(get_required_terms map_diseases map_ethnicity map_exposures);
 
 my $DEFAULT = get_defaults();
+
+###############
+# Field Types #
+###############
+
+#'calc'
+#'checkbox'
+#'descriptive'
+#'dropdown'
+#'notes'
+#'radio'
+#'slider'
+#'text'
+#'yesno'
+
+my @redcap_field_types = ( 'Field Label', 'Field Note', 'Field Type' );
 
 ################
 ################
@@ -31,7 +48,6 @@ sub do_redcap2bff {
     my ( $self, $participant ) = @_;
     my $redcap_dict       = $self->{data_redcap_dict};
     my $data_mapping_file = $self->{data_mapping_file};
-    my $sth               = $self->{sth};
 
     ##############################
     # <Variable> names in REDCap #
@@ -50,22 +66,6 @@ sub do_redcap2bff {
     #---
     # If variable names are not consensuated, then we need to do the mapping manually "a posteriori".
     # This is what we are attempting here:
-
-    ###############
-    # Field Types #
-    ###############
-
-    #'calc'
-    #'checkbox'
-    #'descriptive'
-    #'dropdown'
-    #'notes'
-    #'radio'
-    #'slider'
-    #'text'
-    #'yesno'
-
-    my @redcap_field_types = ( 'Field Label', 'Field Note', 'Field Type' );
 
     ####################################
     # START MAPPING TO BEACON V2 TERMS #
@@ -87,10 +87,20 @@ sub do_redcap2bff {
 
     # *** ABOUT REQUIRED PROPERTIES ***
     # 'id' and 'sex' are required properties in <individuals> entry type
+
+    # Data structure (hashref) for each individual
+    my $individual = {};
+
+    # Intialize parameters for most subs
     my $param_sub = {
+        type              => 'REDCap',
+        project_id        => $data_mapping_file->{project}{id},
+        ontology          => $data_mapping_file->{project}{ontology},
+        redcap_dict       => $redcap_dict,
         data_mapping_file => $data_mapping_file,
         participant       => $participant,
         self              => $self,
+        individual        => $individual
     };
     $param_sub->{lock_keys} = [ 'lock_keys', keys %$param_sub ];
     my ( $sex_field, $id_field ) = get_required_terms($param_sub);
@@ -100,9 +110,6 @@ sub do_redcap2bff {
       unless ( defined $participant->{$id_field}
         && $participant->{$sex_field} );
 
-    # Variable that will allow to perform ad hoc changes for specific projects
-    my $project_id = $data_mapping_file->{project}{id};
-
     # **********************
     # *** IMPORTANT STEP ***
     # **********************
@@ -110,10 +117,8 @@ sub do_redcap2bff {
     # <sex> and <ethnicity> project_ontology are fixed,
     #  (can't be changed granulary)
 
+    my $project_id       = $data_mapping_file->{project}{id};
     my $project_ontology = $data_mapping_file->{project}{ontology};
-
-    # Data structure (hashref) for each individual
-    my $individual = {};
 
     # NB: We don't need to initialize terms (unless required)
     # e.g.,
@@ -158,14 +163,6 @@ sub do_redcap2bff {
     # ========
     # diseases
     # ========
-
-    $param_sub = {
-        data_mapping_file => $data_mapping_file,
-        participant       => $participant,
-        self              => $self,
-        individual        => $individual
-    };
-    $param_sub->{lock_keys} = [ 'lock_keys', keys %$param_sub ];
     map_diseases($param_sub);
 
     # =========
@@ -197,99 +194,13 @@ sub do_redcap2bff {
     # ====
     # info
     # ====
-
-    # Load hashref with cursors for mapping
-    my $mapping = remap_mapping_hash_term( $data_mapping_file, 'info' );
-
-    for my $field ( @{ $mapping->{fields} } ) {
-        if ( defined $participant->{$field} ) {
-
-            # Ad hoc for 3TR
-            if ( $project_id eq '3tr_ibd' ) {
-                $individual->{info}{$field} =
-                  $field eq 'age' ? map_age_range( $participant->{$field} )
-                  : $field =~ m/^consent/ ? {
-                    value => dotify_and_coerce_number( $participant->{$field} ),
-                    map { $_ => $redcap_dict->{$field}{$_} }
-                      @redcap_field_types
-                  }
-                  : $participant->{$field};
-            }
-            else {
-                $individual->{info}{$field} = $participant->{$field};
-            }
-        }
-    }
-
-    # When we use --test we do not serialize changing (metaData) information
-    unless ( $self->{test} ) {
-        $individual->{info}{metaData}     = $self->{metaData};
-        $individual->{info}{convertPheno} = $self->{convertPheno};
-    }
-
-    # Add version (from mapping file)
-    $individual->{info}{version} = $data_mapping_file->{project}{version};
-
-    # We finally add all REDCap columns
-    # NB: _ori are values before adding _labels
-    $individual->{info}{REDCap_columns} = $participant;
+    map_info($param_sub);
 
     # =========================
     # interventionsOrProcedures
     # =========================
 
-    #$individual->{interventionsOrProcedures} = [];
-
-    # Load hashref with cursors for mapping
-    $mapping =
-      remap_mapping_hash_term( $data_mapping_file,
-        'interventionsOrProcedures' );
-
-    for my $field ( @{ $mapping->{fields} } ) {
-        if ( defined $participant->{$field} ) {
-
-            my $intervention;
-
-            $intervention->{ageAtProcedure} =
-              ( exists $mapping->{mapping}{ageAtProcedure}
-                  && defined $mapping->{mapping}{ageAtProcedure} )
-              ? map_age_range(
-                $participant->{ $mapping->{mapping}{ageAtProcedure} } )
-              : $DEFAULT->{age};
-
-            $intervention->{bodySite} =
-              $project_id eq '3tr_ibd'
-              ? { "id" => "NCIT:C12736", "label" => "intestine" }
-              : $DEFAULT->{ontology};
-            $intervention->{dateOfProcedure} =
-              ( exists $mapping->{mapping}{dateOfProcedure}
-                  && defined $mapping->{mapping}{dateOfProcedure} )
-              ? dot_date2iso(
-                $participant->{ $mapping->{mapping}{dateOfProcedure} } )
-              : $DEFAULT->{date};
-
-            # Ad hoc term to check $field
-            $intervention->{_info} = $field;
-
-            # Load selector fields
-            my $subkey = exists $mapping->{selector}{$field} ? $field : undef;
-
-            $intervention->{procedureCode} = map_ontology(
-                {
-                    query => defined $subkey
-                    ? $mapping->{selector}{$subkey}{ $participant->{$field} }
-                    : replace_field_with_dictionary_if_exists(
-                        $mapping, $field
-                    ),
-                    column   => 'label',
-                    ontology => $mapping->{ontology},
-                    self     => $self
-                }
-            );
-            push @{ $individual->{interventionsOrProcedures} }, $intervention
-              if defined $intervention->{procedureCode};
-        }
-    }
+    map_interventionsOrProcedures($param_sub);
 
     # =============
     # karyotypicSex
@@ -304,7 +215,7 @@ sub do_redcap2bff {
     $individual->{measures} = [];
 
     # Load hashref with cursors for mapping
-    $mapping = remap_mapping_hash_term( $data_mapping_file, 'measures' );
+    my $mapping = remap_mapping_hash_term( $data_mapping_file, 'measures' );
 
     for my $field ( @{ $mapping->{fields} } ) {
         next unless defined $participant->{$field};
@@ -675,7 +586,7 @@ sub map_diseases {
           if defined $disease->{diseaseCode};
     }
 
-  return 1;
+    return 1;
 }
 
 sub map_ethnicity {
@@ -711,10 +622,10 @@ sub map_ethnicity {
             }
         );
     }
-return 1;
+    return 1;
 }
 
-    sub map_exposures {
+sub map_exposures {
 
     my $arg = shift;
     lock_keys( %$arg, @{ $arg->{lock_keys} } );
@@ -790,6 +701,126 @@ return 1;
           if defined $exposure->{exposureCode};
     }
     return 1;
+}
+
+sub map_info {
+
+    my $arg = shift;
+    lock_keys( %$arg, @{ $arg->{lock_keys} } );
+
+    my $data_mapping_file = $arg->{data_mapping_file};
+    my $participant       = $arg->{participant};
+    my $self              = $arg->{self};
+    my $individual        = $arg->{individual};
+    my $type              = $arg->{type};
+    my $project_id        = $arg->{project_id};
+    my $redcap_dict       = $type eq 'REDCap' ? $arg->{redcap_dict} : undef;
+
+    # Load hashref with cursors for mapping
+    my $mapping = remap_mapping_hash_term( $data_mapping_file, 'info' );
+
+    for my $field ( @{ $mapping->{fields} } ) {
+        if ( defined $participant->{$field} ) {
+
+            # Ad hoc for 3TR
+            if ( $project_id eq '3tr_ibd' ) {
+                $individual->{info}{$field} =
+                  $field eq 'age' ? map_age_range( $participant->{$field} )
+                  : $field =~ m/^consent/ ? {
+                    value => dotify_and_coerce_number( $participant->{$field} ),
+                    map { $_ => $redcap_dict->{$field}{$_} }
+                      @redcap_field_types
+                  }
+                  : $participant->{$field};
+            }
+            else {
+                $individual->{info}{$field} = $participant->{$field};
+            }
+        }
     }
+
+    # When we use --test we do not serialize changing (metaData) information
+    unless ( $self->{test} ) {
+        $individual->{info}{metaData}     = $self->{metaData};
+        $individual->{info}{convertPheno} = $self->{convertPheno};
+    }
+
+    # Add version (from mapping file)
+    $individual->{info}{version} = $data_mapping_file->{project}{version};
+
+    # We finally add all origonal columns
+    # NB: _ori are values before adding _labels
+    my $tmp_str = $type . '_columns';
+    $individual->{info}{$tmp_str} = $participant;
+    return 1;
+}
+
+#$individual->{interventionsOrProcedures} = [];
+
+sub map_interventionsOrProcedures {
+
+    my $arg = shift;
+    lock_keys( %$arg, @{ $arg->{lock_keys} } );
+
+    my $data_mapping_file = $arg->{data_mapping_file};
+    my $participant       = $arg->{participant};
+    my $self              = $arg->{self};
+    my $individual        = $arg->{individual};
+    my $type              = $arg->{type};
+    my $project_id        = $arg->{project_id};
+    my $redcap_dict       = $type eq 'REDCap' ? $arg->{redcap_dict} : undef;
+
+    # Load hashref with cursors for mapping
+    my $mapping =
+      remap_mapping_hash_term( $data_mapping_file,
+        'interventionsOrProcedures' );
+
+    for my $field ( @{ $mapping->{fields} } ) {
+        if ( defined $participant->{$field} ) {
+
+            my $intervention;
+
+            $intervention->{ageAtProcedure} =
+              ( exists $mapping->{mapping}{ageAtProcedure}
+                  && defined $mapping->{mapping}{ageAtProcedure} )
+              ? map_age_range(
+                $participant->{ $mapping->{mapping}{ageAtProcedure} } )
+              : $DEFAULT->{age};
+
+            $intervention->{bodySite} =
+              $project_id eq '3tr_ibd'
+              ? { "id" => "NCIT:C12736", "label" => "intestine" }
+              : $DEFAULT->{ontology};
+            $intervention->{dateOfProcedure} =
+              ( exists $mapping->{mapping}{dateOfProcedure}
+                  && defined $mapping->{mapping}{dateOfProcedure} )
+              ? dot_date2iso(
+                $participant->{ $mapping->{mapping}{dateOfProcedure} } )
+              : $DEFAULT->{date};
+
+            # Ad hoc term to check $field
+            $intervention->{_info} = $field;
+
+            # Load selector fields
+            my $subkey = exists $mapping->{selector}{$field} ? $field : undef;
+
+            $intervention->{procedureCode} = map_ontology(
+                {
+                    query => defined $subkey
+                    ? $mapping->{selector}{$subkey}{ $participant->{$field} }
+                    : replace_field_with_dictionary_if_exists(
+                        $mapping, $field
+                    ),
+                    column   => 'label',
+                    ontology => $mapping->{ontology},
+                    self     => $self
+                }
+            );
+            push @{ $individual->{interventionsOrProcedures} }, $intervention
+              if defined $intervention->{procedureCode};
+        }
+    }
+    return 1;
+}
 
 1;
