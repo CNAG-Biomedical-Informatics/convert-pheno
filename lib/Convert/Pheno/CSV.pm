@@ -65,9 +65,6 @@ sub do_csv2bff {
 
     my ( $self, $participant ) = @_;
     my $data_mapping_file = $self->{data_mapping_file};
-    my $sth               = $self->{sth};
-
-    #my @redcap_field_types = ( 'Field Label', 'Field Note', 'Field Type' );
 
     ####################################
     # START MAPPING TO BEACON V2 TERMS #
@@ -84,15 +81,20 @@ sub do_csv2bff {
     print Dumper $participant
       if ( defined $self->{debug} && $self->{debug} > 4 );
 
+    # Data structure (hashref) for each individual
+    my $individual = {};
+
     # *** ABOUT REQUIRED PROPERTIES ***
     # 'id' and 'sex' are required properties in <individuals> entry type
-    my $sub_param = {
+    my $param_sub = {
+            type              => 'CSV',
+            individual        => $individual,
             data_mapping_file => $data_mapping_file,
             participant       => $participant,
             self              => $self,
         };
-    $sub_param->{lock_keys} = ['lock_keys', keys %$sub_param];
-    my ( $sex_field, $id_field ) = get_required_terms($sub_param);
+    $param_sub->{lock_keys} = ['lock_keys', keys %$param_sub];
+    my ( $sex_field, $id_field ) = get_required_terms($param_sub);
 
     # Premature return if fields are not defined or present
     return
@@ -101,49 +103,25 @@ sub do_csv2bff {
 
     # Variable that will allow to perform ad hoc changes for specific projects
     my $project_id = $data_mapping_file->{project}{id};
-
-    # **********************
-    # *** IMPORTANT STEP ***
-    # **********************
-    # Load the main ontology for the project
-    # <sex> and <ethnicity> project_ontology are fixed,
-    #  (can't be changed granulary)
     my $project_ontology = $data_mapping_file->{project}{ontology};
-
-    # Data structure (hashref) for each individual
-    my $individual = {};
-
-    # NB: We don't need to initialize (unless required)
-    # e.g.,
-    # $individual->{diseases} = undef;
-    #  or
-    # $individual->{diseases} = []
-    # Otherwise the validator may complain about being empty
 
     # ========
     # diseases
     # ========
 
-    $sub_param = {
-        data_mapping_file => $data_mapping_file,
-        participant       => $participant,
-        self              => $self,
-        individual        => $individual
-    };
-    $sub_param->{lock_keys} = [ 'lock_keys', keys %$sub_param ];
-    map_diseases($sub_param);
+    map_diseases($param_sub);
 
     # =========
     # ethnicity
     # =========
 
-    map_ethnicity($sub_param);
+    map_ethnicity($param_sub);
 
     # =========
     # exposures
     # =========
 
-    map_exposures($sub_param);
+    map_exposures($param_sub);
 
     # ================
     # geographicOrigin
@@ -163,82 +141,13 @@ sub do_csv2bff {
     # info
     # ====
 
-    # Load hashref with cursors for mapping
-    my $mapping = remap_mapping_hash_term( $data_mapping_file, 'info' );
-
-    for my $field ( @{ $mapping->{fields} } ) {
-        if ( defined $participant->{$field} ) {
-            $individual->{info}{$field} = $participant->{$field};
-        }
-    }
-
-    # When we use --test we do not serialize changing (metaData) information
-    unless ( $self->{test} ) {
-        $individual->{info}{metaData}     = $self->{metaData};
-        $individual->{info}{convertPheno} = $self->{convertPheno};
-    }
-
-    # Add version (from mapping file)
-    $individual->{info}{version} = $data_mapping_file->{project}{version};
-
-    # We finally add all CSV columns
-    # NB: _ori are values before adding _labels
-    $individual->{info}{CSV_columns} = $participant;
+    map_info($param_sub);
 
     # =========================
     # interventionsOrProcedures
     # =========================
 
-    #$individual->{interventionsOrProcedures} = [];
-
-    # Load hashref with cursors for mapping
-    $mapping =
-      remap_mapping_hash_term( $data_mapping_file,
-        'interventionsOrProcedures' );
-
-    for my $field ( @{ $mapping->{fields} } ) {
-        if ( defined $participant->{$field} ) {
-
-            my $intervention;
-
-            $intervention->{ageAtProcedure} =
-              ( exists $mapping->{mapping}{ageAtProcedure}
-                  && defined $mapping->{mapping}{ageAtProcedure} )
-              ? map_age_range(
-                $participant->{ $mapping->{mapping}{ageAtProcedure} } )
-              : $DEFAULT->{age};
-
-            $intervention->{bodySite} =
-              $project_id eq '3tr_ibd'
-              ? { "id" => "NCIT:C12736", "label" => "intestine" }
-              : $DEFAULT->{ontology};
-            $intervention->{dateOfProcedure} =
-              ( exists $mapping->{mapping}{dateOfProcedure}
-                  && defined $mapping->{mapping}{dateOfProcedure} )
-              ? dot_date2iso(
-                $participant->{ $mapping->{mapping}{dateOfProcedure} } )
-              : $DEFAULT->{date};
-
-            # Ad hoc term to check $field
-            $intervention->{_info} = $field;
-
-            # Load selector fields
-            my $subkey = exists $mapping->{selector}{$field} ? $field : undef;
-
-            $intervention->{procedureCode} = map_ontology(
-                {
-                    query => defined $subkey
-                    ? $mapping->{selector}{$subkey}{ $participant->{$field} }
-                    : exists_mapping_dictionary_field( $mapping, $field ),
-                    column   => 'label',
-                    ontology => $mapping->{ontology},
-                    self     => $self
-                }
-            );
-            push @{ $individual->{interventionsOrProcedures} }, $intervention
-              if defined $intervention->{procedureCode};
-        }
-    }
+    map_interventionsOrProcedures($param_sub);
 
     # =============
     # karyotypicSex
@@ -250,87 +159,8 @@ sub do_csv2bff {
     # measures
     # ========
 
-    $individual->{measures} = [];
 
-    # Load hashref with cursors for mapping
-    $mapping = remap_mapping_hash_term( $data_mapping_file, 'measures' );
-
-    for my $field ( @{ $mapping->{fields} } ) {
-        next unless defined $participant->{$field};
-        my $measure;
-
-        $measure->{assayCode} = map_ontology(
-            {
-                query    => exists_mapping_dictionary_field( $mapping, $field ),
-                column   => 'label',
-                ontology => $mapping->{ontology},
-                self     => $self,
-            }
-        );
-        $measure->{date} = $DEFAULT->{date};
-
-        # We first extract 'unit' and %range' for <measurementValue>
-        my $tmp_str = map2redcap_dict(
-            {
-                #     redcap_dict => $redcap_dict,
-                participant => $participant,
-                field       => $field,
-                labels      => 0               # will get 'Field Note'
-
-            }
-        );
-
-        # We can have  $participant->{$field} eq '2 - Mild'
-        if ( $participant->{$field} =~ m/ \- / ) {
-            my ( $tmp_val, $tmp_scale ) = split / \- /, $participant->{$field};
-            $participant->{$field} = $tmp_val;     # should be equal to $participant->{$field.'_ori'}
-            $tmp_str = $tmp_scale;
-        }
-
-        my $unit = map_ontology(
-            {
-                query  => exists_mapping_dictionary_field( $mapping, $tmp_str ),
-                column => 'label',
-                ontology => $mapping->{ontology},
-                self     => $self
-            }
-        );
-        $measure->{measurementValue} = {
-            quantity => {
-                unit  => $unit,
-                value => dotify_and_coerce_number( $participant->{$field} ),
-                referenceRange => map_reference_range(
-                    {
-                        unit => $unit,
-
-                        #redcap_dict => $redcap_dict,
-                        field => $field
-                    }
-                )
-            }
-        };
-
-        #$measure->{notes} = join ' /// ', $field,
-        #  ( map { qq/$_=$redcap_dict->{$field}{$_}/ } @redcap_field_types );
-
-        #$measure->{observationMoment} = undef;          # Age
-        $measure->{procedure} = {
-            procedureCode => map_ontology(
-                {
-                      query => $field eq 'calprotectin' ? 'Feces'
-                    : $field =~ m/^nancy/ ? 'Histologic'
-                    : 'Blood Test Result',
-                    column   => 'label',
-                    ontology => $mapping->{ontology},
-                    self     => $self
-                }
-            )
-        };
-
-        # Add to array
-        push @{ $individual->{measures} }, $measure
-          if defined $measure->{assayCode};
-    }
+    map_measures($param_sub);
 
     # =========
     # pedigrees
@@ -338,199 +168,31 @@ sub do_csv2bff {
 
     #$individual->{pedigrees} = [];
 
-    # disease, id, members, numSubjects
-    #my @pedigrees = @{ $data_mapping_file->{pedigrees}{fields} };
-    #for my $field (@pedigrees) {
-    #
-    #        my $pedigree;
-    #        $pedigree->{disease}     = {};      # P32Y6M1D
-    #        $pedigree->{id}          = undef;
-    #        $pedigree->{members}     = [];
-    #        $pedigree->{numSubjects} = 0;
-    #
-    # Add to array
-    #push @{ $individual->{pedigrees} }, $pedigree; # SWITCHED OFF on 072622
-
-    # }
-
     # ==================
     # phenotypicFeatures
     # ==================
 
-    #$individual->{phenotypicFeatures} = [];
-
-    # Load hashref with cursors for mapping
-    $mapping =
-      remap_mapping_hash_term( $data_mapping_file, 'phenotypicFeatures' );
-
-    for my $field ( @{ $mapping->{fields} } ) {
-        my $phenotypicFeature;
-
-        if ( defined $participant->{$field} && $participant->{$field} ne '' ) {
-
-            #$phenotypicFeature->{evidence} = undef;    # P32Y6M1D
-
-            my $tmp_var = $field;
-
-            # *** IMPORTANT ***
-            # Ad hoc change for 3TR
-            #if ( $project_id eq '3tr_ibd' && $field =~ m/comorb/i ) {
-            #    $tmp_var = $redcap_dict->{$field}{'Field Label'};
-            #    ( undef, $tmp_var ) = split / \- /, $tmp_var
-            #      if $tmp_var =~ m/\-/;
-            #}
-
-            # Excluded (or Included) properties
-            # 1 => included ( == not excluded )
-            $phenotypicFeature->{excluded_ori} =
-              dotify_and_coerce_number( $participant->{$field} );
-            $phenotypicFeature->{excluded} =
-              $participant->{$field} ? JSON::XS::false : JSON::XS::true
-              if looks_like_number( $participant->{$field} );
-
-            # print "#$field#$participant->{$field}#$tmp_var#\n";
-            # Load selector fields
-            my $subkey =
-              exists $mapping->{selector}{$tmp_var} ? $tmp_var : undef;
-            $phenotypicFeature->{featureType} = map_ontology(
-                {
-                    query => defined $subkey
-                    ? $mapping->{selector}{$subkey}{ $participant->{$tmp_var} }
-                    : exists_mapping_dictionary_field( $mapping, $tmp_var ),
-                    column   => 'label',
-                    ontology => $mapping->{ontology},
-                    self     => $self
-                }
-            );
-
-            #$phenotypicFeature->{modifiers}   = { id => '', label => '' };
-
-            # Prune ___\d+
-            $field =~ s/___\w+$// if $field =~ m/___\w+$/;
-
-            #$phenotypicFeature->{notes} = join ' /// ',
-            #  (
-            #    $field,
-            #    map { qq/$_=$redcap_dict->{$field}{$_}/ } @redcap_field_types
-            #  );
-
-            #$phenotypicFeature->{onset}       = { id => '', label => '' };
-            #$phenotypicFeature->{resolution}  = { id => '', label => '' };
-            #$phenotypicFeature->{severity}    = { id => '', label => '' };
-
-            # Add to array
-            push @{ $individual->{phenotypicFeatures} }, $phenotypicFeature
-              if defined $phenotypicFeature->{featureType};
-        }
-    }
+    map_phenotypicFeatures($param_sub);
 
     # ===
     # sex
     # ===
 
-    # Load hashref with cursors for mapping
-    $mapping = remap_mapping_hash_term( $data_mapping_file, 'sex' );
+    map_sex($param_sub);
 
-    # Load corrected field to search
-    my $field =
-      $mapping->{dictionary}{ $participant->{$sex_field} };
 
-    # Search
+    # ==========
+    # treatments
+    # ==========
 
-    $individual->{sex} = map_ontology(
-        {
-            query    => $field,
-            column   => 'label',
-            ontology => $project_ontology,
-            self     => $self
-        }
-    );
+     map_treatments($param_sub);
 
-    #$individual->{treatments} = undef;
-
-    $mapping = remap_mapping_hash_term( $data_mapping_file, 'treatments' );
-
-    for my $field ( @{ $mapping->{fields} } ) {
-
-        # Getting the right name for the drug (if any)
-        my $treatment_name =
-          exists_mapping_dictionary_field( $mapping, $field );
-
-        # FOR ROUTES
-        for my $route ( @{ $mapping->{routesOfAdministration} } ) {
-
-            # Ad hoc for 3TR
-            my $tmp_var = $field;
-            if ( $project_id eq '3tr_ibd' ) {
-
-                # Rectal route only happens in some drugs (ad hoc)
-                next
-                  if (
-                    $route eq 'rectal' && !any { $_ eq $field }
-                    qw(budesonide asa)
-                  );
-
-                # Discarding if drug_route_status is empty
-                $tmp_var =
-                  ( $field eq 'budesonide' || $field eq 'asa' )
-                  ? $field . '_' . $route . '_status'
-                  : $field . '_status';
-                next
-                  unless defined $participant->{$tmp_var};
-            }
-
-            # Initialize field $treatment
-            my $treatment;
-
-            $treatment->{_info} = {
-                field     => $tmp_var,
-                drug      => $field,
-                drug_name => $treatment_name,
-                status    => $participant->{$tmp_var},
-                route     => $route,
-                value     => $participant->{ $tmp_var . '_ori' },
-                map { $_ => $participant->{ $field . $_ } }
-                  qw(start dose duration)
-            };    # ***** INTERNAL FIELD
-            $treatment->{ageAtOnset} = $DEFAULT->{age};
-            $treatment->{cumulativeDose} =
-              { unit => $DEFAULT->{ontology}, value => -1 };
-            $treatment->{doseIntervals}         = [];
-            $treatment->{routeOfAdministration} = map_ontology(
-                {
-                    query    => ucfirst($route) . ' Route of Administration',  # Oral Route of Administration
-                    column   => 'label',
-                    ontology => $mapping->{ontology},
-                    self     => $self
-                }
-            );
-
-            $treatment->{treatmentCode} = map_ontology(
-                {
-                    query    => $treatment_name,
-                    column   => 'label',
-                    ontology => $mapping->{ontology},
-                    self     => $self
-                }
-            );
-            push @{ $individual->{treatments} }, $treatment
-              if defined $treatment->{treatmentCode};
-        }
-    }
 
     ##################################
     # END MAPPING TO BEACON V2 TERMS #
     ##################################
 
     return $individual;
-}
-
-sub exists_mapping_dictionary_field {
-
-    my ( $mapping, $field ) = @_;
-    return ( defined $field && exists $mapping->{dictionary}{$field} )
-      ? $mapping->{dictionary}{$field}
-      : $field;
 }
 
 1;
