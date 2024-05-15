@@ -1,0 +1,85 @@
+---
+  #######################
+  # Project identifiers #
+  #######################
+
+  project:
+    id: dummy
+    source: csv
+    ontology: ncit
+    version: test-0.1
+
+  #################################
+  # Beacon v2 Models: individuals #
+  #################################
+
+  # Term: diseases
+  diseases:
+    fields: [Disease_1,Diseases_2,Disease_3]
+    dictionary:
+      Ashtma: Ashtma
+      Diabetes: Diabetes
+    mapping:
+      ageOfOnset: age_first_diagnosis
+      familyHistory: family_history
+
+  # Term: ethnicity
+  ethnicity:
+    fields: Ethnicity
+    dictionary:
+      Caucasian: White
+      Hispanic: Hispanic or Latino
+
+  # Term: exposures
+  exposures: 
+    fields: [alcohol,smoking,cigarettes_days,cigarettes_years,packyears,smoking_quit]
+    dictionary:
+      AlcoholUse: Alcohol
+      TobaccoUse: Smoking
+
+  # Term: geographicOrigin
+  # geographicOrigin: null
+
+  # Term: id
+  id:
+    fields: [PatientID]
+    mapping:
+      primary_key: PatientID 
+
+  # Term: info
+  info:
+   fields: [study_id,dob,diet,redcap_event_name,age,first_name,last_name,consent,consent_date,consent_noneu,consent_devices,consent_recontact,consent_week2_endo,education,zipcode,consents_and_demographics_complete]
+
+  # Term: measures
+  measures: 
+    fields: [leucocytes,hemoglobin,hematokrit,mcv,mhc,thrombocytes,neutrophils,lymphocytes,eosinophils,creatinine,gfr,bilirubin,gpt,ggt,lipase,crp,iron,il6,calprotectin,nancy_index_acute,nancy_index_chronic,nancy_index_ulceration,endo_mayo]
+    dictionary:
+      # Unit
+      xx.xx /10^-9 l: Cells per Microliter
+      'xx.x %': Percentage
+      # Test
+      'Hemoglobin (g/dL)': Hemoglobin Measurement
+      'WBC (10^9/L)': White Blood Count
+      'Platelets (10^9/L)': Platelets Count
+      'BMI (kg/m^2)': Body Mass Index
+
+  # Term: phenotypicFeatures
+  phenotypicFeatures: 
+    fields: [PhenotypicFeature_1,PhenotypicFeature_2]
+    ontology: ncit
+    #dictionary:
+    #  atopic dermatitis: eczema
+    #  cancer: Cancer Patient
+
+  # Term: sex
+  sex: 
+    fields: Sex
+
+  # Term: treatments
+  treatments:
+    fields: [Drugname,DrugDose (mg)]
+    dictionary:
+      Albuterol: Albuterol
+      Lisinopril: Lisinopril 
+    routesOfAdministration: [oral]
+    ontology: ncit

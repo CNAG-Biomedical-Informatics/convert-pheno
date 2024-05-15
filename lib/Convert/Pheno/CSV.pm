@@ -5,7 +5,8 @@ use warnings;
 use autodie;
 use feature qw(say);
 use Convert::Pheno::Default qw(get_defaults);
-use Convert::Pheno::REDCap qw(get_required_terms map_diseases map_ethnicity map_exposures);
+use Convert::Pheno::REDCap qw(get_required_terms map_fields_to_redcap_dict map_diseases map_ethnicity map_exposures map_info map_interventionsOrProcedures map_measures map_pedigrees map_phenotypicFeatures map_sex map_treatments);
+
 use Data::Dumper;
 use Hash::Fold fold => { array_delimiter => ':' };
 use Exporter 'import';
@@ -78,32 +79,33 @@ sub do_csv2bff {
     #         'age_first_diagnosis' => 24
     #          ...
     #        }
+
     print Dumper $participant
       if ( defined $self->{debug} && $self->{debug} > 4 );
 
     # Data structure (hashref) for each individual
     my $individual = {};
 
+    # Intialize parameters for most subs
+    my $param_sub = {
+        source            => $data_mapping_file->{project}{source},
+        project_id        => $data_mapping_file->{project}{id},
+        project_ontology  => $data_mapping_file->{project}{ontology},
+        data_mapping_file => $data_mapping_file,
+        participant       => $participant,
+        self              => $self,
+        individual        => $individual
+    };
+    $param_sub->{lock_keys} = [ 'lock_keys', keys %$param_sub ];
+
     # *** ABOUT REQUIRED PROPERTIES ***
     # 'id' and 'sex' are required properties in <individuals> entry type
-    my $param_sub = {
-            type              => 'CSV',
-            individual        => $individual,
-            data_mapping_file => $data_mapping_file,
-            participant       => $participant,
-            self              => $self,
-        };
-    $param_sub->{lock_keys} = ['lock_keys', keys %$param_sub];
     my ( $sex_field, $id_field ) = get_required_terms($param_sub);
 
-    # Premature return if fields are not defined or present
+    # Premature return (undef) if fields are not defined or present
     return
       unless ( defined $participant->{$id_field}
         && $participant->{$sex_field} );
-
-    # Variable that will allow to perform ad hoc changes for specific projects
-    my $project_id = $data_mapping_file->{project}{id};
-    my $project_ontology = $data_mapping_file->{project}{ontology};
 
     # ========
     # diseases

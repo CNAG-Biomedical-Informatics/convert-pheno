@@ -17,7 +17,7 @@ our @EXPORT = qw(do_redcap2bff);
 
 # Symbols to export on demand
 our @EXPORT_OK =
-  qw(get_required_terms map_diseases map_ethnicity map_exposures);
+  qw(get_required_terms map_fields_to_redcap_dict map_diseases map_ethnicity map_exposures map_info map_interventionsOrProcedures map_measures map_pedigrees map_phenotypicFeatures map_sex map_treatments);
 
 my $DEFAULT = get_defaults();
 
@@ -90,7 +90,7 @@ sub do_redcap2bff {
 
     # Intialize parameters for most subs
     my $param_sub = {
-        type              => 'REDCap',
+        source            => $data_mapping_file->{project}{source},
         project_id        => $data_mapping_file->{project}{id},
         project_ontology  => $data_mapping_file->{project}{ontology},
         redcap_dict       => $redcap_dict,
@@ -290,11 +290,8 @@ sub map_diseases {
     my $self              = $arg->{self};
     my $individual        = $arg->{individual};
 
-    # Getting the field name from mapping file (note that we add _field suffix)
-    #my $sex_field = $data_mapping_file->{sex}{fields};
-    #my $id_field  = $data_mapping_file->{id}{mapping}{primary_key};
-
     #$individual->{diseases} = [];
+
     # NB: Inflamatory Bowel Disease --- Note the 2 mm in infla-mm-atory
 
     # Load hashref with cursors for mapping
@@ -461,9 +458,9 @@ sub map_info {
     my $participant       = $arg->{participant};
     my $self              = $arg->{self};
     my $individual        = $arg->{individual};
-    my $type              = $arg->{type};
+    my $source            = $arg->{source};
     my $project_id        = $arg->{project_id};
-    my $redcap_dict       = $type eq 'REDCap' ? $arg->{redcap_dict} : undef;
+    my $redcap_dict       = lc($source) eq 'redcap' ? $arg->{redcap_dict} : undef;
 
     # Load hashref with cursors for mapping
     my $mapping = remap_mapping_hash_term( $data_mapping_file, 'info' );
@@ -499,7 +496,8 @@ sub map_info {
 
     # We finally add all origonal columns
     # NB: _ori are values before adding _labels
-    my $tmp_str = $type . '_columns';
+    my $output = $source eq 'redcap' ? 'REDCap' : 'CSV';
+    my $tmp_str = $output . '_columns';
     $individual->{info}{$tmp_str} = $participant;
     return 1;
 }
@@ -515,9 +513,9 @@ sub map_interventionsOrProcedures {
     my $participant       = $arg->{participant};
     my $self              = $arg->{self};
     my $individual        = $arg->{individual};
-    my $type              = $arg->{type};
+    my $source              = $arg->{source};
     my $project_id        = $arg->{project_id};
-    my $redcap_dict       = $type eq 'REDCap' ? $arg->{redcap_dict} : undef;
+    my $redcap_dict       = lc($source) eq 'redcap' ? $arg->{redcap_dict} : undef;
 
     # Load hashref with cursors for mapping
     my $mapping =
@@ -581,9 +579,9 @@ sub map_measures {
     my $participant       = $arg->{participant};
     my $self              = $arg->{self};
     my $individual        = $arg->{individual};
-    my $type              = $arg->{type};
+    my $source            = $arg->{source};
     my $project_id        = $arg->{project_id};
-    my $redcap_dict       = $type eq 'REDCap' ? $arg->{redcap_dict} : undef;
+    my $redcap_dict       = lc($source) eq 'redcap' ? $arg->{redcap_dict} : undef;
 
     # Load hashref with cursors for mapping
     my $mapping = remap_mapping_hash_term( $data_mapping_file, 'measures' );
@@ -694,9 +692,9 @@ sub map_phenotypicFeatures {
     my $participant       = $arg->{participant};
     my $self              = $arg->{self};
     my $individual        = $arg->{individual};
-    my $type              = $arg->{type};
+    my $source              = $arg->{source};
     my $project_id        = $arg->{project_id};
-    my $redcap_dict       = $type eq 'REDCap' ? $arg->{redcap_dict} : undef;
+    my $redcap_dict       = lc($source) eq 'redcap' ? $arg->{redcap_dict} : undef;
 
     # Load hashref with cursors for mapping
     my $mapping =
@@ -752,7 +750,7 @@ sub map_phenotypicFeatures {
               (
                 $field,
                 map { qq/$_=$redcap_dict->{$field}{$_}/ } @redcap_field_types
-              );
+              ) if lc($source) eq 'redcap';
 
             #$phenotypicFeature->{onset}       = { id => '', label => '' };
             #$phenotypicFeature->{resolution}  = { id => '', label => '' };
@@ -775,9 +773,9 @@ sub map_sex {
     my $participant       = $arg->{participant};
     my $self              = $arg->{self};
     my $individual        = $arg->{individual};
-    my $type              = $arg->{type};
+    my $source              = $arg->{source};
     my $project_id        = $arg->{project_id};
-    my $redcap_dict       = $type eq 'REDCap' ? $arg->{redcap_dict} : undef;
+    my $redcap_dict       = lc($source) eq 'redcap' ? $arg->{redcap_dict} : undef;
     my $project_ontology  = $arg->{project_ontology};
 
     # Getting the field name from mapping file (note that we add _field suffix)
@@ -812,10 +810,11 @@ sub map_treatments {
     my $participant       = $arg->{participant};
     my $self              = $arg->{self};
     my $individual        = $arg->{individual};
-    my $type              = $arg->{type};
+    my $source              = $arg->{source};
     my $project_id        = $arg->{project_id};
-    my $redcap_dict       = $type eq 'REDCap' ? $arg->{redcap_dict} : undef;
+    my $redcap_dict       = lc($source) eq 'redcap' ? $arg->{redcap_dict} : undef;
 
+    # Load hashref with cursors for mapping
     my $mapping = remap_mapping_hash_term( $data_mapping_file, 'treatments' );
 
     for my $field ( @{ $mapping->{fields} } ) {

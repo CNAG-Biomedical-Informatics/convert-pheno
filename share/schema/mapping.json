@@ -6,16 +6,8 @@
   "type": "object",
   "required": [
     "project",
-    "diseases",
-    "ethnicity",
-    "exposures",
     "id",
-    "info",
-    "interventionsOrProcedures",
-    "measures",
-    "phenotypicFeatures",
-    "sex",
-    "treatments"
+    "sex"
   ],
   "properties": {
     "project": {
