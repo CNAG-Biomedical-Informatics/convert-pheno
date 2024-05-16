@@ -15,7 +15,7 @@
 
   # Term: diseases
   diseases:
-    fields: [Disease_1,Diseases_2,Disease_3]
+    fields: [Disease_1,Disease_2,Disease_3]
     dictionary:
       Ashtma: Ashtma
       Diabetes: Diabetes
@@ -32,10 +32,15 @@
 
   # Term: exposures
   exposures: 
-    fields: [alcohol,smoking,cigarettes_days,cigarettes_years,packyears,smoking_quit]
+    fields: [AlcoholUse,SmokingUse]
     dictionary:
       AlcoholUse: Alcohol
       TobaccoUse: Smoking
+    selector:
+      Alcohol:
+        ageAtExposure: AgeAtTobaccoExposure
+      Smoking:
+        ageAtExposure: AgeAtAlcoholExposure
 
   # Term: geographicOrigin
   # geographicOrigin: null
