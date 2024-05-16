@@ -13,8 +13,8 @@
                }
             },
             "term" : {
-               "id" : "NCIT:C3138",
-               "label" : "Inflammatory Bowel Disease"
+               "id" : "NCIT:C2965",
+               "label" : "Crohn Disease"
             }
          }
       ],
@@ -452,110 +452,6 @@
                   "timestamp" : "2021-02-01T00:00:00Z"
                }
             }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C1027",
-                  "label" : "Budesonide"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C1027",
-                  "label" : "Budesonide"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38295",
-                  "label" : "Rectal Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C769",
-                  "label" : "Prednisolone"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C287",
-                  "label" : "Aspirin"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C287",
-                  "label" : "Aspirin"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38295",
-                  "label" : "Rectal Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C290",
-                  "label" : "Azathioprine"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C642",
-                  "label" : "Methotrexate"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C195",
-                  "label" : "Mercaptopurine"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
          }
       ],
       "metaData" : null,
@@ -677,10 +573,19 @@
    {
       "diseases" : [
          {
-            "onset" : null,
+            "onset" : {
+               "ageRange" : {
+                  "end" : {
+                     "iso8601duration" : "P9Y"
+                  },
+                  "start" : {
+                     "iso8601duration" : "P0Y"
+                  }
+               }
+            },
             "term" : {
-               "id" : "NCIT:C3138",
-               "label" : "Inflammatory Bowel Disease"
+               "id" : "NCIT:C2965",
+               "label" : "Crohn Disease"
             }
          }
       ],
@@ -990,6 +895,105 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C51793",
+                  "label" : "Ileocolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15211",
+                  "label" : "Colostomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15257",
+                  "label" : "Ileostomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157858",
+                  "label" : "Fistula Repair"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15209",
+                  "label" : "Colectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C86074",
+                  "label" : "Hemicolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157823",
+                  "label" : "Colon Resection"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157993",
+                  "label" : "Strictureplasty"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C17649",
+                  "label" : "Other"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
@@ -1013,6 +1017,104 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3199",
+               "label" : "Chronic Obstructive Pulmonary Disease"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3243",
+               "label" : "Multiple Sclerosis"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3201",
+               "label" : "Systemic Lupus Erythematosus"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C2884",
+               "label" : "Rheumatoid Arthritis"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3346",
+               "label" : "Psoriasis"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3001",
+               "label" : "Eczema"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C19700",
+               "label" : "Cancer Patient"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3390",
+               "label" : "Stroke"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
+            }
+         },
+         {
             "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
@@ -1031,10 +1133,19 @@
    {
       "diseases" : [
          {
-            "onset" : null,
+            "onset" : {
+               "ageRange" : {
+                  "end" : {
+                     "iso8601duration" : "P9Y"
+                  },
+                  "start" : {
+                     "iso8601duration" : "P0Y"
+                  }
+               }
+            },
             "term" : {
-               "id" : "NCIT:C3138",
-               "label" : "Inflammatory Bowel Disease"
+               "id" : "NCIT:C2965",
+               "label" : "Crohn Disease"
             }
          }
       ],
@@ -1344,6 +1455,105 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C51793",
+                  "label" : "Ileocolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-07-12T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15211",
+                  "label" : "Colostomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-07-12T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15257",
+                  "label" : "Ileostomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-07-12T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157858",
+                  "label" : "Fistula Repair"
+               },
+               "performed" : {
+                  "timestamp" : "2021-07-12T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15209",
+                  "label" : "Colectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-07-12T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C86074",
+                  "label" : "Hemicolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-07-12T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157823",
+                  "label" : "Colon Resection"
+               },
+               "performed" : {
+                  "timestamp" : "2021-07-12T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157993",
+                  "label" : "Strictureplasty"
+               },
+               "performed" : {
+                  "timestamp" : "2021-07-12T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C17649",
+                  "label" : "Other"
+               },
+               "performed" : {
+                  "timestamp" : "2021-07-12T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:C78162",
                   "label" : "Gastrointestinal Endoscopy"
                },
@@ -1378,6 +1588,104 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3199",
+               "label" : "Chronic Obstructive Pulmonary Disease"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3243",
+               "label" : "Multiple Sclerosis"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3201",
+               "label" : "Systemic Lupus Erythematosus"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C2884",
+               "label" : "Rheumatoid Arthritis"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3346",
+               "label" : "Psoriasis"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3001",
+               "label" : "Eczema"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C19700",
+               "label" : "Cancer Patient"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3390",
+               "label" : "Stroke"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
+            }
+         },
+         {
             "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
@@ -1407,8 +1715,8 @@
                }
             },
             "term" : {
-               "id" : "NCIT:C3138",
-               "label" : "Inflammatory Bowel Disease"
+               "id" : "NCIT:C2965",
+               "label" : "Crohn Disease"
             }
          }
       ],
@@ -1846,110 +2154,6 @@
                   "timestamp" : "2020-11-16T00:00:00Z"
                }
             }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C1027",
-                  "label" : "Budesonide"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C1027",
-                  "label" : "Budesonide"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38295",
-                  "label" : "Rectal Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C769",
-                  "label" : "Prednisolone"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C287",
-                  "label" : "Aspirin"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C287",
-                  "label" : "Aspirin"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38295",
-                  "label" : "Rectal Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C290",
-                  "label" : "Azathioprine"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C642",
-                  "label" : "Methotrexate"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C195",
-                  "label" : "Mercaptopurine"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
          }
       ],
       "metaData" : null,
@@ -1980,10 +2184,19 @@
    {
       "diseases" : [
          {
-            "onset" : null,
+            "onset" : {
+               "ageRange" : {
+                  "end" : {
+                     "iso8601duration" : "P16Y"
+                  },
+                  "start" : {
+                     "iso8601duration" : "P10Y"
+                  }
+               }
+            },
             "term" : {
-               "id" : "NCIT:C3138",
-               "label" : "Inflammatory Bowel Disease"
+               "id" : "NCIT:C2965",
+               "label" : "Crohn Disease"
             }
          }
       ],
@@ -2293,6 +2506,105 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C51793",
+                  "label" : "Ileocolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15211",
+                  "label" : "Colostomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15257",
+                  "label" : "Ileostomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157858",
+                  "label" : "Fistula Repair"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15209",
+                  "label" : "Colectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C86074",
+                  "label" : "Hemicolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157823",
+                  "label" : "Colon Resection"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157993",
+                  "label" : "Strictureplasty"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C17649",
+                  "label" : "Other"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:C78162",
                   "label" : "Gastrointestinal Endoscopy"
                },
@@ -2327,6 +2639,13 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
+            }
+         },
+         {
             "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
@@ -2345,10 +2664,19 @@
    {
       "diseases" : [
          {
-            "onset" : null,
+            "onset" : {
+               "ageRange" : {
+                  "end" : {
+                     "iso8601duration" : "P16Y"
+                  },
+                  "start" : {
+                     "iso8601duration" : "P10Y"
+                  }
+               }
+            },
             "term" : {
-               "id" : "NCIT:C3138",
-               "label" : "Inflammatory Bowel Disease"
+               "id" : "NCIT:C2965",
+               "label" : "Crohn Disease"
             }
          }
       ],
@@ -2658,6 +2986,105 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C51793",
+                  "label" : "Ileocolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-03-13T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15211",
+                  "label" : "Colostomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-03-13T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15257",
+                  "label" : "Ileostomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-03-13T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157858",
+                  "label" : "Fistula Repair"
+               },
+               "performed" : {
+                  "timestamp" : "2021-03-13T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15209",
+                  "label" : "Colectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-03-13T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C86074",
+                  "label" : "Hemicolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-03-13T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157823",
+                  "label" : "Colon Resection"
+               },
+               "performed" : {
+                  "timestamp" : "2021-03-13T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157993",
+                  "label" : "Strictureplasty"
+               },
+               "performed" : {
+                  "timestamp" : "2021-03-13T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C17649",
+                  "label" : "Other"
+               },
+               "performed" : {
+                  "timestamp" : "2021-03-13T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:C78162",
                   "label" : "Gastrointestinal Endoscopy"
                },
@@ -2692,6 +3119,13 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
+            }
+         },
+         {
             "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
@@ -2710,10 +3144,19 @@
    {
       "diseases" : [
          {
-            "onset" : null,
+            "onset" : {
+               "ageRange" : {
+                  "end" : {
+                     "iso8601duration" : "P16Y"
+                  },
+                  "start" : {
+                     "iso8601duration" : "P10Y"
+                  }
+               }
+            },
             "term" : {
-               "id" : "NCIT:C3138",
-               "label" : "Inflammatory Bowel Disease"
+               "id" : "NCIT:C2965",
+               "label" : "Crohn Disease"
             }
          }
       ],
@@ -3023,6 +3466,105 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C51793",
+                  "label" : "Ileocolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15211",
+                  "label" : "Colostomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15257",
+                  "label" : "Ileostomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157858",
+                  "label" : "Fistula Repair"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15209",
+                  "label" : "Colectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C86074",
+                  "label" : "Hemicolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157823",
+                  "label" : "Colon Resection"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157993",
+                  "label" : "Strictureplasty"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C17649",
+                  "label" : "Other"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
@@ -3046,6 +3588,13 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
+            }
+         },
+         {
             "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
@@ -3064,10 +3613,19 @@
    {
       "diseases" : [
          {
-            "onset" : null,
+            "onset" : {
+               "ageRange" : {
+                  "end" : {
+                     "iso8601duration" : "P16Y"
+                  },
+                  "start" : {
+                     "iso8601duration" : "P10Y"
+                  }
+               }
+            },
             "term" : {
-               "id" : "NCIT:C3138",
-               "label" : "Inflammatory Bowel Disease"
+               "id" : "NCIT:C2965",
+               "label" : "Crohn Disease"
             }
          }
       ],
@@ -3492,6 +4050,105 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C51793",
+                  "label" : "Ileocolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-08-25T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15211",
+                  "label" : "Colostomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-08-25T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15257",
+                  "label" : "Ileostomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-08-25T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157858",
+                  "label" : "Fistula Repair"
+               },
+               "performed" : {
+                  "timestamp" : "2021-08-25T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15209",
+                  "label" : "Colectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-08-25T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C86074",
+                  "label" : "Hemicolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-08-25T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157823",
+                  "label" : "Colon Resection"
+               },
+               "performed" : {
+                  "timestamp" : "2021-08-25T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157993",
+                  "label" : "Strictureplasty"
+               },
+               "performed" : {
+                  "timestamp" : "2021-08-25T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C17649",
+                  "label" : "Other"
+               },
+               "performed" : {
+                  "timestamp" : "2021-08-25T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:C78162",
                   "label" : "Gastrointestinal Endoscopy"
                },
@@ -3526,6 +4183,13 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
+            }
+         },
+         {
             "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
@@ -3544,10 +4208,19 @@
    {
       "diseases" : [
          {
-            "onset" : null,
+            "onset" : {
+               "ageRange" : {
+                  "end" : {
+                     "iso8601duration" : "P16Y"
+                  },
+                  "start" : {
+                     "iso8601duration" : "P10Y"
+                  }
+               }
+            },
             "term" : {
-               "id" : "NCIT:C3138",
-               "label" : "Inflammatory Bowel Disease"
+               "id" : "NCIT:C2965",
+               "label" : "Crohn Disease"
             }
          }
       ],
@@ -3949,6 +4622,105 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C51793",
+                  "label" : "Ileocolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15211",
+                  "label" : "Colostomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15257",
+                  "label" : "Ileostomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157858",
+                  "label" : "Fistula Repair"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15209",
+                  "label" : "Colectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C86074",
+                  "label" : "Hemicolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157823",
+                  "label" : "Colon Resection"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157993",
+                  "label" : "Strictureplasty"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C17649",
+                  "label" : "Other"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
@@ -3971,6 +4743,13 @@
       ],
       "metaData" : null,
       "phenotypicFeatures" : [
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
+            }
+         },
          {
             "excluded" : null,
             "type" : {
@@ -4001,8 +4780,8 @@
                }
             },
             "term" : {
-               "id" : "NCIT:C3138",
-               "label" : "Inflammatory Bowel Disease"
+               "id" : "NCIT:C2952",
+               "label" : "Ulcerative Colitis"
             }
          }
       ],
@@ -4554,110 +5333,6 @@
                   "timestamp" : "2020-12-14T00:00:00Z"
                }
             }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C1027",
-                  "label" : "Budesonide"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C1027",
-                  "label" : "Budesonide"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38295",
-                  "label" : "Rectal Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C769",
-                  "label" : "Prednisolone"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C287",
-                  "label" : "Aspirin"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C287",
-                  "label" : "Aspirin"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38295",
-                  "label" : "Rectal Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C290",
-                  "label" : "Azathioprine"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C642",
-                  "label" : "Methotrexate"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C195",
-                  "label" : "Mercaptopurine"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
          }
       ],
       "metaData" : null,
@@ -4688,10 +5363,19 @@
    {
       "diseases" : [
          {
-            "onset" : null,
+            "onset" : {
+               "ageRange" : {
+                  "end" : {
+                     "iso8601duration" : "P39Y"
+                  },
+                  "start" : {
+                     "iso8601duration" : "P25Y"
+                  }
+               }
+            },
             "term" : {
-               "id" : "NCIT:C3138",
-               "label" : "Inflammatory Bowel Disease"
+               "id" : "NCIT:C2952",
+               "label" : "Ulcerative Colitis"
             }
          }
       ],
@@ -4978,6 +5662,105 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C51793",
+                  "label" : "Ileocolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15211",
+                  "label" : "Colostomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15257",
+                  "label" : "Ileostomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157858",
+                  "label" : "Fistula Repair"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15209",
+                  "label" : "Colectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C86074",
+                  "label" : "Hemicolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157823",
+                  "label" : "Colon Resection"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157993",
+                  "label" : "Strictureplasty"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C17649",
+                  "label" : "Other"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:C78162",
                   "label" : "Gastrointestinal Endoscopy"
                },
@@ -5023,6 +5806,13 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
+            }
+         },
+         {
             "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
@@ -5041,10 +5831,19 @@
    {
       "diseases" : [
          {
-            "onset" : null,
+            "onset" : {
+               "ageRange" : {
+                  "end" : {
+                     "iso8601duration" : "P39Y"
+                  },
+                  "start" : {
+                     "iso8601duration" : "P25Y"
+                  }
+               }
+            },
             "term" : {
-               "id" : "NCIT:C3138",
-               "label" : "Inflammatory Bowel Disease"
+               "id" : "NCIT:C2952",
+               "label" : "Ulcerative Colitis"
             }
          }
       ],
@@ -5446,6 +6245,105 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C51793",
+                  "label" : "Ileocolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-05-29T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15211",
+                  "label" : "Colostomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-05-29T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15257",
+                  "label" : "Ileostomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-05-29T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157858",
+                  "label" : "Fistula Repair"
+               },
+               "performed" : {
+                  "timestamp" : "2021-05-29T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15209",
+                  "label" : "Colectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-05-29T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C86074",
+                  "label" : "Hemicolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-05-29T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157823",
+                  "label" : "Colon Resection"
+               },
+               "performed" : {
+                  "timestamp" : "2021-05-29T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157993",
+                  "label" : "Strictureplasty"
+               },
+               "performed" : {
+                  "timestamp" : "2021-05-29T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C17649",
+                  "label" : "Other"
+               },
+               "performed" : {
+                  "timestamp" : "2021-05-29T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:C78162",
                   "label" : "Gastrointestinal Endoscopy"
                },
@@ -5502,6 +6400,13 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
+            }
+         },
+         {
             "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
@@ -5520,10 +6425,19 @@
    {
       "diseases" : [
          {
-            "onset" : null,
+            "onset" : {
+               "ageRange" : {
+                  "end" : {
+                     "iso8601duration" : "P39Y"
+                  },
+                  "start" : {
+                     "iso8601duration" : "P25Y"
+                  }
+               }
+            },
             "term" : {
-               "id" : "NCIT:C3138",
-               "label" : "Inflammatory Bowel Disease"
+               "id" : "NCIT:C2952",
+               "label" : "Ulcerative Colitis"
             }
          }
       ],
@@ -5810,6 +6724,105 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C51793",
+                  "label" : "Ileocolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15211",
+                  "label" : "Colostomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15257",
+                  "label" : "Ileostomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157858",
+                  "label" : "Fistula Repair"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15209",
+                  "label" : "Colectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C86074",
+                  "label" : "Hemicolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157823",
+                  "label" : "Colon Resection"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157993",
+                  "label" : "Strictureplasty"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C17649",
+                  "label" : "Other"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
@@ -5844,6 +6857,13 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
+            }
+         },
+         {
             "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
@@ -5862,10 +6882,19 @@
    {
       "diseases" : [
          {
-            "onset" : null,
+            "onset" : {
+               "ageRange" : {
+                  "end" : {
+                     "iso8601duration" : "P39Y"
+                  },
+                  "start" : {
+                     "iso8601duration" : "P25Y"
+                  }
+               }
+            },
             "term" : {
-               "id" : "NCIT:C3138",
-               "label" : "Inflammatory Bowel Disease"
+               "id" : "NCIT:C2952",
+               "label" : "Ulcerative Colitis"
             }
          }
       ],
@@ -6382,6 +7411,105 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C51793",
+                  "label" : "Ileocolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2022-03-03T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15211",
+                  "label" : "Colostomy"
+               },
+               "performed" : {
+                  "timestamp" : "2022-03-03T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15257",
+                  "label" : "Ileostomy"
+               },
+               "performed" : {
+                  "timestamp" : "2022-03-03T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157858",
+                  "label" : "Fistula Repair"
+               },
+               "performed" : {
+                  "timestamp" : "2022-03-03T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15209",
+                  "label" : "Colectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2022-03-03T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C86074",
+                  "label" : "Hemicolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2022-03-03T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157823",
+                  "label" : "Colon Resection"
+               },
+               "performed" : {
+                  "timestamp" : "2022-03-03T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157993",
+                  "label" : "Strictureplasty"
+               },
+               "performed" : {
+                  "timestamp" : "2022-03-03T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C17649",
+                  "label" : "Other"
+               },
+               "performed" : {
+                  "timestamp" : "2022-03-03T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:C78162",
                   "label" : "Gastrointestinal Endoscopy"
                },
@@ -6438,6 +7566,13 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
+            }
+         },
+         {
             "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
@@ -6456,10 +7591,19 @@
    {
       "diseases" : [
          {
-            "onset" : null,
+            "onset" : {
+               "ageRange" : {
+                  "end" : {
+                     "iso8601duration" : "P39Y"
+                  },
+                  "start" : {
+                     "iso8601duration" : "P25Y"
+                  }
+               }
+            },
             "term" : {
-               "id" : "NCIT:C3138",
-               "label" : "Inflammatory Bowel Disease"
+               "id" : "NCIT:C2952",
+               "label" : "Ulcerative Colitis"
             }
          }
       ],
@@ -6815,6 +7959,105 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C51793",
+                  "label" : "Ileocolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15211",
+                  "label" : "Colostomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15257",
+                  "label" : "Ileostomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157858",
+                  "label" : "Fistula Repair"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15209",
+                  "label" : "Colectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C86074",
+                  "label" : "Hemicolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157823",
+                  "label" : "Colon Resection"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157993",
+                  "label" : "Strictureplasty"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C17649",
+                  "label" : "Other"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
@@ -6849,6 +8092,13 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
+            }
+         },
+         {
             "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
@@ -6878,8 +8128,8 @@
                }
             },
             "term" : {
-               "id" : "NCIT:C3138",
-               "label" : "Inflammatory Bowel Disease"
+               "id" : "NCIT:C2952",
+               "label" : "Ulcerative Colitis"
             }
          }
       ],
@@ -7477,110 +8727,6 @@
                   "timestamp" : "2021-10-28T00:00:00Z"
                }
             }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C1027",
-                  "label" : "Budesonide"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C1027",
-                  "label" : "Budesonide"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38295",
-                  "label" : "Rectal Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C769",
-                  "label" : "Prednisolone"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C287",
-                  "label" : "Aspirin"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C287",
-                  "label" : "Aspirin"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38295",
-                  "label" : "Rectal Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C290",
-                  "label" : "Azathioprine"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C642",
-                  "label" : "Methotrexate"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C195",
-                  "label" : "Mercaptopurine"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
          }
       ],
       "metaData" : null,
@@ -7702,10 +8848,19 @@
    {
       "diseases" : [
          {
-            "onset" : null,
+            "onset" : {
+               "ageRange" : {
+                  "end" : {
+                     "iso8601duration" : "P999Y"
+                  },
+                  "start" : {
+                     "iso8601duration" : "P60Y"
+                  }
+               }
+            },
             "term" : {
-               "id" : "NCIT:C3138",
-               "label" : "Inflammatory Bowel Disease"
+               "id" : "NCIT:C2952",
+               "label" : "Ulcerative Colitis"
             }
          }
       ],
@@ -8130,6 +9285,105 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C51793",
+                  "label" : "Ileocolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15211",
+                  "label" : "Colostomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15257",
+                  "label" : "Ileostomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157858",
+                  "label" : "Fistula Repair"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15209",
+                  "label" : "Colectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C86074",
+                  "label" : "Hemicolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157823",
+                  "label" : "Colon Resection"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157993",
+                  "label" : "Strictureplasty"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C17649",
+                  "label" : "Other"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:C78162",
                   "label" : "Gastrointestinal Endoscopy"
                },
@@ -8175,6 +9429,104 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3199",
+               "label" : "Chronic Obstructive Pulmonary Disease"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3243",
+               "label" : "Multiple Sclerosis"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3201",
+               "label" : "Systemic Lupus Erythematosus"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C2884",
+               "label" : "Rheumatoid Arthritis"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3346",
+               "label" : "Psoriasis"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3001",
+               "label" : "Eczema"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C19700",
+               "label" : "Cancer Patient"
+            }
+         },
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            }
+         },
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3390",
+               "label" : "Stroke"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
+            }
+         },
+         {
             "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
@@ -8193,10 +9545,19 @@
    {
       "diseases" : [
          {
-            "onset" : null,
+            "onset" : {
+               "ageRange" : {
+                  "end" : {
+                     "iso8601duration" : "P999Y"
+                  },
+                  "start" : {
+                     "iso8601duration" : "P60Y"
+                  }
+               }
+            },
             "term" : {
-               "id" : "NCIT:C3138",
-               "label" : "Inflammatory Bowel Disease"
+               "id" : "NCIT:C2952",
+               "label" : "Ulcerative Colitis"
             }
          }
       ],
@@ -8621,6 +9982,105 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C51793",
+                  "label" : "Ileocolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15211",
+                  "label" : "Colostomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15257",
+                  "label" : "Ileostomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157858",
+                  "label" : "Fistula Repair"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15209",
+                  "label" : "Colectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C86074",
+                  "label" : "Hemicolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157823",
+                  "label" : "Colon Resection"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157993",
+                  "label" : "Strictureplasty"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C17649",
+                  "label" : "Other"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:C78162",
                   "label" : "Gastrointestinal Endoscopy"
                },
@@ -8666,6 +10126,104 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3199",
+               "label" : "Chronic Obstructive Pulmonary Disease"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3243",
+               "label" : "Multiple Sclerosis"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3201",
+               "label" : "Systemic Lupus Erythematosus"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C2884",
+               "label" : "Rheumatoid Arthritis"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3346",
+               "label" : "Psoriasis"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3001",
+               "label" : "Eczema"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C19700",
+               "label" : "Cancer Patient"
+            }
+         },
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            }
+         },
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3390",
+               "label" : "Stroke"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
+            }
+         },
+         {
             "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
@@ -8684,10 +10242,19 @@
    {
       "diseases" : [
          {
-            "onset" : null,
+            "onset" : {
+               "ageRange" : {
+                  "end" : {
+                     "iso8601duration" : "P999Y"
+                  },
+                  "start" : {
+                     "iso8601duration" : "P60Y"
+                  }
+               }
+            },
             "term" : {
-               "id" : "NCIT:C3138",
-               "label" : "Inflammatory Bowel Disease"
+               "id" : "NCIT:C2952",
+               "label" : "Ulcerative Colitis"
             }
          }
       ],
@@ -9135,6 +10702,105 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C51793",
+                  "label" : "Ileocolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15211",
+                  "label" : "Colostomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15257",
+                  "label" : "Ileostomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157858",
+                  "label" : "Fistula Repair"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15209",
+                  "label" : "Colectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C86074",
+                  "label" : "Hemicolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157823",
+                  "label" : "Colon Resection"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157993",
+                  "label" : "Strictureplasty"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C17649",
+                  "label" : "Other"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
@@ -9169,6 +10835,104 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3199",
+               "label" : "Chronic Obstructive Pulmonary Disease"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3243",
+               "label" : "Multiple Sclerosis"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3201",
+               "label" : "Systemic Lupus Erythematosus"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C2884",
+               "label" : "Rheumatoid Arthritis"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3346",
+               "label" : "Psoriasis"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3001",
+               "label" : "Eczema"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C19700",
+               "label" : "Cancer Patient"
+            }
+         },
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            }
+         },
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3390",
+               "label" : "Stroke"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
+            }
+         },
+         {
             "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
@@ -9198,8 +10962,8 @@
                }
             },
             "term" : {
-               "id" : "NCIT:C3138",
-               "label" : "Inflammatory Bowel Disease"
+               "id" : "NCIT:C2952",
+               "label" : "Ulcerative Colitis"
             }
          }
       ],
@@ -9751,110 +11515,6 @@
                   "timestamp" : "2021-01-04T00:00:00Z"
                }
             }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C1027",
-                  "label" : "Budesonide"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C1027",
-                  "label" : "Budesonide"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38295",
-                  "label" : "Rectal Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C769",
-                  "label" : "Prednisolone"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C287",
-                  "label" : "Aspirin"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C287",
-                  "label" : "Aspirin"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38295",
-                  "label" : "Rectal Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C290",
-                  "label" : "Azathioprine"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C642",
-                  "label" : "Methotrexate"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C195",
-                  "label" : "Mercaptopurine"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
          }
       ],
       "metaData" : null,
@@ -9885,10 +11545,19 @@
    {
       "diseases" : [
          {
-            "onset" : null,
+            "onset" : {
+               "ageRange" : {
+                  "end" : {
+                     "iso8601duration" : "P24Y"
+                  },
+                  "start" : {
+                     "iso8601duration" : "P17Y"
+                  }
+               }
+            },
             "term" : {
-               "id" : "NCIT:C3138",
-               "label" : "Inflammatory Bowel Disease"
+               "id" : "NCIT:C2952",
+               "label" : "Ulcerative Colitis"
             }
          }
       ],
@@ -10198,6 +11867,105 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C51793",
+                  "label" : "Ileocolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15211",
+                  "label" : "Colostomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15257",
+                  "label" : "Ileostomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157858",
+                  "label" : "Fistula Repair"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15209",
+                  "label" : "Colectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C86074",
+                  "label" : "Hemicolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157823",
+                  "label" : "Colon Resection"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157993",
+                  "label" : "Strictureplasty"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C17649",
+                  "label" : "Other"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:C78162",
                   "label" : "Gastrointestinal Endoscopy"
                },
@@ -10243,6 +12011,13 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
+            }
+         },
+         {
             "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
@@ -10261,10 +12036,19 @@
    {
       "diseases" : [
          {
-            "onset" : null,
+            "onset" : {
+               "ageRange" : {
+                  "end" : {
+                     "iso8601duration" : "P24Y"
+                  },
+                  "start" : {
+                     "iso8601duration" : "P17Y"
+                  }
+               }
+            },
             "term" : {
-               "id" : "NCIT:C3138",
-               "label" : "Inflammatory Bowel Disease"
+               "id" : "NCIT:C2952",
+               "label" : "Ulcerative Colitis"
             }
          }
       ],
@@ -10574,6 +12358,105 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C51793",
+                  "label" : "Ileocolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-04-19T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15211",
+                  "label" : "Colostomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-04-19T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15257",
+                  "label" : "Ileostomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-04-19T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157858",
+                  "label" : "Fistula Repair"
+               },
+               "performed" : {
+                  "timestamp" : "2021-04-19T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15209",
+                  "label" : "Colectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-04-19T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C86074",
+                  "label" : "Hemicolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-04-19T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157823",
+                  "label" : "Colon Resection"
+               },
+               "performed" : {
+                  "timestamp" : "2021-04-19T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157993",
+                  "label" : "Strictureplasty"
+               },
+               "performed" : {
+                  "timestamp" : "2021-04-19T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C17649",
+                  "label" : "Other"
+               },
+               "performed" : {
+                  "timestamp" : "2021-04-19T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:C78162",
                   "label" : "Gastrointestinal Endoscopy"
                },
@@ -10630,6 +12513,13 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
+            }
+         },
+         {
             "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
@@ -10648,10 +12538,19 @@
    {
       "diseases" : [
          {
-            "onset" : null,
+            "onset" : {
+               "ageRange" : {
+                  "end" : {
+                     "iso8601duration" : "P24Y"
+                  },
+                  "start" : {
+                     "iso8601duration" : "P17Y"
+                  }
+               }
+            },
             "term" : {
-               "id" : "NCIT:C3138",
-               "label" : "Inflammatory Bowel Disease"
+               "id" : "NCIT:C2952",
+               "label" : "Ulcerative Colitis"
             }
          }
       ],
@@ -11168,6 +13067,105 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C51793",
+                  "label" : "Ileocolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2022-08-13T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15211",
+                  "label" : "Colostomy"
+               },
+               "performed" : {
+                  "timestamp" : "2022-08-13T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15257",
+                  "label" : "Ileostomy"
+               },
+               "performed" : {
+                  "timestamp" : "2022-08-13T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157858",
+                  "label" : "Fistula Repair"
+               },
+               "performed" : {
+                  "timestamp" : "2022-08-13T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15209",
+                  "label" : "Colectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2022-08-13T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C86074",
+                  "label" : "Hemicolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2022-08-13T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157823",
+                  "label" : "Colon Resection"
+               },
+               "performed" : {
+                  "timestamp" : "2022-08-13T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157993",
+                  "label" : "Strictureplasty"
+               },
+               "performed" : {
+                  "timestamp" : "2022-08-13T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C17649",
+                  "label" : "Other"
+               },
+               "performed" : {
+                  "timestamp" : "2022-08-13T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:C78162",
                   "label" : "Gastrointestinal Endoscopy"
                },
@@ -11224,6 +13222,13 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
+            }
+         },
+         {
             "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
@@ -11253,8 +13258,8 @@
                }
             },
             "term" : {
-               "id" : "NCIT:C3138",
-               "label" : "Inflammatory Bowel Disease"
+               "id" : "NCIT:C2965",
+               "label" : "Crohn Disease"
             }
          }
       ],
@@ -11715,110 +13720,6 @@
                   "timestamp" : "2021-01-04T00:00:00Z"
                }
             }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C1027",
-                  "label" : "Budesonide"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C1027",
-                  "label" : "Budesonide"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38295",
-                  "label" : "Rectal Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C769",
-                  "label" : "Prednisolone"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C287",
-                  "label" : "Aspirin"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C287",
-                  "label" : "Aspirin"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38295",
-                  "label" : "Rectal Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C290",
-                  "label" : "Azathioprine"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C642",
-                  "label" : "Methotrexate"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C195",
-                  "label" : "Mercaptopurine"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
          }
       ],
       "metaData" : null,
@@ -11849,10 +13750,19 @@
    {
       "diseases" : [
          {
-            "onset" : null,
+            "onset" : {
+               "ageRange" : {
+                  "end" : {
+                     "iso8601duration" : "P24Y"
+                  },
+                  "start" : {
+                     "iso8601duration" : "P17Y"
+                  }
+               }
+            },
             "term" : {
-               "id" : "NCIT:C3138",
-               "label" : "Inflammatory Bowel Disease"
+               "id" : "NCIT:C2965",
+               "label" : "Crohn Disease"
             }
          }
       ],
@@ -12162,6 +14072,105 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C51793",
+                  "label" : "Ileocolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15211",
+                  "label" : "Colostomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15257",
+                  "label" : "Ileostomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157858",
+                  "label" : "Fistula Repair"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15209",
+                  "label" : "Colectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C86074",
+                  "label" : "Hemicolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157823",
+                  "label" : "Colon Resection"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157993",
+                  "label" : "Strictureplasty"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C17649",
+                  "label" : "Other"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
@@ -12185,6 +14194,13 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
+            }
+         },
+         {
             "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
@@ -12203,10 +14219,19 @@
    {
       "diseases" : [
          {
-            "onset" : null,
+            "onset" : {
+               "ageRange" : {
+                  "end" : {
+                     "iso8601duration" : "P24Y"
+                  },
+                  "start" : {
+                     "iso8601duration" : "P17Y"
+                  }
+               }
+            },
             "term" : {
-               "id" : "NCIT:C3138",
-               "label" : "Inflammatory Bowel Disease"
+               "id" : "NCIT:C2965",
+               "label" : "Crohn Disease"
             }
          }
       ],
@@ -12631,6 +14656,105 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C51793",
+                  "label" : "Ileocolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15211",
+                  "label" : "Colostomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15257",
+                  "label" : "Ileostomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157858",
+                  "label" : "Fistula Repair"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15209",
+                  "label" : "Colectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C86074",
+                  "label" : "Hemicolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157823",
+                  "label" : "Colon Resection"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157993",
+                  "label" : "Strictureplasty"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C17649",
+                  "label" : "Other"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:C78162",
                   "label" : "Gastrointestinal Endoscopy"
                },
@@ -12665,6 +14789,13 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
+            }
+         },
+         {
             "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
@@ -12694,8 +14825,8 @@
                }
             },
             "term" : {
-               "id" : "NCIT:C3138",
-               "label" : "Inflammatory Bowel Disease"
+               "id" : "NCIT:C2952",
+               "label" : "Ulcerative Colitis"
             }
          }
       ],
@@ -13224,110 +15355,6 @@
                   "timestamp" : "2021-01-05T00:00:00Z"
                }
             }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C1027",
-                  "label" : "Budesonide"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C1027",
-                  "label" : "Budesonide"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38295",
-                  "label" : "Rectal Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C769",
-                  "label" : "Prednisolone"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C287",
-                  "label" : "Aspirin"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C287",
-                  "label" : "Aspirin"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38295",
-                  "label" : "Rectal Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C290",
-                  "label" : "Azathioprine"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C642",
-                  "label" : "Methotrexate"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C195",
-                  "label" : "Mercaptopurine"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
          }
       ],
       "metaData" : null,
@@ -13358,10 +15385,19 @@
    {
       "diseases" : [
          {
-            "onset" : null,
+            "onset" : {
+               "ageRange" : {
+                  "end" : {
+                     "iso8601duration" : "P39Y"
+                  },
+                  "start" : {
+                     "iso8601duration" : "P25Y"
+                  }
+               }
+            },
             "term" : {
-               "id" : "NCIT:C3138",
-               "label" : "Inflammatory Bowel Disease"
+               "id" : "NCIT:C2952",
+               "label" : "Ulcerative Colitis"
             }
          }
       ],
@@ -13671,6 +15707,105 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C51793",
+                  "label" : "Ileocolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15211",
+                  "label" : "Colostomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15257",
+                  "label" : "Ileostomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157858",
+                  "label" : "Fistula Repair"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15209",
+                  "label" : "Colectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C86074",
+                  "label" : "Hemicolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157823",
+                  "label" : "Colon Resection"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157993",
+                  "label" : "Strictureplasty"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C17649",
+                  "label" : "Other"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:C78162",
                   "label" : "Gastrointestinal Endoscopy"
                },
@@ -13716,6 +15851,13 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
+            }
+         },
+         {
             "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
@@ -13734,10 +15876,19 @@
    {
       "diseases" : [
          {
-            "onset" : null,
+            "onset" : {
+               "ageRange" : {
+                  "end" : {
+                     "iso8601duration" : "P39Y"
+                  },
+                  "start" : {
+                     "iso8601duration" : "P25Y"
+                  }
+               }
+            },
             "term" : {
-               "id" : "NCIT:C3138",
-               "label" : "Inflammatory Bowel Disease"
+               "id" : "NCIT:C2952",
+               "label" : "Ulcerative Colitis"
             }
          }
       ],
@@ -14070,6 +16221,105 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C51793",
+                  "label" : "Ileocolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-04-16T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15211",
+                  "label" : "Colostomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-04-16T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15257",
+                  "label" : "Ileostomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-04-16T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157858",
+                  "label" : "Fistula Repair"
+               },
+               "performed" : {
+                  "timestamp" : "2021-04-16T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15209",
+                  "label" : "Colectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-04-16T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C86074",
+                  "label" : "Hemicolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-04-16T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157823",
+                  "label" : "Colon Resection"
+               },
+               "performed" : {
+                  "timestamp" : "2021-04-16T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157993",
+                  "label" : "Strictureplasty"
+               },
+               "performed" : {
+                  "timestamp" : "2021-04-16T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C17649",
+                  "label" : "Other"
+               },
+               "performed" : {
+                  "timestamp" : "2021-04-16T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:C78162",
                   "label" : "Gastrointestinal Endoscopy"
                },
@@ -14126,6 +16376,13 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
+            }
+         },
+         {
             "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
@@ -14144,10 +16401,19 @@
    {
       "diseases" : [
          {
-            "onset" : null,
+            "onset" : {
+               "ageRange" : {
+                  "end" : {
+                     "iso8601duration" : "P39Y"
+                  },
+                  "start" : {
+                     "iso8601duration" : "P25Y"
+                  }
+               }
+            },
             "term" : {
-               "id" : "NCIT:C3138",
-               "label" : "Inflammatory Bowel Disease"
+               "id" : "NCIT:C2952",
+               "label" : "Ulcerative Colitis"
             }
          }
       ],
@@ -14480,6 +16746,105 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C51793",
+                  "label" : "Ileocolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15211",
+                  "label" : "Colostomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15257",
+                  "label" : "Ileostomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157858",
+                  "label" : "Fistula Repair"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15209",
+                  "label" : "Colectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C86074",
+                  "label" : "Hemicolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157823",
+                  "label" : "Colon Resection"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157993",
+                  "label" : "Strictureplasty"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C17649",
+                  "label" : "Other"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
@@ -14514,6 +16879,13 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
+            }
+         },
+         {
             "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
@@ -14532,10 +16904,19 @@
    {
       "diseases" : [
          {
-            "onset" : null,
+            "onset" : {
+               "ageRange" : {
+                  "end" : {
+                     "iso8601duration" : "P39Y"
+                  },
+                  "start" : {
+                     "iso8601duration" : "P25Y"
+                  }
+               }
+            },
             "term" : {
-               "id" : "NCIT:C3138",
-               "label" : "Inflammatory Bowel Disease"
+               "id" : "NCIT:C2952",
+               "label" : "Ulcerative Colitis"
             }
          }
       ],
@@ -14960,6 +17341,105 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C51793",
+                  "label" : "Ileocolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15211",
+                  "label" : "Colostomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15257",
+                  "label" : "Ileostomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157858",
+                  "label" : "Fistula Repair"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15209",
+                  "label" : "Colectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C86074",
+                  "label" : "Hemicolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157823",
+                  "label" : "Colon Resection"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157993",
+                  "label" : "Strictureplasty"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C17649",
+                  "label" : "Other"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:C78162",
                   "label" : "Gastrointestinal Endoscopy"
                },
@@ -15005,6 +17485,13 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
+            }
+         },
+         {
             "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
@@ -15034,8 +17521,8 @@
                }
             },
             "term" : {
-               "id" : "NCIT:C3138",
-               "label" : "Inflammatory Bowel Disease"
+               "id" : "NCIT:C2965",
+               "label" : "Crohn Disease"
             }
          }
       ],
@@ -15599,110 +18086,6 @@
                   "timestamp" : "2021-04-12T00:00:00Z"
                }
             }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C1027",
-                  "label" : "Budesonide"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C1027",
-                  "label" : "Budesonide"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38295",
-                  "label" : "Rectal Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C769",
-                  "label" : "Prednisolone"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C287",
-                  "label" : "Aspirin"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C287",
-                  "label" : "Aspirin"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38295",
-                  "label" : "Rectal Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C290",
-                  "label" : "Azathioprine"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C642",
-                  "label" : "Methotrexate"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C195",
-                  "label" : "Mercaptopurine"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
          }
       ],
       "metaData" : null,
@@ -15824,10 +18207,19 @@
    {
       "diseases" : [
          {
-            "onset" : null,
+            "onset" : {
+               "ageRange" : {
+                  "end" : {
+                     "iso8601duration" : "P24Y"
+                  },
+                  "start" : {
+                     "iso8601duration" : "P17Y"
+                  }
+               }
+            },
             "term" : {
-               "id" : "NCIT:C3138",
-               "label" : "Inflammatory Bowel Disease"
+               "id" : "NCIT:C2965",
+               "label" : "Crohn Disease"
             }
          }
       ],
@@ -16137,6 +18529,105 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C51793",
+                  "label" : "Ileocolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15211",
+                  "label" : "Colostomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15257",
+                  "label" : "Ileostomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157858",
+                  "label" : "Fistula Repair"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15209",
+                  "label" : "Colectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C86074",
+                  "label" : "Hemicolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157823",
+                  "label" : "Colon Resection"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157993",
+                  "label" : "Strictureplasty"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C17649",
+                  "label" : "Other"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
@@ -16147,6 +18638,106 @@
          }
       ],
       "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3199",
+               "label" : "Chronic Obstructive Pulmonary Disease"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3243",
+               "label" : "Multiple Sclerosis"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3201",
+               "label" : "Systemic Lupus Erythematosus"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C2884",
+               "label" : "Rheumatoid Arthritis"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3346",
+               "label" : "Psoriasis"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3001",
+               "label" : "Eczema"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C19700",
+               "label" : "Cancer Patient"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3390",
+               "label" : "Stroke"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
+            }
+         }
+      ],
       "subject" : {
          "id" : "527:week_2_arm_1",
          "sex" : "MALE",
@@ -16158,10 +18749,19 @@
    {
       "diseases" : [
          {
-            "onset" : null,
+            "onset" : {
+               "ageRange" : {
+                  "end" : {
+                     "iso8601duration" : "P24Y"
+                  },
+                  "start" : {
+                     "iso8601duration" : "P17Y"
+                  }
+               }
+            },
             "term" : {
-               "id" : "NCIT:C3138",
-               "label" : "Inflammatory Bowel Disease"
+               "id" : "NCIT:C2965",
+               "label" : "Crohn Disease"
             }
          }
       ],
@@ -16471,6 +19071,105 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C51793",
+                  "label" : "Ileocolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-09-06T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15211",
+                  "label" : "Colostomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-09-06T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15257",
+                  "label" : "Ileostomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-09-06T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157858",
+                  "label" : "Fistula Repair"
+               },
+               "performed" : {
+                  "timestamp" : "2021-09-06T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15209",
+                  "label" : "Colectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-09-06T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C86074",
+                  "label" : "Hemicolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "2021-09-06T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157823",
+                  "label" : "Colon Resection"
+               },
+               "performed" : {
+                  "timestamp" : "2021-09-06T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157993",
+                  "label" : "Strictureplasty"
+               },
+               "performed" : {
+                  "timestamp" : "2021-09-06T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C17649",
+                  "label" : "Other"
+               },
+               "performed" : {
+                  "timestamp" : "2021-09-06T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:C78162",
                   "label" : "Gastrointestinal Endoscopy"
                },
@@ -16505,6 +19204,104 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3199",
+               "label" : "Chronic Obstructive Pulmonary Disease"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3243",
+               "label" : "Multiple Sclerosis"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3201",
+               "label" : "Systemic Lupus Erythematosus"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C2884",
+               "label" : "Rheumatoid Arthritis"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3346",
+               "label" : "Psoriasis"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3001",
+               "label" : "Eczema"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C19700",
+               "label" : "Cancer Patient"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3390",
+               "label" : "Stroke"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
+            }
+         },
+         {
             "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
@@ -16523,10 +19320,19 @@
    {
       "diseases" : [
          {
-            "onset" : null,
+            "onset" : {
+               "ageRange" : {
+                  "end" : {
+                     "iso8601duration" : "P24Y"
+                  },
+                  "start" : {
+                     "iso8601duration" : "P17Y"
+                  }
+               }
+            },
             "term" : {
-               "id" : "NCIT:C3138",
-               "label" : "Inflammatory Bowel Disease"
+               "id" : "NCIT:C2965",
+               "label" : "Crohn Disease"
             }
          }
       ],
@@ -16882,6 +19688,105 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C51793",
+                  "label" : "Ileocolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15211",
+                  "label" : "Colostomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15257",
+                  "label" : "Ileostomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157858",
+                  "label" : "Fistula Repair"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15209",
+                  "label" : "Colectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C86074",
+                  "label" : "Hemicolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157823",
+                  "label" : "Colon Resection"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157993",
+                  "label" : "Strictureplasty"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C17649",
+                  "label" : "Other"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:NA0000",
                   "label" : "NA"
                },
@@ -16905,6 +19810,104 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3199",
+               "label" : "Chronic Obstructive Pulmonary Disease"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3243",
+               "label" : "Multiple Sclerosis"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3201",
+               "label" : "Systemic Lupus Erythematosus"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C2884",
+               "label" : "Rheumatoid Arthritis"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3346",
+               "label" : "Psoriasis"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3001",
+               "label" : "Eczema"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C19700",
+               "label" : "Cancer Patient"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3390",
+               "label" : "Stroke"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
+            }
+         },
+         {
             "excluded" : null,
             "type" : {
                "id" : "NCIT:NA0000",
@@ -16923,10 +19926,19 @@
    {
       "diseases" : [
          {
-            "onset" : null,
+            "onset" : {
+               "ageRange" : {
+                  "end" : {
+                     "iso8601duration" : "P24Y"
+                  },
+                  "start" : {
+                     "iso8601duration" : "P17Y"
+                  }
+               }
+            },
             "term" : {
-               "id" : "NCIT:C3138",
-               "label" : "Inflammatory Bowel Disease"
+               "id" : "NCIT:C2965",
+               "label" : "Crohn Disease"
             }
          }
       ],
@@ -17351,6 +20363,105 @@
          {
             "procedure" : {
                "code" : {
+                  "id" : "NCIT:C51793",
+                  "label" : "Ileocolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15211",
+                  "label" : "Colostomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15257",
+                  "label" : "Ileostomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157858",
+                  "label" : "Fistula Repair"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C15209",
+                  "label" : "Colectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C86074",
+                  "label" : "Hemicolectomy"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157823",
+                  "label" : "Colon Resection"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C157993",
+                  "label" : "Strictureplasty"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "NCIT:C17649",
+                  "label" : "Other"
+               },
+               "performed" : {
+                  "timestamp" : "1900-01-01T00:00:00Z"
+               }
+            }
+         },
+         {
+            "procedure" : {
+               "code" : {
                   "id" : "NCIT:C78162",
                   "label" : "Gastrointestinal Endoscopy"
                },
@@ -17384,6 +20495,104 @@
       ],
       "metaData" : null,
       "phenotypicFeatures" : [
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3199",
+               "label" : "Chronic Obstructive Pulmonary Disease"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3243",
+               "label" : "Multiple Sclerosis"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3201",
+               "label" : "Systemic Lupus Erythematosus"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C2884",
+               "label" : "Rheumatoid Arthritis"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3346",
+               "label" : "Psoriasis"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3001",
+               "label" : "Eczema"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C19700",
+               "label" : "Cancer Patient"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C3390",
+               "label" : "Stroke"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "excluded" : true,
+            "type" : {
+               "id" : "NCIT:C39725",
+               "label" : "Immunodeficiency"
+            }
+         },
          {
             "excluded" : null,
             "type" : {

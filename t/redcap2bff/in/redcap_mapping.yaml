@@ -8,6 +8,7 @@
     source: redcap
     ontology: ncit
     version: 3TR-dev-0.1
+    baselineFieldsToPropagate: [ids_complete,consent,consent_date,consent_noneu,consent_devices,consent_recontact,consent_week2_endo,diagnosis,diagnosis_year,used_drug,sex,gender,age,age_first_diagnosis,ethnicity,education,height,consents_and_demographics_complete,comorb_asthma,comorb_copd,comorb_ms,comorb_sle,comorb_ra,comorb_pso,comorb_ad,comorb_cancer,comorb_hypertension,comorb_diabetes,comorb_lipids,comorb_stroke,comorb_other_ai,diet,food_intolerance___1,food_intolerance___2,food_intolerance___3,food_intolerance___4,food_intolerance___5,food_intolerance___6,smoking,alcohol,recreational_drugs,family_history,familymember___1,familymember___2,familymember___3,familymember___4,familymember___5,familymember___6,familymember___7,familymember___8,familymember___9,immunodeficiency,past_surgery,surgery_details___1,surgery_details___2,surgery_details___3,surgery_details___4,surgery_details___5,surgery_details___6,surgery_details___7,surgery_details___8,surgery_details___99,extraintestinal_details___1,extraintestinal_details___2,extraintestinal_details___3,extraintestinal_details___4,extraintestinal_details___5,extraintestinal_details___6,prior_biologics___1,prior_biologics___2,prior_biologics___3,prior_biologics___4,prior_biologics___5,prior_biologics___6,prior_biologics___7,prior_biologics___8,prior_biologics___9,prednisolone_status,prednisolone_dose,prednisolone_duration,prednisolone_start,budesonide_oral_status,budesonide_rectal_status,asa_oral_status,asa_rectal_status,mtx_status,aza_status,mp_status,anamnesis_complete,covid19_complete,response,low_activity,remission,cdeis]
 
   #################################
   # Beacon v2 Models: individuals #
@@ -15,7 +16,10 @@
 
   # Term: diseases
   diseases:
-    fields: [Inflammatory Bowel Disease]
+    fields: [diagnosis]
+    dictionary:
+      'Ulcerative Colitis (UC)': Ulcerative Colitis 
+      "Crohn's Disease (CD)": Crohn Disease
     mapping:
       ageOfOnset: age_first_diagnosis
       familyHistory: family_history

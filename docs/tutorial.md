@@ -33,10 +33,10 @@ This page provides brief tutorials on how to perform data conversion by using `C
 
     To create a mapping file, start by reviewing the [example mapping file](https://github.com/cnag-biomedical-informatics/convert-pheno/blob/main/t/redcap2bff/in/redcap_mapping.yaml) provided with the installation. The goal is to replace the contents of such file with those from your REDCap project. The mapping file contains the following types of data:
 
-    | Type        | Required    | Required properties | Optional properties |
+    | Type        | Required (Optional)   | Required properties | Optional properties |
     | ----------- | ----------- | ------------------- | ------------------- |
-    | Internal    | `project`   | `id, source, ontology` | ` description` |
-    | Beacon v2 terms   | `diseases, exposures, id, info, interventionsOrProcedures, measures, phenotypicFeatures, sex, treatments` | `fields`| `dictionary, mapping, selector, ontology, routesOfAdministration` |
+    | Internal    | `project`   | `id, source, ontology, version` | ` description` |
+    | Beacon v2 terms   | `id, sex (diseases, exposures, info, interventionsOrProcedures, measures, phenotypicFeatures, treatments)` | `fields`| `dictionary, mapping, selector, ontology, routesOfAdministration` |
 
      * These are the properties needeed to map your data to the entity `individuals` in the Beacon v2 Models:
         - **dictionary**, is an `object` in the form of `key: value`. The `key` represents the original variable name in REDCap and the `value` represents the "phrase" that will be used to query a database to find an ontology candidate. For instance, you may have a variable named `cigarettes_days`, but you know that in [NCIt](https://www.ebi.ac.uk/ols/ontologies/ncit) the label is `Average Number Cigarettes Smoked a Day`. In this case you will use `cigarettes_days: Average Number Cigarettes Smoked a Day`.

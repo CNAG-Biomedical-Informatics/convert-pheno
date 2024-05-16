@@ -16,7 +16,8 @@
         "id",
         "source",
         "ontology",
-        "version"
+        "version",
+        "baselineFieldsToPropagate"
       ],
       "properties": {
         "id": {
@@ -38,6 +39,9 @@
         },
         "description": {
           "$ref": "#/$defs/stringField"
+        },
+        "baselineFieldsToPropagate": {
+          "$ref": "#/$defs/arrayField"
         }
       }
     },
@@ -92,10 +96,7 @@
               "type": "string"
             },
             {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
+              "$ref": "#/$defs/arrayField"
             }
           ]
         },
@@ -112,10 +113,7 @@
           }
         },
         "routesOfAdministration": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+          "$ref": "#/$defs/arrayField"
         },
         "ontology": {
           "type": "string",
@@ -142,7 +140,10 @@
       "type": "string"
     },
     "arrayField": {
-      "type": "array"
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
     }
   }
 }

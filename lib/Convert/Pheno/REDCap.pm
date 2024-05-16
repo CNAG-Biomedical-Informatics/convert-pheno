@@ -105,6 +105,9 @@ sub do_redcap2bff {
     # 'id' and 'sex' are required properties in <individuals> entry type
     my ( $sex_field, $id_field ) = get_required_terms($param_sub);
 
+    # Now propagate fields according to user selection
+    propagate_fields( $id_field, $param_sub );
+
     # Premature return (undef) if fields are not defined or present
     return
       unless ( defined $participant->{$id_field}
@@ -219,24 +222,23 @@ sub map_fields_to_redcap_dict {
 
     # Perform map2redcap_dict for the participant's fields2map
     for my $field (@fields2map) {
+        next unless defined $participant->{$field};
 
         # Keep track of the original value (in case need it)
         # as $field . '_ori'
-        if ( defined $participant->{$field} ) {
-            $participant->{ $field . '_ori' } = $participant->{$field};
+        $participant->{ $field . '_ori' } = $participant->{$field};
 
-            # Overwrite the original value with the dictionary one
-            $participant->{$field} = dotify_and_coerce_number(
-                map2redcap_dict(
-                    {
-                        redcap_dict => $redcap_dict,
-                        participant => $participant,
-                        field       => $field,
-                        labels      => 1
-                    }
-                )
-            );
-        }
+        # Overwrite the original value with the dictionary one
+        $participant->{$field} = dotify_and_coerce_number(
+            map2redcap_dict(
+                {
+                    redcap_dict => $redcap_dict,
+                    participant => $participant,
+                    field       => $field,
+                    labels      => 1
+                }
+            )
+        );
     }
     return 1;
 }
@@ -244,7 +246,8 @@ sub map_fields_to_redcap_dict {
 sub replace_field_with_dictionary_if_exists {
 
     my ( $mapping, $field ) = @_;
-    return ( defined $field && exists $mapping->{dictionary}{$field} )
+    return
+      exists $mapping->{dictionary}{$field}
       ? $mapping->{dictionary}{$field}
       : $field;
 }
@@ -255,29 +258,45 @@ sub get_required_terms {
     lock_keys( %$arg, @{ $arg->{lock_keys} } );
 
     my $data_mapping_file = $arg->{data_mapping_file};
+    return ( $data_mapping_file->{sex}{fields},
+        $data_mapping_file->{id}{mapping}{primary_key} );
+}
+
+sub propagate_fields {
+
+    my ( $id_field, $arg ) = @_;
+    lock_keys( %$arg, @{ $arg->{lock_keys} } );
+
     my $participant       = $arg->{participant};
     my $self              = $arg->{self};
-
-    # Getting the field name from mapping file (note that we add _field suffix)
-    my $sex_field = $data_mapping_file->{sex}{fields};
-    my $id_field  = $data_mapping_file->{id}{mapping}{primary_key};
+    my $data_mapping_file = $arg->{data_mapping_file};
+    my @propagate_fields =
+      @{ $data_mapping_file->{project}{baselineFieldsToPropagate} };
 
     # **********************
     # *** IMPORTANT STEP ***
     # **********************
-    # We need to pass 'sex' info to other array elements from $participant
-    # where sex field is empty. Th ereason being that demographisc is compiled only at baseline
-    # It's is mandatory that the row that contains demographics comes before the empty
-    # Thus, we are storing $participant->{sex} in $self !!!
-    # NB: Modifying source data from $arg
-    if ( defined $participant->{$sex_field} ) {
-        $self->{_info}{ $participant->{$id_field} }{$sex_field} =
-          $participant->{$sex_field};    # Dynamically adding attributes (setter)
-    }
-    $participant->{$sex_field} =
-      $self->{_info}{ $participant->{$id_field} }{$sex_field};
+    # Some measures are only taken at the baseline.
+    # We need to propagate this information to other records
+    # for the same participant.
+    # It is mandatory that the row containing baseline data comes
+    # before the rows with empty fields.
+    # Therefore, we are storing in $self->{baselineFieldsToPropagate}
 
-    return ( $sex_field, $id_field );
+    # NB: Modifying source data from $arg
+    for my $field (@propagate_fields) {
+
+        # Load $self for Baseline
+        $self->{baselineFieldsToPropagate}{ $participant->{$id_field} }{$field}
+          = $participant->{$field}
+          if defined $participant->{$field};    # Dynamically adding attributes (setter)
+
+        # Load field for all
+        $participant->{$field} =
+          $self->{baselineFieldsToPropagate}{ $participant->{$id_field} }
+          {$field};
+    }
+    return 1;
 }
 
 sub map_diseases {
@@ -299,6 +318,8 @@ sub map_diseases {
 
     # Start looping over them
     for my $field ( @{ $mapping->{fields} } ) {
+        next unless defined $participant->{$field};
+
         my $disease;
 
         # Load a few more variables from mapping file
@@ -307,9 +328,18 @@ sub map_diseases {
           map_age_range( $participant->{ $mapping->{mapping}{ageOfOnset} } )
           if ( exists $mapping->{mapping}{ageOfOnset}
             && defined $participant->{ $mapping->{mapping}{ageOfOnset} } );
+
+        # Load corrected field to search
+        my $disease_query =
+          replace_field_with_dictionary_if_exists( $mapping,
+            $participant->{$field} );
+
+        # Discard empty values
+        next unless defined $disease_query;
+
         $disease->{diseaseCode} = map_ontology(
             {
-                query    => $field,
+                query    => $disease_query,
                 column   => 'label',
                 ontology => $mapping->{ontology},
                 self     => $self
@@ -460,7 +490,7 @@ sub map_info {
     my $individual        = $arg->{individual};
     my $source            = $arg->{source};
     my $project_id        = $arg->{project_id};
-    my $redcap_dict       = lc($source) eq 'redcap' ? $arg->{redcap_dict} : undef;
+    my $redcap_dict = lc($source) eq 'redcap' ? $arg->{redcap_dict} : undef;
 
     # Load hashref with cursors for mapping
     my $mapping = remap_mapping_hash_term( $data_mapping_file, 'info' );
@@ -496,7 +526,7 @@ sub map_info {
 
     # We finally add all origonal columns
     # NB: _ori are values before adding _labels
-    my $output = $source eq 'redcap' ? 'REDCap' : 'CSV';
+    my $output  = $source eq 'redcap' ? 'REDCap' : 'CSV';
     my $tmp_str = $output . '_columns';
     $individual->{info}{$tmp_str} = $participant;
     return 1;
@@ -513,9 +543,9 @@ sub map_interventionsOrProcedures {
     my $participant       = $arg->{participant};
     my $self              = $arg->{self};
     my $individual        = $arg->{individual};
-    my $source              = $arg->{source};
+    my $source            = $arg->{source};
     my $project_id        = $arg->{project_id};
-    my $redcap_dict       = lc($source) eq 'redcap' ? $arg->{redcap_dict} : undef;
+    my $redcap_dict = lc($source) eq 'redcap' ? $arg->{redcap_dict} : undef;
 
     # Load hashref with cursors for mapping
     my $mapping =
@@ -523,49 +553,46 @@ sub map_interventionsOrProcedures {
         'interventionsOrProcedures' );
 
     for my $field ( @{ $mapping->{fields} } ) {
-        if ( defined $participant->{$field} ) {
+        next unless defined $participant->{$field};
 
-            my $intervention;
+        my $intervention;
 
-            $intervention->{ageAtProcedure} =
-              ( exists $mapping->{mapping}{ageAtProcedure}
-                  && defined $mapping->{mapping}{ageAtProcedure} )
-              ? map_age_range(
-                $participant->{ $mapping->{mapping}{ageAtProcedure} } )
-              : $DEFAULT->{age};
+        $intervention->{ageAtProcedure} =
+          ( exists $mapping->{mapping}{ageAtProcedure}
+              && defined $mapping->{mapping}{ageAtProcedure} )
+          ? map_age_range(
+            $participant->{ $mapping->{mapping}{ageAtProcedure} } )
+          : $DEFAULT->{age};
 
-            $intervention->{bodySite} =
-              $project_id eq '3tr_ibd'
-              ? { "id" => "NCIT:C12736", "label" => "intestine" }
-              : $DEFAULT->{ontology};
-            $intervention->{dateOfProcedure} =
-              ( exists $mapping->{mapping}{dateOfProcedure}
-                  && defined $mapping->{mapping}{dateOfProcedure} )
-              ? dot_date2iso(
-                $participant->{ $mapping->{mapping}{dateOfProcedure} } )
-              : $DEFAULT->{date};
+        $intervention->{bodySite} =
+          $project_id eq '3tr_ibd'
+          ? { "id" => "NCIT:C12736", "label" => "intestine" }
+          : $DEFAULT->{ontology};
+        $intervention->{dateOfProcedure} =
+          ( exists $mapping->{mapping}{dateOfProcedure}
+              && defined $mapping->{mapping}{dateOfProcedure} )
+          ? dot_date2iso(
+            $participant->{ $mapping->{mapping}{dateOfProcedure} } )
+          : $DEFAULT->{date};
 
-            # Ad hoc term to check $field
-            $intervention->{_info} = $field;
+        # Ad hoc term to check $field
+        $intervention->{_info} = $field;
 
-            # Load selector fields
-            my $subkey = exists $mapping->{selector}{$field} ? $field : undef;
+        # Load selector fields
+        my $subkey = exists $mapping->{selector}{$field} ? $field : undef;
 
-            $intervention->{procedureCode} = map_ontology(
-                {
-                    query => defined $subkey
-                    ? $mapping->{selector}{$subkey}{ $participant->{$field} }
-                    : replace_field_with_dictionary_if_exists(
-                        $mapping, $field
-                    ),
-                    column   => 'label',
-                    ontology => $mapping->{ontology},
-                    self     => $self
-                }
-            );
-            push @{ $individual->{interventionsOrProcedures} }, $intervention
-              if defined $intervention->{procedureCode};
-        }
+        $intervention->{procedureCode} = map_ontology(
+            {
+                query => defined $subkey
+                ? $mapping->{selector}{$subkey}{ $participant->{$field} }
+                : replace_field_with_dictionary_if_exists( $mapping, $field ),
+                column   => 'label',
+                ontology => $mapping->{ontology},
+                self     => $self
+            }
+        );
+        push @{ $individual->{interventionsOrProcedures} }, $intervention
+          if defined $intervention->{procedureCode};
     }
     return 1;
 }
@@ -581,7 +608,7 @@ sub map_measures {
     my $individual        = $arg->{individual};
     my $source            = $arg->{source};
     my $project_id        = $arg->{project_id};
-    my $redcap_dict       = lc($source) eq 'redcap' ? $arg->{redcap_dict} : undef;
+    my $redcap_dict = lc($source) eq 'redcap' ? $arg->{redcap_dict} : undef;
 
     # Load hashref with cursors for mapping
     my $mapping = remap_mapping_hash_term( $data_mapping_file, 'measures' );
@@ -665,7 +692,6 @@ sub map_measures {
     return 1;
 }
 
-
 #sub map_pedigrees {
 # disease, id, members, numSubjects
 #my @pedigrees = @{ $data_mapping_file->{pedigrees}{fields} };
@@ -692,9 +718,9 @@ sub map_phenotypicFeatures {
     my $participant       = $arg->{participant};
     my $self              = $arg->{self};
     my $individual        = $arg->{individual};
-    my $source              = $arg->{source};
+    my $source            = $arg->{source};
     my $project_id        = $arg->{project_id};
-    my $redcap_dict       = lc($source) eq 'redcap' ? $arg->{redcap_dict} : undef;
+    my $redcap_dict = lc($source) eq 'redcap' ? $arg->{redcap_dict} : undef;
 
     # Load hashref with cursors for mapping
     my $mapping =
@@ -703,63 +729,61 @@ sub map_phenotypicFeatures {
     for my $field ( @{ $mapping->{fields} } ) {
         my $phenotypicFeature;
 
-        if ( defined $participant->{$field} && $participant->{$field} ne '' ) {
+        next
+          unless ( defined $participant->{$field}
+            && $participant->{$field} ne '' );
 
-            #$phenotypicFeature->{evidence} = undef;    # P32Y6M1D
+        #$phenotypicFeature->{evidence} = undef;    # P32Y6M1D
 
-            my $tmp_var = $field;
+        my $tmp_var = $field;
 
-            # *** IMPORTANT ***
-            # Ad hoc change for 3TR
-            if ( $project_id eq '3tr_ibd' && $field =~ m/comorb/i ) {
-                $tmp_var = $redcap_dict->{$field}{'Field Label'};
-                ( undef, $tmp_var ) = split / \- /, $tmp_var
-                  if $tmp_var =~ m/\-/;
-            }
-
-            # Excluded (or Included) properties
-            # 1 => included ( == not excluded )
-            $phenotypicFeature->{excluded_ori} =
-              dotify_and_coerce_number( $participant->{$field} );
-            $phenotypicFeature->{excluded} =
-              $participant->{$field} ? JSON::XS::false : JSON::XS::true
-              if looks_like_number( $participant->{$field} );
-
-            # print "#$field#$participant->{$field}#$tmp_var#\n";
-            # Load selector fields
-            my $subkey =
-              exists $mapping->{selector}{$tmp_var} ? $tmp_var : undef;
-            $phenotypicFeature->{featureType} = map_ontology(
-                {
-                    query => defined $subkey
-                    ? $mapping->{selector}{$subkey}{ $participant->{$tmp_var} }
-                    : replace_field_with_dictionary_if_exists(
-                        $mapping, $tmp_var
-                    ),
-                    column   => 'label',
-                    ontology => $mapping->{ontology},
-                    self     => $self
-                }
-            );
-
-            #$phenotypicFeature->{modifiers}   = { id => '', label => '' };
-
-            # Prune ___\d+
-            $field =~ s/___\w+$// if $field =~ m/___\w+$/;
-            $phenotypicFeature->{notes} = join ' /// ',
-              (
-                $field,
-                map { qq/$_=$redcap_dict->{$field}{$_}/ } @redcap_field_types
-              ) if lc($source) eq 'redcap';
-
-            #$phenotypicFeature->{onset}       = { id => '', label => '' };
-            #$phenotypicFeature->{resolution}  = { id => '', label => '' };
-            #$phenotypicFeature->{severity}    = { id => '', label => '' };
-
-            # Add to array
-            push @{ $individual->{phenotypicFeatures} }, $phenotypicFeature
-              if defined $phenotypicFeature->{featureType};
+        # *** IMPORTANT ***
+        # Ad hoc change for 3TR
+        if ( $project_id eq '3tr_ibd' && $field =~ m/comorb/i ) {
+            $tmp_var = $redcap_dict->{$field}{'Field Label'};
+            ( undef, $tmp_var ) = split / \- /, $tmp_var
+              if $tmp_var =~ m/\-/;
         }
+
+        # Excluded (or Included) properties
+        # 1 => included ( == not excluded )
+        $phenotypicFeature->{excluded_ori} =
+          dotify_and_coerce_number( $participant->{$field} );
+        $phenotypicFeature->{excluded} =
+          $participant->{$field} ? JSON::XS::false : JSON::XS::true
+          if looks_like_number( $participant->{$field} );
+
+        # print "#$field#$participant->{$field}#$tmp_var#\n";
+        # Load selector fields
+        my $subkey = exists $mapping->{selector}{$tmp_var} ? $tmp_var : undef;
+        $phenotypicFeature->{featureType} = map_ontology(
+            {
+                query => defined $subkey
+                ? $mapping->{selector}{$subkey}{ $participant->{$tmp_var} }
+                : replace_field_with_dictionary_if_exists( $mapping, $tmp_var ),
+                column   => 'label',
+                ontology => $mapping->{ontology},
+                self     => $self
+            }
+        );
+
+        #$phenotypicFeature->{modifiers}   = { id => '', label => '' };
+
+        # Prune ___\d+
+        $field =~ s/___\w+$// if $field =~ m/___\w+$/;
+        $phenotypicFeature->{notes} = join ' /// ',
+          (
+            $field,
+            map { qq/$_=$redcap_dict->{$field}{$_}/ } @redcap_field_types
+          ) if lc($source) eq 'redcap';
+
+        #$phenotypicFeature->{onset}       = { id => '', label => '' };
+        #$phenotypicFeature->{resolution}  = { id => '', label => '' };
+        #$phenotypicFeature->{severity}    = { id => '', label => '' };
+
+        # Add to array
+        push @{ $individual->{phenotypicFeatures} }, $phenotypicFeature
+          if defined $phenotypicFeature->{featureType};
     }
     return 1;
 }
@@ -773,10 +797,10 @@ sub map_sex {
     my $participant       = $arg->{participant};
     my $self              = $arg->{self};
     my $individual        = $arg->{individual};
-    my $source              = $arg->{source};
+    my $source            = $arg->{source};
     my $project_id        = $arg->{project_id};
-    my $redcap_dict       = lc($source) eq 'redcap' ? $arg->{redcap_dict} : undef;
-    my $project_ontology  = $arg->{project_ontology};
+    my $redcap_dict = lc($source) eq 'redcap' ? $arg->{redcap_dict} : undef;
+    my $project_ontology = $arg->{project_ontology};
 
     # Getting the field name from mapping file (note that we add _field suffix)
     my $sex_field = $data_mapping_file->{sex}{fields};
@@ -810,14 +834,15 @@ sub map_treatments {
     my $participant       = $arg->{participant};
     my $self              = $arg->{self};
     my $individual        = $arg->{individual};
-    my $source              = $arg->{source};
+    my $source            = $arg->{source};
     my $project_id        = $arg->{project_id};
-    my $redcap_dict       = lc($source) eq 'redcap' ? $arg->{redcap_dict} : undef;
+    my $redcap_dict = lc($source) eq 'redcap' ? $arg->{redcap_dict} : undef;
 
     # Load hashref with cursors for mapping
     my $mapping = remap_mapping_hash_term( $data_mapping_file, 'treatments' );
 
     for my $field ( @{ $mapping->{fields} } ) {
+        next unless defined $participant->{$field};
 
         # Getting the right name for the drug (if any)
         my $treatment_name =

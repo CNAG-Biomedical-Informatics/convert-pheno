@@ -17,22 +17,8 @@
          },
          {
             "diseaseCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
             },
             "severity" : {
                "id" : "NCIT:NA0000",
@@ -117,40 +103,6 @@
          {
             "_info" : {
                "dose" : null,
-               "drug" : "Drugname",
-               "drug_name" : "Drugname",
-               "duration" : null,
-               "field" : "Drugname",
-               "route" : "oral",
-               "start" : null,
-               "status" : null,
-               "value" : null
-            },
-            "ageAtOnset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
-            },
-            "doseIntervals" : [],
-            "routeOfAdministration" : {
-               "id" : "NCIT:C38288",
-               "label" : "Oral Route of Administration"
-            },
-            "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "_info" : {
-               "dose" : null,
                "drug" : "DrugDose (mg)",
                "drug_name" : "DrugDose (mg)",
                "duration" : null,
@@ -188,8 +140,8 @@
       "diseases" : [
          {
             "diseaseCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
             },
             "severity" : {
                "id" : "NCIT:NA0000",
@@ -202,22 +154,8 @@
          },
          {
             "diseaseCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
             },
             "severity" : {
                "id" : "NCIT:NA0000",
@@ -302,40 +240,6 @@
          {
             "_info" : {
                "dose" : null,
-               "drug" : "Drugname",
-               "drug_name" : "Drugname",
-               "duration" : null,
-               "field" : "Drugname",
-               "route" : "oral",
-               "start" : null,
-               "status" : null,
-               "value" : null
-            },
-            "ageAtOnset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
-            },
-            "doseIntervals" : [],
-            "routeOfAdministration" : {
-               "id" : "NCIT:C38288",
-               "label" : "Oral Route of Administration"
-            },
-            "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "_info" : {
-               "dose" : null,
                "drug" : "DrugDose (mg)",
                "drug_name" : "DrugDose (mg)",
                "duration" : null,
@@ -373,8 +277,8 @@
       "diseases" : [
          {
             "diseaseCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
             },
             "severity" : {
                "id" : "NCIT:NA0000",
@@ -387,22 +291,8 @@
          },
          {
             "diseaseCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
             },
             "severity" : {
                "id" : "NCIT:NA0000",
@@ -487,40 +377,6 @@
          {
             "_info" : {
                "dose" : null,
-               "drug" : "Drugname",
-               "drug_name" : "Drugname",
-               "duration" : null,
-               "field" : "Drugname",
-               "route" : "oral",
-               "start" : null,
-               "status" : null,
-               "value" : null
-            },
-            "ageAtOnset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
-            },
-            "doseIntervals" : [],
-            "routeOfAdministration" : {
-               "id" : "NCIT:C38288",
-               "label" : "Oral Route of Administration"
-            },
-            "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "_info" : {
-               "dose" : null,
                "drug" : "DrugDose (mg)",
                "drug_name" : "DrugDose (mg)",
                "duration" : null,
@@ -558,22 +414,8 @@
       "diseases" : [
          {
             "diseaseCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
             },
             "severity" : {
                "id" : "NCIT:NA0000",
@@ -672,40 +514,6 @@
          {
             "_info" : {
                "dose" : null,
-               "drug" : "Drugname",
-               "drug_name" : "Drugname",
-               "duration" : null,
-               "field" : "Drugname",
-               "route" : "oral",
-               "start" : null,
-               "status" : null,
-               "value" : null
-            },
-            "ageAtOnset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
-            },
-            "doseIntervals" : [],
-            "routeOfAdministration" : {
-               "id" : "NCIT:C38288",
-               "label" : "Oral Route of Administration"
-            },
-            "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "_info" : {
-               "dose" : null,
                "drug" : "DrugDose (mg)",
                "drug_name" : "DrugDose (mg)",
                "duration" : null,
@@ -743,22 +551,8 @@
       "diseases" : [
          {
             "diseaseCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
             },
             "severity" : {
                "id" : "NCIT:NA0000",
@@ -857,40 +651,6 @@
          {
             "_info" : {
                "dose" : null,
-               "drug" : "Drugname",
-               "drug_name" : "Drugname",
-               "duration" : null,
-               "field" : "Drugname",
-               "route" : "oral",
-               "start" : null,
-               "status" : null,
-               "value" : null
-            },
-            "ageAtOnset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
-            },
-            "doseIntervals" : [],
-            "routeOfAdministration" : {
-               "id" : "NCIT:C38288",
-               "label" : "Oral Route of Administration"
-            },
-            "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "_info" : {
-               "dose" : null,
                "drug" : "DrugDose (mg)",
                "drug_name" : "DrugDose (mg)",
                "duration" : null,
@@ -928,8 +688,8 @@
       "diseases" : [
          {
             "diseaseCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
             },
             "severity" : {
                "id" : "NCIT:NA0000",
@@ -942,22 +702,8 @@
          },
          {
             "diseaseCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
             },
             "severity" : {
                "id" : "NCIT:NA0000",
@@ -1042,40 +788,6 @@
          {
             "_info" : {
                "dose" : null,
-               "drug" : "Drugname",
-               "drug_name" : "Drugname",
-               "duration" : null,
-               "field" : "Drugname",
-               "route" : "oral",
-               "start" : null,
-               "status" : null,
-               "value" : null
-            },
-            "ageAtOnset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
-            },
-            "doseIntervals" : [],
-            "routeOfAdministration" : {
-               "id" : "NCIT:C38288",
-               "label" : "Oral Route of Administration"
-            },
-            "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "_info" : {
-               "dose" : null,
                "drug" : "DrugDose (mg)",
                "drug_name" : "DrugDose (mg)",
                "duration" : null,
@@ -1127,22 +839,8 @@
          },
          {
             "diseaseCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
             },
             "severity" : {
                "id" : "NCIT:NA0000",
@@ -1227,40 +925,6 @@
          {
             "_info" : {
                "dose" : null,
-               "drug" : "Drugname",
-               "drug_name" : "Drugname",
-               "duration" : null,
-               "field" : "Drugname",
-               "route" : "oral",
-               "start" : null,
-               "status" : null,
-               "value" : null
-            },
-            "ageAtOnset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
-            },
-            "doseIntervals" : [],
-            "routeOfAdministration" : {
-               "id" : "NCIT:C38288",
-               "label" : "Oral Route of Administration"
-            },
-            "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "_info" : {
-               "dose" : null,
                "drug" : "DrugDose (mg)",
                "drug_name" : "DrugDose (mg)",
                "duration" : null,
@@ -1312,22 +976,8 @@
          },
          {
             "diseaseCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
             },
             "severity" : {
                "id" : "NCIT:NA0000",
@@ -1412,40 +1062,6 @@
          {
             "_info" : {
                "dose" : null,
-               "drug" : "Drugname",
-               "drug_name" : "Drugname",
-               "duration" : null,
-               "field" : "Drugname",
-               "route" : "oral",
-               "start" : null,
-               "status" : null,
-               "value" : null
-            },
-            "ageAtOnset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
-            },
-            "doseIntervals" : [],
-            "routeOfAdministration" : {
-               "id" : "NCIT:C38288",
-               "label" : "Oral Route of Administration"
-            },
-            "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "_info" : {
-               "dose" : null,
                "drug" : "DrugDose (mg)",
                "drug_name" : "DrugDose (mg)",
                "duration" : null,
@@ -1483,8 +1099,8 @@
       "diseases" : [
          {
             "diseaseCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
             },
             "severity" : {
                "id" : "NCIT:NA0000",
@@ -1497,22 +1113,8 @@
          },
          {
             "diseaseCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
             },
             "severity" : {
                "id" : "NCIT:NA0000",
@@ -1597,40 +1199,6 @@
          {
             "_info" : {
                "dose" : null,
-               "drug" : "Drugname",
-               "drug_name" : "Drugname",
-               "duration" : null,
-               "field" : "Drugname",
-               "route" : "oral",
-               "start" : null,
-               "status" : null,
-               "value" : null
-            },
-            "ageAtOnset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
-            },
-            "doseIntervals" : [],
-            "routeOfAdministration" : {
-               "id" : "NCIT:C38288",
-               "label" : "Oral Route of Administration"
-            },
-            "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "_info" : {
-               "dose" : null,
                "drug" : "DrugDose (mg)",
                "drug_name" : "DrugDose (mg)",
                "duration" : null,
@@ -1682,22 +1250,8 @@
          },
          {
             "diseaseCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
             },
             "severity" : {
                "id" : "NCIT:NA0000",
@@ -1779,40 +1333,6 @@
          "label" : "Male"
       },
       "treatments" : [
-         {
-            "_info" : {
-               "dose" : null,
-               "drug" : "Drugname",
-               "drug_name" : "Drugname",
-               "duration" : null,
-               "field" : "Drugname",
-               "route" : "oral",
-               "start" : null,
-               "status" : null,
-               "value" : null
-            },
-            "ageAtOnset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
-            },
-            "doseIntervals" : [],
-            "routeOfAdministration" : {
-               "id" : "NCIT:C38288",
-               "label" : "Oral Route of Administration"
-            },
-            "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
          {
             "_info" : {
                "dose" : null,
