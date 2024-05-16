@@ -8,6 +8,7 @@
     source: csv
     ontology: ncit
     version: test-0.1
+    baselineFieldsToPropagate: [sex]
 
   #################################
   # Beacon v2 Models: individuals #

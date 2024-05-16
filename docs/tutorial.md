@@ -35,7 +35,7 @@ This page provides brief tutorials on how to perform data conversion by using `C
 
     | Type        | Required (Optional)   | Required properties | Optional properties |
     | ----------- | ----------- | ------------------- | ------------------- |
-    | Internal    | `project`   | `id, source, ontology, version` | ` description` |
+    | Internal    | `project`   | `id, source, ontology, version` | ` description, baselineFieldsToPropagate` |
     | Beacon v2 terms   | `id, sex (diseases, exposures, info, interventionsOrProcedures, measures, phenotypicFeatures, treatments)` | `fields`| `dictionary, mapping, selector, ontology, routesOfAdministration` |
 
      * These are the properties needeed to map your data to the entity `individuals` in the Beacon v2 Models:
