@@ -17,7 +17,7 @@ our @EXPORT = qw(do_redcap2bff);
 
 # Symbols to export on demand
 our @EXPORT_OK =
-  qw(get_required_terms map_fields_to_redcap_dict map_diseases map_ethnicity map_exposures map_info map_interventionsOrProcedures map_measures map_pedigrees map_phenotypicFeatures map_sex map_treatments);
+  qw(get_required_terms propagate_fields map_fields_to_redcap_dict map_diseases map_ethnicity map_exposures map_info map_interventionsOrProcedures map_measures map_pedigrees map_phenotypicFeatures map_sex map_treatments);
 
 my $DEFAULT = get_defaults();
 

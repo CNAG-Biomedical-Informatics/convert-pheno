@@ -1,11 +1,21 @@
-PatientID,Sex,Ethnicity,TobaccoUse,AgeAtTobaccoExposure,AlcoholUse,AgeAtAlcoholExposure,Hemoglobin (g/dL),WBC (10^9/L),Platelets (10^9/L),BMI (kg/m^2),DrugName,DrugDose (mg),Disease_1,Disease_2,Disease_3,PhenotypicFeature_1,PhenotypicFeature_2
-P001,Female,Asian,No,14.0,Yes,40.0,16.3,4.3,384.0,19.5,Albuterol,500,Diabetes,Asthma,,Curly hair,Blue eyes
-P002,Female,Native American,No,48.0,No,,11.1,9.8,178.0,24.7,Atorvastatin,1000,Asthma,Hypertension,,Freckles,Blue eyes
-P003,Male,Asian,Yes,,Yes,,14.5,4.9,236.0,26.0,Lisinopril,500,,Asthma,Hypertension,Curly hair,Tall
-P004,Female,Hispanic,Yes,,No,,15.2,7.6,304.0,22.0,Metformin,50,,Hypertension,Diabetes,Tall,Blue eyes
-P005,Male,Native American,Yes,,Yes,,12.5,10.2,361.0,29.1,Atorvastatin,1000,,Hypertension,Diabetes,Freckles,Blue eyes
-P006,Male,Native American,Yes,,Yes,,13.7,9.8,277.0,22.0,Atorvastatin,90,,Hypertension,Asthma,Freckles,Tall
-P007,Female,Asian,No,,No,,13.0,5.6,269.0,29.2,Lisinopril,500,,Diabetes,Hypertension,Freckles,Tall
-P008,Female,Hispanic,No,16.0,No,,16.0,9.5,324.0,25.9,Metformin,1000,Diabetes,,Asthma,Curly hair,Tall
-P009,Male,Caucasian,Yes,37.0,No,14.0,14.1,9.7,231.0,29.6,Lisinopril,50,Hypertension,,Asthma,Curly hair,Freckles
-P010,Male,Hispanic,No,,No,,12.5,4.6,231.0,25.9,Albuterol,90,Diabetes,Hypertension,,Freckles,Tall
+PatientID,event_name,Sex,Ethnicity,TobaccoUse,AgeAtTobaccoExposure,AlcoholUse,AgeAtAlcoholExposure,Hemoglobin (g/dL),WBC (10^9/L),Platelets (10^9/L),BMI (kg/m^2),DrugName,DrugDose (mg),Disease_1,Disease_2,Disease_3,PhenotypicFeature_1,PhenotypicFeature_2
+P001,Baseline,Female,Hispanic,Yes,31.0,Yes,,12.8,7.2,284.0,21.0,Metformin,500,Asthma,Hypertension,Diabetes,Tall,Blue eyes
+P001,Treatment,,,,,,,12.8,7.2,284.0,21.0,Metformin,500,Asthma,Hypertension,Diabetes,Tall,Blue eyes
+P002,Baseline,Female,Asian,Yes,28.0,Yes,,13.6,6.7,399.0,21.6,Lisinopril,1000,Hypertension,Asthma,Diabetes,Freckles,Blue eyes
+P002,Treatment,,,,,,,13.6,6.7,399.0,21.6,Lisinopril,1000,Hypertension,Asthma,Diabetes,Freckles,Blue eyes
+P003,Baseline,Female,African American,No,,Yes,32.0,11.3,8.6,188.0,28.3,Atorvastatin,50,Asthma,Diabetes,Hypertension,Freckles,Blue eyes
+P003,Treatment,,,,,,,11.3,8.6,188.0,28.3,Atorvastatin,50,Asthma,Diabetes,Hypertension,Freckles,Blue eyes
+P004,Baseline,Male,Hispanic,Yes,,No,15.0,11.5,6.6,168.0,26.9,Lisinopril,500,Asthma,Diabetes,Hypertension,Tall,Blue eyes
+P004,Treatment,,,,,,,11.5,6.6,168.0,26.9,Lisinopril,500,Asthma,Diabetes,Hypertension,Tall,Blue eyes
+P005,Baseline,Female,Asian,No,,Yes,,11.8,9.5,194.0,21.3,Atorvastatin,1000,Hypertension,Asthma,Diabetes,Blue eyes,Tall
+P005,Treatment,,,,,,,11.8,9.5,194.0,21.3,Atorvastatin,1000,Hypertension,Asthma,Diabetes,Blue eyes,Tall
+P006,Baseline,Female,Caucasian,Yes,15.0,No,,11.6,5.4,341.0,23.1,Atorvastatin,90,Hypertension,Asthma,Diabetes,Blue eyes,Curly hair
+P006,Treatment,,,,,,,11.6,5.4,341.0,23.1,Atorvastatin,90,Hypertension,Asthma,Diabetes,Blue eyes,Curly hair
+P007,Baseline,Female,Caucasian,Yes,,No,,13.6,8.3,283.0,27.5,Atorvastatin,90,Diabetes,Asthma,Hypertension,Curly hair,Tall
+P007,Treatment,,,,,,,13.6,8.3,283.0,27.5,Atorvastatin,90,Diabetes,Asthma,Hypertension,Curly hair,Tall
+P008,Treatment,,,,,,,14.1,11.0,274.0,22.9,Atorvastatin,90,Diabetes,Asthma,Hypertension,Tall,Curly hair
+P008,Baseline,Male,Native American,Yes,30.0,No,42.0,14.1,11.0,274.0,22.9,Atorvastatin,90,Diabetes,Asthma,Hypertension,Tall,Curly hair
+P009,Treatment,,,,,,,15.3,9.7,153.0,29.8,Albuterol,500,Diabetes,Asthma,Hypertension,Blue eyes,Tall
+P009,Baseline,Female,Asian,No,49.0,No,,15.3,9.7,153.0,29.8,Albuterol,500,Diabetes,Asthma,Hypertension,Blue eyes,Tall
+P010,Baseline,Female,Asian,No,13.0,No,16.0,14.6,5.4,210.0,21.7,Metformin,90,Diabetes,Hypertension,Asthma,Blue eyes,Tall
+P010,Treatment,,,,,,,14.6,5.4,210.0,21.7,Metformin,90,Diabetes,Hypertension,Asthma,Blue eyes,Tall

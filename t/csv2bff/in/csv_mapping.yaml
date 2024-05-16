@@ -4,11 +4,11 @@
   #######################
 
   project:
-    id: dummy
+    id: CSV_src_test
     source: csv
     ontology: ncit
     version: test-0.1
-    baselineFieldsToPropagate: [sex]
+    baselineFieldsToPropagate: [Sex,Ethnicity,TobaccoUse,AgeAtTobaccoExposure,AlcoholUse,AgeAtAlcoholExposure]
 
   #################################
   # Beacon v2 Models: individuals #
@@ -19,7 +19,7 @@
     fields: [Disease_1,Disease_2,Disease_3]
     dictionary:
       Ashtma: Ashtma
-      Diabetes: Diabetes
+      Diabetes: Diabetes Mellitus
     mapping:
       ageOfOnset: age_first_diagnosis
       familyHistory: family_history
@@ -48,7 +48,7 @@
 
   # Term: id
   id:
-    fields: [PatientID]
+    fields: [PatientID,EventName]
     mapping:
       primary_key: PatientID 
 

@@ -5,7 +5,7 @@ use warnings;
 use autodie;
 use feature qw(say);
 use Convert::Pheno::Default qw(get_defaults);
-use Convert::Pheno::REDCap qw(get_required_terms map_fields_to_redcap_dict map_diseases map_ethnicity map_exposures map_info map_interventionsOrProcedures map_measures map_pedigrees map_phenotypicFeatures map_sex map_treatments);
+use Convert::Pheno::REDCap qw(get_required_terms propagate_fields map_fields_to_redcap_dict map_diseases map_ethnicity map_exposures map_info map_interventionsOrProcedures map_measures map_pedigrees map_phenotypicFeatures map_sex map_treatments);
 
 use Data::Dumper;
 use Hash::Fold fold => { array_delimiter => ':' };
@@ -102,10 +102,20 @@ sub do_csv2bff {
     # 'id' and 'sex' are required properties in <individuals> entry type
     my ( $sex_field, $id_field ) = get_required_terms($param_sub);
 
+    # Now propagate fields according to user selection
+    propagate_fields( $id_field, $param_sub );
+
     # Premature return (undef) if fields are not defined or present
     return
       unless ( defined $participant->{$id_field}
         && $participant->{$sex_field} );
+
+    # NB: We don't need to initialize terms (unless required)
+    # e.g.,
+    # $individual->{diseases} = undef;
+    #  or
+    # $individual->{diseases} = []
+    # Otherwise the validator may complain about being empty
 
     # ========
     # diseases
