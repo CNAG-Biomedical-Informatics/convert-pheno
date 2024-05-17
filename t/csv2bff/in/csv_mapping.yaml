@@ -33,15 +33,15 @@
 
   # Term: exposures
   exposures: 
-    fields: [AlcoholUse,SmokingUse]
+    fields: [AlcoholUse,TobaccoUse]
     dictionary:
       AlcoholUse: Alcohol
       TobaccoUse: Smoking
     selector:
-      Alcohol:
-        ageAtExposure: AgeAtTobaccoExposure
-      Smoking:
+      AlcoholUse:
         ageAtExposure: AgeAtAlcoholExposure
+      TobaccoUse:
+        ageAtExposure: AgeAtTobaccoExposure
 
   # Term: geographicOrigin
   # geographicOrigin: null

@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use autodie;
 use feature qw(say);
+
 #use Carp    qw(confess);
 use DBI;
 use File::Spec::Functions qw(catdir catfile);
@@ -172,7 +173,8 @@ sub build_query {
     my %query_type = (
 
         # Contains queries
-        contains => qq(SELECT * FROM $db WHERE $column LIKE '%' || ? || '%' COLLATE NOCASE),
+        contains =>
+qq(SELECT * FROM $db WHERE $column LIKE '%' || ? || '%' COLLATE NOCASE),
 
         # Exact search queries
         # What out for leading spaces!!!

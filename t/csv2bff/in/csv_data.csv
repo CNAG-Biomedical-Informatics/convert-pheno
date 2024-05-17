@@ -1,21 +1,21 @@
-PatientID,event_name,Sex,Ethnicity,TobaccoUse,AgeAtTobaccoExposure,AlcoholUse,AgeAtAlcoholExposure,Hemoglobin (g/dL),WBC (10^9/L),Platelets (10^9/L),BMI (kg/m^2),DrugName,DrugDose (mg),Disease_1,Disease_2,Disease_3,PhenotypicFeature_1,PhenotypicFeature_2
-P001,Baseline,Male,Native American,No,29.0,No,27.0,11.1,5.0,323.0,29.6,Metformin,50,Asthma,Diabetes,Hypertension,Limitation of joint mobility,Abnormal heart valve morphology
-P001,Treatment,,,,,,,15.3,10.3,165.0,29.6,Metformin,50,Asthma,Diabetes,Hypertension,Limitation of joint mobility,Abnormal heart valve morphology
-P002,Baseline,Male,Native American,No,48.0,Yes,,16.9,9.9,241.0,28.4,Atorvastatin,90,Asthma,Diabetes,Hypertension,Emphysema,Abnormal heart valve morphology
-P002,Treatment,,,,,,,13.3,6.5,155.0,28.4,Atorvastatin,90,Asthma,Diabetes,Hypertension,Emphysema,Abnormal heart valve morphology
-P003,Baseline,Female,Native American,Yes,48.0,Yes,,15.3,4.6,245.0,29.4,Metformin,50,Hypertension,Diabetes,Asthma,Limitation of joint mobility,Emphysema
-P003,Treatment,,,,,,,16.0,9.1,381.0,29.4,Metformin,50,Hypertension,Diabetes,Asthma,Limitation of joint mobility,Emphysema
-P004,Baseline,Male,Asian,No,,Yes,,13.1,5.1,187.0,26.9,Atorvastatin,90,Hypertension,Asthma,Diabetes,Limitation of joint mobility,Emphysema
-P004,Treatment,,,,,,,17.0,9.5,266.0,26.9,Atorvastatin,90,Hypertension,Asthma,Diabetes,Limitation of joint mobility,Emphysema
-P005,Baseline,Female,African American,Yes,,Yes,,13.7,8.1,227.0,25.7,Atorvastatin,1000,Asthma,Hypertension,Diabetes,Abnormal heart valve morphology,Emphysema
-P005,Treatment,,,,,,,12.4,7.8,238.0,25.7,Atorvastatin,1000,Asthma,Hypertension,Diabetes,Abnormal heart valve morphology,Emphysema
-P006,Baseline,Female,Hispanic,Yes,,No,42.0,13.1,8.3,150.0,22.9,Metformin,500,Diabetes,Hypertension,Asthma,Abnormal heart valve morphology,Emphysema
-P006,Treatment,,,,,,,16.4,6.7,351.0,22.9,Metformin,500,Diabetes,Hypertension,Asthma,Abnormal heart valve morphology,Emphysema
-P007,Baseline,Male,African American,No,,Yes,,14.7,4.2,172.0,21.2,Atorvastatin,50,Asthma,Hypertension,Diabetes,Limitation of joint mobility,Abnormal heart valve morphology
-P007,Treatment,,,,,,,12.5,5.6,193.0,21.2,Atorvastatin,50,Asthma,Hypertension,Diabetes,Limitation of joint mobility,Abnormal heart valve morphology
-P008,Treatment,,,,,,,14.7,5.5,250.0,25.2,Lisinopril,500,Asthma,Diabetes,Hypertension,Limitation of joint mobility,Emphysema
-P008,Baseline,Male,African American,No,,No,,15.9,8.7,230.0,25.2,Lisinopril,500,Asthma,Diabetes,Hypertension,Limitation of joint mobility,Emphysema
-P009,Treatment,,,,,,,12.6,9.1,295.0,24.1,Atorvastatin,1000,Asthma,Diabetes,Hypertension,Limitation of joint mobility,Abnormal heart valve morphology
-P009,Baseline,Female,African American,Yes,,No,,16.8,10.9,354.0,24.1,Atorvastatin,1000,Asthma,Diabetes,Hypertension,Limitation of joint mobility,Abnormal heart valve morphology
-P010,Baseline,Female,Hispanic,Yes,,Yes,42.0,11.9,4.8,391.0,28.2,Atorvastatin,500,Hypertension,Diabetes,Asthma,Emphysema,Limitation of joint mobility
-P010,Treatment,,,,,,,13.4,5.5,261.0,28.2,Atorvastatin,500,Hypertension,Diabetes,Asthma,Emphysema,Limitation of joint mobility
+PatientID,EventName,Sex,Ethnicity,TobaccoUse,AgeAtTobaccoExposure,AlcoholUse,AgeAtAlcoholExposure,Hemoglobin (g/dL),WBC (10^9/L),Platelets (10^9/L),BMI (kg/m^2),DrugName,DrugDose (mg),Disease_1,Disease_2,Disease_3,PhenotypicFeature_1,PhenotypicFeature_2
+P001,Baseline,Female,Hispanic,No,,No,,13.1,7.7,373.0,22.0,Albuterol,1000,Asthma,Hypertension,Diabetes,Emphysema,Limitation of joint mobility
+P001,Treatment,,,,,,,16.7,4.7,251.0,22.0,Albuterol,1000,Asthma,Hypertension,Diabetes,Emphysema,Limitation of joint mobility
+P002,Baseline,Female,Caucasian,No,,No,,12.2,6.4,203.0,29.6,Metformin,50,Asthma,Diabetes,Hypertension,Limitation of joint mobility,Abnormal heart valve morphology
+P002,Treatment,,,,,,,16.7,7.7,184.0,29.6,Metformin,50,Asthma,Diabetes,Hypertension,Limitation of joint mobility,Abnormal heart valve morphology
+P003,Baseline,Male,Native American,Yes,25.0,No,,12.9,8.4,380.0,24.7,Atorvastatin,500,Asthma,Diabetes,Hypertension,Abnormal heart valve morphology,Emphysema
+P003,Treatment,,,,,,,16.8,7.4,191.0,24.7,Atorvastatin,500,Asthma,Diabetes,Hypertension,Abnormal heart valve morphology,Emphysema
+P004,Baseline,Male,Caucasian,No,,Yes,28.0,16.1,4.5,323.0,18.9,Lisinopril,50,Asthma,Diabetes,Hypertension,Emphysema,Limitation of joint mobility
+P004,Treatment,,,,,,,11.6,6.7,390.0,18.9,Lisinopril,50,Asthma,Diabetes,Hypertension,Emphysema,Limitation of joint mobility
+P005,Baseline,Female,African American,No,,No,,12.6,9.6,279.0,19.6,Lisinopril,1000,Hypertension,Diabetes,Asthma,Limitation of joint mobility,Abnormal heart valve morphology
+P005,Treatment,,,,,,,14.9,8.7,229.0,19.6,Lisinopril,1000,Hypertension,Diabetes,Asthma,Limitation of joint mobility,Abnormal heart valve morphology
+P006,Baseline,Female,African American,No,,Yes,44.0,11.2,10.4,299.0,28.1,Albuterol,90,Asthma,Hypertension,Diabetes,Limitation of joint mobility,Emphysema
+P006,Treatment,,,,,,,16.1,5.4,332.0,28.1,Albuterol,90,Asthma,Hypertension,Diabetes,Limitation of joint mobility,Emphysema
+P007,Baseline,Male,Native American,Yes,34.0,Yes,19.0,12.5,5.7,169.0,23.4,Lisinopril,90,Asthma,Hypertension,Diabetes,Emphysema,Abnormal heart valve morphology
+P007,Treatment,,,,,,,13.1,6.5,196.0,23.4,Lisinopril,90,Asthma,Hypertension,Diabetes,Emphysema,Abnormal heart valve morphology
+P008,Treatment,,,,,,,16.2,6.9,217.0,23.5,Lisinopril,500,Asthma,Hypertension,Diabetes,Emphysema,Limitation of joint mobility
+P008,Baseline,Female,Asian,Yes,14.0,No,,14.2,6.9,275.0,23.5,Lisinopril,500,Asthma,Hypertension,Diabetes,Emphysema,Limitation of joint mobility
+P009,Treatment,,,,,,,12.1,6.5,161.0,23.6,Metformin,500,Hypertension,Asthma,Diabetes,Emphysema,Abnormal heart valve morphology
+P009,Baseline,Male,Hispanic,Yes,41.0,No,,13.8,10.3,341.0,23.6,Metformin,500,Hypertension,Asthma,Diabetes,Emphysema,Abnormal heart valve morphology
+P010,Baseline,Male,Asian,No,,Yes,24.0,17.0,7.7,378.0,24.3,Metformin,90,Hypertension,Diabetes,Asthma,Emphysema,Limitation of joint mobility
+P010,Treatment,,,,,,,11.5,8.2,277.0,24.3,Metformin,90,Hypertension,Diabetes,Asthma,Emphysema,Limitation of joint mobility

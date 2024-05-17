@@ -529,8 +529,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             }
          },
          {
@@ -1089,8 +1089,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             }
          },
          {
@@ -1660,8 +1660,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             }
          },
          {
@@ -8804,8 +8804,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             }
          },
          {
@@ -9501,8 +9501,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             }
          },
          {
@@ -10198,8 +10198,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             }
          },
          {
@@ -10907,8 +10907,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             }
          },
          {
@@ -18163,8 +18163,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             }
          },
          {
@@ -18712,8 +18712,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             }
          },
          {
@@ -19276,8 +19276,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             }
          },
          {
@@ -19882,8 +19882,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             }
          },
          {
@@ -20568,8 +20568,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             }
          },
          {

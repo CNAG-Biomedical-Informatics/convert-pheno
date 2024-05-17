@@ -421,13 +421,19 @@ sub map_exposures {
 
     for my $field ( @{ $mapping->{fields} } ) {
         next unless defined $participant->{$field};
-
+        next if $participant->{$field} eq 'No';
         my $exposure;
+
+        # Load selector for ageAtExposure
+        my $subkey_ageAtExposure =
+          ( exists $mapping->{selector}{$field}
+              && defined $mapping->{selector}{$field} )
+          ? $mapping->{selector}{$field}{ageAtExposure}
+          : undef;
+
         $exposure->{ageAtExposure} =
-          ( exists $mapping->{mapping}{ageAtExposure}
-              && defined $participant->{ $mapping->{mapping}{ageAtExposure} } )
-          ? map_age_range(
-            $participant->{ $mapping->{mapping}{ageAtExposure} } )
+          defined $subkey_ageAtExposure
+          ? map_age_range( $participant->{$subkey_ageAtExposure} )
           : $DEFAULT->{age};
 
         for my $item (qw/date duration/) {
@@ -457,7 +463,8 @@ sub map_exposures {
         # We first extract 'unit' that supposedly will be used in in
         # <measurementValue> and <referenceRange>??
         # Load selector fields
-        my $subkey = exists $mapping->{selector}{$field} ? $field : undef;
+        my $subkey = ( lc( $data_mapping_file->{project}{source} ) eq 'redcap'
+              && exists $mapping->{selector}{$field} ) ? $field : undef;
 
         my $unit_query = defined $subkey
 
@@ -466,7 +473,7 @@ sub map_exposures {
           # 2 - Check for field
           #  selector.alcohol.Never smoked =>  Never Smoker
           ? $mapping->{selector}{$field}{ $participant->{$subkey} }
-          : $exposure_query;
+          : $participant->{$field};
 
         my $unit = map_ontology_term(
             {
@@ -753,17 +760,20 @@ sub map_phenotypicFeatures {
         # Usually phenotypicFeatures come as Boolean
         # Excluded (or Included) properties
         # 1 => included ( == not excluded )
-        $phenotypicFeature->{excluded_ori} = dotify_and_coerce_number( $participant->{$field} );
+        $phenotypicFeature->{excluded_ori} =
+          dotify_and_coerce_number( $participant->{$field} );
 
         # 0 vs. >= 1
         my $is_boolean = 0;
-        if (looks_like_number( $participant->{$field} )) {
-        $phenotypicFeature->{excluded} = $participant->{$field} ? JSON::XS::false : JSON::XS::true;
-        $is_boolean++;
-        } 
+        if ( looks_like_number( $participant->{$field} ) ) {
+            $phenotypicFeature->{excluded} =
+              $participant->{$field} ? JSON::XS::false : JSON::XS::true;
+            $is_boolean++;
+        }
+
         # ANy other string is excluded = 0 (i.e., included)
         else {
-         $phenotypicFeature->{excluded} = JSON::XS::false; 
+            $phenotypicFeature->{excluded} = JSON::XS::false;
         }
 
         # Load selector fields
@@ -772,9 +782,9 @@ sub map_phenotypicFeatures {
         # Depending on boolean or not we perform query on field or value
         my $participant_field = $is_boolean ? $field : $participant->{$field};
 
-        my $phenotypicFeature_query = defined $subkey
-          ? $mapping->{selector}{$subkey}
-          { $participant_field }
+        my $phenotypicFeature_query =
+          defined $subkey
+          ? $mapping->{selector}{$subkey}{$participant_field}
           : replace_field_with_terminology_or_dictionary_if_exist( $mapping,
             $participant_field );
 

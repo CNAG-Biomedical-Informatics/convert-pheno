@@ -1391,8 +1391,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             },
             "notes" : "comorb_lipids /// Field Label=Comorbidities - Hyper-/dyslipidemia /// Field Note= /// Field Type=yesno"
          },
@@ -2833,8 +2833,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             },
             "notes" : "comorb_lipids /// Field Label=Comorbidities - Hyper-/dyslipidemia /// Field Note= /// Field Type=yesno"
          },
@@ -4255,8 +4255,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             },
             "notes" : "comorb_lipids /// Field Label=Comorbidities - Hyper-/dyslipidemia /// Field Note= /// Field Type=yesno"
          },
@@ -22582,8 +22582,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             },
             "notes" : "comorb_lipids /// Field Label=Comorbidities - Hyper-/dyslipidemia /// Field Note= /// Field Type=yesno"
          },
@@ -24192,8 +24192,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             },
             "notes" : "comorb_lipids /// Field Label=Comorbidities - Hyper-/dyslipidemia /// Field Note= /// Field Type=yesno"
          },
@@ -25801,8 +25801,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             },
             "notes" : "comorb_lipids /// Field Label=Comorbidities - Hyper-/dyslipidemia /// Field Note= /// Field Type=yesno"
          },
@@ -27424,8 +27424,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             },
             "notes" : "comorb_lipids /// Field Label=Comorbidities - Hyper-/dyslipidemia /// Field Note= /// Field Type=yesno"
          },
@@ -33284,10 +33284,10 @@
                "label" : "Pack Year"
             },
             "unit" : {
-               "id" : "NCIT:C73993",
-               "label" : "Pack Year"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
-            "value" : 4
+            "value" : "4"
          }
       ],
       "id" : "305:week_0_arm_1",
@@ -33684,7 +33684,7 @@
             "other_fistula" : "no",
             "other_fistula_ori" : 0,
             "other_study_drug" : null,
-            "packyears" : 4,
+            "packyears" : "4",
             "paga" : null,
             "partial_mayo" : null,
             "past_surgery" : 1,
@@ -45942,8 +45942,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             },
             "notes" : "comorb_lipids /// Field Label=Comorbidities - Hyper-/dyslipidemia /// Field Note= /// Field Type=yesno"
          },
@@ -47383,8 +47383,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             },
             "notes" : "comorb_lipids /// Field Label=Comorbidities - Hyper-/dyslipidemia /// Field Note= /// Field Type=yesno"
          },
@@ -48686,8 +48686,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             },
             "notes" : "comorb_lipids /// Field Label=Comorbidities - Hyper-/dyslipidemia /// Field Note= /// Field Type=yesno"
          },
@@ -50160,8 +50160,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             },
             "notes" : "comorb_lipids /// Field Label=Comorbidities - Hyper-/dyslipidemia /// Field Note= /// Field Type=yesno"
          },
@@ -51753,8 +51753,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             },
             "notes" : "comorb_lipids /// Field Label=Comorbidities - Hyper-/dyslipidemia /// Field Note= /// Field Type=yesno"
          },
