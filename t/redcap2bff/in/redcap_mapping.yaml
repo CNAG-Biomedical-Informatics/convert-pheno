@@ -147,9 +147,25 @@
 
   # Term: phenotypicFeatures
   phenotypicFeatures: 
+    #comorbities here as they are 0/1 (excluded/included)
     fields: [comorb_asthma,comorb_copd,comorb_ms,comorb_sle,comorb_ra,comorb_pso,comorb_ad,comorb_cancer,comorb_cancer_specified,comorb_hypertension,comorb_diabetes,comorb_lipids,comorb_stroke,comorb_other_ai,comorb_other_ai_specified,immunodeficiency,rectal_bleeding]
     ontology: ncit
     dictionary:
+      comorb_asthma: Asthma
+      comorb_copd: Chronic Obstructive Pulmonary Disease
+      comorb_ms: Multiple Sclerosis
+      comorb_sle: Systemic Lupus Erythematosus
+      comorb_ra: Rheumatoid Arthritis
+      comorb_pso: Psoriasis
+      comorb_ad: Atopy
+      comorb_cancer: Cancer Diagnosis
+      comorb_cancer_specified: Cancer Diagnosis
+      comorb_hypertension: Hypertension
+      comorb_diabetes: Diabetes Mellitus
+      comorb_lipids: Lipids
+      comorb_stroke: Stroke
+      comorb_other_ai: Other
+      comorb_other_ai_specified: Other
       atopic dermatitis: eczema
       cancer: Cancer Patient
       COPD: Chronic Obstructive Pulmonary Disease

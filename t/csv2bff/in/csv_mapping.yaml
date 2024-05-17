@@ -72,10 +72,11 @@
   # Term: phenotypicFeatures
   phenotypicFeatures: 
     fields: [PhenotypicFeature_1,PhenotypicFeature_2]
-    ontology: ncit
-    #dictionary:
-    #  atopic dermatitis: eczema
-    #  cancer: Cancer Patient
+    ontology: hpo
+    terminology:
+      My favourite string:
+        id: Foo:12345678
+        label: My favourite label 
 
   # Term: sex
   sex: 

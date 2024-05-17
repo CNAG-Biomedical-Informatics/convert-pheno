@@ -4,7 +4,6 @@ use strict;
 use warnings;
 use autodie;
 use feature qw(say);
-
 #use Carp    qw(confess);
 use DBI;
 use File::Spec::Functions qw(catdir catfile);
@@ -12,9 +11,8 @@ use Data::Dumper;
 use Text::Similarity::Overlaps;
 use Exporter 'import';
 our @EXPORT =
-  qw( $VERSION open_connections_SQLite close_connections_SQLite get_ontology);
+  qw( $VERSION open_connections_SQLite close_connections_SQLite get_ontology_terms);
 
-my @sqlites = qw(ncit icd10 ohdsi cdisc omim hpo);
 my @matches = qw(exact_match full_text_search contains);
 use constant DEVEL_MODE => 0;
 
@@ -41,8 +39,7 @@ sub open_connections_SQLite {
     # The 'ohdsi' database is treated as an exception due to its larger size.
     # Opening the 'ohdsi' database can impact performance timings, so it's only
     # opened if explicitly required (indicated by $self->{ohdsi_db}).
-    my @databases =
-      $self->{ohdsi_db} ? @sqlites : grep { !m/ohdsi/ } @sqlites;    # global
+    my @databases = @{ $self->{databases} };
 
     # Open databases
     my $dbh;
@@ -60,12 +57,9 @@ sub open_connections_SQLite {
 
 sub close_connections_SQLite {
 
-    my $self = shift;
-    my $dbh  = $self->{dbh};
-
-    # Check flag ohdsi_db
-    my @databases =
-      $self->{ohdsi_db} ? @sqlites : grep { !m/ohdsi/ } @sqlites;    # global
+    my $self      = shift;
+    my $dbh       = $self->{dbh};
+    my @databases = @{ $self->{databases} };
     close_db_SQLite( $dbh->{$_} ) for (@databases);
     return 1;
 }
@@ -119,7 +113,8 @@ sub close_db_SQLite {
 
 sub prepare_query_SQLite {
 
-    my $self = shift;
+    my $self      = shift;
+    my @databases = @{ $self->{databases} };
 
     ###############
     # EXPLANATION #
@@ -134,10 +129,6 @@ sub prepare_query_SQLite {
 # methods in future enhancements.
 # NB: While it's feasible to alter the "prepare" dynamically during queries, it's crucial to reset it to the default
 # post-use. For faster performance, using smaller databases (e.g., ncit/icd10) is advisable.
-
-    # Check flag ohdsi_db
-    my @databases =
-      $self->{ohdsi_db} ? @sqlites : grep { !m/ohdsi/ } @sqlites;    # global
 
     # NB:
     # dbh = "Database Handle"
@@ -180,9 +171,12 @@ sub build_query {
 
     my %query_type = (
 
-        # Regular queries
-        contains =>
-qq(SELECT * FROM $db WHERE $column LIKE '%' || ? || '%' COLLATE NOCASE),
+        # Contains queries
+        contains => qq(SELECT * FROM $db WHERE $column LIKE '%' || ? || '%' COLLATE NOCASE),
+
+        # Exact search queries
+        # What out for leading spaces!!!
+        # SELECT * FROM HPO_table WHERE TRIM(label) = ? COLLATE NOCASE
         exact_match => qq(SELECT * FROM $db WHERE $column = ? COLLATE NOCASE),
 
         # **********************
@@ -200,11 +194,10 @@ qq(SELECT * FROM $db WHERE $column LIKE '%' || ? || '%' COLLATE NOCASE),
 # soundex     => qq(SELECT * FROM $db_fts WHERE SOUNDEX($column) = SOUNDEX(?)) # NOT USED
 
     );
-
     return $query_type{$match};
 }
 
-sub get_ontology {
+sub get_ontology_terms {
 
     ###############
     # START QUERY #
@@ -215,13 +208,14 @@ sub get_ontology {
     my $sth_column_ref            = $arg->{sth_column_ref};   # Contains hashref
     my $query                     = $arg->{query};
     my $column                    = $arg->{column};
+    my $databases                 = $arg->{databases};
     my $search                    = $arg->{search};
     my $text_similarity_method    = $arg->{text_similarity_method};
     my $min_text_similarity_score = $arg->{min_text_similarity_score};
     my $type_of_search =
       'full_text_search';    # Options: 'contains' and 'full_text_search'
                              # say $type_of_search;
-    say "QUERY <$query>" if DEVEL_MODE;
+    say "QUERY <$query> ONTOLOGY <$ontology>" if DEVEL_MODE;
 
     # A) 'exact'
     # - exact_match
@@ -240,10 +234,11 @@ sub get_ontology {
     # exact_match (always performed)
     my ( $id, $label ) = execute_query_SQLite(
         {
-            sth      => $sth_column_ref->{exact_match},    # IMPORTANT STEP
-            query    => $query,
-            ontology => $ontology,
-            match    => 'exact_match',
+            sth       => $sth_column_ref->{exact_match},    # IMPORTANT STEP
+            query     => $query,
+            ontology  => $ontology,
+            databases => $databases,
+            match     => 'exact_match',
             text_similarity_method => $text_similarity_method,   # Not used here
             min_text_similarity_score => $min_text_similarity_score
         }
@@ -256,7 +251,8 @@ sub get_ontology {
                 sth      => $sth_column_ref->{$type_of_search}, # IMPORTANT STEP
                 query    => $query,
                 ontology => $ontology,
-                match    => $type_of_search,
+                databases                 => $databases,
+                match                     => $type_of_search,
                 text_similarity_method    => $text_similarity_method,
                 min_text_similarity_score => $min_text_similarity_score
             }
@@ -284,6 +280,7 @@ sub execute_query_SQLite {
     my $min_text_similarity_score = $arg->{min_text_similarity_score};
     my $ontology                  = $arg->{ontology};
     my $match                     = $arg->{match};
+    my @databases                 = @{ $arg->{databases} };
 
     # Initialize $id and $label to undefined
     my ( $id, $label ) = ( undef, undef );
@@ -305,11 +302,11 @@ sub execute_query_SQLite {
 #       concept_id    => concept_id    [2]
 #       vocabulary_id => vocabulary_id [3]
 
-    # Define a hash for column positions in databases
-    # We may encounter a situation where order of columns is different
+# Define a hash for column positions in databases
+# In case we encounter n the future a situation where order of columns is different
     my $position = {
         map { $_ => { label => 0, id => 1 } }
-          @sqlites    # Assuming @sqlites is defined elsewhere
+          @databases    # Assuming @databases is defined elsewhere
     };
     my $id_column    = $position->{$ontology}{id};
     my $label_column = $position->{$ontology}{label};

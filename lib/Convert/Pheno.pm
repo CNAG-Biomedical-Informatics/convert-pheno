@@ -45,6 +45,10 @@ $SIG{__DIE__}  = sub { die "Error: ", @_ };
 our $VERSION   = '0.19_1';
 our $share_dir = dist_dir('Convert-Pheno');
 
+# SQLite database
+my @all_sqlites = qw(ncit icd10 ohdsi cdisc omim hpo);
+my @non_ohdsi_sqlites = qw(ncit icd10 cdisc omim hpo);
+
 ############################################
 # Start declaring attributes for the class #
 ############################################
@@ -156,6 +160,14 @@ has [qw /data method/] => ( is => 'rw' );
 ##########################################
 # End declaring attributes for the class #
 ##########################################
+
+sub BUILD {
+
+    # BUILD: is an instance method that is called after the object has been constructed but before it is returned to the caller.
+    # BUILDARGS is a class method that is responsible for processing the arguments passed to the constructor (new) and returning a hash reference of attributes that will be used to initialize the object.
+    my $self = shift;
+    $self->{databases} = defined $self->{ohdsi_db} ? \@all_sqlites : \@non_ohdsi_sqlites;
+}
 
 # NB: In general, we'll only display terms that exist and have content
 

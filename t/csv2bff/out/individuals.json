@@ -17,2136 +17,8 @@
          },
          {
             "diseaseCode" : {
-               "id" : "NCIT:C3117",
-               "label" : "Hypertension"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "diseaseCode" : {
                "id" : "NCIT:C2985",
                "label" : "Diabetes Mellitus"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ],
-      "ethnicity" : {
-         "id" : "NCIT:C17459",
-         "label" : "Hispanic or Latino"
-      },
-      "exposures" : [
-         {
-            "_info" : "AlcoholUse",
-            "ageAtExposure" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "date" : "1900-01-01",
-            "duration" : "P999Y",
-            "exposureCode" : {
-               "id" : "NCIT:C2190",
-               "label" : "Alcohol"
-            },
-            "unit" : {
-               "id" : "NCIT:C2190",
-               "label" : "Alcohol"
-            },
-            "value" : -1
-         }
-      ],
-      "id" : "P001:NA",
-      "info" : {
-         "CSV_columns" : {
-            "AgeAtAlcoholExposure" : null,
-            "AgeAtTobaccoExposure" : 31,
-            "AlcoholUse" : "Yes",
-            "BMI (kg/m^2)" : 21,
-            "Disease_1" : "Asthma",
-            "Disease_2" : "Hypertension",
-            "Disease_3" : "Diabetes",
-            "DrugDose (mg)" : 500,
-            "DrugName" : "Metformin",
-            "Ethnicity" : "Hispanic",
-            "Hemoglobin (g/dL)" : 12.8,
-            "PatientID" : "P001",
-            "PhenotypicFeature_1" : "Tall",
-            "PhenotypicFeature_2" : "Blue eyes",
-            "Platelets (10^9/L)" : 284,
-            "Sex" : "Female",
-            "TobaccoUse" : "Yes",
-            "WBC (10^9/L)" : 7.2,
-            "event_name" : "Baseline"
-         },
-         "version" : "test-0.1"
-      },
-      "phenotypicFeatures" : [
-         {
-            "excluded_ori" : "Tall",
-            "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "excluded_ori" : "Blue eyes",
-            "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ],
-      "sex" : {
-         "id" : "NCIT:C16576",
-         "label" : "Female"
-      },
-      "treatments" : [
-         {
-            "_info" : {
-               "dose" : null,
-               "drug" : "DrugDose (mg)",
-               "drug_name" : "DrugDose (mg)",
-               "duration" : null,
-               "field" : "DrugDose (mg)",
-               "route" : "oral",
-               "start" : null,
-               "status" : 500,
-               "value" : null
-            },
-            "ageAtOnset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
-            },
-            "doseIntervals" : [],
-            "routeOfAdministration" : {
-               "id" : "NCIT:C38288",
-               "label" : "Oral Route of Administration"
-            },
-            "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ]
-   },
-   {
-      "diseases" : [
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:C28397",
-               "label" : "Asthma"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:C3117",
-               "label" : "Hypertension"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:C2985",
-               "label" : "Diabetes Mellitus"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ],
-      "ethnicity" : {
-         "id" : "NCIT:C17459",
-         "label" : "Hispanic or Latino"
-      },
-      "exposures" : [
-         {
-            "_info" : "AlcoholUse",
-            "ageAtExposure" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "date" : "1900-01-01",
-            "duration" : "P999Y",
-            "exposureCode" : {
-               "id" : "NCIT:C2190",
-               "label" : "Alcohol"
-            },
-            "unit" : {
-               "id" : "NCIT:C2190",
-               "label" : "Alcohol"
-            },
-            "value" : -1
-         }
-      ],
-      "id" : "P001:NA",
-      "info" : {
-         "CSV_columns" : {
-            "AgeAtAlcoholExposure" : null,
-            "AgeAtTobaccoExposure" : 31,
-            "AlcoholUse" : "Yes",
-            "BMI (kg/m^2)" : 21,
-            "Disease_1" : "Asthma",
-            "Disease_2" : "Hypertension",
-            "Disease_3" : "Diabetes",
-            "DrugDose (mg)" : 500,
-            "DrugName" : "Metformin",
-            "Ethnicity" : "Hispanic",
-            "Hemoglobin (g/dL)" : 12.8,
-            "PatientID" : "P001",
-            "PhenotypicFeature_1" : "Tall",
-            "PhenotypicFeature_2" : "Blue eyes",
-            "Platelets (10^9/L)" : 284,
-            "Sex" : "Female",
-            "TobaccoUse" : "Yes",
-            "WBC (10^9/L)" : 7.2,
-            "event_name" : "Treatment"
-         },
-         "version" : "test-0.1"
-      },
-      "phenotypicFeatures" : [
-         {
-            "excluded_ori" : "Tall",
-            "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "excluded_ori" : "Blue eyes",
-            "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ],
-      "sex" : {
-         "id" : "NCIT:C16576",
-         "label" : "Female"
-      },
-      "treatments" : [
-         {
-            "_info" : {
-               "dose" : null,
-               "drug" : "DrugDose (mg)",
-               "drug_name" : "DrugDose (mg)",
-               "duration" : null,
-               "field" : "DrugDose (mg)",
-               "route" : "oral",
-               "start" : null,
-               "status" : 500,
-               "value" : null
-            },
-            "ageAtOnset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
-            },
-            "doseIntervals" : [],
-            "routeOfAdministration" : {
-               "id" : "NCIT:C38288",
-               "label" : "Oral Route of Administration"
-            },
-            "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ]
-   },
-   {
-      "diseases" : [
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:C3117",
-               "label" : "Hypertension"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:C28397",
-               "label" : "Asthma"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:C2985",
-               "label" : "Diabetes Mellitus"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ],
-      "ethnicity" : {
-         "id" : "NCIT:C41260",
-         "label" : "Asian"
-      },
-      "exposures" : [
-         {
-            "_info" : "AlcoholUse",
-            "ageAtExposure" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "date" : "1900-01-01",
-            "duration" : "P999Y",
-            "exposureCode" : {
-               "id" : "NCIT:C2190",
-               "label" : "Alcohol"
-            },
-            "unit" : {
-               "id" : "NCIT:C2190",
-               "label" : "Alcohol"
-            },
-            "value" : -1
-         }
-      ],
-      "id" : "P002:NA",
-      "info" : {
-         "CSV_columns" : {
-            "AgeAtAlcoholExposure" : null,
-            "AgeAtTobaccoExposure" : 28,
-            "AlcoholUse" : "Yes",
-            "BMI (kg/m^2)" : 21.6,
-            "Disease_1" : "Hypertension",
-            "Disease_2" : "Asthma",
-            "Disease_3" : "Diabetes",
-            "DrugDose (mg)" : 1000,
-            "DrugName" : "Lisinopril",
-            "Ethnicity" : "Asian",
-            "Hemoglobin (g/dL)" : 13.6,
-            "PatientID" : "P002",
-            "PhenotypicFeature_1" : "Freckles",
-            "PhenotypicFeature_2" : "Blue eyes",
-            "Platelets (10^9/L)" : 399,
-            "Sex" : "Female",
-            "TobaccoUse" : "Yes",
-            "WBC (10^9/L)" : 6.7,
-            "event_name" : "Baseline"
-         },
-         "version" : "test-0.1"
-      },
-      "phenotypicFeatures" : [
-         {
-            "excluded_ori" : "Freckles",
-            "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "excluded_ori" : "Blue eyes",
-            "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ],
-      "sex" : {
-         "id" : "NCIT:C16576",
-         "label" : "Female"
-      },
-      "treatments" : [
-         {
-            "_info" : {
-               "dose" : null,
-               "drug" : "DrugDose (mg)",
-               "drug_name" : "DrugDose (mg)",
-               "duration" : null,
-               "field" : "DrugDose (mg)",
-               "route" : "oral",
-               "start" : null,
-               "status" : 1000,
-               "value" : null
-            },
-            "ageAtOnset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
-            },
-            "doseIntervals" : [],
-            "routeOfAdministration" : {
-               "id" : "NCIT:C38288",
-               "label" : "Oral Route of Administration"
-            },
-            "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ]
-   },
-   {
-      "diseases" : [
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:C3117",
-               "label" : "Hypertension"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:C28397",
-               "label" : "Asthma"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:C2985",
-               "label" : "Diabetes Mellitus"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ],
-      "ethnicity" : {
-         "id" : "NCIT:C41260",
-         "label" : "Asian"
-      },
-      "exposures" : [
-         {
-            "_info" : "AlcoholUse",
-            "ageAtExposure" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "date" : "1900-01-01",
-            "duration" : "P999Y",
-            "exposureCode" : {
-               "id" : "NCIT:C2190",
-               "label" : "Alcohol"
-            },
-            "unit" : {
-               "id" : "NCIT:C2190",
-               "label" : "Alcohol"
-            },
-            "value" : -1
-         }
-      ],
-      "id" : "P002:NA",
-      "info" : {
-         "CSV_columns" : {
-            "AgeAtAlcoholExposure" : null,
-            "AgeAtTobaccoExposure" : 28,
-            "AlcoholUse" : "Yes",
-            "BMI (kg/m^2)" : 21.6,
-            "Disease_1" : "Hypertension",
-            "Disease_2" : "Asthma",
-            "Disease_3" : "Diabetes",
-            "DrugDose (mg)" : 1000,
-            "DrugName" : "Lisinopril",
-            "Ethnicity" : "Asian",
-            "Hemoglobin (g/dL)" : 13.6,
-            "PatientID" : "P002",
-            "PhenotypicFeature_1" : "Freckles",
-            "PhenotypicFeature_2" : "Blue eyes",
-            "Platelets (10^9/L)" : 399,
-            "Sex" : "Female",
-            "TobaccoUse" : "Yes",
-            "WBC (10^9/L)" : 6.7,
-            "event_name" : "Treatment"
-         },
-         "version" : "test-0.1"
-      },
-      "phenotypicFeatures" : [
-         {
-            "excluded_ori" : "Freckles",
-            "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "excluded_ori" : "Blue eyes",
-            "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ],
-      "sex" : {
-         "id" : "NCIT:C16576",
-         "label" : "Female"
-      },
-      "treatments" : [
-         {
-            "_info" : {
-               "dose" : null,
-               "drug" : "DrugDose (mg)",
-               "drug_name" : "DrugDose (mg)",
-               "duration" : null,
-               "field" : "DrugDose (mg)",
-               "route" : "oral",
-               "start" : null,
-               "status" : 1000,
-               "value" : null
-            },
-            "ageAtOnset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
-            },
-            "doseIntervals" : [],
-            "routeOfAdministration" : {
-               "id" : "NCIT:C38288",
-               "label" : "Oral Route of Administration"
-            },
-            "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ]
-   },
-   {
-      "diseases" : [
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:C28397",
-               "label" : "Asthma"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:C2985",
-               "label" : "Diabetes Mellitus"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:C3117",
-               "label" : "Hypertension"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ],
-      "ethnicity" : {
-         "id" : "NCIT:C128937",
-         "label" : "African American"
-      },
-      "exposures" : [
-         {
-            "_info" : "AlcoholUse",
-            "ageAtExposure" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "date" : "1900-01-01",
-            "duration" : "P999Y",
-            "exposureCode" : {
-               "id" : "NCIT:C2190",
-               "label" : "Alcohol"
-            },
-            "unit" : {
-               "id" : "NCIT:C2190",
-               "label" : "Alcohol"
-            },
-            "value" : -1
-         }
-      ],
-      "id" : "P003:NA",
-      "info" : {
-         "CSV_columns" : {
-            "AgeAtAlcoholExposure" : 32,
-            "AgeAtTobaccoExposure" : null,
-            "AlcoholUse" : "Yes",
-            "BMI (kg/m^2)" : 28.3,
-            "Disease_1" : "Asthma",
-            "Disease_2" : "Diabetes",
-            "Disease_3" : "Hypertension",
-            "DrugDose (mg)" : 50,
-            "DrugName" : "Atorvastatin",
-            "Ethnicity" : "African American",
-            "Hemoglobin (g/dL)" : 11.3,
-            "PatientID" : "P003",
-            "PhenotypicFeature_1" : "Freckles",
-            "PhenotypicFeature_2" : "Blue eyes",
-            "Platelets (10^9/L)" : 188,
-            "Sex" : "Female",
-            "TobaccoUse" : "No",
-            "WBC (10^9/L)" : 8.6,
-            "event_name" : "Baseline"
-         },
-         "version" : "test-0.1"
-      },
-      "phenotypicFeatures" : [
-         {
-            "excluded_ori" : "Freckles",
-            "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "excluded_ori" : "Blue eyes",
-            "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ],
-      "sex" : {
-         "id" : "NCIT:C16576",
-         "label" : "Female"
-      },
-      "treatments" : [
-         {
-            "_info" : {
-               "dose" : null,
-               "drug" : "DrugDose (mg)",
-               "drug_name" : "DrugDose (mg)",
-               "duration" : null,
-               "field" : "DrugDose (mg)",
-               "route" : "oral",
-               "start" : null,
-               "status" : 50,
-               "value" : null
-            },
-            "ageAtOnset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
-            },
-            "doseIntervals" : [],
-            "routeOfAdministration" : {
-               "id" : "NCIT:C38288",
-               "label" : "Oral Route of Administration"
-            },
-            "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ]
-   },
-   {
-      "diseases" : [
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:C28397",
-               "label" : "Asthma"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:C2985",
-               "label" : "Diabetes Mellitus"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:C3117",
-               "label" : "Hypertension"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ],
-      "ethnicity" : {
-         "id" : "NCIT:C128937",
-         "label" : "African American"
-      },
-      "exposures" : [
-         {
-            "_info" : "AlcoholUse",
-            "ageAtExposure" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "date" : "1900-01-01",
-            "duration" : "P999Y",
-            "exposureCode" : {
-               "id" : "NCIT:C2190",
-               "label" : "Alcohol"
-            },
-            "unit" : {
-               "id" : "NCIT:C2190",
-               "label" : "Alcohol"
-            },
-            "value" : -1
-         }
-      ],
-      "id" : "P003:NA",
-      "info" : {
-         "CSV_columns" : {
-            "AgeAtAlcoholExposure" : 32,
-            "AgeAtTobaccoExposure" : null,
-            "AlcoholUse" : "Yes",
-            "BMI (kg/m^2)" : 28.3,
-            "Disease_1" : "Asthma",
-            "Disease_2" : "Diabetes",
-            "Disease_3" : "Hypertension",
-            "DrugDose (mg)" : 50,
-            "DrugName" : "Atorvastatin",
-            "Ethnicity" : "African American",
-            "Hemoglobin (g/dL)" : 11.3,
-            "PatientID" : "P003",
-            "PhenotypicFeature_1" : "Freckles",
-            "PhenotypicFeature_2" : "Blue eyes",
-            "Platelets (10^9/L)" : 188,
-            "Sex" : "Female",
-            "TobaccoUse" : "No",
-            "WBC (10^9/L)" : 8.6,
-            "event_name" : "Treatment"
-         },
-         "version" : "test-0.1"
-      },
-      "phenotypicFeatures" : [
-         {
-            "excluded_ori" : "Freckles",
-            "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "excluded_ori" : "Blue eyes",
-            "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ],
-      "sex" : {
-         "id" : "NCIT:C16576",
-         "label" : "Female"
-      },
-      "treatments" : [
-         {
-            "_info" : {
-               "dose" : null,
-               "drug" : "DrugDose (mg)",
-               "drug_name" : "DrugDose (mg)",
-               "duration" : null,
-               "field" : "DrugDose (mg)",
-               "route" : "oral",
-               "start" : null,
-               "status" : 50,
-               "value" : null
-            },
-            "ageAtOnset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
-            },
-            "doseIntervals" : [],
-            "routeOfAdministration" : {
-               "id" : "NCIT:C38288",
-               "label" : "Oral Route of Administration"
-            },
-            "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ]
-   },
-   {
-      "diseases" : [
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:C28397",
-               "label" : "Asthma"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:C2985",
-               "label" : "Diabetes Mellitus"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:C3117",
-               "label" : "Hypertension"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ],
-      "ethnicity" : {
-         "id" : "NCIT:C17459",
-         "label" : "Hispanic or Latino"
-      },
-      "exposures" : [
-         {
-            "_info" : "AlcoholUse",
-            "ageAtExposure" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "date" : "1900-01-01",
-            "duration" : "P999Y",
-            "exposureCode" : {
-               "id" : "NCIT:C2190",
-               "label" : "Alcohol"
-            },
-            "unit" : {
-               "id" : "NCIT:C2190",
-               "label" : "Alcohol"
-            },
-            "value" : -1
-         }
-      ],
-      "id" : "P004:NA",
-      "info" : {
-         "CSV_columns" : {
-            "AgeAtAlcoholExposure" : 15,
-            "AgeAtTobaccoExposure" : null,
-            "AlcoholUse" : "No",
-            "BMI (kg/m^2)" : 26.9,
-            "Disease_1" : "Asthma",
-            "Disease_2" : "Diabetes",
-            "Disease_3" : "Hypertension",
-            "DrugDose (mg)" : 500,
-            "DrugName" : "Lisinopril",
-            "Ethnicity" : "Hispanic",
-            "Hemoglobin (g/dL)" : 11.5,
-            "PatientID" : "P004",
-            "PhenotypicFeature_1" : "Tall",
-            "PhenotypicFeature_2" : "Blue eyes",
-            "Platelets (10^9/L)" : 168,
-            "Sex" : "Male",
-            "TobaccoUse" : "Yes",
-            "WBC (10^9/L)" : 6.6,
-            "event_name" : "Baseline"
-         },
-         "version" : "test-0.1"
-      },
-      "phenotypicFeatures" : [
-         {
-            "excluded_ori" : "Tall",
-            "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "excluded_ori" : "Blue eyes",
-            "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ],
-      "sex" : {
-         "id" : "NCIT:C20197",
-         "label" : "Male"
-      },
-      "treatments" : [
-         {
-            "_info" : {
-               "dose" : null,
-               "drug" : "DrugDose (mg)",
-               "drug_name" : "DrugDose (mg)",
-               "duration" : null,
-               "field" : "DrugDose (mg)",
-               "route" : "oral",
-               "start" : null,
-               "status" : 500,
-               "value" : null
-            },
-            "ageAtOnset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
-            },
-            "doseIntervals" : [],
-            "routeOfAdministration" : {
-               "id" : "NCIT:C38288",
-               "label" : "Oral Route of Administration"
-            },
-            "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ]
-   },
-   {
-      "diseases" : [
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:C28397",
-               "label" : "Asthma"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:C2985",
-               "label" : "Diabetes Mellitus"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:C3117",
-               "label" : "Hypertension"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ],
-      "ethnicity" : {
-         "id" : "NCIT:C17459",
-         "label" : "Hispanic or Latino"
-      },
-      "exposures" : [
-         {
-            "_info" : "AlcoholUse",
-            "ageAtExposure" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "date" : "1900-01-01",
-            "duration" : "P999Y",
-            "exposureCode" : {
-               "id" : "NCIT:C2190",
-               "label" : "Alcohol"
-            },
-            "unit" : {
-               "id" : "NCIT:C2190",
-               "label" : "Alcohol"
-            },
-            "value" : -1
-         }
-      ],
-      "id" : "P004:NA",
-      "info" : {
-         "CSV_columns" : {
-            "AgeAtAlcoholExposure" : 15,
-            "AgeAtTobaccoExposure" : null,
-            "AlcoholUse" : "No",
-            "BMI (kg/m^2)" : 26.9,
-            "Disease_1" : "Asthma",
-            "Disease_2" : "Diabetes",
-            "Disease_3" : "Hypertension",
-            "DrugDose (mg)" : 500,
-            "DrugName" : "Lisinopril",
-            "Ethnicity" : "Hispanic",
-            "Hemoglobin (g/dL)" : 11.5,
-            "PatientID" : "P004",
-            "PhenotypicFeature_1" : "Tall",
-            "PhenotypicFeature_2" : "Blue eyes",
-            "Platelets (10^9/L)" : 168,
-            "Sex" : "Male",
-            "TobaccoUse" : "Yes",
-            "WBC (10^9/L)" : 6.6,
-            "event_name" : "Treatment"
-         },
-         "version" : "test-0.1"
-      },
-      "phenotypicFeatures" : [
-         {
-            "excluded_ori" : "Tall",
-            "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "excluded_ori" : "Blue eyes",
-            "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ],
-      "sex" : {
-         "id" : "NCIT:C20197",
-         "label" : "Male"
-      },
-      "treatments" : [
-         {
-            "_info" : {
-               "dose" : null,
-               "drug" : "DrugDose (mg)",
-               "drug_name" : "DrugDose (mg)",
-               "duration" : null,
-               "field" : "DrugDose (mg)",
-               "route" : "oral",
-               "start" : null,
-               "status" : 500,
-               "value" : null
-            },
-            "ageAtOnset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
-            },
-            "doseIntervals" : [],
-            "routeOfAdministration" : {
-               "id" : "NCIT:C38288",
-               "label" : "Oral Route of Administration"
-            },
-            "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ]
-   },
-   {
-      "diseases" : [
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:C3117",
-               "label" : "Hypertension"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:C28397",
-               "label" : "Asthma"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:C2985",
-               "label" : "Diabetes Mellitus"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ],
-      "ethnicity" : {
-         "id" : "NCIT:C41260",
-         "label" : "Asian"
-      },
-      "exposures" : [
-         {
-            "_info" : "AlcoholUse",
-            "ageAtExposure" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "date" : "1900-01-01",
-            "duration" : "P999Y",
-            "exposureCode" : {
-               "id" : "NCIT:C2190",
-               "label" : "Alcohol"
-            },
-            "unit" : {
-               "id" : "NCIT:C2190",
-               "label" : "Alcohol"
-            },
-            "value" : -1
-         }
-      ],
-      "id" : "P005:NA",
-      "info" : {
-         "CSV_columns" : {
-            "AgeAtAlcoholExposure" : null,
-            "AgeAtTobaccoExposure" : null,
-            "AlcoholUse" : "Yes",
-            "BMI (kg/m^2)" : 21.3,
-            "Disease_1" : "Hypertension",
-            "Disease_2" : "Asthma",
-            "Disease_3" : "Diabetes",
-            "DrugDose (mg)" : 1000,
-            "DrugName" : "Atorvastatin",
-            "Ethnicity" : "Asian",
-            "Hemoglobin (g/dL)" : 11.8,
-            "PatientID" : "P005",
-            "PhenotypicFeature_1" : "Blue eyes",
-            "PhenotypicFeature_2" : "Tall",
-            "Platelets (10^9/L)" : 194,
-            "Sex" : "Female",
-            "TobaccoUse" : "No",
-            "WBC (10^9/L)" : 9.5,
-            "event_name" : "Baseline"
-         },
-         "version" : "test-0.1"
-      },
-      "phenotypicFeatures" : [
-         {
-            "excluded_ori" : "Blue eyes",
-            "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "excluded_ori" : "Tall",
-            "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ],
-      "sex" : {
-         "id" : "NCIT:C16576",
-         "label" : "Female"
-      },
-      "treatments" : [
-         {
-            "_info" : {
-               "dose" : null,
-               "drug" : "DrugDose (mg)",
-               "drug_name" : "DrugDose (mg)",
-               "duration" : null,
-               "field" : "DrugDose (mg)",
-               "route" : "oral",
-               "start" : null,
-               "status" : 1000,
-               "value" : null
-            },
-            "ageAtOnset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
-            },
-            "doseIntervals" : [],
-            "routeOfAdministration" : {
-               "id" : "NCIT:C38288",
-               "label" : "Oral Route of Administration"
-            },
-            "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ]
-   },
-   {
-      "diseases" : [
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:C3117",
-               "label" : "Hypertension"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:C28397",
-               "label" : "Asthma"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:C2985",
-               "label" : "Diabetes Mellitus"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ],
-      "ethnicity" : {
-         "id" : "NCIT:C41260",
-         "label" : "Asian"
-      },
-      "exposures" : [
-         {
-            "_info" : "AlcoholUse",
-            "ageAtExposure" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "date" : "1900-01-01",
-            "duration" : "P999Y",
-            "exposureCode" : {
-               "id" : "NCIT:C2190",
-               "label" : "Alcohol"
-            },
-            "unit" : {
-               "id" : "NCIT:C2190",
-               "label" : "Alcohol"
-            },
-            "value" : -1
-         }
-      ],
-      "id" : "P005:NA",
-      "info" : {
-         "CSV_columns" : {
-            "AgeAtAlcoholExposure" : null,
-            "AgeAtTobaccoExposure" : null,
-            "AlcoholUse" : "Yes",
-            "BMI (kg/m^2)" : 21.3,
-            "Disease_1" : "Hypertension",
-            "Disease_2" : "Asthma",
-            "Disease_3" : "Diabetes",
-            "DrugDose (mg)" : 1000,
-            "DrugName" : "Atorvastatin",
-            "Ethnicity" : "Asian",
-            "Hemoglobin (g/dL)" : 11.8,
-            "PatientID" : "P005",
-            "PhenotypicFeature_1" : "Blue eyes",
-            "PhenotypicFeature_2" : "Tall",
-            "Platelets (10^9/L)" : 194,
-            "Sex" : "Female",
-            "TobaccoUse" : "No",
-            "WBC (10^9/L)" : 9.5,
-            "event_name" : "Treatment"
-         },
-         "version" : "test-0.1"
-      },
-      "phenotypicFeatures" : [
-         {
-            "excluded_ori" : "Blue eyes",
-            "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "excluded_ori" : "Tall",
-            "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ],
-      "sex" : {
-         "id" : "NCIT:C16576",
-         "label" : "Female"
-      },
-      "treatments" : [
-         {
-            "_info" : {
-               "dose" : null,
-               "drug" : "DrugDose (mg)",
-               "drug_name" : "DrugDose (mg)",
-               "duration" : null,
-               "field" : "DrugDose (mg)",
-               "route" : "oral",
-               "start" : null,
-               "status" : 1000,
-               "value" : null
-            },
-            "ageAtOnset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
-            },
-            "doseIntervals" : [],
-            "routeOfAdministration" : {
-               "id" : "NCIT:C38288",
-               "label" : "Oral Route of Administration"
-            },
-            "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ]
-   },
-   {
-      "diseases" : [
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:C3117",
-               "label" : "Hypertension"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:C28397",
-               "label" : "Asthma"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:C2985",
-               "label" : "Diabetes Mellitus"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ],
-      "ethnicity" : {
-         "id" : "NCIT:C41261",
-         "label" : "White"
-      },
-      "exposures" : [
-         {
-            "_info" : "AlcoholUse",
-            "ageAtExposure" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "date" : "1900-01-01",
-            "duration" : "P999Y",
-            "exposureCode" : {
-               "id" : "NCIT:C2190",
-               "label" : "Alcohol"
-            },
-            "unit" : {
-               "id" : "NCIT:C2190",
-               "label" : "Alcohol"
-            },
-            "value" : -1
-         }
-      ],
-      "id" : "P006:NA",
-      "info" : {
-         "CSV_columns" : {
-            "AgeAtAlcoholExposure" : null,
-            "AgeAtTobaccoExposure" : 15,
-            "AlcoholUse" : "No",
-            "BMI (kg/m^2)" : 23.1,
-            "Disease_1" : "Hypertension",
-            "Disease_2" : "Asthma",
-            "Disease_3" : "Diabetes",
-            "DrugDose (mg)" : 90,
-            "DrugName" : "Atorvastatin",
-            "Ethnicity" : "Caucasian",
-            "Hemoglobin (g/dL)" : 11.6,
-            "PatientID" : "P006",
-            "PhenotypicFeature_1" : "Blue eyes",
-            "PhenotypicFeature_2" : "Curly hair",
-            "Platelets (10^9/L)" : 341,
-            "Sex" : "Female",
-            "TobaccoUse" : "Yes",
-            "WBC (10^9/L)" : 5.4,
-            "event_name" : "Baseline"
-         },
-         "version" : "test-0.1"
-      },
-      "phenotypicFeatures" : [
-         {
-            "excluded_ori" : "Blue eyes",
-            "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "excluded_ori" : "Curly hair",
-            "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ],
-      "sex" : {
-         "id" : "NCIT:C16576",
-         "label" : "Female"
-      },
-      "treatments" : [
-         {
-            "_info" : {
-               "dose" : null,
-               "drug" : "DrugDose (mg)",
-               "drug_name" : "DrugDose (mg)",
-               "duration" : null,
-               "field" : "DrugDose (mg)",
-               "route" : "oral",
-               "start" : null,
-               "status" : 90,
-               "value" : null
-            },
-            "ageAtOnset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
-            },
-            "doseIntervals" : [],
-            "routeOfAdministration" : {
-               "id" : "NCIT:C38288",
-               "label" : "Oral Route of Administration"
-            },
-            "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ]
-   },
-   {
-      "diseases" : [
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:C3117",
-               "label" : "Hypertension"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:C28397",
-               "label" : "Asthma"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:C2985",
-               "label" : "Diabetes Mellitus"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ],
-      "ethnicity" : {
-         "id" : "NCIT:C41261",
-         "label" : "White"
-      },
-      "exposures" : [
-         {
-            "_info" : "AlcoholUse",
-            "ageAtExposure" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "date" : "1900-01-01",
-            "duration" : "P999Y",
-            "exposureCode" : {
-               "id" : "NCIT:C2190",
-               "label" : "Alcohol"
-            },
-            "unit" : {
-               "id" : "NCIT:C2190",
-               "label" : "Alcohol"
-            },
-            "value" : -1
-         }
-      ],
-      "id" : "P006:NA",
-      "info" : {
-         "CSV_columns" : {
-            "AgeAtAlcoholExposure" : null,
-            "AgeAtTobaccoExposure" : 15,
-            "AlcoholUse" : "No",
-            "BMI (kg/m^2)" : 23.1,
-            "Disease_1" : "Hypertension",
-            "Disease_2" : "Asthma",
-            "Disease_3" : "Diabetes",
-            "DrugDose (mg)" : 90,
-            "DrugName" : "Atorvastatin",
-            "Ethnicity" : "Caucasian",
-            "Hemoglobin (g/dL)" : 11.6,
-            "PatientID" : "P006",
-            "PhenotypicFeature_1" : "Blue eyes",
-            "PhenotypicFeature_2" : "Curly hair",
-            "Platelets (10^9/L)" : 341,
-            "Sex" : "Female",
-            "TobaccoUse" : "Yes",
-            "WBC (10^9/L)" : 5.4,
-            "event_name" : "Treatment"
-         },
-         "version" : "test-0.1"
-      },
-      "phenotypicFeatures" : [
-         {
-            "excluded_ori" : "Blue eyes",
-            "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "excluded_ori" : "Curly hair",
-            "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ],
-      "sex" : {
-         "id" : "NCIT:C16576",
-         "label" : "Female"
-      },
-      "treatments" : [
-         {
-            "_info" : {
-               "dose" : null,
-               "drug" : "DrugDose (mg)",
-               "drug_name" : "DrugDose (mg)",
-               "duration" : null,
-               "field" : "DrugDose (mg)",
-               "route" : "oral",
-               "start" : null,
-               "status" : 90,
-               "value" : null
-            },
-            "ageAtOnset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
-            },
-            "doseIntervals" : [],
-            "routeOfAdministration" : {
-               "id" : "NCIT:C38288",
-               "label" : "Oral Route of Administration"
-            },
-            "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ]
-   },
-   {
-      "diseases" : [
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:C2985",
-               "label" : "Diabetes Mellitus"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:C28397",
-               "label" : "Asthma"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:C3117",
-               "label" : "Hypertension"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ],
-      "ethnicity" : {
-         "id" : "NCIT:C41261",
-         "label" : "White"
-      },
-      "exposures" : [
-         {
-            "_info" : "AlcoholUse",
-            "ageAtExposure" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "date" : "1900-01-01",
-            "duration" : "P999Y",
-            "exposureCode" : {
-               "id" : "NCIT:C2190",
-               "label" : "Alcohol"
-            },
-            "unit" : {
-               "id" : "NCIT:C2190",
-               "label" : "Alcohol"
-            },
-            "value" : -1
-         }
-      ],
-      "id" : "P007:NA",
-      "info" : {
-         "CSV_columns" : {
-            "AgeAtAlcoholExposure" : null,
-            "AgeAtTobaccoExposure" : null,
-            "AlcoholUse" : "No",
-            "BMI (kg/m^2)" : 27.5,
-            "Disease_1" : "Diabetes",
-            "Disease_2" : "Asthma",
-            "Disease_3" : "Hypertension",
-            "DrugDose (mg)" : 90,
-            "DrugName" : "Atorvastatin",
-            "Ethnicity" : "Caucasian",
-            "Hemoglobin (g/dL)" : 13.6,
-            "PatientID" : "P007",
-            "PhenotypicFeature_1" : "Curly hair",
-            "PhenotypicFeature_2" : "Tall",
-            "Platelets (10^9/L)" : 283,
-            "Sex" : "Female",
-            "TobaccoUse" : "Yes",
-            "WBC (10^9/L)" : 8.3,
-            "event_name" : "Baseline"
-         },
-         "version" : "test-0.1"
-      },
-      "phenotypicFeatures" : [
-         {
-            "excluded_ori" : "Curly hair",
-            "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "excluded_ori" : "Tall",
-            "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ],
-      "sex" : {
-         "id" : "NCIT:C16576",
-         "label" : "Female"
-      },
-      "treatments" : [
-         {
-            "_info" : {
-               "dose" : null,
-               "drug" : "DrugDose (mg)",
-               "drug_name" : "DrugDose (mg)",
-               "duration" : null,
-               "field" : "DrugDose (mg)",
-               "route" : "oral",
-               "start" : null,
-               "status" : 90,
-               "value" : null
-            },
-            "ageAtOnset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
-            },
-            "doseIntervals" : [],
-            "routeOfAdministration" : {
-               "id" : "NCIT:C38288",
-               "label" : "Oral Route of Administration"
-            },
-            "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ]
-   },
-   {
-      "diseases" : [
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:C2985",
-               "label" : "Diabetes Mellitus"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:C28397",
-               "label" : "Asthma"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:C3117",
-               "label" : "Hypertension"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ],
-      "ethnicity" : {
-         "id" : "NCIT:C41261",
-         "label" : "White"
-      },
-      "exposures" : [
-         {
-            "_info" : "AlcoholUse",
-            "ageAtExposure" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "date" : "1900-01-01",
-            "duration" : "P999Y",
-            "exposureCode" : {
-               "id" : "NCIT:C2190",
-               "label" : "Alcohol"
-            },
-            "unit" : {
-               "id" : "NCIT:C2190",
-               "label" : "Alcohol"
-            },
-            "value" : -1
-         }
-      ],
-      "id" : "P007:NA",
-      "info" : {
-         "CSV_columns" : {
-            "AgeAtAlcoholExposure" : null,
-            "AgeAtTobaccoExposure" : null,
-            "AlcoholUse" : "No",
-            "BMI (kg/m^2)" : 27.5,
-            "Disease_1" : "Diabetes",
-            "Disease_2" : "Asthma",
-            "Disease_3" : "Hypertension",
-            "DrugDose (mg)" : 90,
-            "DrugName" : "Atorvastatin",
-            "Ethnicity" : "Caucasian",
-            "Hemoglobin (g/dL)" : 13.6,
-            "PatientID" : "P007",
-            "PhenotypicFeature_1" : "Curly hair",
-            "PhenotypicFeature_2" : "Tall",
-            "Platelets (10^9/L)" : 283,
-            "Sex" : "Female",
-            "TobaccoUse" : "Yes",
-            "WBC (10^9/L)" : 8.3,
-            "event_name" : "Treatment"
-         },
-         "version" : "test-0.1"
-      },
-      "phenotypicFeatures" : [
-         {
-            "excluded_ori" : "Curly hair",
-            "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "excluded_ori" : "Tall",
-            "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ],
-      "sex" : {
-         "id" : "NCIT:C16576",
-         "label" : "Female"
-      },
-      "treatments" : [
-         {
-            "_info" : {
-               "dose" : null,
-               "drug" : "DrugDose (mg)",
-               "drug_name" : "DrugDose (mg)",
-               "duration" : null,
-               "field" : "DrugDose (mg)",
-               "route" : "oral",
-               "start" : null,
-               "status" : 90,
-               "value" : null
-            },
-            "ageAtOnset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
-            },
-            "doseIntervals" : [],
-            "routeOfAdministration" : {
-               "id" : "NCIT:C38288",
-               "label" : "Oral Route of Administration"
-            },
-            "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         }
-      ]
-   },
-   {
-      "diseases" : [
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:C2985",
-               "label" : "Diabetes Mellitus"
-            },
-            "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            },
-            "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
-            }
-         },
-         {
-            "diseaseCode" : {
-               "id" : "NCIT:C28397",
-               "label" : "Asthma"
             },
             "severity" : {
                "id" : "NCIT:NA0000",
@@ -2197,44 +69,354 @@
             "value" : -1
          }
       ],
-      "id" : "P008:NA",
+      "id" : "P001:NA",
       "info" : {
          "CSV_columns" : {
-            "AgeAtAlcoholExposure" : 42,
-            "AgeAtTobaccoExposure" : 30,
+            "AgeAtAlcoholExposure" : 27,
+            "AgeAtTobaccoExposure" : 29,
             "AlcoholUse" : "No",
-            "BMI (kg/m^2)" : 22.9,
-            "Disease_1" : "Diabetes",
-            "Disease_2" : "Asthma",
+            "BMI (kg/m^2)" : 29.6,
+            "Disease_1" : "Asthma",
+            "Disease_2" : "Diabetes",
             "Disease_3" : "Hypertension",
-            "DrugDose (mg)" : 90,
-            "DrugName" : "Atorvastatin",
+            "DrugDose (mg)" : 50,
+            "DrugName" : "Metformin",
             "Ethnicity" : "Native American",
-            "Hemoglobin (g/dL)" : 14.1,
-            "PatientID" : "P008",
-            "PhenotypicFeature_1" : "Tall",
-            "PhenotypicFeature_2" : "Curly hair",
-            "Platelets (10^9/L)" : 274,
+            "Hemoglobin (g/dL)" : 11.1,
+            "PatientID" : "P001",
+            "PhenotypicFeature_1" : "Limitation of joint mobility",
+            "PhenotypicFeature_2" : "Abnormal heart valve morphology",
+            "Platelets (10^9/L)" : 323,
             "Sex" : "Male",
-            "TobaccoUse" : "Yes",
-            "WBC (10^9/L)" : 11,
+            "TobaccoUse" : "No",
+            "WBC (10^9/L)" : 5,
             "event_name" : "Baseline"
          },
          "version" : "test-0.1"
       },
       "phenotypicFeatures" : [
          {
-            "excluded_ori" : "Tall",
+            "excluded" : false,
+            "excluded_ori" : "Limitation of joint mobility",
             "featureType" : {
+               "id" : "HPO:0001376 ",
+               "label" : "Limitation of joint mobility"
+            }
+         },
+         {
+            "excluded" : false,
+            "excluded_ori" : "Abnormal heart valve morphology",
+            "featureType" : {
+               "id" : "HPO:0001654 ",
+               "label" : "Abnormal heart valve morphology"
+            }
+         }
+      ],
+      "sex" : {
+         "id" : "NCIT:C20197",
+         "label" : "Male"
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "DrugDose (mg)",
+               "drug_name" : "DrugDose (mg)",
+               "duration" : null,
+               "field" : "DrugDose (mg)",
+               "route" : "oral",
+               "start" : null,
+               "status" : 50,
+               "value" : null
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ]
+   },
+   {
+      "diseases" : [
+         {
+            "diseaseCode" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            },
+            "severity" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "stage" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
             }
          },
          {
-            "excluded_ori" : "Curly hair",
-            "featureType" : {
+            "diseaseCode" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            },
+            "severity" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
+            },
+            "stage" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "diseaseCode" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            },
+            "severity" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "stage" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
+      "ethnicity" : {
+         "id" : "NCIT:C16283",
+         "label" : "Native American"
+      },
+      "exposures" : [
+         {
+            "_info" : "AlcoholUse",
+            "ageAtExposure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "date" : "1900-01-01",
+            "duration" : "P999Y",
+            "exposureCode" : {
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
+            },
+            "unit" : {
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
+            },
+            "value" : -1
+         }
+      ],
+      "id" : "P001:NA",
+      "info" : {
+         "CSV_columns" : {
+            "AgeAtAlcoholExposure" : 27,
+            "AgeAtTobaccoExposure" : 29,
+            "AlcoholUse" : "No",
+            "BMI (kg/m^2)" : 29.6,
+            "Disease_1" : "Asthma",
+            "Disease_2" : "Diabetes",
+            "Disease_3" : "Hypertension",
+            "DrugDose (mg)" : 50,
+            "DrugName" : "Metformin",
+            "Ethnicity" : "Native American",
+            "Hemoglobin (g/dL)" : 15.3,
+            "PatientID" : "P001",
+            "PhenotypicFeature_1" : "Limitation of joint mobility",
+            "PhenotypicFeature_2" : "Abnormal heart valve morphology",
+            "Platelets (10^9/L)" : 165,
+            "Sex" : "Male",
+            "TobaccoUse" : "No",
+            "WBC (10^9/L)" : 10.3,
+            "event_name" : "Treatment"
+         },
+         "version" : "test-0.1"
+      },
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "excluded_ori" : "Limitation of joint mobility",
+            "featureType" : {
+               "id" : "HPO:0001376 ",
+               "label" : "Limitation of joint mobility"
+            }
+         },
+         {
+            "excluded" : false,
+            "excluded_ori" : "Abnormal heart valve morphology",
+            "featureType" : {
+               "id" : "HPO:0001654 ",
+               "label" : "Abnormal heart valve morphology"
+            }
+         }
+      ],
+      "sex" : {
+         "id" : "NCIT:C20197",
+         "label" : "Male"
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "DrugDose (mg)",
+               "drug_name" : "DrugDose (mg)",
+               "duration" : null,
+               "field" : "DrugDose (mg)",
+               "route" : "oral",
+               "start" : null,
+               "status" : 50,
+               "value" : null
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ]
+   },
+   {
+      "diseases" : [
+         {
+            "diseaseCode" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            },
+            "severity" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "stage" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "diseaseCode" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            },
+            "severity" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "stage" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "diseaseCode" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            },
+            "severity" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "stage" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
+      "ethnicity" : {
+         "id" : "NCIT:C16283",
+         "label" : "Native American"
+      },
+      "exposures" : [
+         {
+            "_info" : "AlcoholUse",
+            "ageAtExposure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "date" : "1900-01-01",
+            "duration" : "P999Y",
+            "exposureCode" : {
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
+            },
+            "unit" : {
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
+            },
+            "value" : -1
+         }
+      ],
+      "id" : "P002:NA",
+      "info" : {
+         "CSV_columns" : {
+            "AgeAtAlcoholExposure" : null,
+            "AgeAtTobaccoExposure" : 48,
+            "AlcoholUse" : "Yes",
+            "BMI (kg/m^2)" : 28.4,
+            "Disease_1" : "Asthma",
+            "Disease_2" : "Diabetes",
+            "Disease_3" : "Hypertension",
+            "DrugDose (mg)" : 90,
+            "DrugName" : "Atorvastatin",
+            "Ethnicity" : "Native American",
+            "Hemoglobin (g/dL)" : 16.9,
+            "PatientID" : "P002",
+            "PhenotypicFeature_1" : "Emphysema",
+            "PhenotypicFeature_2" : "Abnormal heart valve morphology",
+            "Platelets (10^9/L)" : 241,
+            "Sex" : "Male",
+            "TobaccoUse" : "No",
+            "WBC (10^9/L)" : 9.9,
+            "event_name" : "Baseline"
+         },
+         "version" : "test-0.1"
+      },
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "excluded_ori" : "Emphysema",
+            "featureType" : {
+               "id" : "HPO:0002097 ",
+               "label" : "Emphysema"
+            }
+         },
+         {
+            "excluded" : false,
+            "excluded_ori" : "Abnormal heart valve morphology",
+            "featureType" : {
+               "id" : "HPO:0001654 ",
+               "label" : "Abnormal heart valve morphology"
             }
          }
       ],
@@ -2283,8 +465,470 @@
       "diseases" : [
          {
             "diseaseCode" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            },
+            "severity" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "stage" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "diseaseCode" : {
                "id" : "NCIT:C2985",
                "label" : "Diabetes Mellitus"
+            },
+            "severity" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "stage" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "diseaseCode" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            },
+            "severity" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "stage" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
+      "ethnicity" : {
+         "id" : "NCIT:C16283",
+         "label" : "Native American"
+      },
+      "exposures" : [
+         {
+            "_info" : "AlcoholUse",
+            "ageAtExposure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "date" : "1900-01-01",
+            "duration" : "P999Y",
+            "exposureCode" : {
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
+            },
+            "unit" : {
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
+            },
+            "value" : -1
+         }
+      ],
+      "id" : "P002:NA",
+      "info" : {
+         "CSV_columns" : {
+            "AgeAtAlcoholExposure" : null,
+            "AgeAtTobaccoExposure" : 48,
+            "AlcoholUse" : "Yes",
+            "BMI (kg/m^2)" : 28.4,
+            "Disease_1" : "Asthma",
+            "Disease_2" : "Diabetes",
+            "Disease_3" : "Hypertension",
+            "DrugDose (mg)" : 90,
+            "DrugName" : "Atorvastatin",
+            "Ethnicity" : "Native American",
+            "Hemoglobin (g/dL)" : 13.3,
+            "PatientID" : "P002",
+            "PhenotypicFeature_1" : "Emphysema",
+            "PhenotypicFeature_2" : "Abnormal heart valve morphology",
+            "Platelets (10^9/L)" : 155,
+            "Sex" : "Male",
+            "TobaccoUse" : "No",
+            "WBC (10^9/L)" : 6.5,
+            "event_name" : "Treatment"
+         },
+         "version" : "test-0.1"
+      },
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "excluded_ori" : "Emphysema",
+            "featureType" : {
+               "id" : "HPO:0002097 ",
+               "label" : "Emphysema"
+            }
+         },
+         {
+            "excluded" : false,
+            "excluded_ori" : "Abnormal heart valve morphology",
+            "featureType" : {
+               "id" : "HPO:0001654 ",
+               "label" : "Abnormal heart valve morphology"
+            }
+         }
+      ],
+      "sex" : {
+         "id" : "NCIT:C20197",
+         "label" : "Male"
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "DrugDose (mg)",
+               "drug_name" : "DrugDose (mg)",
+               "duration" : null,
+               "field" : "DrugDose (mg)",
+               "route" : "oral",
+               "start" : null,
+               "status" : 90,
+               "value" : null
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ]
+   },
+   {
+      "diseases" : [
+         {
+            "diseaseCode" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            },
+            "severity" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "stage" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "diseaseCode" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            },
+            "severity" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "stage" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "diseaseCode" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            },
+            "severity" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "stage" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
+      "ethnicity" : {
+         "id" : "NCIT:C16283",
+         "label" : "Native American"
+      },
+      "exposures" : [
+         {
+            "_info" : "AlcoholUse",
+            "ageAtExposure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "date" : "1900-01-01",
+            "duration" : "P999Y",
+            "exposureCode" : {
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
+            },
+            "unit" : {
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
+            },
+            "value" : -1
+         }
+      ],
+      "id" : "P003:NA",
+      "info" : {
+         "CSV_columns" : {
+            "AgeAtAlcoholExposure" : null,
+            "AgeAtTobaccoExposure" : 48,
+            "AlcoholUse" : "Yes",
+            "BMI (kg/m^2)" : 29.4,
+            "Disease_1" : "Hypertension",
+            "Disease_2" : "Diabetes",
+            "Disease_3" : "Asthma",
+            "DrugDose (mg)" : 50,
+            "DrugName" : "Metformin",
+            "Ethnicity" : "Native American",
+            "Hemoglobin (g/dL)" : 15.3,
+            "PatientID" : "P003",
+            "PhenotypicFeature_1" : "Limitation of joint mobility",
+            "PhenotypicFeature_2" : "Emphysema",
+            "Platelets (10^9/L)" : 245,
+            "Sex" : "Female",
+            "TobaccoUse" : "Yes",
+            "WBC (10^9/L)" : 4.6,
+            "event_name" : "Baseline"
+         },
+         "version" : "test-0.1"
+      },
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "excluded_ori" : "Limitation of joint mobility",
+            "featureType" : {
+               "id" : "HPO:0001376 ",
+               "label" : "Limitation of joint mobility"
+            }
+         },
+         {
+            "excluded" : false,
+            "excluded_ori" : "Emphysema",
+            "featureType" : {
+               "id" : "HPO:0002097 ",
+               "label" : "Emphysema"
+            }
+         }
+      ],
+      "sex" : {
+         "id" : "NCIT:C16576",
+         "label" : "Female"
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "DrugDose (mg)",
+               "drug_name" : "DrugDose (mg)",
+               "duration" : null,
+               "field" : "DrugDose (mg)",
+               "route" : "oral",
+               "start" : null,
+               "status" : 50,
+               "value" : null
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ]
+   },
+   {
+      "diseases" : [
+         {
+            "diseaseCode" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            },
+            "severity" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "stage" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "diseaseCode" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            },
+            "severity" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "stage" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "diseaseCode" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            },
+            "severity" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "stage" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
+      "ethnicity" : {
+         "id" : "NCIT:C16283",
+         "label" : "Native American"
+      },
+      "exposures" : [
+         {
+            "_info" : "AlcoholUse",
+            "ageAtExposure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "date" : "1900-01-01",
+            "duration" : "P999Y",
+            "exposureCode" : {
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
+            },
+            "unit" : {
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
+            },
+            "value" : -1
+         }
+      ],
+      "id" : "P003:NA",
+      "info" : {
+         "CSV_columns" : {
+            "AgeAtAlcoholExposure" : null,
+            "AgeAtTobaccoExposure" : 48,
+            "AlcoholUse" : "Yes",
+            "BMI (kg/m^2)" : 29.4,
+            "Disease_1" : "Hypertension",
+            "Disease_2" : "Diabetes",
+            "Disease_3" : "Asthma",
+            "DrugDose (mg)" : 50,
+            "DrugName" : "Metformin",
+            "Ethnicity" : "Native American",
+            "Hemoglobin (g/dL)" : 16,
+            "PatientID" : "P003",
+            "PhenotypicFeature_1" : "Limitation of joint mobility",
+            "PhenotypicFeature_2" : "Emphysema",
+            "Platelets (10^9/L)" : 381,
+            "Sex" : "Female",
+            "TobaccoUse" : "Yes",
+            "WBC (10^9/L)" : 9.1,
+            "event_name" : "Treatment"
+         },
+         "version" : "test-0.1"
+      },
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "excluded_ori" : "Limitation of joint mobility",
+            "featureType" : {
+               "id" : "HPO:0001376 ",
+               "label" : "Limitation of joint mobility"
+            }
+         },
+         {
+            "excluded" : false,
+            "excluded_ori" : "Emphysema",
+            "featureType" : {
+               "id" : "HPO:0002097 ",
+               "label" : "Emphysema"
+            }
+         }
+      ],
+      "sex" : {
+         "id" : "NCIT:C16576",
+         "label" : "Female"
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "DrugDose (mg)",
+               "drug_name" : "DrugDose (mg)",
+               "duration" : null,
+               "field" : "DrugDose (mg)",
+               "route" : "oral",
+               "start" : null,
+               "status" : 50,
+               "value" : null
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ]
+   },
+   {
+      "diseases" : [
+         {
+            "diseaseCode" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
             },
             "severity" : {
                "id" : "NCIT:NA0000",
@@ -2311,8 +955,8 @@
          },
          {
             "diseaseCode" : {
-               "id" : "NCIT:C3117",
-               "label" : "Hypertension"
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
             },
             "severity" : {
                "id" : "NCIT:NA0000",
@@ -2349,44 +993,662 @@
             "value" : -1
          }
       ],
-      "id" : "P009:NA",
+      "id" : "P004:NA",
       "info" : {
          "CSV_columns" : {
             "AgeAtAlcoholExposure" : null,
-            "AgeAtTobaccoExposure" : 49,
-            "AlcoholUse" : "No",
-            "BMI (kg/m^2)" : 29.8,
-            "Disease_1" : "Diabetes",
+            "AgeAtTobaccoExposure" : null,
+            "AlcoholUse" : "Yes",
+            "BMI (kg/m^2)" : 26.9,
+            "Disease_1" : "Hypertension",
             "Disease_2" : "Asthma",
-            "Disease_3" : "Hypertension",
-            "DrugDose (mg)" : 500,
-            "DrugName" : "Albuterol",
+            "Disease_3" : "Diabetes",
+            "DrugDose (mg)" : 90,
+            "DrugName" : "Atorvastatin",
             "Ethnicity" : "Asian",
-            "Hemoglobin (g/dL)" : 15.3,
-            "PatientID" : "P009",
-            "PhenotypicFeature_1" : "Blue eyes",
-            "PhenotypicFeature_2" : "Tall",
-            "Platelets (10^9/L)" : 153,
-            "Sex" : "Female",
+            "Hemoglobin (g/dL)" : 13.1,
+            "PatientID" : "P004",
+            "PhenotypicFeature_1" : "Limitation of joint mobility",
+            "PhenotypicFeature_2" : "Emphysema",
+            "Platelets (10^9/L)" : 187,
+            "Sex" : "Male",
             "TobaccoUse" : "No",
-            "WBC (10^9/L)" : 9.7,
+            "WBC (10^9/L)" : 5.1,
             "event_name" : "Baseline"
          },
          "version" : "test-0.1"
       },
       "phenotypicFeatures" : [
          {
-            "excluded_ori" : "Blue eyes",
+            "excluded" : false,
+            "excluded_ori" : "Limitation of joint mobility",
             "featureType" : {
+               "id" : "HPO:0001376 ",
+               "label" : "Limitation of joint mobility"
+            }
+         },
+         {
+            "excluded" : false,
+            "excluded_ori" : "Emphysema",
+            "featureType" : {
+               "id" : "HPO:0002097 ",
+               "label" : "Emphysema"
+            }
+         }
+      ],
+      "sex" : {
+         "id" : "NCIT:C20197",
+         "label" : "Male"
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "DrugDose (mg)",
+               "drug_name" : "DrugDose (mg)",
+               "duration" : null,
+               "field" : "DrugDose (mg)",
+               "route" : "oral",
+               "start" : null,
+               "status" : 90,
+               "value" : null
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ]
+   },
+   {
+      "diseases" : [
+         {
+            "diseaseCode" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            },
+            "severity" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "stage" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
             }
          },
          {
-            "excluded_ori" : "Tall",
-            "featureType" : {
+            "diseaseCode" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            },
+            "severity" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
+            },
+            "stage" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "diseaseCode" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            },
+            "severity" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "stage" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
+      "ethnicity" : {
+         "id" : "NCIT:C41260",
+         "label" : "Asian"
+      },
+      "exposures" : [
+         {
+            "_info" : "AlcoholUse",
+            "ageAtExposure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "date" : "1900-01-01",
+            "duration" : "P999Y",
+            "exposureCode" : {
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
+            },
+            "unit" : {
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
+            },
+            "value" : -1
+         }
+      ],
+      "id" : "P004:NA",
+      "info" : {
+         "CSV_columns" : {
+            "AgeAtAlcoholExposure" : null,
+            "AgeAtTobaccoExposure" : null,
+            "AlcoholUse" : "Yes",
+            "BMI (kg/m^2)" : 26.9,
+            "Disease_1" : "Hypertension",
+            "Disease_2" : "Asthma",
+            "Disease_3" : "Diabetes",
+            "DrugDose (mg)" : 90,
+            "DrugName" : "Atorvastatin",
+            "Ethnicity" : "Asian",
+            "Hemoglobin (g/dL)" : 17,
+            "PatientID" : "P004",
+            "PhenotypicFeature_1" : "Limitation of joint mobility",
+            "PhenotypicFeature_2" : "Emphysema",
+            "Platelets (10^9/L)" : 266,
+            "Sex" : "Male",
+            "TobaccoUse" : "No",
+            "WBC (10^9/L)" : 9.5,
+            "event_name" : "Treatment"
+         },
+         "version" : "test-0.1"
+      },
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "excluded_ori" : "Limitation of joint mobility",
+            "featureType" : {
+               "id" : "HPO:0001376 ",
+               "label" : "Limitation of joint mobility"
+            }
+         },
+         {
+            "excluded" : false,
+            "excluded_ori" : "Emphysema",
+            "featureType" : {
+               "id" : "HPO:0002097 ",
+               "label" : "Emphysema"
+            }
+         }
+      ],
+      "sex" : {
+         "id" : "NCIT:C20197",
+         "label" : "Male"
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "DrugDose (mg)",
+               "drug_name" : "DrugDose (mg)",
+               "duration" : null,
+               "field" : "DrugDose (mg)",
+               "route" : "oral",
+               "start" : null,
+               "status" : 90,
+               "value" : null
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ]
+   },
+   {
+      "diseases" : [
+         {
+            "diseaseCode" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            },
+            "severity" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "stage" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "diseaseCode" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            },
+            "severity" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "stage" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "diseaseCode" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            },
+            "severity" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "stage" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
+      "ethnicity" : {
+         "id" : "NCIT:C128937",
+         "label" : "African American"
+      },
+      "exposures" : [
+         {
+            "_info" : "AlcoholUse",
+            "ageAtExposure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "date" : "1900-01-01",
+            "duration" : "P999Y",
+            "exposureCode" : {
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
+            },
+            "unit" : {
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
+            },
+            "value" : -1
+         }
+      ],
+      "id" : "P005:NA",
+      "info" : {
+         "CSV_columns" : {
+            "AgeAtAlcoholExposure" : null,
+            "AgeAtTobaccoExposure" : null,
+            "AlcoholUse" : "Yes",
+            "BMI (kg/m^2)" : 25.7,
+            "Disease_1" : "Asthma",
+            "Disease_2" : "Hypertension",
+            "Disease_3" : "Diabetes",
+            "DrugDose (mg)" : 1000,
+            "DrugName" : "Atorvastatin",
+            "Ethnicity" : "African American",
+            "Hemoglobin (g/dL)" : 13.7,
+            "PatientID" : "P005",
+            "PhenotypicFeature_1" : "Abnormal heart valve morphology",
+            "PhenotypicFeature_2" : "Emphysema",
+            "Platelets (10^9/L)" : 227,
+            "Sex" : "Female",
+            "TobaccoUse" : "Yes",
+            "WBC (10^9/L)" : 8.1,
+            "event_name" : "Baseline"
+         },
+         "version" : "test-0.1"
+      },
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "excluded_ori" : "Abnormal heart valve morphology",
+            "featureType" : {
+               "id" : "HPO:0001654 ",
+               "label" : "Abnormal heart valve morphology"
+            }
+         },
+         {
+            "excluded" : false,
+            "excluded_ori" : "Emphysema",
+            "featureType" : {
+               "id" : "HPO:0002097 ",
+               "label" : "Emphysema"
+            }
+         }
+      ],
+      "sex" : {
+         "id" : "NCIT:C16576",
+         "label" : "Female"
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "DrugDose (mg)",
+               "drug_name" : "DrugDose (mg)",
+               "duration" : null,
+               "field" : "DrugDose (mg)",
+               "route" : "oral",
+               "start" : null,
+               "status" : 1000,
+               "value" : null
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ]
+   },
+   {
+      "diseases" : [
+         {
+            "diseaseCode" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            },
+            "severity" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "stage" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "diseaseCode" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            },
+            "severity" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "stage" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "diseaseCode" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            },
+            "severity" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "stage" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
+      "ethnicity" : {
+         "id" : "NCIT:C128937",
+         "label" : "African American"
+      },
+      "exposures" : [
+         {
+            "_info" : "AlcoholUse",
+            "ageAtExposure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "date" : "1900-01-01",
+            "duration" : "P999Y",
+            "exposureCode" : {
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
+            },
+            "unit" : {
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
+            },
+            "value" : -1
+         }
+      ],
+      "id" : "P005:NA",
+      "info" : {
+         "CSV_columns" : {
+            "AgeAtAlcoholExposure" : null,
+            "AgeAtTobaccoExposure" : null,
+            "AlcoholUse" : "Yes",
+            "BMI (kg/m^2)" : 25.7,
+            "Disease_1" : "Asthma",
+            "Disease_2" : "Hypertension",
+            "Disease_3" : "Diabetes",
+            "DrugDose (mg)" : 1000,
+            "DrugName" : "Atorvastatin",
+            "Ethnicity" : "African American",
+            "Hemoglobin (g/dL)" : 12.4,
+            "PatientID" : "P005",
+            "PhenotypicFeature_1" : "Abnormal heart valve morphology",
+            "PhenotypicFeature_2" : "Emphysema",
+            "Platelets (10^9/L)" : 238,
+            "Sex" : "Female",
+            "TobaccoUse" : "Yes",
+            "WBC (10^9/L)" : 7.8,
+            "event_name" : "Treatment"
+         },
+         "version" : "test-0.1"
+      },
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "excluded_ori" : "Abnormal heart valve morphology",
+            "featureType" : {
+               "id" : "HPO:0001654 ",
+               "label" : "Abnormal heart valve morphology"
+            }
+         },
+         {
+            "excluded" : false,
+            "excluded_ori" : "Emphysema",
+            "featureType" : {
+               "id" : "HPO:0002097 ",
+               "label" : "Emphysema"
+            }
+         }
+      ],
+      "sex" : {
+         "id" : "NCIT:C16576",
+         "label" : "Female"
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "DrugDose (mg)",
+               "drug_name" : "DrugDose (mg)",
+               "duration" : null,
+               "field" : "DrugDose (mg)",
+               "route" : "oral",
+               "start" : null,
+               "status" : 1000,
+               "value" : null
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ]
+   },
+   {
+      "diseases" : [
+         {
+            "diseaseCode" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            },
+            "severity" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "stage" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "diseaseCode" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            },
+            "severity" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "stage" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "diseaseCode" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            },
+            "severity" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "stage" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
+      "ethnicity" : {
+         "id" : "NCIT:C17459",
+         "label" : "Hispanic or Latino"
+      },
+      "exposures" : [
+         {
+            "_info" : "AlcoholUse",
+            "ageAtExposure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "date" : "1900-01-01",
+            "duration" : "P999Y",
+            "exposureCode" : {
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
+            },
+            "unit" : {
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
+            },
+            "value" : -1
+         }
+      ],
+      "id" : "P006:NA",
+      "info" : {
+         "CSV_columns" : {
+            "AgeAtAlcoholExposure" : 42,
+            "AgeAtTobaccoExposure" : null,
+            "AlcoholUse" : "No",
+            "BMI (kg/m^2)" : 22.9,
+            "Disease_1" : "Diabetes",
+            "Disease_2" : "Hypertension",
+            "Disease_3" : "Asthma",
+            "DrugDose (mg)" : 500,
+            "DrugName" : "Metformin",
+            "Ethnicity" : "Hispanic",
+            "Hemoglobin (g/dL)" : 13.1,
+            "PatientID" : "P006",
+            "PhenotypicFeature_1" : "Abnormal heart valve morphology",
+            "PhenotypicFeature_2" : "Emphysema",
+            "Platelets (10^9/L)" : 150,
+            "Sex" : "Female",
+            "TobaccoUse" : "Yes",
+            "WBC (10^9/L)" : 8.3,
+            "event_name" : "Baseline"
+         },
+         "version" : "test-0.1"
+      },
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "excluded_ori" : "Abnormal heart valve morphology",
+            "featureType" : {
+               "id" : "HPO:0001654 ",
+               "label" : "Abnormal heart valve morphology"
+            }
+         },
+         {
+            "excluded" : false,
+            "excluded_ori" : "Emphysema",
+            "featureType" : {
+               "id" : "HPO:0002097 ",
+               "label" : "Emphysema"
             }
          }
       ],
@@ -2477,8 +1739,8 @@
          }
       ],
       "ethnicity" : {
-         "id" : "NCIT:C41260",
-         "label" : "Asian"
+         "id" : "NCIT:C17459",
+         "label" : "Hispanic or Latino"
       },
       "exposures" : [
          {
@@ -2501,44 +1763,46 @@
             "value" : -1
          }
       ],
-      "id" : "P010:NA",
+      "id" : "P006:NA",
       "info" : {
          "CSV_columns" : {
-            "AgeAtAlcoholExposure" : 16,
-            "AgeAtTobaccoExposure" : 13,
+            "AgeAtAlcoholExposure" : 42,
+            "AgeAtTobaccoExposure" : null,
             "AlcoholUse" : "No",
-            "BMI (kg/m^2)" : 21.7,
+            "BMI (kg/m^2)" : 22.9,
             "Disease_1" : "Diabetes",
             "Disease_2" : "Hypertension",
             "Disease_3" : "Asthma",
-            "DrugDose (mg)" : 90,
+            "DrugDose (mg)" : 500,
             "DrugName" : "Metformin",
-            "Ethnicity" : "Asian",
-            "Hemoglobin (g/dL)" : 14.6,
-            "PatientID" : "P010",
-            "PhenotypicFeature_1" : "Blue eyes",
-            "PhenotypicFeature_2" : "Tall",
-            "Platelets (10^9/L)" : 210,
+            "Ethnicity" : "Hispanic",
+            "Hemoglobin (g/dL)" : 16.4,
+            "PatientID" : "P006",
+            "PhenotypicFeature_1" : "Abnormal heart valve morphology",
+            "PhenotypicFeature_2" : "Emphysema",
+            "Platelets (10^9/L)" : 351,
             "Sex" : "Female",
-            "TobaccoUse" : "No",
-            "WBC (10^9/L)" : 5.4,
-            "event_name" : "Baseline"
+            "TobaccoUse" : "Yes",
+            "WBC (10^9/L)" : 6.7,
+            "event_name" : "Treatment"
          },
          "version" : "test-0.1"
       },
       "phenotypicFeatures" : [
          {
-            "excluded_ori" : "Blue eyes",
+            "excluded" : false,
+            "excluded_ori" : "Abnormal heart valve morphology",
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "HPO:0001654 ",
+               "label" : "Abnormal heart valve morphology"
             }
          },
          {
-            "excluded_ori" : "Tall",
+            "excluded" : false,
+            "excluded_ori" : "Emphysema",
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "HPO:0002097 ",
+               "label" : "Emphysema"
             }
          }
       ],
@@ -2556,7 +1820,7 @@
                "field" : "DrugDose (mg)",
                "route" : "oral",
                "start" : null,
-               "status" : 90,
+               "status" : 500,
                "value" : null
             },
             "ageAtOnset" : {
@@ -2587,8 +1851,8 @@
       "diseases" : [
          {
             "diseaseCode" : {
-               "id" : "NCIT:C2985",
-               "label" : "Diabetes Mellitus"
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
             },
             "severity" : {
                "id" : "NCIT:NA0000",
@@ -2615,6 +1879,622 @@
          },
          {
             "diseaseCode" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            },
+            "severity" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "stage" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
+      "ethnicity" : {
+         "id" : "NCIT:C128937",
+         "label" : "African American"
+      },
+      "exposures" : [
+         {
+            "_info" : "AlcoholUse",
+            "ageAtExposure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "date" : "1900-01-01",
+            "duration" : "P999Y",
+            "exposureCode" : {
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
+            },
+            "unit" : {
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
+            },
+            "value" : -1
+         }
+      ],
+      "id" : "P007:NA",
+      "info" : {
+         "CSV_columns" : {
+            "AgeAtAlcoholExposure" : null,
+            "AgeAtTobaccoExposure" : null,
+            "AlcoholUse" : "Yes",
+            "BMI (kg/m^2)" : 21.2,
+            "Disease_1" : "Asthma",
+            "Disease_2" : "Hypertension",
+            "Disease_3" : "Diabetes",
+            "DrugDose (mg)" : 50,
+            "DrugName" : "Atorvastatin",
+            "Ethnicity" : "African American",
+            "Hemoglobin (g/dL)" : 14.7,
+            "PatientID" : "P007",
+            "PhenotypicFeature_1" : "Limitation of joint mobility",
+            "PhenotypicFeature_2" : "Abnormal heart valve morphology",
+            "Platelets (10^9/L)" : 172,
+            "Sex" : "Male",
+            "TobaccoUse" : "No",
+            "WBC (10^9/L)" : 4.2,
+            "event_name" : "Baseline"
+         },
+         "version" : "test-0.1"
+      },
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "excluded_ori" : "Limitation of joint mobility",
+            "featureType" : {
+               "id" : "HPO:0001376 ",
+               "label" : "Limitation of joint mobility"
+            }
+         },
+         {
+            "excluded" : false,
+            "excluded_ori" : "Abnormal heart valve morphology",
+            "featureType" : {
+               "id" : "HPO:0001654 ",
+               "label" : "Abnormal heart valve morphology"
+            }
+         }
+      ],
+      "sex" : {
+         "id" : "NCIT:C20197",
+         "label" : "Male"
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "DrugDose (mg)",
+               "drug_name" : "DrugDose (mg)",
+               "duration" : null,
+               "field" : "DrugDose (mg)",
+               "route" : "oral",
+               "start" : null,
+               "status" : 50,
+               "value" : null
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ]
+   },
+   {
+      "diseases" : [
+         {
+            "diseaseCode" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            },
+            "severity" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "stage" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "diseaseCode" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            },
+            "severity" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "stage" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "diseaseCode" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            },
+            "severity" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "stage" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
+      "ethnicity" : {
+         "id" : "NCIT:C128937",
+         "label" : "African American"
+      },
+      "exposures" : [
+         {
+            "_info" : "AlcoholUse",
+            "ageAtExposure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "date" : "1900-01-01",
+            "duration" : "P999Y",
+            "exposureCode" : {
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
+            },
+            "unit" : {
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
+            },
+            "value" : -1
+         }
+      ],
+      "id" : "P007:NA",
+      "info" : {
+         "CSV_columns" : {
+            "AgeAtAlcoholExposure" : null,
+            "AgeAtTobaccoExposure" : null,
+            "AlcoholUse" : "Yes",
+            "BMI (kg/m^2)" : 21.2,
+            "Disease_1" : "Asthma",
+            "Disease_2" : "Hypertension",
+            "Disease_3" : "Diabetes",
+            "DrugDose (mg)" : 50,
+            "DrugName" : "Atorvastatin",
+            "Ethnicity" : "African American",
+            "Hemoglobin (g/dL)" : 12.5,
+            "PatientID" : "P007",
+            "PhenotypicFeature_1" : "Limitation of joint mobility",
+            "PhenotypicFeature_2" : "Abnormal heart valve morphology",
+            "Platelets (10^9/L)" : 193,
+            "Sex" : "Male",
+            "TobaccoUse" : "No",
+            "WBC (10^9/L)" : 5.6,
+            "event_name" : "Treatment"
+         },
+         "version" : "test-0.1"
+      },
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "excluded_ori" : "Limitation of joint mobility",
+            "featureType" : {
+               "id" : "HPO:0001376 ",
+               "label" : "Limitation of joint mobility"
+            }
+         },
+         {
+            "excluded" : false,
+            "excluded_ori" : "Abnormal heart valve morphology",
+            "featureType" : {
+               "id" : "HPO:0001654 ",
+               "label" : "Abnormal heart valve morphology"
+            }
+         }
+      ],
+      "sex" : {
+         "id" : "NCIT:C20197",
+         "label" : "Male"
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "DrugDose (mg)",
+               "drug_name" : "DrugDose (mg)",
+               "duration" : null,
+               "field" : "DrugDose (mg)",
+               "route" : "oral",
+               "start" : null,
+               "status" : 50,
+               "value" : null
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ]
+   },
+   {
+      "diseases" : [
+         {
+            "diseaseCode" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            },
+            "severity" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "stage" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "diseaseCode" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            },
+            "severity" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "stage" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "diseaseCode" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            },
+            "severity" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "stage" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
+      "ethnicity" : {
+         "id" : "NCIT:C128937",
+         "label" : "African American"
+      },
+      "exposures" : [
+         {
+            "_info" : "AlcoholUse",
+            "ageAtExposure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "date" : "1900-01-01",
+            "duration" : "P999Y",
+            "exposureCode" : {
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
+            },
+            "unit" : {
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
+            },
+            "value" : -1
+         }
+      ],
+      "id" : "P008:NA",
+      "info" : {
+         "CSV_columns" : {
+            "AgeAtAlcoholExposure" : null,
+            "AgeAtTobaccoExposure" : null,
+            "AlcoholUse" : "No",
+            "BMI (kg/m^2)" : 25.2,
+            "Disease_1" : "Asthma",
+            "Disease_2" : "Diabetes",
+            "Disease_3" : "Hypertension",
+            "DrugDose (mg)" : 500,
+            "DrugName" : "Lisinopril",
+            "Ethnicity" : "African American",
+            "Hemoglobin (g/dL)" : 15.9,
+            "PatientID" : "P008",
+            "PhenotypicFeature_1" : "Limitation of joint mobility",
+            "PhenotypicFeature_2" : "Emphysema",
+            "Platelets (10^9/L)" : 230,
+            "Sex" : "Male",
+            "TobaccoUse" : "No",
+            "WBC (10^9/L)" : 8.7,
+            "event_name" : "Baseline"
+         },
+         "version" : "test-0.1"
+      },
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "excluded_ori" : "Limitation of joint mobility",
+            "featureType" : {
+               "id" : "HPO:0001376 ",
+               "label" : "Limitation of joint mobility"
+            }
+         },
+         {
+            "excluded" : false,
+            "excluded_ori" : "Emphysema",
+            "featureType" : {
+               "id" : "HPO:0002097 ",
+               "label" : "Emphysema"
+            }
+         }
+      ],
+      "sex" : {
+         "id" : "NCIT:C20197",
+         "label" : "Male"
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "DrugDose (mg)",
+               "drug_name" : "DrugDose (mg)",
+               "duration" : null,
+               "field" : "DrugDose (mg)",
+               "route" : "oral",
+               "start" : null,
+               "status" : 500,
+               "value" : null
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ]
+   },
+   {
+      "diseases" : [
+         {
+            "diseaseCode" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            },
+            "severity" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "stage" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "diseaseCode" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            },
+            "severity" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "stage" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "diseaseCode" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            },
+            "severity" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "stage" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
+      "ethnicity" : {
+         "id" : "NCIT:C128937",
+         "label" : "African American"
+      },
+      "exposures" : [
+         {
+            "_info" : "AlcoholUse",
+            "ageAtExposure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "date" : "1900-01-01",
+            "duration" : "P999Y",
+            "exposureCode" : {
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
+            },
+            "unit" : {
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
+            },
+            "value" : -1
+         }
+      ],
+      "id" : "P009:NA",
+      "info" : {
+         "CSV_columns" : {
+            "AgeAtAlcoholExposure" : null,
+            "AgeAtTobaccoExposure" : null,
+            "AlcoholUse" : "No",
+            "BMI (kg/m^2)" : 24.1,
+            "Disease_1" : "Asthma",
+            "Disease_2" : "Diabetes",
+            "Disease_3" : "Hypertension",
+            "DrugDose (mg)" : 1000,
+            "DrugName" : "Atorvastatin",
+            "Ethnicity" : "African American",
+            "Hemoglobin (g/dL)" : 16.8,
+            "PatientID" : "P009",
+            "PhenotypicFeature_1" : "Limitation of joint mobility",
+            "PhenotypicFeature_2" : "Abnormal heart valve morphology",
+            "Platelets (10^9/L)" : 354,
+            "Sex" : "Female",
+            "TobaccoUse" : "Yes",
+            "WBC (10^9/L)" : 10.9,
+            "event_name" : "Baseline"
+         },
+         "version" : "test-0.1"
+      },
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "excluded_ori" : "Limitation of joint mobility",
+            "featureType" : {
+               "id" : "HPO:0001376 ",
+               "label" : "Limitation of joint mobility"
+            }
+         },
+         {
+            "excluded" : false,
+            "excluded_ori" : "Abnormal heart valve morphology",
+            "featureType" : {
+               "id" : "HPO:0001654 ",
+               "label" : "Abnormal heart valve morphology"
+            }
+         }
+      ],
+      "sex" : {
+         "id" : "NCIT:C16576",
+         "label" : "Female"
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "DrugDose (mg)",
+               "drug_name" : "DrugDose (mg)",
+               "duration" : null,
+               "field" : "DrugDose (mg)",
+               "route" : "oral",
+               "start" : null,
+               "status" : 1000,
+               "value" : null
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ]
+   },
+   {
+      "diseases" : [
+         {
+            "diseaseCode" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            },
+            "severity" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "stage" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "diseaseCode" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            },
+            "severity" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "stage" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "diseaseCode" : {
                "id" : "NCIT:C28397",
                "label" : "Asthma"
             },
@@ -2629,8 +2509,8 @@
          }
       ],
       "ethnicity" : {
-         "id" : "NCIT:C41260",
-         "label" : "Asian"
+         "id" : "NCIT:C17459",
+         "label" : "Hispanic or Latino"
       },
       "exposures" : [
          {
@@ -2656,41 +2536,43 @@
       "id" : "P010:NA",
       "info" : {
          "CSV_columns" : {
-            "AgeAtAlcoholExposure" : 16,
-            "AgeAtTobaccoExposure" : 13,
-            "AlcoholUse" : "No",
-            "BMI (kg/m^2)" : 21.7,
-            "Disease_1" : "Diabetes",
-            "Disease_2" : "Hypertension",
+            "AgeAtAlcoholExposure" : 42,
+            "AgeAtTobaccoExposure" : null,
+            "AlcoholUse" : "Yes",
+            "BMI (kg/m^2)" : 28.2,
+            "Disease_1" : "Hypertension",
+            "Disease_2" : "Diabetes",
             "Disease_3" : "Asthma",
-            "DrugDose (mg)" : 90,
-            "DrugName" : "Metformin",
-            "Ethnicity" : "Asian",
-            "Hemoglobin (g/dL)" : 14.6,
+            "DrugDose (mg)" : 500,
+            "DrugName" : "Atorvastatin",
+            "Ethnicity" : "Hispanic",
+            "Hemoglobin (g/dL)" : 11.9,
             "PatientID" : "P010",
-            "PhenotypicFeature_1" : "Blue eyes",
-            "PhenotypicFeature_2" : "Tall",
-            "Platelets (10^9/L)" : 210,
+            "PhenotypicFeature_1" : "Emphysema",
+            "PhenotypicFeature_2" : "Limitation of joint mobility",
+            "Platelets (10^9/L)" : 391,
             "Sex" : "Female",
-            "TobaccoUse" : "No",
-            "WBC (10^9/L)" : 5.4,
-            "event_name" : "Treatment"
+            "TobaccoUse" : "Yes",
+            "WBC (10^9/L)" : 4.8,
+            "event_name" : "Baseline"
          },
          "version" : "test-0.1"
       },
       "phenotypicFeatures" : [
          {
-            "excluded_ori" : "Blue eyes",
+            "excluded" : false,
+            "excluded_ori" : "Emphysema",
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "HPO:0002097 ",
+               "label" : "Emphysema"
             }
          },
          {
-            "excluded_ori" : "Tall",
+            "excluded" : false,
+            "excluded_ori" : "Limitation of joint mobility",
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "HPO:0001376 ",
+               "label" : "Limitation of joint mobility"
             }
          }
       ],
@@ -2708,7 +2590,161 @@
                "field" : "DrugDose (mg)",
                "route" : "oral",
                "start" : null,
-               "status" : 90,
+               "status" : 500,
+               "value" : null
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:NA0000",
+                  "label" : "NA"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ]
+   },
+   {
+      "diseases" : [
+         {
+            "diseaseCode" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            },
+            "severity" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "stage" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "diseaseCode" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            },
+            "severity" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "stage" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         },
+         {
+            "diseaseCode" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            },
+            "severity" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "stage" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            }
+         }
+      ],
+      "ethnicity" : {
+         "id" : "NCIT:C17459",
+         "label" : "Hispanic or Latino"
+      },
+      "exposures" : [
+         {
+            "_info" : "AlcoholUse",
+            "ageAtExposure" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "date" : "1900-01-01",
+            "duration" : "P999Y",
+            "exposureCode" : {
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
+            },
+            "unit" : {
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
+            },
+            "value" : -1
+         }
+      ],
+      "id" : "P010:NA",
+      "info" : {
+         "CSV_columns" : {
+            "AgeAtAlcoholExposure" : 42,
+            "AgeAtTobaccoExposure" : null,
+            "AlcoholUse" : "Yes",
+            "BMI (kg/m^2)" : 28.2,
+            "Disease_1" : "Hypertension",
+            "Disease_2" : "Diabetes",
+            "Disease_3" : "Asthma",
+            "DrugDose (mg)" : 500,
+            "DrugName" : "Atorvastatin",
+            "Ethnicity" : "Hispanic",
+            "Hemoglobin (g/dL)" : 13.4,
+            "PatientID" : "P010",
+            "PhenotypicFeature_1" : "Emphysema",
+            "PhenotypicFeature_2" : "Limitation of joint mobility",
+            "Platelets (10^9/L)" : 261,
+            "Sex" : "Female",
+            "TobaccoUse" : "Yes",
+            "WBC (10^9/L)" : 5.5,
+            "event_name" : "Treatment"
+         },
+         "version" : "test-0.1"
+      },
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "excluded_ori" : "Emphysema",
+            "featureType" : {
+               "id" : "HPO:0002097 ",
+               "label" : "Emphysema"
+            }
+         },
+         {
+            "excluded" : false,
+            "excluded_ori" : "Limitation of joint mobility",
+            "featureType" : {
+               "id" : "HPO:0001376 ",
+               "label" : "Limitation of joint mobility"
+            }
+         }
+      ],
+      "sex" : {
+         "id" : "NCIT:C16576",
+         "label" : "Female"
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "dose" : null,
+               "drug" : "DrugDose (mg)",
+               "drug_name" : "DrugDose (mg)",
+               "duration" : null,
+               "field" : "DrugDose (mg)",
+               "route" : "oral",
+               "start" : null,
+               "status" : 500,
                "value" : null
             },
             "ageAtOnset" : {

@@ -1,21 +1,21 @@
 PatientID,event_name,Sex,Ethnicity,TobaccoUse,AgeAtTobaccoExposure,AlcoholUse,AgeAtAlcoholExposure,Hemoglobin (g/dL),WBC (10^9/L),Platelets (10^9/L),BMI (kg/m^2),DrugName,DrugDose (mg),Disease_1,Disease_2,Disease_3,PhenotypicFeature_1,PhenotypicFeature_2
-P001,Baseline,Female,Hispanic,Yes,31.0,Yes,,12.8,7.2,284.0,21.0,Metformin,500,Asthma,Hypertension,Diabetes,Tall,Blue eyes
-P001,Treatment,,,,,,,12.8,7.2,284.0,21.0,Metformin,500,Asthma,Hypertension,Diabetes,Tall,Blue eyes
-P002,Baseline,Female,Asian,Yes,28.0,Yes,,13.6,6.7,399.0,21.6,Lisinopril,1000,Hypertension,Asthma,Diabetes,Freckles,Blue eyes
-P002,Treatment,,,,,,,13.6,6.7,399.0,21.6,Lisinopril,1000,Hypertension,Asthma,Diabetes,Freckles,Blue eyes
-P003,Baseline,Female,African American,No,,Yes,32.0,11.3,8.6,188.0,28.3,Atorvastatin,50,Asthma,Diabetes,Hypertension,Freckles,Blue eyes
-P003,Treatment,,,,,,,11.3,8.6,188.0,28.3,Atorvastatin,50,Asthma,Diabetes,Hypertension,Freckles,Blue eyes
-P004,Baseline,Male,Hispanic,Yes,,No,15.0,11.5,6.6,168.0,26.9,Lisinopril,500,Asthma,Diabetes,Hypertension,Tall,Blue eyes
-P004,Treatment,,,,,,,11.5,6.6,168.0,26.9,Lisinopril,500,Asthma,Diabetes,Hypertension,Tall,Blue eyes
-P005,Baseline,Female,Asian,No,,Yes,,11.8,9.5,194.0,21.3,Atorvastatin,1000,Hypertension,Asthma,Diabetes,Blue eyes,Tall
-P005,Treatment,,,,,,,11.8,9.5,194.0,21.3,Atorvastatin,1000,Hypertension,Asthma,Diabetes,Blue eyes,Tall
-P006,Baseline,Female,Caucasian,Yes,15.0,No,,11.6,5.4,341.0,23.1,Atorvastatin,90,Hypertension,Asthma,Diabetes,Blue eyes,Curly hair
-P006,Treatment,,,,,,,11.6,5.4,341.0,23.1,Atorvastatin,90,Hypertension,Asthma,Diabetes,Blue eyes,Curly hair
-P007,Baseline,Female,Caucasian,Yes,,No,,13.6,8.3,283.0,27.5,Atorvastatin,90,Diabetes,Asthma,Hypertension,Curly hair,Tall
-P007,Treatment,,,,,,,13.6,8.3,283.0,27.5,Atorvastatin,90,Diabetes,Asthma,Hypertension,Curly hair,Tall
-P008,Treatment,,,,,,,14.1,11.0,274.0,22.9,Atorvastatin,90,Diabetes,Asthma,Hypertension,Tall,Curly hair
-P008,Baseline,Male,Native American,Yes,30.0,No,42.0,14.1,11.0,274.0,22.9,Atorvastatin,90,Diabetes,Asthma,Hypertension,Tall,Curly hair
-P009,Treatment,,,,,,,15.3,9.7,153.0,29.8,Albuterol,500,Diabetes,Asthma,Hypertension,Blue eyes,Tall
-P009,Baseline,Female,Asian,No,49.0,No,,15.3,9.7,153.0,29.8,Albuterol,500,Diabetes,Asthma,Hypertension,Blue eyes,Tall
-P010,Baseline,Female,Asian,No,13.0,No,16.0,14.6,5.4,210.0,21.7,Metformin,90,Diabetes,Hypertension,Asthma,Blue eyes,Tall
-P010,Treatment,,,,,,,14.6,5.4,210.0,21.7,Metformin,90,Diabetes,Hypertension,Asthma,Blue eyes,Tall
+P001,Baseline,Male,Native American,No,29.0,No,27.0,11.1,5.0,323.0,29.6,Metformin,50,Asthma,Diabetes,Hypertension,Limitation of joint mobility,Abnormal heart valve morphology
+P001,Treatment,,,,,,,15.3,10.3,165.0,29.6,Metformin,50,Asthma,Diabetes,Hypertension,Limitation of joint mobility,Abnormal heart valve morphology
+P002,Baseline,Male,Native American,No,48.0,Yes,,16.9,9.9,241.0,28.4,Atorvastatin,90,Asthma,Diabetes,Hypertension,Emphysema,Abnormal heart valve morphology
+P002,Treatment,,,,,,,13.3,6.5,155.0,28.4,Atorvastatin,90,Asthma,Diabetes,Hypertension,Emphysema,Abnormal heart valve morphology
+P003,Baseline,Female,Native American,Yes,48.0,Yes,,15.3,4.6,245.0,29.4,Metformin,50,Hypertension,Diabetes,Asthma,Limitation of joint mobility,Emphysema
+P003,Treatment,,,,,,,16.0,9.1,381.0,29.4,Metformin,50,Hypertension,Diabetes,Asthma,Limitation of joint mobility,Emphysema
+P004,Baseline,Male,Asian,No,,Yes,,13.1,5.1,187.0,26.9,Atorvastatin,90,Hypertension,Asthma,Diabetes,Limitation of joint mobility,Emphysema
+P004,Treatment,,,,,,,17.0,9.5,266.0,26.9,Atorvastatin,90,Hypertension,Asthma,Diabetes,Limitation of joint mobility,Emphysema
+P005,Baseline,Female,African American,Yes,,Yes,,13.7,8.1,227.0,25.7,Atorvastatin,1000,Asthma,Hypertension,Diabetes,Abnormal heart valve morphology,Emphysema
+P005,Treatment,,,,,,,12.4,7.8,238.0,25.7,Atorvastatin,1000,Asthma,Hypertension,Diabetes,Abnormal heart valve morphology,Emphysema
+P006,Baseline,Female,Hispanic,Yes,,No,42.0,13.1,8.3,150.0,22.9,Metformin,500,Diabetes,Hypertension,Asthma,Abnormal heart valve morphology,Emphysema
+P006,Treatment,,,,,,,16.4,6.7,351.0,22.9,Metformin,500,Diabetes,Hypertension,Asthma,Abnormal heart valve morphology,Emphysema
+P007,Baseline,Male,African American,No,,Yes,,14.7,4.2,172.0,21.2,Atorvastatin,50,Asthma,Hypertension,Diabetes,Limitation of joint mobility,Abnormal heart valve morphology
+P007,Treatment,,,,,,,12.5,5.6,193.0,21.2,Atorvastatin,50,Asthma,Hypertension,Diabetes,Limitation of joint mobility,Abnormal heart valve morphology
+P008,Treatment,,,,,,,14.7,5.5,250.0,25.2,Lisinopril,500,Asthma,Diabetes,Hypertension,Limitation of joint mobility,Emphysema
+P008,Baseline,Male,African American,No,,No,,15.9,8.7,230.0,25.2,Lisinopril,500,Asthma,Diabetes,Hypertension,Limitation of joint mobility,Emphysema
+P009,Treatment,,,,,,,12.6,9.1,295.0,24.1,Atorvastatin,1000,Asthma,Diabetes,Hypertension,Limitation of joint mobility,Abnormal heart valve morphology
+P009,Baseline,Female,African American,Yes,,No,,16.8,10.9,354.0,24.1,Atorvastatin,1000,Asthma,Diabetes,Hypertension,Limitation of joint mobility,Abnormal heart valve morphology
+P010,Baseline,Female,Hispanic,Yes,,Yes,42.0,11.9,4.8,391.0,28.2,Atorvastatin,500,Hypertension,Diabetes,Asthma,Emphysema,Limitation of joint mobility
+P010,Treatment,,,,,,,13.4,5.5,261.0,28.2,Atorvastatin,500,Hypertension,Diabetes,Asthma,Emphysema,Limitation of joint mobility

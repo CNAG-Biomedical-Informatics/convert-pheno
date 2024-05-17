@@ -501,15 +501,15 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C3001",
-               "label" : "Eczema"
+               "id" : "NCIT:C41366",
+               "label" : "Atopy"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C19700",
-               "label" : "Cancer Patient"
+               "id" : "NCIT:C16213",
+               "label" : "Cancer Diagnosis"
             }
          },
          {
@@ -529,8 +529,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C80385",
-               "label" : "Dyslipidemia"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             }
          },
          {
@@ -543,8 +543,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C17649",
+               "label" : "Other"
             }
          },
          {
@@ -555,7 +555,7 @@
             }
          },
          {
-            "excluded" : null,
+            "excluded" : false,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -1072,15 +1072,15 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C3001",
-               "label" : "Eczema"
+               "id" : "NCIT:C41366",
+               "label" : "Atopy"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C19700",
-               "label" : "Cancer Patient"
+               "id" : "NCIT:C16213",
+               "label" : "Cancer Diagnosis"
             }
          },
          {
@@ -1100,8 +1100,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C80385",
-               "label" : "Dyslipidemia"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             }
          },
          {
@@ -1114,8 +1114,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C17649",
+               "label" : "Other"
             }
          },
          {
@@ -1126,7 +1126,7 @@
             }
          },
          {
-            "excluded" : null,
+            "excluded" : false,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -1632,15 +1632,15 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C3001",
-               "label" : "Eczema"
+               "id" : "NCIT:C41366",
+               "label" : "Atopy"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C19700",
-               "label" : "Cancer Patient"
+               "id" : "NCIT:C16213",
+               "label" : "Cancer Diagnosis"
             }
          },
          {
@@ -1660,8 +1660,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C80385",
-               "label" : "Dyslipidemia"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             }
          },
          {
@@ -1674,8 +1674,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C17649",
+               "label" : "Other"
             }
          },
          {
@@ -1686,7 +1686,7 @@
             }
          },
          {
-            "excluded" : null,
+            "excluded" : false,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -2166,7 +2166,7 @@
             }
          },
          {
-            "excluded" : null,
+            "excluded" : false,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -2646,7 +2646,7 @@
             }
          },
          {
-            "excluded" : null,
+            "excluded" : false,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -3126,7 +3126,7 @@
             }
          },
          {
-            "excluded" : null,
+            "excluded" : false,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -3595,7 +3595,7 @@
             }
          },
          {
-            "excluded" : null,
+            "excluded" : false,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -4190,7 +4190,7 @@
             }
          },
          {
-            "excluded" : null,
+            "excluded" : false,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -4751,7 +4751,7 @@
             }
          },
          {
-            "excluded" : null,
+            "excluded" : false,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -5345,7 +5345,7 @@
             }
          },
          {
-            "excluded" : null,
+            "excluded" : false,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -5939,7 +5939,7 @@
             }
          },
          {
-            "excluded" : null,
+            "excluded" : false,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -6407,7 +6407,7 @@
             }
          },
          {
-            "excluded" : null,
+            "excluded" : false,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -6864,7 +6864,7 @@
             }
          },
          {
-            "excluded" : null,
+            "excluded" : false,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -7573,7 +7573,7 @@
             }
          },
          {
-            "excluded" : null,
+            "excluded" : false,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -8099,7 +8099,7 @@
             }
          },
          {
-            "excluded" : null,
+            "excluded" : false,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -8776,15 +8776,15 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C3001",
-               "label" : "Eczema"
+               "id" : "NCIT:C41366",
+               "label" : "Atopy"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C19700",
-               "label" : "Cancer Patient"
+               "id" : "NCIT:C16213",
+               "label" : "Cancer Diagnosis"
             }
          },
          {
@@ -8804,8 +8804,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C80385",
-               "label" : "Dyslipidemia"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             }
          },
          {
@@ -8818,8 +8818,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C17649",
+               "label" : "Other"
             }
          },
          {
@@ -8830,7 +8830,7 @@
             }
          },
          {
-            "excluded" : null,
+            "excluded" : false,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -9473,15 +9473,15 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C3001",
-               "label" : "Eczema"
+               "id" : "NCIT:C41366",
+               "label" : "Atopy"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C19700",
-               "label" : "Cancer Patient"
+               "id" : "NCIT:C16213",
+               "label" : "Cancer Diagnosis"
             }
          },
          {
@@ -9501,8 +9501,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C80385",
-               "label" : "Dyslipidemia"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             }
          },
          {
@@ -9515,8 +9515,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C17649",
+               "label" : "Other"
             }
          },
          {
@@ -9527,7 +9527,7 @@
             }
          },
          {
-            "excluded" : null,
+            "excluded" : false,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -10170,15 +10170,15 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C3001",
-               "label" : "Eczema"
+               "id" : "NCIT:C41366",
+               "label" : "Atopy"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C19700",
-               "label" : "Cancer Patient"
+               "id" : "NCIT:C16213",
+               "label" : "Cancer Diagnosis"
             }
          },
          {
@@ -10198,8 +10198,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C80385",
-               "label" : "Dyslipidemia"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             }
          },
          {
@@ -10212,8 +10212,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C17649",
+               "label" : "Other"
             }
          },
          {
@@ -10224,7 +10224,7 @@
             }
          },
          {
-            "excluded" : null,
+            "excluded" : false,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -10879,15 +10879,15 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C3001",
-               "label" : "Eczema"
+               "id" : "NCIT:C41366",
+               "label" : "Atopy"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C19700",
-               "label" : "Cancer Patient"
+               "id" : "NCIT:C16213",
+               "label" : "Cancer Diagnosis"
             }
          },
          {
@@ -10907,8 +10907,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C80385",
-               "label" : "Dyslipidemia"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             }
          },
          {
@@ -10921,8 +10921,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C17649",
+               "label" : "Other"
             }
          },
          {
@@ -10933,7 +10933,7 @@
             }
          },
          {
-            "excluded" : null,
+            "excluded" : false,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -11527,7 +11527,7 @@
             }
          },
          {
-            "excluded" : null,
+            "excluded" : false,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -12029,7 +12029,7 @@
             }
          },
          {
-            "excluded" : null,
+            "excluded" : false,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -12520,7 +12520,7 @@
             }
          },
          {
-            "excluded" : null,
+            "excluded" : false,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -13229,7 +13229,7 @@
             }
          },
          {
-            "excluded" : null,
+            "excluded" : false,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -13732,7 +13732,7 @@
             }
          },
          {
-            "excluded" : null,
+            "excluded" : false,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -14201,7 +14201,7 @@
             }
          },
          {
-            "excluded" : null,
+            "excluded" : false,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -14796,7 +14796,7 @@
             }
          },
          {
-            "excluded" : null,
+            "excluded" : false,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -15367,7 +15367,7 @@
             }
          },
          {
-            "excluded" : null,
+            "excluded" : false,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -15892,7 +15892,7 @@
             }
          },
          {
-            "excluded" : null,
+            "excluded" : false,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -16383,7 +16383,7 @@
             }
          },
          {
-            "excluded" : null,
+            "excluded" : false,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -16886,7 +16886,7 @@
             }
          },
          {
-            "excluded" : null,
+            "excluded" : false,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -17492,7 +17492,7 @@
             }
          },
          {
-            "excluded" : null,
+            "excluded" : false,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -18135,15 +18135,15 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C3001",
-               "label" : "Eczema"
+               "id" : "NCIT:C41366",
+               "label" : "Atopy"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C19700",
-               "label" : "Cancer Patient"
+               "id" : "NCIT:C16213",
+               "label" : "Cancer Diagnosis"
             }
          },
          {
@@ -18163,8 +18163,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C80385",
-               "label" : "Dyslipidemia"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             }
          },
          {
@@ -18177,8 +18177,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C17649",
+               "label" : "Other"
             }
          },
          {
@@ -18189,7 +18189,7 @@
             }
          },
          {
-            "excluded" : null,
+            "excluded" : false,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -18706,15 +18706,15 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C3001",
-               "label" : "Eczema"
+               "id" : "NCIT:C41366",
+               "label" : "Atopy"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C19700",
-               "label" : "Cancer Patient"
+               "id" : "NCIT:C16213",
+               "label" : "Cancer Diagnosis"
             }
          },
          {
@@ -18734,8 +18734,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C80385",
-               "label" : "Dyslipidemia"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             }
          },
          {
@@ -18748,8 +18748,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C17649",
+               "label" : "Other"
             }
          },
          {
@@ -18760,7 +18760,7 @@
             }
          },
          {
-            "excluded" : null,
+            "excluded" : false,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -19255,15 +19255,15 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C3001",
-               "label" : "Eczema"
+               "id" : "NCIT:C41366",
+               "label" : "Atopy"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C19700",
-               "label" : "Cancer Patient"
+               "id" : "NCIT:C16213",
+               "label" : "Cancer Diagnosis"
             }
          },
          {
@@ -19283,8 +19283,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C80385",
-               "label" : "Dyslipidemia"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             }
          },
          {
@@ -19297,8 +19297,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C17649",
+               "label" : "Other"
             }
          },
          {
@@ -19854,15 +19854,15 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C3001",
-               "label" : "Eczema"
+               "id" : "NCIT:C41366",
+               "label" : "Atopy"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C19700",
-               "label" : "Cancer Patient"
+               "id" : "NCIT:C16213",
+               "label" : "Cancer Diagnosis"
             }
          },
          {
@@ -19882,8 +19882,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C80385",
-               "label" : "Dyslipidemia"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             }
          },
          {
@@ -19896,8 +19896,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C17649",
+               "label" : "Other"
             }
          },
          {
@@ -19908,7 +19908,7 @@
             }
          },
          {
-            "excluded" : null,
+            "excluded" : false,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"
@@ -20540,15 +20540,15 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C3001",
-               "label" : "Eczema"
+               "id" : "NCIT:C41366",
+               "label" : "Atopy"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C19700",
-               "label" : "Cancer Patient"
+               "id" : "NCIT:C16213",
+               "label" : "Cancer Diagnosis"
             }
          },
          {
@@ -20568,8 +20568,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C80385",
-               "label" : "Dyslipidemia"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             }
          },
          {
@@ -20582,8 +20582,8 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C17649",
+               "label" : "Other"
             }
          },
          {
@@ -20594,7 +20594,7 @@
             }
          },
          {
-            "excluded" : null,
+            "excluded" : false,
             "type" : {
                "id" : "NCIT:NA0000",
                "label" : "NA"

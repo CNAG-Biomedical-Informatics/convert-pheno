@@ -5,7 +5,11 @@ Revision history for Perl distribution Convert-Pheno
  - Encapsulated Default values in Default.pm
  - Refactored REDCap.pm code to be used with CSV.pm
  - Implemented basic <csv2bff> and  <csv2pxf> conversions (experimental)
- - Required properties in mappinf file now only are 'project','id' and 'sex'
+ - Mapping file changes:
+    o Required properties in mappind file now only are 'project','id' and 'sex'
+    O Added project.baselineFieldsToPropagate
+    o Added new property 'terminology'
+ - Fixed issue with hpo.db that had leading spaces in 'label' column
 
 0.19 2024-04-24T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 

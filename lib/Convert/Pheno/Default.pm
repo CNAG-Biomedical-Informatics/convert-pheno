@@ -8,20 +8,20 @@ our @EXPORT_OK = qw(get_defaults);
 
 # Define your default values
 my %DEFAULT = (
-    ontology  => { id => 'NCIT:NA0000', label => 'NA' },
-    date      => '1900-01-01',
-    duration  => 'P999Y',
+    ontology      => { id => 'NCIT:NA0000', label => 'NA' },
+    date          => '1900-01-01',
+    duration      => 'P999Y',
     duration_OMOP => 'P0Y',
-    value     => -1,
-    age      => { age => { iso8601duration => 'P999Y' } },
-    timestamp => '1900-01-01T00:00:00Z',
+    value         => -1,
+    age           => { age => { iso8601duration => 'P999Y' } },
+    timestamp     => '1900-01-01T00:00:00Z',
 );
 
 $DEFAULT{iso8601duration} = { iso8601duration => $DEFAULT{duration} };
 $DEFAULT{quantity}        = {
-        unit  => $DEFAULT{ontology},
-        value => $DEFAULT{value}
-    };
+    unit  => $DEFAULT{ontology},
+    value => $DEFAULT{value}
+};
 
 # Lock the hash to make it read-only
 lock_hash(%DEFAULT);

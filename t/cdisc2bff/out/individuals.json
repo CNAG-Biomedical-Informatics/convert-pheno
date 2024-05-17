@@ -1356,8 +1356,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C3001",
-               "label" : "Eczema"
+               "id" : "NCIT:C41366",
+               "label" : "Atopy"
             },
             "notes" : "comorb_ad /// Field Label=Comorbidities - atopic dermatitis /// Field Note= /// Field Type=yesno"
          },
@@ -1365,8 +1365,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C19700",
-               "label" : "Cancer Patient"
+               "id" : "NCIT:C16213",
+               "label" : "Cancer Diagnosis"
             },
             "notes" : "comorb_cancer /// Field Label=Comorbidities - cancer /// Field Note= /// Field Type=yesno"
          },
@@ -1392,8 +1392,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C80385",
-               "label" : "Dyslipidemia"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "notes" : "comorb_lipids /// Field Label=Comorbidities - Hyper-/dyslipidemia /// Field Note= /// Field Type=yesno"
          },
@@ -1410,8 +1410,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C17649",
+               "label" : "Other"
             },
             "notes" : "comorb_other_ai /// Field Label=Comorbidities - other autoimmune disease /// Field Note= /// Field Type=yesno"
          },
@@ -1425,6 +1425,7 @@
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : false,
             "excluded_ori" : "1 (streaks of blood with stool in in less than half of the cases)",
             "featureType" : {
                "id" : "NCIT:NA0000",
@@ -2730,8 +2731,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C3001",
-               "label" : "Eczema"
+               "id" : "NCIT:C41366",
+               "label" : "Atopy"
             },
             "notes" : "comorb_ad /// Field Label=Comorbidities - atopic dermatitis /// Field Note= /// Field Type=yesno"
          },
@@ -2739,8 +2740,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C19700",
-               "label" : "Cancer Patient"
+               "id" : "NCIT:C16213",
+               "label" : "Cancer Diagnosis"
             },
             "notes" : "comorb_cancer /// Field Label=Comorbidities - cancer /// Field Note= /// Field Type=yesno"
          },
@@ -2766,8 +2767,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C80385",
-               "label" : "Dyslipidemia"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "notes" : "comorb_lipids /// Field Label=Comorbidities - Hyper-/dyslipidemia /// Field Note= /// Field Type=yesno"
          },
@@ -2784,8 +2785,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C17649",
+               "label" : "Other"
             },
             "notes" : "comorb_other_ai /// Field Label=Comorbidities - other autoimmune disease /// Field Note= /// Field Type=yesno"
          },
@@ -2799,6 +2800,7 @@
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : false,
             "excluded_ori" : "1 (streaks of blood with stool in in less than half of the cases)",
             "featureType" : {
                "id" : "NCIT:NA0000",
@@ -4132,8 +4134,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C3001",
-               "label" : "Eczema"
+               "id" : "NCIT:C41366",
+               "label" : "Atopy"
             },
             "notes" : "comorb_ad /// Field Label=Comorbidities - atopic dermatitis /// Field Note= /// Field Type=yesno"
          },
@@ -4141,8 +4143,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C19700",
-               "label" : "Cancer Patient"
+               "id" : "NCIT:C16213",
+               "label" : "Cancer Diagnosis"
             },
             "notes" : "comorb_cancer /// Field Label=Comorbidities - cancer /// Field Note= /// Field Type=yesno"
          },
@@ -4168,8 +4170,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C80385",
-               "label" : "Dyslipidemia"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "notes" : "comorb_lipids /// Field Label=Comorbidities - Hyper-/dyslipidemia /// Field Note= /// Field Type=yesno"
          },
@@ -4186,8 +4188,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C17649",
+               "label" : "Other"
             },
             "notes" : "comorb_other_ai /// Field Label=Comorbidities - other autoimmune disease /// Field Note= /// Field Type=yesno"
          },
@@ -4201,6 +4203,7 @@
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
@@ -5522,6 +5525,7 @@
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : false,
             "excluded_ori" : "1 (streaks of blood with stool in in less than half of the cases)",
             "featureType" : {
                "id" : "NCIT:NA0000",
@@ -6794,6 +6798,7 @@
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
@@ -8077,6 +8082,7 @@
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
@@ -9332,6 +9338,7 @@
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
@@ -10673,6 +10680,7 @@
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
@@ -12052,6 +12060,7 @@
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
@@ -13535,6 +13544,7 @@
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : false,
             "excluded_ori" : "1 (streaks of blood with stool in in less than half of the cases)",
             "featureType" : {
                "id" : "NCIT:NA0000",
@@ -14793,6 +14803,7 @@
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : false,
             "excluded_ori" : "1 (streaks of blood with stool in in less than half of the cases)",
             "featureType" : {
                "id" : "NCIT:NA0000",
@@ -16238,6 +16249,7 @@
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : false,
             "excluded_ori" : "1 (streaks of blood with stool in in less than half of the cases)",
             "featureType" : {
                "id" : "NCIT:NA0000",
@@ -17479,6 +17491,7 @@
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
@@ -19070,6 +19083,7 @@
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
@@ -20405,6 +20419,7 @@
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
@@ -21995,8 +22010,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C3001",
-               "label" : "Eczema"
+               "id" : "NCIT:C41366",
+               "label" : "Atopy"
             },
             "notes" : "comorb_ad /// Field Label=Comorbidities - atopic dermatitis /// Field Note= /// Field Type=yesno"
          },
@@ -22004,8 +22019,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C19700",
-               "label" : "Cancer Patient"
+               "id" : "NCIT:C16213",
+               "label" : "Cancer Diagnosis"
             },
             "notes" : "comorb_cancer /// Field Label=Comorbidities - cancer /// Field Note= /// Field Type=yesno"
          },
@@ -22031,8 +22046,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C80385",
-               "label" : "Dyslipidemia"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "notes" : "comorb_lipids /// Field Label=Comorbidities - Hyper-/dyslipidemia /// Field Note= /// Field Type=yesno"
          },
@@ -22049,8 +22064,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C17649",
+               "label" : "Other"
             },
             "notes" : "comorb_other_ai /// Field Label=Comorbidities - other autoimmune disease /// Field Note= /// Field Type=yesno"
          },
@@ -22064,6 +22079,7 @@
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
@@ -23556,8 +23572,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C3001",
-               "label" : "Eczema"
+               "id" : "NCIT:C41366",
+               "label" : "Atopy"
             },
             "notes" : "comorb_ad /// Field Label=Comorbidities - atopic dermatitis /// Field Note= /// Field Type=yesno"
          },
@@ -23565,8 +23581,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C19700",
-               "label" : "Cancer Patient"
+               "id" : "NCIT:C16213",
+               "label" : "Cancer Diagnosis"
             },
             "notes" : "comorb_cancer /// Field Label=Comorbidities - cancer /// Field Note= /// Field Type=yesno"
          },
@@ -23592,8 +23608,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C80385",
-               "label" : "Dyslipidemia"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "notes" : "comorb_lipids /// Field Label=Comorbidities - Hyper-/dyslipidemia /// Field Note= /// Field Type=yesno"
          },
@@ -23610,8 +23626,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C17649",
+               "label" : "Other"
             },
             "notes" : "comorb_other_ai /// Field Label=Comorbidities - other autoimmune disease /// Field Note= /// Field Type=yesno"
          },
@@ -23625,6 +23641,7 @@
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : false,
             "excluded_ori" : "1 (streaks of blood with stool in in less than half of the cases)",
             "featureType" : {
                "id" : "NCIT:NA0000",
@@ -25126,8 +25143,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C3001",
-               "label" : "Eczema"
+               "id" : "NCIT:C41366",
+               "label" : "Atopy"
             },
             "notes" : "comorb_ad /// Field Label=Comorbidities - atopic dermatitis /// Field Note= /// Field Type=yesno"
          },
@@ -25135,8 +25152,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C19700",
-               "label" : "Cancer Patient"
+               "id" : "NCIT:C16213",
+               "label" : "Cancer Diagnosis"
             },
             "notes" : "comorb_cancer /// Field Label=Comorbidities - cancer /// Field Note= /// Field Type=yesno"
          },
@@ -25162,8 +25179,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C80385",
-               "label" : "Dyslipidemia"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "notes" : "comorb_lipids /// Field Label=Comorbidities - Hyper-/dyslipidemia /// Field Note= /// Field Type=yesno"
          },
@@ -25180,8 +25197,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C17649",
+               "label" : "Other"
             },
             "notes" : "comorb_other_ai /// Field Label=Comorbidities - other autoimmune disease /// Field Note= /// Field Type=yesno"
          },
@@ -25195,6 +25212,7 @@
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
@@ -26701,8 +26719,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C3001",
-               "label" : "Eczema"
+               "id" : "NCIT:C41366",
+               "label" : "Atopy"
             },
             "notes" : "comorb_ad /// Field Label=Comorbidities - atopic dermatitis /// Field Note= /// Field Type=yesno"
          },
@@ -26710,8 +26728,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C19700",
-               "label" : "Cancer Patient"
+               "id" : "NCIT:C16213",
+               "label" : "Cancer Diagnosis"
             },
             "notes" : "comorb_cancer /// Field Label=Comorbidities - cancer /// Field Note= /// Field Type=yesno"
          },
@@ -26737,8 +26755,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C80385",
-               "label" : "Dyslipidemia"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "notes" : "comorb_lipids /// Field Label=Comorbidities - Hyper-/dyslipidemia /// Field Note= /// Field Type=yesno"
          },
@@ -26755,8 +26773,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C17649",
+               "label" : "Other"
             },
             "notes" : "comorb_other_ai /// Field Label=Comorbidities - other autoimmune disease /// Field Note= /// Field Type=yesno"
          },
@@ -26770,6 +26788,7 @@
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
@@ -28253,6 +28272,7 @@
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : false,
             "excluded_ori" : "1 (streaks of blood with stool in in less than half of the cases)",
             "featureType" : {
                "id" : "NCIT:NA0000",
@@ -29543,6 +29563,7 @@
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
@@ -30860,6 +30881,7 @@
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
@@ -32362,6 +32384,7 @@
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
@@ -33735,6 +33758,7 @@
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
@@ -34991,6 +35015,7 @@
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
@@ -36419,6 +36444,7 @@
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
@@ -37872,6 +37898,7 @@
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : false,
             "excluded_ori" : "1 (streaks of blood with stool in in less than half of the cases)",
             "featureType" : {
                "id" : "NCIT:NA0000",
@@ -39162,6 +39189,7 @@
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : false,
             "excluded_ori" : "1 (streaks of blood with stool in in less than half of the cases)",
             "featureType" : {
                "id" : "NCIT:NA0000",
@@ -40511,6 +40539,7 @@
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
@@ -41815,6 +41844,7 @@
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
@@ -43260,6 +43290,7 @@
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
@@ -44803,8 +44834,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C3001",
-               "label" : "Eczema"
+               "id" : "NCIT:C41366",
+               "label" : "Atopy"
             },
             "notes" : "comorb_ad /// Field Label=Comorbidities - atopic dermatitis /// Field Note= /// Field Type=yesno"
          },
@@ -44812,8 +44843,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C19700",
-               "label" : "Cancer Patient"
+               "id" : "NCIT:C16213",
+               "label" : "Cancer Diagnosis"
             },
             "notes" : "comorb_cancer /// Field Label=Comorbidities - cancer /// Field Note= /// Field Type=yesno"
          },
@@ -44839,8 +44870,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C80385",
-               "label" : "Dyslipidemia"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "notes" : "comorb_lipids /// Field Label=Comorbidities - Hyper-/dyslipidemia /// Field Note= /// Field Type=yesno"
          },
@@ -44857,8 +44888,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C17649",
+               "label" : "Other"
             },
             "notes" : "comorb_other_ai /// Field Label=Comorbidities - other autoimmune disease /// Field Note= /// Field Type=yesno"
          },
@@ -44872,6 +44903,7 @@
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : false,
             "excluded_ori" : "1 (streaks of blood with stool in in less than half of the cases)",
             "featureType" : {
                "id" : "NCIT:NA0000",
@@ -46058,8 +46090,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C3001",
-               "label" : "Eczema"
+               "id" : "NCIT:C41366",
+               "label" : "Atopy"
             },
             "notes" : "comorb_ad /// Field Label=Comorbidities - atopic dermatitis /// Field Note= /// Field Type=yesno"
          },
@@ -46067,8 +46099,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C19700",
-               "label" : "Cancer Patient"
+               "id" : "NCIT:C16213",
+               "label" : "Cancer Diagnosis"
             },
             "notes" : "comorb_cancer /// Field Label=Comorbidities - cancer /// Field Note= /// Field Type=yesno"
          },
@@ -46094,8 +46126,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C80385",
-               "label" : "Dyslipidemia"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "notes" : "comorb_lipids /// Field Label=Comorbidities - Hyper-/dyslipidemia /// Field Note= /// Field Type=yesno"
          },
@@ -46112,8 +46144,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C17649",
+               "label" : "Other"
             },
             "notes" : "comorb_other_ai /// Field Label=Comorbidities - other autoimmune disease /// Field Note= /// Field Type=yesno"
          },
@@ -47451,8 +47483,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C3001",
-               "label" : "Eczema"
+               "id" : "NCIT:C41366",
+               "label" : "Atopy"
             },
             "notes" : "comorb_ad /// Field Label=Comorbidities - atopic dermatitis /// Field Note= /// Field Type=yesno"
          },
@@ -47460,8 +47492,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C19700",
-               "label" : "Cancer Patient"
+               "id" : "NCIT:C16213",
+               "label" : "Cancer Diagnosis"
             },
             "notes" : "comorb_cancer /// Field Label=Comorbidities - cancer /// Field Note= /// Field Type=yesno"
          },
@@ -47487,8 +47519,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C80385",
-               "label" : "Dyslipidemia"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "notes" : "comorb_lipids /// Field Label=Comorbidities - Hyper-/dyslipidemia /// Field Note= /// Field Type=yesno"
          },
@@ -47505,8 +47537,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C17649",
+               "label" : "Other"
             },
             "notes" : "comorb_other_ai /// Field Label=Comorbidities - other autoimmune disease /// Field Note= /// Field Type=yesno"
          },
@@ -47520,6 +47552,7 @@
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
@@ -48886,8 +48919,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C3001",
-               "label" : "Eczema"
+               "id" : "NCIT:C41366",
+               "label" : "Atopy"
             },
             "notes" : "comorb_ad /// Field Label=Comorbidities - atopic dermatitis /// Field Note= /// Field Type=yesno"
          },
@@ -48895,8 +48928,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C19700",
-               "label" : "Cancer Patient"
+               "id" : "NCIT:C16213",
+               "label" : "Cancer Diagnosis"
             },
             "notes" : "comorb_cancer /// Field Label=Comorbidities - cancer /// Field Note= /// Field Type=yesno"
          },
@@ -48922,8 +48955,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C80385",
-               "label" : "Dyslipidemia"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "notes" : "comorb_lipids /// Field Label=Comorbidities - Hyper-/dyslipidemia /// Field Note= /// Field Type=yesno"
          },
@@ -48940,8 +48973,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C17649",
+               "label" : "Other"
             },
             "notes" : "comorb_other_ai /// Field Label=Comorbidities - other autoimmune disease /// Field Note= /// Field Type=yesno"
          },
@@ -48955,6 +48988,7 @@
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",
@@ -50431,8 +50465,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C3001",
-               "label" : "Eczema"
+               "id" : "NCIT:C41366",
+               "label" : "Atopy"
             },
             "notes" : "comorb_ad /// Field Label=Comorbidities - atopic dermatitis /// Field Note= /// Field Type=yesno"
          },
@@ -50440,8 +50474,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C19700",
-               "label" : "Cancer Patient"
+               "id" : "NCIT:C16213",
+               "label" : "Cancer Diagnosis"
             },
             "notes" : "comorb_cancer /// Field Label=Comorbidities - cancer /// Field Note= /// Field Type=yesno"
          },
@@ -50467,8 +50501,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:C80385",
-               "label" : "Dyslipidemia"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "notes" : "comorb_lipids /// Field Label=Comorbidities - Hyper-/dyslipidemia /// Field Note= /// Field Type=yesno"
          },
@@ -50485,8 +50519,8 @@
             "excluded" : true,
             "excluded_ori" : 0,
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C17649",
+               "label" : "Other"
             },
             "notes" : "comorb_other_ai /// Field Label=Comorbidities - other autoimmune disease /// Field Note= /// Field Type=yesno"
          },
@@ -50500,6 +50534,7 @@
             "notes" : "immunodeficiency /// Field Label=Primary immunodeficiency known? /// Field Note= /// Field Type=yesno"
          },
          {
+            "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
                "id" : "NCIT:NA0000",

@@ -3,9 +3,10 @@ package Convert::Pheno::CSV;
 use strict;
 use warnings;
 use autodie;
-use feature qw(say);
+use feature                 qw(say);
 use Convert::Pheno::Default qw(get_defaults);
-use Convert::Pheno::REDCap qw(get_required_terms propagate_fields map_fields_to_redcap_dict map_diseases map_ethnicity map_exposures map_info map_interventionsOrProcedures map_measures map_pedigrees map_phenotypicFeatures map_sex map_treatments);
+use Convert::Pheno::REDCap
+  qw(get_required_terms propagate_fields map_fields_to_redcap_dict map_diseases map_ethnicity map_exposures map_info map_interventionsOrProcedures map_measures map_pedigrees map_phenotypicFeatures map_sex map_treatments);
 
 use Data::Dumper;
 use Hash::Fold fold => { array_delimiter => ':' };
@@ -171,7 +172,6 @@ sub do_csv2bff {
     # measures
     # ========
 
-
     map_measures($param_sub);
 
     # =========
@@ -192,13 +192,11 @@ sub do_csv2bff {
 
     map_sex($param_sub);
 
-
     # ==========
     # treatments
     # ==========
 
-     map_treatments($param_sub);
-
+    map_treatments($param_sub);
 
     ##################################
     # END MAPPING TO BEACON V2 TERMS #

@@ -3,7 +3,7 @@ package Convert::Pheno::PXF;
 use strict;
 use warnings;
 use autodie;
-use feature qw(say);
+use feature                 qw(say);
 use Convert::Pheno::Default qw(get_defaults);
 use Convert::Pheno::Mapping;
 use Exporter 'import';
@@ -275,7 +275,7 @@ sub do_pxf2bff {
     # sex
     # ===
 
-    $individual->{sex} = map_ontology(
+    $individual->{sex} = map_ontology_term(
         {
             query    => $phenopacket->{subject}{sex},
             column   => 'label',

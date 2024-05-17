@@ -3,7 +3,7 @@ package Convert::Pheno::OMOP;
 use strict;
 use warnings;
 use autodie;
-use feature qw(say);
+use feature                 qw(say);
 use Convert::Pheno::Default qw(get_defaults);
 use Convert::Pheno::Mapping;
 use Exporter 'import';
@@ -212,7 +212,7 @@ sub do_omop2bff {
     # ethnicity
     # =========
 
-    $individual->{ethnicity} = map_ontology(
+    $individual->{ethnicity} = map_ontology_term(
         {
             query => $person->{race_source_value}
             ,    # not getting it from *_concept_id
@@ -322,7 +322,7 @@ sub do_omop2bff {
     # geographicOrigin
     # ================
 
-    $individual->{geographicOrigin} = map_ontology(
+    $individual->{geographicOrigin} = map_ontology_term(
         {
             query    => $person->{ethnicity_source_value},
             column   => 'label',
@@ -704,7 +704,7 @@ sub do_omop2bff {
     );
 
     # $sex = {id, label), we need to use 'label'
-    $individual->{sex} = map_ontology(
+    $individual->{sex} = map_ontology_term(
         {
             query    => $sex->{label},
             column   => 'label',

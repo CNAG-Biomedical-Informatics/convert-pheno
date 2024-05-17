@@ -3,13 +3,13 @@ package Convert::Pheno::REDCap;
 use strict;
 use warnings;
 use autodie;
-use feature qw(say);
-use List::Util qw(any);
+use feature                 qw(say);
+use List::Util              qw(any);
 use Convert::Pheno::Default qw(get_defaults);
 use Convert::Pheno::Mapping;
 use Data::Dumper;
 use Scalar::Util qw(looks_like_number);
-use Hash::Util qw(lock_keys);
+use Hash::Util   qw(lock_keys);
 use Exporter 'import';
 
 # Symbols to export by default
@@ -52,20 +52,20 @@ sub do_redcap2bff {
     ##############################
     # <Variable> names in REDCap #
     ##############################
-    #
-    # REDCap does not enforce any particular variable name.
-    # Extracted from https://www.ctsi.ufl.edu/wordpress/files/2019/02/Project-Creation-User-Guide.pdf
-    # ---
-    # "Variable Names: Variable names are critical in the data analysis process. If you export your data to a
-    # statistical software program, the variable names are what you or your statistician will use to conduct
-    # the analysis"
-    #
-    # "We always recommend reviewing your variable names with a statistician or whoever will be
-    # analyzing your data. This is especially important if this is the first time you are building a
-    # database"
-    #---
-    # If variable names are not consensuated, then we need to do the mapping manually "a posteriori".
-    # This is what we are attempting here:
+#
+# REDCap does not enforce any particular variable name.
+# Extracted from https://www.ctsi.ufl.edu/wordpress/files/2019/02/Project-Creation-User-Guide.pdf
+# ---
+# "Variable Names: Variable names are critical in the data analysis process. If you export your data to a
+# statistical software program, the variable names are what you or your statistician will use to conduct
+# the analysis"
+#
+# "We always recommend reviewing your variable names with a statistician or whoever will be
+# analyzing your data. This is especially important if this is the first time you are building a
+# database"
+#---
+# If variable names are not consensuated, then we need to do the mapping manually "a posteriori".
+# This is what we are attempting here:
 
     ####################################
     # START MAPPING TO BEACON V2 TERMS #
@@ -243,13 +243,16 @@ sub map_fields_to_redcap_dict {
     return 1;
 }
 
-sub replace_field_with_dictionary_if_exists {
+sub replace_field_with_terminology_or_dictionary_if_exist {
 
     my ( $mapping, $field ) = @_;
+
+    # Precedence
+    # "terminology" > "dictionary"
     return
-      exists $mapping->{dictionary}{$field}
-      ? $mapping->{dictionary}{$field}
-      : $field;
+        exists $mapping->{terminology}{$field} ? $mapping->{terminology}{$field}
+      : exists $mapping->{dictionary}{$field}  ? $mapping->{dictionary}{$field}
+      :                                          $field;
 }
 
 sub get_required_terms {
@@ -282,14 +285,15 @@ sub propagate_fields {
     # It is mandatory that the row containing baseline data comes
     # before the rows with empty fields.
     # Therefore, we are storing in $self->{baselineFieldsToPropagate}
-
-    # NB: Modifying source data from $arg
+    # NB1: Modifying source data from $arg
+    # NB2: Depending on the size of the data this step can take some RAM
     for my $field (@propagate_fields) {
 
         # Load $self for Baseline
         $self->{baselineFieldsToPropagate}{ $participant->{$id_field} }{$field}
           = $participant->{$field}
-          if defined $participant->{$field};    # Dynamically adding attributes (setter)
+          if defined $participant->{$field}
+          ;    # Dynamically adding attributes (setter)
 
         # Load field for all
         $participant->{$field} =
@@ -331,13 +335,13 @@ sub map_diseases {
 
         # Load corrected field to search
         my $disease_query =
-          replace_field_with_dictionary_if_exists( $mapping,
+          replace_field_with_terminology_or_dictionary_if_exist( $mapping,
             $participant->{$field} );
 
         # Discard empty values
         next unless defined $disease_query;
 
-        $disease->{diseaseCode} = map_ontology(
+        $disease->{diseaseCode} = map_ontology_term(
             {
                 query    => $disease_query,
                 column   => 'label',
@@ -385,11 +389,11 @@ sub map_ethnicity {
 
         # Load corrected field to search
         my $ethnicity_query =
-          replace_field_with_dictionary_if_exists( $mapping,
+          replace_field_with_terminology_or_dictionary_if_exist( $mapping,
             $participant->{$ethnicity_field} );
 
         # Search
-        $individual->{ethnicity} = map_ontology(
+        $individual->{ethnicity} = map_ontology_term(
             {
                 query    => $ethnicity_query,
                 column   => 'label',
@@ -435,9 +439,10 @@ sub map_exposures {
 
         # Query related
         my $exposure_query =
-          replace_field_with_dictionary_if_exists( $mapping, $field );
+          replace_field_with_terminology_or_dictionary_if_exist( $mapping,
+            $field );
 
-        $exposure->{exposureCode} = map_ontology(
+        $exposure->{exposureCode} = map_ontology_term(
             {
                 query    => $exposure_query,
                 column   => 'label',
@@ -453,16 +458,19 @@ sub map_exposures {
         # <measurementValue> and <referenceRange>??
         # Load selector fields
         my $subkey = exists $mapping->{selector}{$field} ? $field : undef;
-        my $unit   = map_ontology(
-            {
-                # order on the ternary operator matters
-                # 1 - Check for subkey
-                # 2 - Check for field
-                query => defined $subkey
 
-                  #  selector.alcohol.Never smoked =>  Never Smoker
-                ? $mapping->{selector}{$field}{ $participant->{$subkey} }
-                : $exposure_query,
+        my $unit_query = defined $subkey
+
+          # order on the ternary operator matters
+          # 1 - Check for subkey
+          # 2 - Check for field
+          #  selector.alcohol.Never smoked =>  Never Smoker
+          ? $mapping->{selector}{$field}{ $participant->{$subkey} }
+          : $exposure_query;
+
+        my $unit = map_ontology_term(
+            {
+                query    => $unit_query,
                 column   => 'label',
                 ontology => $mapping->{ontology},
                 self     => $self
@@ -581,11 +589,15 @@ sub map_interventionsOrProcedures {
         # Load selector fields
         my $subkey = exists $mapping->{selector}{$field} ? $field : undef;
 
-        $intervention->{procedureCode} = map_ontology(
+        my $intervention_query =
+          defined $subkey
+          ? $mapping->{selector}{$subkey}{ $participant->{$field} }
+          : replace_field_with_terminology_or_dictionary_if_exist( $mapping,
+            $field );
+
+        $intervention->{procedureCode} = map_ontology_term(
             {
-                query => defined $subkey
-                ? $mapping->{selector}{$subkey}{ $participant->{$field} }
-                : replace_field_with_dictionary_if_exists( $mapping, $field ),
+                query    => $intervention_query,
                 column   => 'label',
                 ontology => $mapping->{ontology},
                 self     => $self
@@ -617,10 +629,11 @@ sub map_measures {
         next unless defined $participant->{$field};
         my $measure;
 
-        $measure->{assayCode} = map_ontology(
+        $measure->{assayCode} = map_ontology_term(
             {
-                query =>
-                  replace_field_with_dictionary_if_exists( $mapping, $field ),
+                query => replace_field_with_terminology_or_dictionary_if_exist(
+                    $mapping, $field
+                ),
                 column   => 'label',
                 ontology => $mapping->{ontology},
                 self     => $self,
@@ -642,14 +655,16 @@ sub map_measures {
         # We can have  $participant->{$field} eq '2 - Mild'
         if ( $participant->{$field} =~ m/ \- / ) {
             my ( $tmp_val, $tmp_scale ) = split / \- /, $participant->{$field};
-            $participant->{$field} = $tmp_val;     # should be equal to $participant->{$field.'_ori'}
+            $participant->{$field} =
+              $tmp_val;    # should be equal to $participant->{$field.'_ori'}
             $tmp_str = $tmp_scale;
         }
 
-        my $unit = map_ontology(
+        my $unit = map_ontology_term(
             {
-                query =>
-                  replace_field_with_dictionary_if_exists( $mapping, $tmp_str ),
+                query => replace_field_with_terminology_or_dictionary_if_exist(
+                    $mapping, $tmp_str
+                ),
                 column   => 'label',
                 ontology => $mapping->{ontology},
                 self     => $self
@@ -673,7 +688,7 @@ sub map_measures {
 
         #$measure->{observationMoment} = undef;          # Age
         $measure->{procedure} = {
-            procedureCode => map_ontology(
+            procedureCode => map_ontology_term(
                 {
                       query => $field eq 'calprotectin' ? 'Feces'
                     : $field =~ m/^nancy/ ? 'Histologic'
@@ -735,32 +750,37 @@ sub map_phenotypicFeatures {
 
         #$phenotypicFeature->{evidence} = undef;    # P32Y6M1D
 
-        my $tmp_var = $field;
-
-        # *** IMPORTANT ***
-        # Ad hoc change for 3TR
-        if ( $project_id eq '3tr_ibd' && $field =~ m/comorb/i ) {
-            $tmp_var = $redcap_dict->{$field}{'Field Label'};
-            ( undef, $tmp_var ) = split / \- /, $tmp_var
-              if $tmp_var =~ m/\-/;
-        }
-
+        # Usually phenotypicFeatures come as Boolean
         # Excluded (or Included) properties
         # 1 => included ( == not excluded )
-        $phenotypicFeature->{excluded_ori} =
-          dotify_and_coerce_number( $participant->{$field} );
-        $phenotypicFeature->{excluded} =
-          $participant->{$field} ? JSON::XS::false : JSON::XS::true
-          if looks_like_number( $participant->{$field} );
+        $phenotypicFeature->{excluded_ori} = dotify_and_coerce_number( $participant->{$field} );
 
-        # print "#$field#$participant->{$field}#$tmp_var#\n";
+        # 0 vs. >= 1
+        my $is_boolean = 0;
+        if (looks_like_number( $participant->{$field} )) {
+        $phenotypicFeature->{excluded} = $participant->{$field} ? JSON::XS::false : JSON::XS::true;
+        $is_boolean++;
+        } 
+        # ANy other string is excluded = 0 (i.e., included)
+        else {
+         $phenotypicFeature->{excluded} = JSON::XS::false; 
+        }
+
         # Load selector fields
-        my $subkey = exists $mapping->{selector}{$tmp_var} ? $tmp_var : undef;
-        $phenotypicFeature->{featureType} = map_ontology(
+        my $subkey = exists $mapping->{selector}{$field} ? $field : undef;
+
+        # Depending on boolean or not we perform query on field or value
+        my $participant_field = $is_boolean ? $field : $participant->{$field};
+
+        my $phenotypicFeature_query = defined $subkey
+          ? $mapping->{selector}{$subkey}
+          { $participant_field }
+          : replace_field_with_terminology_or_dictionary_if_exist( $mapping,
+            $participant_field );
+
+        $phenotypicFeature->{featureType} = map_ontology_term(
             {
-                query => defined $subkey
-                ? $mapping->{selector}{$subkey}{ $participant->{$tmp_var} }
-                : replace_field_with_dictionary_if_exists( $mapping, $tmp_var ),
+                query    => $phenotypicFeature_query,
                 column   => 'label',
                 ontology => $mapping->{ontology},
                 self     => $self
@@ -810,11 +830,11 @@ sub map_sex {
 
     # Load corrected field to search
     my $sex_query =
-      replace_field_with_dictionary_if_exists( $mapping,
+      replace_field_with_terminology_or_dictionary_if_exist( $mapping,
         $participant->{$sex_field} );
 
     # Search
-    $individual->{sex} = map_ontology(
+    $individual->{sex} = map_ontology_term(
         {
             query    => $sex_query,
             column   => 'label',
@@ -846,7 +866,8 @@ sub map_treatments {
 
         # Getting the right name for the drug (if any)
         my $treatment_name =
-          replace_field_with_dictionary_if_exists( $mapping, $field );
+          replace_field_with_terminology_or_dictionary_if_exist( $mapping,
+            $field );
 
         # FOR ROUTES
         for my $route ( @{ $mapping->{routesOfAdministration} } ) {
@@ -857,10 +878,8 @@ sub map_treatments {
 
                 # Rectal route only happens in some drugs (ad hoc)
                 next
-                  if (
-                    $route eq 'rectal' && !any { $_ eq $field }
-                    qw(budesonide asa)
-                  );
+                  if ( $route eq 'rectal' && !any { $_ eq $field }
+                    qw(budesonide asa) );
 
                 # Discarding if drug_route_status is empty
                 $tmp_var =
@@ -888,16 +907,18 @@ sub map_treatments {
             $treatment->{cumulativeDose} =
               { unit => $DEFAULT->{ontology}, value => -1 };
             $treatment->{doseIntervals}         = [];
-            $treatment->{routeOfAdministration} = map_ontology(
+            $treatment->{routeOfAdministration} = map_ontology_term(
                 {
-                    query    => ucfirst($route) . ' Route of Administration',  # Oral Route of Administration
+                    query => ucfirst($route)
+                      . ' Route of Administration'
+                    ,    # Oral Route of Administration
                     column   => 'label',
                     ontology => $mapping->{ontology},
                     self     => $self
                 }
             );
 
-            $treatment->{treatmentCode} = map_ontology(
+            $treatment->{treatmentCode} = map_ontology_term(
                 {
                     query    => $treatment_name,
                     column   => 'label',

@@ -130,6 +130,26 @@
           "additionalProperties": {
             "type": "string"
           }
+        },
+        "terminology": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^\\w[^:]+:.+$"
+              },
+              "label": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "label"
+            ],
+            "additionalProperties": false
+          }
         }
       },
       "required": [
