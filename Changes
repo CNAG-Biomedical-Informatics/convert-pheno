@@ -7,9 +7,9 @@ Revision history for Perl distribution Convert-Pheno
  - Implemented basic <csv2bff> and  <csv2pxf> conversions (experimental)
  - Mapping file changes:
     o Required properties in mappind file now only are 'project','id' and 'sex'
-    O Added project.baselineFieldsToPropagate
+    o Added project.baselineFieldsToPropagate
     o Added new property 'terminology'
- - Fixed issue with hpo.db that had leading spaces in 'label' column
+ - Fixed issue with hpo.db that had leading and trailing white spaces in columns
 
 0.19 2024-04-24T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 

@@ -11,10 +11,12 @@ graph LR
   C[REDCap] -->|redcap2pxf| B;
   D[OMOP-CDM] -->|omop2bff| A;
   E[CDISC-ODM] -->|cdisc2bff| A;
+  F[CSV] -->|csv2bff  | A;
   B -->|pxf2bff| A;
   C -->|redcap2bff| A;
   D -->|omop2pxf| B;
   E -->|cdisc2pxf| B;
+  F -->|csv2pxf| B;
 
   style A fill: #6495ED
   style A stroke: #6495ED
@@ -26,8 +28,10 @@ graph LR
   style D stroke: #3CB371
   style E fill: #DDA0DD
   style E stroke: #DDA0DD
+  style F fill: #FFFF00
+  style F stroke: #FFFF00
 ```
-<figcaption>Convert-Pheno supported data conversions</figcaption>
+<figcaption>Convert-Pheno supported data conversions (May-21-2024)</figcaption>
 
 === "Input formats:"
 
@@ -36,6 +40,7 @@ graph LR
     * [OMOP-CDM (SQL export | CSV)](omop-cdm.md)
     * [REDCap exports (CSV)](redcap.md)
     * [CDISC-ODM v1 (XML)](cdisc-odm.md)
+    * [CSV raw data](csv.md)
 
 === "Output formats:"
 

@@ -10,6 +10,7 @@ graph LR
   C[REDCap] -->|redcap2bff| A[Beacon v2 Models]
   D[OMOP-CDM] -->|omop2bff| A
   E[CDISC-ODM] -->|cdisc2bff| A
+  G[CSV] -->|csv2bff| A
   end
 
   subgraph "Step 2:BFF to PXF"
@@ -22,6 +23,7 @@ graph LR
   style D fill: #3CB371, stroke: #3CB371
   style E fill: #DDA0DD, stroke: #DDA0DD
   style F fill: #FF7F50, stroke: #FF7F50
+  style G fill: #FFFF00, stroke: #FFFF00
 ```
 <figcaption>Convert-Pheno internal mapping steps</figcaption>
 
@@ -31,7 +33,6 @@ graph LR
     * **Beacon v2 API Compatibility:** The BFF is directly compatible with the Beacon v2 API ecosystem, a feature not available in Phenopackets without additional mapping.
     * **Expansion Possibility:** Being based at CNAG, a genomics institution, the potential to extend Convert-Pheno's mapping to encompass other Beacon v2 entities was a significant consideration.
     * **Overlap with Phenopackets v2:** Despite minor differences in nomenclature or hierarchy, many essential terms remain identical, encouraging interoperability.
-
 
 ### Schema mapping
 

@@ -19,7 +19,7 @@ The **OMOP CDM** is designed to be database-agnostic, which means it can be impl
 
 === "Command-line"
 
-    When using the `convert-pheno` command-line interface, simply ensure the [correct syntax](https://github.com/cnag-biomedical-informatics/convert-pheno#synopsis) is provided. Both the _input_ and _output_ files files can be **gzipped** to save space
+    When using the `convert-pheno` command-line interface, simply ensure the [correct syntax](usage.md) is provided. Both the _input_ and _output_ files files can be **gzipped** to save space
 
     ??? Danger "About `--max-lines-sql` default value"
         Please note that for PostgreSQL dumps, we have configured `--max-lines-sql=500` which is suitable for testing purposes. However, for real data, it is recommended to **increase this limit** to match the size of your largest table.

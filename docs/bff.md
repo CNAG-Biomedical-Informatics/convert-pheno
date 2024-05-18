@@ -22,7 +22,7 @@ As an input, `Convert-Pheno` accepts data from the [individuals](https://docs.ge
 
 === "Command-line"
 
-    When using the `convert-pheno` command-line interface, simply ensure the [correct syntax](https://github.com/cnag-biomedical-informatics/convert-pheno#synopsis) is provided.
+    When using the `convert-pheno` command-line interface, simply ensure the [correct syntax](usage.md) is provided.
 
     ??? Tip "About `JSON` data in `individuals.json`"
         If the file `individuals.json` is a JSON array of objects (for which each object corresponds to an individual), the output `-opxf` file will also be a JSON array.

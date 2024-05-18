@@ -19,7 +19,7 @@ Phenopackets organize information using [top-level elements](https://phenopacket
 
 === "Command-line"
 
-    When using the `convert-pheno` command-line interface, simply ensure the [correct syntax](https://github.com/cnag-biomedical-informatics/convert-pheno#synopsis) is provided.
+    When using the `convert-pheno` command-line interface, simply ensure the [correct syntax](usage.md) is provided.
 
     ```
     convert-pheno -ipxf ipxf.json -obff individuals.json
