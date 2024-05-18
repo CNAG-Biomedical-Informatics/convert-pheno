@@ -38,12 +38,21 @@ This page provides brief tutorials on how to perform data conversion by using `C
     | Internal    | `project`   | `id, source, ontology, version` | ` description, baselineFieldsToPropagate` |
     | Beacon v2 terms   | `id, sex (diseases, exposures, info, interventionsOrProcedures, measures, phenotypicFeatures, treatments)` | `fields`| `dictionary, mapping, selector, terminology, ontology, routesOfAdministration` |
 
-     * These are the properties needeed to map your data to the entity `individuals` in the Beacon v2 Models:
+     * These are the properties needed to map your data to the entity `individuals` in the Beacon v2 Models:
+        - - **baselineFieldsToPropagate**, an array of columns containing measurements that were taken only at the initial time point (time = 0). Use this if you wish to duplicate these columns across subsequent rows for the same patient ID. It is important to ensure that the row containing baseline information appears first in the CSV.
         - **dictionary**, is an `object` in the form of `key: value`. The `key` represents the original variable name in REDCap and the `value` represents the "phrase" that will be used to query a database to find an ontology candidate. For instance, you may have a variable named `cigarettes_days`, but you know that in [NCIt](https://www.ebi.ac.uk/ols/ontologies/ncit) the label is `Average Number Cigarettes Smoked a Day`. In this case you will use `cigarettes_days: Average Number Cigarettes Smoked a Day`.
         - **fields**, can be either an `string` or an `array` consisting of the name of the REDCap variables that map to that Beacon v2 term.
         - **mapping**, is an `object` in the form of `key: value` that we use to map our Beacon v2 objects to REDCap variables. For instance, you may have a field named `age_first_diagnosis` that it's called `ageOgOnset` on Beacon v2. In this case you will use `ageOfOnset: age_first_diagnosis`.
         - **selector**, a nested `object` value with specific mappings.
         - **terminology**, a nested `object` value with user-defined ontology terms.
+
+        ??? Example "\"terminology\" example"
+            ```yaml
+            terminology:
+              My fav term:
+                id: FOO:12345678 
+                label: Label for my fav term
+            ```
         - **ontology**, it's an `string` to define more granularly the ontology for this particular Beacon v2 term. If not present, the script will use that from `project.ontology`.
         - **routesOfAdministration**, an `array` with specific mappings for `treatments`.
 

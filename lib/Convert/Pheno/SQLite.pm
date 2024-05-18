@@ -321,6 +321,9 @@ sub execute_query_SQLite {
         return ( $id, $label );
     }
 
+    # HPO to HP
+    chop($ontology) if $ontology eq 'hpo';
+
     # Process results depending on the type of match
     if ( $match eq 'exact_match' ) {
         while ( my $row = $sth->fetchrow_arrayref ) {

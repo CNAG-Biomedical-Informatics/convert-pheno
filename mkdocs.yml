@@ -75,6 +75,7 @@ nav:
       - REDCap: redcap.md
       - OMOP-CDM: omop-cdm.md
       - CDISC-ODM: cdisc-odm.md
+      - CSV: csv.md
   - Technical details:
       - Implementation: implementation.md
       - Mapping steps: mapping-steps.md
