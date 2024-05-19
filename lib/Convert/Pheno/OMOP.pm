@@ -3,7 +3,7 @@ package Convert::Pheno::OMOP;
 use strict;
 use warnings;
 use autodie;
-use feature                 qw(say);
+use feature qw(say);
 use Convert::Pheno::Default qw(get_defaults);
 use Convert::Pheno::Mapping;
 use Exporter 'import';

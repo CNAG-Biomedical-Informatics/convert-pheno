@@ -1,90 +1,109 @@
 ---
-  #######################
-  # Project identifiers #
-  #######################
+#######################
+# Project identifiers #
+#######################
 
-  project:
-    id: CSV_src_test
-    source: csv
-    ontology: ncit
-    version: test-0.1
-    baselineFieldsToPropagate: [Sex,Ethnicity,TobaccoUse,AgeAtTobaccoExposure,AlcoholUse,AgeAtAlcoholExposure]
+project:
+  id: CSV_src_test
+  source: csv
+  ontology: ncit
+  version: test-0.1
+  baselineFieldsToPropagate: [Sex,Ethnicity,TobaccoUse,AgeAtTobaccoExposure,AlcoholUse,AgeAtAlcoholExposure]
 
-  #################################
-  # Beacon v2 Models: individuals #
-  #################################
+#################################
+# Beacon v2 Models: individuals #
+#################################
 
-  # Term: diseases
-  diseases:
-    fields: [Disease_1,Disease_2,Disease_3]
-    dictionary:
-      Ashtma: Ashtma
-      Diabetes: Diabetes Mellitus
-    mapping:
-      ageOfOnset: age_first_diagnosis
-      familyHistory: family_history
+# Term: diseases
+diseases:
+  fields: [Disease_1,Disease_2,Disease_3]
+  dictionary:
+    Ashtma: Ashtma
+    Diabetes: Diabetes Mellitus
+  mapping:
+    ageOfOnset: age_first_diagnosis
+    familyHistory: family_history
 
-  # Term: ethnicity
-  ethnicity:
-    fields: Ethnicity
-    dictionary:
-      Caucasian: White
-      Hispanic: Hispanic or Latino
+# Term: ethnicity
+ethnicity:
+  fields: Ethnicity
+  dictionary:
+    Caucasian: White
+    Hispanic: Hispanic or Latino
 
-  # Term: exposures
-  exposures: 
-    fields: [AlcoholUse,TobaccoUse]
-    dictionary:
-      AlcoholUse: Alcohol
-      TobaccoUse: Smoking
-    selector:
-      AlcoholUse:
-        ageAtExposure: AgeAtAlcoholExposure
-      TobaccoUse:
-        ageAtExposure: AgeAtTobaccoExposure
+# Term: exposures
+exposures: 
+  fields: [AlcoholUse,TobaccoUse]
+  dictionary:
+    AlcoholUse: Alcohol
+    TobaccoUse: Smoking
+  selector:
+    AlcoholUse:
+      ageAtExposure: AgeAtAlcoholExposure
+    TobaccoUse:
+      ageAtExposure: AgeAtTobaccoExposure
 
-  # Term: geographicOrigin
-  # geographicOrigin: null
+# Term: geographicOrigin
+# geographicOrigin: null
 
-  # Term: id
-  id:
-    fields: [PatientID,EventName]
-    mapping:
-      primary_key: PatientID 
+# Term: id
+id:
+  fields: [PatientID,EventName]
+  mapping:
+    primary_key: PatientID 
 
-  # Term: info
-  info:
-   fields: [study_id,dob,diet,redcap_event_name,age,first_name,last_name,consent,consent_date,consent_noneu,consent_devices,consent_recontact,consent_week2_endo,education,zipcode,consents_and_demographics_complete]
+# Term: info
+info:
+ fields: [study_id,dob,diet,redcap_event_name,age,first_name,last_name,consent,consent_date,consent_noneu,consent_devices,consent_recontact,consent_week2_endo,education,zipcode,consents_and_demographics_complete]
 
-  # Term: measures
-  measures: 
-    fields: [leucocytes,hemoglobin,hematokrit,mcv,mhc,thrombocytes,neutrophils,lymphocytes,eosinophils,creatinine,gfr,bilirubin,gpt,ggt,lipase,crp,iron,il6,calprotectin,nancy_index_acute,nancy_index_chronic,nancy_index_ulceration,endo_mayo]
-    assignTermIdFromHeader: [leucocytes,hemoglobin]
-    dictionary:
-      # Unit
-      xx.xx /10^-9 l: Cells per Microliter
-      'xx.x %': Percentage
-      # Test
-      'Hemoglobin (g/dL)': Hemoglobin Measurement
-      'WBC (10^9/L)': White Blood Count
-      'Platelets (10^9/L)': Platelets Count
-      'BMI (kg/m^2)': Body Mass Index
+# Term: measures
+# Term: measures
+measures:
+  fields: [Hemoglobin (g/dL), WBC (10^9/L), Platelets (10^9/L), BMI (kg/m^2)]
+  assignTermIdFromHeader: [Hemoglobin (g/dL), WBC (10^9/L), Platelets (10^9/L), BMI (kg/m^2)]
+  dictionary:
+    'Hemoglobin (g/dL)': Hemoglobin Measurement
+    'WBC (10^9/L)': White Blood Count
+    'Platelets (10^9/L)': Platelets Count
+    'BMI (kg/m^2)': Body Mass Index
+  unit:
+    'Hemoglobin (g/dL)':
+      label: Gram per Deciliter
+      referenceRange:
+        low: 12.1
+        high: 17.2
+    'WBC (10^9/L)':
+      label: Cells per Microliter
+      referenceRange:
+        low: 4.0
+        high: 11.0
+    'Platelets (10^9/L)':
+      label: Cells per Microliter
+      referenceRange:
+        low: 150
+        high: 450
+    'BMI (kg/m^2)':
+      label: Kilogram per Square Meter
+      referenceRange:
+        low: 18.5
+        high: 24.9
+      procedureLabel: Physical Examination Category
 
-  # Term: phenotypicFeatures
-  phenotypicFeatures: 
-    fields: [PhenotypicFeature_1,PhenotypicFeature_2]
-    ontology: hpo
+# Term: phenotypicFeatures
+phenotypicFeatures: 
+  fields: [PhenotypicFeature_1,PhenotypicFeature_2]
+  ontology: hpo
 
-  # Term: sex
-  sex: 
-    fields: Sex
+# Term: sex
+sex: 
+  fields: Sex
 
-  # Term: treatments
-  treatments:
-    fields: [DrugName]
-    drugDose:
-      Albuterol: DrugDose (mg)
-      Lisinopril: DrugDose (mg)
-    routeOfAdministration: 
-      Albuterol: oral
-      Lisinopril: oral
+# Term: treatments
+treatments:
+  fields: [DrugName]
+  drugDose:
+    Albuterol: DrugDose (mg)
+    Lisinopril: DrugDose (mg)
+  routeOfAdministration: 
+    Albuterol: oral
+    Lisinopril: oral

@@ -180,6 +180,39 @@
           "additionalProperties": {
             "type": "string"
           }
+        },
+        "unit": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "referenceRange": {
+                "type": "object",
+                "properties": {
+                  "low": {
+                    "type": "number"
+                  },
+                  "high": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "low",
+                  "high"
+                ]
+              },
+              "procedureLabel": {
+                "$ref": "#/$defs/stringField"
+              }
+            },
+            "required": [
+              "label",
+              "referenceRange"
+            ]
+          }
         }
       },
       "required": [

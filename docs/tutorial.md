@@ -36,7 +36,7 @@ This page provides brief tutorials on how to perform data conversion by using `C
     | Type        | Required (Optional)   | Required properties | Optional properties |
     | ----------- | ----------- | ------------------- | ------------------- |
     | Internal    | `project`   | `id, source, ontology, version` | ` description, baselineFieldsToPropagate` |
-    | Beacon v2 terms   | `id, sex (diseases, exposures, info, interventionsOrProcedures, measures, phenotypicFeatures, treatments)` | `fields`| `dictionary, mapping, selector, terminology, ontology, assignTermIdFromHeader, routeOfAdministration, drugDose` |
+    | Beacon v2 terms   | `id, sex (diseases, exposures, info, interventionsOrProcedures, measures, phenotypicFeatures, treatments)` | `fields`| `dictionary, mapping, selector, terminology, ontology, assignTermIdFromHeader, routeOfAdministration, drugDose, procedureLabel` |
 
      * These are the properties needed to map your data to the entity `individuals` in the Beacon v2 Models:
         - - **baselineFieldsToPropagate**, an array of columns containing measurements that were taken only at the initial time point (time = 0). Use this if you wish to duplicate these columns across subsequent rows for the same patient ID. It is important to ensure that the row containing baseline information appears first in the CSV.
@@ -46,7 +46,8 @@ This page provides brief tutorials on how to perform data conversion by using `C
         - **mapping**, is an `object` in the form of `key: value` that we use to map our Beacon v2 objects to REDCap variables. For instance, you may have a field named `age_first_diagnosis` that it's called `ageOgOnset` on Beacon v2. In this case you will use `ageOfOnset: age_first_diagnosis`.
         - **selector**, a nested `object` value with specific mappings.
         - **terminology**, a nested `object` value with user-defined ontology terms.
-        - **assignTermIdFromHeader**, an `'array` for columns on which the ontology-term ids has to be assigned from the header instead of from the value.
+        - **assignTermIdFromHeader**, an `array` for columns on which the ontology-term ids has to be assigned from the header instead of from the value.
+        - **procedureLabel**, an `string` that defines the label for the procedure.
 
         ??? Example "\"terminology\" example"
             ```yaml

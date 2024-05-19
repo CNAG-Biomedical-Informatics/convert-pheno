@@ -3,13 +3,13 @@ package Convert::Pheno::REDCap;
 use strict;
 use warnings;
 use autodie;
-use feature                 qw(say);
-use List::Util              qw(any);
+use feature qw(say);
+use List::Util qw(any);
 use Convert::Pheno::Default qw(get_defaults);
 use Convert::Pheno::Mapping;
 use Data::Dumper;
 use Scalar::Util qw(looks_like_number);
-use Hash::Util   qw(lock_keys);
+use Hash::Util qw(lock_keys);
 use Exporter 'import';
 
 # Symbols to export by default
@@ -648,57 +648,87 @@ sub map_measures {
         );
         $measure->{date} = $DEFAULT->{date};
 
-        # We first extract 'unit' and %range' for <measurementValue>
-        my $tmp_str = map2redcap_dict(
-            {
-                redcap_dict => $redcap_dict,
-                participant => $participant,
-                field       => $field,
-                labels      => 0               # will get 'Field Note'
+        my ( $tmp_unit, $unit_cursor );
 
+        ##########
+        # REDCap #
+        ##########
+
+        if ( lc($source) eq 'redcap' ) {
+
+            # We first extract 'unit' and %range' for <measurementValue>
+            $tmp_unit = map2redcap_dict(
+                {
+                    redcap_dict => $redcap_dict,
+                    participant => $participant,
+                    field       => $field,
+                    labels      => 0               # will get 'Field Note'
+
+                }
+            );
+
+            # We can have  $participant->{$field} eq '2 - Mild'
+            if ( $participant->{$field} =~ m/ \- / ) {
+                my ( $tmp_val, $tmp_scale ) = split / \- /,
+                  $participant->{$field};
+                $participant->{$field} =
+                  $tmp_val;   # should be equal to $participant->{$field.'_ori'}
+                $tmp_unit = $tmp_scale;
             }
-        );
+        }
 
-        # We can have  $participant->{$field} eq '2 - Mild'
-        if ( $participant->{$field} =~ m/ \- / ) {
-            my ( $tmp_val, $tmp_scale ) = split / \- /, $participant->{$field};
-            $participant->{$field} =
-              $tmp_val;    # should be equal to $participant->{$field.'_ori'}
-            $tmp_str = $tmp_scale;
+        ########
+        # CSV #
+        #######
+        else {
+
+            $unit_cursor = $data_mapping_file->{measures}{unit}{$field};
+            $tmp_unit =
+              exists $unit_cursor->{label} ? $unit_cursor->{label} : undef;
+
         }
 
         my $unit = map_ontology_term(
             {
                 query => replace_field_with_terminology_or_dictionary_if_exist(
-                    $mapping, $tmp_str
+                    $mapping, $tmp_unit
                 ),
                 column   => 'label',
                 ontology => $mapping->{ontology},
                 self     => $self
             }
         );
+        my $reference_range =
+          lc($source) eq 'csv' && exists $unit_cursor->{referenceRange}
+          ? map_reference_range_csv( $unit, $unit_cursor->{referenceRange} )
+          : map_reference_range(
+            {
+                unit        => $unit,
+                redcap_dict => $redcap_dict,
+                field       => $field,
+                source      => $source
+            }
+          );
+
         $measure->{measurementValue} = {
             quantity => {
                 unit  => $unit,
                 value => dotify_and_coerce_number( $participant->{$field} ),
-                referenceRange => map_reference_range(
-                    {
-                        unit        => $unit,
-                        redcap_dict => $redcap_dict,
-                        field       => $field
-                    }
-                )
+                referenceRange => $reference_range
             }
         };
         $measure->{notes} = join ' /// ', $field,
-          ( map { qq/$_=$redcap_dict->{$field}{$_}/ } @redcap_field_types );
+          ( map { qq/$_=$redcap_dict->{$field}{$_}/ } @redcap_field_types )
+          if lc($source) eq 'redcap';
 
         #$measure->{observationMoment} = undef;          # Age
         $measure->{procedure} = {
             procedureCode => map_ontology_term(
                 {
-                      query => $field eq 'calprotectin' ? 'Feces'
-                    : $field =~ m/^nancy/ ? 'Histologic'
+                    query => exists $unit_cursor->{procedureLabel}
+                    ? $unit_cursor->{procedureLabel}
+                    : $field eq 'calprotectin' ? 'Feces'
+                    : $field =~ m/^nancy/      ? 'Histologic'
                     : 'Blood Test Result',
                     column   => 'label',
                     ontology => $mapping->{ontology},
@@ -877,73 +907,75 @@ sub map_treatments {
         # Getting the right name for the drug (if any)
         # *** Important ***
         # It can come from variable name or from the value
-       
-        $field = $participant->{$field} if $self->{variableNamingMode} eq 'name_from_value';
-
         my $treatment_name =
           replace_field_with_terminology_or_dictionary_if_exist( $mapping,
-            $field );
+            $participant->{$field} );
 
         # FOR ROUTES
-        for my $route ( @{ $mapping->{routesOfAdministration} } ) {
+        #for my $route ( @{ $mapping->{routesOfAdministration} } ) {
 
-            # Ad hoc for 3TR
-            my $tmp_var = $field;
-            if ( $project_id eq '3tr_ibd' ) {
+        # Ad hoc for 3TR
+        #   my $tmp_var = $field;
+        #   if ( $project_id eq '3tr_ibd' ) {
+        #
+        #                # Rectal route only happens in some drugs (ad hoc)
+        #                next
+        #                  if ( $route eq 'rectal' && !any { $_ eq $field }
+        #                    qw(budesonide asa) );
+        #
+        #                # Discarding if drug_route_status is empty
+        #                $tmp_var =
+        #                  ( $field eq 'budesonide' || $field eq 'asa' )
+        #                  ? $field . '_' . $route . '_status'
+        #                  : $field . '_status';
+        #                next
+        #                  unless defined $participant->{$tmp_var};
+        #            }
 
-                # Rectal route only happens in some drugs (ad hoc)
-                next
-                  if ( $route eq 'rectal' && !any { $_ eq $field }
-                    qw(budesonide asa) );
+        # Initialize field $treatment
+        my $treatment;
 
-                # Discarding if drug_route_status is empty
-                $tmp_var =
-                  ( $field eq 'budesonide' || $field eq 'asa' )
-                  ? $field . '_' . $route . '_status'
-                  : $field . '_status';
-                next
-                  unless defined $participant->{$tmp_var};
+        # Deine routes
+        my $route =
+          exists $data_mapping_file->{treatments}{routeOfAdministration}
+          { $participant->{$field} }
+          ? $data_mapping_file->{treatments}{routeOfAdministration}
+          { $participant->{$field} }
+          : 'oral';
+        my $route_query = ucfirst($route) . ' Route of Administration';
+        $treatment->{_info} = {
+            field         => $field,
+            drug_name_ori => $participant->{$field},
+            drug_name     => $treatment_name,
+            route         => $route
+        };
+
+#value     => $participant->{ $field . '_ori' }, map { $_ => $participant->{ $field . $_ } } qw(start dose duration) };    # ***** INTERNAL FIELD
+        $treatment->{ageAtOnset} = $DEFAULT->{age};
+        $treatment->{cumulativeDose} =
+          { unit => $DEFAULT->{ontology}, value => -1 };
+        $treatment->{doseIntervals}         = [];
+        $treatment->{routeOfAdministration} = map_ontology_term(
+            {
+                query    => $route_query,
+                column   => 'label',
+                ontology => $mapping->{ontology},
+                self     => $self
             }
+        );
 
-            # Initialize field $treatment
-            my $treatment;
+        $treatment->{treatmentCode} = map_ontology_term(
+            {
+                query    => $treatment_name,
+                column   => 'label',
+                ontology => $mapping->{ontology},
+                self     => $self
+            }
+        );
+        push @{ $individual->{treatments} }, $treatment
+          if defined $treatment->{treatmentCode};
 
-            $treatment->{_info} = {
-                field     => $tmp_var,
-                drug      => $field,
-                drug_name => $treatment_name,
-                status    => $participant->{$tmp_var},
-                route     => $route,
-                value     => $participant->{ $tmp_var . '_ori' },
-                map { $_ => $participant->{ $field . $_ } }
-                  qw(start dose duration)
-            };    # ***** INTERNAL FIELD
-            $treatment->{ageAtOnset} = $DEFAULT->{age};
-            $treatment->{cumulativeDose} =
-              { unit => $DEFAULT->{ontology}, value => -1 };
-            $treatment->{doseIntervals}         = [];
-            $treatment->{routeOfAdministration} = map_ontology_term(
-                {
-                    query => ucfirst($route)
-                      . ' Route of Administration'
-                    ,    # Oral Route of Administration
-                    column   => 'label',
-                    ontology => $mapping->{ontology},
-                    self     => $self
-                }
-            );
-
-            $treatment->{treatmentCode} = map_ontology_term(
-                {
-                    query    => $treatment_name,
-                    column   => 'label',
-                    ontology => $mapping->{ontology},
-                    self     => $self
-                }
-            );
-            push @{ $individual->{treatments} }, $treatment
-              if defined $treatment->{treatmentCode};
-        }
+        #}
     }
     return 1;
 }
