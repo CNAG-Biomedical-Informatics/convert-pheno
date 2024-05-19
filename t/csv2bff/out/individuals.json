@@ -157,8 +157,8 @@
          },
          {
             "assayCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "date" : "1900-01-01",
             "measurementValue" : {
@@ -428,8 +428,8 @@
          },
          {
             "assayCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "date" : "1900-01-01",
             "measurementValue" : {
@@ -678,8 +678,8 @@
          },
          {
             "assayCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "date" : "1900-01-01",
             "measurementValue" : {
@@ -928,8 +928,8 @@
          },
          {
             "assayCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "date" : "1900-01-01",
             "measurementValue" : {
@@ -1199,8 +1199,8 @@
          },
          {
             "assayCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "date" : "1900-01-01",
             "measurementValue" : {
@@ -1470,8 +1470,8 @@
          },
          {
             "assayCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "date" : "1900-01-01",
             "measurementValue" : {
@@ -1741,8 +1741,8 @@
          },
          {
             "assayCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "date" : "1900-01-01",
             "measurementValue" : {
@@ -2012,8 +2012,8 @@
          },
          {
             "assayCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "date" : "1900-01-01",
             "measurementValue" : {
@@ -2262,8 +2262,8 @@
          },
          {
             "assayCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "date" : "1900-01-01",
             "measurementValue" : {
@@ -2512,8 +2512,8 @@
          },
          {
             "assayCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "date" : "1900-01-01",
             "measurementValue" : {
@@ -2762,8 +2762,8 @@
          },
          {
             "assayCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "date" : "1900-01-01",
             "measurementValue" : {
@@ -3012,8 +3012,8 @@
          },
          {
             "assayCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "date" : "1900-01-01",
             "measurementValue" : {
@@ -3302,8 +3302,8 @@
          },
          {
             "assayCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "date" : "1900-01-01",
             "measurementValue" : {
@@ -3592,8 +3592,8 @@
          },
          {
             "assayCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "date" : "1900-01-01",
             "measurementValue" : {
@@ -3842,8 +3842,8 @@
          },
          {
             "assayCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "date" : "1900-01-01",
             "measurementValue" : {
@@ -4092,8 +4092,8 @@
          },
          {
             "assayCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "date" : "1900-01-01",
             "measurementValue" : {
@@ -4363,8 +4363,8 @@
          },
          {
             "assayCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "date" : "1900-01-01",
             "measurementValue" : {
@@ -4634,8 +4634,8 @@
          },
          {
             "assayCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "date" : "1900-01-01",
             "measurementValue" : {
@@ -4905,8 +4905,8 @@
          },
          {
             "assayCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "date" : "1900-01-01",
             "measurementValue" : {
@@ -5176,8 +5176,8 @@
          },
          {
             "assayCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "date" : "1900-01-01",
             "measurementValue" : {

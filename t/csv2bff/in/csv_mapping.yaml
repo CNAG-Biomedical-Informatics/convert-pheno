@@ -1,4 +1,3 @@
----
 #######################
 # Project identifiers #
 #######################
@@ -64,7 +63,7 @@ measures:
   dictionary:
     'Hemoglobin (g/dL)': Hemoglobin Measurement
     'WBC (10^9/L)': White Blood Count
-    'Platelets (10^9/L)': Platelets Count
+    'Platelets (10^9/L)': Platelet Count
     'BMI (kg/m^2)': Body Mass Index
   unit:
     'Hemoglobin (g/dL)':
@@ -87,7 +86,7 @@ measures:
       referenceRange:
         low: 18.5
         high: 24.9
-      procedureLabel: Physical Examination Category
+      procedureCodeLabel: Physical Examination Category
 
 # Term: phenotypicFeatures
 phenotypicFeatures: 

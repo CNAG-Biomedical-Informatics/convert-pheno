@@ -73,8 +73,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "value" : {
                "quantity" : {
@@ -232,8 +232,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "value" : {
                "quantity" : {
@@ -391,8 +391,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "value" : {
                "quantity" : {
@@ -550,8 +550,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "value" : {
                "quantity" : {
@@ -709,8 +709,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "value" : {
                "quantity" : {
@@ -868,8 +868,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "value" : {
                "quantity" : {
@@ -1027,8 +1027,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "value" : {
                "quantity" : {
@@ -1186,8 +1186,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "value" : {
                "quantity" : {
@@ -1345,8 +1345,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "value" : {
                "quantity" : {
@@ -1504,8 +1504,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "value" : {
                "quantity" : {
@@ -1663,8 +1663,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "value" : {
                "quantity" : {
@@ -1822,8 +1822,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "value" : {
                "quantity" : {
@@ -1981,8 +1981,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "value" : {
                "quantity" : {
@@ -2140,8 +2140,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "value" : {
                "quantity" : {
@@ -2299,8 +2299,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "value" : {
                "quantity" : {
@@ -2458,8 +2458,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "value" : {
                "quantity" : {
@@ -2617,8 +2617,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "value" : {
                "quantity" : {
@@ -2776,8 +2776,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "value" : {
                "quantity" : {
@@ -2935,8 +2935,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "value" : {
                "quantity" : {
@@ -3094,8 +3094,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "value" : {
                "quantity" : {

@@ -247,8 +247,8 @@ sub redcap2bff {
     $self->{data}              = $data;                 # Dynamically adding attributes (setter)
     $self->{data_redcap_dict}  = $data_redcap_dict;     # Dynamically adding attributes (setter)
     $self->{data_mapping_file} = $data_mapping_file;    # Dynamically adding attributes (setter)
-    $self->{metaData}          = get_metaData($self);
-    $self->{convertPheno}      = get_info($self);
+    $self->{metaData}          = get_metaData($self);   # Dynamically adding attributes (setter)
+    $self->{convertPheno}      = get_info($self);       # Dynamically adding attributes (setter)
 
     # array_dispatcher will deal with JSON arrays
     return $self->array_dispatcher;
@@ -617,8 +617,8 @@ sub csv2bff {
     # Load data in $self
     $self->{data}              = $data;                 # Dynamically adding attributes (setter)
     $self->{data_mapping_file} = $data_mapping_file;    # Dynamically adding attributes (setter)
-                                                        #$self->{metaData}          = get_metaData($self);
-                                                        #$self->{convertPheno}      = get_info($self);
+    $self->{metaData}          = get_metaData($self);   # Dynamically adding attributes (setter)
+    $self->{convertPheno}      = get_info($self);       # Dynamically adding attributes (setter)
 
     # array_dispatcher will deal with JSON arrays
     return $self->array_dispatcher;

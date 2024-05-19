@@ -725,8 +725,8 @@ sub map_measures {
         $measure->{procedure} = {
             procedureCode => map_ontology_term(
                 {
-                    query => exists $unit_cursor->{procedureLabel}
-                    ? $unit_cursor->{procedureLabel}
+                    query => exists $unit_cursor->{procedureCodeLabel}
+                    ? $unit_cursor->{procedureCodeLabel}
                     : $field eq 'calprotectin' ? 'Feces'
                     : $field =~ m/^nancy/      ? 'Histologic'
                     : 'Blood Test Result',
