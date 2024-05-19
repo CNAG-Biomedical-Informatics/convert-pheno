@@ -24,6 +24,100 @@
          }
       ],
       "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 17.2,
+                     "low" : 12.1,
+                     "unit" : {
+                        "id" : "NCIT:C64783",
+                        "label" : "Gram per Deciliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64783",
+                     "label" : "Gram per Deciliter"
+                  },
+                  "value" : 12.7
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 11,
+                     "low" : 4,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 9.4
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 450,
+                     "low" : 150,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 156
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C16358",
+               "label" : "Body Mass Index"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 24.9,
+                     "low" : 18.5,
+                     "unit" : {
+                        "id" : "NCIT:C49671",
+                        "label" : "Kilogram per Square Meter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 28.2
+               }
+            }
+         }
+      ],
       "medicalActions" : [
          {
             "treatment" : {
@@ -89,6 +183,100 @@
          }
       ],
       "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 17.2,
+                     "low" : 12.1,
+                     "unit" : {
+                        "id" : "NCIT:C64783",
+                        "label" : "Gram per Deciliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64783",
+                     "label" : "Gram per Deciliter"
+                  },
+                  "value" : 13.2
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 11,
+                     "low" : 4,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 9.1
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 450,
+                     "low" : 150,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 323
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C16358",
+               "label" : "Body Mass Index"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 24.9,
+                     "low" : 18.5,
+                     "unit" : {
+                        "id" : "NCIT:C49671",
+                        "label" : "Kilogram per Square Meter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 28.2
+               }
+            }
+         }
+      ],
       "medicalActions" : [
          {
             "treatment" : {
@@ -154,6 +342,100 @@
          }
       ],
       "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 17.2,
+                     "low" : 12.1,
+                     "unit" : {
+                        "id" : "NCIT:C64783",
+                        "label" : "Gram per Deciliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64783",
+                     "label" : "Gram per Deciliter"
+                  },
+                  "value" : 11.1
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 11,
+                     "low" : 4,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 7.8
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 450,
+                     "low" : 150,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 222
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C16358",
+               "label" : "Body Mass Index"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 24.9,
+                     "low" : 18.5,
+                     "unit" : {
+                        "id" : "NCIT:C49671",
+                        "label" : "Kilogram per Square Meter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 25.7
+               }
+            }
+         }
+      ],
       "medicalActions" : [
          {
             "treatment" : {
@@ -219,6 +501,100 @@
          }
       ],
       "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 17.2,
+                     "low" : 12.1,
+                     "unit" : {
+                        "id" : "NCIT:C64783",
+                        "label" : "Gram per Deciliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64783",
+                     "label" : "Gram per Deciliter"
+                  },
+                  "value" : 12.1
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 11,
+                     "low" : 4,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 10.8
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 450,
+                     "low" : 150,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 375
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C16358",
+               "label" : "Body Mass Index"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 24.9,
+                     "low" : 18.5,
+                     "unit" : {
+                        "id" : "NCIT:C49671",
+                        "label" : "Kilogram per Square Meter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 25.7
+               }
+            }
+         }
+      ],
       "medicalActions" : [
          {
             "treatment" : {
@@ -284,6 +660,100 @@
          }
       ],
       "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 17.2,
+                     "low" : 12.1,
+                     "unit" : {
+                        "id" : "NCIT:C64783",
+                        "label" : "Gram per Deciliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64783",
+                     "label" : "Gram per Deciliter"
+                  },
+                  "value" : 16.5
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 11,
+                     "low" : 4,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 5.4
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 450,
+                     "low" : 150,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 331
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C16358",
+               "label" : "Body Mass Index"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 24.9,
+                     "low" : 18.5,
+                     "unit" : {
+                        "id" : "NCIT:C49671",
+                        "label" : "Kilogram per Square Meter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 25.9
+               }
+            }
+         }
+      ],
       "medicalActions" : [
          {
             "treatment" : {
@@ -349,6 +819,100 @@
          }
       ],
       "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 17.2,
+                     "low" : 12.1,
+                     "unit" : {
+                        "id" : "NCIT:C64783",
+                        "label" : "Gram per Deciliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64783",
+                     "label" : "Gram per Deciliter"
+                  },
+                  "value" : 16.1
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 11,
+                     "low" : 4,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 5.1
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 450,
+                     "low" : 150,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 274
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C16358",
+               "label" : "Body Mass Index"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 24.9,
+                     "low" : 18.5,
+                     "unit" : {
+                        "id" : "NCIT:C49671",
+                        "label" : "Kilogram per Square Meter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 25.9
+               }
+            }
+         }
+      ],
       "medicalActions" : [
          {
             "treatment" : {
@@ -414,6 +978,100 @@
          }
       ],
       "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 17.2,
+                     "low" : 12.1,
+                     "unit" : {
+                        "id" : "NCIT:C64783",
+                        "label" : "Gram per Deciliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64783",
+                     "label" : "Gram per Deciliter"
+                  },
+                  "value" : 16.4
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 11,
+                     "low" : 4,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 9
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 450,
+                     "low" : 150,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 337
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C16358",
+               "label" : "Body Mass Index"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 24.9,
+                     "low" : 18.5,
+                     "unit" : {
+                        "id" : "NCIT:C49671",
+                        "label" : "Kilogram per Square Meter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 25.9
+               }
+            }
+         }
+      ],
       "medicalActions" : [
          {
             "treatment" : {
@@ -479,6 +1137,100 @@
          }
       ],
       "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 17.2,
+                     "low" : 12.1,
+                     "unit" : {
+                        "id" : "NCIT:C64783",
+                        "label" : "Gram per Deciliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64783",
+                     "label" : "Gram per Deciliter"
+                  },
+                  "value" : 14.9
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 11,
+                     "low" : 4,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 6.4
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 450,
+                     "low" : 150,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 261
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C16358",
+               "label" : "Body Mass Index"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 24.9,
+                     "low" : 18.5,
+                     "unit" : {
+                        "id" : "NCIT:C49671",
+                        "label" : "Kilogram per Square Meter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 25.9
+               }
+            }
+         }
+      ],
       "medicalActions" : [
          {
             "treatment" : {
@@ -544,6 +1296,100 @@
          }
       ],
       "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 17.2,
+                     "low" : 12.1,
+                     "unit" : {
+                        "id" : "NCIT:C64783",
+                        "label" : "Gram per Deciliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64783",
+                     "label" : "Gram per Deciliter"
+                  },
+                  "value" : 16.1
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 11,
+                     "low" : 4,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 10.8
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 450,
+                     "low" : 150,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 281
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C16358",
+               "label" : "Body Mass Index"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 24.9,
+                     "low" : 18.5,
+                     "unit" : {
+                        "id" : "NCIT:C49671",
+                        "label" : "Kilogram per Square Meter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 21.7
+               }
+            }
+         }
+      ],
       "medicalActions" : [
          {
             "treatment" : {
@@ -609,6 +1455,100 @@
          }
       ],
       "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 17.2,
+                     "low" : 12.1,
+                     "unit" : {
+                        "id" : "NCIT:C64783",
+                        "label" : "Gram per Deciliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64783",
+                     "label" : "Gram per Deciliter"
+                  },
+                  "value" : 12
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 11,
+                     "low" : 4,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 9.1
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 450,
+                     "low" : 150,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 291
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C16358",
+               "label" : "Body Mass Index"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 24.9,
+                     "low" : 18.5,
+                     "unit" : {
+                        "id" : "NCIT:C49671",
+                        "label" : "Kilogram per Square Meter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 21.7
+               }
+            }
+         }
+      ],
       "medicalActions" : [
          {
             "treatment" : {
@@ -674,6 +1614,100 @@
          }
       ],
       "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 17.2,
+                     "low" : 12.1,
+                     "unit" : {
+                        "id" : "NCIT:C64783",
+                        "label" : "Gram per Deciliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64783",
+                     "label" : "Gram per Deciliter"
+                  },
+                  "value" : 15
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 11,
+                     "low" : 4,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 10.6
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 450,
+                     "low" : 150,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 316
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C16358",
+               "label" : "Body Mass Index"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 24.9,
+                     "low" : 18.5,
+                     "unit" : {
+                        "id" : "NCIT:C49671",
+                        "label" : "Kilogram per Square Meter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 25.3
+               }
+            }
+         }
+      ],
       "medicalActions" : [
          {
             "treatment" : {
@@ -739,6 +1773,100 @@
          }
       ],
       "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 17.2,
+                     "low" : 12.1,
+                     "unit" : {
+                        "id" : "NCIT:C64783",
+                        "label" : "Gram per Deciliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64783",
+                     "label" : "Gram per Deciliter"
+                  },
+                  "value" : 15.7
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 11,
+                     "low" : 4,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 5.1
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 450,
+                     "low" : 150,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 279
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C16358",
+               "label" : "Body Mass Index"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 24.9,
+                     "low" : 18.5,
+                     "unit" : {
+                        "id" : "NCIT:C49671",
+                        "label" : "Kilogram per Square Meter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 25.3
+               }
+            }
+         }
+      ],
       "medicalActions" : [
          {
             "treatment" : {
@@ -804,6 +1932,100 @@
          }
       ],
       "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 17.2,
+                     "low" : 12.1,
+                     "unit" : {
+                        "id" : "NCIT:C64783",
+                        "label" : "Gram per Deciliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64783",
+                     "label" : "Gram per Deciliter"
+                  },
+                  "value" : 15.3
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 11,
+                     "low" : 4,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 7.2
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 450,
+                     "low" : 150,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 290
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C16358",
+               "label" : "Body Mass Index"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 24.9,
+                     "low" : 18.5,
+                     "unit" : {
+                        "id" : "NCIT:C49671",
+                        "label" : "Kilogram per Square Meter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 28.1
+               }
+            }
+         }
+      ],
       "medicalActions" : [
          {
             "treatment" : {
@@ -869,6 +2091,100 @@
          }
       ],
       "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 17.2,
+                     "low" : 12.1,
+                     "unit" : {
+                        "id" : "NCIT:C64783",
+                        "label" : "Gram per Deciliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64783",
+                     "label" : "Gram per Deciliter"
+                  },
+                  "value" : 12.9
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 11,
+                     "low" : 4,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 10.5
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 450,
+                     "low" : 150,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 362
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C16358",
+               "label" : "Body Mass Index"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 24.9,
+                     "low" : 18.5,
+                     "unit" : {
+                        "id" : "NCIT:C49671",
+                        "label" : "Kilogram per Square Meter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 28.1
+               }
+            }
+         }
+      ],
       "medicalActions" : [
          {
             "treatment" : {
@@ -934,6 +2250,100 @@
          }
       ],
       "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 17.2,
+                     "low" : 12.1,
+                     "unit" : {
+                        "id" : "NCIT:C64783",
+                        "label" : "Gram per Deciliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64783",
+                     "label" : "Gram per Deciliter"
+                  },
+                  "value" : 16.1
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 11,
+                     "low" : 4,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 5.9
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 450,
+                     "low" : 150,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 334
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C16358",
+               "label" : "Body Mass Index"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 24.9,
+                     "low" : 18.5,
+                     "unit" : {
+                        "id" : "NCIT:C49671",
+                        "label" : "Kilogram per Square Meter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 22.5
+               }
+            }
+         }
+      ],
       "medicalActions" : [
          {
             "treatment" : {
@@ -999,6 +2409,100 @@
          }
       ],
       "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 17.2,
+                     "low" : 12.1,
+                     "unit" : {
+                        "id" : "NCIT:C64783",
+                        "label" : "Gram per Deciliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64783",
+                     "label" : "Gram per Deciliter"
+                  },
+                  "value" : 15.7
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 11,
+                     "low" : 4,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 5.7
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 450,
+                     "low" : 150,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 255
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C16358",
+               "label" : "Body Mass Index"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 24.9,
+                     "low" : 18.5,
+                     "unit" : {
+                        "id" : "NCIT:C49671",
+                        "label" : "Kilogram per Square Meter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 22.5
+               }
+            }
+         }
+      ],
       "medicalActions" : [
          {
             "treatment" : {
@@ -1064,6 +2568,100 @@
          }
       ],
       "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 17.2,
+                     "low" : 12.1,
+                     "unit" : {
+                        "id" : "NCIT:C64783",
+                        "label" : "Gram per Deciliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64783",
+                     "label" : "Gram per Deciliter"
+                  },
+                  "value" : 17
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 11,
+                     "low" : 4,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 7.2
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 450,
+                     "low" : 150,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 225
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C16358",
+               "label" : "Body Mass Index"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 24.9,
+                     "low" : 18.5,
+                     "unit" : {
+                        "id" : "NCIT:C49671",
+                        "label" : "Kilogram per Square Meter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 20.3
+               }
+            }
+         }
+      ],
       "medicalActions" : [
          {
             "treatment" : {
@@ -1129,6 +2727,100 @@
          }
       ],
       "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 17.2,
+                     "low" : 12.1,
+                     "unit" : {
+                        "id" : "NCIT:C64783",
+                        "label" : "Gram per Deciliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64783",
+                     "label" : "Gram per Deciliter"
+                  },
+                  "value" : 16.4
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 11,
+                     "low" : 4,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 6
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 450,
+                     "low" : 150,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 339
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C16358",
+               "label" : "Body Mass Index"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 24.9,
+                     "low" : 18.5,
+                     "unit" : {
+                        "id" : "NCIT:C49671",
+                        "label" : "Kilogram per Square Meter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 20.3
+               }
+            }
+         }
+      ],
       "medicalActions" : [
          {
             "treatment" : {
@@ -1194,6 +2886,100 @@
          }
       ],
       "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 17.2,
+                     "low" : 12.1,
+                     "unit" : {
+                        "id" : "NCIT:C64783",
+                        "label" : "Gram per Deciliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64783",
+                     "label" : "Gram per Deciliter"
+                  },
+                  "value" : 13.4
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 11,
+                     "low" : 4,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 6.1
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 450,
+                     "low" : 150,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 339
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C16358",
+               "label" : "Body Mass Index"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 24.9,
+                     "low" : 18.5,
+                     "unit" : {
+                        "id" : "NCIT:C49671",
+                        "label" : "Kilogram per Square Meter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 27.9
+               }
+            }
+         }
+      ],
       "medicalActions" : [
          {
             "treatment" : {
@@ -1259,6 +3045,100 @@
          }
       ],
       "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 17.2,
+                     "low" : 12.1,
+                     "unit" : {
+                        "id" : "NCIT:C64783",
+                        "label" : "Gram per Deciliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64783",
+                     "label" : "Gram per Deciliter"
+                  },
+                  "value" : 14.5
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 11,
+                     "low" : 4,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 5
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 450,
+                     "low" : 150,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 355
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C16358",
+               "label" : "Body Mass Index"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 24.9,
+                     "low" : 18.5,
+                     "unit" : {
+                        "id" : "NCIT:C49671",
+                        "label" : "Kilogram per Square Meter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 27.9
+               }
+            }
+         }
+      ],
       "medicalActions" : [
          {
             "treatment" : {
