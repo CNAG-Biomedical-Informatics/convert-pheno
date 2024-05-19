@@ -119,15 +119,10 @@
       "treatments" : [
          {
             "_info" : {
-               "dose" : null,
-               "drug" : "DrugDose (mg)",
-               "drug_name" : "DrugDose (mg)",
-               "duration" : null,
-               "field" : "DrugDose (mg)",
-               "route" : "oral",
-               "start" : null,
-               "status" : 90,
-               "value" : null
+               "drug_name" : "Lisinopril",
+               "drug_name_ori" : "Lisinopril",
+               "field" : "DrugName",
+               "route" : "oral"
             },
             "ageAtOnset" : {
                "age" : {
@@ -147,8 +142,8 @@
                "label" : "Oral Route of Administration"
             },
             "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C29159",
+               "label" : "Lisinopril"
             }
          }
       ]
@@ -273,15 +268,10 @@
       "treatments" : [
          {
             "_info" : {
-               "dose" : null,
-               "drug" : "DrugDose (mg)",
-               "drug_name" : "DrugDose (mg)",
-               "duration" : null,
-               "field" : "DrugDose (mg)",
-               "route" : "oral",
-               "start" : null,
-               "status" : 90,
-               "value" : null
+               "drug_name" : "Lisinopril",
+               "drug_name_ori" : "Lisinopril",
+               "field" : "DrugName",
+               "route" : "oral"
             },
             "ageAtOnset" : {
                "age" : {
@@ -301,8 +291,8 @@
                "label" : "Oral Route of Administration"
             },
             "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C29159",
+               "label" : "Lisinopril"
             }
          }
       ]
@@ -406,15 +396,10 @@
       "treatments" : [
          {
             "_info" : {
-               "dose" : null,
-               "drug" : "DrugDose (mg)",
-               "drug_name" : "DrugDose (mg)",
-               "duration" : null,
-               "field" : "DrugDose (mg)",
-               "route" : "oral",
-               "start" : null,
-               "status" : 90,
-               "value" : null
+               "drug_name" : "Atorvastatin",
+               "drug_name_ori" : "Atorvastatin",
+               "field" : "DrugName",
+               "route" : "oral"
             },
             "ageAtOnset" : {
                "age" : {
@@ -434,8 +419,8 @@
                "label" : "Oral Route of Administration"
             },
             "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C61527",
+               "label" : "Atorvastatin"
             }
          }
       ]
@@ -539,15 +524,10 @@
       "treatments" : [
          {
             "_info" : {
-               "dose" : null,
-               "drug" : "DrugDose (mg)",
-               "drug_name" : "DrugDose (mg)",
-               "duration" : null,
-               "field" : "DrugDose (mg)",
-               "route" : "oral",
-               "start" : null,
-               "status" : 90,
-               "value" : null
+               "drug_name" : "Atorvastatin",
+               "drug_name_ori" : "Atorvastatin",
+               "field" : "DrugName",
+               "route" : "oral"
             },
             "ageAtOnset" : {
                "age" : {
@@ -567,8 +547,8 @@
                "label" : "Oral Route of Administration"
             },
             "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C61527",
+               "label" : "Atorvastatin"
             }
          }
       ]
@@ -693,15 +673,10 @@
       "treatments" : [
          {
             "_info" : {
-               "dose" : null,
-               "drug" : "DrugDose (mg)",
-               "drug_name" : "DrugDose (mg)",
-               "duration" : null,
-               "field" : "DrugDose (mg)",
-               "route" : "oral",
-               "start" : null,
-               "status" : 500,
-               "value" : null
+               "drug_name" : "Albuterol",
+               "drug_name_ori" : "Albuterol",
+               "field" : "DrugName",
+               "route" : "oral"
             },
             "ageAtOnset" : {
                "age" : {
@@ -721,8 +696,8 @@
                "label" : "Oral Route of Administration"
             },
             "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C215",
+               "label" : "Albuterol"
             }
          }
       ]
@@ -847,15 +822,10 @@
       "treatments" : [
          {
             "_info" : {
-               "dose" : null,
-               "drug" : "DrugDose (mg)",
-               "drug_name" : "DrugDose (mg)",
-               "duration" : null,
-               "field" : "DrugDose (mg)",
-               "route" : "oral",
-               "start" : null,
-               "status" : 500,
-               "value" : null
+               "drug_name" : "Albuterol",
+               "drug_name_ori" : "Albuterol",
+               "field" : "DrugName",
+               "route" : "oral"
             },
             "ageAtOnset" : {
                "age" : {
@@ -875,8 +845,8 @@
                "label" : "Oral Route of Administration"
             },
             "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C215",
+               "label" : "Albuterol"
             }
          }
       ]
@@ -1001,15 +971,10 @@
       "treatments" : [
          {
             "_info" : {
-               "dose" : null,
-               "drug" : "DrugDose (mg)",
-               "drug_name" : "DrugDose (mg)",
-               "duration" : null,
-               "field" : "DrugDose (mg)",
-               "route" : "oral",
-               "start" : null,
-               "status" : 1000,
-               "value" : null
+               "drug_name" : "Lisinopril",
+               "drug_name_ori" : "Lisinopril",
+               "field" : "DrugName",
+               "route" : "oral"
             },
             "ageAtOnset" : {
                "age" : {
@@ -1029,8 +994,8 @@
                "label" : "Oral Route of Administration"
             },
             "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C29159",
+               "label" : "Lisinopril"
             }
          }
       ]
@@ -1155,15 +1120,10 @@
       "treatments" : [
          {
             "_info" : {
-               "dose" : null,
-               "drug" : "DrugDose (mg)",
-               "drug_name" : "DrugDose (mg)",
-               "duration" : null,
-               "field" : "DrugDose (mg)",
-               "route" : "oral",
-               "start" : null,
-               "status" : 1000,
-               "value" : null
+               "drug_name" : "Lisinopril",
+               "drug_name_ori" : "Lisinopril",
+               "field" : "DrugName",
+               "route" : "oral"
             },
             "ageAtOnset" : {
                "age" : {
@@ -1183,8 +1143,8 @@
                "label" : "Oral Route of Administration"
             },
             "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C29159",
+               "label" : "Lisinopril"
             }
          }
       ]
@@ -1288,15 +1248,10 @@
       "treatments" : [
          {
             "_info" : {
-               "dose" : null,
-               "drug" : "DrugDose (mg)",
-               "drug_name" : "DrugDose (mg)",
-               "duration" : null,
-               "field" : "DrugDose (mg)",
-               "route" : "oral",
-               "start" : null,
-               "status" : 500,
-               "value" : null
+               "drug_name" : "Metformin",
+               "drug_name_ori" : "Metformin",
+               "field" : "DrugName",
+               "route" : "oral"
             },
             "ageAtOnset" : {
                "age" : {
@@ -1316,8 +1271,8 @@
                "label" : "Oral Route of Administration"
             },
             "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C61612",
+               "label" : "Metformin"
             }
          }
       ]
@@ -1421,15 +1376,10 @@
       "treatments" : [
          {
             "_info" : {
-               "dose" : null,
-               "drug" : "DrugDose (mg)",
-               "drug_name" : "DrugDose (mg)",
-               "duration" : null,
-               "field" : "DrugDose (mg)",
-               "route" : "oral",
-               "start" : null,
-               "status" : 500,
-               "value" : null
+               "drug_name" : "Metformin",
+               "drug_name_ori" : "Metformin",
+               "field" : "DrugName",
+               "route" : "oral"
             },
             "ageAtOnset" : {
                "age" : {
@@ -1449,8 +1399,8 @@
                "label" : "Oral Route of Administration"
             },
             "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C61612",
+               "label" : "Metformin"
             }
          }
       ]
@@ -1554,15 +1504,10 @@
       "treatments" : [
          {
             "_info" : {
-               "dose" : null,
-               "drug" : "DrugDose (mg)",
-               "drug_name" : "DrugDose (mg)",
-               "duration" : null,
-               "field" : "DrugDose (mg)",
-               "route" : "oral",
-               "start" : null,
-               "status" : 1000,
-               "value" : null
+               "drug_name" : "Metformin",
+               "drug_name_ori" : "Metformin",
+               "field" : "DrugName",
+               "route" : "oral"
             },
             "ageAtOnset" : {
                "age" : {
@@ -1582,8 +1527,8 @@
                "label" : "Oral Route of Administration"
             },
             "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C61612",
+               "label" : "Metformin"
             }
          }
       ]
@@ -1687,15 +1632,10 @@
       "treatments" : [
          {
             "_info" : {
-               "dose" : null,
-               "drug" : "DrugDose (mg)",
-               "drug_name" : "DrugDose (mg)",
-               "duration" : null,
-               "field" : "DrugDose (mg)",
-               "route" : "oral",
-               "start" : null,
-               "status" : 1000,
-               "value" : null
+               "drug_name" : "Metformin",
+               "drug_name_ori" : "Metformin",
+               "field" : "DrugName",
+               "route" : "oral"
             },
             "ageAtOnset" : {
                "age" : {
@@ -1715,8 +1655,8 @@
                "label" : "Oral Route of Administration"
             },
             "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C61612",
+               "label" : "Metformin"
             }
          }
       ]
@@ -1860,15 +1800,10 @@
       "treatments" : [
          {
             "_info" : {
-               "dose" : null,
-               "drug" : "DrugDose (mg)",
-               "drug_name" : "DrugDose (mg)",
-               "duration" : null,
-               "field" : "DrugDose (mg)",
-               "route" : "oral",
-               "start" : null,
-               "status" : 1000,
-               "value" : null
+               "drug_name" : "Albuterol",
+               "drug_name_ori" : "Albuterol",
+               "field" : "DrugName",
+               "route" : "oral"
             },
             "ageAtOnset" : {
                "age" : {
@@ -1888,8 +1823,8 @@
                "label" : "Oral Route of Administration"
             },
             "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C215",
+               "label" : "Albuterol"
             }
          }
       ]
@@ -2033,15 +1968,10 @@
       "treatments" : [
          {
             "_info" : {
-               "dose" : null,
-               "drug" : "DrugDose (mg)",
-               "drug_name" : "DrugDose (mg)",
-               "duration" : null,
-               "field" : "DrugDose (mg)",
-               "route" : "oral",
-               "start" : null,
-               "status" : 1000,
-               "value" : null
+               "drug_name" : "Albuterol",
+               "drug_name_ori" : "Albuterol",
+               "field" : "DrugName",
+               "route" : "oral"
             },
             "ageAtOnset" : {
                "age" : {
@@ -2061,8 +1991,8 @@
                "label" : "Oral Route of Administration"
             },
             "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C215",
+               "label" : "Albuterol"
             }
          }
       ]
@@ -2166,15 +2096,10 @@
       "treatments" : [
          {
             "_info" : {
-               "dose" : null,
-               "drug" : "DrugDose (mg)",
-               "drug_name" : "DrugDose (mg)",
-               "duration" : null,
-               "field" : "DrugDose (mg)",
-               "route" : "oral",
-               "start" : null,
-               "status" : 500,
-               "value" : null
+               "drug_name" : "Lisinopril",
+               "drug_name_ori" : "Lisinopril",
+               "field" : "DrugName",
+               "route" : "oral"
             },
             "ageAtOnset" : {
                "age" : {
@@ -2194,8 +2119,8 @@
                "label" : "Oral Route of Administration"
             },
             "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C29159",
+               "label" : "Lisinopril"
             }
          }
       ]
@@ -2299,15 +2224,10 @@
       "treatments" : [
          {
             "_info" : {
-               "dose" : null,
-               "drug" : "DrugDose (mg)",
-               "drug_name" : "DrugDose (mg)",
-               "duration" : null,
-               "field" : "DrugDose (mg)",
-               "route" : "oral",
-               "start" : null,
-               "status" : 500,
-               "value" : null
+               "drug_name" : "Lisinopril",
+               "drug_name_ori" : "Lisinopril",
+               "field" : "DrugName",
+               "route" : "oral"
             },
             "ageAtOnset" : {
                "age" : {
@@ -2327,8 +2247,8 @@
                "label" : "Oral Route of Administration"
             },
             "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C29159",
+               "label" : "Lisinopril"
             }
          }
       ]
@@ -2453,15 +2373,10 @@
       "treatments" : [
          {
             "_info" : {
-               "dose" : null,
-               "drug" : "DrugDose (mg)",
-               "drug_name" : "DrugDose (mg)",
-               "duration" : null,
-               "field" : "DrugDose (mg)",
-               "route" : "oral",
-               "start" : null,
-               "status" : 90,
-               "value" : null
+               "drug_name" : "Albuterol",
+               "drug_name_ori" : "Albuterol",
+               "field" : "DrugName",
+               "route" : "oral"
             },
             "ageAtOnset" : {
                "age" : {
@@ -2481,8 +2396,8 @@
                "label" : "Oral Route of Administration"
             },
             "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C215",
+               "label" : "Albuterol"
             }
          }
       ]
@@ -2607,15 +2522,10 @@
       "treatments" : [
          {
             "_info" : {
-               "dose" : null,
-               "drug" : "DrugDose (mg)",
-               "drug_name" : "DrugDose (mg)",
-               "duration" : null,
-               "field" : "DrugDose (mg)",
-               "route" : "oral",
-               "start" : null,
-               "status" : 90,
-               "value" : null
+               "drug_name" : "Albuterol",
+               "drug_name_ori" : "Albuterol",
+               "field" : "DrugName",
+               "route" : "oral"
             },
             "ageAtOnset" : {
                "age" : {
@@ -2635,8 +2545,8 @@
                "label" : "Oral Route of Administration"
             },
             "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C215",
+               "label" : "Albuterol"
             }
          }
       ]
@@ -2761,15 +2671,10 @@
       "treatments" : [
          {
             "_info" : {
-               "dose" : null,
-               "drug" : "DrugDose (mg)",
-               "drug_name" : "DrugDose (mg)",
-               "duration" : null,
-               "field" : "DrugDose (mg)",
-               "route" : "oral",
-               "start" : null,
-               "status" : 1000,
-               "value" : null
+               "drug_name" : "Albuterol",
+               "drug_name_ori" : "Albuterol",
+               "field" : "DrugName",
+               "route" : "oral"
             },
             "ageAtOnset" : {
                "age" : {
@@ -2789,8 +2694,8 @@
                "label" : "Oral Route of Administration"
             },
             "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C215",
+               "label" : "Albuterol"
             }
          }
       ]
@@ -2915,15 +2820,10 @@
       "treatments" : [
          {
             "_info" : {
-               "dose" : null,
-               "drug" : "DrugDose (mg)",
-               "drug_name" : "DrugDose (mg)",
-               "duration" : null,
-               "field" : "DrugDose (mg)",
-               "route" : "oral",
-               "start" : null,
-               "status" : 1000,
-               "value" : null
+               "drug_name" : "Albuterol",
+               "drug_name_ori" : "Albuterol",
+               "field" : "DrugName",
+               "route" : "oral"
             },
             "ageAtOnset" : {
                "age" : {
@@ -2943,8 +2843,8 @@
                "label" : "Oral Route of Administration"
             },
             "treatmentCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C215",
+               "label" : "Albuterol"
             }
          }
       ]

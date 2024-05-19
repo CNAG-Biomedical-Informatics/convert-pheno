@@ -112,8 +112,29 @@
             "type": "object"
           }
         },
-        "routesOfAdministration": {
-          "$ref": "#/$defs/arrayField"
+        "routeOfAdministration": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "enum": [
+              "oral",
+              "rectal",
+              "intravenous",
+              "intramuscular",
+              "subcutaneous",
+              "inhalation",
+              "topical",
+              "transdermal",
+              "sublingual",
+              "buccal",
+              "intranasal",
+              "ocular",
+              "otic",
+              "vaginal",
+              "intrathecal",
+              "epidural"
+            ]
+          }
         },
         "ontology": {
           "type": "string",
@@ -149,6 +170,15 @@
               "label"
             ],
             "additionalProperties": false
+          }
+        },
+        "assignTermIdFromHeader": {
+          "$ref": "#/$defs/arrayField"
+        },
+        "drugDose": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
           }
         }
       },

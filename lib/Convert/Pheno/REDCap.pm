@@ -875,6 +875,11 @@ sub map_treatments {
         next unless defined $participant->{$field};
 
         # Getting the right name for the drug (if any)
+        # *** Important ***
+        # It can come from variable name or from the value
+       
+        $field = $participant->{$field} if $self->{variableNamingMode} eq 'name_from_value';
+
         my $treatment_name =
           replace_field_with_terminology_or_dictionary_if_exist( $mapping,
             $field );

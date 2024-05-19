@@ -9,6 +9,8 @@ Revision history for Perl distribution Convert-Pheno
     o Required properties in mappind file now only are 'project','id' and 'sex'
     o Added project.baselineFieldsToPropagate
     o Added new property 'terminology'
+    o Renamed and changed treatments.routesOfAdministration array to treatments.routeOfAdministration object
+    o Added property treatments.drugDose (object)
  - Fixed issue with hpo.db that had leading and trailing white spaces in columns
 
 0.19 2024-04-24T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)

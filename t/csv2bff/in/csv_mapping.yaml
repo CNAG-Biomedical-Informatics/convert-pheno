@@ -59,6 +59,7 @@
   # Term: measures
   measures: 
     fields: [leucocytes,hemoglobin,hematokrit,mcv,mhc,thrombocytes,neutrophils,lymphocytes,eosinophils,creatinine,gfr,bilirubin,gpt,ggt,lipase,crp,iron,il6,calprotectin,nancy_index_acute,nancy_index_chronic,nancy_index_ulceration,endo_mayo]
+    assignTermIdFromHeader: [leucocytes,hemoglobin]
     dictionary:
       # Unit
       xx.xx /10^-9 l: Cells per Microliter
@@ -80,9 +81,10 @@
 
   # Term: treatments
   treatments:
-    fields: [Drugname,DrugDose (mg)]
-    dictionary:
-      Albuterol: Albuterol
-      Lisinopril: Lisinopril 
-    routesOfAdministration: [oral]
-    ontology: ncit
+    fields: [DrugName]
+    drugDose:
+      Albuterol: DrugDose (mg)
+      Lisinopril: DrugDose (mg)
+    routeOfAdministration: 
+      Albuterol: oral
+      Lisinopril: oral
