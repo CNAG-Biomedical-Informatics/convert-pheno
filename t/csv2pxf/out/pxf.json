@@ -1,0 +1,1302 @@
+[
+   {
+      "diseases" : [
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            }
+         }
+      ],
+      "id" : null,
+      "medicalActions" : [
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C29159",
+                  "label" : "Lisinopril"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0001654",
+               "label" : "Abnormal heart valve morphology"
+            }
+         },
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0001376",
+               "label" : "Limitation of joint mobility"
+            }
+         }
+      ],
+      "subject" : {
+         "id" : "P001:Baseline",
+         "sex" : "FEMALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            }
+         }
+      ],
+      "id" : null,
+      "medicalActions" : [
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C29159",
+                  "label" : "Lisinopril"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0001654",
+               "label" : "Abnormal heart valve morphology"
+            }
+         },
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0001376",
+               "label" : "Limitation of joint mobility"
+            }
+         }
+      ],
+      "subject" : {
+         "id" : "P001:Treatment",
+         "sex" : "FEMALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            }
+         }
+      ],
+      "id" : null,
+      "medicalActions" : [
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C61527",
+                  "label" : "Atorvastatin"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0001376",
+               "label" : "Limitation of joint mobility"
+            }
+         },
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0002097",
+               "label" : "Emphysema"
+            }
+         }
+      ],
+      "subject" : {
+         "id" : "P002:Baseline",
+         "sex" : "MALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            }
+         }
+      ],
+      "id" : null,
+      "medicalActions" : [
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C61527",
+                  "label" : "Atorvastatin"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0001376",
+               "label" : "Limitation of joint mobility"
+            }
+         },
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0002097",
+               "label" : "Emphysema"
+            }
+         }
+      ],
+      "subject" : {
+         "id" : "P002:Treatment",
+         "sex" : "MALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            }
+         }
+      ],
+      "id" : null,
+      "medicalActions" : [
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C215",
+                  "label" : "Albuterol"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0001654",
+               "label" : "Abnormal heart valve morphology"
+            }
+         },
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0002097",
+               "label" : "Emphysema"
+            }
+         }
+      ],
+      "subject" : {
+         "id" : "P003:Baseline",
+         "sex" : "FEMALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            }
+         }
+      ],
+      "id" : null,
+      "medicalActions" : [
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C215",
+                  "label" : "Albuterol"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0001654",
+               "label" : "Abnormal heart valve morphology"
+            }
+         },
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0002097",
+               "label" : "Emphysema"
+            }
+         }
+      ],
+      "subject" : {
+         "id" : "P003:Treatment",
+         "sex" : "FEMALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            }
+         }
+      ],
+      "id" : null,
+      "medicalActions" : [
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C29159",
+                  "label" : "Lisinopril"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0002097",
+               "label" : "Emphysema"
+            }
+         },
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0001654",
+               "label" : "Abnormal heart valve morphology"
+            }
+         }
+      ],
+      "subject" : {
+         "id" : "P004:Baseline",
+         "sex" : "FEMALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            }
+         }
+      ],
+      "id" : null,
+      "medicalActions" : [
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C29159",
+                  "label" : "Lisinopril"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0002097",
+               "label" : "Emphysema"
+            }
+         },
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0001654",
+               "label" : "Abnormal heart valve morphology"
+            }
+         }
+      ],
+      "subject" : {
+         "id" : "P004:Treatment",
+         "sex" : "FEMALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            }
+         }
+      ],
+      "id" : null,
+      "medicalActions" : [
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C61612",
+                  "label" : "Metformin"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0002097",
+               "label" : "Emphysema"
+            }
+         },
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0001376",
+               "label" : "Limitation of joint mobility"
+            }
+         }
+      ],
+      "subject" : {
+         "id" : "P005:Baseline",
+         "sex" : "FEMALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            }
+         }
+      ],
+      "id" : null,
+      "medicalActions" : [
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C61612",
+                  "label" : "Metformin"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0002097",
+               "label" : "Emphysema"
+            }
+         },
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0001376",
+               "label" : "Limitation of joint mobility"
+            }
+         }
+      ],
+      "subject" : {
+         "id" : "P005:Treatment",
+         "sex" : "FEMALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            }
+         }
+      ],
+      "id" : null,
+      "medicalActions" : [
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C61612",
+                  "label" : "Metformin"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0002097",
+               "label" : "Emphysema"
+            }
+         },
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0001376",
+               "label" : "Limitation of joint mobility"
+            }
+         }
+      ],
+      "subject" : {
+         "id" : "P006:Baseline",
+         "sex" : "MALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            }
+         }
+      ],
+      "id" : null,
+      "medicalActions" : [
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C61612",
+                  "label" : "Metformin"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0002097",
+               "label" : "Emphysema"
+            }
+         },
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0001376",
+               "label" : "Limitation of joint mobility"
+            }
+         }
+      ],
+      "subject" : {
+         "id" : "P006:Treatment",
+         "sex" : "MALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            }
+         }
+      ],
+      "id" : null,
+      "medicalActions" : [
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C215",
+                  "label" : "Albuterol"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0001376",
+               "label" : "Limitation of joint mobility"
+            }
+         },
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0001654",
+               "label" : "Abnormal heart valve morphology"
+            }
+         }
+      ],
+      "subject" : {
+         "id" : "P007:Baseline",
+         "sex" : "MALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            }
+         }
+      ],
+      "id" : null,
+      "medicalActions" : [
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C215",
+                  "label" : "Albuterol"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0001376",
+               "label" : "Limitation of joint mobility"
+            }
+         },
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0001654",
+               "label" : "Abnormal heart valve morphology"
+            }
+         }
+      ],
+      "subject" : {
+         "id" : "P007:Treatment",
+         "sex" : "MALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            }
+         }
+      ],
+      "id" : null,
+      "medicalActions" : [
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C29159",
+                  "label" : "Lisinopril"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0001654",
+               "label" : "Abnormal heart valve morphology"
+            }
+         },
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0001376",
+               "label" : "Limitation of joint mobility"
+            }
+         }
+      ],
+      "subject" : {
+         "id" : "P008:Baseline",
+         "sex" : "MALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            }
+         }
+      ],
+      "id" : null,
+      "medicalActions" : [
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C29159",
+                  "label" : "Lisinopril"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0001654",
+               "label" : "Abnormal heart valve morphology"
+            }
+         },
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0001376",
+               "label" : "Limitation of joint mobility"
+            }
+         }
+      ],
+      "subject" : {
+         "id" : "P008:Treatment",
+         "sex" : "MALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            }
+         }
+      ],
+      "id" : null,
+      "medicalActions" : [
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C215",
+                  "label" : "Albuterol"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0001376",
+               "label" : "Limitation of joint mobility"
+            }
+         },
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0002097",
+               "label" : "Emphysema"
+            }
+         }
+      ],
+      "subject" : {
+         "id" : "P009:Baseline",
+         "sex" : "MALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            }
+         }
+      ],
+      "id" : null,
+      "medicalActions" : [
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C215",
+                  "label" : "Albuterol"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0001376",
+               "label" : "Limitation of joint mobility"
+            }
+         },
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0002097",
+               "label" : "Emphysema"
+            }
+         }
+      ],
+      "subject" : {
+         "id" : "P009:Treatment",
+         "sex" : "MALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            }
+         }
+      ],
+      "id" : null,
+      "medicalActions" : [
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C215",
+                  "label" : "Albuterol"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0002097",
+               "label" : "Emphysema"
+            }
+         },
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0001376",
+               "label" : "Limitation of joint mobility"
+            }
+         }
+      ],
+      "subject" : {
+         "id" : "P010:Baseline",
+         "sex" : "MALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            }
+         },
+         {
+            "onset" : null,
+            "term" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            }
+         }
+      ],
+      "id" : null,
+      "medicalActions" : [
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C215",
+                  "label" : "Albuterol"
+               },
+               "doseIntervals" : [],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0002097",
+               "label" : "Emphysema"
+            }
+         },
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0001376",
+               "label" : "Limitation of joint mobility"
+            }
+         }
+      ],
+      "subject" : {
+         "id" : "P010:Treatment",
+         "sex" : "MALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
+   }
+]

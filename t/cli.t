@@ -5,7 +5,7 @@ use lib ( './lib', '../lib' );
 use feature qw(say);
 use Data::Dumper;
 use File::Temp qw{ tempfile };    # core
-use Test::More tests => 15;
+use Test::More tests => 16;
 use File::Compare;
 use Convert::Pheno;
 use Convert::Pheno::IO::CSVHandler;
@@ -100,6 +100,12 @@ my $input = {
         mapping_file      => 't/csv2bff/in/csv_mapping.yaml',
         sep     => ',',
         out     => 't/csv2bff/out/individuals.json'
+    },
+    csv2pxf => {
+        in_file => 't/csv2bff/in/csv_data.csv',
+        mapping_file    => 't/csv2bff/in/csv_mapping.yaml',
+        sep     => ',',
+        out     => 't/csv2pxf/out/pxf.json'
     }
 };
 

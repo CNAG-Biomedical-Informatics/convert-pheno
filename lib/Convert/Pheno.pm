@@ -626,6 +626,30 @@ sub csv2bff {
 
 #############
 #############
+#  CSV2PXF  #
+#############
+#############
+
+sub csv2pxf {
+
+    my $self = shift;
+
+    # First iteration: csv2bff
+    $self->{method} = 'csv2bff';    # setter - we have to change the value of attr {method}
+    my $bff = csv2bff($self);       # array
+
+    # Preparing for second iteration: bff2pxf
+    $self->{method}      = 'bff2pxf';    # setter
+    $self->{data}        = $bff;         # setter
+    $self->{in_textfile} = 0;            # setter
+
+    # Run second iteration
+    return $self->array_dispatcher;
+
+}
+
+#############
+#############
 #  PXF2CSV  #
 #############
 #############
@@ -682,6 +706,7 @@ sub array_dispatcher {
         cdisc2bff  => \&do_cdisc2bff,
         omop2bff   => \&do_omop2bff,
         csv2bff    => \&do_csv2bff,
+        csv2pxf    => \&do_csv2pxf,
         bff2pxf    => \&do_bff2pxf,
         bff2csv    => \&do_bff2csv,
         bff2jsonf  => \&do_bff2csv,      # Not a typo, is the same as above
