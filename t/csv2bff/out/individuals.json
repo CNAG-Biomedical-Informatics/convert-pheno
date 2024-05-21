@@ -127,8 +127,8 @@
          },
          {
             "assayCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C12529",
+               "label" : "Leukocyte"
             },
             "date" : "1900-01-01",
             "measurementValue" : {
@@ -398,8 +398,8 @@
          },
          {
             "assayCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C12529",
+               "label" : "Leukocyte"
             },
             "date" : "1900-01-01",
             "measurementValue" : {
@@ -648,8 +648,8 @@
          },
          {
             "assayCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C12529",
+               "label" : "Leukocyte"
             },
             "date" : "1900-01-01",
             "measurementValue" : {
@@ -898,8 +898,8 @@
          },
          {
             "assayCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C12529",
+               "label" : "Leukocyte"
             },
             "date" : "1900-01-01",
             "measurementValue" : {
@@ -1169,8 +1169,8 @@
          },
          {
             "assayCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C12529",
+               "label" : "Leukocyte"
             },
             "date" : "1900-01-01",
             "measurementValue" : {
@@ -1440,8 +1440,8 @@
          },
          {
             "assayCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C12529",
+               "label" : "Leukocyte"
             },
             "date" : "1900-01-01",
             "measurementValue" : {
@@ -1711,8 +1711,8 @@
          },
          {
             "assayCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C12529",
+               "label" : "Leukocyte"
             },
             "date" : "1900-01-01",
             "measurementValue" : {
@@ -1982,8 +1982,8 @@
          },
          {
             "assayCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C12529",
+               "label" : "Leukocyte"
             },
             "date" : "1900-01-01",
             "measurementValue" : {
@@ -2232,8 +2232,8 @@
          },
          {
             "assayCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C12529",
+               "label" : "Leukocyte"
             },
             "date" : "1900-01-01",
             "measurementValue" : {
@@ -2482,8 +2482,8 @@
          },
          {
             "assayCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C12529",
+               "label" : "Leukocyte"
             },
             "date" : "1900-01-01",
             "measurementValue" : {
@@ -2732,8 +2732,8 @@
          },
          {
             "assayCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C12529",
+               "label" : "Leukocyte"
             },
             "date" : "1900-01-01",
             "measurementValue" : {
@@ -2982,8 +2982,8 @@
          },
          {
             "assayCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C12529",
+               "label" : "Leukocyte"
             },
             "date" : "1900-01-01",
             "measurementValue" : {
@@ -3272,8 +3272,8 @@
          },
          {
             "assayCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C12529",
+               "label" : "Leukocyte"
             },
             "date" : "1900-01-01",
             "measurementValue" : {
@@ -3562,8 +3562,8 @@
          },
          {
             "assayCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C12529",
+               "label" : "Leukocyte"
             },
             "date" : "1900-01-01",
             "measurementValue" : {
@@ -3812,8 +3812,8 @@
          },
          {
             "assayCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C12529",
+               "label" : "Leukocyte"
             },
             "date" : "1900-01-01",
             "measurementValue" : {
@@ -4062,8 +4062,8 @@
          },
          {
             "assayCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C12529",
+               "label" : "Leukocyte"
             },
             "date" : "1900-01-01",
             "measurementValue" : {
@@ -4333,8 +4333,8 @@
          },
          {
             "assayCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C12529",
+               "label" : "Leukocyte"
             },
             "date" : "1900-01-01",
             "measurementValue" : {
@@ -4604,8 +4604,8 @@
          },
          {
             "assayCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C12529",
+               "label" : "Leukocyte"
             },
             "date" : "1900-01-01",
             "measurementValue" : {
@@ -4875,8 +4875,8 @@
          },
          {
             "assayCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C12529",
+               "label" : "Leukocyte"
             },
             "date" : "1900-01-01",
             "measurementValue" : {
@@ -5146,8 +5146,8 @@
          },
          {
             "assayCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C12529",
+               "label" : "Leukocyte"
             },
             "date" : "1900-01-01",
             "measurementValue" : {

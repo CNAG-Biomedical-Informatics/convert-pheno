@@ -13,6 +13,7 @@ Revision history for Perl distribution Convert-Pheno
     o Added property treatments.drugDose (object)
     o Added property measurement.unitType
     o Added property measurement.procedureCodeLabel
+    * Added Property assignTermIdFromHeader
  - Fixed issue with hpo.db that had leading and trailing white spaces in columns
 
 0.19 2024-04-24T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)

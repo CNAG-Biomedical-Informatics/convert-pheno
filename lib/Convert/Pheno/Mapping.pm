@@ -19,7 +19,7 @@ use Convert::Pheno::SQLite;
 binmode STDOUT, ':encoding(utf-8)';
 use Exporter 'import';
 our @EXPORT =
-  qw(map_ontology_term dotify_and_coerce_number iso8601_time _map2iso8601 map_reference_range map_reference_range_csv map_age_range map2redcap_dict map2ohdsi convert2boolean find_age randStr map_operator_concept_id map_info_field map_omop_visit_occurrence dot_date2iso remap_mapping_hash_term validate_format get_metaData get_info);
+  qw(map_ontology_term dotify_and_coerce_number iso8601_time _map2iso8601 map_reference_range map_reference_range_csv map_age_range map2redcap_dict map2ohdsi convert2boolean find_age randStr map_operator_concept_id map_info_field map_omop_visit_occurrence dot_date2iso validate_format get_metaData get_info);
 
 use constant DEVEL_MODE => 0;
 
@@ -437,27 +437,6 @@ sub dot_date2iso {
 sub is_multidimensional {
 
     return ref shift ? 1 : 0;
-}
-
-sub remap_mapping_hash_term {
-
-    my ( $mapping_file_data, $term ) = @_;
-    my %hash_out = map {
-            $_ => exists $mapping_file_data->{$term}{$_}
-          ? $mapping_file_data->{$term}{$_}
-          : undef
-    } (qw/fields dictionary mapping selector terminology/);
-
-    $hash_out{ontology} =
-      exists $mapping_file_data->{$term}{ontology}
-      ? $mapping_file_data->{$term}{ontology}
-      : $mapping_file_data->{project}{ontology};
-
-    $hash_out{routesOfAdministration} =
-      $mapping_file_data->{$term}{routesOfAdministration}
-      if $term eq 'treatments';
-
-    return \%hash_out;
 }
 
 sub validate_format {

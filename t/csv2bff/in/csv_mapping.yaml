@@ -19,9 +19,6 @@ diseases:
   dictionary:
     Ashtma: Ashtma
     Diabetes: Diabetes Mellitus
-  mapping:
-    ageOfOnset: age_first_diagnosis
-    familyHistory: family_history
 
 # Term: ethnicity
 ethnicity:
@@ -33,6 +30,7 @@ ethnicity:
 # Term: exposures
 exposures: 
   fields: [AlcoholUse,TobaccoUse]
+  assignTermIdFromHeader: [AlcoholUse,TobaccoUse]
   dictionary:
     AlcoholUse: Alcohol
     TobaccoUse: Smoking
@@ -62,7 +60,7 @@ measures:
   assignTermIdFromHeader: [Hemoglobin (g/dL), WBC (10^9/L), Platelets (10^9/L), BMI (kg/m^2)]
   dictionary:
     'Hemoglobin (g/dL)': Hemoglobin Measurement
-    'WBC (10^9/L)': White Blood Count
+    'WBC (10^9/L)': Leukocyte
     'Platelets (10^9/L)': Platelet Count
     'BMI (kg/m^2)': Body Mass Index
   unit:
