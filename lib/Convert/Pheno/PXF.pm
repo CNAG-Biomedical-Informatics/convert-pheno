@@ -126,7 +126,7 @@ sub do_pxf2bff {
             $exposure->{ageAtExposure} = $DEFAULT->{iso8601duration};
             $exposure->{duration}      = $DEFAULT->{duration};
             unless ( exists $exposure->{unit} ) {
-                $exposure->{unit} = $DEFAULT->{ontology};
+                $exposure->{unit} = $DEFAULT->{ontology_term};
             }
 
             # Clean analog terms if exist
@@ -182,7 +182,7 @@ sub do_pxf2bff {
                 $procedure->{procedureCode} =
                   exists $action->{procedure}{code}
                   ? $action->{procedure}{code}
-                  : $DEFAULT->{ontology};
+                  : $DEFAULT->{ontology_term};
                 $procedure->{ageOfProcedure} =
                   exists $action->{procedure}{performed}
                   ? $action->{procedure}{performed}
@@ -297,7 +297,7 @@ sub do_pxf2bff {
                 $treatment->{treatmentCode} =
                   exists $action->{treatment}{agent}
                   ? $action->{treatment}{agent}
-                  : $DEFAULT->{ontology};
+                  : $DEFAULT->{ontology_term};
 
                 # Clean analog terms if exist
                 delete $treatment->{agent}
@@ -319,7 +319,7 @@ sub do_pxf2bff {
 
                         #scheduleFrequency
                         unless ( exists $_->{scheduleFrequency} ) {
-                            $_->{scheduleFrequency} = $DEFAULT->{ontology};
+                            $_->{scheduleFrequency} = $DEFAULT->{ontology_term};
                         }
                     }
                 }

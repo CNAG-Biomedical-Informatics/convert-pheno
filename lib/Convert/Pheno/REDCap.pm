@@ -52,20 +52,20 @@ sub do_redcap2bff {
     ##############################
     # <Variable> names in REDCap #
     ##############################
-#
-# REDCap does not enforce any particular variable name.
-# Extracted from https://www.ctsi.ufl.edu/wordpress/files/2019/02/Project-Creation-User-Guide.pdf
-# ---
-# "Variable Names: Variable names are critical in the data analysis process. If you export your data to a
-# statistical software program, the variable names are what you or your statistician will use to conduct
-# the analysis"
-#
-# "We always recommend reviewing your variable names with a statistician or whoever will be
-# analyzing your data. This is especially important if this is the first time you are building a
-# database"
-#---
-# If variable names are not consensuated, then we need to do the mapping manually "a posteriori".
-# This is what we are attempting here:
+    #
+    # REDCap does not enforce any particular variable name.
+    # Extracted from https://www.ctsi.ufl.edu/wordpress/files/2019/02/Project-Creation-User-Guide.pdf
+    # ---
+    # "Variable Names: Variable names are critical in the data analysis process. If you export your data to a
+    # statistical software program, the variable names are what you or your statistician will use to conduct
+    # the analysis"
+    #
+    # "We always recommend reviewing your variable names with a statistician or whoever will be
+    # analyzing your data. This is especially important if this is the first time you are building a
+    # database"
+    #---
+    # If variable names are not consensuated, then we need to do the mapping manually "a posteriori".
+    # This is what we are attempting here:
 
     ####################################
     # START MAPPING TO BEACON V2 TERMS #
@@ -251,7 +251,7 @@ sub remap_mapping_hash_term {
           ? $mapping_file_data->{$term}{$_}
           : undef
     } (
-        qw/fields assignTermIdFromHeader assignTermIdFromHeader_hash dictionary mapping selector terminology/
+        qw/fields assignTermIdFromHeader assignTermIdFromHeader_hash dictionary mapping selector terminology unit drugDose drugUnit duration durationUnit/
     );
 
     $hash_out{ontology} =
@@ -272,8 +272,11 @@ sub check_and_replace_field_with_terminology_or_dictionary_if_exist {
 
     # Check if $field is Boolean
     my $value =
-      ( $switch || (exists $mapping_cursor->{assignTermIdFromHeader_hash}{$field}
-          && defined $mapping_cursor->{assignTermIdFromHeader_hash}{$field} ))
+      (
+        $switch
+          || ( exists $mapping_cursor->{assignTermIdFromHeader_hash}{$field}
+            && defined $mapping_cursor->{assignTermIdFromHeader_hash}{$field} )
+      )
       ? $field
       : $participant_field;
 
@@ -324,8 +327,7 @@ sub propagate_fields {
         # Load $self for Baseline
         $self->{baselineFieldsToPropagate}{ $participant->{$id_field} }{$field}
           = $participant->{$field}
-          if defined $participant->{$field}
-          ;    # Dynamically adding attributes (setter)
+          if defined $participant->{$field};    # Dynamically adding attributes (setter)
 
         # Load field for all
         $participant->{$field} =
@@ -395,8 +397,8 @@ sub map_diseases {
         }
 
         #$disease->{notes}    = undef;
-        $disease->{severity} = $DEFAULT->{ontology};
-        $disease->{stage}    = $DEFAULT->{ontology};
+        $disease->{severity} = $DEFAULT->{ontology_term};
+        $disease->{stage}    = $DEFAULT->{ontology_term};
 
         push @{ $individual->{diseases} }, $disease
           if defined $disease->{diseaseCode};
@@ -624,7 +626,7 @@ sub map_interventionsOrProcedures {
         $intervention->{bodySite} =
           $project_id eq '3tr_ibd'
           ? { "id" => "NCIT:C12736", "label" => "intestine" }
-          : $DEFAULT->{ontology};
+          : $DEFAULT->{ontology_term};
         $intervention->{dateOfProcedure} =
           ( exists $mapping_cursor->{mapping}{dateOfProcedure}
               && defined $mapping_cursor->{mapping}{dateOfProcedure} )
@@ -716,8 +718,7 @@ sub map_measures {
             if ( $participant->{$field} =~ m/ \- / ) {
                 my ( $tmp_val, $tmp_scale ) = split / \- /,
                   $participant->{$field};
-                $participant->{$field} =
-                  $tmp_val;   # should be equal to $participant->{$field.'_ori'}
+                $participant->{$field} = $tmp_val;     # should be equal to $participant->{$field.'_ori'}
                 $tmp_unit = $tmp_scale;
             }
         }
@@ -727,7 +728,7 @@ sub map_measures {
         #######
         else {
 
-            $unit_cursor = $data_mapping_file->{measures}{unit}{$field};
+            $unit_cursor = $mapping_cursor->{unit}{$field};
             $tmp_unit =
               exists $unit_cursor->{label} ? $unit_cursor->{label} : undef;
 
@@ -735,11 +736,11 @@ sub map_measures {
 
         my $unit = map_ontology_term(
             {
-                query => 
+                query =>
 
-               check_and_replace_field_with_terminology_or_dictionary_if_exist(
-                 $mapping_cursor, $tmp_unit, $participant->{$field}, 1
-               ),
+                  check_and_replace_field_with_terminology_or_dictionary_if_exist(
+                    $mapping_cursor, $tmp_unit, $participant->{$field}, 1
+                  ),
                 column   => 'label',
                 ontology => $mapping_cursor->{ontology},
                 self     => $self
@@ -953,6 +954,9 @@ sub map_treatments {
     for my $field ( @{ $mapping_cursor->{fields} } ) {
         next unless defined $participant->{$field};
 
+        # Initialize field $treatment
+        my $treatment;
+
         # Getting the right name for the drug (if any)
         # *** Important ***
         # It can come from variable name or from the value
@@ -960,50 +964,64 @@ sub map_treatments {
           check_and_replace_field_with_terminology_or_dictionary_if_exist(
             $mapping_cursor, $field, $participant->{$field} );
 
-        # FOR ROUTES
-        #for my $route ( @{ $mapping_cursor->{routesOfAdministration} } ) {
+        $treatment->{ageAtOnset} = $DEFAULT->{age};
 
-        # Ad hoc for 3TR
-        #   my $tmp_var = $field;
-        #   if ( $project_id eq '3tr_ibd' ) {
-        #
-        #                # Rectal route only happens in some drugs (ad hoc)
-        #                next
-        #                  if ( $route eq 'rectal' && !any { $_ eq $field }
-        #                    qw(budesonide asa) );
-        #
-        #                # Discarding if drug_route_status is empty
-        #                $tmp_var =
-        #                  ( $field eq 'budesonide' || $field eq 'asa' )
-        #                  ? $field . '_' . $route . '_status'
-        #                  : $field . '_status';
-        #                next
-        #                  unless defined $participant->{$tmp_var};
-        #            }
+        # Define intervals
+        $treatment->{doseIntervals} = [];
+        my $dose_interval;
+        my $duration =
+          exists $mapping_cursor->{duration}{$field}
+          ? $mapping_cursor->{duration}{$field}
+          : undef;
+        my $duration_unit =
+          exists $mapping_cursor->{durationUnit}{$field}
+          ? map_ontology_term(
+            {
+                query    => $mapping_cursor->{durationUnit}{$field},
+                column   => 'label',
+                ontology => $mapping_cursor->{ontology},
+                self     => $self
+            }
+          )
+          : $DEFAULT->{ontology_term};
+        if ( defined $duration ) {
+            $treatment->{cumulativeDose} = {
+                unit  => $duration_unit,
+                value => $participant->{$duration} // -1
+            };
+            my $drug_unit =
+              exists $mapping_cursor->{drugUnit}{$field}
+              ? map_ontology_term(
+                {
+                    query    => $mapping_cursor->{drugUnit}{$field},
+                    column   => 'label',
+                    ontology => $mapping_cursor->{ontology},
+                    self     => $self
+                }
+              )
+              : $DEFAULT->{ontology_term};
+            $dose_interval->{interval}          = $DEFAULT->{interval};
+            $dose_interval->{quantity}          = $DEFAULT->{quantity};
+            $dose_interval->{quantity}{value}   = $participant->{$duration};   # Overwrite default with value
+            $dose_interval->{quantity}{unit}    = $drug_unit;                  # Overwrite default with value
+            $dose_interval->{scheduleFrequency} = $DEFAULT->{ontology_term};
+            push @{ $treatment->{doseIntervals} }, $dose_interval;
+        }
 
-        # Initialize field $treatment
-        my $treatment;
-
-        # Deine routes
+        # Define routes
         my $route =
-          exists $data_mapping_file->{treatments}{routeOfAdministration}
+          exists $mapping_cursor->{routeOfAdministration}
           { $participant->{$field} }
-          ? $data_mapping_file->{treatments}{routeOfAdministration}
-          { $participant->{$field} }
+          ? $mapping_cursor->{routeOfAdministration}{ $participant->{$field} }
           : 'oral';
         my $route_query = ucfirst($route) . ' Route of Administration';
         $treatment->{_info} = {
-            field         => $field,
-            drug_name_ori => $participant->{$field},
-            drug_name     => $treatment_name,
-            route         => $route
+            field     => $field,
+            value     => $participant->{$field},
+            drug_name => $treatment_name,
+            route     => $route
         };
 
-#value     => $participant->{ $field . '_ori' }, map { $_ => $participant->{ $field . $_ } } qw(start dose duration) };    # ***** INTERNAL FIELD
-        $treatment->{ageAtOnset} = $DEFAULT->{age};
-        $treatment->{cumulativeDose} =
-          { unit => $DEFAULT->{ontology}, value => -1 };
-        $treatment->{doseIntervals}         = [];
         $treatment->{routeOfAdministration} = map_ontology_term(
             {
                 query    => $route_query,

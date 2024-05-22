@@ -10,7 +10,7 @@ Revision history for Perl distribution Convert-Pheno
     o Added project.baselineFieldsToPropagate
     o Added new property 'terminology'
     o Renamed and changed treatments.routesOfAdministration array to treatments.routeOfAdministration object
-    o Added property treatments.drugDose (object)
+    o Added properties treatments.{drugDose,drugDuration,drugUnit,duration,durantionUnit} (object)
     o Added property measurement.unitType
     o Added property measurement.procedureCodeLabel
     * Added Property assignTermIdFromHeader

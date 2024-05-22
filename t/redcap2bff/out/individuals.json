@@ -1436,7 +1436,135 @@
       "sex" : {
          "id" : "NCIT:C20197",
          "label" : "Male"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "drug_name" : "azathioprine",
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "value" : "former treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "drug_name" : "prednisolone",
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : 4
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -2878,7 +3006,135 @@
       "sex" : {
          "id" : "NCIT:C20197",
          "label" : "Male"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "drug_name" : "azathioprine",
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "value" : "former treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "drug_name" : "prednisolone",
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : 4
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -4300,7 +4556,135 @@
       "sex" : {
          "id" : "NCIT:C20197",
          "label" : "Male"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "drug_name" : "azathioprine",
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "value" : "former treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "drug_name" : "prednisolone",
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : 4
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -5621,7 +6005,135 @@
       "sex" : {
          "id" : "NCIT:C20197",
          "label" : "Male"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "drug_name" : "azathioprine",
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : 200
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "drug_name" : "prednisolone",
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "value" : "former treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -6944,7 +7456,135 @@
       "sex" : {
          "id" : "NCIT:C20197",
          "label" : "Male"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "drug_name" : "azathioprine",
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "drug_name" : "prednisolone",
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "value" : "former treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -8264,7 +8904,135 @@
       "sex" : {
          "id" : "NCIT:C20197",
          "label" : "Male"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "drug_name" : "azathioprine",
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "drug_name" : "prednisolone",
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "value" : "former treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -9567,7 +10335,135 @@
       "sex" : {
          "id" : "NCIT:C20197",
          "label" : "Male"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "drug_name" : "azathioprine",
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "drug_name" : "prednisolone",
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "value" : "former treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -10956,7 +11852,135 @@
       "sex" : {
          "id" : "NCIT:C20197",
          "label" : "Male"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "drug_name" : "azathioprine",
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "drug_name" : "prednisolone",
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "value" : "former treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -12383,7 +13407,135 @@
       "sex" : {
          "id" : "NCIT:C20197",
          "label" : "Male"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "drug_name" : "azathioprine",
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "drug_name" : "prednisolone",
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "value" : "former treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -13866,7 +15018,135 @@
       "sex" : {
          "id" : "NCIT:C20197",
          "label" : "Male"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "drug_name" : "azathioprine",
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : 4
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "drug_name" : "prednisolone",
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : 20
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -15351,7 +16631,135 @@
       "sex" : {
          "id" : "NCIT:C20197",
          "label" : "Male"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "drug_name" : "azathioprine",
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "drug_name" : "prednisolone",
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : 20
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -16657,7 +18065,135 @@
       "sex" : {
          "id" : "NCIT:C20197",
          "label" : "Male"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "drug_name" : "azathioprine",
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "drug_name" : "prednisolone",
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : 20
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -17946,7 +19482,135 @@
       "sex" : {
          "id" : "NCIT:C20197",
          "label" : "Male"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "drug_name" : "azathioprine",
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "drug_name" : "prednisolone",
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : 20
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -19585,7 +21249,135 @@
       "sex" : {
          "id" : "NCIT:C20197",
          "label" : "Male"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "drug_name" : "azathioprine",
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "drug_name" : "prednisolone",
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : 20
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -20968,7 +22760,135 @@
       "sex" : {
          "id" : "NCIT:C20197",
          "label" : "Male"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "drug_name" : "azathioprine",
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "drug_name" : "prednisolone",
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : 20
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -22627,7 +24547,135 @@
       "sex" : {
          "id" : "NCIT:C16576",
          "label" : "Female"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "drug_name" : "azathioprine",
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : 0
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "drug_name" : "prednisolone",
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "value" : "former treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -24237,7 +26285,135 @@
       "sex" : {
          "id" : "NCIT:C16576",
          "label" : "Female"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "drug_name" : "azathioprine",
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "drug_name" : "prednisolone",
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "value" : "former treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -25846,7 +28022,135 @@
       "sex" : {
          "id" : "NCIT:C16576",
          "label" : "Female"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "drug_name" : "azathioprine",
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "drug_name" : "prednisolone",
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "value" : "former treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -27469,7 +29773,135 @@
       "sex" : {
          "id" : "NCIT:C16576",
          "label" : "Female"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "drug_name" : "azathioprine",
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "drug_name" : "prednisolone",
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "value" : "former treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -28952,7 +31384,135 @@
       "sex" : {
          "id" : "NCIT:C16576",
          "label" : "Female"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "drug_name" : "azathioprine",
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : 4
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "drug_name" : "prednisolone",
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : 4
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -30309,7 +32869,135 @@
       "sex" : {
          "id" : "NCIT:C16576",
          "label" : "Female"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "drug_name" : "azathioprine",
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "drug_name" : "prednisolone",
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : 4
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -31647,7 +34335,135 @@
       "sex" : {
          "id" : "NCIT:C16576",
          "label" : "Female"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "drug_name" : "azathioprine",
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "drug_name" : "prednisolone",
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : 4
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -33197,7 +36013,135 @@
       "sex" : {
          "id" : "NCIT:C16576",
          "label" : "Female"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "drug_name" : "azathioprine",
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "drug_name" : "prednisolone",
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : 4
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -34570,7 +37514,135 @@
       "sex" : {
          "id" : "NCIT:C16576",
          "label" : "Female"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "drug_name" : "azathioprine",
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "value" : "never treated"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "drug_name" : "prednisolone",
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : 10
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -35874,7 +38946,135 @@
       "sex" : {
          "id" : "NCIT:C16576",
          "label" : "Female"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "drug_name" : "azathioprine",
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "value" : "never treated"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "drug_name" : "prednisolone",
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : 10
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -37350,7 +40550,135 @@
       "sex" : {
          "id" : "NCIT:C16576",
          "label" : "Female"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "drug_name" : "azathioprine",
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "value" : "never treated"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "drug_name" : "prednisolone",
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : 10
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -38803,7 +42131,135 @@
       "sex" : {
          "id" : "NCIT:C16576",
          "label" : "Female"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "drug_name" : "azathioprine",
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : 28
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "drug_name" : "prednisolone",
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : 28
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -40192,7 +43648,135 @@
       "sex" : {
          "id" : "NCIT:C16576",
          "label" : "Female"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "drug_name" : "azathioprine",
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "drug_name" : "prednisolone",
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : 28
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -41530,7 +45114,135 @@
       "sex" : {
          "id" : "NCIT:C16576",
          "label" : "Female"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "drug_name" : "azathioprine",
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "drug_name" : "prednisolone",
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : 28
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -42882,7 +46594,135 @@
       "sex" : {
          "id" : "NCIT:C16576",
          "label" : "Female"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "drug_name" : "azathioprine",
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "drug_name" : "prednisolone",
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : 28
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -44375,7 +48215,135 @@
       "sex" : {
          "id" : "NCIT:C16576",
          "label" : "Female"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "drug_name" : "azathioprine",
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "drug_name" : "prednisolone",
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : 28
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -45987,7 +49955,135 @@
       "sex" : {
          "id" : "NCIT:C20197",
          "label" : "Male"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "drug_name" : "azathioprine",
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : 130
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "drug_name" : "prednisolone",
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : 20
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -47428,7 +51524,135 @@
       "sex" : {
          "id" : "NCIT:C20197",
          "label" : "Male"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "drug_name" : "azathioprine",
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "drug_name" : "prednisolone",
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : 20
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -48722,7 +52946,135 @@
       "sex" : {
          "id" : "NCIT:C20197",
          "label" : "Male"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "drug_name" : "azathioprine",
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "drug_name" : "prednisolone",
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : 20
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -50205,7 +54557,135 @@
       "sex" : {
          "id" : "NCIT:C20197",
          "label" : "Male"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "drug_name" : "azathioprine",
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "drug_name" : "prednisolone",
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : 20
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         }
+      ]
    },
    {
       "diseases" : [
@@ -51798,6 +56278,134 @@
       "sex" : {
          "id" : "NCIT:C20197",
          "label" : "Male"
-      }
+      },
+      "treatments" : [
+         {
+            "_info" : {
+               "drug_name" : "azathioprine",
+               "field" : "asa_oral_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : -1
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C290",
+               "label" : "Azathioprine"
+            }
+         },
+         {
+            "_info" : {
+               "drug_name" : "prednisolone",
+               "field" : "prednisolone_status",
+               "route" : "oral",
+               "value" : "current treatment"
+            },
+            "ageAtOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "cumulativeDose" : {
+               "unit" : {
+                  "id" : "NCIT:C29844",
+                  "label" : "Week"
+               },
+               "value" : 20
+            },
+            "doseIntervals" : [
+               {
+                  "interval" : {
+                     "end" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     },
+                     "start" : {
+                        "age" : {
+                           "iso8601duration" : "P999Y"
+                        }
+                     }
+                  },
+                  "quantity" : {
+                     "referenceRange" : {
+                        "high" : -1,
+                        "low" : -1,
+                        "unit" : {
+                           "id" : "NCIT:NA0000",
+                           "label" : "NA"
+                        }
+                     },
+                     "unit" : {
+                        "id" : "NCIT:C28253",
+                        "label" : "Milligram"
+                     },
+                     "value" : 20
+                  },
+                  "scheduleFrequency" : {
+                     "id" : "NCIT:NA0000",
+                     "label" : "NA"
+                  }
+               }
+            ],
+            "routeOfAdministration" : {
+               "id" : "NCIT:C38288",
+               "label" : "Oral Route of Administration"
+            },
+            "treatmentCode" : {
+               "id" : "NCIT:C769",
+               "label" : "Prednisolone"
+            }
+         }
+      ]
    }
 ]

@@ -181,6 +181,24 @@
             "type": "string"
           }
         },
+        "duration": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "drugUnit": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "durationUnit": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
         "unit": {
           "type": "object",
           "additionalProperties": {

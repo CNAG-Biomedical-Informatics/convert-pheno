@@ -178,10 +178,41 @@ sex:
 
 # Term: treatments
 treatments:
-  fields: [budesonide,prednisolone,asa,aza,mtx,mp]
+  fields: [asa_oral_status,aza_oral_status,mtx_oral_status,mp_oral_status,prednisolone_status]
+  assignTermIdFromHeader: [asa_oral_status,aza_oral_status,mtx_oral_status,mp_oral_status,prednisolone_status]
   dictionary:
-    aza: azathioprine
-    asa: aspirin 
-    mtx: methotrexate
-    mp: mercaptopurine
-  #routesOfAdministration: [oral,rectal]
+    asa_oral_status: aspirin 
+    asa_oral_status: azathioprine
+    mtx_oral_status: methotrexate
+    mp_oral_status: mercaptopurine
+    prednisolone_status: prednisolone
+  drugDose:
+    asa_oral_status: asa_oral_dose
+    aza_oral_status: aza_oral_dose
+    mtx_oral_status: mtx_oral_dose
+    mp_oral_status: mp_oral_dose
+    prednisolone_status: prednisolone_dose
+  drugUnit:
+    asa_oral_status: Milligram
+    aza_oral_status: Milligram
+    mtx_oral_status: Milligram
+    mp_oral_status: Milligram
+    prednisolone_status: Milligram
+  duration:
+    asa_oral_status: asa_oral_duration
+    aza_oral_status: aza_oral_duration
+    mtx_oral_status:  mtx_oral_duration
+    mp_oral_status: mp_oral_duration
+    prednisolone_status: prednisolone_duration
+  durationUnit:
+    asa_oral_status: Weeks
+    aza_oral_status: Weeks
+    mtx_oral_status: Weeks
+    mp_oral_status: Weeks
+    prednisolone_status: Weeks
+  routeOfAdministration: 
+    asa_oral_status: oral
+    aza_oral_status: oral
+    mtx_oral_status: oral
+    mtx_oral_status: oral
+    prednisolone_status: oral

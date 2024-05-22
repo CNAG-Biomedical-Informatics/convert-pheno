@@ -242,21 +242,14 @@
          {
             "_info" : {
                "drug_name" : "Lisinopril",
-               "drug_name_ori" : "Lisinopril",
                "field" : "DrugName",
-               "route" : "oral"
+               "route" : "oral",
+               "value" : "Lisinopril"
             },
             "ageAtOnset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
             },
             "doseIntervals" : [],
             "routeOfAdministration" : {
@@ -513,21 +506,14 @@
          {
             "_info" : {
                "drug_name" : "Lisinopril",
-               "drug_name_ori" : "Lisinopril",
                "field" : "DrugName",
-               "route" : "oral"
+               "route" : "oral",
+               "value" : "Lisinopril"
             },
             "ageAtOnset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
             },
             "doseIntervals" : [],
             "routeOfAdministration" : {
@@ -763,21 +749,14 @@
          {
             "_info" : {
                "drug_name" : "Atorvastatin",
-               "drug_name_ori" : "Atorvastatin",
                "field" : "DrugName",
-               "route" : "oral"
+               "route" : "oral",
+               "value" : "Atorvastatin"
             },
             "ageAtOnset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
             },
             "doseIntervals" : [],
             "routeOfAdministration" : {
@@ -1013,21 +992,14 @@
          {
             "_info" : {
                "drug_name" : "Atorvastatin",
-               "drug_name_ori" : "Atorvastatin",
                "field" : "DrugName",
-               "route" : "oral"
+               "route" : "oral",
+               "value" : "Atorvastatin"
             },
             "ageAtOnset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
             },
             "doseIntervals" : [],
             "routeOfAdministration" : {
@@ -1284,21 +1256,14 @@
          {
             "_info" : {
                "drug_name" : "Albuterol",
-               "drug_name_ori" : "Albuterol",
                "field" : "DrugName",
-               "route" : "oral"
+               "route" : "oral",
+               "value" : "Albuterol"
             },
             "ageAtOnset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
             },
             "doseIntervals" : [],
             "routeOfAdministration" : {
@@ -1555,21 +1520,14 @@
          {
             "_info" : {
                "drug_name" : "Albuterol",
-               "drug_name_ori" : "Albuterol",
                "field" : "DrugName",
-               "route" : "oral"
+               "route" : "oral",
+               "value" : "Albuterol"
             },
             "ageAtOnset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
             },
             "doseIntervals" : [],
             "routeOfAdministration" : {
@@ -1826,21 +1784,14 @@
          {
             "_info" : {
                "drug_name" : "Lisinopril",
-               "drug_name_ori" : "Lisinopril",
                "field" : "DrugName",
-               "route" : "oral"
+               "route" : "oral",
+               "value" : "Lisinopril"
             },
             "ageAtOnset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
             },
             "doseIntervals" : [],
             "routeOfAdministration" : {
@@ -2097,21 +2048,14 @@
          {
             "_info" : {
                "drug_name" : "Lisinopril",
-               "drug_name_ori" : "Lisinopril",
                "field" : "DrugName",
-               "route" : "oral"
+               "route" : "oral",
+               "value" : "Lisinopril"
             },
             "ageAtOnset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
             },
             "doseIntervals" : [],
             "routeOfAdministration" : {
@@ -2347,21 +2291,14 @@
          {
             "_info" : {
                "drug_name" : "Metformin",
-               "drug_name_ori" : "Metformin",
                "field" : "DrugName",
-               "route" : "oral"
+               "route" : "oral",
+               "value" : "Metformin"
             },
             "ageAtOnset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
             },
             "doseIntervals" : [],
             "routeOfAdministration" : {
@@ -2597,21 +2534,14 @@
          {
             "_info" : {
                "drug_name" : "Metformin",
-               "drug_name_ori" : "Metformin",
                "field" : "DrugName",
-               "route" : "oral"
+               "route" : "oral",
+               "value" : "Metformin"
             },
             "ageAtOnset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
             },
             "doseIntervals" : [],
             "routeOfAdministration" : {
@@ -2847,21 +2777,14 @@
          {
             "_info" : {
                "drug_name" : "Metformin",
-               "drug_name_ori" : "Metformin",
                "field" : "DrugName",
-               "route" : "oral"
+               "route" : "oral",
+               "value" : "Metformin"
             },
             "ageAtOnset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
             },
             "doseIntervals" : [],
             "routeOfAdministration" : {
@@ -3097,21 +3020,14 @@
          {
             "_info" : {
                "drug_name" : "Metformin",
-               "drug_name_ori" : "Metformin",
                "field" : "DrugName",
-               "route" : "oral"
+               "route" : "oral",
+               "value" : "Metformin"
             },
             "ageAtOnset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
             },
             "doseIntervals" : [],
             "routeOfAdministration" : {
@@ -3387,21 +3303,14 @@
          {
             "_info" : {
                "drug_name" : "Albuterol",
-               "drug_name_ori" : "Albuterol",
                "field" : "DrugName",
-               "route" : "oral"
+               "route" : "oral",
+               "value" : "Albuterol"
             },
             "ageAtOnset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
             },
             "doseIntervals" : [],
             "routeOfAdministration" : {
@@ -3677,21 +3586,14 @@
          {
             "_info" : {
                "drug_name" : "Albuterol",
-               "drug_name_ori" : "Albuterol",
                "field" : "DrugName",
-               "route" : "oral"
+               "route" : "oral",
+               "value" : "Albuterol"
             },
             "ageAtOnset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
             },
             "doseIntervals" : [],
             "routeOfAdministration" : {
@@ -3927,21 +3829,14 @@
          {
             "_info" : {
                "drug_name" : "Lisinopril",
-               "drug_name_ori" : "Lisinopril",
                "field" : "DrugName",
-               "route" : "oral"
+               "route" : "oral",
+               "value" : "Lisinopril"
             },
             "ageAtOnset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
             },
             "doseIntervals" : [],
             "routeOfAdministration" : {
@@ -4177,21 +4072,14 @@
          {
             "_info" : {
                "drug_name" : "Lisinopril",
-               "drug_name_ori" : "Lisinopril",
                "field" : "DrugName",
-               "route" : "oral"
+               "route" : "oral",
+               "value" : "Lisinopril"
             },
             "ageAtOnset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
             },
             "doseIntervals" : [],
             "routeOfAdministration" : {
@@ -4448,21 +4336,14 @@
          {
             "_info" : {
                "drug_name" : "Albuterol",
-               "drug_name_ori" : "Albuterol",
                "field" : "DrugName",
-               "route" : "oral"
+               "route" : "oral",
+               "value" : "Albuterol"
             },
             "ageAtOnset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
             },
             "doseIntervals" : [],
             "routeOfAdministration" : {
@@ -4719,21 +4600,14 @@
          {
             "_info" : {
                "drug_name" : "Albuterol",
-               "drug_name_ori" : "Albuterol",
                "field" : "DrugName",
-               "route" : "oral"
+               "route" : "oral",
+               "value" : "Albuterol"
             },
             "ageAtOnset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
             },
             "doseIntervals" : [],
             "routeOfAdministration" : {
@@ -4990,21 +4864,14 @@
          {
             "_info" : {
                "drug_name" : "Albuterol",
-               "drug_name_ori" : "Albuterol",
                "field" : "DrugName",
-               "route" : "oral"
+               "route" : "oral",
+               "value" : "Albuterol"
             },
             "ageAtOnset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
             },
             "doseIntervals" : [],
             "routeOfAdministration" : {
@@ -5261,21 +5128,14 @@
          {
             "_info" : {
                "drug_name" : "Albuterol",
-               "drug_name_ori" : "Albuterol",
                "field" : "DrugName",
-               "route" : "oral"
+               "route" : "oral",
+               "value" : "Albuterol"
             },
             "ageAtOnset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "cumulativeDose" : {
-               "unit" : {
-                  "id" : "NCIT:NA0000",
-                  "label" : "NA"
-               },
-               "value" : -1
             },
             "doseIntervals" : [],
             "routeOfAdministration" : {
