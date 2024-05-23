@@ -11,6 +11,8 @@ use IO::Uncompress::Gunzip; # core
 use File::Compare;
 use Convert::Pheno;
 
+my $ohdsi_db = 'share/db/ohdsi.db';
+
 # Test 1
 use_ok('Convert::Pheno') or exit;
 
@@ -66,7 +68,7 @@ my $method = 'omop2bff';
 
 # Test 3
 {
-    if ( -f 'db/ohdsi.db' ) {
+    if ( -f $ohdsi_db ) {
         my $out = 't/omop2bff/out/individuals_csv.json.gz';
         my ( undef, $tmp_file ) =
           tempfile( DIR => 't', SUFFIX => ".json.gz", UNLINK => 1 );
@@ -112,8 +114,8 @@ my $method = 'omop2bff';
 
         # Compare the contents of the two files
       SKIP: {
-            skip qq{because 'db/ohdsi.db' is required with <ohdsi_db>}, 1
-              unless -f 'db/ohdsi.db';
+            skip qq{because <$ohdsi_db> is required with <ohdsi_db>}, 1
+              unless -f $ohdsi_db;
             is( $content1, $content2, qq/$method stream gzipped IO CSV/ );
         }
 
