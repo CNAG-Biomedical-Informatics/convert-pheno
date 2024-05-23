@@ -199,6 +199,30 @@
             "type": "string"
           }
         },
+        "bodySite": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "dateOfProcedure": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "ageOfOnset": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "familyHistory": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
         "unit": {
           "type": "object",
           "additionalProperties": {

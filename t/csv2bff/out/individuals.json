@@ -2,6 +2,11 @@
    {
       "diseases" : [
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C28397",
                "label" : "Asthma"
@@ -16,6 +21,11 @@
             }
          },
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C3117",
                "label" : "Hypertension"
@@ -30,6 +40,11 @@
             }
          },
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C2985",
                "label" : "Diabetes Mellitus"
@@ -266,6 +281,11 @@
    {
       "diseases" : [
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C28397",
                "label" : "Asthma"
@@ -280,6 +300,11 @@
             }
          },
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C3117",
                "label" : "Hypertension"
@@ -294,6 +319,11 @@
             }
          },
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C2985",
                "label" : "Diabetes Mellitus"
@@ -530,6 +560,11 @@
    {
       "diseases" : [
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C28397",
                "label" : "Asthma"
@@ -544,6 +579,11 @@
             }
          },
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C3117",
                "label" : "Hypertension"
@@ -558,6 +598,11 @@
             }
          },
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C2985",
                "label" : "Diabetes Mellitus"
@@ -773,6 +818,11 @@
    {
       "diseases" : [
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C28397",
                "label" : "Asthma"
@@ -787,6 +837,11 @@
             }
          },
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C3117",
                "label" : "Hypertension"
@@ -801,6 +856,11 @@
             }
          },
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C2985",
                "label" : "Diabetes Mellitus"
@@ -1016,6 +1076,11 @@
    {
       "diseases" : [
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C3117",
                "label" : "Hypertension"
@@ -1030,6 +1095,11 @@
             }
          },
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C28397",
                "label" : "Asthma"
@@ -1044,6 +1114,11 @@
             }
          },
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C2985",
                "label" : "Diabetes Mellitus"
@@ -1280,6 +1355,11 @@
    {
       "diseases" : [
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C3117",
                "label" : "Hypertension"
@@ -1294,6 +1374,11 @@
             }
          },
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C28397",
                "label" : "Asthma"
@@ -1308,6 +1393,11 @@
             }
          },
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C2985",
                "label" : "Diabetes Mellitus"
@@ -1544,6 +1634,11 @@
    {
       "diseases" : [
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C3117",
                "label" : "Hypertension"
@@ -1558,6 +1653,11 @@
             }
          },
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C28397",
                "label" : "Asthma"
@@ -1572,6 +1672,11 @@
             }
          },
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C2985",
                "label" : "Diabetes Mellitus"
@@ -1808,6 +1913,11 @@
    {
       "diseases" : [
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C3117",
                "label" : "Hypertension"
@@ -1822,6 +1932,11 @@
             }
          },
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C28397",
                "label" : "Asthma"
@@ -1836,6 +1951,11 @@
             }
          },
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C2985",
                "label" : "Diabetes Mellitus"
@@ -2072,6 +2192,11 @@
    {
       "diseases" : [
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C2985",
                "label" : "Diabetes Mellitus"
@@ -2086,6 +2211,11 @@
             }
          },
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C28397",
                "label" : "Asthma"
@@ -2100,6 +2230,11 @@
             }
          },
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C3117",
                "label" : "Hypertension"
@@ -2315,6 +2450,11 @@
    {
       "diseases" : [
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C2985",
                "label" : "Diabetes Mellitus"
@@ -2329,6 +2469,11 @@
             }
          },
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C28397",
                "label" : "Asthma"
@@ -2343,6 +2488,11 @@
             }
          },
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C3117",
                "label" : "Hypertension"
@@ -2558,6 +2708,11 @@
    {
       "diseases" : [
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C2985",
                "label" : "Diabetes Mellitus"
@@ -2572,6 +2727,11 @@
             }
          },
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C3117",
                "label" : "Hypertension"
@@ -2586,6 +2746,11 @@
             }
          },
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C28397",
                "label" : "Asthma"
@@ -2801,6 +2966,11 @@
    {
       "diseases" : [
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C2985",
                "label" : "Diabetes Mellitus"
@@ -2815,6 +2985,11 @@
             }
          },
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C3117",
                "label" : "Hypertension"
@@ -2829,6 +3004,11 @@
             }
          },
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C28397",
                "label" : "Asthma"
@@ -3044,6 +3224,11 @@
    {
       "diseases" : [
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C28397",
                "label" : "Asthma"
@@ -3058,6 +3243,11 @@
             }
          },
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C3117",
                "label" : "Hypertension"
@@ -3072,6 +3262,11 @@
             }
          },
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C2985",
                "label" : "Diabetes Mellitus"
@@ -3327,6 +3522,11 @@
    {
       "diseases" : [
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C28397",
                "label" : "Asthma"
@@ -3341,6 +3541,11 @@
             }
          },
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C3117",
                "label" : "Hypertension"
@@ -3355,6 +3560,11 @@
             }
          },
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C2985",
                "label" : "Diabetes Mellitus"
@@ -3610,6 +3820,11 @@
    {
       "diseases" : [
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C28397",
                "label" : "Asthma"
@@ -3624,6 +3839,11 @@
             }
          },
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C3117",
                "label" : "Hypertension"
@@ -3638,6 +3858,11 @@
             }
          },
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C2985",
                "label" : "Diabetes Mellitus"
@@ -3853,6 +4078,11 @@
    {
       "diseases" : [
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C28397",
                "label" : "Asthma"
@@ -3867,6 +4097,11 @@
             }
          },
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C3117",
                "label" : "Hypertension"
@@ -3881,6 +4116,11 @@
             }
          },
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C2985",
                "label" : "Diabetes Mellitus"
@@ -4096,6 +4336,11 @@
    {
       "diseases" : [
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C3117",
                "label" : "Hypertension"
@@ -4110,6 +4355,11 @@
             }
          },
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C2985",
                "label" : "Diabetes Mellitus"
@@ -4124,6 +4374,11 @@
             }
          },
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C28397",
                "label" : "Asthma"
@@ -4360,6 +4615,11 @@
    {
       "diseases" : [
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C3117",
                "label" : "Hypertension"
@@ -4374,6 +4634,11 @@
             }
          },
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C2985",
                "label" : "Diabetes Mellitus"
@@ -4388,6 +4653,11 @@
             }
          },
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C28397",
                "label" : "Asthma"
@@ -4624,6 +4894,11 @@
    {
       "diseases" : [
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C28397",
                "label" : "Asthma"
@@ -4638,6 +4913,11 @@
             }
          },
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C2985",
                "label" : "Diabetes Mellitus"
@@ -4652,6 +4932,11 @@
             }
          },
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C3117",
                "label" : "Hypertension"
@@ -4888,6 +5173,11 @@
    {
       "diseases" : [
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C28397",
                "label" : "Asthma"
@@ -4902,6 +5192,11 @@
             }
          },
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C2985",
                "label" : "Diabetes Mellitus"
@@ -4916,6 +5211,11 @@
             }
          },
          {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
             "diseaseCode" : {
                "id" : "NCIT:C3117",
                "label" : "Hypertension"

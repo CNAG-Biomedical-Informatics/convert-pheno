@@ -36,23 +36,28 @@ This page provides brief tutorials on how to perform data conversion by using `C
     | Type        | Required (Optional)   | Required properties | Optional properties |
     | ----------- | ----------- | ------------------- | ------------------- |
     | Internal    | `project`   | `id, source, ontology, version` | ` description, baselineFieldsToPropagate` |
-    | Beacon v2 terms   | `id, sex (diseases, exposures, info, interventionsOrProcedures, measures, phenotypicFeatures, treatments)` | `fields`| `dictionary, mapping, selector, terminology, ontology, assignTermIdFromHeader, routeOfAdministration, drugDose, drugUnit, duration, durantionUnit, procedureCodeLabel` |
+    | Beacon v2 terms   | `id, sex (diseases, exposures, info, interventionsOrProcedures, measures, phenotypicFeatures, treatments)` | `fields`| `age,ageOfOnset,assignTermIdFromHeader,bodySite,dateOfProcedure,dictionary,drugDose,drugUnit,duration,durationUnit,familyHistory,fields,mapping,selector,terminology,unit` |
 
      * These are the properties needed to map your data to the entity `individuals` in the Beacon v2 Models:
-        - - **baselineFieldsToPropagate**, an array of columns containing measurements that were taken only at the initial time point (time = 0). Use this if you wish to duplicate these columns across subsequent rows for the same patient ID. It is important to ensure that the row containing baseline information appears first in the CSV.
-        - **dictionary**, is an `object` in the form of `key: value`. The `key` represents the original variable name in REDCap and the `value` represents the "phrase" that will be used to query a database to find an ontology candidate. For instance, you may have a variable named `cigarettes_days`, but you know that in [NCIt](https://www.ebi.ac.uk/ols/ontologies/ncit) the label is `Average Number Cigarettes Smoked a Day`. In this case you will use `cigarettes_days: Average Number Cigarettes Smoked a Day`.
-        - **drugDose**, an `object` to map the column with the dose column for each treatment.
-        - **drugUnit**, an `object` to map the column with the unit column for each treatment.
-        - **duration**, an `object` to map the column with the duration column for each treatment.
-        - **durationUnit**, an `object` to map the column with the duration unit column for each treatment.
-        - **fields**, can be either an `string` or an `array` consisting of the name of the REDCap variables that map to that Beacon v2 term.
-        - **mapping**, is an `object` in the form of `key: value` that we use to map our Beacon v2 objects to REDCap variables. For instance, you may have a field named `age_first_diagnosis` that it's called `ageOgOnset` on Beacon v2. In this case you will use `ageOfOnset: age_first_diagnosis`.
+        - **baselineFieldsToPropagate**, an array of columns containing measurements that were taken only at the initial time point (time = 0). Use this if you wish to duplicate these columns across subsequent rows for the same patient ID. It is important to ensure that the row containing baseline information appears first in the CSV.
+        - **age**, a `string` representing the column that points to the age of the patient.
+        - **ageOfOnset**, an `object` representing the column that points to the age at which the patient first experienced symptoms or was diagnosed with a condition.
+        - **assignTermIdFromHeader**, an `array` for columns on which the ontology-term ids have to be assigned from the header.
+        - **bodySite**, an `object` representing the column that points to the part of the body affected by a condition or where a procedure was performed.
+        - **dateOfProcedure**, an `object` representing the column that points to when a procedure took place.
+        - **dictionary**, is an `object` in the form of `key: value`. The `key` represents the original variable name in REDCap and the `value` represents the "phrase" that will be used to query a database to find an ontology candidate. For instance, you may have a variable named `cigarettes_days`, but you know that in [NCIt](https://www.ebi.ac.uk/ols/ontologies/ncit) the label is `Average Number Cigarettes Smoked a Day`. In this case, you will use `cigarettes_days: Average Number Cigarettes Smoked a Day`.
+        - **drugDose**, an `object` representing the column that points to the dose column for each treatment.
+        - **drugUnit**, an `object` representing the column that points to the unit column for each treatment.
+        - **duration**, an `object` representing the column that points to the duration column for each treatment.
+        - **durationUnit**, an `object` representing the column that points to the duration unit column for each treatment.
+        - **familyHistory**, an `object` representing the column that points to the family medical history relevant to the patient's condition.
+        - **fields**, can be either a `string` or an `array` consisting of the name of the REDCap variables that map to that Beacon v2 term.
+        - **mapping**, is an `object` in the form of `key: value` that we use to map our Beacon v2 objects to REDCap variables.
         - **selector**, a nested `object` value with specific mappings.
         - **terminology**, a nested `object` value with user-defined ontology terms.
-        - **assignTermIdFromHeader**, an `array` for columns on which the ontology-term ids has to be assigned from the header.
-        - **procedureCodeLabel**, an `string` that defines the label for the procedure.
+        - **unit**, an `object` representing the column that points to the unit of measurement for a given value or treatment.
 
-        ??? Example "\"terminology\" example"
+        ??? Example "Terminology example"
             ```yaml
             terminology:
               My fav term:

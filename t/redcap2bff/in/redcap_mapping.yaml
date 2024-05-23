@@ -19,9 +19,12 @@ diseases:
   dictionary:
     'Ulcerative Colitis (UC)': Ulcerative Colitis 
     "Crohn's Disease (CD)": Crohn Disease
-  mapping:
-    ageOfOnset: age_first_diagnosis
-    familyHistory: family_history
+  ageOfOnset: 
+    'Ulcerative Colitis (UC)': age_first_diagnosis
+    "Crohn's Disease (CD)": age_first_diagnosis
+  familyHistory: 
+    'Ulcerative Colitis (UC)': family_history
+    "Crohn's Disease (CD)": family_history
 
 # Term: ethnicity
 ethnicity:
@@ -69,10 +72,13 @@ id:
 # Term: info
 info:
  fields: [study_id,dob,diet,redcap_event_name,age,first_name,last_name,consent,consent_date,consent_noneu,consent_devices,consent_recontact,consent_week2_endo,education,zipcode,consents_and_demographics_complete]
+ mapping:
+   age: age
 
 # Term: interventionsOrProcedures
 interventionsOrProcedures: 
   fields: [surgery_details___1,surgery_details___2,surgery_details___3,surgery_details___4,surgery_details___5,surgery_details___6,surgery_details___7,surgery_details___8,surgery_details___99,endoscopy_performed,endoscopy_complete,intestinal_surgery,partial_mayo,complete_mayo,prev_endosc_dilatation]
+  assignTermIdFromHeader: [surgery_details___1,surgery_details___2,surgery_details___3,surgery_details___4,surgery_details___5,surgery_details___6,surgery_details___7,surgery_details___8,surgery_details___99,endoscopy_performed]
   dictionary:
     surgery_details___1: Ileocolectomy
     surgery_details___2: Colostomy
@@ -84,8 +90,18 @@ interventionsOrProcedures:
     surgery_details___8: Strictureplasty
     surgery_details___99: Other
     endoscopy_performed: Gastrointestinal Endoscopy
-  mapping:
-    dateOfProcedure: endoscopy_date
+  dateOfProcedure:
+    endoscopy_performed: endoscopy_date
+  bodySite:
+    surgery_details___1: Intestine
+    surgery_details___2: Intestine
+    surgery_details___3: Intestine
+    surgery_details___4: Intestine
+    surgery_details___5: Intestine
+    surgery_details___6: Intestine
+    surgery_details___7: Intestine
+    surgery_details___8: Intestine
+    surgery_details___99: Intestine
 
 # Term: karyotypicSex
 # karyotypicSex: null
@@ -205,11 +221,11 @@ treatments:
     mp_oral_status: mp_oral_duration
     prednisolone_status: prednisolone_duration
   durationUnit:
-    asa_oral_status: Weeks
-    aza_oral_status: Weeks
-    mtx_oral_status: Weeks
-    mp_oral_status: Weeks
-    prednisolone_status: Weeks
+    asa_oral_status: Week
+    aza_oral_status: Week
+    mtx_oral_status: Week
+    mp_oral_status: Week
+    prednisolone_status: Week
   routeOfAdministration: 
     asa_oral_status: oral
     aza_oral_status: oral

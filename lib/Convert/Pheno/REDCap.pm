@@ -251,7 +251,7 @@ sub remap_mapping_hash_term {
           ? $mapping_file_data->{$term}{$_}
           : undef
     } (
-        qw/fields assignTermIdFromHeader assignTermIdFromHeader_hash dictionary mapping selector terminology unit drugDose drugUnit duration durationUnit/
+        qw/fields assignTermIdFromHeader assignTermIdFromHeader_hash dictionary mapping selector terminology unit age drugDose drugUnit duration durationUnit dateOfProcedure bodySite ageOfOnset familyHistory/
     );
 
     $hash_out{ontology} =
@@ -268,14 +268,16 @@ sub remap_mapping_hash_term {
 
 sub check_and_replace_field_with_terminology_or_dictionary_if_exist {
 
-    my ( $mapping_cursor, $field, $participant_field, $switch ) = @_;
+    my ( $term_mapping_cursor, $field, $participant_field, $switch ) = @_;
 
     # Check if $field is Boolean
     my $value =
       (
         $switch
-          || ( exists $mapping_cursor->{assignTermIdFromHeader_hash}{$field}
-            && defined $mapping_cursor->{assignTermIdFromHeader_hash}{$field} )
+          || (
+            exists $term_mapping_cursor->{assignTermIdFromHeader_hash}{$field}
+            && defined $term_mapping_cursor->{assignTermIdFromHeader_hash}
+            {$field} )
       )
       ? $field
       : $participant_field;
@@ -283,10 +285,10 @@ sub check_and_replace_field_with_terminology_or_dictionary_if_exist {
     # Precedence
     # "terminology" > "dictionary"
     return
-      exists $mapping_cursor->{terminology}{$value}
-      ? $mapping_cursor->{terminology}{$value}
-      : exists $mapping_cursor->{dictionary}{$value}
-      ? $mapping_cursor->{dictionary}{$value}
+      exists $term_mapping_cursor->{terminology}{$value}
+      ? $term_mapping_cursor->{terminology}{$value}
+      : exists $term_mapping_cursor->{dictionary}{$value}
+      ? $term_mapping_cursor->{dictionary}{$value}
       : $value;
 }
 
@@ -352,11 +354,11 @@ sub map_diseases {
     # NB: Inflamatory Bowel Disease --- Note the 2 mm in infla-mm-atory
 
     # Load hashref with cursors for mapping
-    my $mapping_cursor =
+    my $term_mapping_cursor =
       remap_mapping_hash_term( $data_mapping_file, 'diseases' );
 
     # Start looping over them
-    for my $field ( @{ $mapping_cursor->{fields} } ) {
+    for my $field ( @{ $term_mapping_cursor->{fields} } ) {
         next unless defined $participant->{$field};
 
         my $disease;
@@ -364,16 +366,15 @@ sub map_diseases {
         # Load a few more variables from mapping file
         # Start mapping
         $disease->{ageOfOnset} =
-          map_age_range(
-            $participant->{ $mapping_cursor->{mapping}{ageOfOnset} } )
-          if ( exists $mapping_cursor->{mapping}{ageOfOnset}
-            && defined $participant->{ $mapping_cursor->{mapping}{ageOfOnset} }
-          );
+          exists $term_mapping_cursor->{ageOfOnset}{$field}
+          ? map_age_range(
+            $participant->{ $term_mapping_cursor->{ageOfOnset}{$field} } )
+          : $DEFAULT->{age};
 
         # Load corrected field to search
         my $disease_query =
           check_and_replace_field_with_terminology_or_dictionary_if_exist(
-            $mapping_cursor, $field, $participant->{$field} );
+            $term_mapping_cursor, $field, $participant->{$field} );
 
         # Discard empty values
         next unless defined $disease_query;
@@ -382,26 +383,25 @@ sub map_diseases {
             {
                 query    => $disease_query,
                 column   => 'label',
-                ontology => $mapping_cursor->{ontology},
+                ontology => $term_mapping_cursor->{ontology},
                 self     => $self
             }
         );
-        if ( exists $mapping_cursor->{mapping}{familyHistory}
+
+        if ( exists $term_mapping_cursor->{familyHistory}{$field}
             && defined
-            $participant->{ $mapping_cursor->{mapping}{familyHistory} } )
+            $participant->{ $term_mapping_cursor->{familyHistory}{$field} } )
         {
-            my $family_history = convert2boolean(
-                $participant->{ $mapping_cursor->{mapping}{familyHistory} } );
-            $disease->{familyHistory} = $family_history
-              if defined $family_history;
+            $disease->{familyHistory} = convert2boolean(
+                $participant->{ $term_mapping_cursor->{familyHistory}{$field} }
+            );
         }
 
         #$disease->{notes}    = undef;
         $disease->{severity} = $DEFAULT->{ontology_term};
         $disease->{stage}    = $DEFAULT->{ontology_term};
 
-        push @{ $individual->{diseases} }, $disease
-          if defined $disease->{diseaseCode};
+        push @{ $individual->{diseases} }, $disease;
     }
 
     return 1;
@@ -422,13 +422,13 @@ sub map_ethnicity {
     if ( defined $participant->{$ethnicity_field} ) {
 
         # Load hashref with cursors for mapping
-        my $mapping_cursor =
+        my $term_mapping_cursor =
           remap_mapping_hash_term( $data_mapping_file, 'ethnicity' );
 
         # Load corrected field to search
         my $ethnicity_query =
           check_and_replace_field_with_terminology_or_dictionary_if_exist(
-            $mapping_cursor, $ethnicity_field,
+            $term_mapping_cursor, $ethnicity_field,
             $participant->{$ethnicity_field} );
 
         # Search
@@ -436,7 +436,7 @@ sub map_ethnicity {
             {
                 query    => $ethnicity_query,
                 column   => 'label',
-                ontology => $mapping_cursor->{ontology},
+                ontology => $term_mapping_cursor->{ontology},
                 self     => $self
             }
         );
@@ -457,10 +457,10 @@ sub map_exposures {
 
     # Load hashref with cursors for mapping
 
-    my $mapping_cursor =
+    my $term_mapping_cursor =
       remap_mapping_hash_term( $data_mapping_file, 'exposures' );
 
-    for my $field ( @{ $mapping_cursor->{fields} } ) {
+    for my $field ( @{ $term_mapping_cursor->{fields} } ) {
         next unless defined $participant->{$field};
         next
           if ( $participant->{$field} eq 'No'
@@ -470,9 +470,9 @@ sub map_exposures {
 
         # Load selector for ageAtExposure
         my $subkey_ageAtExposure =
-          ( exists $mapping_cursor->{selector}{$field}
-              && defined $mapping_cursor->{selector}{$field} )
-          ? $mapping_cursor->{selector}{$field}{ageAtExposure}
+          ( exists $term_mapping_cursor->{selector}{$field}
+              && defined $term_mapping_cursor->{selector}{$field} )
+          ? $term_mapping_cursor->{selector}{$field}{ageAtExposure}
           : undef;
 
         $exposure->{ageAtExposure} =
@@ -482,21 +482,21 @@ sub map_exposures {
 
         for my $item (qw/date duration/) {
             $exposure->{$item} =
-              exists $mapping_cursor->{mapping}{$item}
-              ? $participant->{ $mapping_cursor->{mapping}{$item} }
+              exists $term_mapping_cursor->{mapping}{$item}
+              ? $participant->{ $term_mapping_cursor->{mapping}{$item} }
               : $DEFAULT->{$item};
         }
 
         # Query related
         my $exposure_query =
           check_and_replace_field_with_terminology_or_dictionary_if_exist(
-            $mapping_cursor, $field, $participant->{$field} );
+            $term_mapping_cursor, $field, $participant->{$field} );
 
         $exposure->{exposureCode} = map_ontology_term(
             {
                 query    => $exposure_query,
                 column   => 'label',
-                ontology => $mapping_cursor->{ontology},
+                ontology => $term_mapping_cursor->{ontology},
                 self     => $self
             }
         );
@@ -507,8 +507,11 @@ sub map_exposures {
         # We first extract 'unit' that supposedly will be used in in
         # <measurementValue> and <referenceRange>??
         # Load selector fields
-        my $subkey = ( lc( $data_mapping_file->{project}{source} ) eq 'redcap'
-              && exists $mapping_cursor->{selector}{$field} ) ? $field : undef;
+        my $subkey =
+          ( lc( $data_mapping_file->{project}{source} ) eq 'redcap'
+              && exists $term_mapping_cursor->{selector}{$field} )
+          ? $field
+          : undef;
 
         my $unit_query = defined $subkey
 
@@ -516,14 +519,14 @@ sub map_exposures {
           # 1 - Check for subkey
           # 2 - Check for field
           #  selector.alcohol.Never smoked =>  Never Smoker
-          ? $mapping_cursor->{selector}{$field}{ $participant->{$subkey} }
+          ? $term_mapping_cursor->{selector}{$field}{ $participant->{$subkey} }
           : $participant->{$field};
 
         my $unit = map_ontology_term(
             {
                 query    => $unit_query,
                 column   => 'label',
-                ontology => $mapping_cursor->{ontology},
+                ontology => $term_mapping_cursor->{ontology},
                 self     => $self
             }
         );
@@ -552,26 +555,28 @@ sub map_info {
     my $redcap_dict = lc($source) eq 'redcap' ? $arg->{redcap_dict} : undef;
 
     # Load hashref with cursors for mapping
-    my $mapping_cursor = remap_mapping_hash_term( $data_mapping_file, 'info' );
+    my $term_mapping_cursor =
+      remap_mapping_hash_term( $data_mapping_file, 'info' );
 
-    for my $field ( @{ $mapping_cursor->{fields} } ) {
-        if ( defined $participant->{$field} ) {
+    for my $field ( @{ $term_mapping_cursor->{fields} } ) {
+        next unless defined $participant->{$field};
 
-            # Ad hoc for 3TR
-            if ( $project_id eq '3tr_ibd' ) {
-                $individual->{info}{$field} =
-                  $field eq 'age' ? map_age_range( $participant->{$field} )
-                  : $field =~ m/^consent/ ? {
-                    value => dotify_and_coerce_number( $participant->{$field} ),
-                    map { $_ => $redcap_dict->{$field}{$_} }
-                      @redcap_field_types
-                  }
-                  : $participant->{$field};
-            }
-            else {
-                $individual->{info}{$field} = $participant->{$field};
-            }
+        $individual->{info}{$field} = $participant->{$field};
+
+        # Serialize dictionary fields to {info}{objects}
+        if ( exists $redcap_dict->{$field}{'Field Label'} ) {
+            $individual->{info}{objects}{ $field . '_obj' } = {
+                value => dotify_and_coerce_number( $participant->{$field} ),
+                map { $_ => $redcap_dict->{$field}{$_} } @redcap_field_types
+            };
         }
+    }
+
+    # Map ageRange if exists
+    if ( exists $term_mapping_cursor->{mapping}{age} ) {
+        my $age_range = map_age_range(
+            $participant->{ $term_mapping_cursor->{mapping}{age} } );
+        $individual->{info}{ageRange} = $age_range->{ageRange};    #It comes nested from map_age_range()
     }
 
     # When we use --test we do not serialize changing (metaData) information
@@ -607,31 +612,38 @@ sub map_interventionsOrProcedures {
     my $redcap_dict = lc($source) eq 'redcap' ? $arg->{redcap_dict} : undef;
 
     # Load hashref with cursors for mapping
-    my $mapping_cursor =
+    my $term_mapping_cursor =
       remap_mapping_hash_term( $data_mapping_file,
         'interventionsOrProcedures' );
 
-    for my $field ( @{ $mapping_cursor->{fields} } ) {
+    for my $field ( @{ $term_mapping_cursor->{fields} } ) {
         next unless defined $participant->{$field};
 
         my $intervention;
 
         $intervention->{ageAtProcedure} =
-          ( exists $mapping_cursor->{mapping}{ageAtProcedure}
-              && defined $mapping_cursor->{mapping}{ageAtProcedure} )
+          exists $term_mapping_cursor->{ageAtProcedure}{$field}
           ? map_age_range(
-            $participant->{ $mapping_cursor->{mapping}{ageAtProcedure} } )
+            $participant->{ $term_mapping_cursor->{ageAtProcedure}{$field} } )
           : $DEFAULT->{age};
 
         $intervention->{bodySite} =
-          $project_id eq '3tr_ibd'
-          ? { "id" => "NCIT:C12736", "label" => "intestine" }
+          exists $term_mapping_cursor->{bodySite}{$field}
+          ? map_ontology_term(
+            {
+                query    => $term_mapping_cursor->{bodySite}{$field},
+                column   => 'label',
+                ontology => $term_mapping_cursor->{ontology},
+                self     => $self
+            }
+          )
+
           : $DEFAULT->{ontology_term};
+
         $intervention->{dateOfProcedure} =
-          ( exists $mapping_cursor->{mapping}{dateOfProcedure}
-              && defined $mapping_cursor->{mapping}{dateOfProcedure} )
+          exists $term_mapping_cursor->{dateOfProcedure}{$field}
           ? dot_date2iso(
-            $participant->{ $mapping_cursor->{mapping}{dateOfProcedure} } )
+            $participant->{ $term_mapping_cursor->{dateOfProcedure}{$field} } )
           : $DEFAULT->{date};
 
         # Ad hoc term to check $field
@@ -639,19 +651,19 @@ sub map_interventionsOrProcedures {
 
         # Load selector fields
         my $subkey =
-          exists $mapping_cursor->{selector}{$field} ? $field : undef;
+          exists $term_mapping_cursor->{selector}{$field} ? $field : undef;
 
         my $intervention_query =
           defined $subkey
-          ? $mapping_cursor->{selector}{$subkey}{ $participant->{$field} }
+          ? $term_mapping_cursor->{selector}{$subkey}{ $participant->{$field} }
           : check_and_replace_field_with_terminology_or_dictionary_if_exist(
-            $mapping_cursor, $field, $participant->{$field} );
+            $term_mapping_cursor, $field, $participant->{$field} );
 
         $intervention->{procedureCode} = map_ontology_term(
             {
                 query    => $intervention_query,
                 column   => 'label',
-                ontology => $mapping_cursor->{ontology},
+                ontology => $term_mapping_cursor->{ontology},
                 self     => $self
             }
         );
@@ -675,10 +687,10 @@ sub map_measures {
     my $redcap_dict = lc($source) eq 'redcap' ? $arg->{redcap_dict} : undef;
 
     # Load hashref with cursors for mapping
-    my $mapping_cursor =
+    my $term_mapping_cursor =
       remap_mapping_hash_term( $data_mapping_file, 'measures' );
 
-    for my $field ( @{ $mapping_cursor->{fields} } ) {
+    for my $field ( @{ $term_mapping_cursor->{fields} } ) {
         next unless defined $participant->{$field};
         my $measure;
 
@@ -686,10 +698,10 @@ sub map_measures {
             {
                 query =>
                   check_and_replace_field_with_terminology_or_dictionary_if_exist(
-                    $mapping_cursor, $field, $participant->{$field}
+                    $term_mapping_cursor, $field, $participant->{$field}
                   ),
                 column   => 'label',
-                ontology => $mapping_cursor->{ontology},
+                ontology => $term_mapping_cursor->{ontology},
                 self     => $self,
             }
         );
@@ -728,7 +740,7 @@ sub map_measures {
         #######
         else {
 
-            $unit_cursor = $mapping_cursor->{unit}{$field};
+            $unit_cursor = $term_mapping_cursor->{unit}{$field};
             $tmp_unit =
               exists $unit_cursor->{label} ? $unit_cursor->{label} : undef;
 
@@ -739,10 +751,11 @@ sub map_measures {
                 query =>
 
                   check_and_replace_field_with_terminology_or_dictionary_if_exist(
-                    $mapping_cursor, $tmp_unit, $participant->{$field}, 1
+                    $term_mapping_cursor,   $tmp_unit,
+                    $participant->{$field}, 1
                   ),
                 column   => 'label',
-                ontology => $mapping_cursor->{ontology},
+                ontology => $term_mapping_cursor->{ontology},
                 self     => $self
             }
         );
@@ -779,7 +792,7 @@ sub map_measures {
                     : $field =~ m/^nancy/      ? 'Histologic'
                     : 'Blood Test Result',
                     column   => 'label',
-                    ontology => $mapping_cursor->{ontology},
+                    ontology => $term_mapping_cursor->{ontology},
                     self     => $self
                 }
             )
@@ -823,10 +836,10 @@ sub map_phenotypicFeatures {
     my $redcap_dict = lc($source) eq 'redcap' ? $arg->{redcap_dict} : undef;
 
     # Load hashref with cursors for mapping
-    my $mapping_cursor =
+    my $term_mapping_cursor =
       remap_mapping_hash_term( $data_mapping_file, 'phenotypicFeatures' );
 
-    for my $field ( @{ $mapping_cursor->{fields} } ) {
+    for my $field ( @{ $term_mapping_cursor->{fields} } ) {
         my $phenotypicFeature;
 
         next
@@ -856,22 +869,22 @@ sub map_phenotypicFeatures {
 
         # Load selector fields
         my $subkey =
-          exists $mapping_cursor->{selector}{$field} ? $field : undef;
+          exists $term_mapping_cursor->{selector}{$field} ? $field : undef;
 
         # Depending on boolean or not we perform query on field or value
         my $participant_field = $is_boolean ? $field : $participant->{$field};
 
         my $phenotypicFeature_query =
           defined $subkey
-          ? $mapping_cursor->{selector}{$subkey}{$participant_field}
+          ? $term_mapping_cursor->{selector}{$subkey}{$participant_field}
           : check_and_replace_field_with_terminology_or_dictionary_if_exist(
-            $mapping_cursor, $field, $participant->{$field} );
+            $term_mapping_cursor, $field, $participant->{$field} );
 
         $phenotypicFeature->{featureType} = map_ontology_term(
             {
                 query    => $phenotypicFeature_query,
                 column   => 'label',
-                ontology => $mapping_cursor->{ontology},
+                ontology => $term_mapping_cursor->{ontology},
                 self     => $self
             }
         );
@@ -915,12 +928,13 @@ sub map_sex {
     my $sex_field = $data_mapping_file->{sex}{fields};
 
     # Load hashref with cursors for mapping
-    my $mapping_cursor = remap_mapping_hash_term( $data_mapping_file, 'sex' );
+    my $term_mapping_cursor =
+      remap_mapping_hash_term( $data_mapping_file, 'sex' );
 
     # Load corrected field to search
     my $sex_query =
       check_and_replace_field_with_terminology_or_dictionary_if_exist(
-        $mapping_cursor, $sex_field, $participant->{$sex_field} );
+        $term_mapping_cursor, $sex_field, $participant->{$sex_field} );
 
     # Search
     $individual->{sex} = map_ontology_term(
@@ -948,10 +962,10 @@ sub map_treatments {
     my $redcap_dict = lc($source) eq 'redcap' ? $arg->{redcap_dict} : undef;
 
     # Load hashref with cursors for mapping
-    my $mapping_cursor =
+    my $term_mapping_cursor =
       remap_mapping_hash_term( $data_mapping_file, 'treatments' );
 
-    for my $field ( @{ $mapping_cursor->{fields} } ) {
+    for my $field ( @{ $term_mapping_cursor->{fields} } ) {
         next unless defined $participant->{$field};
 
         # Initialize field $treatment
@@ -962,7 +976,7 @@ sub map_treatments {
         # It can come from variable name or from the value
         my $treatment_name =
           check_and_replace_field_with_terminology_or_dictionary_if_exist(
-            $mapping_cursor, $field, $participant->{$field} );
+            $term_mapping_cursor, $field, $participant->{$field} );
 
         $treatment->{ageAtOnset} = $DEFAULT->{age};
 
@@ -970,16 +984,16 @@ sub map_treatments {
         $treatment->{doseIntervals} = [];
         my $dose_interval;
         my $duration =
-          exists $mapping_cursor->{duration}{$field}
-          ? $mapping_cursor->{duration}{$field}
+          exists $term_mapping_cursor->{duration}{$field}
+          ? $term_mapping_cursor->{duration}{$field}
           : undef;
         my $duration_unit =
-          exists $mapping_cursor->{durationUnit}{$field}
+          exists $term_mapping_cursor->{durationUnit}{$field}
           ? map_ontology_term(
             {
-                query    => $mapping_cursor->{durationUnit}{$field},
+                query    => $term_mapping_cursor->{durationUnit}{$field},
                 column   => 'label',
-                ontology => $mapping_cursor->{ontology},
+                ontology => $term_mapping_cursor->{ontology},
                 self     => $self
             }
           )
@@ -990,12 +1004,12 @@ sub map_treatments {
                 value => $participant->{$duration} // -1
             };
             my $drug_unit =
-              exists $mapping_cursor->{drugUnit}{$field}
+              exists $term_mapping_cursor->{drugUnit}{$field}
               ? map_ontology_term(
                 {
-                    query    => $mapping_cursor->{drugUnit}{$field},
+                    query    => $term_mapping_cursor->{drugUnit}{$field},
                     column   => 'label',
-                    ontology => $mapping_cursor->{ontology},
+                    ontology => $term_mapping_cursor->{ontology},
                     self     => $self
                 }
               )
@@ -1010,9 +1024,10 @@ sub map_treatments {
 
         # Define routes
         my $route =
-          exists $mapping_cursor->{routeOfAdministration}
+          exists $term_mapping_cursor->{routeOfAdministration}
           { $participant->{$field} }
-          ? $mapping_cursor->{routeOfAdministration}{ $participant->{$field} }
+          ? $term_mapping_cursor->{routeOfAdministration}
+          { $participant->{$field} }
           : 'oral';
         my $route_query = ucfirst($route) . ' Route of Administration';
         $treatment->{_info} = {
@@ -1026,7 +1041,7 @@ sub map_treatments {
             {
                 query    => $route_query,
                 column   => 'label',
-                ontology => $mapping_cursor->{ontology},
+                ontology => $term_mapping_cursor->{ontology},
                 self     => $self
             }
         );
@@ -1035,7 +1050,7 @@ sub map_treatments {
             {
                 query    => $treatment_name,
                 column   => 'label',
-                ontology => $mapping_cursor->{ontology},
+                ontology => $term_mapping_cursor->{ontology},
                 self     => $self
             }
         );
