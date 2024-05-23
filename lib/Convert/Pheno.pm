@@ -166,7 +166,7 @@ sub BUILD {
     # BUILD: is an instance method that is called after the object has been constructed but before it is returned to the caller.
     # BUILDARGS is a class method that is responsible for processing the arguments passed to the constructor (new) and returning a hash reference of attributes that will be used to initialize the object.
     my $self = shift;
-    $self->{databases} = defined $self->{ohdsi_db} ? \@all_sqlites : \@non_ohdsi_sqlites;
+    $self->{databases} = $self->{ohdsi_db} ? \@all_sqlites : \@non_ohdsi_sqlites;
 }
 
 # NB: In general, we'll only display terms that exist and have content
