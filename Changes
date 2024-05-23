@@ -1,6 +1,6 @@
 Revision history for Perl distribution Convert-Pheno
 
-0.20 2024-XX-XXT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
+0.20 2024-05-23T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
  - Encapsulated Default values in Default.pm
  - Refactored REDCap.pm code to be used with CSV.pm
@@ -8,12 +8,8 @@ Revision history for Perl distribution Convert-Pheno
  - Mapping file changes:
     o Required properties in mappind file now only are 'project','id' and 'sex'
     o Added project.baselineFieldsToPropagate
-    o Added new property 'terminology'
-    o Renamed and changed treatments.routesOfAdministration array to treatments.routeOfAdministration object
-    o Added properties treatments.{drugDose,drugDuration,drugUnit,duration,durantionUnit} (object)
-    o Added property measurement.unitType
-    o Added property measurement.procedureCodeLabel
-    * Added Property assignTermIdFromHeader
+    o Added new properties along with their schemas, This is the current list:
+      * age,ageOfOnset,assignTermIdFromHeader,bodySite,dateOfProcedure,dictionary,drugDose,drugUnit,duration,durationUnit,familyHistory,fields,mapping,procedureCodeLabel,selector,terminology,unit
  - Fixed issue with hpo.db that had leading and trailing white spaces in columns
 
 0.19 2024-04-24T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)

@@ -36,7 +36,7 @@ This page provides brief tutorials on how to perform data conversion by using `C
     | Type        | Required (Optional)   | Required properties | Optional properties |
     | ----------- | ----------- | ------------------- | ------------------- |
     | Internal    | `project`   | `id, source, ontology, version` | ` description, baselineFieldsToPropagate` |
-    | Beacon v2 terms   | `id, sex (diseases, exposures, info, interventionsOrProcedures, measures, phenotypicFeatures, treatments)` | `fields`| `age,ageOfOnset,assignTermIdFromHeader,bodySite,dateOfProcedure,dictionary,drugDose,drugUnit,duration,durationUnit,familyHistory,fields,mapping,selector,terminology,unit` |
+    | Beacon v2 terms   | `id, sex (diseases, exposures, info, interventionsOrProcedures, measures, phenotypicFeatures, treatments)` | `fields`| `age,ageOfOnset,assignTermIdFromHeader,bodySite,dateOfProcedure,dictionary,drugDose,drugUnit,duration,durationUnit,familyHistory,fields,mapping,procedureCodeLabel,selector,terminology,unit` |
 
     These are the properties needed to map your data to the entity `individuals` in the Beacon v2 Models:
 
@@ -54,6 +54,7 @@ This page provides brief tutorials on how to perform data conversion by using `C
     - **familyHistory**, an `object` representing the column that points to the family medical history relevant to the patient's condition.
     - **fields**, can be either a `string` or an `array` consisting of the name of the REDCap variables that map to that Beacon v2 term.
     - **mapping**, is an `object` in the form of `key: value` that we use to map our Beacon v2 objects to REDCap variables.
+    - **procedureCodeLabel** , a nested `object` with specific mappings for `interventionsOrProcedures`.
     - **ontology**, it's an `string` to define more granularly the ontology for this particular Beacon v2 term. If not present, the script will use that from `project.ontology`.
     - **routeOfAdministration**, a nested `object` with specific mappings for `treatments`.
     - **selector**, a nested `object` value with specific mappings.
