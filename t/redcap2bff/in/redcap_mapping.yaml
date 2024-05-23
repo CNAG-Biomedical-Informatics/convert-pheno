@@ -20,11 +20,9 @@ diseases:
     'Ulcerative Colitis (UC)': Ulcerative Colitis 
     "Crohn's Disease (CD)": Crohn Disease
   ageOfOnset: 
-    'Ulcerative Colitis (UC)': age_first_diagnosis
-    "Crohn's Disease (CD)": age_first_diagnosis
+    diagnosis: age_first_diagnosis
   familyHistory: 
-    'Ulcerative Colitis (UC)': family_history
-    "Crohn's Disease (CD)": family_history
+    diagnosis: family_history
 
 # Term: ethnicity
 ethnicity:
