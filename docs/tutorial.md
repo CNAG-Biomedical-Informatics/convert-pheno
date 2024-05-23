@@ -18,7 +18,9 @@ This page provides brief tutorials on how to perform data conversion by using `C
 
     ??? Question "Can I export CSV / Microsoft Excel (labels) file?"
 
-        You are able to export a CSV or Microsoft Excel file with labels for your reference. However, as of February 2024, `Convert-Pheno` supports only raw data formats. 
+    ??? Question: "Can I export a CSV / Microsoft Excel (labels) file?"
+
+        Yes, you can export a CSV or Microsoft Excel file with labels. However, you need to use the `--icsv` flag instead of the `--iredcap` flag as the input format. While we recommend exporting raw data along with the dictionary for better accuracy, we understand that this might not always be possible.
 
         For more detailed information and other common questions, please refer to the [FAQ](faq.md#general).
 
@@ -59,12 +61,15 @@ This page provides brief tutorials on how to perform data conversion by using `C
     - **routeOfAdministration**, a nested `object` with specific mappings for `treatments`.
     - **selector**, a nested `object` value with specific mappings.
     - **terminology**, a nested `object` value with user-defined ontology terms.
+
     ??? Example "Terminology example"
         ```yaml
         terminology:
           My fav term:
             id: FOO:12345678
         label: Label for my fav term
+
+    - **unit**, an `object` representing the column that points to the unit of measurement for a given value or treatment.
 
     ??? Tip "Defining the values in the property `dictionary`"
         Before assigning values to `dictionary` it's important that you think about which ontologies/terminologies you want to use. The field `project.ontology` defines the ontology for the whole project, but you can also specify a another antology at the Beacon v2 term level. Once you know which ontologies to use, then try searching for such term to get an accorate label for it. For example, if you have chosen `ncit`, you can search for the values within NCIt at [EBI Search](https://www.ebi.ac.uk/ols/ontologies/ncit). `Convert-Pheno` will use these values to retrieve the actual ontology term from its internal databases.

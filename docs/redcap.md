@@ -24,7 +24,7 @@ Due to the flexibility of REDCap projects, it can be challenging to develop a so
 
     1. REDCap export (CSV)
     2. REDCap data dictionary (CSV)
-    3. Mapping file (YAML or JSON)
+    3. Mapping file (YAML or JSON) (see [tutorial](tutorial.md))
 
     ??? Question "Can CSV files be compressed?"
         Yes. We also accept as **input** files compressed with `gzip`.

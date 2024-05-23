@@ -24,7 +24,7 @@
 
     1. CDISC-ODM v1 (XML)
     2. REDCap data dictionary (CSV)
-    3. Configuration (mapping) file (YAML)
+    3. Mapping file (YAML or JSON) (see [tutorial](tutorial.md))
 
     ```
     convert-pheno -icdisc cdisc.xml --redcap-dictionary dictionary.csv --mapping-file mapping.yaml -obff individuals.json
