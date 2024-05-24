@@ -19,8 +19,8 @@
                }
             },
             "term" : {
-               "id" : "NCIT:C3117",
-               "label" : "Hypertension"
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
             }
          },
          {
@@ -30,8 +30,8 @@
                }
             },
             "term" : {
-               "id" : "NCIT:C2985",
-               "label" : "Diabetes Mellitus"
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
             }
          }
       ],
@@ -56,7 +56,7 @@
                      "id" : "NCIT:C64783",
                      "label" : "Gram per Deciliter"
                   },
-                  "value" : 12.7
+                  "value" : 14
                }
             }
          },
@@ -79,7 +79,7 @@
                      "id" : "NCIT:C67242",
                      "label" : "Cells per Microliter"
                   },
-                  "value" : 9.4
+                  "value" : 4.1
                }
             }
          },
@@ -102,7 +102,7 @@
                      "id" : "NCIT:C67242",
                      "label" : "Cells per Microliter"
                   },
-                  "value" : 156
+                  "value" : 346
                }
             }
          },
@@ -125,7 +125,7 @@
                      "id" : "NCIT:C49671",
                      "label" : "Kilogram per Square Meter"
                   },
-                  "value" : 28.2
+                  "value" : 24.5
                }
             }
          }
@@ -134,10 +134,44 @@
          {
             "treatment" : {
                "agent" : {
-                  "id" : "NCIT:C29159",
-                  "label" : "Lisinopril"
+                  "id" : "NCIT:C61612",
+                  "label" : "Metformin"
                },
-               "doseIntervals" : [],
+               "doseIntervals" : [
+                  {
+                     "interval" : {
+                        "end" : {
+                           "age" : {
+                              "iso8601duration" : "P999Y"
+                           }
+                        },
+                        "start" : {
+                           "age" : {
+                              "iso8601duration" : "P999Y"
+                           }
+                        }
+                     },
+                     "quantity" : {
+                        "referenceRange" : {
+                           "high" : -1,
+                           "low" : -1,
+                           "unit" : {
+                              "id" : "NCIT:NA0000",
+                              "label" : "NA"
+                           }
+                        },
+                        "unit" : {
+                           "id" : "NCIT:C28253",
+                           "label" : "Milligram"
+                        },
+                        "value" : 59
+                     },
+                     "scheduleFrequency" : {
+                        "id" : "NCIT:NA0000",
+                        "label" : "NA"
+                     }
+                  }
+               ],
                "routeOfAdministration" : {
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
@@ -157,8 +191,8 @@
          {
             "excluded" : false,
             "type" : {
-               "id" : "HP:0001376",
-               "label" : "Limitation of joint mobility"
+               "id" : "HP:0002097",
+               "label" : "Emphysema"
             }
          }
       ],
@@ -190,8 +224,8 @@
                }
             },
             "term" : {
-               "id" : "NCIT:C3117",
-               "label" : "Hypertension"
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
             }
          },
          {
@@ -201,8 +235,8 @@
                }
             },
             "term" : {
-               "id" : "NCIT:C2985",
-               "label" : "Diabetes Mellitus"
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
             }
          }
       ],
@@ -227,7 +261,7 @@
                      "id" : "NCIT:C64783",
                      "label" : "Gram per Deciliter"
                   },
-                  "value" : 13.2
+                  "value" : 12.8
                }
             }
          },
@@ -250,7 +284,7 @@
                      "id" : "NCIT:C67242",
                      "label" : "Cells per Microliter"
                   },
-                  "value" : 9.1
+                  "value" : 4.2
                }
             }
          },
@@ -273,7 +307,7 @@
                      "id" : "NCIT:C67242",
                      "label" : "Cells per Microliter"
                   },
-                  "value" : 323
+                  "value" : 301
                }
             }
          },
@@ -296,7 +330,7 @@
                      "id" : "NCIT:C49671",
                      "label" : "Kilogram per Square Meter"
                   },
-                  "value" : 28.2
+                  "value" : 24.5
                }
             }
          }
@@ -305,10 +339,44 @@
          {
             "treatment" : {
                "agent" : {
-                  "id" : "NCIT:C29159",
-                  "label" : "Lisinopril"
+                  "id" : "NCIT:C61612",
+                  "label" : "Metformin"
                },
-               "doseIntervals" : [],
+               "doseIntervals" : [
+                  {
+                     "interval" : {
+                        "end" : {
+                           "age" : {
+                              "iso8601duration" : "P999Y"
+                           }
+                        },
+                        "start" : {
+                           "age" : {
+                              "iso8601duration" : "P999Y"
+                           }
+                        }
+                     },
+                     "quantity" : {
+                        "referenceRange" : {
+                           "high" : -1,
+                           "low" : -1,
+                           "unit" : {
+                              "id" : "NCIT:NA0000",
+                              "label" : "NA"
+                           }
+                        },
+                        "unit" : {
+                           "id" : "NCIT:C28253",
+                           "label" : "Milligram"
+                        },
+                        "value" : 59
+                     },
+                     "scheduleFrequency" : {
+                        "id" : "NCIT:NA0000",
+                        "label" : "NA"
+                     }
+                  }
+               ],
                "routeOfAdministration" : {
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
@@ -328,8 +396,8 @@
          {
             "excluded" : false,
             "type" : {
-               "id" : "HP:0001376",
-               "label" : "Limitation of joint mobility"
+               "id" : "HP:0002097",
+               "label" : "Emphysema"
             }
          }
       ],
@@ -350,8 +418,8 @@
                }
             },
             "term" : {
-               "id" : "NCIT:C28397",
-               "label" : "Asthma"
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
             }
          },
          {
@@ -361,8 +429,8 @@
                }
             },
             "term" : {
-               "id" : "NCIT:C3117",
-               "label" : "Hypertension"
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
             }
          },
          {
@@ -398,7 +466,7 @@
                      "id" : "NCIT:C64783",
                      "label" : "Gram per Deciliter"
                   },
-                  "value" : 11.1
+                  "value" : 16.3
                }
             }
          },
@@ -421,7 +489,7 @@
                      "id" : "NCIT:C67242",
                      "label" : "Cells per Microliter"
                   },
-                  "value" : 7.8
+                  "value" : 8.1
                }
             }
          },
@@ -444,7 +512,7 @@
                      "id" : "NCIT:C67242",
                      "label" : "Cells per Microliter"
                   },
-                  "value" : 222
+                  "value" : 211
                }
             }
          },
@@ -467,7 +535,7 @@
                      "id" : "NCIT:C49671",
                      "label" : "Kilogram per Square Meter"
                   },
-                  "value" : 25.7
+                  "value" : 19.4
                }
             }
          }
@@ -476,10 +544,44 @@
          {
             "treatment" : {
                "agent" : {
-                  "id" : "NCIT:C61527",
-                  "label" : "Atorvastatin"
+                  "id" : "NCIT:C215",
+                  "label" : "Albuterol"
                },
-               "doseIntervals" : [],
+               "doseIntervals" : [
+                  {
+                     "interval" : {
+                        "end" : {
+                           "age" : {
+                              "iso8601duration" : "P999Y"
+                           }
+                        },
+                        "start" : {
+                           "age" : {
+                              "iso8601duration" : "P999Y"
+                           }
+                        }
+                     },
+                     "quantity" : {
+                        "referenceRange" : {
+                           "high" : -1,
+                           "low" : -1,
+                           "unit" : {
+                              "id" : "NCIT:NA0000",
+                              "label" : "NA"
+                           }
+                        },
+                        "unit" : {
+                           "id" : "NCIT:C28253",
+                           "label" : "Milligram"
+                        },
+                        "value" : 59
+                     },
+                     "scheduleFrequency" : {
+                        "id" : "NCIT:NA0000",
+                        "label" : "NA"
+                     }
+                  }
+               ],
                "routeOfAdministration" : {
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
@@ -492,21 +594,21 @@
          {
             "excluded" : false,
             "type" : {
-               "id" : "HP:0001376",
-               "label" : "Limitation of joint mobility"
+               "id" : "HP:0001654",
+               "label" : "Abnormal heart valve morphology"
             }
          },
          {
             "excluded" : false,
             "type" : {
-               "id" : "HP:0002097",
-               "label" : "Emphysema"
+               "id" : "HP:0001376",
+               "label" : "Limitation of joint mobility"
             }
          }
       ],
       "subject" : {
          "id" : "P002:Baseline",
-         "sex" : "MALE",
+         "sex" : "FEMALE",
          "vitalStatus" : {
             "status" : "ALIVE"
          }
@@ -521,8 +623,8 @@
                }
             },
             "term" : {
-               "id" : "NCIT:C28397",
-               "label" : "Asthma"
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
             }
          },
          {
@@ -532,8 +634,8 @@
                }
             },
             "term" : {
-               "id" : "NCIT:C3117",
-               "label" : "Hypertension"
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
             }
          },
          {
@@ -569,7 +671,7 @@
                      "id" : "NCIT:C64783",
                      "label" : "Gram per Deciliter"
                   },
-                  "value" : 12.1
+                  "value" : 13.5
                }
             }
          },
@@ -592,7 +694,7 @@
                      "id" : "NCIT:C67242",
                      "label" : "Cells per Microliter"
                   },
-                  "value" : 10.8
+                  "value" : 9.9
                }
             }
          },
@@ -615,7 +717,7 @@
                      "id" : "NCIT:C67242",
                      "label" : "Cells per Microliter"
                   },
-                  "value" : 375
+                  "value" : 216
                }
             }
          },
@@ -638,7 +740,7 @@
                      "id" : "NCIT:C49671",
                      "label" : "Kilogram per Square Meter"
                   },
-                  "value" : 25.7
+                  "value" : 19.4
                }
             }
          }
@@ -647,10 +749,44 @@
          {
             "treatment" : {
                "agent" : {
-                  "id" : "NCIT:C61527",
-                  "label" : "Atorvastatin"
+                  "id" : "NCIT:C215",
+                  "label" : "Albuterol"
                },
-               "doseIntervals" : [],
+               "doseIntervals" : [
+                  {
+                     "interval" : {
+                        "end" : {
+                           "age" : {
+                              "iso8601duration" : "P999Y"
+                           }
+                        },
+                        "start" : {
+                           "age" : {
+                              "iso8601duration" : "P999Y"
+                           }
+                        }
+                     },
+                     "quantity" : {
+                        "referenceRange" : {
+                           "high" : -1,
+                           "low" : -1,
+                           "unit" : {
+                              "id" : "NCIT:NA0000",
+                              "label" : "NA"
+                           }
+                        },
+                        "unit" : {
+                           "id" : "NCIT:C28253",
+                           "label" : "Milligram"
+                        },
+                        "value" : 59
+                     },
+                     "scheduleFrequency" : {
+                        "id" : "NCIT:NA0000",
+                        "label" : "NA"
+                     }
+                  }
+               ],
                "routeOfAdministration" : {
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
@@ -663,21 +799,21 @@
          {
             "excluded" : false,
             "type" : {
-               "id" : "HP:0001376",
-               "label" : "Limitation of joint mobility"
+               "id" : "HP:0001654",
+               "label" : "Abnormal heart valve morphology"
             }
          },
          {
             "excluded" : false,
             "type" : {
-               "id" : "HP:0002097",
-               "label" : "Emphysema"
+               "id" : "HP:0001376",
+               "label" : "Limitation of joint mobility"
             }
          }
       ],
       "subject" : {
          "id" : "P002:Treatment",
-         "sex" : "MALE",
+         "sex" : "FEMALE",
          "vitalStatus" : {
             "status" : "ALIVE"
          }
@@ -740,7 +876,7 @@
                      "id" : "NCIT:C64783",
                      "label" : "Gram per Deciliter"
                   },
-                  "value" : 16.5
+                  "value" : 11.7
                }
             }
          },
@@ -763,7 +899,7 @@
                      "id" : "NCIT:C67242",
                      "label" : "Cells per Microliter"
                   },
-                  "value" : 5.4
+                  "value" : 10.3
                }
             }
          },
@@ -786,7 +922,7 @@
                      "id" : "NCIT:C67242",
                      "label" : "Cells per Microliter"
                   },
-                  "value" : 331
+                  "value" : 368
                }
             }
          },
@@ -809,7 +945,7 @@
                      "id" : "NCIT:C49671",
                      "label" : "Kilogram per Square Meter"
                   },
-                  "value" : 25.9
+                  "value" : 22
                }
             }
          }
@@ -818,10 +954,44 @@
          {
             "treatment" : {
                "agent" : {
-                  "id" : "NCIT:C215",
-                  "label" : "Albuterol"
+                  "id" : "NCIT:C61612",
+                  "label" : "Metformin"
                },
-               "doseIntervals" : [],
+               "doseIntervals" : [
+                  {
+                     "interval" : {
+                        "end" : {
+                           "age" : {
+                              "iso8601duration" : "P999Y"
+                           }
+                        },
+                        "start" : {
+                           "age" : {
+                              "iso8601duration" : "P999Y"
+                           }
+                        }
+                     },
+                     "quantity" : {
+                        "referenceRange" : {
+                           "high" : -1,
+                           "low" : -1,
+                           "unit" : {
+                              "id" : "NCIT:NA0000",
+                              "label" : "NA"
+                           }
+                        },
+                        "unit" : {
+                           "id" : "NCIT:C28253",
+                           "label" : "Milligram"
+                        },
+                        "value" : 59
+                     },
+                     "scheduleFrequency" : {
+                        "id" : "NCIT:NA0000",
+                        "label" : "NA"
+                     }
+                  }
+               ],
                "routeOfAdministration" : {
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
@@ -834,21 +1004,21 @@
          {
             "excluded" : false,
             "type" : {
-               "id" : "HP:0001654",
-               "label" : "Abnormal heart valve morphology"
+               "id" : "HP:0002097",
+               "label" : "Emphysema"
             }
          },
          {
             "excluded" : false,
             "type" : {
-               "id" : "HP:0002097",
-               "label" : "Emphysema"
+               "id" : "HP:0001654",
+               "label" : "Abnormal heart valve morphology"
             }
          }
       ],
       "subject" : {
          "id" : "P003:Baseline",
-         "sex" : "FEMALE",
+         "sex" : "MALE",
          "vitalStatus" : {
             "status" : "ALIVE"
          }
@@ -911,7 +1081,7 @@
                      "id" : "NCIT:C64783",
                      "label" : "Gram per Deciliter"
                   },
-                  "value" : 16.1
+                  "value" : 14
                }
             }
          },
@@ -934,7 +1104,7 @@
                      "id" : "NCIT:C67242",
                      "label" : "Cells per Microliter"
                   },
-                  "value" : 5.1
+                  "value" : 4.5
                }
             }
          },
@@ -957,7 +1127,7 @@
                      "id" : "NCIT:C67242",
                      "label" : "Cells per Microliter"
                   },
-                  "value" : 274
+                  "value" : 270
                }
             }
          },
@@ -980,7 +1150,7 @@
                      "id" : "NCIT:C49671",
                      "label" : "Kilogram per Square Meter"
                   },
-                  "value" : 25.9
+                  "value" : 22
                }
             }
          }
@@ -989,10 +1159,44 @@
          {
             "treatment" : {
                "agent" : {
-                  "id" : "NCIT:C215",
-                  "label" : "Albuterol"
+                  "id" : "NCIT:C61612",
+                  "label" : "Metformin"
                },
-               "doseIntervals" : [],
+               "doseIntervals" : [
+                  {
+                     "interval" : {
+                        "end" : {
+                           "age" : {
+                              "iso8601duration" : "P999Y"
+                           }
+                        },
+                        "start" : {
+                           "age" : {
+                              "iso8601duration" : "P999Y"
+                           }
+                        }
+                     },
+                     "quantity" : {
+                        "referenceRange" : {
+                           "high" : -1,
+                           "low" : -1,
+                           "unit" : {
+                              "id" : "NCIT:NA0000",
+                              "label" : "NA"
+                           }
+                        },
+                        "unit" : {
+                           "id" : "NCIT:C28253",
+                           "label" : "Milligram"
+                        },
+                        "value" : 59
+                     },
+                     "scheduleFrequency" : {
+                        "id" : "NCIT:NA0000",
+                        "label" : "NA"
+                     }
+                  }
+               ],
                "routeOfAdministration" : {
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
@@ -1005,1730 +1209,20 @@
          {
             "excluded" : false,
             "type" : {
-               "id" : "HP:0001654",
-               "label" : "Abnormal heart valve morphology"
+               "id" : "HP:0002097",
+               "label" : "Emphysema"
             }
          },
          {
             "excluded" : false,
             "type" : {
-               "id" : "HP:0002097",
-               "label" : "Emphysema"
+               "id" : "HP:0001654",
+               "label" : "Abnormal heart valve morphology"
             }
          }
       ],
       "subject" : {
          "id" : "P003:Treatment",
-         "sex" : "FEMALE",
-         "vitalStatus" : {
-            "status" : "ALIVE"
-         }
-      }
-   },
-   {
-      "diseases" : [
-         {
-            "onset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "term" : {
-               "id" : "NCIT:C3117",
-               "label" : "Hypertension"
-            }
-         },
-         {
-            "onset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "term" : {
-               "id" : "NCIT:C28397",
-               "label" : "Asthma"
-            }
-         },
-         {
-            "onset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "term" : {
-               "id" : "NCIT:C2985",
-               "label" : "Diabetes Mellitus"
-            }
-         }
-      ],
-      "id" : null,
-      "measurements" : [
-         {
-            "assay" : {
-               "id" : "NCIT:C64848",
-               "label" : "Hemoglobin Measurement"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 17.2,
-                     "low" : 12.1,
-                     "unit" : {
-                        "id" : "NCIT:C64783",
-                        "label" : "Gram per Deciliter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C64783",
-                     "label" : "Gram per Deciliter"
-                  },
-                  "value" : 16.4
-               }
-            }
-         },
-         {
-            "assay" : {
-               "id" : "NCIT:C12529",
-               "label" : "Leukocyte"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 11,
-                     "low" : 4,
-                     "unit" : {
-                        "id" : "NCIT:C67242",
-                        "label" : "Cells per Microliter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C67242",
-                     "label" : "Cells per Microliter"
-                  },
-                  "value" : 9
-               }
-            }
-         },
-         {
-            "assay" : {
-               "id" : "NCIT:C51951",
-               "label" : "Platelet Count"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 450,
-                     "low" : 150,
-                     "unit" : {
-                        "id" : "NCIT:C67242",
-                        "label" : "Cells per Microliter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C67242",
-                     "label" : "Cells per Microliter"
-                  },
-                  "value" : 337
-               }
-            }
-         },
-         {
-            "assay" : {
-               "id" : "NCIT:C16358",
-               "label" : "Body Mass Index"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 24.9,
-                     "low" : 18.5,
-                     "unit" : {
-                        "id" : "NCIT:C49671",
-                        "label" : "Kilogram per Square Meter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C49671",
-                     "label" : "Kilogram per Square Meter"
-                  },
-                  "value" : 25.9
-               }
-            }
-         }
-      ],
-      "medicalActions" : [
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C29159",
-                  "label" : "Lisinopril"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         }
-      ],
-      "metaData" : null,
-      "phenotypicFeatures" : [
-         {
-            "excluded" : false,
-            "type" : {
-               "id" : "HP:0002097",
-               "label" : "Emphysema"
-            }
-         },
-         {
-            "excluded" : false,
-            "type" : {
-               "id" : "HP:0001654",
-               "label" : "Abnormal heart valve morphology"
-            }
-         }
-      ],
-      "subject" : {
-         "id" : "P004:Baseline",
-         "sex" : "FEMALE",
-         "vitalStatus" : {
-            "status" : "ALIVE"
-         }
-      }
-   },
-   {
-      "diseases" : [
-         {
-            "onset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "term" : {
-               "id" : "NCIT:C3117",
-               "label" : "Hypertension"
-            }
-         },
-         {
-            "onset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "term" : {
-               "id" : "NCIT:C28397",
-               "label" : "Asthma"
-            }
-         },
-         {
-            "onset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "term" : {
-               "id" : "NCIT:C2985",
-               "label" : "Diabetes Mellitus"
-            }
-         }
-      ],
-      "id" : null,
-      "measurements" : [
-         {
-            "assay" : {
-               "id" : "NCIT:C64848",
-               "label" : "Hemoglobin Measurement"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 17.2,
-                     "low" : 12.1,
-                     "unit" : {
-                        "id" : "NCIT:C64783",
-                        "label" : "Gram per Deciliter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C64783",
-                     "label" : "Gram per Deciliter"
-                  },
-                  "value" : 14.9
-               }
-            }
-         },
-         {
-            "assay" : {
-               "id" : "NCIT:C12529",
-               "label" : "Leukocyte"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 11,
-                     "low" : 4,
-                     "unit" : {
-                        "id" : "NCIT:C67242",
-                        "label" : "Cells per Microliter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C67242",
-                     "label" : "Cells per Microliter"
-                  },
-                  "value" : 6.4
-               }
-            }
-         },
-         {
-            "assay" : {
-               "id" : "NCIT:C51951",
-               "label" : "Platelet Count"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 450,
-                     "low" : 150,
-                     "unit" : {
-                        "id" : "NCIT:C67242",
-                        "label" : "Cells per Microliter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C67242",
-                     "label" : "Cells per Microliter"
-                  },
-                  "value" : 261
-               }
-            }
-         },
-         {
-            "assay" : {
-               "id" : "NCIT:C16358",
-               "label" : "Body Mass Index"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 24.9,
-                     "low" : 18.5,
-                     "unit" : {
-                        "id" : "NCIT:C49671",
-                        "label" : "Kilogram per Square Meter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C49671",
-                     "label" : "Kilogram per Square Meter"
-                  },
-                  "value" : 25.9
-               }
-            }
-         }
-      ],
-      "medicalActions" : [
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C29159",
-                  "label" : "Lisinopril"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         }
-      ],
-      "metaData" : null,
-      "phenotypicFeatures" : [
-         {
-            "excluded" : false,
-            "type" : {
-               "id" : "HP:0002097",
-               "label" : "Emphysema"
-            }
-         },
-         {
-            "excluded" : false,
-            "type" : {
-               "id" : "HP:0001654",
-               "label" : "Abnormal heart valve morphology"
-            }
-         }
-      ],
-      "subject" : {
-         "id" : "P004:Treatment",
-         "sex" : "FEMALE",
-         "vitalStatus" : {
-            "status" : "ALIVE"
-         }
-      }
-   },
-   {
-      "diseases" : [
-         {
-            "onset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "term" : {
-               "id" : "NCIT:C2985",
-               "label" : "Diabetes Mellitus"
-            }
-         },
-         {
-            "onset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "term" : {
-               "id" : "NCIT:C28397",
-               "label" : "Asthma"
-            }
-         },
-         {
-            "onset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "term" : {
-               "id" : "NCIT:C3117",
-               "label" : "Hypertension"
-            }
-         }
-      ],
-      "id" : null,
-      "measurements" : [
-         {
-            "assay" : {
-               "id" : "NCIT:C64848",
-               "label" : "Hemoglobin Measurement"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 17.2,
-                     "low" : 12.1,
-                     "unit" : {
-                        "id" : "NCIT:C64783",
-                        "label" : "Gram per Deciliter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C64783",
-                     "label" : "Gram per Deciliter"
-                  },
-                  "value" : 16.1
-               }
-            }
-         },
-         {
-            "assay" : {
-               "id" : "NCIT:C12529",
-               "label" : "Leukocyte"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 11,
-                     "low" : 4,
-                     "unit" : {
-                        "id" : "NCIT:C67242",
-                        "label" : "Cells per Microliter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C67242",
-                     "label" : "Cells per Microliter"
-                  },
-                  "value" : 10.8
-               }
-            }
-         },
-         {
-            "assay" : {
-               "id" : "NCIT:C51951",
-               "label" : "Platelet Count"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 450,
-                     "low" : 150,
-                     "unit" : {
-                        "id" : "NCIT:C67242",
-                        "label" : "Cells per Microliter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C67242",
-                     "label" : "Cells per Microliter"
-                  },
-                  "value" : 281
-               }
-            }
-         },
-         {
-            "assay" : {
-               "id" : "NCIT:C16358",
-               "label" : "Body Mass Index"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 24.9,
-                     "low" : 18.5,
-                     "unit" : {
-                        "id" : "NCIT:C49671",
-                        "label" : "Kilogram per Square Meter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C49671",
-                     "label" : "Kilogram per Square Meter"
-                  },
-                  "value" : 21.7
-               }
-            }
-         }
-      ],
-      "medicalActions" : [
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C61612",
-                  "label" : "Metformin"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         }
-      ],
-      "metaData" : null,
-      "phenotypicFeatures" : [
-         {
-            "excluded" : false,
-            "type" : {
-               "id" : "HP:0002097",
-               "label" : "Emphysema"
-            }
-         },
-         {
-            "excluded" : false,
-            "type" : {
-               "id" : "HP:0001376",
-               "label" : "Limitation of joint mobility"
-            }
-         }
-      ],
-      "subject" : {
-         "id" : "P005:Baseline",
-         "sex" : "FEMALE",
-         "vitalStatus" : {
-            "status" : "ALIVE"
-         }
-      }
-   },
-   {
-      "diseases" : [
-         {
-            "onset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "term" : {
-               "id" : "NCIT:C2985",
-               "label" : "Diabetes Mellitus"
-            }
-         },
-         {
-            "onset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "term" : {
-               "id" : "NCIT:C28397",
-               "label" : "Asthma"
-            }
-         },
-         {
-            "onset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "term" : {
-               "id" : "NCIT:C3117",
-               "label" : "Hypertension"
-            }
-         }
-      ],
-      "id" : null,
-      "measurements" : [
-         {
-            "assay" : {
-               "id" : "NCIT:C64848",
-               "label" : "Hemoglobin Measurement"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 17.2,
-                     "low" : 12.1,
-                     "unit" : {
-                        "id" : "NCIT:C64783",
-                        "label" : "Gram per Deciliter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C64783",
-                     "label" : "Gram per Deciliter"
-                  },
-                  "value" : 12
-               }
-            }
-         },
-         {
-            "assay" : {
-               "id" : "NCIT:C12529",
-               "label" : "Leukocyte"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 11,
-                     "low" : 4,
-                     "unit" : {
-                        "id" : "NCIT:C67242",
-                        "label" : "Cells per Microliter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C67242",
-                     "label" : "Cells per Microliter"
-                  },
-                  "value" : 9.1
-               }
-            }
-         },
-         {
-            "assay" : {
-               "id" : "NCIT:C51951",
-               "label" : "Platelet Count"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 450,
-                     "low" : 150,
-                     "unit" : {
-                        "id" : "NCIT:C67242",
-                        "label" : "Cells per Microliter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C67242",
-                     "label" : "Cells per Microliter"
-                  },
-                  "value" : 291
-               }
-            }
-         },
-         {
-            "assay" : {
-               "id" : "NCIT:C16358",
-               "label" : "Body Mass Index"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 24.9,
-                     "low" : 18.5,
-                     "unit" : {
-                        "id" : "NCIT:C49671",
-                        "label" : "Kilogram per Square Meter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C49671",
-                     "label" : "Kilogram per Square Meter"
-                  },
-                  "value" : 21.7
-               }
-            }
-         }
-      ],
-      "medicalActions" : [
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C61612",
-                  "label" : "Metformin"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         }
-      ],
-      "metaData" : null,
-      "phenotypicFeatures" : [
-         {
-            "excluded" : false,
-            "type" : {
-               "id" : "HP:0002097",
-               "label" : "Emphysema"
-            }
-         },
-         {
-            "excluded" : false,
-            "type" : {
-               "id" : "HP:0001376",
-               "label" : "Limitation of joint mobility"
-            }
-         }
-      ],
-      "subject" : {
-         "id" : "P005:Treatment",
-         "sex" : "FEMALE",
-         "vitalStatus" : {
-            "status" : "ALIVE"
-         }
-      }
-   },
-   {
-      "diseases" : [
-         {
-            "onset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "term" : {
-               "id" : "NCIT:C2985",
-               "label" : "Diabetes Mellitus"
-            }
-         },
-         {
-            "onset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "term" : {
-               "id" : "NCIT:C3117",
-               "label" : "Hypertension"
-            }
-         },
-         {
-            "onset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "term" : {
-               "id" : "NCIT:C28397",
-               "label" : "Asthma"
-            }
-         }
-      ],
-      "id" : null,
-      "measurements" : [
-         {
-            "assay" : {
-               "id" : "NCIT:C64848",
-               "label" : "Hemoglobin Measurement"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 17.2,
-                     "low" : 12.1,
-                     "unit" : {
-                        "id" : "NCIT:C64783",
-                        "label" : "Gram per Deciliter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C64783",
-                     "label" : "Gram per Deciliter"
-                  },
-                  "value" : 15
-               }
-            }
-         },
-         {
-            "assay" : {
-               "id" : "NCIT:C12529",
-               "label" : "Leukocyte"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 11,
-                     "low" : 4,
-                     "unit" : {
-                        "id" : "NCIT:C67242",
-                        "label" : "Cells per Microliter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C67242",
-                     "label" : "Cells per Microliter"
-                  },
-                  "value" : 10.6
-               }
-            }
-         },
-         {
-            "assay" : {
-               "id" : "NCIT:C51951",
-               "label" : "Platelet Count"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 450,
-                     "low" : 150,
-                     "unit" : {
-                        "id" : "NCIT:C67242",
-                        "label" : "Cells per Microliter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C67242",
-                     "label" : "Cells per Microliter"
-                  },
-                  "value" : 316
-               }
-            }
-         },
-         {
-            "assay" : {
-               "id" : "NCIT:C16358",
-               "label" : "Body Mass Index"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 24.9,
-                     "low" : 18.5,
-                     "unit" : {
-                        "id" : "NCIT:C49671",
-                        "label" : "Kilogram per Square Meter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C49671",
-                     "label" : "Kilogram per Square Meter"
-                  },
-                  "value" : 25.3
-               }
-            }
-         }
-      ],
-      "medicalActions" : [
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C61612",
-                  "label" : "Metformin"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         }
-      ],
-      "metaData" : null,
-      "phenotypicFeatures" : [
-         {
-            "excluded" : false,
-            "type" : {
-               "id" : "HP:0002097",
-               "label" : "Emphysema"
-            }
-         },
-         {
-            "excluded" : false,
-            "type" : {
-               "id" : "HP:0001376",
-               "label" : "Limitation of joint mobility"
-            }
-         }
-      ],
-      "subject" : {
-         "id" : "P006:Baseline",
-         "sex" : "MALE",
-         "vitalStatus" : {
-            "status" : "ALIVE"
-         }
-      }
-   },
-   {
-      "diseases" : [
-         {
-            "onset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "term" : {
-               "id" : "NCIT:C2985",
-               "label" : "Diabetes Mellitus"
-            }
-         },
-         {
-            "onset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "term" : {
-               "id" : "NCIT:C3117",
-               "label" : "Hypertension"
-            }
-         },
-         {
-            "onset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "term" : {
-               "id" : "NCIT:C28397",
-               "label" : "Asthma"
-            }
-         }
-      ],
-      "id" : null,
-      "measurements" : [
-         {
-            "assay" : {
-               "id" : "NCIT:C64848",
-               "label" : "Hemoglobin Measurement"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 17.2,
-                     "low" : 12.1,
-                     "unit" : {
-                        "id" : "NCIT:C64783",
-                        "label" : "Gram per Deciliter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C64783",
-                     "label" : "Gram per Deciliter"
-                  },
-                  "value" : 15.7
-               }
-            }
-         },
-         {
-            "assay" : {
-               "id" : "NCIT:C12529",
-               "label" : "Leukocyte"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 11,
-                     "low" : 4,
-                     "unit" : {
-                        "id" : "NCIT:C67242",
-                        "label" : "Cells per Microliter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C67242",
-                     "label" : "Cells per Microliter"
-                  },
-                  "value" : 5.1
-               }
-            }
-         },
-         {
-            "assay" : {
-               "id" : "NCIT:C51951",
-               "label" : "Platelet Count"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 450,
-                     "low" : 150,
-                     "unit" : {
-                        "id" : "NCIT:C67242",
-                        "label" : "Cells per Microliter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C67242",
-                     "label" : "Cells per Microliter"
-                  },
-                  "value" : 279
-               }
-            }
-         },
-         {
-            "assay" : {
-               "id" : "NCIT:C16358",
-               "label" : "Body Mass Index"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 24.9,
-                     "low" : 18.5,
-                     "unit" : {
-                        "id" : "NCIT:C49671",
-                        "label" : "Kilogram per Square Meter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C49671",
-                     "label" : "Kilogram per Square Meter"
-                  },
-                  "value" : 25.3
-               }
-            }
-         }
-      ],
-      "medicalActions" : [
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C61612",
-                  "label" : "Metformin"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         }
-      ],
-      "metaData" : null,
-      "phenotypicFeatures" : [
-         {
-            "excluded" : false,
-            "type" : {
-               "id" : "HP:0002097",
-               "label" : "Emphysema"
-            }
-         },
-         {
-            "excluded" : false,
-            "type" : {
-               "id" : "HP:0001376",
-               "label" : "Limitation of joint mobility"
-            }
-         }
-      ],
-      "subject" : {
-         "id" : "P006:Treatment",
-         "sex" : "MALE",
-         "vitalStatus" : {
-            "status" : "ALIVE"
-         }
-      }
-   },
-   {
-      "diseases" : [
-         {
-            "onset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "term" : {
-               "id" : "NCIT:C28397",
-               "label" : "Asthma"
-            }
-         },
-         {
-            "onset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "term" : {
-               "id" : "NCIT:C3117",
-               "label" : "Hypertension"
-            }
-         },
-         {
-            "onset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "term" : {
-               "id" : "NCIT:C2985",
-               "label" : "Diabetes Mellitus"
-            }
-         }
-      ],
-      "id" : null,
-      "measurements" : [
-         {
-            "assay" : {
-               "id" : "NCIT:C64848",
-               "label" : "Hemoglobin Measurement"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 17.2,
-                     "low" : 12.1,
-                     "unit" : {
-                        "id" : "NCIT:C64783",
-                        "label" : "Gram per Deciliter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C64783",
-                     "label" : "Gram per Deciliter"
-                  },
-                  "value" : 15.3
-               }
-            }
-         },
-         {
-            "assay" : {
-               "id" : "NCIT:C12529",
-               "label" : "Leukocyte"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 11,
-                     "low" : 4,
-                     "unit" : {
-                        "id" : "NCIT:C67242",
-                        "label" : "Cells per Microliter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C67242",
-                     "label" : "Cells per Microliter"
-                  },
-                  "value" : 7.2
-               }
-            }
-         },
-         {
-            "assay" : {
-               "id" : "NCIT:C51951",
-               "label" : "Platelet Count"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 450,
-                     "low" : 150,
-                     "unit" : {
-                        "id" : "NCIT:C67242",
-                        "label" : "Cells per Microliter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C67242",
-                     "label" : "Cells per Microliter"
-                  },
-                  "value" : 290
-               }
-            }
-         },
-         {
-            "assay" : {
-               "id" : "NCIT:C16358",
-               "label" : "Body Mass Index"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 24.9,
-                     "low" : 18.5,
-                     "unit" : {
-                        "id" : "NCIT:C49671",
-                        "label" : "Kilogram per Square Meter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C49671",
-                     "label" : "Kilogram per Square Meter"
-                  },
-                  "value" : 28.1
-               }
-            }
-         }
-      ],
-      "medicalActions" : [
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C215",
-                  "label" : "Albuterol"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         }
-      ],
-      "metaData" : null,
-      "phenotypicFeatures" : [
-         {
-            "excluded" : false,
-            "type" : {
-               "id" : "HP:0001376",
-               "label" : "Limitation of joint mobility"
-            }
-         },
-         {
-            "excluded" : false,
-            "type" : {
-               "id" : "HP:0001654",
-               "label" : "Abnormal heart valve morphology"
-            }
-         }
-      ],
-      "subject" : {
-         "id" : "P007:Baseline",
-         "sex" : "MALE",
-         "vitalStatus" : {
-            "status" : "ALIVE"
-         }
-      }
-   },
-   {
-      "diseases" : [
-         {
-            "onset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "term" : {
-               "id" : "NCIT:C28397",
-               "label" : "Asthma"
-            }
-         },
-         {
-            "onset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "term" : {
-               "id" : "NCIT:C3117",
-               "label" : "Hypertension"
-            }
-         },
-         {
-            "onset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "term" : {
-               "id" : "NCIT:C2985",
-               "label" : "Diabetes Mellitus"
-            }
-         }
-      ],
-      "id" : null,
-      "measurements" : [
-         {
-            "assay" : {
-               "id" : "NCIT:C64848",
-               "label" : "Hemoglobin Measurement"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 17.2,
-                     "low" : 12.1,
-                     "unit" : {
-                        "id" : "NCIT:C64783",
-                        "label" : "Gram per Deciliter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C64783",
-                     "label" : "Gram per Deciliter"
-                  },
-                  "value" : 12.9
-               }
-            }
-         },
-         {
-            "assay" : {
-               "id" : "NCIT:C12529",
-               "label" : "Leukocyte"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 11,
-                     "low" : 4,
-                     "unit" : {
-                        "id" : "NCIT:C67242",
-                        "label" : "Cells per Microliter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C67242",
-                     "label" : "Cells per Microliter"
-                  },
-                  "value" : 10.5
-               }
-            }
-         },
-         {
-            "assay" : {
-               "id" : "NCIT:C51951",
-               "label" : "Platelet Count"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 450,
-                     "low" : 150,
-                     "unit" : {
-                        "id" : "NCIT:C67242",
-                        "label" : "Cells per Microliter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C67242",
-                     "label" : "Cells per Microliter"
-                  },
-                  "value" : 362
-               }
-            }
-         },
-         {
-            "assay" : {
-               "id" : "NCIT:C16358",
-               "label" : "Body Mass Index"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 24.9,
-                     "low" : 18.5,
-                     "unit" : {
-                        "id" : "NCIT:C49671",
-                        "label" : "Kilogram per Square Meter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C49671",
-                     "label" : "Kilogram per Square Meter"
-                  },
-                  "value" : 28.1
-               }
-            }
-         }
-      ],
-      "medicalActions" : [
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C215",
-                  "label" : "Albuterol"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         }
-      ],
-      "metaData" : null,
-      "phenotypicFeatures" : [
-         {
-            "excluded" : false,
-            "type" : {
-               "id" : "HP:0001376",
-               "label" : "Limitation of joint mobility"
-            }
-         },
-         {
-            "excluded" : false,
-            "type" : {
-               "id" : "HP:0001654",
-               "label" : "Abnormal heart valve morphology"
-            }
-         }
-      ],
-      "subject" : {
-         "id" : "P007:Treatment",
-         "sex" : "MALE",
-         "vitalStatus" : {
-            "status" : "ALIVE"
-         }
-      }
-   },
-   {
-      "diseases" : [
-         {
-            "onset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "term" : {
-               "id" : "NCIT:C28397",
-               "label" : "Asthma"
-            }
-         },
-         {
-            "onset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "term" : {
-               "id" : "NCIT:C3117",
-               "label" : "Hypertension"
-            }
-         },
-         {
-            "onset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "term" : {
-               "id" : "NCIT:C2985",
-               "label" : "Diabetes Mellitus"
-            }
-         }
-      ],
-      "id" : null,
-      "measurements" : [
-         {
-            "assay" : {
-               "id" : "NCIT:C64848",
-               "label" : "Hemoglobin Measurement"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 17.2,
-                     "low" : 12.1,
-                     "unit" : {
-                        "id" : "NCIT:C64783",
-                        "label" : "Gram per Deciliter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C64783",
-                     "label" : "Gram per Deciliter"
-                  },
-                  "value" : 16.1
-               }
-            }
-         },
-         {
-            "assay" : {
-               "id" : "NCIT:C12529",
-               "label" : "Leukocyte"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 11,
-                     "low" : 4,
-                     "unit" : {
-                        "id" : "NCIT:C67242",
-                        "label" : "Cells per Microliter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C67242",
-                     "label" : "Cells per Microliter"
-                  },
-                  "value" : 5.9
-               }
-            }
-         },
-         {
-            "assay" : {
-               "id" : "NCIT:C51951",
-               "label" : "Platelet Count"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 450,
-                     "low" : 150,
-                     "unit" : {
-                        "id" : "NCIT:C67242",
-                        "label" : "Cells per Microliter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C67242",
-                     "label" : "Cells per Microliter"
-                  },
-                  "value" : 334
-               }
-            }
-         },
-         {
-            "assay" : {
-               "id" : "NCIT:C16358",
-               "label" : "Body Mass Index"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 24.9,
-                     "low" : 18.5,
-                     "unit" : {
-                        "id" : "NCIT:C49671",
-                        "label" : "Kilogram per Square Meter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C49671",
-                     "label" : "Kilogram per Square Meter"
-                  },
-                  "value" : 22.5
-               }
-            }
-         }
-      ],
-      "medicalActions" : [
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C29159",
-                  "label" : "Lisinopril"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         }
-      ],
-      "metaData" : null,
-      "phenotypicFeatures" : [
-         {
-            "excluded" : false,
-            "type" : {
-               "id" : "HP:0001654",
-               "label" : "Abnormal heart valve morphology"
-            }
-         },
-         {
-            "excluded" : false,
-            "type" : {
-               "id" : "HP:0001376",
-               "label" : "Limitation of joint mobility"
-            }
-         }
-      ],
-      "subject" : {
-         "id" : "P008:Baseline",
-         "sex" : "MALE",
-         "vitalStatus" : {
-            "status" : "ALIVE"
-         }
-      }
-   },
-   {
-      "diseases" : [
-         {
-            "onset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "term" : {
-               "id" : "NCIT:C28397",
-               "label" : "Asthma"
-            }
-         },
-         {
-            "onset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "term" : {
-               "id" : "NCIT:C3117",
-               "label" : "Hypertension"
-            }
-         },
-         {
-            "onset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "term" : {
-               "id" : "NCIT:C2985",
-               "label" : "Diabetes Mellitus"
-            }
-         }
-      ],
-      "id" : null,
-      "measurements" : [
-         {
-            "assay" : {
-               "id" : "NCIT:C64848",
-               "label" : "Hemoglobin Measurement"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 17.2,
-                     "low" : 12.1,
-                     "unit" : {
-                        "id" : "NCIT:C64783",
-                        "label" : "Gram per Deciliter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C64783",
-                     "label" : "Gram per Deciliter"
-                  },
-                  "value" : 15.7
-               }
-            }
-         },
-         {
-            "assay" : {
-               "id" : "NCIT:C12529",
-               "label" : "Leukocyte"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 11,
-                     "low" : 4,
-                     "unit" : {
-                        "id" : "NCIT:C67242",
-                        "label" : "Cells per Microliter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C67242",
-                     "label" : "Cells per Microliter"
-                  },
-                  "value" : 5.7
-               }
-            }
-         },
-         {
-            "assay" : {
-               "id" : "NCIT:C51951",
-               "label" : "Platelet Count"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 450,
-                     "low" : 150,
-                     "unit" : {
-                        "id" : "NCIT:C67242",
-                        "label" : "Cells per Microliter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C67242",
-                     "label" : "Cells per Microliter"
-                  },
-                  "value" : 255
-               }
-            }
-         },
-         {
-            "assay" : {
-               "id" : "NCIT:C16358",
-               "label" : "Body Mass Index"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 24.9,
-                     "low" : 18.5,
-                     "unit" : {
-                        "id" : "NCIT:C49671",
-                        "label" : "Kilogram per Square Meter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C49671",
-                     "label" : "Kilogram per Square Meter"
-                  },
-                  "value" : 22.5
-               }
-            }
-         }
-      ],
-      "medicalActions" : [
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C29159",
-                  "label" : "Lisinopril"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         }
-      ],
-      "metaData" : null,
-      "phenotypicFeatures" : [
-         {
-            "excluded" : false,
-            "type" : {
-               "id" : "HP:0001654",
-               "label" : "Abnormal heart valve morphology"
-            }
-         },
-         {
-            "excluded" : false,
-            "type" : {
-               "id" : "HP:0001376",
-               "label" : "Limitation of joint mobility"
-            }
-         }
-      ],
-      "subject" : {
-         "id" : "P008:Treatment",
          "sex" : "MALE",
          "vitalStatus" : {
             "status" : "ALIVE"
@@ -2815,7 +1309,7 @@
                      "id" : "NCIT:C67242",
                      "label" : "Cells per Microliter"
                   },
-                  "value" : 7.2
+                  "value" : 4.1
                }
             }
          },
@@ -2838,7 +1332,7 @@
                      "id" : "NCIT:C67242",
                      "label" : "Cells per Microliter"
                   },
-                  "value" : 225
+                  "value" : 220
                }
             }
          },
@@ -2861,7 +1355,7 @@
                      "id" : "NCIT:C49671",
                      "label" : "Kilogram per Square Meter"
                   },
-                  "value" : 20.3
+                  "value" : 26.2
                }
             }
          }
@@ -2870,10 +1364,44 @@
          {
             "treatment" : {
                "agent" : {
-                  "id" : "NCIT:C215",
-                  "label" : "Albuterol"
+                  "id" : "NCIT:C61527",
+                  "label" : "Atorvastatin"
                },
-               "doseIntervals" : [],
+               "doseIntervals" : [
+                  {
+                     "interval" : {
+                        "end" : {
+                           "age" : {
+                              "iso8601duration" : "P999Y"
+                           }
+                        },
+                        "start" : {
+                           "age" : {
+                              "iso8601duration" : "P999Y"
+                           }
+                        }
+                     },
+                     "quantity" : {
+                        "referenceRange" : {
+                           "high" : -1,
+                           "low" : -1,
+                           "unit" : {
+                              "id" : "NCIT:NA0000",
+                              "label" : "NA"
+                           }
+                        },
+                        "unit" : {
+                           "id" : "NCIT:C28253",
+                           "label" : "Milligram"
+                        },
+                        "value" : 59
+                     },
+                     "scheduleFrequency" : {
+                        "id" : "NCIT:NA0000",
+                        "label" : "NA"
+                     }
+                  }
+               ],
                "routeOfAdministration" : {
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
@@ -2886,20 +1414,20 @@
          {
             "excluded" : false,
             "type" : {
-               "id" : "HP:0001376",
-               "label" : "Limitation of joint mobility"
+               "id" : "HP:0001654",
+               "label" : "Abnormal heart valve morphology"
             }
          },
          {
             "excluded" : false,
             "type" : {
-               "id" : "HP:0002097",
-               "label" : "Emphysema"
+               "id" : "HP:0001376",
+               "label" : "Limitation of joint mobility"
             }
          }
       ],
       "subject" : {
-         "id" : "P009:Baseline",
+         "id" : "P004:Baseline",
          "sex" : "MALE",
          "vitalStatus" : {
             "status" : "ALIVE"
@@ -2963,7 +1491,7 @@
                      "id" : "NCIT:C64783",
                      "label" : "Gram per Deciliter"
                   },
-                  "value" : 16.4
+                  "value" : 16.1
                }
             }
          },
@@ -2986,7 +1514,7 @@
                      "id" : "NCIT:C67242",
                      "label" : "Cells per Microliter"
                   },
-                  "value" : 6
+                  "value" : 4.2
                }
             }
          },
@@ -3009,7 +1537,7 @@
                      "id" : "NCIT:C67242",
                      "label" : "Cells per Microliter"
                   },
-                  "value" : 339
+                  "value" : 216
                }
             }
          },
@@ -3032,7 +1560,7 @@
                      "id" : "NCIT:C49671",
                      "label" : "Kilogram per Square Meter"
                   },
-                  "value" : 20.3
+                  "value" : 26.2
                }
             }
          }
@@ -3041,10 +1569,44 @@
          {
             "treatment" : {
                "agent" : {
-                  "id" : "NCIT:C215",
-                  "label" : "Albuterol"
+                  "id" : "NCIT:C61527",
+                  "label" : "Atorvastatin"
                },
-               "doseIntervals" : [],
+               "doseIntervals" : [
+                  {
+                     "interval" : {
+                        "end" : {
+                           "age" : {
+                              "iso8601duration" : "P999Y"
+                           }
+                        },
+                        "start" : {
+                           "age" : {
+                              "iso8601duration" : "P999Y"
+                           }
+                        }
+                     },
+                     "quantity" : {
+                        "referenceRange" : {
+                           "high" : -1,
+                           "low" : -1,
+                           "unit" : {
+                              "id" : "NCIT:NA0000",
+                              "label" : "NA"
+                           }
+                        },
+                        "unit" : {
+                           "id" : "NCIT:C28253",
+                           "label" : "Milligram"
+                        },
+                        "value" : 59
+                     },
+                     "scheduleFrequency" : {
+                        "id" : "NCIT:NA0000",
+                        "label" : "NA"
+                     }
+                  }
+               ],
                "routeOfAdministration" : {
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
@@ -3057,20 +1619,20 @@
          {
             "excluded" : false,
             "type" : {
-               "id" : "HP:0001376",
-               "label" : "Limitation of joint mobility"
+               "id" : "HP:0001654",
+               "label" : "Abnormal heart valve morphology"
             }
          },
          {
             "excluded" : false,
             "type" : {
-               "id" : "HP:0002097",
-               "label" : "Emphysema"
+               "id" : "HP:0001376",
+               "label" : "Limitation of joint mobility"
             }
          }
       ],
       "subject" : {
-         "id" : "P009:Treatment",
+         "id" : "P004:Treatment",
          "sex" : "MALE",
          "vitalStatus" : {
             "status" : "ALIVE"
@@ -3086,8 +1648,8 @@
                }
             },
             "term" : {
-               "id" : "NCIT:C28397",
-               "label" : "Asthma"
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
             }
          },
          {
@@ -3097,8 +1659,8 @@
                }
             },
             "term" : {
-               "id" : "NCIT:C2985",
-               "label" : "Diabetes Mellitus"
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
             }
          },
          {
@@ -3134,178 +1696,7 @@
                      "id" : "NCIT:C64783",
                      "label" : "Gram per Deciliter"
                   },
-                  "value" : 13.4
-               }
-            }
-         },
-         {
-            "assay" : {
-               "id" : "NCIT:C12529",
-               "label" : "Leukocyte"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 11,
-                     "low" : 4,
-                     "unit" : {
-                        "id" : "NCIT:C67242",
-                        "label" : "Cells per Microliter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C67242",
-                     "label" : "Cells per Microliter"
-                  },
-                  "value" : 6.1
-               }
-            }
-         },
-         {
-            "assay" : {
-               "id" : "NCIT:C51951",
-               "label" : "Platelet Count"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 450,
-                     "low" : 150,
-                     "unit" : {
-                        "id" : "NCIT:C67242",
-                        "label" : "Cells per Microliter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C67242",
-                     "label" : "Cells per Microliter"
-                  },
-                  "value" : 339
-               }
-            }
-         },
-         {
-            "assay" : {
-               "id" : "NCIT:C16358",
-               "label" : "Body Mass Index"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 24.9,
-                     "low" : 18.5,
-                     "unit" : {
-                        "id" : "NCIT:C49671",
-                        "label" : "Kilogram per Square Meter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C49671",
-                     "label" : "Kilogram per Square Meter"
-                  },
-                  "value" : 27.9
-               }
-            }
-         }
-      ],
-      "medicalActions" : [
-         {
-            "treatment" : {
-               "agent" : {
-                  "id" : "NCIT:C215",
-                  "label" : "Albuterol"
-               },
-               "doseIntervals" : [],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         }
-      ],
-      "metaData" : null,
-      "phenotypicFeatures" : [
-         {
-            "excluded" : false,
-            "type" : {
-               "id" : "HP:0002097",
-               "label" : "Emphysema"
-            }
-         },
-         {
-            "excluded" : false,
-            "type" : {
-               "id" : "HP:0001376",
-               "label" : "Limitation of joint mobility"
-            }
-         }
-      ],
-      "subject" : {
-         "id" : "P010:Baseline",
-         "sex" : "MALE",
-         "vitalStatus" : {
-            "status" : "ALIVE"
-         }
-      }
-   },
-   {
-      "diseases" : [
-         {
-            "onset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "term" : {
-               "id" : "NCIT:C28397",
-               "label" : "Asthma"
-            }
-         },
-         {
-            "onset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "term" : {
-               "id" : "NCIT:C2985",
-               "label" : "Diabetes Mellitus"
-            }
-         },
-         {
-            "onset" : {
-               "age" : {
-                  "iso8601duration" : "P999Y"
-               }
-            },
-            "term" : {
-               "id" : "NCIT:C3117",
-               "label" : "Hypertension"
-            }
-         }
-      ],
-      "id" : null,
-      "measurements" : [
-         {
-            "assay" : {
-               "id" : "NCIT:C64848",
-               "label" : "Hemoglobin Measurement"
-            },
-            "value" : {
-               "quantity" : {
-                  "referenceRange" : {
-                     "high" : 17.2,
-                     "low" : 12.1,
-                     "unit" : {
-                        "id" : "NCIT:C64783",
-                        "label" : "Gram per Deciliter"
-                     }
-                  },
-                  "unit" : {
-                     "id" : "NCIT:C64783",
-                     "label" : "Gram per Deciliter"
-                  },
-                  "value" : 14.5
+                  "value" : 14.7
                }
             }
          },
@@ -3351,7 +1742,7 @@
                      "id" : "NCIT:C67242",
                      "label" : "Cells per Microliter"
                   },
-                  "value" : 355
+                  "value" : 389
                }
             }
          },
@@ -3374,7 +1765,7 @@
                      "id" : "NCIT:C49671",
                      "label" : "Kilogram per Square Meter"
                   },
-                  "value" : 27.9
+                  "value" : 29.1
                }
             }
          }
@@ -3386,7 +1777,1271 @@
                   "id" : "NCIT:C215",
                   "label" : "Albuterol"
                },
-               "doseIntervals" : [],
+               "doseIntervals" : [
+                  {
+                     "interval" : {
+                        "end" : {
+                           "age" : {
+                              "iso8601duration" : "P999Y"
+                           }
+                        },
+                        "start" : {
+                           "age" : {
+                              "iso8601duration" : "P999Y"
+                           }
+                        }
+                     },
+                     "quantity" : {
+                        "referenceRange" : {
+                           "high" : -1,
+                           "low" : -1,
+                           "unit" : {
+                              "id" : "NCIT:NA0000",
+                              "label" : "NA"
+                           }
+                        },
+                        "unit" : {
+                           "id" : "NCIT:C28253",
+                           "label" : "Milligram"
+                        },
+                        "value" : 59
+                     },
+                     "scheduleFrequency" : {
+                        "id" : "NCIT:NA0000",
+                        "label" : "NA"
+                     }
+                  }
+               ],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0001376",
+               "label" : "Limitation of joint mobility"
+            }
+         },
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0001654",
+               "label" : "Abnormal heart valve morphology"
+            }
+         }
+      ],
+      "subject" : {
+         "id" : "P005:Baseline",
+         "sex" : "MALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "onset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "term" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            }
+         },
+         {
+            "onset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "term" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            }
+         },
+         {
+            "onset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "term" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            }
+         }
+      ],
+      "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 17.2,
+                     "low" : 12.1,
+                     "unit" : {
+                        "id" : "NCIT:C64783",
+                        "label" : "Gram per Deciliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64783",
+                     "label" : "Gram per Deciliter"
+                  },
+                  "value" : 11.2
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C12529",
+               "label" : "Leukocyte"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 11,
+                     "low" : 4,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 10.8
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 450,
+                     "low" : 150,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 162
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C16358",
+               "label" : "Body Mass Index"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 24.9,
+                     "low" : 18.5,
+                     "unit" : {
+                        "id" : "NCIT:C49671",
+                        "label" : "Kilogram per Square Meter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 29.1
+               }
+            }
+         }
+      ],
+      "medicalActions" : [
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C215",
+                  "label" : "Albuterol"
+               },
+               "doseIntervals" : [
+                  {
+                     "interval" : {
+                        "end" : {
+                           "age" : {
+                              "iso8601duration" : "P999Y"
+                           }
+                        },
+                        "start" : {
+                           "age" : {
+                              "iso8601duration" : "P999Y"
+                           }
+                        }
+                     },
+                     "quantity" : {
+                        "referenceRange" : {
+                           "high" : -1,
+                           "low" : -1,
+                           "unit" : {
+                              "id" : "NCIT:NA0000",
+                              "label" : "NA"
+                           }
+                        },
+                        "unit" : {
+                           "id" : "NCIT:C28253",
+                           "label" : "Milligram"
+                        },
+                        "value" : 59
+                     },
+                     "scheduleFrequency" : {
+                        "id" : "NCIT:NA0000",
+                        "label" : "NA"
+                     }
+                  }
+               ],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0001376",
+               "label" : "Limitation of joint mobility"
+            }
+         },
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0001654",
+               "label" : "Abnormal heart valve morphology"
+            }
+         }
+      ],
+      "subject" : {
+         "id" : "P005:Treatment",
+         "sex" : "MALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "onset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "term" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            }
+         },
+         {
+            "onset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "term" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            }
+         },
+         {
+            "onset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "term" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            }
+         }
+      ],
+      "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 17.2,
+                     "low" : 12.1,
+                     "unit" : {
+                        "id" : "NCIT:C64783",
+                        "label" : "Gram per Deciliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64783",
+                     "label" : "Gram per Deciliter"
+                  },
+                  "value" : 11.4
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C12529",
+               "label" : "Leukocyte"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 11,
+                     "low" : 4,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 6.7
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 450,
+                     "low" : 150,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 226
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C16358",
+               "label" : "Body Mass Index"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 24.9,
+                     "low" : 18.5,
+                     "unit" : {
+                        "id" : "NCIT:C49671",
+                        "label" : "Kilogram per Square Meter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 28.8
+               }
+            }
+         }
+      ],
+      "medicalActions" : [
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C215",
+                  "label" : "Albuterol"
+               },
+               "doseIntervals" : [
+                  {
+                     "interval" : {
+                        "end" : {
+                           "age" : {
+                              "iso8601duration" : "P999Y"
+                           }
+                        },
+                        "start" : {
+                           "age" : {
+                              "iso8601duration" : "P999Y"
+                           }
+                        }
+                     },
+                     "quantity" : {
+                        "referenceRange" : {
+                           "high" : -1,
+                           "low" : -1,
+                           "unit" : {
+                              "id" : "NCIT:NA0000",
+                              "label" : "NA"
+                           }
+                        },
+                        "unit" : {
+                           "id" : "NCIT:C28253",
+                           "label" : "Milligram"
+                        },
+                        "value" : 59
+                     },
+                     "scheduleFrequency" : {
+                        "id" : "NCIT:NA0000",
+                        "label" : "NA"
+                     }
+                  }
+               ],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0002097",
+               "label" : "Emphysema"
+            }
+         },
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0001654",
+               "label" : "Abnormal heart valve morphology"
+            }
+         }
+      ],
+      "subject" : {
+         "id" : "P006:Baseline",
+         "sex" : "MALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "onset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "term" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            }
+         },
+         {
+            "onset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "term" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            }
+         },
+         {
+            "onset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "term" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            }
+         }
+      ],
+      "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 17.2,
+                     "low" : 12.1,
+                     "unit" : {
+                        "id" : "NCIT:C64783",
+                        "label" : "Gram per Deciliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64783",
+                     "label" : "Gram per Deciliter"
+                  },
+                  "value" : 16.3
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C12529",
+               "label" : "Leukocyte"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 11,
+                     "low" : 4,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 4.9
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 450,
+                     "low" : 150,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 192
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C16358",
+               "label" : "Body Mass Index"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 24.9,
+                     "low" : 18.5,
+                     "unit" : {
+                        "id" : "NCIT:C49671",
+                        "label" : "Kilogram per Square Meter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 28.8
+               }
+            }
+         }
+      ],
+      "medicalActions" : [
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C215",
+                  "label" : "Albuterol"
+               },
+               "doseIntervals" : [
+                  {
+                     "interval" : {
+                        "end" : {
+                           "age" : {
+                              "iso8601duration" : "P999Y"
+                           }
+                        },
+                        "start" : {
+                           "age" : {
+                              "iso8601duration" : "P999Y"
+                           }
+                        }
+                     },
+                     "quantity" : {
+                        "referenceRange" : {
+                           "high" : -1,
+                           "low" : -1,
+                           "unit" : {
+                              "id" : "NCIT:NA0000",
+                              "label" : "NA"
+                           }
+                        },
+                        "unit" : {
+                           "id" : "NCIT:C28253",
+                           "label" : "Milligram"
+                        },
+                        "value" : 59
+                     },
+                     "scheduleFrequency" : {
+                        "id" : "NCIT:NA0000",
+                        "label" : "NA"
+                     }
+                  }
+               ],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0002097",
+               "label" : "Emphysema"
+            }
+         },
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0001654",
+               "label" : "Abnormal heart valve morphology"
+            }
+         }
+      ],
+      "subject" : {
+         "id" : "P006:Treatment",
+         "sex" : "MALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "onset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "term" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            }
+         },
+         {
+            "onset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "term" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            }
+         },
+         {
+            "onset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "term" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            }
+         }
+      ],
+      "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 17.2,
+                     "low" : 12.1,
+                     "unit" : {
+                        "id" : "NCIT:C64783",
+                        "label" : "Gram per Deciliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64783",
+                     "label" : "Gram per Deciliter"
+                  },
+                  "value" : 11.3
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C12529",
+               "label" : "Leukocyte"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 11,
+                     "low" : 4,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 5.4
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 450,
+                     "low" : 150,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 248
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C16358",
+               "label" : "Body Mass Index"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 24.9,
+                     "low" : 18.5,
+                     "unit" : {
+                        "id" : "NCIT:C49671",
+                        "label" : "Kilogram per Square Meter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 21.4
+               }
+            }
+         }
+      ],
+      "medicalActions" : [
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C61612",
+                  "label" : "Metformin"
+               },
+               "doseIntervals" : [
+                  {
+                     "interval" : {
+                        "end" : {
+                           "age" : {
+                              "iso8601duration" : "P999Y"
+                           }
+                        },
+                        "start" : {
+                           "age" : {
+                              "iso8601duration" : "P999Y"
+                           }
+                        }
+                     },
+                     "quantity" : {
+                        "referenceRange" : {
+                           "high" : -1,
+                           "low" : -1,
+                           "unit" : {
+                              "id" : "NCIT:NA0000",
+                              "label" : "NA"
+                           }
+                        },
+                        "unit" : {
+                           "id" : "NCIT:C28253",
+                           "label" : "Milligram"
+                        },
+                        "value" : 59
+                     },
+                     "scheduleFrequency" : {
+                        "id" : "NCIT:NA0000",
+                        "label" : "NA"
+                     }
+                  }
+               ],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0001376",
+               "label" : "Limitation of joint mobility"
+            }
+         },
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0002097",
+               "label" : "Emphysema"
+            }
+         }
+      ],
+      "subject" : {
+         "id" : "P007:Baseline",
+         "sex" : "FEMALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "onset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "term" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            }
+         },
+         {
+            "onset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "term" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            }
+         },
+         {
+            "onset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "term" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            }
+         }
+      ],
+      "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 17.2,
+                     "low" : 12.1,
+                     "unit" : {
+                        "id" : "NCIT:C64783",
+                        "label" : "Gram per Deciliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64783",
+                     "label" : "Gram per Deciliter"
+                  },
+                  "value" : 13.7
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C12529",
+               "label" : "Leukocyte"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 11,
+                     "low" : 4,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 4.4
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 450,
+                     "low" : 150,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 342
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C16358",
+               "label" : "Body Mass Index"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 24.9,
+                     "low" : 18.5,
+                     "unit" : {
+                        "id" : "NCIT:C49671",
+                        "label" : "Kilogram per Square Meter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 21.4
+               }
+            }
+         }
+      ],
+      "medicalActions" : [
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C61612",
+                  "label" : "Metformin"
+               },
+               "doseIntervals" : [
+                  {
+                     "interval" : {
+                        "end" : {
+                           "age" : {
+                              "iso8601duration" : "P999Y"
+                           }
+                        },
+                        "start" : {
+                           "age" : {
+                              "iso8601duration" : "P999Y"
+                           }
+                        }
+                     },
+                     "quantity" : {
+                        "referenceRange" : {
+                           "high" : -1,
+                           "low" : -1,
+                           "unit" : {
+                              "id" : "NCIT:NA0000",
+                              "label" : "NA"
+                           }
+                        },
+                        "unit" : {
+                           "id" : "NCIT:C28253",
+                           "label" : "Milligram"
+                        },
+                        "value" : 59
+                     },
+                     "scheduleFrequency" : {
+                        "id" : "NCIT:NA0000",
+                        "label" : "NA"
+                     }
+                  }
+               ],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0001376",
+               "label" : "Limitation of joint mobility"
+            }
+         },
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0002097",
+               "label" : "Emphysema"
+            }
+         }
+      ],
+      "subject" : {
+         "id" : "P007:Treatment",
+         "sex" : "FEMALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "onset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "term" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            }
+         },
+         {
+            "onset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "term" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            }
+         },
+         {
+            "onset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "term" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            }
+         }
+      ],
+      "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 17.2,
+                     "low" : 12.1,
+                     "unit" : {
+                        "id" : "NCIT:C64783",
+                        "label" : "Gram per Deciliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64783",
+                     "label" : "Gram per Deciliter"
+                  },
+                  "value" : 13.3
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C12529",
+               "label" : "Leukocyte"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 11,
+                     "low" : 4,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 9.6
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 450,
+                     "low" : 150,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 270
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C16358",
+               "label" : "Body Mass Index"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 24.9,
+                     "low" : 18.5,
+                     "unit" : {
+                        "id" : "NCIT:C49671",
+                        "label" : "Kilogram per Square Meter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 20.9
+               }
+            }
+         }
+      ],
+      "medicalActions" : [
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C29159",
+                  "label" : "Lisinopril"
+               },
+               "doseIntervals" : [
+                  {
+                     "interval" : {
+                        "end" : {
+                           "age" : {
+                              "iso8601duration" : "P999Y"
+                           }
+                        },
+                        "start" : {
+                           "age" : {
+                              "iso8601duration" : "P999Y"
+                           }
+                        }
+                     },
+                     "quantity" : {
+                        "referenceRange" : {
+                           "high" : -1,
+                           "low" : -1,
+                           "unit" : {
+                              "id" : "NCIT:NA0000",
+                              "label" : "NA"
+                           }
+                        },
+                        "unit" : {
+                           "id" : "NCIT:C28253",
+                           "label" : "Milligram"
+                        },
+                        "value" : 59
+                     },
+                     "scheduleFrequency" : {
+                        "id" : "NCIT:NA0000",
+                        "label" : "NA"
+                     }
+                  }
+               ],
                "routeOfAdministration" : {
                   "id" : "NCIT:C38288",
                   "label" : "Oral Route of Administration"
@@ -3408,6 +3063,1031 @@
             "type" : {
                "id" : "HP:0001376",
                "label" : "Limitation of joint mobility"
+            }
+         }
+      ],
+      "subject" : {
+         "id" : "P008:Baseline",
+         "sex" : "FEMALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "onset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "term" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            }
+         },
+         {
+            "onset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "term" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            }
+         },
+         {
+            "onset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "term" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            }
+         }
+      ],
+      "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 17.2,
+                     "low" : 12.1,
+                     "unit" : {
+                        "id" : "NCIT:C64783",
+                        "label" : "Gram per Deciliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64783",
+                     "label" : "Gram per Deciliter"
+                  },
+                  "value" : 13.8
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C12529",
+               "label" : "Leukocyte"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 11,
+                     "low" : 4,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 4.6
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 450,
+                     "low" : 150,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 341
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C16358",
+               "label" : "Body Mass Index"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 24.9,
+                     "low" : 18.5,
+                     "unit" : {
+                        "id" : "NCIT:C49671",
+                        "label" : "Kilogram per Square Meter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 20.9
+               }
+            }
+         }
+      ],
+      "medicalActions" : [
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C29159",
+                  "label" : "Lisinopril"
+               },
+               "doseIntervals" : [
+                  {
+                     "interval" : {
+                        "end" : {
+                           "age" : {
+                              "iso8601duration" : "P999Y"
+                           }
+                        },
+                        "start" : {
+                           "age" : {
+                              "iso8601duration" : "P999Y"
+                           }
+                        }
+                     },
+                     "quantity" : {
+                        "referenceRange" : {
+                           "high" : -1,
+                           "low" : -1,
+                           "unit" : {
+                              "id" : "NCIT:NA0000",
+                              "label" : "NA"
+                           }
+                        },
+                        "unit" : {
+                           "id" : "NCIT:C28253",
+                           "label" : "Milligram"
+                        },
+                        "value" : 59
+                     },
+                     "scheduleFrequency" : {
+                        "id" : "NCIT:NA0000",
+                        "label" : "NA"
+                     }
+                  }
+               ],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0002097",
+               "label" : "Emphysema"
+            }
+         },
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0001376",
+               "label" : "Limitation of joint mobility"
+            }
+         }
+      ],
+      "subject" : {
+         "id" : "P008:Treatment",
+         "sex" : "FEMALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "onset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "term" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            }
+         },
+         {
+            "onset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "term" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            }
+         },
+         {
+            "onset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "term" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            }
+         }
+      ],
+      "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 17.2,
+                     "low" : 12.1,
+                     "unit" : {
+                        "id" : "NCIT:C64783",
+                        "label" : "Gram per Deciliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64783",
+                     "label" : "Gram per Deciliter"
+                  },
+                  "value" : 12.5
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C12529",
+               "label" : "Leukocyte"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 11,
+                     "low" : 4,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 4.8
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 450,
+                     "low" : 150,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 155
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C16358",
+               "label" : "Body Mass Index"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 24.9,
+                     "low" : 18.5,
+                     "unit" : {
+                        "id" : "NCIT:C49671",
+                        "label" : "Kilogram per Square Meter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 22.2
+               }
+            }
+         }
+      ],
+      "medicalActions" : [
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C215",
+                  "label" : "Albuterol"
+               },
+               "doseIntervals" : [
+                  {
+                     "interval" : {
+                        "end" : {
+                           "age" : {
+                              "iso8601duration" : "P999Y"
+                           }
+                        },
+                        "start" : {
+                           "age" : {
+                              "iso8601duration" : "P999Y"
+                           }
+                        }
+                     },
+                     "quantity" : {
+                        "referenceRange" : {
+                           "high" : -1,
+                           "low" : -1,
+                           "unit" : {
+                              "id" : "NCIT:NA0000",
+                              "label" : "NA"
+                           }
+                        },
+                        "unit" : {
+                           "id" : "NCIT:C28253",
+                           "label" : "Milligram"
+                        },
+                        "value" : 59
+                     },
+                     "scheduleFrequency" : {
+                        "id" : "NCIT:NA0000",
+                        "label" : "NA"
+                     }
+                  }
+               ],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0002097",
+               "label" : "Emphysema"
+            }
+         },
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0001654",
+               "label" : "Abnormal heart valve morphology"
+            }
+         }
+      ],
+      "subject" : {
+         "id" : "P009:Baseline",
+         "sex" : "MALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "onset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "term" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            }
+         },
+         {
+            "onset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "term" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            }
+         },
+         {
+            "onset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "term" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            }
+         }
+      ],
+      "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 17.2,
+                     "low" : 12.1,
+                     "unit" : {
+                        "id" : "NCIT:C64783",
+                        "label" : "Gram per Deciliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64783",
+                     "label" : "Gram per Deciliter"
+                  },
+                  "value" : 11.6
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C12529",
+               "label" : "Leukocyte"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 11,
+                     "low" : 4,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 8.3
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 450,
+                     "low" : 150,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 265
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C16358",
+               "label" : "Body Mass Index"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 24.9,
+                     "low" : 18.5,
+                     "unit" : {
+                        "id" : "NCIT:C49671",
+                        "label" : "Kilogram per Square Meter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 22.2
+               }
+            }
+         }
+      ],
+      "medicalActions" : [
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C215",
+                  "label" : "Albuterol"
+               },
+               "doseIntervals" : [
+                  {
+                     "interval" : {
+                        "end" : {
+                           "age" : {
+                              "iso8601duration" : "P999Y"
+                           }
+                        },
+                        "start" : {
+                           "age" : {
+                              "iso8601duration" : "P999Y"
+                           }
+                        }
+                     },
+                     "quantity" : {
+                        "referenceRange" : {
+                           "high" : -1,
+                           "low" : -1,
+                           "unit" : {
+                              "id" : "NCIT:NA0000",
+                              "label" : "NA"
+                           }
+                        },
+                        "unit" : {
+                           "id" : "NCIT:C28253",
+                           "label" : "Milligram"
+                        },
+                        "value" : 59
+                     },
+                     "scheduleFrequency" : {
+                        "id" : "NCIT:NA0000",
+                        "label" : "NA"
+                     }
+                  }
+               ],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0002097",
+               "label" : "Emphysema"
+            }
+         },
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0001654",
+               "label" : "Abnormal heart valve morphology"
+            }
+         }
+      ],
+      "subject" : {
+         "id" : "P009:Treatment",
+         "sex" : "MALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "onset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "term" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            }
+         },
+         {
+            "onset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "term" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            }
+         },
+         {
+            "onset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "term" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            }
+         }
+      ],
+      "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 17.2,
+                     "low" : 12.1,
+                     "unit" : {
+                        "id" : "NCIT:C64783",
+                        "label" : "Gram per Deciliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64783",
+                     "label" : "Gram per Deciliter"
+                  },
+                  "value" : 11.9
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C12529",
+               "label" : "Leukocyte"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 11,
+                     "low" : 4,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 5.7
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 450,
+                     "low" : 150,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 155
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C16358",
+               "label" : "Body Mass Index"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 24.9,
+                     "low" : 18.5,
+                     "unit" : {
+                        "id" : "NCIT:C49671",
+                        "label" : "Kilogram per Square Meter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 27.2
+               }
+            }
+         }
+      ],
+      "medicalActions" : [
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C29159",
+                  "label" : "Lisinopril"
+               },
+               "doseIntervals" : [
+                  {
+                     "interval" : {
+                        "end" : {
+                           "age" : {
+                              "iso8601duration" : "P999Y"
+                           }
+                        },
+                        "start" : {
+                           "age" : {
+                              "iso8601duration" : "P999Y"
+                           }
+                        }
+                     },
+                     "quantity" : {
+                        "referenceRange" : {
+                           "high" : -1,
+                           "low" : -1,
+                           "unit" : {
+                              "id" : "NCIT:NA0000",
+                              "label" : "NA"
+                           }
+                        },
+                        "unit" : {
+                           "id" : "NCIT:C28253",
+                           "label" : "Milligram"
+                        },
+                        "value" : 59
+                     },
+                     "scheduleFrequency" : {
+                        "id" : "NCIT:NA0000",
+                        "label" : "NA"
+                     }
+                  }
+               ],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0001376",
+               "label" : "Limitation of joint mobility"
+            }
+         },
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0001654",
+               "label" : "Abnormal heart valve morphology"
+            }
+         }
+      ],
+      "subject" : {
+         "id" : "P010:Baseline",
+         "sex" : "MALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "onset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "term" : {
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
+            }
+         },
+         {
+            "onset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "term" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            }
+         },
+         {
+            "onset" : {
+               "age" : {
+                  "iso8601duration" : "P999Y"
+               }
+            },
+            "term" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            }
+         }
+      ],
+      "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 17.2,
+                     "low" : 12.1,
+                     "unit" : {
+                        "id" : "NCIT:C64783",
+                        "label" : "Gram per Deciliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C64783",
+                     "label" : "Gram per Deciliter"
+                  },
+                  "value" : 12.5
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C12529",
+               "label" : "Leukocyte"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 11,
+                     "low" : 4,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 10.3
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 450,
+                     "low" : 150,
+                     "unit" : {
+                        "id" : "NCIT:C67242",
+                        "label" : "Cells per Microliter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C67242",
+                     "label" : "Cells per Microliter"
+                  },
+                  "value" : 215
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "NCIT:C16358",
+               "label" : "Body Mass Index"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 24.9,
+                     "low" : 18.5,
+                     "unit" : {
+                        "id" : "NCIT:C49671",
+                        "label" : "Kilogram per Square Meter"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "NCIT:C49671",
+                     "label" : "Kilogram per Square Meter"
+                  },
+                  "value" : 27.2
+               }
+            }
+         }
+      ],
+      "medicalActions" : [
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "NCIT:C29159",
+                  "label" : "Lisinopril"
+               },
+               "doseIntervals" : [
+                  {
+                     "interval" : {
+                        "end" : {
+                           "age" : {
+                              "iso8601duration" : "P999Y"
+                           }
+                        },
+                        "start" : {
+                           "age" : {
+                              "iso8601duration" : "P999Y"
+                           }
+                        }
+                     },
+                     "quantity" : {
+                        "referenceRange" : {
+                           "high" : -1,
+                           "low" : -1,
+                           "unit" : {
+                              "id" : "NCIT:NA0000",
+                              "label" : "NA"
+                           }
+                        },
+                        "unit" : {
+                           "id" : "NCIT:C28253",
+                           "label" : "Milligram"
+                        },
+                        "value" : 59
+                     },
+                     "scheduleFrequency" : {
+                        "id" : "NCIT:NA0000",
+                        "label" : "NA"
+                     }
+                  }
+               ],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0001376",
+               "label" : "Limitation of joint mobility"
+            }
+         },
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0001654",
+               "label" : "Abnormal heart valve morphology"
             }
          }
       ],

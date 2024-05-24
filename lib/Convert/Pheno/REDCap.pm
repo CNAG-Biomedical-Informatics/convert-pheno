@@ -259,8 +259,8 @@ sub remap_mapping_hash_term {
       ? $mapping_file_data->{$term}{ontology}
       : $mapping_file_data->{project}{ontology};
 
-    $hash_out{routesOfAdministration} =
-      $mapping_file_data->{$term}{routesOfAdministration}
+    $hash_out{routeOfAdministration} =
+      $mapping_file_data->{$term}{routeOfAdministration}
       if $term eq 'treatments';
 
     return \%hash_out;
@@ -1022,7 +1022,7 @@ sub map_treatments {
             push @{ $treatment->{doseIntervals} }, $dose_interval;
         }
 
-        # Define routes
+        # Define routes (note that we use $participant->{$field} instead of $field)
         my $route =
           exists $term_mapping_cursor->{routeOfAdministration}
           { $participant->{$field} }

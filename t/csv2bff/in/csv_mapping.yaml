@@ -98,8 +98,13 @@ sex:
 treatments:
   fields: [DrugName]
   drugDose:
-    Albuterol: DrugDose (mg)
-    Lisinopril: DrugDose (mg)
+    DrugName: DrugDose (mg)
+  drugUnit:
+    DrugName: Milligram
+  duration:
+    DrugName: TreatmentDuration (weeks)
+  durationUnit:
+    DrugName: Week
   routeOfAdministration: 
     Albuterol: oral
     Lisinopril: oral
