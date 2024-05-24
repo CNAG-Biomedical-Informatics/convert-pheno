@@ -7,6 +7,7 @@ project:
   source: csv
   ontology: ncit
   version: test-0.1
+  description: Mapping file for a CSV with generic clinical data
   baselineFieldsToPropagate: [Sex,Ethnicity,TobaccoUse,AgeAtTobaccoExposure,AlcoholUse,AgeAtAlcoholExposure,Disease_1,Disease_2,Disease_3,PhenotypicFeature_1,PhenotypicFeature_2]
 
 #################################

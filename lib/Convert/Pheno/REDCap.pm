@@ -3,13 +3,13 @@ package Convert::Pheno::REDCap;
 use strict;
 use warnings;
 use autodie;
-use feature qw(say);
-use List::Util qw(any);
+use feature                 qw(say);
+use List::Util              qw(any);
 use Convert::Pheno::Default qw(get_defaults);
 use Convert::Pheno::Mapping;
 use Data::Dumper;
 use Scalar::Util qw(looks_like_number);
-use Hash::Util qw(lock_keys);
+use Hash::Util   qw(lock_keys);
 use Exporter 'import';
 
 # Symbols to export by default
@@ -585,10 +585,11 @@ sub map_info {
         $individual->{info}{convertPheno} = $self->{convertPheno};
     }
 
-    # Add version (from mapping file)
-    $individual->{info}{version} = $data_mapping_file->{project}{version};
+    # Add project properties from mapping file
+    $individual->{info}{project}{$_} = $data_mapping_file->{project}{$_}
+      for (qw/id source ontology version description/);
 
-    # We finally add all origonal columns
+    # We finally add all original columns
     # NB: _ori are values before adding _labels
     my $output  = $source eq 'redcap' ? 'REDCap' : 'CSV';
     my $tmp_str = $output . '_columns';

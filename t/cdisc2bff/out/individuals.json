@@ -708,9 +708,15 @@
                "value" : 107
             }
          },
+         "project" : {
+            "description" : "Mapping file for a REDCap project exported as raw data",
+            "id" : "3tr_ibd",
+            "ontology" : "ncit",
+            "source" : "redcap",
+            "version" : "3TR-dev-0.1"
+         },
          "redcap_event_name" : "week_0_arm_1",
-         "study_id" : "107",
-         "version" : "3TR-dev-0.1"
+         "study_id" : "107"
       },
       "interventionsOrProcedures" : [
          {
@@ -2254,9 +2260,15 @@
                "value" : 107
             }
          },
+         "project" : {
+            "description" : "Mapping file for a REDCap project exported as raw data",
+            "id" : "3tr_ibd",
+            "ontology" : "ncit",
+            "source" : "redcap",
+            "version" : "3TR-dev-0.1"
+         },
          "redcap_event_name" : "week_2_arm_1",
-         "study_id" : "107",
-         "version" : "3TR-dev-0.1"
+         "study_id" : "107"
       },
       "interventionsOrProcedures" : [
          {
@@ -3794,9 +3806,15 @@
                "value" : 107
             }
          },
+         "project" : {
+            "description" : "Mapping file for a REDCap project exported as raw data",
+            "id" : "3tr_ibd",
+            "ontology" : "ncit",
+            "source" : "redcap",
+            "version" : "3TR-dev-0.1"
+         },
          "redcap_event_name" : "week_14_arm_1",
-         "study_id" : "107",
-         "version" : "3TR-dev-0.1"
+         "study_id" : "107"
       },
       "interventionsOrProcedures" : [
          {
@@ -5381,9 +5399,15 @@
                "value" : 125
             }
          },
+         "project" : {
+            "description" : "Mapping file for a REDCap project exported as raw data",
+            "id" : "3tr_ibd",
+            "ontology" : "ncit",
+            "source" : "redcap",
+            "version" : "3TR-dev-0.1"
+         },
          "redcap_event_name" : "week_0_arm_1",
-         "study_id" : "125",
-         "version" : "3TR-dev-0.1"
+         "study_id" : "125"
       },
       "interventionsOrProcedures" : [
          {
@@ -6802,9 +6826,15 @@
                "value" : 125
             }
          },
+         "project" : {
+            "description" : "Mapping file for a REDCap project exported as raw data",
+            "id" : "3tr_ibd",
+            "ontology" : "ncit",
+            "source" : "redcap",
+            "version" : "3TR-dev-0.1"
+         },
          "redcap_event_name" : "week_2_arm_1",
-         "study_id" : "125",
-         "version" : "3TR-dev-0.1"
+         "study_id" : "125"
       },
       "interventionsOrProcedures" : [
          {
@@ -8234,9 +8264,15 @@
                "value" : 125
             }
          },
+         "project" : {
+            "description" : "Mapping file for a REDCap project exported as raw data",
+            "id" : "3tr_ibd",
+            "ontology" : "ncit",
+            "source" : "redcap",
+            "version" : "3TR-dev-0.1"
+         },
          "redcap_event_name" : "week_14_arm_1",
-         "study_id" : "125",
-         "version" : "3TR-dev-0.1"
+         "study_id" : "125"
       },
       "interventionsOrProcedures" : [
          {
@@ -9655,9 +9691,15 @@
                "value" : 125
             }
          },
+         "project" : {
+            "description" : "Mapping file for a REDCap project exported as raw data",
+            "id" : "3tr_ibd",
+            "ontology" : "ncit",
+            "source" : "redcap",
+            "version" : "3TR-dev-0.1"
+         },
          "redcap_event_name" : "week_26_arm_1",
-         "study_id" : "125",
-         "version" : "3TR-dev-0.1"
+         "study_id" : "125"
       },
       "interventionsOrProcedures" : [
          {
@@ -10973,9 +11015,15 @@
                "value" : 125
             }
          },
+         "project" : {
+            "description" : "Mapping file for a REDCap project exported as raw data",
+            "id" : "3tr_ibd",
+            "ontology" : "ncit",
+            "source" : "redcap",
+            "version" : "3TR-dev-0.1"
+         },
          "redcap_event_name" : "week_52_arm_1",
-         "study_id" : "125",
-         "version" : "3TR-dev-0.1"
+         "study_id" : "125"
       },
       "interventionsOrProcedures" : [
          {
@@ -12549,9 +12597,15 @@
                "value" : 125
             }
          },
+         "project" : {
+            "description" : "Mapping file for a REDCap project exported as raw data",
+            "id" : "3tr_ibd",
+            "ontology" : "ncit",
+            "source" : "redcap",
+            "version" : "3TR-dev-0.1"
+         },
          "redcap_event_name" : "week_78_arm_1",
-         "study_id" : "125",
-         "version" : "3TR-dev-0.1"
+         "study_id" : "125"
       },
       "interventionsOrProcedures" : [
          {
@@ -14130,9 +14184,15 @@
                "value" : 215
             }
          },
+         "project" : {
+            "description" : "Mapping file for a REDCap project exported as raw data",
+            "id" : "3tr_ibd",
+            "ontology" : "ncit",
+            "source" : "redcap",
+            "version" : "3TR-dev-0.1"
+         },
          "redcap_event_name" : "week_0_arm_1",
-         "study_id" : "215",
-         "version" : "3TR-dev-0.1"
+         "study_id" : "215"
       },
       "interventionsOrProcedures" : [
          {
@@ -15709,9 +15769,15 @@
                "value" : 215
             }
          },
+         "project" : {
+            "description" : "Mapping file for a REDCap project exported as raw data",
+            "id" : "3tr_ibd",
+            "ontology" : "ncit",
+            "source" : "redcap",
+            "version" : "3TR-dev-0.1"
+         },
          "redcap_event_name" : "week_2_arm_1",
-         "study_id" : "215",
-         "version" : "3TR-dev-0.1"
+         "study_id" : "215"
       },
       "interventionsOrProcedures" : [
          {
@@ -17131,9 +17197,15 @@
                "value" : 215
             }
          },
+         "project" : {
+            "description" : "Mapping file for a REDCap project exported as raw data",
+            "id" : "3tr_ibd",
+            "ontology" : "ncit",
+            "source" : "redcap",
+            "version" : "3TR-dev-0.1"
+         },
          "redcap_event_name" : "week_14_arm_1",
-         "study_id" : "215",
-         "version" : "3TR-dev-0.1"
+         "study_id" : "215"
       },
       "interventionsOrProcedures" : [
          {
@@ -18710,9 +18782,15 @@
                "value" : 215
             }
          },
+         "project" : {
+            "description" : "Mapping file for a REDCap project exported as raw data",
+            "id" : "3tr_ibd",
+            "ontology" : "ncit",
+            "source" : "redcap",
+            "version" : "3TR-dev-0.1"
+         },
          "redcap_event_name" : "week_26_arm_1",
-         "study_id" : "215",
-         "version" : "3TR-dev-0.1"
+         "study_id" : "215"
       },
       "interventionsOrProcedures" : [
          {
@@ -20106,9 +20184,15 @@
                "value" : 215
             }
          },
+         "project" : {
+            "description" : "Mapping file for a REDCap project exported as raw data",
+            "id" : "3tr_ibd",
+            "ontology" : "ncit",
+            "source" : "redcap",
+            "version" : "3TR-dev-0.1"
+         },
          "redcap_event_name" : "week_52_arm_1",
-         "study_id" : "215",
-         "version" : "3TR-dev-0.1"
+         "study_id" : "215"
       },
       "interventionsOrProcedures" : [
          {
@@ -21841,9 +21925,15 @@
                "value" : 215
             }
          },
+         "project" : {
+            "description" : "Mapping file for a REDCap project exported as raw data",
+            "id" : "3tr_ibd",
+            "ontology" : "ncit",
+            "source" : "redcap",
+            "version" : "3TR-dev-0.1"
+         },
          "redcap_event_name" : "week_78_arm_1",
-         "study_id" : "215",
-         "version" : "3TR-dev-0.1"
+         "study_id" : "215"
       },
       "interventionsOrProcedures" : [
          {
@@ -23374,9 +23464,15 @@
                "value" : 257
             }
          },
+         "project" : {
+            "description" : "Mapping file for a REDCap project exported as raw data",
+            "id" : "3tr_ibd",
+            "ontology" : "ncit",
+            "source" : "redcap",
+            "version" : "3TR-dev-0.1"
+         },
          "redcap_event_name" : "week_0_arm_1",
-         "study_id" : "257",
-         "version" : "3TR-dev-0.1"
+         "study_id" : "257"
       },
       "interventionsOrProcedures" : [
          {
@@ -25132,9 +25228,15 @@
                "value" : 257
             }
          },
+         "project" : {
+            "description" : "Mapping file for a REDCap project exported as raw data",
+            "id" : "3tr_ibd",
+            "ontology" : "ncit",
+            "source" : "redcap",
+            "version" : "3TR-dev-0.1"
+         },
          "redcap_event_name" : "week_2_arm_1",
-         "study_id" : "257",
-         "version" : "3TR-dev-0.1"
+         "study_id" : "257"
       },
       "interventionsOrProcedures" : [
          {
@@ -26851,9 +26953,15 @@
                "value" : 257
             }
          },
+         "project" : {
+            "description" : "Mapping file for a REDCap project exported as raw data",
+            "id" : "3tr_ibd",
+            "ontology" : "ncit",
+            "source" : "redcap",
+            "version" : "3TR-dev-0.1"
+         },
          "redcap_event_name" : "week_14_arm_1",
-         "study_id" : "257",
-         "version" : "3TR-dev-0.1"
+         "study_id" : "257"
       },
       "interventionsOrProcedures" : [
          {
@@ -28561,9 +28669,15 @@
                "value" : 257
             }
          },
+         "project" : {
+            "description" : "Mapping file for a REDCap project exported as raw data",
+            "id" : "3tr_ibd",
+            "ontology" : "ncit",
+            "source" : "redcap",
+            "version" : "3TR-dev-0.1"
+         },
          "redcap_event_name" : "week_26_arm_1",
-         "study_id" : "257",
-         "version" : "3TR-dev-0.1"
+         "study_id" : "257"
       },
       "interventionsOrProcedures" : [
          {
@@ -30338,9 +30452,15 @@
                "value" : 275
             }
          },
+         "project" : {
+            "description" : "Mapping file for a REDCap project exported as raw data",
+            "id" : "3tr_ibd",
+            "ontology" : "ncit",
+            "source" : "redcap",
+            "version" : "3TR-dev-0.1"
+         },
          "redcap_event_name" : "week_0_arm_1",
-         "study_id" : "275",
-         "version" : "3TR-dev-0.1"
+         "study_id" : "275"
       },
       "interventionsOrProcedures" : [
          {
@@ -31918,9 +32038,15 @@
                "value" : 275
             }
          },
+         "project" : {
+            "description" : "Mapping file for a REDCap project exported as raw data",
+            "id" : "3tr_ibd",
+            "ontology" : "ncit",
+            "source" : "redcap",
+            "version" : "3TR-dev-0.1"
+         },
          "redcap_event_name" : "week_2_arm_1",
-         "study_id" : "275",
-         "version" : "3TR-dev-0.1"
+         "study_id" : "275"
       },
       "interventionsOrProcedures" : [
          {
@@ -33367,9 +33493,15 @@
                "value" : 275
             }
          },
+         "project" : {
+            "description" : "Mapping file for a REDCap project exported as raw data",
+            "id" : "3tr_ibd",
+            "ontology" : "ncit",
+            "source" : "redcap",
+            "version" : "3TR-dev-0.1"
+         },
          "redcap_event_name" : "week_14_arm_1",
-         "study_id" : "275",
-         "version" : "3TR-dev-0.1"
+         "study_id" : "275"
       },
       "interventionsOrProcedures" : [
          {
@@ -34739,9 +34871,15 @@
                "value" : 275
             }
          },
+         "project" : {
+            "description" : "Mapping file for a REDCap project exported as raw data",
+            "id" : "3tr_ibd",
+            "ontology" : "ncit",
+            "source" : "redcap",
+            "version" : "3TR-dev-0.1"
+         },
          "redcap_event_name" : "week_52_arm_1",
-         "study_id" : "275",
-         "version" : "3TR-dev-0.1"
+         "study_id" : "275"
       },
       "interventionsOrProcedures" : [
          {
@@ -36543,9 +36681,15 @@
                "value" : 305
             }
          },
+         "project" : {
+            "description" : "Mapping file for a REDCap project exported as raw data",
+            "id" : "3tr_ibd",
+            "ontology" : "ncit",
+            "source" : "redcap",
+            "version" : "3TR-dev-0.1"
+         },
          "redcap_event_name" : "week_0_arm_1",
-         "study_id" : "305",
-         "version" : "3TR-dev-0.1"
+         "study_id" : "305"
       },
       "interventionsOrProcedures" : [
          {
@@ -37996,9 +38140,15 @@
                "value" : 305
             }
          },
+         "project" : {
+            "description" : "Mapping file for a REDCap project exported as raw data",
+            "id" : "3tr_ibd",
+            "ontology" : "ncit",
+            "source" : "redcap",
+            "version" : "3TR-dev-0.1"
+         },
          "redcap_event_name" : "week_26_arm_1",
-         "study_id" : "305",
-         "version" : "3TR-dev-0.1"
+         "study_id" : "305"
       },
       "interventionsOrProcedures" : [
          {
@@ -39401,9 +39551,15 @@
                "value" : 305
             }
          },
+         "project" : {
+            "description" : "Mapping file for a REDCap project exported as raw data",
+            "id" : "3tr_ibd",
+            "ontology" : "ncit",
+            "source" : "redcap",
+            "version" : "3TR-dev-0.1"
+         },
          "redcap_event_name" : "week_52_arm_1",
-         "study_id" : "305",
-         "version" : "3TR-dev-0.1"
+         "study_id" : "305"
       },
       "interventionsOrProcedures" : [
          {
@@ -41031,9 +41187,15 @@
                "value" : 365
             }
          },
+         "project" : {
+            "description" : "Mapping file for a REDCap project exported as raw data",
+            "id" : "3tr_ibd",
+            "ontology" : "ncit",
+            "source" : "redcap",
+            "version" : "3TR-dev-0.1"
+         },
          "redcap_event_name" : "week_0_arm_1",
-         "study_id" : "365",
-         "version" : "3TR-dev-0.1"
+         "study_id" : "365"
       },
       "interventionsOrProcedures" : [
          {
@@ -42580,9 +42742,15 @@
                "value" : 365
             }
          },
+         "project" : {
+            "description" : "Mapping file for a REDCap project exported as raw data",
+            "id" : "3tr_ibd",
+            "ontology" : "ncit",
+            "source" : "redcap",
+            "version" : "3TR-dev-0.1"
+         },
          "redcap_event_name" : "week_2_arm_1",
-         "study_id" : "365",
-         "version" : "3TR-dev-0.1"
+         "study_id" : "365"
       },
       "interventionsOrProcedures" : [
          {
@@ -44030,9 +44198,15 @@
                "value" : 365
             }
          },
+         "project" : {
+            "description" : "Mapping file for a REDCap project exported as raw data",
+            "id" : "3tr_ibd",
+            "ontology" : "ncit",
+            "source" : "redcap",
+            "version" : "3TR-dev-0.1"
+         },
          "redcap_event_name" : "week_14_arm_1",
-         "study_id" : "365",
-         "version" : "3TR-dev-0.1"
+         "study_id" : "365"
       },
       "interventionsOrProcedures" : [
          {
@@ -45517,9 +45691,15 @@
                "value" : 365
             }
          },
+         "project" : {
+            "description" : "Mapping file for a REDCap project exported as raw data",
+            "id" : "3tr_ibd",
+            "ontology" : "ncit",
+            "source" : "redcap",
+            "version" : "3TR-dev-0.1"
+         },
          "redcap_event_name" : "week_26_arm_1",
-         "study_id" : "365",
-         "version" : "3TR-dev-0.1"
+         "study_id" : "365"
       },
       "interventionsOrProcedures" : [
          {
@@ -46970,9 +47150,15 @@
                "value" : 365
             }
          },
+         "project" : {
+            "description" : "Mapping file for a REDCap project exported as raw data",
+            "id" : "3tr_ibd",
+            "ontology" : "ncit",
+            "source" : "redcap",
+            "version" : "3TR-dev-0.1"
+         },
          "redcap_event_name" : "week_52_arm_1",
-         "study_id" : "365",
-         "version" : "3TR-dev-0.1"
+         "study_id" : "365"
       },
       "interventionsOrProcedures" : [
          {
@@ -48614,9 +48800,15 @@
                "value" : 527
             }
          },
+         "project" : {
+            "description" : "Mapping file for a REDCap project exported as raw data",
+            "id" : "3tr_ibd",
+            "ontology" : "ncit",
+            "source" : "redcap",
+            "version" : "3TR-dev-0.1"
+         },
          "redcap_event_name" : "week_0_arm_1",
-         "study_id" : "527",
-         "version" : "3TR-dev-0.1"
+         "study_id" : "527"
       },
       "interventionsOrProcedures" : [
          {
@@ -50224,9 +50416,15 @@
                "value" : 527
             }
          },
+         "project" : {
+            "description" : "Mapping file for a REDCap project exported as raw data",
+            "id" : "3tr_ibd",
+            "ontology" : "ncit",
+            "source" : "redcap",
+            "version" : "3TR-dev-0.1"
+         },
          "redcap_event_name" : "week_2_arm_1",
-         "study_id" : "527",
-         "version" : "3TR-dev-0.1"
+         "study_id" : "527"
       },
       "interventionsOrProcedures" : [
          {
@@ -51731,9 +51929,15 @@
                "value" : 527
             }
          },
+         "project" : {
+            "description" : "Mapping file for a REDCap project exported as raw data",
+            "id" : "3tr_ibd",
+            "ontology" : "ncit",
+            "source" : "redcap",
+            "version" : "3TR-dev-0.1"
+         },
          "redcap_event_name" : "week_14_arm_1",
-         "study_id" : "527",
-         "version" : "3TR-dev-0.1"
+         "study_id" : "527"
       },
       "interventionsOrProcedures" : [
          {
@@ -53270,9 +53474,15 @@
                "value" : 527
             }
          },
+         "project" : {
+            "description" : "Mapping file for a REDCap project exported as raw data",
+            "id" : "3tr_ibd",
+            "ontology" : "ncit",
+            "source" : "redcap",
+            "version" : "3TR-dev-0.1"
+         },
          "redcap_event_name" : "week_26_arm_1",
-         "study_id" : "527",
-         "version" : "3TR-dev-0.1"
+         "study_id" : "527"
       },
       "interventionsOrProcedures" : [
          {
@@ -54854,9 +55064,15 @@
                "value" : 527
             }
          },
+         "project" : {
+            "description" : "Mapping file for a REDCap project exported as raw data",
+            "id" : "3tr_ibd",
+            "ontology" : "ncit",
+            "source" : "redcap",
+            "version" : "3TR-dev-0.1"
+         },
          "redcap_event_name" : "week_52_arm_1",
-         "study_id" : "527",
-         "version" : "3TR-dev-0.1"
+         "study_id" : "527"
       },
       "interventionsOrProcedures" : [
          {

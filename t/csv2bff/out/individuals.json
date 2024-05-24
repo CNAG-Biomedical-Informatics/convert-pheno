@@ -108,7 +108,13 @@
             "TreatmentDuration (weeks)" : 62,
             "WBC (10^9/L)" : 5.4
          },
-         "version" : "test-0.1"
+         "project" : {
+            "description" : "Mapping file for a CSV with generic clinical data",
+            "id" : "CSV_src_test",
+            "ontology" : "ncit",
+            "source" : "csv",
+            "version" : "test-0.1"
+         }
       },
       "measures" : [
          {
@@ -429,7 +435,13 @@
             "TreatmentDuration (weeks)" : 62,
             "WBC (10^9/L)" : 8.6
          },
-         "version" : "test-0.1"
+         "project" : {
+            "description" : "Mapping file for a CSV with generic clinical data",
+            "id" : "CSV_src_test",
+            "ontology" : "ncit",
+            "source" : "csv",
+            "version" : "test-0.1"
+         }
       },
       "measures" : [
          {
@@ -729,7 +741,13 @@
             "TreatmentDuration (weeks)" : 25,
             "WBC (10^9/L)" : 10.9
          },
-         "version" : "test-0.1"
+         "project" : {
+            "description" : "Mapping file for a CSV with generic clinical data",
+            "id" : "CSV_src_test",
+            "ontology" : "ncit",
+            "source" : "csv",
+            "version" : "test-0.1"
+         }
       },
       "measures" : [
          {
@@ -1029,7 +1047,13 @@
             "TreatmentDuration (weeks)" : 25,
             "WBC (10^9/L)" : 5.5
          },
-         "version" : "test-0.1"
+         "project" : {
+            "description" : "Mapping file for a CSV with generic clinical data",
+            "id" : "CSV_src_test",
+            "ontology" : "ncit",
+            "source" : "csv",
+            "version" : "test-0.1"
+         }
       },
       "measures" : [
          {
@@ -1369,7 +1393,13 @@
             "TreatmentDuration (weeks)" : 36,
             "WBC (10^9/L)" : 10.7
          },
-         "version" : "test-0.1"
+         "project" : {
+            "description" : "Mapping file for a CSV with generic clinical data",
+            "id" : "CSV_src_test",
+            "ontology" : "ncit",
+            "source" : "csv",
+            "version" : "test-0.1"
+         }
       },
       "measures" : [
          {
@@ -1709,7 +1739,13 @@
             "TreatmentDuration (weeks)" : 36,
             "WBC (10^9/L)" : 4.7
          },
-         "version" : "test-0.1"
+         "project" : {
+            "description" : "Mapping file for a CSV with generic clinical data",
+            "id" : "CSV_src_test",
+            "ontology" : "ncit",
+            "source" : "csv",
+            "version" : "test-0.1"
+         }
       },
       "measures" : [
          {
@@ -2009,7 +2045,13 @@
             "TreatmentDuration (weeks)" : 22,
             "WBC (10^9/L)" : 10.2
          },
-         "version" : "test-0.1"
+         "project" : {
+            "description" : "Mapping file for a CSV with generic clinical data",
+            "id" : "CSV_src_test",
+            "ontology" : "ncit",
+            "source" : "csv",
+            "version" : "test-0.1"
+         }
       },
       "measures" : [
          {
@@ -2309,7 +2351,13 @@
             "TreatmentDuration (weeks)" : 22,
             "WBC (10^9/L)" : 6.3
          },
-         "version" : "test-0.1"
+         "project" : {
+            "description" : "Mapping file for a CSV with generic clinical data",
+            "id" : "CSV_src_test",
+            "ontology" : "ncit",
+            "source" : "csv",
+            "version" : "test-0.1"
+         }
       },
       "measures" : [
          {
@@ -2630,7 +2678,13 @@
             "TreatmentDuration (weeks)" : 22,
             "WBC (10^9/L)" : 5.7
          },
-         "version" : "test-0.1"
+         "project" : {
+            "description" : "Mapping file for a CSV with generic clinical data",
+            "id" : "CSV_src_test",
+            "ontology" : "ncit",
+            "source" : "csv",
+            "version" : "test-0.1"
+         }
       },
       "measures" : [
          {
@@ -2951,7 +3005,13 @@
             "TreatmentDuration (weeks)" : 22,
             "WBC (10^9/L)" : 9.1
          },
-         "version" : "test-0.1"
+         "project" : {
+            "description" : "Mapping file for a CSV with generic clinical data",
+            "id" : "CSV_src_test",
+            "ontology" : "ncit",
+            "source" : "csv",
+            "version" : "test-0.1"
+         }
       },
       "measures" : [
          {
@@ -3272,7 +3332,13 @@
             "TreatmentDuration (weeks)" : 25,
             "WBC (10^9/L)" : 6.8
          },
-         "version" : "test-0.1"
+         "project" : {
+            "description" : "Mapping file for a CSV with generic clinical data",
+            "id" : "CSV_src_test",
+            "ontology" : "ncit",
+            "source" : "csv",
+            "version" : "test-0.1"
+         }
       },
       "measures" : [
          {
@@ -3593,7 +3659,13 @@
             "TreatmentDuration (weeks)" : 25,
             "WBC (10^9/L)" : 8.8
          },
-         "version" : "test-0.1"
+         "project" : {
+            "description" : "Mapping file for a CSV with generic clinical data",
+            "id" : "CSV_src_test",
+            "ontology" : "ncit",
+            "source" : "csv",
+            "version" : "test-0.1"
+         }
       },
       "measures" : [
          {
@@ -3914,7 +3986,13 @@
             "TreatmentDuration (weeks)" : 22,
             "WBC (10^9/L)" : 5.7
          },
-         "version" : "test-0.1"
+         "project" : {
+            "description" : "Mapping file for a CSV with generic clinical data",
+            "id" : "CSV_src_test",
+            "ontology" : "ncit",
+            "source" : "csv",
+            "version" : "test-0.1"
+         }
       },
       "measures" : [
          {
@@ -4235,7 +4313,13 @@
             "TreatmentDuration (weeks)" : 22,
             "WBC (10^9/L)" : 5.6
          },
-         "version" : "test-0.1"
+         "project" : {
+            "description" : "Mapping file for a CSV with generic clinical data",
+            "id" : "CSV_src_test",
+            "ontology" : "ncit",
+            "source" : "csv",
+            "version" : "test-0.1"
+         }
       },
       "measures" : [
          {
@@ -4535,7 +4619,13 @@
             "TreatmentDuration (weeks)" : 22,
             "WBC (10^9/L)" : 8
          },
-         "version" : "test-0.1"
+         "project" : {
+            "description" : "Mapping file for a CSV with generic clinical data",
+            "id" : "CSV_src_test",
+            "ontology" : "ncit",
+            "source" : "csv",
+            "version" : "test-0.1"
+         }
       },
       "measures" : [
          {
@@ -4835,7 +4925,13 @@
             "TreatmentDuration (weeks)" : 22,
             "WBC (10^9/L)" : 6
          },
-         "version" : "test-0.1"
+         "project" : {
+            "description" : "Mapping file for a CSV with generic clinical data",
+            "id" : "CSV_src_test",
+            "ontology" : "ncit",
+            "source" : "csv",
+            "version" : "test-0.1"
+         }
       },
       "measures" : [
          {
@@ -5156,7 +5252,13 @@
             "TreatmentDuration (weeks)" : 25,
             "WBC (10^9/L)" : 8.3
          },
-         "version" : "test-0.1"
+         "project" : {
+            "description" : "Mapping file for a CSV with generic clinical data",
+            "id" : "CSV_src_test",
+            "ontology" : "ncit",
+            "source" : "csv",
+            "version" : "test-0.1"
+         }
       },
       "measures" : [
          {
@@ -5477,7 +5579,13 @@
             "TreatmentDuration (weeks)" : 25,
             "WBC (10^9/L)" : 10
          },
-         "version" : "test-0.1"
+         "project" : {
+            "description" : "Mapping file for a CSV with generic clinical data",
+            "id" : "CSV_src_test",
+            "ontology" : "ncit",
+            "source" : "csv",
+            "version" : "test-0.1"
+         }
       },
       "measures" : [
          {
@@ -5798,7 +5906,13 @@
             "TreatmentDuration (weeks)" : 22,
             "WBC (10^9/L)" : 9.4
          },
-         "version" : "test-0.1"
+         "project" : {
+            "description" : "Mapping file for a CSV with generic clinical data",
+            "id" : "CSV_src_test",
+            "ontology" : "ncit",
+            "source" : "csv",
+            "version" : "test-0.1"
+         }
       },
       "measures" : [
          {
@@ -6119,7 +6233,13 @@
             "TreatmentDuration (weeks)" : 22,
             "WBC (10^9/L)" : 6.7
          },
-         "version" : "test-0.1"
+         "project" : {
+            "description" : "Mapping file for a CSV with generic clinical data",
+            "id" : "CSV_src_test",
+            "ontology" : "ncit",
+            "source" : "csv",
+            "version" : "test-0.1"
+         }
       },
       "measures" : [
          {
