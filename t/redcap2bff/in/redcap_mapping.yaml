@@ -216,7 +216,7 @@ treatments:
   duration:
     asa_oral_status: asa_oral_duration
     aza_oral_status: aza_oral_duration
-    mtx_oral_status:  mtx_oral_duration
+    mtx_oral_status: mtx_oral_duration
     mp_oral_status: mp_oral_duration
     prednisolone_status: prednisolone_duration
   durationUnit:

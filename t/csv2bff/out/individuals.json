@@ -283,16 +283,8 @@
             "doseIntervals" : [
                {
                   "interval" : {
-                     "end" : {
-                        "age" : {
-                           "iso8601duration" : "P999Y"
-                        }
-                     },
-                     "start" : {
-                        "age" : {
-                           "iso8601duration" : "P999Y"
-                        }
-                     }
+                     "end" : "1900-01-01T00:00:00Z",
+                     "start" : "1900-01-01T00:00:00Z"
                   },
                   "quantity" : {
                      "referenceRange" : {
@@ -610,16 +602,8 @@
             "doseIntervals" : [
                {
                   "interval" : {
-                     "end" : {
-                        "age" : {
-                           "iso8601duration" : "P999Y"
-                        }
-                     },
-                     "start" : {
-                        "age" : {
-                           "iso8601duration" : "P999Y"
-                        }
-                     }
+                     "end" : "1900-01-01T00:00:00Z",
+                     "start" : "1900-01-01T00:00:00Z"
                   },
                   "quantity" : {
                      "referenceRange" : {
@@ -916,16 +900,8 @@
             "doseIntervals" : [
                {
                   "interval" : {
-                     "end" : {
-                        "age" : {
-                           "iso8601duration" : "P999Y"
-                        }
-                     },
-                     "start" : {
-                        "age" : {
-                           "iso8601duration" : "P999Y"
-                        }
-                     }
+                     "end" : "1900-01-01T00:00:00Z",
+                     "start" : "1900-01-01T00:00:00Z"
                   },
                   "quantity" : {
                      "referenceRange" : {
@@ -1222,16 +1198,8 @@
             "doseIntervals" : [
                {
                   "interval" : {
-                     "end" : {
-                        "age" : {
-                           "iso8601duration" : "P999Y"
-                        }
-                     },
-                     "start" : {
-                        "age" : {
-                           "iso8601duration" : "P999Y"
-                        }
-                     }
+                     "end" : "1900-01-01T00:00:00Z",
+                     "start" : "1900-01-01T00:00:00Z"
                   },
                   "quantity" : {
                      "referenceRange" : {
@@ -1568,16 +1536,8 @@
             "doseIntervals" : [
                {
                   "interval" : {
-                     "end" : {
-                        "age" : {
-                           "iso8601duration" : "P999Y"
-                        }
-                     },
-                     "start" : {
-                        "age" : {
-                           "iso8601duration" : "P999Y"
-                        }
-                     }
+                     "end" : "1900-01-01T00:00:00Z",
+                     "start" : "1900-01-01T00:00:00Z"
                   },
                   "quantity" : {
                      "referenceRange" : {
@@ -1914,16 +1874,8 @@
             "doseIntervals" : [
                {
                   "interval" : {
-                     "end" : {
-                        "age" : {
-                           "iso8601duration" : "P999Y"
-                        }
-                     },
-                     "start" : {
-                        "age" : {
-                           "iso8601duration" : "P999Y"
-                        }
-                     }
+                     "end" : "1900-01-01T00:00:00Z",
+                     "start" : "1900-01-01T00:00:00Z"
                   },
                   "quantity" : {
                      "referenceRange" : {
@@ -2220,16 +2172,8 @@
             "doseIntervals" : [
                {
                   "interval" : {
-                     "end" : {
-                        "age" : {
-                           "iso8601duration" : "P999Y"
-                        }
-                     },
-                     "start" : {
-                        "age" : {
-                           "iso8601duration" : "P999Y"
-                        }
-                     }
+                     "end" : "1900-01-01T00:00:00Z",
+                     "start" : "1900-01-01T00:00:00Z"
                   },
                   "quantity" : {
                      "referenceRange" : {
@@ -2526,16 +2470,8 @@
             "doseIntervals" : [
                {
                   "interval" : {
-                     "end" : {
-                        "age" : {
-                           "iso8601duration" : "P999Y"
-                        }
-                     },
-                     "start" : {
-                        "age" : {
-                           "iso8601duration" : "P999Y"
-                        }
-                     }
+                     "end" : "1900-01-01T00:00:00Z",
+                     "start" : "1900-01-01T00:00:00Z"
                   },
                   "quantity" : {
                      "referenceRange" : {
@@ -2853,16 +2789,8 @@
             "doseIntervals" : [
                {
                   "interval" : {
-                     "end" : {
-                        "age" : {
-                           "iso8601duration" : "P999Y"
-                        }
-                     },
-                     "start" : {
-                        "age" : {
-                           "iso8601duration" : "P999Y"
-                        }
-                     }
+                     "end" : "1900-01-01T00:00:00Z",
+                     "start" : "1900-01-01T00:00:00Z"
                   },
                   "quantity" : {
                      "referenceRange" : {
@@ -3180,16 +3108,8 @@
             "doseIntervals" : [
                {
                   "interval" : {
-                     "end" : {
-                        "age" : {
-                           "iso8601duration" : "P999Y"
-                        }
-                     },
-                     "start" : {
-                        "age" : {
-                           "iso8601duration" : "P999Y"
-                        }
-                     }
+                     "end" : "1900-01-01T00:00:00Z",
+                     "start" : "1900-01-01T00:00:00Z"
                   },
                   "quantity" : {
                      "referenceRange" : {
@@ -3507,16 +3427,8 @@
             "doseIntervals" : [
                {
                   "interval" : {
-                     "end" : {
-                        "age" : {
-                           "iso8601duration" : "P999Y"
-                        }
-                     },
-                     "start" : {
-                        "age" : {
-                           "iso8601duration" : "P999Y"
-                        }
-                     }
+                     "end" : "1900-01-01T00:00:00Z",
+                     "start" : "1900-01-01T00:00:00Z"
                   },
                   "quantity" : {
                      "referenceRange" : {
@@ -3834,16 +3746,8 @@
             "doseIntervals" : [
                {
                   "interval" : {
-                     "end" : {
-                        "age" : {
-                           "iso8601duration" : "P999Y"
-                        }
-                     },
-                     "start" : {
-                        "age" : {
-                           "iso8601duration" : "P999Y"
-                        }
-                     }
+                     "end" : "1900-01-01T00:00:00Z",
+                     "start" : "1900-01-01T00:00:00Z"
                   },
                   "quantity" : {
                      "referenceRange" : {
@@ -4161,16 +4065,8 @@
             "doseIntervals" : [
                {
                   "interval" : {
-                     "end" : {
-                        "age" : {
-                           "iso8601duration" : "P999Y"
-                        }
-                     },
-                     "start" : {
-                        "age" : {
-                           "iso8601duration" : "P999Y"
-                        }
-                     }
+                     "end" : "1900-01-01T00:00:00Z",
+                     "start" : "1900-01-01T00:00:00Z"
                   },
                   "quantity" : {
                      "referenceRange" : {
@@ -4488,16 +4384,8 @@
             "doseIntervals" : [
                {
                   "interval" : {
-                     "end" : {
-                        "age" : {
-                           "iso8601duration" : "P999Y"
-                        }
-                     },
-                     "start" : {
-                        "age" : {
-                           "iso8601duration" : "P999Y"
-                        }
-                     }
+                     "end" : "1900-01-01T00:00:00Z",
+                     "start" : "1900-01-01T00:00:00Z"
                   },
                   "quantity" : {
                      "referenceRange" : {
@@ -4794,16 +4682,8 @@
             "doseIntervals" : [
                {
                   "interval" : {
-                     "end" : {
-                        "age" : {
-                           "iso8601duration" : "P999Y"
-                        }
-                     },
-                     "start" : {
-                        "age" : {
-                           "iso8601duration" : "P999Y"
-                        }
-                     }
+                     "end" : "1900-01-01T00:00:00Z",
+                     "start" : "1900-01-01T00:00:00Z"
                   },
                   "quantity" : {
                      "referenceRange" : {
@@ -5100,16 +4980,8 @@
             "doseIntervals" : [
                {
                   "interval" : {
-                     "end" : {
-                        "age" : {
-                           "iso8601duration" : "P999Y"
-                        }
-                     },
-                     "start" : {
-                        "age" : {
-                           "iso8601duration" : "P999Y"
-                        }
-                     }
+                     "end" : "1900-01-01T00:00:00Z",
+                     "start" : "1900-01-01T00:00:00Z"
                   },
                   "quantity" : {
                      "referenceRange" : {
@@ -5427,16 +5299,8 @@
             "doseIntervals" : [
                {
                   "interval" : {
-                     "end" : {
-                        "age" : {
-                           "iso8601duration" : "P999Y"
-                        }
-                     },
-                     "start" : {
-                        "age" : {
-                           "iso8601duration" : "P999Y"
-                        }
-                     }
+                     "end" : "1900-01-01T00:00:00Z",
+                     "start" : "1900-01-01T00:00:00Z"
                   },
                   "quantity" : {
                      "referenceRange" : {
@@ -5754,16 +5618,8 @@
             "doseIntervals" : [
                {
                   "interval" : {
-                     "end" : {
-                        "age" : {
-                           "iso8601duration" : "P999Y"
-                        }
-                     },
-                     "start" : {
-                        "age" : {
-                           "iso8601duration" : "P999Y"
-                        }
-                     }
+                     "end" : "1900-01-01T00:00:00Z",
+                     "start" : "1900-01-01T00:00:00Z"
                   },
                   "quantity" : {
                      "referenceRange" : {
@@ -6081,16 +5937,8 @@
             "doseIntervals" : [
                {
                   "interval" : {
-                     "end" : {
-                        "age" : {
-                           "iso8601duration" : "P999Y"
-                        }
-                     },
-                     "start" : {
-                        "age" : {
-                           "iso8601duration" : "P999Y"
-                        }
-                     }
+                     "end" : "1900-01-01T00:00:00Z",
+                     "start" : "1900-01-01T00:00:00Z"
                   },
                   "quantity" : {
                      "referenceRange" : {
@@ -6408,16 +6256,8 @@
             "doseIntervals" : [
                {
                   "interval" : {
-                     "end" : {
-                        "age" : {
-                           "iso8601duration" : "P999Y"
-                        }
-                     },
-                     "start" : {
-                        "age" : {
-                           "iso8601duration" : "P999Y"
-                        }
-                     }
+                     "end" : "1900-01-01T00:00:00Z",
+                     "start" : "1900-01-01T00:00:00Z"
                   },
                   "quantity" : {
                      "referenceRange" : {

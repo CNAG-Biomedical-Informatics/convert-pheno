@@ -18,7 +18,7 @@ my %DEFAULT = (
 );
 
 $DEFAULT{iso8601duration} = { iso8601duration => $DEFAULT{duration} };
-$DEFAULT{interval} = { start => $DEFAULT{age} , end => $DEFAULT{age}};
+$DEFAULT{interval} = { start => $DEFAULT{timestamp} , end => $DEFAULT{timestamp}};
 $DEFAULT{referenceRange} = { low => -1, high => -1, unit => $DEFAULT{ontology_term}};
 $DEFAULT{quantity}        = {
     unit  => $DEFAULT{ontology_term},

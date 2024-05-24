@@ -1,5 +1,9 @@
 Revision history for Perl distribution Convert-Pheno
 
+0.21 2024-0X-XXT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
+
+ - Updated default value for treatment.interval object
+
 0.20 2024-05-23T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
  - Encapsulated Default values in Default.pm
