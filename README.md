@@ -36,63 +36,63 @@ convert-pheno - A script to interconvert common data models for phenotypic data
 
 # SYNOPSIS
 
-convert-pheno \[-i input-type\] &lt;infile> \[-o output-type\] &lt;outfile> \[-options\]
+    convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
 
-     Arguments:                       
-       (input-type): 
-             -ibff                    Beacon v2 Models ('individuals' JSON|YAML) file
-             -iomop                   OMOP-CDM CSV files or PostgreSQL dump
-             -ipxf                    Phenopacket v2 (JSON|YAML) file
-             -iredcap (experimental)  REDCap (raw data) export CSV file
-             -icdisc  (experimental)  CDISC-ODM v1 XML file
-             -icsv    (experimental)  Raw data CSV
+        Arguments:                       
+          (input-type): 
+                -ibff                    Beacon v2 Models ('individuals' JSON|YAML) file
+                -iomop                   OMOP-CDM CSV files or PostgreSQL dump
+                -ipxf                    Phenopacket v2 (JSON|YAML) file
+                -iredcap (experimental)  REDCap (raw data) export CSV file
+                -icdisc  (experimental)  CDISC-ODM v1 XML file
+                -icsv    (experimental)  Raw data CSV
 
-             (Wish-list)
-             #-iopenehr               openEHR
-             #-ifhir                  HL7/FHIR
+                (Wish-list)
+                #-iopenehr               openEHR
+                #-ifhir                  HL7/FHIR
 
-       (output-type):
-             -obff                    Beacon v2 Models ('individuals' JSON|YAML) file
-             -opxf                    Phenopacket v2 (JSON|YAML) file
+          (output-type):
+                -obff                    Beacon v2 Models ('individuals' JSON|YAML) file
+                -opxf                    Phenopacket v2 (JSON|YAML) file
 
-             (Wish-list)
-             #-oomop                  OMOP-CDM PostgreSQL dump
+                (Wish-list)
+                #-oomop                  OMOP-CDM PostgreSQL dump
 
-             Compatible with -i(bff|pxf):
-             -ocsv                    Flatten data to CSV
-             -ojsonf                  Flatten data to 1D-JSON (or 1D-YAML if suffix is .yml|.yaml)
-             -ojsonld (experimental)  JSON-LD (interoperable w/ RDF ecosystem; YAML-LD if suffix is .ymlld|.yamlld)
+                Compatible with -i(bff|pxf):
+                -ocsv                    Flatten data to CSV
+                -ojsonf                  Flatten data to 1D-JSON (or 1D-YAML if suffix is .yml|.yaml)
+                -ojsonld (experimental)  JSON-LD (interoperable w/ RDF ecosystem; YAML-LD if suffix is .ymlld|.yamlld)
 
-     Options:
-       -exposures-file <file>         CSV file with a list of 'concept_id' considered to be exposures (with -iomop)
-       -mapping-file <file>           Fields mapping YAML (or JSON) file
-       -max-lines-sql <number>        Maximum number of lines read from SQL dump [500]
-       -min-text-similarity-score <score> Minimum score for cosine similarity (or Sorensen-Dice coefficient) [0.8] (to be used with --search mixed)
-       -ohdsi-db                      Use Athena-OHDSI database (~2.2GB) with -iomop
-       -omop-tables <tables>          OMOP-CDM tables to be processed. Tables <CONCEPT> and <PERSON> are always included.
-       -out-dir <directory>           Output (existing) directory
-       -O                             Overwrite output file
-       -path-to-ohdsi-db <directory>  Directory for the file <ohdsi.db>
-       -phl|print-hidden-labels       Print original values (before DB mapping) of text fields <_labels>
-       -rcd|redcap-dictionary <file>  REDCap data dictionary CSV file
-       -schema-file <file>            Alternative JSON Schema for mapping file
-       -search <type>                 Type of search [>exact|mixed]
-       -svs|self-validate-schema      Perform a self-validation of the JSON schema that defines mapping (requires IO::Socket::SSL)
-       -sep|separator <char>          Delimiter character for CSV files [;] e.g., --sep $'\t'
-       -stream                        Enable incremental processing with -iomop and -obff [>no-stream|stream]
-       -sql2csv                       Print SQL TABLES (only valid with -iomop). Mutually exclusive with --stream
-       -test                          Does not print time-changing-events (useful for file-based cmp)
-       -text-similarity-method <method> The method used to compare values to DB [>cosine|dice]
-       -u|username <username>         Set the username
+        Options:
+          -exposures-file <file>         CSV file with a list of 'concept_id' considered to be exposures (with -iomop)
+          -mapping-file <file>           Fields mapping YAML (or JSON) file
+          -max-lines-sql <number>        Maximum number of lines read from SQL dump [500]
+          -min-text-similarity-score <score> Minimum score for cosine similarity (or Sorensen-Dice coefficient) [0.8] (to be used with --search mixed)
+          -ohdsi-db                      Use Athena-OHDSI database (~2.2GB) with -iomop
+          -omop-tables <tables>          OMOP-CDM tables to be processed. Tables <CONCEPT> and <PERSON> are always included.
+          -out-dir <directory>           Output (existing) directory
+          -O                             Overwrite output file
+          -path-to-ohdsi-db <directory>  Directory for the file <ohdsi.db>
+          -phl|print-hidden-labels       Print original values (before DB mapping) of text fields <_labels>
+          -rcd|redcap-dictionary <file>  REDCap data dictionary CSV file
+          -schema-file <file>            Alternative JSON Schema for mapping file
+          -search <type>                 Type of search [>exact|mixed]
+          -svs|self-validate-schema      Perform a self-validation of the JSON schema that defines mapping (requires IO::Socket::SSL)
+          -sep|separator <char>          Delimiter character for CSV files [;] e.g., --sep $'\t'
+          -stream                        Enable incremental processing with -iomop and -obff [>no-stream|stream]
+          -sql2csv                       Print SQL TABLES (only valid with -iomop). Mutually exclusive with --stream
+          -test                          Does not print time-changing-events (useful for file-based cmp)
+          -text-similarity-method <method> The method used to compare values to DB [>cosine|dice]
+          -u|username <username>         Set the username
 
-     Generic Options:
-       -debug <level>                 Print debugging level (from 1 to 5, being 5 max)
-       -help                          Brief help message
-       -log                           Save log file (JSON). If no argument is given then the log is named [convert-pheno-log.json]
-       -man                           Full documentation
-       -no-color                      Don't print colors to STDOUT [>color|no-color]
-       -v|verbose                     Verbosity on
-       -V|version                     Print Version
+        Generic Options:
+          -debug <level>                 Print debugging level (from 1 to 5, being 5 max)
+          -help                          Brief help message
+          -log                           Save log file (JSON). If no argument is given then the log is named [convert-pheno-log.json]
+          -man                           Full documentation
+          -no-color                      Don't print colors to STDOUT [>color|no-color]
+          -v|verbose                     Verbosity on
+          -V|version                     Print Version
 
 # DESCRIPTION
 

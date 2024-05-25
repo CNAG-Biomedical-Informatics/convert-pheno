@@ -419,7 +419,7 @@ convert-pheno - A script to interconvert common data models for phenotypic data
 
 =head1 SYNOPSIS
 
-convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
+ convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [-options]
 
      Arguments:                       
        (input-type): 
