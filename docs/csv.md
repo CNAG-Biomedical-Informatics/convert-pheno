@@ -18,7 +18,7 @@
 
     Please refer to the [Convert-Pheno tutorial](https://cnag-biomedical-informatics.github.io/convert-pheno/tutorial/#how-to-convert) for more information.
     
-    !!! Hint "How to convert other Beacon v2 Models entities"
+    !!! Question "How do I convert other Beacon v2 Models entities?"
         We recommend using the maintaned version of the original **Beacon v2 Reference Implementation** tools ([beacon2-ri-tools](https://github.com/mrueda/beacon2-ri-tools)).
     
     See examples:
