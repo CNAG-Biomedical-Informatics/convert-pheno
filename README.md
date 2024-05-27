@@ -301,14 +301,15 @@ For executing convert-pheno you will need:
 ## COMMON ERRORS AND SOLUTIONS
 
     * Error message: CSV_XS ERROR: 2023 - EIQ - QUO character not allowed @ rec 1 pos 21 field 1
-      Solution: Make sure you use the right character separator for your data. 
-                The script tries to guess it from the file extension (e.g. comma for csv), but sometimes extension and actual separator do not match. 
+      Solution: Make sure you use the right character separator for your data with --sep <char>. 
+                The script tries to guess it from the file extension, but sometimes extension and actual separator do not match. 
                 When using REDCap as input, make sure that <--iredcap> and <--rcd> files use the same separator field.
+                The defauly value for the separator is ';'. 
       Example for tab separator in CLI.
        --sep  $'\t' 
 
-    * Error message: Foo
-      Solution: Bar
+    * Error message: File has null contents
+      Solution: Make sure you use the right character separator for your data with --sep <char>
 
 # CITATION
 

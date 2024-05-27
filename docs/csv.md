@@ -11,9 +11,13 @@
 === "Command-line"
 
     When using the `convert-pheno` command-line interface, simply ensure the [correct syntax](usage.md) is provided.
+
+    !!! Warning "CSV Separator Notice"
+
+        Please note that the default separator for CSV files is `;`. If your file uses a different character (e.g., `,` or `:`), please specify it using the `--sep` option.
     
     ```
-    convert-pheno -icsv clinical_data.csv --mapping-file clinical_data_mapping.yaml -obff individuals.json
+    convert-pheno -icsv clinical_data.csv --mapping-file clinical_data_mapping.yaml -obff individuals.json --sep ,
     ```
 
     Please refer to the [Convert-Pheno tutorial](https://cnag-biomedical-informatics.github.io/convert-pheno/tutorial/#how-to-convert) for more information.
