@@ -9,6 +9,10 @@ The operation is simple:
 ??? Tip "Google Colab tutorial"
     We created a [Google Colab tutorial](https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6) notebook to enable testing `Convert-Pheno`in a virtual environment. Users can view notebooks shared publicly without sign-in, but you need a google account to execute code.
 
+    <a target="_blank" href="https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6">
+      <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+    </a>
+
 Please see more examples in this [README](https://github.com/cnag-biomedical-informatics/convert-pheno#synopsis).
 
 ???+ Note "Inspiration"

@@ -3,6 +3,10 @@
 
 ## CSV with clinical data as input
 
+!!! Note "Note"
+    The purpose of this conversion method is to provide a user-friendly solution for those lacking the knowledge or resources to perform an ad hoc transformation of their raw clinical data into one of our output formats. We understand that handling clinical data can be a formidable task, and our goal is to accurately convert essential fields necessary for cross-study comparisons. Initially, `Convert-Pheno` was not designed for ingesting raw CSV files. However, we leveraged the functions we developed for converting REDCap projects, which also come in CSV format.
+
+    If you use our tool and identify areas for improvement, please contact us or create a GitHub issue. Thank you.
 
 === "Command-line"
 
@@ -11,6 +15,8 @@
     ```
     convert-pheno -icsv clinical_data.csv --mapping-file clinical_data_mapping.yaml -obff individuals.json
     ```
+
+    Please refer to the [Convert-Pheno tutorial](https://cnag-biomedical-informatics.github.io/convert-pheno/tutorial/#how-to-convert) for more information.
     
     !!! Hint "How to convert other Beacon v2 Models entities"
         We recommend using the maintaned version of the original **Beacon v2 Reference Implementation** tools ([beacon2-ri-tools](https://github.com/mrueda/beacon2-ri-tools)).
