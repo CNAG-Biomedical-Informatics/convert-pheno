@@ -308,8 +308,8 @@ For executing convert-pheno you will need:
       Example for tab separator in CLI.
        --sep  $'\t' 
 
-    * Error message: File has null contents
-      Solution: Make sure you use the right character separator for your data with --sep <char>
+    * Error message: Foo
+      Solution: Bar
 
 # CITATION
 

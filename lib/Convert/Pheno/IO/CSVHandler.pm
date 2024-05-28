@@ -11,6 +11,7 @@ use List::Util qw(any);
 use File::Spec::Functions qw(catdir);
 use IO::Compress::Gzip qw($GzipError);
 use IO::Uncompress::Gunzip qw($GunzipError);
+
 #use Data::Dumper;
 
 #use Devel::Size           qw(size total_size);
@@ -57,6 +58,7 @@ sub read_redcap_dictionary {
         key       => $key,
         on_in     => sub { $_{_labels} = add_labels( $_{$labels} ) }
     );
+
     return $hoh;
 }
 
@@ -616,14 +618,35 @@ sub read_csv {
     #        }, {},,,
     #      ]
 
+    # Pre-fetch keys (headers) to speed-up calculation
+    # Extracted unsorted from $aoh->[0]
+    my @keys = keys %{ $aoh->[0] };
+
+    # Check for too many occurences of separators
+    die
+      "Are you sure you are using the right <--sep $separator> for your data?\n"
+      if is_separator_incorrect( \@keys );
+
     # Coercing the data before returning it
     for my $item (@$aoh) {
-        for my $key ( keys %{$item} ) {
+        for my $key (@keys) {
             $item->{$key} = dotify_and_coerce_number( $item->{$key} );
         }
     }
 
+    # Return data
     return $aoh;
+}
+
+sub is_separator_incorrect {
+
+    my $keys           = shift;
+    my $max_delimiters = 5;
+    my $sep_count      = ( $keys->[0] =~ tr/,;\t// );
+    if ( $sep_count > $max_delimiters ) {
+        return 1;
+    }
+    return 0;
 }
 
 sub read_csv_stream {

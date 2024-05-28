@@ -6,7 +6,7 @@ use feature qw(say);
 use File::Temp qw{ tempfile };    # core
 use Data::Dumper;
 use File::Spec::Functions qw(catdir catfile);
-use Test::More tests => 7;
+use Test::More tests => 8;
 use Test::Exception;
 use Test::Warn;
 use File::Compare;
@@ -23,10 +23,10 @@ my $SELF_VALIDATE = IS_WINDOWS ? 0 : HAS_IO_SOCKET_SSL ? 1 : 0;
 
 my $input = {
     redcap2bff => {
-        in_file           => 't/redcap2bff/in/redcap_data.csv',
-        redcap_dictionary => 't/redcap2bff/in/redcap_dictionary.csv',
-        mapping_file      => 't/redcap2bff/in/redcap_mapping.yaml',
-        schema_file       => 'share/schema/mapping.json',
+        in_file              => 't/redcap2bff/in/redcap_data.csv',
+        redcap_dictionary    => 't/redcap2bff/in/redcap_dictionary.csv',
+        mapping_file         => 't/redcap2bff/in/redcap_mapping.yaml',
+        schema_file          => 'share/schema/mapping.json',
         self_validate_schema => $SELF_VALIDATE,
         sep                  => undef,
         out                  => 't/redcap2bff/out/individuals.json'
@@ -69,11 +69,13 @@ for my $method ( sort keys %{$input} ) {
             mode     => 'write'
         }
     );
- SKIP: {
+  SKIP: {
         # see below _normalize_windows_file
-        skip qq{Files <$input->{$method}{out}> <$tmp_file> are indentical? yet compare fails with windows-latest}, 1
+        skip
+qq{Files <$input->{$method}{out}> <$tmp_file> are indentical? yet compare fails with windows-latest},
+          1
           if IS_WINDOWS;
-    ok( compare( $input->{$method}{out}, $tmp_file) == 0, $method );
+        ok( compare( $input->{$method}{out}, $tmp_file ) == 0, $method );
     }
 }
 
@@ -150,8 +152,34 @@ for my $method ( sort keys %{$input} ) {
           unless -f $ohdsi_db;
         warning_is { $convert->$method }
         qq(<DUMMY> is not a valid table in OMOP-CDM\n),
-          "expecting warn: <DUMMY> is not a valid table in OMOP-CDM\n";
+          "expecting warn: <DUMMY> is not a valid table in OMOP-CDM";
     }
+}
+
+#################
+# CSV die errors
+#################
+
+{
+    my $err =
+      'Error: Are you sure you are using the right <--sep ;> for your data?';
+    my $method  = 'csv2bff';
+    my $convert = Convert::Pheno->new(
+        {
+            in_file              => 't/csv2bff/in/csv_data.csv',
+            in_files             => [],
+            redcap_dictionary    => undef,
+            mapping_file         => 't/csv2bff/in/csv_mapping.csv',
+            self_validate_schema => 0,
+            in_textfile          => 1,
+            omop_tables          => [],
+            search               => 'exact',
+            sep                  => ';',
+            test                 => 1,
+            method               => $method
+        }
+    );
+    dies_ok { $convert->$method } qq(expecting to die by error: $err);
 }
 
 sub _normalize_windows_file {
