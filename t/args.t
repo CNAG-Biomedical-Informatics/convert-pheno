@@ -162,7 +162,7 @@ for my $method ( sort keys %{$input} ) {
 
 {
     my $err =
-      'Error: Are you sure you are using the right <--sep ;> for your data?';
+      'Error: Are you sure you are using the right --sep <;> for your data?';
     my $method  = 'csv2bff';
     my $convert = Convert::Pheno->new(
         {

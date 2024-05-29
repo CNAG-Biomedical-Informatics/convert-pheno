@@ -624,7 +624,7 @@ sub read_csv {
 
     # Check for too many occurences of separators
     die
-      "Are you sure you are using the right <--sep $separator> for your data?\n"
+      "Are you sure you are using the right --sep <$separator> for your data?\n"
       if is_separator_incorrect( \@keys );
 
     # Coercing the data before returning it

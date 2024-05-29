@@ -105,12 +105,12 @@ my @validation_checks = (
     },
     {
         condition =>
-          sub { ( $in_redcap || $in_cdisc ) && !-f $redcap_dictionary },
-        message => "Please specify a valid REDCap data dictionary --rcd\n",
+          sub { ( $in_redcap || $in_cdisc ) && ! $redcap_dictionary },
+        message => "Please specify a valid REDCap data dictionary --rcd <file>\n",
     },
     {
-        condition => sub { ( $in_redcap || $in_cdisc || $in_csv ) && !-f $mapping_file },
-        message => "Please specify a valid field-mapping file --mapping-file\n",
+        condition => sub { ( $in_redcap || $in_cdisc || $in_csv ) && !$mapping_file },
+        message => "Please specify a valid mapping file --mapping-file <file>\n",
     },
     {
         condition =>
@@ -143,16 +143,16 @@ my @validation_checks = (
     {
         condition => sub { !-f $schema_file },
         message   =>
-          "Please specify a valid schema for the mapping file --schema-file\n",
+          "Please specify a valid schema for the mapping file --schema-file <file>\n",
     },
     {
         condition => sub { defined $path_to_ohdsi_db && !-d $path_to_ohdsi_db },
         message   =>
-"Please specify a valid directory for the mapping file --path-to-ohdsi-db-\n",
+"Please specify a valid directory for the mapping file --path-to-ohdsi-db <dir>\n",
     },
     {
         condition => sub { defined $exposures_file && !-f $exposures_file },
-        message   => "Please specify a valid <--exposures-file>\n",
+        message   => "Please specify a valid --exposures-file <file>\n",
     },
     {
         condition => sub {
