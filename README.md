@@ -262,15 +262,17 @@ For executing convert-pheno you will need:
 
     The database file is available at this [link](https://drive.google.com/drive/folders/1-5Ywf-hhwb8bX1sRNV2Tf3EjH4TCaC8P?usp=sharing) (~2.2GB). The database may be needed when using `-iomop`.
 
-    Regardless if you're using the containerized or non-containerized version, the download procedure is the same. In Linux you can use `wget`, `curl` or `aria2c`:
+    Regardless if you're using the containerized or non-containerized version, the download procedure is the same. Google makes it difficult to use `wget`, `curl` or `aria2c` so we will use a `Python` module instead:
 
-        $ wget 'https://drive.google.com/uc?export=download&id=1-Ls1nmgxp-iW-8LkRIuNNdNytXa8kgNw&confirm=t' -O ohdsi.db --no-check-certificate
-        or
-        $ curl -L 'https://drive.google.com/uc?export=download&id=1-Ls1nmgxp-iW-8LkRIuNNdNytXa8kgNw&confirm=t' > ohdsi.db
-        or
-        $ aria2c -x2 'https://drive.google.com/uc?export=download&id=1-Ls1nmgxp-iW-8LkRIuNNdNytXa8kgNw&confirm=t' -o ohdsi.db
+        $ pip install gdown
 
-    (you can install `wget`, `curl` or `aria2c` inside the container by typing `sudo apt install wget`, `sudo apt install curl` or `sudo apt install aria2`.
+    And then run the following script
+
+        import gdown
+
+        url = 'https://drive.google.com/uc?export=download&id=1-Ls1nmgxp-iW-8LkRIuNNdNytXa8kgNw'
+        output = '/content/ohdsi.db'
+        gdown.download(url, output, quiet=False)
 
     Once downloaded, you have two options:
 
