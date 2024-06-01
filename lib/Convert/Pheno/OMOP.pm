@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use autodie;
 use feature qw(say);
+#use Data::Dumper;
 use Convert::Pheno::Default qw(get_defaults);
 use Convert::Pheno::Mapping;
 use Exporter 'import';
@@ -81,6 +82,9 @@ our @omop_essential_tables = qw(
 # NB: Direct export w/o encapsulation in subroutine
 our @stream_ram_memory_tables = qw/CONCEPT PERSON VISIT_OCCURRENCE/;
 
+# Initialize global hash for seen_individual entries in --stream
+my %seen_individual = ();
+
 ##############
 ##############
 #  OMOP2BFF  #
@@ -108,10 +112,10 @@ sub do_omop2bff {
     # $person = cursor to $participant->PERSON
     # $individual = output data
 
- # ABOUT REQUIRED PROPERTIES
- # 'id' and 'sex' are required properties in <individuals> entry type
- # 'person_id' must exist at this point otherwise it would have not been created
- # Premature return as undef
+    # ABOUT REQUIRED PROPERTIES
+    # 'id' and 'sex' are required properties in <individuals>
+    # 'person_id' must exist at this point otherwise it would have not been created
+    # Premature return as undef
     return unless defined $person->{gender_concept_id};
 
     # ========
@@ -147,8 +151,8 @@ sub do_omop2bff {
                 age => {
                     iso8601duration => find_age(
 
-           #_birth_datetime => $person->{birth_datetime}, # Property not allowed
-           #_procedure_date => $field->{procedure_date},  # Property not allowed
+                        #_birth_datetime => $person->{birth_datetime}, # Property not allowed
+                        #_procedure_date => $field->{procedure_date},  # Property not allowed
                         {
 
                             date      => $field->{condition_start_date},
@@ -214,8 +218,7 @@ sub do_omop2bff {
 
     $individual->{ethnicity} = map_ontology_term(
         {
-            query => $person->{race_source_value}
-            ,    # not getting it from *_concept_id
+            query    => $person->{race_source_value},    # not getting it from *_concept_id
             column   => 'label',
             ontology => 'ncit',
 
@@ -258,12 +261,12 @@ sub do_omop2bff {
 
         for my $field ( @{ $participant->{$table} } ) {
 
-# Note that these changes with DEVEL_MODE affect phenotypicFeatures (also uses OBSERVATION)
+            # Note that these changes with DEVEL_MODE affect phenotypicFeatures (also uses OBSERVATION)
             $field->{observation_concept_id} = 35609831
               if DEVEL_MODE;    # Note that it affects
                                 #$field->{value_as_number} = 10 if DEVEL_MODE;
 
-# NB: Values in key hashes are stringfied so make a copy to keep them as integer
+            # NB: Values in key hashes are stringfied so make a copy to keep them as integer
             my $field_observation_concept_id = $field->{observation_concept_id};
             next
               unless exists $self->{exposures}{$field_observation_concept_id};
@@ -412,8 +415,8 @@ sub do_omop2bff {
 
                     iso8601duration => find_age(
 
-           #_birth_datetime => $person->{birth_datetime}, # Property not allowed
-           #_procedure_date => $field->{procedure_date},  # Property not allowed
+                        #_birth_datetime => $person->{birth_datetime}, # Property not allowed
+                        #_procedure_date => $field->{procedure_date},  # Property not allowed
                         {
 
                             date      => $field->{procedure_date},
@@ -631,7 +634,7 @@ sub do_omop2bff {
 
         for my $field ( @{ $participant->{$table} } ) {
 
-# NB: Values in key hashes are stringfied so make a copy to keep them as integer
+            # NB: Values in key hashes are stringfied so make a copy to keep them as integer
             my $field_observation_concept_id = $field->{observation_concept_id};
             next
               if exists $self->{exposures}{$field_observation_concept_id};
@@ -657,8 +660,8 @@ sub do_omop2bff {
 
             $phenotypicFeature->{onset} = {
 
-        #_birth_datetime   => $person->{birth_datetime}, # property not allowed
-        #_observation_date => $field->{observation_date}, # property not allowed
+                #_birth_datetime   => $person->{birth_datetime}, # property not allowed
+                #_observation_date => $field->{observation_date}, # property not allowed
 
                 iso8601duration => find_age(
                     {
@@ -781,8 +784,8 @@ sub do_omop2bff {
             $treatment->{ageAtOnset} = {
                 age => {
 
-# _birth_datetime               => $person->{birth_datetime}, # property not allowed
-# _drug_exposure_start_datetime => $field->{drug_exposure_start_date},
+                    # _birth_datetime               => $person->{birth_datetime}, # property not allowed
+                    # _drug_exposure_start_datetime => $field->{drug_exposure_start_date},
                     iso8601duration => find_age(
                         {
                             date      => $field->{drug_exposure_start_date},
@@ -840,21 +843,32 @@ sub do_omop2bff {
     # END MAPPING TO BEACON V2 TERMS #
     ##################################
 
-    return ( $self->{stream} && avoid_duplicates($individual) )
+    return ( $self->{stream} && avoid_seen_individuals($individual) )
       ? undef
       : $individual;
 }
 
-sub avoid_duplicates {
+sub avoid_seen_individuals {
 
-    my $hash = shift;
+    my $individual = shift;
+    my $id         = $individual->{id};
 
-    # In stream mode, we need to eliminate duplicates
-    # Duplicates will only caontain keys id, info and sex
-    # Using the simplest possible comparison (with strings)
-    my $str_a = 'idinfosex';
-    my $str_b = join '', sort keys %{$hash};
-    return $str_a eq $str_b ? 1 : 0;
+    # Generate a standardized key for each individual based on id, info, and sex
+    my $expected_keys   = join( '_', sort qw(id info sex) );
+    my $individual_keys = join( '_', sort keys %$individual );
+    my $key             = $id . '_' . $individual_keys;
+
+    # Compare the individual's keys with the expected keys
+    if ( $individual_keys eq $expected_keys ) {
+        if ( exists $seen_individual{$key} ) {
+            #say "Duplicate <$key> for $id";
+            return 1;    # Duplicate found
+        }
+        else {
+            $seen_individual{$key} = 1;
+            return 0;    # No duplicate, individual added to the tracking hash
+        }
+    }
+    return 0;            # The individual does not match the expected keys and is treated as non-duplicate
 }
-
 1;

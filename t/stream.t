@@ -78,7 +78,7 @@ my $method = 'omop2bff';
                 in_files => [
                     't/omop2bff/in/gz/PERSON.csv.gz',
                     't/omop2bff/in/gz/CONCEPT.csv.gz',
-                    't/omop2bff/in/gz/MEASUREMENT.csv.gz'
+                    't/omop2bff/in/gz/DRUG_EXPOSURE.csv.gz'
                 ],
                 out_file             => $tmp_file,
                 redcap_dictionary    => undef,

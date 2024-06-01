@@ -44,13 +44,13 @@ The **OMOP CDM** is designed to be database-agnostic, which means it can be impl
 
         #### Selected table(s)
 
-        It is possible to convert selected tables. For instance, in case you only want to convert `MEASUREMENT` table use the option `--omop-tables`. The option accepts a list of tables (case insensitive) separated by spaces:
+        It is possible to convert selected tables. For instance, in case you only want to convert `DRUG_EXPOSURE` table use the option `--omop-tables`. The option accepts a list of tables (case insensitive) separated by spaces:
 
         !!! Warning "About tables `CONCEPT` and `PERSON`"
             Tables `CONCEPT` and `PERSON` are always loaded as they're needed for the conversion. You don't need to specify them.
 
         ```
-        convert-pheno -iomop omop_dump.sql -obff individuals.json --omop-tables MEASUREMENT
+        convert-pheno -iomop omop_dump.sql -obff individuals.json --omop-tables DRUG_EXPOSURE
         ```
 
         Using this approach you will be able to submit multiple jobs in **parallel**.
@@ -59,7 +59,7 @@ The **OMOP CDM** is designed to be database-agnostic, which means it can be impl
             In this case, you can use the flag `--ohdsi-db` that will enable checking an internal database whenever the `concept_id` can not be found inside your `CONCEPT` table.
 
             ```
-            convert-pheno -iomop omop_dump.sql -obff individuals_measurement.json --omop-tables MEASUREMENT --ohdsi-db
+            convert-pheno -iomop omop_dump.sql -obff individuals_measurement.json --omop-tables DRUG_EXPOSURE --ohdsi-db
             ```
 
         ??? Danger "RAM memory usage in `--no-stream` mode (default)"
@@ -99,7 +99,7 @@ The **OMOP CDM** is designed to be database-agnostic, which means it can be impl
             Tables `CONCEPT` and `PERSON` are always loaded as they're needed for the conversion. You don't need to specify them.
 
         ```
-        convert-pheno -iomop omop_dump.sql.gz -obff individuals_measurement.json.gz --omop-tables MEASUREMENT --stream
+        convert-pheno -iomop omop_dump.sql.gz -obff individuals_measurement.json.gz --omop-tables DRUG_EXPOSURE --stream
         ```
 
         Running multiple jobs in `--stream` mode will create a bunch of `JSON` files instead of one. It's OK, as the files we're creating are **intermediate** files.

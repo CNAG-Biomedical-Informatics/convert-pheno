@@ -124,7 +124,7 @@ for my $method ( sort keys %{$input} ) {
         omop2bff => {
             in_file  => undef,
             in_files => [
-                't/omop2bff/in/CONCEPT.csv', 't/omop2bff/in/MEASUREMENT.csv',
+                't/omop2bff/in/CONCEPT.csv', 't/omop2bff/in/DRUG_EXPOSURE.csv',
                 't/omop2bff/in/PERSON.csv',  't/omop2bff/in/DUMMY.csv'
             ],
         }
