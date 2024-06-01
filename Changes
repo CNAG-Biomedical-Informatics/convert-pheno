@@ -2,13 +2,15 @@ Revision history for Perl distribution Convert-Pheno
 
 0.21 2024-0X-XXT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
- - Updated default value for treatment.interval object
+ - Updated the default value for the `treatment.interval` object
+ - Fixed a warning that occurred in exact searches when the string contained leading numbers
+ - Modified database search behavior to exclude numbers from the search
 
 0.20 2024-05-23T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
- - Encapsulated Default values in Default.pm
+ - Encapsulated default values in Default.pm
  - Refactored REDCap.pm code to be used with CSV.pm
- - Implemented basic <csv2bff> and  <csv2pxf> conversions (experimental)
+ - Implemented basic <csv2bff> and <csv2pxf> conversions (experimental)
  - Mapping file changes:
     o Required properties in mappind file now only are 'project','id' and 'sex'
     o Added project.baselineFieldsToPropagate
