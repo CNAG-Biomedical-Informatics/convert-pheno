@@ -16,11 +16,13 @@ use List::Util qw(first);
 use Cwd qw(cwd);
 use Sys::Hostname;
 use Convert::Pheno::SQLite;
-binmode STDOUT, ':encoding(utf-8)';
+use Convert::Pheno::Default qw(get_defaults);
+#binmode STDOUT, ':encoding(utf-8)';
 use Exporter 'import';
 our @EXPORT =
   qw(map_ontology_term dotify_and_coerce_number iso8601_time _map2iso8601 map_reference_range map_reference_range_csv map_age_range map2redcap_dict map2ohdsi convert2boolean find_age randStr map_operator_concept_id map_info_field map_omop_visit_occurrence dot_date2iso validate_format get_metaData get_info);
 
+my $DEFAULT = get_defaults();
 use constant DEVEL_MODE => 0;
 
 # Global hash
@@ -44,8 +46,11 @@ sub map_ontology_term {
     # We will return quickly when nothing has to be done
     my $query = $_[0]->{query};
 
+    # Skipping numbers
+    return $DEFAULT->{ontology_term} if looks_like_number($query);
+
     # If the ontology term is an object we assume it comes
-    # from "terminology" prperty in the mapping file
+    # from "terminology" property in the mapping file
     return $query if ref $query eq 'HASH';
 
     # Checking for existance in %seen

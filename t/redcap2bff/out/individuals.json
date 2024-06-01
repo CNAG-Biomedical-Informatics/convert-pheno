@@ -3045,8 +3045,8 @@
             "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C41132",
+               "label" : "None"
             },
             "notes" : "rectal_bleeding /// Field Label=Rectal bleeding score /// Field Note= /// Field Type=radio"
          }
@@ -7531,8 +7531,8 @@
             "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C41132",
+               "label" : "None"
             },
             "notes" : "rectal_bleeding /// Field Label=Rectal bleeding score /// Field Note= /// Field Type=radio"
          }
@@ -8989,8 +8989,8 @@
             "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C41132",
+               "label" : "None"
             },
             "notes" : "rectal_bleeding /// Field Label=Rectal bleeding score /// Field Note= /// Field Type=radio"
          }
@@ -10430,8 +10430,8 @@
             "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C41132",
+               "label" : "None"
             },
             "notes" : "rectal_bleeding /// Field Label=Rectal bleeding score /// Field Note= /// Field Type=radio"
          }
@@ -11957,8 +11957,8 @@
             "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C41132",
+               "label" : "None"
             },
             "notes" : "rectal_bleeding /// Field Label=Rectal bleeding score /// Field Note= /// Field Type=radio"
          }
@@ -13522,8 +13522,8 @@
             "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C41132",
+               "label" : "None"
             },
             "notes" : "rectal_bleeding /// Field Label=Rectal bleeding score /// Field Note= /// Field Type=radio"
          }
@@ -19637,8 +19637,8 @@
             "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C41132",
+               "label" : "None"
             },
             "notes" : "rectal_bleeding /// Field Label=Rectal bleeding score /// Field Note= /// Field Type=radio"
          }
@@ -21414,8 +21414,8 @@
             "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C41132",
+               "label" : "None"
             },
             "notes" : "rectal_bleeding /// Field Label=Rectal bleeding score /// Field Note= /// Field Type=radio"
          }
@@ -22935,8 +22935,8 @@
             "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C41132",
+               "label" : "None"
             },
             "notes" : "rectal_bleeding /// Field Label=Rectal bleeding score /// Field Note= /// Field Type=radio"
          }
@@ -24732,8 +24732,8 @@
             "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C41132",
+               "label" : "None"
             },
             "notes" : "rectal_bleeding /// Field Label=Rectal bleeding score /// Field Note= /// Field Type=radio"
          }
@@ -26480,8 +26480,8 @@
             "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C41132",
+               "label" : "None"
             },
             "notes" : "rectal_bleeding /// Field Label=Rectal bleeding score /// Field Note= /// Field Type=radio"
          }
@@ -29988,8 +29988,8 @@
             "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C41132",
+               "label" : "None"
             },
             "notes" : "rectal_bleeding /// Field Label=Rectal bleeding score /// Field Note= /// Field Type=radio"
          }
@@ -33104,8 +33104,8 @@
             "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C41132",
+               "label" : "None"
             },
             "notes" : "rectal_bleeding /// Field Label=Rectal bleeding score /// Field Note= /// Field Type=radio"
          }
@@ -34580,8 +34580,8 @@
             "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C41132",
+               "label" : "None"
             },
             "notes" : "rectal_bleeding /// Field Label=Rectal bleeding score /// Field Note= /// Field Type=radio"
          }
@@ -36268,8 +36268,8 @@
             "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C41132",
+               "label" : "None"
             },
             "notes" : "rectal_bleeding /// Field Label=Rectal bleeding score /// Field Note= /// Field Type=radio"
          }
@@ -37779,8 +37779,8 @@
             "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C41132",
+               "label" : "None"
             },
             "notes" : "rectal_bleeding /// Field Label=Rectal bleeding score /// Field Note= /// Field Type=radio"
          }
@@ -39221,8 +39221,8 @@
             "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C41132",
+               "label" : "None"
             },
             "notes" : "rectal_bleeding /// Field Label=Rectal bleeding score /// Field Note= /// Field Type=radio"
          }
@@ -40835,8 +40835,8 @@
             "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C41132",
+               "label" : "None"
             },
             "notes" : "rectal_bleeding /// Field Label=Rectal bleeding score /// Field Note= /// Field Type=radio"
          }
@@ -43953,8 +43953,8 @@
             "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C41132",
+               "label" : "None"
             },
             "notes" : "rectal_bleeding /// Field Label=Rectal bleeding score /// Field Note= /// Field Type=radio"
          }
@@ -46919,8 +46919,8 @@
             "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C41132",
+               "label" : "None"
             },
             "notes" : "rectal_bleeding /// Field Label=Rectal bleeding score /// Field Note= /// Field Type=radio"
          }
@@ -48550,8 +48550,8 @@
             "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C41132",
+               "label" : "None"
             },
             "notes" : "rectal_bleeding /// Field Label=Rectal bleeding score /// Field Note= /// Field Type=radio"
          }
@@ -51879,8 +51879,8 @@
             "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C41132",
+               "label" : "None"
             },
             "notes" : "rectal_bleeding /// Field Label=Rectal bleeding score /// Field Note= /// Field Type=radio"
          }
@@ -54932,8 +54932,8 @@
             "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C41132",
+               "label" : "None"
             },
             "notes" : "rectal_bleeding /// Field Label=Rectal bleeding score /// Field Note= /// Field Type=radio"
          }
@@ -56663,8 +56663,8 @@
             "excluded" : false,
             "excluded_ori" : "0 (none)",
             "featureType" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C41132",
+               "label" : "None"
             },
             "notes" : "rectal_bleeding /// Field Label=Rectal bleeding score /// Field Note= /// Field Type=radio"
          }

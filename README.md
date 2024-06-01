@@ -262,7 +262,7 @@ For executing convert-pheno you will need:
 
     The database file is available at this [link](https://drive.google.com/drive/folders/1-5Ywf-hhwb8bX1sRNV2Tf3EjH4TCaC8P?usp=sharing) (~2.2GB). The database may be needed when using `-iomop`.
 
-    Regardless if you're using the containerized or non-containerized version, the download procedure is the same. Google makes it difficult to use `wget`, `curl` or `aria2c` so we will use a `Python` module instead:
+    Regardless if you're using the containerized or non-containerized version, the download procedure is the same. For CLI users, Google makes it difficult to use `wget`, `curl` or `aria2c` so we will use a `Python` module instead:
 
         $ pip install gdown
 
@@ -271,7 +271,7 @@ For executing convert-pheno you will need:
         import gdown
 
         url = 'https://drive.google.com/uc?export=download&id=1-Ls1nmgxp-iW-8LkRIuNNdNytXa8kgNw'
-        output = '/content/ohdsi.db'
+        output = './ohdsi.db'
         gdown.download(url, output, quiet=False)
 
     Once downloaded, you have two options:
