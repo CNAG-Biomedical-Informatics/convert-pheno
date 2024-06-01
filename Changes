@@ -1,6 +1,6 @@
 Revision history for Perl distribution Convert-Pheno
 
-0.21 2024-0X-XXT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
+0.21 2024-06-01T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
  - Updated the default value for the `treatment.interval` object
  - Fixed a warning that occurred in exact searches when the string contained leading numbers
