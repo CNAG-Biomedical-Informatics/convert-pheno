@@ -26,9 +26,9 @@
 
 **CPAN Distribution**: <a href="https://metacpan.org/pod/Convert::Pheno" target="_blank">https://metacpan.org/pod/Convert::Pheno</a>
 
-**Web App UI Source Code**: <a href="https://github.com/cnag-biomedical-informatics/convert-pheno-ui" target="_blank">https://github.com/cnag-biomedical-informatics/convert-pheno-ui</a>
-
 **Docker Hub Image**: <a href="https://hub.docker.com/r/manuelrueda/convert-pheno/tags" target="_blank">https://hub.docker.com/r/manuelrueda/convert-pheno/tags</a>
+
+**Web App UI**: <a href="https://convert-pheno.cnag.cat" target="_blank">"https://convert-pheno.cnag.cat</a>
 
 # NAME
 

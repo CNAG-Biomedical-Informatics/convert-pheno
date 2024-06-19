@@ -367,7 +367,7 @@ sub map_omop_visit_occurrence {
 # For instance, person_id = 1 has only visit_occurrence_id = 85, but on tables it has:
 # 82, 84, 42, 54, 41, 25, 76 and 81
 
-    # warn if we don't have $visit_occurrence_id in VISIT_OCURRENCE
+    # warn if we don't have $visit_occurrence_id in VISIT_OCCURRENCE
     unless ( exists $visit_occurrence->{$visit_occurrence_id} ) {
         warn
 "Sorry, but <visit_occurrence_id:$visit_occurrence_id> does not exist for <person_id:$person_id>\n"

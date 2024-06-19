@@ -7,6 +7,7 @@ use Data::Dumper;
 use File::Temp qw{ tempfile };    # core
 use Test::More tests => 16;
 use File::Compare;
+use Test::Deep;
 use Convert::Pheno;
 use Convert::Pheno::IO::CSVHandler;
 
@@ -90,22 +91,22 @@ my $input = {
         sep     => undef,
         out     => 't/pxf2csv/out/pxf.csv'
     },
-    pxf2jsonf => { 
+    pxf2jsonf => {
         in_file => 't/pxf2bff/in/pxf.json',
         sep     => undef,
         out     => 't/pxf2jsonf/out/pxf.fold.json'
     },
     csv2bff => {
-        in_file => 't/csv2bff/in/csv_data.csv',
-        mapping_file      => 't/csv2bff/in/csv_mapping.yaml',
-        sep     => ',',
-        out     => 't/csv2bff/out/individuals.json'
+        in_file      => 't/csv2bff/in/csv_data.csv',
+        mapping_file => 't/csv2bff/in/csv_mapping.yaml',
+        sep          => ',',
+        out          => 't/csv2bff/out/individuals.json'
     },
     csv2pxf => {
-        in_file => 't/csv2bff/in/csv_data.csv',
-        mapping_file    => 't/csv2bff/in/csv_mapping.yaml',
-        sep     => ',',
-        out     => 't/csv2pxf/out/pxf.json'
+        in_file      => 't/csv2bff/in/csv_data.csv',
+        mapping_file => 't/csv2bff/in/csv_mapping.yaml',
+        sep          => ',',
+        out          => 't/csv2pxf/out/pxf.json'
     }
 };
 
@@ -145,8 +146,11 @@ for my $method ( sort keys %{$input} ) {
 qq{Files <$input->{$method}{out}> <$tmp_file> are supposedly identical yet compare fails with windows-latest|Win32},
           1
           if IS_WINDOWS;
-          
-        if ( $method !~ m/^omop2/ && $method ne 'bff2csv' && $method ne 'pxf2csv') {
+
+        if (   $method !~ m/^omop2/
+            && $method ne 'bff2csv'
+            && $method ne 'pxf2csv' )
+        {
             io_yaml_or_json(
                 {
                     filepath => $tmp_file,
@@ -155,7 +159,7 @@ qq{Files <$input->{$method}{out}> <$tmp_file> are supposedly identical yet compa
                 }
             );
         }
-        elsif ( $method eq 'bff2csv' || $method eq 'pxf2csv') {
+        elsif ( $method eq 'bff2csv' || $method eq 'pxf2csv' ) {
             my $data = $convert->$method;
             $tmp_file = $tmp_file . '.csv';
             write_csv(    # Print data as CSV
@@ -172,15 +176,21 @@ qq{Files <$input->{$method}{out}> <$tmp_file> are supposedly identical yet compa
         }
 
         # Compare the files
-        if (compare($input->{$method}{out}, $tmp_file) != 0) {
-            my $expected_content = read_file($input->{$method}{out});
-            my $actual_content = read_file($tmp_file);
-            diag("Method: $method");
-            diag("Expected:\n$expected_content");
-            diag("Actual:\n$actual_content");
-        }
+        if ( compare( $input->{$method}{out}, $tmp_file ) != 0 ) {
+            my $expected_content = read_file( $input->{$method}{out} );
+            my $actual_content   = read_file($tmp_file);
 
-        ok(compare($input->{$method}{out}, $tmp_file) == 0, $method);
+            # Decode JSON content
+            my $expected_json = decode_json($expected_content);
+            my $actual_json   = decode_json($actual_content);
+
+            diag("Error found in method $method");
+
+            # Use Test::Deep to compare data structures
+            cmp_deeply( $actual_json, $expected_json,
+                "Check if actual output matches expected for $method" );
+        }
+        ok( compare( $input->{$method}{out}, $tmp_file ) == 0, $method );
         unlink($tmp_file) if -f $tmp_file;
     }
 }

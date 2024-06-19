@@ -91,12 +91,19 @@ The **OMOP CDM** is designed to be database-agnostic, which means it can be impl
         convert-pheno -iomop omop_dump.sql.gz -obff individuals.json.gz --stream
         ```
 
+        !!! Warning "About OMOP **core tables** and RAM usage"
+            Tables `CONCEPT` and `PERSON` are always loaded in RAM.
+
+            `VISIT_OCCURRENCE` will also be loaded if present, and this can **consume a lot of RAM** depending on its size. You might simply skip this table when exporting OMOP CDM data, as its information is only used as additional property `_visit`, but it is not part of the Beacon v2 or Phenopackets schema.
+            
         #### Selected table(s)
 
         You can narrow down the selection to a set of table(s).
 
-        !!! Warning "About tables `CONCEPT` and `PERSON`"
+        ??? Warning "About tables `CONCEPT` and `PERSON`"
             Tables `CONCEPT` and `PERSON` are always loaded as they're needed for the conversion. You don't need to specify them.
+
+           
 
         ```
         convert-pheno -iomop omop_dump.sql.gz -obff individuals_measurement.json.gz --omop-tables DRUG_EXPOSURE --stream
