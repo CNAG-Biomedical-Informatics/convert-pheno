@@ -446,7 +446,7 @@ sub omop2bff {
     if ( exists $data->{VISIT_OCCURRENCE} ) {
         $self->{visit_occurrence} =
           hashify_visit_occurrence( $data->{VISIT_OCCURRENCE} );             # Dynamically adding attributes (setter)
-        delete $data->{VISIT_OCCURRENCE}; # $data->{VISIT_OCCURRENCE} had all elements as undef via hashify_visit_occurrence
+        delete $data->{VISIT_OCCURRENCE}; # Anyway, $data->{VISIT_OCCURRENCE} = [] from hashify_visit_occurrence
     }
 
     # Now we need to perform a tranformation of the data where 'person_id' is one row of data

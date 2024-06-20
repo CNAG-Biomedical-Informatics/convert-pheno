@@ -561,6 +561,7 @@ sub transpose_omop_data_structure {
 sub hashify_visit_occurrence {
 
     my $data = shift;
+
     # Going from
     #$VAR1 = [
     #        {
@@ -580,13 +581,10 @@ sub hashify_visit_occurrence {
     #      };
 
     my $hash = {};
-    for (my $i = 0; $i < @$data; $i++) {
-        my $item = $data->[$i];
-        my $key = $item->{visit_occurrence_id}; # otherwise $item->{visit_occurrence_id} goes from Int to Str in JSON and tests fail
+    while ( my $item = pop @$data ) {    # Remove the last element from @$data, reducing its size
+        my $key = $item->{visit_occurrence_id};    # otherwise $item->{visit_occurrence_id} goes from Int to Str in JSON and tests fail
         $hash->{$key} = $item;
-        $data->[$i] = undef;  # Clear the reference in the original array to allow memory to be freed
     }
-
     return $hash;
 }
 
