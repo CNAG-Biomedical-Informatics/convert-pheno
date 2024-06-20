@@ -12,16 +12,20 @@ The **OMOP CDM** is designed to be database-agnostic, which means it can be impl
 ??? Warning "About OMOP CDM longitudinal data"
     OMOP CDM stores `visit_occurrence_id` for each `person_id` in the `VISIT_OCCURRENCE table`. However, [Beacon v2 Models](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema) currently lack a way to store longitudinal data. To address this, we added a property named `_visit` to each record, which stores visit information. This property will be serialized only if the `VISIT_OCCURRENCE` table is provided.
 
-## OMOP as input
-
-!!! Hint "OMOP CDM supported version(s)"
+!!! Tip "OMOP CDM supported version(s)"
     Currently, Convert-Pheno supports versions **5.3** and **5.4** of OMOP CDM, and its prepared to support v6 once we can test the code with v6 projects.
+
+## OMOP as input
 
 === "Command-line"
 
-    When using the `convert-pheno` command-line interface, simply ensure the [correct syntax](usage.md) is provided. Both the _input_ and _output_ files files can be **gzipped** to save space
+    When using the `convert-pheno` command-line interface, simply ensure the [correct syntax](usage.md) is provided.
 
-    ??? Danger "About `--max-lines-sql` default value"
+    ??? Tip "Does `Convert-Pheno` accept `gz` files?"
+
+        Yes, both input and output files can be **gzipped** to save space. However, it's important to note that the **gzip layer introduces an overhead**. This overhead can be significant—potentially doubling processing time—in `--stream` mode when working with PostgreSQL dumps.
+
+    ???+ Danger "About `--max-lines-sql` default value"
         Please note that for PostgreSQL dumps, we have configured `--max-lines-sql=500` which is suitable for testing purposes. However, for real data, it is recommended to **increase this limit** to match the size of your largest table.
 
     === "Small to medium-sized files (<1M rows)"

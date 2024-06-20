@@ -219,7 +219,7 @@ sub read_sqldump_stream {
             # Order matters. We exit before loading
             last if $line =~ /^\\\.$/;
 
-            # Solitting by tab, it's ok
+            # Splitting by tab, it's ok
             my @fields = split /\t/, $line;
 
             # Using tmp hashref to load all fields at once with slice

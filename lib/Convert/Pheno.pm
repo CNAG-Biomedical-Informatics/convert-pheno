@@ -415,8 +415,6 @@ sub omop2bff {
 
                 # --stream
                 else {
-                    # We'll ONLY load @stream_ram_memory_tables
-                    # in RAM and the other tables as $fh
                     if ( any { $_ eq $table_name } @stream_ram_memory_tables ) {
                         $data->{$table_name} =
                           read_csv( { in => $file, sep => $self->{sep} } );
@@ -842,7 +840,7 @@ sub omop_stream_dispatcher {
     # Process files based on the input type (CSV or PostgreSQL dump)
     return @$filepaths
       ? process_csv_files( $self, $filepaths, $person )
-      : process_sqldump( $self, $filepath, $omop_tables, $person );
+      : process_sqldump_stream( $self, $filepath, $omop_tables, $person );
 }
 
 sub transform_aoh_to_hoh {
@@ -870,9 +868,13 @@ sub process_csv_files {
     return 1;
 }
 
-sub process_sqldump {
+sub process_sqldump_stream {
 
     my ( $self, $filepath, $omop_tables, $person ) = @_;
+ 
+    # *** IMPORTANT ***
+    # We proceed as we do with CSV, opening the file for every table 
+    # With PosgtreSQL.dumps gzipped the overhead means 2x time. 
     for my $table (@$omop_tables) {
         next if any { $_ eq $table } @stream_ram_memory_tables;
         say "Processing table ... <$table>" if $self->{verbose};
