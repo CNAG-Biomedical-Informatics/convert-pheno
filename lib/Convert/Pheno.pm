@@ -445,8 +445,8 @@ sub omop2bff {
     # We transpose $self->{data}{VISIT_OCCURRENCE} if present
     if ( exists $data->{VISIT_OCCURRENCE} ) {
         $self->{visit_occurrence} =
-          transpose_visit_occurrence( $data->{VISIT_OCCURRENCE} );             # Dynamically adding attributes (setter)
-        delete $data->{VISIT_OCCURRENCE};
+          hashify_visit_occurrence( $data->{VISIT_OCCURRENCE} );             # Dynamically adding attributes (setter)
+        delete $data->{VISIT_OCCURRENCE}; # $data->{VISIT_OCCURRENCE} had all elements as undef via hashify_visit_occurrence
     }
 
     # Now we need to perform a tranformation of the data where 'person_id' is one row of data

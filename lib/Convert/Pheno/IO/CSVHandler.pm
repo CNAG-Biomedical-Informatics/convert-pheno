@@ -22,7 +22,7 @@ use Convert::Pheno::Schema;
 use Convert::Pheno::Mapping;
 use Exporter 'import';
 our @EXPORT =
-  qw(read_csv read_csv_stream read_redcap_dict_file read_mapping_file transpose_ohdsi_dictionary read_sqldump_stream read_sqldump sqldump2csv transpose_omop_data_structure write_csv open_filehandle load_exposures transpose_visit_occurrence get_headers);
+  qw(read_csv read_csv_stream read_redcap_dict_file read_mapping_file transpose_ohdsi_dictionary read_sqldump_stream read_sqldump sqldump2csv transpose_omop_data_structure write_csv open_filehandle load_exposures hashify_visit_occurrence get_headers);
 
 use constant DEVEL_MODE => 0;
 
@@ -558,10 +558,9 @@ sub transpose_omop_data_structure {
     return $aoh;
 }
 
-sub transpose_visit_occurrence {
+sub hashify_visit_occurrence {
 
-    my $data = shift;    # arrayref
-
+    my $data = shift;
     # Going from
     #$VAR1 = [
     #        {
@@ -579,12 +578,15 @@ sub transpose_visit_occurrence {
     #                  ...
     #                }
     #      };
-    #my $hash = { map { $_->{visit_occurrence_id} => $_ } @$data }; # map is slower than for
-    my $hash;
-    for my $item (@$data) {
-        my $key = $item->{visit_occurrence_id};    # otherwise $item->{visit_occurrence_id} goes from Int to Str in JSON and tests fail
+
+    my $hash = {};
+    for (my $i = 0; $i < @$data; $i++) {
+        my $item = $data->[$i];
+        my $key = $item->{visit_occurrence_id}; # otherwise $item->{visit_occurrence_id} goes from Int to Str in JSON and tests fail
         $hash->{$key} = $item;
+        $data->[$i] = undef;  # Clear the reference in the original array to allow memory to be freed
     }
+
     return $hash;
 }
 
