@@ -10,7 +10,6 @@ use Path::Tiny;
 use File::Basename;
 use File::ShareDir::ProjectDistDir;
 use List::Util qw(any uniq);
-use Carp       qw(confess);
 use XML::Fast;
 use Moo;
 use Types::Standard                qw(Str Int Num Enum ArrayRef Undef);
@@ -315,6 +314,7 @@ sub omop2bff {
     #   --stream
     #   Note: BFF / PXF JSON files serve as intermediate stages. They group data by individual for easier inspection but are ultimately stored in Mongo DB.
     #   Similar to the genomicVariations issue in B2RI, multiple JSON objects (like MEASUREMENTS, DRUGS) can correspond to a single individual.
+    #   The link is the term "id"
     #
     #   Potential Issues and Solutions:
     #     1. Mandatory <CONCEPT> Table:
@@ -430,8 +430,15 @@ sub omop2bff {
     #print Dumper_concise($data) and die;
     #print Dumper_concise($self) and die;
 
-    # Primarily with CSVs, it can happen that user does not provide <CONCEPT.csv>
-    confess 'We could not find table <CONCEPT> from your input files'
+    # *** IMPORTANT ***
+    # ABOUT TABLE <CONCEPT> BEING MANDATORY
+    # Options:
+    # a) MANDATORY <== IMPLEMENTED
+    #    Drawback: High RAM usage with <PERSON> for large tables
+    # b) OPTIONAL (with --ohdsi-db)
+    #    Using external SQLite database is possible, but risks missing ad hoc concept_ids
+    # Note: CSV users might not provide <CONCEPT.csv> with CSVs
+    die "The table <CONCEPT> is missing from the input files\n"
       unless exists $data->{CONCEPT};
 
     # We create a dictionary for $data->{CONCEPT}
