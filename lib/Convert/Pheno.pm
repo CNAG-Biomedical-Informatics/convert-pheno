@@ -3,7 +3,7 @@ package Convert::Pheno;
 use strict;
 use warnings;
 use autodie;
-use feature               qw(say);
+use feature qw(say);
 use File::Spec::Functions qw(catdir catfile);
 use Data::Dumper;
 use Path::Tiny;
@@ -12,7 +12,7 @@ use File::ShareDir::ProjectDistDir;
 use List::Util qw(any uniq);
 use XML::Fast;
 use Moo;
-use Types::Standard                qw(Str Int Num Enum ArrayRef Undef);
+use Types::Standard qw(Str Int Num Enum ArrayRef Undef);
 use File::ShareDir::ProjectDistDir qw(dist_dir);
 
 #use Devel::Size     qw(size total_size);
@@ -45,7 +45,7 @@ our $VERSION   = '0.21_1';
 our $share_dir = dist_dir('Convert-Pheno');
 
 # SQLite database
-my @all_sqlites = qw(ncit icd10 ohdsi cdisc omim hpo);
+my @all_sqlites       = qw(ncit icd10 ohdsi cdisc omim hpo);
 my @non_ohdsi_sqlites = qw(ncit icd10 cdisc omim hpo);
 
 ############################################
@@ -165,7 +165,8 @@ sub BUILD {
     # BUILD: is an instance method that is called after the object has been constructed but before it is returned to the caller.
     # BUILDARGS is a class method that is responsible for processing the arguments passed to the constructor (new) and returning a hash reference of attributes that will be used to initialize the object.
     my $self = shift;
-    $self->{databases} = $self->{ohdsi_db} ? \@all_sqlites : \@non_ohdsi_sqlites;
+    $self->{databases} =
+      $self->{ohdsi_db} ? \@all_sqlites : \@non_ohdsi_sqlites;
 }
 
 # NB: In general, we'll only display terms that exist and have content
@@ -228,7 +229,7 @@ sub redcap2bff {
     my $self = shift;
 
     # Read and load data from REDCap export
-    my $data             = read_csv( { in => $self->{in_file}, sep =>  $self->{sep} } );
+    my $data = read_csv( { in => $self->{in_file}, sep => $self->{sep} } );
     my $data_redcap_dict = read_redcap_dict_file(
         {
             redcap_dictionary => $self->{redcap_dictionary},
@@ -243,11 +244,11 @@ sub redcap2bff {
     );
 
     # Load data in $self
-    $self->{data}              = $data;                 # Dynamically adding attributes (setter)
-    $self->{data_redcap_dict}  = $data_redcap_dict;     # Dynamically adding attributes (setter)
-    $self->{data_mapping_file} = $data_mapping_file;    # Dynamically adding attributes (setter)
-    $self->{metaData}          = get_metaData($self);   # Dynamically adding attributes (setter)
-    $self->{convertPheno}      = get_info($self);       # Dynamically adding attributes (setter)
+    $self->{data}              = $data;                  # Dynamically adding attributes (setter)
+    $self->{data_redcap_dict}  = $data_redcap_dict;      # Dynamically adding attributes (setter)
+    $self->{data_mapping_file} = $data_mapping_file;     # Dynamically adding attributes (setter)
+    $self->{metaData}          = get_metaData($self);    # Dynamically adding attributes (setter)
+    $self->{convertPheno}      = get_info($self);        # Dynamically adding attributes (setter)
 
     # array_dispatcher will deal with JSON arrays
     return $self->array_dispatcher;
@@ -364,11 +365,12 @@ sub omop2bff {
 
         for my $file ( @{ $self->{in_files} } ) {
             my ( $table_name, undef, $ext ) = fileparse( $file, @exts );
-            if ( $ext =~ m/\.sql/i ) {
 
-                #######################
-                # Loading OMOP tables #
-                #######################
+            #####################
+            # PostgreSQL export #
+            #####################
+
+            if ( $ext =~ m/\.sql/i ) {
 
                 # --no-stream
                 if ( !$self->{stream} ) {
@@ -383,6 +385,8 @@ sub omop2bff {
                 # --stream
                 else {
 
+                    say "Running <--stream> mode" if $self->{verbose};
+
                     # We'll ONLY load @stream_ram_memory_tables
                     # in RAM and the other tables as $fh
                     $self->{omop_tables} = [@stream_ram_memory_tables];    # setter
@@ -395,6 +399,11 @@ sub omop2bff {
                 # Exit loop
                 last;
             }
+
+            #############
+            # CSV files #
+            #############
+
             else {
 
                 # We'll load all OMOP tables that the user is providing as -iomop
@@ -405,10 +414,14 @@ sub omop2bff {
                   #unless (any { $_ eq $table_name } @{ $omop_main_table->{$omop_version} };
                   unless any { $_ eq $table_name } @omop_essential_tables;    # global
 
+                my $msg =
+                  "Reading <$table_name> and storing it in RAM memory...";
+
                 # --no-stream
                 if ( !$self->{stream} ) {
 
                     # We read all tables in memory
+                    say $msg if ( $self->{verbose} || $self->{debug} );
                     $data->{$table_name} =
                       read_csv( { in => $file, sep => $self->{sep} } );
                 }
@@ -416,6 +429,7 @@ sub omop2bff {
                 # --stream
                 else {
                     if ( any { $_ eq $table_name } @stream_ram_memory_tables ) {
+                        say $msg if ( $self->{verbose} || $self->{debug} );
                         $data->{$table_name} =
                           read_csv( { in => $file, sep => $self->{sep} } );
                     }
@@ -450,11 +464,11 @@ sub omop2bff {
     # We transpose $self->{data}{VISIT_OCCURRENCE} if present
     if ( exists $data->{VISIT_OCCURRENCE} ) {
         $self->{visit_occurrence} =
-          hashify_visit_occurrence( $data->{VISIT_OCCURRENCE} );             # Dynamically adding attributes (setter)
-        delete $data->{VISIT_OCCURRENCE}; # Anyway, $data->{VISIT_OCCURRENCE} = [] from hashify_visit_occurrence
+          hashify_visit_occurrence( $data->{VISIT_OCCURRENCE} );               # Dynamically adding attributes (setter)
+        delete $data->{VISIT_OCCURRENCE};                                      # Anyway, $data->{VISIT_OCCURRENCE} = [] from hashify_visit_occurrence
     }
 
-    # Now we need to perform a tranformation of the data where 'person_id' is one row of data
+    # Now we need to perform a transformation of the data where 'person_id' is one row of data
     # NB: Transformation is due ONLY IN $omop_main_table FIELDS, the rest of the tables are not used
     # The transformation is performed in --no-stream mode
     $self->{data} =
@@ -608,7 +622,7 @@ sub csv2bff {
     my $self = shift;
 
     # Read and load data from CSV
-    my $data             = read_csv( { in => $self->{in_file}, sep =>  $self->{sep} } );
+    my $data = read_csv( { in => $self->{in_file}, sep => $self->{sep} } );
 
     # Read and load mapping file
     my $data_mapping_file = read_mapping_file(
@@ -620,10 +634,10 @@ sub csv2bff {
     );
 
     # Load data in $self
-    $self->{data}              = $data;                 # Dynamically adding attributes (setter)
-    $self->{data_mapping_file} = $data_mapping_file;    # Dynamically adding attributes (setter)
-    $self->{metaData}          = get_metaData($self);   # Dynamically adding attributes (setter)
-    $self->{convertPheno}      = get_info($self);       # Dynamically adding attributes (setter)
+    $self->{data}              = $data;                  # Dynamically adding attributes (setter)
+    $self->{data_mapping_file} = $data_mapping_file;     # Dynamically adding attributes (setter)
+    $self->{metaData}          = get_metaData($self);    # Dynamically adding attributes (setter)
+    $self->{convertPheno}      = get_info($self);        # Dynamically adding attributes (setter)
 
     # array_dispatcher will deal with JSON arrays
     return $self->array_dispatcher;
@@ -701,7 +715,8 @@ sub array_dispatcher {
 
     # Load the input data as Perl data structure
     my $in_data =
-      ( $self->{in_textfile} && $self->{method} !~ m/^(redcap2|omop2|cdisc2|csv)/ )
+      (      $self->{in_textfile}
+          && $self->{method} !~ m/^(redcap2|omop2|cdisc2|csv)/ )
       ? io_yaml_or_json( { filepath => $self->{in_file}, mode => 'read' } )
       : $self->{data};
 
@@ -842,23 +857,34 @@ sub omop_stream_dispatcher {
     open_connections_SQLite($self) if $self->{method} ne 'bff2pxf';
 
     # Transform Array of Hashes (AoH) to Hash of Hashes (HoH) for faster computation
-    my $person = transform_aoh_to_hoh($self);
+    print "Transforming <PERSON> from array to lookup table...\n\n"
+      if ( $self->{verbose} || $self->{debug} );
+    my $person = transform_PERSON_aoh_to_hoh($self);
 
     # Process files based on the input type (CSV or PostgreSQL dump)
     return @$filepaths
-      ? process_csv_files( $self, $filepaths, $person )
+      ? process_csv_files_stream( $self, $filepaths, $person )
       : process_sqldump_stream( $self, $filepath, $omop_tables, $person );
 }
 
-sub transform_aoh_to_hoh {
+sub transform_PERSON_aoh_to_hoh {
 
-    my $self   = shift;
-    my $person = { map { $_->{person_id} => $_ } @{ $self->{data}{PERSON} } };
-    delete $self->{data}{PERSON};    # Free up memory
-    return $person;
+    my $self = shift;
+
+    # Initialize the new hash for transformed data
+    my $person_hoh = {};
+
+    # Iterate over the array and build the hash while clearing the array
+    while ( @{ $self->{data}{PERSON} } ) {
+        my $entry = shift @{ $self->{data}{PERSON} };
+        $person_hoh->{ $entry->{person_id} } = $entry;
+    }
+
+    # The original array @{ $self->{data}{PERSON} is now empty
+    return $person_hoh;
 }
 
-sub process_csv_files {
+sub process_csv_files_stream {
 
     my ( $self, $filepaths, $person ) = @_;
     for my $file (@$filepaths) {
@@ -878,13 +904,13 @@ sub process_csv_files {
 sub process_sqldump_stream {
 
     my ( $self, $filepath, $omop_tables, $person ) = @_;
- 
+
     # *** IMPORTANT ***
-    # We proceed as we do with CSV, opening the file for every table 
-    # With PosgtreSQL.dumps gzipped the overhead means 2x time. 
+    # We proceed as we do with CSV, opening the file for every table
+    # With PosgtreSQL.dumps gzipped the overhead means 2x time.
     for my $table (@$omop_tables) {
         next if any { $_ eq $table } @stream_ram_memory_tables;
-        say "Processing table ... <$table>" if $self->{verbose};
+        say "Processing table <$table> line-by-line..." if $self->{verbose};
         $self->{omop_tables} = [$table];
         read_sqldump_stream(
             { in => $filepath, self => $self, person => $person } );

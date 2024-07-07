@@ -339,7 +339,7 @@ sub read_sqldump {
         next unless any { $_ eq $table_name } @omop_tables;
 
         # Say if verbose
-        say "Processing table ... <$table_name>" if $self->{verbose};
+        say "Reading SQL dump and loading <$table_name> in memory..." if $self->{verbose};
 
         # Discarding first line
         shift @lines;
@@ -387,7 +387,7 @@ sub read_sqldump {
 
             # adhoc filter to speed-up development
             last if $count == $max_lines_sql;
-            say "Rows processed: $count"
+            say "Rows read: $count"
               if ( $self->{verbose} && $count % 1_000 == 0 );
 
         }
