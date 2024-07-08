@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use autodie;
 use feature qw(say);
+
 #use Data::Dumper;
 use Convert::Pheno::Default qw(get_defaults);
 use Convert::Pheno::Mapping;
@@ -95,8 +96,8 @@ sub do_omop2bff {
 
     my ( $self, $participant ) = @_;
 
-    my $ohdsi_dic = $self->{data_ohdsi_dic};
-    my $sth       = $self->{sth};
+    my $ohdsi_dict = $self->{data_ohdsi_dict};
+    my $sth        = $self->{sth};
 
     ####################################
     # START MAPPING TO BEACON V2 TERMS #
@@ -112,10 +113,10 @@ sub do_omop2bff {
     # $person = cursor to $participant->PERSON
     # $individual = output data
 
-    # ABOUT REQUIRED PROPERTIES
-    # 'id' and 'sex' are required properties in <individuals>
-    # 'person_id' must exist at this point otherwise it would have not been created
-    # Premature return as undef
+ # ABOUT REQUIRED PROPERTIES
+ # 'id' and 'sex' are required properties in <individuals>
+ # 'person_id' must exist at this point otherwise it would have not been created
+ # Premature return as undef
     return unless defined $person->{gender_concept_id};
 
     # ========
@@ -151,8 +152,8 @@ sub do_omop2bff {
                 age => {
                     iso8601duration => find_age(
 
-                        #_birth_datetime => $person->{birth_datetime}, # Property not allowed
-                        #_procedure_date => $field->{procedure_date},  # Property not allowed
+           #_birth_datetime => $person->{birth_datetime}, # Property not allowed
+           #_procedure_date => $field->{procedure_date},  # Property not allowed
                         {
 
                             date      => $field->{condition_start_date},
@@ -164,7 +165,7 @@ sub do_omop2bff {
 
             $disease->{diseaseCode} = map2ohdsi(
                 {
-                    ohdsi_dic  => $ohdsi_dic,
+                    ohdsi_dict => $ohdsi_dict,
                     concept_id => $field->{condition_concept_id},
                     self       => $self
                 }
@@ -187,7 +188,7 @@ sub do_omop2bff {
             #$disease->{severity} = undef;
             $disease->{stage} = map2ohdsi(
                 {
-                    ohdsi_dic  => $ohdsi_dic,
+                    ohdsi_dict => $ohdsi_dict,
                     concept_id => $field->{condition_status_concept_id},
                     self       => $self
 
@@ -202,7 +203,7 @@ sub do_omop2bff {
                         person_id           => $field->{person_id},
                         visit_occurrence_id => $field->{visit_occurrence_id},
                         self                => $self,
-                        ohdsi_dic           => $ohdsi_dic
+                        ohdsi_dict          => $ohdsi_dict
                     }
                 );
                 $disease->{_visit} = $visit if defined $visit;
@@ -218,7 +219,8 @@ sub do_omop2bff {
 
     $individual->{ethnicity} = map_ontology_term(
         {
-            query    => $person->{race_source_value},    # not getting it from *_concept_id
+            query => $person->{race_source_value}
+            ,    # not getting it from *_concept_id
             column   => 'label',
             ontology => 'ncit',
 
@@ -261,12 +263,12 @@ sub do_omop2bff {
 
         for my $field ( @{ $participant->{$table} } ) {
 
-            # Note that these changes with DEVEL_MODE affect phenotypicFeatures (also uses OBSERVATION)
+# Note that these changes with DEVEL_MODE affect phenotypicFeatures (also uses OBSERVATION)
             $field->{observation_concept_id} = 35609831
               if DEVEL_MODE;    # Note that it affects
                                 #$field->{value_as_number} = 10 if DEVEL_MODE;
 
-            # NB: Values in key hashes are stringfied so make a copy to keep them as integer
+# NB: Values in key hashes are stringfied so make a copy to keep them as integer
             my $field_observation_concept_id = $field->{observation_concept_id};
             next
               unless exists $self->{exposures}{$field_observation_concept_id};
@@ -294,7 +296,7 @@ sub do_omop2bff {
 
             $exposure->{exposureCode} = map2ohdsi(
                 {
-                    ohdsi_dic  => $ohdsi_dic,
+                    ohdsi_dict => $ohdsi_dict,
                     concept_id => $field->{observation_concept_id},
                     self       => $self
                 }
@@ -302,7 +304,7 @@ sub do_omop2bff {
 
             my $unit = map2ohdsi(
                 {
-                    ohdsi_dic  => $ohdsi_dic,
+                    ohdsi_dict => $ohdsi_dict,
                     concept_id => $field->{unit_concept_id},
                     self       => $self
 
@@ -415,8 +417,8 @@ sub do_omop2bff {
 
                     iso8601duration => find_age(
 
-                        #_birth_datetime => $person->{birth_datetime}, # Property not allowed
-                        #_procedure_date => $field->{procedure_date},  # Property not allowed
+           #_birth_datetime => $person->{birth_datetime}, # Property not allowed
+           #_procedure_date => $field->{procedure_date},  # Property not allowed
                         {
 
                             date      => $field->{procedure_date},
@@ -433,7 +435,7 @@ sub do_omop2bff {
             $intervention->{_info}{$table}{OMOP_columns} = $field;
             $intervention->{procedureCode} = map2ohdsi(
                 {
-                    ohdsi_dic  => $ohdsi_dic,
+                    ohdsi_dict => $ohdsi_dict,
                     concept_id => $field->{procedure_concept_id},
                     self       => $self
 
@@ -516,7 +518,7 @@ sub do_omop2bff {
 
             $measure->{assayCode} = map2ohdsi(
                 {
-                    ohdsi_dic  => $ohdsi_dic,
+                    ohdsi_dict => $ohdsi_dict,
                     concept_id => $field->{measurement_concept_id},
                     self       => $self
                 }
@@ -526,7 +528,7 @@ sub do_omop2bff {
 
             my $unit = map2ohdsi(
                 {
-                    ohdsi_dic  => $ohdsi_dic,
+                    ohdsi_dict => $ohdsi_dict,
                     concept_id => $field->{unit_concept_id},
                     self       => $self
 
@@ -541,7 +543,7 @@ sub do_omop2bff {
             $measure->{measurementValue} =
               $field->{value_as_concept_id} ? map2ohdsi(
                 {
-                    ohdsi_dic  => $ohdsi_dic,
+                    ohdsi_dict => $ohdsi_dict,
                     concept_id => $field->{value_as_concept_id},
                     self       => $self
                 }
@@ -586,7 +588,7 @@ sub do_omop2bff {
                         person_id           => $field->{person_id},
                         visit_occurrence_id => $field->{visit_occurrence_id},
                         self                => $self,
-                        ohdsi_dic           => $ohdsi_dic
+                        ohdsi_dict          => $ohdsi_dict
                     }
                 );
                 $measure->{_visit} = $visit if defined $visit;
@@ -634,7 +636,7 @@ sub do_omop2bff {
 
         for my $field ( @{ $participant->{$table} } ) {
 
-            # NB: Values in key hashes are stringfied so make a copy to keep them as integer
+# NB: Values in key hashes are stringfied so make a copy to keep them as integer
             my $field_observation_concept_id = $field->{observation_concept_id};
             next
               if exists $self->{exposures}{$field_observation_concept_id};
@@ -645,7 +647,7 @@ sub do_omop2bff {
             #$phenotypicFeature->{excluded} = undef;
             $phenotypicFeature->{featureType} = map2ohdsi(
                 {
-                    ohdsi_dic  => $ohdsi_dic,
+                    ohdsi_dict => $ohdsi_dict,
                     concept_id => $field->{observation_concept_id},
                     self       => $self
 
@@ -660,8 +662,8 @@ sub do_omop2bff {
 
             $phenotypicFeature->{onset} = {
 
-                #_birth_datetime   => $person->{birth_datetime}, # property not allowed
-                #_observation_date => $field->{observation_date}, # property not allowed
+        #_birth_datetime   => $person->{birth_datetime}, # property not allowed
+        #_observation_date => $field->{observation_date}, # property not allowed
 
                 iso8601duration => find_age(
                     {
@@ -683,7 +685,7 @@ sub do_omop2bff {
                         person_id           => $field->{person_id},
                         visit_occurrence_id => $field->{visit_occurrence_id},
                         self                => $self,
-                        ohdsi_dic           => $ohdsi_dic
+                        ohdsi_dict          => $ohdsi_dict
                     }
                 );
                 $phenotypicFeature->{_visit} = $visit if defined $visit;
@@ -700,7 +702,7 @@ sub do_omop2bff {
     # OHSDI CONCEPT.vocabulary_id = Gender (i.e., ad hoc)
     my $sex = map2ohdsi(
         {
-            ohdsi_dic  => $ohdsi_dic,
+            ohdsi_dict => $ohdsi_dict,
             concept_id => $person->{gender_concept_id},
             self       => $self
         }
@@ -784,8 +786,8 @@ sub do_omop2bff {
             $treatment->{ageAtOnset} = {
                 age => {
 
-                    # _birth_datetime               => $person->{birth_datetime}, # property not allowed
-                    # _drug_exposure_start_datetime => $field->{drug_exposure_start_date},
+# _birth_datetime               => $person->{birth_datetime}, # property not allowed
+# _drug_exposure_start_datetime => $field->{drug_exposure_start_date},
                     iso8601duration => find_age(
                         {
                             date      => $field->{drug_exposure_start_date},
@@ -815,7 +817,7 @@ sub do_omop2bff {
               { id => "NCIT:NA0000", label => "Fake" };
             $treatment->{treatmentCode} = map2ohdsi(
                 {
-                    ohdsi_dic  => $ohdsi_dic,
+                    ohdsi_dict => $ohdsi_dict,
                     concept_id => $field->{drug_concept_id},
                     self       => $self
                 }
@@ -829,7 +831,7 @@ sub do_omop2bff {
                         person_id           => $field->{person_id},
                         visit_occurrence_id => $field->{visit_occurrence_id},
                         self                => $self,
-                        ohdsi_dic           => $ohdsi_dic
+                        ohdsi_dict          => $ohdsi_dict
                     }
                 );
                 $treatment->{_visit} = $visit if defined $visit;
@@ -861,6 +863,7 @@ sub avoid_seen_individuals {
     # Compare the individual's keys with the expected keys
     if ( $individual_keys eq $expected_keys ) {
         if ( exists $seen_individual{$key} ) {
+
             #say "Duplicate <$key> for $id";
             return 1;    # Duplicate found
         }
@@ -869,6 +872,8 @@ sub avoid_seen_individuals {
             return 0;    # No duplicate, individual added to the tracking hash
         }
     }
-    return 0;            # The individual does not match the expected keys and is treated as non-duplicate
+    return
+      0
+      ; # The individual does not match the expected keys and is treated as non-duplicate
 }
 1;

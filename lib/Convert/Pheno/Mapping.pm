@@ -216,8 +216,8 @@ sub map2redcap_dict {
 sub map2ohdsi {
 
     my $arg = shift;
-    my ( $ohdsi_dic, $concept_id, $self ) =
-      ( $arg->{ohdsi_dic}, $arg->{concept_id}, $arg->{self} );
+    my ( $ohdsi_dict, $concept_id, $self ) =
+      ( $arg->{ohdsi_dict}, $arg->{concept_id}, $arg->{self} );
 
     #######################
     # OPTION A: <CONCEPT> #
@@ -227,10 +227,10 @@ sub map2ohdsi {
     # .. we are already searching in a hash
     # NB2: $concept_id is stringified by hash
     my ( $data, $id, $label, $vocabulary ) = ( (undef) x 4 );
-    if ( exists $ohdsi_dic->{$concept_id} ) {
-        $id         = $ohdsi_dic->{$concept_id}{concept_code};
-        $label      = $ohdsi_dic->{$concept_id}{concept_name};
-        $vocabulary = $ohdsi_dic->{$concept_id}{vocabulary_id};
+    if ( exists $ohdsi_dict->{$concept_id} ) {
+        $id         = $ohdsi_dict->{$concept_id}{concept_code};
+        $label      = $ohdsi_dict->{$concept_id}{concept_name};
+        $vocabulary = $ohdsi_dict->{$concept_id}{vocabulary_id};
         $data       = { id => qq($vocabulary:$id), label => $label };
     }
 
@@ -354,7 +354,7 @@ sub map_omop_visit_occurrence {
 
     my $arg                 = shift;
     my $self                = $arg->{self};
-    my $ohdsi_dic           = $arg->{ohdsi_dic};
+    my $ohdsi_dict          = $arg->{ohdsi_dict};
     my $person_id           = $arg->{person_id};
     my $visit_occurrence_id = $arg->{visit_occurrence_id};
     my $visit_occurrence    = $self->{visit_occurrence};
@@ -382,7 +382,7 @@ sub map_omop_visit_occurrence {
 
     my $concept = map2ohdsi(
         {
-            ohdsi_dic  => $ohdsi_dic,
+            ohdsi_dict => $ohdsi_dict,
             concept_id => $hashref->{visit_concept_id},
             self       => $self
 
@@ -400,7 +400,7 @@ sub map_omop_visit_occurrence {
       ? $ad_hoc_44818517
       : map2ohdsi(
         {
-            ohdsi_dic  => $ohdsi_dic,
+            ohdsi_dict => $ohdsi_dict,
             concept_id => $hashref->{visit_type_concept_id},
             self       => $self
 

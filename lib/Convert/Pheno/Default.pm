@@ -18,14 +18,15 @@ my %DEFAULT = (
 );
 
 $DEFAULT{iso8601duration} = { iso8601duration => $DEFAULT{duration} };
-$DEFAULT{interval} = { start => $DEFAULT{timestamp} , end => $DEFAULT{timestamp}};
-$DEFAULT{referenceRange} = { low => -1, high => -1, unit => $DEFAULT{ontology_term}};
-$DEFAULT{quantity}        = {
-    unit  => $DEFAULT{ontology_term},
-    value => $DEFAULT{value},
+$DEFAULT{interval} =
+  { start => $DEFAULT{timestamp}, end => $DEFAULT{timestamp} };
+$DEFAULT{referenceRange} =
+  { low => -1, high => -1, unit => $DEFAULT{ontology_term} };
+$DEFAULT{quantity} = {
+    unit           => $DEFAULT{ontology_term},
+    value          => $DEFAULT{value},
     referenceRange => $DEFAULT{referenceRange}
 };
-
 
 # Lock the hash to make it read-only
 lock_hash(%DEFAULT);

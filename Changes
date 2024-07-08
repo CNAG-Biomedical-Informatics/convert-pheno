@@ -2,7 +2,7 @@ Revision history for Perl distribution Convert-Pheno
 
 0.22 2024-0X-XXT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
- - Reduced memory usage in -stream mode by emptying PERSON and VISIT_OCCURRENCE AoH during HoH transformation
+ - Reduced memory usage in -stream mode by emptying CONCEPT, PERSON and VISIT_OCCURRENCE during AoH -> HoH step 
 
 0.21 2024-06-01T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 

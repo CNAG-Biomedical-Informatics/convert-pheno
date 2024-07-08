@@ -23,7 +23,9 @@ The **OMOP CDM** is designed to be database-agnostic, which means it can be impl
 
     ??? Tip "Does `Convert-Pheno` accept `gz` files?"
 
-        Yes, both input and output files can be **gzipped** to save space. However, it's important to note that the **gzip layer introduces an overhead**. This overhead can be significant—potentially doubling processing time—in `--stream` mode when working with PostgreSQL dumps.
+        Yes, both input and output files can be **gzipped** to save space. However, it's important to note that the **gzip layer introduces an overhead**. 
+        
+       This overhead can be substantial, potentially doubling the processing time in `--stream` mode when handling PostgreSQL dumps as input.
 
     ???+ Danger "About `--max-lines-sql` default value"
         Please note that for **PostgreSQL dumps**, we have configured `--max-lines-sql=500` which is suitable for testing purposes. However, for real data, it is recommended to **increase this limit** to match the size of your largest table. This flag does not apply when your input files are `CSV`.

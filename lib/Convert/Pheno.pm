@@ -385,7 +385,7 @@ sub omop2bff {
                 # --stream
                 else {
 
-                    say "Running <--stream> mode" if $self->{verbose};
+                    say "Running in --stream mode" if $self->{verbose};
 
                     # We'll ONLY load @stream_ram_memory_tables
                     # in RAM and the other tables as $fh
@@ -456,17 +456,30 @@ sub omop2bff {
       unless exists $data->{CONCEPT};
 
     # We create a dictionary for $data->{CONCEPT}
-    $self->{data_ohdsi_dic} = transpose_ohdsi_dictionary( $data->{CONCEPT} );  # Dynamically adding attributes (setter)
+    print "Transforming <CONCEPT> from array to lookup table...\n\n"
+      if ( $self->{verbose} || $self->{debug} );
+    $self->{data_ohdsi_dict} = convert_table_aoh_to_hoh( $data, 'CONCEPT' );   # Dynamically adding attributes (setter)
 
-    # We load the allowed concept_id for exposures as hashref (for --no--stream and --stream)
-    $self->{exposures} = load_exposures( $self->{exposures_file} );            # Dynamically adding attributes (setter)
+    # Transform Array of Hashes (AoH) to Hash of Hashes (HoH) for faster computation
+    if ( $self->{stream} ) {
+        print "Transforming <PERSON> from array to lookup table...\n\n"
+          if ( $self->{verbose} || $self->{debug} );
+        $self->{person} = convert_table_aoh_to_hoh( $data, 'PERSON' );         # Dynamically adding attributes (setter)
+    }
 
     # We transpose $self->{data}{VISIT_OCCURRENCE} if present
     if ( exists $data->{VISIT_OCCURRENCE} ) {
+        print
+          "Transforming <VISIT_OCCURRENCE> from array to lookup table...\n\n"
+          if ( $self->{verbose} || $self->{debug} );
+
         $self->{visit_occurrence} =
-          hashify_visit_occurrence( $data->{VISIT_OCCURRENCE} );               # Dynamically adding attributes (setter)
-        delete $data->{VISIT_OCCURRENCE};                                      # Anyway, $data->{VISIT_OCCURRENCE} = [] from hashify_visit_occurrence
+          convert_table_aoh_to_hoh( $data, 'VISIT_OCCURRENCE' );               # Dynamically adding attributes (setter)
+        delete $data->{VISIT_OCCURRENCE};                                      # Anyway, $data->{VISIT_OCCURRENCE} = [] from convert_table_aoh_to_hoh
     }
+
+    # We load the allowed concept_id for exposures as hashref (for --no--stream and --stream)
+    $self->{exposures} = load_exposures( $self->{exposures_file} );            # Dynamically adding attributes (setter)
 
     # Now we need to perform a transformation of the data where 'person_id' is one row of data
     # NB: Transformation is due ONLY IN $omop_main_table FIELDS, the rest of the tables are not used
@@ -856,37 +869,16 @@ sub omop_stream_dispatcher {
     # Open a SQLite database connection if required
     open_connections_SQLite($self) if $self->{method} ne 'bff2pxf';
 
-    # Transform Array of Hashes (AoH) to Hash of Hashes (HoH) for faster computation
-    print "Transforming <PERSON> from array to lookup table...\n\n"
-      if ( $self->{verbose} || $self->{debug} );
-    my $person = transform_PERSON_aoh_to_hoh($self);
-
     # Process files based on the input type (CSV or PostgreSQL dump)
     return @$filepaths
-      ? process_csv_files_stream( $self, $filepaths, $person )
-      : process_sqldump_stream( $self, $filepath, $omop_tables, $person );
-}
-
-sub transform_PERSON_aoh_to_hoh {
-
-    my $self = shift;
-
-    # Initialize the new hash for transformed data
-    my $person_hoh = {};
-
-    # Iterate over the array and build the hash while clearing the array
-    while ( @{ $self->{data}{PERSON} } ) {
-        my $entry = shift @{ $self->{data}{PERSON} };
-        $person_hoh->{ $entry->{person_id} } = $entry;
-    }
-
-    # The original array @{ $self->{data}{PERSON} is now empty
-    return $person_hoh;
+      ? process_csv_files_stream( $self, $filepaths )
+      : process_sqldump_stream( $self, $filepath, $omop_tables, $self );
 }
 
 sub process_csv_files_stream {
 
-    my ( $self, $filepaths, $person ) = @_;
+    my ( $self, $filepaths ) = @_;
+    my $person = $self->{person};
     for my $file (@$filepaths) {
         say "Processing file ... <$file>" if $self->{verbose};
         read_csv_stream(
@@ -903,7 +895,8 @@ sub process_csv_files_stream {
 
 sub process_sqldump_stream {
 
-    my ( $self, $filepath, $omop_tables, $person ) = @_;
+    my ( $self, $filepath, $omop_tables ) = @_;
+    my $person = $self->{person};
 
     # *** IMPORTANT ***
     # We proceed as we do with CSV, opening the file for every table

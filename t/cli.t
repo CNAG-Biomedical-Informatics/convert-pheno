@@ -7,6 +7,7 @@ use Data::Dumper;
 use File::Temp qw{ tempfile };    # core
 use Test::More tests => 16;
 use File::Compare;
+use JSON::XS;
 use Test::Deep;
 use Convert::Pheno;
 use Convert::Pheno::IO::CSVHandler;

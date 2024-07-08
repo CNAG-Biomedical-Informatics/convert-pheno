@@ -3,13 +3,13 @@ package Convert::Pheno::REDCap;
 use strict;
 use warnings;
 use autodie;
-use feature                 qw(say);
-use List::Util              qw(any);
+use feature qw(say);
+use List::Util qw(any);
 use Convert::Pheno::Default qw(get_defaults);
 use Convert::Pheno::Mapping;
 use Data::Dumper;
 use Scalar::Util qw(looks_like_number);
-use Hash::Util   qw(lock_keys);
+use Hash::Util qw(lock_keys);
 use Exporter 'import';
 
 # Symbols to export by default
@@ -52,20 +52,20 @@ sub do_redcap2bff {
     ##############################
     # <Variable> names in REDCap #
     ##############################
-    #
-    # REDCap does not enforce any particular variable name.
-    # Extracted from https://www.ctsi.ufl.edu/wordpress/files/2019/02/Project-Creation-User-Guide.pdf
-    # ---
-    # "Variable Names: Variable names are critical in the data analysis process. If you export your data to a
-    # statistical software program, the variable names are what you or your statistician will use to conduct
-    # the analysis"
-    #
-    # "We always recommend reviewing your variable names with a statistician or whoever will be
-    # analyzing your data. This is especially important if this is the first time you are building a
-    # database"
-    #---
-    # If variable names are not consensuated, then we need to do the mapping manually "a posteriori".
-    # This is what we are attempting here:
+#
+# REDCap does not enforce any particular variable name.
+# Extracted from https://www.ctsi.ufl.edu/wordpress/files/2019/02/Project-Creation-User-Guide.pdf
+# ---
+# "Variable Names: Variable names are critical in the data analysis process. If you export your data to a
+# statistical software program, the variable names are what you or your statistician will use to conduct
+# the analysis"
+#
+# "We always recommend reviewing your variable names with a statistician or whoever will be
+# analyzing your data. This is especially important if this is the first time you are building a
+# database"
+#---
+# If variable names are not consensuated, then we need to do the mapping manually "a posteriori".
+# This is what we are attempting here:
 
     ####################################
     # START MAPPING TO BEACON V2 TERMS #
@@ -329,7 +329,8 @@ sub propagate_fields {
         # Load $self for Baseline
         $self->{baselineFieldsToPropagate}{ $participant->{$id_field} }{$field}
           = $participant->{$field}
-          if defined $participant->{$field};    # Dynamically adding attributes (setter)
+          if defined $participant->{$field}
+          ;    # Dynamically adding attributes (setter)
 
         # Load field for all
         $participant->{$field} =
@@ -576,7 +577,8 @@ sub map_info {
     if ( exists $term_mapping_cursor->{mapping}{age} ) {
         my $age_range = map_age_range(
             $participant->{ $term_mapping_cursor->{mapping}{age} } );
-        $individual->{info}{ageRange} = $age_range->{ageRange};    #It comes nested from map_age_range()
+        $individual->{info}{ageRange} =
+          $age_range->{ageRange};    #It comes nested from map_age_range()
     }
 
     # When we use --test we do not serialize changing (metaData) information
@@ -731,7 +733,8 @@ sub map_measures {
             if ( $participant->{$field} =~ m/ \- / ) {
                 my ( $tmp_val, $tmp_scale ) = split / \- /,
                   $participant->{$field};
-                $participant->{$field} = $tmp_val;     # should be equal to $participant->{$field.'_ori'}
+                $participant->{$field} =
+                  $tmp_val;   # should be equal to $participant->{$field.'_ori'}
                 $tmp_unit = $tmp_scale;
             }
         }
@@ -1015,15 +1018,17 @@ sub map_treatments {
                 }
               )
               : $DEFAULT->{ontology_term};
-            $dose_interval->{interval}          = $DEFAULT->{interval};
-            $dose_interval->{quantity}          = $DEFAULT->{quantity};
-            $dose_interval->{quantity}{value}   = $participant->{$duration};   # Overwrite default with value
-            $dose_interval->{quantity}{unit}    = $drug_unit;                  # Overwrite default with value
+            $dose_interval->{interval} = $DEFAULT->{interval};
+            $dose_interval->{quantity} = $DEFAULT->{quantity};
+            $dose_interval->{quantity}{value} =
+              $participant->{$duration};    # Overwrite default with value
+            $dose_interval->{quantity}{unit} =
+              $drug_unit;                   # Overwrite default with value
             $dose_interval->{scheduleFrequency} = $DEFAULT->{ontology_term};
             push @{ $treatment->{doseIntervals} }, $dose_interval;
         }
 
-        # Define routes (note that we use $participant->{$field} instead of $field)
+     # Define routes (note that we use $participant->{$field} instead of $field)
         my $route =
           exists $term_mapping_cursor->{routeOfAdministration}
           { $participant->{$field} }
