@@ -321,7 +321,7 @@ sub convert {
     }
 
    # Finish
-   print BOLD BLUE program_footer(), RESET if $verbose;
+   print BOLD GREEN program_footer(), RESET if $verbose;
 }
 
 sub program_header {
