@@ -467,7 +467,7 @@ sub omop2bff {
         $self->{person} = convert_table_aoh_to_hoh( $data, 'PERSON' );         # Dynamically adding attributes (setter)
     }
 
-    # We transpose $self->{data}{VISIT_OCCURRENCE} if present
+    # We convert $self->{data}{VISIT_OCCURRENCE} if present
     if ( exists $data->{VISIT_OCCURRENCE} ) {
         print
           "Transforming <VISIT_OCCURRENCE> from array to lookup table...\n\n"
@@ -485,7 +485,7 @@ sub omop2bff {
     # NB: Transformation is due ONLY IN $omop_main_table FIELDS, the rest of the tables are not used
     # The transformation is performed in --no-stream mode
     $self->{data} =
-      $self->{stream} ? $data : transpose_omop_data_structure($data);    # Dynamically adding attributes (setter)
+      $self->{stream} ? $data : transpose_omop_data_structure($self, $data);    # Dynamically adding attributes (setter)
 
     # Giving some memory back to the system
     $data = undef;

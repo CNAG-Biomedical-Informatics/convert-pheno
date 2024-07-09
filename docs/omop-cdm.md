@@ -74,9 +74,9 @@ The **OMOP CDM** is designed to be database-agnostic, which means it can be impl
             Number of rows | Estimated RAM memory | Estimated time
                    :---:   |   :---:              | :---:
                     100K   | 1GB                  | 5s
-                    500K   | 2.5GB                | 15s
-                    1M     | 5GB                  | 30s
-                    2M     | 10GB                 | 1m
+                    500K   | 2GB                  | 15s
+                    1M     | 4GB                  | 30s
+                    2M     | 8GB                  | 1m
 
              1 x Intel(R) Xeon(R) W-1350P @ 4.00GHz - 32GB RAM - SSD
 
@@ -129,7 +129,7 @@ The **OMOP CDM** is designed to be database-agnostic, which means it can be impl
 
             1 x Intel(R) Xeon(R) W-1350P @ 4.00GHz - 32GB RAM - SSD
 
-            Note that the output JSON files generated in `--stream` mode will always include information from both the `PERSON` and `CONCEPT` tables. This is not a mandatory requirement, but it serves to facilitate subsequent [validation of the data against JSON schemas](https://github.com/EGA-archive/beacon2-ri-tools/tree/main/utils/bff_validator). In terms of the JSON Schema terminology, these files contain `required` properties for [BFF](bff.md) and [PXF](pxf.md).
+            Note that the output JSON files generated in `--stream` mode will always include information from the `PERSON` and `CONCEPT` tables. Therefore, **both tables must be loaded into RAM** (along with `VISIT_OCCURRENCE` if present). **The size of these tables will obviously impact RAM usage**. Although having this information is not a mandatory requirement for _MongoDB_, it helps in validating the data against Beacon v2 JSON schemas. According to JSON Schema terminology, these files contain `required` properties for [BFF](bff.md) and [PXF](pxf.md). For more details on validation, refer to the [BFF Validator](https://github.com/EGA-archive/beacon2-ri-tools/tree/main/utils/bff_validator).
 
         ??? Tip "About parallelization and speed"
             `Convert-Pheno` has been optimized for speed, and, in general the CLI results are generated almost immediatly. For instance, all tests with synthetic data take less than a second or a few seconds to complete. It should be noted that the speed of the results depends on the performance of the CPU and disk speed. When `Convert-Pheno` has to retrieve ontologies from a database to annotate the data, the processing takes longer.
