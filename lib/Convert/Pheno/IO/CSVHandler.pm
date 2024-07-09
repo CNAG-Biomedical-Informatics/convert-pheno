@@ -22,7 +22,7 @@ use Convert::Pheno::Schema;
 use Convert::Pheno::Mapping;
 use Exporter 'import';
 our @EXPORT =
-  qw(read_csv read_csv_stream read_redcap_dict_file read_mapping_file transpose_ohdsi_dictionary read_sqldump_stream read_sqldump sqldump2csv transpose_omop_data_structure write_csv open_filehandle load_exposures hashify_visit_occurrence get_headers);
+  qw(read_csv read_csv_stream read_redcap_dict_file read_mapping_file read_sqldump_stream read_sqldump sqldump2csv transpose_omop_data_structure write_csv open_filehandle load_exposures get_headers convert_table_aoh_to_hoh);
 
 use constant DEVEL_MODE => 0;
 
@@ -45,9 +45,9 @@ sub read_redcap_dictionary {
     # We'll be adding the key <_labels>. See sub add_labels
     my $labels = 'Choices, Calculations, OR Slider Labels';
 
-    # Loading data directly from Text::CSV_XS
-    # NB1: We want HoH and sub read_csv returns AoH
-    # NB2: By default the Text::CSV module treats all fields in a CSV file as strings, regardless of their actual data type.
+# Loading data directly from Text::CSV_XS
+# NB1: We want HoH and sub read_csv returns AoH
+# NB2: By default the Text::CSV module treats all fields in a CSV file as strings, regardless of their actual data type.
     my $hoh = csv(
         in       => $filepath,
         sep_char => $separator,
@@ -75,7 +75,8 @@ sub add_labels {
     return undef unless $value;    # perlcritic Severity: 5
 
     # We'll skip values that don't provide even number of key-values
-    my @tmp = map { s/^\s//; s/\s+$//; $_; } ( split /\||,/, $value );    # perlcritic Severity: 5
+    my @tmp = map { s/^\s//; s/\s+$//; $_; }
+      ( split /\||,/, $value );    # perlcritic Severity: 5
 
     # Return undef for non-valid entries
     return @tmp % 2 == 0 ? {@tmp} : undef;
@@ -112,57 +113,6 @@ sub read_mapping_file {
 
     # Return if succesful
     return $data_mapping_file;
-}
-
-sub transpose_ohdsi_dictionary {
-
-    my $data   = shift;
-    my $column = 'concept_id';
-
-    # The idea is the following:
-    # $data comes as an array (from SQL/CSV)
-    #
-    # $VAR1 = [
-    #          {
-    #            'concept_class_id' => '4-char billing code',
-    #            'concept_code' => 'K92.2',
-    #            'concept_id' => 35208414,
-    #            'concept_name' => 'Gastrointestinal hemorrhage, unspecified',
-    #            'domain_id' => 'Condition',
-    #            'invalid_reason' => undef,
-    #            'standard_concept' => undef,
-    #            'valid_end_date' => '2099-12-31',
-    #            'valid_start_date' => '2007-01-01',
-    #            'vocabulary_id' => 'ICD10CM'
-    #          },
-    #
-    # and we convert it to hash to allow for quick searches by 'concept_id'
-    #
-    # $VAR1 = {
-    #          '1107830' => {
-    #                         'concept_class_id' => 'Ingredient',
-    #                         'concept_code' => 28889,
-    #                         'concept_id' => 1107830,
-    #                         'concept_name' => 'Loratadine',
-    #                         'domain_id' => 'Drug',
-    #                         'invalid_reason' => undef,
-    #                         'standard_concept' => 'S',
-    #                         'valid_end_date' => '2099-12-31',
-    #                         'valid_start_date' => '1970-01-01',
-    #                         'vocabulary_id' => 'RxNorm'
-    #                         },
-    #
-    # NB: We store all columns yet we'll use 4:
-    # 'concept_id', 'concept_code', 'concept_name', 'vocabulary_id'
-    # Note that we're duplicating @$data with $hoh
-    #my $hoh = { map { $_->{$column} => $_ } @{$data} }; <--map is slower than for
-    my $hoh;
-    for my $item ( @{$data} ) {
-        $hoh->{ $item->{$column} } = $item;
-    }
-
-    #say "transpose_ohdsi_dictionary:", to_gb( total_size($hoh) ) if DEVEL_MODE;
-    return $hoh;
 }
 
 sub read_sqldump_stream {
@@ -264,7 +214,7 @@ sub encode_omop_stream {
     my ( $table_name, $hash_slice, $person, $count, $self ) = @_;
 
     # *** IMPORTANT ***
-    # We only print person_id ONCE!!!
+    # Table PERSON only has 1 individual
     my $person_id = $hash_slice->{person_id};
     my $data      = {
         $table_name => [$hash_slice],
@@ -291,13 +241,13 @@ sub read_sqldump {
     my $filepath = $arg->{in};
     my $self     = $arg->{self};
 
-    # Before resorting to writting this subroutine I performed an exhaustive search on CPAN:
-    # - Tested MySQL::Dump::Parser::XS but I could not make it work...
-    # - App-MysqlUtils-0.022 has a CLI utility (mysql-sql-dump-extract-tables)
-    # - Of course one can always use *nix tools (sed, grep, awk, etc) or other programming languages....
-    # Anyway, I ended up writting the parser myself...
-    # The parser is based in reading COPY paragraphs from PostgreSQL dump by using Perl's paragraph mode  $/ = "";
-    # NB: Each paragraph (TABLE) is loaded into memory. Not great for large files.
+# Before resorting to writting this subroutine I performed an exhaustive search on CPAN:
+# - Tested MySQL::Dump::Parser::XS but I could not make it work...
+# - App-MysqlUtils-0.022 has a CLI utility (mysql-sql-dump-extract-tables)
+# - Of course one can always use *nix tools (sed, grep, awk, etc) or other programming languages....
+# Anyway, I ended up writting the parser myself...
+# The parser is based in reading COPY paragraphs from PostgreSQL dump by using Perl's paragraph mode  $/ = "";
+# NB: Each paragraph (TABLE) is loaded into memory. Not great for large files.
 
     # Define variables that modify what we load
     my $max_lines_sql = $self->{max_lines_sql};
@@ -306,9 +256,9 @@ sub read_sqldump {
     # Set record separator to paragraph
     local $/ = "";
 
-    #COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, attribute_description, attribute_type_concept_id, attribute_syntax) FROM stdin;
-    # ......
-    # \.
+#COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, attribute_description, attribute_type_concept_id, attribute_syntax) FROM stdin;
+# ......
+# \.
 
     # Start reading the SQL dump
     my $fh = open_filehandle( $filepath, 'r' );
@@ -327,8 +277,8 @@ sub read_sqldump {
         next unless scalar @lines > 2;
         pop @lines;    # last line eq '\.'
 
-        # First line contains the headers
-        #COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, ..., attribute_syntax) FROM stdin;
+# First line contains the headers
+#COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, ..., attribute_syntax) FROM stdin;
         $lines[0] =~ s/[\(\),]//g;    # getting rid of (),
         my @headers = split /\s+/, $lines[0];
         my $table_name =
@@ -339,7 +289,8 @@ sub read_sqldump {
         next unless any { $_ eq $table_name } @omop_tables;
 
         # Say if verbose
-        say "Reading SQL dump and loading <$table_name> in memory..." if $self->{verbose};
+        say "Reading SQL dump and loading <$table_name> in memory..."
+          if $self->{verbose};
 
         # Discarding first line
         shift @lines;
@@ -433,7 +384,7 @@ sub sqldump2csv {
 
 sub transpose_omop_data_structure {
 
-    my $data = shift;
+    my ($self, $data) = @_;
 
     # The situation is the following, $data comes in format:
     #
@@ -458,61 +409,64 @@ sub transpose_omop_data_structure {
     #                      ]
     #        };
 
-    # where all 'person_id' are together inside the TABLE_NAME.
-    # But, BFF "ideally" works at the individual level so we are going to
-    # transpose the data structure to end up into something like this
-    # NB: MEASUREMENT and OBSERVATION (among others, i.e., CONDITION_OCCURRENCE, PROCEDURE_OCCURRENCE)
-    #     can have multiple values for one 'person_id' so they will be loaded as arrays
-    #
-    #
-    #$VAR1 = {
-    #          '1' => {
-    #                     'PERSON' => {
-    #                                   'person_id' => 1
-    #                                 }
-    #                   },
-    #          '666' => {
-    #                     'MEASUREMENT' => [
-    #                                        {
-    #                                          'measurement_concept_id' => 1,
-    #                                          'person_id' => 666
-    #                                        },
-    #                                        {
-    #                                          'measurement_concept_id' => 2,
-    #                                          'person_id' => 666
-    #                                        }
-    #                                      ],
-    #                     'PERSON' => {
-    #                                   'person_id' => 666
-    #                                 }
-    #                   }
-    #        };
+# where all 'person_id' are together inside the TABLE_NAME.
+# But, BFF "ideally" works at the individual level so we are going to
+# transpose the data structure to end up into something like this
+# NB: MEASUREMENT and OBSERVATION (among others, i.e., CONDITION_OCCURRENCE, PROCEDURE_OCCURRENCE)
+#     can have multiple values for one 'person_id' so they will be loaded as arrays
+#
+#
+#$VAR1 = {
+#          '1' => {
+#                     'PERSON' => {
+#                                   'person_id' => 1
+#                                 }
+#                   },
+#          '666' => {
+#                     'MEASUREMENT' => [
+#                                        {
+#                                          'measurement_concept_id' => 1,
+#                                          'person_id' => 666
+#                                        },
+#                                        {
+#                                          'measurement_concept_id' => 2,
+#                                          'person_id' => 666
+#                                        }
+#                                      ],
+#                     'PERSON' => {
+#                                   'person_id' => 666
+#                                 }
+#                   }
+#        };
 
+    # Debug messages
+    print "Tranposing OMOP data...\n" if ($self->{verbose} || $self->{debug});
     my $omop_person_id = {};
 
     # Only performed for $omop_main_table
     for my $table ( @{ $omop_main_table->{$omop_version} } ) {    # global
 
-        # Loop over tables
-        for my $item ( @{ $data->{$table} } ) {
+       # We void the table when reading to avoid data duplication in RAM
+       while (my $item = shift @{ $data->{$table} }) { # We want to keep order (!pop) 
 
-            if ( exists $item->{person_id} && $item->{person_id} ) {
+            if ( exists $item->{person_id} && $item->{person_id} ) { 
                 my $person_id = $item->{person_id};
 
                 # {person_id} can have multiple rows in @omop_array_tables
-                if ( any { $_ eq $table } @omop_array_tables ) {
-                    push @{ $omop_person_id->{$person_id}{$table} }, $item;    # array
-                }
+                if ( any { $_ eq $table } @omop_array_tables ) { 
+                    push @{ $omop_person_id->{$person_id}{$table} },
+                      $item;    # array
+                }   
 
                 # {person_id} only has one value in a given table
                 else {
-                    $omop_person_id->{$person_id}{$table} = $item;             # scalar
-                }
-            }
-        }
+                    $omop_person_id->{$person_id}{$table} = $item;    # scalar
+                }   
+            }   
+        }   
     }
 
-    # To get back unused memory for later..
+    # To get any unused memory back to Perl
     $data = undef;
 
     # Finally we get rid of the 'person_id' key and return values as an array
@@ -541,13 +495,12 @@ sub transpose_omop_data_structure {
     #          }
     #        ];
     # NB: We nsort keys to always have the same result but it's not needed
-    # v1 - Easier but duplicates data structure
-    # my $aoh = [ map { $omop_person_id->{$_} } nsort keys %{$omop_person_id} ];
-    # v2 - This version cleans memory after loading $aoh  <=== Implemented
+    print "Sorting OMOP data structure naturally by <person_id>...\n\n" if ($self->{verbose} || $self->{debug});
+
     my $aoh;
     for my $key ( nsort keys %{$omop_person_id} ) {
         push @{$aoh}, $omop_person_id->{$key};
-        delete $omop_person_id->{$key};
+        delete $omop_person_id->{$key}; # To avoid data duplication
     }
     if (DEVEL_MODE) {
 
@@ -556,36 +509,6 @@ sub transpose_omop_data_structure {
         #say 'transpose_omop_data_structure(map):', to_gb( total_size($aoh) );
     }
     return $aoh;
-}
-
-sub hashify_visit_occurrence {
-
-    my $data = shift;
-
-    # Going from
-    #$VAR1 = [
-    #        {
-    #          'admitting_source_concept_id' => 0,
-    #          'visit_occurrence_id' => 85,
-    #          ...
-    #        }
-    #      ];
-
-    # To
-    #$VAR1 = {
-    #        '85' => {
-    #                  'admitting_source_concept_id' => 0,
-    #                  'visit_occurrence_id' => 85,
-    #                  ...
-    #                }
-    #      };
-
-    my $hash = {};
-    while ( my $item = pop @$data ) {    # Remove the last element from @$data, reducing its size
-        my $key = $item->{visit_occurrence_id};    # otherwise $item->{visit_occurrence_id} goes from Int to Str in JSON and tests fail
-        $hash->{$key} = $item;
-    }
-    return $hash;
 }
 
 sub read_csv {
@@ -732,12 +655,13 @@ sub write_csv {
 
     # Use Text::CSV_XS to write to CSV, ensuring $data is always an AoH
     csv(
-        in       => $data,       # This now can be an AoH or a single hash converted to AoH
+        in => $data,  # This now can be an AoH or a single hash converted to AoH
         out      => $filepath,
         sep_char => $sep,
         eol      => "\n",
         encoding => 'UTF-8',
-        headers  => $headers     # Ensure headers are defined or auto-detection is enabled
+        headers  =>
+          $headers    # Ensure headers are defined or auto-detection is enabled
     );
     return 1;
 }
@@ -815,18 +739,18 @@ sub get_headers {
 
     my $data = shift;
 
-    # Ensure $data is an array reference, wrap it in an array if it's a hash reference.
+# Ensure $data is an array reference, wrap it in an array if it's a hash reference.
     $data = [$data] unless ref $data eq 'ARRAY';
 
-    # Step 1 & 2: Collect all unique keys from all hashes, ignoring hash references.
+# Step 1 & 2: Collect all unique keys from all hashes, ignoring hash references.
     my %all_keys;
     foreach my $row (@$data) {
         foreach my $key ( keys %$row ) {
 
-            # Skip any key where the value is a reference (including hash references)
-            # Why?
-            # In pxf2csv I encountered HASH(foobarbaz) as header. This is actually
-            # a deeper issue I have to investigate
+       # Skip any key where the value is a reference (including hash references)
+       # Why?
+       # In pxf2csv I encountered HASH(foobarbaz) as header. This is actually
+       # a deeper issue I have to investigate
             next if ref $row->{$key};
             $all_keys{$key} = ();
         }
@@ -863,6 +787,94 @@ sub array_ref_to_hash {
         $hash{$element} = 1;
     }
     return \%hash;
+}
+
+sub convert_table_aoh_to_hoh {
+
+    my ( $data, $table ) = @_;
+
+    my %table_cursor =
+      map { $_ => $data->{$_} } qw(CONCEPT PERSON VISIT_OCCURRENCE);
+    my %table_id = (
+        CONCEPT          => 'concept_id',
+        PERSON           => 'person_id',
+        VISIT_OCCURRENCE => 'visit_occurrence_id'
+    );
+    my $array_ref = $table_cursor{$table};
+    my $id        = $table_id{$table};
+
+    ###########
+    # CONCEPT #
+    ###########
+
+    # $VAR1 = [
+    #          {
+    #            'concept_class_id' => '4-char billing code',
+    #            'concept_code' => 'K92.2',
+    #            'concept_id' => 35208414,
+    #            'concept_name' => 'Gastrointestinal hemorrhage, unspecified',
+    #            'domain_id' => 'Condition',
+    #            'invalid_reason' => undef,
+    #            'standard_concept' => undef,
+    #            'valid_end_date' => '2099-12-31',
+    #            'valid_start_date' => '2007-01-01',
+    #            'vocabulary_id' => 'ICD10CM'
+    #          },
+    #
+    # and we convert it to hash to allow for quick searches by 'concept_id'
+    #
+    # $VAR1 = {
+    #          '1107830' => {
+    #                         'concept_class_id' => 'Ingredient',
+    #                         'concept_code' => 28889,
+    #                         'concept_id' => 1107830,
+    #                         'concept_name' => 'Loratadine',
+    #                         'domain_id' => 'Drug',
+    #                         'invalid_reason' => undef,
+    #                         'standard_concept' => 'S',
+    #                         'valid_end_date' => '2099-12-31',
+    #                         'valid_start_date' => '1970-01-01',
+    #                         'vocabulary_id' => 'RxNorm'
+    #                         },
+    #
+    # NB: We store all columns yet we'll use 4:
+    # 'concept_id', 'concept_code', 'concept_name', 'vocabulary_id'
+
+    ####################
+    # VISIT_OCCURRENCE #
+    ####################
+
+    # Going from
+    #$VAR1 = [
+    #        {
+    #          'admitting_source_concept_id' => 0,
+    #          'visit_occurrence_id' => 85,
+    #          ...
+    #        }
+    #      ];
+
+    # To
+    #$VAR1 = {
+    #        '85' => {
+    #                  'admitting_source_concept_id' => 0,
+    #                  'visit_occurrence_id' => 85,
+    #                  ...
+    #                }
+    #      };
+
+    # Initialize the new hash for transformed data
+    my $hoh = {};
+
+    # Iterate over the array and build the hash while clearing the array
+    while (my $item = pop @{ $array_ref} ) {  #faster than shift (order irrelevant here)
+        my $key   = $item->{$id};         # avoid stringfication
+        $hoh->{$key} = $item;
+    }
+
+    # The original array @{ $self->{data}{$table} is now empty
+    #say "Table <$table> (HoH) size:", to_gb( total_size($hoh) ) if DEVEL_MODE;
+
+    return $hoh;
 }
 
 1;
