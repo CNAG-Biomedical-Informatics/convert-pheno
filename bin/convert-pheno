@@ -320,6 +320,8 @@ sub convert {
         }
     }
 
+   # Finish
+   print BOLD BLUE program_footer(), RESET if $verbose;
 }
 
 sub program_header {
@@ -337,6 +339,16 @@ EOF
     return $str;
 }
 
+sub program_footer {
+
+    my $str     = <<EOF;
+All done!
+
+EOF
+    return $str;
+}
+
+
 sub program_body {
 
     my $l_data = shift;
@@ -350,6 +362,7 @@ Processing: <$file>
 EOF
     return $msg;
 }
+
 
 sub write_log {
 

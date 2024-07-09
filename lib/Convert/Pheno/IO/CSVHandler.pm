@@ -440,7 +440,7 @@ sub transpose_omop_data_structure {
 #        };
 
     # Debug messages
-    print "Tranposing OMOP data...\n" if ($self->{verbose} || $self->{debug});
+    print "> Transposing OMOP data...\n" if ($self->{verbose} || $self->{debug});
     my $omop_person_id = {};
 
     # Only performed for $omop_main_table
@@ -495,7 +495,7 @@ sub transpose_omop_data_structure {
     #          }
     #        ];
     # NB: We nsort keys to always have the same result but it's not needed
-    print "Sorting OMOP data structure naturally by <person_id>...\n\n" if ($self->{verbose} || $self->{debug});
+    print "> Sorting OMOP data by <person_id>...\n\n" if ($self->{verbose} || $self->{debug});
 
     my $aoh;
     for my $key ( nsort keys %{$omop_person_id} ) {

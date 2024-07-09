@@ -456,13 +456,13 @@ sub omop2bff {
       unless exists $data->{CONCEPT};
 
     # We create a dictionary for $data->{CONCEPT}
-    print "Transforming <CONCEPT> from array to lookup table...\n\n"
+    say "> Transforming <CONCEPT> from array to hash..."
       if ( $self->{verbose} || $self->{debug} );
     $self->{data_ohdsi_dict} = convert_table_aoh_to_hoh( $data, 'CONCEPT' );   # Dynamically adding attributes (setter)
 
     # Transform Array of Hashes (AoH) to Hash of Hashes (HoH) for faster computation
     if ( $self->{stream} ) {
-        print "Transforming <PERSON> from array to lookup table...\n\n"
+        say "> Transforming PERSON> from array to hash..."
           if ( $self->{verbose} || $self->{debug} );
         $self->{person} = convert_table_aoh_to_hoh( $data, 'PERSON' );         # Dynamically adding attributes (setter)
     }
@@ -470,7 +470,7 @@ sub omop2bff {
     # We convert $self->{data}{VISIT_OCCURRENCE} if present
     if ( exists $data->{VISIT_OCCURRENCE} ) {
         print
-          "Transforming <VISIT_OCCURRENCE> from array to lookup table...\n\n"
+          "> Transforming <VISIT_OCCURRENCE> from array to hash...\n\n"
           if ( $self->{verbose} || $self->{debug} );
 
         $self->{visit_occurrence} =
