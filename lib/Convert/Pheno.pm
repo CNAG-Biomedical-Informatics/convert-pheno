@@ -385,7 +385,7 @@ sub omop2bff {
                 # --stream
                 else {
 
-                    say "Running in --stream mode" if $self->{verbose};
+                    print "> Running in --stream mode\n\n" if $self->{verbose};
 
                     # We'll ONLY load @stream_ram_memory_tables
                     # in RAM and the other tables as $fh
@@ -456,25 +456,17 @@ sub omop2bff {
       unless exists $data->{CONCEPT};
 
     # We create a dictionary for $data->{CONCEPT}
-    say "> Transforming <CONCEPT> from array to hash..."
-      if ( $self->{verbose} || $self->{debug} );
-    $self->{data_ohdsi_dict} = convert_table_aoh_to_hoh( $data, 'CONCEPT' );   # Dynamically adding attributes (setter)
+    $self->{data_ohdsi_dict} = convert_table_aoh_to_hoh( $data, 'CONCEPT', $self );   # Dynamically adding attributes (setter)
 
     # Transform Array of Hashes (AoH) to Hash of Hashes (HoH) for faster computation
     if ( $self->{stream} ) {
-        say "> Transforming PERSON> from array to hash..."
-          if ( $self->{verbose} || $self->{debug} );
-        $self->{person} = convert_table_aoh_to_hoh( $data, 'PERSON' );         # Dynamically adding attributes (setter)
+        $self->{person} = convert_table_aoh_to_hoh( $data, 'PERSON', $self );         # Dynamically adding attributes (setter)
     }
 
     # We convert $self->{data}{VISIT_OCCURRENCE} if present
     if ( exists $data->{VISIT_OCCURRENCE} ) {
-        print
-          "> Transforming <VISIT_OCCURRENCE> from array to hash...\n\n"
-          if ( $self->{verbose} || $self->{debug} );
-
         $self->{visit_occurrence} =
-          convert_table_aoh_to_hoh( $data, 'VISIT_OCCURRENCE' );               # Dynamically adding attributes (setter)
+          convert_table_aoh_to_hoh( $data, 'VISIT_OCCURRENCE', $self );               # Dynamically adding attributes (setter)
         delete $data->{VISIT_OCCURRENCE};                                      # Anyway, $data->{VISIT_OCCURRENCE} = [] from convert_table_aoh_to_hoh
     }
 

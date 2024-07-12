@@ -13,8 +13,7 @@ use IO::Compress::Gzip qw($GzipError);
 use IO::Uncompress::Gunzip qw($GunzipError);
 
 #use Data::Dumper;
-
-#use Devel::Size           qw(size total_size);
+use Devel::Size qw(total_size);
 use Convert::Pheno;
 use Convert::Pheno::IO::FileIO;
 use Convert::Pheno::OMOP;
@@ -45,9 +44,9 @@ sub read_redcap_dictionary {
     # We'll be adding the key <_labels>. See sub add_labels
     my $labels = 'Choices, Calculations, OR Slider Labels';
 
-# Loading data directly from Text::CSV_XS
-# NB1: We want HoH and sub read_csv returns AoH
-# NB2: By default the Text::CSV module treats all fields in a CSV file as strings, regardless of their actual data type.
+    # Loading data directly from Text::CSV_XS
+    # NB1: We want HoH and sub read_csv returns AoH
+    # NB2: By default the Text::CSV module treats all fields in a CSV file as strings, regardless of their actual data type.
     my $hoh = csv(
         in       => $filepath,
         sep_char => $separator,
@@ -75,8 +74,7 @@ sub add_labels {
     return undef unless $value;    # perlcritic Severity: 5
 
     # We'll skip values that don't provide even number of key-values
-    my @tmp = map { s/^\s//; s/\s+$//; $_; }
-      ( split /\||,/, $value );    # perlcritic Severity: 5
+    my @tmp = map { s/^\s//; s/\s+$//; $_; } ( split /\||,/, $value );    # perlcritic Severity: 5
 
     # Return undef for non-valid entries
     return @tmp % 2 == 0 ? {@tmp} : undef;
@@ -126,6 +124,9 @@ sub read_sqldump_stream {
     my @headers;
     my $table_name    = $self->{omop_tables}[0];
     my $table_name_lc = lc($table_name);
+
+    # Define variables that modify what we load
+    my $max_lines_sql = $self->{max_lines_sql};
 
     # Open filehandles
     my $fh_in  = open_filehandle( $filein,  'r' );
@@ -194,12 +195,15 @@ sub read_sqldump_stream {
             # Only after encoding we are able to discard 'null'
             say $fh_out $encoded_data if $encoded_data ne 'null';
 
+            # adhoc filter to speed-up development
+            last if $count == $max_lines_sql;
+
             # Print if verbose
             say "Rows processed: $count"
               if ( $self->{verbose} && $count % 10_000 == 0 );
         }
     }
-    say "==============\nRows total:     $count\n" if $self->{verbose};
+    say "==============\nRows processed(total): $count\n" if $self->{verbose};
 
     #say $fh_out "]"; # not needed
 
@@ -241,13 +245,13 @@ sub read_sqldump {
     my $filepath = $arg->{in};
     my $self     = $arg->{self};
 
-# Before resorting to writting this subroutine I performed an exhaustive search on CPAN:
-# - Tested MySQL::Dump::Parser::XS but I could not make it work...
-# - App-MysqlUtils-0.022 has a CLI utility (mysql-sql-dump-extract-tables)
-# - Of course one can always use *nix tools (sed, grep, awk, etc) or other programming languages....
-# Anyway, I ended up writting the parser myself...
-# The parser is based in reading COPY paragraphs from PostgreSQL dump by using Perl's paragraph mode  $/ = "";
-# NB: Each paragraph (TABLE) is loaded into memory. Not great for large files.
+    # Before resorting to writting this subroutine I performed an exhaustive search on CPAN:
+    # - Tested MySQL::Dump::Parser::XS but I could not make it work...
+    # - App-MysqlUtils-0.022 has a CLI utility (mysql-sql-dump-extract-tables)
+    # - Of course one can always use *nix tools (sed, grep, awk, etc) or other programming languages....
+    # Anyway, I ended up writting the parser myself...
+    # The parser is based in reading COPY paragraphs from PostgreSQL dump by using Perl's paragraph mode  $/ = "";
+    # NB: Each paragraph (TABLE) is loaded into memory. Not great for large files.
 
     # Define variables that modify what we load
     my $max_lines_sql = $self->{max_lines_sql};
@@ -256,9 +260,12 @@ sub read_sqldump {
     # Set record separator to paragraph
     local $/ = "";
 
-#COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, attribute_description, attribute_type_concept_id, attribute_syntax) FROM stdin;
-# ......
-# \.
+    #COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, attribute_description, attribute_type_concept_id, attribute_syntax) FROM stdin;
+    # ......
+    # \.
+
+    # Verbose 
+    say "Reading the SQL dump...\n" if $self->{verbose};
 
     # Start reading the SQL dump
     my $fh = open_filehandle( $filepath, 'r' );
@@ -277,8 +284,8 @@ sub read_sqldump {
         next unless scalar @lines > 2;
         pop @lines;    # last line eq '\.'
 
-# First line contains the headers
-#COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, ..., attribute_syntax) FROM stdin;
+        # First line contains the headers
+        #COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, ..., attribute_syntax) FROM stdin;
         $lines[0] =~ s/[\(\),]//g;    # getting rid of (),
         my @headers = split /\s+/, $lines[0];
         my $table_name =
@@ -289,7 +296,7 @@ sub read_sqldump {
         next unless any { $_ eq $table_name } @omop_tables;
 
         # Say if verbose
-        say "Reading SQL dump and loading <$table_name> in memory..."
+        say "Loading <$table_name> in memory..."
           if $self->{verbose};
 
         # Discarding first line
@@ -344,11 +351,14 @@ sub read_sqldump {
         }
 
         # Print if verbose
-        say "==============\nRows total:     $count\n" if $self->{verbose};
+        say "==============\nRows read(total): $count\n" if $self->{verbose};
     }
     close $fh;
 
-    #say total_size($data) and die;
+    # RAM Usage
+    say ram_usage_str( 'read_sqldump', $data )
+      if ( DEVEL_MODE || $self->{verbose} );
+
     return $data;
 }
 
@@ -384,7 +394,7 @@ sub sqldump2csv {
 
 sub transpose_omop_data_structure {
 
-    my ($self, $data) = @_;
+    my ( $self, $data ) = @_;
 
     # The situation is the following, $data comes in format:
     #
@@ -409,61 +419,60 @@ sub transpose_omop_data_structure {
     #                      ]
     #        };
 
-# where all 'person_id' are together inside the TABLE_NAME.
-# But, BFF "ideally" works at the individual level so we are going to
-# transpose the data structure to end up into something like this
-# NB: MEASUREMENT and OBSERVATION (among others, i.e., CONDITION_OCCURRENCE, PROCEDURE_OCCURRENCE)
-#     can have multiple values for one 'person_id' so they will be loaded as arrays
-#
-#
-#$VAR1 = {
-#          '1' => {
-#                     'PERSON' => {
-#                                   'person_id' => 1
-#                                 }
-#                   },
-#          '666' => {
-#                     'MEASUREMENT' => [
-#                                        {
-#                                          'measurement_concept_id' => 1,
-#                                          'person_id' => 666
-#                                        },
-#                                        {
-#                                          'measurement_concept_id' => 2,
-#                                          'person_id' => 666
-#                                        }
-#                                      ],
-#                     'PERSON' => {
-#                                   'person_id' => 666
-#                                 }
-#                   }
-#        };
+    # where all 'person_id' are together inside the TABLE_NAME.
+    # But, BFF "ideally" works at the individual level so we are going to
+    # transpose the data structure to end up into something like this
+    # NB: MEASUREMENT and OBSERVATION (among others, i.e., CONDITION_OCCURRENCE, PROCEDURE_OCCURRENCE)
+    #     can have multiple values for one 'person_id' so they will be loaded as arrays
+    #
+    #
+    #$VAR1 = {
+    #          '1' => {
+    #                     'PERSON' => {
+    #                                   'person_id' => 1
+    #                                 }
+    #                   },
+    #          '666' => {
+    #                     'MEASUREMENT' => [
+    #                                        {
+    #                                          'measurement_concept_id' => 1,
+    #                                          'person_id' => 666
+    #                                        },
+    #                                        {
+    #                                          'measurement_concept_id' => 2,
+    #                                          'person_id' => 666
+    #                                        }
+    #                                      ],
+    #                     'PERSON' => {
+    #                                   'person_id' => 666
+    #                                 }
+    #                   }
+    #        };
 
     # Debug messages
-    print "> Transposing OMOP data...\n" if ($self->{verbose} || $self->{debug});
+    say "> Transposing OMOP data..." if $self->{debug};
     my $omop_person_id = {};
 
     # Only performed for $omop_main_table
     for my $table ( @{ $omop_main_table->{$omop_version} } ) {    # global
 
-       # We void the table when reading to avoid data duplication in RAM
-       while (my $item = shift @{ $data->{$table} }) { # We want to keep order (!pop) 
+        # We void the table when reading to avoid data duplication in RAM
+        while ( my $item = shift @{ $data->{$table} } ) {         # We want to keep order (!pop)
 
-            if ( exists $item->{person_id} && $item->{person_id} ) { 
+            if ( exists $item->{person_id} && $item->{person_id} ) {
                 my $person_id = $item->{person_id};
 
                 # {person_id} can have multiple rows in @omop_array_tables
-                if ( any { $_ eq $table } @omop_array_tables ) { 
-                    push @{ $omop_person_id->{$person_id}{$table} },
-                      $item;    # array
-                }   
+                if ( any { $_ eq $table } @omop_array_tables ) {
+                    push @{ $omop_person_id->{$person_id}{$table} }, $item;    # array
+                }
 
                 # {person_id} only has one value in a given table
                 else {
-                    $omop_person_id->{$person_id}{$table} = $item;    # scalar
-                }   
-            }   
-        }   
+                    $omop_person_id->{$person_id}{$table} = $item;             # scalar
+                }
+            }
+        }
     }
 
     # To get any unused memory back to Perl
@@ -495,19 +504,18 @@ sub transpose_omop_data_structure {
     #          }
     #        ];
     # NB: We nsort keys to always have the same result but it's not needed
-    print "> Sorting OMOP data by <person_id>...\n\n" if ($self->{verbose} || $self->{debug});
+    say "> Sorting OMOP data by <person_id>..." if $self->{debug};
 
     my $aoh;
     for my $key ( nsort keys %{$omop_person_id} ) {
         push @{$aoh}, $omop_person_id->{$key};
-        delete $omop_person_id->{$key}; # To avoid data duplication
+        delete $omop_person_id->{$key};    # To avoid data duplication
     }
-    if (DEVEL_MODE) {
 
-        #say 'transpose_omop_data_structure(omop_person_id):',
-        #  to_gb( total_size($omop_person_id) );
-        #say 'transpose_omop_data_structure(map):', to_gb( total_size($aoh) );
-    }
+    # RAM usage
+    say ram_usage_str( 'transpose_omop_data_structure', $aoh )
+      if ( DEVEL_MODE || $self->{verbose} );
+
     return $aoh;
 }
 
@@ -655,13 +663,12 @@ sub write_csv {
 
     # Use Text::CSV_XS to write to CSV, ensuring $data is always an AoH
     csv(
-        in => $data,  # This now can be an AoH or a single hash converted to AoH
+        in       => $data,       # This now can be an AoH or a single hash converted to AoH
         out      => $filepath,
         sep_char => $sep,
         eol      => "\n",
         encoding => 'UTF-8',
-        headers  =>
-          $headers    # Ensure headers are defined or auto-detection is enabled
+        headers  => $headers     # Ensure headers are defined or auto-detection is enabled
     );
     return 1;
 }
@@ -718,7 +725,13 @@ sub to_gb {
 
     # base 2 => 1,073,741,824
     my $gb = $bytes / 1_073_741_824;
-    return sprintf( '%8.4f', $gb ) . ' GB';
+    return sprintf( '%9.4f', $gb ) . ' GB';
+}
+
+sub ram_usage_str {
+
+    my ( $func, $data ) = @_;
+    return qq/***RAM Usage***($func):/ . to_gb( total_size($data) ) . "\n";
 }
 
 sub load_exposures {
@@ -739,18 +752,18 @@ sub get_headers {
 
     my $data = shift;
 
-# Ensure $data is an array reference, wrap it in an array if it's a hash reference.
+    # Ensure $data is an array reference, wrap it in an array if it's a hash reference.
     $data = [$data] unless ref $data eq 'ARRAY';
 
-# Step 1 & 2: Collect all unique keys from all hashes, ignoring hash references.
+    # Step 1 & 2: Collect all unique keys from all hashes, ignoring hash references.
     my %all_keys;
     foreach my $row (@$data) {
         foreach my $key ( keys %$row ) {
 
-       # Skip any key where the value is a reference (including hash references)
-       # Why?
-       # In pxf2csv I encountered HASH(foobarbaz) as header. This is actually
-       # a deeper issue I have to investigate
+            # Skip any key where the value is a reference (including hash references)
+            # Why?
+            # In pxf2csv I encountered HASH(foobarbaz) as header. This is actually
+            # a deeper issue I have to investigate
             next if ref $row->{$key};
             $all_keys{$key} = ();
         }
@@ -791,7 +804,7 @@ sub array_ref_to_hash {
 
 sub convert_table_aoh_to_hoh {
 
-    my ( $data, $table ) = @_;
+    my ( $data, $table, $self ) = @_;
 
     my %table_cursor =
       map { $_ => $data->{$_} } qw(CONCEPT PERSON VISIT_OCCURRENCE);
@@ -866,13 +879,15 @@ sub convert_table_aoh_to_hoh {
     my $hoh = {};
 
     # Iterate over the array and build the hash while clearing the array
-    while (my $item = pop @{ $array_ref} ) {  #faster than shift (order irrelevant here)
-        my $key   = $item->{$id};         # avoid stringfication
+    while ( my $item = pop @{$array_ref} ) {    #faster than shift (order irrelevant here)
+        my $key = $item->{$id};                 # avoid stringfication
         $hoh->{$key} = $item;
     }
 
     # The original array @{ $self->{data}{$table} is now empty
-    #say "Table <$table> (HoH) size:", to_gb( total_size($hoh) ) if DEVEL_MODE;
+    # RAM Usage
+    say ram_usage_str( "convert_table_aoh_to_hoh($table)", $hoh )
+      if ( $self->{verbose} || DEVEL_MODE );
 
     return $hoh;
 }

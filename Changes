@@ -4,6 +4,8 @@ Revision history for Perl distribution Convert-Pheno
 
  - Reduced memory usage in -iomop -stream  by emptying CONCEPT, PERSON and VISIT_OCCURRENCE during AoH -> HoH step 
  - Reduced memory usage in -iomop -no-stream by avoiding data duplication during transposition
+ - Added Devel::Size to production for use with -verbose
+ - Implemented --max-lines-sql option to --stream mode
 
 0.21 2024-06-01T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 

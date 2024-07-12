@@ -50,7 +50,8 @@ WriteMakefile(
          #'Test::Warn'                     => '0.37',
         'Data::Leaf::Walker' => '0.21',
         'Hash::Fold'         => '1.0.0',
-        'JSONLD'             => '0.006'
+        'JSONLD'             => '0.006',
+        'Devel::Size'        => '0.84'
 
          #'IO::Socket::SSL'              => '2.083'
          #'Mojolicious::Plugin::OpenAPI' => '5.09'
