@@ -1,5 +1,13 @@
-!!! Info "Where should I install it?"
-    `Convert-Pheno` is software designed for local installation on Linux or MacOS server/workstations. It is also compatible with Windows Server OS for Windows users.
+!!! Info "Compatibility"
+
+    The software `Convert-Pheno` can be installed **locally** on the following operating systems:
+
+    | Operating System | Supported Versions            |
+    |------------------|-------------------------------|
+    | Linux            | All major distributions       |
+    | macOS            | macOS 10.14 (Mojave) and later|
+    | Windows          | Windows Server OS             |
+
 
 We provide several alternatives (containerized and non-containerized) for download and installation.
 

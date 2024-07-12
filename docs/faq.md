@@ -39,6 +39,25 @@ Frequently Asked Questions
 
     ##### last change 2023-02-13 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
+??? faq "Why are there so many clinical data standards?"
+
+    The healthcare industry uses various data standards to meet diverse needs for data exchange, storage, and analysis, tailored for specific purposes like real-time clinical use or research. The abundance of standards also stems from a lack of communication and coordination among different organizations and stakeholders.
+
+    ### Overview of Key Healthcare Data Standards and Models
+
+    | Standard/Model     | Purpose                                                                                       | Data Persistence                                                | Live Data Use (Clinical Settings) | Secondary Data Use (Research Settings) |
+    |--------------------|------------------------------------------------------------------------------------------------|-----------------------------------------------------------------|------------------------------------|-----------------------------------------|
+    | **Beacon v2**      | Facilitates the discovery and sharing of genomic data, enabling researchers to find relevant genomic datasets across different repositories. | Not designed for long-term storage; focuses on data discovery.  | No                                 | Yes                                     |
+    | **CDISC-ODM**      | Manages and archives clinical trial data, providing a standardized format for the exchange and submission of clinical research data. | Strong support for long-term data archiving and regulatory submissions. | No                                 | Yes                                     |
+    | **HL7/CDA**        | Standardizes the structure and semantics of clinical documents (such as discharge summaries and progress notes) for exchange. | Ensures structured document storage; persistence depends on implementation. | Yes                                | Yes                                     |
+    | **HL7/FHIR**       | Facilitates the exchange of healthcare information electronically, supporting interoperability across different health IT systems. | Provides guidelines for data exchange; persistence depends on implementation. | Yes                                | Yes                                     |
+    | **OMOP CDM**       | Standardizes and harmonizes health data for research and secondary use, focusing on observational health data analysis. | Supports data persistence for research purposes, not real-time use. | No                                 | Yes                                     |
+    | **openEHR**        | Offers a comprehensive standard for electronic health records, focusing on accurate, long-term clinical data storage and real-time use. | Designed for robust, long-term clinical data persistence.       | Yes                                | Yes                                     |
+    | **Phenopackets v2**| Standardizes the exchange of detailed phenotypic data, particularly for genetic and rare disease research. | Not designed for long-term storage; focuses on data exchange.   | No                                 | Yes                                     |
+    | **REDCap**         | Provides a secure, web-based application for building and managing online surveys and databases, primarily used in research settings. | Supports data persistence for research projects and surveys.    | No                                 | Yes                                     |
+
+    ##### last change 2024-07-12 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
+
 ??? faq "Are you planning in supporting other clinical data formats?"
 
     Afirmative. Please check our [roadmap](future-plans.md) for more information.
