@@ -20,6 +20,7 @@ requires 'File::ShareDir::ProjectDistDir';
 requires 'Data::Leaf::Walker';
 requires 'Hash::Fold';
 requires 'JSONLD';
+requires 'Devel::Size';
 
 # t
 requires 'Test::Deep';

@@ -66,7 +66,7 @@ convert-pheno - A script to interconvert common data models for phenotypic data
         Options:
           -exposures-file <file>         CSV file with a list of 'concept_id' considered to be exposures (with -iomop)
           -mapping-file <file>           Fields mapping YAML (or JSON) file
-          -max-lines-sql <number>        Maximum number of lines read from SQL dump [500]
+          -max-lines-sql <number>        Maximum lines read per table from SQL dump [500]
           -min-text-similarity-score <score> Minimum score for cosine similarity (or Sorensen-Dice coefficient) [0.8] (to be used with --search mixed)
           -ohdsi-db                      Use Athena-OHDSI database (~2.2GB) with -iomop
           -omop-tables <tables>          OMOP-CDM tables to be processed. Tables <CONCEPT> and <PERSON> are always included.

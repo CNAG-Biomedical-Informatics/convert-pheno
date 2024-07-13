@@ -12,7 +12,8 @@
 We provide several alternatives (containerized and non-containerized) for download and installation.
 
 ???+ Question "Which download method should I use?"
-    It depends in which components you want to use and your fluency in performing installations on Linux environments. Usually, most people use the [CLI](use-as-a-command-line-interface.md).
+ 
+    It depends in which components you want to use and your fluency in performing Docker-based installations. Most people use the [CLI](use-as-a-command-line-interface.md).
 
     | Use case | Method  |
     | --  | -- |
