@@ -97,7 +97,7 @@ my @validation_checks = (
                 || ( defined $in_csv    && -f $in_csv )
                 || ( @omop_files        && -f $omop_files[0] ) );
         },
-        message => "Please specify a valid input file(s) -i <json|yaml|csv>\n",
+        message => "Please specify a valid input [-i input-type] <infile>\n",
     },
     {
         condition => sub { !-d $out_dir },
