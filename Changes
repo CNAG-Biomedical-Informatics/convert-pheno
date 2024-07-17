@@ -1,5 +1,9 @@
 Revision history for Perl distribution Convert-Pheno
 
+0.24 2024-XX-XXT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
+
+ - Foo
+
 0.23 2024-07-17T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
  - Reduced RAM usage in -iomop -stream when loading mandatory tables from PostgreSQL dump

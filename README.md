@@ -28,7 +28,7 @@
 
 **Docker Hub Image**: <a href="https://hub.docker.com/r/manuelrueda/convert-pheno/tags" target="_blank">https://hub.docker.com/r/manuelrueda/convert-pheno/tags</a>
 
-**Web App UI**: <a href="https://convert-pheno.cnag.cat" target="_blank">"https://convert-pheno.cnag.cat</a>
+**Web App UI**: <a href="https://convert-pheno.cnag.cat" target="_blank">https://convert-pheno.cnag.cat</a>
 
 # NAME
 
