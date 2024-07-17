@@ -196,9 +196,9 @@ sub read_sqldump {
             chomp $line;
 
             # Order matters. We exit before loading
-            if ( $line =~ /^\\\.$/ ) {
+            if ( $local_count == $max_lines_sql || $line =~ /^\\\.$/ ) {
                 $switch = 0;
-                print "==============\nRows read(total): $local_count\n\n";
+                print "==============\nRows read(total): $local_count\n\n" if $self->{verbose};
                 next;
             }
             $local_count++;
@@ -232,8 +232,7 @@ sub read_sqldump {
             # Adding them as an array element (AoH)
             push @{ $data->{$table_name} }, $hash_slice;
 
-            # adhoc filter to speed-up development
-            if ( $local_count == $max_lines_sql ) { $switch = 0 }
+            # Print
             say "Rows read: $local_count"
               if ( $self->{verbose} && $local_count % $print_interval == 0 );
         }
