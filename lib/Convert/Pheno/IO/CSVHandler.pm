@@ -12,7 +12,7 @@ use File::Spec::Functions qw(catdir);
 use IO::Compress::Gzip qw($GzipError);
 use IO::Uncompress::Gunzip qw($GunzipError);
 
-#use Data::Dumper;
+use Data::Dumper;
 use Devel::Size qw(total_size);
 use Convert::Pheno;
 use Convert::Pheno::IO::FileIO;
@@ -21,7 +21,7 @@ use Convert::Pheno::Schema;
 use Convert::Pheno::Mapping;
 use Exporter 'import';
 our @EXPORT =
-  qw(read_csv read_csv_stream read_redcap_dict_file read_mapping_file read_sqldump_stream read_sqldump sqldump2csv transpose_omop_data_structure write_csv open_filehandle load_exposures get_headers convert_table_aoh_to_hoh);
+  qw(read_csv read_csv_stream read_redcap_dict_file read_mapping_file read_sqldump read_sqldump_stream sqldump2csv transpose_omop_data_structure write_csv open_filehandle load_exposures get_headers convert_table_aoh_to_hoh);
 
 use constant DEVEL_MODE => 0;
 
@@ -113,17 +113,155 @@ sub read_mapping_file {
     return $data_mapping_file;
 }
 
+sub read_sqldump {
+
+    my $arg            = shift;
+    my $filepath       = $arg->{in};
+    my $self           = $arg->{self};
+    my $print_interval = 1_000;
+
+    # Before resorting to writting this subroutine I performed an exhaustive search on CPAN:
+    # - Tested MySQL::Dump::Parser::XS but I could not make it work...
+    # - App-MysqlUtils-0.022 has a CLI utility (mysql-sql-dump-extract-tables)
+    # - Of course one can always use *nix tools (sed, grep, awk, etc) or other programming languages....
+    # Anyway, I ended up writting the parser myself...
+
+    # Define variables that modify what we load
+    my $max_lines_sql = $self->{max_lines_sql};
+    my @omop_tables   = @{ $self->{omop_tables} };
+
+    #COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, attribute_description, attribute_type_concept_id, attribute_syntax) FROM stdin;
+    # ......
+    # \.
+
+    # Verbose
+    say "Reading the SQL dump...\n" if $self->{verbose};
+
+    # Start reading the SQL dump
+    my $fh = open_filehandle( $filepath, 'r' );
+
+    # We'll store the data in the hashref $data
+    my $data = {};
+
+    # Now we we start processing line by line
+    my $switch      = 0;
+    my $local_count = 0;
+    my $total_count = 0;
+    my @headers;
+    my $table_name;
+
+    while ( my $line = <$fh> ) {
+
+        if ( $line =~ m/^COPY/ ) {
+
+            chomp $line;
+
+            # First line contains the headers
+            #COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, ..., attribute_syntax) FROM stdin;
+
+            # Create an array to hold the column names for this table
+            $line =~ s/[\(\),]//g;    # getting rid of (),
+            @headers = split /\s+/, $line;
+
+            $table_name = uc( ( split /\./, $headers[1] )[1] );    # ATTRIBUTE_DEFINITI
+
+            # Discarding non @$omop_tables:
+            # This step improves RAM consumption
+            next unless any { $_ eq $table_name } @omop_tables;
+
+            # Discarding headers which are not terms/variables
+            @headers = @headers[ 2 .. $#headers - 2 ];
+
+            # Turning on the switch for later
+            $switch = 1;
+
+            # Reset count
+            $local_count = 0;
+
+            # Initializing $data>key as empty arrayref
+            $data->{$table_name} = [];
+
+            # Jump one line
+            $line = <$fh>;
+
+            # Say if verbose
+            say "Loading <$table_name> in memory..."
+              if $self->{verbose};
+
+        }
+
+        # Loading the data if $switch
+        if ($switch) {
+
+            chomp $line;
+
+            # Order matters. We exit before loading
+            if ( $line =~ /^\\\.$/ ) {
+                $switch = 0;
+                print "==============\nRows read(total): $local_count\n\n";
+                next;
+            }
+            $local_count++;
+            $total_count++;
+
+            # Columns are separated by \t
+            # NB: 'split' and 'Text::CSV' split to strings
+            # We go with 'split'. Coercing a posteriori
+            my @fields = split /\t/, $line;
+
+            # Loading the fields like this:
+            #
+            #  $VAR1 = {
+            #  'PERSON' => [  # NB: This is the table name
+            #             {
+            #              'person_id' => 123,
+            #               'test' => 'abc'
+            #             },
+            #             {
+            #               'person_id' => 456,
+            #               'test' => 'def'
+            #             }
+            #           ]
+            #         };
+
+            # Using tmp hashref to load all fields at once with slice
+            my $hash_slice;
+            @{$hash_slice}{@headers} =
+              map { dotify_and_coerce_number($_) } @fields;
+
+            # Adding them as an array element (AoH)
+            push @{ $data->{$table_name} }, $hash_slice;
+
+            # adhoc filter to speed-up development
+            if ( $local_count == $max_lines_sql ) { $switch = 0 }
+            say "Rows read: $local_count"
+              if ( $self->{verbose} && $local_count % $print_interval == 0 );
+        }
+    }
+    close $fh;
+
+    # Print if verbose
+    print
+"==========================\nRows read (sqldump-total): $total_count\n==========================\n\n"
+      if $self->{verbose};
+
+    # RAM Usage
+    say ram_usage_str( 'read_sqldump', $data )
+      if ( DEVEL_MODE || $self->{verbose} );
+
+    return $data;
+}
+
 sub read_sqldump_stream {
 
-    my $arg     = shift;
-    my $filein  = $arg->{in};
-    my $self    = $arg->{self};
-    my $person  = $arg->{person};
-    my $fileout = $self->{out_file};
-    my $switch  = 0;
-    my @headers;
-    my $table_name    = $self->{omop_tables}[0];
-    my $table_name_lc = lc($table_name);
+    my $arg            = shift;
+    my $filein         = $arg->{in};
+    my $self           = $arg->{self};
+    my $person         = $arg->{person};
+    my $fileout        = $self->{out_file};
+    my $table_name     = $self->{omop_tables}[0];
+    my $table_name_lc  = lc($table_name);
+    my $print_interval = 10_000;
 
     # Define variables that modify what we load
     my $max_lines_sql = $self->{max_lines_sql};
@@ -136,7 +274,10 @@ sub read_sqldump_stream {
     #say $fh_out "[";
 
     # Now we we start processing line by line
-    my $count = 0;
+    my $count  = 0;
+    my $switch = 0;
+    my @headers;
+
     while ( my $line = <$fh_in> ) {
 
         # Only parsing $table_name_lc and discarding others
@@ -178,8 +319,7 @@ sub read_sqldump_stream {
             @{$hash_slice}{@headers} =
               map { dotify_and_coerce_number($_) } @fields;
 
-            # Initialize $data each time
-            # Adding them as an array element (AoH)
+            # Error related to -max-lines-sqlError related to -max-lines-sql
             die
 "We could not find person_id:$hash_slice->{person_id}. Try increasing the #lines with --max-lines-sql\n"
               unless exists $person->{ $hash_slice->{person_id} };
@@ -200,7 +340,7 @@ sub read_sqldump_stream {
 
             # Print if verbose
             say "Rows processed: $count"
-              if ( $self->{verbose} && $count % 10_000 == 0 );
+              if ( $self->{verbose} && $count % $print_interval == 0 );
         }
     }
     say "==============\nRows processed(total): $count\n" if $self->{verbose};
@@ -237,129 +377,6 @@ sub encode_omop_stream {
     #  - canonical has some overhead but needed for t/)
     #  - $fh is already utf-8, no need to encode again here
     return JSON::XS->new->canonical->encode($stream);
-}
-
-sub read_sqldump {
-
-    my $arg      = shift;
-    my $filepath = $arg->{in};
-    my $self     = $arg->{self};
-
-    # Before resorting to writting this subroutine I performed an exhaustive search on CPAN:
-    # - Tested MySQL::Dump::Parser::XS but I could not make it work...
-    # - App-MysqlUtils-0.022 has a CLI utility (mysql-sql-dump-extract-tables)
-    # - Of course one can always use *nix tools (sed, grep, awk, etc) or other programming languages....
-    # Anyway, I ended up writting the parser myself...
-    # The parser is based in reading COPY paragraphs from PostgreSQL dump by using Perl's paragraph mode  $/ = "";
-    # NB: Each paragraph (TABLE) is loaded into memory. Not great for large files.
-
-    # Define variables that modify what we load
-    my $max_lines_sql = $self->{max_lines_sql};
-    my @omop_tables   = @{ $self->{omop_tables} };
-
-    # Set record separator to paragraph
-    local $/ = "";
-
-    #COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, attribute_description, attribute_type_concept_id, attribute_syntax) FROM stdin;
-    # ......
-    # \.
-
-    # Verbose 
-    say "Reading the SQL dump...\n" if $self->{verbose};
-
-    # Start reading the SQL dump
-    my $fh = open_filehandle( $filepath, 'r' );
-
-    # We'll store the data in the hashref $data
-    my $data = {};
-
-    # Process paragraphs
-    while ( my $paragraph = <$fh> ) {
-
-        # Discarding paragraphs not having  m/^COPY/
-        next unless $paragraph =~ m/^COPY/;
-
-        # Load all lines into an array (via "\n")
-        my @lines = split /\n/, $paragraph;
-        next unless scalar @lines > 2;
-        pop @lines;    # last line eq '\.'
-
-        # First line contains the headers
-        #COPY "OMOP_cdm_eunomia".attribute_definition (attribute_definition_id, attribute_name, ..., attribute_syntax) FROM stdin;
-        $lines[0] =~ s/[\(\),]//g;    # getting rid of (),
-        my @headers = split /\s+/, $lines[0];
-        my $table_name =
-          uc( ( split /\./, $headers[1] )[1] );    # ATTRIBUTE_DEFINITION
-
-        # Discarding non @$omop_tables:
-        # This step improves RAM consumption
-        next unless any { $_ eq $table_name } @omop_tables;
-
-        # Say if verbose
-        say "Loading <$table_name> in memory..."
-          if $self->{verbose};
-
-        # Discarding first line
-        shift @lines;
-
-        # Discarding headers which are not terms/variables
-        @headers = @headers[ 2 .. $#headers - 2 ];
-
-        # Initializing $data>key as empty arrayref
-        $data->{$table_name} = [];
-
-        # Ad hoc counter for dev
-        my $count = 0;
-
-        # Processing line by line
-        for my $line (@lines) {
-            $count++;
-
-            # Columns are separated by \t
-            # NB: 'split' and 'Text::CSV' split to strings
-            # We go with 'split'. Coercing a posteriori
-            my @fields = split /\t/, $line;
-
-            # Loading the fields like this:
-            #
-            #  $VAR1 = {
-            #  'PERSON' => [  # NB: This is the table name
-            #             {
-            #              'person_id' => 123,
-            #               'test' => 'abc'
-            #             },
-            #             {
-            #               'person_id' => 456,
-            #               'test' => 'def'
-            #             }
-            #           ]
-            #         };
-
-            # Using tmp hashref to load all fields at once with slice
-            my $hash_slice;
-            @{$hash_slice}{@headers} =
-              map { dotify_and_coerce_number($_) } @fields;
-
-            # Adding them as an array element (AoH)
-            push @{ $data->{$table_name} }, $hash_slice;
-
-            # adhoc filter to speed-up development
-            last if $count == $max_lines_sql;
-            say "Rows read: $count"
-              if ( $self->{verbose} && $count % 1_000 == 0 );
-
-        }
-
-        # Print if verbose
-        say "==============\nRows read(total): $count\n" if $self->{verbose};
-    }
-    close $fh;
-
-    # RAM Usage
-    say ram_usage_str( 'read_sqldump', $data )
-      if ( DEVEL_MODE || $self->{verbose} );
-
-    return $data;
 }
 
 sub sqldump2csv {
@@ -606,7 +623,6 @@ sub read_csv_stream {
     chomp( my $line = <$fh_in> );
     my @headers = split /$separator/, $line;
 
-    my $hash_slice;
     my $count = 0;
 
     # *** IMPORTANT ***

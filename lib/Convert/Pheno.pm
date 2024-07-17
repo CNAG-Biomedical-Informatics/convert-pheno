@@ -372,8 +372,12 @@ sub omop2bff {
 
             if ( $ext =~ m/\.sql/i ) {
 
+                print "> Param: --max-lines-sql = $self->{max_lines_sql}\n" if $self->{verbose};
+
                 # --no-stream
                 if ( !$self->{stream} ) {
+
+                    print "> Mode : --no-stream\n\n" if $self->{verbose};
 
                     # We read all tables in memory
                     $data = read_sqldump( { in => $file, self => $self } );
@@ -385,13 +389,16 @@ sub omop2bff {
                 # --stream
                 else {
 
-                    print "> Running in --stream mode\n\n" if $self->{verbose};
+                    print "> Mode : --stream\n\n" if $self->{verbose};
 
                     # We'll ONLY load @stream_ram_memory_tables
                     # in RAM and the other tables as $fh
                     $self->{omop_tables} = [@stream_ram_memory_tables];    # setter
                     $data = read_sqldump( { in => $file, self => $self } );
                 }
+
+                # Misc print
+                print "> Parameter --max-lines-sql set to: $self->{max_lines_sql}\n\n" if $self->{verbose};
 
                 # We keep the filepath for later
                 $filepath = $file;
