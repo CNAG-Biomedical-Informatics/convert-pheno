@@ -41,7 +41,7 @@ $SIG{__WARN__} = sub { warn "Warn: ", @_ };
 $SIG{__DIE__}  = sub { die "Error: ", @_ };
 
 # Global variables:
-our $VERSION   = '0.22_1';
+our $VERSION   = '0.23';
 our $share_dir = dist_dir('Convert-Pheno');
 
 # SQLite database
