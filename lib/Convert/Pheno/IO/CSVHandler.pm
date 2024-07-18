@@ -21,7 +21,7 @@ use Convert::Pheno::Schema;
 use Convert::Pheno::Mapping;
 use Exporter 'import';
 our @EXPORT =
-  qw(read_csv read_csv_stream read_redcap_dict_file read_mapping_file read_sqldump read_sqldump_stream sqldump2csv transpose_omop_data_structure write_csv open_filehandle load_exposures get_headers convert_table_aoh_to_hoh to_gb);
+  qw(read_csv read_csv_stream read_redcap_dict_file read_mapping_file read_sqldump read_sqldump_stream sqldump2csv transpose_omop_data_structure write_csv open_filehandle load_exposures get_headers convert_table_aoh_to_hoh);
 
 use constant DEVEL_MODE => 0;
 
@@ -116,10 +116,9 @@ sub read_mapping_file {
 
 sub read_sqldump {
 
-    my $arg            = shift;
-    my $filepath       = $arg->{in};
-    my $self           = $arg->{self};
-    my $print_interval = 1_000;
+    my $arg      = shift;
+    my $filepath = $arg->{in};
+    my $self     = $arg->{self};
 
     # Before resorting to writting this subroutine I performed an exhaustive search on CPAN:
     # - Tested MySQL::Dump::Parser::XS but I could not make it work...
@@ -140,6 +139,9 @@ sub read_sqldump {
 
     # Start reading the SQL dump
     my $fh = open_filehandle( $filepath, 'r' );
+
+    # Determine the print interval based on file size
+    my $print_interval = get_print_interval($filepath);
 
     # We'll store the data in the hashref $data
     my $data = {};
@@ -255,14 +257,13 @@ sub read_sqldump {
 
 sub read_sqldump_stream {
 
-    my $arg            = shift;
-    my $filein         = $arg->{in};
-    my $self           = $arg->{self};
-    my $person         = $arg->{person};
-    my $fileout        = $self->{out_file};
-    my $table_name     = $self->{omop_tables}[0];
-    my $table_name_lc  = lc($table_name);
-    my $print_interval = 10_000;
+    my $arg           = shift;
+    my $filein        = $arg->{in};
+    my $self          = $arg->{self};
+    my $person        = $arg->{person};
+    my $fileout       = $self->{out_file};
+    my $table_name    = $self->{omop_tables}[0];
+    my $table_name_lc = lc($table_name);
 
     # Define variables that modify what we load
     my $max_lines_sql = $self->{max_lines_sql};
@@ -270,6 +271,9 @@ sub read_sqldump_stream {
     # Open filehandles
     my $fh_in  = open_filehandle( $filein,  'r' );
     my $fh_out = open_filehandle( $fileout, 'a' );
+
+    # Determine the print interval based on file size
+    my $print_interval = get_print_interval($filein);
 
     # Start printing the array
     #say $fh_out "[";
@@ -542,6 +546,7 @@ sub read_csv {
     my $arg      = shift;
     my $filepath = $arg->{in};
     my $sep      = $arg->{sep};
+    my $self     = exists $arg->{self} ? $arg->{self} : { verbose => 0 };
 
     # Define split record separator from file extension
     my ( $separator, $encoding ) = define_separator( $filepath, $sep );
@@ -569,6 +574,9 @@ sub read_csv {
     # Open fh
     my $fh = open_filehandle( $filepath, 'r' );
 
+    # Determine the print interval based on file size
+    my $print_interval = get_print_interval($filepath);
+
     # Get headers
     my $headers = $csv->getline($fh);
     $csv->column_names(@$headers);
@@ -578,15 +586,25 @@ sub read_csv {
       "Are you sure you are using the right --sep <$separator> for your data?\n"
       if is_separator_incorrect($headers);
 
-
     # Load data
     my @aoh;
+    my $count = 0;
     while ( my $row = $csv->getline_hr($fh) ) {
         push @aoh, $row;
+        $count++;
+
+        say "Rows read: $count"
+          if ( $self->{verbose} && $count % $print_interval == 0 );
+
     }
 
     # Close fh
     close $fh;
+
+    # Print if verbose
+    print
+"==========================\nRows read (total): $count\n==========================\n\n"
+      if $self->{verbose};
 
     # Coercing the data before returning it
     for my $item (@aoh) {
@@ -594,6 +612,10 @@ sub read_csv {
             $item->{$key} = dotify_and_coerce_number( $item->{$key} );
         }
     }
+
+    # RAM usage
+    say ram_usage_str( "read_csv($filepath)", \@aoh )
+      if ( DEVEL_MODE || $self->{verbose} );
 
     # Return data
     return \@aoh;
@@ -927,6 +949,19 @@ sub convert_table_aoh_to_hoh {
       if ( $self->{verbose} || DEVEL_MODE );
 
     return $hoh;
+}
+
+sub get_print_interval {
+
+    my $filepath = shift;
+
+    # Determine file size
+    my $file_size = -s $filepath;
+
+    # Set print interval based on file size (threshold: 10 MB)
+    my $print_interval = $file_size > 10 * 1024 * 1024 ? 10_000 : 1_000;
+
+    return $print_interval;
 }
 
 1;

@@ -434,7 +434,7 @@ sub omop2bff {
                     # We read all tables in memory
                     say $msg if ( $self->{verbose} || $self->{debug} );
                     $data->{$table_name} =
-                      read_csv( { in => $file, sep => $self->{sep}} );
+                      read_csv( { in => $file, sep => $self->{sep}, self => $self } );
                 }
 
                 # --stream
@@ -442,7 +442,7 @@ sub omop2bff {
                     if ( any { $_ eq $table_name } @stream_ram_memory_tables ) {
                         say $msg if ( $self->{verbose} || $self->{debug} );
                         $data->{$table_name} =
-                          read_csv( { in => $file, sep => $self->{sep} } );
+                          read_csv( { in => $file, sep => $self->{sep}, self => $self } );
                     }
                     else {
                         push @filepaths, $file;
