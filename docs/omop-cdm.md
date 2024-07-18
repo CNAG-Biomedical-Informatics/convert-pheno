@@ -73,10 +73,10 @@ The **OMOP CDM** is designed to be database-agnostic, which means it can be impl
 
             Number of rows | Estimated RAM memory | Estimated time
                    :---:   |   :---:              | :---:
-                    100K   | 1GB                  | 5s
-                    500K   | 2GB                  | 15s
-                    1M     | 4GB                  | 30s
-                    2M     | 8GB                  | 1m
+                    100K   | <1GB                 | 5s
+                    500K   | 1GB                  | 15s
+                    1M     | 2GB                  | 30s
+                    2M     | 4GB                  | 1m
 
              1 x Intel(R) Xeon(R) W-1350P @ 4.00GHz - 32GB RAM - SSD
 
@@ -108,8 +108,6 @@ The **OMOP CDM** is designed to be database-agnostic, which means it can be impl
 
         ??? Warning "About tables `CONCEPT` and `PERSON`"
             Tables `CONCEPT` and `PERSON` are always loaded as they're needed for the conversion. You don't need to specify them.
-
-           
 
         ```
         convert-pheno -iomop omop_dump.sql.gz -obff individuals_measurement.json.gz --omop-tables DRUG_EXPOSURE --stream

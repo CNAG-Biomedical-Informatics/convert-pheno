@@ -21,7 +21,7 @@ use Convert::Pheno::Schema;
 use Convert::Pheno::Mapping;
 use Exporter 'import';
 our @EXPORT =
-  qw(read_csv read_csv_stream read_redcap_dict_file read_mapping_file read_sqldump read_sqldump_stream sqldump2csv transpose_omop_data_structure write_csv open_filehandle load_exposures get_headers convert_table_aoh_to_hoh);
+  qw(read_csv read_csv_stream read_redcap_dict_file read_mapping_file read_sqldump read_sqldump_stream sqldump2csv transpose_omop_data_structure write_csv open_filehandle load_exposures get_headers convert_table_aoh_to_hoh to_gb);
 
 use constant DEVEL_MODE => 0;
 
@@ -47,6 +47,7 @@ sub read_redcap_dictionary {
     # Loading data directly from Text::CSV_XS
     # NB1: We want HoH and sub read_csv returns AoH
     # NB2: By default the Text::CSV module treats all fields in a CSV file as strings, regardless of their actual data type.
+    # NB3: csv function ~ x2  RAM. It's ok here.
     my $hoh = csv(
         in       => $filepath,
         sep_char => $separator,
@@ -198,7 +199,8 @@ sub read_sqldump {
             # Order matters. We exit before loading
             if ( $local_count == $max_lines_sql || $line =~ /^\\\.$/ ) {
                 $switch = 0;
-                print "==============\nRows read(total): $local_count\n\n" if $self->{verbose};
+                print "==============\nRows read(total): $local_count\n\n"
+                  if $self->{verbose};
                 next;
             }
             $local_count++;
@@ -544,56 +546,69 @@ sub read_csv {
     # Define split record separator from file extension
     my ( $separator, $encoding ) = define_separator( $filepath, $sep );
 
-    # Transform $filepath into an AoH
-    # Using Text::CSV_XS functional interface
-    my $aoh = csv(
-        in       => $filepath,
-        sep_char => $separator,
-        headers  => "auto",
+    # *** IMPORTANT ***
+    # Text::CSV_XS functional interface
+    # duplicates RAM <= DEPRECATED
+    #my $aoh = csv(
+    #    in       => $filepath,
+    #    sep_char => $separator,
+    #    headers  => "auto",
+    #    encoding  => $encoding,
+    #    auto_diag => 1
+    #);
 
-        # eol      => "\n", # Let the code figure it out
-        # binary    => 1, # default
-        encoding  => $encoding,
-        auto_diag => 1
+    # Create a new Text::CSV_XS object
+    my $csv = Text::CSV_XS->new(
+        {
+            sep_char  => $separator,
+            binary    => 1,
+            auto_diag => 1,
+        }
     );
 
-    # $aoh = [
-    #       {
-    #         'abdominal_mass' => 0,
-    #         'age_first_diagnosis' => 0,
-    #         'alcohol' => 4,
-    #        }, {},,,
-    #      ]
+    # Open fh
+    my $fh = open_filehandle( $filepath, 'r' );
 
-    # Pre-fetch keys (headers) to speed-up calculation
-    # Extracted unsorted from $aoh->[0]
-    my @keys = keys %{ $aoh->[0] };
+    # Get headers
+    my $headers = $csv->getline($fh);
+    $csv->column_names(@$headers);
 
-    # Check for too many occurences of separators
+    # Check for too many occurrences of separators
     die
       "Are you sure you are using the right --sep <$separator> for your data?\n"
-      if is_separator_incorrect( \@keys );
+      if is_separator_incorrect($headers);
+
+
+    # Load data
+    my @aoh;
+    while ( my $row = $csv->getline_hr($fh) ) {
+        push @aoh, $row;
+    }
+
+    # Close fh
+    close $fh;
 
     # Coercing the data before returning it
-    for my $item (@$aoh) {
-        for my $key (@keys) {
+    for my $item (@aoh) {
+        for my $key ( @{$headers} ) {
             $item->{$key} = dotify_and_coerce_number( $item->{$key} );
         }
     }
 
     # Return data
-    return $aoh;
+    return \@aoh;
 }
 
 sub is_separator_incorrect {
 
     my $keys           = shift;
     my $max_delimiters = 5;
-    my $sep_count      = ( $keys->[0] =~ tr/,;\t// );
-    if ( $sep_count > $max_delimiters ) {
-        return 1;
-    }
-    return 0;
+
+    # Count the number of delimiters (comma, semicolon, or tab) in the first key
+    my $sep_count = ( $keys->[0] =~ tr/,;\t// );
+
+    # Return true (1) if the number of delimiters exceeds the maximum allowed, otherwise false (0)
+    return $sep_count > $max_delimiters ? 1 : 0;
 }
 
 sub read_csv_stream {
@@ -610,19 +625,21 @@ sub read_csv_stream {
       define_separator( $filein, $sep );
     my $table_name_lc = lc($table_name);
 
-    # Using Text::CSV_XS OO interface
+    # Create a new Text::CSV_XS object
     my $csv = Text::CSV_XS->new(
-        { binary => 1, auto_diag => 1, sep_char => $separator } );
+        {
+            sep_char  => $separator,
+            binary    => 1,
+            auto_diag => 1,
+        }
+    );
 
     # Open filehandles
     my $fh_in  = open_filehandle( $filein,  'r' );
     my $fh_out = open_filehandle( $fileout, 'a' );
 
-    # Get rid of \n on first line
-    chomp( my $line = <$fh_in> );
-    my @headers = split /$separator/, $line;
-
-    my $count = 0;
+    # Get headers
+    my $headers = $csv->getline($fh_in);
 
     # *** IMPORTANT ***
     # On Feb-19-2023 I tested Parallel::ForkManager and:
@@ -630,15 +647,17 @@ sub read_csv_stream {
     # 2 - We hot SQLite errors for concurring fh
     # Thus, it was not implemented
 
+    my $count = 0;
+
     while ( my $row = $csv->getline($fh_in) ) {
 
-        # Load the values a a hash slice;
-        my $hash_slice;
-        @{$hash_slice}{@headers} = map { dotify_and_coerce_number($_) } @$row;
+        # Load the values as a hash slice
+        my %hash_slice;
+        @hash_slice{@$headers} = map { dotify_and_coerce_number($_) } @$row;
 
         # Encode data
         my $encoded_data =
-          encode_omop_stream( $table_name, $hash_slice, $person, $count,
+          encode_omop_stream( $table_name, \%hash_slice, $person, $count,
             $self );
 
         # Only after encoding we are able to discard 'null'
@@ -646,8 +665,11 @@ sub read_csv_stream {
 
         # Increment $count
         $count++;
-        say "Rows processed: $count"
-          if ( $self->{verbose} && $count % 10_000 == 0 );
+
+        # Verbose logging every 10,000 rows
+        if ( $self->{verbose} && $count % 10_000 == 0 ) {
+            say "Rows processed: $count";
+        }
     }
     say "==============\nRows total:     $count\n" if $self->{verbose};
 

@@ -434,7 +434,7 @@ sub omop2bff {
                     # We read all tables in memory
                     say $msg if ( $self->{verbose} || $self->{debug} );
                     $data->{$table_name} =
-                      read_csv( { in => $file, sep => $self->{sep} } );
+                      read_csv( { in => $file, sep => $self->{sep}} );
                 }
 
                 # --stream
