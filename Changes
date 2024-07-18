@@ -1,6 +1,6 @@
 Revision history for Perl distribution Convert-Pheno
 
-0.24 2024-XX-XXT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
+0.24 2024-07-18T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
  - Switched read_csv from Text::CSV_XS functional interface to incremental reading to reduce RAM usage
 
