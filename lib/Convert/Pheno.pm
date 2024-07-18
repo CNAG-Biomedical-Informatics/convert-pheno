@@ -179,8 +179,9 @@ sub BUILD {
 
 sub bff2pxf {
 
+    my $self = shift;
     # <array_dispatcher> will deal with JSON arrays
-    return array_dispatcher(shift);
+    return $self->array_dispatcher;
 }
 
 #############
@@ -191,8 +192,9 @@ sub bff2pxf {
 
 sub bff2csv {
 
+    my $self = shift;
     # <array_dispatcher> will deal with JSON arrays
-    return array_dispatcher(shift);
+    return $self->array_dispatcher;
 }
 
 #############
@@ -203,8 +205,9 @@ sub bff2csv {
 
 sub bff2jsonf {
 
+    my $self = shift;
     # <array_dispatcher> will deal with JSON arrays
-    return array_dispatcher(shift);
+    return $self->array_dispatcher;
 }
 ##############
 ##############
@@ -214,8 +217,9 @@ sub bff2jsonf {
 
 sub bff2jsonld {
 
+    my $self = shift;
     # <array_dispatcher> will deal with JSON arrays
-    return array_dispatcher(shift);
+    return $self->array_dispatcher;
 }
 
 ################
@@ -619,8 +623,9 @@ sub cdisc2pxf {
 
 sub pxf2bff {
 
+    my $self = shift;
     # <array_dispatcher> will deal with JSON arrays
-    return array_dispatcher(shift);
+    return $self->array_dispatcher;
 }
 
 #############
@@ -687,8 +692,9 @@ sub csv2pxf {
 
 sub pxf2csv {
 
+    my $self = shift;
     # <array_dispatcher> will deal with JSON arrays
-    return array_dispatcher(shift);
+    return $self->array_dispatcher;
 }
 
 #############
@@ -699,8 +705,9 @@ sub pxf2csv {
 
 sub pxf2jsonf {
 
+    my $self = shift;
     # <array_dispatcher> will deal with JSON arrays
-    return array_dispatcher(shift);
+    return $self->array_dispatcher;
 }
 
 ##############
@@ -711,8 +718,9 @@ sub pxf2jsonf {
 
 sub pxf2jsonld {
 
+    my $self = shift;
     # <array_dispatcher> will deal with JSON arrays
-    return array_dispatcher(shift);
+    return $self->array_dispatcher;
 }
 
 ######################
@@ -759,9 +767,13 @@ sub array_dispatcher {
         say $fh_out "[";
     }
 
-    # Proceed depending if we have an ARRAY or not
-    # NB: Caution with RAM (we store all in memory except for omop2bff)
+    # *** IMPORTANT ***
+    # $out_data = Caution with RAM 
+    # We store all in memory and serialize externally
+    # except for omop2bff (larger) that we print to file here (item-by-item)
     my $out_data;
+
+    # Proceed depending if we have an ARRAY or not
     if ( ref $in_data eq ref [] ) {
 
         # Print if we have ARRAY
@@ -776,15 +788,17 @@ sub array_dispatcher {
         # In $self->{data} we have all participants data, but,
         # WE DELIBERATELY SEPARATE ARRAY ELEMENTS FROM $self->{data}
 
-        for ( @{$in_data} ) {
+        # We void items in $in_data to avoid data duplication in RAM
+        while ( my $item = shift @{ $in_data} ) {         # We want to keep order (!pop)
+
             $count++;
 
-            # Print imfo
+            # Print info
             say "[$count] ARRAY ELEMENT from $elements" if $self->{debug};
 
             # NB: If we get "null" participants the validator will complain
             # about not having "id" or any other required property
-            my $method_result = $func{ $self->{method} }->( $self, $_ );    # Method
+            my $method_result = $func{ $self->{method} }->( $self, $item );    # Method
 
             # Only proceeding if we got value from method
             if ($method_result) {
@@ -795,16 +809,12 @@ sub array_dispatcher {
                 if ( exists $self->{omop_cli} && $self->{omop_cli} ) {
                     my $out = omop_dispatcher( $self, $method_result );
                     print $fh_out $$out;
-                    print $fh_out ",\n"
-                      unless ( $total == $elements
-                        || $total == $self->{max_lines_sql} );
+                    print $fh_out ",\n" unless ( $total == $elements || $total == $self->{max_lines_sql} );
                 }
 
                 # For the other we have array_ref $out_data and serialize at once
                 else {
                     push @{$out_data}, $method_result;
-
-                    #say total_size($out_data);
                 }
             }
         }
