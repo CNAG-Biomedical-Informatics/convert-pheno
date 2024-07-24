@@ -17,7 +17,7 @@
 ## exposures
 |  OMOP Table(s)                                              | OMOP Variable                                              | BFF JSON path                                               |
 |  :---:                                                      | :---:                                                      | :---:                                                       |
-|  OBSERVATION, PERSON                                        | observation_date, birth_datetime                           | exposures.ageOfAtExposure.iso8601duration                   |
+|  OBSERVATION, PERSON                                        | observation_date, birth_datetime                           | exposures.ageAtExposure.iso8601duration                   |
 |  OBSERVATION                                                | observation_date                                           | exposures.date                                              |
 |                                                             | DEFAULT                                                    | exposures.duration                                          |
 |  OBSERVATION                                                | All variables                                              | exposures._info                                             |

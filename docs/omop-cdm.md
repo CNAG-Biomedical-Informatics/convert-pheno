@@ -7,7 +7,7 @@
 
 The **OMOP CDM** is designed to be database-agnostic, which means it can be implemented using different relational database management systems, with **PostgreSQL** being a popular choice.
 
-`Convert-Pheno` is capable of performing both **file-based conversions** (from PostgreSQL exports in `.sql` or from any other SQL database via `.csv` files) and **real-time conversions** (e.g., from [WebAPI](https://github.com/OHDSI/WebAPI) data or [SQL queries](http://cdmqueries.omop.org)) as long as the data has been converted to the accepted JSON format.
+`Convert-Pheno` is capable of performing both **file-based conversions** (from PostgreSQL exports in `.sql` or from any other SQL database via `.csv` files) and **real-time conversions** (e.g., from [SQL queries](http://cdmqueries.omop.org)) as long as the data has been converted to the accepted JSON format.
 
 ??? Warning "About OMOP CDM longitudinal data"
     OMOP CDM stores `visit_occurrence_id` for each `person_id` in the `VISIT_OCCURRENCE table`. However, [Beacon v2 Models](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema) currently lack a way to store longitudinal data. To address this, we added a property named `_visit` to each record, which stores visit information. This property will be serialized only if the `VISIT_OCCURRENCE` table is provided.
