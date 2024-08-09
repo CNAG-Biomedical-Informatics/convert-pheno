@@ -17,30 +17,14 @@ We provide several alternatives (containerized and non-containerized) for downlo
 
     | Use case | Method  |
     | --  | -- |
-    | CLI |  3 (CPAN) |
-    | CLI (conda) | 4 (CPAN in Conda env)|
-    | API | 1 or 2 (Docker) |
+    | CLI |  1 (CPAN) |
+    | CLI (conda) | 2 (CPAN in Conda env)|
+    | API | 4 or 5 (Docker) |
     | Web App UI | [Here](https://cnag-biomedical-informatics.github.io/convert-pheno-ui)
-
-## Containerized
-
-With the containerized version you get:
-
-* Module
-* CLI
-* APIs
-
-=== "Method 1: From Docker Hub"
-
-    Please follow the instructions provided in this [README](usage.md#method-1-from-docker-hub).
-
-=== "Method 2: With Dockerfile"
-
-    Please follow the instructions provided in this [README](usage.md#method-2-with-dockerfile).
 
 ## Non-Containerized
 
-=== "Method 3: From CPAN"
+=== "Method 1: From CPAN"
 
     The core of software is a module implemented in `Perl` and it is available in the Comprehensive Perl Archive Network (CPAN). See the description [here](https://metacpan.org/pod/Convert::Pheno).
 
@@ -61,9 +45,9 @@ With the containerized version you get:
 
         * `libssl-dev:` This package is part of OpenSSL, which provides secure socket layer (SSL) capabilities. For SSL/TLS related tasks in Perl, you can use modules such as IO::Socket::SSL or Net::SSLeay, but these modules also require OpenSSL to be installed on the system.
 
-    To install it, plese see this [README](usage.md#from-cpan).
+    To install it, plese see this [README](usage.md#method-1-from-cpan).
 
-=== "Method 4: From CPAN in a **Conda** environment"
+=== "Method 2: From CPAN in a **Conda** environment"
 
      With the CPAN distribution you get:
 
@@ -164,7 +148,7 @@ With the containerized version you get:
 
     Feel free to copy that file and use for your own purposes.
 
-=== "Method 5: From Github"
+=== "Method 3: From Github"
 
     With the non-containerized version from Github you get:
 
@@ -172,6 +156,20 @@ With the containerized version you get:
     * CLI
     * APIs
 
-    Please follow the instructions provided in this [README](usage.md#non-containerized).
+    Please follow the instructions provided in this [README](usage.md#method-3-from-github).
 
+## Containerized
 
+With the containerized version you get:
+
+* Module
+* CLI
+* APIs
+
+=== "Method 4: From Docker Hub"
+
+    Please follow the instructions provided in this [README](usage.md#method-4-from-docker-hub).
+
+=== "Method 5: With Dockerfile"
+
+    Please follow the instructions provided in this [README](usage.md#method-5-with-dockerfile).
