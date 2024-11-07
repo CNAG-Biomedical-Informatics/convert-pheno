@@ -1,3 +1,5 @@
+#### Version 0.25
+
 # Terms
 
 ## diseases
@@ -57,13 +59,13 @@ NA
 |  :---:                                                      | :---:                                                      | :---:                                                       |
 |  MEASUREMENT                                                | measurement_concept_id                                     | measures.assayCode                                          |
 |  MEASUREMENT                                                | measurement_date                                           | measures.date                                               |
-|  MEASUREMENT                                                | measurement_concept_id                                     | measures.assayCode                                          |
+|  MEASUREMENT                                                | value_as_concept_id                                        | measures.measurementValue
 |  MEASUREMENT                                                | unit_concept_id                                            | measures.measurementValue.quantity.unit                     |
 |  MEASUREMENT                                                | value_as_number                                            | measures.measurementValue.quantity.value                    |
 |  MEASUREMENT                                                | operator_concept_id, value_as_number, unit_concept_id      | measures.measurementValue.quantity.referenceRange           |
 |  MEASUREMENT                                                | All variables                                              | measures._info                                              |
 |  MEASUREMENT, PERSON                                        | measurement_date, birth_datetime                           | measures.observationMoment.age.iso8601duration              |
-|  MEASUREMENT                                                |                                                            | measures.procedure (= measures.assayCode)                   |
+|  MEASUREMENT                                                | measurement_type_concept_id                                | measures.procedure.prodecureCode
 |  MEASUREMENT                                                | person_id, visit_occurrence_id                             | diseases._visit                                             |
 
 ## pedigrees

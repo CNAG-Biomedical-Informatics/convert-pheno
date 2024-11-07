@@ -12,12 +12,12 @@
                "label" : "Asthma"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          },
          {
@@ -31,12 +31,12 @@
                "label" : "Hypertension"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          },
          {
@@ -50,12 +50,12 @@
                "label" : "Diabetes Mellitus"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          }
       ],
@@ -291,8 +291,8 @@
                         "high" : -1,
                         "low" : -1,
                         "unit" : {
-                           "id" : "NCIT:NA0000",
-                           "label" : "NA"
+                           "id" : "NCIT:C126101",
+                           "label" : "Not Available"
                         }
                      },
                      "unit" : {
@@ -302,8 +302,8 @@
                      "value" : 22
                   },
                   "scheduleFrequency" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
                   }
                }
             ],
@@ -331,12 +331,12 @@
                "label" : "Asthma"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          },
          {
@@ -350,12 +350,12 @@
                "label" : "Hypertension"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          },
          {
@@ -369,12 +369,12 @@
                "label" : "Diabetes Mellitus"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          }
       ],
@@ -610,8 +610,8 @@
                         "high" : -1,
                         "low" : -1,
                         "unit" : {
-                           "id" : "NCIT:NA0000",
-                           "label" : "NA"
+                           "id" : "NCIT:C126101",
+                           "label" : "Not Available"
                         }
                      },
                      "unit" : {
@@ -621,8 +621,8 @@
                      "value" : 22
                   },
                   "scheduleFrequency" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
                   }
                }
             ],
@@ -650,12 +650,12 @@
                "label" : "Asthma"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          },
          {
@@ -669,12 +669,12 @@
                "label" : "Hypertension"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          },
          {
@@ -688,12 +688,12 @@
                "label" : "Diabetes Mellitus"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          }
       ],
@@ -908,8 +908,8 @@
                         "high" : -1,
                         "low" : -1,
                         "unit" : {
-                           "id" : "NCIT:NA0000",
-                           "label" : "NA"
+                           "id" : "NCIT:C126101",
+                           "label" : "Not Available"
                         }
                      },
                      "unit" : {
@@ -919,8 +919,8 @@
                      "value" : 22
                   },
                   "scheduleFrequency" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
                   }
                }
             ],
@@ -948,12 +948,12 @@
                "label" : "Asthma"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          },
          {
@@ -967,12 +967,12 @@
                "label" : "Hypertension"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          },
          {
@@ -986,12 +986,12 @@
                "label" : "Diabetes Mellitus"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          }
       ],
@@ -1206,8 +1206,8 @@
                         "high" : -1,
                         "low" : -1,
                         "unit" : {
-                           "id" : "NCIT:NA0000",
-                           "label" : "NA"
+                           "id" : "NCIT:C126101",
+                           "label" : "Not Available"
                         }
                      },
                      "unit" : {
@@ -1217,8 +1217,8 @@
                      "value" : 22
                   },
                   "scheduleFrequency" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
                   }
                }
             ],
@@ -1246,12 +1246,12 @@
                "label" : "Diabetes Mellitus"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          },
          {
@@ -1265,12 +1265,12 @@
                "label" : "Hypertension"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          },
          {
@@ -1284,12 +1284,12 @@
                "label" : "Asthma"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          }
       ],
@@ -1544,8 +1544,8 @@
                         "high" : -1,
                         "low" : -1,
                         "unit" : {
-                           "id" : "NCIT:NA0000",
-                           "label" : "NA"
+                           "id" : "NCIT:C126101",
+                           "label" : "Not Available"
                         }
                      },
                      "unit" : {
@@ -1555,8 +1555,8 @@
                      "value" : 22
                   },
                   "scheduleFrequency" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
                   }
                }
             ],
@@ -1584,12 +1584,12 @@
                "label" : "Diabetes Mellitus"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          },
          {
@@ -1603,12 +1603,12 @@
                "label" : "Hypertension"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          },
          {
@@ -1622,12 +1622,12 @@
                "label" : "Asthma"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          }
       ],
@@ -1882,8 +1882,8 @@
                         "high" : -1,
                         "low" : -1,
                         "unit" : {
-                           "id" : "NCIT:NA0000",
-                           "label" : "NA"
+                           "id" : "NCIT:C126101",
+                           "label" : "Not Available"
                         }
                      },
                      "unit" : {
@@ -1893,8 +1893,8 @@
                      "value" : 22
                   },
                   "scheduleFrequency" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
                   }
                }
             ],
@@ -1922,12 +1922,12 @@
                "label" : "Diabetes Mellitus"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          },
          {
@@ -1941,12 +1941,12 @@
                "label" : "Asthma"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          },
          {
@@ -1960,12 +1960,12 @@
                "label" : "Hypertension"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          }
       ],
@@ -2180,8 +2180,8 @@
                         "high" : -1,
                         "low" : -1,
                         "unit" : {
-                           "id" : "NCIT:NA0000",
-                           "label" : "NA"
+                           "id" : "NCIT:C126101",
+                           "label" : "Not Available"
                         }
                      },
                      "unit" : {
@@ -2191,8 +2191,8 @@
                      "value" : 22
                   },
                   "scheduleFrequency" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
                   }
                }
             ],
@@ -2220,12 +2220,12 @@
                "label" : "Diabetes Mellitus"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          },
          {
@@ -2239,12 +2239,12 @@
                "label" : "Asthma"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          },
          {
@@ -2258,12 +2258,12 @@
                "label" : "Hypertension"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          }
       ],
@@ -2478,8 +2478,8 @@
                         "high" : -1,
                         "low" : -1,
                         "unit" : {
-                           "id" : "NCIT:NA0000",
-                           "label" : "NA"
+                           "id" : "NCIT:C126101",
+                           "label" : "Not Available"
                         }
                      },
                      "unit" : {
@@ -2489,8 +2489,8 @@
                      "value" : 22
                   },
                   "scheduleFrequency" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
                   }
                }
             ],
@@ -2518,12 +2518,12 @@
                "label" : "Diabetes Mellitus"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          },
          {
@@ -2537,12 +2537,12 @@
                "label" : "Asthma"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          },
          {
@@ -2556,12 +2556,12 @@
                "label" : "Hypertension"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          }
       ],
@@ -2797,8 +2797,8 @@
                         "high" : -1,
                         "low" : -1,
                         "unit" : {
-                           "id" : "NCIT:NA0000",
-                           "label" : "NA"
+                           "id" : "NCIT:C126101",
+                           "label" : "Not Available"
                         }
                      },
                      "unit" : {
@@ -2808,8 +2808,8 @@
                      "value" : 22
                   },
                   "scheduleFrequency" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
                   }
                }
             ],
@@ -2837,12 +2837,12 @@
                "label" : "Diabetes Mellitus"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          },
          {
@@ -2856,12 +2856,12 @@
                "label" : "Asthma"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          },
          {
@@ -2875,12 +2875,12 @@
                "label" : "Hypertension"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          }
       ],
@@ -3116,8 +3116,8 @@
                         "high" : -1,
                         "low" : -1,
                         "unit" : {
-                           "id" : "NCIT:NA0000",
-                           "label" : "NA"
+                           "id" : "NCIT:C126101",
+                           "label" : "Not Available"
                         }
                      },
                      "unit" : {
@@ -3127,8 +3127,8 @@
                      "value" : 22
                   },
                   "scheduleFrequency" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
                   }
                }
             ],
@@ -3156,12 +3156,12 @@
                "label" : "Diabetes Mellitus"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          },
          {
@@ -3175,12 +3175,12 @@
                "label" : "Asthma"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          },
          {
@@ -3194,12 +3194,12 @@
                "label" : "Hypertension"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          }
       ],
@@ -3435,8 +3435,8 @@
                         "high" : -1,
                         "low" : -1,
                         "unit" : {
-                           "id" : "NCIT:NA0000",
-                           "label" : "NA"
+                           "id" : "NCIT:C126101",
+                           "label" : "Not Available"
                         }
                      },
                      "unit" : {
@@ -3446,8 +3446,8 @@
                      "value" : 22
                   },
                   "scheduleFrequency" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
                   }
                }
             ],
@@ -3475,12 +3475,12 @@
                "label" : "Diabetes Mellitus"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          },
          {
@@ -3494,12 +3494,12 @@
                "label" : "Asthma"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          },
          {
@@ -3513,12 +3513,12 @@
                "label" : "Hypertension"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          }
       ],
@@ -3754,8 +3754,8 @@
                         "high" : -1,
                         "low" : -1,
                         "unit" : {
-                           "id" : "NCIT:NA0000",
-                           "label" : "NA"
+                           "id" : "NCIT:C126101",
+                           "label" : "Not Available"
                         }
                      },
                      "unit" : {
@@ -3765,8 +3765,8 @@
                      "value" : 22
                   },
                   "scheduleFrequency" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
                   }
                }
             ],
@@ -3794,12 +3794,12 @@
                "label" : "Hypertension"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          },
          {
@@ -3813,12 +3813,12 @@
                "label" : "Asthma"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          },
          {
@@ -3832,12 +3832,12 @@
                "label" : "Diabetes Mellitus"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          }
       ],
@@ -4073,8 +4073,8 @@
                         "high" : -1,
                         "low" : -1,
                         "unit" : {
-                           "id" : "NCIT:NA0000",
-                           "label" : "NA"
+                           "id" : "NCIT:C126101",
+                           "label" : "Not Available"
                         }
                      },
                      "unit" : {
@@ -4084,8 +4084,8 @@
                      "value" : 22
                   },
                   "scheduleFrequency" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
                   }
                }
             ],
@@ -4113,12 +4113,12 @@
                "label" : "Hypertension"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          },
          {
@@ -4132,12 +4132,12 @@
                "label" : "Asthma"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          },
          {
@@ -4151,12 +4151,12 @@
                "label" : "Diabetes Mellitus"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          }
       ],
@@ -4392,8 +4392,8 @@
                         "high" : -1,
                         "low" : -1,
                         "unit" : {
-                           "id" : "NCIT:NA0000",
-                           "label" : "NA"
+                           "id" : "NCIT:C126101",
+                           "label" : "Not Available"
                         }
                      },
                      "unit" : {
@@ -4403,8 +4403,8 @@
                      "value" : 22
                   },
                   "scheduleFrequency" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
                   }
                }
             ],
@@ -4432,12 +4432,12 @@
                "label" : "Diabetes Mellitus"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          },
          {
@@ -4451,12 +4451,12 @@
                "label" : "Asthma"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          },
          {
@@ -4470,12 +4470,12 @@
                "label" : "Hypertension"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          }
       ],
@@ -4690,8 +4690,8 @@
                         "high" : -1,
                         "low" : -1,
                         "unit" : {
-                           "id" : "NCIT:NA0000",
-                           "label" : "NA"
+                           "id" : "NCIT:C126101",
+                           "label" : "Not Available"
                         }
                      },
                      "unit" : {
@@ -4701,8 +4701,8 @@
                      "value" : 22
                   },
                   "scheduleFrequency" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
                   }
                }
             ],
@@ -4730,12 +4730,12 @@
                "label" : "Diabetes Mellitus"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          },
          {
@@ -4749,12 +4749,12 @@
                "label" : "Asthma"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          },
          {
@@ -4768,12 +4768,12 @@
                "label" : "Hypertension"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          }
       ],
@@ -4988,8 +4988,8 @@
                         "high" : -1,
                         "low" : -1,
                         "unit" : {
-                           "id" : "NCIT:NA0000",
-                           "label" : "NA"
+                           "id" : "NCIT:C126101",
+                           "label" : "Not Available"
                         }
                      },
                      "unit" : {
@@ -4999,8 +4999,8 @@
                      "value" : 22
                   },
                   "scheduleFrequency" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
                   }
                }
             ],
@@ -5028,12 +5028,12 @@
                "label" : "Hypertension"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          },
          {
@@ -5047,12 +5047,12 @@
                "label" : "Asthma"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          },
          {
@@ -5066,12 +5066,12 @@
                "label" : "Diabetes Mellitus"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          }
       ],
@@ -5307,8 +5307,8 @@
                         "high" : -1,
                         "low" : -1,
                         "unit" : {
-                           "id" : "NCIT:NA0000",
-                           "label" : "NA"
+                           "id" : "NCIT:C126101",
+                           "label" : "Not Available"
                         }
                      },
                      "unit" : {
@@ -5318,8 +5318,8 @@
                      "value" : 22
                   },
                   "scheduleFrequency" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
                   }
                }
             ],
@@ -5347,12 +5347,12 @@
                "label" : "Hypertension"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          },
          {
@@ -5366,12 +5366,12 @@
                "label" : "Asthma"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          },
          {
@@ -5385,12 +5385,12 @@
                "label" : "Diabetes Mellitus"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          }
       ],
@@ -5626,8 +5626,8 @@
                         "high" : -1,
                         "low" : -1,
                         "unit" : {
-                           "id" : "NCIT:NA0000",
-                           "label" : "NA"
+                           "id" : "NCIT:C126101",
+                           "label" : "Not Available"
                         }
                      },
                      "unit" : {
@@ -5637,8 +5637,8 @@
                      "value" : 22
                   },
                   "scheduleFrequency" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
                   }
                }
             ],
@@ -5666,12 +5666,12 @@
                "label" : "Asthma"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          },
          {
@@ -5685,12 +5685,12 @@
                "label" : "Diabetes Mellitus"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          },
          {
@@ -5704,12 +5704,12 @@
                "label" : "Hypertension"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          }
       ],
@@ -5945,8 +5945,8 @@
                         "high" : -1,
                         "low" : -1,
                         "unit" : {
-                           "id" : "NCIT:NA0000",
-                           "label" : "NA"
+                           "id" : "NCIT:C126101",
+                           "label" : "Not Available"
                         }
                      },
                      "unit" : {
@@ -5956,8 +5956,8 @@
                      "value" : 22
                   },
                   "scheduleFrequency" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
                   }
                }
             ],
@@ -5985,12 +5985,12 @@
                "label" : "Asthma"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          },
          {
@@ -6004,12 +6004,12 @@
                "label" : "Diabetes Mellitus"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          },
          {
@@ -6023,12 +6023,12 @@
                "label" : "Hypertension"
             },
             "severity" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             },
             "stage" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
             }
          }
       ],
@@ -6264,8 +6264,8 @@
                         "high" : -1,
                         "low" : -1,
                         "unit" : {
-                           "id" : "NCIT:NA0000",
-                           "label" : "NA"
+                           "id" : "NCIT:C126101",
+                           "label" : "Not Available"
                         }
                      },
                      "unit" : {
@@ -6275,8 +6275,8 @@
                      "value" : 22
                   },
                   "scheduleFrequency" : {
-                     "id" : "NCIT:NA0000",
-                     "label" : "NA"
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
                   }
                }
             ],

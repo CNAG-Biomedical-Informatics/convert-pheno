@@ -8,7 +8,7 @@ our @EXPORT_OK = qw(get_defaults);
 
 # Define your default values
 my %DEFAULT = (
-    ontology_term => { id => 'NCIT:NA0000', label => 'NA' },
+    ontology_term => { id => 'NCIT:C126101', label => 'Not Available' },
     date          => '1900-01-01',
     duration      => 'P999Y',
     duration_OMOP => 'P0Y',

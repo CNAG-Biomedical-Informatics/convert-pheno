@@ -2,7 +2,8 @@ Revision history for Perl distribution Convert-Pheno
 
 0.25 2024-XX-XXT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
- - Foo
+ - Changed the default ontology_term from {id => 'NCIT:NA0000', label => 'NA'} to {id => 'NCIT:C126101', label => 'Not Available'}
+ - In omop2bff, remapped $measure->{procedure}{procedureCode} from assayCode to 'measurement_type_concept_id'
 
 0.24 2024-07-18T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 

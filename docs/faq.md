@@ -4,7 +4,7 @@ Frequently Asked Questions
 
 ??? faq "What does `Convert-Pheno` do?"
 
-    This tool facilitates the conversion of clinical data between commonly used formats, such as [GA4GH standards](https://www.ga4gh.org), to enable **secure data sharing** and discovery through **semantic interoperability**.
+    `Convert-Pheno` is an open-source software toolkit designed to **interconvert common data models for phenotypic data**. The software addresses the challenge of inconsistent data storage across various research centers by enabling seamless conversion between different data models like **Beacon v2 Models, CDISC-ODM, OMOP-CDM, Phenopackets v2, and REDCap**. This facilitates data sharing and integration, ultimately accelerating scientific progress and improving patient outcomes in precision medicine and public health.
 
     ##### last change 2023-01-05 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
