@@ -3158,6 +3158,54 @@
 {
    "diseases" : [],
    "id" : null,
+   "measurements" : [
+      {
+         "assay" : {
+            "id" : "SNOMED:117015009",
+            "label" : "Throat culture"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "SNOMED:117015009",
+            "label" : "Throat culture"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      }
+   ],
    "metaData" : null,
    "subject" : {
       "dateOfBirth" : "1974-10-07T00:00:00Z",
@@ -3380,6 +3428,54 @@
 {
    "diseases" : [],
    "id" : null,
+   "measurements" : [
+      {
+         "assay" : {
+            "id" : "SNOMED:117015009",
+            "label" : "Throat culture"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "SNOMED:23426006",
+            "label" : "Measurement of respiratory function"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      }
+   ],
    "metaData" : null,
    "subject" : {
       "dateOfBirth" : "1969-06-05T00:00:00Z",
@@ -3393,6 +3489,54 @@
 {
    "diseases" : [],
    "id" : null,
+   "measurements" : [
+      {
+         "assay" : {
+            "id" : "SNOMED:117015009",
+            "label" : "Throat culture"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "SNOMED:23426006",
+            "label" : "Measurement of respiratory function"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      }
+   ],
    "medicalActions" : [
       {
          "procedure" : {
@@ -3441,6 +3585,31 @@
 {
    "diseases" : [],
    "id" : null,
+   "measurements" : [
+      {
+         "assay" : {
+            "id" : "SNOMED:23426006",
+            "label" : "Measurement of respiratory function"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      }
+   ],
    "medicalActions" : [
       {
          "procedure" : {
@@ -5436,6 +5605,31 @@
       }
    ],
    "id" : null,
+   "measurements" : [
+      {
+         "assay" : {
+            "id" : "SNOMED:117015009",
+            "label" : "Throat culture"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      }
+   ],
    "medicalActions" : [
       {
          "procedure" : {
@@ -6334,6 +6528,54 @@
 {
    "diseases" : [],
    "id" : null,
+   "measurements" : [
+      {
+         "assay" : {
+            "id" : "SNOMED:117015009",
+            "label" : "Throat culture"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "SNOMED:23426006",
+            "label" : "Measurement of respiratory function"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      }
+   ],
    "metaData" : null,
    "subject" : {
       "dateOfBirth" : "1938-10-28T00:00:00Z",
@@ -6436,6 +6678,54 @@
       }
    ],
    "id" : null,
+   "measurements" : [
+      {
+         "assay" : {
+            "id" : "SNOMED:117015009",
+            "label" : "Throat culture"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "SNOMED:23426006",
+            "label" : "Measurement of respiratory function"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      }
+   ],
    "medicalActions" : [
       {
          "treatment" : {
@@ -6785,6 +7075,100 @@
 {
    "diseases" : [],
    "id" : null,
+   "measurements" : [
+      {
+         "assay" : {
+            "id" : "LOINC:63513-6",
+            "label" : "Are you covered by health insurance or some other kind of health care plan [PhenX]"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "SNOMED:117015009",
+            "label" : "Throat culture"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "LOINC:46240-8",
+            "label" : "History of Hospitalizations+Outpatient visits Narrative"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "LOINC:55277-8",
+            "label" : "HIV status"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      }
+   ],
    "metaData" : null,
    "subject" : {
       "dateOfBirth" : "1961-12-09T00:00:00Z",
@@ -6798,6 +7182,54 @@
 {
    "diseases" : [],
    "id" : null,
+   "measurements" : [
+      {
+         "assay" : {
+            "id" : "LOINC:8331-1",
+            "label" : "Oral temperature"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "LOINC:8331-1",
+            "label" : "Oral temperature"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      }
+   ],
    "metaData" : null,
    "subject" : {
       "dateOfBirth" : "1972-03-24T00:00:00Z",
@@ -8504,6 +8936,54 @@
 {
    "diseases" : [],
    "id" : null,
+   "measurements" : [
+      {
+         "assay" : {
+            "id" : "SNOMED:117015009",
+            "label" : "Throat culture"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "SNOMED:23426006",
+            "label" : "Measurement of respiratory function"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      }
+   ],
    "metaData" : null,
    "phenotypicFeatures" : [
       {
@@ -8526,6 +9006,100 @@
 {
    "diseases" : [],
    "id" : null,
+   "measurements" : [
+      {
+         "assay" : {
+            "id" : "SNOMED:23426006",
+            "label" : "Measurement of respiratory function"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "SNOMED:117015009",
+            "label" : "Throat culture"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "SNOMED:117015009",
+            "label" : "Throat culture"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "SNOMED:23426006",
+            "label" : "Measurement of respiratory function"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      }
+   ],
    "metaData" : null,
    "subject" : {
       "dateOfBirth" : "1975-03-29T00:00:00Z",
@@ -8539,6 +9113,31 @@
 {
    "diseases" : [],
    "id" : null,
+   "measurements" : [
+      {
+         "assay" : {
+            "id" : "SNOMED:23426006",
+            "label" : "Measurement of respiratory function"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      }
+   ],
    "metaData" : null,
    "subject" : {
       "dateOfBirth" : "1971-11-12T00:00:00Z",
@@ -9556,6 +10155,169 @@
       }
    ],
    "id" : null,
+   "measurements" : [
+      {
+         "assay" : {
+            "id" : "LOINC:46240-8",
+            "label" : "History of Hospitalizations+Outpatient visits Narrative"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "LOINC:76690-7",
+            "label" : "Sexual orientation"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "LOINC:63513-6",
+            "label" : "Are you covered by health insurance or some other kind of health care plan [PhenX]"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "LOINC:55277-8",
+            "label" : "HIV status"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "LOINC:46240-8",
+            "label" : "History of Hospitalizations+Outpatient visits Narrative"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "LOINC:76690-7",
+            "label" : "Sexual orientation"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "LOINC:46240-8",
+            "label" : "History of Hospitalizations+Outpatient visits Narrative"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      }
+   ],
    "metaData" : null,
    "subject" : {
       "dateOfBirth" : "1911-07-30T00:00:00Z",
@@ -10468,6 +11230,123 @@
       }
    ],
    "id" : null,
+   "measurements" : [
+      {
+         "assay" : {
+            "id" : "LOINC:8331-1",
+            "label" : "Oral temperature"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "LOINC:8331-1",
+            "label" : "Oral temperature"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "LOINC:8331-1",
+            "label" : "Oral temperature"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "LOINC:38265-5",
+            "label" : "DXA Radius and Ulna [T-score] Bone density"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "LOINC:8331-1",
+            "label" : "Oral temperature"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      }
+   ],
    "metaData" : null,
    "subject" : {
       "dateOfBirth" : "1951-08-14T00:00:00Z",
@@ -10481,6 +11360,77 @@
 {
    "diseases" : [],
    "id" : null,
+   "measurements" : [
+      {
+         "assay" : {
+            "id" : "LOINC:8331-1",
+            "label" : "Oral temperature"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "LOINC:8331-1",
+            "label" : "Oral temperature"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "LOINC:8331-1",
+            "label" : "Oral temperature"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      }
+   ],
    "metaData" : null,
    "subject" : {
       "dateOfBirth" : "1972-08-13T00:00:00Z",
@@ -11200,6 +12150,77 @@
 {
    "diseases" : [],
    "id" : null,
+   "measurements" : [
+      {
+         "assay" : {
+            "id" : "SNOMED:117015009",
+            "label" : "Throat culture"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "SNOMED:117015009",
+            "label" : "Throat culture"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "SNOMED:117015009",
+            "label" : "Throat culture"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      }
+   ],
    "medicalActions" : [
       {
          "procedure" : {
@@ -11381,6 +12402,54 @@
       }
    ],
    "id" : null,
+   "measurements" : [
+      {
+         "assay" : {
+            "id" : "SNOMED:117015009",
+            "label" : "Throat culture"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "SNOMED:117015009",
+            "label" : "Throat culture"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      }
+   ],
    "metaData" : null,
    "subject" : {
       "dateOfBirth" : "1946-12-13T00:00:00Z",
@@ -11394,6 +12463,54 @@
 {
    "diseases" : [],
    "id" : null,
+   "measurements" : [
+      {
+         "assay" : {
+            "id" : "SNOMED:117015009",
+            "label" : "Throat culture"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "SNOMED:23426006",
+            "label" : "Measurement of respiratory function"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      }
+   ],
    "metaData" : null,
    "subject" : {
       "dateOfBirth" : "1968-05-18T00:00:00Z",
@@ -11562,6 +12679,77 @@
 {
    "diseases" : [],
    "id" : null,
+   "measurements" : [
+      {
+         "assay" : {
+            "id" : "SNOMED:117015009",
+            "label" : "Throat culture"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "SNOMED:23426006",
+            "label" : "Measurement of respiratory function"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "SNOMED:23426006",
+            "label" : "Measurement of respiratory function"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      }
+   ],
    "metaData" : null,
    "phenotypicFeatures" : [
       {
@@ -13855,6 +15043,31 @@
 {
    "diseases" : [],
    "id" : null,
+   "measurements" : [
+      {
+         "assay" : {
+            "id" : "SNOMED:23426006",
+            "label" : "Measurement of respiratory function"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      }
+   ],
    "metaData" : null,
    "subject" : {
       "dateOfBirth" : "1978-03-22T00:00:00Z",
@@ -14875,6 +16088,54 @@
 {
    "diseases" : [],
    "id" : null,
+   "measurements" : [
+      {
+         "assay" : {
+            "id" : "SNOMED:23426006",
+            "label" : "Measurement of respiratory function"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "SNOMED:23426006",
+            "label" : "Measurement of respiratory function"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      }
+   ],
    "medicalActions" : [
       {
          "procedure" : {
@@ -14967,6 +16228,169 @@
 {
    "diseases" : [],
    "id" : null,
+   "measurements" : [
+      {
+         "assay" : {
+            "id" : "SNOMED:117015009",
+            "label" : "Throat culture"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "SNOMED:23426006",
+            "label" : "Measurement of respiratory function"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "SNOMED:117015009",
+            "label" : "Throat culture"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "SNOMED:23426006",
+            "label" : "Measurement of respiratory function"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "SNOMED:23426006",
+            "label" : "Measurement of respiratory function"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "SNOMED:23426006",
+            "label" : "Measurement of respiratory function"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "SNOMED:23426006",
+            "label" : "Measurement of respiratory function"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      }
+   ],
    "metaData" : null,
    "subject" : {
       "dateOfBirth" : "1953-01-03T00:00:00Z",
@@ -15054,6 +16478,31 @@
 {
    "diseases" : [],
    "id" : null,
+   "measurements" : [
+      {
+         "assay" : {
+            "id" : "SNOMED:117015009",
+            "label" : "Throat culture"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      }
+   ],
    "metaData" : null,
    "phenotypicFeatures" : [
       {
@@ -15076,6 +16525,77 @@
 {
    "diseases" : [],
    "id" : null,
+   "measurements" : [
+      {
+         "assay" : {
+            "id" : "SNOMED:117015009",
+            "label" : "Throat culture"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "SNOMED:117015009",
+            "label" : "Throat culture"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "SNOMED:117015009",
+            "label" : "Throat culture"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      }
+   ],
    "metaData" : null,
    "subject" : {
       "dateOfBirth" : "1953-01-30T00:00:00Z",
@@ -17558,6 +19078,77 @@
 {
    "diseases" : [],
    "id" : null,
+   "measurements" : [
+      {
+         "assay" : {
+            "id" : "SNOMED:23426006",
+            "label" : "Measurement of respiratory function"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "SNOMED:117015009",
+            "label" : "Throat culture"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "SNOMED:117015009",
+            "label" : "Throat culture"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      }
+   ],
    "metaData" : null,
    "subject" : {
       "dateOfBirth" : "1966-04-23T00:00:00Z",
@@ -17597,6 +19188,169 @@
 {
    "diseases" : [],
    "id" : null,
+   "measurements" : [
+      {
+         "assay" : {
+            "id" : "SNOMED:127783003",
+            "label" : "Spirometry"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "SNOMED:127783003",
+            "label" : "Spirometry"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "SNOMED:127783003",
+            "label" : "Spirometry"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "SNOMED:127783003",
+            "label" : "Spirometry"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "SNOMED:127783003",
+            "label" : "Spirometry"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "SNOMED:127783003",
+            "label" : "Spirometry"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "SNOMED:127783003",
+            "label" : "Spirometry"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      }
+   ],
    "metaData" : null,
    "phenotypicFeatures" : [
       {
@@ -17619,6 +19373,31 @@
 {
    "diseases" : [],
    "id" : null,
+   "measurements" : [
+      {
+         "assay" : {
+            "id" : "SNOMED:117015009",
+            "label" : "Throat culture"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      }
+   ],
    "metaData" : null,
    "subject" : {
       "dateOfBirth" : "1974-02-14T00:00:00Z",
@@ -17632,6 +19411,54 @@
 {
    "diseases" : [],
    "id" : null,
+   "measurements" : [
+      {
+         "assay" : {
+            "id" : "SNOMED:23426006",
+            "label" : "Measurement of respiratory function"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "SNOMED:117015009",
+            "label" : "Throat culture"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      }
+   ],
    "medicalActions" : [
       {
          "procedure" : {
@@ -18212,6 +20039,54 @@
 {
    "diseases" : [],
    "id" : null,
+   "measurements" : [
+      {
+         "assay" : {
+            "id" : "SNOMED:117015009",
+            "label" : "Throat culture"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "SNOMED:117015009",
+            "label" : "Throat culture"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      }
+   ],
    "metaData" : null,
    "phenotypicFeatures" : [
       {
@@ -18409,6 +20284,169 @@
 {
    "diseases" : [],
    "id" : null,
+   "measurements" : [
+      {
+         "assay" : {
+            "id" : "LOINC:8331-1",
+            "label" : "Oral temperature"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "LOINC:8331-1",
+            "label" : "Oral temperature"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "LOINC:8331-1",
+            "label" : "Oral temperature"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "LOINC:8331-1",
+            "label" : "Oral temperature"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "LOINC:8331-1",
+            "label" : "Oral temperature"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "LOINC:8331-1",
+            "label" : "Oral temperature"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "LOINC:8331-1",
+            "label" : "Oral temperature"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      }
+   ],
    "metaData" : null,
    "subject" : {
       "dateOfBirth" : "1919-08-04T00:00:00Z",
@@ -18435,6 +20473,54 @@
 {
    "diseases" : [],
    "id" : null,
+   "measurements" : [
+      {
+         "assay" : {
+            "id" : "SNOMED:23426006",
+            "label" : "Measurement of respiratory function"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "SNOMED:23426006",
+            "label" : "Measurement of respiratory function"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      }
+   ],
    "metaData" : null,
    "subject" : {
       "dateOfBirth" : "1960-10-28T00:00:00Z",
@@ -18448,6 +20534,31 @@
 {
    "diseases" : [],
    "id" : null,
+   "measurements" : [
+      {
+         "assay" : {
+            "id" : "SNOMED:23426006",
+            "label" : "Measurement of respiratory function"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      }
+   ],
    "metaData" : null,
    "subject" : {
       "dateOfBirth" : "1945-07-19T00:00:00Z",
@@ -18629,6 +20740,54 @@
 {
    "diseases" : [],
    "id" : null,
+   "measurements" : [
+      {
+         "assay" : {
+            "id" : "LOINC:8331-1",
+            "label" : "Oral temperature"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "LOINC:8331-1",
+            "label" : "Oral temperature"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      }
+   ],
    "metaData" : null,
    "phenotypicFeatures" : [
       {
@@ -18658,6 +20817,100 @@
 {
    "diseases" : [],
    "id" : null,
+   "measurements" : [
+      {
+         "assay" : {
+            "id" : "LOINC:8331-1",
+            "label" : "Oral temperature"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "LOINC:8331-1",
+            "label" : "Oral temperature"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "LOINC:8331-1",
+            "label" : "Oral temperature"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "LOINC:8331-1",
+            "label" : "Oral temperature"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      }
+   ],
    "metaData" : null,
    "subject" : {
       "dateOfBirth" : "1964-11-15T00:00:00Z",
@@ -18819,6 +21072,123 @@
 {
    "diseases" : [],
    "id" : null,
+   "measurements" : [
+      {
+         "assay" : {
+            "id" : "SNOMED:23426006",
+            "label" : "Measurement of respiratory function"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "SNOMED:23426006",
+            "label" : "Measurement of respiratory function"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "SNOMED:23426006",
+            "label" : "Measurement of respiratory function"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "SNOMED:127783003",
+            "label" : "Spirometry"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "SNOMED:117015009",
+            "label" : "Throat culture"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      }
+   ],
    "medicalActions" : [
       {
          "procedure" : {
@@ -19144,6 +21514,100 @@
 {
    "diseases" : [],
    "id" : null,
+   "measurements" : [
+      {
+         "assay" : {
+            "id" : "LOINC:8331-1",
+            "label" : "Oral temperature"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "LOINC:8331-1",
+            "label" : "Oral temperature"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "LOINC:8331-1",
+            "label" : "Oral temperature"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "LOINC:8331-1",
+            "label" : "Oral temperature"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : -1,
+                  "low" : -1,
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "Not Available"
+                  }
+               },
+               "unit" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
+               "value" : -1
+            }
+         }
+      }
+   ],
    "medicalActions" : [
       {
          "procedure" : {

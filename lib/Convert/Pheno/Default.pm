@@ -2,7 +2,7 @@ package Convert::Pheno::Default;
 
 use strict;
 use warnings;
-use Hash::Util 'lock_hash';
+use Hash::Util qw(lock_hash_recurse);
 use Exporter 'import';
 our @EXPORT_OK = qw(get_defaults);
 
@@ -29,7 +29,7 @@ $DEFAULT{quantity} = {
 };
 
 # Lock the hash to make it read-only
-lock_hash(%DEFAULT);
+lock_hash_recurse(%DEFAULT);
 
 # Function to get a reference to the locked default values
 sub get_defaults {

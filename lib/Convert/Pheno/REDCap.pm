@@ -1019,11 +1019,12 @@ sub map_treatments {
               )
               : $DEFAULT->{ontology_term};
             $dose_interval->{interval} = $DEFAULT->{interval};
-            $dose_interval->{quantity} = $DEFAULT->{quantity};
-            $dose_interval->{quantity}{value} =
-              $participant->{$duration};    # Overwrite default with value
-            $dose_interval->{quantity}{unit} =
-              $drug_unit;                   # Overwrite default with value
+
+            # Autovivification of $dose_interval->{quantity}
+            $dose_interval->{quantity}{value} = $participant->{$duration}; 
+            $dose_interval->{quantity}{unit} = $drug_unit; 
+            $dose_interval->{quantity}{referenceRange} = $DEFAULT->{referenceRange};
+
             $dose_interval->{scheduleFrequency} = $DEFAULT->{ontology_term};
             push @{ $treatment->{doseIntervals} }, $dose_interval;
         }

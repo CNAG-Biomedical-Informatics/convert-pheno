@@ -539,7 +539,12 @@ sub do_omop2bff {
                     self       => $self
 
                 }
-            ) : $DEFAULT->{ontology_term};
+            #) : $DEFAULT->{ontology_term};
+
+            ) :  {
+                  id => "NCIT:C126101",
+                  label => "Not Available"
+               },
 
             # *** IMPORTANT ***
             # We can get value_as_concept_id or as value_as_number

@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 use lib ( './lib', '../lib' );
-use feature qw(say);
+use feature    qw(say);
 use File::Temp qw{ tempfile };    # core
 use Data::Dumper;
 use File::Spec::Functions qw(catdir catfile);
@@ -124,8 +124,10 @@ for my $method ( sort keys %{$input} ) {
         omop2bff => {
             in_file  => undef,
             in_files => [
-                't/omop2bff/in/CONCEPT.csv', 't/omop2bff/in/DRUG_EXPOSURE.csv',
-                't/omop2bff/in/PERSON.csv',  't/omop2bff/in/DUMMY.csv'
+                't/omop2bff/in/CONCEPT.csv',
+                't/omop2bff/in/DRUG_EXPOSURE.csv',
+                't/omop2bff/in/PERSON.csv',
+                't/omop2bff/in/DUMMY.csv'
             ],
         }
     };
@@ -143,7 +145,7 @@ for my $method ( sort keys %{$input} ) {
             stream      => 0,
             out_file    => $tmp_file,
             omop_tables => [],
-            ohdsi_db    => 1,                             # Need ohdsi_db as we deal with few rows
+            ohdsi_db    => 1,        # Need ohdsi_db as we deal with few rows
             method      => $method
         }
     );

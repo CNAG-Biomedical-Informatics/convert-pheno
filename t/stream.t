@@ -5,9 +5,10 @@ use lib ( './lib', '../lib' );
 use feature qw(say);
 use Data::Dumper;
 use File::Temp qw{ tempfile };    # core
+
 #use Test::More tests => 3;
 use Test::More qw(no_plan);
-use IO::Uncompress::Gunzip; # core
+use IO::Uncompress::Gunzip;       # core
 use File::Compare;
 use Convert::Pheno;
 
@@ -44,9 +45,9 @@ my $method = 'omop2bff';
     );
     $convert->$method;
 
-    # Does not work with gzipped files
-    #ok( compare( $out, $tmp_file ) == 0,  qq/$method stream gzipped IO drug_exposure/);
-    # Open the first file for reading and uncompress it
+# Does not work with gzipped files
+#ok( compare( $out, $tmp_file ) == 0,  qq/$method stream gzipped IO drug_exposure/);
+# Open the first file for reading and uncompress it
     my $z1 = new IO::Uncompress::Gunzip $out;
 
     # Open the second file for reading and uncompress it
@@ -98,9 +99,9 @@ my $method = 'omop2bff';
         );
         $convert->$method;
 
-        # Does not work with gzipped files
-        #ok( compare( $out, $tmp_file ) == 0,  qq/$method stream gzipped IO drug_exposure/);
-        # Open the first file for reading and uncompress it
+# Does not work with gzipped files
+#ok( compare( $out, $tmp_file ) == 0,  qq/$method stream gzipped IO drug_exposure/);
+# Open the first file for reading and uncompress it
         my $z1 = new IO::Uncompress::Gunzip $out;
 
         # Open the second file for reading and uncompress it

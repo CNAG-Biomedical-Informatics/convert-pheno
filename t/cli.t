@@ -111,24 +111,7 @@ my $input = {
     }
 };
 
-my @test_methods =
-  qw( omop2bff omop2pxf bff2csv bff2jsonf bff2pxf cdisc2bff cdisc2pxf csv2bff csv2pxf pxf2bff pxf2bff_yaml pxf2csv pxf2jsonf redcap2bff redcap2pxf);
-
-# *** IMPORTANT ***
-# On test order
-#
-# Short version (ChatGPT)
-# These tests are divas: 'omop2bff' and 'omop2pxf' only pass when they go first!
-# Further investigation needed to tame their tantrums.
-
-# Long version (ChatGPT)
-# Note: The 'omop2bff' and 'omop2pxf' tests only pass when they are run before other tests.
-# When run after other tests, they fail due to unexplained reasons.
-# Hypothesis: There may be shared state or side effects from other tests affecting these.
-# Workaround: Run these tests first to ensure they pass.
-# Further investigation is needed to identify and fix the root cause.
-
-for my $method (@test_methods) {
+for my $method (sort keys %{$input}) {
     $method = $method eq 'pxf2bff_yaml' ? 'pxf2bff' : $method;
 
     # Create Temporary file
@@ -214,7 +197,7 @@ qq{Files <$input->{$method}{out}> <$tmp_file> are supposedly identical yet compa
         ok( compare( $input->{$method}{out}, $tmp_file ) == 0, $method );
 
         # Delete *.json.csv
-        unlink($tmp_file) if $tmp_file =~ m/\.json\.csv$/ && -f $tmp_file;
+        unlink($tmp_file) if $tmp_file =~ m/\.json\.csv$/ && -e $tmp_file;
     }
 
 }

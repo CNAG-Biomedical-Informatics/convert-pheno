@@ -1508,7 +1508,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : null
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -1563,7 +1563,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : 4
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -3094,7 +3094,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : null
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -3149,7 +3149,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : 4
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -4660,7 +4660,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : null
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -4715,7 +4715,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : 4
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -6119,7 +6119,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : 200
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -6174,7 +6174,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : null
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -7580,7 +7580,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : null
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -7635,7 +7635,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : null
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -9038,7 +9038,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : null
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -9093,7 +9093,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : null
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -10479,7 +10479,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : null
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -10534,7 +10534,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : null
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -12006,7 +12006,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : null
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -12061,7 +12061,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : null
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -13571,7 +13571,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : null
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -13626,7 +13626,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : null
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -15192,7 +15192,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : 4
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -16815,7 +16815,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : null
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -18259,7 +18259,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : null
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -19686,7 +19686,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : null
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -21463,7 +21463,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : null
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -22984,7 +22984,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : null
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -24781,7 +24781,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : 0
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -24836,7 +24836,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : null
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -26529,7 +26529,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : null
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -26584,7 +26584,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : null
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -28276,7 +28276,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : null
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -28331,7 +28331,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : null
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -30037,7 +30037,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : null
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -30092,7 +30092,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : null
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -31658,7 +31658,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : 4
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -31713,7 +31713,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : 4
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -33153,7 +33153,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : null
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -33208,7 +33208,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : 4
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -34629,7 +34629,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : null
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -34684,7 +34684,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : 4
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -36317,7 +36317,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : null
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -36372,7 +36372,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : 4
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -37828,7 +37828,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : null
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -37883,7 +37883,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : 10
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -39270,7 +39270,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : null
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -39325,7 +39325,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : 10
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -40884,7 +40884,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : null
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -40939,7 +40939,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : 10
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -42475,7 +42475,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : 28
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -42530,7 +42530,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : 28
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -44002,7 +44002,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : null
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -44057,7 +44057,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : 28
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -45478,7 +45478,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : null
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -45533,7 +45533,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : 28
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -46968,7 +46968,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : null
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -47023,7 +47023,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : 28
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -48599,7 +48599,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : null
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -48654,7 +48654,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : 28
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -50349,7 +50349,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : 130
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -51928,7 +51928,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : null
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -53360,7 +53360,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : null
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -54981,7 +54981,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : null
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -56712,7 +56712,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 20
+                     "value" : null
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
