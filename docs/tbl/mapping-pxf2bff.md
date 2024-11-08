@@ -53,6 +53,8 @@ NA
 |  measurements.value                                         | measures.measurementValue                                   |
 |  measurements.complexValue.typedQuantities.type             | measures.measurementValue.typedQuantities.quantityType      |
 |  measurements.timeObserved                                  | measures.observationMoment                                  |
+|  measurements.procedure                                     | measures.procedure                                          |
+
 
 ## pedigrees
 NA
