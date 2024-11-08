@@ -2,8 +2,9 @@ Revision history for Perl distribution Convert-Pheno
 
 0.25 2024-XX-XXT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
- - Changed the default ontology_term from {id => 'NCIT:NA0000', label => 'NA'} to {id => 'NCIT:C126101', label => 'Not Available'}
- - In omop2bff, remapped $measure->{procedure}{procedureCode} from assayCode to 'measurement_type_concept_id'
+ - Changed the default 'ontology_term' from {id => 'NCIT:NA0000', label => 'NA'} to {id => 'NCIT:C126101', label => 'Not Available'}
+ - Expanded coverage for 'procedure' term in omop2bff*/bff2pxf
+ - omop2bff now accepts measurements with empty values '\\N' and assigns defaults when needed
 
 0.24 2024-07-18T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
@@ -22,7 +23,7 @@ Revision history for Perl distribution Convert-Pheno
 
 0.21 2024-06-01T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
- - Updated the default value for the `treatment.interval` object
+ - Updated the default value for the 'treatment.interval' object
  - Fixed a warning that occurred in exact searches when the string contained leading numbers
  - Modified database search behavior to exclude numbers from the search
  - Fixed an OMOP --stream mode error where processing a single table with undefined values 

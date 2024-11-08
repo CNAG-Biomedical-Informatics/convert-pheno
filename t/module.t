@@ -11,12 +11,11 @@ use Convert::Pheno;
 
 use_ok('Convert::Pheno') or exit;
 
-# Load data
-my $bff = bff();
-my $pxf = pxf();
+# Load data from files
+my $bff = read_first_json_object('t/bff2pxf/in/individuals.json');
+my $pxf = read_first_json_object('t/bff2pxf/out/pxf.json');
 
 # Ignoring variable fields
-# https://metacpan.org/pod/Test::Deep
 $pxf->{$_} = ignore() for (qw(id metaData));
 
 my $input = { bff2pxf => { data => $bff } };
@@ -31,163 +30,20 @@ for my $method ( sort keys %{$input} ) {
         }
     );
 
-    #is_deeply( $convert->$method, $pxf, $method );
     cmp_deeply( $convert->$method, $pxf, $method );
-
 }
 
-sub pxf {
-    my $str = '
-   {
-      "diseases" : [],
-      "id" : null,
-      "measurements" : [
-         {
-            "assay" : {
-               "id" : "LOINC:39156-5",
-               "label" : "BMI"
-            },
-            "value" : {
-               "quantity" : {
-                  "unit" : {
-                     "id" : "NCIT:C49671",
-                     "label" : "Kilogram per Square Meter"
-                  },
-                  "value" : 26.63838307
-               }
-            }
-         },
-         {
-            "assay" : {
-               "id" : "LOINC:3141-9",
-               "label" : "Weight"
-            },
-            "value" : {
-               "quantity" : {
-                  "unit" : {
-                     "id" : "NCIT:C28252",
-                     "label" : "Kilogram"
-                  },
-                  "value" : 85.6358
-               }
-            }
-         },
-         {
-            "assay" : {
-               "id" : "LOINC:8308-9",
-               "label" : "Height-standing"
-            },
-            "value" : {
-               "quantity" : {
-                  "unit" : {
-                     "id" : "NCIT:C49668",
-                     "label" : "Centimeter"
-                  },
-                  "value" : 179.2973
-               }
-            }
-         }
-      ],
-      "medicalActions" : [
-         {
-            "procedure" : {
-               "code" : {
-                  "id" : "OPCS4:L46.3",
-                  "label" : "OPCS(v4-0.0):Ligation of visceral branch of abdominal aorta NEC"
-               },
-               "performed" : {
-                  "timestamp" : "1900-01-01T00:00:00Z"
-               }
-            }
-         }
-      ],
-      "metaData" : null,
-      "subject" : {
-         "id" : "HG00096",
-         "sex" : "MALE",
-         "vitalStatus" : {
-           "status" : "ALIVE"
-         }
-      }
-   }
-';
-    return decode_json $str;
-}
+# Utility subroutine to read the first JSON object from a file containing a JSON array
+sub read_first_json_object {
+    my ($filename) = @_;
+    open my $fh, '<', $filename or die "Could not open '$filename': $!";
+    local $/;  # Enable slurp mode to read the entire file
+    my $json_text = <$fh>;
+    close $fh;
 
-sub bff {
-    my $str = '
-  {
-    "ethnicity": {
-      "id": "NCIT:C42331",
-      "label": "African"
-    },
-    "id": "HG00096",
-    "info": {
-      "eid": "fake1"
-    },
-    "interventionsOrProcedures": [
-      {
-        "procedureCode": {
-          "id": "OPCS4:L46.3",
-          "label": "OPCS(v4-0.0):Ligation of visceral branch of abdominal aorta NEC"
-        }
-      }
-    ],
-    "measures": [
-      {
-        "assayCode": {
-          "id": "LOINC:39156-5",
-          "label": "BMI"
-        },
-        "date": "2021-09-24",
-        "measurementValue": {
-          "quantity": {
-            "unit": {
-              "id": "NCIT:C49671",
-              "label": "Kilogram per Square Meter"
-            },
-            "value": 26.63838307
-          }
-        }
-      },
-      {
-        "assayCode": {
-          "id": "LOINC:3141-9",
-          "label": "Weight"
-        },
-        "date": "2021-09-24",
-        "measurementValue": {
-          "quantity": {
-            "unit": {
-              "id": "NCIT:C28252",
-              "label": "Kilogram"
-            },
-            "value": 85.6358
-          }
-        }
-      },
-      {
-        "assayCode": {
-          "id": "LOINC:8308-9",
-          "label": "Height-standing"
-        },
-        "date": "2021-09-24",
-        "measurementValue": {
-          "quantity": {
-            "unit": {
-              "id": "NCIT:C49668",
-              "label": "Centimeter"
-            },
-            "value": 179.2973
-          }
-        }
-      }
-    ],
-    "sex": {
-      "id": "NCIT:C20197",
-      "label": "male"
-    }
-  }
-';
-    return decode_json $str;
+    # Decode the JSON text as an array
+    my $json_array = decode_json($json_text);
+
+    # Return the first element if the decoded JSON is an array
+    return ref $json_array eq 'ARRAY' ? $json_array->[0] : die "Expected a JSON array in $filename";
 }

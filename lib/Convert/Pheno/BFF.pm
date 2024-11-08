@@ -3,7 +3,7 @@ package Convert::Pheno::BFF;
 use strict;
 use warnings;
 use autodie;
-use feature qw(say);
+use feature                 qw(say);
 use Convert::Pheno::Default qw(get_defaults);
 use Convert::Pheno::Mapping;
 use Exporter 'import';
@@ -82,7 +82,7 @@ sub do_bff2pxf {
                 type     => delete $_->{featureType},
                 excluded => delete $_->{excluded}
 
-                  #_notes => $_->{notes}
+                #_notes => $_->{notes}
             }
         } @{ $bff->{phenotypicFeatures} }
       ]
@@ -111,6 +111,8 @@ sub do_bff2pxf {
                 $result->{value} = $measure->{measurementValue};
 
             }
+            $result->{procedure} = map_procedures( $measure->{procedure} )
+              if defined $measure->{procedure};
 
             # Push the resulting hash onto the pxf measurements array
             push @{ $pxf->{measurements} }, $result;
@@ -140,18 +142,8 @@ sub do_bff2pxf {
     # ===============
 
     # **** procedures ****
-    my @procedures = map {
-        {
-            procedure => {
-                code      => $_->{procedureCode},
-                performed => {
-                    timestamp => exists $_->{dateOfProcedure}
-                    ? _map2iso8601( $_->{dateOfProcedure} )
-                    : $DEFAULT->{timestamp}
-                }
-            }
-        }
-    } @{ $bff->{interventionsOrProcedures} };
+    my @procedures = map_procedures( $bff->{interventionsOrProcedures} )
+      if defined $bff->{interventionsOrProcedures};
 
     # **** treatments ****
     my @treatments = map {
@@ -209,6 +201,39 @@ sub do_bff2pxf {
     #######################################
 
     return $pxf;
+}
+
+sub map_procedures {
+
+    my $data = shift;
+
+    # Helper to apply mapping logic to a single item
+    my $map_item = sub {
+        my $item = shift;
+        return {
+            bodySite  => $item->{bodySite} // $DEFAULT->{ontology_term},
+            code      => $item->{procedureCode},
+            performed => {
+                timestamp => exists $item->{dateOfProcedure}
+                ? _map2iso8601( $item->{dateOfProcedure} )
+                : $DEFAULT->{timestamp},
+            },
+        };
+    };
+
+    # Check if the input is an array reference
+    if ( ref $data eq 'ARRAY' ) {
+        return map { { procedure => $map_item->($_) } } @$data;
+    }
+
+    # Otherwise, assume it's a single hash reference
+    elsif ( ref $data eq 'HASH' ) {
+        return $map_item->($data);    # Return mapped single object
+    }
+    else {
+        die
+          "Invalid input type: expected an array reference or hash reference.";
+    }
 }
 
 1;

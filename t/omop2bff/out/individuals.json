@@ -359,6 +359,10 @@
                "iso8601duration" : "32Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1981-08-17",
          "procedureCode" : {
             "id" : "SNOMED:699253003",
@@ -390,6 +394,10 @@
             "age" : {
                "iso8601duration" : "33Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1982-09-11",
          "procedureCode" : {
@@ -423,6 +431,10 @@
                "iso8601duration" : "32Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1981-08-10",
          "procedureCode" : {
             "id" : "SNOMED:74016001",
@@ -455,6 +467,10 @@
                "iso8601duration" : "9Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1958-03-11",
          "procedureCode" : {
             "id" : "SNOMED:274474001",
@@ -486,6 +502,10 @@
             "age" : {
                "iso8601duration" : "9Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1958-03-11",
          "procedureCode" : {
@@ -561,6 +581,10 @@
                "iso8601duration" : "35Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1955-10-22",
          "procedureCode" : {
             "id" : "SNOMED:399208008",
@@ -593,6 +617,10 @@
                "iso8601duration" : "56Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1977-04-08",
          "procedureCode" : {
             "id" : "SNOMED:288086009",
@@ -624,6 +652,10 @@
             "age" : {
                "iso8601duration" : "11Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1931-09-03",
          "procedureCode" : {
@@ -1485,6 +1517,10 @@
                "iso8601duration" : "16Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1994-12-15",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -1516,6 +1552,10 @@
             "age" : {
                "iso8601duration" : "14Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1993-04-15",
          "procedureCode" : {
@@ -1549,6 +1589,10 @@
                "iso8601duration" : "15Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1993-07-29",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -1580,6 +1624,10 @@
             "age" : {
                "iso8601duration" : "13Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1992-01-30",
          "procedureCode" : {
@@ -1613,6 +1661,10 @@
                "iso8601duration" : "16Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1994-10-13",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -1644,6 +1696,10 @@
             "age" : {
                "iso8601duration" : "13Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1991-07-25",
          "procedureCode" : {
@@ -1677,6 +1733,10 @@
                "iso8601duration" : "15Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1994-01-13",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -1708,6 +1768,10 @@
             "age" : {
                "iso8601duration" : "14Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1993-07-08",
          "procedureCode" : {
@@ -2685,6 +2749,10 @@
                "iso8601duration" : "7Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1986-04-28",
          "procedureCode" : {
             "id" : "SNOMED:288086009",
@@ -2716,6 +2784,10 @@
             "age" : {
                "iso8601duration" : "9Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1988-05-08",
          "procedureCode" : {
@@ -2790,6 +2862,10 @@
             "age" : {
                "iso8601duration" : "11Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1991-06-30",
          "procedureCode" : {
@@ -3163,6 +3239,10 @@
                "iso8601duration" : "7Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1977-08-29",
          "procedureCode" : {
             "id" : "SNOMED:168594001",
@@ -3194,6 +3274,10 @@
             "age" : {
                "iso8601duration" : "0Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1971-02-11",
          "procedureCode" : {
@@ -3227,6 +3311,10 @@
                "iso8601duration" : "4Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1975-06-11",
          "procedureCode" : {
             "id" : "SNOMED:60027007",
@@ -3259,6 +3347,10 @@
                "iso8601duration" : "4Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1975-06-11",
          "procedureCode" : {
             "id" : "SNOMED:274474001",
@@ -3290,6 +3382,10 @@
             "age" : {
                "iso8601duration" : "9Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1980-06-14",
          "procedureCode" : {
@@ -3825,6 +3921,10 @@
                "iso8601duration" : "66Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2018-06-14",
          "procedureCode" : {
             "id" : "SNOMED:312681000",
@@ -3856,6 +3956,10 @@
             "age" : {
                "iso8601duration" : "66Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "2018-06-14",
          "procedureCode" : {
@@ -3889,6 +3993,10 @@
                "iso8601duration" : "9Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1961-03-17",
          "procedureCode" : {
             "id" : "SNOMED:274474001",
@@ -3920,6 +4028,10 @@
             "age" : {
                "iso8601duration" : "9Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1961-03-17",
          "procedureCode" : {
@@ -3953,6 +4065,10 @@
                "iso8601duration" : "13Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1964-12-28",
          "procedureCode" : {
             "id" : "SNOMED:269911007",
@@ -3984,6 +4100,10 @@
             "age" : {
                "iso8601duration" : "20Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1972-02-28",
          "procedureCode" : {
@@ -4017,6 +4137,10 @@
                "iso8601duration" : "15Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1967-08-13",
          "procedureCode" : {
             "id" : "SNOMED:60027007",
@@ -4048,6 +4172,10 @@
             "age" : {
                "iso8601duration" : "15Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1967-08-13",
          "procedureCode" : {
@@ -5213,6 +5341,10 @@
                "iso8601duration" : "9Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1977-03-04",
          "procedureCode" : {
             "id" : "SNOMED:313191000",
@@ -5245,6 +5377,10 @@
                "iso8601duration" : "3Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1971-01-27",
          "procedureCode" : {
             "id" : "SNOMED:171231001",
@@ -5276,6 +5412,10 @@
             "age" : {
                "iso8601duration" : "10Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1978-07-29",
          "procedureCode" : {
@@ -5351,6 +5491,10 @@
                "iso8601duration" : "52Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2008-02-19",
          "procedureCode" : {
             "id" : "SNOMED:19490002",
@@ -5382,6 +5526,10 @@
             "age" : {
                "iso8601duration" : "52Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "2008-02-19",
          "procedureCode" : {
@@ -5415,6 +5563,10 @@
                "iso8601duration" : "52Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2008-02-19",
          "procedureCode" : {
             "id" : "SNOMED:274474001",
@@ -5447,6 +5599,10 @@
                "iso8601duration" : "34Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1990-09-14",
          "procedureCode" : {
             "id" : "SNOMED:269911007",
@@ -5478,6 +5634,10 @@
             "age" : {
                "iso8601duration" : "17Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1973-12-05",
          "procedureCode" : {
@@ -7500,6 +7660,10 @@
                "iso8601duration" : "52Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2005-01-28",
          "procedureCode" : {
             "id" : "SNOMED:433112001",
@@ -7532,6 +7696,10 @@
                "iso8601duration" : "30Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1982-07-03",
          "procedureCode" : {
             "id" : "SNOMED:269911007",
@@ -7563,6 +7731,10 @@
             "age" : {
                "iso8601duration" : "20Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1972-04-27",
          "procedureCode" : {
@@ -7638,6 +7810,10 @@
                "iso8601duration" : "33Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1990-09-19",
          "procedureCode" : {
             "id" : "SNOMED:288086009",
@@ -7669,6 +7845,10 @@
             "age" : {
                "iso8601duration" : "21Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1979-02-24",
          "procedureCode" : {
@@ -7702,6 +7882,10 @@
                "iso8601duration" : "12Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1969-12-08",
          "procedureCode" : {
             "id" : "SNOMED:274474001",
@@ -7734,6 +7918,10 @@
                "iso8601duration" : "12Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1969-12-08",
          "procedureCode" : {
             "id" : "SNOMED:1225002",
@@ -7765,6 +7953,10 @@
             "age" : {
                "iso8601duration" : "11Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1968-12-29",
          "procedureCode" : {
@@ -8868,6 +9060,10 @@
                "iso8601duration" : "33Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2006-03-05",
          "procedureCode" : {
             "id" : "SNOMED:415300000",
@@ -8899,6 +9095,10 @@
             "age" : {
                "iso8601duration" : "33Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "2006-03-05",
          "procedureCode" : {
@@ -8932,6 +9132,10 @@
                "iso8601duration" : "33Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2006-03-05",
          "procedureCode" : {
             "id" : "SNOMED:430193006",
@@ -8964,6 +9168,10 @@
                "iso8601duration" : "32Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2004-11-22",
          "procedureCode" : {
             "id" : "SNOMED:433112001",
@@ -8995,6 +9203,10 @@
             "age" : {
                "iso8601duration" : "16Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1988-08-14",
          "procedureCode" : {
@@ -9070,6 +9282,10 @@
                "iso8601duration" : "41Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2001-06-30",
          "procedureCode" : {
             "id" : "SNOMED:269911007",
@@ -9101,6 +9317,10 @@
             "age" : {
                "iso8601duration" : "46Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "2006-06-09",
          "procedureCode" : {
@@ -9473,6 +9693,10 @@
             "age" : {
                "iso8601duration" : "75Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "2002-04-19",
          "procedureCode" : {
@@ -10207,6 +10431,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "29Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "2004-10-04",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -10268,6 +10502,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "12Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1987-01-20",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -10382,6 +10626,10 @@
                "iso8601duration" : "39Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2010-10-21",
          "procedureCode" : {
             "id" : "SNOMED:269911007",
@@ -10413,6 +10661,10 @@
             "age" : {
                "iso8601duration" : "17Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1988-12-10",
          "procedureCode" : {
@@ -10786,6 +11038,10 @@
                "iso8601duration" : "21Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1992-07-15",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -10817,6 +11073,10 @@
             "age" : {
                "iso8601duration" : "18Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1990-01-24",
          "procedureCode" : {
@@ -10850,6 +11110,10 @@
                "iso8601duration" : "20Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1991-07-24",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -10882,6 +11146,10 @@
                "iso8601duration" : "19Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1990-09-12",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -10913,6 +11181,10 @@
             "age" : {
                "iso8601duration" : "21Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1992-09-16",
          "procedureCode" : {
@@ -11017,6 +11289,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "30Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1999-08-12",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -11078,6 +11360,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "17Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1986-12-05",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -11152,6 +11444,10 @@
                "iso8601duration" : "16Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2000-05-16",
          "procedureCode" : {
             "id" : "SNOMED:76601001",
@@ -11184,6 +11480,10 @@
                "iso8601duration" : "16Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2000-08-15",
          "procedureCode" : {
             "id" : "SNOMED:76601001",
@@ -11215,6 +11515,10 @@
             "age" : {
                "iso8601duration" : "16Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "2001-02-13",
          "procedureCode" : {
@@ -11279,6 +11583,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "6Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1991-01-26",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -11340,6 +11654,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "3Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1987-03-16",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -11414,6 +11738,10 @@
                "iso8601duration" : "16Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1981-04-27",
          "procedureCode" : {
             "id" : "SNOMED:274474001",
@@ -11446,6 +11774,10 @@
                "iso8601duration" : "16Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1981-04-27",
          "procedureCode" : {
             "id" : "SNOMED:1225002",
@@ -11477,6 +11809,10 @@
             "age" : {
                "iso8601duration" : "17Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1982-10-29",
          "procedureCode" : {
@@ -11541,6 +11877,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "35Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "2000-08-16",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -11614,6 +11960,10 @@
             "age" : {
                "iso8601duration" : "9Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1984-01-21",
          "procedureCode" : {
@@ -12187,6 +12537,10 @@
                "iso8601duration" : "20Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1995-07-20",
          "procedureCode" : {
             "id" : "SNOMED:76601001",
@@ -12218,6 +12572,10 @@
             "age" : {
                "iso8601duration" : "20Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1995-04-20",
          "procedureCode" : {
@@ -12251,6 +12609,10 @@
                "iso8601duration" : "24Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1999-01-14",
          "procedureCode" : {
             "id" : "SNOMED:76601001",
@@ -12282,6 +12644,10 @@
             "age" : {
                "iso8601duration" : "24Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1999-04-15",
          "procedureCode" : {
@@ -12315,6 +12681,10 @@
                "iso8601duration" : "23Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1998-04-16",
          "procedureCode" : {
             "id" : "SNOMED:76601001",
@@ -12347,6 +12717,10 @@
                "iso8601duration" : "21Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1996-07-18",
          "procedureCode" : {
             "id" : "SNOMED:76601001",
@@ -12378,6 +12752,10 @@
             "age" : {
                "iso8601duration" : "20Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1995-01-19",
          "procedureCode" : {
@@ -13457,6 +13835,10 @@
                "iso8601duration" : "17Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1985-07-03",
          "procedureCode" : {
             "id" : "SNOMED:269911007",
@@ -13488,6 +13870,10 @@
             "age" : {
                "iso8601duration" : "15Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1983-11-03",
          "procedureCode" : {
@@ -13521,6 +13907,10 @@
                "iso8601duration" : "9Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1977-11-02",
          "procedureCode" : {
             "id" : "SNOMED:399208008",
@@ -13552,6 +13942,10 @@
             "age" : {
                "iso8601duration" : "9Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1977-11-02",
          "procedureCode" : {
@@ -13888,6 +14282,10 @@
                "iso8601duration" : "10Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1975-05-23",
          "procedureCode" : {
             "id" : "SNOMED:699253003",
@@ -13920,6 +14318,10 @@
                "iso8601duration" : "10Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1975-05-16",
          "procedureCode" : {
             "id" : "SNOMED:74016001",
@@ -13951,6 +14353,10 @@
             "age" : {
                "iso8601duration" : "25Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1990-08-02",
          "procedureCode" : {
@@ -15662,6 +16068,10 @@
                "iso8601duration" : "21Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1982-07-12",
          "procedureCode" : {
             "id" : "SNOMED:288086009",
@@ -15693,6 +16103,10 @@
             "age" : {
                "iso8601duration" : "7Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1968-09-08",
          "procedureCode" : {
@@ -15726,6 +16140,10 @@
                "iso8601duration" : "15Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1975-10-26",
          "procedureCode" : {
             "id" : "SNOMED:288086009",
@@ -15757,6 +16175,10 @@
             "age" : {
                "iso8601duration" : "15Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1975-10-26",
          "procedureCode" : {
@@ -16093,6 +16515,10 @@
                "iso8601duration" : "12Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1954-01-27",
          "procedureCode" : {
             "id" : "SNOMED:399208008",
@@ -16125,6 +16551,10 @@
                "iso8601duration" : "66Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2007-07-06",
          "procedureCode" : {
             "id" : "SNOMED:312681000",
@@ -16156,6 +16586,10 @@
             "age" : {
                "iso8601duration" : "66Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "2007-07-06",
          "procedureCode" : {
@@ -17300,6 +17734,10 @@
                "iso8601duration" : "1Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1966-10-24",
          "procedureCode" : {
             "id" : "SNOMED:1225002",
@@ -17331,6 +17769,10 @@
             "age" : {
                "iso8601duration" : "1Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1966-10-24",
          "procedureCode" : {
@@ -17364,6 +17806,10 @@
                "iso8601duration" : "25Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1990-05-07",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -17395,6 +17841,10 @@
             "age" : {
                "iso8601duration" : "25Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1990-02-12",
          "procedureCode" : {
@@ -17470,6 +17920,10 @@
                "iso8601duration" : "8Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1980-07-01",
          "procedureCode" : {
             "id" : "SNOMED:1225002",
@@ -17501,6 +17955,10 @@
             "age" : {
                "iso8601duration" : "8Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1980-07-01",
          "procedureCode" : {
@@ -17837,6 +18295,10 @@
                "iso8601duration" : "38Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1983-05-07",
          "procedureCode" : {
             "id" : "SNOMED:19490002",
@@ -17900,6 +18362,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "63Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "2007-11-11",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -18537,6 +19009,10 @@
                "iso8601duration" : "96Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2012-11-23",
          "procedureCode" : {
             "id" : "SNOMED:269911007",
@@ -18568,6 +19044,10 @@
             "age" : {
                "iso8601duration" : "99Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "2015-09-20",
          "procedureCode" : {
@@ -18601,6 +19081,10 @@
                "iso8601duration" : "6Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1922-07-14",
          "procedureCode" : {
             "id" : "SNOMED:112790001",
@@ -18632,6 +19116,10 @@
             "age" : {
                "iso8601duration" : "67Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1984-02-25",
          "procedureCode" : {
@@ -18665,6 +19153,10 @@
                "iso8601duration" : "67Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1984-02-25",
          "procedureCode" : {
             "id" : "SNOMED:268425006",
@@ -18697,6 +19189,10 @@
                "iso8601duration" : "90Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2006-07-16",
          "procedureCode" : {
             "id" : "SNOMED:312681000",
@@ -18728,6 +19224,10 @@
             "age" : {
                "iso8601duration" : "98Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "2014-07-23",
          "procedureCode" : {
@@ -19724,6 +20224,10 @@
                "iso8601duration" : "26Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1992-10-26",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -19755,6 +20259,10 @@
             "age" : {
                "iso8601duration" : "25Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1991-09-23",
          "procedureCode" : {
@@ -19788,6 +20296,10 @@
                "iso8601duration" : "26Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1992-06-01",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -19819,6 +20331,10 @@
             "age" : {
                "iso8601duration" : "24Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1991-02-04",
          "procedureCode" : {
@@ -19852,6 +20368,10 @@
                "iso8601duration" : "25Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1991-05-20",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -19884,6 +20404,10 @@
                "iso8601duration" : "24Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1991-02-25",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -19915,6 +20439,10 @@
             "age" : {
                "iso8601duration" : "24Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1990-06-18",
          "procedureCode" : {
@@ -20405,6 +20933,10 @@
                "iso8601duration" : "15Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1990-12-30",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -20436,6 +20968,10 @@
             "age" : {
                "iso8601duration" : "16Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1992-06-07",
          "procedureCode" : {
@@ -20469,6 +21005,10 @@
                "iso8601duration" : "15Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1991-07-07",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -20500,6 +21040,10 @@
             "age" : {
                "iso8601duration" : "14Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1990-01-28",
          "procedureCode" : {
@@ -20533,6 +21077,10 @@
                "iso8601duration" : "14Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1990-04-01",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -20565,6 +21113,10 @@
                "iso8601duration" : "16Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1992-04-05",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -20596,6 +21148,10 @@
             "age" : {
                "iso8601duration" : "14Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1990-07-15",
          "procedureCode" : {
@@ -20820,6 +21376,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "23Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1962-08-09",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -20881,6 +21447,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "42Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1981-01-08",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -21282,6 +21858,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "3Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1984-02-15",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -21343,6 +21929,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "12Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1993-05-27",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -21594,6 +22190,10 @@
                "iso8601duration" : "89Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2017-06-02",
          "procedureCode" : {
             "id" : "SNOMED:274474001",
@@ -21625,6 +22225,10 @@
             "age" : {
                "iso8601duration" : "89Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "2017-06-02",
          "procedureCode" : {
@@ -21658,6 +22262,10 @@
                "iso8601duration" : "89Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2017-06-02",
          "procedureCode" : {
             "id" : "SNOMED:312681000",
@@ -21689,6 +22297,10 @@
             "age" : {
                "iso8601duration" : "88Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "2016-05-08",
          "procedureCode" : {
@@ -21722,6 +22334,10 @@
                "iso8601duration" : "88Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2016-05-08",
          "procedureCode" : {
             "id" : "SNOMED:274474001",
@@ -21754,6 +22370,10 @@
                "iso8601duration" : "88Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2016-05-08",
          "procedureCode" : {
             "id" : "SNOMED:60027007",
@@ -21785,6 +22405,10 @@
             "age" : {
                "iso8601duration" : "50Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1979-01-06",
          "procedureCode" : {
@@ -22541,6 +23165,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "1Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1963-05-08",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -22602,6 +23236,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "3Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1965-10-29",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -22663,6 +23307,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "1Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1963-05-08",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -22724,6 +23378,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "1Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1963-05-08",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -22827,6 +23491,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "16Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1988-07-10",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -22888,6 +23562,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "30Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "2002-11-03",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -23800,6 +24484,10 @@
                "iso8601duration" : "48Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1975-12-14",
          "procedureCode" : {
             "id" : "SNOMED:74016001",
@@ -23831,6 +24519,10 @@
             "age" : {
                "iso8601duration" : "4Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1932-05-12",
          "procedureCode" : {
@@ -23864,6 +24556,10 @@
                "iso8601duration" : "35Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1963-06-01",
          "procedureCode" : {
             "id" : "SNOMED:269911007",
@@ -23895,6 +24591,10 @@
             "age" : {
                "iso8601duration" : "79Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "2006-08-31",
          "procedureCode" : {
@@ -23928,6 +24628,10 @@
                "iso8601duration" : "79Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2006-08-31",
          "procedureCode" : {
             "id" : "SNOMED:312681000",
@@ -23960,6 +24664,10 @@
                "iso8601duration" : "79Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2006-08-31",
          "procedureCode" : {
             "id" : "SNOMED:1225002",
@@ -23991,6 +24699,10 @@
             "age" : {
                "iso8601duration" : "86Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "2014-02-20",
          "procedureCode" : {
@@ -24644,6 +25356,10 @@
                "iso8601duration" : "26Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1990-04-20",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -24675,6 +25391,10 @@
             "age" : {
                "iso8601duration" : "27Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1990-10-26",
          "procedureCode" : {
@@ -25048,6 +25768,10 @@
                "iso8601duration" : "74Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2009-09-12",
          "procedureCode" : {
             "id" : "SNOMED:274474001",
@@ -25079,6 +25803,10 @@
             "age" : {
                "iso8601duration" : "74Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "2009-09-12",
          "procedureCode" : {
@@ -25112,6 +25840,10 @@
                "iso8601duration" : "34Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1970-04-21",
          "procedureCode" : {
             "id" : "SNOMED:269911007",
@@ -25144,6 +25876,10 @@
                "iso8601duration" : "70Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2005-09-03",
          "procedureCode" : {
             "id" : "SNOMED:274474001",
@@ -25175,6 +25911,10 @@
             "age" : {
                "iso8601duration" : "70Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "2005-09-03",
          "procedureCode" : {
@@ -25788,6 +26528,10 @@
                "iso8601duration" : "22Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1992-02-01",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -25819,6 +26563,10 @@
             "age" : {
                "iso8601duration" : "22Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1992-05-16",
          "procedureCode" : {
@@ -25852,6 +26600,10 @@
                "iso8601duration" : "23Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1993-02-13",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -25883,6 +26635,10 @@
             "age" : {
                "iso8601duration" : "21Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1991-09-28",
          "procedureCode" : {
@@ -25916,6 +26672,10 @@
                "iso8601duration" : "21Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1991-02-09",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -25947,6 +26707,10 @@
             "age" : {
                "iso8601duration" : "20Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1990-04-21",
          "procedureCode" : {
@@ -25980,6 +26744,10 @@
                "iso8601duration" : "20Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1990-08-04",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -26011,6 +26779,10 @@
             "age" : {
                "iso8601duration" : "22Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1992-08-29",
          "procedureCode" : {
@@ -26944,6 +27716,10 @@
                "iso8601duration" : "36Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1990-11-14",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -26975,6 +27751,10 @@
             "age" : {
                "iso8601duration" : "35Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1990-09-12",
          "procedureCode" : {
@@ -27008,6 +27788,10 @@
                "iso8601duration" : "36Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1991-03-20",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -27039,6 +27823,10 @@
             "age" : {
                "iso8601duration" : "35Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1990-08-22",
          "procedureCode" : {
@@ -27072,6 +27860,10 @@
                "iso8601duration" : "36Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1991-07-24",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -27103,6 +27895,10 @@
             "age" : {
                "iso8601duration" : "35Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1990-08-01",
          "procedureCode" : {
@@ -27283,6 +28079,10 @@
                "iso8601duration" : "72Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2012-07-31",
          "procedureCode" : {
             "id" : "SNOMED:433112001",
@@ -27356,6 +28156,10 @@
             "age" : {
                "iso8601duration" : "10Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1988-01-08",
          "procedureCode" : {
@@ -28531,6 +29335,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "17Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1985-02-01",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -28592,6 +29406,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "31Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1998-06-06",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -28730,6 +29554,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "41Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "2016-07-28",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -28791,6 +29625,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "17Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1992-10-11",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -28852,6 +29696,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "9Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1984-09-09",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -28913,6 +29767,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "10Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1985-06-06",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -29016,6 +29880,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "37Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "2009-08-25",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -30118,6 +30992,10 @@
                "iso8601duration" : "36Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1991-09-08",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -30149,6 +31027,10 @@
             "age" : {
                "iso8601duration" : "61Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "2016-12-01",
          "procedureCode" : {
@@ -30182,6 +31064,10 @@
                "iso8601duration" : "36Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1992-02-23",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -30213,6 +31099,10 @@
             "age" : {
                "iso8601duration" : "36Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1991-07-28",
          "procedureCode" : {
@@ -30246,6 +31136,10 @@
                "iso8601duration" : "37Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1992-07-19",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -30277,6 +31171,10 @@
             "age" : {
                "iso8601duration" : "35Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1990-08-26",
          "procedureCode" : {
@@ -30310,6 +31208,10 @@
                "iso8601duration" : "36Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1991-09-29",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -30341,6 +31243,10 @@
             "age" : {
                "iso8601duration" : "37Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1993-03-28",
          "procedureCode" : {
@@ -30895,6 +31801,10 @@
                "iso8601duration" : "37Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1990-02-13",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -30926,6 +31836,10 @@
             "age" : {
                "iso8601duration" : "40Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1992-10-06",
          "procedureCode" : {
@@ -30959,6 +31873,10 @@
                "iso8601duration" : "41Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1993-05-25",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -30990,6 +31908,10 @@
             "age" : {
                "iso8601duration" : "39Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1991-07-02",
          "procedureCode" : {
@@ -31023,6 +31945,10 @@
                "iso8601duration" : "38Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1990-03-27",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -31054,6 +31980,10 @@
             "age" : {
                "iso8601duration" : "41Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1993-04-13",
          "procedureCode" : {
@@ -31087,6 +32017,10 @@
                "iso8601duration" : "38Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1990-06-19",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -31118,6 +32052,10 @@
             "age" : {
                "iso8601duration" : "39Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1991-04-30",
          "procedureCode" : {
@@ -31611,6 +32549,10 @@
                "iso8601duration" : "32Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1992-01-11",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -31642,6 +32584,10 @@
             "age" : {
                "iso8601duration" : "32Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1991-09-07",
          "procedureCode" : {
@@ -31675,6 +32621,10 @@
                "iso8601duration" : "32Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1992-02-01",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -31706,6 +32656,10 @@
             "age" : {
                "iso8601duration" : "32Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1991-11-09",
          "procedureCode" : {
@@ -31739,6 +32693,10 @@
                "iso8601duration" : "33Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1992-05-16",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -31770,6 +32728,10 @@
             "age" : {
                "iso8601duration" : "32Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1991-07-06",
          "procedureCode" : {
@@ -31803,6 +32765,10 @@
                "iso8601duration" : "31Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1990-03-31",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -31834,6 +32800,10 @@
             "age" : {
                "iso8601duration" : "33Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1992-07-18",
          "procedureCode" : {
@@ -32316,6 +33286,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "1Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1912-10-27",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -32377,6 +33357,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "1Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1912-10-27",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -32438,6 +33428,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "2Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1913-11-21",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -32499,6 +33499,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "2Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1913-11-21",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -32560,6 +33570,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "2Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1913-11-21",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -32621,6 +33641,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "2Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1913-11-21",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -32682,6 +33712,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "1Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1913-04-25",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -33246,6 +34286,10 @@
                "iso8601duration" : "7Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1938-10-11",
          "procedureCode" : {
             "id" : "SNOMED:168594001",
@@ -33277,6 +34321,10 @@
             "age" : {
                "iso8601duration" : "10Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1941-10-25",
          "procedureCode" : {
@@ -33310,6 +34358,10 @@
                "iso8601duration" : "66Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1997-12-05",
          "procedureCode" : {
             "id" : "SNOMED:74016001",
@@ -33342,6 +34394,10 @@
                "iso8601duration" : "80Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2011-11-19",
          "procedureCode" : {
             "id" : "SNOMED:312681000",
@@ -33373,6 +34429,10 @@
             "age" : {
                "iso8601duration" : "9Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1940-11-30",
          "procedureCode" : {
@@ -33448,6 +34508,10 @@
                "iso8601duration" : "51Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1999-01-22",
          "procedureCode" : {
             "id" : "SNOMED:19490002",
@@ -33480,6 +34544,10 @@
                "iso8601duration" : "51Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1999-01-22",
          "procedureCode" : {
             "id" : "SNOMED:274474001",
@@ -33511,6 +34579,10 @@
             "age" : {
                "iso8601duration" : "51Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1999-01-22",
          "procedureCode" : {
@@ -34044,6 +35116,10 @@
                "iso8601duration" : "45Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1992-10-31",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -34075,6 +35151,10 @@
             "age" : {
                "iso8601duration" : "44Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1992-08-08",
          "procedureCode" : {
@@ -34108,6 +35188,10 @@
                "iso8601duration" : "44Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1992-08-08",
          "procedureCode" : {
             "id" : "SNOMED:288086009",
@@ -34139,6 +35223,10 @@
             "age" : {
                "iso8601duration" : "45Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1992-09-19",
          "procedureCode" : {
@@ -34172,6 +35260,10 @@
                "iso8601duration" : "45Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1993-03-27",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -34203,6 +35295,10 @@
             "age" : {
                "iso8601duration" : "43Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1991-06-15",
          "procedureCode" : {
@@ -34236,6 +35332,10 @@
                "iso8601duration" : "43Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1991-02-09",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -34267,6 +35367,10 @@
             "age" : {
                "iso8601duration" : "44Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1992-01-11",
          "procedureCode" : {
@@ -34910,6 +36014,10 @@
                "iso8601duration" : "13Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1984-03-20",
          "procedureCode" : {
             "id" : "SNOMED:228557008",
@@ -34941,6 +36049,10 @@
             "age" : {
                "iso8601duration" : "11Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1981-11-03",
          "procedureCode" : {
@@ -34974,6 +36086,10 @@
                "iso8601duration" : "11Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1981-06-16",
          "procedureCode" : {
             "id" : "SNOMED:228557008",
@@ -35005,6 +36121,10 @@
             "age" : {
                "iso8601duration" : "11Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1982-01-05",
          "procedureCode" : {
@@ -35038,6 +36158,10 @@
                "iso8601duration" : "14Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1984-08-14",
          "procedureCode" : {
             "id" : "SNOMED:228557008",
@@ -35069,6 +36193,10 @@
             "age" : {
                "iso8601duration" : "13Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1984-01-10",
          "procedureCode" : {
@@ -35102,6 +36230,10 @@
                "iso8601duration" : "11Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1982-04-06",
          "procedureCode" : {
             "id" : "SNOMED:228557008",
@@ -35133,6 +36265,10 @@
             "age" : {
                "iso8601duration" : "15Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1985-06-04",
          "procedureCode" : {
@@ -35652,6 +36788,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "57Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "2008-11-17",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -35713,6 +36859,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "64Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "2016-05-17",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -35774,6 +36930,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "9Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1961-03-27",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -35835,6 +37001,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "57Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "2009-05-14",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -35896,6 +37072,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "13Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1964-12-22",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -35999,6 +37185,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "13Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1986-05-18",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -36060,6 +37256,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "5Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1978-03-31",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -36121,6 +37327,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "8Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1981-01-04",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -36653,6 +37869,10 @@
                "iso8601duration" : "12Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1948-04-26",
          "procedureCode" : {
             "id" : "SNOMED:228557008",
@@ -36684,6 +37904,10 @@
             "age" : {
                "iso8601duration" : "9Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1944-12-25",
          "procedureCode" : {
@@ -36717,6 +37941,10 @@
                "iso8601duration" : "10Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1946-09-16",
          "procedureCode" : {
             "id" : "SNOMED:228557008",
@@ -36748,6 +37976,10 @@
             "age" : {
                "iso8601duration" : "11Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1947-01-27",
          "procedureCode" : {
@@ -36781,6 +38013,10 @@
                "iso8601duration" : "10Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1945-12-31",
          "procedureCode" : {
             "id" : "SNOMED:228557008",
@@ -36812,6 +38048,10 @@
             "age" : {
                "iso8601duration" : "9Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1945-04-02",
          "procedureCode" : {
@@ -36845,6 +38085,10 @@
                "iso8601duration" : "14Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1950-09-04",
          "procedureCode" : {
             "id" : "SNOMED:228557008",
@@ -36876,6 +38120,10 @@
             "age" : {
                "iso8601duration" : "10Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1945-12-03",
          "procedureCode" : {
@@ -38384,6 +39632,10 @@
                "iso8601duration" : "7Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1962-09-21",
          "procedureCode" : {
             "id" : "SNOMED:269911007",
@@ -38458,6 +39710,10 @@
                "iso8601duration" : "17Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1993-04-18",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -38489,6 +39745,10 @@
             "age" : {
                "iso8601duration" : "16Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1991-06-16",
          "procedureCode" : {
@@ -38522,6 +39782,10 @@
                "iso8601duration" : "15Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1990-09-16",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -38553,6 +39817,10 @@
             "age" : {
                "iso8601duration" : "16Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1992-01-12",
          "procedureCode" : {
@@ -38586,6 +39854,10 @@
                "iso8601duration" : "16Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1991-12-22",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -38618,6 +39890,10 @@
                "iso8601duration" : "17Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1992-10-11",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -38649,6 +39925,10 @@
             "age" : {
                "iso8601duration" : "15Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1990-08-05",
          "procedureCode" : {
@@ -38713,6 +39993,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "1Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1976-12-26",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -38774,6 +40064,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "35Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "2010-06-28",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -38835,6 +40135,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "18Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1993-10-12",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -39236,6 +40546,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "14Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1961-03-23",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -39297,6 +40617,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "69Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "2016-03-31",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -39400,6 +40730,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "41Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "2009-05-25",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -39461,6 +40801,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "30Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1998-12-08",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -39575,6 +40925,10 @@
                "iso8601duration" : "30Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1990-01-26",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -39606,6 +40960,10 @@
             "age" : {
                "iso8601duration" : "31Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1991-01-18",
          "procedureCode" : {
@@ -39639,6 +40997,10 @@
                "iso8601duration" : "31Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1990-12-07",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -39670,6 +41032,10 @@
             "age" : {
                "iso8601duration" : "31Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1990-08-24",
          "procedureCode" : {
@@ -39703,6 +41069,10 @@
                "iso8601duration" : "33Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1992-08-07",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -39734,6 +41104,10 @@
             "age" : {
                "iso8601duration" : "32Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1991-05-24",
          "procedureCode" : {
@@ -39767,6 +41141,10 @@
                "iso8601duration" : "32Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1991-09-27",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -39798,6 +41176,10 @@
             "age" : {
                "iso8601duration" : "32Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1992-01-31",
          "procedureCode" : {
@@ -40034,6 +41416,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "43Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1990-12-06",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -40095,6 +41487,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "32Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1979-06-01",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -40156,6 +41558,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "8Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1955-03-31",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -41061,6 +42473,10 @@
                "iso8601duration" : "6Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1977-04-24",
          "procedureCode" : {
             "id" : "SNOMED:274474001",
@@ -41093,6 +42509,10 @@
                "iso8601duration" : "6Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1977-04-24",
          "procedureCode" : {
             "id" : "SNOMED:60027007",
@@ -41124,6 +42544,10 @@
             "age" : {
                "iso8601duration" : "43Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "2013-07-28",
          "procedureCode" : {
@@ -41199,6 +42623,10 @@
                "iso8601duration" : "18Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1969-04-29",
          "procedureCode" : {
             "id" : "SNOMED:288086009",
@@ -41230,6 +42658,10 @@
             "age" : {
                "iso8601duration" : "30Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1980-12-30",
          "procedureCode" : {
@@ -41263,6 +42695,10 @@
                "iso8601duration" : "21Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1972-03-05",
          "procedureCode" : {
             "id" : "SNOMED:288086009",
@@ -41295,6 +42731,10 @@
                "iso8601duration" : "3Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1953-12-07",
          "procedureCode" : {
             "id" : "SNOMED:288086009",
@@ -41326,6 +42766,10 @@
             "age" : {
                "iso8601duration" : "32Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1983-10-25",
          "procedureCode" : {
@@ -42578,6 +44022,10 @@
                "iso8601duration" : "30Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1992-10-07",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -42609,6 +44057,10 @@
             "age" : {
                "iso8601duration" : "28Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1990-12-05",
          "procedureCode" : {
@@ -42642,6 +44094,10 @@
                "iso8601duration" : "27Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1990-07-11",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -42673,6 +44129,10 @@
             "age" : {
                "iso8601duration" : "29Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1992-03-11",
          "procedureCode" : {
@@ -42706,6 +44166,10 @@
                "iso8601duration" : "29Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1991-11-06",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -42737,6 +44201,10 @@
             "age" : {
                "iso8601duration" : "30Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1993-03-03",
          "procedureCode" : {
@@ -42770,6 +44238,10 @@
                "iso8601duration" : "29Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1992-04-22",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -42801,6 +44273,10 @@
             "age" : {
                "iso8601duration" : "30Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1992-12-30",
          "procedureCode" : {
@@ -43430,6 +44906,10 @@
                "iso8601duration" : "17Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1961-10-10",
          "procedureCode" : {
             "id" : "SNOMED:60027007",
@@ -43802,6 +45282,10 @@
                "iso8601duration" : "58Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2011-04-18",
          "procedureCode" : {
             "id" : "SNOMED:288086009",
@@ -43833,6 +45317,10 @@
             "age" : {
                "iso8601duration" : "36Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1989-05-19",
          "procedureCode" : {
@@ -43908,6 +45396,10 @@
                "iso8601duration" : "60Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1980-03-26",
          "procedureCode" : {
             "id" : "SNOMED:312681000",
@@ -43939,6 +45431,10 @@
             "age" : {
                "iso8601duration" : "1Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1920-12-13",
          "procedureCode" : {
@@ -43972,6 +45468,10 @@
                "iso8601duration" : "1Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1920-12-13",
          "procedureCode" : {
             "id" : "SNOMED:274474001",
@@ -44004,6 +45504,10 @@
                "iso8601duration" : "57Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1977-07-29",
          "procedureCode" : {
             "id" : "SNOMED:1225002",
@@ -44035,6 +45539,10 @@
             "age" : {
                "iso8601duration" : "57Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1977-07-29",
          "procedureCode" : {
@@ -44530,6 +46038,10 @@
                "iso8601duration" : "26Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1991-03-24",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -44561,6 +46073,10 @@
             "age" : {
                "iso8601duration" : "26Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1991-01-20",
          "procedureCode" : {
@@ -44594,6 +46110,10 @@
                "iso8601duration" : "26Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1990-07-15",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -44625,6 +46145,10 @@
             "age" : {
                "iso8601duration" : "26Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1990-11-18",
          "procedureCode" : {
@@ -44658,6 +46182,10 @@
                "iso8601duration" : "26Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1990-08-05",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -44689,6 +46217,10 @@
             "age" : {
                "iso8601duration" : "26Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1990-04-22",
          "procedureCode" : {
@@ -44722,6 +46254,10 @@
                "iso8601duration" : "25Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1990-01-07",
          "procedureCode" : {
             "id" : "SNOMED:395142003",
@@ -44753,6 +46289,10 @@
             "age" : {
                "iso8601duration" : "29Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1993-05-09",
          "procedureCode" : {
@@ -47783,6 +49323,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "4Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1983-02-17",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -48155,6 +49705,10 @@
                "iso8601duration" : "24Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1994-07-08",
          "procedureCode" : {
             "id" : "SNOMED:76601001",
@@ -48186,6 +49740,10 @@
             "age" : {
                "iso8601duration" : "23Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1993-04-09",
          "procedureCode" : {
@@ -48219,6 +49777,10 @@
                "iso8601duration" : "23Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1993-10-08",
          "procedureCode" : {
             "id" : "SNOMED:76601001",
@@ -48250,6 +49812,10 @@
             "age" : {
                "iso8601duration" : "23Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1993-07-09",
          "procedureCode" : {
@@ -48283,6 +49849,10 @@
                "iso8601duration" : "23Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1993-01-08",
          "procedureCode" : {
             "id" : "SNOMED:76601001",
@@ -48314,6 +49884,10 @@
             "age" : {
                "iso8601duration" : "24Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1994-04-08",
          "procedureCode" : {
@@ -48347,6 +49921,10 @@
                "iso8601duration" : "24Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1994-10-07",
          "procedureCode" : {
             "id" : "SNOMED:76601001",
@@ -48378,6 +49956,10 @@
             "age" : {
                "iso8601duration" : "24Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1994-01-07",
          "procedureCode" : {
@@ -49440,6 +51022,10 @@
                "iso8601duration" : "46Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2002-06-04",
          "procedureCode" : {
             "id" : "SNOMED:269911007",
@@ -49471,6 +51057,10 @@
             "age" : {
                "iso8601duration" : "34Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1990-10-26",
          "procedureCode" : {
@@ -49504,6 +51094,10 @@
                "iso8601duration" : "34Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1991-01-18",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -49535,6 +51129,10 @@
             "age" : {
                "iso8601duration" : "34Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1990-03-09",
          "procedureCode" : {
@@ -49568,6 +51166,10 @@
                "iso8601duration" : "35Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1991-07-05",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -49599,6 +51201,10 @@
             "age" : {
                "iso8601duration" : "36Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1993-03-05",
          "procedureCode" : {
@@ -49632,6 +51238,10 @@
                "iso8601duration" : "34Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1990-06-22",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -49663,6 +51273,10 @@
             "age" : {
                "iso8601duration" : "37Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1993-06-18",
          "procedureCode" : {
@@ -49938,6 +51552,10 @@
                "iso8601duration" : "66Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2002-04-18",
          "procedureCode" : {
             "id" : "SNOMED:288086009",
@@ -50012,6 +51630,10 @@
                "iso8601duration" : "23Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1986-12-18",
          "procedureCode" : {
             "id" : "SNOMED:288086009",
@@ -50043,6 +51665,10 @@
             "age" : {
                "iso8601duration" : "6Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1970-04-27",
          "procedureCode" : {
@@ -50076,6 +51702,10 @@
                "iso8601duration" : "6Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1970-04-27",
          "procedureCode" : {
             "id" : "SNOMED:399208008",
@@ -50108,6 +51738,10 @@
                "iso8601duration" : "4Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1968-05-07",
          "procedureCode" : {
             "id" : "SNOMED:274474001",
@@ -50139,6 +51773,10 @@
             "age" : {
                "iso8601duration" : "4Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1968-05-07",
          "procedureCode" : {
@@ -50512,6 +52150,10 @@
                "iso8601duration" : "80Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1990-11-17",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -50543,6 +52185,10 @@
             "age" : {
                "iso8601duration" : "83Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1993-05-29",
          "procedureCode" : {
@@ -50994,6 +52640,10 @@
                "iso8601duration" : "28Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2001-08-13",
          "procedureCode" : {
             "id" : "SNOMED:112790001",
@@ -51068,6 +52718,10 @@
                "iso8601duration" : "55Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2003-06-20",
          "procedureCode" : {
             "id" : "SNOMED:180325003",
@@ -51099,6 +52753,10 @@
             "age" : {
                "iso8601duration" : "64Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "2012-08-10",
          "procedureCode" : {
@@ -51132,6 +52790,10 @@
                "iso8601duration" : "71Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2019-04-12",
          "procedureCode" : {
             "id" : "SNOMED:180325003",
@@ -51163,6 +52825,10 @@
             "age" : {
                "iso8601duration" : "61Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "2009-07-24",
          "procedureCode" : {
@@ -51196,6 +52862,10 @@
                "iso8601duration" : "56Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2004-06-25",
          "procedureCode" : {
             "id" : "SNOMED:180325003",
@@ -51228,6 +52898,10 @@
                "iso8601duration" : "54Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2002-06-14",
          "procedureCode" : {
             "id" : "SNOMED:180325003",
@@ -51259,6 +52933,10 @@
             "age" : {
                "iso8601duration" : "63Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "2011-08-05",
          "procedureCode" : {
@@ -51323,6 +53001,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "69Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "2017-03-19",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -51384,6 +53072,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "50Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1998-11-16",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -51487,6 +53185,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "29Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1982-09-29",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -51548,6 +53256,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "45Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1998-11-27",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -51609,6 +53327,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "21Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1974-05-16",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -51670,6 +53398,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "56Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "2009-03-11",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -51731,6 +53469,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "30Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1983-02-01",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -51792,6 +53540,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "12Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1965-05-01",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -51853,6 +53611,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "55Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "2008-02-16",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -52191,6 +53959,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "6Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1983-09-05",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -52329,6 +54107,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "55Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "2008-12-15",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -52390,6 +54178,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "25Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1978-03-13",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -52451,6 +54249,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "36Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1989-10-30",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -52645,6 +54453,10 @@
                "iso8601duration" : "51Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2012-06-06",
          "procedureCode" : {
             "id" : "SNOMED:415070008",
@@ -52676,6 +54488,10 @@
             "age" : {
                "iso8601duration" : "51Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "2012-06-06",
          "procedureCode" : {
@@ -52709,6 +54525,10 @@
                "iso8601duration" : "33Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1993-10-01",
          "procedureCode" : {
             "id" : "SNOMED:384700001",
@@ -52741,6 +54561,10 @@
                "iso8601duration" : "33Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1993-10-01",
          "procedureCode" : {
             "id" : "SNOMED:288086009",
@@ -52772,6 +54596,10 @@
             "age" : {
                "iso8601duration" : "57Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "2018-02-05",
          "procedureCode" : {
@@ -52847,6 +54675,10 @@
                "iso8601duration" : "31Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2012-07-31",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -52879,6 +54711,10 @@
                "iso8601duration" : "29Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2011-02-22",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -52910,6 +54746,10 @@
             "age" : {
                "iso8601duration" : "29Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "2011-03-15",
          "procedureCode" : {
@@ -53265,6 +55105,10 @@
                "iso8601duration" : "22Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1990-03-26",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -53296,6 +55140,10 @@
             "age" : {
                "iso8601duration" : "23Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1991-04-08",
          "procedureCode" : {
@@ -53329,6 +55177,10 @@
                "iso8601duration" : "24Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1992-08-24",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -53360,6 +55212,10 @@
             "age" : {
                "iso8601duration" : "23Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1991-04-29",
          "procedureCode" : {
@@ -53393,6 +55249,10 @@
                "iso8601duration" : "24Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1992-06-01",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -53424,6 +55284,10 @@
             "age" : {
                "iso8601duration" : "24Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1992-04-20",
          "procedureCode" : {
@@ -53457,6 +55321,10 @@
                "iso8601duration" : "22Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1990-08-20",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -53488,6 +55356,10 @@
             "age" : {
                "iso8601duration" : "23Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1991-05-20",
          "procedureCode" : {
@@ -53838,6 +55710,10 @@
                "iso8601duration" : "48Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1999-09-11",
          "procedureCode" : {
             "id" : "SNOMED:699253003",
@@ -53869,6 +55745,10 @@
             "age" : {
                "iso8601duration" : "17Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1968-09-16",
          "procedureCode" : {
@@ -53902,6 +55782,10 @@
                "iso8601duration" : "17Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1968-09-16",
          "procedureCode" : {
             "id" : "SNOMED:274474001",
@@ -53933,6 +55817,10 @@
             "age" : {
                "iso8601duration" : "67Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "2018-01-11",
          "procedureCode" : {
@@ -53966,6 +55854,10 @@
                "iso8601duration" : "15Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1966-09-13",
          "procedureCode" : {
             "id" : "SNOMED:288086009",
@@ -53997,6 +55889,10 @@
             "age" : {
                "iso8601duration" : "11Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1962-12-10",
          "procedureCode" : {
@@ -54030,6 +55926,10 @@
                "iso8601duration" : "33Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1984-05-25",
          "procedureCode" : {
             "id" : "SNOMED:1225002",
@@ -54061,6 +55961,10 @@
             "age" : {
                "iso8601duration" : "33Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1984-05-25",
          "procedureCode" : {
@@ -54376,6 +56280,10 @@
                "iso8601duration" : "11Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1961-03-12",
          "procedureCode" : {
             "id" : "SNOMED:269911007",
@@ -54407,6 +56315,10 @@
             "age" : {
                "iso8601duration" : "22Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1972-03-04",
          "procedureCode" : {
@@ -54440,6 +56352,10 @@
                "iso8601duration" : "34Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1984-07-01",
          "procedureCode" : {
             "id" : "SNOMED:22523008",
@@ -54471,6 +56387,10 @@
             "age" : {
                "iso8601duration" : "56Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "2005-08-28",
          "procedureCode" : {
@@ -54504,6 +56424,10 @@
                "iso8601duration" : "56Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2005-08-28",
          "procedureCode" : {
             "id" : "SNOMED:415070008",
@@ -54535,6 +56459,10 @@
             "age" : {
                "iso8601duration" : "24Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1973-11-24",
          "procedureCode" : {
@@ -54610,6 +56538,10 @@
                "iso8601duration" : "2Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1964-04-17",
          "procedureCode" : {
             "id" : "SNOMED:430193006",
@@ -54641,6 +56573,10 @@
             "age" : {
                "iso8601duration" : "2Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1964-04-17",
          "procedureCode" : {
@@ -54836,6 +56772,10 @@
                "iso8601duration" : "26Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1992-10-31",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -54867,6 +56807,10 @@
             "age" : {
                "iso8601duration" : "4Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1970-03-28",
          "procedureCode" : {
@@ -54900,6 +56844,10 @@
                "iso8601duration" : "25Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1991-04-13",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -54931,6 +56879,10 @@
             "age" : {
                "iso8601duration" : "24Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1990-12-08",
          "procedureCode" : {
@@ -54964,6 +56916,10 @@
                "iso8601duration" : "25Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1991-08-17",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -54995,6 +56951,10 @@
             "age" : {
                "iso8601duration" : "26Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1992-07-18",
          "procedureCode" : {
@@ -55028,6 +56988,10 @@
                "iso8601duration" : "25Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1991-09-28",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -55059,6 +57023,10 @@
             "age" : {
                "iso8601duration" : "25Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1991-11-30",
          "procedureCode" : {
@@ -55454,6 +57422,10 @@
                "iso8601duration" : "17Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1959-08-29",
          "procedureCode" : {
             "id" : "SNOMED:168594001",
@@ -55486,6 +57458,10 @@
                "iso8601duration" : "62Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2003-09-05",
          "procedureCode" : {
             "id" : "SNOMED:74016001",
@@ -55517,6 +57493,10 @@
             "age" : {
                "iso8601duration" : "62Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "2003-09-12",
          "procedureCode" : {
@@ -55592,6 +57572,10 @@
                "iso8601duration" : "14Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1986-03-26",
          "procedureCode" : {
             "id" : "SNOMED:228557008",
@@ -55623,6 +57607,10 @@
             "age" : {
                "iso8601duration" : "13Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1985-05-29",
          "procedureCode" : {
@@ -55656,6 +57644,10 @@
                "iso8601duration" : "38Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2010-07-15",
          "procedureCode" : {
             "id" : "SNOMED:288086009",
@@ -55688,6 +57680,10 @@
                "iso8601duration" : "13Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1985-05-01",
          "procedureCode" : {
             "id" : "SNOMED:228557008",
@@ -55719,6 +57715,10 @@
             "age" : {
                "iso8601duration" : "13Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1985-01-30",
          "procedureCode" : {
@@ -56189,6 +58189,10 @@
                "iso8601duration" : "55Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1992-11-17",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -56220,6 +58224,10 @@
             "age" : {
                "iso8601duration" : "52Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1990-02-13",
          "procedureCode" : {
@@ -56253,6 +58261,10 @@
                "iso8601duration" : "53Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1990-09-11",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -56284,6 +58296,10 @@
             "age" : {
                "iso8601duration" : "53Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1991-04-30",
          "procedureCode" : {
@@ -56317,6 +58333,10 @@
                "iso8601duration" : "52Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1990-07-10",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -56348,6 +58368,10 @@
             "age" : {
                "iso8601duration" : "53Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1991-05-21",
          "procedureCode" : {
@@ -56381,6 +58405,10 @@
                "iso8601duration" : "35Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1972-09-15",
          "procedureCode" : {
             "id" : "SNOMED:168594001",
@@ -56412,6 +58440,10 @@
             "age" : {
                "iso8601duration" : "54Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1992-06-23",
          "procedureCode" : {
@@ -56687,6 +58719,10 @@
                "iso8601duration" : "40Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2010-01-08",
          "procedureCode" : {
             "id" : "SNOMED:269911007",
@@ -56761,6 +58797,10 @@
                "iso8601duration" : "19Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1985-08-14",
          "procedureCode" : {
             "id" : "SNOMED:288086009",
@@ -56793,6 +58833,10 @@
                "iso8601duration" : "16Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1983-07-09",
          "procedureCode" : {
             "id" : "SNOMED:65200003",
@@ -56824,6 +58868,10 @@
             "age" : {
                "iso8601duration" : "18Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1985-03-31",
          "procedureCode" : {
@@ -57019,6 +59067,10 @@
                "iso8601duration" : "66Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1977-11-15",
          "procedureCode" : {
             "id" : "SNOMED:384700001",
@@ -57050,6 +59102,10 @@
             "age" : {
                "iso8601duration" : "78Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1990-05-09",
          "procedureCode" : {
@@ -57083,6 +59139,10 @@
                "iso8601duration" : "78Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1990-05-09",
          "procedureCode" : {
             "id" : "SNOMED:60027007",
@@ -57114,6 +59174,10 @@
             "age" : {
                "iso8601duration" : "43Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1954-06-19",
          "procedureCode" : {
@@ -57147,6 +59211,10 @@
                "iso8601duration" : "70Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1982-03-07",
          "procedureCode" : {
             "id" : "SNOMED:312681000",
@@ -57178,6 +59246,10 @@
             "age" : {
                "iso8601duration" : "42Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1954-06-12",
          "procedureCode" : {
@@ -57211,6 +59283,10 @@
                "iso8601duration" : "10Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1921-11-16",
          "procedureCode" : {
             "id" : "SNOMED:269911007",
@@ -57242,6 +59318,10 @@
             "age" : {
                "iso8601duration" : "67Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1978-12-24",
          "procedureCode" : {
@@ -57517,6 +59597,10 @@
                "iso8601duration" : "19Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1973-06-21",
          "procedureCode" : {
             "id" : "SNOMED:269911007",
@@ -57548,6 +59632,10 @@
             "age" : {
                "iso8601duration" : "40Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1994-06-04",
          "procedureCode" : {
@@ -57581,6 +59669,10 @@
                "iso8601duration" : "42Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1996-07-30",
          "procedureCode" : {
             "id" : "SNOMED:288086009",
@@ -57612,6 +59704,10 @@
             "age" : {
                "iso8601duration" : "40Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1994-06-11",
          "procedureCode" : {
@@ -57645,6 +59741,10 @@
                "iso8601duration" : "25Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1980-03-14",
          "procedureCode" : {
             "id" : "SNOMED:274474001",
@@ -57676,6 +59776,10 @@
             "age" : {
                "iso8601duration" : "25Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1980-03-14",
          "procedureCode" : {
@@ -57751,6 +59855,10 @@
                "iso8601duration" : "14Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1971-02-17",
          "procedureCode" : {
             "id" : "SNOMED:269911007",
@@ -57782,6 +59890,10 @@
             "age" : {
                "iso8601duration" : "45Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "2002-11-26",
          "procedureCode" : {
@@ -59093,6 +61205,10 @@
                "iso8601duration" : "45Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2009-10-14",
          "procedureCode" : {
             "id" : "SNOMED:269911007",
@@ -59124,6 +61240,10 @@
             "age" : {
                "iso8601duration" : "26Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1991-05-01",
          "procedureCode" : {
@@ -59381,6 +61501,10 @@
                "iso8601duration" : "60Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2008-11-15",
          "procedureCode" : {
             "id" : "SNOMED:269911007",
@@ -59412,6 +61536,10 @@
             "age" : {
                "iso8601duration" : "11Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1960-06-09",
          "procedureCode" : {
@@ -59445,6 +61573,10 @@
                "iso8601duration" : "18Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1967-02-22",
          "procedureCode" : {
             "id" : "SNOMED:269911007",
@@ -59477,6 +61609,10 @@
                "iso8601duration" : "29Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1978-04-18",
          "procedureCode" : {
             "id" : "SNOMED:60027007",
@@ -59508,6 +61644,10 @@
             "age" : {
                "iso8601duration" : "29Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1978-04-18",
          "procedureCode" : {
@@ -59622,6 +61762,10 @@
             "age" : {
                "iso8601duration" : "72Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "2017-10-19",
          "procedureCode" : {
@@ -60118,6 +62262,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "27Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1993-10-03",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -60179,6 +62333,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "12Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1978-05-30",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -60240,6 +62404,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "39Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "2005-05-04",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -60423,6 +62597,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "44Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1996-09-29",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -60484,6 +62668,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "58Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "2010-04-18",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -60545,6 +62739,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "59Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "2011-04-24",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -60606,6 +62810,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "62Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "2014-05-11",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -60667,6 +62881,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "64Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "2016-05-22",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -60728,6 +62952,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "42Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1994-09-25",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -60789,6 +63023,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "61Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "2013-05-05",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -60927,6 +63171,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "23Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1997-12-22",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -61001,6 +63255,10 @@
                "iso8601duration" : "34Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1991-04-29",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -61032,6 +63290,10 @@
             "age" : {
                "iso8601duration" : "34Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1992-01-27",
          "procedureCode" : {
@@ -61065,6 +63327,10 @@
                "iso8601duration" : "35Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1992-06-01",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -61096,6 +63362,10 @@
             "age" : {
                "iso8601duration" : "34Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1991-07-22",
          "procedureCode" : {
@@ -61129,6 +63399,10 @@
                "iso8601duration" : "34Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1991-09-23",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -61160,6 +63434,10 @@
             "age" : {
                "iso8601duration" : "34Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1992-01-06",
          "procedureCode" : {
@@ -61193,6 +63471,10 @@
                "iso8601duration" : "33Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1991-02-04",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -61224,6 +63506,10 @@
             "age" : {
                "iso8601duration" : "36Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1994-03-02",
          "procedureCode" : {
@@ -61288,6 +63574,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "19Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1976-11-02",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -61349,6 +63645,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "39Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1996-09-08",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -61503,6 +63809,10 @@
                "iso8601duration" : "99Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2013-11-15",
          "procedureCode" : {
             "id" : "SNOMED:180325003",
@@ -61534,6 +63844,10 @@
             "age" : {
                "iso8601duration" : "89Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "2003-09-19",
          "procedureCode" : {
@@ -61567,6 +63881,10 @@
                "iso8601duration" : "61Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1975-09-05",
          "procedureCode" : {
             "id" : "SNOMED:288086009",
@@ -61598,6 +63916,10 @@
             "age" : {
                "iso8601duration" : "33Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1947-02-06",
          "procedureCode" : {
@@ -61631,6 +63953,10 @@
                "iso8601duration" : "80Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1994-04-29",
          "procedureCode" : {
             "id" : "SNOMED:180325003",
@@ -61662,6 +63988,10 @@
             "age" : {
                "iso8601duration" : "81Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1995-05-05",
          "procedureCode" : {
@@ -61695,6 +64025,10 @@
                "iso8601duration" : "103Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2017-12-08",
          "procedureCode" : {
             "id" : "SNOMED:180325003",
@@ -61726,6 +64060,10 @@
             "age" : {
                "iso8601duration" : "38Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1952-06-23",
          "procedureCode" : {
@@ -62203,6 +64541,10 @@
                "iso8601duration" : "13Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1990-09-11",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -62234,6 +64576,10 @@
             "age" : {
                "iso8601duration" : "13Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1990-12-04",
          "procedureCode" : {
@@ -62267,6 +64613,10 @@
                "iso8601duration" : "13Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1991-02-26",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -62298,6 +64648,10 @@
             "age" : {
                "iso8601duration" : "28Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "2005-10-22",
          "procedureCode" : {
@@ -62331,6 +64685,10 @@
                "iso8601duration" : "15Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1992-06-23",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -62362,6 +64720,10 @@
             "age" : {
                "iso8601duration" : "6Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1984-01-27",
          "procedureCode" : {
@@ -62395,6 +64757,10 @@
                "iso8601duration" : "13Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1990-07-31",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -62426,6 +64792,10 @@
             "age" : {
                "iso8601duration" : "13Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1990-11-13",
          "procedureCode" : {
@@ -62952,6 +65322,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "36Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "2012-03-13",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -63013,6 +65393,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "2Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1978-11-26",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -63195,6 +65585,10 @@
                "iso8601duration" : "28Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1991-10-17",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -63226,6 +65620,10 @@
             "age" : {
                "iso8601duration" : "12Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1976-04-11",
          "procedureCode" : {
@@ -63259,6 +65657,10 @@
                "iso8601duration" : "26Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1990-03-29",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -63290,6 +65692,10 @@
             "age" : {
                "iso8601duration" : "28Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1991-06-13",
          "procedureCode" : {
@@ -63323,6 +65729,10 @@
                "iso8601duration" : "27Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1990-08-02",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -63354,6 +65764,10 @@
             "age" : {
                "iso8601duration" : "11Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1975-03-30",
          "procedureCode" : {
@@ -63387,6 +65801,10 @@
                "iso8601duration" : "29Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1992-10-08",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -63418,6 +65836,10 @@
             "age" : {
                "iso8601duration" : "26Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1990-04-19",
          "procedureCode" : {
@@ -63682,6 +66104,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "23Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1943-02-03",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -63743,6 +66175,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "26Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1946-01-01",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -63804,6 +66246,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "46Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1965-10-04",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -63865,6 +66317,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "36Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1956-07-24",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -63926,6 +66388,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "39Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1958-12-25",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -63987,6 +66459,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "5Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1925-02-07",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -64048,6 +66530,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "17Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1937-06-19",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -64191,6 +66683,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "49Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "2010-09-23",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -64252,6 +66754,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "31Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1992-03-12",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -64355,6 +66867,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "48Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1993-12-21",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -65038,6 +67560,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "42Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1998-10-03",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -65099,6 +67631,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "54Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "2010-08-14",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -65270,6 +67812,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "20Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1985-10-12",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -65331,6 +67883,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "39Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "2004-02-15",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -65392,6 +67954,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "2Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1967-10-03",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -65453,6 +68025,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "40Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "2004-11-27",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -65527,6 +68109,10 @@
                "iso8601duration" : "9Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1985-01-24",
          "procedureCode" : {
             "id" : "SNOMED:60027007",
@@ -65558,6 +68144,10 @@
             "age" : {
                "iso8601duration" : "20Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1995-09-29",
          "procedureCode" : {
@@ -65591,6 +68181,10 @@
                "iso8601duration" : "20Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1995-09-29",
          "procedureCode" : {
             "id" : "SNOMED:274474001",
@@ -65623,6 +68217,10 @@
                "iso8601duration" : "10Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1985-10-23",
          "procedureCode" : {
             "id" : "SNOMED:269911007",
@@ -65654,6 +68252,10 @@
             "age" : {
                "iso8601duration" : "15Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1991-08-04",
          "procedureCode" : {
@@ -65728,6 +68330,10 @@
             "age" : {
                "iso8601duration" : "49Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "2002-10-27",
          "procedureCode" : {
@@ -65963,6 +68569,10 @@
                "iso8601duration" : "71Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2012-08-16",
          "procedureCode" : {
             "id" : "SNOMED:274474001",
@@ -65994,6 +68604,10 @@
             "age" : {
                "iso8601duration" : "71Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "2012-08-16",
          "procedureCode" : {
@@ -66027,6 +68641,10 @@
                "iso8601duration" : "71Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2012-08-16",
          "procedureCode" : {
             "id" : "SNOMED:312681000",
@@ -66058,6 +68676,10 @@
             "age" : {
                "iso8601duration" : "40Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1981-12-17",
          "procedureCode" : {
@@ -66091,6 +68713,10 @@
                "iso8601duration" : "37Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1979-04-11",
          "procedureCode" : {
             "id" : "SNOMED:288086009",
@@ -66123,6 +68749,10 @@
                "iso8601duration" : "10Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1952-02-02",
          "procedureCode" : {
             "id" : "SNOMED:60027007",
@@ -66154,6 +68784,10 @@
             "age" : {
                "iso8601duration" : "10Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1952-02-02",
          "procedureCode" : {
@@ -66218,6 +68852,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "53Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1995-02-21",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -66279,6 +68923,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "50Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1992-02-10",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -66340,6 +68994,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "14Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1955-07-17",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -66401,6 +69065,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "77Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "2019-06-16",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -66462,6 +69136,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "57Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1999-01-30",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -66651,6 +69335,10 @@
                "iso8601duration" : "37Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1993-01-23",
          "procedureCode" : {
             "id" : "SNOMED:180256009",
@@ -66682,6 +69370,10 @@
             "age" : {
                "iso8601duration" : "35Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1990-10-06",
          "procedureCode" : {
@@ -66757,6 +69449,10 @@
                "iso8601duration" : "18Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "1979-05-29",
          "procedureCode" : {
             "id" : "SNOMED:19490002",
@@ -66788,6 +69484,10 @@
             "age" : {
                "iso8601duration" : "18Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1979-05-29",
          "procedureCode" : {
@@ -66821,6 +69521,10 @@
                "iso8601duration" : "48Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2009-04-14",
          "procedureCode" : {
             "id" : "SNOMED:269911007",
@@ -66852,6 +69556,10 @@
             "age" : {
                "iso8601duration" : "30Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1990-10-20",
          "procedureCode" : {
@@ -66885,6 +69593,10 @@
                "iso8601duration" : "58Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2019-04-20",
          "procedureCode" : {
             "id" : "SNOMED:384700001",
@@ -66916,6 +69628,10 @@
             "age" : {
                "iso8601duration" : "58Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "2019-04-20",
          "procedureCode" : {
@@ -67253,6 +69969,10 @@
                "iso8601duration" : "41Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2019-02-20",
          "procedureCode" : {
             "id" : "SNOMED:269911007",
@@ -67284,6 +70004,10 @@
             "age" : {
                "iso8601duration" : "4Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1982-12-11",
          "procedureCode" : {
@@ -67348,6 +70072,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "12Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1990-02-14",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -67409,6 +70143,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "18Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1996-09-05",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -67470,6 +70214,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "17Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1995-04-02",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -67531,6 +70285,16 @@
             }
          },
          "procedure" : {
+            "ageAtProcedure" : {
+               "age" : {
+                  "iso8601duration" : "1Y"
+               }
+            },
+            "bodySite" : {
+               "id" : "NCIT:C126101",
+               "label" : "Not Available"
+            },
+            "dateOfProcedure" : "1979-08-30",
             "procedureCode" : {
                "id" : "NCIT:C126101",
                "label" : "Not Available"
@@ -67652,6 +70416,10 @@
                "iso8601duration" : "35Y"
             }
          },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
          "dateOfProcedure" : "2000-07-02",
          "procedureCode" : {
             "id" : "SNOMED:168594001",
@@ -67683,6 +70451,10 @@
             "age" : {
                "iso8601duration" : "3Y"
             }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "dateOfProcedure" : "1968-11-12",
          "procedureCode" : {

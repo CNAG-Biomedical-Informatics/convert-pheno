@@ -52,6 +52,10 @@
       "medicalActions" : [
          {
             "procedure" : {
+               "bodySite" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
                "code" : {
                   "id" : "OPCS4:L46.3",
                   "label" : "OPCS(v4-0.0):Ligation of visceral branch of abdominal aorta NEC"
@@ -124,6 +128,10 @@
       "medicalActions" : [
          {
             "procedure" : {
+               "bodySite" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
                "code" : {
                   "id" : "OPCS4:K06.1",
                   "label" : "OPCS(v4-0.0):Repositioning of transposed great arteries"
@@ -196,6 +204,10 @@
       "medicalActions" : [
          {
             "procedure" : {
+               "bodySite" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
                "code" : {
                   "id" : "OPCS4:T89.4",
                   "label" : "OPCS(v4-0.0):Cannulation of lymphatic duct"
@@ -268,6 +280,10 @@
       "medicalActions" : [
          {
             "procedure" : {
+               "bodySite" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
                "code" : {
                   "id" : "OPCS4:T77.2",
                   "label" : "OPCS(v4-0.0):Wide excision of muscle"
@@ -340,6 +356,10 @@
       "medicalActions" : [
          {
             "procedure" : {
+               "bodySite" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
                "code" : {
                   "id" : "OPCS4:Z01.4",
                   "label" : "OPCS(v4-0.0):Tissue of occipital lobe of brain"
@@ -412,6 +432,10 @@
       "medicalActions" : [
          {
             "procedure" : {
+               "bodySite" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
                "code" : {
                   "id" : "OPCS4:E55.9",
                   "label" : "OPCS(v4-0.0):Unspecified open extirpation of lesion of lung"
@@ -492,6 +516,10 @@
       "medicalActions" : [
          {
             "procedure" : {
+               "bodySite" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
                "code" : {
                   "id" : "OPCS4:Z98.6",
                   "label" : "OPCS(v4-0.0):Short saphenous vein"
@@ -586,6 +614,10 @@
       "medicalActions" : [
          {
             "procedure" : {
+               "bodySite" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
                "code" : {
                   "id" : "OPCS4:C46.3",
                   "label" : "OPCS(v4-0.0):Penetrating graft to cornea"
@@ -658,6 +690,10 @@
       "medicalActions" : [
          {
             "procedure" : {
+               "bodySite" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
                "code" : {
                   "id" : "OPCS4:C01.8",
                   "label" : "OPCS(v4-0.0):Other specified excision of eye"
@@ -738,6 +774,10 @@
       "medicalActions" : [
          {
             "procedure" : {
+               "bodySite" : {
+                  "id" : "NCIT:C126101",
+                  "label" : "Not Available"
+               },
                "code" : {
                   "id" : "OPCS4:H03.8",
                   "label" : "OPCS(v4-0.0):Other specified other operations on appendix"

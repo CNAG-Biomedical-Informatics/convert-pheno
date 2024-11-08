@@ -28,7 +28,7 @@ $DEFAULT{quantity} = {
     referenceRange => $DEFAULT{referenceRange}
 };
 
-# Lock the hash to make it read-only
+# Lock the hash recursively to make it read-only
 lock_hash_recurse(%DEFAULT);
 
 # Function to get a reference to the locked default values

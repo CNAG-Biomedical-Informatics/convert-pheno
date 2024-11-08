@@ -3,13 +3,13 @@ package Convert::Pheno::REDCap;
 use strict;
 use warnings;
 use autodie;
-use feature qw(say);
-use List::Util qw(any);
+use feature                 qw(say);
+use List::Util              qw(any);
 use Convert::Pheno::Default qw(get_defaults);
 use Convert::Pheno::Mapping;
 use Data::Dumper;
 use Scalar::Util qw(looks_like_number);
-use Hash::Util qw(lock_keys);
+use Hash::Util   qw(lock_keys);
 use Exporter 'import';
 
 # Symbols to export by default
@@ -1021,9 +1021,10 @@ sub map_treatments {
             $dose_interval->{interval} = $DEFAULT->{interval};
 
             # Autovivification of $dose_interval->{quantity}
-            $dose_interval->{quantity}{value} = $participant->{$duration}; 
-            $dose_interval->{quantity}{unit} = $drug_unit; 
-            $dose_interval->{quantity}{referenceRange} = $DEFAULT->{referenceRange};
+            $dose_interval->{quantity}{value} = $participant->{$duration};
+            $dose_interval->{quantity}{unit}  = $drug_unit;
+            $dose_interval->{quantity}{referenceRange} =
+              $DEFAULT->{referenceRange};
 
             $dose_interval->{scheduleFrequency} = $DEFAULT->{ontology_term};
             push @{ $treatment->{doseIntervals} }, $dose_interval;

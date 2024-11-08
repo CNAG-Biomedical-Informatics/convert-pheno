@@ -5,7 +5,7 @@
 ## diseases
 |  OMOP Table(s)                                              | OMOP Variable                                              | BFF JSON path                                               |
 |  :---:                                                      | :---:                                                      | :---:                                                       |
-|  CONDITION_OCCURRENCE, PERSON                               | condition_start_date, birth_datetime                       | diseases.ageOfOnset.iso8601duration                         |
+|  CONDITION_OCCURRENCE, PERSON                               | condition_start_date, birth_datetime                       | diseases.ageOfOnset                                         |
 |  CONDITION_OCCURRENCE                                       | condition_concept_id                                       | diseases.diseaseCode                                        |
 |  CONDITION_OCCURRENCE                                       | All variables                                              | diseases._info                                              |
 |  CONDITION_OCCURRENCE                                       | condition_status_concept_id                                | diseases.stage                                              |
@@ -19,7 +19,7 @@
 ## exposures
 |  OMOP Table(s)                                              | OMOP Variable                                              | BFF JSON path                                               |
 |  :---:                                                      | :---:                                                      | :---:                                                       |
-|  OBSERVATION, PERSON                                        | observation_date, birth_datetime                           | exposures.ageAtExposure.iso8601duration                   |
+|  OBSERVATION, PERSON                                        | observation_date, birth_datetime                           | exposures.ageAtExposure                                     |
 |  OBSERVATION                                                | observation_date                                           | exposures.date                                              |
 |                                                             | DEFAULT                                                    | exposures.duration                                          |
 |  OBSERVATION                                                | All variables                                              | exposures._info                                             |
@@ -46,7 +46,7 @@
 ## interventionsOrProcedures
 |  OMOP Table(s)                                              | OMOP Variable                                              | BFF JSON path                                               |
 |  :---:                                                      | :---:                                                      | :---:                                                       |
-|  PROCEDURE_OCCURRENCE, PERSON                               | procedure_date, birth_datetime                             | interventionsOrProcedures.ageAtProcedure.iso8601duration    |
+|  PROCEDURE_OCCURRENCE, PERSON                               | procedure_date, birth_datetime                             | interventionsOrProcedures.ageAtProcedure                    |  
 |  PROCEDURE_OCCURRENCE                                       | procedure_date                                             | interventionsOrProcedures.dateOfProcedure                   |
 |  PROCEDURE_OCCURRENCE                                       | All variables                                              | interventionsOrProcedures._info                             |
 |  PROCEDURE_OCCURRENCE                                       | procedure_concept_id                                       | interventionsOrProcedures.procedureCode                     |
@@ -64,8 +64,10 @@ NA
 |  MEASUREMENT                                                | value_as_number                                            | measures.measurementValue.quantity.value                    |
 |  MEASUREMENT                                                | operator_concept_id, value_as_number, unit_concept_id      | measures.measurementValue.quantity.referenceRange           |
 |  MEASUREMENT                                                | All variables                                              | measures._info                                              |
-|  MEASUREMENT, PERSON                                        | measurement_date, birth_datetime                           | measures.observationMoment.age.iso8601duration              |
-|  MEASUREMENT                                                | measurement_type_concept_id                                | measures.procedure.prodecureCode
+|  MEASUREMENT, PERSON                                        | measurement_date, birth_datetime                           | measures.observationMoment                                  |
+|  MEASUREMENT                                                | measurement_date, birth_datetime                           | measures.procedure.ageAtProcedure                           |
+|  MEASUREMENT                                                | measurement_date                                           | measures.procedure.dateOfProcedure                          |
+|  MEASUREMENT                                                | measurement_type_concept_id                                | measures.procedure.prodecureCode                            |
 |  MEASUREMENT                                                | person_id, visit_occurrence_id                             | diseases._visit                                             |
 
 ## pedigrees
@@ -76,7 +78,7 @@ NA
 |  :---:                                                      | :---:                                                      | :---:                                                       |
 |  OBSERVATION                                                | observation_concept_id                                     | phenotypicFeatures.featureType                              |
 |  OBSERVATION                                                | All variables                                              | phenotypicFeatures._info                                    |
-|  OBSERVATION, PERSON                                        | observation_date, birth_datetime                           | phenotypicFeatures.onset.isoduration                        |
+|  OBSERVATION, PERSON                                        | observation_date, birth_datetime                           | phenotypicFeatures.onset                                    |
 |  OBSERVATION                                                | person_id, visit_occurrence_id                             | phenotypicFeatures._visit                                   |
 
 ## sex
@@ -87,7 +89,7 @@ NA
 ## treatments
 |  OMOP Table(s)                                              | OMOP Variable                                              | BFF JSON path                                               |
 |  :---:                                                      | :---:                                                      | :---:                                                       |
-|  DRUG_EXPOSURE, PERSON                                      | drug_exposure_start_date, birth_datetime                   | treatments.ageOfOnset.age.iso8601duration                   |
+|  DRUG_EXPOSURE, PERSON                                      | drug_exposure_start_date, birth_datetime                   | treatments.ageOfOnset                                       |
 |                                                             | DEFAULT                                                    | treatments.date                                             |
 |  DRUG_EXPOSURE                                              | All variables                                              | treatments._info                                            |
 |                                                             | DEFAULT                                                    | treatments.doseIntervals                                    |

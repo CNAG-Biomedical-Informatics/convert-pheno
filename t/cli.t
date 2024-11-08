@@ -112,6 +112,7 @@ my $input = {
 };
 
 for my $method (sort keys %{$input}) {
+
     $method = $method eq 'pxf2bff_yaml' ? 'pxf2bff' : $method;
 
     # Create Temporary file
