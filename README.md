@@ -22,8 +22,6 @@
 
 **Google Colab tutorial**: <a href="https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6?usp=sharing" target="_blank">https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6?usp=sharing</a>
 
-**CLI Source Code**: <a href="https://github.com/cnag-biomedical-informatics/convert-pheno" target="_blank">https://github.com/cnag-biomedical-informatics/convert-pheno</a>
-
 **CPAN Distribution**: <a href="https://metacpan.org/pod/Convert::Pheno" target="_blank">https://metacpan.org/pod/Convert::Pheno</a>
 
 **Docker Hub Image**: <a href="https://hub.docker.com/r/manuelrueda/convert-pheno/tags" target="_blank">https://hub.docker.com/r/manuelrueda/convert-pheno/tags</a>
