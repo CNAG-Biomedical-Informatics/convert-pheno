@@ -28,6 +28,19 @@
 
 **Web App UI**: <a href="https://convert-pheno.cnag.cat" target="_blank">https://convert-pheno.cnag.cat</a>
 
+# Table of contents
+- [Description](#description)
+  - [Name](#name)
+  - [Synopsis](#synopsis)
+  - [Summary](#summary)
+- [Installation](#installation)
+  - [Non-Containerized](#non-containerized)
+  - [Containerized](#containerized)
+- [How to run convert-pheno](#how-to-run-convert-pheno)
+- [Citation](#citation)
+  - [Author](#author)
+- [License](#copyright-and-license)
+
 # NAME
 
 convert-pheno - A script to interconvert common data models for phenotypic data
@@ -98,7 +111,7 @@ convert-pheno - A script to interconvert common data models for phenotypic data
 
 # SUMMARY
 
-A script that uses [Convert::Pheno](https://metacpan.org/pod/Convert%3A%3APheno) to interconvert common data models for phenotypic data
+`convert-pheno` is a command-line front-end to the CPAN's module [Convert::Pheno](https://metacpan.org/pod/Convert%3A%3APheno) to interconvert common data models for phenotypic data.
 
 # INSTALLATION
 

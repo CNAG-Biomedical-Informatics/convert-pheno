@@ -511,7 +511,7 @@ C<convert-pheno> is a command-line front-end to the CPAN's module L<Convert::Phe
 
 =head1 SUMMARY
 
-A script that uses L<Convert::Pheno> to interconvert common data models for phenotypic data
+C<convert-pheno> is a command-line front-end to the CPAN's module L<Convert::Pheno> to interconvert common data models for phenotypic data.
 
 =head1 INSTALLATION
 

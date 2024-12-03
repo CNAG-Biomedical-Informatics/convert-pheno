@@ -11,7 +11,7 @@
     section Publication
     Write manuscript          :done,      m1, 2023-01-01, 110d
     Submission                :done,      m2, after m1, 260d
-    Paper publihhed           :milestone, after m2, 0d
+    Paper published           :milestone, after m2, 0d
 
     section Input-Formats
     CSV (in)        :crit, f1, after f0,   445d
