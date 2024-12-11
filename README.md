@@ -28,6 +28,14 @@
 
 **Web App UI**: <a href="https://convert-pheno.cnag.cat" target="_blank">https://convert-pheno.cnag.cat</a>
 
+**Podcast-Style Audio Format**
+<p>
+<audio controls>
+  <source src="docs/media/convert-pheno-notebook-llm.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+</p>
+
 # Table of contents
 - [Description](#description)
   - [Name](#name)
