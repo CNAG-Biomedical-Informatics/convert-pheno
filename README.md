@@ -28,8 +28,6 @@
 
 **Web App UI**: <a href="https://convert-pheno.cnag.cat" target="_blank">https://convert-pheno.cnag.cat</a>
 
-**Convert-Pheno Paper Explained: Podcast Edition**: [🎧 Listen to the Convert-Pheno podcast](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/docs/media/convert-pheno-compressed-notebook-llm.mp3), created using Notebook LLM.
-
 # Table of contents
 - [Description](#description)
   - [Name](#name)
