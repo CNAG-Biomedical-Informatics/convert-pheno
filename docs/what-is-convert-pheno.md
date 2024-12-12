@@ -1,6 +1,11 @@
 # What is Convert-Pheno?
 
-`Convert-Pheno` is an **open-source** toolkit for **interconverting common phenotypic data models**, including Beacon v2, CISC-ODM, OMOP CDM, Phenopackets v2, and REDCap, enabling data sharing and integration across standards.
+`Convert-Pheno` is an **open-source** toolkit for **interconverting common phenotypic data models**, enabling data sharing and integration across standards.
+
+<figure markdown>
+ ![Convert-Pheno](img/convert-pheno-schema.png){width="500"}
+ <figcaption>Convert-Pheno schematic view</figcaption>
+</figure>
 
 ## Modes of Operation
 
