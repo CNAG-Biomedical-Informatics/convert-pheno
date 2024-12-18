@@ -1,5 +1,9 @@
 Revision history for Perl distribution Convert-Pheno
 
+0.26 2024-XX-XXT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
+
+ - Fixed issue with excluded/negated boolean values in <pxf2bff>
+
 0.25 2024-11-09T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
  - Changed the default 'ontology_term' from {id => 'NCIT:NA0000', label => 'NA'} to {id => 'NCIT:C126101', label => 'Not Available'}

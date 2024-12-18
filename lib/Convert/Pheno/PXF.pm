@@ -3,7 +3,8 @@ package Convert::Pheno::PXF;
 use strict;
 use warnings;
 use autodie;
-use feature                 qw(say);
+use feature qw(say);
+use Data::Dumper;
 use Convert::Pheno::Default qw(get_defaults);
 use Convert::Pheno::Mapping;
 use Exporter 'import';
@@ -22,21 +23,21 @@ sub do_pxf2bff {
     my ( $self, $data ) = @_;
     my $sth = $self->{sth};
 
-  # *** IMPORTANT ****
-  # PXF three top-level elements are usually split in files:
-  # - phenopacket.json ( usually - 1 individual per file)
-  # - cohort.json (info on mutliple individuals)
-  # - family.json (info related to one or multiple individuals).
-  # These 3 files dont't contain their respective objects at the root level (/).
-  #
-  # However, top-elements might be combined into a single file (e.g., pxf.json),
-  # as a result, certain files may contain objects for top-level elements:
-  # - /phenopacket
-  # - /cohort
-  # - /family
-  #
-  # In this context, we only accept top-level phenopackets,
-  # while the other two types will be categorized as "info".
+    # *** IMPORTANT ****
+    # PXF three top-level elements are usually split in files:
+    # - phenopacket.json ( usually - 1 individual per file)
+    # - cohort.json (info on mutliple individuals)
+    # - family.json (info related to one or multiple individuals).
+    # These 3 files dont't contain their respective objects at the root level (/).
+    #
+    # However, top-elements might be combined into a single file (e.g., pxf.json),
+    # as a result, certain files may contain objects for top-level elements:
+    # - /phenopacket
+    # - /cohort
+    # - /family
+    #
+    # In this context, we only accept top-level phenopackets,
+    # while the other two types will be categorized as "info".
 
     # We create cursors for top-level elements
     # 1 - phenopacket (mandatory)
@@ -55,15 +56,15 @@ sub do_pxf2bff {
     # Normalize the hash for medical_actions + medicalActions = medicalActions
     if ( exists $phenopacket->{medical_actions} ) {
 
-       # NB: The delete function returns the value of the deleted key-value pair
+        # NB: The delete function returns the value of the deleted key-value pair
         $phenopacket->{medicalActions} = delete $phenopacket->{medical_actions};
     }
 
-# CNAG files have 'meta_data' nomenclature, but PXF documentation uses 'metaData'
-# We search for both 'meta_data' and 'metaData' and simply display the
+    # CNAG files have 'meta_data' nomenclature, but PXF documentation uses 'metaData'
+    # We search for both 'meta_data' and 'metaData' and simply display the
     if ( exists $phenopacket->{meta_data} ) {
 
-       # NB: The delete function returns the value of the deleted key-value pair
+        # NB: The delete function returns the value of the deleted key-value pair
         $phenopacket->{metaData} = delete $phenopacket->{meta_data};
     }
 
@@ -92,10 +93,11 @@ sub do_pxf2bff {
             $disease->{diseaseCode} = $disease->{term};
             $disease->{ageOfOnset}  = $disease->{onset}
               if exists $disease->{onset};
-            $disease->{excluded} =
-              ( exists $disease->{negated} || exists $disease->{excluded} )
-              ? JSON::XS::true
-              : JSON::XS::false;
+
+            # Check and normalize keys if they exist
+            for (qw/excluded negated/) {
+                $disease->{$_} = $disease->{$_} if exists $disease->{$_};
+            }
 
             # Clean analog terms if exist
             for (qw/term onset/) {
@@ -253,12 +255,13 @@ sub do_pxf2bff {
             # *** IMPORTANT ****
             # In v2.0.0 BFF 'evidence' is object but in PXF is array of objects
 
-            $phenotypicFeature->{excluded} =
-              (      exists $phenotypicFeature->{negated}
-                  || exists $phenotypicFeature->{excluded} )
-              ? JSON::XS::true
-              : JSON::XS::false,
-              $phenotypicFeature->{featureType} = $phenotypicFeature->{type}
+            # Check and normalize keys if they exist
+            for (qw/excluded negated/) {
+                $phenotypicFeature->{excluded} = $phenotypicFeature->{$_}
+                  if exists $phenotypicFeature->{$_};
+            }
+
+            $phenotypicFeature->{featureType} = $phenotypicFeature->{type}
               if exists $phenotypicFeature->{type};
 
             # Clean analog terms if exist
@@ -363,6 +366,15 @@ sub map_complexValue {
     }
 
     return 1;
+}
+
+# Function to normalize a value to a Boolean
+sub to_boolean {
+
+    my $value = shift;
+    print Dumper $value;
+    return JSON::XS::true if $value && $value ne 'false';    # Non-empty string and not 'false'
+    return JSON::XS::false;                                  # Empty, 'false', or undef
 }
 
 1;
