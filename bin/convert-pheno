@@ -17,15 +17,15 @@ package main;
 use strict;
 use warnings;
 use autodie;
-use feature qw(say);
+use feature      qw(say);
 use Getopt::Long qw(:config no_ignore_case);
 use Pod::Usage;
 use Data::Dumper;
 use Sys::Hostname;
-use POSIX qw(strftime);
-use File::Spec::Functions qw(catdir catfile);
+use POSIX                          qw(strftime);
+use File::Spec::Functions          qw(catdir catfile);
 use File::ShareDir::ProjectDistDir qw(dist_dir);
-use FindBin qw($Bin);
+use FindBin                        qw($Bin);
 use lib "$Bin/../lib";
 use Term::ANSIColor qw(:constants);
 use Convert::Pheno;
@@ -320,8 +320,8 @@ sub convert {
         }
     }
 
-   # Finish
-   print BOLD GREEN program_footer(), RESET if $verbose;
+    # Finish
+    print BOLD GREEN program_footer(), RESET if $verbose;
 }
 
 sub program_header {
@@ -341,13 +341,12 @@ EOF
 
 sub program_footer {
 
-    my $str     = <<EOF;
+    my $str = <<EOF;
 All done!
 
 EOF
     return $str;
 }
-
 
 sub program_body {
 
@@ -362,7 +361,6 @@ Processing: <$file>
 EOF
     return $msg;
 }
-
 
 sub write_log {
 
@@ -412,32 +410,31 @@ sub ask_overwrite {
 
     my $filepath = shift;
 
-    # If file exists we ask the user what to do
+    # Check if the file exists
     if ( -f $filepath ) {
+        my $attempt_count = 0;
+        my $max_attempts  = 5;
 
-        my $count   = 0;
-        my $attempt = 5;
-        my $input;
-      INPUT: {
-            do {
-                say BOLD RED "<$filepath> exists. Overwrite? [Y/n]";
-                $input = <STDIN>;
-                chomp $input;
-                $input = lc($input);
-                if ( $input eq 'y' ) {
-                    unlink($filepath);
-                }
-                elsif ( $input eq 'n' ) {
-                    die "You chose to stop\n";
-                }
-                else {
-                    say "Invalid input";
-                }
-                $count++;
-                die "Sorry, too many atempts!\n" if $count == $attempt;
-            } until ( $input eq 'y' || $input eq 'n' );
+        while ( $attempt_count < $max_attempts ) {
+            print BOLD RED "<$filepath> exists. Overwrite? [Y/n]: ";
+            my $input = <STDIN>;
+            chomp $input;
+
+            if ( $input eq 'Y' ) {
+                unlink($filepath)
+                  or die "Failed to delete <$filepath>: $!\n";
+                print RESET;
+                return;    # Exit after successful deletion
+            }
+            elsif ( $input eq 'n' ) {
+                die "Operation aborted by the user.\n";
+            }
+            else {
+                say "Invalid input. Please enter 'Y' or 'n'.";
+                $attempt_count++;
+            }
         }
-        print RESET;
+        die "Too many invalid attempts. Operation aborted.\n";
     }
 }
 
