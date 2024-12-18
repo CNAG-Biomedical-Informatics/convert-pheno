@@ -12,7 +12,7 @@
                "id" : "MONDO:0100308",
                "label" : "atactic disorder"
             },
-            "excluded" : true
+            "excluded" : false
          }
       ],
       "id" : "16-year-old boy",
@@ -323,7 +323,7 @@
       ],
       "phenotypicFeatures" : [
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0001288",
                "label" : "Gait disturbance"
@@ -335,7 +335,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0001324",
                "label" : "Muscle weakness"
@@ -353,7 +353,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0002066",
                "label" : "Gait ataxia"
@@ -365,7 +365,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0001308",
                "label" : "Tongue fasciculations"
@@ -377,7 +377,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0002080",
                "label" : "Intention tremor"
@@ -389,7 +389,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0002075",
                "label" : "Dysdiadochokinesis"
@@ -401,7 +401,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0001251",
                "label" : "Ataxia"
@@ -413,7 +413,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0001284",
                "label" : "Areflexia"
@@ -425,7 +425,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0011448",
                "label" : "Ankle clonus"
@@ -437,7 +437,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0003690",
                "label" : "Limb muscle weakness"
@@ -616,7 +616,7 @@
                   }
                }
             ],
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0001629",
                "label" : "Ventricular septal defect"
@@ -641,7 +641,7 @@
                   }
                }
             ],
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0000280",
                "label" : "Coarse facial features"
@@ -660,7 +660,7 @@
                   }
                }
             ],
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0008689",
                "label" : "Bilateral cryptorchidism"
@@ -685,7 +685,7 @@
                   }
                }
             ],
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0001561",
                "label" : "Polyhydramnios"
@@ -710,7 +710,7 @@
                   }
                }
             ],
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0000054",
                "label" : "Micropenis"
@@ -735,7 +735,7 @@
                   }
                }
             ],
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0001798",
                "label" : "Anonychia"
@@ -760,7 +760,7 @@
                   }
                }
             ],
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0001320",
                "label" : "Cerebellar vermis hypoplasia"
@@ -779,7 +779,7 @@
                   }
                }
             ],
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0000518",
                "label" : "Cataract"
@@ -804,7 +804,7 @@
                   }
                }
             ],
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0002198",
                "label" : "Dilated fourth ventricle"
@@ -823,7 +823,7 @@
                   }
                }
             ],
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0100333",
                "label" : "Unilateral cleft lip"
@@ -855,7 +855,7 @@
                "id" : "MONDO:0004994",
                "label" : "cardiomyopathy"
             },
-            "excluded" : true
+            "excluded" : false
          },
          {
             "ageOfOnset" : {
@@ -865,7 +865,7 @@
                "id" : "MONDO:0100096",
                "label" : "COVID-19"
             },
-            "excluded" : true
+            "excluded" : false
          }
       ],
       "id" : "P123542",
@@ -1016,7 +1016,7 @@
       ],
       "phenotypicFeatures" : [
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0001945",
                "label" : "Fever "
@@ -1026,7 +1026,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0030157",
                "label" : "Flank pain"
@@ -1036,7 +1036,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0000790",
                "label" : "Hematuria"
@@ -1046,7 +1046,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0012625",
                "label" : "Stage 3 chronic kidney disease"
@@ -1056,7 +1056,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0003326",
                "label" : "Myalgia"
@@ -1069,7 +1069,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0002014",
                "label" : "Diarrhea"
@@ -1082,7 +1082,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0002094",
                "label" : "Dyspnea"
@@ -1095,7 +1095,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0033677",
                "label" : "Acute respiratory distress syndrome"
@@ -1346,7 +1346,7 @@
       "karyotypicSex" : "UNKNOWN_KARYOTYPE",
       "phenotypicFeatures" : [
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0031936",
                "label" : "Delayed ability to walk"
@@ -1358,7 +1358,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0003707",
                "label" : "Calf muscle pseudohypertrophy"
@@ -1371,7 +1371,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0009046",
                "label" : "Difficulty running"
@@ -1384,7 +1384,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0003458",
                "label" : "EMG: myopathic abnormalities"
@@ -1396,7 +1396,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0003236",
                "label" : "Elevated circulating creatine kinase concentration"
@@ -1526,7 +1526,7 @@
                   }
                }
             ],
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0000238",
                "label" : "Hydrocephalus"
@@ -1550,7 +1550,7 @@
                   }
                }
             ],
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0002507",
                "label" : "Semilobar holoprosencephaly"
@@ -1575,7 +1575,7 @@
                   }
                }
             ],
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0001750",
                "label" : "Single ventricle"
@@ -1599,7 +1599,7 @@
                   }
                }
             ],
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0001272",
                "label" : "Cerebellar atrophy"
@@ -1623,7 +1623,7 @@
                   }
                }
             ],
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0100702",
                "label" : "Arachnoid cyst"
@@ -1647,7 +1647,7 @@
                   }
                }
             ],
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0001272",
                "label" : "Cerebellar atrophy"
@@ -1671,7 +1671,7 @@
                   }
                }
             ],
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0001263",
                "label" : "Global developmental delay"
@@ -1696,7 +1696,7 @@
                   }
                }
             ],
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0001347",
                "label" : "Hyperreflexia"
@@ -1720,7 +1720,7 @@
                "id" : "OMIM:154700",
                "label" : "Marfan syndrome"
             },
-            "excluded" : true
+            "excluded" : false
          }
       ],
       "id" : "proband C",
@@ -1778,7 +1778,7 @@
       "karyotypicSex" : "UNKNOWN_KARYOTYPE",
       "phenotypicFeatures" : [
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0002616",
                "label" : "Aortic root aneurysm"
@@ -2023,7 +2023,7 @@
       "karyotypicSex" : "UNKNOWN_KARYOTYPE",
       "phenotypicFeatures" : [
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0001558",
                "label" : "Decreased fetal movement"
@@ -2035,7 +2035,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0025672",
                "label" : "Fetal skin edema"
@@ -2048,7 +2048,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0010557",
                "label" : "Overlapping fingers"
@@ -2061,7 +2061,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0001561",
                "label" : "Polyhydramnios"
@@ -2080,7 +2080,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0030931",
                "label" : "1-minute APGAR score of 4"
@@ -2093,7 +2093,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0030922",
                "label" : "5-minute APGAR score of 2"
@@ -2106,7 +2106,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0033469",
                "label" : "10-minute APGAR score of 1"
@@ -2119,7 +2119,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0012027",
                "label" : "Laryngeal edema"
@@ -2132,7 +2132,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0001290",
                "label" : "Generalized hypotonia"
@@ -2163,7 +2163,7 @@
                "id" : "MONDO:0008327",
                "label" : "exfoliation syndrome"
             },
-            "excluded" : true,
+            "excluded" : false,
             "primarySite" : {
                "id" : "UBERON:0004549",
                "label" : "right eye"
@@ -2632,7 +2632,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0000545",
                "label" : "Myopia"
@@ -2650,7 +2650,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "NCIT:C50618",
                "label" : "Intraocular Pressure Increased"
@@ -2750,7 +2750,7 @@
                   "label" : "Group E"
                }
             ],
-            "excluded" : true,
+            "excluded" : false,
             "primarySite" : {
                "id" : "UBERON:0004548",
                "label" : "left eye"
@@ -3144,7 +3144,7 @@
       ],
       "phenotypicFeatures" : [
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0030084",
                "label" : "Clinodactyly"
@@ -3162,7 +3162,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0000555",
                "label" : "Leukocoria"
@@ -3180,7 +3180,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0000486",
                "label" : "Strabismus"
@@ -3198,7 +3198,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0000541",
                "label" : "Retinal detachment"
@@ -3274,7 +3274,7 @@
                "id" : "NCIT:C4024",
                "label" : "Esophageal Squamous Cell Carcinoma"
             },
-            "excluded" : true
+            "excluded" : false
          }
       ],
       "id" : "proband A",
@@ -3420,7 +3420,7 @@
                "id" : "MONDO:0005148",
                "label" : "type 2 diabetes mellitus"
             },
-            "excluded" : true
+            "excluded" : false
          },
          {
             "ageOfOnset" : {
@@ -3432,7 +3432,7 @@
                "id" : "MONDO:0001134",
                "label" : "essential hypertension"
             },
-            "excluded" : true
+            "excluded" : false
          }
       ],
       "id" : "65-year-old man",
@@ -3552,7 +3552,7 @@
       ],
       "phenotypicFeatures" : [
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0008994",
                "label" : "Proximal muscle weakness in lower limbs"
@@ -3564,7 +3564,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0007289",
                "label" : "Limb fasciculations"
@@ -3576,7 +3576,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0008956",
                "label" : "Proximal lower limb amyotrophy"
@@ -3600,7 +3600,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0003391",
                "label" : "Gowers sign"
@@ -3612,7 +3612,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0003551",
                "label" : "Difficulty climbing stairs"
@@ -3624,7 +3624,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0006886",
                "label" : "Impaired distal vibration sensation"
@@ -3820,7 +3820,7 @@
                   "label" : "Stage IV"
                }
             ],
-            "excluded" : true
+            "excluded" : false
          }
       ],
       "id" : "patient1",
@@ -4046,7 +4046,7 @@
       "karyotypicSex" : "UNKNOWN_KARYOTYPE",
       "phenotypicFeatures" : [
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0100518",
                "label" : "Dysuria"
@@ -4057,7 +4057,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0000790",
                "label" : "Hematuria"
@@ -4081,7 +4081,7 @@
                "id" : "MONDO:0016649",
                "label" : "Warburg micro syndrome"
             },
-            "excluded" : true
+            "excluded" : false
          }
       ],
       "id" : "case1",
@@ -4115,7 +4115,7 @@
       "karyotypicSex" : "UNKNOWN_KARYOTYPE",
       "phenotypicFeatures" : [
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0034248",
                "label" : "Increased fetal lens echogenicity"
@@ -4141,7 +4141,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0000369",
                "label" : "Low-set ears"
@@ -4153,7 +4153,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0008936",
                "label" : "Axial hypotonia"
@@ -4165,7 +4165,7 @@
             }
          },
          {
-            "excluded" : true,
+            "excluded" : false,
             "featureType" : {
                "id" : "HP:0000568",
                "label" : "Microphthalmia"

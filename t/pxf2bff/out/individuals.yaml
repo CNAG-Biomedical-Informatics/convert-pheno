@@ -7,7 +7,7 @@
     diseaseCode:
       id: MONDO:0100308
       label: atactic disorder
-    excluded: true
+    excluded: 0
   id: 16-year-old boy
   info:
     phenopacket:
@@ -205,14 +205,14 @@
         iso8601duration: P16Y6M
     timeObserved: *4
   phenotypicFeatures:
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0001288
       label: Gait disturbance
     onset:
       age:
         iso8601duration: P10Y
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0001324
       label: Muscle weakness
@@ -222,77 +222,77 @@
     onset:
       age:
         iso8601duration: P10Y
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0002066
       label: Gait ataxia
     onset:
       age:
         iso8601duration: P16Y
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0001308
       label: Tongue fasciculations
     onset:
       age:
         iso8601duration: P16Y
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0002080
       label: Intention tremor
     onset:
       age:
         iso8601duration: P16Y
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0002075
       label: Dysdiadochokinesis
     onset:
       age:
         iso8601duration: P16Y
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0001251
       label: Ataxia
     onset:
       age:
         iso8601duration: P16Y
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0001284
       label: Areflexia
     onset:
       age:
         iso8601duration: P16Y
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0011448
       label: Ankle clonus
     onset:
       age:
         iso8601duration: P16Y
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0003690
       label: Limb muscle weakness
     onset:
       age:
         iso8601duration: P16Y
-  - excluded: true
+  - excluded: 1
     featureType:
       id: HP:0003474
       label: Somatic sensory dysfunction
     onset:
       age:
         iso8601duration: P16Y
-  - excluded: true
+  - excluded: 1
     featureType:
       id: HP:0002599
       label: Head titubation
     onset:
       age:
         iso8601duration: P16Y
-  - excluded: true
+  - excluded: 1
     featureType:
       id: HP:0031910
       label: Abnormal cranial nerve physiology
@@ -387,7 +387,7 @@
         description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria:
           a case report'
         id: PMID:30808312
-    excluded: true
+    excluded: 0
     featureType:
       id: HP:0001629
       label: Ventricular septal defect
@@ -403,7 +403,7 @@
         description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria:
           a case report'
         id: PMID:30808312
-    excluded: true
+    excluded: 0
     featureType:
       id: HP:0000280
       label: Coarse facial features
@@ -415,7 +415,7 @@
         description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria:
           a case report'
         id: PMID:30808312
-    excluded: true
+    excluded: 0
     featureType:
       id: HP:0008689
       label: Bilateral cryptorchidism
@@ -431,7 +431,7 @@
         description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria:
           a case report'
         id: PMID:30808312
-    excluded: true
+    excluded: 0
     featureType:
       id: HP:0001561
       label: Polyhydramnios
@@ -447,7 +447,7 @@
         description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria:
           a case report'
         id: PMID:30808312
-    excluded: true
+    excluded: 0
     featureType:
       id: HP:0000054
       label: Micropenis
@@ -463,7 +463,7 @@
         description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria:
           a case report'
         id: PMID:30808312
-    excluded: true
+    excluded: 0
     featureType:
       id: HP:0001798
       label: Anonychia
@@ -479,7 +479,7 @@
         description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria:
           a case report'
         id: PMID:30808312
-    excluded: true
+    excluded: 0
     featureType:
       id: HP:0001320
       label: Cerebellar vermis hypoplasia
@@ -491,7 +491,7 @@
         description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria:
           a case report'
         id: PMID:30808312
-    excluded: true
+    excluded: 0
     featureType:
       id: HP:0000518
       label: Cataract
@@ -507,7 +507,7 @@
         description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria:
           a case report'
         id: PMID:30808312
-    excluded: true
+    excluded: 0
     featureType:
       id: HP:0002198
       label: Dilated fourth ventricle
@@ -519,7 +519,7 @@
         description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria:
           a case report'
         id: PMID:30808312
-    excluded: true
+    excluded: 0
     featureType:
       id: HP:0100333
       label: Unilateral cleft lip
@@ -534,17 +534,17 @@
   - diseaseCode:
       id: MONDO:0005015
       label: diabetes mellitus
-    excluded: true
+    excluded: 1
   - diseaseCode:
       id: MONDO:0004994
       label: cardiomyopathy
-    excluded: true
+    excluded: 0
   - ageOfOnset:
       timestamp: 2020-03-17T00:00:00Z
     diseaseCode:
       id: MONDO:0100096
       label: COVID-19
-    excluded: true
+    excluded: 0
   id: P123542
   info:
     phenopacket:
@@ -640,31 +640,31 @@
       timestamp: 2020-03-20T00:00:00Z
     timeObserved: *6
   phenotypicFeatures:
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0001945
       label: 'Fever '
     onset:
       timestamp: 2021-02-01T05:00:00Z
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0030157
       label: Flank pain
     onset:
       timestamp: 2021-02-01T05:00:00Z
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0000790
       label: Hematuria
     onset:
       timestamp: 2021-02-01T05:00:00Z
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0012625
       label: Stage 3 chronic kidney disease
     onset:
       timestamp: 2021-02-01T05:00:00Z
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0003326
       label: Myalgia
@@ -672,7 +672,7 @@
       interval:
         end: 2020-03-20T00:00:00Z
         start: 2020-03-18T00:00:00Z
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0002014
       label: Diarrhea
@@ -680,7 +680,7 @@
       interval:
         end: 2020-03-20T00:00:00Z
         start: 2020-03-18T00:00:00Z
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0002094
       label: Dyspnea
@@ -688,7 +688,7 @@
       interval:
         end: 2020-03-20T00:00:00Z
         start: 2020-03-18T00:00:00Z
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0033677
       label: Acute respiratory distress syndrome
@@ -847,14 +847,14 @@
           version: 2022-03-05
   karyotypicSex: UNKNOWN_KARYOTYPE
   phenotypicFeatures:
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0031936
       label: Delayed ability to walk
     onset:
       age:
         iso8601duration: P1Y6M
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0003707
       label: Calf muscle pseudohypertrophy
@@ -862,7 +862,7 @@
       ontologyClass:
         id: HP:0011463
         label: Childhood onset
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0009046
       label: Difficulty running
@@ -870,14 +870,14 @@
       ontologyClass:
         id: HP:0011463
         label: Childhood onset
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0003458
       label: 'EMG: myopathic abnormalities'
     onset:
       age:
         iso8601duration: P10Y
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0003236
       label: Elevated circulating creatine kinase concentration
@@ -960,7 +960,7 @@
       reference:
         description: Xiong J, et al., 2019
         id: PMID:30855487
-    excluded: true
+    excluded: 0
     featureType:
       id: HP:0000238
       label: Hydrocephalus
@@ -974,7 +974,7 @@
       reference:
         description: Xiong J, et al., 2019
         id: PMID:30855487
-    excluded: true
+    excluded: 0
     featureType:
       id: HP:0002507
       label: Semilobar holoprosencephaly
@@ -989,7 +989,7 @@
       reference:
         description: Xiong J, et al., 2019
         id: PMID:30855487
-    excluded: true
+    excluded: 0
     featureType:
       id: HP:0001750
       label: Single ventricle
@@ -1003,7 +1003,7 @@
       reference:
         description: Xiong J, et al., 2019
         id: PMID:30855487
-    excluded: true
+    excluded: 0
     featureType:
       id: HP:0001272
       label: Cerebellar atrophy
@@ -1017,7 +1017,7 @@
       reference:
         description: Xiong J, et al., 2019
         id: PMID:30855487
-    excluded: true
+    excluded: 0
     featureType:
       id: HP:0100702
       label: Arachnoid cyst
@@ -1031,7 +1031,7 @@
       reference:
         description: Xiong J, et al., 2019
         id: PMID:30855487
-    excluded: true
+    excluded: 0
     featureType:
       id: HP:0001272
       label: Cerebellar atrophy
@@ -1045,7 +1045,7 @@
       reference:
         description: Xiong J, et al., 2019
         id: PMID:30855487
-    excluded: true
+    excluded: 0
     featureType:
       id: HP:0001263
       label: Global developmental delay
@@ -1060,7 +1060,7 @@
       reference:
         description: Xiong J, et al., 2019
         id: PMID:30855487
-    excluded: true
+    excluded: 0
     featureType:
       id: HP:0001347
       label: Hyperreflexia
@@ -1074,7 +1074,7 @@
   - diseaseCode:
       id: OMIM:154700
       label: Marfan syndrome
-    excluded: true
+    excluded: 0
   id: proband C
   info:
     phenopacket:
@@ -1115,7 +1115,7 @@
           version: 2.1
   karyotypicSex: UNKNOWN_KARYOTYPE
   phenotypicFeatures:
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0002616
       label: Aortic root aneurysm
@@ -1270,14 +1270,14 @@
           version: 2022-03-05
   karyotypicSex: UNKNOWN_KARYOTYPE
   phenotypicFeatures:
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0001558
       label: Decreased fetal movement
     onset:
       gestationalAge:
         weeks: 23
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0025672
       label: Fetal skin edema
@@ -1285,7 +1285,7 @@
       gestationalAge:
         days: 4
         weeks: 32
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0010557
       label: Overlapping fingers
@@ -1293,7 +1293,7 @@
       gestationalAge:
         days: 4
         weeks: 32
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0001561
       label: Polyhydramnios
@@ -1304,7 +1304,7 @@
       gestationalAge:
         days: 4
         weeks: 32
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0030931
       label: 1-minute APGAR score of 4
@@ -1312,7 +1312,7 @@
       ontologyClass:
         id: HP:0003577
         label: Congenital onset
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0030922
       label: 5-minute APGAR score of 2
@@ -1320,7 +1320,7 @@
       ontologyClass:
         id: HP:0003577
         label: Congenital onset
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0033469
       label: 10-minute APGAR score of 1
@@ -1328,7 +1328,7 @@
       ontologyClass:
         id: HP:0003577
         label: Congenital onset
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0012027
       label: Laryngeal edema
@@ -1336,7 +1336,7 @@
       ontologyClass:
         id: HP:0003577
         label: Congenital onset
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0001290
       label: Generalized hypotonia
@@ -1353,7 +1353,7 @@
     diseaseCode:
       id: MONDO:0008327
       label: exfoliation syndrome
-    excluded: true
+    excluded: 0
     primarySite:
       id: UBERON:0004549
       label: right eye
@@ -1625,7 +1625,7 @@
         iso8601duration: P71Y1M
     timeObserved: *16
   phenotypicFeatures:
-  - excluded: true
+  - excluded: 1
     featureType:
       id: HP:0000539
       label: Abnormality of refraction
@@ -1635,7 +1635,7 @@
     onset:
       age:
         iso8601duration: P70Y
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0000545
       label: Myopia
@@ -1645,7 +1645,7 @@
     onset:
       age:
         iso8601duration: P71Y1M
-  - excluded: true
+  - excluded: 0
     featureType:
       id: NCIT:C50618
       label: Intraocular Pressure Increased
@@ -1655,15 +1655,15 @@
     onset:
       age:
         iso8601duration: P71Y1M
-  - excluded: true
+  - excluded: 1
     featureType:
       id: HP:0007686
       label: Abnormal pupillary function
-  - excluded: true
+  - excluded: 1
     featureType:
       id: HP:0012629
       label: Phakodonesis
-  - excluded: true
+  - excluded: 1
     featureType:
       id: SNOMEDCT:414775001
       label: monovision
@@ -1701,7 +1701,7 @@
     diseaseStage:
     - id: LOINC:LA24739-7
       label: Group E
-    excluded: true
+    excluded: 0
     primarySite:
       id: UBERON:0004548
       label: left eye
@@ -1949,7 +1949,7 @@
         iso8601duration: P6M
     timeObserved: *18
   phenotypicFeatures:
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0030084
       label: Clinodactyly
@@ -1959,7 +1959,7 @@
     onset:
       age:
         iso8601duration: P3M
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0000555
       label: Leukocoria
@@ -1969,7 +1969,7 @@
     onset:
       age:
         iso8601duration: P4M
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0000486
       label: Strabismus
@@ -1979,7 +1979,7 @@
     onset:
       age:
         iso8601duration: P5M15D
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0000541
       label: Retinal detachment
@@ -2021,7 +2021,7 @@
     diseaseCode:
       id: NCIT:C4024
       label: Esophageal Squamous Cell Carcinoma
-    excluded: true
+    excluded: 0
   id: proband A
   info:
     phenopacket:
@@ -2115,14 +2115,14 @@
     diseaseCode:
       id: MONDO:0005148
       label: type 2 diabetes mellitus
-    excluded: true
+    excluded: 0
   - ageOfOnset:
       age:
         iso8601duration: P55Y
     diseaseCode:
       id: MONDO:0001134
       label: essential hypertension
-    excluded: true
+    excluded: 0
   id: 65-year-old man
   info:
     phenopacket:
@@ -2204,49 +2204,49 @@
           label: enzyme unit per liter
         value: 234
   phenotypicFeatures:
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0008994
       label: Proximal muscle weakness in lower limbs
     onset:
       age:
         iso8601duration: P65Y
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0007289
       label: Limb fasciculations
     onset:
       age:
         iso8601duration: P65Y
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0008956
       label: Proximal lower limb amyotrophy
     onset:
       age:
         iso8601duration: P65Y
-  - excluded: true
+  - excluded: 1
     featureType:
       id: HP:0003808
       label: Abnormal muscle tone
     onset:
       age:
         iso8601duration: P65Y
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0003391
       label: Gowers sign
     onset:
       age:
         iso8601duration: P65Y
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0003551
       label: Difficulty climbing stairs
     onset:
       age:
         iso8601duration: P65Y
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0006886
       label: Impaired distal vibration sensation
@@ -2364,7 +2364,7 @@
     diseaseStage:
     - id: NCIT:C27971
       label: Stage IV
-    excluded: true
+    excluded: 0
   id: patient1
   info:
     phenopacket:
@@ -2514,14 +2514,14 @@
           version: 2022-06-11
   karyotypicSex: UNKNOWN_KARYOTYPE
   phenotypicFeatures:
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0100518
       label: Dysuria
     severity:
       id: HP:0012828
       label: Severe
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0000790
       label: Hematuria
@@ -2533,7 +2533,7 @@
     diseaseCode:
       id: MONDO:0016649
       label: Warburg micro syndrome
-    excluded: true
+    excluded: 0
   id: case1
   info:
     phenopacket:
@@ -2556,7 +2556,7 @@
           version: v2022-04-04
   karyotypicSex: UNKNOWN_KARYOTYPE
   phenotypicFeatures:
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0034248
       label: Increased fetal lens echogenicity
@@ -2564,7 +2564,7 @@
       gestationalAge:
         days: 2
         weeks: 27
-  - excluded: true
+  - excluded: 1
     featureType:
       id: HP:0000568
       label: Microphthalmia
@@ -2572,21 +2572,21 @@
       gestationalAge:
         days: 2
         weeks: 27
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0000369
       label: Low-set ears
     onset:
       age:
         iso8601duration: P4D
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0008936
       label: Axial hypotonia
     onset:
       age:
         iso8601duration: P4D
-  - excluded: true
+  - excluded: 0
     featureType:
       id: HP:0000568
       label: Microphthalmia
