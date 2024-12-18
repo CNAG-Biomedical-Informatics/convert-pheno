@@ -135,12 +135,12 @@ my @validation_checks = (
     },
     {
         condition => sub {
-            $stream
+            @omop_files
               && ( ( defined $out_bff && $out_bff !~ m/\.json/i )
                 || ( defined $out_pxf && $out_pxf !~ m/\.json/i ) );
         },
         message =>
-"The flag <--stream> only supports output files in <json|json.gz> format\n",
+"The flag <--iomops> only supports output files in <json|json.gz> format\n",
     },
     {
         condition => sub { !-f $schema_file },
@@ -287,7 +287,7 @@ sub convert {
     # Perform the conversion based on the method
     my $data;
 
-    # For omop2bff and omop2pxf we serialize by individual
+    # For omop2bff and omop2pxf we serialize to JSON (not YAML) by individual
     if ( $stream || $method eq 'omop2bff' || $method eq 'omop2pxf' ) {
         say BOLD GREEN "Writing <$o_file> file\n", RESET if $verbose;
         $convert->$method;
