@@ -60,7 +60,7 @@ Frequently Asked Questions
 
 ??? faq "Are you planning in supporting other clinical data formats?"
 
-    Afirmative. Please check our [roadmap](future-plans.md) for more information.
+    Afirmative, but it will depend on community adoption. Please check our [roadmap](future-plans.md) for more information.
 
     ##### last change 2023-01-04 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
@@ -126,7 +126,7 @@ Frequently Asked Questions
       <figcaption>REDCap checkbox export settings</figcaption>
     </figure>
 
-    If your data has been exported as **labels** you can use follow the [CSV input](csv.md) route.
+    If your data has been exported as **CSV / Microsoft Excel (labels)** you can use follow the [CSV input](csv.md) route.
 
     ##### last change 2024-05-18 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 

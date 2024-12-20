@@ -239,15 +239,17 @@ One of the advantages of **Beacon/Phenopackets v2** is that they **do not prescr
      
     If the input files contain ontology tems, the **ontologies will be preserved** and remain intact after the conversion process, except for:
      
-    * _Beacon v2 Models_ and _Phenopackets v2_: the property `sex` is converted to [NCI Thesaurus](https://ncithesaurus.nci.nih.gov/ncitbrowser).
-    * _OMOP CDM_: the properties `sex`, `ethnicity`, and `geographicOrigin` are converted to [NCI Thesaurus](https://ncithesaurus.nci.nih.gov/ncitbrowser).
+    * _Beacon v2 Models_ and _Phenopackets v2_: the property `sex` is converted to [NCI Thesaurus](https://ncithesaurus.nci.nih.gov/ncitbrowser) via database search.
+    * _OMOP CDM_: the properties `sex`, `ethnicity`, and `geographicOrigin` are converted to [NCI Thesaurus](https://ncithesaurus.nci.nih.gov/ncitbrowser) via database search.
     
-    |                | REDCap      | CDISC-ODM  | OMOP-CDM | Phenopackets v2| Beacon v2 Models |
-    | -----------    | ----------- | ---------- | -------  | -------------- | -----------------|
-    | Data mapping   | ✓ |  ✓ | ✓ | ✓ | ✓ |
-    | Add ontologies | ✓ |  ✓ | `--ohdsi-db` |     |                  |
+    |                | CSV |  REDCap      | CDISC-ODM  | OMOP-CDM | Phenopackets v2| Beacon v2 Models |
+    | -----------    | ----|-------       | ---------- | -------  | -------------- | -----------------|
+    | Data mapping   | ✓   | ✓ | ✓ | ✓ | ✓ | ✓ |
+    | Add ontologies | ✓   | ✓ | ✓ | `--ohdsi-db` |     |                  |
+
+    **Database Search Feature**
    
-    For _REDCap_ and _CDISC-ODM_ we support:
+    For input types that do not contain ontologies, such as `CSV`, _REDCap_, and _CDISC-ODM_, we perform a **database search** to fetch ontologies from a variety of trusted databases. Supported databases include:
   
     * [Athena-OHDSI](https://athena.ohdsi.org/search-terms/start) standardized vocabulary, which includes multiple terminologies, such as _SNOMED, RxNorm or LOINC_
     * [NCI Thesaurus](https://ncithesaurus.nci.nih.gov/ncitbrowser)
