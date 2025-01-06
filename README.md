@@ -345,6 +345,6 @@ Written by Manuel Rueda, PhD. Info about CNAG can be found at [https://www.cnag.
 
 # COPYRIGHT AND LICENSE
 
-Copyright (C) 2022-2024, Manuel Rueda - CNAG.
+Copyright (C) 2022-2025, Manuel Rueda - CNAG.
 
 This program is free software, you can redistribute it and/or modify it under the terms of the [Artistic License version 2.0](https://metacpan.org/pod/perlartistic).

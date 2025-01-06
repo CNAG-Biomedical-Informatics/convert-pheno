@@ -8,7 +8,7 @@
 #
 #   $VERSION taken from Convert::Pheno
 #
-#   Copyright (C) 2022-2024 Manuel Rueda - CNAG (manuel.rueda@cnag.eu)
+#   Copyright (C) 2022-2025 Manuel Rueda - CNAG (manuel.rueda@cnag.eu)
 #
 #   License: Artistic License 2.0
 
@@ -332,7 +332,7 @@ sub program_header {
 *  Phenotypic Data Model Convert Tool  *
 *          - CONVERT-PHENO -           *
 *            Version: $version             *
-*   (C) 2022-2024 Manuel Rueda, CNAG   *
+*   (C) 2022-2025 Manuel Rueda, CNAG   *
 *       The Artistic License 2.0       *
 ****************************************
 EOF
@@ -741,7 +741,7 @@ Written by Manuel Rueda, PhD. Info about CNAG can be found at L<https://www.cnag
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2022-2024, Manuel Rueda - CNAG.
+Copyright (C) 2022-2025, Manuel Rueda - CNAG.
 
 This program is free software, you can redistribute it and/or modify it under the terms of the L<Artistic License version 2.0|perlartistic>.
 
