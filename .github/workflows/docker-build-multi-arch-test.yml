@@ -1,4 +1,4 @@
-name: Docker build multi architecture test
+name: Docker build
 
 on:
   workflow_dispatch
