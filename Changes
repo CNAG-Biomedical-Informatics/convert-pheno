@@ -1,5 +1,9 @@
 Revision history for Perl distribution Convert-Pheno
 
+0.27 2025-01-16T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
+
+ - DockerHub images now support Linux amd64 and arm64 (M-based Macs)
+
 0.26 2024-12-18T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
  - Fixed issue with excluded/negated boolean values in <pxf2bff>
