@@ -11,7 +11,7 @@
 [![CPAN Publish](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/cpan-publish.yml/badge.svg)](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/cpan-publish.yml)
 [![Kwalitee Score](https://cpants.cpanauthors.org/dist/Convert-Pheno.svg)](https://cpants.cpanauthors.org/dist/Convert-Pheno)
 ![version](https://img.shields.io/badge/version-0.27_beta-orange)
-[![Docker Build](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/docker-build.yml/badge.svg)](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/docker-build.yml)
+[![Docker Build](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/docker-build-multi-arch.yml/badge.svg)](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/docker-build-multi-arch.yml)
 [![Docker Pulls](https://badgen.net/docker/pulls/manuelrueda/convert-pheno?icon=docker&label=pulls)](https://hub.docker.com/r/manuelrueda/convert-pheno/)
 [![Docker Image Size](https://badgen.net/docker/size/manuelrueda/convert-pheno?icon=docker&label=image%20size)](https://hub.docker.com/r/manuelrueda/convert-pheno/)
 [![Documentation Status](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/documentation.yml/badge.svg)](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/documentation.yml)
@@ -200,7 +200,7 @@ To ensure Perl recognizes your local modules every time you start a new terminal
 
 ### Method 4: From Docker Hub
 
-Download a docker image (latest version - amd64|x86-64) from [Docker Hub](https://hub.docker.com/r/manuelrueda/convert-pheno) by executing:
+Download the latest version of the Docker image (supports both amd64 and arm64 architectures) from [Docker Hub](https://hub.docker.com/r/manuelrueda/convert-pheno) by executing:
 
     docker pull manuelrueda/convert-pheno:latest
     docker image tag manuelrueda/convert-pheno:latest cnag/convert-pheno:latest

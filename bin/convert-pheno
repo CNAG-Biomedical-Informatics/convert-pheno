@@ -593,7 +593,7 @@ B<Option 3:> Install the dependencies in a "virtual environment" (at C<local/>) 
 
 =head3 Method 4: From Docker Hub
 
-Download a docker image (latest version - amd64|x86-64) from L<Docker Hub|https://hub.docker.com/r/manuelrueda/convert-pheno> by executing:
+Download the latest version of the Docker image (supports both amd64 and arm64 architectures) from L<Docker Hub|https://hub.docker.com/r/manuelrueda/convert-pheno> by executing:
 
   docker pull manuelrueda/convert-pheno:latest
   docker image tag manuelrueda/convert-pheno:latest cnag/convert-pheno:latest
