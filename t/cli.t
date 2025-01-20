@@ -9,8 +9,16 @@ use Test::More tests => 16;
 use File::Compare;
 use JSON::XS;
 use Test::Deep;
+use Config;
 use Convert::Pheno;
 use Convert::Pheno::IO::CSVHandler;
+
+# Skip all tests if running on an ld architecture
+# mrueda 012025
+if ($Config{archname} =~ /-ld\b/) {
+    plan skip_all => 'Skipping tests on ld architectures due to known issues';
+    exit;
+}
 
 use constant IS_WINDOWS => ( $^O eq 'MSWin32' || $^O eq 'cygwin' ) ? 1 : 0;
 

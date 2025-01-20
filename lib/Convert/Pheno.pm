@@ -41,12 +41,17 @@ $SIG{__WARN__} = sub { warn "Warn: ", @_ };
 $SIG{__DIE__}  = sub { die "Error: ", @_ };
 
 # Global variables:
-our $VERSION   = '0.27';
+our $VERSION   = '0.27_1';
 our $share_dir = dist_dir('Convert-Pheno');
 
 # SQLite database
 my @all_sqlites       = qw(ncit icd10 ohdsi cdisc omim hpo);
 my @non_ohdsi_sqlites = qw(ncit icd10 cdisc omim hpo);
+
+# Define a subroutine that computes the default username.
+my $default_username = sub {
+    return $ENV{'LOGNAME'} || $ENV{'USER'} || $ENV{'USERNAME'} || 'dummy-user';
+};
 
 ############################################
 # Start declaring attributes for the class #
@@ -54,24 +59,18 @@ my @non_ohdsi_sqlites = qw(ncit icd10 cdisc omim hpo);
 
 # Complex defaults here
 has search => (
-
-    default => 'exact',
     is      => 'ro',
     coerce  => sub { $_[0] // 'exact' },
     isa     => Enum [qw(exact mixed)]
 );
 
 has text_similarity_method => (
-
-    #default => 'cosine',
     is     => 'ro',
     coerce => sub { $_[0] // 'cosine' },
     isa    => Enum [qw(cosine dice)]
 );
 
 has min_text_similarity_score => (
-
-    #default => 0.8,
     is     => 'ro',
     coerce => sub { $_[0] // 0.8 },
     isa    => sub {
@@ -81,29 +80,20 @@ has min_text_similarity_score => (
 );
 
 has username => (
-
-    #default => ( $ENV{LOGNAME} || $ENV{USER} || getpwuid($<) ) , # getpwuid not implemented in Windows
-    default => $ENV{'LOGNAME'}
-      || $ENV{'USER'}
-      || $ENV{'USERNAME'}
-      || 'dummy-user',
-    is     => 'ro',
-    coerce => sub {
-        $_[0] // ( $ENV{'LOGNAME'}
-              || $ENV{'USER'}
-              || $ENV{'USERNAME'}
-              || 'dummy-user' );
+    is      => 'ro',
+    isa     => Str,
+    default => $default_username,             # Use the subroutine for the default.
+    coerce  => sub {
+        # If a defined value is provided, use it; otherwise, compute the default.
+         $_[0] // $default_username->()
     },
-    isa => Str
 );
 
 has id => (
-    default => time . substr( "00000$$", -5 ),
     is      => 'ro',
-    coerce  => sub {
-        $_[0] // time . substr( "00000$$", -5 );
-    },
-    isa => Str
+    isa     => Str,
+    default => sub { time . substr("00000$$", -5) },
+    coerce  => sub { $_[0] // time . substr("00000$$", -5) },
 );
 
 has max_lines_sql => (
@@ -131,7 +121,6 @@ has 'omop_tables' => (
 );
 
 has exposures_file => (
-
     default =>
       catfile( $share_dir, 'db', 'concepts_candidates_2_exposure.csv' ),
     coerce => sub {
