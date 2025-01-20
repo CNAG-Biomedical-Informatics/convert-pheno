@@ -14,9 +14,8 @@ Frequently Asked Questions
 
     ##### last change 2023-01-04 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
-??? faq "Can I use `Convert-Pheno` in _production_ software?"
-
-    It's still in Beta so expect some bumps ahead.
+??? faq "Is `Convert-Pheno` ready for use in production environments?"
+    The software is fully functional and has been successfully used in several European-funded projects. However, it is still in beta, so ongoing improvements and refinements are to be expected.
 
     ##### last change 2023-06-27 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
