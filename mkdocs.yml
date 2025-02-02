@@ -60,38 +60,38 @@ markdown_extensions:
               format: !!python/name:mermaid2.fence_mermaid
 
 nav:
-  - Introduction:
-      - What is Convert-Pheno?: what-is-convert-pheno.md
-      - Supported formats: supported-formats.md
-  - 'Download & Installation': download-and-installation.md
-  - Use:
-      - As a command-line interface: use-as-a-command-line-interface.md
-      - As a module: use-as-a-module.md
-      - As an API: use-as-an-api.md
-      - Web App User interface: https://cnag-biomedical-informatics.github.io/convert-pheno-ui/
-  - Formats accepted:
-      - Beacon v2 Models (BFF): bff.md
-      - Phenopacket v2 (PXF): pxf.md
-      - REDCap: redcap.md
-      - OMOP-CDM: omop-cdm.md
-      - CDISC-ODM: cdisc-odm.md
-      - CSV: csv.md
-  - Technical details:
-      - Implementation: implementation.md
-      - Mapping steps: mapping-steps.md
-      - Mapping tables:
-        - OMOP to BFF: omop2bff.md
-        - PXF to BFF: pxf2bff.md
-        - BFF to PXF: bff2pxf.md 
-  - Help:
-      - Tutorial: tutorial.md
-      - Google colab: https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6
-      - Usage: usage.md
-      - FAQs: faq.md
-      - Future plans: future-plans.md
-  - About:
-      - About: about.md
-      - Citation: citation.md
+  - "🏠 Introduction":
+      - "❓ What is Convert-Pheno?": what-is-convert-pheno.md
+      - "📂 Supported formats": supported-formats.md
+  - "⬇️ Download & Installation": download-and-installation.md
+  - "🛠 Use":
+      - "💻 As a command-line interface": use-as-a-command-line-interface.md
+      - "📦 As a module": use-as-a-module.md
+      - "🔗 As an API": use-as-an-api.md
+      - "🌐 Web App User Interface": https://cnag-biomedical-informatics.github.io/convert-pheno-ui/
+  - "🔄 Formats Accepted":
+      - "🗂 Beacon v2 Models (BFF)": bff.md
+      - "📜 Phenopacket v2 (PXF)": pxf.md
+      - "📝 REDCap": redcap.md
+      - "🏥 OMOP-CDM": omop-cdm.md
+      - "📊 CDISC-ODM": cdisc-odm.md
+      - "📑 CSV": csv.md
+  - "⚙️ Technical Details":
+      - "🏗 Implementation": implementation.md
+      - "🔍 Mapping Steps": mapping-steps.md
+      - "📊 Mapping Tables":
+          - "🔄 OMOP to BFF": omop2bff.md
+          - "🔄 PXF to BFF": pxf2bff.md
+          - "🔄 BFF to PXF": bff2pxf.md
+  - "❓ Help":
+      - "🎓 Tutorial": tutorial.md
+      - "📖 Google Colab": https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6
+      - "🛠 Usage": usage.md
+      - "🤔 FAQs": faq.md
+      - "🔮 Future Plans": future-plans.md
+  - "ℹ️ About":
+      - "📄 About": about.md
+      - "📖 Citation": citation.md
     # - Download PDF: pdf/beacon.pdf
 
 theme:
