@@ -200,6 +200,8 @@ To ensure Perl recognizes your local modules every time you start a new terminal
 
 ### Method 4: From Docker Hub
 
+(Estimated Time: Approximately 15 seconds)
+
 Download the latest version of the Docker image (supports both amd64 and arm64 architectures) from [Docker Hub](https://hub.docker.com/r/manuelrueda/convert-pheno) by executing:
 
     docker pull manuelrueda/convert-pheno:latest
@@ -208,6 +210,8 @@ Download the latest version of the Docker image (supports both amd64 and arm64 a
 See additional instructions below.
 
 ### Method 5: With Dockerfile
+
+(Estimated Time: Approximately 3 minutes)
 
 Please download the `Dockerfile` from the repo:
 
