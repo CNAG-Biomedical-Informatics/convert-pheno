@@ -149,6 +149,10 @@ To ensure Perl recognizes your local modules every time you start a new terminal
 
     echo 'eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)' >> ~/.bashrc
 
+To **update** to the newest version (showing commands for Option 2):
+
+    cpanm Convert::Pheno
+
 **Option 3:** Install Convert-Pheno and the dependencies in a "virtual environment" (at `local/`) . We'll be using the module `Carton` for that:
 
     mkdir local
@@ -164,8 +168,14 @@ Please follow [these instructions](https://cnag-biomedical-informatics.github.io
 
 ### Method 3: From Github
 
+To clone the repository for the first time:
+
     git clone https://github.com/cnag-biomedical-informatics/convert-pheno.git
     cd convert-pheno
+
+To update an existing clone, navigate to the repository folder and run:
+
+    git pull
 
 Install system level dependencies:
 
