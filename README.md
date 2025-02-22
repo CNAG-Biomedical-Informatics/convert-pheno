@@ -318,13 +318,17 @@ For executing convert-pheno you will need:
 
 **Examples:**
 
-    $ bin/convert-pheno -ipxf phenopackets.json -obff individuals.json
+Note that you can find input examples for all conversions within the `t/` directory of this repository:
 
-    $ $path/convert-pheno -ibff individuals.json -opxf phenopackets.yaml --out-dir my_out_dir 
+    $ bin/convert-pheno -ipxf t/pxf2bff/in/pxf.json -obff individuals.json
+
+    $ bin/convert-pheno -ibff t/bff2pxf/in/individuals.json -opxf phenopackets.yaml --out-dir my_out_dir 
+
+    $ bin/convert-pheno -iomop t/omop2bff/in/omop_cdm_eunomia.sql -opxf phenopackets.json -max-lines-sql 2694
+
+General examples:
 
     $ $path/convert-pheno -iredcap redcap.csv -opxf phenopackets.json --redcap-dictionary redcap_dict.csv --mapping-file mapping_file.yaml
-
-    $ $path/convert-pheno -iomop dump.sql -obff individuals.json
 
     $ $path/convert-pheno -iomop dump.sql.gz -obff individuals.json.gz --stream -omop-tables measurement -verbose
 

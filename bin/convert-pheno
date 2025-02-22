@@ -369,8 +369,8 @@ sub write_log {
     # Detecting the number of logical CPUs across different OSes
     my $os = $^O;
     chomp(
-        my $ncpuhost =
-          lc($os) eq 'darwin' || lc($os) eq 'freebsd' ? qx{sysctl -n hw.ncpu}
+        my $nthreadhost =
+          lc($os) eq 'darwin' || lc($os) eq 'freebsd' ? qx{sysctl -n hw.nthread}
         : $os eq 'MSWin32' ? qx{wmic cpu get NumberOfLogicalProcessors}
         :                    qx{/usr/bin/nproc} // 1
     );
@@ -379,17 +379,17 @@ sub write_log {
     # "NumberOfLogicalProcessors" which is the header of the output.
     # So we need to extract the actual number from it:
     if ( $os eq 'MSWin32' ) {
-        ($ncpuhost) = $ncpuhost =~ /(\d+)/;
+        ($nthreadhost) = $nthreadhost =~ /(\d+)/;
     }
-    $ncpuhost = 0 + $ncpuhost;    # coercing it to be a number
+    $nthreadhost = 0 + $nthreadhost;    # coercing it to be a number
 
     my $info = {
-        date      => ( strftime "%a %b %e %H:%M:%S %Y", localtime ),
-        ncpuhost  => $ncpuhost,
-        hostname  => hostname,
-        id        => $data->{id},                                      # string
-        version   => $VERSION,
-             user => $ENV{'LOGNAME'}
+        date        => ( strftime "%a %b %e %H:%M:%S %Y", localtime ),
+        nthreadhost => $nthreadhost,
+        hostname    => hostname,
+        id          => $data->{id},                                      # string
+        version     => $VERSION,
+             user   => $ENV{'LOGNAME'}
           || $ENV{'USER'}
           || $ENV{'USERNAME'}
           || 'dummy-user'
@@ -714,13 +714,17 @@ b) Use the option C<--path-to-ohdsi-db>
 
 B<Examples:>
 
- $ bin/convert-pheno -ipxf phenopackets.json -obff individuals.json
+Note that you can find input examples for all conversions within the C<t/> directory of this repository:
 
- $ $path/convert-pheno -ibff individuals.json -opxf phenopackets.yaml --out-dir my_out_dir 
+ $ bin/convert-pheno -ipxf t/pxf2bff/in/pxf.json -obff individuals.json
+
+ $ bin/convert-pheno -ibff t/bff2pxf/in/individuals.json -opxf phenopackets.yaml --out-dir my_out_dir 
+
+ $ bin/convert-pheno -iomop t/omop2bff/in/omop_cdm_eunomia.sql -opxf phenopackets.json -max-lines-sql 2694
+
+General examples:
 
  $ $path/convert-pheno -iredcap redcap.csv -opxf phenopackets.json --redcap-dictionary redcap_dict.csv --mapping-file mapping_file.yaml
-
- $ $path/convert-pheno -iomop dump.sql -obff individuals.json
 
  $ $path/convert-pheno -iomop dump.sql.gz -obff individuals.json.gz --stream -omop-tables measurement -verbose
 
