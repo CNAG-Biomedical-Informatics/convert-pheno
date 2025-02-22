@@ -682,7 +682,9 @@ For executing convert-pheno you will need:
 
 =item Input file(s):
       
-A text file in one of the accepted formats. With C<--iomop> I/O files can be gzipped.
+A text file in one of the accepted formats.
+
+Note that when using C<--iomop>, I/O files can be gzipped.
 
 =item Optional: 
 

@@ -288,7 +288,9 @@ For executing convert-pheno you will need:
 
 - Input file(s):
 
-    A text file in one of the accepted formats. With `--iomop` I/O files can be gzipped.
+    A text file in one of the accepted formats.
+
+    Note that when using `--iomop`, I/O files can be gzipped.
 
 - Optional: 
 
