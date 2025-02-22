@@ -369,8 +369,8 @@ sub write_log {
     # Detecting the number of logical CPUs across different OSes
     my $os = $^O;
     chomp(
-        my $nthreadhost =
-          lc($os) eq 'darwin' || lc($os) eq 'freebsd' ? qx{sysctl -n hw.nthread}
+        my $threadshost =
+          lc($os) eq 'darwin' || lc($os) eq 'freebsd' ? qx{sysctl -n hw.ncpu}
         : $os eq 'MSWin32' ? qx{wmic cpu get NumberOfLogicalProcessors}
         :                    qx{/usr/bin/nproc} // 1
     );
@@ -379,13 +379,13 @@ sub write_log {
     # "NumberOfLogicalProcessors" which is the header of the output.
     # So we need to extract the actual number from it:
     if ( $os eq 'MSWin32' ) {
-        ($nthreadhost) = $nthreadhost =~ /(\d+)/;
+        ($threadshost) = $threadshost =~ /(\d+)/;
     }
-    $nthreadhost = 0 + $nthreadhost;    # coercing it to be a number
+    $threadshost = 0 + $threadshost;    # coercing it to be a number
 
     my $info = {
         date        => ( strftime "%a %b %e %H:%M:%S %Y", localtime ),
-        nthreadhost => $nthreadhost,
+        threadshost => $threadshost,
         hostname    => hostname,
         id          => $data->{id},                                      # string
         version     => $VERSION,
