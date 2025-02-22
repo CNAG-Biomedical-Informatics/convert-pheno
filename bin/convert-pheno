@@ -370,9 +370,10 @@ sub write_log {
     my $os = $^O;
     chomp(
         my $threadshost =
-          lc($os) eq 'darwin' || lc($os) eq 'freebsd' ? qx{sysctl -n hw.ncpu}
-        : $os eq 'MSWin32' ? qx{wmic cpu get NumberOfLogicalProcessors}
-        :                    qx{/usr/bin/nproc} // 1
+          lc($os) eq 'darwin' ? qx{/usr/sbin/sysctl -n hw.logicalcpu}
+        : lc($os) eq 'freebsd' ? qx{sysctl -n hw.ncpu}
+        : $os eq 'MSWin32'     ? qx{wmic cpu get NumberOfLogicalProcessors}
+        :                        qx{/usr/bin/nproc} // 1
     );
 
     # For the Windows command, the result will also contain the string

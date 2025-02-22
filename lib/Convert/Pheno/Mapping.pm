@@ -101,7 +101,7 @@ sub map_ontology_term {
     # Add result to global %seen
     $seen{$query} = { id => $id, label => $label };    # global
 
-# id and label come from <db> _label is the original string (can change on partial matches)
+    # id and label come from <db> _label is the original string (can change on partial matches)
     return $print_hidden_labels
       ? { id => $id, label => $label, _label => $query }
       : { id => $id, label => $label };
@@ -127,10 +127,10 @@ sub dotify_and_coerce_number {
 
 sub iso8601_time {
 
-# Standard modules (gmtime()===>Coordinated Universal Time(UTC))
-# NB: The T separates the date portion from the time-of-day portion.
-#     The Z on the end means UTC (that is, an offset-from-UTC of zero hours-minutes-seconds).
-#     - The Z is pronounced “Zulu”.
+    # Standard modules (gmtime()===>Coordinated Universal Time(UTC))
+    # NB: The T separates the date portion from the time-of-day portion.
+    #     The Z on the end means UTC (that is, an offset-from-UTC of zero hours-minutes-seconds).
+    #     - The Z is pronounced “Zulu”.
     my $now = time();
     return strftime( '%Y-%m-%dT%H:%M:%SZ', gmtime($now) );
 }
@@ -257,7 +257,7 @@ sub convert2boolean {
     return
         ( $val eq 'true'  || $val eq 'yes' ) ? JSON::XS::true
       : ( $val eq 'false' || $val eq 'no' )  ? JSON::XS::false
-      :                                        undef;          # unknown = undef
+      :                                        undef;            # unknown = undef
 
 }
 
@@ -362,10 +362,10 @@ sub map_omop_visit_occurrence {
     # Premature return
     return undef if $visit_occurrence_id eq '\\N';    # perlcritic Severity: 5
 
-# *** IMPORTANT ***
-# EUNOMIA instance has mismatches between the person_id -- visit_occurrence_id
-# For instance, person_id = 1 has only visit_occurrence_id = 85, but on tables it has:
-# 82, 84, 42, 54, 41, 25, 76 and 81
+    # *** IMPORTANT ***
+    # EUNOMIA instance has mismatches between the person_id -- visit_occurrence_id
+    # For instance, person_id = 1 has only visit_occurrence_id = 85, but on tables it has:
+    # 82, 84, 42, 54, 41, 25, 76 and 81
 
     # warn if we don't have $visit_occurrence_id in VISIT_OCCURRENCE
     unless ( exists $visit_occurrence->{$visit_occurrence_id} ) {
@@ -389,8 +389,8 @@ sub map_omop_visit_occurrence {
         }
     );
 
-# *** IMPORTANT ***
-# Ad hoc to avoid using --ohdsi-db while we find a solution to EUNOMIA not being self-contained
+    # *** IMPORTANT ***
+    # Ad hoc to avoid using --ohdsi-db while we find a solution to EUNOMIA not being self-contained
     my $ad_hoc_44818517 = {
         id    => "Visit Type:OMOP4822465",
         label => "Visit derived from encounter on claim"
@@ -468,31 +468,32 @@ sub get_info {
     # Detecting the number of logical CPUs across different OSes
     my $os = $^O;
     chomp(
-        my $ncpuhost =
-          lc($os) eq 'darwin' || lc($os) eq 'freebsd' ? qx{sysctl -n hw.ncpu}
-        : $os eq 'MSWin32' ? qx{wmic cpu get NumberOfLogicalProcessors}
-        :                    qx{/usr/bin/nproc} // 1
+        my $threadshost =
+          lc($os) eq 'darwin' ? qx{/usr/sbin/sysctl -n hw.logicalcpu}
+        : lc($os) eq 'freebsd' ? qx{sysctl -n hw.ncpu}
+        : $os eq 'MSWin32'     ? qx{wmic cpu get NumberOfLogicalProcessors}
+        :                        qx{/usr/bin/nproc} // 1
     );
 
     # For the Windows command, the result will also contain the string
     # "NumberOfLogicalProcessors" which is the header of the output.
     # So we need to extract the actual number from it:
     if ( $os eq 'MSWin32' ) {
-        ($ncpuhost) = $ncpuhost =~ /(\d+)/;
+        ($threadshost) = $threadshost =~ /(\d+)/;
     }
-    $ncpuhost = 0 + $ncpuhost;    # coercing it to be a number
+    $threadshost = 0 + $threadshost;    # coercing it to be a number
 
     return {
         user => $ENV{'LOGNAME'}
           || $ENV{'USER'}
           || $ENV{'USERNAME'}
           || 'dummy-user',
-        username => $self->{username},
-        ncpuhost => $ncpuhost,
-        cwd      => cwd,
-        id       => $self->{id},
-        hostname => hostname,
-        version  => $::VERSION
+        username    => $self->{username},
+        threadshost => $threadshost,
+        cwd         => cwd,
+        id          => $self->{id},
+        hostname    => hostname,
+        version     => $::VERSION
     };
 }
 
