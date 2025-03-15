@@ -762,8 +762,6 @@ Written by Manuel Rueda, PhD. Info about CNAG can be found at L<https://www.cnag
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2022-2025, Manuel Rueda - CNAG.
-
-This program is free software, you can redistribute it and/or modify it under the terms of the L<Artistic License version 2.0|perlartistic>.
+This PERL file is copyrighted. See the LICENSE file included in this distribution.
 
 =cut
