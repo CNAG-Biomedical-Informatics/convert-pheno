@@ -167,7 +167,6 @@ sub BUILD {
 #############
 
 sub bff2pxf {
-
     my $self = shift;
     # <array_dispatcher> will deal with JSON arrays
     return $self->array_dispatcher;
@@ -180,7 +179,6 @@ sub bff2pxf {
 #############
 
 sub bff2csv {
-
     my $self = shift;
     # <array_dispatcher> will deal with JSON arrays
     return $self->array_dispatcher;
@@ -193,7 +191,6 @@ sub bff2csv {
 #############
 
 sub bff2jsonf {
-
     my $self = shift;
     # <array_dispatcher> will deal with JSON arrays
     return $self->array_dispatcher;
@@ -205,7 +202,6 @@ sub bff2jsonf {
 ##############
 
 sub bff2jsonld {
-
     my $self = shift;
     # <array_dispatcher> will deal with JSON arrays
     return $self->array_dispatcher;
@@ -218,7 +214,6 @@ sub bff2jsonld {
 ################
 
 sub redcap2bff {
-
     my $self = shift;
 
     # Read and load data from REDCap export
@@ -254,7 +249,6 @@ sub redcap2bff {
 ################
 
 sub redcap2pxf {
-
     my $self = shift;
 
     # First iteration: redcap2bff
@@ -277,7 +271,6 @@ sub redcap2pxf {
 ##############
 
 sub omop2bff {
-
     my $self = shift;
 
     #############
@@ -507,7 +500,6 @@ sub omop2bff {
 ##############
 
 sub omop2pxf {
-
     my $self = shift;
 
     # We have two possibilities:
@@ -553,7 +545,6 @@ sub omop2pxf {
 ###############
 
 sub cdisc2bff {
-
     my $self = shift;
     my $str  = path( $self->{in_file} )->slurp_utf8;
     my $hash = xml2hash $str, attr => '-', text => '~';
@@ -588,7 +579,6 @@ sub cdisc2bff {
 ###############
 
 sub cdisc2pxf {
-
     my $self = shift;
 
     # First iteration: cdisc2bff
@@ -611,7 +601,6 @@ sub cdisc2pxf {
 #############
 
 sub pxf2bff {
-
     my $self = shift;
     # <array_dispatcher> will deal with JSON arrays
     return $self->array_dispatcher;
@@ -624,7 +613,6 @@ sub pxf2bff {
 #############
 
 sub csv2bff {
-
     my $self = shift;
 
     # Read and load data from CSV
@@ -656,7 +644,6 @@ sub csv2bff {
 #############
 
 sub csv2pxf {
-
     my $self = shift;
 
     # First iteration: csv2bff
@@ -680,7 +667,6 @@ sub csv2pxf {
 #############
 
 sub pxf2csv {
-
     my $self = shift;
     # <array_dispatcher> will deal with JSON arrays
     return $self->array_dispatcher;
@@ -693,7 +679,6 @@ sub pxf2csv {
 #############
 
 sub pxf2jsonf {
-
     my $self = shift;
     # <array_dispatcher> will deal with JSON arrays
     return $self->array_dispatcher;
@@ -706,20 +691,18 @@ sub pxf2jsonf {
 ##############
 
 sub pxf2jsonld {
-
     my $self = shift;
     # <array_dispatcher> will deal with JSON arrays
     return $self->array_dispatcher;
 }
 
-######################
-######################
-#  MISCELLANEA SUBS  #
-######################
-######################
+#################
+#################
+#  HELPER SUBS  #
+#################
+#################
 
 sub array_dispatcher {
-
     my $self = shift;
 
     # Load the input data as Perl data structure
@@ -833,7 +816,6 @@ sub array_dispatcher {
 }
 
 sub omop_dispatcher {
-
     my ( $self, $method_result ) = @_;
 
     # For omop2bff and omop2pxf we serialize by individual
@@ -857,7 +839,6 @@ sub omop_dispatcher {
 }
 
 sub omop_stream_dispatcher {
-
     my $arg         = shift;
     my $self        = $arg->{self};
     my $filepath    = $arg->{filepath};
@@ -874,7 +855,6 @@ sub omop_stream_dispatcher {
 }
 
 sub process_csv_files_stream {
-
     my ( $self, $filepaths ) = @_;
     my $person = $self->{person};
     for my $file (@$filepaths) {
@@ -892,7 +872,6 @@ sub process_csv_files_stream {
 }
 
 sub process_sqldump_stream {
-
     my ( $self, $filepath, $omop_tables ) = @_;
     my $person = $self->{person};
 
@@ -910,7 +889,6 @@ sub process_sqldump_stream {
 }
 
 sub omop2bff_stream_processing {
-
     my ( $self, $data ) = @_;
 
     # We have this subroutine here because the class was initiated in Pheno.pm

@@ -22,13 +22,11 @@ our @EXPORT = qw(read_json read_yaml io_yaml_or_json write_json write_yaml);
 #########################
 
 sub read_json {
-
     my $str = path(shift)->slurp_utf8;
     return decode_json($str);    # Decode to Perl data structure
 }
 
 sub read_yaml {
-
     my $data = LoadFile(shift);    # Decode to Perl data structure
     traverse_yaml_data_to_coerce_numbers($data)
       ;    # revert floatings getting stringified by YAML::XS
@@ -36,7 +34,6 @@ sub read_yaml {
 }
 
 sub io_yaml_or_json {
-
     my $arg  = shift;
     my $file = $arg->{filepath};
     my $mode = $arg->{mode};
@@ -64,7 +61,6 @@ sub io_yaml_or_json {
 }
 
 sub write_json {
-
     my $arg       = shift;
     my $file      = $arg->{filepath};
     my $json_data = $arg->{data};
@@ -75,7 +71,6 @@ sub write_json {
 }
 
 sub write_yaml {
-
     my $arg       = shift;
     my $file      = $arg->{filepath};
     my $json_data = $arg->{data};
@@ -84,7 +79,6 @@ sub write_yaml {
 }
 
 sub traverse_yaml_data_to_coerce_numbers {
-
     my $data = shift;
 
     # Traversing the data to force numbers to be numbers

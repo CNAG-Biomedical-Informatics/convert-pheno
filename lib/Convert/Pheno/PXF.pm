@@ -19,7 +19,6 @@ our @EXPORT = qw(do_pxf2bff);
 my $DEFAULT = get_defaults();
 
 sub do_pxf2bff {
-
     my ( $self, $data ) = @_;
     my $sth = $self->{sth};
 
@@ -340,8 +339,11 @@ sub do_pxf2bff {
     return $individual;
 }
 
-sub map_complexValue {
+#----------------------------------------------------------------------
+# Helper subs
+#----------------------------------------------------------------------
 
+sub map_complexValue {
     my $complexValue = shift;
 
     # "typedQuantities": [
@@ -370,7 +372,6 @@ sub map_complexValue {
 
 # Function to normalize a value to a Boolean
 sub to_boolean {
-
     my $value = shift;
     print Dumper $value;
     return JSON::XS::true if $value && $value ne 'false';    # Non-empty string and not 'false'

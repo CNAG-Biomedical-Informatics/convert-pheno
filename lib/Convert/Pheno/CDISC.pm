@@ -18,13 +18,11 @@ $Data::Dumper::Sortkeys = 1;
 ###############
 
 sub do_cdisc2bff {
-
     my ( $self, $participant ) = @_;
     return do_redcap2bff( $self, $participant );
 }
 
 sub cdisc2redcap {
-
     my $data = shift;
 
     # Extract subject information from nested data structure
@@ -42,8 +40,11 @@ sub cdisc2redcap {
     return $individuals;
 }
 
-sub process_subject {
+#----------------------------------------------------------------------
+# Helper subs
+#----------------------------------------------------------------------
 
+sub process_subject {
     my ( $subject, $individuals ) = @_;
 
     # Iterate over StudyEventData for each subject
@@ -62,7 +63,6 @@ sub process_subject {
 }
 
 sub process_study_event_data {
-
     my ( $StudyEventData, $individual ) = @_;
 
     # Iterate over FormData
@@ -76,7 +76,6 @@ sub process_study_event_data {
 }
 
 sub process_item_group_data {
-
     my ( $ItemGroupData, $individual ) = @_;
 
     # Handle both array and hash structures for ItemData

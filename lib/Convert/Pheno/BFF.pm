@@ -18,7 +18,6 @@ my $DEFAULT = get_defaults();
 #############
 
 sub do_bff2pxf {
-
     my ( $self, $bff ) = @_;
 
     # Premature return
@@ -202,8 +201,11 @@ sub do_bff2pxf {
     return $pxf;
 }
 
-sub map_procedures {
+#----------------------------------------------------------------------
+# Helper subs
+#----------------------------------------------------------------------
 
+sub map_procedures {
     my $data = shift;
 
     # Helper to apply mapping logic to a single item

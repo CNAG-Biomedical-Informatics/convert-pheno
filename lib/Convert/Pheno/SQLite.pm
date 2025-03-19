@@ -24,7 +24,6 @@ use constant DEVEL_MODE => 0;
 ########################
 
 sub open_connections_SQLite {
-
     my $self = shift;
 
     # **********************
@@ -57,7 +56,6 @@ sub open_connections_SQLite {
 }
 
 sub close_connections_SQLite {
-
     my $self      = shift;
     my $dbh       = $self->{dbh};
     my @databases = @{ $self->{databases} };
@@ -66,7 +64,6 @@ sub close_connections_SQLite {
 }
 
 sub open_db_SQLite {
-
     my ( $ontology, $path_to_ohdsi_db ) = @_;
 
     # Construct database file path
@@ -95,7 +92,6 @@ sub open_db_SQLite {
 }
 
 sub get_database_file_path {
-
     my ( $ontology, $path_to_ohdsi_db ) = @_;
     my $filename = "$ontology.db";
     my $path =
@@ -106,14 +102,12 @@ sub get_database_file_path {
 }
 
 sub close_db_SQLite {
-
     my $dbh = shift;
     $dbh->disconnect();
     return 1;
 }
 
 sub prepare_query_SQLite {
-
     my $self      = shift;
     my @databases = @{ $self->{databases} };
 
@@ -165,7 +159,6 @@ sub prepare_query_SQLite {
 }
 
 sub build_query {
-
     my ( $ontology, $column, $match ) = @_;
     my $db     = uc($ontology) . '_table';
     my $db_fts = uc($ontology) . '_fts';
@@ -274,7 +267,6 @@ sub get_ontology_terms {
 }
 
 sub execute_query_SQLite {
-
     my $arg                       = shift;
     my $sth                       = $arg->{sth};
     my $query                     = $arg->{query};
@@ -359,7 +351,6 @@ sub execute_query_SQLite {
 }
 
 sub prune_problematic_chars {
-
     my ( $query, $match ) = @_;
 
     # **********************
@@ -385,7 +376,6 @@ sub prune_problematic_chars {
 }
 
 sub text_similarity {
-
     my $arg                    = shift;
     my $sth                    = $arg->{sth};
     my $query                  = $arg->{query};

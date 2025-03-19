@@ -264,7 +264,6 @@ convert( $out_file, $data );
 ###########################
 
 sub convert {
-
     my ( $o_file, $l_data ) = @_;
 
     # Before proceeding we ask the user what to do with $o_file
@@ -325,7 +324,6 @@ sub convert {
 }
 
 sub program_header {
-
     my $version = shift;
     my $str     = <<EOF;
 ****************************************
@@ -340,7 +338,6 @@ EOF
 }
 
 sub program_footer {
-
     my $str = <<EOF;
 All done!
 
@@ -349,7 +346,6 @@ EOF
 }
 
 sub program_body {
-
     my $l_data = shift;
     my $file =
       $l_data->{method} =~ m/^omop/
@@ -363,7 +359,6 @@ EOF
 }
 
 sub write_log {
-
     my ( $log, $data ) = @_;
 
     # Detecting the number of logical CPUs across different OSes
@@ -408,7 +403,6 @@ sub write_log {
 }
 
 sub ask_overwrite {
-
     my $filepath = shift;
 
     # Check if the file exists

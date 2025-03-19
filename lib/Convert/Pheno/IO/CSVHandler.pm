@@ -32,7 +32,6 @@ use constant DEVEL_MODE => 0;
 #########################
 
 sub read_redcap_dictionary {
-
     my $filepath = shift;
 
     # Define split record separator from file extension
@@ -63,7 +62,6 @@ sub read_redcap_dictionary {
 }
 
 sub add_labels {
-
     my $value = shift;
 
     # *** IMPORTANT ***
@@ -82,7 +80,6 @@ sub add_labels {
 }
 
 sub read_redcap_dict_file {
-
     my $arg = shift;
 
     # Read and load REDCap CSV dictionary
@@ -90,7 +87,6 @@ sub read_redcap_dict_file {
 }
 
 sub read_mapping_file {
-
     my $arg = shift;
 
     # Read and load mapping file
@@ -115,7 +111,6 @@ sub read_mapping_file {
 }
 
 sub read_sqldump {
-
     my $arg      = shift;
     my $filepath = $arg->{in};
     my $self     = $arg->{self};
@@ -256,7 +251,6 @@ sub read_sqldump {
 }
 
 sub read_sqldump_stream {
-
     my $arg           = shift;
     my $filein        = $arg->{in};
     my $self          = $arg->{self};
@@ -359,7 +353,6 @@ sub read_sqldump_stream {
 }
 
 sub encode_omop_stream {
-
     my ( $table_name, $hash_slice, $person, $count, $self ) = @_;
 
     # *** IMPORTANT ***
@@ -385,7 +378,6 @@ sub encode_omop_stream {
 }
 
 sub sqldump2csv {
-
     my ( $data, $dir ) = @_;
 
     # CSV sep character
@@ -415,7 +407,6 @@ sub sqldump2csv {
 }
 
 sub transpose_omop_data_structure {
-
     my ( $self, $data ) = @_;
 
     # The situation is the following, $data comes in format:
@@ -542,7 +533,6 @@ sub transpose_omop_data_structure {
 }
 
 sub read_csv {
-
     my $arg      = shift;
     my $filepath = $arg->{in};
     my $sep      = $arg->{sep};
@@ -622,7 +612,6 @@ sub read_csv {
 }
 
 sub is_separator_incorrect {
-
     my $keys           = shift;
     my $max_delimiters = 5;
 
@@ -634,7 +623,6 @@ sub is_separator_incorrect {
 }
 
 sub read_csv_stream {
-
     my $arg     = shift;
     my $filein  = $arg->{in};
     my $self    = $arg->{self};
@@ -701,7 +689,6 @@ sub read_csv_stream {
 }
 
 sub write_csv {
-
     my $arg      = shift;
     my $sep      = $arg->{sep};
     my $data     = $arg->{data};
@@ -733,7 +720,6 @@ sub write_csv {
 }
 
 sub open_filehandle {
-
     my ( $filepath, $mode ) = @_;
     my $handle = $mode eq 'a' ? '>>' : $mode eq 'w' ? '>' : '<';
     my $fh;
@@ -754,7 +740,6 @@ sub open_filehandle {
 }
 
 sub define_separator {
-
     my ( $filepath, $sep ) = @_;
 
     # Define split record separator from file extension
@@ -779,7 +764,6 @@ sub define_separator {
 }
 
 sub to_gb {
-
     my $bytes = shift;
 
     # base 2 => 1,073,741,824
@@ -788,13 +772,11 @@ sub to_gb {
 }
 
 sub ram_usage_str {
-
     my ( $func, $data ) = @_;
     return qq/***RAM Usage***($func):/ . to_gb( total_size($data) ) . "\n";
 }
 
 sub load_exposures {
-
     my $data = read_csv( { in => shift, sep => "\t" } );
 
     # We will only use the key 'concept_id' and discard the rest
@@ -808,7 +790,6 @@ sub load_exposures {
 }
 
 sub get_headers {
-
     my $data = shift;
 
     # Ensure $data is an array reference, wrap it in an array if it's a hash reference.
@@ -845,7 +826,6 @@ sub remap_assignTermIdFromHeader {
 }
 
 sub array_ref_to_hash {
-
     my $array_ref = shift;
 
     # Check if the input is an array reference
@@ -862,7 +842,6 @@ sub array_ref_to_hash {
 }
 
 sub convert_table_aoh_to_hoh {
-
     my ( $data, $table, $self ) = @_;
 
     my %table_cursor =
@@ -952,7 +931,6 @@ sub convert_table_aoh_to_hoh {
 }
 
 sub get_print_interval {
-
     my $filepath = shift;
 
     # Determine file size

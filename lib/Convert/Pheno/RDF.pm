@@ -19,7 +19,6 @@ our @EXPORT_OK = qw(do_bff2jsonld do_pxf2jsonld);
 ###############
 
 sub do_bff2jsonld {
-
     my ( $self, $bff ) = @_;
 
     # Dynamically load JSONLD
@@ -77,7 +76,6 @@ sub do_bff2jsonld {
 ###############
 
 sub do_pxf2jsonld {
-
     my ( $self, $pxf ) = @_;
 
     # Dynamically load JSONLD

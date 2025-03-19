@@ -44,7 +44,6 @@ my @redcap_field_types = ( 'Field Label', 'Field Note', 'Field Type' );
 ################
 
 sub do_redcap2bff {
-
     my ( $self, $participant ) = @_;
     my $redcap_dict       = $self->{data_redcap_dict};
     my $data_mapping_file = $self->{data_mapping_file};
@@ -212,8 +211,11 @@ sub do_redcap2bff {
     return $individual;
 }
 
-sub map_fields_to_redcap_dict {
+#----------------------------------------------------------------------
+# Helper subs
+#----------------------------------------------------------------------
 
+sub map_fields_to_redcap_dict {
     my ( $redcap_dict, $participant ) = @_;
 
     # Get the fields to map
@@ -244,7 +246,6 @@ sub map_fields_to_redcap_dict {
 }
 
 sub remap_mapping_hash_term {
-
     my ( $mapping_file_data, $term ) = @_;
     my %hash_out = map {
             $_ => exists $mapping_file_data->{$term}{$_}
@@ -267,7 +268,6 @@ sub remap_mapping_hash_term {
 }
 
 sub check_and_replace_field_with_terminology_or_dictionary_if_exist {
-
     my ( $term_mapping_cursor, $field, $participant_field, $switch ) = @_;
 
     # Check if $field is Boolean
@@ -293,7 +293,6 @@ sub check_and_replace_field_with_terminology_or_dictionary_if_exist {
 }
 
 sub get_required_terms {
-
     my $arg = shift;
     lock_keys( %$arg, @{ $arg->{lock_keys} } );
 
@@ -303,7 +302,6 @@ sub get_required_terms {
 }
 
 sub propagate_fields {
-
     my ( $id_field, $arg ) = @_;
     lock_keys( %$arg, @{ $arg->{lock_keys} } );
 
@@ -341,7 +339,6 @@ sub propagate_fields {
 }
 
 sub map_diseases {
-
     my $arg = shift;
     lock_keys( %$arg, @{ $arg->{lock_keys} } );
 
@@ -409,7 +406,6 @@ sub map_diseases {
 }
 
 sub map_ethnicity {
-
     my $arg = shift;
     lock_keys( %$arg, @{ $arg->{lock_keys} } );
 
@@ -446,7 +442,6 @@ sub map_ethnicity {
 }
 
 sub map_exposures {
-
     my $arg = shift;
     lock_keys( %$arg, @{ $arg->{lock_keys} } );
 
@@ -543,7 +538,6 @@ sub map_exposures {
 }
 
 sub map_info {
-
     my $arg = shift;
     lock_keys( %$arg, @{ $arg->{lock_keys} } );
 
@@ -602,7 +596,6 @@ sub map_info {
 #$individual->{interventionsOrProcedures} = [];
 
 sub map_interventionsOrProcedures {
-
     my $arg = shift;
     lock_keys( %$arg, @{ $arg->{lock_keys} } );
 
@@ -677,7 +670,6 @@ sub map_interventionsOrProcedures {
 }
 
 sub map_measures {
-
     my $arg = shift;
     lock_keys( %$arg, @{ $arg->{lock_keys} } );
 
@@ -827,7 +819,6 @@ sub map_measures {
 #}
 
 sub map_phenotypicFeatures {
-
     my $arg = shift;
     lock_keys( %$arg, @{ $arg->{lock_keys} } );
 
@@ -915,7 +906,6 @@ sub map_phenotypicFeatures {
 }
 
 sub map_sex {
-
     my $arg = shift;
     lock_keys( %$arg, @{ $arg->{lock_keys} } );
 
@@ -953,7 +943,6 @@ sub map_sex {
 }
 
 sub map_treatments {
-
     my $arg = shift;
     lock_keys( %$arg, @{ $arg->{lock_keys} } );
 

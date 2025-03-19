@@ -93,7 +93,6 @@ my %seen_individual = ();
 ##############
 
 sub do_omop2bff {
-
     my ( $self, $participant ) = @_;
 
     my $ohdsi_dict = $self->{data_ohdsi_dict};
@@ -894,8 +893,11 @@ sub do_omop2bff {
       : $individual;
 }
 
-sub avoid_seen_individuals {
+#----------------------------------------------------------------------
+# Helper subs
+#----------------------------------------------------------------------
 
+sub avoid_seen_individuals {
     my $individual = shift;
     my $id         = $individual->{id};
 
@@ -922,7 +924,6 @@ sub avoid_seen_individuals {
 }
 
 sub set_default_measure {
-
     return {
         assayCode        => $DEFAULT->{ontology_term},
         date             => $DEFAULT->{date},

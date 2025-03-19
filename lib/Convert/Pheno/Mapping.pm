@@ -29,7 +29,7 @@ my %seen = ();
 
 #############################
 #############################
-#  SUBROUTINES FOR MAPPING  #
+#  HELPER SUBS FOR MAPPING  #
 #############################
 #############################
 
@@ -108,7 +108,6 @@ sub map_ontology_term {
 }
 
 sub dotify_and_coerce_number {
-
     my $val = shift;
 
     # Premature return
@@ -136,7 +135,6 @@ sub iso8601_time {
 }
 
 sub _map2iso8601 {
-
     my ( $date, $time ) = split /\s+/, shift;
 
     # UTC
@@ -145,7 +143,6 @@ sub _map2iso8601 {
 }
 
 sub map_reference_range {
-
     my $arg         = shift;
     my $field       = $arg->{field};
     my $redcap_dict = $arg->{redcap_dict};
@@ -170,7 +167,6 @@ sub map_reference_range_csv {
 }
 
 sub map_age_range {
-
     my $str = shift;
 
     # Premature return if not range
@@ -194,7 +190,6 @@ sub map_age_range {
 }
 
 sub map2redcap_dict {
-
     my $arg = shift;
     my ( $redcap_dict, $participant, $field, $labels ) = (
         $arg->{redcap_dict}, $arg->{participant},
@@ -214,7 +209,6 @@ sub map2redcap_dict {
 }
 
 sub map2ohdsi {
-
     my $arg = shift;
     my ( $ohdsi_dict, $concept_id, $self ) =
       ( $arg->{ohdsi_dict}, $arg->{concept_id}, $arg->{self} );
@@ -252,7 +246,6 @@ sub map2ohdsi {
 }
 
 sub convert2boolean {
-
     my $val = lc(shift);
     return
         ( $val eq 'true'  || $val eq 'yes' ) ? JSON::XS::true
@@ -262,7 +255,6 @@ sub convert2boolean {
 }
 
 sub find_age {
-
     # Not using any CPAN module for now
     # Adapted from https://www.perlmonks.org/?node_id=9995
 
@@ -297,7 +289,6 @@ sub randStr {
 }
 
 sub map_operator_concept_id {
-
     my $arg  = shift;
     my $id   = $arg->{operator_concept_id};
     my $val  = $arg->{value_as_number};
@@ -328,7 +319,6 @@ sub map_operator_concept_id {
 }
 
 sub map_omop_visit_occurrence {
-
     # key eq 'visit_occurrence_id'
     # { '85' =>
     #    {
@@ -439,12 +429,10 @@ sub dot_date2iso {
 }
 
 sub is_multidimensional {
-
     return ref shift ? 1 : 0;
 }
 
 sub validate_format {
-
     my ( $data, $format ) = @_;
 
     my $result;
@@ -462,7 +450,6 @@ sub validate_format {
 }
 
 sub get_info {
-
     my $self = shift;
 
     # Detecting the number of logical CPUs across different OSes
@@ -498,7 +485,6 @@ sub get_info {
 }
 
 sub get_metaData {
-
     my $self = shift;
 
     # Setting a few variables

@@ -26,7 +26,6 @@ has schema_file => (
 
 # The BUILD method is called after an object is created
 sub BUILD {
-
     my $self = shift;
     $self->{schema} =
       io_yaml_or_json( { filepath => $self->{schema_file}, mode => 'read' } )
@@ -40,7 +39,6 @@ sub BUILD {
 #########################
 
 sub json_validate {
-
     my $self   = shift;
     my $data   = $self->{data};
     my $schema = $self->{schema};
@@ -64,7 +62,6 @@ sub json_validate {
 }
 
 sub self_validate {
-
     my $validator = JSON::Validator::Schema->new(shift);
     my @errors    = $validator->is_invalid;
     die
@@ -73,7 +70,6 @@ sub self_validate {
 }
 
 sub say_errors {
-
     my $errors = shift;
     if ( @{$errors} ) {
         say BOLD RED( join "\n", @{$errors} ), RESET;

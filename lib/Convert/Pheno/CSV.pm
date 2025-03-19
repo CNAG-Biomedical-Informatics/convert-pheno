@@ -24,7 +24,6 @@ my $DEFAULT = get_defaults();
 ###############
 
 sub do_bff2csv {
-
     my ( $self, $bff ) = @_;
 
     # Premature return
@@ -44,7 +43,6 @@ sub do_bff2csv {
 ###############
 
 sub do_pxf2csv {
-
     my ( $self, $pxf ) = @_;
 
     # Premature return
@@ -64,7 +62,6 @@ sub do_pxf2csv {
 ###############
 
 sub do_csv2bff {
-
     my ( $self, $participant ) = @_;
     my $data_mapping_file = $self->{data_mapping_file};
 
