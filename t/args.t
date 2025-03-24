@@ -193,7 +193,6 @@ for my $method ( sort keys %{$input} ) {
 }
 
 sub _normalize_windows_file {
-
     my ( $filein, $fileout ) = @_;
 
     # For the Windows file

@@ -212,7 +212,6 @@ qq{Files <$input->{$method}{out}> <$tmp_file> are supposedly identical yet compa
 }
 
 sub read_file {
-
     my ($file) = @_;
     open my $fh, '<', $file or die "Could not open file '$file': $!";
     local $/;
