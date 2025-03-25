@@ -10,12 +10,6 @@ use Convert::Pheno::Mapping;
 use Exporter 'import';
 our @EXPORT = qw(do_pxf2bff);
 
-#############
-#############
-#  PXF2BFF  #
-#############
-#############
-
 my $DEFAULT = get_defaults();
 
 sub do_pxf2bff {
@@ -40,8 +34,7 @@ sub do_pxf2bff {
 
     # We create cursors for top-level elements
     # 1 - phenopacket (mandatory)
-    my $phenopacket =
-      exists $data->{phenopacket} ? $data->{phenopacket} : $data;
+    my $phenopacket = exists $data->{phenopacket} ? $data->{phenopacket} : $data;
 
     # Validate format
     die "Are you sure that your input is not already a bff?\n"
@@ -80,12 +73,85 @@ sub do_pxf2bff {
     # NB: In PXF some terms are = []
 
     # Initiate BFF structure
-    my $individual;
+    my $individual = {};
 
     # ========
     # diseases
     # ========
+    _map_diseases($phenopacket, $individual);
 
+    # ========
+    # exposures
+    # ========
+    _map_exposures($phenopacket, $individual);
+
+    # ================
+    # geographicOrigin
+    # ================
+    # NA
+
+    # ==
+    # id
+    # ==
+    _map_id($phenopacket, $individual);
+
+    # ====
+    # info
+    # ====
+    _map_info($phenopacket, $cohort, $family, $individual);
+
+    # =========================
+    # interventionsOrProcedures
+    # =========================
+    _map_interventions_or_procedures($phenopacket, $individual);
+
+    # =============
+    # karyotypicSex
+    # =============
+    _map_karyotypicSex($phenopacket, $individual);
+
+    # =========
+    # measures
+    # =========
+    _map_measures($phenopacket, $individual);
+
+    # =========
+    # pedigrees
+    # =========
+    # See above {info}{phenopacket}{pedigree} => singular!!!
+
+    # ==================
+    # phenotypicFeatures
+    # ==================
+    _map_phenotypic_features($phenopacket, $individual);
+
+    # ===
+    # sex
+    # ===
+    _map_sex($self, $phenopacket, $individual);
+
+    # ==========
+    # treatments
+    # ==========
+    _map_treatments($phenopacket, $individual);
+
+    ##################################
+    # END MAPPING TO BEACON V2 TERMS #
+    ##################################
+
+    # print Dumper $individual;
+    return $individual;
+}
+
+################################################################################
+# Helper subs extracted from do_pxf2bff (preserving original comments)
+################################################################################
+
+sub _map_diseases {
+    my ($phenopacket, $individual) = @_;
+    # ========
+    # diseases
+    # ========
     if ( exists $phenopacket->{diseases} ) {
         for my $pxf_disease ( @{ $phenopacket->{diseases} } ) {
             my $disease = $pxf_disease;    # Ref-copy-only
@@ -100,19 +166,16 @@ sub do_pxf2bff {
 
             # Clean analog terms if exist
             for (qw/term onset/) {
-                delete $disease->{$_}
-                  if exists $disease->{$_};
+                delete $disease->{$_} if exists $disease->{$_};
             }
 
             push @{ $individual->{diseases} }, $disease;
         }
     }
+}
 
-    # ========
-    # ethnicity
-    # ========
-    # NA
-
+sub _map_exposures {
+    my ($phenopacket, $individual) = @_;
     # ========
     # exposures
     # ========
@@ -120,8 +183,7 @@ sub do_pxf2bff {
         for my $pxf_exposure ( @{ $phenopacket->{exposures} } ) {
             my $exposure = $pxf_exposure;    # Ref-copy-only
             $exposure->{exposureCode} = $exposure->{type};
-            $exposure->{date} =
-              substr( $exposure->{occurrence}{timestamp}, 0, 10 );
+            $exposure->{date} = substr( $exposure->{occurrence}{timestamp}, 0, 10 );
 
             # Required properties
             $exposure->{ageAtExposure} = $DEFAULT->{iso8601duration};
@@ -132,38 +194,34 @@ sub do_pxf2bff {
 
             # Clean analog terms if exist
             for (qw/type occurence/) {
-                delete $exposure->{$_}
-                  if exists $exposure->{$_};
+                delete $exposure->{$_} if exists $exposure->{$_};
             }
 
             push @{ $individual->{exposures} }, $exposure;
         }
     }
+}
 
-    # ================
-    # geographicOrigin
-    # ================
-    # NA
-
+sub _map_id {
+    my ($phenopacket, $individual) = @_;
     # ==
     # id
     # ==
+    if ( exists $phenopacket->{subject}{id} ) {
+        $individual->{id} = $phenopacket->{subject}{id};
+    }
+}
 
-    $individual->{id} = $phenopacket->{subject}{id}
-      if exists $phenopacket->{subject}{id};
-
+sub _map_info {
+    my ($phenopacket, $cohort, $family, $individual) = @_;
     # ====
     # info
     # ====
-
     # *** IMPORTANT ***
     # Here we set data that do not fit anywhere else
 
     # Miscelanea for top-level 'phenopacket'
-    for my $term (
-        qw (dateOfBirth genes interpretations metaData variants files biosamples pedigree)
-      )
-    {
+    for my $term (qw(dateOfBirth genes interpretations metaData variants files biosamples pedigree)) {
         $individual->{info}{phenopacket}{$term} = $phenopacket->{$term}
           if exists $phenopacket->{$term};
     }
@@ -171,11 +229,13 @@ sub do_pxf2bff {
     # Miscelanea for top-levels 'cohort' and 'family'
     $individual->{info}{cohort} = $cohort if defined $cohort;
     $individual->{info}{family} = $family if defined $family;
+}
 
+sub _map_interventions_or_procedures {
+    my ($phenopacket, $individual) = @_;
     # =========================
     # interventionsOrProcedures
-    # ========================
-
+    # =========================
     if ( exists $phenopacket->{medicalActions} ) {
         for my $action ( @{ $phenopacket->{medicalActions} } ) {
             if ( exists $action->{procedure} ) {
@@ -191,22 +251,27 @@ sub do_pxf2bff {
 
                 # Clean analog terms if exist
                 for (qw/code performed/) {
-
-                    delete $procedure->{$_}
-                      if exists $procedure->{$_};
+                    delete $procedure->{$_} if exists $procedure->{$_};
                 }
 
                 push @{ $individual->{interventionsOrProcedures} }, $procedure;
             }
         }
     }
+}
 
+sub _map_karyotypicSex {
+    my ($phenopacket, $individual) = @_;
     # =============
     # karyotypicSex
     # =============
-    $individual->{karyotypicSex} = $phenopacket->{subject}{karyotypicSex}
-      if exists $phenopacket->{subject}{karyotypicSex};
+    if ( exists $phenopacket->{subject}{karyotypicSex} ) {
+        $individual->{karyotypicSex} = $phenopacket->{subject}{karyotypicSex};
+    }
+}
 
+sub _map_measures {
+    my ($phenopacket, $individual) = @_;
     # =========
     # measures
     # =========
@@ -216,34 +281,31 @@ sub do_pxf2bff {
 
             $measure->{assayCode} = $measure->{assay};
 
-            # Process remotely compleValue
+            # Process remotely complexValue
             # s/type/quantityType/
             map_complexValue( $measure->{complexValue} )
               if exists $measure->{complexValue};
 
-            # Assign dependeing on PXF
+            # Assign depending on PXF
             $measure->{measurementValue} =
-                exists $measure->{value}        ? $measure->{value}
-              : exists $measure->{complexValue} ? $measure->{complexValue}
-              :                                   $DEFAULT->{value};
+                  exists $measure->{value}        ? $measure->{value}
+                : exists $measure->{complexValue} ? $measure->{complexValue}
+                :                                   $DEFAULT->{value};
             $measure->{observationMoment} = $measure->{timeObserved}
               if exists $measure->{timeObserved};
 
             # Clean analog terms if exist
             for (qw/assay value complexValue/) {
-                delete $measure->{$_}
-                  if exists $measure->{$_};
+                delete $measure->{$_} if exists $measure->{$_};
             }
 
             push @{ $individual->{measures} }, $measure;
         }
     }
+}
 
-    # =========
-    # pedigrees
-    # =========
-    # See above {info}{phenopacket}{pedigree} => singular!!!
-
+sub _map_phenotypic_features {
+    my ($phenopacket, $individual) = @_;
     # ==================
     # phenotypicFeatures
     # ==================
@@ -265,33 +327,36 @@ sub do_pxf2bff {
 
             # Clean analog terms if exist
             for (qw/negated type/) {
-                delete $phenotypicFeature->{$_}
-                  if exists $phenotypicFeature->{$_};
+                delete $phenotypicFeature->{$_} if exists $phenotypicFeature->{$_};
             }
 
             push @{ $individual->{phenotypicFeatures} }, $phenotypicFeature;
         }
     }
+}
 
+sub _map_sex {
+    my ($self, $phenopacket, $individual) = @_;
     # ===
     # sex
     # ===
+    if ( exists $phenopacket->{subject}{sex} && $phenopacket->{subject}{sex} ne '' ) {
+        $individual->{sex} = map_ontology_term(
+            {
+                query    => $phenopacket->{subject}{sex},
+                column   => 'label',
+                ontology => 'ncit',
+                self     => $self
+            }
+        );
+    }
+}
 
-    $individual->{sex} = map_ontology_term(
-        {
-            query    => $phenopacket->{subject}{sex},
-            column   => 'label',
-            ontology => 'ncit',
-            self     => $self
-        }
-      )
-      if ( exists $phenopacket->{subject}{sex}
-        && $phenopacket->{subject}{sex} ne '' );
-
+sub _map_treatments {
+    my ($phenopacket, $individual) = @_;
     # ==========
     # treatments
     # ==========
-
     if ( exists $phenopacket->{medicalActions} ) {
         for my $action ( @{ $phenopacket->{medicalActions} } ) {
             if ( exists $action->{treatment} ) {
@@ -302,8 +367,7 @@ sub do_pxf2bff {
                   : $DEFAULT->{ontology_term};
 
                 # Clean analog terms if exist
-                delete $treatment->{agent}
-                  if exists $treatment->{agent};
+                delete $treatment->{agent} if exists $treatment->{agent};
 
                 # doseIntervals needs some parsing
                 if ( exists $treatment->{doseIntervals} ) {
@@ -311,15 +375,12 @@ sub do_pxf2bff {
                     # Required properties:
                     #   - scheduleFrequency
                     #   - quantity
-
                     for ( @{ $treatment->{doseIntervals} } ) {
-
                         # quantity
                         unless ( exists $_->{quantity} ) {
                             $_->{quantity} = $DEFAULT->{quantity};
                         }
-
-                        #scheduleFrequency
+                        # scheduleFrequency
                         unless ( exists $_->{scheduleFrequency} ) {
                             $_->{scheduleFrequency} = $DEFAULT->{ontology_term};
                         }
@@ -330,13 +391,6 @@ sub do_pxf2bff {
             }
         }
     }
-
-    ##################################
-    # END MAPPING TO BEACON V2 TERMS #
-    ##################################
-
-    # print Dumper $individual;
-    return $individual;
 }
 
 #----------------------------------------------------------------------
@@ -362,7 +416,7 @@ sub map_complexValue {
     #            }
     #  }
 
-    # Modifying the orginal ref
+    # Modifying the original ref
     for ( @{ $complexValue->{typedQuantities} } ) {
         $_->{quantityType} = delete $_->{type};
     }
