@@ -31,34 +31,90 @@ sub do_bff2pxf {
     # START MAPPING TO PHENOPACKET V2 TERMS #
     #########################################
 
-    # We need to shuffle a bit some Beacon v2 properties to be Phenopacket compliant
-    # Order of terms (not alphabetical) taken from:
-    # - https://phenopacket-schema.readthedocs.io/en/latest/phenopacket.html
-
     # Initiate PXF structure
-    my $pxf;
+    my $pxf = {};
+
+    # Map id
+    _map_id( $self, $bff, $pxf );
+
+    # Map subject
+    _map_subject( $self, $bff, $pxf );
+
+    # ===================
+    # phenotypicFeatures
+    # ===================
+    _map_phenotypic_features( $self, $bff, $pxf );
+
+    # ============
+    # measurements
+    # ============
+    _map_measurements( $self, $bff, $pxf );
+
+    # ========
+    # diseases
+    # ========
+    _map_diseases( $self, $bff, $pxf );
+
+    # ===============
+    # medicalActions
+    # ===============
+    _map_medical_actions( $self, $bff, $pxf );
+
+    # =====
+    # files
+    # =====
+    # (Not mapped, see original code comments)
+
+    # =========
+    # metaData
+    # =========
+    _map_metaData( $self, $bff, $pxf );
+
+    # =========
+    # exposures
+    # =========
+    # Can't be mapped as Sept-2023 from pxf-tools
+    # Message type "org.phenopackets.schema.v2.Phenopacket" has no field named "exposures" at "Phenopacket".
+    #  Available Fields(except extensions): "['id', 'subject', 'phenotypicFeatures', 'measurements', 'biosamples', 'interpretations', 'diseases', 'medicalActions', 'files', 'metaData']" at line 22
+    #
+    #   $pxf->{exposures} =
+    #
+    #      [
+    #        map {
+    #            {
+    #                type       => $_->{exposureCode},
+    #                occurrence => { timestamp => $_->{date} }
+    #            }
+    #        } @{ $bff->{exposures} }
+    #      ]
+    #      if exists $bff->{exposures};
+
+    #######################################
+    # END MAPPING TO PHENOPACKET V2 TERMS #
+    #######################################
+
+    return $pxf;
+}
+
+sub _map_id {
+    my ( $self, $bff, $pxf ) = @_;
 
     # ==
     # id
     # ==
-
     $pxf->{id} = $self->{test} ? undef : 'phenopacket_id.' . randStr(8);
+}
+
+sub _map_subject {
+    my ( $self, $bff, $pxf ) = @_;
 
     # =======
     # subject
     # =======
-
     $pxf->{subject} = {
-        id => $bff->{id},
-
-        #alternateIds => [],
-        #_age => $bff->{info}{age}
-        #timeAtLastEncounter => {},
+        id          => $bff->{id},
         vitalStatus => { status => 'ALIVE' },      #["UNKNOWN_STATUS", "ALIVE", "DECEASED"]
         sex         => uc( $bff->{sex}{label} ),
-
-        #taxonomy => {} ;
-        #_age => $bff->{info}{age}
     };
 
     # Miscellanea
@@ -69,22 +125,34 @@ sub do_bff2pxf {
     # karyotypicSex
     $pxf->{subject}{karyotypicSex} = $bff->{karyotypicSex}
       if exists $bff->{karyotypicSex};
+}
+
+sub _map_phenotypic_features {
+    my ( $self, $bff, $pxf ) = @_;
 
     # ===================
     # phenotypicFeatures
     # ===================
-
     # Assign transformed 'phenotypicFeatures' to $pxf, only if it's defined in $bff
     $pxf->{phenotypicFeatures} = [
         map {
             {
                 type     => delete $_->{featureType},    # Rename 'featureType' to 'type'
-                excluded => (exists $_->{excluded} ? delete $_->{excluded} : JSON::PP::false),
-                                                         # _notes => $_->{notes}
+                excluded => (
+                    exists $_->{excluded}
+                    ? delete $_->{excluded}
+                    : JSON::PP::false
+                ),
+
+                # _notes => $_->{notes}
             }
         } @{ $bff->{phenotypicFeatures} }
       ]
       if defined $bff->{phenotypicFeatures};
+}
+
+sub _map_measurements {
+    my ( $self, $bff, $pxf ) = @_;
 
     # ============
     # measurements
@@ -107,7 +175,6 @@ sub do_bff2pxf {
             }
             else {
                 $result->{value} = $measure->{measurementValue};
-
             }
             $result->{procedure} = map_procedures( $measure->{procedure} )
               if defined $measure->{procedure};
@@ -116,24 +183,21 @@ sub do_bff2pxf {
             push @{ $pxf->{measurements} }, $result;
         }
     }
+}
 
-    # ==========
-    # biosamples
-    # ==========
-
-    # ===============
-    # interpretations
-    # ===============
-
-    #$bff->{interpretation} = {};
+sub _map_diseases {
+    my ( $self, $bff, $pxf ) = @_;
 
     # ========
     # diseases
     # ========
-
     $pxf->{diseases} =
       [ map { { term => $_->{diseaseCode}, onset => $_->{ageOfOnset} } }
           @{ $bff->{diseases} } ];
+}
+
+sub _map_medical_actions {
+    my ( $self, $bff, $pxf ) = @_;
 
     # ===============
     # medicalActions
@@ -159,46 +223,19 @@ sub do_bff2pxf {
     # Load
     push @{ $pxf->{medicalActions} }, @procedures if @procedures;
     push @{ $pxf->{medicalActions} }, @treatments if @treatments;
+}
 
-    # =====
-    # files
-    # =====
+sub _map_metaData {
+    my ( $self, $bff, $pxf ) = @_;
 
     # =========
     # metaData
     # =========
-
     # Depending on the origion (redcap) , _info and resources may exist
     $pxf->{metaData} =
         $self->{test}                 ? undef
       : exists $bff->{info}{metaData} ? $bff->{info}{metaData}
       :                                 get_metaData($self);
-
-    # =========
-    # exposures
-    # =========
-
-    # Can't be mapped as Sept-2023 from pxf-tools
-    # Message type "org.phenopackets.schema.v2.Phenopacket" has no field named "exposures" at "Phenopacket".
-    #  Available Fields(except extensions): "['id', 'subject', 'phenotypicFeatures', 'measurements', 'biosamples', 'interpretations', 'diseases', 'medicalActions', 'files', 'metaData']" at line 22
-
-    #   $pxf->{exposures} =
-    #
-    #      [
-    #        map {
-    #            {
-    #                type       => $_->{exposureCode},
-    #                occurrence => { timestamp => $_->{date} }
-    #            }
-    #        } @{ $bff->{exposures} }
-    #      ]
-    #      if exists $bff->{exposures};
-
-    #######################################
-    # END MAPPING TO PHENOPACKET V2 TERMS #
-    #######################################
-
-    return $pxf;
 }
 
 #----------------------------------------------------------------------
