@@ -13,6 +13,9 @@ RUN apt-get update && \
 WORKDIR /usr/share/
 RUN git clone https://github.com/CNAG-Biomedical-Informatics/convert-pheno.git
 
+# Remove the .git folder to save space and avoid shipping VCS data
+RUN rm -rf convert-pheno/.git
+
 # Install Perl modules
 WORKDIR /usr/share/convert-pheno
 RUN cpanm --notest --installdeps .
