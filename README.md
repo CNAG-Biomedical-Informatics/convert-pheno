@@ -275,7 +275,8 @@ Then I will do something like this:
 
 ### System requirements
 
-    * Ideally a Debian-based distribution (Ubuntu or Mint), but any other (e.g., CentOs, OpenSuse, MacOS) should do as well.
+    - OS/ARCH supported: B<linux/amd64> and B<linux/arm64>.
+    - Ideally a Debian-based distribution (Ubuntu or Mint), but any other (e.g., CentOS, OpenSUSE) should do as well (untested).
       (It should also work on macOS and Windows Server, but we are only providing information for Linux here)
     * Perl 5 (>= 5.26 core; installed by default in most Linux distributions). Check the version with "perl -v".
     * >= 4GB of RAM

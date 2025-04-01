@@ -1,4 +1,4 @@
-package Convert::Pheno::BFF;
+package Convert::Pheno::Bff2Pxf;
 
 use strict;
 use warnings;

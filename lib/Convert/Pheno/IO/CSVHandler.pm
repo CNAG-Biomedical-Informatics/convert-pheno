@@ -5,11 +5,11 @@ use warnings;
 use autodie;
 use feature qw(say);
 use File::Basename;
-use Text::CSV_XS qw(csv);
-use Sort::Naturally qw(nsort);
-use List::Util qw(any);
-use File::Spec::Functions qw(catdir);
-use IO::Compress::Gzip qw($GzipError);
+use Text::CSV_XS           qw(csv);
+use Sort::Naturally        qw(nsort);
+use List::Util             qw(any);
+use File::Spec::Functions  qw(catdir);
+use IO::Compress::Gzip     qw($GzipError);
 use IO::Uncompress::Gunzip qw($GunzipError);
 
 use Data::Dumper;
@@ -146,6 +146,7 @@ sub read_sqldump {
     my $local_count = 0;
     my $total_count = 0;
     my @headers;
+    my $headers_data_structure;
     my $table_name;
 
     while ( my $line = <$fh> ) {
@@ -178,6 +179,9 @@ sub read_sqldump {
 
             # Initializing $data>key as empty arrayref
             $data->{$table_name} = [];
+
+            # Loading headers
+            $headers_data_structure->{$table_name} = [@headers];
 
             # Jump one line
             $line = <$fh>;
@@ -247,7 +251,7 @@ sub read_sqldump {
     say ram_usage_str( 'read_sqldump', $data )
       if ( DEVEL_MODE || $self->{verbose} );
 
-    return $data;
+    return ( $data, $headers_data_structure );
 }
 
 sub read_sqldump_stream {
@@ -378,28 +382,38 @@ sub encode_omop_stream {
 }
 
 sub sqldump2csv {
-    my ( $data, $dir ) = @_;
+    my ( $data, $dir, $sql_headers_data_structure ) = @_;
 
-    # CSV sep character
+    # CSV separator (tab character)
     my $sep = "\t";
 
-    # The idea is to save a CSV table for each $data->key
+    # Natural sort flag: set to 0 (off) by default.
+    my $sort = 0;
+
+    # Iterate over each table in the data hash.
     for my $table ( keys %{$data} ) {
 
-        # File path for CSV file
+        # Build the file path for the CSV file.
         my $filepath = catdir( $dir, "$table.csv" );
 
-        # We get header fields from row[0] and nsort them
-        # NB: The order will not be the same as that in <.sql>
-        my @headers = nsort keys %{ $data->{$table}[0] };
+        # Retrieve header fields for the current table.
+        my $table_headers = $sql_headers_data_structure->{$table};
+        die "No header data found for table '$table'"
+          unless defined $table_headers && @$table_headers;
 
-        # Print data as CSV
+        # Determine header order: natural sort if enabled, or as stored.
+        my $headers =
+          $sort
+          ? [ nsort( @{$table_headers} ) ]
+          : $table_headers;
+
+        # Write the CSV file using the specified separator, headers, and data.
         write_csv(
             {
                 sep      => $sep,
                 filepath => $filepath,
-                headers  => \@headers,
-                data     => $data->{$table}
+                headers  => $headers,
+                data     => $data->{$table},
             }
         );
     }

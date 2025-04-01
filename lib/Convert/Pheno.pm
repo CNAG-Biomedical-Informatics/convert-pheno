@@ -24,7 +24,8 @@ use Convert::Pheno::CSV;
 use Convert::Pheno::RDF qw(do_bff2jsonld do_pxf2jsonld);
 use Convert::Pheno::OMOP;
 use Convert::Pheno::PXF;
-use Convert::Pheno::BFF;
+use Convert::Pheno::Bff2Pxf;
+use Convert::Pheno::Bff2Omop;
 use Convert::Pheno::CDISC;
 use Convert::Pheno::REDCap;
 
@@ -205,6 +206,18 @@ sub bff2jsonld {
     my $self = shift;
     # <array_dispatcher> will deal with JSON arrays
     return $self->array_dispatcher;
+}
+
+#############
+#############
+#  BFF2PXF  #
+#############
+#############
+
+sub bff2omop {
+    my $self = shift;
+    # <array_dispatcher> will deal with JSON arrays
+    return merge_omop_tables($self->array_dispatcher);
 }
 
 ################
@@ -723,6 +736,7 @@ sub array_dispatcher {
         bff2csv    => \&do_bff2csv,
         bff2jsonf  => \&do_bff2csv,      # Not a typo, is the same as above
         bff2jsonld => \&do_bff2jsonld,
+        bff2omop   => \&do_bff2omop,
         pxf2bff    => \&do_pxf2bff,
         pxf2csv    => \&do_pxf2csv,
         pxf2jsonf  => \&do_pxf2csv,      # Not a typo, is the same as above

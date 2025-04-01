@@ -3,6 +3,8 @@ Revision history for Perl distribution Convert-Pheno
 0.28 2025-0X-XXT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
  - Internal parameter 'ncpuhost' renamed to 'threadshost'
+ - 'BFF.pm' renamed to 'Bff2Pxf.pm'
+ - -slq2csv CSVs now mantain the order of header fields from <.sql>  (i.e., easier csv import)
 
 0.27 2025-01-16T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
