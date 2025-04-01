@@ -29,8 +29,8 @@ use FindBin                        qw($Bin);
 use lib "$Bin/../lib";
 use Term::ANSIColor qw(:constants);
 use Convert::Pheno;
-use Convert::Pheno::OMOP;
 use Convert::Pheno::IO::CSVHandler;
+use Convert::Pheno::OMOP::Definitions;
 
 $Data::Dumper::Sortkeys = 1;
 
