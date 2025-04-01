@@ -29,6 +29,7 @@ use FindBin                        qw($Bin);
 use lib "$Bin/../lib";
 use Term::ANSIColor qw(:constants);
 use Convert::Pheno;
+use Convert::Pheno::OMOP;
 use Convert::Pheno::IO::CSVHandler;
 
 $Data::Dumper::Sortkeys = 1;
@@ -183,7 +184,7 @@ my $out_file =
   : $out_csv    ? catfile( $out_dir, $out_csv )
   : $out_jsonf  ? catfile( $out_dir, $out_jsonf )
   : $out_jsonld ? catfile( $out_dir, $out_jsonld )
-  : $out_omop ? catfile( $out_dir, $out_omop) 
+  : $out_omop   ? catfile( $out_dir, $out_omop )
   :               catfile( $out_dir, 'individuals.json' );
 
 # Defining $log_file
@@ -205,7 +206,7 @@ my $out_type =
   : $out_csv    ? 'csv'
   : $out_jsonf  ? 'jsonf'
   : $out_jsonld ? 'jsonld'
-  : $out_omop ? 'omop'
+  : $out_omop   ? 'omop'
   :               'bff';
 my $method = $in_type . '2' . $out_type;
 
@@ -310,20 +311,21 @@ sub convert {
                     data     => $data,
                 }
             );
-        } elsif( $method eq 'bff2omop') {
+        }
+        elsif ( $method eq 'bff2omop' ) {
 
-         for my $table ( keys %$data ) {
-    my $filepath = catfile($o_file."_$table.csv");
-    # Extract headers from the first row (or define a fixed header order)
-    my @headers = sort keys %{ $data->{$table}[0] };
-    write_csv({
-        sep      => ";",       # or the separator your CSV requires
-        filepath => $filepath,
-        headers  => \@headers,
-        data     => $data->{$table},  # array-of-hashes
-    });
-}
-
+            for my $table ( keys %$data ) {
+                my $filepath = catfile( $o_file . "_$table.csv" );
+                my @headers =  @{$omop_headers{$table}};
+                write_csv(
+                    {
+                        sep      => ";",                # or the separator your CSV requires
+                        filepath => $filepath,
+                        headers  => \@headers,
+                        data     => $data->{$table},    # array-of-hashes
+                    }
+                );
+            }
         }
         else {
             io_yaml_or_json(
@@ -474,9 +476,7 @@ convert-pheno - A script to interconvert common data models for phenotypic data
        (output-type):
              -obff                    Beacon v2 Models ('individuals' JSON|YAML) file
              -opxf                    Phenopacket v2 (JSON|YAML) file
-
-             (Wish-list)
-             #-oomop                  OMOP-CDM PostgreSQL dump
+             -oomop   (experimental)  OMOP-CDM PostgreSQL dump
 
              Compatible with -i(bff|pxf):
              -ocsv                    Flatten data to CSV

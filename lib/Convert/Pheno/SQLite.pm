@@ -227,7 +227,7 @@ sub get_ontology_terms {
     );
 
     # exact_match (always performed)
-    my ( $id, $label ) = execute_query_SQLite(
+    my ( $id, $label, $concept_id ) = execute_query_SQLite(
         {
             sth       => $sth_column_ref->{exact_match},    # IMPORTANT STEP
             query     => $query,
@@ -241,7 +241,7 @@ sub get_ontology_terms {
 
     # Mixed queries
     if ( $search eq 'mixed' && ( !defined $id && !defined $label ) ) {
-        ( $id, $label ) = execute_query_SQLite(
+        ( $id, $label, undef ) = execute_query_SQLite(
             {
                 sth      => $sth_column_ref->{$type_of_search}, # IMPORTANT STEP
                 query    => $query,
@@ -262,7 +262,7 @@ sub get_ontology_terms {
     # END QUERY #
     #############
 
-    return ( $id, $label );
+    return ( $id, $label, $concept_id );
 
 }
 
@@ -304,6 +304,7 @@ sub execute_query_SQLite {
     };
     my $id_column    = $position->{$ontology}{id};
     my $label_column = $position->{$ontology}{label};
+    my $concept_id_column = 2;
 
     # Execute the query
     $sth->bind_param( 1, $query );
@@ -317,6 +318,8 @@ sub execute_query_SQLite {
     # HPO to HP
     chop($ontology) if $ontology eq 'hpo';
 
+    my $concept_id; ###### WE HAVE TO FIX THIS !!!
+                    ####### ONCE WE DO text_similarity
     # Process results depending on the type of match
     if ( $match eq 'exact_match' ) {
         while ( my $row = $sth->fetchrow_arrayref ) {
@@ -325,6 +328,7 @@ sub execute_query_SQLite {
               ? uc($ontology) . ':' . $row->[$id_column]
               : $row->[3] . ':' . $row->[$id_column];
             $label = $row->[$label_column];
+            $concept_id = $row->[$concept_id_column];
             last;    # Only the first match is used
         }
     }
@@ -347,7 +351,7 @@ sub execute_query_SQLite {
     $sth->finish();
 
     # Return the results
-    return ( $id, $label );
+    return ( $id, $label, $concept_id );
 }
 
 sub prune_problematic_chars {

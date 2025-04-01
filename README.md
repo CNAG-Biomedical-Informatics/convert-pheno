@@ -69,9 +69,7 @@ convert-pheno - A script to interconvert common data models for phenotypic data
           (output-type):
                 -obff                    Beacon v2 Models ('individuals' JSON|YAML) file
                 -opxf                    Phenopacket v2 (JSON|YAML) file
-
-                (Wish-list)
-                #-oomop                  OMOP-CDM PostgreSQL dump
+                -oomop   (experimental)  OMOP-CDM PostgreSQL dump
 
                 Compatible with -i(bff|pxf):
                 -ocsv                    Flatten data to CSV

@@ -19,7 +19,7 @@ use Convert::Pheno::SQLite;
 use Convert::Pheno::Default qw(get_defaults);
 use Exporter 'import';
 our @EXPORT =
-  qw(map_ontology_term dotify_and_coerce_number iso8601_time _map2iso8601 map_reference_range map_reference_range_csv map_age_range map2redcap_dict map2ohdsi convert2boolean find_age randStr map_operator_concept_id map_info_field map_omop_visit_occurrence dot_date2iso validate_format get_metaData get_info);
+  qw(map_ontology_term dotify_and_coerce_number iso8601_time _map2iso8601 map_reference_range map_reference_range_csv map_age_range map2redcap_dict map2ohdsi convert2boolean find_age randStr map_operator_concept_id map_info_field map_omop_visit_occurrence dot_date2iso validate_format get_metaData get_info merge_omop_tables);
 
 my $DEFAULT = get_defaults();
 use constant DEVEL_MODE => 0;
@@ -75,6 +75,10 @@ sub map_ontology_term {
     my $print_hidden_labels       = $self->{print_hidden_labels};
     my $text_similarity_method    = $self->{text_similarity_method};
     my $min_text_similarity_score = $self->{min_text_similarity_score};
+    my $require_concept_id =
+      ( exists $arg->{require_concept_id} && $arg->{require_concept_id} )
+      ? 1
+      : 0;
 
     # DEVEL_MODE
     say "searching for query <$query> in ontology <$ontology>" if DEVEL_MODE;
@@ -85,7 +89,7 @@ sub map_ontology_term {
       if ( $ontology eq 'ohdsi' && !$self->{ohdsi_db} );
 
     # Perform query
-    my ( $id, $label ) = get_ontology_terms(
+    my ( $id, $label, $concept_id ) = get_ontology_terms(
         {
             sth_column_ref            => $self->{sth}{$ontology}{$column},
             query                     => $query,
@@ -99,11 +103,13 @@ sub map_ontology_term {
     );
 
     # Add result to global %seen
-    $seen{$query} = { id => $id, label => $label };    # global
+    $seen{$query} = { id => $id, label => $label }; # global
 
     # id and label come from <db> _label is the original string (can change on partial matches)
     return $print_hidden_labels
       ? { id => $id, label => $label, _label => $query }
+      : $require_concept_id
+      ? { id => $id, label => $label, concept_id => $concept_id }
       : { id => $id, label => $label };
 }
 
@@ -255,6 +261,7 @@ sub convert2boolean {
 }
 
 sub find_age {
+
     # Not using any CPAN module for now
     # Adapted from https://www.perlmonks.org/?node_id=9995
 
@@ -319,6 +326,7 @@ sub map_operator_concept_id {
 }
 
 sub map_omop_visit_occurrence {
+
     # key eq 'visit_occurrence_id'
     # { '85' =>
     #    {
@@ -559,6 +567,32 @@ sub get_metaData {
             }
         ]
     };
+}
+
+sub merge_omop_tables {
+    my $individuals = shift;    # Expect an arrayref of individual OMOP structures
+    die "Expected an array reference" unless ref($individuals) eq 'ARRAY';
+
+    my %merged;
+    foreach my $ind (@$individuals) {
+
+        # Ensure each individual record is a hashref.
+        next unless ref($ind) eq 'HASH';
+
+        # For each table in this individual...
+        foreach my $table ( keys %$ind ) {
+
+            # If the table is stored as an arrayref, merge its rows.
+            if ( ref( $ind->{$table} ) eq 'ARRAY' ) {
+                push @{ $merged{$table} }, @{ $ind->{$table} };
+            }
+            else {
+                # If it's a single hash (one row), add it as a single element.
+                push @{ $merged{$table} }, $ind->{$table};
+            }
+        }
+    }
+    return \%merged;
 }
 
 1;
