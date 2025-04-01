@@ -18,6 +18,7 @@ use File::ShareDir::ProjectDistDir qw(dist_dir);
 #use Devel::Size     qw(size total_size);
 use Convert::Pheno::IO::CSVHandler;
 use Convert::Pheno::IO::FileIO;
+use Convert::Pheno::OMOP::Definitions;
 use Convert::Pheno::SQLite;
 use Convert::Pheno::Mapping;
 use Convert::Pheno::CSV;

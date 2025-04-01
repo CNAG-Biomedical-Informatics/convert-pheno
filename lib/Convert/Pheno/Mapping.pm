@@ -82,8 +82,9 @@ sub map_ontology_term {
 
     # DEVEL_MODE
     say "searching for query <$query> in ontology <$ontology>" if DEVEL_MODE;
+    say "<require_concept_id> is <$require_concept_id >"       if DEVEL_MODE;
 
-    # Die if user wants OHDSI w/o flag -ohdsi-db
+    # Die if user wants OHDSI w/o flag --ohdsi-db
     die
 "Could not find the concept_id:<$query> in the provided <CONCEPT> table.\nPlease use the flag <--ohdsi-db> to enable searching at Athena-OHDSI database\n"
       if ( $ontology eq 'ohdsi' && !$self->{ohdsi_db} );
@@ -103,7 +104,10 @@ sub map_ontology_term {
     );
 
     # Add result to global %seen
-    $seen{$query} = { id => $id, label => $label }; # global
+    $seen{$query} =
+      $require_concept_id
+      ? { id => $id, label => $label, concept_id => $concept_id }
+      : { id => $id, label => $label };    # global
 
     # id and label come from <db> _label is the original string (can change on partial matches)
     return $print_hidden_labels
