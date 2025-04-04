@@ -64,7 +64,6 @@ convert-pheno - A script to interconvert common data models for phenotypic data
 
                 (Wish-list)
                 #-iopenehr               openEHR
-                #-ifhir                  HL7/FHIR
 
           (output-type):
                 -obff                    Beacon v2 Models ('individuals' JSON|YAML) file

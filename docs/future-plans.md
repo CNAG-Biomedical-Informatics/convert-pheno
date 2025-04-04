@@ -22,7 +22,6 @@
 
     section Planned
     OpenEHR (in)    :          f3, after r2,   200d
-    HL7/FHIR (in)   :          f4, after r2,   200d
 ```
 
 `*The roadmap is subject to revisions and may evolve over time`
