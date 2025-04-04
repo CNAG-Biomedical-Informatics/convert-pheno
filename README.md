@@ -129,14 +129,9 @@ First install system level dependencies:
 
     sudo apt-get install cpanminus libbz2-dev zlib1g-dev libperl-dev libssl-dev
 
-Now you have two choose between one of the 3 options below:
+Now you have two choose between one of the 2 options below:
 
-**Option 1:** System-level installation:
-
-    cpanm --notest --sudo Convert::Pheno
-    convert-pheno -h
-
-**Option 2:** Install Convert-Pheno and the dependencies at `~/perl5`
+**Option 1:** Install Convert-Pheno and the dependencies at `~/perl5`
 
     cpanm --local-lib=~/perl5 local::lib && eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
     cpanm --notest Convert::Pheno
@@ -150,7 +145,7 @@ To **update** to the newest version (showing commands for Option 2):
 
     cpanm Convert::Pheno
 
-**Option 3:** Install Convert-Pheno and the dependencies in a "virtual environment" (at `local/`) . We'll be using the module `Carton` for that:
+**Option 2:** Install Convert-Pheno and the dependencies in a "virtual environment" (at `local/`) . We'll be using the module `Carton` for that:
 
     mkdir local
     cpanm --notest --local-lib=local/ Carton
@@ -178,14 +173,9 @@ Install system level dependencies:
 
     sudo apt-get install cpanminus libbz2-dev zlib1g-dev libperl-dev libssl-dev
 
-Now you have two choose between one of the 3 options below:
+Now you have two choose between one of the 2 options below:
 
-**Option 1:** Install dependencies (they're harmless to your system) as `sudo`:
-
-    cpanm --notest --sudo --installdeps .
-    bin/convert-pheno --help            
-
-**Option 2:** Install the dependencies at `~/perl5`:
+**Option 1:** Install the dependencies at `~/perl5`:
 
     cpanm --local-lib=~/perl5 local::lib && eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
     cpanm --notest --installdeps .
@@ -195,7 +185,7 @@ To ensure Perl recognizes your local modules every time you start a new terminal
 
     echo 'eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)' >> ~/.bashrc
 
-**Option 3:** Install the dependencies in a "virtual environment" (at `local/`) . We'll be using the module `Carton` for that:
+**Option 2:** Install the dependencies in a "virtual environment" (at `local/`) . We'll be using the module `Carton` for that:
 
     mkdir local
     cpanm --notest --local-lib=local/ Carton
