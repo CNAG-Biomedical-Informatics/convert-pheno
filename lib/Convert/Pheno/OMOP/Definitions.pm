@@ -4,7 +4,9 @@ use strict;
 use warnings;
 use Exporter 'import';
 our @EXPORT =
-  qw($omop_version $omop_main_table @omop_array_tables @omop_essential_tables @stream_ram_memory_tables %omop_headers);
+  qw($omop_version $omop_main_table @omop_array_tables @omop_essential_tables @stream_ram_memory_tables $omop_headers);
+
+# NB: Direct export w/o encapsulation in subroutine
 
 our $omop_version    = 'v5.4';
 our $omop_main_table = {
@@ -48,7 +50,6 @@ our $omop_main_table = {
     ]
 };
 
-# NB: Direct export w/o encapsulation in subroutine
 our @omop_array_tables = qw(
   MEASUREMENT
   OBSERVATION
@@ -58,7 +59,6 @@ our @omop_array_tables = qw(
   VISIT_OCCURRENCE
 );
 
-# NB: Direct export w/o encapsulation in subroutine
 our @omop_essential_tables = qw(
   CONCEPT
   CONDITION_OCCURRENCE
@@ -70,7 +70,7 @@ our @omop_essential_tables = qw(
   VISIT_OCCURRENCE
 );
 
-our %omop_headers = (
+our $omop_headers = {
     "CONCEPT" => [
         'concept_id',
         'concept_name',
@@ -229,6 +229,6 @@ our %omop_headers = (
         'discharged_to_source_value',
         'preceding_visit_occurrence_id',
     ],
-);
-# NB: Direct export w/o encapsulation in subroutine
+};
+
 our @stream_ram_memory_tables = qw/CONCEPT PERSON VISIT_OCCURRENCE/;

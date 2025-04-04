@@ -114,16 +114,16 @@ sub prepare_query_SQLite {
     ###############
     # EXPLANATION #
     ###############
-#
-# Optimization Decision: The "prepare step" is executed once at the start, rather than with each query.
-# Although the speed gain is modest (~15%), this approach reduces repetitive processing.
-# Flexibility in Querying: We've enabled searching in columns other than 'label'. This necessitates the creation
-# of corresponding $sth (Statement Handle) for each case. As a result, we have structured nested statement handles
-# like sth->{ncit}{label}, sth->{icd10}{label}, sth->{ohdsi}{concept_id}, and sth->{ohdsi}{label}.
-# Extensibility for Match Types: The structure also incorporates a "match" type, paving the way for various matching
-# methods in future enhancements.
-# NB: While it's feasible to alter the "prepare" dynamically during queries, it's crucial to reset it to the default
-# post-use. For faster performance, using smaller databases (e.g., ncit/icd10) is advisable.
+    #
+    # Optimization Decision: The "prepare step" is executed once at the start, rather than with each query.
+    # Although the speed gain is modest (~15%), this approach reduces repetitive processing.
+    # Flexibility in Querying: We've enabled searching in columns other than 'label'. This necessitates the creation
+    # of corresponding $sth (Statement Handle) for each case. As a result, we have structured nested statement handles
+    # like sth->{ncit}{label}, sth->{icd10}{label}, sth->{ohdsi}{concept_id}, and sth->{ohdsi}{label}.
+    # Extensibility for Match Types: The structure also incorporates a "match" type, paving the way for various matching
+    # methods in future enhancements.
+    # NB: While it's feasible to alter the "prepare" dynamically during queries, it's crucial to reset it to the default
+    # post-use. For faster performance, using smaller databases (e.g., ncit/icd10) is advisable.
 
     # NB:
     # dbh = "Database Handle"
@@ -178,15 +178,15 @@ qq(SELECT * FROM $db WHERE $column LIKE '%' || ? || '%' COLLATE NOCASE),
         # *** IMPORTANT STEP ***
         # **********************
 
-# Full-text-search queries only on column <label> BUT IT CAN BE DONE ALL COLUMNS!!!!
-# The speed of the FTS in $column == $db_fts
-# FTS is 2x faster than 'contains'
-# NOTE (Jan-2023): We don't check for misspelled words
-#       --> TO DO - Tricky -->  https://www.sqlite.org/spellfix1.html
+        # Full-text-search queries only on column <label> BUT IT CAN BE DONE ALL COLUMNS!!!!
+        # The speed of the FTS in $column == $db_fts
+        # FTS is 2x faster than 'contains'
+        # NOTE (Jan-2023): We don't check for misspelled words
+        #       --> TO DO - Tricky -->  https://www.sqlite.org/spellfix1.html
         full_text_search => qq(SELECT * FROM $db_fts WHERE $column MATCH ?),
 
-# SOUNDEX using TABLE_fts but only on column <label>
-# soundex     => qq(SELECT * FROM $db_fts WHERE SOUNDEX($column) = SOUNDEX(?)) # NOT USED
+        # SOUNDEX using TABLE_fts but only on column <label>
+        # soundex     => qq(SELECT * FROM $db_fts WHERE SOUNDEX($column) = SOUNDEX(?)) # NOT USED
 
     );
     return $query_type{$match};
@@ -200,16 +200,15 @@ sub get_ontology_terms {
 
     my $arg                       = shift;
     my $ontology                  = $arg->{ontology};
-    my $sth_column_ref            = $arg->{sth_column_ref};   # Contains hashref
+    my $sth_column_ref            = $arg->{sth_column_ref};              # Contains hashref
     my $query                     = $arg->{query};
     my $column                    = $arg->{column};
     my $databases                 = $arg->{databases};
     my $search                    = $arg->{search};
     my $text_similarity_method    = $arg->{text_similarity_method};
     my $min_text_similarity_score = $arg->{min_text_similarity_score};
-    my $type_of_search =
-      'full_text_search';    # Options: 'contains' and 'full_text_search'
-                             # say $type_of_search;
+    my $type_of_search            = 'full_text_search';                  # Options: 'contains' and 'full_text_search'
+                                                                         # say $type_of_search;
     say "QUERY <$query> ONTOLOGY <$ontology>" if DEVEL_MODE;
 
     # A) 'exact'
@@ -222,19 +221,20 @@ sub get_ontology_terms {
 
     # Default values
     my %default_value = (
-        id    => $ontology eq 'hpo' ? 'HP:NA0000' : uc($ontology) . ':NA0000',
-        label => 'NA'
+        id    => $ontology eq 'hpo'   ? 'HP:NA0000' : uc($ontology) . ':NA0000',
+        label => $ontology eq 'ohdsi' ? 'No matching concept' : 'NA'
     );
+    $default_value{concept_id} = 0 if $ontology eq 'ohdsi';
 
     # exact_match (always performed)
     my ( $id, $label, $concept_id ) = execute_query_SQLite(
         {
-            sth       => $sth_column_ref->{exact_match},    # IMPORTANT STEP
-            query     => $query,
-            ontology  => $ontology,
-            databases => $databases,
-            match     => 'exact_match',
-            text_similarity_method => $text_similarity_method,   # Not used here
+            sth                       => $sth_column_ref->{exact_match},    # IMPORTANT STEP
+            query                     => $query,
+            ontology                  => $ontology,
+            databases                 => $databases,
+            match                     => 'exact_match',
+            text_similarity_method    => $text_similarity_method,           # Not used here
             min_text_similarity_score => $min_text_similarity_score
         }
     );
@@ -243,12 +243,12 @@ sub get_ontology_terms {
     if ( $search eq 'mixed' && ( !defined $id && !defined $label ) ) {
         ( $id, $label, undef ) = execute_query_SQLite(
             {
-                sth      => $sth_column_ref->{$type_of_search}, # IMPORTANT STEP
-                query    => $query,
-                ontology => $ontology,
-                databases                 => $databases,
-                match                     => $type_of_search,
-                text_similarity_method    => $text_similarity_method,
+                sth                    => $sth_column_ref->{$type_of_search},  # IMPORTANT STEP
+                query                  => $query,
+                ontology               => $ontology,
+                databases              => $databases,
+                match                  => $type_of_search,
+                text_similarity_method => $text_similarity_method,
                 min_text_similarity_score => $min_text_similarity_score
             }
         );
@@ -257,6 +257,9 @@ sub get_ontology_terms {
     # Set defaults if undefined
     $id    = $id    // $default_value{id};
     $label = $label // $default_value{label};
+    if ( $ontology eq 'ohdsi' ) {
+        $concept_id = $concept_id // $default_value{concept_id};
+    }
 
     #############
     # END QUERY #
@@ -285,25 +288,24 @@ sub execute_query_SQLite {
     # Preprocess query for execution
     $query = prune_problematic_chars( $query, $match );
 
-#  Columns in DBs
-#     *<ncit.db>, <icd10.db> and <cdisc.db> were pre-processed to have "id" and "label" columns only
-#       label [0]
-#       id    [1]
-#
-#     * <ohdsi.db> consists of 4 columns:
-#       concept_name  => label         [0]
-#       concept_code  => id            [1]
-#       concept_id    => concept_id    [2]
-#       vocabulary_id => vocabulary_id [3]
+    #  Columns in DBs
+    #     *<ncit.db>, <icd10.db> and <cdisc.db> were pre-processed to have "id" and "label" columns only
+    #       label [0]
+    #       id    [1]
+    #
+    #     * <ohdsi.db> consists of 4 columns:
+    #       concept_name  => label         [0]
+    #       concept_code  => id            [1]
+    #       concept_id    => concept_id    [2]
+    #       vocabulary_id => vocabulary_id [3]
 
-# Define a hash for column positions in databases
-# In case we encounter in the future a situation where order of columns is different
+    # Define a hash for column positions in databases
+    # In case we encounter in the future a situation where order of columns is different
     my $position = {
-        map { $_ => { label => 0, id => 1 } }
-          @databases    # Assuming @databases is defined elsewhere
+        map { $_ => { label => 0, id => 1 } } @databases    # Assuming @databases is defined elsewhere
     };
-    my $id_column    = $position->{$ontology}{id};
-    my $label_column = $position->{$ontology}{label};
+    my $id_column         = $position->{$ontology}{id};
+    my $label_column      = $position->{$ontology}{label};
     my $concept_id_column = 2;
 
     # Execute the query
@@ -318,8 +320,8 @@ sub execute_query_SQLite {
     # HPO to HP
     chop($ontology) if $ontology eq 'hpo';
 
-    my $concept_id; ###### WE HAVE TO FIX THIS !!!
-                    ####### ONCE WE DO text_similarity
+    my $concept_id;    ###### WE HAVE TO FIX THIS !!!
+    ####### ONCE WE DO text_similarity
     # Process results depending on the type of match
     if ( $match eq 'exact_match' ) {
         while ( my $row = $sth->fetchrow_arrayref ) {
@@ -327,7 +329,7 @@ sub execute_query_SQLite {
               $ontology ne 'ohdsi'
               ? uc($ontology) . ':' . $row->[$id_column]
               : $row->[3] . ':' . $row->[$id_column];
-            $label = $row->[$label_column];
+            $label      = $row->[$label_column];
             $concept_id = $row->[$concept_id_column];
             last;    # Only the first match is used
         }

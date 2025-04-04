@@ -19,7 +19,7 @@ use Convert::Pheno::SQLite;
 use Convert::Pheno::Default qw(get_defaults);
 use Exporter 'import';
 our @EXPORT =
-  qw(map_ontology_term dotify_and_coerce_number iso8601_time _map2iso8601 map_reference_range map_reference_range_csv map_age_range map2redcap_dict map2ohdsi convert2boolean find_age randStr map_operator_concept_id map_info_field map_omop_visit_occurrence dot_date2iso validate_format get_metaData get_info merge_omop_tables);
+  qw(map_ontology_term dotify_and_coerce_number iso8601_time _map2iso8601 get_year map_reference_range map_reference_range_csv map_age_range map2redcap_dict map2ohdsi convert2boolean find_age randStr map_operator_concept_id map_info_field map_omop_visit_occurrence dot_date2iso validate_format get_metaData get_info merge_omop_tables);
 
 my $DEFAULT = get_defaults();
 use constant DEVEL_MODE => 0;
@@ -52,6 +52,8 @@ sub map_ontology_term {
     # from "terminology" property in the mapping file
     return $query if ref $query eq 'HASH';
 
+    #print Dumper \%seen;
+
     # Checking for existance in %seen
     say "Skipping searching for <$query> as it already exists"
       if DEVEL_MODE && exists $seen{$query};
@@ -82,7 +84,7 @@ sub map_ontology_term {
 
     # DEVEL_MODE
     say "searching for query <$query> in ontology <$ontology>" if DEVEL_MODE;
-    say "<require_concept_id> is <$require_concept_id >"       if DEVEL_MODE;
+    say "<require_concept_id> is <$require_concept_id>"       if DEVEL_MODE;
 
     # Die if user wants OHDSI w/o flag --ohdsi-db
     die
@@ -150,6 +152,11 @@ sub _map2iso8601 {
     # UTC
     return $date
       . ( ( defined $time && $time =~ m/^T(.+)Z$/ ) ? $time : 'T00:00:00Z' );
+}
+
+sub get_year {
+  my ($year, $month, $day) = split /-/, shift;
+  return $year;
 }
 
 sub map_reference_range {

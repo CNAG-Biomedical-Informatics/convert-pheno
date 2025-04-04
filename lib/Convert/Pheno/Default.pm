@@ -15,6 +15,8 @@ my %DEFAULT = (
     value         => -1,
     age           => { age => { iso8601duration => 'P999Y' } },
     timestamp     => '1900-01-01T00:00:00Z',
+    year          => 1900,
+    concept_id    => 0
 );
 
 $DEFAULT{iso8601duration} = { iso8601duration => $DEFAULT{duration} };
