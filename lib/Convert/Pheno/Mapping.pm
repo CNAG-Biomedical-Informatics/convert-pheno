@@ -452,20 +452,10 @@ sub is_multidimensional {
 }
 
 sub validate_format {
-    my ( $data, $format ) = @_;
-
-    my $result;
-
-    # PXF
-    if ( $format eq 'pxf' ) {
-        $result = exists $data->{subject} ? 1 : 0;
-
-        # BFF
-    }
-    else {
-        $result = !exists $data->{subject} ? 1 : 0;
-    }
-    return $result;
+    my ($data, $format) = @_;
+    return ($format eq 'pxf')
+        ? !!(exists $data->{subject})
+        : !(exists $data->{subject});
 }
 
 sub get_info {

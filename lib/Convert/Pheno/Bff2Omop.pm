@@ -61,36 +61,36 @@ sub _convert_person {
     my %person;
 
     # Use BFF id as the OMOP person_id.
-    $person{person_id} = string2number($bff->{id});
+    $person{person_id} = string2number( $bff->{id} );
 
     # Map dateOfBirth (if available) to birth_datetime.
     $person{birth_datetime} = $bff->{info}{dateOfBirth}
       // $DEFAULT->{timestamp};
 
     # Map dateOfBirth (if available) to birth_datetime.
-$person{year_of_birth} = defined($bff->{info}{dateOfBirth})
-  ? get_year($bff->{info}{dateOfBirth})
-  : $DEFAULT->{year};
+    $person{year_of_birth} =
+      defined( $bff->{info}{dateOfBirth} )
+      ? get_year( $bff->{info}{dateOfBirth} )
+      : $DEFAULT->{year};
 
     # Convert sex: now done via our new generic inverse_map.
     $person{gender_concept_id} =
       inverse_map( 'gender', $bff->{sex}, 'label', $self );
 
-$person{race_concept_id} =
-  exists $bff->{ethnicity}
-    ? inverse_map('race', $bff->{ethnicity}, 'label', $self)
-    :  $DEFAULT->{concept_id};
+    $person{race_concept_id} =
+      exists $bff->{ethnicity}
+      ? inverse_map( 'race', $bff->{ethnicity}, 'label', $self )
+      : $DEFAULT->{concept_id};
 
-
-$person{ethnicity_concept_id} =
-  exists $bff->{geographicOrigin}
-    ? inverse_map('ethnicity', $bff->{geographicOrigin}, 'label', $self)
-    : $DEFAULT->{concept_id};
+    $person{ethnicity_concept_id} =
+      exists $bff->{geographicOrigin}
+      ? inverse_map( 'ethnicity', $bff->{geographicOrigin}, 'label', $self )
+      : $DEFAULT->{concept_id};
 
     # Save the PERSON record one person per individual)
     $omop_ref->{PERSON} = \%person;
 
-    print Dumper \%person;
+    #print Dumper \%person;
 }
 
 # Convert BFF diseases into OMOP CONDITION_OCCURRENCE rows.
@@ -105,24 +105,28 @@ sub _convert_diseases {
 
         # Instead of inverse_map_disease($disease->{diseaseCode}),
         # we now call our generic inverse_map:
-        my $disease_hash = { val => $disease->{diseaseCode} };
         $cond{condition_concept_id} =
-          inverse_map( 'disease', $disease_hash, 'val' );
+          inverse_map( 'disease', $disease->{diseaseCode}, 'label', $self );
 
         # Convert onset (e.g., an ISO8601 duration) to a date (still done with inverse_find_age).
-        $cond{condition_start_date} = inverse_find_age( $disease->{onset} );
+        $cond{condition_start_date} = $disease->{onset} // $DEFAULT->{date};
+
+        # TEMPORARY
+        $cond{condition_occurrence_id}   = $DEFAULT->{concept_id};
+        $cond{condition_type_concept_id} = $DEFAULT->{concept_id};
 
         # Optionally map stage to condition_status_concept_id.
-        if ( exists $disease->{stage} ) {
-            my $stage_hash = { val => $disease->{stage} };
-            $cond{condition_status_concept_id} =
-              inverse_map( 'stage', $stage_hash, 'val' );
-        }
+        #if ( exists $disease->{stage} ) {
+        #    my $stage_hash = { val => $disease->{stage} };
+        #    $cond{condition_status_concept_id} =
+        #      inverse_map( 'stage', $stage_hash, 'val' );
+        #}
 
-        $cond{person_id} = $bff->{id};
+        $cond{person_id} = string2number( $bff->{id} );
         push @conditions, \%cond;
     }
     $omop_ref->{CONDITION_OCCURRENCE} = \@conditions if @conditions;
+
 }
 
 # Convert BFF exposures into OMOP OBSERVATION rows.
@@ -135,17 +139,18 @@ sub _convert_exposures {
 
         # e.g., $exposure->{exposureCode} used in a generic mapping:
         $obs{observation_concept_id} =
-          inverse_map( 'exposure', { code => $exposure->{exposureCode} },
-            'code' );
+          inverse_map( 'exposure', $exposure->{exposureCode}, 'label', $self );
         $obs{observation_date} = $exposure->{date};
 
         # For this simple example, store a numeric value if available.
         $obs{value_as_number} =
           defined $exposure->{value} ? $exposure->{value} : -1;
-        $obs{person_id} = $bff->{id};
+        $obs{person_id} = string2number( $bff->{id} );
         push @observations, \%obs;
     }
     $omop_ref->{OBSERVATION} = \@observations if @observations;
+
+    #print Dumper \@observations;
 }
 
 # Convert BFF phenotypicFeatures into additional OMOP OBSERVATION rows.
@@ -157,10 +162,10 @@ sub _convert_phenotypicFeatures {
         my %obs;
 
         # e.g., $feature->{featureType} used in a generic mapping:
-        $obs{observation_concept_id} = inverse_map( 'phenotypic_feature',
+        $obs{observation_concept_id} = inverse_map( 'phenotypicFeature',
             { type => $feature->{featureType} }, 'type' );
         $obs{observation_date} = inverse_find_age( $feature->{onset} );
-        $obs{person_id}        = $bff->{id};
+        $obs{person_id}        = string2number( $bff->{id} );
         push @observations, \%obs;
     }
 
@@ -183,10 +188,15 @@ sub _convert_procedures {
     for my $proc ( @{ $bff->{interventionsOrProcedures} // [] } ) {
         my %procedure;
         $procedure{procedure_concept_id} =
-          inverse_map( 'procedure', { code => $proc->{procedureCode} },
-            'code' );
-        $procedure{procedure_date} = $proc->{dateOfProcedure};
-        $procedure{person_id}      = $bff->{id};
+          inverse_map( 'procedure', $proc->{procedureCode}, 'label', $self );
+        $procedure{procedure_date} = $proc->{dateOfProcedure}
+          // $DEFAULT->{date};
+
+        # TEMPORARY
+        $procedure{procedure_occurrence_id}   = $DEFAULT->{concept_id};
+        $procedure{procedure_type_concept_id} = $DEFAULT->{concept_id};
+
+        $procedure{person_id} = string2number( $bff->{id} );
         push @procedures, \%procedure;
     }
     $omop_ref->{PROCEDURE_OCCURRENCE} = \@procedures if @procedures;
@@ -199,9 +209,9 @@ sub _convert_measurements {
 
     for my $measure ( @{ $bff->{measures} // [] } ) {
         my %m;
+        $m{measurement_id} = $DEFAULT->{concept_id};
         $m{measurement_concept_id} =
-          inverse_map( 'measurement', { assay => $measure->{assayCode} },
-            'assay' );
+          inverse_map( 'measurement', $measure->{assayCode}, 'label', $self );
         $m{measurement_date} = $measure->{date};
 
         # Determine measurement value.
@@ -223,12 +233,17 @@ sub _convert_measurements {
 
         # Optionally map procedure details from measurement if available.
         if ( exists $measure->{procedure} ) {
-            $m{measurement_type_concept_id} = inverse_map( 'procedure',
-                { code => $measure->{procedure}{procedureCode} }, 'code' );
+            $m{measurement_type_concept_id} =
+              inverse_map( 'procedure', $measure->{procedure}{procedureCode},
+                'label', $self );
             $m{measurement_date} = $measure->{procedure}{dateOfProcedure}
               // $m{measurement_date};
         }
-        $m{person_id} = $bff->{id};
+        else {
+            $m{measurement_type_concept_id} = $DEFAULT->{concept_id};
+            $m{measurement_date}            = $DEFAULT->{date};
+        }
+        $m{person_id} = string2number( $bff->{id} );
         push @measurements, \%m;
     }
     $omop_ref->{MEASUREMENT} = \@measurements if @measurements;
@@ -242,8 +257,8 @@ sub _convert_treatments {
     for my $treatment ( @{ $bff->{treatments} // [] } ) {
         my %drug;
         $drug{drug_concept_id} =
-          inverse_map( 'treatment', { code => $treatment->{treatmentCode} },
-            'code' );
+          inverse_map( 'treatment', $treatment->{treatmentCode},
+            'label', $self );
 
         if ( exists $treatment->{doseIntervals}
             and @{ $treatment->{doseIntervals} } )
@@ -258,7 +273,7 @@ sub _convert_treatments {
         # For demonstration, use a treatment field "date" if available; otherwise default.
         $drug{drug_exposure_start_date} = $treatment->{date}
           // $DEFAULT->{date};
-        $drug{person_id} = $bff->{id};
+        $drug{person_id} = string2number( $bff->{id} );
         push @treatments, \%drug;
     }
     $omop_ref->{DRUG_EXPOSURE} = \@treatments if @treatments;
@@ -306,52 +321,12 @@ sub inverse_map {
     my %dispatch = (
         gender => sub {
 
-            # Example stub: return concept id for female if 'female', else male
-            # 8532 => female
-            # 8507 => male
+            # 8532 => female; 8507 => male
             return $value =~ /female/i ? 8532 : 8507;
         },
-        race => sub {
-            return _map_ohdsi_label( $value, $self );
-        },
-        ethnicity => sub {
-            return _map_ohdsi_label( $value, $self );
-        },
-        disease => sub {
-
-            # Dummy conversion; in practice, look up a dictionary or table
-            return 1000 + ( $value || 0 );
-        },
-        stage => sub {
-
-            # Dummy conversion
-            return 2000 + ( $value || 0 );
-        },
-        exposure => sub {
-
-            # Dummy conversion
-            return 3000 + ( $value || 0 );
-        },
-        phenotypic_feature => sub {
-
-            # Dummy conversion
-            return 4000 + ( $value || 0 );
-        },
-        procedure => sub {
-
-            # Dummy conversion
-            return 5000 + ( $value || 0 );
-        },
-        measurement => sub {
-
-            # Dummy conversion
-            return 6000 + ( $value || 0 );
-        },
-        treatment => sub {
-
-            # Dummy conversion
-            return 7000 + ( $value || 0 );
-        },
+        map {
+            $_ => sub { _map_ohdsi_label( $value, $self ) }
+        } qw(race ethnicity disease stage exposure phenotypicFeature procedure measurement treatment)
     );
 
     # Invoke the sub for this mapping_type if it exists, else warn
@@ -365,19 +340,12 @@ sub inverse_map {
 }
 
 sub string2number {
-
-    my $patient_id = shift;
-
-    # ENCODE: Convert the patient_id to a BigInt, then to its decimal string
-    my $big     = Math::BigInt->from_bytes($patient_id);
-    my $encoded = $big->bstr;                              # decimal string representing the bytes
-
-    return $encoded = $big->bstr;                          # decimal string representing the byte
+    my $big = Math::BigInt->from_bytes(shift);
+    return $big->bstr;    # decimal string representing the byte
 }
 
 sub number2string {
-    my $encoded     = shift;
-    my $decoded_big = Math::BigInt->new($encoded);
+    my $decoded_big = Math::BigInt->new(shift);
     return $decoded_big->to_bytes;
 }
 
