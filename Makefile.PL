@@ -36,6 +36,7 @@ WriteMakefile(
         'Term::ANSIColor'                => '5.01',
         'Text::CSV_XS'                   => '1.50',
         'Text::Similarity'               => '0.13',
+        'Text::Levenshtein::XS'          => '0.503',        
         'Sort::Naturally'                => '1.03',
         'File::ShareDir::ProjectDistDir' => '1.000009',
         'DBI'                            => '1.643',
