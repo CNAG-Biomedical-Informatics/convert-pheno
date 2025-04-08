@@ -214,11 +214,11 @@ sub bff2jsonld {
     return $self->array_dispatcher;
 }
 
-#############
-#############
-#  BFF2PXF  #
-#############
-#############
+##############
+##############
+#  BFF2OMOP  #
+##############
+##############
 
 sub bff2omop {
     my $self = shift;
@@ -637,6 +637,30 @@ sub pxf2bff {
     # <array_dispatcher> will deal with JSON arrays
     return $self->array_dispatcher;
 }
+
+##############
+##############
+#  PXF2OMOP  #
+##############
+##############
+
+sub pxf2omop {
+    my $self = shift;
+
+    # First iteration: pxf2bff
+    $self->{method} = 'pxf2bff';    # setter - we have to change the value of attr {method}
+    my $bff = pxf2bff($self);       # array
+
+    # Preparing for second iteration: bff2pxf
+    $self->{method}      = 'bff2omop';    # setter
+    $self->{data}        = $bff;         # setter
+    $self->{in_textfile} = 0;            # setter
+   
+    # Run second iteration
+    return merge_omop_tables( $self->array_dispatcher );
+
+}
+
 
 #############
 #############

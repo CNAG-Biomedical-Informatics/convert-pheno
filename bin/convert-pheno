@@ -312,7 +312,7 @@ sub convert {
                 }
             );
         }
-        elsif ( $method eq 'bff2omop' ) {
+        elsif ( $method eq 'bff2omop' || $method eq 'pxf2omop' ) {
 
             for my $table ( keys %$data ) {
                 my $filepath = catfile( $o_file . "_$table.csv" );
