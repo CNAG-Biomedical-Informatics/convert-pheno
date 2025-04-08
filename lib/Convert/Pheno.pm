@@ -63,7 +63,7 @@ my $default_username = sub {
 has search => (
     is     => 'ro',
     coerce => sub { $_[0] // 'exact' },
-    isa    => Enum [qw(exact mixed)]
+    isa    => Enum [qw(exact mixed hybrid)]
 );
 
 has text_similarity_method => (

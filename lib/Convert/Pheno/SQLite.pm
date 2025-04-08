@@ -4,17 +4,15 @@ use strict;
 use warnings;
 use autodie;
 use feature qw(say);
-
-#use Carp    qw(confess);
 use DBI;
 use File::Spec::Functions qw(catdir catfile);
 use Data::Dumper;
-use Text::Similarity::Overlaps;
 use Exporter 'import';
+use Convert::Pheno::Similarity;
 our @EXPORT =
   qw( $VERSION open_connections_SQLite close_connections_SQLite get_ontology_terms);
+my @matches = qw(exact_match full_text_search);    # excluded 'contains'
 
-my @matches = qw(exact_match full_text_search contains);
 use constant DEVEL_MODE => 0;
 
 ########################
@@ -163,11 +161,10 @@ sub build_query {
     my $db     = uc($ontology) . '_table';
     my $db_fts = uc($ontology) . '_fts';
 
-    my %query_type = (
+    my %match_type = (
 
         # Contains queries
-        contains =>
-qq(SELECT * FROM $db WHERE $column LIKE '%' || ? || '%' COLLATE NOCASE),
+        #contains => qq(SELECT * FROM $db WHERE $column LIKE '%' || ? || '%' COLLATE NOCASE),
 
         # Exact search queries
         # What out for leading spaces!!!
@@ -189,7 +186,7 @@ qq(SELECT * FROM $db WHERE $column LIKE '%' || ? || '%' COLLATE NOCASE),
         # soundex     => qq(SELECT * FROM $db_fts WHERE SOUNDEX($column) = SOUNDEX(?)) # NOT USED
 
     );
-    return $query_type{$match};
+    return $match_type{$match};
 }
 
 sub get_ontology_terms {
@@ -207,16 +204,15 @@ sub get_ontology_terms {
     my $search                    = $arg->{search};
     my $text_similarity_method    = $arg->{text_similarity_method};
     my $min_text_similarity_score = $arg->{min_text_similarity_score};
-    my $type_of_search            = 'full_text_search';                  # Options: 'contains' and 'full_text_search'
-                                                                         # say $type_of_search;
-    say "QUERY <$query> ONTOLOGY <$ontology>" if DEVEL_MODE;
+    say "QUERY <$query> ONTOLOGY <$ontology> COLUM <$column> SEARCH <$search>"
+      if DEVEL_MODE;
 
     # A) 'exact'
     # - exact_match
     # B) Mixed queries:
     #    1 - exact_match
     #      if no results are found
-    #    2 - contains
+    #    2 - FTS
     #       for which we rank by similarity with Text:Similarity
 
     # Default values
@@ -233,25 +229,31 @@ sub get_ontology_terms {
             query                     => $query,
             ontology                  => $ontology,
             databases                 => $databases,
-            match                     => 'exact_match',
+            search                    => $search,
+            match_type                => 'exact_match',
             text_similarity_method    => $text_similarity_method,           # Not used here
             min_text_similarity_score => $min_text_similarity_score
         }
     );
 
-    # Mixed queries
-    if ( $search eq 'mixed' && ( !defined $id && !defined $label ) ) {
-        ( $id, $label, undef ) = execute_query_SQLite(
-            {
-                sth                    => $sth_column_ref->{$type_of_search},  # IMPORTANT STEP
-                query                  => $query,
-                ontology               => $ontology,
-                databases              => $databases,
-                match                  => $type_of_search,
-                text_similarity_method => $text_similarity_method,
-                min_text_similarity_score => $min_text_similarity_score
-            }
-        );
+    # mixed/hybrid
+    unless ( defined $id && defined $label ) {
+        if ( $search eq 'mixed' || $search eq 'hybrid' ) {
+            print "EXECUTING SEARCH <$search> on QUERY <$query>\n"
+              if DEVEL_MODE;
+            ( $id, $label, $concept_id ) = execute_query_SQLite(
+                {
+                    sth        => $sth_column_ref->{'full_text_search'},    # IMPORTANT STEP
+                    query      => $query,
+                    ontology   => $ontology,
+                    databases  => $databases,
+                    match_type => 'full_text_search',
+                    search     => $search,
+                    text_similarity_method    => $text_similarity_method,
+                    min_text_similarity_score => $min_text_similarity_score
+                }
+            );
+        }
     }
 
     # Set defaults if undefined
@@ -276,17 +278,18 @@ sub execute_query_SQLite {
     my $text_similarity_method    = $arg->{text_similarity_method};
     my $min_text_similarity_score = $arg->{min_text_similarity_score};
     my $ontology                  = $arg->{ontology};
-    my $match                     = $arg->{match};
+    my $match_type                = $arg->{match_type};
     my @databases                 = @{ $arg->{databases} };
+    my $search                    = $arg->{search};
 
     # Initialize $id and $label to undefined
-    my ( $id, $label ) = ( undef, undef );
+    my ( $id, $label, $concept_id ) = ( undef, undef, undef );
 
     # Premature return if $query is empty
-    return ( $id, $label ) if $query eq '';
+    return ( $id, $label, $concept_id ) if $query eq '';
 
     # Preprocess query for execution
-    $query = prune_problematic_chars( $query, $match );
+    $query = prune_problematic_chars( $query, $match_type );
 
     #  Columns in DBs
     #     *<ncit.db>, <icd10.db> and <cdisc.db> were pre-processed to have "id" and "label" columns only
@@ -314,16 +317,15 @@ sub execute_query_SQLite {
     eval { $sth->execute(); };
     if ($@) {
         warn "Query execution failed: $@";
-        return ( $id, $label );
+        return ( $id, $label, $concept_id );
     }
 
     # HPO to HP
     chop($ontology) if $ontology eq 'hpo';
 
-    my $concept_id;    ###### WE HAVE TO FIX THIS !!!
-    ####### ONCE WE DO text_similarity
     # Process results depending on the type of match
-    if ( $match eq 'exact_match' ) {
+    if ( $match_type eq 'exact_match' ) {
+        say "MATCH_TYPE: <exact_match>" if DEVEL_MODE;
         while ( my $row = $sth->fetchrow_arrayref ) {
             $id =
               $ontology ne 'ohdsi'
@@ -335,18 +337,42 @@ sub execute_query_SQLite {
         }
     }
     else {
-        # For other match types, use text similarity
-        ( $id, $label ) = text_similarity(
-            {
-                sth                       => $sth,
-                query                     => $query,
-                ontology                  => $ontology,
-                id_column                 => $id_column,
-                label_column              => $label_column,
-                text_similarity_method    => $text_similarity_method,
-                min_text_similarity_score => $min_text_similarity_score
-            }
-        );
+        say "MATCH_TYPE: <full_text_seacch>" if DEVEL_MODE;
+
+        if ( $search eq 'mixed' ) {
+
+            # For other match types, use text similarity
+            ( $id, $label, $concept_id ) = similarity_match(
+                {
+                    sth                       => $sth,
+                    query                     => $query,
+                    ontology                  => $ontology,
+                    id_column                 => $id_column,
+                    label_column              => $label_column,
+                    text_similarity_method    => $text_similarity_method,
+                    min_text_similarity_score => $min_text_similarity_score,
+                    concept_id_column         => $concept_id_column
+                }
+            );
+        }
+        else {
+
+            # Call a subroutine to compute composite similarity.
+            ( $id, $label, $concept_id ) = composite_similarity_match(
+                {
+                    sth                       => $sth,
+                    query                     => $query,
+                    ontology                  => $ontology,
+                    id_column                 => $id_column,
+                    label_column              => $label_column,
+                    text_similarity_method    => $text_similarity_method,      # cosine or dice
+                    min_text_similarity_score => $min_text_similarity_score,
+                    concept_id_column         => $concept_id_column
+
+                      # Possibly additional parameters, e.g., weighting factors
+                }
+            );
+        }
     }
 
     # Finish the statement handle
@@ -357,7 +383,7 @@ sub execute_query_SQLite {
 }
 
 sub prune_problematic_chars {
-    my ( $query, $match ) = @_;
+    my ( $query, $match_type ) = @_;
 
     # **********************
     # *** IMPORTANT STEP ***
@@ -366,6 +392,12 @@ sub prune_problematic_chars {
     # whatever reason the binding of parameters e.g, '2 - mild'
     # that start with number produce exceptions on SQLite.
 
+    # Prune
+    # "OPCS(v4-0.0):Cannulation of lymphatic duct"
+    # to
+    # "Cannulation of lymphatic duct"
+    $query =~ s/^[^:]*://;
+
     # Remove leading number-pattern for all searches
     #say "BEFORE <$query>";
     $query =~ s/^\d+\s+-\s+//;           # '2 - mild' => 'mild'
@@ -373,15 +405,71 @@ sub prune_problematic_chars {
     $query =~ s/^\d+\s+\((.+)\)$/$1/;    # '0 (none)' => 'none'
                                          #say "A2 <$query>";
 
-    # Replace certain characters with spaces for Full Text Search
-    $query =~ tr#_,-/# # if $match eq 'full_text_search';
+    # Replace certain characters with spaces for spefific searches
+    $query =~ tr#_,-/# # if $match_type eq 'full_text_search';
 
     # Collapse duplicated spaces for all searches
     $query =~ tr/ //s;
     return $query;
 }
 
-sub text_similarity {
+sub similarity_match {
+    my $arg               = shift;
+    my $sth               = $arg->{sth};
+    my $query             = $arg->{query};
+    my $ontology          = $arg->{ontology};
+    my $id_column         = $arg->{id_column};
+    my $label_column      = $arg->{label_column};
+    my $min_score         = $arg->{min_text_similarity_score};
+    my $sim_method        = $arg->{text_similarity_method};      # 'dice' or 'cosine'
+    my $concept_id_column = $arg->{concept_id_column};
+
+    # Create a new Text::Similarity object.
+    my $ts = Text::Similarity::Overlaps->new();
+
+    my @results;
+    while ( my $row = $sth->fetchrow_arrayref() ) {
+        my $candidate_label = $row->[$label_column];
+        say "--- MIXED: Computing similarity for candidate <$candidate_label>"
+          if DEVEL_MODE;
+
+        # Calculate similarity score using Text::Similarity::Overlaps.
+        my ( $score, %scores ) =
+          $ts->getSimilarityStrings( $query, $candidate_label );
+
+        # Only consider candidates above our minimum threshold.
+        if ( $scores{$sim_method} >= $min_score ) {
+            push @results,
+              {
+                id => $ontology ne 'ohdsi'
+                ? uc($ontology) . ':' . $row->[$id_column]
+                : $row->[3] . ':' . $row->[$id_column],
+                label      => $candidate_label,
+                scores     => \%scores,
+                query      => $query,
+                concept_id => $row->[$concept_id_column],
+              };
+        }
+    }
+
+    # Sort the candidates by the token-based similarity (using the chosen method) in descending order.
+    @results =
+      sort { $b->{scores}->{$sim_method} <=> $a->{scores}->{$sim_method} }
+      @results;
+
+    print Dumper( \@results ) if DEVEL_MODE;
+    if ( @results && DEVEL_MODE ) {
+        say "--- WINNER ---";
+        print Dumper( $results[0] );
+    }
+
+    # Return the top candidate if available, otherwise return undefined values.
+    return @results
+      ? ( $results[0]->{id}, $results[0]->{label}, $results[0]->{concept_id} )
+      : ( undef, undef, undef );
+}
+
+sub composite_similarity_match {
     my $arg                    = shift;
     my $sth                    = $arg->{sth};
     my $query                  = $arg->{query};
@@ -390,52 +478,40 @@ sub text_similarity {
     my $label_column           = $arg->{label_column};
     my $min_score              = $arg->{min_text_similarity_score};
     my $text_similarity_method = $arg->{text_similarity_method};
-    die "--text-similarity-method <$text_similarity_method> not allowed\n"
-      unless ( $text_similarity_method eq 'dice'
-        || $text_similarity_method eq 'cosine' );
+    my $concept_id_column      = $arg->{concept_id_column};
 
-    #say $text_similarity_method;
-
-    # Create a new Text::Similarity object
-    # NB: Overhead ???
-    my $ts = Text::Similarity::Overlaps->new();
-
-    # Fetch the query results
     my @results;
     while ( my $row = $sth->fetchrow_arrayref() ) {
+        my $candidate_label = $row->[$label_column];
+        my $token_sim =
+          Convert::Pheno::Similarity::compute_token_similarity( $query,
+            $candidate_label, $text_similarity_method );
 
-        say "---Checking <$row->[$label_column]>" if DEVEL_MODE;
-
-        # We have a threshold to assign a result as valid
-        my ( $score, %scores ) =
-          $ts->getSimilarityStrings( $query, $row->[$label_column] );
-
-        # Only load $data if dice >= $min_score;
+        # Skip candidates below minimum token similarity.
+        next unless $token_sim >= $min_score;
+        my $composite =
+          Convert::Pheno::Similarity::composite_similarity( $query,
+            $candidate_label, 0.9, 0.1, $text_similarity_method );
         push @results,
           {
             id => $ontology ne 'ohdsi'
             ? uc($ontology) . ':' . $row->[$id_column]
             : $row->[3] . ':' . $row->[$id_column],
-            label  => $row->[$label_column],
-            scores => {%scores},
-            query  => $query
-          }
-          if $scores{$text_similarity_method} >= $min_score;
+            label     => $candidate_label,
+            token_sim => $token_sim,
+            lev_sim   =>
+              Convert::Pheno::Similarity::compute_normalized_levenshtein(
+                $query, $candidate_label
+              ),
+            composite  => $composite,
+            query      => $query,
+            concept_id => $row->[$concept_id_column],
+          };
     }
 
-    # Sort the array by similarity score
-    @results = sort {
-        $b->{scores}{$text_similarity_method}
-          <=> $a->{scores}{$text_similarity_method}
-    } @results;
-    print Dumper \@results              if DEVEL_MODE;
-    say "WINNER <$results[0]->{label}>" if ( @results && DEVEL_MODE );
-
-    # Return 1st element if present
-    # *** IMPORTANT ***
-    # Often two labels get identical score. Getting 1st on the array
+    @results = sort { $b->{composite} <=> $a->{composite} } @results;
     return @results
-      ? ( $results[0]->{id}, $results[0]->{label} )
-      : ( undef, undef );
+      ? ( $results[0]->{id}, $results[0]->{label}, $results[0]->{concept_id} )
+      : ( undef, undef, undef );
 }
 1;

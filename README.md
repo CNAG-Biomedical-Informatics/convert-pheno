@@ -79,7 +79,7 @@ convert-pheno - A script to interconvert common data models for phenotypic data
           -exposures-file <file>         CSV file with a list of 'concept_id' considered to be exposures (with -iomop)
           -mapping-file <file>           Fields mapping YAML (or JSON) file
           -max-lines-sql <number>        Maximum lines read per table from SQL dump [500]
-          -min-text-similarity-score <score> Minimum score for cosine similarity (or Sorensen-Dice coefficient) [0.8] (to be used with --search mixed)
+          -min-text-similarity-score <score> Minimum score for cosine similarity (or Sorensen-Dice coefficient) [0.8] (to be used with --search mixed|hybrid)
           -ohdsi-db                      Use Athena-OHDSI database (~2.2GB) with -iomop
           -omop-tables <tables>          OMOP-CDM tables to be processed. Tables <CONCEPT> and <PERSON> are always included.
           -out-dir <directory>           Output (existing) directory
@@ -88,7 +88,7 @@ convert-pheno - A script to interconvert common data models for phenotypic data
           -phl|print-hidden-labels       Print original values (before DB mapping) of text fields <_labels>
           -rcd|redcap-dictionary <file>  REDCap data dictionary CSV file
           -schema-file <file>            Alternative JSON Schema for mapping file
-          -search <type>                 Type of search [>exact|mixed]
+          -search <type>                 Type of search [>exact|mixed|hybrid]
           -svs|self-validate-schema      Perform a self-validation of the JSON schema that defines mapping (requires IO::Socket::SSL)
           -sep|separator <char>          Delimiter character for CSV files [;] e.g., --sep $'\t'
           -stream                        Enable incremental processing with -iomop and -obff [>no-stream|stream]
@@ -141,7 +141,7 @@ To ensure Perl recognizes your local modules every time you start a new terminal
 
     echo 'eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)' >> ~/.bashrc
 
-To **update** to the newest version (showing commands for Option 2):
+To **update** to the newest version:
 
     cpanm Convert::Pheno
 

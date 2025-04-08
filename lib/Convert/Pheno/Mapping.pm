@@ -52,7 +52,7 @@ sub map_ontology_term {
     # from "terminology" property in the mapping file
     return $query if ref $query eq 'HASH';
 
-    #print Dumper \%seen;
+    print Dumper \%seen if DEVEL_MODE;
 
     # Checking for existance in %seen
     say "Skipping searching for <$query> as it already exists"
@@ -83,7 +83,7 @@ sub map_ontology_term {
       : 0;
 
     # DEVEL_MODE
-    say "searching for query <$query> in ontology <$ontology>" if DEVEL_MODE;
+    say "searching for query <$query> in ontology <$ontology> search <$search>" if DEVEL_MODE;
     say "<require_concept_id> is <$require_concept_id>"       if DEVEL_MODE;
 
     # Die if user wants OHDSI w/o flag --ohdsi-db
