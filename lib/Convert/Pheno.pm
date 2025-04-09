@@ -80,6 +80,14 @@ has min_text_similarity_score => (
           unless ( $_[0] >= 0.0 && $_[0] <= 1.0 );
     }
 );
+has levenshtein_weight=> (
+    is     => 'ro',
+    coerce => sub { $_[0] // 0.1 },
+    isa    => sub {
+        die "Only values between 0 .. 1 supported!"
+          unless ( $_[0] >= 0.0 && $_[0] <= 1.0 );
+    }
+);
 
 has username => (
     is      => 'ro',

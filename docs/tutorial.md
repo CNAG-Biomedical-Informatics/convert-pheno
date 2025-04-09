@@ -32,6 +32,8 @@ This page provides brief tutorials on how to perform data conversion by using `C
 
     --8<-- "tbl/mapping-file.md"
 
+    --8<-- "tbl/db-search.md"
+
     ### Running `Convert-Pheno`
 
     Now you can proceed to run `convert-pheno` with the **command-line interface**. Please see how [here](csv.md#csv-as-input).

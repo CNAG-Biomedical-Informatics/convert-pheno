@@ -204,6 +204,7 @@ sub get_ontology_terms {
     my $search                    = $arg->{search};
     my $text_similarity_method    = $arg->{text_similarity_method};
     my $min_text_similarity_score = $arg->{min_text_similarity_score};
+    my $levenshtein_weight        = $arg->{levenshtein_weight};
     say "QUERY <$query> ONTOLOGY <$ontology> COLUM <$column> SEARCH <$search>"
       if DEVEL_MODE;
 
@@ -232,7 +233,8 @@ sub get_ontology_terms {
             search                    => $search,
             match_type                => 'exact_match',
             text_similarity_method    => $text_similarity_method,           # Not used here
-            min_text_similarity_score => $min_text_similarity_score
+            min_text_similarity_score => $min_text_similarity_score,
+            levenshtein_weight        => $levenshtein_weight
         }
     );
 
@@ -250,7 +252,8 @@ sub get_ontology_terms {
                     match_type => 'full_text_search',
                     search     => $search,
                     text_similarity_method    => $text_similarity_method,
-                    min_text_similarity_score => $min_text_similarity_score
+                    min_text_similarity_score => $min_text_similarity_score,
+                    levenshtein_weight        => $levenshtein_weight
                 }
             );
         }
@@ -281,6 +284,7 @@ sub execute_query_SQLite {
     my $match_type                = $arg->{match_type};
     my @databases                 = @{ $arg->{databases} };
     my $search                    = $arg->{search};
+    my $levenshtein_weight        = $arg->{levenshtein_weight};
 
     # Initialize $id and $label to undefined
     my ( $id, $label, $concept_id ) = ( undef, undef, undef );
@@ -337,7 +341,7 @@ sub execute_query_SQLite {
         }
     }
     else {
-        say "MATCH_TYPE: <full_text_seacch>" if DEVEL_MODE;
+        say "MATCH_TYPE: <full_text_search>" if DEVEL_MODE;
 
         if ( $search eq 'mixed' ) {
 
@@ -351,6 +355,7 @@ sub execute_query_SQLite {
                     label_column              => $label_column,
                     text_similarity_method    => $text_similarity_method,
                     min_text_similarity_score => $min_text_similarity_score,
+                    levenshtein_weight        => $levenshtein_weight,
                     concept_id_column         => $concept_id_column
                 }
             );
@@ -367,6 +372,7 @@ sub execute_query_SQLite {
                     label_column              => $label_column,
                     text_similarity_method    => $text_similarity_method,      # cosine or dice
                     min_text_similarity_score => $min_text_similarity_score,
+                    levenshtein_weight        => $levenshtein_weight,
                     concept_id_column         => $concept_id_column
 
                       # Possibly additional parameters, e.g., weighting factors
@@ -478,6 +484,8 @@ sub composite_similarity_match {
     my $label_column           = $arg->{label_column};
     my $min_score              = $arg->{min_text_similarity_score};
     my $text_similarity_method = $arg->{text_similarity_method};
+    my $levenshtein_weight     = $arg->{levenshtein_weight};
+    my $token_weight           = 1 - $levenshtein_weight;
     my $concept_id_column      = $arg->{concept_id_column};
 
     my @results;
@@ -491,7 +499,7 @@ sub composite_similarity_match {
         next unless $token_sim >= $min_score;
         my $composite =
           Convert::Pheno::DB::Similarity::composite_similarity( $query,
-            $candidate_label, 0.9, 0.1, $text_similarity_method );
+            $candidate_label, $token_weight, $levenshtein_weight, $text_similarity_method );
         push @results,
           {
             id => $ontology ne 'ohdsi'

@@ -92,6 +92,13 @@ Frequently Asked Questions
 
     ##### last change 2024-01-16 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
+
+??? faq "What type of **database search** is carried out?"
+
+    --8<-- "tbl/db-search.md"
+
+    ##### last change 2025-04-10 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
+
 ??? faq "Error Handling for `CSV_XS ERROR: 2023 - EIQ - QUO character not allowed @ rec 1 pos 21 field 1`"
 
 

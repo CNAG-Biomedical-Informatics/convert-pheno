@@ -8,7 +8,8 @@ Revision history for Perl distribution Convert-Pheno
  - <--slq2csv> CSVs now mantain the order of header fields from <.sql>  (i.e., easier csv import)
  - OMOP information moved from OMOP.pm to OMOP::Definitions.pm
  - String similarity functions moved to Similarity.pm
- - Added --search <fuzzy> mode (0.9 token-based  + 0.1 Levenshtein distance)
+ - Added --search <fuzzy> mode (default: 0.9 token-based  + 0.1 Levenshtein distance)
+ - Added --levenshtein-weight parameter
 
 0.27 2025-01-16T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 

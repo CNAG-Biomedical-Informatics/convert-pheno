@@ -258,7 +258,7 @@ One of the advantages of **Beacon/Phenopackets v2** is that they **do not prescr
     * [OMIM](https://www.omim.org/) Online Mendelian Inheritance in Man
     * [HPO](https://hpo.jax.org/app) Human Phenotype Ontology (Note that prefixes are `HP:`, without the `O`)
 
-    See an example of how the **ontology similarity search** it's performed in the [REDCap tutorial](tutorial.md##creating-a-mapping-file).
+--8<-- "tbl/db-search.md"
 
 ## Step 2: Conversion to the final model
 

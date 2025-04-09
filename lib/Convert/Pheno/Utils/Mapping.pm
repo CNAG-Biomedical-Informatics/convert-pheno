@@ -77,6 +77,7 @@ sub map_ontology_term {
     my $print_hidden_labels       = $self->{print_hidden_labels};
     my $text_similarity_method    = $self->{text_similarity_method};
     my $min_text_similarity_score = $self->{min_text_similarity_score};
+    my $levenshtein_weight        = $self->{levenshtein_weight};
     my $require_concept_id =
       ( exists $arg->{require_concept_id} && $arg->{require_concept_id} )
       ? 1
@@ -101,7 +102,8 @@ sub map_ontology_term {
             column                    => $column,
             search                    => $search,
             text_similarity_method    => $text_similarity_method,
-            min_text_similarity_score => $min_text_similarity_score
+            min_text_similarity_score => $min_text_similarity_score,
+            levenshtein_weight        => $levenshtein_weight
         }
     );
 
