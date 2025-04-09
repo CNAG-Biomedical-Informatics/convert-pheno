@@ -58,6 +58,8 @@ markdown_extensions:
             - name: mermaid
               class: mermaid
               format: !!python/name:mermaid2.fence_mermaid
+    - pymdownx.arithmatex:
+        generic: true
 
 nav:
   - "🏠 Introduction":

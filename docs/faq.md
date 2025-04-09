@@ -14,6 +14,15 @@ Frequently Asked Questions
 
     ##### last change 2023-01-04 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
+??? faq "Is `Convert-Pheno` or `Pheno-Convert`?"
+
+    It's **`Convert-Pheno`**, for two reasons:
+
+    1. The naming is inspired by the `convert` utility from [ImageMagick](https://imagemagick.org).
+    2. In related contexts, people refer to *PhenoConvert* as in [PhenoCopy](https://en.wikipedia.org/wiki/Phenocopy) or [PhenoConversion](https://www.universiteitleiden.nl/en/research/research-projects/science/phenoconversion).
+
+    ##### last change 2023-01-05 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
+
 ??? faq "Is `Convert-Pheno` ready for use in production environments?"
     The software is fully functional and has been successfully used in several European-funded projects. However, it is still in beta, so ongoing improvements and refinements are to be expected.
 

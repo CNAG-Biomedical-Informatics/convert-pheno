@@ -5,7 +5,7 @@ Internally, all models are mapped to the [Beacon v2 Models](bff.md).
 ```mermaid
 %%{init: {'theme':'neutral'}}%%
 graph LR
-  subgraph "Step 1:Conversion to Beacon v2 Models"
+  subgraph "Step 1:Conversion to BFF"
   B[Phenopackets v2] -->|pxf2bff| A
   C[REDCap] -->|redcap2bff| A[Beacon v2 Models]
   D[OMOP-CDM] -->|omop2bff| A
@@ -13,8 +13,9 @@ graph LR
   G[CSV] -->|csv2bff| A
   end
 
-  subgraph "Step 2:BFF to PXF"
-  A --> |bff2pxf| F[Phenopackets v2]
+  subgraph "Step 2:BFF to Final"
+  A --> |bff2pxf | F[Phenopackets v2]
+  A --> |bff2omop| H[OMOP-CDM]
   end
 
   style A fill: #6495ED, stroke: #6495ED
@@ -24,6 +25,8 @@ graph LR
   style E fill: #DDA0DD, stroke: #DDA0DD
   style F fill: #FF7F50, stroke: #FF7F50
   style G fill: #FFFF00, stroke: #FFFF00
+  style H fill: #3CB371, stroke: #3CB371
+
 ```
 <figcaption>Convert-Pheno internal mapping steps</figcaption>
 
@@ -69,121 +72,124 @@ During the conversion process, handling variables that cannot be directly mapped
 
     Example extracted from `omop2bff` [conversion](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/t/omop2bff/out/individuals.json):
      
-    ```json
-    "interventionsOrProcedures" : [
-           {
-              "_info" : {
-                 "PROCEDURE_OCCURRENCE" : {
-                    "OMOP_columns" : {
-                       "modifier_concept_id" : 0,
-                       "modifier_source_value" : null,
-                       "person_id" : 2,
-                       "procedure_concept_id" : 4163872,
-                       "procedure_date" : "1955-10-22",
-                       "procedure_datetime" : "1955-10-22 00:00:00",
-                       "procedure_occurrence_id" : 6,
-                       "procedure_source_concept_id" : 4163872,
-                       "procedure_source_value" : 399208008,
-                       "procedure_type_concept_id" : 38000275,
-                       "provider_id" : "\\N",
-                       "quantity" : "\\N", 
-                       "visit_detail_id" : 0,
-                       "visit_occurrence_id" : 103
-                    }
-                 }
-              },
-              "ageAtProcedure" : {
-                 "age" : {
-                    "iso8601duration" : "35Y"
-                 }
-              },
-              "dateOfProcedure" : "1955-10-22",
-              "procedureCode" : {
-                 "id" : "SNOMED:399208008",
-                 "label" : "Plain chest X-ray"
-              }
-           }
-     ]
-    ```
+    ??? Example "See example"
+        ```json
+        "interventionsOrProcedures" : [
+               {
+                  "_info" : {
+                     "PROCEDURE_OCCURRENCE" : {
+                        "OMOP_columns" : {
+                           "modifier_concept_id" : 0,
+                           "modifier_source_value" : null,
+                           "person_id" : 2,
+                           "procedure_concept_id" : 4163872,
+                           "procedure_date" : "1955-10-22",
+                           "procedure_datetime" : "1955-10-22 00:00:00",
+                           "procedure_occurrence_id" : 6,
+                           "procedure_source_concept_id" : 4163872,
+                           "procedure_source_value" : 399208008,
+                           "procedure_type_concept_id" : 38000275,
+                           "provider_id" : "\\N",
+                           "quantity" : "\\N", 
+                           "visit_detail_id" : 0,
+                           "visit_occurrence_id" : 103
+                        }
+                     }
+                  },
+                  "ageAtProcedure" : {
+                     "age" : {
+                        "iso8601duration" : "35Y"
+                     }
+                  },
+                  "dateOfProcedure" : "1955-10-22",
+                  "procedureCode" : {
+                     "id" : "SNOMED:399208008",
+                     "label" : "Plain chest X-ray"
+                  }
+               }
+         ]
+        ```
 
     Example extracted from `redcap2bff` [conversion](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/t/redcap2bff/out/individuals.json):
 
-    ```json
-    "treatments" : [
-           {
-              "_info" : {
-                 "dose" : null,
-                 "drug" : "budesonide",
-                 "drug_name" : "budesonide",
-                 "duration" : null,
-                 "field" : "budesonide_oral_status",
-                 "route" : "oral",
-                 "start" : null,
-                 "status" : "never treated",
-                 "value" : 1
-              },
-              "doseIntervals" : [],
-              "routeOfAdministration" : {
-                 "id" : "NCIT:C38288",
-                 "label" : "Oral Route of Administration"
-              },
-              "treatmentCode" : {
-                 "id" : "NCIT:C1027",
-                 "label" : "Budesonide"
-              }
-           }
-    ]
-    ```
+    ??? Example "See example"
+        ```json
+        "treatments" : [
+               {
+                  "_info" : {
+                     "dose" : null,
+                     "drug" : "budesonide",
+                     "drug_name" : "budesonide",
+                     "duration" : null,
+                     "field" : "budesonide_oral_status",
+                     "route" : "oral",
+                     "start" : null,
+                     "status" : "never treated",
+                     "value" : 1
+                  },
+                  "doseIntervals" : [],
+                  "routeOfAdministration" : {
+                     "id" : "NCIT:C38288",
+                     "label" : "Oral Route of Administration"
+                  },
+                  "treatmentCode" : {
+                     "id" : "NCIT:C1027",
+                     "label" : "Budesonide"
+                  }
+               }
+        ]
+        ```
 
     Example of longitudinal data stored under `_visit` in a `omop2bff` [conversion](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/t/omop2bff/out/individuals.json):
 
-    ```json
-    "_visit" : {
-            "_info" : {
-               "VISIT_OCCURRENCE" : {
-                  "OMOP_columns" : {
-                     "admitting_source_concept_id" : 0,
-                     "admitting_source_value" : null,
-                     "care_site_id" : "\\N",
-                     "discharge_to_concept_id" : 0,
-                     "discharge_to_source_value" : null,
-                     "person_id" : 3,
-                     "preceding_visit_occurrence_id" : 347,
-                     "provider_id" : "\\N",
-                     "visit_concept_id" : 9201,
-                     "visit_end_date" : "1972-12-21",
-                     "visit_end_datetime" : "1972-12-21 00:00:00",
-                     "visit_occurrence_id" : 312,
-                     "visit_source_concept_id" : 0,
-                     "visit_source_value" : "5d035dd1-30d9-4389-b94c-64947bf1f18c",
-                     "visit_start_date" : "1972-12-20",
-                     "visit_start_datetime" : "1972-12-20 00:00:00",
-                     "visit_type_concept_id" : 44818517
-                  }
-               }
-            },
-            "concept" : {
-               "id" : "Visit:IP",
-               "label" : "Inpatient Visit"
-            },
-            "end_date" : "1972-12-21T00:00:00Z",
-            "id" : "312",
-            "occurrence_id" : 312,
-            "start_date" : "1972-12-20T00:00:00Z",
-            "type" : {
-               "id" : "Visit Type:OMOP4822465",
-               "label" : "Visit derived from encounter on claim"
-            }
-         },
-         "featureType" : {
-            "id" : "SNOMED:428251008",
-            "label" : "History of appendectomy"
-         },
-         "onset" : {
-            "iso8601duration" : "56Y"
-         }
-    }
-    ```
+    ??? Example "See example"
+        ```json
+        "_visit" : {
+                "_info" : {
+                   "VISIT_OCCURRENCE" : {
+                      "OMOP_columns" : {
+                         "admitting_source_concept_id" : 0,
+                         "admitting_source_value" : null,
+                         "care_site_id" : "\\N",
+                         "discharge_to_concept_id" : 0,
+                         "discharge_to_source_value" : null,
+                         "person_id" : 3,
+                         "preceding_visit_occurrence_id" : 347,
+                         "provider_id" : "\\N",
+                         "visit_concept_id" : 9201,
+                         "visit_end_date" : "1972-12-21",
+                         "visit_end_datetime" : "1972-12-21 00:00:00",
+                         "visit_occurrence_id" : 312,
+                         "visit_source_concept_id" : 0,
+                         "visit_source_value" : "5d035dd1-30d9-4389-b94c-64947bf1f18c",
+                         "visit_start_date" : "1972-12-20",
+                         "visit_start_datetime" : "1972-12-20 00:00:00",
+                         "visit_type_concept_id" : 44818517
+                      }
+                   }
+                },
+                "concept" : {
+                   "id" : "Visit:IP",
+                   "label" : "Inpatient Visit"
+                },
+                "end_date" : "1972-12-21T00:00:00Z",
+                "id" : "312",
+                "occurrence_id" : 312,
+                "start_date" : "1972-12-20T00:00:00Z",
+                "type" : {
+                   "id" : "Visit Type:OMOP4822465",
+                   "label" : "Visit derived from encounter on claim"
+                }
+             },
+             "featureType" : {
+                "id" : "SNOMED:428251008",
+                "label" : "History of appendectomy"
+             },
+             "onset" : {
+                "iso8601duration" : "56Y"
+             }
+        }
+        ```
 
 === "Match to a different entity"
 
@@ -191,51 +197,52 @@ During the conversion process, handling variables that cannot be directly mapped
      
     Example extracted from `pxf2bff` [conversion](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/t/pxf2bff/out/individuals.json):
      
-    ```json
-    "info" : {
-              "phenopacket" : {
-                 "biosamples" : [
-                    {
-                       "id" : "biosample.1",
-                       "phenotypicFeatures" : [
-                          {
-                             "excluded" : false,
-                             "type" : {
-                                "id" : "HP:0003798",
-                                "label" : "Nemaline bodies"
-                             }
-                          }
-                       ],
-                       "procedure" : {
-                          "bodySite" : {
-                             "id" : "UBERON:0002378",
-                             "label" : "muscle of abdomen"
-                          },
-                          "code" : {
-                             "id" : "NCIT:C51895",
-                             "label" : "Muscle Biopsy"
-                          },
-                          "performed" : {
-                             "age" : {
-                                "iso8601duration" : "P1D"
-                             }
-                          }
-                       },
-                       "sampledTissue" : {
-                          "id" : "UBERON:0002378",
-                          "label" : "muscle of abdomen"
-                       }
-                    }
-                 ]
-           }
-    }
-    ```
+    ??? Example "See example"
+        ```json
+        "info" : {
+                  "phenopacket" : {
+                     "biosamples" : [
+                        {
+                           "id" : "biosample.1",
+                           "phenotypicFeatures" : [
+                              {
+                                 "excluded" : false,
+                                 "type" : {
+                                    "id" : "HP:0003798",
+                                    "label" : "Nemaline bodies"
+                                 }
+                              }
+                           ],
+                           "procedure" : {
+                              "bodySite" : {
+                                 "id" : "UBERON:0002378",
+                                 "label" : "muscle of abdomen"
+                              },
+                              "code" : {
+                                 "id" : "NCIT:C51895",
+                                 "label" : "Muscle Biopsy"
+                              },
+                              "performed" : {
+                                 "age" : {
+                                    "iso8601duration" : "P1D"
+                                 }
+                              }
+                           },
+                           "sampledTissue" : {
+                              "id" : "UBERON:0002378",
+                              "label" : "muscle of abdomen"
+                           }
+                        }
+                     ]
+               }
+        }
+        ```
 
 ### Preservation and augmentation of ontologies
 
 One of the advantages of **Beacon/Phenopackets v2** is that they **do not prescribe the use of specific ontologies**, thus allowing us to retain the original ontologies, except to fill in missing terms in required fields.
 
-???+ Question "Which ontologies/terminologies are supported?"
+??? Question "Which ontologies/terminologies are supported?"
      
     If the input files contain ontology tems, the **ontologies will be preserved** and remain intact after the conversion process, except for:
      
@@ -262,7 +269,13 @@ One of the advantages of **Beacon/Phenopackets v2** is that they **do not prescr
 
 ## Step 2: Conversion to the final model
 
+### To Phenopackets 
+
 If the output is set to [Phenopackets v2](pxf.md) then a second step (`bff2pxf`) is performed (see diagram above).
 
 ??? Warning "BFF and PXF community alignment"
     At present, we have prioritized mapping the terms that we deem most critical in facilitating **basic semantic interoperability**. We anticipate that Beacon v2 Models will become more aligned with Phenopackets v2, which will simplify the conversion process in future updates. We aim to refine the mappings in future iterations, with the community providing a wider range of case studies.
+
+### To OMOP CDM
+
+If the output is set to [OMOP CDM](omop-cdm.md) then a second step (`bff2omop`) is performed (see diagram above).

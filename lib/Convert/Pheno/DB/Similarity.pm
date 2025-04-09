@@ -24,8 +24,6 @@ sub compute_normalized_levenshtein {
 
 sub composite_similarity {
     my ( $query, $candidate, $token_weight, $lev_weight, $method ) = @_;
-    $token_weight //= 0.9;
-    $lev_weight   //= 0.1;
     my $token_sim = compute_token_similarity( $query, $candidate, $method );
     my $lev_sim   = compute_normalized_levenshtein( $query, $candidate );
     return ( $token_weight * $token_sim ) + ( $lev_weight * $lev_sim );
