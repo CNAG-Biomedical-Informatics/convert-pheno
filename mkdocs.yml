@@ -5,9 +5,14 @@ copyright: '&copy; Copyright 2022-2025, Manuel Rueda, CNAG'
 repo_name: 'Convert-Pheno'
 repo_url: https://github.com/mrueda/convert-pheno
 edit_uri: edit/main/docs/
-
-extra_css: [css/theme_overrides.css]
-extra_javascript: [js/theme_overrides.js]
+extra_css:
+  - css/theme_overrides.css
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css
+extra_javascript:
+  - js/theme_overrides.js
+  - js/katex.js
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js
 
 plugins:
   - search
