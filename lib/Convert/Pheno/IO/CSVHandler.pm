@@ -16,9 +16,10 @@ use Data::Dumper;
 use Devel::Size qw(total_size);
 use Convert::Pheno;
 use Convert::Pheno::IO::FileIO;
+use Convert::Pheno::OMOP::Definitions;
 use Convert::Pheno::OMOP;
-use Convert::Pheno::Schema;
-use Convert::Pheno::Mapping;
+use Convert::Pheno::Utils::Schema;
+use Convert::Pheno::Utils::Mapping;
 use Exporter 'import';
 our @EXPORT =
   qw(read_csv read_csv_stream read_redcap_dict_file read_mapping_file read_sqldump read_sqldump_stream sqldump2csv transpose_omop_data_structure write_csv open_filehandle load_exposures get_headers convert_table_aoh_to_hoh);
@@ -94,7 +95,7 @@ sub read_mapping_file {
       io_yaml_or_json( { filepath => $arg->{mapping_file}, mode => 'read' } );
 
     # Validate mapping file against JSON schema
-    my $jv = Convert::Pheno::Schema->new(
+    my $jv = Convert::Pheno::Utils::Schema->new(
         {
             data        => $data_mapping_file,
             debug       => $arg->{self_validate_schema},

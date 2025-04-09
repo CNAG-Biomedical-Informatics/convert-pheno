@@ -15,8 +15,8 @@ use Scalar::Util qw(looks_like_number);
 use List::Util   qw(first);
 use Cwd          qw(cwd);
 use Sys::Hostname;
-use Convert::Pheno::SQLite;
-use Convert::Pheno::Default qw(get_defaults);
+use Convert::Pheno::DB::SQLite;
+use Convert::Pheno::Utils::Default qw(get_defaults);
 use Exporter 'import';
 our @EXPORT =
   qw(map_ontology_term dotify_and_coerce_number iso8601_time _map2iso8601 get_year map_reference_range map_reference_range_csv map_age_range map2redcap_dict map2ohdsi convert2boolean find_age randStr map_operator_concept_id map_info_field map_omop_visit_occurrence dot_date2iso validate_format get_metaData get_info merge_omop_tables);
