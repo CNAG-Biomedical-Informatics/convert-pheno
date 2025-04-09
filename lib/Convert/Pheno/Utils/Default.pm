@@ -1,4 +1,4 @@
-package Convert::Pheno::Default;
+package Convert::Pheno::Utils::Default;
 
 use strict;
 use warnings;

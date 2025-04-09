@@ -1,4 +1,4 @@
-package Convert::Pheno::Similarity;
+package Convert::Pheno::DB::Similarity;
 use strict;
 use warnings;
 use Text::Similarity::Overlaps;

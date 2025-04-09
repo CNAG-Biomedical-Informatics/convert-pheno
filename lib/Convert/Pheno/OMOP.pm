@@ -5,8 +5,8 @@ use warnings;
 use autodie;
 use feature qw(say);
 use Convert::Pheno::OMOP::Definitions;
-use Convert::Pheno::Default qw(get_defaults);
-use Convert::Pheno::Mapping;
+use Convert::Pheno::Utils::Default qw(get_defaults);
+use Convert::Pheno::Utils::Mapping;
 use Exporter 'import';
 
 #use Data::Dumper;

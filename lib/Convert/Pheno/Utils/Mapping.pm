@@ -1,4 +1,4 @@
-package Convert::Pheno::Mapping;
+package Convert::Pheno::Utils::Mapping;
 
 use strict;
 use warnings;

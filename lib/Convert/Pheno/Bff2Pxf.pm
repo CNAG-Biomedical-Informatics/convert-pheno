@@ -4,8 +4,8 @@ use strict;
 use warnings;
 use autodie;
 use feature                 qw(say);
-use Convert::Pheno::Default qw(get_defaults);
-use Convert::Pheno::Mapping;
+use Convert::Pheno::Utils::Default qw(get_defaults);
+use Convert::Pheno::Utils::Mapping;
 use Exporter 'import';
 our @EXPORT = qw(do_bff2pxf);
 

@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use autodie;
 use feature                 qw(say);
-use Convert::Pheno::Default qw(get_defaults);
+use Convert::Pheno::Utils::Default qw(get_defaults);
 use Convert::Pheno::REDCap
   qw(get_required_terms propagate_fields map_fields_to_redcap_dict map_diseases map_ethnicity map_exposures map_info map_interventionsOrProcedures map_measures map_pedigrees map_phenotypicFeatures map_sex map_treatments);
 

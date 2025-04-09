@@ -1,4 +1,4 @@
-package Convert::Pheno::SQLite;
+package Convert::Pheno::DB::SQLite;
 
 use strict;
 use warnings;
@@ -8,7 +8,7 @@ use DBI;
 use File::Spec::Functions qw(catdir catfile);
 use Data::Dumper;
 use Exporter 'import';
-use Convert::Pheno::Similarity;
+use Convert::Pheno::DB::Similarity;
 our @EXPORT =
   qw( $VERSION open_connections_SQLite close_connections_SQLite get_ontology_terms);
 my @matches = qw(exact_match full_text_search);    # excluded 'contains'
@@ -484,13 +484,13 @@ sub composite_similarity_match {
     while ( my $row = $sth->fetchrow_arrayref() ) {
         my $candidate_label = $row->[$label_column];
         my $token_sim =
-          Convert::Pheno::Similarity::compute_token_similarity( $query,
+          Convert::Pheno::DB::Similarity::compute_token_similarity( $query,
             $candidate_label, $text_similarity_method );
 
         # Skip candidates below minimum token similarity.
         next unless $token_sim >= $min_score;
         my $composite =
-          Convert::Pheno::Similarity::composite_similarity( $query,
+          Convert::Pheno::DB::Similarity::composite_similarity( $query,
             $candidate_label, 0.9, 0.1, $text_similarity_method );
         push @results,
           {
@@ -500,7 +500,7 @@ sub composite_similarity_match {
             label     => $candidate_label,
             token_sim => $token_sim,
             lev_sim   =>
-              Convert::Pheno::Similarity::compute_normalized_levenshtein(
+              Convert::Pheno::DB::Similarity::compute_normalized_levenshtein(
                 $query, $candidate_label
               ),
             composite  => $composite,

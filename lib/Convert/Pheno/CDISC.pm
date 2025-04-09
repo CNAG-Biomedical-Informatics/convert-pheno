@@ -6,7 +6,7 @@ use autodie;
 use feature qw(say);
 use Data::Dumper;
 use Convert::Pheno::REDCap;
-use Convert::Pheno::Mapping;
+use Convert::Pheno::Utils::Mapping;
 use Exporter 'import';
 our @EXPORT = qw(do_cdisc2bff cdisc2redcap);
 $Data::Dumper::Sortkeys = 1;

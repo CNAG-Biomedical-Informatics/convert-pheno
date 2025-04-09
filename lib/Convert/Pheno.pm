@@ -19,8 +19,8 @@ use File::ShareDir::ProjectDistDir qw(dist_dir);
 use Convert::Pheno::IO::CSVHandler;
 use Convert::Pheno::IO::FileIO;
 use Convert::Pheno::OMOP::Definitions;
-use Convert::Pheno::SQLite;
-use Convert::Pheno::Mapping;
+use Convert::Pheno::DB::SQLite;
+use Convert::Pheno::Utils::Mapping;
 use Convert::Pheno::CSV;
 use Convert::Pheno::RDF qw(do_bff2jsonld do_pxf2jsonld);
 use Convert::Pheno::OMOP;
@@ -63,7 +63,7 @@ my $default_username = sub {
 has search => (
     is     => 'ro',
     coerce => sub { $_[0] // 'exact' },
-    isa    => Enum [qw(exact mixed hybrid)]
+    isa    => Enum [qw(exact mixed fuzzy)]
 );
 
 has text_similarity_method => (

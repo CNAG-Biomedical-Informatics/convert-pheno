@@ -1,4 +1,4 @@
-package Convert::Pheno::Schema;
+package Convert::Pheno::Utils::Schema;
 
 use strict;
 use warnings;

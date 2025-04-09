@@ -6,8 +6,8 @@ use autodie;
 use feature qw(say);
 use POSIX   qw(strftime);
 use Math::BigInt;
-use Convert::Pheno::Default qw(get_defaults);
-use Convert::Pheno::Mapping;
+use Convert::Pheno::Utils::Default qw(get_defaults);
+use Convert::Pheno::Utils::Mapping;
 use Data::Dumper;
 use Exporter 'import';
 
