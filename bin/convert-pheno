@@ -64,6 +64,7 @@ GetOptions(
     'search=s'                    => \my $search,                              # string
     'text-similarity-method=s'    => \my $text_similarity_method,              # string
     'min-text-similarity-score=f' => \my $min_text_similarity_score,           # floating
+    'levenshtein-weight=f'        => \my $levenshtein_weight,           # floating
     'debug=i'                     => \my $debug,                               # integer
     'verbose|v'                   => \my $verbose,                             # flag
     'color!'                      => \$color,                                  # flag
@@ -236,6 +237,7 @@ my $data = {
     username                  => $username,
     text_similarity_method    => $text_similarity_method,
     min_text_similarity_score => $min_text_similarity_score,
+    levenshtein_weight        => $levenshtein_weight,
     self_validate_schema      => $self_validate_schema,
     path_to_ohdsi_db          => $path_to_ohdsi_db,
     print_hidden_labels       => $print_hidden_labels,
@@ -484,6 +486,7 @@ convert-pheno - A script to interconvert common data models for phenotypic data
 
      Options:
        -exposures-file <file>         CSV file with a list of 'concept_id' considered to be exposures (with -iomop)
+       -levenshtein-weight <weight>   Set the normalized Levenshtein weight for fuzzy search composite scoring (default: 0.1, range: 0-1)
        -mapping-file <file>           Fields mapping YAML (or JSON) file
        -max-lines-sql <number>        Maximum lines read per table from SQL dump [500]
        -min-text-similarity-score <score> Minimum score for cosine similarity (or Sorensen-Dice coefficient) [0.8] (to be used with --search [mixed|fuzzy])

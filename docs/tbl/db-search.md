@@ -22,8 +22,11 @@
     Like `mixed`, it starts with an exact match attempt. If that fails, it performs a **weighted similarity search**, where:
     - **90%** of the score comes from token-based similarity (e.g., cosine or Dice coefficient),
     - **10%** comes from the **normalized Levenshtein similarity**.
-    
+
     The concept with the highest composite score is returned.
+
+    **Note:** The normalized Levenshtein similarity is computed on top of the candidate results produced by the full text search. In this approach, an initial full text search (using token-based methods) returns a set of potential matches. The fuzzy search then refines these results by applying the normalized Levenshtein distance to better handle minor typographical differences, ensuring that the final composite score reflects both overall token similarity and fine-grained character-level differences.
+    
     
     ---
     

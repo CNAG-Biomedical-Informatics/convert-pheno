@@ -77,6 +77,7 @@ convert-pheno - A script to interconvert common data models for phenotypic data
 
         Options:
           -exposures-file <file>         CSV file with a list of 'concept_id' considered to be exposures (with -iomop)
+          -levenshtein-weight <weight>   Set the normalized Levenshtein weight for fuzzy search composite scoring (default: 0.1, range: 0-1)
           -mapping-file <file>           Fields mapping YAML (or JSON) file
           -max-lines-sql <number>        Maximum lines read per table from SQL dump [500]
           -min-text-similarity-score <score> Minimum score for cosine similarity (or Sorensen-Dice coefficient) [0.8] (to be used with --search [mixed|fuzzy])

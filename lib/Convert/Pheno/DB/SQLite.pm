@@ -205,7 +205,7 @@ sub get_ontology_terms {
     my $text_similarity_method    = $arg->{text_similarity_method};
     my $min_text_similarity_score = $arg->{min_text_similarity_score};
     my $levenshtein_weight        = $arg->{levenshtein_weight};
-    say "QUERY <$query> ONTOLOGY <$ontology> COLUM <$column> SEARCH <$search>"
+    say "QUERY <$query> ONTOLOGY <$ontology> COLUM <$column> SEARCH <$search>\n      min_text_similarity_score <$min_text_similarity_score> levenshtein_weight<$levenshtein_weight>"
       if DEVEL_MODE;
 
     # A) 'exact'
@@ -238,9 +238,9 @@ sub get_ontology_terms {
         }
     );
 
-    # mixed/hybrid
+    # mixed/fuzzy
     unless ( defined $id && defined $label ) {
-        if ( $search eq 'mixed' || $search eq 'hybrid' ) {
+        if ( $search eq 'mixed' || $search eq 'fuzzy' ) {
             print "EXECUTING SEARCH <$search> on QUERY <$query>\n"
               if DEVEL_MODE;
             ( $id, $label, $concept_id ) = execute_query_SQLite(
@@ -516,8 +516,8 @@ sub composite_similarity_match {
             concept_id => $row->[$concept_id_column],
           };
     }
-
     @results = sort { $b->{composite} <=> $a->{composite} } @results;
+    print Dumper \@results if DEVEL_MODE;
     return @results
       ? ( $results[0]->{id}, $results[0]->{label}, $results[0]->{concept_id} )
       : ( undef, undef, undef );
