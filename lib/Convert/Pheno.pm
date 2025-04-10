@@ -80,7 +80,7 @@ has min_text_similarity_score => (
           unless ( $_[0] >= 0.0 && $_[0] <= 1.0 );
     }
 );
-has levenshtein_weight=> (
+has levenshtein_weight => (
     is     => 'ro',
     coerce => sub { $_[0] // 0.1 },
     isa    => sub {
@@ -290,6 +290,29 @@ sub redcap2pxf {
 
     # Run second iteration
     return $self->array_dispatcher;
+}
+
+#################
+#################
+#  REDCAP2OMOP  #
+#################
+#################
+
+sub redcap2omop {
+    my $self = shift;
+
+    # First iteration: csv2bff
+    $self->{method} = 'redcap2bff';    # setter - we have to change the value of attr {method}
+    my $bff = redcap2bff($self);       # array
+
+    # Preparing for second iteration: bff2pxf
+    $self->{method}      = 'bff2omop';    # setter
+    $self->{data}        = $bff;          # setter
+    $self->{in_textfile} = 0;             # setter
+
+    # Run second iteration
+    return merge_omop_tables( $self->array_dispatcher );
+
 }
 
 ##############
@@ -633,6 +656,28 @@ sub cdisc2pxf {
     return $self->array_dispatcher;
 }
 
+################
+################
+#  CDISC2OMOP  #
+################
+################
+
+sub cdisc2omop {
+    my $self = shift;
+
+    # First iteration: cdisc2bff
+    $self->{method} = 'cdisc2bff';    # setter - we have to change the value of attr {method}
+    my $bff = cdisc2bff($self);       # array
+
+    # Preparing for second iteration: bff2pxf
+    $self->{method}      = 'bff2omop';    # setter
+    $self->{data}        = $bff;          # setter
+    $self->{in_textfile} = 0;             # setter
+
+    # Run second iteration
+    return merge_omop_tables( $self->array_dispatcher );
+}
+
 #############
 #############
 #  PXF2BFF  #
@@ -661,14 +706,13 @@ sub pxf2omop {
 
     # Preparing for second iteration: bff2pxf
     $self->{method}      = 'bff2omop';    # setter
-    $self->{data}        = $bff;         # setter
-    $self->{in_textfile} = 0;            # setter
-   
+    $self->{data}        = $bff;          # setter
+    $self->{in_textfile} = 0;             # setter
+
     # Run second iteration
     return merge_omop_tables( $self->array_dispatcher );
 
 }
-
 
 #############
 #############
@@ -721,6 +765,29 @@ sub csv2pxf {
 
     # Run second iteration
     return $self->array_dispatcher;
+
+}
+
+##############
+##############
+#  CSV2OMOP  #
+##############
+##############
+
+sub csv2omop {
+    my $self = shift;
+
+    # First iteration: csv2bff
+    $self->{method} = 'csv2bff';    # setter - we have to change the value of attr {method}
+    my $bff = csv2bff($self);       # array
+
+    # Preparing for second iteration: bff2pxf
+    $self->{method}      = 'bff2omop';    # setter
+    $self->{data}        = $bff;          # setter
+    $self->{in_textfile} = 0;             # setter
+
+    # Run second iteration
+    return merge_omop_tables( $self->array_dispatcher );
 
 }
 
