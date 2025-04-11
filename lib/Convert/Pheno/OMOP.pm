@@ -11,8 +11,7 @@ use Exporter 'import';
 
 #use Data::Dumper;
 
-our @EXPORT =
-  qw(do_omop2bff);
+our @EXPORT = qw(do_omop2bff);
 
 my $DEFAULT = get_defaults();
 
@@ -47,10 +46,10 @@ sub do_omop2bff {
     # $person = cursor to $participant->PERSON
     # $individual = output data
 
-    # ABOUT REQUIRED PROPERTIES
-    # 'id' and 'sex' are required properties in <individuals>
-    # 'person_id' must exist at this point otherwise it would have not been created
-    # Premature return as undef
+ # ABOUT REQUIRED PROPERTIES
+ # 'id' and 'sex' are required properties in <individuals>
+ # 'person_id' must exist at this point otherwise it would have not been created
+ # Premature return as undef
     return unless defined $person->{gender_concept_id};
 
     # 1) Map Person (id, info, sex, ethnicity, geographicOrigin)
@@ -100,7 +99,8 @@ sub _map_person {
     # =========
     $individual->{ethnicity} = map_ontology_term(
         {
-            query    => $person->{race_source_value},    # not getting it from *_concept_id
+            query => $person->{race_source_value}
+            ,    # not getting it from *_concept_id
             column   => 'label',
             ontology => 'ncit',
             self     => $self
@@ -160,7 +160,7 @@ sub _map_person {
 
     # Hard-coded $individual->{info}{dateOfBirth}
     $individual->{info}{dateOfBirth} =
-      _map2iso8601( $person->{birth_datetime} );
+      map_iso8601_date2timestamp( $person->{birth_datetime} );
 
     # When we use --test we do not serialize changing (metaData) information
     unless ( $self->{test} ) {
@@ -295,12 +295,12 @@ sub _map_exposures {
 
         for my $field ( @{ $participant->{$table} } ) {
 
-            # Note that these changes with DEVEL_MODE affect phenotypicFeatures (also uses OBSERVATION)
+# Note that these changes with DEVEL_MODE affect phenotypicFeatures (also uses OBSERVATION)
             $field->{observation_concept_id} = 35609831
               if DEVEL_MODE;    # Note that it affects
                                 #$field->{value_as_number} = 10 if DEVEL_MODE;
 
-            # NB: Values in key hashes are stringfied so make a copy to keep them as integer
+# NB: Values in key hashes are stringfied so make a copy to keep them as integer
             my $field_observation_concept_id = $field->{observation_concept_id};
             next
               unless exists $self->{exposures}{$field_observation_concept_id};
@@ -372,7 +372,7 @@ sub _map_phenotypic_features {
 
         for my $field ( @{ $participant->{$table} } ) {
 
-            # NB: Values in key hashes are stringfied so make a copy to keep them as integer
+# NB: Values in key hashes are stringfied so make a copy to keep them as integer
             my $field_observation_concept_id = $field->{observation_concept_id};
             next
               if exists $self->{exposures}{$field_observation_concept_id};
@@ -758,7 +758,9 @@ sub avoid_seen_individuals {
             return 0;    # No duplicate, individual added to the tracking hash
         }
     }
-    return 0;            # The individual does not match the expected keys and is treated as non-duplicate
+    return
+      0
+      ; # The individual does not match the expected keys and is treated as non-duplicate
 }
 
 sub set_default_measure {

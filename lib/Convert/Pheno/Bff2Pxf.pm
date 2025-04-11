@@ -3,7 +3,7 @@ package Convert::Pheno::Bff2Pxf;
 use strict;
 use warnings;
 use autodie;
-use feature                 qw(say);
+use feature                        qw(say);
 use Convert::Pheno::Utils::Default qw(get_defaults);
 use Convert::Pheno::Utils::Mapping;
 use Exporter 'import';
@@ -70,24 +70,24 @@ sub do_bff2pxf {
     # =========
     _map_metaData( $self, $bff, $pxf );
 
-    # =========
-    # exposures
-    # =========
-    # Can't be mapped as Sept-2023 from pxf-tools
-    # Message type "org.phenopackets.schema.v2.Phenopacket" has no field named "exposures" at "Phenopacket".
-    #  Available Fields(except extensions): "['id', 'subject', 'phenotypicFeatures', 'measurements', 'biosamples', 'interpretations', 'diseases', 'medicalActions', 'files', 'metaData']" at line 22
-    #
-    #   $pxf->{exposures} =
-    #
-    #      [
-    #        map {
-    #            {
-    #                type       => $_->{exposureCode},
-    #                occurrence => { timestamp => $_->{date} }
-    #            }
-    #        } @{ $bff->{exposures} }
-    #      ]
-    #      if exists $bff->{exposures};
+# =========
+# exposures
+# =========
+# Can't be mapped as Sept-2023 from pxf-tools
+# Message type "org.phenopackets.schema.v2.Phenopacket" has no field named "exposures" at "Phenopacket".
+#  Available Fields(except extensions): "['id', 'subject', 'phenotypicFeatures', 'measurements', 'biosamples', 'interpretations', 'diseases', 'medicalActions', 'files', 'metaData']" at line 22
+#
+#   $pxf->{exposures} =
+#
+#      [
+#        map {
+#            {
+#                type       => $_->{exposureCode},
+#                occurrence => { timestamp => $_->{date} }
+#            }
+#        } @{ $bff->{exposures} }
+#      ]
+#      if exists $bff->{exposures};
 
     #######################################
     # END MAPPING TO PHENOPACKET V2 TERMS #
@@ -113,8 +113,9 @@ sub _map_subject {
     # =======
     $pxf->{subject} = {
         id          => $bff->{id},
-        vitalStatus => { status => 'ALIVE' },      #["UNKNOWN_STATUS", "ALIVE", "DECEASED"]
-        sex         => uc( $bff->{sex}{label} ),
+        vitalStatus => { status => 'ALIVE' }
+        ,    #["UNKNOWN_STATUS", "ALIVE", "DECEASED"]
+        sex => uc( $bff->{sex}{label} ),
     };
 
     # Miscellanea
@@ -130,14 +131,15 @@ sub _map_subject {
 sub _map_phenotypic_features {
     my ( $self, $bff, $pxf ) = @_;
 
-    # ===================
-    # phenotypicFeatures
-    # ===================
-    # Assign transformed 'phenotypicFeatures' to $pxf, only if it's defined in $bff
+ # ===================
+ # phenotypicFeatures
+ # ===================
+ # Assign transformed 'phenotypicFeatures' to $pxf, only if it's defined in $bff
     $pxf->{phenotypicFeatures} = [
         map {
             {
-                type     => delete $_->{featureType},    # Rename 'featureType' to 'type'
+                type => delete $_->{featureType}
+                ,    # Rename 'featureType' to 'type'
                 excluded => (
                     exists $_->{excluded}
                     ? delete $_->{excluded}
@@ -215,7 +217,7 @@ sub _map_medical_actions {
                 routeOfAdministration => $_->{routeOfAdministration},
                 doseIntervals         => $_->{doseIntervals}
 
-                  #performed => { timestamp => exists $_->{dateOfProcedure} ? $_->{dateOfProcedure} : undef}
+#performed => { timestamp => exists $_->{dateOfProcedure} ? $_->{dateOfProcedure} : undef}
             }
         }
     } @{ $bff->{treatments} };
@@ -253,7 +255,7 @@ sub map_procedures {
             code      => $item->{procedureCode},
             performed => {
                 timestamp => exists $item->{dateOfProcedure}
-                ? _map2iso8601( $item->{dateOfProcedure} )
+                ? map_iso8601_date2timestamp( $item->{dateOfProcedure} )
                 : $DEFAULT->{timestamp},
             },
         };

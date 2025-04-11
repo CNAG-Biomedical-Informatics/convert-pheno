@@ -22,25 +22,26 @@ sub do_pxf2bff {
     my ( $self, $data ) = @_;
     my $sth = $self->{sth};
 
-    # *** IMPORTANT ****
-    # PXF three top-level elements are usually split in files:
-    # - phenopacket.json ( usually - 1 individual per file)
-    # - cohort.json (info on mutliple individuals)
-    # - family.json (info related to one or multiple individuals).
-    # These 3 files dont't contain their respective objects at the root level (/).
-    #
-    # However, top-elements might be combined into a single file (e.g., pxf.json),
-    # as a result, certain files may contain objects for top-level elements:
-    # - /phenopacket
-    # - /cohort
-    # - /family
-    #
-    # In this context, we only accept top-level phenopackets,
-    # while the other two types will be categorized as "info".
+  # *** IMPORTANT ****
+  # PXF three top-level elements are usually split in files:
+  # - phenopacket.json ( usually - 1 individual per file)
+  # - cohort.json (info on mutliple individuals)
+  # - family.json (info related to one or multiple individuals).
+  # These 3 files dont't contain their respective objects at the root level (/).
+  #
+  # However, top-elements might be combined into a single file (e.g., pxf.json),
+  # as a result, certain files may contain objects for top-level elements:
+  # - /phenopacket
+  # - /cohort
+  # - /family
+  #
+  # In this context, we only accept top-level phenopackets,
+  # while the other two types will be categorized as "info".
 
     # We create cursors for top-level elements
     # 1 - phenopacket (mandatory)
-    my $phenopacket = exists $data->{phenopacket} ? $data->{phenopacket} : $data;
+    my $phenopacket =
+      exists $data->{phenopacket} ? $data->{phenopacket} : $data;
 
     # Validate format
     die "Are you sure that your input is not already a bff?\n"
@@ -54,15 +55,15 @@ sub do_pxf2bff {
     # Normalize the hash for medical_actions + medicalActions = medicalActions
     if ( exists $phenopacket->{medical_actions} ) {
 
-        # NB: The delete function returns the value of the deleted key-value pair
+       # NB: The delete function returns the value of the deleted key-value pair
         $phenopacket->{medicalActions} = delete $phenopacket->{medical_actions};
     }
 
-    # CNAG files have 'meta_data' nomenclature, but PXF documentation uses 'metaData'
-    # We search for both 'meta_data' and 'metaData' and simply display the
+# CNAG files have 'meta_data' nomenclature, but PXF documentation uses 'metaData'
+# We search for both 'meta_data' and 'metaData' and simply display the
     if ( exists $phenopacket->{meta_data} ) {
 
-        # NB: The delete function returns the value of the deleted key-value pair
+       # NB: The delete function returns the value of the deleted key-value pair
         $phenopacket->{metaData} = delete $phenopacket->{meta_data};
     }
 
@@ -84,12 +85,12 @@ sub do_pxf2bff {
     # ========
     # diseases
     # ========
-    _map_diseases($phenopacket, $individual);
+    _map_diseases( $phenopacket, $individual );
 
     # ========
     # exposures
     # ========
-    _map_exposures($phenopacket, $individual);
+    _map_exposures( $phenopacket, $individual );
 
     # ================
     # geographicOrigin
@@ -99,27 +100,27 @@ sub do_pxf2bff {
     # ==
     # id
     # ==
-    _map_id($phenopacket, $individual);
+    _map_id( $phenopacket, $individual );
 
     # ====
     # info
     # ====
-    _map_info($phenopacket, $cohort, $family, $individual);
+    _map_info( $phenopacket, $cohort, $family, $individual );
 
     # =========================
     # interventionsOrProcedures
     # =========================
-    _map_interventions_or_procedures($phenopacket, $individual);
+    _map_interventions_or_procedures( $phenopacket, $individual );
 
     # =============
     # karyotypicSex
     # =============
-    _map_karyotypicSex($phenopacket, $individual);
+    _map_karyotypicSex( $phenopacket, $individual );
 
     # =========
     # measures
     # =========
-    _map_measures($phenopacket, $individual);
+    _map_measures( $phenopacket, $individual );
 
     # =========
     # pedigrees
@@ -129,17 +130,17 @@ sub do_pxf2bff {
     # ==================
     # phenotypicFeatures
     # ==================
-    _map_phenotypic_features($phenopacket, $individual);
+    _map_phenotypic_features( $phenopacket, $individual );
 
     # ===
     # sex
     # ===
-    _map_sex($self, $phenopacket, $individual);
+    _map_sex( $self, $phenopacket, $individual );
 
     # ==========
     # treatments
     # ==========
-    _map_treatments($phenopacket, $individual);
+    _map_treatments( $phenopacket, $individual );
 
     ##################################
     # END MAPPING TO BEACON V2 TERMS #
@@ -154,7 +155,8 @@ sub do_pxf2bff {
 ################################################################################
 
 sub _map_diseases {
-    my ($phenopacket, $individual) = @_;
+    my ( $phenopacket, $individual ) = @_;
+
     # ========
     # diseases
     # ========
@@ -181,7 +183,8 @@ sub _map_diseases {
 }
 
 sub _map_exposures {
-    my ($phenopacket, $individual) = @_;
+    my ( $phenopacket, $individual ) = @_;
+
     # ========
     # exposures
     # ========
@@ -189,7 +192,8 @@ sub _map_exposures {
         for my $pxf_exposure ( @{ $phenopacket->{exposures} } ) {
             my $exposure = $pxf_exposure;    # Ref-copy-only
             $exposure->{exposureCode} = $exposure->{type};
-            $exposure->{date} = substr( $exposure->{occurrence}{timestamp}, 0, 10 );
+            $exposure->{date} =
+              substr( $exposure->{occurrence}{timestamp}, 0, 10 );
 
             # Required properties
             $exposure->{ageAtExposure} = $DEFAULT->{iso8601duration};
@@ -209,7 +213,8 @@ sub _map_exposures {
 }
 
 sub _map_id {
-    my ($phenopacket, $individual) = @_;
+    my ( $phenopacket, $individual ) = @_;
+
     # ==
     # id
     # ==
@@ -219,7 +224,8 @@ sub _map_id {
 }
 
 sub _map_info {
-    my ($phenopacket, $cohort, $family, $individual) = @_;
+    my ( $phenopacket, $cohort, $family, $individual ) = @_;
+
     # ====
     # info
     # ====
@@ -227,7 +233,10 @@ sub _map_info {
     # Here we set data that do not fit anywhere else
 
     # Miscelanea for top-level 'phenopacket'
-    for my $term (qw(dateOfBirth genes interpretations metaData variants files biosamples pedigree)) {
+    for my $term (
+        qw(dateOfBirth genes interpretations metaData variants files biosamples pedigree)
+      )
+    {
         $individual->{info}{phenopacket}{$term} = $phenopacket->{$term}
           if exists $phenopacket->{$term};
     }
@@ -238,7 +247,8 @@ sub _map_info {
 }
 
 sub _map_interventions_or_procedures {
-    my ($phenopacket, $individual) = @_;
+    my ( $phenopacket, $individual ) = @_;
+
     # =========================
     # interventionsOrProcedures
     # =========================
@@ -267,7 +277,8 @@ sub _map_interventions_or_procedures {
 }
 
 sub _map_karyotypicSex {
-    my ($phenopacket, $individual) = @_;
+    my ( $phenopacket, $individual ) = @_;
+
     # =============
     # karyotypicSex
     # =============
@@ -277,7 +288,8 @@ sub _map_karyotypicSex {
 }
 
 sub _map_measures {
-    my ($phenopacket, $individual) = @_;
+    my ( $phenopacket, $individual ) = @_;
+
     # =========
     # measures
     # =========
@@ -294,9 +306,9 @@ sub _map_measures {
 
             # Assign depending on PXF
             $measure->{measurementValue} =
-                  exists $measure->{value}        ? $measure->{value}
-                : exists $measure->{complexValue} ? $measure->{complexValue}
-                :                                   $DEFAULT->{value};
+                exists $measure->{value}        ? $measure->{value}
+              : exists $measure->{complexValue} ? $measure->{complexValue}
+              :                                   $DEFAULT->{value};
             $measure->{observationMoment} = $measure->{timeObserved}
               if exists $measure->{timeObserved};
 
@@ -311,7 +323,8 @@ sub _map_measures {
 }
 
 sub _map_phenotypic_features {
-    my ($phenopacket, $individual) = @_;
+    my ( $phenopacket, $individual ) = @_;
+
     # ==================
     # phenotypicFeatures
     # ==================
@@ -333,7 +346,8 @@ sub _map_phenotypic_features {
 
             # Clean analog terms if exist
             for (qw/negated type/) {
-                delete $phenotypicFeature->{$_} if exists $phenotypicFeature->{$_};
+                delete $phenotypicFeature->{$_}
+                  if exists $phenotypicFeature->{$_};
             }
 
             push @{ $individual->{phenotypicFeatures} }, $phenotypicFeature;
@@ -342,11 +356,14 @@ sub _map_phenotypic_features {
 }
 
 sub _map_sex {
-    my ($self, $phenopacket, $individual) = @_;
+    my ( $self, $phenopacket, $individual ) = @_;
+
     # ===
     # sex
     # ===
-    if ( exists $phenopacket->{subject}{sex} && $phenopacket->{subject}{sex} ne '' ) {
+    if ( exists $phenopacket->{subject}{sex}
+        && $phenopacket->{subject}{sex} ne '' )
+    {
         $individual->{sex} = map_ontology_term(
             {
                 query    => $phenopacket->{subject}{sex},
@@ -359,7 +376,8 @@ sub _map_sex {
 }
 
 sub _map_treatments {
-    my ($phenopacket, $individual) = @_;
+    my ( $phenopacket, $individual ) = @_;
+
     # ==========
     # treatments
     # ==========
@@ -382,10 +400,12 @@ sub _map_treatments {
                     #   - scheduleFrequency
                     #   - quantity
                     for ( @{ $treatment->{doseIntervals} } ) {
+
                         # quantity
                         unless ( exists $_->{quantity} ) {
                             $_->{quantity} = $DEFAULT->{quantity};
                         }
+
                         # scheduleFrequency
                         unless ( exists $_->{scheduleFrequency} ) {
                             $_->{scheduleFrequency} = $DEFAULT->{ontology_term};
@@ -434,8 +454,9 @@ sub map_complexValue {
 sub to_boolean {
     my $value = shift;
     print Dumper $value;
-    return JSON::XS::true if $value && $value ne 'false';    # Non-empty string and not 'false'
-    return JSON::XS::false;                                  # Empty, 'false', or undef
+    return JSON::XS::true
+      if $value && $value ne 'false';    # Non-empty string and not 'false'
+    return JSON::XS::false;              # Empty, 'false', or undef
 }
 
 1;

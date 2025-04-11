@@ -19,7 +19,7 @@ use Convert::Pheno::DB::SQLite;
 use Convert::Pheno::Utils::Default qw(get_defaults);
 use Exporter 'import';
 our @EXPORT =
-  qw(map_ontology_term dotify_and_coerce_number iso8601_time _map2iso8601 get_year map_reference_range map_reference_range_csv map_age_range map2redcap_dict map2ohdsi convert2boolean find_age randStr map_operator_concept_id map_info_field map_omop_visit_occurrence dot_date2iso validate_format get_metaData get_info merge_omop_tables);
+  qw(map_ontology_term dotify_and_coerce_number iso8601_time map_iso8601_date2timestamp get_date_component map_reference_range map_reference_range_csv map_age_range map2redcap_dict map2ohdsi convert2boolean find_age randStr map_operator_concept_id map_info_field map_omop_visit_occurrence dot_date2iso validate_format get_metaData get_info merge_omop_tables);
 
 my $DEFAULT = get_defaults();
 use constant DEVEL_MODE => 0;
@@ -148,7 +148,7 @@ sub iso8601_time {
     return strftime( '%Y-%m-%dT%H:%M:%SZ', gmtime($now) );
 }
 
-sub _map2iso8601 {
+sub map_iso8601_date2timestamp {
     my ( $date, $time ) = split /\s+/, shift;
 
     # UTC
@@ -156,9 +156,21 @@ sub _map2iso8601 {
       . ( ( defined $time && $time =~ m/^T(.+)Z$/ ) ? $time : 'T00:00:00Z' );
 }
 
-sub get_year {
-  my ($year, $month, $day) = split /-/, shift;
-  return $year;
+sub get_date_component {
+    my ($date, $component) = @_;
+    $component //= 'year';
+    $date =~ s/T.*//; # get rid of 'T00:00:00Z'
+    
+    my @parts = split /-/, $date;
+    my %indexes = ( year => 0, month => 1, day => 2 );
+    
+    # Return the requested component if valid; otherwise, warn and return the year.
+    return exists $indexes{$component}
+         ? $parts[ $indexes{$component} ]
+         : do {
+               warn "Invalid component <$component> requested. Returning year by default.\n";
+               $parts[ $indexes{'year'} ];
+           };
 }
 
 sub map_reference_range {
@@ -417,8 +429,8 @@ sub map_omop_visit_occurrence {
 
         }
       );
-    my $start_date = _map2iso8601( $hashref->{visit_start_date} );
-    my $end_date   = _map2iso8601( $hashref->{visit_end_date} );
+    my $start_date = map_iso8601_date2timestamp( $hashref->{visit_start_date} );
+    my $end_date   = map_iso8601_date2timestamp( $hashref->{visit_end_date} );
     my $info       = { VISIT_OCCURRENCE => { OMOP_columns => $hashref } };
 
     return {
