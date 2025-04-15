@@ -64,7 +64,7 @@ GetOptions(
     'search=s'                    => \my $search,                              # string
     'text-similarity-method=s'    => \my $text_similarity_method,              # string
     'min-text-similarity-score=f' => \my $min_text_similarity_score,           # floating
-    'levenshtein-weight=f'        => \my $levenshtein_weight,           # floating
+    'levenshtein-weight=f'        => \my $levenshtein_weight,                  # floating
     'debug=i'                     => \my $debug,                               # integer
     'verbose|v'                   => \my $verbose,                             # flag
     'color!'                      => \$color,                                  # flag
@@ -167,12 +167,23 @@ my @validation_checks = (
         message =>
 "Sorry, <--ocsv>, <--ojsonf> and <--ojsonf> are only compatible with <--ibff> or <--ipxf>\n",
     },
+    {
+        condition => sub { defined($out_omop) && $out_omop =~ /^-/ },
+        message   =>
+"Error: The value for --oomop ('$out_omop') appears to be an option. Please supply a proper non-option string using --oomop=VALUE"
+    }
 );
 
 foreach my $check (@validation_checks) {
     if ( $check->{condition}->() ) {
         pod2usage( -message => $check->{message}, -exitval => 1 );
     }
+}
+
+# Validate that --oomop's argument doesn't look like another option.
+if ( defined($out_omop) && $out_omop =~ /^-/ ) {
+    die
+"Error: The value for --oomop ('$out_omop') appears to be an option. Please supply a proper non-option string using --oomop=VALUE\n";
 }
 
 # Turning color off if argument <--no-color>
@@ -318,7 +329,7 @@ sub convert {
 
             for my $table ( keys %$data ) {
                 my $filepath = catfile( $o_file . "_$table.csv" );
-                my @headers =  @{$omop_headers->{$table}};
+                my @headers  = @{ $omop_headers->{$table} };
                 write_csv(
                     {
                         sep      => ";",                # or the separator your CSV requires

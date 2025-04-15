@@ -47,7 +47,7 @@ sub do_bff2omop {
     _convert_diseases( $self, $bff, $omop, $person_id );
     _convert_exposures( $self, $bff, $omop, $person_id );
     _convert_phenotypicFeatures( $self, $bff, $omop, $person_id );
-    _convert_procedures( $self, $bff, $omop, $person_id );
+    _convert_interventionsOrProcedures( $self, $bff, $omop, $person_id );
     _convert_measurements( $self, $bff, $omop, $person_id );
     _convert_treatments( $self, $bff, $omop, $person_id );
 
@@ -198,7 +198,7 @@ sub _convert_phenotypicFeatures {
 }
 
 # Convert BFF interventionsOrProcedures into OMOP PROCEDURE_OCCURRENCE rows.
-sub _convert_procedures {
+sub _convert_interventionsOrProcedures {
     my ( $self, $bff, $omop_ref, $person_id ) = @_;
     my @procedures;
 
@@ -211,8 +211,7 @@ sub _convert_procedures {
          $procedure{procedure_datetime} = map_iso8601_date2timestamp($proc->{dateOfProcedure})
           // $DEFAULT->{timestamp};
 
-
-        # TEMPORARY
+        # TEMPORARY SOLUTION: Setting defaults
         $procedure{procedure_occurrence_id}   = $DEFAULT->{concept_id};
         $procedure{procedure_type_concept_id} = $DEFAULT->{concept_id};
 
