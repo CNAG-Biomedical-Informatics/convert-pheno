@@ -18,7 +18,7 @@ use Convert::Pheno::DB::SQLite;
 use Convert::Pheno::Utils::Default qw(get_defaults);
 use Exporter 'import';
 our @EXPORT =
-  qw(map_ontology_term dotify_and_coerce_number iso8601_time map_iso8601_date2timestamp get_date_component map_reference_range map_reference_range_csv map_age_range map2redcap_dict map2ohdsi convert2boolean get_age_from_date_and_birthday get_date_at_age randStr map_operator_concept_id map_info_field map_omop_visit_occurrence dot_date2iso validate_format get_metaData get_info merge_omop_tables);
+  qw(map_ontology_term dotify_and_coerce_number get_current_utc_iso8601_timestamp map_iso8601_date2timestamp get_date_component map_reference_range map_reference_range_csv map_age_range map2redcap_dict map2ohdsi convert2boolean get_age_from_date_and_birthday get_date_at_age generate_random_alphanumeric_string map_operator_concept_id map_info_field map_omop_visit_occurrence dot_date2iso validate_format get_metaData get_info merge_omop_tables);
 
 my $DEFAULT = get_defaults();
 use constant DEVEL_MODE => 0;
@@ -137,7 +137,7 @@ sub dotify_and_coerce_number {
       : $val;
 }
 
-sub iso8601_time {
+sub get_current_utc_iso8601_timestamp {
 
     # Standard modules (gmtime()===>Coordinated Universal Time(UTC))
     # NB: The T separates the date portion from the time-of-day portion.
@@ -287,31 +287,26 @@ sub convert2boolean {
 }
 
 sub get_age_from_date_and_birthday {
+    my $arg = shift;
+    my $birth_date   = $arg->{birth_day} or return;
+    my $current_date = $arg->{date}     or return;
 
-    # Not using any CPAN module for now
-    # Adapted from https://www.perlmonks.org/?node_id=9995
+    # Assuming both dates are in a format like "YYYY-MM-DD" (or with spaces instead of a dash separator for the birth date)
+    # Split the dates into year, month, and day.
+    my ($birth_year, $birth_month, $birth_day) = split /[-\s]+/, $birth_date;
+    my ($current_year, $current_month, $current_day) = split /-/, $current_date;
 
-    # Assuming $birth_month is 0..11
-    my $arg   = shift;
-    my $birth = $arg->{birth_day};
-    my $date  = $arg->{date};
-
-    # Not a big fan of premature return, but it works here...
-    #  ¯\_(ツ)_/¯
-    return unless ( $birth && $date );
-
-    my ( $birth_year, $birth_month, $birth_day ) =
-      ( split /\-|\s+/, $birth )[ 0 .. 2 ];
-    my ( $year, $month, $day ) = ( split /\-/, $date )[ 0 .. 2 ];
-
-    #my ($day, $month, $year) = (localtime)[3..5];
-    #$year += 1900;
-
-    my $age = $year - $birth_year;
-    $age--
-      unless sprintf( "%02d%02d", $month, $day ) >=
-      sprintf( "%02d%02d", $birth_month, $birth_day );
-    return 'P'. $age . 'Y';
+    # Calculate age based on year difference.
+    my $age = $current_year - $birth_year;
+    
+    # If the current month/day is before the birthday month/day, subtract one year.
+    if ( $current_month < $birth_month 
+         or ( $current_month == $birth_month && $current_day < $birth_day ) ) {
+        $age--;
+    }
+    
+    # Return the age in ISO8601 duration format (e.g. "P31Y").
+    return "P${age}Y";
 }
 
 sub get_date_at_age {
@@ -323,7 +318,7 @@ sub get_date_at_age {
     # Here we only handle durations expressed solely in years.
     # For a string like "P31Y", extract the number 31.
     my $years;
-    if ( $duration_iso =~ /^P(\d+)Y$/ ) {
+    if ( $duration_iso =~ /^P(\d+)Y/ ) {
         $years = $1;
     }
     else {
@@ -340,11 +335,7 @@ sub get_date_at_age {
     return $date_at_age->ymd;
 }
 
-
-
-
-
-sub randStr {
+sub generate_random_alphanumeric_string {
 
     #https://www.perlmonks.org/?node_id=233023
     return join( '',
@@ -598,7 +589,7 @@ sub get_metaData {
         }
     ];
     return {
-        created                  => iso8601_time(),
+        created                  => get_current_utc_iso8601_timestamp(),
         createdBy                => $username,
         submittedBy              => $username,
         phenopacketSchemaVersion => '2.0',

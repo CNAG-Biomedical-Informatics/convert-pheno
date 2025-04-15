@@ -102,7 +102,7 @@ sub _map_id {
     # ==
     # id
     # ==
-    $pxf->{id} = $self->{test} ? undef : 'phenopacket_id.' . randStr(8);
+    $pxf->{id} = $self->{test} ? undef : 'phenopacket_id.' . generate_random_alphanumeric_string(8);
 }
 
 sub _map_subject {
