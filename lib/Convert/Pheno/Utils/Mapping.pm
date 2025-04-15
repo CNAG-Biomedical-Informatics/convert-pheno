@@ -3,14 +3,13 @@ package Convert::Pheno::Utils::Mapping;
 use strict;
 use warnings;
 use autodie;
-
-#use Carp    qw(confess);
 use feature qw(say);
 use utf8;
 use Data::Dumper;
 use JSON::XS;
 use Time::HiRes  qw(gettimeofday);
 use POSIX        qw(strftime);
+use DateTime::Format::ISO8601;
 use Scalar::Util qw(looks_like_number);
 use List::Util   qw(first);
 use Cwd          qw(cwd);
@@ -19,7 +18,7 @@ use Convert::Pheno::DB::SQLite;
 use Convert::Pheno::Utils::Default qw(get_defaults);
 use Exporter 'import';
 our @EXPORT =
-  qw(map_ontology_term dotify_and_coerce_number iso8601_time map_iso8601_date2timestamp get_date_component map_reference_range map_reference_range_csv map_age_range map2redcap_dict map2ohdsi convert2boolean find_age randStr map_operator_concept_id map_info_field map_omop_visit_occurrence dot_date2iso validate_format get_metaData get_info merge_omop_tables);
+  qw(map_ontology_term dotify_and_coerce_number iso8601_time map_iso8601_date2timestamp get_date_component map_reference_range map_reference_range_csv map_age_range map2redcap_dict map2ohdsi convert2boolean get_age_from_date_and_birthday get_date_at_age randStr map_operator_concept_id map_info_field map_omop_visit_occurrence dot_date2iso validate_format get_metaData get_info merge_omop_tables);
 
 my $DEFAULT = get_defaults();
 use constant DEVEL_MODE => 0;
@@ -149,11 +148,13 @@ sub iso8601_time {
 }
 
 sub map_iso8601_date2timestamp {
-    my ( $date, $time ) = split /\s+/, shift;
-
-    # UTC
-    return $date
-      . ( ( defined $time && $time =~ m/^T(.+)Z$/ ) ? $time : 'T00:00:00Z' );
+    my $iso_str = shift;
+    # Parse the ISO string into a DateTime object 
+    $iso_str =~ s/ /T/;
+    my $dt = DateTime::Format::ISO8601->parse_datetime($iso_str);
+    # Format it to the standardized ISO8601 timestamp,
+    # ensuring that if no time was provided, a default is used.
+    return $dt->strftime('%Y-%m-%dT%H:%M:%SZ');
 }
 
 sub get_date_component {
@@ -285,7 +286,7 @@ sub convert2boolean {
 
 }
 
-sub find_age {
+sub get_age_from_date_and_birthday {
 
     # Not using any CPAN module for now
     # Adapted from https://www.perlmonks.org/?node_id=9995
@@ -310,8 +311,38 @@ sub find_age {
     $age--
       unless sprintf( "%02d%02d", $month, $day ) >=
       sprintf( "%02d%02d", $birth_month, $birth_day );
-    return $age . 'Y';
+    return 'P'. $age . 'Y';
 }
+
+sub get_date_at_age {
+    my ( $duration_iso, $birthdate_iso) = @_;
+    
+    # Parse the birth date using ISO8601 format.
+    my $birthdate = DateTime::Format::ISO8601->parse_datetime($birthdate_iso);
+    
+    # Here we only handle durations expressed solely in years.
+    # For a string like "P31Y", extract the number 31.
+    my $years;
+    if ( $duration_iso =~ /^P(\d+)Y$/ ) {
+        $years = $1;
+    }
+    else {
+        die "Unsupported duration format: $duration_iso. Only durations in full years (P<number>Y) are supported.";
+    }
+    
+    # Create a duration object for the extracted number of years.
+    my $duration = DateTime::Duration->new( years => $years );
+    
+    # Add the duration to the birth date.
+    my $date_at_age = $birthdate->clone->add_duration($duration);
+    
+    # Return the result in ISO format (YYYY-MM-DD)
+    return $date_at_age->ymd;
+}
+
+
+
+
 
 sub randStr {
 

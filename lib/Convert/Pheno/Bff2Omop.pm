@@ -65,45 +65,44 @@ sub do_bff2omop {
 sub _convert_person {
     my ( $self, $bff, $omop_ref, $person_id ) = @_;
 
-    my %person;
+    my $person;
 
     # Miscellanea id
-    $person{person_id}           = $person_id;
-    $person{person_source_value} = $bff->{id};
+    $person->{person_id}           = $person_id;
+    $person->{person_source_value} = $bff->{id};
 
     # Map dateOfBirth (if available) to birth_datetime.
-    $person{birth_datetime} = $bff->{info}{dateOfBirth}
+    $person->{birth_datetime} = $bff->{info}{dateOfBirth}
       // $DEFAULT->{timestamp};
 
     # Map dateOfBirth (if available) to birth_datetime.
     if ( defined( $bff->{info}{dateOfBirth} ) ) {
         for (qw/year month day/) {
-            $person{ $_ . '_of_birth' } =
+            $person->{ $_ . '_of_birth' } =
               get_date_component( $bff->{info}{dateOfBirth}, $_ );
         }
     }
     else {
-        $person{year_of_birth} = $DEFAULT->{year};
+        $person->{year_of_birth} = $DEFAULT->{year};
     }
 
     # Convert sex: now done via our new generic inverse_map.
-    ( $person{gender_concept_id}, $person{gender_source_value} ) =
+    ( $person->{gender_concept_id}, $person->{gender_source_value} ) =
       inverse_map( 'gender', $bff->{sex}, 'label', $self );
 
-    ( $person{race_concept_id}, $person{race_source_value} ) =
+    ( $person->{race_concept_id}, $person->{race_source_value} ) =
       exists $bff->{ethnicity}
       ? inverse_map( 'race', $bff->{ethnicity}, 'label', $self )
       : ( $DEFAULT->{concept_id}, '' );
 
-    ( $person{ethnicity_concept_id}, $person{ethnicity_source_value} ) =
+    ( $person->{ethnicity_concept_id}, $person->{ethnicity_source_value} ) =
       exists $bff->{geographicOrigin}
       ? inverse_map( 'ethnicity', $bff->{geographicOrigin}, 'label', $self )
       : ( $DEFAULT->{concept_id}, '' );
 
     # Save the PERSON record one person per individual)
-    $omop_ref->{PERSON} = \%person;
+    $omop_ref->{PERSON} = $person;
 
-    #print Dumper \%person;
 }
 
 # Convert BFF diseases into OMOP CONDITION_OCCURRENCE rows.
@@ -113,31 +112,39 @@ sub _convert_diseases {
     my @conditions;
 
     for my $disease ( @{ $bff->{diseases} // [] } ) {
-        my %cond;
+        my $cond;
 
-        # In BFF, diseaseCode and onset are provided.
-
-        # Instead of inverse_map_disease($disease->{diseaseCode}),
-        # we now call our generic inverse_map:
-        ( $cond{condition_concept_id}, $cond{condition_source_value} ) =
+        # We now call our generic inverse_map:
+        ( $cond->{condition_concept_id}, $cond->{condition_source_value} ) =
           inverse_map( 'disease', $disease->{diseaseCode}, 'label', $self );
 
         # Convert onset (e.g., an ISO8601 duration) to a date (still done with inverse_find_age).
-        $cond{condition_start_date} = $disease->{onset} // $DEFAULT->{date};
+        if ( $disease->{ageOfOnset}{age}{iso8601duration} ) {
+            $cond->{condition_start_date} = get_date_at_age(
+                $disease->{ageOfOnset}{age}{iso8601duration},
+                $omop_ref->{PERSON}{year_of_birth}
+            );
+        }
+        else {
+            $cond->{condition_start_date} = $DEFAULT->{date};
+        }
 
-        # TEMPORARY
-        $cond{condition_occurrence_id}   = $DEFAULT->{concept_id};
-        $cond{condition_type_concept_id} = $DEFAULT->{concept_id};
+        # TEMPORARY SOLUTION: Setting defaults
+        # mrueda: Apr-2025
+        $cond->{condition_occurrence_id}   = $DEFAULT->{concept_id};
+        $cond->{condition_type_concept_id} = $DEFAULT->{concept_id};
+
+        # Individuals default schema does not provice anything related to visit
+        # Taking information if Convert-Pheno set it
+        $cond->{visit_occurrence_id} = $disease->{_visit}{id}        // '';
+        $cond->{visit_detail_id}     = $disease->{_visit}{detail_id} // '';
 
         # Optionally map stage to condition_status_concept_id.
         #if ( exists $disease->{stage} ) {
-        #    my $stage_hash = { val => $disease->{stage} };
-        #    $cond{condition_status_concept_id} =
-        #      inverse_map( 'stage', $stage_hash, 'val' );
         #}
 
-        $cond{person_id} = $person_id;
-        push @conditions, \%cond;
+        $cond->{person_id} = $person_id;
+        push @conditions, $cond;
     }
     $omop_ref->{CONDITION_OCCURRENCE} = \@conditions if @conditions;
 
@@ -150,18 +157,18 @@ sub _convert_exposures {
     my @observations;
 
     for my $exposure ( @{ $bff->{exposures} // [] } ) {
-        my %obs;
+        my $obs;
 
         # e.g., $exposure->{exposureCode} used in a generic mapping:
-        ( $obs{observation_concept_id}, $obs{observation_source_value} ) =
+        ( $obs->{observation_concept_id}, $obs->{observation_source_value} ) =
           inverse_map( 'exposure', $exposure->{exposureCode}, 'label', $self );
-        $obs{observation_date} = $exposure->{date};
+        $obs->{observation_date} = $exposure->{date};
 
         # For this simple example, store a numeric value if available.
-        $obs{value_as_number} =
+        $obs->{value_as_number} =
           defined $exposure->{value} ? $exposure->{value} : -1;
-        $obs{person_id} = $person_id;
-        push @observations, \%obs;
+        $obs->{person_id} = $person_id;
+        push @observations, $obs;
     }
     $omop_ref->{OBSERVATION} = \@observations if @observations;
 
@@ -175,15 +182,15 @@ sub _convert_phenotypicFeatures {
     my @observations;
 
     for my $feature ( @{ $bff->{phenotypicFeatures} // [] } ) {
-        my %obs;
+        my $obs;
 
         # e.g., $feature->{featureType} used in a generic mapping:
-        ( $obs{observation_concept_id}, $obs{observation_source_value} ) =
+        ( $obs->{observation_concept_id}, $obs->{observation_source_value} ) =
           inverse_map( 'phenotypicFeature',
             { type => $feature->{featureType} }, 'type' );
-        $obs{observation_date} = inverse_find_age( $feature->{onset} );
-        $obs{person_id}        = $person_id;
-        push @observations, \%obs;
+        $obs->{observation_date} = inverse_find_age( $feature->{onset} );
+        $obs->{person_id}        = $person_id;
+        push @observations, $obs;
     }
 
     # Append these observations to any existing ones.
@@ -203,20 +210,31 @@ sub _convert_interventionsOrProcedures {
     my @procedures;
 
     for my $proc ( @{ $bff->{interventionsOrProcedures} // [] } ) {
-        my %procedure;
-        ( $procedure{procedure_concept_id}, $procedure{procedure_source_value} )
+        my $procedure;
+        (
+            $procedure->{procedure_concept_id},
+            $procedure->{procedure_source_value}
+          )
           = inverse_map( 'procedure', $proc->{procedureCode}, 'label', $self );
-        $procedure{procedure_date} = $proc->{dateOfProcedure}
+        $procedure->{procedure_date} = $proc->{dateOfProcedure}
           // $DEFAULT->{date};
-         $procedure{procedure_datetime} = map_iso8601_date2timestamp($proc->{dateOfProcedure})
+        $procedure->{procedure_datetime} =
+          map_iso8601_date2timestamp( $proc->{dateOfProcedure} )
           // $DEFAULT->{timestamp};
 
         # TEMPORARY SOLUTION: Setting defaults
-        $procedure{procedure_occurrence_id}   = $DEFAULT->{concept_id};
-        $procedure{procedure_type_concept_id} = $DEFAULT->{concept_id};
+        # mrueda: Apr-2025
+        $procedure->{procedure_occurrence_id}   = $DEFAULT->{concept_id};
+        $procedure->{procedure_type_concept_id} = $DEFAULT->{concept_id};
+        $procedure->{procedure_type_concept_id} = $DEFAULT->{concept_id};
 
-        $procedure{person_id} = $person_id;
-        push @procedures, \%procedure;
+        # Individuals default schema does not provice anything related to visit
+        # Taking information if Convert-Pheno set it
+        $procedure->{visit_occurrence_id} = $proc->{_visit}{id}        // '';
+        $procedure->{visit_detail_id}     = $proc->{_visit}{detail_id} // '';
+
+        $procedure->{person_id} = $person_id;
+        push @procedures, $procedure;
     }
     $omop_ref->{PROCEDURE_OCCURRENCE} = \@procedures if @procedures;
 }
@@ -227,46 +245,46 @@ sub _convert_measurements {
     my @measurements;
 
     for my $measure ( @{ $bff->{measures} // [] } ) {
-        my %m;
-        $m{measurement_id} = $DEFAULT->{concept_id};
-        ( $m{measurement_concept_id}, $m{measurement_source_value} ) =
+        my $m;
+        $m->{measurement_id} = $DEFAULT->{concept_id};
+        ( $m->{measurement_concept_id}, $m->{measurement_source_value} ) =
           inverse_map( 'measurement', $measure->{assayCode}, 'label', $self );
-        $m{measurement_date} = $measure->{date};
+        $m->{measurement_date} = $measure->{date};
 
         # Determine measurement value.
         if ( exists $measure->{measurementValue} ) {
 
             # If measurementValue is a hash (e.g., with quantity details)
             if ( ref $measure->{measurementValue} eq 'HASH' ) {
-                $m{value_as_number} =
+                $m->{value_as_number} =
                   $measure->{measurementValue}{quantity}{value}
                   // $measure->{measurementValue}{quantity} // -1;
             }
             else {
-                $m{value_as_number} = $measure->{measurementValue};
+                $m->{value_as_number} = $measure->{measurementValue};
             }
         }
         else {
-            $m{value_as_number} = -1;
+            $m->{value_as_number} = -1;
         }
 
         # Optionally map procedure details from measurement if available.
         if ( exists $measure->{procedure} ) {
             (
-                $m{measurement_type_concept_id},
-                $m{measurement_type_source_value}
+                $m->{measurement_type_concept_id},
+                $m->{measurement_type_source_value}
               )
               = inverse_map( 'procedure', $measure->{procedure}{procedureCode},
                 'label', $self );
-            $m{measurement_date} = $measure->{procedure}{dateOfProcedure}
-              // $m{measurement_date};
+            $m->{measurement_date} = $measure->{procedure}{dateOfProcedure}
+              // $m->{measurement_date};
         }
         else {
-            $m{measurement_type_concept_id} = $DEFAULT->{concept_id};
-            $m{measurement_date}            = $DEFAULT->{date};
+            $m->{measurement_type_concept_id} = $DEFAULT->{concept_id};
+            $m->{measurement_date}            = $DEFAULT->{date};
         }
-        $m{person_id} = $person_id;
-        push @measurements, \%m;
+        $m->{person_id} = $person_id;
+        push @measurements, $m;
     }
     $omop_ref->{MEASUREMENT} = \@measurements if @measurements;
 }
@@ -277,8 +295,8 @@ sub _convert_treatments {
     my @treatments;
 
     for my $treatment ( @{ $bff->{treatments} // [] } ) {
-        my %drug;
-        ( $drug{drug_concept_id}, $drug{drug_source_value} ) =
+        my $drug;
+        ( $drug->{drug_concept_id}, $drug->{drug_source_value} ) =
           inverse_map( 'treatment', $treatment->{treatmentCode},
             'label', $self );
 
@@ -286,17 +304,17 @@ sub _convert_treatments {
             and @{ $treatment->{doseIntervals} } )
         {
             my $dose = $treatment->{doseIntervals}[0];
-            $drug{quantity} = $dose->{quantity}{value} // 0;
+            $drug->{quantity} = $dose->{quantity}{value} // 0;
         }
         else {
-            $drug{quantity} = 0;
+            $drug->{quantity} = 0;
         }
 
         # For demonstration, use a treatment field "date" if available; otherwise default.
-        $drug{drug_exposure_start_date} = $treatment->{date}
+        $drug->{drug_exposure_start_date} = $treatment->{date}
           // $DEFAULT->{date};
-        $drug{person_id} = $person_id;
-        push @treatments, \%drug;
+        $drug->{person_id} = $person_id;
+        push @treatments, $drug;
     }
     $omop_ref->{DRUG_EXPOSURE} = \@treatments if @treatments;
 }

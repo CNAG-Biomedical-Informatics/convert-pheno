@@ -62,14 +62,14 @@ sub do_omop2bff {
     _map_exposures( $self, $participant, $individual, $person, $ohdsi_dict );
 
     # 4) Map Observations => phenotypicFeatures (those NOT in exposures)
-    _map_phenotypic_features( $self, $participant, $individual, $person,
+    _map_phenotypicFeatures( $self, $participant, $individual, $person,
         $ohdsi_dict );
 
     # 5) Map geographicOrigin (already in person) – done in _map_person
     #    (included above)
 
     # 6) Map Procedures => interventionsOrProcedures
-    _map_interventions_or_procedures( $self, $participant, $individual,
+    _map_interventionsOrProcedures( $self, $participant, $individual,
         $person, $ohdsi_dict );
 
     # 7) Map Measurements => measures
@@ -226,7 +226,7 @@ sub _map_diseases {
 
             $disease->{ageOfOnset} = {
                 age => {
-                    iso8601duration => find_age(
+                    iso8601duration => get_age_from_date_and_birthday(
                         {
                             date      => $field->{condition_start_date},
                             birth_day => $person->{birth_datetime}
@@ -308,7 +308,7 @@ sub _map_exposures {
 
             $exposure->{ageAtExposure} = {
                 age => {
-                    iso8601duration => find_age(
+                    iso8601duration => get_age_from_date_and_birthday(
                         {
                             date      => $field->{observation_date},
                             birth_day => $person->{birth_datetime}
@@ -355,7 +355,7 @@ sub _map_exposures {
     }
 }
 
-sub _map_phenotypic_features {
+sub _map_phenotypicFeatures {
     my ( $self, $participant, $individual, $person, $ohdsi_dict ) = @_;
 
     # ==================
@@ -397,7 +397,7 @@ sub _map_phenotypic_features {
             $phenotypicFeature->{_info}{$table}{OMOP_columns} = $field;
 
             $phenotypicFeature->{onset} = {
-                iso8601duration => find_age(
+                iso8601duration => get_age_from_date_and_birthday(
                     {
                         date      => $field->{observation_date},
                         birth_day => $person->{birth_datetime}
@@ -427,7 +427,7 @@ sub _map_phenotypic_features {
     }
 }
 
-sub _map_interventions_or_procedures {
+sub _map_interventionsOrProcedures {
     my ( $self, $participant, $individual, $person, $ohdsi_dict ) = @_;
 
     # =========================
@@ -460,7 +460,7 @@ sub _map_interventions_or_procedures {
 
             $intervention->{ageAtProcedure} = {
                 age => {
-                    iso8601duration => find_age(
+                    iso8601duration => get_age_from_date_and_birthday(
                         {
                             date      => $field->{procedure_date},
                             birth_day => $person->{birth_datetime}
@@ -482,6 +482,20 @@ sub _map_interventions_or_procedures {
 
                 }
             ) if defined $field->{procedure_concept_id};
+
+            # NB: PROVISIONAL
+            # Longitudinal data are not allowed yet in BFF/PXF
+            if ( exists $self->{visit_occurrence} ) {
+                my $visit = map_omop_visit_occurrence(
+                    {
+                        person_id           => $field->{person_id},
+                        visit_occurrence_id => $field->{visit_occurrence_id},
+                        self                => $self,
+                        ohdsi_dict          => $ohdsi_dict
+                    }
+                );
+                $intervention->{_visit} = $visit if defined $visit;
+            }
 
             push @{ $individual->{interventionsOrProcedures} }, $intervention;
         }
@@ -605,7 +619,7 @@ sub _map_measures {
             $measure->{_info}{$table}{OMOP_columns} = $field;
             $measure->{observationMoment} = {
                 age => {
-                    iso8601duration => find_age(
+                    iso8601duration => get_age_from_date_and_birthday(
                         {
                             date      => $field->{measurement_date},
                             birth_day => $person->{birth_datetime}
@@ -689,7 +703,7 @@ sub _map_treatments {
 
             $treatment->{ageAtOnset} = {
                 age => {
-                    iso8601duration => find_age(
+                    iso8601duration => get_age_from_date_and_birthday(
                         {
                             date      => $field->{drug_exposure_start_date},
                             birth_day => $person->{birth_datetime}

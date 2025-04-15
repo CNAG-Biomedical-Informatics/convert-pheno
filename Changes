@@ -10,6 +10,10 @@ Revision history for Perl distribution Convert-Pheno
  - String similarity functions moved to Similarity.pm
  - Added --search <fuzzy> mode (default: 0.9 token-based  + 0.1 Levenshtein distance)
  - Added --levenshtein-weight parameter
+ - In 'omop2bff' conversion:
+   - Added property "_visit" to 'interventionsOrProcedures' term
+   - Added 'P' string to age (to conform with ISO8601) generated via condition_start_date + birth_datetime
+   - Added DateTime::Format::ISO8601 module to simplify ome time-related calculations
 
 0.27 2025-01-16T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 

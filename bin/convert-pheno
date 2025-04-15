@@ -170,7 +170,7 @@ my @validation_checks = (
     {
         condition => sub { defined($out_omop) && $out_omop =~ /^-/ },
         message   =>
-"Error: The value for --oomop ('$out_omop') appears to be an option. Please supply a proper non-option string using --oomop=VALUE"
+"Error: The value for --oomop appears to be an option. Please supply a proper non-option string using --oomop=VALUE"
     }
 );
 

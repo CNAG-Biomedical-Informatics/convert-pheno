@@ -7,6 +7,7 @@ requires 'Path::Tiny';
 requires 'Term::ANSIColor';
 requires 'Text::CSV_XS';
 requires 'Text::Similarity';
+requires 'Text::Levenshtein::XS';
 requires 'Sort::Naturally';
 requires 'DBI';
 requires 'Moo';
@@ -21,6 +22,7 @@ requires 'Data::Leaf::Walker';
 requires 'Hash::Fold';
 requires 'JSONLD';
 requires 'Devel::Size';
+requires 'DateTime::Format::ISO8601';
 
 # t
 requires 'Test::Deep';
