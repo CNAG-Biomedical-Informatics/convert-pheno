@@ -1,22 +1,23 @@
 # What is Convert-Pheno?
 
-`Convert-Pheno` is an **open-source** toolkit for **interconverting common phenotypic data models**, enabling data sharing and integration across standards.
+`Convert-Pheno` is an **open-source** toolkit designed to **interconvert common phenotypic data models**, facilitating easier data sharing and integration across different standards.
 
 <figure markdown>
  ![Convert-Pheno](img/convert-pheno-schema.png){width="500"}
  <figcaption>Convert-Pheno schematic view</figcaption>
 </figure>
 
-## Modes of Operation
+## Basic Usage: Command-Line Interface
 
-!!! Tip "How to Use Convert-Pheno"
+Most users interact with `Convert-Pheno` via its **Command-Line Interface (CLI)**. The CLI operates directly on text files, providing straightforward input-output interaction.
 
-    `Convert-Pheno` supports multiple modes of operation to suit various use cases:
+## Advanced Usage: Alternative Operation Modes
 
-    - **[Command-Line Interface](use-as-a-command-line-interface.md)**: Ideal for direct processing and automation.
-    - **[Module](use-as-a-module.md)**: Integrate `Convert-Pheno` into your own scripts or pipelines.
-    - **[API](use-as-an-api.md)**: Access conversion functionalities programmatically.
-    - **[Web App User Interface](https://cnag-biomedical-informatics.github.io/convert-pheno-ui)**: A user-friendly, interactive web interface.
+`Convert-Pheno` also supports several alternative modes of operation to accommodate diverse user needs:
+
+- **[Module](use-as-a-module.md)**: Embed `Convert-Pheno` directly into your custom scripts or automated pipelines.
+- **[API Access](use-as-an-api.md)**: Programmatically access conversion functionalities through a standardized API.
+- **[Web Application Interface](https://cnag-biomedical-informatics.github.io/convert-pheno-ui)**: An intuitive and interactive web-based user interface.
 
 ## Listen to the Paper: Audio Edition
 
