@@ -117,16 +117,16 @@ measures:
     xx.x fl: Femtoliter
     xx.x: Picogram
     xx.x pg: Picogram
-    xx.x µmol/l: Micromole per Liter
-    xxx.x µmol/l: Micromole per Liter
-    xxx µmol/l: Micromole per Liter 
+    xx.x Âµmol/l: Micromole per Liter
+    xxx.x Âµmol/l: Micromole per Liter
+    xxx Âµmol/l: Micromole per Liter 
     ml/min/1.73: Glomerular Filtration Rate Adjusted for BSA
     xxx ml/min/1.73: Glomerular Filtration Rate Adjusted for BSA
     xx.x U/l: International Unit per Liter
     pg/dl: Picogram per Deciliter
     mg/dl: Milligram per Deciliter
     xxx.x mg/l: Milligram per Liter per Milligram
-    µg/dl: Microgram per Deciliter
+    Âµg/dl: Microgram per Deciliter
     ng/dl: Nanogram per Deciliter
     xxxx.x ng/l: Nanogram per Liter
     mg/kg stool: Microgram per Kilogram

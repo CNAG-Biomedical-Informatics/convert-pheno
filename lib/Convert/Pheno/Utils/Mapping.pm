@@ -322,7 +322,7 @@ sub get_date_at_age {
         $years = $1;
     }
     else {
-        die "Unsupported duration format: $duration_iso. Only durations in full years (P<number>Y) are supported.";
+        warn "Unsupported duration format: $duration_iso. Only durations in full years (P<number>Y) are supported.";
     }
     
     # Create a duration object for the extracted number of years.

@@ -339,8 +339,8 @@ General examples:
       Example for tab separator in CLI.
        --sep  $'\t' 
 
-    * Error message: Foo
-      Solution: Bar
+    * Error message: Error: malformed UTF-8 character in JSON string, at character offses...
+      Solution:  iconv -f ISO-8859-1 -t UTF-8 yourfile.json -o yourfile-utf8.json
 
 # CITATION
 

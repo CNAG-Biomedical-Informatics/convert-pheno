@@ -118,7 +118,7 @@ sub _map_diseases {
         ( $cond->{condition_concept_id}, $cond->{condition_source_value} ) =
           inverse_map( 'disease', $disease->{diseaseCode}, 'label', $self );
 
-        # Convert onset (e.g., an ISO8601 duration) to a date (still done with inverse_find_age).
+        # Convert onset (e.g., an ISO8601 duration) to a date
         if ( $disease->{ageOfOnset}{age}{iso8601duration} ) {
             $cond->{condition_start_date} = get_date_at_age(
                 $disease->{ageOfOnset}{age}{iso8601duration},
@@ -170,12 +170,12 @@ sub _map_exposures {
         $obs->{value_as_number} =
           defined $exposure->{value} ? $exposure->{value} : -1;
 
-          ($obs->{unit_concept_id}, $obs->{unit_source_value}) =
-         inverse_map( 'unit', $exposure->{unit}, 'label', $self );
+        ( $obs->{unit_concept_id}, $obs->{unit_source_value} ) =
+          inverse_map( 'unit', $exposure->{unit}, 'label', $self );
 
         # TEMPORARY: BFF only accepts numeric
         $obs->{value_as_concept_id} = '';
-        $obs->{value_as_string} = '';
+        $obs->{value_as_string}     = '';
 
         # TEMPORARY SOLUTION: Setting defaults
         # mrueda: Apr-2025
@@ -199,14 +199,41 @@ sub _map_phenotypicFeatures {
     my @observations;
 
     for my $feature ( @{ $bff->{phenotypicFeatures} // [] } ) {
+
         my $obs;
 
         # e.g., $feature->{featureType} used in a generic mapping:
         ( $obs->{observation_concept_id}, $obs->{observation_source_value} ) =
-          inverse_map( 'phenotypicFeature',
-            { type => $feature->{featureType} }, 'type' );
-        $obs->{observation_date} = inverse_find_age( $feature->{onset} );
-        $obs->{person_id}        = $person_id;
+          inverse_map( 'phenotypicFeature', $feature->{featureType},
+            'label', $self );
+
+        # Date
+        $obs->{observation_date} = get_date_at_age(
+            $feature->{onset}{iso8601duration},
+            $omop_ref->{PERSON}{year_of_birth}
+        );
+
+        # BFF only accepts numeric
+        $obs->{value_as_number} =
+          defined $feature->{value} ? $feature->{value} : -1;
+
+        ( $obs->{unit_concept_id}, $obs->{unit_source_value} ) =
+          inverse_map( 'unit', $feature->{unit}, 'label', $self );
+
+        # TEMPORARY: BFF only accepts numeric
+        $obs->{value_as_concept_id} = '';
+        $obs->{value_as_string}     = '';
+
+        # TEMPORARY SOLUTION: Setting defaults
+        # mrueda: Apr-2025
+        $obs->{observation_type_concept_id} = $DEFAULT->{concept_id};
+
+        # Individuals default schema does not provice anything related to visit
+        # Taking information if Convert-Pheno set it
+        $obs->{visit_occurrence_id} = $feature->{_visit}{id}        // '';
+        $obs->{visit_detail_id}     = $feature->{_visit}{detail_id} // '';
+
+        $obs->{person_id} = $person_id;
         push @observations, $obs;
     }
 
@@ -233,11 +260,16 @@ sub _map_interventionsOrProcedures {
             $procedure->{procedure_source_value}
           )
           = inverse_map( 'procedure', $proc->{procedureCode}, 'label', $self );
-        $procedure->{procedure_date} = $proc->{dateOfProcedure}
-          // $DEFAULT->{date};
+
+        $procedure->{procedure_date} =
+          defined $proc->{dateOfProcedure}
+          ? $proc->{dateOfProcedure}
+          : $DEFAULT->{date};
+
         $procedure->{procedure_datetime} =
-          map_iso8601_date2timestamp( $proc->{dateOfProcedure} )
-          // $DEFAULT->{timestamp};
+          defined $proc->{dateOfProcedure}
+          ? map_iso8601_date2timestamp( $proc->{dateOfProcedure} )
+          : $DEFAULT->{timestamp};
 
         # TEMPORARY SOLUTION: Setting defaults
         # mrueda: Apr-2025
@@ -334,17 +366,6 @@ sub _map_treatments {
         push @treatments, $drug;
     }
     $omop_ref->{DRUG_EXPOSURE} = \@treatments if @treatments;
-}
-
-###############################################################################
-# Additional date or stage logic can remain as separate subs if you prefer.
-###############################################################################
-
-sub inverse_find_age {
-    my $onset = shift;
-
-    # Dummy conversion: simply return today's date.
-    return strftime( "%Y-%m-%d", localtime );
 }
 
 ###############################################################################
