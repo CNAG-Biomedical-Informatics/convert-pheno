@@ -201,6 +201,8 @@ sub _map_phenotypicFeatures {
     for my $feature ( @{ $bff->{phenotypicFeatures} // [] } ) {
 
         my $obs;
+  
+        next if ($feature->{excluded} && $feature->{excluded} == JSON::PP::true);
 
         # e.g., $feature->{featureType} used in a generic mapping:
         ( $obs->{observation_concept_id}, $obs->{observation_source_value} ) =
@@ -208,10 +210,15 @@ sub _map_phenotypicFeatures {
             'label', $self );
 
         # Date
+        if ( $feature->{onset}{iso8601duration} ) {
         $obs->{observation_date} = get_date_at_age(
             $feature->{onset}{iso8601duration},
             $omop_ref->{PERSON}{year_of_birth}
         );
+        }         else {
+            $obs->{observation_date} = $DEFAULT->{date};
+        }
+
 
         # BFF only accepts numeric
         $obs->{value_as_number} =
@@ -234,6 +241,7 @@ sub _map_phenotypicFeatures {
         $obs->{visit_detail_id}     = $feature->{_visit}{detail_id} // '';
 
         $obs->{person_id} = $person_id;
+
         push @observations, $obs;
     }
 
@@ -294,8 +302,9 @@ sub _map_measurements {
     my @measurements;
 
     for my $measure ( @{ $bff->{measures} // [] } ) {
+
         my $m;
-        $m->{measurement_id} = $DEFAULT->{concept_id};
+        $m->{measurement_id} = '';
         ( $m->{measurement_concept_id}, $m->{measurement_source_value} ) =
           inverse_map( 'measurement', $measure->{assayCode}, 'label', $self );
         $m->{measurement_date} = $measure->{date};
@@ -308,6 +317,11 @@ sub _map_measurements {
                 $m->{value_as_number} =
                   $measure->{measurementValue}{quantity}{value}
                   // $measure->{measurementValue}{quantity} // -1;
+                $m->{range_low} =  $measure->{measurementValue}{quantity}{referenceRange}{low};
+                 $m->{range_high} =  $measure->{measurementValue}{quantity}{referenceRange}{high};
+( $m->{unit_concept_id}, $m->{unit_source_value} ) =
+          inverse_map( 'unit', $measure->{measurementValue}{quantity}{unit}, 'label', $self );
+                
             }
             else {
                 $m->{value_as_number} = $measure->{measurementValue};
@@ -317,6 +331,8 @@ sub _map_measurements {
             $m->{value_as_number} = -1;
         }
 
+         $m->{value_source_value} =  $m->{value_as_number};
+
         # Optionally map procedure details from measurement if available.
         if ( exists $measure->{procedure} ) {
             (
@@ -325,14 +341,19 @@ sub _map_measurements {
               )
               = inverse_map( 'procedure', $measure->{procedure}{procedureCode},
                 'label', $self );
-            $m->{measurement_date} = $measure->{procedure}{dateOfProcedure}
-              // $m->{measurement_date};
         }
         else {
             $m->{measurement_type_concept_id} = $DEFAULT->{concept_id};
-            $m->{measurement_date}            = $DEFAULT->{date};
+            $m->{measurement_type_source_value} = '';
         }
+
+        # Individuals default schema does not provice anything related to visit
+        # Taking information if Convert-Pheno set it
+        $m->{visit_occurrence_id} = $measure->{_visit}{id}        // '';
+        $m->{visit_detail_id}     = $measure->{_visit}{detail_id} // '';
+
         $m->{person_id} = $person_id;
+
         push @measurements, $m;
     }
     $omop_ref->{MEASUREMENT} = \@measurements if @measurements;

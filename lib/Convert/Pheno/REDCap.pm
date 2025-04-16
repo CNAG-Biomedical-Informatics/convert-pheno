@@ -268,19 +268,13 @@ sub remap_mapping_hash_term {
 }
 
 sub check_and_replace_field_with_terminology_or_dictionary_if_exist {
-    my ( $term_mapping_cursor, $field, $participant_field, $switch ) = @_;
+    my ( $term_mapping_cursor, $field, $participant_field, $switch)  = @_;
+    $switch //= 0;
 
     # Check if $field is Boolean
-    my $value =
-      (
-        $switch
-          || (
-            exists $term_mapping_cursor->{assignTermIdFromHeader_hash}{$field}
-            && defined $term_mapping_cursor->{assignTermIdFromHeader_hash}
-            {$field} )
-      )
-      ? $field
-      : $participant_field;
+my $value = ($switch || defined $term_mapping_cursor->{assignTermIdFromHeader_hash}{$field})
+    ? $field
+    : $participant_field;
 
     # Precedence
     # "terminology" > "dictionary"
@@ -686,6 +680,7 @@ sub map_measures {
       remap_mapping_hash_term( $data_mapping_file, 'measures' );
 
     for my $field ( @{ $term_mapping_cursor->{fields} } ) {
+  
         next unless defined $participant->{$field};
         my $measure;
 
@@ -693,13 +688,14 @@ sub map_measures {
             {
                 query =>
                   check_and_replace_field_with_terminology_or_dictionary_if_exist(
-                    $term_mapping_cursor, $field, $participant->{$field}
+                    $term_mapping_cursor, $field, $participant->{$field},1
                   ),
                 column   => 'label',
                 ontology => $term_mapping_cursor->{ontology},
                 self     => $self,
             }
         );
+
         $measure->{date} = $DEFAULT->{date};
 
         my ( $tmp_unit, $unit_cursor );
