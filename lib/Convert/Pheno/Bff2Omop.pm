@@ -43,13 +43,13 @@ sub do_bff2omop {
 
     # Convert individual components.
     # Pass the precomputed $person_id to each conversion sub.
-    _convert_person( $self, $bff, $omop, $person_id );
-    _convert_diseases( $self, $bff, $omop, $person_id );
-    _convert_exposures( $self, $bff, $omop, $person_id );
-    _convert_phenotypicFeatures( $self, $bff, $omop, $person_id );
-    _convert_interventionsOrProcedures( $self, $bff, $omop, $person_id );
-    _convert_measurements( $self, $bff, $omop, $person_id );
-    _convert_treatments( $self, $bff, $omop, $person_id );
+    _map_person( $self, $bff, $omop, $person_id );
+    _map_diseases( $self, $bff, $omop, $person_id );
+    _map_exposures( $self, $bff, $omop, $person_id );
+    _map_phenotypicFeatures( $self, $bff, $omop, $person_id );
+    _map_interventionsOrProcedures( $self, $bff, $omop, $person_id );
+    _map_measurements( $self, $bff, $omop, $person_id );
+    _map_treatments( $self, $bff, $omop, $person_id );
 
     # (Optionally, additional tables such as VISIT_OCCURRENCE or OBSERVATION_PERIOD
     # could be derived from extra info in $bff.)
@@ -62,7 +62,7 @@ sub do_bff2omop {
 ###############################################################################
 
 # Convert BFF subject and info into a PERSON record.
-sub _convert_person {
+sub _map_person {
     my ( $self, $bff, $omop_ref, $person_id ) = @_;
 
     my $person;
@@ -106,7 +106,7 @@ sub _convert_person {
 }
 
 # Convert BFF diseases into OMOP CONDITION_OCCURRENCE rows.
-sub _convert_diseases {
+sub _map_diseases {
     my ( $self, $bff, $omop_ref, $person_id ) = @_;
 
     my @conditions;
@@ -151,7 +151,7 @@ sub _convert_diseases {
 }
 
 # Convert BFF exposures into OMOP OBSERVATION rows.
-sub _convert_exposures {
+sub _map_exposures {
     my ( $self, $bff, $omop_ref, $person_id ) = @_;
 
     my @observations;
@@ -162,21 +162,38 @@ sub _convert_exposures {
         # e.g., $exposure->{exposureCode} used in a generic mapping:
         ( $obs->{observation_concept_id}, $obs->{observation_source_value} ) =
           inverse_map( 'exposure', $exposure->{exposureCode}, 'label', $self );
+
+        # Date
         $obs->{observation_date} = $exposure->{date};
 
-        # For this simple example, store a numeric value if available.
+        # BFF only accepts numeric
         $obs->{value_as_number} =
           defined $exposure->{value} ? $exposure->{value} : -1;
+
+          ($obs->{unit_concept_id}, $obs->{unit_source_value}) =
+         inverse_map( 'unit', $exposure->{unit}, 'label', $self );
+
+        # TEMPORARY: BFF only accepts numeric
+        $obs->{value_as_concept_id} = '';
+        $obs->{value_as_string} = '';
+
+        # TEMPORARY SOLUTION: Setting defaults
+        # mrueda: Apr-2025
+        $obs->{observation_type_concept_id} = $DEFAULT->{concept_id};
+
+        # Individuals default schema does not provice anything related to visit
+        # Taking information if Convert-Pheno set it
+        $obs->{visit_occurrence_id} = $exposure->{_visit}{id}        // '';
+        $obs->{visit_detail_id}     = $exposure->{_visit}{detail_id} // '';
+
         $obs->{person_id} = $person_id;
         push @observations, $obs;
     }
     $omop_ref->{OBSERVATION} = \@observations if @observations;
-
-    #print Dumper \@observations;
 }
 
 # Convert BFF phenotypicFeatures into additional OMOP OBSERVATION rows.
-sub _convert_phenotypicFeatures {
+sub _map_phenotypicFeatures {
     my ( $self, $bff, $omop_ref, $person_id ) = @_;
 
     my @observations;
@@ -205,7 +222,7 @@ sub _convert_phenotypicFeatures {
 }
 
 # Convert BFF interventionsOrProcedures into OMOP PROCEDURE_OCCURRENCE rows.
-sub _convert_interventionsOrProcedures {
+sub _map_interventionsOrProcedures {
     my ( $self, $bff, $omop_ref, $person_id ) = @_;
     my @procedures;
 
@@ -240,7 +257,7 @@ sub _convert_interventionsOrProcedures {
 }
 
 # Convert BFF measures into OMOP MEASUREMENT rows.
-sub _convert_measurements {
+sub _map_measurements {
     my ( $self, $bff, $omop_ref, $person_id ) = @_;
     my @measurements;
 
@@ -290,7 +307,7 @@ sub _convert_measurements {
 }
 
 # Convert BFF treatments into OMOP DRUG_EXPOSURE rows.
-sub _convert_treatments {
+sub _map_treatments {
     my ( $self, $bff, $omop_ref, $person_id ) = @_;
     my @treatments;
 
@@ -363,7 +380,7 @@ sub inverse_map {
         # For these mapping types, call _map_ohdsi_label which returns (concept_id, label)
         map {
             $_ => sub { _map_ohdsi_label( $value, $self ) }
-        } qw(gender race ethnicity disease stage exposure phenotypicFeature procedure measurement treatment)
+        } qw(gender race ethnicity disease stage exposure phenotypicFeature procedure measurement treatment unit)
     );
 
     # Invoke the sub for this mapping_type if it exists; otherwise return default values.

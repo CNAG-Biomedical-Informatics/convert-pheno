@@ -638,7 +638,7 @@ sub map_interventionsOrProcedures {
 
         $intervention->{dateOfProcedure} =
           exists $term_mapping_cursor->{dateOfProcedure}{$field}
-          ? dot_date2iso(
+          ? convert_date_to_iso8601(
             $participant->{ $term_mapping_cursor->{dateOfProcedure}{$field} } )
           : $DEFAULT->{date};
 

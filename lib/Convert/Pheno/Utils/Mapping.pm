@@ -18,7 +18,7 @@ use Convert::Pheno::DB::SQLite;
 use Convert::Pheno::Utils::Default qw(get_defaults);
 use Exporter 'import';
 our @EXPORT =
-  qw(map_ontology_term dotify_and_coerce_number get_current_utc_iso8601_timestamp map_iso8601_date2timestamp get_date_component map_reference_range map_reference_range_csv map_age_range map2redcap_dict map2ohdsi convert2boolean get_age_from_date_and_birthday get_date_at_age generate_random_alphanumeric_string map_operator_concept_id map_info_field map_omop_visit_occurrence dot_date2iso validate_format get_metaData get_info merge_omop_tables);
+  qw(map_ontology_term dotify_and_coerce_number get_current_utc_iso8601_timestamp map_iso8601_date2timestamp get_date_component map_reference_range map_reference_range_csv map_age_range map2redcap_dict map2ohdsi convert2boolean get_age_from_date_and_birthday get_date_at_age generate_random_alphanumeric_string map_operator_concept_id map_info_field map_omop_visit_occurrence convert_date_to_iso8601 validate_format get_metaData get_info merge_omop_tables);
 
 my $DEFAULT = get_defaults();
 use constant DEVEL_MODE => 0;
@@ -466,21 +466,32 @@ sub map_omop_visit_occurrence {
     };
 }
 
-sub dot_date2iso {
-
-    # We can get
-    # '', '1990.12.25',  '1990-12-25'
+sub convert_date_to_iso8601 {
     my $date = shift // '';
-
-    # Premature returns
+    
+    # Trim any accidental whitespace
+    $date =~ s/^\s+|\s+$//g;
+    
+    # Return default if input is empty
     return '1900-01-01' if $date eq '';
-    return $date        if $date =~ m/^(\d{4})\-(\d{2})\-(\d{2})$/;
-
-    # Split '1990.12.25'
-    my ( $d, $m, $y ) = split /\./, $date;
-
-    # YYYYMMDD
-    return qq/$y-$m-$d/;
+    
+    # If already in ISO format (YYYY-MM-DD), return as-is
+    if ( $date =~ /^\d{4}-\d{2}-\d{2}$/ ) {
+        return $date;
+    }
+    
+    # If dot-separated format with four-digit first element (YYYY.MM.DD)
+    if ( $date =~ /^(\d{4})\.(\d{2})\.(\d{2})$/ ) {
+        return "$1-$2-$3";
+    }
+    
+    # If dot-separated format with two-digit first element (DD.MM.YYYY)
+    if ( $date =~ /^(\d{2})\.(\d{2})\.(\d{4})$/ ) {
+        return "$3-$2-$1";
+    }
+    
+    # Optionally, handle any other unexpected format gracefully
+    warn "Invalid date format: $date";
 }
 
 sub is_multidimensional {
