@@ -51,9 +51,9 @@ sub do_bff2omop {
     _map_measurements( $self, $bff, $omop, $person_id );
     _map_treatments( $self, $bff, $omop, $person_id );
 
-    # (Optionally, additional tables such as VISIT_OCCURRENCE or OBSERVATION_PERIOD
-    # could be derived from extra info in $bff.)
-    #print Dumper $omop;
+ # (Optionally, additional tables such as VISIT_OCCURRENCE or OBSERVATION_PERIOD
+ # could be derived from extra info in $bff.)
+ #print Dumper $omop;
     return $omop;
 }
 
@@ -201,8 +201,9 @@ sub _map_phenotypicFeatures {
     for my $feature ( @{ $bff->{phenotypicFeatures} // [] } ) {
 
         my $obs;
-  
-        next if ($feature->{excluded} && $feature->{excluded} == JSON::PP::true);
+
+        next
+          if ( $feature->{excluded} && $feature->{excluded} == JSON::PP::true );
 
         # e.g., $feature->{featureType} used in a generic mapping:
         ( $obs->{observation_concept_id}, $obs->{observation_source_value} ) =
@@ -211,14 +212,14 @@ sub _map_phenotypicFeatures {
 
         # Date
         if ( $feature->{onset}{iso8601duration} ) {
-        $obs->{observation_date} = get_date_at_age(
-            $feature->{onset}{iso8601duration},
-            $omop_ref->{PERSON}{year_of_birth}
-        );
-        }         else {
+            $obs->{observation_date} = get_date_at_age(
+                $feature->{onset}{iso8601duration},
+                $omop_ref->{PERSON}{year_of_birth}
+            );
+        }
+        else {
             $obs->{observation_date} = $DEFAULT->{date};
         }
-
 
         # BFF only accepts numeric
         $obs->{value_as_number} =
@@ -317,11 +318,15 @@ sub _map_measurements {
                 $m->{value_as_number} =
                   $measure->{measurementValue}{quantity}{value}
                   // $measure->{measurementValue}{quantity} // -1;
-                $m->{range_low} =  $measure->{measurementValue}{quantity}{referenceRange}{low};
-                 $m->{range_high} =  $measure->{measurementValue}{quantity}{referenceRange}{high};
-( $m->{unit_concept_id}, $m->{unit_source_value} ) =
-          inverse_map( 'unit', $measure->{measurementValue}{quantity}{unit}, 'label', $self );
-                
+                $m->{range_low} =
+                  $measure->{measurementValue}{quantity}{referenceRange}{low};
+                $m->{range_high} =
+                  $measure->{measurementValue}{quantity}{referenceRange}{high};
+                ( $m->{unit_concept_id}, $m->{unit_source_value} ) =
+                  inverse_map( 'unit',
+                    $measure->{measurementValue}{quantity}{unit},
+                    'label', $self );
+
             }
             else {
                 $m->{value_as_number} = $measure->{measurementValue};
@@ -331,7 +336,7 @@ sub _map_measurements {
             $m->{value_as_number} = -1;
         }
 
-         $m->{value_source_value} =  $m->{value_as_number};
+        $m->{value_source_value} = $m->{value_as_number};
 
         # Optionally map procedure details from measurement if available.
         if ( exists $measure->{procedure} ) {
@@ -343,7 +348,7 @@ sub _map_measurements {
                 'label', $self );
         }
         else {
-            $m->{measurement_type_concept_id} = $DEFAULT->{concept_id};
+            $m->{measurement_type_concept_id}   = $DEFAULT->{concept_id};
             $m->{measurement_type_source_value} = '';
         }
 
@@ -380,7 +385,7 @@ sub _map_treatments {
             $drug->{quantity} = 0;
         }
 
-        # For demonstration, use a treatment field "date" if available; otherwise default.
+# For demonstration, use a treatment field "date" if available; otherwise default.
         $drug->{drug_exposure_start_date} = $treatment->{date}
           // $DEFAULT->{date};
         $drug->{person_id} = $person_id;
@@ -419,13 +424,13 @@ sub inverse_map {
     # Dispatch table: each key is a mapping_type, each value is a subref.
     my %dispatch = (
 
-        # For these mapping types, call _map_ohdsi_label which returns (concept_id, label)
+# For these mapping types, call _map_ohdsi_label which returns (concept_id, label)
         map {
             $_ => sub { _map_ohdsi_label( $value, $self ) }
         } qw(gender race ethnicity disease stage exposure phenotypicFeature procedure measurement treatment unit)
     );
 
-    # Invoke the sub for this mapping_type if it exists; otherwise return default values.
+# Invoke the sub for this mapping_type if it exists; otherwise return default values.
     if ( exists $dispatch{$mapping_type} ) {
         return $dispatch{$mapping_type}->();
     }
