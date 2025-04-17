@@ -8,7 +8,7 @@
     | Type        | Required (Optional)   | Required properties | Optional properties |
     | ----------- | ----------- | ------------------- | ------------------- |
     | Internal    | `project`   | `id, source, ontology, version` | ` description, baselineFieldsToPropagate` |
-    | Beacon v2 terms   | `id, sex (diseases, exposures, info, interventionsOrProcedures, measures, phenotypicFeatures, treatments)` | `fields`| `age,ageOfOnset,assignTermIdFromHeader,bodySite,dateOfProcedure,dictionary,drugDose,drugUnit,duration,durationUnit,familyHistory,fields,mapping,procedureCodeLabel,selector,terminology,unit` |
+    | Beacon v2 terms   | `id, sex (diseases, exposures, info, interventionsOrProcedures, measures, phenotypicFeatures, treatments)` | `fields`| `age,ageOfOnset,assignTermIdFromHeader,bodySite,dateOfProcedure,dictionary,drugDose,drugUnit,duration,durationUnit,familyHistory,fields,mapping,procedureCodeLabel,selector,terminology,unit,visitId` |
     
     These are the properties needed to map your data to the entity `individuals` in the Beacon v2 Models:
     
@@ -31,7 +31,7 @@
     - **routeOfAdministration**, a nested `object` with specific mappings for `treatments`.
     - **selector**, a nested `object` value with specific mappings.
     - **terminology**, a nested `object` value with user-defined ontology terms.
-    
+
     ??? Example "Terminology example"
         ```yaml
         terminology:
@@ -41,6 +41,7 @@
         ```
     
     - **unit**, an `object` representing the column that points to the unit of measurement for a given value or treatment.
+    - **visitId**, the column with visit occurrence id.
     
     ??? Tip "Defining the values in the property `dictionary`"
         Before assigning values to `dictionary` it's important that you think about which ontologies/terminologies you want to use. The field `project.ontology` defines the ontology for the whole project, but you can also specify a another antology at the Beacon v2 term level. Once you know which ontologies to use, then try searching for such term to get an accorate label for it. For example, if you have chosen `ncit`, you can search for the values within NCIt at [EBI Search](https://www.ebi.ac.uk/ols/ontologies/ncit). `Convert-Pheno` will use these values to retrieve the actual ontology term from its internal databases.

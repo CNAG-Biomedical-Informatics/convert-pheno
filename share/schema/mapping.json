@@ -205,6 +205,9 @@
             "type": "string"
           }
         },
+        "visitId": {
+          "type": "string"
+        },
         "dateOfProcedure": {
           "type": "object",
           "additionalProperties": {

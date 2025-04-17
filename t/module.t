@@ -37,7 +37,7 @@ for my $method ( sort keys %{$input} ) {
 sub read_first_json_object {
     my ($filename) = @_;
     open my $fh, '<', $filename or die "Could not open '$filename': $!";
-    local $/;  # Enable slurp mode to read the entire file
+    local $/;    # Enable slurp mode to read the entire file
     my $json_text = <$fh>;
     close $fh;
 
@@ -45,5 +45,8 @@ sub read_first_json_object {
     my $json_array = decode_json($json_text);
 
     # Return the first element if the decoded JSON is an array
-    return ref $json_array eq 'ARRAY' ? $json_array->[0] : die "Expected a JSON array in $filename";
+    return
+      ref $json_array eq 'ARRAY'
+      ? $json_array->[0]
+      : die "Expected a JSON array in $filename";
 }

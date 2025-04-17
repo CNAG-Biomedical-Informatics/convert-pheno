@@ -15,6 +15,7 @@ Revision history for Perl distribution Convert-Pheno
    - Added 'P' string to age (to conform with ISO8601) generated via condition_start_date + birth_datetime
    - Added DateTime::Format::ISO8601 module to simplify ome time-related calculations
  - Added "basic" 'bff2omop' conversion. To be further tested and improved in next releases
+ - Added 'visitId' property to 'mapping.json' schema that lands in "_visit.id" on array-based terms
 
 0.27 2025-01-16T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 

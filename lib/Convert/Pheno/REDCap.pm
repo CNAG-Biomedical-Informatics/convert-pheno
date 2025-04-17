@@ -51,20 +51,20 @@ sub do_redcap2bff {
     ##############################
     # <Variable> names in REDCap #
     ##############################
-#
-# REDCap does not enforce any particular variable name.
-# Extracted from https://www.ctsi.ufl.edu/wordpress/files/2019/02/Project-Creation-User-Guide.pdf
-# ---
-# "Variable Names: Variable names are critical in the data analysis process. If you export your data to a
-# statistical software program, the variable names are what you or your statistician will use to conduct
-# the analysis"
-#
-# "We always recommend reviewing your variable names with a statistician or whoever will be
-# analyzing your data. This is especially important if this is the first time you are building a
-# database"
-#---
-# If variable names are not consensuated, then we need to do the mapping manually "a posteriori".
-# This is what we are attempting here:
+    #
+    # REDCap does not enforce any particular variable name.
+    # Extracted from https://www.ctsi.ufl.edu/wordpress/files/2019/02/Project-Creation-User-Guide.pdf
+    # ---
+    # "Variable Names: Variable names are critical in the data analysis process. If you export your data to a
+    # statistical software program, the variable names are what you or your statistician will use to conduct
+    # the analysis"
+    #
+    # "We always recommend reviewing your variable names with a statistician or whoever will be
+    # analyzing your data. This is especially important if this is the first time you are building a
+    # database"
+    #---
+    # If variable names are not consensuated, then we need to do the mapping manually "a posteriori".
+    # This is what we are attempting here:
 
     ####################################
     # START MAPPING TO BEACON V2 TERMS #
@@ -252,7 +252,7 @@ sub remap_mapping_hash_term {
           ? $mapping_file_data->{$term}{$_}
           : undef
     } (
-        qw/fields assignTermIdFromHeader assignTermIdFromHeader_hash dictionary mapping selector terminology unit age drugDose drugUnit duration durationUnit dateOfProcedure bodySite ageOfOnset familyHistory/
+        qw/fields assignTermIdFromHeader assignTermIdFromHeader_hash dictionary mapping selector terminology unit age drugDose drugUnit duration durationUnit dateOfProcedure bodySite ageOfOnset familyHistory visitId/
     );
 
     $hash_out{ontology} =
@@ -324,8 +324,7 @@ sub propagate_fields {
         # Load $self for Baseline
         $self->{baselineFieldsToPropagate}{ $participant->{$id_field} }{$field}
           = $participant->{$field}
-          if defined $participant->{$field}
-          ;    # Dynamically adding attributes (setter)
+          if defined $participant->{$field};    # Dynamically adding attributes (setter)
 
         # Load field for all
         $participant->{$field} =
@@ -391,6 +390,9 @@ sub map_diseases {
                 $participant->{ $term_mapping_cursor->{familyHistory}{$field} }
             );
         }
+
+        $disease->{_visit}{id} = $participant->{ $term_mapping_cursor->{visitId} }
+          if defined $term_mapping_cursor->{visitId};
 
         #$disease->{notes}    = undef;
         $disease->{severity} = $DEFAULT->{ontology_term};
@@ -528,6 +530,10 @@ sub map_exposures {
           looks_like_number( $participant->{$field} )
           ? $participant->{$field}
           : -1;
+
+        $exposure->{_visit}{id} = $participant->{ $term_mapping_cursor->{visitId} }
+          if defined $term_mapping_cursor->{visitId};
+
         push @{ $individual->{exposures} }, $exposure
           if defined $exposure->{exposureCode};
     }
@@ -660,6 +666,10 @@ sub map_interventionsOrProcedures {
                 self     => $self
             }
         );
+        $intervention->{_visit}{id} =
+          $participant->{ $term_mapping_cursor->{visitId} }
+          if defined $term_mapping_cursor->{visitId};
+
         push @{ $individual->{interventionsOrProcedures} }, $intervention
           if defined $intervention->{procedureCode};
     }
@@ -724,8 +734,7 @@ sub map_measures {
             if ( $participant->{$field} =~ m/ \- / ) {
                 my ( $tmp_val, $tmp_scale ) = split / \- /,
                   $participant->{$field};
-                $participant->{$field} =
-                  $tmp_val;   # should be equal to $participant->{$field.'_ori'}
+                $participant->{$field} = $tmp_val;     # should be equal to $participant->{$field.'_ori'}
                 $tmp_unit = $tmp_scale;
             }
         }
@@ -792,6 +801,8 @@ sub map_measures {
                 }
             )
         };
+        $measure->{_visit}{id} = $participant->{ $term_mapping_cursor->{visitId} }
+          if defined $term_mapping_cursor->{visitId};
 
         # Add to array
         push @{ $individual->{measures} }, $measure
@@ -896,6 +907,10 @@ sub map_phenotypicFeatures {
         #$phenotypicFeature->{onset}       = { id => '', label => '' };
         #$phenotypicFeature->{resolution}  = { id => '', label => '' };
         #$phenotypicFeature->{severity}    = { id => '', label => '' };
+
+        $phenotypicFeature->{_visit}{id} =
+          $participant->{ $term_mapping_cursor->{visitId} }
+          if defined $term_mapping_cursor->{visitId};
 
         # Add to array
         push @{ $individual->{phenotypicFeatures} }, $phenotypicFeature
@@ -1018,7 +1033,7 @@ sub map_treatments {
             push @{ $treatment->{doseIntervals} }, $dose_interval;
         }
 
-     # Define routes (note that we use $participant->{$field} instead of $field)
+        # Define routes (note that we use $participant->{$field} instead of $field)
         my $route =
           exists $term_mapping_cursor->{routeOfAdministration}
           { $participant->{$field} }
@@ -1050,6 +1065,9 @@ sub map_treatments {
                 self     => $self
             }
         );
+        $treatment->{_visit}{id} = $participant->{ $term_mapping_cursor->{visitId} }
+          if defined $term_mapping_cursor->{visitId};
+
         push @{ $individual->{treatments} }, $treatment
           if defined $treatment->{treatmentCode};
 

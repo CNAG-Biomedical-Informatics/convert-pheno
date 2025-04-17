@@ -15,7 +15,7 @@ use Convert::Pheno::IO::CSVHandler;
 
 # Skip all tests if running on an ld architecture
 # mrueda 012025
-if ($Config{archname} =~ /-ld\b/) {
+if ( $Config{archname} =~ /-ld\b/ ) {
     plan skip_all => 'Skipping tests on ld architectures due to known issues';
     exit;
 }
@@ -119,7 +119,7 @@ my $input = {
     }
 };
 
-for my $method (sort keys %{$input}) {
+for my $method ( sort keys %{$input} ) {
 
     $method = $method eq 'pxf2bff_yaml' ? 'pxf2bff' : $method;
 

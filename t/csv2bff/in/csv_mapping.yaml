@@ -17,6 +17,7 @@ project:
 # Term: diseases
 diseases:
   fields: [Disease_1,Disease_2,Disease_3]
+  visitId: VisitOccurrenceId
   dictionary:
     Ashtma: Ashtma
     Diabetes: Diabetes Mellitus
@@ -32,9 +33,10 @@ ethnicity:
 exposures: 
   fields: [AlcoholUse,TobaccoUse]
   assignTermIdFromHeader: [AlcoholUse,TobaccoUse]
+  visitId: VisitOccurrenceId
   dictionary:
     AlcoholUse: Alcohol
-    TobaccoUse: Smoking
+    TobaccoUse: Tobacco
   selector:
     AlcoholUse:
       ageAtExposure: AgeAtAlcoholExposure
@@ -56,8 +58,10 @@ info:
 
 # Term: measures
 measures:
+  ontology: ncit
   fields: [Hemoglobin (g/dL), WBC (10^9/L), Platelets (10^9/L), BMI (kg/m^2)]
   assignTermIdFromHeader: [Hemoglobin (g/dL), WBC (10^9/L), Platelets (10^9/L), BMI (kg/m^2)]
+  visitId: VisitOccurrenceId 
   dictionary:
     'Hemoglobin (g/dL)': Hemoglobin Measurement
     'WBC (10^9/L)': Leukocyte
@@ -88,8 +92,9 @@ measures:
 
 # Term: phenotypicFeatures
 phenotypicFeatures: 
-  fields: [PhenotypicFeature_1,PhenotypicFeature_2]
   ontology: hpo
+  fields: [PhenotypicFeature_1,PhenotypicFeature_2]
+  visitId: VisitOccurrenceId
 
 # Term: sex
 sex: 
@@ -98,6 +103,7 @@ sex:
 # Term: treatments
 treatments:
   fields: [DrugName]
+  visitId: VisitOccurrenceId
   drugDose:
     DrugName: DrugDose (mg)
   drugUnit:
