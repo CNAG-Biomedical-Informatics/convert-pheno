@@ -22,8 +22,8 @@
       "measurements" : [
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -58,8 +58,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -94,8 +94,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -130,8 +130,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -166,8 +166,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -202,8 +202,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
             },
             "procedure" : {
                "bodySite" : {
@@ -238,8 +238,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -274,8 +274,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
             "procedure" : {
                "bodySite" : {
@@ -310,8 +310,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -346,8 +346,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -382,8 +382,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -418,8 +418,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C74679",
+               "label" : "Iron Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -454,8 +454,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
             },
             "procedure" : {
                "bodySite" : {
@@ -888,8 +888,8 @@
       "measurements" : [
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -924,8 +924,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -960,8 +960,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -996,8 +996,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -1032,8 +1032,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -1068,8 +1068,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
             },
             "procedure" : {
                "bodySite" : {
@@ -1104,8 +1104,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -1140,8 +1140,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
             "procedure" : {
                "bodySite" : {
@@ -1176,8 +1176,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -1212,8 +1212,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -1248,8 +1248,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -1284,8 +1284,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C74679",
+               "label" : "Iron Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -1320,8 +1320,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
             },
             "procedure" : {
                "bodySite" : {
@@ -1739,8 +1739,8 @@
       "measurements" : [
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -1775,8 +1775,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -1811,8 +1811,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -1847,8 +1847,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -1883,8 +1883,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -1919,8 +1919,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
             },
             "procedure" : {
                "bodySite" : {
@@ -1955,8 +1955,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -1991,8 +1991,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
             "procedure" : {
                "bodySite" : {
@@ -2027,8 +2027,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -2063,8 +2063,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -2099,8 +2099,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -2135,8 +2135,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C74679",
+               "label" : "Iron Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -2171,8 +2171,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
             },
             "procedure" : {
                "bodySite" : {
@@ -2605,8 +2605,8 @@
       "measurements" : [
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -2641,8 +2641,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -2677,8 +2677,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -2713,8 +2713,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -2749,8 +2749,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -2785,8 +2785,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
             },
             "procedure" : {
                "bodySite" : {
@@ -2821,8 +2821,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -2857,8 +2857,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
             "procedure" : {
                "bodySite" : {
@@ -2893,8 +2893,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -2929,8 +2929,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -2965,8 +2965,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -3001,8 +3001,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C74679",
+               "label" : "Iron Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -3037,8 +3037,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
             },
             "procedure" : {
                "bodySite" : {
@@ -3380,8 +3380,8 @@
       "measurements" : [
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -3416,8 +3416,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -3452,8 +3452,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -3488,8 +3488,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -3524,8 +3524,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -3560,8 +3560,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
             },
             "procedure" : {
                "bodySite" : {
@@ -3596,8 +3596,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -3632,8 +3632,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
             "procedure" : {
                "bodySite" : {
@@ -3668,8 +3668,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -3704,8 +3704,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -3740,8 +3740,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -3776,8 +3776,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C74679",
+               "label" : "Iron Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -3812,8 +3812,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
             },
             "procedure" : {
                "bodySite" : {
@@ -4155,8 +4155,8 @@
       "measurements" : [
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -4191,8 +4191,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -4227,8 +4227,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -4263,8 +4263,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -4299,8 +4299,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -4335,8 +4335,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
             },
             "procedure" : {
                "bodySite" : {
@@ -4371,8 +4371,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -4407,8 +4407,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
             "procedure" : {
                "bodySite" : {
@@ -4443,8 +4443,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -4479,8 +4479,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -4515,8 +4515,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -4551,8 +4551,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C74679",
+               "label" : "Iron Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -4587,8 +4587,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
             },
             "procedure" : {
                "bodySite" : {
@@ -4930,8 +4930,8 @@
       "measurements" : [
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -4966,8 +4966,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -5002,8 +5002,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -5038,8 +5038,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -5074,8 +5074,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -5110,8 +5110,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
             },
             "procedure" : {
                "bodySite" : {
@@ -5146,8 +5146,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -5182,8 +5182,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
             "procedure" : {
                "bodySite" : {
@@ -5218,8 +5218,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -5254,8 +5254,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -5290,8 +5290,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -5326,8 +5326,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C74679",
+               "label" : "Iron Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -5362,8 +5362,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
             },
             "procedure" : {
                "bodySite" : {
@@ -5690,8 +5690,8 @@
       "measurements" : [
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -5726,8 +5726,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -5762,8 +5762,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -5798,8 +5798,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64799",
+               "label" : "Erythrocyte Mean Corpuscular Volume"
             },
             "procedure" : {
                "bodySite" : {
@@ -5834,8 +5834,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64797",
+               "label" : "Erythrocyte Mean Corpuscular Hemoglobin"
             },
             "procedure" : {
                "bodySite" : {
@@ -5870,8 +5870,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -5906,8 +5906,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51950",
+               "label" : "Neutrophil Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -5942,8 +5942,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51949",
+               "label" : "Lymphocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -5978,8 +5978,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64550",
+               "label" : "Eosinophil Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -6014,8 +6014,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -6050,8 +6050,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
             },
             "procedure" : {
                "bodySite" : {
@@ -6086,8 +6086,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -6122,8 +6122,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
             "procedure" : {
                "bodySite" : {
@@ -6158,8 +6158,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -6194,8 +6194,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -6230,8 +6230,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -6266,8 +6266,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C74679",
+               "label" : "Iron Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -6302,8 +6302,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
             },
             "procedure" : {
                "bodySite" : {
@@ -6645,8 +6645,8 @@
       "measurements" : [
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -6681,8 +6681,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -6717,8 +6717,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -6753,8 +6753,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64799",
+               "label" : "Erythrocyte Mean Corpuscular Volume"
             },
             "procedure" : {
                "bodySite" : {
@@ -6789,8 +6789,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64797",
+               "label" : "Erythrocyte Mean Corpuscular Hemoglobin"
             },
             "procedure" : {
                "bodySite" : {
@@ -6825,8 +6825,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -6861,8 +6861,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51949",
+               "label" : "Lymphocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -6897,8 +6897,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64550",
+               "label" : "Eosinophil Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -6933,8 +6933,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -6969,8 +6969,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
             },
             "procedure" : {
                "bodySite" : {
@@ -7005,8 +7005,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -7041,8 +7041,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
             "procedure" : {
                "bodySite" : {
@@ -7077,8 +7077,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -7113,8 +7113,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -7149,8 +7149,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -7185,8 +7185,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C74679",
+               "label" : "Iron Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -7221,8 +7221,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
             },
             "procedure" : {
                "bodySite" : {
@@ -7549,8 +7549,8 @@
       "measurements" : [
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -7585,8 +7585,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -7621,8 +7621,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -7657,8 +7657,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -7693,8 +7693,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -7729,8 +7729,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
             },
             "procedure" : {
                "bodySite" : {
@@ -7765,8 +7765,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -7801,8 +7801,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
             "procedure" : {
                "bodySite" : {
@@ -7837,8 +7837,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -7873,8 +7873,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -7909,8 +7909,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -7945,8 +7945,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C74679",
+               "label" : "Iron Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -7981,8 +7981,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
             },
             "procedure" : {
                "bodySite" : {
@@ -8017,8 +8017,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C70666",
-               "label" : "Mild"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "procedure" : {
                "bodySite" : {
@@ -8089,8 +8089,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C41132",
-               "label" : "None"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "procedure" : {
                "bodySite" : {
@@ -8125,8 +8125,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "procedure" : {
                "bodySite" : {
@@ -8498,8 +8498,8 @@
       "measurements" : [
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -8534,8 +8534,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -8570,8 +8570,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -8606,8 +8606,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -8642,8 +8642,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -8678,8 +8678,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
             },
             "procedure" : {
                "bodySite" : {
@@ -8714,8 +8714,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -8750,8 +8750,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
             "procedure" : {
                "bodySite" : {
@@ -8786,8 +8786,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -8822,8 +8822,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -8858,8 +8858,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -8894,8 +8894,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
             },
             "procedure" : {
                "bodySite" : {
@@ -9252,8 +9252,8 @@
       "measurements" : [
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -9288,8 +9288,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -9324,8 +9324,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -9360,8 +9360,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -9396,8 +9396,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -9432,8 +9432,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
             },
             "procedure" : {
                "bodySite" : {
@@ -9468,8 +9468,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -9504,8 +9504,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
             "procedure" : {
                "bodySite" : {
@@ -9540,8 +9540,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -9576,8 +9576,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -9612,8 +9612,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -9648,8 +9648,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C74679",
+               "label" : "Iron Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -9684,8 +9684,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
             },
             "procedure" : {
                "bodySite" : {
@@ -9720,8 +9720,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C61376",
-               "label" : "Moderate"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "procedure" : {
                "bodySite" : {
@@ -9792,8 +9792,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C41132",
-               "label" : "None"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "procedure" : {
                "bodySite" : {
@@ -9828,8 +9828,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "procedure" : {
                "bodySite" : {
@@ -10201,8 +10201,8 @@
       "measurements" : [
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -10237,8 +10237,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -10273,8 +10273,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -10309,8 +10309,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -10345,8 +10345,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -10381,8 +10381,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
             },
             "procedure" : {
                "bodySite" : {
@@ -10417,8 +10417,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -10453,8 +10453,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
             "procedure" : {
                "bodySite" : {
@@ -10489,8 +10489,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -10525,8 +10525,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -10561,8 +10561,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -10597,8 +10597,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
             },
             "procedure" : {
                "bodySite" : {
@@ -10940,8 +10940,8 @@
       "measurements" : [
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -10976,8 +10976,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -11012,8 +11012,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -11048,8 +11048,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64799",
+               "label" : "Erythrocyte Mean Corpuscular Volume"
             },
             "procedure" : {
                "bodySite" : {
@@ -11084,8 +11084,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64797",
+               "label" : "Erythrocyte Mean Corpuscular Hemoglobin"
             },
             "procedure" : {
                "bodySite" : {
@@ -11120,8 +11120,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -11156,8 +11156,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51950",
+               "label" : "Neutrophil Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -11192,8 +11192,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51949",
+               "label" : "Lymphocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -11228,8 +11228,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64550",
+               "label" : "Eosinophil Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -11264,8 +11264,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -11300,8 +11300,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
             },
             "procedure" : {
                "bodySite" : {
@@ -11336,8 +11336,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -11372,8 +11372,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
             "procedure" : {
                "bodySite" : {
@@ -11408,8 +11408,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -11444,8 +11444,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -11480,8 +11480,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -11516,8 +11516,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C74679",
+               "label" : "Iron Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -11552,8 +11552,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
             },
             "procedure" : {
                "bodySite" : {
@@ -11588,8 +11588,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C70666",
-               "label" : "Mild"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "procedure" : {
                "bodySite" : {
@@ -11624,8 +11624,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C70666",
-               "label" : "Mild"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "procedure" : {
                "bodySite" : {
@@ -11660,8 +11660,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C41132",
-               "label" : "None"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "procedure" : {
                "bodySite" : {
@@ -11696,8 +11696,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "procedure" : {
                "bodySite" : {
@@ -12069,8 +12069,8 @@
       "measurements" : [
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -12105,8 +12105,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -12141,8 +12141,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -12177,8 +12177,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64799",
+               "label" : "Erythrocyte Mean Corpuscular Volume"
             },
             "procedure" : {
                "bodySite" : {
@@ -12213,8 +12213,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64797",
+               "label" : "Erythrocyte Mean Corpuscular Hemoglobin"
             },
             "procedure" : {
                "bodySite" : {
@@ -12249,8 +12249,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -12285,8 +12285,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -12321,8 +12321,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
             },
             "procedure" : {
                "bodySite" : {
@@ -12357,8 +12357,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -12393,8 +12393,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
             "procedure" : {
                "bodySite" : {
@@ -12429,8 +12429,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -12465,8 +12465,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -12501,8 +12501,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -12537,8 +12537,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C74679",
+               "label" : "Iron Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -12573,8 +12573,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
             },
             "procedure" : {
                "bodySite" : {
@@ -12916,8 +12916,8 @@
       "measurements" : [
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -12952,8 +12952,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -12988,8 +12988,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -13024,8 +13024,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64799",
+               "label" : "Erythrocyte Mean Corpuscular Volume"
             },
             "procedure" : {
                "bodySite" : {
@@ -13060,8 +13060,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64797",
+               "label" : "Erythrocyte Mean Corpuscular Hemoglobin"
             },
             "procedure" : {
                "bodySite" : {
@@ -13096,8 +13096,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -13132,8 +13132,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51950",
+               "label" : "Neutrophil Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -13168,8 +13168,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51949",
+               "label" : "Lymphocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -13204,8 +13204,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64550",
+               "label" : "Eosinophil Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -13240,8 +13240,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -13276,8 +13276,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
             },
             "procedure" : {
                "bodySite" : {
@@ -13312,8 +13312,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -13348,8 +13348,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
             "procedure" : {
                "bodySite" : {
@@ -13384,8 +13384,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -13420,8 +13420,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -13456,8 +13456,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -13492,8 +13492,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C74679",
+               "label" : "Iron Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -13528,8 +13528,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
             },
             "procedure" : {
                "bodySite" : {
@@ -13564,8 +13564,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "procedure" : {
                "bodySite" : {
@@ -14028,8 +14028,8 @@
       "measurements" : [
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -14064,8 +14064,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -14100,8 +14100,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -14136,8 +14136,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64799",
+               "label" : "Erythrocyte Mean Corpuscular Volume"
             },
             "procedure" : {
                "bodySite" : {
@@ -14172,8 +14172,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64797",
+               "label" : "Erythrocyte Mean Corpuscular Hemoglobin"
             },
             "procedure" : {
                "bodySite" : {
@@ -14208,8 +14208,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -14244,8 +14244,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51950",
+               "label" : "Neutrophil Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -14280,8 +14280,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51949",
+               "label" : "Lymphocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -14316,8 +14316,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64550",
+               "label" : "Eosinophil Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -14352,8 +14352,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -14388,8 +14388,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
             },
             "procedure" : {
                "bodySite" : {
@@ -14424,8 +14424,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -14460,8 +14460,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
             "procedure" : {
                "bodySite" : {
@@ -14496,8 +14496,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -14532,8 +14532,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -14568,8 +14568,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -14604,8 +14604,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C74679",
+               "label" : "Iron Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -14640,8 +14640,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
             },
             "procedure" : {
                "bodySite" : {
@@ -15089,8 +15089,8 @@
       "measurements" : [
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -15125,8 +15125,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -15161,8 +15161,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -15197,8 +15197,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64799",
+               "label" : "Erythrocyte Mean Corpuscular Volume"
             },
             "procedure" : {
                "bodySite" : {
@@ -15233,8 +15233,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64797",
+               "label" : "Erythrocyte Mean Corpuscular Hemoglobin"
             },
             "procedure" : {
                "bodySite" : {
@@ -15269,8 +15269,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -15305,8 +15305,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51950",
+               "label" : "Neutrophil Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -15341,8 +15341,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51949",
+               "label" : "Lymphocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -15377,8 +15377,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64550",
+               "label" : "Eosinophil Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -15413,8 +15413,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -15449,8 +15449,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
             },
             "procedure" : {
                "bodySite" : {
@@ -15485,8 +15485,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -15521,8 +15521,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
             "procedure" : {
                "bodySite" : {
@@ -15557,8 +15557,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -15593,8 +15593,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -15629,8 +15629,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -15665,8 +15665,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C74679",
+               "label" : "Iron Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -15701,8 +15701,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
             },
             "procedure" : {
                "bodySite" : {
@@ -16150,8 +16150,8 @@
       "measurements" : [
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -16186,8 +16186,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -16222,8 +16222,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -16258,8 +16258,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64799",
+               "label" : "Erythrocyte Mean Corpuscular Volume"
             },
             "procedure" : {
                "bodySite" : {
@@ -16294,8 +16294,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64797",
+               "label" : "Erythrocyte Mean Corpuscular Hemoglobin"
             },
             "procedure" : {
                "bodySite" : {
@@ -16330,8 +16330,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -16366,8 +16366,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51950",
+               "label" : "Neutrophil Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -16402,8 +16402,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51949",
+               "label" : "Lymphocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -16438,8 +16438,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64550",
+               "label" : "Eosinophil Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -16474,8 +16474,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -16510,8 +16510,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
             },
             "procedure" : {
                "bodySite" : {
@@ -16546,8 +16546,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -16582,8 +16582,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
             "procedure" : {
                "bodySite" : {
@@ -16618,8 +16618,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -16654,8 +16654,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -16690,8 +16690,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -16726,8 +16726,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C74679",
+               "label" : "Iron Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -16762,8 +16762,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
             },
             "procedure" : {
                "bodySite" : {
@@ -16798,8 +16798,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C82005",
+               "label" : "Calprotectin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -17232,8 +17232,8 @@
       "measurements" : [
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -17268,8 +17268,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -17304,8 +17304,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -17340,8 +17340,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -17376,8 +17376,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -17412,8 +17412,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
             },
             "procedure" : {
                "bodySite" : {
@@ -17448,8 +17448,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -17484,8 +17484,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
             "procedure" : {
                "bodySite" : {
@@ -17520,8 +17520,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -17556,8 +17556,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -17592,8 +17592,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -17628,8 +17628,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C74679",
+               "label" : "Iron Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -17664,8 +17664,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
             },
             "procedure" : {
                "bodySite" : {
@@ -17700,8 +17700,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C61376",
-               "label" : "Moderate"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "procedure" : {
                "bodySite" : {
@@ -17772,8 +17772,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C41132",
-               "label" : "None"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "procedure" : {
                "bodySite" : {
@@ -17808,8 +17808,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "procedure" : {
                "bodySite" : {
@@ -18181,8 +18181,8 @@
       "measurements" : [
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -18217,8 +18217,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -18253,8 +18253,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -18289,8 +18289,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -18325,8 +18325,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -18361,8 +18361,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
             },
             "procedure" : {
                "bodySite" : {
@@ -18397,8 +18397,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -18433,8 +18433,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
             "procedure" : {
                "bodySite" : {
@@ -18469,8 +18469,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -18505,8 +18505,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -18541,8 +18541,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -18577,8 +18577,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C74679",
+               "label" : "Iron Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -18613,8 +18613,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
             },
             "procedure" : {
                "bodySite" : {
@@ -18971,8 +18971,8 @@
       "measurements" : [
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -19007,8 +19007,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -19043,8 +19043,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -19079,8 +19079,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -19115,8 +19115,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -19151,8 +19151,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
             },
             "procedure" : {
                "bodySite" : {
@@ -19187,8 +19187,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -19223,8 +19223,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
             "procedure" : {
                "bodySite" : {
@@ -19259,8 +19259,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -19295,8 +19295,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -19331,8 +19331,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -19367,8 +19367,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C74679",
+               "label" : "Iron Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -19403,8 +19403,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "procedure" : {
                "bodySite" : {
@@ -19776,8 +19776,8 @@
       "measurements" : [
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -19812,8 +19812,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -19848,8 +19848,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -19884,8 +19884,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64799",
+               "label" : "Erythrocyte Mean Corpuscular Volume"
             },
             "procedure" : {
                "bodySite" : {
@@ -19920,8 +19920,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64797",
+               "label" : "Erythrocyte Mean Corpuscular Hemoglobin"
             },
             "procedure" : {
                "bodySite" : {
@@ -19956,8 +19956,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -19992,8 +19992,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51950",
+               "label" : "Neutrophil Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -20028,8 +20028,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51949",
+               "label" : "Lymphocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -20064,8 +20064,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64550",
+               "label" : "Eosinophil Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -20100,8 +20100,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -20136,8 +20136,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
             },
             "procedure" : {
                "bodySite" : {
@@ -20172,8 +20172,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -20208,8 +20208,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
             "procedure" : {
                "bodySite" : {
@@ -20244,8 +20244,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -20280,8 +20280,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -20316,8 +20316,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -20352,8 +20352,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C74679",
+               "label" : "Iron Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -20388,8 +20388,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
             },
             "procedure" : {
                "bodySite" : {
@@ -20424,8 +20424,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C41132",
-               "label" : "None"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "procedure" : {
                "bodySite" : {
@@ -20460,8 +20460,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C70666",
-               "label" : "Mild"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "procedure" : {
                "bodySite" : {
@@ -20496,8 +20496,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C41132",
-               "label" : "None"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "procedure" : {
                "bodySite" : {
@@ -20532,8 +20532,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "procedure" : {
                "bodySite" : {
@@ -20905,8 +20905,8 @@
       "measurements" : [
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -20941,8 +20941,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -20977,8 +20977,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -21013,8 +21013,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -21049,8 +21049,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -21085,8 +21085,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
             },
             "procedure" : {
                "bodySite" : {
@@ -21121,8 +21121,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -21157,8 +21157,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
             "procedure" : {
                "bodySite" : {
@@ -21193,8 +21193,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -21229,8 +21229,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -21265,8 +21265,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -21301,8 +21301,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C74679",
+               "label" : "Iron Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -21337,8 +21337,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
             },
             "procedure" : {
                "bodySite" : {
@@ -21373,8 +21373,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C82005",
+               "label" : "Calprotectin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -21716,8 +21716,8 @@
       "measurements" : [
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -21752,8 +21752,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -21788,8 +21788,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -21824,8 +21824,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -21860,8 +21860,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -21896,8 +21896,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
             },
             "procedure" : {
                "bodySite" : {
@@ -21932,8 +21932,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -21968,8 +21968,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
             "procedure" : {
                "bodySite" : {
@@ -22004,8 +22004,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -22040,8 +22040,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -22076,8 +22076,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -22112,8 +22112,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C74679",
+               "label" : "Iron Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -22148,8 +22148,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
             },
             "procedure" : {
                "bodySite" : {
@@ -22476,8 +22476,8 @@
       "measurements" : [
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -22512,8 +22512,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -22548,8 +22548,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -22584,8 +22584,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64799",
+               "label" : "Erythrocyte Mean Corpuscular Volume"
             },
             "procedure" : {
                "bodySite" : {
@@ -22620,8 +22620,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64797",
+               "label" : "Erythrocyte Mean Corpuscular Hemoglobin"
             },
             "procedure" : {
                "bodySite" : {
@@ -22656,8 +22656,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -22692,8 +22692,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51950",
+               "label" : "Neutrophil Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -22728,8 +22728,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51949",
+               "label" : "Lymphocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -22764,8 +22764,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64550",
+               "label" : "Eosinophil Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -22800,8 +22800,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -22836,8 +22836,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
             },
             "procedure" : {
                "bodySite" : {
@@ -22872,8 +22872,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -22908,8 +22908,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
             "procedure" : {
                "bodySite" : {
@@ -22944,8 +22944,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -22980,8 +22980,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -23016,8 +23016,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -23052,8 +23052,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C74679",
+               "label" : "Iron Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -23088,8 +23088,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
             },
             "procedure" : {
                "bodySite" : {
@@ -23431,8 +23431,8 @@
       "measurements" : [
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -23467,8 +23467,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -23503,8 +23503,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -23539,8 +23539,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -23575,8 +23575,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -23611,8 +23611,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
             },
             "procedure" : {
                "bodySite" : {
@@ -23647,8 +23647,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -23683,8 +23683,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
             "procedure" : {
                "bodySite" : {
@@ -23719,8 +23719,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -23755,8 +23755,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -23791,8 +23791,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -23827,8 +23827,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
             },
             "procedure" : {
                "bodySite" : {
@@ -23863,8 +23863,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C61376",
-               "label" : "Moderate"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "procedure" : {
                "bodySite" : {
@@ -23935,8 +23935,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C49488",
-               "label" : "Yes"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "procedure" : {
                "bodySite" : {
@@ -23971,8 +23971,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "procedure" : {
                "bodySite" : {
@@ -24344,8 +24344,8 @@
       "measurements" : [
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -24380,8 +24380,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -24416,8 +24416,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -24452,8 +24452,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -24488,8 +24488,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -24524,8 +24524,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
             },
             "procedure" : {
                "bodySite" : {
@@ -24560,8 +24560,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -24596,8 +24596,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
             "procedure" : {
                "bodySite" : {
@@ -24632,8 +24632,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -24668,8 +24668,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -24704,8 +24704,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -24740,8 +24740,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C74679",
+               "label" : "Iron Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -24776,8 +24776,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
             },
             "procedure" : {
                "bodySite" : {
@@ -25134,8 +25134,8 @@
       "measurements" : [
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -25170,8 +25170,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -25206,8 +25206,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -25242,8 +25242,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -25278,8 +25278,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -25314,8 +25314,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
             },
             "procedure" : {
                "bodySite" : {
@@ -25350,8 +25350,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -25386,8 +25386,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
             "procedure" : {
                "bodySite" : {
@@ -25422,8 +25422,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -25458,8 +25458,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -25494,8 +25494,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -25530,8 +25530,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C74679",
+               "label" : "Iron Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -25566,8 +25566,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
             },
             "procedure" : {
                "bodySite" : {
@@ -25602,8 +25602,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:NA0000",
+               "label" : "NA"
             },
             "procedure" : {
                "bodySite" : {
@@ -25975,8 +25975,8 @@
       "measurements" : [
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -26011,8 +26011,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -26047,8 +26047,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -26083,8 +26083,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -26119,8 +26119,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -26155,8 +26155,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
             },
             "procedure" : {
                "bodySite" : {
@@ -26191,8 +26191,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -26227,8 +26227,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
             "procedure" : {
                "bodySite" : {
@@ -26263,8 +26263,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -26299,8 +26299,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -26335,8 +26335,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -26371,8 +26371,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C74679",
+               "label" : "Iron Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -26407,8 +26407,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
             },
             "procedure" : {
                "bodySite" : {
@@ -26443,8 +26443,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C82005",
+               "label" : "Calprotectin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -26786,8 +26786,8 @@
       "measurements" : [
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -26822,8 +26822,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -26858,8 +26858,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -26894,8 +26894,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64799",
+               "label" : "Erythrocyte Mean Corpuscular Volume"
             },
             "procedure" : {
                "bodySite" : {
@@ -26930,8 +26930,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64797",
+               "label" : "Erythrocyte Mean Corpuscular Hemoglobin"
             },
             "procedure" : {
                "bodySite" : {
@@ -26966,8 +26966,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -27002,8 +27002,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51950",
+               "label" : "Neutrophil Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -27038,8 +27038,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51949",
+               "label" : "Lymphocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -27074,8 +27074,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64550",
+               "label" : "Eosinophil Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -27110,8 +27110,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -27146,8 +27146,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
             },
             "procedure" : {
                "bodySite" : {
@@ -27182,8 +27182,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -27218,8 +27218,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
             "procedure" : {
                "bodySite" : {
@@ -27254,8 +27254,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -27290,8 +27290,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -27326,8 +27326,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -27362,8 +27362,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C74679",
+               "label" : "Iron Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -27398,8 +27398,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
             },
             "procedure" : {
                "bodySite" : {
@@ -27756,8 +27756,8 @@
       "measurements" : [
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -27792,8 +27792,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -27828,8 +27828,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -27864,8 +27864,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64799",
+               "label" : "Erythrocyte Mean Corpuscular Volume"
             },
             "procedure" : {
                "bodySite" : {
@@ -27900,8 +27900,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64797",
+               "label" : "Erythrocyte Mean Corpuscular Hemoglobin"
             },
             "procedure" : {
                "bodySite" : {
@@ -27936,8 +27936,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -27972,8 +27972,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51950",
+               "label" : "Neutrophil Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -28008,8 +28008,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51949",
+               "label" : "Lymphocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -28044,8 +28044,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64550",
+               "label" : "Eosinophil Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -28080,8 +28080,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -28116,8 +28116,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
             },
             "procedure" : {
                "bodySite" : {
@@ -28152,8 +28152,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -28188,8 +28188,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
             "procedure" : {
                "bodySite" : {
@@ -28224,8 +28224,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -28260,8 +28260,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -28296,8 +28296,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -28332,8 +28332,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C74679",
+               "label" : "Iron Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -28368,8 +28368,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
             },
             "procedure" : {
                "bodySite" : {
@@ -28817,8 +28817,8 @@
       "measurements" : [
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -28853,8 +28853,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -28889,8 +28889,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -28925,8 +28925,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -28961,8 +28961,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -28997,8 +28997,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
             },
             "procedure" : {
                "bodySite" : {
@@ -29033,8 +29033,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -29069,8 +29069,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
             "procedure" : {
                "bodySite" : {
@@ -29105,8 +29105,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -29141,8 +29141,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -29177,8 +29177,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -29213,8 +29213,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C74679",
+               "label" : "Iron Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -29249,8 +29249,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
             },
             "procedure" : {
                "bodySite" : {
@@ -29646,8 +29646,8 @@
       "measurements" : [
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -29682,8 +29682,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -29718,8 +29718,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -29754,8 +29754,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -29790,8 +29790,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -29826,8 +29826,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
             },
             "procedure" : {
                "bodySite" : {
@@ -29862,8 +29862,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -29898,8 +29898,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
             "procedure" : {
                "bodySite" : {
@@ -29934,8 +29934,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -29970,8 +29970,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -30006,8 +30006,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -30042,8 +30042,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C74679",
+               "label" : "Iron Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -30078,8 +30078,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
             },
             "procedure" : {
                "bodySite" : {
@@ -30512,8 +30512,8 @@
       "measurements" : [
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -30548,8 +30548,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -30584,8 +30584,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -30620,8 +30620,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64799",
+               "label" : "Erythrocyte Mean Corpuscular Volume"
             },
             "procedure" : {
                "bodySite" : {
@@ -30656,8 +30656,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64797",
+               "label" : "Erythrocyte Mean Corpuscular Hemoglobin"
             },
             "procedure" : {
                "bodySite" : {
@@ -30692,8 +30692,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -30728,8 +30728,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -30764,8 +30764,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
             },
             "procedure" : {
                "bodySite" : {
@@ -30800,8 +30800,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -30836,8 +30836,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
             "procedure" : {
                "bodySite" : {
@@ -30872,8 +30872,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -30908,8 +30908,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -30944,8 +30944,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -30980,8 +30980,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C74679",
+               "label" : "Iron Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -31016,8 +31016,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
             },
             "procedure" : {
                "bodySite" : {
@@ -31435,8 +31435,8 @@
       "measurements" : [
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51948",
+               "label" : "Leukocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -31471,8 +31471,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64848",
+               "label" : "Hemoglobin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -31507,8 +31507,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64796",
+               "label" : "Hematocrit Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -31543,8 +31543,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64799",
+               "label" : "Erythrocyte Mean Corpuscular Volume"
             },
             "procedure" : {
                "bodySite" : {
@@ -31579,8 +31579,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64797",
+               "label" : "Erythrocyte Mean Corpuscular Hemoglobin"
             },
             "procedure" : {
                "bodySite" : {
@@ -31615,8 +31615,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51951",
+               "label" : "Platelet Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -31651,8 +31651,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51950",
+               "label" : "Neutrophil Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -31687,8 +31687,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C51949",
+               "label" : "Lymphocyte Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -31723,8 +31723,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64550",
+               "label" : "Eosinophil Count"
             },
             "procedure" : {
                "bodySite" : {
@@ -31759,8 +31759,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64547",
+               "label" : "Creatinine Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -31795,8 +31795,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C90505",
+               "label" : "Glomerular Filtration Rate"
             },
             "procedure" : {
                "bodySite" : {
@@ -31831,8 +31831,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C38037",
+               "label" : "Total Bilirubin Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -31867,8 +31867,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C55098",
+               "label" : "Serum Glutamic Pyruvic Transaminase, CTCAE"
             },
             "procedure" : {
                "bodySite" : {
@@ -31903,8 +31903,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C61025",
+               "label" : "Serum Gamma Glutamyl Transpeptidase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -31939,8 +31939,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C117748",
+               "label" : "Lipase Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -31975,8 +31975,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C64548",
+               "label" : "C-Reactive Protein Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -32011,8 +32011,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C74679",
+               "label" : "Iron Measurement"
             },
             "procedure" : {
                "bodySite" : {
@@ -32047,8 +32047,8 @@
          },
          {
             "assay" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C20451",
+               "label" : "Interleukin-6"
             },
             "procedure" : {
                "bodySite" : {

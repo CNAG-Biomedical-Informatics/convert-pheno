@@ -717,9 +717,7 @@ sub _map_treatments {
 
             # _info (Autovivification)
             $treatment->{_info}{$table}{OMOP_columns} = $field;
-
-            $treatment->{routeOfAdministration} =
-              { id => "NCIT:NA0000", label => "Fake" };
+            $treatment->{routeOfAdministration} = $DEFAULT->{ontology_term};
             $treatment->{treatmentCode} = map2ohdsi(
                 {
                     ohdsi_dict => $ohdsi_dict,

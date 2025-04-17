@@ -15,7 +15,7 @@ my $input = {
     omop2bff => {
         in_file  => undef,
         in_files => [
-            't/omop2bff/in/CONCEPT.csv', 't/omop2bff/in/MEASUREMENT.csv',
+            't/omop2bff/in/CONCEPT.csv', 't/omop2bff/in/DRUG_EXPOSURE.csv',
             't/omop2bff/in/PERSON.csv'
         ],
         ohdsi_db => 1,
@@ -44,8 +44,8 @@ for my $method ( sort keys %{$input} ) {
     );
 
   SKIP: {
-        skip qq{because 'db/ohdsi.db' is required with <ohdsi_db>}, 1
-          unless -f 'db/ohdsi.db';
+        skip qq{because 'share/db/ohdsi.db' is required with <ohdsi_db>}, 1
+          unless -f 'share/db/ohdsi.db';
           $convert->$method and ok( compare( $input->{$method}{out}, $tmp_file ) == 0, $method );
     }
 }

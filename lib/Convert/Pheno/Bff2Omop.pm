@@ -4,7 +4,6 @@ use strict;
 use warnings;
 use autodie;
 use feature qw(say);
-use POSIX   qw(strftime);
 use Math::BigInt;
 use Scalar::Util                   qw(looks_like_number);
 use Convert::Pheno::Utils::Default qw(get_defaults);
@@ -13,8 +12,20 @@ use Data::Dumper;
 use Exporter 'import';
 
 our @EXPORT = qw(do_bff2omop);
+my $DEFAULT                       = get_defaults();
+my $MEASUREMENT_ID_COUNT          = 0;
+my $DRUG_EXPOSURE_ID_COUNT        = 0;
+my $OBSERVATION_ID_COUNT          = 0;
+my $CONDITION_OCCURRENCE_COUNT    = 0;
+my $PROCEDURE_OCCURRENCE_ID_COUNT = 0;
 
-my $DEFAULT = get_defaults();
+# one-time dispatch table
+my %INVERSE_DISPATCH = map { $_ => \&_map_ohdsi_label }
+  qw(
+  gender race ethnicity disease stage
+  exposure phenotypicFeature procedure
+  measurement treatment unit
+  );
 
 ###############
 ###############
@@ -51,9 +62,9 @@ sub do_bff2omop {
     _map_measurements( $self, $bff, $omop, $person_id );
     _map_treatments( $self, $bff, $omop, $person_id );
 
- # (Optionally, additional tables such as VISIT_OCCURRENCE or OBSERVATION_PERIOD
- # could be derived from extra info in $bff.)
- #print Dumper $omop;
+    # (Optionally, additional tables such as VISIT_OCCURRENCE or OBSERVATION_PERIOD
+    # could be derived from extra info in $bff.)
+    #print Dumper $omop;
     return $omop;
 }
 
@@ -114,6 +125,8 @@ sub _map_diseases {
     for my $disease ( @{ $bff->{diseases} // [] } ) {
         my $cond;
 
+        $cond->{condition_occurrence_id} = ++$CONDITION_OCCURRENCE_COUNT;
+
         # We now call our generic inverse_map:
         ( $cond->{condition_concept_id}, $cond->{condition_source_value} ) =
           inverse_map( 'disease', $disease->{diseaseCode}, 'label', $self );
@@ -131,19 +144,14 @@ sub _map_diseases {
 
         # TEMPORARY SOLUTION: Setting defaults
         # mrueda: Apr-2025
-        $cond->{condition_occurrence_id}   = $DEFAULT->{concept_id};
         $cond->{condition_type_concept_id} = $DEFAULT->{concept_id};
 
-        # Individuals default schema does not provice anything related to visit
-        # Taking information if Convert-Pheno set it
-        $cond->{visit_occurrence_id} = $disease->{_visit}{id}        // '';
-        $cond->{visit_detail_id}     = $disease->{_visit}{detail_id} // '';
+        _attach_common( $cond, $disease, $person_id );
 
         # Optionally map stage to condition_status_concept_id.
         #if ( exists $disease->{stage} ) {
         #}
 
-        $cond->{person_id} = $person_id;
         push @conditions, $cond;
     }
     $omop_ref->{CONDITION_OCCURRENCE} = \@conditions if @conditions;
@@ -158,6 +166,8 @@ sub _map_exposures {
 
     for my $exposure ( @{ $bff->{exposures} // [] } ) {
         my $obs;
+
+        $obs->{observation_id} = ++$OBSERVATION_ID_COUNT;
 
         # e.g., $exposure->{exposureCode} used in a generic mapping:
         ( $obs->{observation_concept_id}, $obs->{observation_source_value} ) =
@@ -181,12 +191,8 @@ sub _map_exposures {
         # mrueda: Apr-2025
         $obs->{observation_type_concept_id} = $DEFAULT->{concept_id};
 
-        # Individuals default schema does not provice anything related to visit
-        # Taking information if Convert-Pheno set it
-        $obs->{visit_occurrence_id} = $exposure->{_visit}{id}        // '';
-        $obs->{visit_detail_id}     = $exposure->{_visit}{detail_id} // '';
+        _attach_common( $obs, $exposure, $person_id );
 
-        $obs->{person_id} = $person_id;
         push @observations, $obs;
     }
     $omop_ref->{OBSERVATION} = \@observations if @observations;
@@ -204,6 +210,8 @@ sub _map_phenotypicFeatures {
 
         next
           if ( $feature->{excluded} && $feature->{excluded} == JSON::PP::true );
+
+        $obs->{observation_id} = ++$OBSERVATION_ID_COUNT;
 
         # e.g., $feature->{featureType} used in a generic mapping:
         ( $obs->{observation_concept_id}, $obs->{observation_source_value} ) =
@@ -236,12 +244,7 @@ sub _map_phenotypicFeatures {
         # mrueda: Apr-2025
         $obs->{observation_type_concept_id} = $DEFAULT->{concept_id};
 
-        # Individuals default schema does not provice anything related to visit
-        # Taking information if Convert-Pheno set it
-        $obs->{visit_occurrence_id} = $feature->{_visit}{id}        // '';
-        $obs->{visit_detail_id}     = $feature->{_visit}{detail_id} // '';
-
-        $obs->{person_id} = $person_id;
+        _attach_common( $obs, $feature, $person_id );
 
         push @observations, $obs;
     }
@@ -263,7 +266,12 @@ sub _map_interventionsOrProcedures {
     my @procedures;
 
     for my $proc ( @{ $bff->{interventionsOrProcedures} // [] } ) {
+
         my $procedure;
+
+        $procedure->{procedure_occurrence_id} =
+          ++$PROCEDURE_OCCURRENCE_ID_COUNT;
+
         (
             $procedure->{procedure_concept_id},
             $procedure->{procedure_source_value}
@@ -282,16 +290,10 @@ sub _map_interventionsOrProcedures {
 
         # TEMPORARY SOLUTION: Setting defaults
         # mrueda: Apr-2025
-        $procedure->{procedure_occurrence_id}   = $DEFAULT->{concept_id};
-        $procedure->{procedure_type_concept_id} = $DEFAULT->{concept_id};
         $procedure->{procedure_type_concept_id} = $DEFAULT->{concept_id};
 
-        # Individuals default schema does not provice anything related to visit
-        # Taking information if Convert-Pheno set it
-        $procedure->{visit_occurrence_id} = $proc->{_visit}{id}        // '';
-        $procedure->{visit_detail_id}     = $proc->{_visit}{detail_id} // '';
+        _attach_common( $procedure, $proc, $person_id );
 
-        $procedure->{person_id} = $person_id;
         push @procedures, $procedure;
     }
     $omop_ref->{PROCEDURE_OCCURRENCE} = \@procedures if @procedures;
@@ -305,7 +307,8 @@ sub _map_measurements {
     for my $measure ( @{ $bff->{measures} // [] } ) {
 
         my $m;
-        $m->{measurement_id} = '';
+        $m->{measurement_id} = ++$MEASUREMENT_ID_COUNT;
+
         ( $m->{measurement_concept_id}, $m->{measurement_source_value} ) =
           inverse_map( 'measurement', $measure->{assayCode}, 'label', $self );
         $m->{measurement_date} = $measure->{date};
@@ -352,12 +355,7 @@ sub _map_measurements {
             $m->{measurement_type_source_value} = '';
         }
 
-        # Individuals default schema does not provice anything related to visit
-        # Taking information if Convert-Pheno set it
-        $m->{visit_occurrence_id} = $measure->{_visit}{id}        // '';
-        $m->{visit_detail_id}     = $measure->{_visit}{detail_id} // '';
-
-        $m->{person_id} = $person_id;
+        _attach_common( $m, $measure, $person_id );
 
         push @measurements, $m;
     }
@@ -371,6 +369,12 @@ sub _map_treatments {
 
     for my $treatment ( @{ $bff->{treatments} // [] } ) {
         my $drug;
+
+        $drug->{drug_exposure_id} = ++$DRUG_EXPOSURE_ID_COUNT;
+
+        # TEMPORARY
+        $drug->{drug_type_concept_id} = 0;
+
         ( $drug->{drug_concept_id}, $drug->{drug_source_value} ) =
           inverse_map( 'treatment', $treatment->{treatmentCode},
             'label', $self );
@@ -379,16 +383,27 @@ sub _map_treatments {
             and @{ $treatment->{doseIntervals} } )
         {
             my $dose = $treatment->{doseIntervals}[0];
-            $drug->{quantity} = $dose->{quantity}{value} // 0;
+            $drug->{quantity} = $dose->{quantity}{value} // -1;
         }
         else {
-            $drug->{quantity} = 0;
+            $drug->{quantity} = -1;
         }
 
-# For demonstration, use a treatment field "date" if available; otherwise default.
-        $drug->{drug_exposure_start_date} = $treatment->{date}
-          // $DEFAULT->{date};
-        $drug->{person_id} = $person_id;
+        #
+        if ( $treatment->{ageOfOnset}{age}{iso8601duration} ) {
+            $drug->{drug_exposure_start_date} =
+              get_date_at_age( $treatment->{ageOfOnset}{age}{iso8601duration},
+                $omop_ref->{PERSON}{year_of_birth} );
+        }
+        else {
+            $drug->{drug_exposure_start_date} = $DEFAULT->{date};
+        }
+
+        # TEMPORARY
+        $drug->{drug_exposure_end_date} = $drug->{drug_exposure_start_date};
+
+        _attach_common( $drug, $treatment, $person_id );
+
         push @treatments, $drug;
     }
     $omop_ref->{DRUG_EXPOSURE} = \@treatments if @treatments;
@@ -415,39 +430,61 @@ sub _map_ohdsi_label {
 ###############################################################################
 # New single generic sub that merges old inverse_map_* logic via a dispatch table
 ###############################################################################
+# then replace your entire inverse_map with:
 sub inverse_map {
     my ( $mapping_type, $hashref, $key, $self ) = @_;
 
-    # Retrieve the input value from the hashref.
-    my $value = $hashref->{$key} // '';
-
-    # Dispatch table: each key is a mapping_type, each value is a subref.
-    my %dispatch = (
-
-# For these mapping types, call _map_ohdsi_label which returns (concept_id, label)
-        map {
-            $_ => sub { _map_ohdsi_label( $value, $self ) }
-        } qw(gender race ethnicity disease stage exposure phenotypicFeature procedure measurement treatment unit)
-    );
-
-# Invoke the sub for this mapping_type if it exists; otherwise return default values.
-    if ( exists $dispatch{$mapping_type} ) {
-        return $dispatch{$mapping_type}->();
-    }
-    else {
-        warn "Unknown mapping type <$mapping_type>. Returning (0, '').\n";
+    # grab the handler from our static table
+    my $handler = $INVERSE_DISPATCH{$mapping_type};
+    unless ($handler) {
+        warn "Unknown mapping type <$mapping_type>; returning (0,'')\n";
         return ( 0, '' );
     }
+
+    # pull the value and invoke
+    my $value = $hashref->{$key} // '';
+    return $handler->( $value, $self );
 }
 
+# hex‑encoding the bytes, then parsing that hex as a BigInt.
 sub string2number {
-    my $big = Math::BigInt->from_bytes(shift);
-    return $big->bstr;    # decimal string representing the byte
+    my $str = shift;
+
+    # 1) turn "Hello" into "48656c6c6f"
+    my $hex = unpack( 'H*', $str );
+
+    # 2) parse that hex as a BigInt
+    my $big = Math::BigInt->from_hex("0x$hex");
+
+    # 3) return its decimal string
+    return $big->bstr;
 }
 
+# Turn the decimal BigInt back into the original string
 sub number2string {
-    my $decoded_big = Math::BigInt->new(shift);
-    return $decoded_big->to_bytes;
+    my $num = shift;
+
+    # 1) lift into a BigInt
+    my $big = Math::BigInt->new($num);
+
+    # 2) get back the hex digits, e.g. "0x48656c6c6f"
+    my $hex = $big->as_hex;
+
+    # 3) strip the "0x" and unpack back into raw bytes
+    $hex =~ s/^0[xX]//;
+    return pack( 'H*', $hex );
+}
+
+sub _attach_common {
+
+    # Individuals default schema does not provice anything related to visit
+    # Taking information if Convert-Pheno set it
+
+    my ( $row, $ent, $pid ) = @_;
+    my $v = $ent->{_visit} || {};
+    $row->{visit_occurrence_id} = $v->{id}        // '';
+    $row->{visit_detail_id}     = $v->{detail_id} // '';
+    $row->{person_id}           = $pid;
 }
 
 1;

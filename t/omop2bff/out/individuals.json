@@ -932,8 +932,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:861467",
@@ -977,8 +977,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:1043400",
@@ -1022,8 +1022,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:1043400",
@@ -1067,8 +1067,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:243670",
@@ -1859,8 +1859,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:140587",
@@ -1904,8 +1904,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:749785",
@@ -1949,8 +1949,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:849574",
@@ -1994,8 +1994,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:849574",
@@ -2039,8 +2039,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:834061",
@@ -2084,8 +2084,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:1049630",
@@ -2129,8 +2129,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:310965",
@@ -2174,8 +2174,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:749785",
@@ -4263,8 +4263,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:10",
@@ -4308,8 +4308,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:113",
@@ -4353,8 +4353,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:133",
@@ -4398,8 +4398,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:10",
@@ -6343,8 +6343,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:52",
@@ -6388,8 +6388,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:113",
@@ -6433,8 +6433,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:10",
@@ -6940,8 +6940,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:562251",
@@ -6985,8 +6985,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:140587",
@@ -7030,8 +7030,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:834102",
@@ -7117,8 +7117,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:313782",
@@ -7162,8 +7162,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:313782",
@@ -7207,8 +7207,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:313782",
@@ -9824,8 +9824,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:113",
@@ -9869,8 +9869,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:10",
@@ -15097,8 +15097,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:10",
@@ -15142,8 +15142,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:52",
@@ -15187,8 +15187,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:43",
@@ -15232,8 +15232,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:10",
@@ -15277,8 +15277,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:10",
@@ -15322,8 +15322,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:113",
@@ -15367,8 +15367,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:113",
@@ -15412,8 +15412,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:52",
@@ -22025,8 +22025,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:113",
@@ -22070,8 +22070,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:43",
@@ -22115,8 +22115,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:21",
@@ -38446,8 +38446,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:52",
@@ -38491,8 +38491,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:43",
@@ -38536,8 +38536,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:113",
@@ -38581,8 +38581,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:10",
@@ -38626,8 +38626,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:10",
@@ -38671,8 +38671,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:113",
@@ -38716,8 +38716,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:121",
@@ -38761,8 +38761,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:121",
@@ -41267,8 +41267,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:10",
@@ -41312,8 +41312,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:52",
@@ -42857,8 +42857,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:904419",
@@ -42902,8 +42902,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:313782",
@@ -42947,8 +42947,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:311995",
@@ -42992,8 +42992,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:834102",
@@ -43037,8 +43037,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:309043",
@@ -43082,8 +43082,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:243670",
@@ -43127,8 +43127,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:313782",
@@ -43172,8 +43172,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:310965",
@@ -43557,8 +43557,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:562251",
@@ -43602,8 +43602,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:313782",
@@ -43647,8 +43647,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:243670",
@@ -43692,8 +43692,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:834102",
@@ -43737,8 +43737,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:243670",
@@ -43782,8 +43782,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:834061",
@@ -43827,8 +43827,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:282464",
@@ -43872,8 +43872,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:105078",
@@ -46953,8 +46953,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:10",
@@ -46998,8 +46998,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:10",
@@ -47043,8 +47043,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:113",
@@ -47088,8 +47088,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:121",
@@ -47133,8 +47133,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:43",
@@ -47178,8 +47178,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:121",
@@ -47498,8 +47498,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:121",
@@ -47543,8 +47543,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:243670",
@@ -47588,8 +47588,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:113",
@@ -47633,8 +47633,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:1652673",
@@ -47678,8 +47678,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:52",
@@ -47723,8 +47723,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:313782",
@@ -47768,8 +47768,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:43",
@@ -47813,8 +47813,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:849574",
@@ -47858,8 +47858,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:10",
@@ -47903,8 +47903,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:312617",
@@ -47948,8 +47948,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:10",
@@ -47993,8 +47993,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:849574",
@@ -48038,8 +48038,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:113",
@@ -48083,8 +48083,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:562251",
@@ -48128,8 +48128,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:10",
@@ -48215,8 +48215,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:313782",
@@ -48260,8 +48260,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:834102",
@@ -48305,8 +48305,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:312617",
@@ -48727,8 +48727,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:282464",
@@ -48772,8 +48772,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:313782",
@@ -48817,8 +48817,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:834061",
@@ -48862,8 +48862,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:310965",
@@ -48989,8 +48989,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:313782",
@@ -49034,8 +49034,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:243670",
@@ -49079,8 +49079,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:140587",
@@ -49124,8 +49124,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:849574",
@@ -49169,8 +49169,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:105078",
@@ -49214,8 +49214,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:243670",
@@ -49259,8 +49259,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:313782",
@@ -50127,8 +50127,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:140587",
@@ -50172,8 +50172,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:834102",
@@ -50217,8 +50217,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:849574",
@@ -50262,8 +50262,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:849574",
@@ -50307,8 +50307,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:1043400",
@@ -50352,8 +50352,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:308192",
@@ -50397,8 +50397,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:310965",
@@ -50442,8 +50442,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:857005",
@@ -50902,8 +50902,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:113",
@@ -50947,8 +50947,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:52",
@@ -52276,8 +52276,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:113",
@@ -52321,8 +52321,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:113",
@@ -52480,8 +52480,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:113",
@@ -52525,8 +52525,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:121",
@@ -60129,8 +60129,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:282464",
@@ -60174,8 +60174,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:1043400",
@@ -60219,8 +60219,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:313782",
@@ -60264,8 +60264,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:243670",
@@ -60309,8 +60309,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:282464",
@@ -60354,8 +60354,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:789980",
@@ -60399,8 +60399,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:849574",
@@ -60444,8 +60444,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:313782",
@@ -60489,8 +60489,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:3355",
@@ -60534,8 +60534,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:849574",
@@ -60656,8 +60656,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:310965",
@@ -60701,8 +60701,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:1043400",
@@ -60746,8 +60746,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:313782",
@@ -60791,8 +60791,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:834102",
@@ -60836,8 +60836,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:313782",
@@ -61003,8 +61003,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:562251",
@@ -61048,8 +61048,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:749882",
@@ -61093,8 +61093,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:243670",
@@ -61138,8 +61138,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:562251",
@@ -61183,8 +61183,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:105078",
@@ -61228,8 +61228,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:243670",
@@ -61273,8 +61273,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:3355",
@@ -61318,8 +61318,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:105078",
@@ -61479,8 +61479,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:834102",
@@ -61524,8 +61524,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:313782",
@@ -61569,8 +61569,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:562251",
@@ -61614,8 +61614,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:562251",
@@ -64339,8 +64339,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:282464",
@@ -64384,8 +64384,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:310965",
@@ -64429,8 +64429,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:140587",
@@ -64474,8 +64474,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:105078",
@@ -64519,8 +64519,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:243670",
@@ -64564,8 +64564,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:562251",
@@ -64609,8 +64609,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:282464",
@@ -64654,8 +64654,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:310965",
@@ -65031,8 +65031,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:313782",
@@ -65076,8 +65076,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:313782",
@@ -65121,8 +65121,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:1043400",
@@ -65166,8 +65166,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:313782",
@@ -65211,8 +65211,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:749785",
@@ -69907,8 +69907,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:1652673",
@@ -69952,8 +69952,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:282464",
@@ -69997,8 +69997,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:749882",
@@ -70042,8 +70042,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:749785",
@@ -70529,8 +70529,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "CVX:52",
@@ -71353,8 +71353,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:313782",
@@ -71398,8 +71398,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:313782",
@@ -71443,8 +71443,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:313782",
@@ -71488,8 +71488,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:562251",
@@ -71533,8 +71533,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:311995",
@@ -71578,8 +71578,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:1650142",
@@ -71623,8 +71623,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:243670",
@@ -71668,8 +71668,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:1049221",
@@ -71988,8 +71988,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:243670",
@@ -72033,8 +72033,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:1043400",
@@ -72078,8 +72078,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:312617",
@@ -72123,8 +72123,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:312617",
@@ -72168,8 +72168,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:313782",
@@ -72213,8 +72213,8 @@
          },
          "doseIntervals" : [],
          "routeOfAdministration" : {
-            "id" : "NCIT:NA0000",
-            "label" : "Fake"
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
          },
          "treatmentCode" : {
             "id" : "RxNorm:243670",
