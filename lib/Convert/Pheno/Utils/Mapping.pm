@@ -7,8 +7,8 @@ use feature qw(say);
 use utf8;
 use Data::Dumper;
 use JSON::XS;
-use Time::HiRes  qw(gettimeofday);
-use POSIX        qw(strftime);
+use Time::HiRes qw(gettimeofday);
+use POSIX       qw(strftime);
 use DateTime::Format::ISO8601;
 use Scalar::Util qw(looks_like_number);
 use List::Util   qw(first);
@@ -20,7 +20,7 @@ use Exporter 'import';
 use open qw(:std :encoding(UTF-8));
 
 our @EXPORT =
-  qw(map_ontology_term dotify_and_coerce_number get_current_utc_iso8601_timestamp map_iso8601_date2timestamp map_iso8601_timestamp2date get_date_component map_reference_range map_reference_range_csv map_age_range map2redcap_dict map2ohdsi convert2boolean get_age_from_date_and_birthday get_date_at_age generate_random_alphanumeric_string map_operator_concept_id map_info_field map_omop_visit_occurrence convert_date_to_iso8601 validate_format get_metaData get_info merge_omop_tables convert_label_to_days);
+  qw(map_ontology_term dotify_and_coerce_number get_current_utc_iso8601_timestamp map_iso8601_date2timestamp map_iso8601_timestamp2date get_date_component map_reference_range map_reference_range_csv map_age_range map2redcap_dict map2ohdsi convert2boolean get_age_from_date_and_birthday get_date_at_age generate_random_alphanumeric_string map_operator_concept_id map_info_field map_omop_visit_occurrence convert_date_to_iso8601 validate_format get_metaData get_info merge_omop_tables convert_label_to_days string2number number2string);
 
 my $DEFAULT = get_defaults();
 use constant DEVEL_MODE => 0;
@@ -35,10 +35,10 @@ my %SEEN = ();
 #############################
 
 sub map_ontology_term {
-    my ($arg)     = @_;
-    my $query     = $arg->{query};
-    my $ontology  = $arg->{ontology};
-    my $self      = $arg->{self};
+    my ($arg)    = @_;
+    my $query    = $arg->{query};
+    my $ontology = $arg->{ontology};
+    my $self     = $arg->{self};
 
     # 1) Skip pure numbers
     return $DEFAULT->{ontology_term} if looks_like_number($query);
@@ -48,41 +48,54 @@ sub map_ontology_term {
 
     # 3) Fast return on cache hit
     if ( exists $SEEN{$ontology}{$query} ) {
-        say "Skipping searching for <$query> in <$ontology> (cached)" if DEVEL_MODE;
+        say "Skipping searching for <$query> in <$ontology> (cached)"
+          if DEVEL_MODE;
         return $SEEN{$ontology}{$query};
     }
 
-    # 4) (Optional) Die on OHDSI without flag
+    # 4) --ohdsi-db
     if ( $ontology eq 'ohdsi' && !$self->{ohdsi_db} ) {
-        die "Could not find concept_id:<$query> in provided CONCEPT table. "
-          . "Use --ohdsi-db to enable Athena‑OHDSI lookup.\n";
+
+        #If -iomop and term not found in RAM <CONCEPT> die unless --ohdsi-db
+        if ( $self->{method} =~ /^omop2bff/ ) {
+            die "Could not find concept_id:<$query> in provided CONCEPT table. "
+              . "Use --ohdsi-db to enable Athena‑OHDSI lookup.\n";
+        }
+
+        # Any search that involves 'ohdsi' as an ontology (e.g., mapping file)
+        else {
+            die "You have to use --ohdsi-db to perform Athena‑OHDSI lookups.\n";
+        }
     }
 
     # 5) Perform the lookup
     say "Searching for <$query> in <$ontology>…" if DEVEL_MODE;
-    my ($id, $label, $concept_id) = get_ontology_terms({
-        sth_column_ref            => $self->{sth}{$ontology}{ $arg->{column} },
-        query                     => $query,
-        ontology                  => $ontology,
-        databases                 => $self->{databases},
-        column                    => $arg->{column},
-        search                    => $self->{search},
-        text_similarity_method    => $self->{text_similarity_method},
-        min_text_similarity_score => $self->{min_text_similarity_score},
-        levenshtein_weight        => $self->{levenshtein_weight},
-    });
+    my ( $id, $label, $concept_id ) = get_ontology_terms(
+        {
+            sth_column_ref         => $self->{sth}{$ontology}{ $arg->{column} },
+            query                  => $query,
+            ontology               => $ontology,
+            databases              => $self->{databases},
+            column                 => $arg->{column},
+            search                 => $self->{search},
+            text_similarity_method => $self->{text_similarity_method},
+            min_text_similarity_score => $self->{min_text_similarity_score},
+            levenshtein_weight        => $self->{levenshtein_weight},
+        }
+    );
 
     # 6) Store in cache
-    my $entry = $arg->{require_concept_id}
-              ? { id => $id, label => $label, concept_id => $concept_id }
-              : { id => $id, label => $label };
+    my $entry =
+      $arg->{require_concept_id}
+      ? { id => $id, label => $label, concept_id => $concept_id }
+      : { id => $id, label => $label };
 
     $SEEN{$ontology}{$query} = $entry;
 
     # 7) Return (with optional hidden‐label)
     return $arg->{print_hidden_labels}
-         ? { %$entry, _label => $query }
-         : $entry;
+      ? { %$entry, _label => $query }
+      : $entry;
 }
 
 sub dotify_and_coerce_number {
@@ -114,9 +127,11 @@ sub get_current_utc_iso8601_timestamp {
 
 sub map_iso8601_date2timestamp {
     my $iso_str = shift;
-    # Parse the ISO string into a DateTime object 
+
+    # Parse the ISO string into a DateTime object
     $iso_str =~ s/ /T/;
     my $dt = DateTime::Format::ISO8601->parse_datetime($iso_str);
+
     # Format it to the standardized ISO8601 timestamp,
     # ensuring that if no time was provided, a default is used.
     return $dt->strftime('%Y-%m-%dT%H:%M:%SZ');
@@ -124,27 +139,29 @@ sub map_iso8601_date2timestamp {
 
 sub map_iso8601_timestamp2date {
     my $iso_str = shift;
-  $iso_str =~ s/\s+/T/;
+    $iso_str =~ s/\s+/T/;
+
     # split on 'T' and take the date portion
     my ($date) = split /T/, $iso_str;
     return $date;
 }
 
 sub get_date_component {
-    my ($date, $component) = @_;
+    my ( $date, $component ) = @_;
     $component //= 'year';
-    $date =~ s/T.*//; # get rid of 'T00:00:00Z'
-    
-    my @parts = split /-/, $date;
+    $date =~ s/T.*//;    # get rid of 'T00:00:00Z'
+
+    my @parts   = split /-/, $date;
     my %indexes = ( year => 0, month => 1, day => 2 );
-    
+
     # Return the requested component if valid; otherwise, warn and return the year.
     return exists $indexes{$component}
-         ? $parts[ $indexes{$component} ]
-         : do {
-               warn "Invalid component <$component> requested. Returning year by default.\n";
-               $parts[ $indexes{'year'} ];
-           };
+      ? $parts[ $indexes{$component} ]
+      : do {
+        warn
+"Invalid component <$component> requested. Returning year by default.\n";
+        $parts[ $indexes{'year'} ];
+      };
 }
 
 sub map_reference_range {
@@ -260,34 +277,36 @@ sub convert2boolean {
 }
 
 sub get_age_from_date_and_birthday {
-    my $arg = shift;
+    my $arg          = shift;
     my $birth_date   = $arg->{birth_day} or return;
-    my $current_date = $arg->{date}     or return;
+    my $current_date = $arg->{date}      or return;
 
     # Assuming both dates are in a format like "YYYY-MM-DD" (or with spaces instead of a dash separator for the birth date)
     # Split the dates into year, month, and day.
-    my ($birth_year, $birth_month, $birth_day) = split /[-\s]+/, $birth_date;
-    my ($current_year, $current_month, $current_day) = split /-/, $current_date;
+    my ( $birth_year, $birth_month, $birth_day ) = split /[-\s]+/, $birth_date;
+    my ( $current_year, $current_month, $current_day ) = split /-/,
+      $current_date;
 
     # Calculate age based on year difference.
     my $age = $current_year - $birth_year;
-    
+
     # If the current month/day is before the birthday month/day, subtract one year.
-    if ( $current_month < $birth_month 
-         or ( $current_month == $birth_month && $current_day < $birth_day ) ) {
+    if ( $current_month < $birth_month
+        or ( $current_month == $birth_month && $current_day < $birth_day ) )
+    {
         $age--;
     }
-    
+
     # Return the age in ISO8601 duration format (e.g. "P31Y").
     return "P${age}Y";
 }
 
 sub get_date_at_age {
-    my ( $duration_iso, $birthdate_iso) = @_;
-    
+    my ( $duration_iso, $birthdate_iso ) = @_;
+
     # Parse the birth date using ISO8601 format.
     my $birthdate = DateTime::Format::ISO8601->parse_datetime($birthdate_iso);
-    
+
     # Here we only handle durations expressed solely in years.
     # For a string like "P31Y", extract the number 31.
     my $years;
@@ -295,15 +314,16 @@ sub get_date_at_age {
         $years = $1;
     }
     else {
-        warn "Unsupported duration format: $duration_iso. Only durations in full years (P<number>Y) are supported.";
+        warn
+"Unsupported duration format: $duration_iso. Only durations in full years (P<number>Y) are supported.";
     }
-    
+
     # Create a duration object for the extracted number of years.
     my $duration = DateTime::Duration->new( years => $years );
-    
+
     # Add the duration to the birth date.
     my $date_at_age = $birthdate->clone->add_duration($duration);
-    
+
     # Return the result in ISO format (YYYY-MM-DD)
     return $date_at_age->ymd;
 }
@@ -441,28 +461,28 @@ sub map_omop_visit_occurrence {
 
 sub convert_date_to_iso8601 {
     my $date = shift // '';
-    
+
     # Trim any accidental whitespace
     $date =~ s/^\s+|\s+$//g;
-    
+
     # Return default if input is empty
     return '1900-01-01' if $date eq '';
-    
+
     # If already in ISO format (YYYY-MM-DD), return as-is
     if ( $date =~ /^\d{4}-\d{2}-\d{2}$/ ) {
         return $date;
     }
-    
+
     # If dot-separated format with four-digit first element (YYYY.MM.DD)
     if ( $date =~ /^(\d{4})\.(\d{2})\.(\d{2})$/ ) {
         return "$1-$2-$3";
     }
-    
+
     # If dot-separated format with two-digit first element (DD.MM.YYYY)
     if ( $date =~ /^(\d{2})\.(\d{2})\.(\d{4})$/ ) {
         return "$3-$2-$1";
     }
-    
+
     # Optionally, handle any other unexpected format gracefully
     warn "Invalid date format: $date";
 }
@@ -472,10 +492,10 @@ sub is_multidimensional {
 }
 
 sub validate_format {
-    my ($data, $format) = @_;
-    return ($format eq 'pxf')
-        ? !!(exists $data->{subject})
-        : !(exists $data->{subject});
+    my ( $data, $format ) = @_;
+    return ( $format eq 'pxf' )
+      ? !!( exists $data->{subject} )
+      : !( exists $data->{subject} );
 }
 
 sub get_info {
@@ -617,11 +637,14 @@ sub merge_omop_tables {
 }
 
 sub convert_label_to_days {
-    my ($label, $count) = @_;
+    my ( $label, $count ) = @_;
+
     # return undef on missing args
-    return undef unless defined $label && defined $count && looks_like_number($count);
+    return undef
+      unless defined $label && defined $count && looks_like_number($count);
 
     my $key = lc $label;
+
     # normalize plural to singular
     $key =~ s/s$//;
 
@@ -631,10 +654,50 @@ sub convert_label_to_days {
         month => 30,
         year  => 365,
     );
+
     # lookup multiplier
     my $factor = $mult{$key};
     return undef unless defined $factor;
 
     return $factor * $count;
 }
+
+# hex‑encoding the bytes, then parsing that hex as a BigInt.
+sub string2number {
+    my $str = shift;
+
+    # Do nothing if we already have integer
+    return $str if is_strict_integer($str);
+
+    # 1) turn "Hello" into "48656c6c6f"
+    my $hex = unpack( 'H*', $str ); 
+
+    # 2) parse that hex as a BigInt 
+    my $big = Math::BigInt->from_hex("0x$hex");
+
+    # 3) return its decimal string 
+    return $big->bstr;
+}
+
+sub is_strict_integer {
+    my ($val) = @_;
+    return 0 unless looks_like_number($val);
+    return $val == int($val);
+}
+
+# Turn the decimal BigInt back into the original string
+sub number2string {
+    my $num = shift;
+
+    # 1) lift into a BigInt
+    my $big = Math::BigInt->new($num);
+
+    # 2) get back the hex digits, e.g. "0x48656c6c6f"
+    my $hex = $big->as_hex;
+    
+    # 3) strip the "0x" and unpack back into raw bytes
+    $hex =~ s/^0[xX]//;
+    return pack( 'H*', $hex );
+}
+
 1;

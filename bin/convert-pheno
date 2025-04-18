@@ -168,10 +168,16 @@ my @validation_checks = (
 "Sorry, <--ocsv>, <--ojsonf> and <--ojsonf> are only compatible with <--ibff> or <--ipxf>\n",
     },
     {
+        condition => sub { defined $out_omop && !$ohdsi_db },
+        message   =>
+          "Error: Please use --ohdsi-db when using OMOP CDM as an output"
+    },
+    {
         condition => sub { defined($out_omop) && $out_omop =~ /^-/ },
         message   =>
 "Error: The value for --oomop appears to be an option. Please supply a proper non-option string using --oomop=VALUE"
     }
+
 );
 
 foreach my $check (@validation_checks) {

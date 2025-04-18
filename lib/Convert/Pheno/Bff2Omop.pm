@@ -20,12 +20,11 @@ my $CONDITION_OCCURRENCE_COUNT    = 0;
 my $PROCEDURE_OCCURRENCE_ID_COUNT = 0;
 
 # one-time dispatch table
-my %INVERSE_DISPATCH = map { $_ => \&_map_ohdsi_label }
-  qw(
+my %INVERSE_DISPATCH = map { $_ => \&_map_ohdsi_label } qw(
   gender race ethnicity disease stage
   exposure phenotypicFeature procedure
-  measurement treatment unit
-  );
+  measurement treatment unit route
+);
 
 ###############
 ###############
@@ -383,24 +382,49 @@ sub _map_treatments {
             and @{ $treatment->{doseIntervals} } )
         {
             my $dose = $treatment->{doseIntervals}[0];
-            $drug->{quantity} = $dose->{quantity}{value} // -1;
+            $drug->{quantity}               = $dose->{quantity}{value} // -1;
+            $drug->{dose_unit_source_value} = $dose->{quantity}{unit}{label};
+
         }
         else {
             $drug->{quantity} = -1;
         }
 
-        #
-        if ( $treatment->{ageOfOnset}{age}{iso8601duration} ) {
+        ( $drug->{route_concept_id}, $drug->{route_source_value} ) =
+          inverse_map( 'route', $treatment->{routeOfAdministration},
+            'label', $self );
+
+        # TEMPORARY: Using 1st array element
+        if ( exists $treatment->{doseIntervals}
+            and @{ $treatment->{doseIntervals} } )
+        {
+            if (   $treatment->{doseIntervals}[0]{interval}{start}
+                && $treatment->{doseIntervals}[0]{interval}{end} )
+            {
+                #$drug->{drug_exposure_start_date} = map_iso8601_timestamp2date($treatment->{doseIntervals}[0]{interval}{start});
+                #$drug->{drug_exposure_end_date} = map_iso8601_timestamp2date($treatment->{doseIntervals}[0]{interval}{send});
+            }
+        }
+        elsif ( $treatment->{ageOfOnset}{age}{iso8601duration} ) {
             $drug->{drug_exposure_start_date} =
               get_date_at_age( $treatment->{ageOfOnset}{age}{iso8601duration},
                 $omop_ref->{PERSON}{year_of_birth} );
+
+            # TEMPORARY
+            $drug->{drug_exposure_end_date} = $drug->{drug_exposure_start_date};
         }
         else {
             $drug->{drug_exposure_start_date} = $DEFAULT->{date};
+
+            # TEMPORARY
+            $drug->{drug_exposure_end_date} = $drug->{drug_exposure_start_date};
         }
 
-        # TEMPORARY
-        $drug->{drug_exposure_end_date} = $drug->{drug_exposure_start_date};
+        $drug->{days_supply} =
+          $treatment->{cumulativeDose}{unit}{label}
+          ? convert_label_to_days( $treatment->{cumulativeDose}{unit}{label},
+            $drug->{quantity} )
+          : '';
 
         _attach_common( $drug, $treatment, $person_id );
 
@@ -424,13 +448,13 @@ sub _map_ohdsi_label {
             self               => $self
         }
     );
+
     return ( $result->{concept_id}, $source_value );
 }
 
 ###############################################################################
 # New single generic sub that merges old inverse_map_* logic via a dispatch table
 ###############################################################################
-# then replace your entire inverse_map with:
 sub inverse_map {
     my ( $mapping_type, $hashref, $key, $self ) = @_;
 
@@ -446,43 +470,14 @@ sub inverse_map {
     return $handler->( $value, $self );
 }
 
-# hex‑encoding the bytes, then parsing that hex as a BigInt.
-sub string2number {
-    my $str = shift;
-
-    # 1) turn "Hello" into "48656c6c6f"
-    my $hex = unpack( 'H*', $str );
-
-    # 2) parse that hex as a BigInt
-    my $big = Math::BigInt->from_hex("0x$hex");
-
-    # 3) return its decimal string
-    return $big->bstr;
-}
-
-# Turn the decimal BigInt back into the original string
-sub number2string {
-    my $num = shift;
-
-    # 1) lift into a BigInt
-    my $big = Math::BigInt->new($num);
-
-    # 2) get back the hex digits, e.g. "0x48656c6c6f"
-    my $hex = $big->as_hex;
-
-    # 3) strip the "0x" and unpack back into raw bytes
-    $hex =~ s/^0[xX]//;
-    return pack( 'H*', $hex );
-}
-
 sub _attach_common {
 
     # Individuals default schema does not provice anything related to visit
     # Taking information if Convert-Pheno set it
 
     my ( $row, $ent, $pid ) = @_;
-    my $v = $ent->{_visit} || {};
-    $row->{visit_occurrence_id} = $v->{id}        // '';
+    my $v = $ent->{_visit} // undef;
+    $row->{visit_occurrence_id} = $v->{occurrence_id} // '';
     $row->{visit_detail_id}     = $v->{detail_id} // '';
     $row->{person_id}           = $pid;
 }

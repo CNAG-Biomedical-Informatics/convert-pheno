@@ -89,16 +89,17 @@ sub do_redcap2bff {
 
     # Intialize parameters for most subs
     my $param_sub = {
-        source            => $data_mapping_file->{project}{source},
-        project_id        => $data_mapping_file->{project}{id},
-        project_ontology  => $data_mapping_file->{project}{ontology},
-        redcap_dict       => $redcap_dict,
-        data_mapping_file => $data_mapping_file,
-        participant       => $participant,
-        self              => $self,
-        individual        => $individual
+        source              => $data_mapping_file->{project}{source},
+        project_id          => $data_mapping_file->{project}{id},
+        project_ontology    => $data_mapping_file->{project}{ontology},
+        redcap_dict         => $redcap_dict,
+        data_mapping_file   => $data_mapping_file,
+        participant         => $participant,
+        self                => $self,
+        individual          => $individual,
+        term_mapping_cursor => undef,
+
     };
-    $param_sub->{lock_keys} = [ 'lock_keys', keys %$param_sub ];
 
     # *** ABOUT REQUIRED PROPERTIES ***
     # 'id' and 'sex' are required properties in <individuals> entry type
@@ -111,6 +112,17 @@ sub do_redcap2bff {
     return
       unless ( defined $participant->{$id_field}
         && $participant->{$sex_field} );
+
+    my $pid_field = $id_field;
+    my $pid       = join ':',
+      map { $participant->{$_} // 'NA' } @{ $data_mapping_file->{id}{fields} };
+
+    # stash it in your param_sub
+    $param_sub->{participant_id_field} = $pid_field;
+    $param_sub->{participant_id}       = $pid;
+
+    $param_sub->{lock_keys} = [ 'lock_keys', keys %$param_sub ];
+    lock_keys %$param_sub, @{ $param_sub->{lock_keys} };
 
     # NB: We don't need to initialize terms (unless required)
     # e.g.,
@@ -154,8 +166,7 @@ sub do_redcap2bff {
     # ==
 
     # Concatenation of the values in @id_fields (mapping file)
-    $individual->{id} = join ':',
-      map { $participant->{$_} // 'NA' } @{ $data_mapping_file->{id}{fields} };
+    $individual->{id} = $pid;
 
     # ====
     # info
@@ -290,9 +301,7 @@ sub check_and_replace_field_with_terminology_or_dictionary_if_exist {
 }
 
 sub get_required_terms {
-    my $arg = shift;
-    lock_keys( %$arg, @{ $arg->{lock_keys} } );
-
+    my $arg               = shift;
     my $data_mapping_file = $arg->{data_mapping_file};
     return ( $data_mapping_file->{sex}{fields},
         $data_mapping_file->{id}{mapping}{primary_key} );
@@ -300,8 +309,6 @@ sub get_required_terms {
 
 sub propagate_fields {
     my ( $id_field, $arg ) = @_;
-    lock_keys( %$arg, @{ $arg->{lock_keys} } );
-
     my $participant       = $arg->{participant};
     my $self              = $arg->{self};
     my $data_mapping_file = $arg->{data_mapping_file};
@@ -335,9 +342,7 @@ sub propagate_fields {
 }
 
 sub map_diseases {
-    my $arg = shift;
-    lock_keys( %$arg, @{ $arg->{lock_keys} } );
-
+    my $arg               = shift;
     my $data_mapping_file = $arg->{data_mapping_file};
     my $participant       = $arg->{participant};
     my $self              = $arg->{self};
@@ -350,6 +355,7 @@ sub map_diseases {
     # Load hashref with cursors for mapping
     my $term_mapping_cursor =
       remap_mapping_hash_term( $data_mapping_file, 'diseases' );
+    $arg->{term_mapping_cursor} = $term_mapping_cursor;
 
     # Start looping over them
     for my $field ( @{ $term_mapping_cursor->{fields} } ) {
@@ -391,8 +397,7 @@ sub map_diseases {
             );
         }
 
-        $disease->{_visit}{id} = $participant->{ $term_mapping_cursor->{visitId} }
-          if defined $term_mapping_cursor->{visitId};
+        _add_visit( $disease, $arg );
 
         #$disease->{notes}    = undef;
         $disease->{severity} = $DEFAULT->{ontology_term};
@@ -405,9 +410,7 @@ sub map_diseases {
 }
 
 sub map_ethnicity {
-    my $arg = shift;
-    lock_keys( %$arg, @{ $arg->{lock_keys} } );
-
+    my $arg               = shift;
     my $data_mapping_file = $arg->{data_mapping_file};
     my $participant       = $arg->{participant};
     my $self              = $arg->{self};
@@ -420,6 +423,7 @@ sub map_ethnicity {
         # Load hashref with cursors for mapping
         my $term_mapping_cursor =
           remap_mapping_hash_term( $data_mapping_file, 'ethnicity' );
+        $arg->{term_mapping_cursor} = $term_mapping_cursor;
 
         # Load corrected field to search
         my $ethnicity_query =
@@ -442,7 +446,6 @@ sub map_ethnicity {
 
 sub map_exposures {
     my $arg = shift;
-    lock_keys( %$arg, @{ $arg->{lock_keys} } );
 
     my $data_mapping_file = $arg->{data_mapping_file};
     my $participant       = $arg->{participant};
@@ -454,6 +457,7 @@ sub map_exposures {
 
     my $term_mapping_cursor =
       remap_mapping_hash_term( $data_mapping_file, 'exposures' );
+    $arg->{term_mapping_cursor} = $term_mapping_cursor;
 
     for my $field ( @{ $term_mapping_cursor->{fields} } ) {
         next unless defined $participant->{$field};
@@ -531,9 +535,7 @@ sub map_exposures {
           ? $participant->{$field}
           : -1;
 
-        $exposure->{_visit}{id} = $participant->{ $term_mapping_cursor->{visitId} }
-          if defined $term_mapping_cursor->{visitId};
-
+        _add_visit( $exposure, $arg );
         push @{ $individual->{exposures} }, $exposure
           if defined $exposure->{exposureCode};
     }
@@ -541,9 +543,7 @@ sub map_exposures {
 }
 
 sub map_info {
-    my $arg = shift;
-    lock_keys( %$arg, @{ $arg->{lock_keys} } );
-
+    my $arg               = shift;
     my $data_mapping_file = $arg->{data_mapping_file};
     my $participant       = $arg->{participant};
     my $self              = $arg->{self};
@@ -599,9 +599,7 @@ sub map_info {
 #$individual->{interventionsOrProcedures} = [];
 
 sub map_interventionsOrProcedures {
-    my $arg = shift;
-    lock_keys( %$arg, @{ $arg->{lock_keys} } );
-
+    my $arg               = shift;
     my $data_mapping_file = $arg->{data_mapping_file};
     my $participant       = $arg->{participant};
     my $self              = $arg->{self};
@@ -614,6 +612,8 @@ sub map_interventionsOrProcedures {
     my $term_mapping_cursor =
       remap_mapping_hash_term( $data_mapping_file,
         'interventionsOrProcedures' );
+
+    $arg->{term_mapping_cursor} = $term_mapping_cursor;
 
     for my $field ( @{ $term_mapping_cursor->{fields} } ) {
         next unless defined $participant->{$field};
@@ -666,10 +666,10 @@ sub map_interventionsOrProcedures {
                 self     => $self
             }
         );
-        $intervention->{_visit}{id} =
-          $participant->{ $term_mapping_cursor->{visitId} }
-          if defined $term_mapping_cursor->{visitId};
+        _add_visit(
+            $intervention, $arg
 
+        );
         push @{ $individual->{interventionsOrProcedures} }, $intervention
           if defined $intervention->{procedureCode};
     }
@@ -677,9 +677,7 @@ sub map_interventionsOrProcedures {
 }
 
 sub map_measures {
-    my $arg = shift;
-    lock_keys( %$arg, @{ $arg->{lock_keys} } );
-
+    my $arg               = shift;
     my $data_mapping_file = $arg->{data_mapping_file};
     my $participant       = $arg->{participant};
     my $self              = $arg->{self};
@@ -691,6 +689,8 @@ sub map_measures {
     # Load hashref with cursors for mapping
     my $term_mapping_cursor =
       remap_mapping_hash_term( $data_mapping_file, 'measures' );
+
+    $arg->{term_mapping_cursor} = $term_mapping_cursor;
 
     for my $field ( @{ $term_mapping_cursor->{fields} } ) {
 
@@ -801,8 +801,10 @@ sub map_measures {
                 }
             )
         };
-        $measure->{_visit}{id} = $participant->{ $term_mapping_cursor->{visitId} }
-          if defined $term_mapping_cursor->{visitId};
+        _add_visit(
+            $measure, $arg
+
+        );
 
         # Add to array
         push @{ $individual->{measures} }, $measure
@@ -829,9 +831,7 @@ sub map_measures {
 #}
 
 sub map_phenotypicFeatures {
-    my $arg = shift;
-    lock_keys( %$arg, @{ $arg->{lock_keys} } );
-
+    my $arg               = shift;
     my $data_mapping_file = $arg->{data_mapping_file};
     my $participant       = $arg->{participant};
     my $self              = $arg->{self};
@@ -843,6 +843,7 @@ sub map_phenotypicFeatures {
     # Load hashref with cursors for mapping
     my $term_mapping_cursor =
       remap_mapping_hash_term( $data_mapping_file, 'phenotypicFeatures' );
+    $arg->{term_mapping_cursor} = $term_mapping_cursor;
 
     for my $field ( @{ $term_mapping_cursor->{fields} } ) {
         my $phenotypicFeature;
@@ -908,9 +909,10 @@ sub map_phenotypicFeatures {
         #$phenotypicFeature->{resolution}  = { id => '', label => '' };
         #$phenotypicFeature->{severity}    = { id => '', label => '' };
 
-        $phenotypicFeature->{_visit}{id} =
-          $participant->{ $term_mapping_cursor->{visitId} }
-          if defined $term_mapping_cursor->{visitId};
+        _add_visit(
+            $phenotypicFeature, $arg
+
+        );
 
         # Add to array
         push @{ $individual->{phenotypicFeatures} }, $phenotypicFeature
@@ -920,9 +922,7 @@ sub map_phenotypicFeatures {
 }
 
 sub map_sex {
-    my $arg = shift;
-    lock_keys( %$arg, @{ $arg->{lock_keys} } );
-
+    my $arg               = shift;
     my $data_mapping_file = $arg->{data_mapping_file};
     my $participant       = $arg->{participant};
     my $self              = $arg->{self};
@@ -958,7 +958,6 @@ sub map_sex {
 
 sub map_treatments {
     my $arg = shift;
-    lock_keys( %$arg, @{ $arg->{lock_keys} } );
 
     my $data_mapping_file = $arg->{data_mapping_file};
     my $participant       = $arg->{participant};
@@ -971,6 +970,8 @@ sub map_treatments {
     # Load hashref with cursors for mapping
     my $term_mapping_cursor =
       remap_mapping_hash_term( $data_mapping_file, 'treatments' );
+
+    $arg->{term_mapping_cursor} = $term_mapping_cursor;
 
     for my $field ( @{ $term_mapping_cursor->{fields} } ) {
         next unless defined $participant->{$field};
@@ -1065,9 +1066,7 @@ sub map_treatments {
                 self     => $self
             }
         );
-        $treatment->{_visit}{id} = $participant->{ $term_mapping_cursor->{visitId} }
-          if defined $term_mapping_cursor->{visitId};
-
+        _add_visit( $treatment, $arg );
         push @{ $individual->{treatments} }, $treatment
           if defined $treatment->{treatmentCode};
 
@@ -1076,4 +1075,20 @@ sub map_treatments {
     return 1;
 }
 
+sub _add_visit {
+    my ( $item, $p ) = @_;
+    my $cursor = $p->{term_mapping_cursor}
+      or return;    # no cursor, no visitId
+    my $vf = $cursor->{visitId}
+      or return;    # no visit field, bail
+    my $visit_val = $p->{participant}{$vf};
+    $item->{_visit}{id} = $visit_val;
+
+    # build the unique occurrence_id
+    my $pid       = $p->{participant_id} // '';
+    my $composite = join '.', grep { length } $pid, $visit_val;
+    $item->{_visit}{occurrence_id} = string2number($composite);
+    $item->{_visit}{composite}     = $composite;
+
+}
 1;
