@@ -1,10 +1,10 @@
-!!! Bug "Experimental feature"
-    CSV conversion to [BFF](bff.md) and [PXF](pxf.md) data exchange formats is still in the development phase. Use it with caution.
+!!! Warning "Experimental feature"
+    CSV conversion to [BFF](bff.md), [PXF](pxf.md) and [OMOP CDM](omop-cdm.md) data exchange formats is still in the development phase. Use it with caution.
 
 ## CSV with clinical data as input
 
 !!! Note "Note"
-    The purpose of this conversion method is to provide a user-friendly solution for those lacking the knowledge or resources to perform an ad hoc transformation of their raw clinical data into one of our output formats. We understand that handling clinical data can be a formidable task, and our goal is to accurately convert essential fields necessary for cross-study comparisons. Initially, `Convert-Pheno` was not designed for ingesting raw CSV files. However, we leveraged the functions we developed for converting REDCap projects, which also come in CSV format.
+    This conversion method helps users who don't have the tools or expertise to transform their raw clinical data. It aims to convert **essential fields needed for comparing data across studies**.
 
     If you use our tool and identify areas for improvement, please contact us or create a GitHub issue. Thank you.
 

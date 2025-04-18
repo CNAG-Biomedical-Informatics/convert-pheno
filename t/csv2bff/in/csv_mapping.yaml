@@ -48,9 +48,9 @@ exposures:
 
 # Term: id
 id:
-  fields: [PatientID,EventName]
+  fields: [PatientId,EventName]
   mapping:
-    primary_key: PatientID 
+    primary_key: PatientId 
 
 # Term: info
 info:

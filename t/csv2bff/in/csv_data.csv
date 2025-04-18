@@ -1,4 +1,4 @@
-PatientID,EventName,VisitOccurrenceId,Sex,Ethnicity,TobaccoUse,AgeAtTobaccoExposure,AlcoholUse,AgeAtAlcoholExposure,Hemoglobin (g/dL),WBC (10^9/L),Platelets (10^9/L),BMI (kg/m^2),DrugName,DrugDose (mg),Disease_1,Disease_2,Disease_3,PhenotypicFeature_1,PhenotypicFeature_2,TreatmentDuration (weeks)
+PatientId,EventName,VisitOccurrenceId,Sex,Ethnicity,TobaccoUse,AgeAtTobaccoExposure,AlcoholUse,AgeAtAlcoholExposure,Hemoglobin (g/dL),WBC (10^9/L),Platelets (10^9/L),BMI (kg/m^2),DrugName,DrugDose (mg),Disease_1,Disease_2,Disease_3,PhenotypicFeature_1,PhenotypicFeature_2,TreatmentDuration (weeks)
 P001,Baseline,1,Male,Caucasian,Yes,14.0,No,,16.9,5.4,288.0,29.0,Lisinopril,500,Asthma,Hypertension,Diabetes,Abnormal heart valve morphology,Emphysema,62
 P001,Treatment,2,,,,,,,12.6,8.6,272.0,29.0,Lisinopril,500,,,,,,62
 P002,Baseline,3,Male,Hispanic,No,,No,,16.3,10.9,206.0,22.9,Metformin,90,Asthma,Hypertension,Diabetes,Emphysema,Abnormal heart valve morphology,25

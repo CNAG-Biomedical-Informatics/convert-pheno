@@ -11,12 +11,16 @@
 
 Most users interact with `Convert-Pheno` via its **Command-Line Interface (CLI)**. The CLI operates directly on text files, providing straightforward input-output interaction.
 
+
 ## Advanced Usage: Alternative Operation Modes
 
 `Convert-Pheno` also supports several alternative modes of operation to accommodate diverse user needs:
 
 - **[Module](use-as-a-module.md)**: Embed `Convert-Pheno` directly into your custom scripts or automated pipelines.
 - **[API Access](use-as-an-api.md)**: Programmatically access conversion functionalities through a standardized API.
+
+## Web Application Interface
+
 - **[Web Application Interface](https://cnag-biomedical-informatics.github.io/convert-pheno-ui)**: An intuitive and interactive web-based user interface.
 
 ## Listen to the Paper: Audio Edition

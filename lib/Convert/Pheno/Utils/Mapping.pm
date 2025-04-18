@@ -17,14 +17,16 @@ use Sys::Hostname;
 use Convert::Pheno::DB::SQLite;
 use Convert::Pheno::Utils::Default qw(get_defaults);
 use Exporter 'import';
+use open qw(:std :encoding(UTF-8));
+
 our @EXPORT =
-  qw(map_ontology_term dotify_and_coerce_number get_current_utc_iso8601_timestamp map_iso8601_date2timestamp get_date_component map_reference_range map_reference_range_csv map_age_range map2redcap_dict map2ohdsi convert2boolean get_age_from_date_and_birthday get_date_at_age generate_random_alphanumeric_string map_operator_concept_id map_info_field map_omop_visit_occurrence convert_date_to_iso8601 validate_format get_metaData get_info merge_omop_tables);
+  qw(map_ontology_term dotify_and_coerce_number get_current_utc_iso8601_timestamp map_iso8601_date2timestamp map_iso8601_timestamp2date get_date_component map_reference_range map_reference_range_csv map_age_range map2redcap_dict map2ohdsi convert2boolean get_age_from_date_and_birthday get_date_at_age generate_random_alphanumeric_string map_operator_concept_id map_info_field map_omop_visit_occurrence convert_date_to_iso8601 validate_format get_metaData get_info merge_omop_tables convert_label_to_days);
 
 my $DEFAULT = get_defaults();
 use constant DEVEL_MODE => 0;
 
 # Global hash
-my %seen = ();
+my %SEEN = ();
 
 #############################
 #############################
@@ -33,91 +35,54 @@ my %seen = ();
 #############################
 
 sub map_ontology_term {
+    my ($arg)     = @_;
+    my $query     = $arg->{query};
+    my $ontology  = $arg->{ontology};
+    my $self      = $arg->{self};
 
-    # Most of the execution time goes to this subroutine
-    # We will adopt two estragies to gain speed:
-    #  1 - Prepare once, excute often (almost no gain in speed :/ )
-    #  2 - Create a global hash with "seen" queries (+++huge gain)
-
-    #return { id => 'dummy', label => 'dummy' } # test speed
-
-    # We will return quickly when nothing has to be done
-    my $query = $_[0]->{query};
-
-    # Skipping numbers
+    # 1) Skip pure numbers
     return $DEFAULT->{ontology_term} if looks_like_number($query);
 
-    # If the ontology term is an object we assume it comes
-    # from "terminology" property in the mapping file
+    # 2) If already an object, assume pre‑mapped
     return $query if ref $query eq 'HASH';
 
-    print Dumper \%seen if DEVEL_MODE;
+    # 3) Fast return on cache hit
+    if ( exists $SEEN{$ontology}{$query} ) {
+        say "Skipping searching for <$query> in <$ontology> (cached)" if DEVEL_MODE;
+        return $SEEN{$ontology}{$query};
+    }
 
-    # Checking for existance in %seen
-    say "Skipping searching for <$query> as it already exists"
-      if DEVEL_MODE && exists $seen{$query};
+    # 4) (Optional) Die on OHDSI without flag
+    if ( $ontology eq 'ohdsi' && !$self->{ohdsi_db} ) {
+        die "Could not find concept_id:<$query> in provided CONCEPT table. "
+          . "Use --ohdsi-db to enable Athena‑OHDSI lookup.\n";
+    }
 
-    # return if terms has already been searched and exists
-    # Not a big fan of global stuff...
-    #  ¯\_(ツ)_/¯
-    # Premature return
-    return $seen{$query} if exists $seen{$query};    # global
+    # 5) Perform the lookup
+    say "Searching for <$query> in <$ontology>…" if DEVEL_MODE;
+    my ($id, $label, $concept_id) = get_ontology_terms({
+        sth_column_ref            => $self->{sth}{$ontology}{ $arg->{column} },
+        query                     => $query,
+        ontology                  => $ontology,
+        databases                 => $self->{databases},
+        column                    => $arg->{column},
+        search                    => $self->{search},
+        text_similarity_method    => $self->{text_similarity_method},
+        min_text_similarity_score => $self->{min_text_similarity_score},
+        levenshtein_weight        => $self->{levenshtein_weight},
+    });
 
-    # return something if we know 'a priori' that the query won't exist
-    #return { id => 'NCIT:NA000', label => $query } if $query =~ m/xx/;
+    # 6) Store in cache
+    my $entry = $arg->{require_concept_id}
+              ? { id => $id, label => $label, concept_id => $concept_id }
+              : { id => $id, label => $label };
 
-    # Ok, now it's time to start the subroutine
-    my $arg                       = shift;
-    my $column                    = $arg->{column};
-    my $ontology                  = $arg->{ontology};
-    my $self                      = $arg->{self};
-    my $databases                 = $self->{databases};
-    my $search                    = $self->{search};
-    my $print_hidden_labels       = $self->{print_hidden_labels};
-    my $text_similarity_method    = $self->{text_similarity_method};
-    my $min_text_similarity_score = $self->{min_text_similarity_score};
-    my $levenshtein_weight        = $self->{levenshtein_weight};
-    my $require_concept_id =
-      ( exists $arg->{require_concept_id} && $arg->{require_concept_id} )
-      ? 1
-      : 0;
+    $SEEN{$ontology}{$query} = $entry;
 
-    # DEVEL_MODE
-    say "searching for query <$query> in ontology <$ontology> search <$search>" if DEVEL_MODE;
-    say "<require_concept_id> is <$require_concept_id>"       if DEVEL_MODE;
-
-    # Die if user wants OHDSI w/o flag --ohdsi-db
-    die
-"Could not find the concept_id:<$query> in the provided <CONCEPT> table.\nPlease use the flag <--ohdsi-db> to enable searching at Athena-OHDSI database\n"
-      if ( $ontology eq 'ohdsi' && !$self->{ohdsi_db} );
-
-    # Perform query
-    my ( $id, $label, $concept_id ) = get_ontology_terms(
-        {
-            sth_column_ref            => $self->{sth}{$ontology}{$column},
-            query                     => $query,
-            ontology                  => $ontology,
-            databases                 => $databases,
-            column                    => $column,
-            search                    => $search,
-            text_similarity_method    => $text_similarity_method,
-            min_text_similarity_score => $min_text_similarity_score,
-            levenshtein_weight        => $levenshtein_weight
-        }
-    );
-
-    # Add result to global %seen
-    $seen{$query} =
-      $require_concept_id
-      ? { id => $id, label => $label, concept_id => $concept_id }
-      : { id => $id, label => $label };    # global
-
-    # id and label come from <db> _label is the original string (can change on partial matches)
-    return $print_hidden_labels
-      ? { id => $id, label => $label, _label => $query }
-      : $require_concept_id
-      ? { id => $id, label => $label, concept_id => $concept_id }
-      : { id => $id, label => $label };
+    # 7) Return (with optional hidden‐label)
+    return $arg->{print_hidden_labels}
+         ? { %$entry, _label => $query }
+         : $entry;
 }
 
 sub dotify_and_coerce_number {
@@ -155,6 +120,14 @@ sub map_iso8601_date2timestamp {
     # Format it to the standardized ISO8601 timestamp,
     # ensuring that if no time was provided, a default is used.
     return $dt->strftime('%Y-%m-%dT%H:%M:%SZ');
+}
+
+sub map_iso8601_timestamp2date {
+    my $iso_str = shift;
+  $iso_str =~ s/\s+/T/;
+    # split on 'T' and take the date portion
+    my ($date) = split /T/, $iso_str;
+    return $date;
 }
 
 sub get_date_component {
@@ -249,7 +222,7 @@ sub map2ohdsi {
     # OPTION A: <CONCEPT> #
     #######################
 
-    # NB1: Here we don't win any speed over using %seen as ...
+    # NB1: Here we don't win any speed over using %SEEN as ...
     # .. we are already searching in a hash
     # NB2: $concept_id is stringified by hash
     my ( $data, $id, $label, $vocabulary ) = ( (undef) x 4 );
@@ -643,4 +616,25 @@ sub merge_omop_tables {
     return \%merged;
 }
 
+sub convert_label_to_days {
+    my ($label, $count) = @_;
+    # return undef on missing args
+    return undef unless defined $label && defined $count && looks_like_number($count);
+
+    my $key = lc $label;
+    # normalize plural to singular
+    $key =~ s/s$//;
+
+    my %mult = (
+        day   => 1,
+        week  => 7,
+        month => 30,
+        year  => 365,
+    );
+    # lookup multiplier
+    my $factor = $mult{$key};
+    return undef unless defined $factor;
+
+    return $factor * $count;
+}
 1;
