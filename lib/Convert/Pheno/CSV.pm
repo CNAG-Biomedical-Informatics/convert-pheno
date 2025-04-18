@@ -7,8 +7,8 @@ use feature                        qw(say);
 use Convert::Pheno::Utils::Default qw(get_defaults);
 use Convert::Pheno::REDCap
   qw(get_required_terms propagate_fields map_fields_to_redcap_dict map_diseases map_ethnicity map_exposures map_info map_interventionsOrProcedures map_measures map_pedigrees map_phenotypicFeatures map_sex map_treatments);
-
 use Data::Dumper;
+use Hash::Util qw(lock_keys);
 use Hash::Fold fold => { array_delimiter => ':' };
 use Exporter 'import';
 our @EXPORT = qw(do_bff2csv do_pxf2csv do_csv2bff);
@@ -86,15 +86,20 @@ sub do_csv2bff {
 
     # Intialize parameters for most subs
     my $param_sub = {
-        source            => $data_mapping_file->{project}{source},
-        project_id        => $data_mapping_file->{project}{id},
-        project_ontology  => $data_mapping_file->{project}{ontology},
-        data_mapping_file => $data_mapping_file,
-        participant       => $participant,
-        self              => $self,
-        individual        => $individual
+        source               => $data_mapping_file->{project}{source},
+        project_id           => $data_mapping_file->{project}{id},
+        project_ontology     => $data_mapping_file->{project}{ontology},
+        data_mapping_file    => $data_mapping_file,
+        participant          => $participant,
+        self                 => $self,
+        individual           => $individual,
+        term_mapping_cursor  => undef,
+        participant_id_field => undef,
+        participant_id       => undef
     };
+
     $param_sub->{lock_keys} = [ 'lock_keys', keys %$param_sub ];
+    lock_keys %$param_sub, @{ $param_sub->{lock_keys} };
 
     # *** ABOUT REQUIRED PROPERTIES ***
     # 'id' and 'sex' are required properties in <individuals> entry type
