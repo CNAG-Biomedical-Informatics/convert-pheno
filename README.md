@@ -317,7 +317,9 @@ Note that you can find input examples for all conversions within the `t/` direct
 
     $ bin/convert-pheno -iomop t/omop2bff/in/omop_cdm_eunomia.sql -opxf phenopackets.json -max-lines-sql 2694
 
-General examples:
+    $ bin/convert-pheno -ibff t/bff2omop/in/individuals.json -oomop my_prefix --ohdsi-db # Needs ohdsi.db
+
+Generic examples:
 
     $ $path/convert-pheno -iredcap redcap.csv -opxf phenopackets.json --redcap-dictionary redcap_dict.csv --mapping-file mapping_file.yaml
 
