@@ -1,5 +1,5 @@
-!!! Bug "Experimental"
-    CDISC-ODM conversion is still experimental. It only works with controlled exports from REDCap projects.
+!!! Warning "Experimental"
+    CDISC-ODM conversion is still experimental. Please us it with caution.
 
 **CDISC** stands for **C**linical **D**ata **I**nterchange **S**tandards **C**onsortium. **ODM** stands for **O**perational **D**ata **M**odel.
 
@@ -30,5 +30,5 @@
     convert-pheno -icdisc cdisc.xml --redcap-dictionary dictionary.csv --mapping-file mapping.yaml -obff individuals.json
     ```
     !!! Warning "About other CDISC data exchange standars"
-        We are currently exploring [Dataset-XML](https://www.cdisc.org/standards/data-exchange/dataset-xml) (extension of ODM-XML) and the new [Dataset-JSON](https://wiki.cdisc.org/display/ODM2/Dataset-JSON) formats. The idea is to support them in the future.
+        We are aware of the [Dataset-XML](https://www.cdisc.org/standards/data-exchange/dataset-xml) format (an extension of ODM-XML) and the emerging [Dataset-JSON](https://wiki.cdisc.org/display/ODM2/Dataset-JSON) specification. While we do not currently support them, we are following their development with interest.
 

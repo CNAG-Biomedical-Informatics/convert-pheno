@@ -1,5 +1,9 @@
 Revision history for Perl distribution Convert-Pheno
 
+0.29 2025-0X-XXT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
+
+ - Foo
+
 0.28 2025-04-18T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
  - Internal parameter 'ncpuhost' renamed to 'threadshost'

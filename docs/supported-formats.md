@@ -81,14 +81,13 @@ graph LR
     %%{init: {'theme':'neutral'}}%%
     graph LR
     
-      A[BFF] -->|bff2jsonf| C[JSON Flattened];
-      A -->|bff2csv| D[CSV];
-      A -->|bff2jsonld| E[JSON-LD];
+      A[🧬 BFF] -->|bff2jsonf| C[🧾 JSON Flattened];
+      A -->|bff2csv| D[📊 CSV];
+      A -->|bff2jsonld| E[🔗 JSON-LD];
 
-
-      B[PXF] -->|pxf2jsonf| C;
+      B[📦 PXF] -->|pxf2jsonf| C;
       B -->|pxf2csv| D;
-      B -->|pxf2jsonld| E[JSON-LD];
+      B -->|pxf2jsonld| E;
 
       style A fill: #6495ED
       style A stroke: #6495ED

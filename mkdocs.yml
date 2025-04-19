@@ -77,12 +77,12 @@ nav:
       - "🔗 As an API": use-as-an-api.md
       - "🌐 Web App User Interface": https://cnag-biomedical-informatics.github.io/convert-pheno-ui/
   - "🔄 Formats Accepted":
-      - "🗂 Beacon v2 Models (BFF)": bff.md
-      - "📜 Phenopacket v2 (PXF)": pxf.md
+      - "🧬 Beacon v2 Models (BFF)": bff.md
+      - "📦 Phenopackets v2 (PXF)": pxf.md
       - "📝 REDCap": redcap.md
-      - "🏥 OMOP-CDM": omop-cdm.md
-      - "📊 CDISC-ODM": cdisc-odm.md
-      - "📑 CSV": csv.md
+      - "🏥 OMOP‑CDM": omop-cdm.md
+      - "📑 CDISC‑ODM": cdisc-odm.md
+      - "📊 CSV": csv.md
   - "⚙️ Technical Details":
       - "🏗 Implementation": implementation.md
       - "🔍 Mapping Steps": mapping-steps.md

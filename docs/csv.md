@@ -1,5 +1,5 @@
 !!! Warning "Experimental feature"
-    CSV conversion to [BFF](bff.md), [PXF](pxf.md) and [OMOP CDM](omop-cdm.md) data exchange formats is still in the development phase. Use it with caution.
+    CSV conversion to [BFF](bff.md), [PXF](pxf.md) and [OMOP CDM](omop-cdm.md) data exchange formats is still in the development phase. Please us it with caution.
 
 ## CSV with clinical data as input
 
