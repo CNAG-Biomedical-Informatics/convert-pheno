@@ -1,5 +1,5 @@
-!!! Bug "Experimental"
-    REDCap conversion is still experimental. It only works with controlled REDCap projects.
+!!! Warning "Experimental"
+    REDCap conversion is still experimental. Please us it with caution.
 
 **REDCap** stands for **R**esearch **E**lectronic **D**ata **Cap**ture. REDCap [documentation](https://www.project-redcap.org).
 
