@@ -92,12 +92,12 @@ Frequently Asked Questions
 
 ??? faq "I have a collection of PXF files encoded using HPO and ICD-10 terms, and I need to convert them to BFF format, but encoded in OMIM and SNOMED-CT terminologies. Can you assist me with this?"
 
-    Neither Phenopacket v2 nor Beacon v2 prescribe the use of a specific ontology; they simply provide [recommendations](https://phenopacket-schema.readthedocs.io/en/latest/recommended-ontologies.html) on their websites. Thereby, `Convert-Pheno` does not change the source ontologies.
+    Neither Phenopacket v2 nor Beacon v2 prescribe the use of a specific ontology; they simply provide [recommendations](https://phenopacket-schema.readthedocs.io/en/latest/recommended-ontologies.html) on their websites. Thereby, `Convert-Pheno` does not change the source ontology terms.
 
     Now, IMHO, it's generally easier to inter-convert ontology terms (it's just a mapping exercise) than to inter-convert data schemas...so here is that:smile:.
 
     !!! Abstract "Nota Bene:"
-        A  standard that does enforce the use of an **standardized vocabulary** is [OMOP CDM](omop-cdm.md), you may wanna check it out.
+        A standard that does enforce the use of an **standardized vocabulary** is [OMOP CDM](omop-cdm.md), you may wanna check it out.
 
     ##### last change 2024-01-16 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 

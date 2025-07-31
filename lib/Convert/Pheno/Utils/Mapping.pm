@@ -25,7 +25,7 @@ our @EXPORT =
 my $DEFAULT = get_defaults();
 use constant DEVEL_MODE => 0;
 
-# Global hash
+# Global hash (manual memoizing)
 my %SEEN = ();
 
 #############################
