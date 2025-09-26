@@ -15,6 +15,8 @@
     * [Manuel Rueda](https://github.com/mrueda)
     * [Ivo C. Leist](https://github.com/IvoLeist) - [UI](https://cnag-biomedical-informatics.github.io/convert-pheno-ui)
 
+    Project documentation was created using [Material for MkDocs](https://squidfunk.github.io/mkdocs-material).
+
 ## Acknowledgments
 
 === "CNAG"

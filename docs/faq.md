@@ -102,6 +102,12 @@ Frequently Asked Questions
     ##### last change 2024-01-16 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
 
+??? faq "What type of data validation is carried out"
+
+    --8<-- "md/data-validation.md"
+
+    ##### last change 2025-09-26 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
+
 ??? faq "What type of **database search** is carried out?"
 
     --8<-- "tbl/db-search.md"

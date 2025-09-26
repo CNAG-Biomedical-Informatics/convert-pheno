@@ -53,12 +53,13 @@ In the **Mapping tables** section (accessible via the 'Technical Details' tab on
 !!! Bug "Notice"
     Please note that accurately mapping, even between two standards, is a substantial undertaking. While we possess expertise in certain areas, we certainly don't claim mastery in all :pray:. We sincerely welcome any **suggestions** or feedback.
 
+??? Info "Contributing"
+    While creating the code for a new format can be challenging, modifying properties in an existing one is much easier. Feel free to [reach us](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/issues) should you plan to contribute.
+
+
 ### From table mappings to code
 
-The tables function as a reference for implementing the source code of Convert-Pheno. For each format conversion, there is a dedicated Perl [submodule](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/tree/main/lib/Convert/Pheno).
-
-!!! Info "Contributing"
-    While creating the code for a new format can be challenging, modifying properties in an existing one is much easier. Feel free to [reach us](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/issues) should you plan to contribute.
+These tables serve as a **reference** for implementing Convert-Pheno's source code. Each format conversion has a dedicated Perl [submodule](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/tree/main/lib/Convert/Pheno), and during implementation we verify that the converted output conforms to the final target data schema.
 
 ### Lossless or lossy conversion?
 
@@ -268,6 +269,8 @@ One of the advantages of **Beacon/Phenopackets v2** is that they **do not prescr
 --8<-- "tbl/db-search.md"
 
 ## Step 2: Conversion to the final model
+
+--8<-- "md/data-validation.md"
 
 ### To Phenopackets 
 
