@@ -7,5 +7,5 @@
     See:
 
     * [bff-tools validate](https://github.com/CNAG-Biomedical-Informatics/beacon2-cbi-tools?tab=readme-ov-file#bff-tools-script-binbff-tools)
-    * [phenopacket-tools)](http://phenopackets.org/phenopacket-tools/stable)
+    * [phenopacket-tools](http://phenopackets.org/phenopacket-tools/stable)
     * [OMOP CSV Validator](https://github.com/CNAG-Biomedical-Informatics/omop-csv-validator)
