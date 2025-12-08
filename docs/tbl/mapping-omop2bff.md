@@ -30,7 +30,10 @@
 ## geographicOrigin
 |  OMOP Table(s)                                              | OMOP Variable                                              | BFF JSON path                                               |
 |  :---:                                                      | :---:                                                      | :---:                                                       |
-|  PERSON                                                     | ethnicity_source_value                                     | geographicOrigin                                            |
+|  PERSON                                                     | ethnicity_source_value\*                                    | geographicOrigin                                            |
+
+>\*We could represent this as `observation_concept_id = Country of birth` with `value_as_concept_id = Italy` (concept 1546579), but this OBSERVATION field is often not populated in practice.
+
 
 ## id
 |  OMOP Table(s)                                              | OMOP Variable                                              | BFF JSON path                                               |
