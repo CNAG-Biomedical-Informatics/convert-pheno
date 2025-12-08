@@ -203,7 +203,7 @@ treatments:
   visitId: redcap_event_name
   dictionary:
     asa_oral_status: aspirin 
-    asa_oral_status: azathioprine
+    aza_oral_status: azathioprine
     mtx_oral_status: methotrexate
     mp_oral_status: mercaptopurine
     prednisolone_status: prednisolone
