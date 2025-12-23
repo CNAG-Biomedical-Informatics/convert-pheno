@@ -1,7 +1,7 @@
 site_name: 'Convert-Pheno Documentation'
 site_description: 'Convert-Pheno Toolkit Documentation'
 site_author: 'Manuel Rueda, PhD'
-copyright: '&copy; Copyright 2022-2025, Manuel Rueda, CNAG'
+copyright: '&copy; Copyright 2022-2026, Manuel Rueda, CNAG'
 repo_name: 'Convert-Pheno'
 repo_url: https://github.com/mrueda/convert-pheno
 edit_uri: edit/main/docs/

@@ -5,8 +5,8 @@
 
     section Relases
     Alpha                     :done,      r1, 2023-01-01, 100d
-    Beta                      :active,    r2, after m1, 900d
-    v1                        :           r3, after r2, 200d
+    Beta                      :active,    r2, after m1, 1100d
+    v1                        :           r3, after r2, 300d
 
     section Publication
     Manuscript                :done,      m1, 2023-01-01, 110d
@@ -18,10 +18,10 @@
 
     section Output-formats
     CSV (out)       :done, f0, 2024-02-01, 70d
-    OMOP-CDM (out)  :crit,     f2, 2025-03-22, 200d
+    OMOP-CDM (out)  :done,     f2, 2025-03-22, 400d
 
     section Planned
-    OpenEHR (in)    :          f3, after r2,   200d
+    OpenEHR (in)    :          f3, after r2,   300d
 ```
 
 `*The roadmap is subject to revisions and may evolve over time`
