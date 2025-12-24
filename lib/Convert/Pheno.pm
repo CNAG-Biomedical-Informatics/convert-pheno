@@ -819,7 +819,7 @@ sub array_dispatcher {
 sub _transform_item {
     my ( $self, $method_result, $fh_out, $is_last_item, $json ) = @_;
 
-    $json ||= JSON::XS->new->canonical->pretty;
+    $json //= JSON::XS->new->canonical->pretty;
 
     my $out;
 
@@ -840,7 +840,7 @@ sub _transform_item {
 sub omop_dispatcher {
     my ( $self, $method_result, $json ) = @_;
 
-    $json ||= JSON::XS->new->canonical->pretty;
+    $json //= JSON::XS->new->canonical->pretty;
 
     my $out;
 
