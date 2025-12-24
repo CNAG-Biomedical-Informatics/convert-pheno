@@ -1,5 +1,9 @@
 Revision history for Perl distribution Convert-Pheno
 
+0.30 2026-XX-XXXXT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
+
+ - Minor Pheno.pm refactor: simplify helpers to improve OMOP dispatch and JSON streaming performance
+
 0.29 2025-12-23XXT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
  - Updated icd10.db SQLite database

@@ -1085,10 +1085,11 @@ sub _add_visit {
     $item->{_visit}{id} = $visit_val;
 
     # build the unique occurrence_id
-    my $pid       = $p->{participant_id} // '';
+    my $pid       = $p->{participant_id} // ''; # REDCap only
     my $composite = join '.', grep { length } $pid, $visit_val;
-    $item->{_visit}{occurrence_id} = string2number($composite);
+    print Dumper $composite;
     $item->{_visit}{composite}     = $composite;
-
+    $item->{_visit}{occurrence_id} = string2number($composite);
 }
+
 1;

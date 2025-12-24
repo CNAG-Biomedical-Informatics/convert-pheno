@@ -42,7 +42,7 @@ $SIG{__WARN__} = sub { warn "Warn: ", @_ };
 $SIG{__DIE__}  = sub { die "Error: ", @_ };
 
 # Global variables:
-our $VERSION   = '0.29';
+our $VERSION   = '0.29_1';
 our $share_dir = dist_dir('Convert-Pheno');
 
 # SQLite database
@@ -93,8 +93,6 @@ has username => (
     isa     => Str,
     default => $default_username,    # Use the subroutine for the default.
     coerce  => sub {
-
-        # If a defined value is provided, use it; otherwise, compute the default.
         $_[0] // $default_username->();
     },
 );
@@ -118,7 +116,6 @@ has 'omop_tables' => (
     coerce  => sub {
         my $tables = shift;
 
-        # If tables are provided, process them; otherwise, use default essential tables
         $tables =
           @$tables
           ? [ uniq( map { uc($_) } ( 'CONCEPT', 'PERSON', @$tables ) ) ]
@@ -160,15 +157,10 @@ has [qw /data method/] => ( is => 'rw' );
 ##########################################
 
 sub BUILD {
-
-    # BUILD: is an instance method that is called after the object has been constructed but before it is returned to the caller.
-    # BUILDARGS is a class method that is responsible for processing the arguments passed to the constructor (new) and returning a hash reference of attributes that will be used to initialize the object.
     my $self = shift;
     $self->{databases} =
       $self->{ohdsi_db} ? \@all_sqlites : \@non_ohdsi_sqlites;
 }
-
-# NB: In general, we'll only display terms that exist and have content
 
 #############
 #############
@@ -178,8 +170,6 @@ sub BUILD {
 
 sub bff2pxf {
     my $self = shift;
-
-    # <array_dispatcher> will deal with JSON arrays
     return $self->array_dispatcher;
 }
 
@@ -191,8 +181,6 @@ sub bff2pxf {
 
 sub bff2csv {
     my $self = shift;
-
-    # <array_dispatcher> will deal with JSON arrays
     return $self->array_dispatcher;
 }
 
@@ -204,10 +192,9 @@ sub bff2csv {
 
 sub bff2jsonf {
     my $self = shift;
-
-    # <array_dispatcher> will deal with JSON arrays
     return $self->array_dispatcher;
 }
+
 ##############
 ##############
 # BFF2JSONLD #
@@ -216,8 +203,6 @@ sub bff2jsonf {
 
 sub bff2jsonld {
     my $self = shift;
-
-    # <array_dispatcher> will deal with JSON arrays
     return $self->array_dispatcher;
 }
 
@@ -229,8 +214,6 @@ sub bff2jsonld {
 
 sub bff2omop {
     my $self = shift;
-
-    # <array_dispatcher> will deal with JSON arrays
     return merge_omop_tables( $self->array_dispatcher );
 }
 
@@ -243,7 +226,6 @@ sub bff2omop {
 sub redcap2bff {
     my $self = shift;
 
-    # Read and load data from REDCap export
     my $data = read_csv( { in => $self->{in_file}, sep => $self->{sep} } );
     my $data_redcap_dict = read_redcap_dict_file(
         {
@@ -258,14 +240,12 @@ sub redcap2bff {
         }
     );
 
-    # Load data in $self
-    $self->{data}              = $data;                  # Dynamically adding attributes (setter)
-    $self->{data_redcap_dict}  = $data_redcap_dict;      # Dynamically adding attributes (setter)
-    $self->{data_mapping_file} = $data_mapping_file;     # Dynamically adding attributes (setter)
-    $self->{metaData}          = get_metaData($self);    # Dynamically adding attributes (setter)
-    $self->{convertPheno}      = get_info($self);        # Dynamically adding attributes (setter)
+    $self->{data}              = $data;
+    $self->{data_redcap_dict}  = $data_redcap_dict;
+    $self->{data_mapping_file} = $data_mapping_file;
+    $self->{metaData}          = get_metaData($self);
+    $self->{convertPheno}      = get_info($self);
 
-    # array_dispatcher will deal with JSON arrays
     return $self->array_dispatcher;
 }
 
@@ -278,16 +258,13 @@ sub redcap2bff {
 sub redcap2pxf {
     my $self = shift;
 
-    # First iteration: redcap2bff
-    $self->{method} = 'redcap2bff';    # setter - we have to change the value of attr {method}
-    my $bff = redcap2bff($self);       # array
+    $self->{method} = 'redcap2bff';
+    my $bff = redcap2bff($self);
 
-    # Preparing for second iteration: bff2pxf
-    $self->{method}      = 'bff2pxf';    # setter
-    $self->{data}        = $bff;         # setter
-    $self->{in_textfile} = 0;            # setter
+    $self->{method}      = 'bff2pxf';
+    $self->{data}        = $bff;
+    $self->{in_textfile} = 0;
 
-    # Run second iteration
     return $self->array_dispatcher;
 }
 
@@ -300,18 +277,160 @@ sub redcap2pxf {
 sub redcap2omop {
     my $self = shift;
 
-    # First iteration: csv2bff
-    $self->{method} = 'redcap2bff';    # setter - we have to change the value of attr {method}
-    my $bff = redcap2bff($self);       # array
+    $self->{method} = 'redcap2bff';
+    my $bff = redcap2bff($self);
 
-    # Preparing for second iteration: bff2pxf
-    $self->{method}      = 'bff2omop';    # setter
-    $self->{data}        = $bff;          # setter
-    $self->{in_textfile} = 0;             # setter
+    $self->{method}      = 'bff2omop';
+    $self->{data}        = $bff;
+    $self->{in_textfile} = 0;
 
-    # Run second iteration
     return merge_omop_tables( $self->array_dispatcher );
+}
 
+##########################################################
+# OMOP helpers - contain state mutation & pipeline       #
+##########################################################
+
+sub _with_temp_self_field {
+    my ( $self, $field, $value, $code ) = @_;
+
+    my $had = exists $self->{$field} ? 1 : 0;
+    my $old = $had ? $self->{$field} : undef;
+
+    $self->{$field} = $value;
+    my $ret = $code->();
+
+    if ($had) { $self->{$field} = $old }
+    else      { delete $self->{$field} }
+
+    return $ret;
+}
+
+sub _omop_collect_input {
+    my ($self) = @_;
+
+    # MEMORY input
+    if ( exists $self->{data} ) {
+        $self->{omop_cli} = 0;
+        return {
+            kind            => 'memory',
+            data            => $self->{data},
+            filepath_sql    => undef,
+            filepaths_csv   => [],
+        };
+    }
+
+    # CLI / files input
+    $self->{omop_cli} = 1;
+
+    my $data = {};
+    my $filepath_sql;
+    my @filepaths_csv_stream;
+
+    my @exts = map { $_, $_ . '.gz' } qw(.csv .tsv .sql);
+
+    for my $file ( @{ $self->{in_files} } ) {
+        my ( $table_name, undef, $ext ) = fileparse( $file, @exts );
+
+        # SQL dump
+        if ( $ext =~ m/\.sql/i ) {
+            print "> Param: --max-lines-sql = $self->{max_lines_sql}\n"
+              if $self->{verbose};
+
+            if ( !$self->{stream} ) {
+                print "> Mode : --no-stream\n\n" if $self->{verbose};
+                my $sql_headers;
+                ( $data, $sql_headers ) = read_sqldump( { in => $file, self => $self } );
+                sqldump2csv( $data, $self->{out_dir}, $sql_headers ) if $self->{sql2csv};
+            }
+            else {
+                print "> Mode : --stream\n\n" if $self->{verbose};
+
+                _with_temp_self_field(
+                    $self,
+                    'omop_tables',
+                    [@stream_ram_memory_tables],
+                    sub {
+                        ( $data, undef ) = read_sqldump( { in => $file, self => $self } );
+                        return 1;
+                    }
+                );
+            }
+
+            print "> Parameter --max-lines-sql set to: $self->{max_lines_sql}\n\n"
+              if $self->{verbose};
+
+            $filepath_sql = $file;
+            last;
+        }
+
+        # CSV/TSV
+        warn "<$table_name> is not a valid table in OMOP-CDM\n" and next
+          unless any { $_ eq $table_name } @omop_essential_tables;
+
+        my $msg = "Reading <$table_name> and storing it in RAM memory...";
+
+        if ( !$self->{stream} ) {
+            say $msg if ( $self->{verbose} || $self->{debug} );
+            $data->{$table_name} =
+              read_csv( { in => $file, sep => $self->{sep}, self => $self } );
+        }
+        else {
+            if ( any { $_ eq $table_name } @stream_ram_memory_tables ) {
+                say $msg if ( $self->{verbose} || $self->{debug} );
+                $data->{$table_name} =
+                  read_csv( { in => $file, sep => $self->{sep}, self => $self } );
+            }
+            else {
+                push @filepaths_csv_stream, $file;
+            }
+        }
+    }
+
+    return {
+        kind            => ( $filepath_sql ? 'sql' : 'csv' ),
+        data            => $data,
+        filepath_sql    => $filepath_sql,
+        filepaths_csv   => \@filepaths_csv_stream,
+    };
+}
+
+sub _omop_require_concept {
+    my ( $self, $data ) = @_;
+    die "The table <CONCEPT> is missing from the input files\n"
+      unless exists $data->{CONCEPT};
+    return 1;
+}
+
+sub _omop_init_caches_and_metadata {
+    my ( $self, $data ) = @_;
+
+    $self->{data_ohdsi_dict} =
+      convert_table_aoh_to_hoh( $data, 'CONCEPT', $self );
+
+    if ( $self->{stream} ) {
+        $self->{person} = convert_table_aoh_to_hoh( $data, 'PERSON', $self );
+    }
+
+    if ( exists $data->{VISIT_OCCURRENCE} ) {
+        $self->{visit_occurrence} =
+          convert_table_aoh_to_hoh( $data, 'VISIT_OCCURRENCE', $self );
+        delete $data->{VISIT_OCCURRENCE};
+    }
+
+    $self->{exposures} = load_exposures( $self->{exposures_file} );
+
+    $self->{metaData}     = get_metaData($self);
+    $self->{convertPheno} = get_info($self);
+
+    return 1;
+}
+
+sub _omop_prepare_data_shape {
+    my ( $self, $data ) = @_;
+    $self->{data} =
+      $self->{stream} ? $data : transpose_omop_data_structure( $self, $data );
+    return 1;
 }
 
 ##############
@@ -323,235 +442,26 @@ sub redcap2omop {
 sub omop2bff {
     my $self = shift;
 
-    #############
-    # IMPORTANT #
-    #############
-
-    # File Size Considerations for Data Processing
-    #
-    # For SMALL TO MEDIUM FILES (< 1M rows):
-    # Commonly, database downsizing for data sharing results in PostgreSQL dumps or CSVs being less than 1 million rows.
-    # With adequate memory (4-16GB), we can efficiently load this data into RAM and effectively consolidate individual data points (e.g., MEASURES, DRUGS).
-    #
-    # For HUMONGOUS FILES (> 1M rows):
-    # As we heavily use hashes, larger files necessitate alternative data loading strategies:
-    #
-    # * Option A: Parallel Processing (No code modification required)
-    #   Users can split their data into smaller chunks or mini-instances, employing parallel processing tools (like GNU parallel, snakemake, HPC, etc.).
-    #   Caveat: SQLite’s limitations with concurrent access by multiple threads.
-    #
-    # * Option B: Data Consolidation at Individual Object Level
-    #   --no-stream
-    #   Two approaches for this:
-    #     a) Externalize the complete hash using DBM:Deep (although it's significantly slower).
-    #     b) Initially dump data as CSV (either by the user or automatically), then sort it (using *nix or SQLite) by 'person_id'.
-    #        This method doesn't substantially help with data consolidation since we still process one table at a time.
-    #
-    # * Option C: Line-by-Line File Parsing (One row of CSV/SQL per JSON object) <===== CURRENT IMPLEMENTATION
-    #   --stream
-    #   Note: BFF / PXF JSON files serve as intermediate stages. They group data by individual for easier inspection but are ultimately stored in Mongo DB.
-    #   Similar to the genomicVariations issue in B2RI, multiple JSON objects (like MEASUREMENTS, DRUGS) can correspond to a single individual.
-    #   The link is the term "id"
-    #
-    #   Potential Issues and Solutions:
-    #     1. Mandatory <CONCEPT> Table:
-    #        It can be extremely large, potentially consuming all available RAM (e.g., a 735 MB <CONCEPT.csv> with over 5.8 million lines).
-    #        Solutions:
-    #          a) Avoid loading the <CONCEPT> table entirely, using --ohdsi-db instead.
-    #          b) Use a temporary SQLite instance for the <CONCEPT> table.
-    #     2. Reading SQL Dumps Line-by-Line:
-    #        For large SQL dumps (e.g., 20GB), should we convert them into CSV (also ~20GB)?
-    #        Solutions:
-    #          a) Yes, first export required tables to CSV and then proceed.
-    #          b) No, read the PostgreSQL dump twice - first to load specified tables, then the rest.
-    #     3. Streaming Mode Restrictions:
-    #        In --stream mode, --sql2csv is not allowed to prevent excessive space usage and complexity.
-    #
-    # Further reading on handling large files: https://www.perlmonks.org/?node_id=1033692
-
-    # Load variables
-    my $data;
-    my $filepath;
-    my @filepaths;
     $self->{method_ori} =
-      exists $self->{method_ori} ? $self->{method_ori} : 'omop2bff';    # setter
-    $self->{prev_omop_tables} = [ @{ $self->{omop_tables} } ];          # setter - 1D clone
+      exists $self->{method_ori} ? $self->{method_ori} : 'omop2bff';
+    $self->{prev_omop_tables} = [ @{ $self->{omop_tables} } ];
 
-    # Check if data comes from variable or from file
-    # Variable
-    if ( exists $self->{data} ) {
-        $self->{omop_cli} = 0;               # setter
-        $data = $self->{data};
-    }
+    my $ctx  = _omop_collect_input($self);
+    my $data = $ctx->{data};
 
-    # File(s)
-    else {
+    _omop_require_concept( $self, $data );
+    _omop_init_caches_and_metadata( $self, $data );
+    _omop_prepare_data_shape( $self, $data );
 
-        # Read and load data from OMOP-CDM export
-        $self->{omop_cli} = 1;               # setter
-
-        # First we need to know if we have PostgreSQL dump or a bunch of csv
-        # File extensions to check
-        my @exts = map { $_, $_ . '.gz' } qw(.csv .tsv .sql);
-
-        # Proceed
-        # The idea here is that we'll load ONLY ESSENTIAL TABLES
-        # regardless of wheter they are concepts or truly records.
-        # Dictionaries (e.g. <CONCEPT>) will be parsed latter from $data
-
-        for my $file ( @{ $self->{in_files} } ) {
-            my ( $table_name, undef, $ext ) = fileparse( $file, @exts );
-
-            #####################
-            # PostgreSQL export #
-            #####################
-
-            if ( $ext =~ m/\.sql/i ) {
-
-                print "> Param: --max-lines-sql = $self->{max_lines_sql}\n"
-                  if $self->{verbose};
-
-                # --no-stream
-                if ( !$self->{stream} ) {
-
-                    print "> Mode : --no-stream\n\n" if $self->{verbose};
-
-                    # We read all tables in memory
-                    my $sql_headers;    # Original order for the headers
-                    ( $data, $sql_headers ) =
-                      read_sqldump( { in => $file, self => $self } );
-
-                    # Exporting to CSV if --sql2csv
-                    sqldump2csv( $data, $self->{out_dir}, $sql_headers )
-                      if $self->{sql2csv};
-                }
-
-                # --stream
-                else {
-
-                    print "> Mode : --stream\n\n" if $self->{verbose};
-
-                    # We'll ONLY load @stream_ram_memory_tables
-                    # in RAM and the other tables as $fh
-                    $self->{omop_tables} = [@stream_ram_memory_tables];    # setter
-                    ( $data, undef ) =
-                      read_sqldump( { in => $file, self => $self } );
-                }
-
-                # Misc print
-                print
-"> Parameter --max-lines-sql set to: $self->{max_lines_sql}\n\n"
-                  if $self->{verbose};
-
-                # We keep the filepath for later
-                $filepath = $file;
-
-                # Exit loop
-                last;
-            }
-
-            #############
-            # CSV files #
-            #############
-
-            else {
-
-                # We'll load all OMOP tables that the user is providing as -iomop
-                # as long as they have a match in @omop_essential_tables
-                # NB: --omop-tables has no effect
-                warn "<$table_name> is not a valid table in OMOP-CDM\n" and next
-
-                  #unless (any { $_ eq $table_name } @{ $omop_main_table->{$omop_version} };
-                  unless any { $_ eq $table_name } @omop_essential_tables;    # global
-
-                my $msg =
-                  "Reading <$table_name> and storing it in RAM memory...";
-
-                # --no-stream
-                if ( !$self->{stream} ) {
-
-                    # We read all tables in memory
-                    say $msg if ( $self->{verbose} || $self->{debug} );
-                    $data->{$table_name} =
-                      read_csv(
-                        { in => $file, sep => $self->{sep}, self => $self } );
-                }
-
-                # --stream
-                else {
-                    if ( any { $_ eq $table_name } @stream_ram_memory_tables ) {
-                        say $msg if ( $self->{verbose} || $self->{debug} );
-                        $data->{$table_name} =
-                          read_csv(
-                            { in => $file, sep => $self->{sep}, self => $self }
-                          );
-                    }
-                    else {
-                        push @filepaths, $file;
-                    }
-                }
-            }
-        }
-    }
-
-    #print Dumper_concise($data) and die;
-    #print Dumper_concise($self) and die;
-
-    # *** IMPORTANT ***
-    # ABOUT TABLE <CONCEPT> BEING MANDATORY
-    # Options:
-    # a) MANDATORY <== IMPLEMENTED
-    #    Drawback: High RAM usage with <PERSON> for large tables
-    # b) OPTIONAL (with --ohdsi-db)
-    #    Using external SQLite database is possible, but risks missing ad hoc concept_ids
-    # Note: CSV users might not provide <CONCEPT.csv> with CSVs
-    die "The table <CONCEPT> is missing from the input files\n"
-      unless exists $data->{CONCEPT};
-
-    # We create a dictionary for $data->{CONCEPT}
-    $self->{data_ohdsi_dict} =
-      convert_table_aoh_to_hoh( $data, 'CONCEPT', $self );    # Dynamically adding attributes (setter)
-
-    # Transform Array of Hashes (AoH) to Hash of Hashes (HoH) for faster computation
-    if ( $self->{stream} ) {
-        $self->{person} = convert_table_aoh_to_hoh( $data, 'PERSON', $self );  # Dynamically adding attributes (setter)
-    }
-
-    # We convert $self->{data}{VISIT_OCCURRENCE} if present
-    if ( exists $data->{VISIT_OCCURRENCE} ) {
-        $self->{visit_occurrence} =
-          convert_table_aoh_to_hoh( $data, 'VISIT_OCCURRENCE', $self );        # Dynamically adding attributes (setter)
-        delete $data->{VISIT_OCCURRENCE};                                      # Anyway, $data->{VISIT_OCCURRENCE} = [] from convert_table_aoh_to_hoh
-    }
-
-    # We load the allowed concept_id for exposures as hashref (for --no--stream and --stream)
-    $self->{exposures} = load_exposures( $self->{exposures_file} );            # Dynamically adding attributes (setter)
-
-    # Now we need to perform a transformation of the data where 'person_id' is one row of data
-    # NB: Transformation is due ONLY IN $omop_main_table FIELDS, the rest of the tables are not used
-    # The transformation is performed in --no-stream mode
-    $self->{data} =
-      $self->{stream} ? $data : transpose_omop_data_structure( $self, $data ); # Dynamically adding attributes (setter)
-
-    # Giving some memory back to the system
     $data = undef;
 
-    # Adding miscellanea metadata
-    $self->{metaData}     = get_metaData($self);                               # setter
-    $self->{convertPheno} = get_info($self);                                   # setter
-
-    # --stream
     if ( $self->{stream} ) {
-        omop_stream_dispatcher(
-            { self => $self, filepath => $filepath, filepaths => \@filepaths }
+        return omop_stream_dispatcher(
+            { self => $self, filepath => $ctx->{filepath_sql}, filepaths => $ctx->{filepaths_csv} }
         );
     }
 
-    # --no-stream
-    else {
-        # array_dispatcher will deal with JSON arrays
-        return $self->array_dispatcher;
-    }
+    return $self->array_dispatcher;
 }
 
 ##############
@@ -563,40 +473,23 @@ sub omop2bff {
 sub omop2pxf {
     my $self = shift;
 
-    # We have two possibilities:
-    #
-    # 1 - Module (Variables)
-    # 2 - CLI (I/O files)
-
-    # Variable
     if ( exists $self->{data} ) {
-
-        # First iteration: omop2bff
         $self->{omop_cli} = 0;
-        $self->{method}   = 'omop2bff';    # setter - we have to change the value of attr {method}
-        my $bff = omop2bff($self);         # array
+        $self->{method}   = 'omop2bff';
+        my $bff = omop2bff($self);
 
-        # Preparing for second iteration: bff2pxf
-        # NB: This 2nd round may take a while if #inviduals > 1000!!!
-        $self->{method}      = 'bff2pxf';    # setter
-        $self->{data}        = $bff;         # setter
-        $self->{in_textfile} = 0;            # setter
+        $self->{method}      = 'bff2pxf';
+        $self->{data}        = $bff;
+        $self->{in_textfile} = 0;
 
-        # Run second iteration
         return $self->array_dispatcher;
-
-        # CLI
     }
-    else {
-        # $self->{method} will be always 'omop2bff'
-        # $self->{method_ori} will tell us the original one
-        $self->{method_ori} = 'omop2pxf';    # setter
-        $self->{method}     = 'omop2bff';    # setter
-        $self->{omop_cli}   = 1;             # setter
 
-        # Run 1st and 2nd iteration
-        return omop2bff($self);
-    }
+    $self->{method_ori} = 'omop2pxf';
+    $self->{method}     = 'omop2bff';
+    $self->{omop_cli}   = 1;
+
+    return omop2bff($self);
 }
 
 ###############
@@ -624,12 +517,10 @@ sub cdisc2bff {
         }
     );
 
-    # Load data in $self
-    $self->{data}              = $data;                 # Dynamically adding attributes (setter)
-    $self->{data_redcap_dict}  = $data_redcap_dict;     # Dynamically adding attributes (setter)
-    $self->{data_mapping_file} = $data_mapping_file;    # Dynamically adding attributes (setter)
+    $self->{data}              = $data;
+    $self->{data_redcap_dict}  = $data_redcap_dict;
+    $self->{data_mapping_file} = $data_mapping_file;
 
-    # array_dispatcher will deal with JSON arrays
     return $self->array_dispatcher;
 }
 
@@ -642,16 +533,13 @@ sub cdisc2bff {
 sub cdisc2pxf {
     my $self = shift;
 
-    # First iteration: cdisc2bff
-    $self->{method} = 'cdisc2bff';    # setter - we have to change the value of attr {method}
-    my $bff = cdisc2bff($self);       # array
+    $self->{method} = 'cdisc2bff';
+    my $bff = cdisc2bff($self);
 
-    # Preparing for second iteration: bff2pxf
-    $self->{method}      = 'bff2pxf';    # setter
-    $self->{data}        = $bff;         # setter
-    $self->{in_textfile} = 0;            # setter
+    $self->{method}      = 'bff2pxf';
+    $self->{data}        = $bff;
+    $self->{in_textfile} = 0;
 
-    # Run second iteration
     return $self->array_dispatcher;
 }
 
@@ -664,16 +552,13 @@ sub cdisc2pxf {
 sub cdisc2omop {
     my $self = shift;
 
-    # First iteration: cdisc2bff
-    $self->{method} = 'cdisc2bff';    # setter - we have to change the value of attr {method}
-    my $bff = cdisc2bff($self);       # array
+    $self->{method} = 'cdisc2bff';
+    my $bff = cdisc2bff($self);
 
-    # Preparing for second iteration: bff2pxf
-    $self->{method}      = 'bff2omop';    # setter
-    $self->{data}        = $bff;          # setter
-    $self->{in_textfile} = 0;             # setter
+    $self->{method}      = 'bff2omop';
+    $self->{data}        = $bff;
+    $self->{in_textfile} = 0;
 
-    # Run second iteration
     return merge_omop_tables( $self->array_dispatcher );
 }
 
@@ -685,8 +570,6 @@ sub cdisc2omop {
 
 sub pxf2bff {
     my $self = shift;
-
-    # <array_dispatcher> will deal with JSON arrays
     return $self->array_dispatcher;
 }
 
@@ -699,18 +582,14 @@ sub pxf2bff {
 sub pxf2omop {
     my $self = shift;
 
-    # First iteration: pxf2bff
-    $self->{method} = 'pxf2bff';    # setter - we have to change the value of attr {method}
-    my $bff = pxf2bff($self);       # array
+    $self->{method} = 'pxf2bff';
+    my $bff = pxf2bff($self);
 
-    # Preparing for second iteration: bff2pxf
-    $self->{method}      = 'bff2omop';    # setter
-    $self->{data}        = $bff;          # setter
-    $self->{in_textfile} = 0;             # setter
+    $self->{method}      = 'bff2omop';
+    $self->{data}        = $bff;
+    $self->{in_textfile} = 0;
 
-    # Run second iteration
     return merge_omop_tables( $self->array_dispatcher );
-
 }
 
 #############
@@ -722,10 +601,8 @@ sub pxf2omop {
 sub csv2bff {
     my $self = shift;
 
-    # Read and load data from CSV
     my $data = read_csv( { in => $self->{in_file}, sep => $self->{sep} } );
 
-    # Read and load mapping file
     my $data_mapping_file = read_mapping_file(
         {
             mapping_file         => $self->{mapping_file},
@@ -734,13 +611,11 @@ sub csv2bff {
         }
     );
 
-    # Load data in $self
-    $self->{data}              = $data;                  # Dynamically adding attributes (setter)
-    $self->{data_mapping_file} = $data_mapping_file;     # Dynamically adding attributes (setter)
-    $self->{metaData}          = get_metaData($self);    # Dynamically adding attributes (setter)
-    $self->{convertPheno}      = get_info($self);        # Dynamically adding attributes (setter)
+    $self->{data}              = $data;
+    $self->{data_mapping_file} = $data_mapping_file;
+    $self->{metaData}          = get_metaData($self);
+    $self->{convertPheno}      = get_info($self);
 
-    # array_dispatcher will deal with JSON arrays
     return $self->array_dispatcher;
 }
 
@@ -753,18 +628,14 @@ sub csv2bff {
 sub csv2pxf {
     my $self = shift;
 
-    # First iteration: csv2bff
-    $self->{method} = 'csv2bff';    # setter - we have to change the value of attr {method}
-    my $bff = csv2bff($self);       # array
+    $self->{method} = 'csv2bff';
+    my $bff = csv2bff($self);
 
-    # Preparing for second iteration: bff2pxf
-    $self->{method}      = 'bff2pxf';    # setter
-    $self->{data}        = $bff;         # setter
-    $self->{in_textfile} = 0;            # setter
+    $self->{method}      = 'bff2pxf';
+    $self->{data}        = $bff;
+    $self->{in_textfile} = 0;
 
-    # Run second iteration
     return $self->array_dispatcher;
-
 }
 
 ##############
@@ -776,18 +647,14 @@ sub csv2pxf {
 sub csv2omop {
     my $self = shift;
 
-    # First iteration: csv2bff
-    $self->{method} = 'csv2bff';    # setter - we have to change the value of attr {method}
-    my $bff = csv2bff($self);       # array
+    $self->{method} = 'csv2bff';
+    my $bff = csv2bff($self);
 
-    # Preparing for second iteration: bff2pxf
-    $self->{method}      = 'bff2omop';    # setter
-    $self->{data}        = $bff;          # setter
-    $self->{in_textfile} = 0;             # setter
+    $self->{method}      = 'bff2omop';
+    $self->{data}        = $bff;
+    $self->{in_textfile} = 0;
 
-    # Run second iteration
     return merge_omop_tables( $self->array_dispatcher );
-
 }
 
 #############
@@ -798,21 +665,17 @@ sub csv2omop {
 
 sub pxf2csv {
     my $self = shift;
-
-    # <array_dispatcher> will deal with JSON arrays
     return $self->array_dispatcher;
 }
 
 #############
 #############
-# PXFJSONF #
+# PXFJSONF  #
 #############
 #############
 
 sub pxf2jsonf {
     my $self = shift;
-
-    # <array_dispatcher> will deal with JSON arrays
     return $self->array_dispatcher;
 }
 
@@ -824,8 +687,6 @@ sub pxf2jsonf {
 
 sub pxf2jsonld {
     my $self = shift;
-
-    # <array_dispatcher> will deal with JSON arrays
     return $self->array_dispatcher;
 }
 
@@ -835,17 +696,27 @@ sub pxf2jsonld {
 #################
 #################
 
+sub _dispatcher_input_data {
+    my ($self) = @_;
+    return ( $self->{in_textfile} && $self->{method} !~ m/^(redcap2|omop2|cdisc2|csv)/ )
+      ? io_yaml_or_json( { filepath => $self->{in_file}, mode => 'read' } )
+      : $self->{data};
+}
+
+sub _dispatcher_open_stream_out {
+    my ($self) = @_;
+    return unless ( $self->{method} eq 'omop2bff' && $self->{omop_cli} );
+
+    my $fh = open_filehandle( $self->{out_file}, 'a' );
+    say $fh "[";
+    return { fh => $fh, first => 1 };
+}
+
 sub array_dispatcher {
     my $self = shift;
 
-    # Load the input data as Perl data structure
-    my $in_data =
-      (      $self->{in_textfile}
-          && $self->{method} !~ m/^(redcap2|omop2|cdisc2|csv)/ )
-      ? io_yaml_or_json( { filepath => $self->{in_file}, mode => 'read' } )
-      : $self->{data};
+    my $in_data = _dispatcher_input_data($self);
 
-    # Define the methods to call (naming 'func' to avoid confussion with $self->{method})
     my %func = (
         redcap2bff => \&do_redcap2bff,
         cdisc2bff  => \&do_cdisc2bff,
@@ -854,152 +725,131 @@ sub array_dispatcher {
         csv2pxf    => \&do_csv2pxf,
         bff2pxf    => \&do_bff2pxf,
         bff2csv    => \&do_bff2csv,
-        bff2jsonf  => \&do_bff2csv,      # Not a typo, is the same as above
+        bff2jsonf  => \&do_bff2csv,
         bff2jsonld => \&do_bff2jsonld,
         bff2omop   => \&do_bff2omop,
         pxf2bff    => \&do_pxf2bff,
         pxf2csv    => \&do_pxf2csv,
-        pxf2jsonf  => \&do_pxf2csv,      # Not a typo, is the same as above
-        pxf2jsonld => \&do_pxf2jsonld
+        pxf2jsonf  => \&do_pxf2csv,
+        pxf2jsonld => \&do_pxf2jsonld,
     );
 
-    # Open connection to SQLlite databases ONCE
     open_connections_SQLite($self) if $self->{method} ne 'bff2pxf';
 
-    # Open filehandle if omop2bff (w/ CLI)
-    my $fh_out;
-    if ( $self->{method} eq 'omop2bff' && $self->{omop_cli} ) {
-        $fh_out = open_filehandle( $self->{out_file}, 'a' );
-        say $fh_out "[";
-    }
+    my $json   = JSON::XS->new->canonical->pretty;
+    my $stream = _dispatcher_open_stream_out($self);
 
-    # *** IMPORTANT ***
-    # $out_data = Caution with RAM
-    # We store all in memory and serialize externally
-    # except for omop2bff (larger) that we print to file here (item-by-item)
-    my $out_data;
+    my $out_data;  # IMPORTANT: can be ARRAYREF or scalar, matching old behavior
 
-    # Proceed depending if we have an ARRAY or not
-    if ( ref $in_data eq ref [] ) {
+    my $emit_array_item = sub {
+        my ($obj) = @_;
+        return unless $obj;
 
-        # Print if we have ARRAY
+        if ($stream) {
+            print { $stream->{fh} } ",\n" unless $stream->{first};
+            _transform_item($self, $obj, $stream->{fh}, 1, $json);
+            $stream->{first} = 0;
+            return;
+        }
+
+        push @{ $out_data }, $obj;
+    };
+
+    if (ref($in_data) eq 'ARRAY') {
         say "$self->{method}: ARRAY" if $self->{debug};
 
-        # Initialize needed variables
-        my $count    = 0;
-        my $total    = 0;
-        my $elements = scalar @{$in_data};
+        $out_data = [];  # array mode returns arrayref (as before)
 
-        # Start looping
-        while ( my $item = shift @{$in_data} ) {    # We want to keep order (!pop)
-            $count++;
+        my $total    = 0;
+        my $elements = scalar @$in_data;
+
+        for (my $i = 0; $i < $elements; $i++) {
+            my $count = $i + 1;
+            my $item  = $in_data->[$i];
+
             say "[$count] ARRAY ELEMENT from $elements" if $self->{debug};
 
-            # NB: If we get "null" participants the validator will complain
-            # about not having "id" or any other required property
-            my $method_result = $func{ $self->{method} }->( $self, $item );
-
-            # Only proceeding if we got value from method
-            if ($method_result) {
+            my $res = $func{ $self->{method} }->($self, $item);
+            if ($res) {
                 $total++;
                 say " * [$count] ARRAY ELEMENT is defined" if $self->{debug};
+                $emit_array_item->($res);
 
-                # For omop2bff (or omop2pxf) in CLI mode, we serialize by individual
-                if ( exists $self->{omop_cli} && $self->{omop_cli} ) {
-
-                    # Check if it's the last item, so we don't add a trailing comma
-                    my $is_last_item =
-                      (      $total == $elements
-                          || $total == $self->{max_lines_sql} );
-                    _transform_item( $self, $method_result, $fh_out,
-                        $is_last_item );
-                }
-                else {
-                    # For the other transformations we accumulate in memory
-                    push @{$out_data}, $method_result;
-                }
+                last if ( $self->{method} eq 'omop2bff'
+                       && $self->{max_lines_sql}
+                       && $total >= $self->{max_lines_sql} );
             }
         }
+
+        @$in_data = ();  # preserve old side effect
 
         say "==============\nIndividuals total:     $total\n"
           if ( $self->{verbose} && $self->{method} eq 'omop2bff' );
     }
-
-    # NOT ARRAY
     else {
         say "$self->{method}: NOT ARRAY" if $self->{debug};
-        my $method_result = $func{ $self->{method} }->( $self, $in_data );
 
-        # For omop2bff in CLI mode, we print to file instead of returning
-        if ( $method_result && $self->{omop_cli} ) {
+        my $res = $func{ $self->{method} }->($self, $in_data);
 
-            # Only one item, so it's definitely the last
-            _transform_item( $self, $method_result, $fh_out, 1 );
+        if ($stream) {
+            # stream mode expects array output; a single object is one element in array
+            if ($res) {
+                _transform_item($self, $res, $stream->{fh}, 1, $json);
+                $stream->{first} = 0;
+            }
+            $out_data = 1;  # keep your old "return 1" semantics in streaming after closing
         }
         else {
-            $out_data = $method_result;
+            # scalar mode returns scalar (HASHREF), matching old behavior
+            $out_data = $res;
         }
     }
 
-    # Close connections ONCE
     close_connections_SQLite($self) unless $self->{method} eq 'bff2pxf';
 
-    # Close filehandle if omop2bff (w/ CLI)
-    if ( exists $self->{omop_cli} && $self->{omop_cli} ) {
-        say $fh_out "\n]";
-        close $fh_out;
+    if ($stream) {
+        say { $stream->{fh} } "\n]";
+        close $stream->{fh};
         return 1;
     }
 
-    # Return data
     return $out_data;
 }
 
-#
-# Helper sub to handle per-item encoding or conversion, plus optional trailing comma
-#
 sub _transform_item {
-    my ( $self, $method_result, $fh_out, $is_last_item ) = @_;
+    my ( $self, $method_result, $fh_out, $is_last_item, $json ) = @_;
 
-    # For omop2bff or omop2pxf we do specialized serialization logic
+    $json ||= JSON::XS->new->canonical->pretty;
+
     my $out;
 
-    # omop2pxf scenario
     if ( $self->{method_ori} && $self->{method_ori} eq 'omop2pxf' ) {
         my $pxf = do_bff2pxf( $self, $method_result );
-        $out = JSON::XS->new->canonical->pretty->encode($pxf);
+        $out = $json->encode($pxf);
     }
-
-    # Default scenario
     else {
-        $out = JSON::XS->new->canonical->pretty->encode($method_result);
+        $out = $json->encode($method_result);
     }
 
     chomp $out;
     print $fh_out $out;
 
-    # Avoid trailing comma on the very last item
-    print $fh_out ",\n" unless $is_last_item;
+    return 1;
 }
 
 sub omop_dispatcher {
-    my ( $self, $method_result ) = @_;
+    my ( $self, $method_result, $json ) = @_;
 
-    # For omop2bff and omop2pxf we serialize by individual
+    $json ||= JSON::XS->new->canonical->pretty;
+
     my $out;
 
-    # omop2bff encode directly
     if ( $self->{method_ori} ne 'omop2pxf' ) {
-
-        # Watch out!! Don't double encode by using utf8 here. $fh is already utf-8!!!
-        #out = JSON::XS->new->utf8->canonical->pretty->encode($method_result);
-        $out = JSON::XS->new->canonical->pretty->encode($method_result);
+        $out = $json->encode($method_result);
     }
-
-    # omop2pxf convert to PXF
     else {
         my $pxf = do_bff2pxf( $self, $method_result );
-        $out = JSON::XS->new->canonical->pretty->encode($pxf);
+        $out = $json->encode($pxf);
     }
     chomp $out;
     return \$out;
@@ -1012,13 +862,11 @@ sub omop_stream_dispatcher {
     my $filepaths   = $arg->{filepaths};
     my $omop_tables = $self->{prev_omop_tables};
 
-    # Open a SQLite database connection if required
     open_connections_SQLite($self) if $self->{method} ne 'bff2pxf';
 
-    # Process files based on the input type (CSV or PostgreSQL dump)
     return @$filepaths
       ? process_csv_files_stream( $self, $filepaths )
-      : process_sqldump_stream( $self, $filepath, $omop_tables, $self );
+      : process_sqldump_stream( $self, $filepath, $omop_tables );
 }
 
 sub process_csv_files_stream {
@@ -1042,24 +890,28 @@ sub process_sqldump_stream {
     my ( $self, $filepath, $omop_tables ) = @_;
     my $person = $self->{person};
 
-    # *** IMPORTANT ***
-    # We proceed as we do with CSV, opening the file for every table
-    # With PosgtreSQL.dumps gzipped the overhead means 2x time.
     for my $table (@$omop_tables) {
         next if any { $_ eq $table } @stream_ram_memory_tables;
         say "Processing table <$table> line-by-line..." if $self->{verbose};
-        $self->{omop_tables} = [$table];
-        read_sqldump_stream(
-            { in => $filepath, self => $self, person => $person } );
+
+        _with_temp_self_field(
+            $self,
+            'omop_tables',
+            [$table],
+            sub {
+                read_sqldump_stream(
+                    { in => $filepath, self => $self, person => $person }
+                );
+                return 1;
+            }
+        );
     }
     return 1;
 }
 
 sub omop2bff_stream_processing {
     my ( $self, $data ) = @_;
-
-    # We have this subroutine here because the class was initiated in Pheno.pm
-    return do_omop2bff( $self, $data );    # Method
+    return do_omop2bff( $self, $data );
 }
 
 sub Dumper_concise {
@@ -1080,7 +932,7 @@ sub Dumper_concise {
 =head1 NAME
 
 Convert::Pheno - A module to interconvert common data models for phenotypic data
-  
+
 =head1 SYNOPSIS
 
  use Convert::Pheno;
