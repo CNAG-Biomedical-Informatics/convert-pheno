@@ -73,10 +73,22 @@ sub do_bff2pxf {
 # =========
 # exposures
 # =========
-# Can't be mapped as Sept-2023 from pxf-tools
-# Message type "org.phenopackets.schema.v2.Phenopacket" has no field named "exposures" at "Phenopacket".
-#  Available Fields(except extensions): "['id', 'subject', 'phenotypicFeatures', 'measurements', 'biosamples', 'interpretations', 'diseases', 'medicalActions', 'files', 'metaData']" at line 22
+
+# Phenopackets v2 does not define an "exposures" field in the Phenopacket schema.
 #
+# Sept 2023 -> pxf-tools error:
+#   Message type "org.phenopackets.schema.v2.Phenopacket" has no field named "exposures".
+#   Available fields: ['id', 'subject', 'phenotypicFeatures', 'measurements', 'biosamples',
+#                      'interpretations', 'diseases', 'medicalActions', 'files', 'metaData']
+#
+# Explanation provided by @gsfk (issue #4): Exposure was proposed for v2 but not
+# adopted and later removed (ga4gh/phenopacket-schema@cb8bf58). Some documentation
+# still incorrectly lists it.
+#
+# Do not map exposures; this block is legacy.
+# Tracking: https://github.com/CNAG-Biomedical-Informatics/convert-pheno/issues/4
+# Observed Sept 2023; reconfirmed Feb 2026
+
 #   $pxf->{exposures} =
 #
 #      [
