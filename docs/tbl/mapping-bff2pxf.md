@@ -60,9 +60,3 @@ NA
 |  BFF JSON path                                              | PXF JSON path                                               |
 |  :---:                                                      | :---:                                                       |
 |  info.metaData                                              | metaData                                                    |
-
-## exposures (not-listed in PXF documentation)
-|  BFF JSON path                                              | PXF JSON path                                               |
-|  :---:                                                      | :---:                                                       |
-|  exposures.exposureCode                                     | exposures.type                                              |
-|  exposures.date                                             | exposures.occurrence.timestamp                              |

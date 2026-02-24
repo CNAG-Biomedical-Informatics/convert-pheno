@@ -13,13 +13,6 @@
 ## ethnicity
 NA
 
-## exposures
-|  PXF JSON path                                              | BFF JSON path                                               |
-|  :---:                                                      | :---:                                                       |
-|  exposures                                                  | exposures                                                   |
-|  exposures.type                                             | exposures.exposureCode                                      |
-|  exposures.occurrence.timestamp                             | exposures.date                                              |
-
 ## geographicOrigin
 NA
 
