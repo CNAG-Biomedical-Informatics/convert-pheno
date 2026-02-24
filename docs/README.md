@@ -18,4 +18,4 @@ Welcome to the documentation for **Convert-Pheno**!
 !!! Bug "Disclaimer"
     This software is fully functional but still in **beta**, with ongoing improvements based on feedback from its use in several European-funded projects.
 
-This [documentation](https://cnag-biomedical-informatics.github.io/convert-pheno) provides instructions and guidelines for installing and using a software tool specifically designed for converting standard phenotypic data models. It includes detailed explanations and instructions to ensure that the software is implemented properly and functions optimally.
+This [documentation](https://cnag-biomedical-informatics.github.io/convert-pheno) describes **convert-pheno**, a tool for converting phenotypic data between standard formats like PXF, BFF, OMOP, and REDCap. It includes installation instructions, usage examples, and API references.
