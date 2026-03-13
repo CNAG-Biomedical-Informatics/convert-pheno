@@ -1,5 +1,5 @@
 !!! Warning "Experimental"
-    REDCap conversion is still experimental. Please us it with caution.
+    REDCap conversion is still experimental. Please use it with caution.
 
 **REDCap** stands for **R**esearch **E**lectronic **D**ata **Cap**ture. REDCap [documentation](https://www.project-redcap.org).
 
@@ -18,7 +18,7 @@ Due to the flexibility of REDCap projects, it can be challenging to develop a so
 === "Command-line"
 
     ??? Tip "About REDCap export formats"
-        REDCap provides various options for exporting data. We accept the option "All data (all records and fields)" including CSV and Microsoft Excel format, along with a accompanying data dictionary in CSV format. Exportation in REDCap CDISC ODM (XML) format is discussed in the section on [CDISC-ODM](cdisc-odm.md).
+        REDCap provides various options for exporting data. We accept the option "All data (all records and fields)" including CSV and Microsoft Excel format, along with an accompanying data dictionary in CSV format. Exportation in REDCap CDISC ODM (XML) format is discussed in the section on [CDISC-ODM](cdisc-odm.md).
 
     We'll need three files:
 

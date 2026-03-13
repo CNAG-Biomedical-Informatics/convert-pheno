@@ -10,7 +10,7 @@
 This page provides brief tutorials on how to perform data conversion by using `Convert-Pheno`**command-line interface**.
 
 ??? Info "Note on installation"
-    Before proceeding, ensure that the software is properly installed. In the following instructions, it will be assumed that you have downloaded and installed [Convert-Pheno](./download-and-installation.md).
+    Before proceeding, ensure that the software is properly installed. In the following instructions, it will be assumed that you have downloaded and installed [Convert-Pheno](download-and-installation.md).
 
 ### How to convert:
 

@@ -13,7 +13,7 @@ We provide several alternatives (containerized and non-containerized) for downlo
 
 ???+ Question "Which download method should I use?"
  
-    It depends in which components you want to use and your fluency in performing Docker-based installations. Most people use the [CLI](use-as-a-command-line-interface.md).
+    It depends in which components you want to use and your familiarity with performing Docker-based installations. Most people use the [CLI](use-as-a-command-line-interface.md).
 
     | Use case | Method  |
     | --  | -- |
@@ -35,7 +35,7 @@ We provide several alternatives (containerized and non-containerized) for downlo
 
     !!! Warning "Linux: Required system-level libraries"
 
-        Before procesing with installation, we will need to install a few system level dependencies:
+        Before processing with installation, we will need to install a few system level dependencies:
 
         * `libbz2-dev:` This is the development library for bzip2, which is used for data compression.
 
@@ -45,7 +45,7 @@ We provide several alternatives (containerized and non-containerized) for downlo
 
         * `libssl-dev:` This package is part of OpenSSL, which provides secure socket layer (SSL) capabilities. For SSL/TLS related tasks in Perl, you can use modules such as IO::Socket::SSL or Net::SSLeay, but these modules also require OpenSSL to be installed on the system.
 
-    To install it, plese see this [README](usage.md#method-1-from-cpan).
+    To install it, please see this [README](usage.md#method-1-from-cpan).
 
 === "Method 2: From CPAN in a **Conda** environment"
 
@@ -80,7 +80,7 @@ We provide several alternatives (containerized and non-containerized) for downlo
     
     Once you have Conda installed, set up the channels. Bioconda depends on the `conda-forge` and `defaults` channel.
     
-    Add bioconda channels with the following command:
+    Add Bioconda channels with the following command:
     
     ```bash
     conda config --add channels bioconda
