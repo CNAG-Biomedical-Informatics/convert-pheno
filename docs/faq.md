@@ -6,13 +6,11 @@ Frequently Asked Questions
 
     `Convert-Pheno` is an open-source software toolkit designed to **interconvert common data models for phenotypic data**. The software addresses the challenge of inconsistent data storage across various research centers by enabling seamless conversion between different data models like **Beacon v2 Models, CDISC-ODM, OMOP-CDM, Phenopackets v2, and REDCap**. This facilitates data sharing and integration, ultimately accelerating scientific progress and improving patient outcomes in precision medicine and public health.
 
-    ##### last change 2023-01-05 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
 ??? faq "Is `Convert-Pheno` free?"
 
     Yes. See the [license](https://github.com/mrueda/convert-pheno/blob/main/LICENSE).
 
-    ##### last change 2023-01-04 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
 ??? faq "Is `Convert-Pheno` or `Pheno-Convert`?"
 
@@ -21,12 +19,10 @@ Frequently Asked Questions
     1. The naming is inspired by the `convert` utility from [ImageMagick](https://imagemagick.org).
     2. In related contexts, people refer to *PhenoConvert* as in [PhenoCopy](https://en.wikipedia.org/wiki/Phenocopy) or [PhenoConversion](https://www.universiteitleiden.nl/en/research/research-projects/science/phenoconversion).
 
-    ##### last change 2023-01-05 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
 ??? faq "Is `Convert-Pheno` ready for use in production environments?"
     The software is fully functional and has been successfully used in several European-funded projects. However, it is still in beta, so ongoing improvements and refinements are to be expected.
 
-    ##### last change 2023-06-27 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
 ??? faq "If I use `Convert-Pheno` to convert my data to [Beacon v2 Models](bff.md), does this mean I have a Beacon v2?"
 
@@ -39,13 +35,11 @@ Frequently Asked Questions
       <figcaption>Beacon v2 RI integration</figcaption>
     </figure>
 
-    ##### last change 2023-06-20 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
 ??? faq "What is the difference between Beacon v2 Models and Beacon v2?"
 
     **Beacon v2** is a specification to build an [API](https://docs.genomebeacons.org). The [Beacon v2 Models](https://docs.genomebeacons.org/models/) define the format for the API's responses to queries regarding biological data. With the help of `Convert-Pheno`, data exchange text files ([BFF](bff.md)) that align with this response format can be generated. By doing so, the BFF files can be integrated into a non-SQL database, such as MongoDB, without the API having to perform any additional data transformations internally.
 
-    ##### last change 2023-02-13 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
 ??? faq "Why are there so many clinical data standards?"
 
@@ -64,13 +58,11 @@ Frequently Asked Questions
     | **Phenopackets v2**| Standardizes the exchange of detailed phenotypic data, particularly for genetic and rare disease research. | Not designed for long-term storage; focuses on data exchange.   | No                                 | Yes                                     |
     | **REDCap**         | Provides a secure, web-based application for building and managing online surveys and databases, primarily used in research settings. | Supports data persistence for research projects and surveys.    | No                                 | Yes                                     |
 
-    ##### last change 2024-07-12 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
 ??? faq "Are you planning in supporting other clinical data formats?"
 
     Afirmative, but it will depend on community adoption. Please check our [roadmap](future-plans.md) for more information.
 
-    ##### last change 2023-01-04 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
 ??? faq "Are longitudinal data supported?"
 
@@ -82,13 +74,11 @@ Frequently Asked Questions
 
     We raised this issue to the respective communities in the hope of a more permanent solution.
 
-    ##### last change 2023-03-24 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
 ??? faq "What is an "ontology" in Beacon v2 and Phenopacket v2 context?"
 
     In the context of Phenopackets and Beacon v2, the terms [ontologyClass](https://phenopacket-schema.readthedocs.io/en/latest/ontologyclass.html) and [ontologyTerm](https://github.com/ga4gh-beacon/beacon-v2/blob/main/framework/src/common/ontologyTerm.yaml) denote standardized identifiers derived from ontologies such as [HPO](https://en.wikipedia.org/wiki/Human_Phenotype_Ontology) or [NCIt](https://ncithesaurus.nci.nih.gov/ncitbrowser/), and terminologies like [LOINC](https://en.wikipedia.org/wiki/LOINC) or [RxNorm](https://en.wikipedia.org/wiki/RxNorm). The use of "ontology" here is broad, covering both actual ontologies—with their complex semantic relationships and inference abilities—and classifications like LOINC and RxNorm, which, despite not fitting the strict definition of an ontology, serve similar purposes in data standardization.
 
-    ##### last change 2024-04-01 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
 ??? faq "I have a collection of PXF files encoded using HPO and ICD-10 terms, and I need to convert them to BFF format, but encoded in OMIM and SNOMED-CT terminologies. Can you assist me with this?"
 
@@ -99,20 +89,17 @@ Frequently Asked Questions
     !!! Abstract "Nota Bene:"
         A standard that does enforce the use of an **standardized vocabulary** is [OMOP CDM](omop-cdm.md), you may wanna check it out.
 
-    ##### last change 2024-01-16 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
 
 ??? faq "What type of data validation is carried out?"
 
     --8<-- "md/data-validation.md"
 
-    ##### last change 2025-09-26 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
 ??? faq "What type of **database search** is carried out?"
 
     --8<-- "tbl/db-search.md"
 
-    ##### last change 2025-04-10 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
 ??? faq "Error Handling for `CSV_XS ERROR: 2023 - EIQ - QUO character not allowed @ rec 1 pos 21 field 1`"
 
@@ -129,7 +116,6 @@ Frequently Asked Questions
     --sep $'\t'
     ```
 
-    ##### last change 2024-02-06 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
 ??? faq "Should I export my REDCap project as _raw data_ or as _labels_ for use with `Convert-Pheno`?"
 
@@ -149,7 +135,6 @@ Frequently Asked Questions
 
     If your data has been exported as **CSV / Microsoft Excel (labels)** you can use follow the [CSV input](csv.md) route.
 
-    ##### last change 2024-05-18 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
 
 ## Analytics
@@ -324,32 +309,27 @@ Frequently Asked Questions
 
         For plotting, we recommend using one of Pheno-Ranker's [utilities](https://cnag-biomedical-informatics.github.io/pheno-ranker/bff-pxf-plot).
 
-    ##### last change 2024-01-17 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
 ??? faq "How can I compare all individuals in one or multiple cohorts?"
 
     We recommend using [Pheno-Ranker](https://cnag-biomedical-informatics.github.io/pheno-ranker) in [cohort mode](https://cnag-biomedical-informatics.github.io/pheno-ranker/cohort/).    
 
-    ##### last change 2024-01-17 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
 ??? faq "How can I match patients similar to mine in a cohort(s)?"
 
     We recommend using [Pheno-Ranker](https://cnag-biomedical-informatics.github.io/pheno-ranker) in [patient mode](https://cnag-biomedical-informatics.github.io/pheno-ranker/patient/).
 
-    ##### last change 2024-01-17 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
 
 ??? faq "How can I create synthetic data in BFF or PXF data exchange formats?""
 
     We recommend using one of Pheno-Ranker's [utilities](https://cnag-biomedical-informatics.github.io/pheno-ranker/bff-pxf-simulator).
 
-    ##### last change 2024-01-17 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
 ??? faq "How can I convert my BFF/PXF data into Machine Learning features?"
 
     We recommend using [Pheno-Ranker](https://cnag-biomedical-informatics.github.io/pheno-ranker/) that performs `one-hot` encoding while preserving the hierarchical relationships of the JSON data.
 
-    ##### last change 2024-01-17 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)
 
 
 ## Installation
@@ -364,4 +344,3 @@ Frequently Asked Questions
         `sudo apt-get install cython3 libperl-dev`
 
 
-    ##### last change 2023-01-04 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)

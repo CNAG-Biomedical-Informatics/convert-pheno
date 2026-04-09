@@ -4,7 +4,7 @@
 #
 #   This file is part of Convert::Pheno
 #
-#   Last Modified: May/10/2024
+#   Last Modified: Apr/09/2024
 #
 #   $VERSION taken from Convert::Pheno
 #
@@ -446,7 +446,7 @@ sub program_header {
 *  Phenotypic Data Model Convert Tool  *
 *          - CONVERT-PHENO -           *
 *            Version: $version             *
-*   (C) 2022-2025 Manuel Rueda, CNAG   *
+*   (C) 2022-2026 Manuel Rueda, CNAG   *
 *       The Artistic License 2.0       *
 ****************************************
 EOF
