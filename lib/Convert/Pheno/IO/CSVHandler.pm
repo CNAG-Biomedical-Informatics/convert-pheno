@@ -740,8 +740,9 @@ sub open_filehandle {
     my $fh;
     if ( $filepath =~ /\.gz$/ ) {
         if ( $mode eq 'a' || $mode eq 'w' ) {
-            $fh = IO::Compress::Gzip->new( $filepath,
-                Append => ( $mode eq 'a' ? 1 : 0 ) );
+            my %gzip_args;
+            $gzip_args{Append} = 1 if ( $mode eq 'a' && -e $filepath );
+            $fh = IO::Compress::Gzip->new( $filepath, %gzip_args );
         }
         else {
             $fh = IO::Uncompress::Gunzip->new( $filepath, MultiStream => 1 );

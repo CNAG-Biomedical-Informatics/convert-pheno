@@ -13,7 +13,8 @@ The operation is simple:
       <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
     </a>
 
-Please see more examples in this [README](https://github.com/cnag-biomedical-informatics/convert-pheno#synopsis).
+Please see more examples in the [Usage](usage.md) page.
+For installation details, see [Download & Installation](download-and-installation.md).
 
 ???+ Note "Inspiration"
     The command line operation was inspired by `convert` tool from [ImageMagick](https://imagemagick.org/script/convert.php) and from [OpenBabel](https://openbabel.org/wiki/Main_Page).

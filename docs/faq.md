@@ -354,7 +354,7 @@ Frequently Asked Questions
 
 ## Installation
 
-??? faq "I am installing `Convert-Pheno` from source ([non-containerized version](https://github.com/cnag-biomedical-informatics/convert-pheno#non-containerized)) but I can't make it work. Any suggestions?"
+??? faq "I am installing `Convert-Pheno` from source ([non-containerized version](download-and-installation.md#non-containerized)) but I can't make it work. Any suggestions?"
 
     #### Problems with Python / PyPerler
 

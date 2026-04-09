@@ -7,6 +7,13 @@ use Test::More;
 use Test::Exception;
 use File::Temp qw(tempfile);
 use Convert::Pheno;
+use Convert::Pheno::Runner qw(resolve_operation execute_operation);
+
+my $orig_warn_handler = $SIG{__WARN__};
+local $SIG{__WARN__} = sub {
+    return if $_[0] =~ /^Subroutine .* redefined /;
+    return $orig_warn_handler ? $orig_warn_handler->(@_) : warn @_;
+};
 
 {
     no warnings 'redefine';
@@ -127,6 +134,31 @@ use Convert::Pheno;
     $convert->{method_ori} = 'omop2bff';
     $out_ref = Convert::Pheno::omop_dispatcher( $convert, { direct => 1 }, $json );
     like( $$out_ref, qr/direct/, 'omop_dispatcher encodes original result otherwise' );
+}
+
+{
+    no warnings 'redefine';
+
+    my $convert = Convert::Pheno->new( { method => 'omop2bff' } );
+    my $op = resolve_operation($convert);
+    is( $op->{type}, 'bundle', 'runner resolves omop2bff as a bundle operation' );
+    is( $op->{entity}, 'individuals', 'runner resolves omop2bff bundle entity' );
+
+    local *Convert::Pheno::OMOP::run_omop_to_bundle = sub {
+        my ( $self, $input, $context ) = @_;
+        my $bundle = Convert::Pheno::Model::Bundle->new( { entities => ['individuals'] } );
+        $bundle->add_entity( individuals => { id => $input->{id} } );
+        return $bundle;
+    };
+
+    my $res = execute_operation( $convert, $op, { id => 'bundle-1' } );
+    is_deeply( $res, { id => 'bundle-1' }, 'runner unwraps bundle operations to legacy output' );
+}
+
+{
+    my $convert = Convert::Pheno->new( { method => 'bff2csv' } );
+    my $op = resolve_operation($convert);
+    is( $op->{type}, 'legacy', 'runner resolves bff2csv as a legacy operation' );
 }
 
 done_testing();

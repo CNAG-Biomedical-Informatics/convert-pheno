@@ -10,6 +10,7 @@ use File::Path qw(mkpath remove_tree);
 use File::Spec;
 use File::Temp qw(tempfile);
 use FindBin qw($Bin);
+use IO::Uncompress::Gunzip;
 use JSON::XS qw(decode_json);
 use Text::CSV_XS;
 use lib qw(./lib ../lib);
@@ -36,6 +37,7 @@ our @EXPORT_OK = qw(
   ensure_clean_dir
   remove_dir_if_exists
   csv_files_match
+  gunzip_file_content
 );
 
 sub build_convert {
@@ -187,6 +189,15 @@ sub remove_dir_if_exists {
 sub csv_files_match {
     my ( $expected, $got ) = @_;
     return compare( $expected, $got ) == 0 ? 1 : 0;
+}
+
+sub gunzip_file_content {
+    my ($file) = @_;
+    my $z = IO::Uncompress::Gunzip->new($file)
+      or die "Cannot gunzip '$file': $IO::Uncompress::Gunzip::GunzipError";
+    my $content = do { local $/; <$z> };
+    $z->close();
+    return $content;
 }
 
 1;

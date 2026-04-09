@@ -1,0 +1,17 @@
+[
+  {
+    "subject": {
+      "id": "subject-1",
+      "sex": "MALE"
+    },
+    "biosamples": [
+      {
+        "id": "bio-1"
+      },
+      {
+        "id": "bio-2",
+        "individualId": "subject-1"
+      }
+    ]
+  }
+]

@@ -5,10 +5,12 @@ use warnings;
 use autodie;
 use feature qw(say);
 use Data::Dumper;
+use Convert::Pheno::Context;
+use Convert::Pheno::Model::Bundle;
 use Convert::Pheno::Utils::Default qw(get_defaults);
 use Convert::Pheno::Utils::Mapping;
 use Exporter 'import';
-our @EXPORT = qw(do_pxf2bff);
+our @EXPORT = qw(do_pxf2bff run_pxf_to_bundle);
 
 my $DEFAULT = get_defaults();
 
@@ -20,7 +22,29 @@ my $DEFAULT = get_defaults();
 
 sub do_pxf2bff {
     my ( $self, $data ) = @_;
+    my $bundle = run_pxf_to_bundle( $self, $data, $self->{conversion_context} );
+    return $bundle->legacy_primary_entity('individuals');
+}
+
+sub run_pxf_to_bundle {
+    my ( $self, $data, $context ) = @_;
     my $sth = $self->{sth};
+
+    $context ||= Convert::Pheno::Context->from_self(
+        $self,
+        {
+            source_format => 'pxf',
+            target_format => 'beacon',
+            entities      => $self->{entities} || ['individuals'],
+        }
+    );
+
+    my $bundle = Convert::Pheno::Model::Bundle->new(
+        {
+            context  => $context,
+            entities => $context->entities,
+        }
+    );
 
   # *** IMPORTANT ****
   # PXF three top-level elements are usually split in files:
@@ -146,8 +170,31 @@ sub do_pxf2bff {
     # END MAPPING TO BEACON V2 TERMS #
     ##################################
 
-    # print Dumper $individual;
-    return $individual;
+    $bundle->add_entity( individuals => $individual );
+    _add_biosamples_to_bundle( $bundle, $phenopacket, $individual->{id} )
+      if _context_requests_entity( $context, 'biosamples' );
+    return $bundle;
+}
+
+sub _context_requests_entity {
+    my ( $context, $entity ) = @_;
+    return scalar grep { $_ eq $entity } @{ $context->entities };
+}
+
+sub _add_biosamples_to_bundle {
+    my ( $bundle, $phenopacket, $individual_id ) = @_;
+    return 1
+      unless exists $phenopacket->{biosamples}
+      && ref( $phenopacket->{biosamples} ) eq 'ARRAY';
+
+    for my $biosample ( @{ $phenopacket->{biosamples} } ) {
+        my %copy = %{$biosample};
+        $copy{individualId} = $individual_id
+          if defined $individual_id && !exists $copy{individualId};
+        $bundle->add_entity( biosamples => \%copy );
+    }
+
+    return 1;
 }
 
 ################################################################################

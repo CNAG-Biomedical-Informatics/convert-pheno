@@ -91,11 +91,11 @@ sub open_db_SQLite {
 
 sub get_database_file_path {
     my ( $ontology, $path_to_ohdsi_db ) = @_;
-    my $filename = "$ontology.db";
+    my $filename = defined $ontology ? "$ontology.db" : '.db';
     my $path =
-      ( $ontology eq 'ohdsi' && defined $path_to_ohdsi_db )
+      ( defined $ontology && $ontology eq 'ohdsi' && defined $path_to_ohdsi_db )
       ? $path_to_ohdsi_db
-      : catdir( $Convert::Pheno::share_dir, 'db' );
+      : catdir( $Convert::Pheno::share_dir // q{}, 'db' );
     return catfile( $path, $filename );
 }
 

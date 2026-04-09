@@ -38,7 +38,7 @@ my $data = $convert->pxf2bff;
 
     Find [here](https://github.com/cnag-biomedical-informatics/convert-pheno/blob/main/share/ex/python.py) an example script. 
 
-    * It should work out of the box with the [containerized version](https://github.com/CNAG-Biomedical-Informatics/convert-pheno#containerized-recommended-method). 
+    * It should work out of the box with the [containerized version](download-and-installation.md#containerized).
     * You also have instructions in how to run it in a [conda environment](./download-and-installation.md#non-containerized).
 
     !!! Question "Perl inside Python, is that even possible :smile:?"

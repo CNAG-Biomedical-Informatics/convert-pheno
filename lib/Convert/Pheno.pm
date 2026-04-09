@@ -17,6 +17,19 @@ use File::ShareDir::ProjectDistDir qw(dist_dir);
 #use Devel::Size     qw(size total_size);
 use Convert::Pheno::IO::CSVHandler;
 use Convert::Pheno::IO::FileIO;
+use Convert::Pheno::Context;
+use Convert::Pheno::Runner qw(resolve_operation execute_operation);
+use Convert::Pheno::Emit::OMOP qw(
+  dispatcher_open_stream_out
+  transform_item
+  finalize_stream_out
+);
+use Convert::Pheno::OMOP::Source qw(collect_omop_input);
+use Convert::Pheno::OMOP::ParticipantStream qw(
+  omop_require_concept
+  omop_init_caches_and_metadata
+  omop_prepare_data_shape
+);
 use Convert::Pheno::OMOP::Definitions;
 use Convert::Pheno::DB::SQLite;
 use Convert::Pheno::Utils::Mapping;
@@ -151,6 +164,7 @@ has [
 ] => ( is => 'ro' );
 
 has [qw /data method/] => ( is => 'rw' );
+has entities => ( is => 'ro', default => sub { ['individuals'] } );
 
 ##########################################
 # End declaring attributes for the class #
@@ -308,129 +322,19 @@ sub _with_temp_self_field {
 
 sub _omop_collect_input {
     my ($self) = @_;
-
-    # MEMORY input
-    if ( exists $self->{data} ) {
-        $self->{omop_cli} = 0;
-        return {
-            kind            => 'memory',
-            data            => $self->{data},
-            filepath_sql    => undef,
-            filepaths_csv   => [],
-        };
-    }
-
-    # CLI / files input
-    $self->{omop_cli} = 1;
-
-    my $data = {};
-    my $filepath_sql;
-    my @filepaths_csv_stream;
-
-    my @exts = map { $_, $_ . '.gz' } qw(.csv .tsv .sql);
-
-    for my $file ( @{ $self->{in_files} } ) {
-        my ( $table_name, undef, $ext ) = fileparse( $file, @exts );
-
-        # SQL dump
-        if ( $ext =~ m/\.sql/i ) {
-            print "> Param: --max-lines-sql = $self->{max_lines_sql}\n"
-              if $self->{verbose};
-
-            if ( !$self->{stream} ) {
-                print "> Mode : --no-stream\n\n" if $self->{verbose};
-                my $sql_headers;
-                ( $data, $sql_headers ) = read_sqldump( { in => $file, self => $self } );
-                sqldump2csv( $data, $self->{out_dir}, $sql_headers ) if $self->{sql2csv};
-            }
-            else {
-                print "> Mode : --stream\n\n" if $self->{verbose};
-
-                _with_temp_self_field(
-                    $self,
-                    'omop_tables',
-                    [@stream_ram_memory_tables],
-                    sub {
-                        ( $data, undef ) = read_sqldump( { in => $file, self => $self } );
-                        return 1;
-                    }
-                );
-            }
-
-            print "> Parameter --max-lines-sql set to: $self->{max_lines_sql}\n\n"
-              if $self->{verbose};
-
-            $filepath_sql = $file;
-            last;
-        }
-
-        # CSV/TSV
-        warn "<$table_name> is not a valid table in OMOP-CDM\n" and next
-          unless any { $_ eq $table_name } @omop_essential_tables;
-
-        my $msg = "Reading <$table_name> and storing it in RAM memory...";
-
-        if ( !$self->{stream} ) {
-            say $msg if ( $self->{verbose} || $self->{debug} );
-            $data->{$table_name} =
-              read_csv( { in => $file, sep => $self->{sep}, self => $self } );
-        }
-        else {
-            if ( any { $_ eq $table_name } @stream_ram_memory_tables ) {
-                say $msg if ( $self->{verbose} || $self->{debug} );
-                $data->{$table_name} =
-                  read_csv( { in => $file, sep => $self->{sep}, self => $self } );
-            }
-            else {
-                push @filepaths_csv_stream, $file;
-            }
-        }
-    }
-
-    return {
-        kind            => ( $filepath_sql ? 'sql' : 'csv' ),
-        data            => $data,
-        filepath_sql    => $filepath_sql,
-        filepaths_csv   => \@filepaths_csv_stream,
-    };
+    return collect_omop_input($self);
 }
 
 sub _omop_require_concept {
-    my ( $self, $data ) = @_;
-    die "The table <CONCEPT> is missing from the input files\n"
-      unless exists $data->{CONCEPT};
-    return 1;
+    return omop_require_concept(@_);
 }
 
 sub _omop_init_caches_and_metadata {
-    my ( $self, $data ) = @_;
-
-    $self->{data_ohdsi_dict} =
-      convert_table_aoh_to_hoh( $data, 'CONCEPT', $self );
-
-    if ( $self->{stream} ) {
-        $self->{person} = convert_table_aoh_to_hoh( $data, 'PERSON', $self );
-    }
-
-    if ( exists $data->{VISIT_OCCURRENCE} ) {
-        $self->{visit_occurrence} =
-          convert_table_aoh_to_hoh( $data, 'VISIT_OCCURRENCE', $self );
-        delete $data->{VISIT_OCCURRENCE};
-    }
-
-    $self->{exposures} = load_exposures( $self->{exposures_file} );
-
-    $self->{metaData}     = get_metaData($self);
-    $self->{convertPheno} = get_info($self);
-
-    return 1;
+    return omop_init_caches_and_metadata(@_);
 }
 
 sub _omop_prepare_data_shape {
-    my ( $self, $data ) = @_;
-    $self->{data} =
-      $self->{stream} ? $data : transpose_omop_data_structure( $self, $data );
-    return 1;
+    return omop_prepare_data_shape(@_);
 }
 
 ##############
@@ -452,6 +356,14 @@ sub omop2bff {
     _omop_require_concept( $self, $data );
     _omop_init_caches_and_metadata( $self, $data );
     _omop_prepare_data_shape( $self, $data );
+    $self->{conversion_context} = Convert::Pheno::Context->from_self(
+        $self,
+        {
+            source_format => 'omop',
+            target_format => 'beacon',
+            entities      => ['individuals'],
+        }
+    );
 
     $data = undef;
 
@@ -570,6 +482,14 @@ sub cdisc2omop {
 
 sub pxf2bff {
     my $self = shift;
+    $self->{conversion_context} = Convert::Pheno::Context->from_self(
+        $self,
+        {
+            source_format => 'pxf',
+            target_format => 'beacon',
+            entities      => ['individuals'],
+        }
+    );
     return $self->array_dispatcher;
 }
 
@@ -704,38 +624,19 @@ sub _dispatcher_input_data {
 }
 
 sub _dispatcher_open_stream_out {
-    my ($self) = @_;
-    return unless ( $self->{method} eq 'omop2bff' && $self->{omop_cli} );
-
-    my $fh = open_filehandle( $self->{out_file}, 'a' );
-    say $fh "[";
-    return { fh => $fh, first => 1 };
+    return dispatcher_open_stream_out(@_);
 }
 
 sub array_dispatcher {
     my $self = shift;
 
     my $in_data = _dispatcher_input_data($self);
-
-    my %func = (
-        redcap2bff => \&do_redcap2bff,
-        cdisc2bff  => \&do_cdisc2bff,
-        omop2bff   => \&do_omop2bff,
-        csv2bff    => \&do_csv2bff,
-        csv2pxf    => \&do_csv2pxf,
-        bff2pxf    => \&do_bff2pxf,
-        bff2csv    => \&do_bff2csv,
-        bff2jsonf  => \&do_bff2csv,
-        bff2jsonld => \&do_bff2jsonld,
-        bff2omop   => \&do_bff2omop,
-        pxf2bff    => \&do_pxf2bff,
-        pxf2csv    => \&do_pxf2csv,
-        pxf2jsonf  => \&do_pxf2csv,
-        pxf2jsonld => \&do_pxf2jsonld,
-    );
+    my $operation = resolve_operation($self);
 
     open_connections_SQLite($self) if $self->{method} ne 'bff2pxf';
 
+    # Canonical JSON sorts object keys lexicographically, so top-level field order
+    # can differ between records when some individuals have extra fields.
     my $json   = JSON::XS->new->canonical->pretty;
     my $stream = _dispatcher_open_stream_out($self);
 
@@ -769,7 +670,7 @@ sub array_dispatcher {
 
             say "[$count] ARRAY ELEMENT from $elements" if $self->{debug};
 
-            my $res = $func{ $self->{method} }->($self, $item);
+            my $res = execute_operation( $self, $operation, $item );
             if ($res) {
                 $total++;
                 say " * [$count] ARRAY ELEMENT is defined" if $self->{debug};
@@ -789,7 +690,7 @@ sub array_dispatcher {
     else {
         say "$self->{method}: NOT ARRAY" if $self->{debug};
 
-        my $res = $func{ $self->{method} }->($self, $in_data);
+        my $res = execute_operation( $self, $operation, $in_data );
 
         if ($stream) {
             # stream mode expects array output; a single object is one element in array
@@ -808,105 +709,78 @@ sub array_dispatcher {
     close_connections_SQLite($self) unless $self->{method} eq 'bff2pxf';
 
     if ($stream) {
-        say { $stream->{fh} } "\n]";
-        close $stream->{fh};
+        finalize_stream_out($stream);
         return 1;
     }
 
     return $out_data;
 }
 
-sub _transform_item {
-    my ( $self, $method_result, $fh_out, $is_last_item, $json ) = @_;
+sub bundle_dispatcher {
+    my $self = shift;
 
-    $json //= JSON::XS->new->canonical->pretty;
+    my $in_data    = _dispatcher_input_data($self);
+    my $operation  = resolve_operation($self);
+    die "Method <$self->{method}> does not support bundle dispatch\n"
+      unless $operation->{type} eq 'bundle';
 
-    my $out;
+    my $context = $self->{conversion_context}
+      || Convert::Pheno::Context->from_self(
+        $self,
+        {
+            source_format => $self->{method} =~ /^omop/ ? 'omop' : 'pxf',
+            target_format => 'beacon',
+            entities      => $self->{entities},
+        }
+      );
 
-    if ( $self->{method_ori} && $self->{method_ori} eq 'omop2pxf' ) {
-        my $pxf = do_bff2pxf( $self, $method_result );
-        $out = $json->encode($pxf);
-    }
-    else {
-        $out = $json->encode($method_result);
-    }
-
-    chomp $out;
-    print $fh_out $out;
-
-    return 1;
-}
-
-sub omop_dispatcher {
-    my ( $self, $method_result, $json ) = @_;
-
-    $json //= JSON::XS->new->canonical->pretty;
-
-    my $out;
-
-    if ( $self->{method_ori} ne 'omop2pxf' ) {
-        $out = $json->encode($method_result);
-    }
-    else {
-        my $pxf = do_bff2pxf( $self, $method_result );
-        $out = $json->encode($pxf);
-    }
-    chomp $out;
-    return \$out;
-}
-
-sub omop_stream_dispatcher {
-    my $arg         = shift;
-    my $self        = $arg->{self};
-    my $filepath    = $arg->{filepath};
-    my $filepaths   = $arg->{filepaths};
-    my $omop_tables = $self->{prev_omop_tables};
+    my $bundle = Convert::Pheno::Model::Bundle->new(
+        {
+            context  => $context,
+            entities => $self->{entities},
+        }
+    );
 
     open_connections_SQLite($self) if $self->{method} ne 'bff2pxf';
 
-    return @$filepaths
-      ? process_csv_files_stream( $self, $filepaths )
-      : process_sqldump_stream( $self, $filepath, $omop_tables );
+    my @items = ref($in_data) eq 'ARRAY' ? @$in_data : ($in_data);
+
+    for my $item (@items) {
+        my $item_bundle = $operation->{run}->( $self, $item );
+        for my $entity ( @{ $self->{entities} } ) {
+            for my $entry ( @{ $item_bundle->entities($entity) } ) {
+                $bundle->add_entity( $entity => $entry );
+            }
+        }
+    }
+
+    if ( ref($in_data) eq 'ARRAY' ) {
+        @$in_data = ();
+    }
+
+    close_connections_SQLite($self) unless $self->{method} eq 'bff2pxf';
+
+    return $bundle;
+}
+
+sub _transform_item {
+    return transform_item(@_);
+}
+
+sub omop_dispatcher {
+    return Convert::Pheno::Emit::OMOP::omop_dispatcher(@_);
+}
+
+sub omop_stream_dispatcher {
+    return Convert::Pheno::OMOP::ParticipantStream::omop_stream_dispatcher(@_);
 }
 
 sub process_csv_files_stream {
-    my ( $self, $filepaths ) = @_;
-    my $person = $self->{person};
-    for my $file (@$filepaths) {
-        say "Processing file ... <$file>" if $self->{verbose};
-        read_csv_stream(
-            {
-                in     => $file,
-                sep    => $self->{sep},
-                self   => $self,
-                person => $person
-            }
-        );
-    }
-    return 1;
+    return Convert::Pheno::OMOP::ParticipantStream::process_csv_files_stream(@_);
 }
 
 sub process_sqldump_stream {
-    my ( $self, $filepath, $omop_tables ) = @_;
-    my $person = $self->{person};
-
-    for my $table (@$omop_tables) {
-        next if any { $_ eq $table } @stream_ram_memory_tables;
-        say "Processing table <$table> line-by-line..." if $self->{verbose};
-
-        _with_temp_self_field(
-            $self,
-            'omop_tables',
-            [$table],
-            sub {
-                read_sqldump_stream(
-                    { in => $filepath, self => $self, person => $person }
-                );
-                return 1;
-            }
-        );
-    }
-    return 1;
+    return Convert::Pheno::OMOP::ParticipantStream::process_sqldump_stream(@_);
 }
 
 sub omop2bff_stream_processing {
