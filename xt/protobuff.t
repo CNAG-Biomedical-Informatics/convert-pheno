@@ -6,15 +6,11 @@
 
 use strict;
 use warnings;
-use lib ( './lib', '../lib' );
-use feature qw(say);
-use Data::Dumper;
-use Test::More tests => 5;
-use Convert::Pheno;
+use lib qw(./lib ../lib t/lib);
 
-use_ok('Convert::Pheno') or exit;
+use Test::More tests => 4;
 
-my $input = {
+my %cases = (
     bff2pxf => {
         out => 't/bff2pxf/out/pxf.json'
     },
@@ -27,10 +23,10 @@ my $input = {
     cdisc2pxf => {
        out => 't/cdisc2pxf/out/pxf.json'
     }
-};
+);
 
-for my $method ( sort keys %{$input} ) {
-    ok( validate_pxf( $input->{$method}{out} ), qq(protobuff -> $method) );
+for my $method ( sort keys %cases ) {
+    ok( validate_pxf( $cases{$method}{out} ), qq(protobuff -> $method) );
 }
 
 use Inline Python => <<'END_OF_PYTHON_CODE';

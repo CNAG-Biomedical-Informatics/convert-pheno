@@ -2,35 +2,30 @@
 
 use strict;
 use warnings;
-use Test::More;
-use File::Compare qw(compare);
-use File::Spec;
-use File::Path qw(remove_tree mkpath);
-use FindBin qw($Bin);
+use lib qw(./lib ../lib t/lib);
 
-# Locate the CLI script
-my $cli = File::Spec->catfile($Bin, '..', 'bin', 'convert-pheno');
+use Test::More;
+use File::Spec;
+use Test::ConvertPheno
+  qw(cli_script_path ensure_clean_dir remove_dir_if_exists has_ohdsi_db csv_files_match);
+
+my $cli = cli_script_path();
 unless ( -x $cli ) {
     plan skip_all => "convert-pheno CLI not found at $cli";
 }
 
-# Skip everything if the OHDSI DB isn’t there
-unless ( -f 'share/db/ohdsi.db' ) {
+unless ( has_ohdsi_db() ) {
     plan skip_all => "share/db/ohdsi.db is required for these tests";
 }
 
-# Prepare paths
 my $infile     = 't/bff2omop/in/individuals.json';
 my $refdir     = 't/bff2omop/out';
 my $outdir     = 't/bff2omop/out/tmp';
 my $ref_prefix = 'eunomia';
-my $test_prefix= 'test';
+my $test_prefix = 'test';
 
-# Clean and recreate tmp dir
-remove_tree($outdir) if -d $outdir;
-mkpath($outdir);
+ensure_clean_dir($outdir);
 
-# Run the converter via CLI
 my $cmd = join ' ',
     $cli,
     '-ibff',      $infile,
@@ -40,7 +35,6 @@ my $cmd = join ' ',
     '--ohdsi-db';
 ok( system($cmd) == 0, "CLI ran without error" );
 
-# Now verify each of the six OMOP tables
 my @tables = qw(
   PERSON
   CONDITION_OCCURRENCE
@@ -53,9 +47,9 @@ for my $tbl (@tables) {
     my $got = File::Spec->catfile($outdir,     "${test_prefix}_${tbl}.csv");
 
     ok( -e $got, "$tbl: $got was generated" );
-    ok( compare($ref, $got) == 0, "$tbl: $got matches $ref" );
+    ok( csv_files_match($ref, $got), "$tbl: $got matches $ref" );
 }
 
-remove_tree($outdir) if -d $outdir;
+remove_dir_if_exists($outdir);
 
 done_testing();

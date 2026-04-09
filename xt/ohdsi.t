@@ -1,51 +1,31 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-use lib ( './lib', '../lib' );
-use feature qw(say);
-use Data::Dumper;
-use File::Temp qw{ tempfile };    # core
-use Test::More tests => 2;
-use File::Compare;
-use Convert::Pheno;
+use lib qw(./lib ../lib t/lib);
 
-use_ok('Convert::Pheno') or exit;
+use Test::More;
+use Test::ConvertPheno
+  qw(build_convert has_ohdsi_db temp_output_file structured_files_match);
 
-my $input = {
-    omop2bff => {
-        in_file  => undef,
-        in_files => [
-            't/omop2bff/in/CONCEPT.csv', 't/omop2bff/in/DRUG_EXPOSURE.csv',
-            't/omop2bff/in/PERSON.csv'
-        ],
-        ohdsi_db => 1,
-        out      => 't/omop2bff/out/ohdsi.json'
-    }
-};
+plan skip_all => "share/db/ohdsi.db is required for these tests"
+  unless has_ohdsi_db();
 
-for my $method ( sort keys %{$input} ) {
+my $tmp_file = temp_output_file();
+my $convert  = build_convert(
+    in_files => [
+        't/omop2bff/in/CONCEPT.csv',
+        't/omop2bff/in/DRUG_EXPOSURE.csv',
+        't/omop2bff/in/PERSON.csv',
+    ],
+    out_file => $tmp_file,
+    ohdsi_db => 1,
+    method   => 'omop2bff',
+);
 
-    # Create Temporary file
-    my ( undef, $tmp_file ) =
-      tempfile( DIR => 't', SUFFIX => ".json", UNLINK => 1 );
+ok( $convert->omop2bff, 'omop2bff runs with OHDSI db' );
+ok(
+    structured_files_match( 't/omop2bff/out/ohdsi.json', $tmp_file ),
+    'omop2bff with OHDSI db matches reduced fixture'
+);
 
-    my $convert = Convert::Pheno->new(
-        {
-            in_files    => $input->{$method}{in_files},
-            in_textfile => 1,
-            test        => 1,
-            stream      => 0,
-            omop_tables => [],
-            out_file    => $tmp_file,
-            search      => 'exact',
-            ohdsi_db    => $input->{$method}{'ohdsi_db'},
-            method      => $method
-        }
-    );
-
-  SKIP: {
-        skip qq{because 'share/db/ohdsi.db' is required with <ohdsi_db>}, 1
-          unless -f 'share/db/ohdsi.db';
-          $convert->$method and ok( compare( $input->{$method}{out}, $tmp_file ) == 0, $method );
-    }
-}
+done_testing();
