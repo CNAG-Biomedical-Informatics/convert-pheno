@@ -1,10 +1,361 @@
 [
-  {
-    "id": "bio-1",
-    "individualId": "subject-1"
-  },
-  {
-    "id": "bio-2",
-    "individualId": "subject-1"
-  }
+   {
+      "id" : "biosample-16-year-old-boy-1",
+      "individualId" : "16-year-old boy"
+   },
+   {
+      "id" : "biosample-16-year-old-boy-2",
+      "individualId" : "16-year-old boy"
+   },
+   {
+      "id" : "biosample.1",
+      "individualId" : "proband A",
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "HP:0003798",
+               "label" : "Nemaline bodies"
+            }
+         }
+      ],
+      "procedure" : {
+         "bodySite" : {
+            "id" : "UBERON:0002378",
+            "label" : "muscle of abdomen"
+         },
+         "code" : {
+            "id" : "NCIT:C51895",
+            "label" : "Muscle Biopsy"
+         },
+         "performed" : {
+            "age" : {
+               "iso8601duration" : "P1D"
+            }
+         }
+      },
+      "sampledTissue" : {
+         "id" : "UBERON:0002378",
+         "label" : "muscle of abdomen"
+      }
+   },
+   {
+      "files" : [
+         {
+            "fileAttributes" : {
+               "fileFormat" : "VCF",
+               "genomeAssembly" : "GRCh38"
+            },
+            "individualToFileIdentifiers" : {
+               "biosample.1" : "specimen.1"
+            },
+            "uri" : "file://data/fileSomaticWgs.vcf.gz"
+         }
+      ],
+      "id" : "biosample.1",
+      "individualId" : "proband A",
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "LOINC:33728-7",
+               "label" : "Size.maximum dimension in Tumor"
+            },
+            "timeObserved" : {
+               "age" : {
+                  "iso8601duration" : "P8M2W"
+               }
+            },
+            "value" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "UCUM:mm",
+                     "label" : "millimeter"
+                  },
+                  "value" : 15
+               }
+            }
+         }
+      ],
+      "pathologicalTnmFinding" : [
+         {
+            "id" : "NCIT:C140720",
+            "label" : "Retinoblastoma pT3 TNM Finding v8"
+         },
+         {
+            "id" : "NCIT:C140711",
+            "label" : "Retinoblastoma pN0 TNM Finding v8"
+         }
+      ],
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "NCIT:C35941",
+               "label" : "Flexner-Wintersteiner Rosette Formation"
+            }
+         },
+         {
+            "excluded" : false,
+            "type" : {
+               "id" : "NCIT:C132485",
+               "label" : "Apoptosis and Necrosis"
+            }
+         }
+      ],
+      "procedure" : {
+         "bodySite" : {
+            "id" : "UBERON:0004548",
+            "label" : "left eye"
+         },
+         "code" : {
+            "id" : "NCIT:C48601",
+            "label" : "Enucleation"
+         },
+         "performed" : {
+            "age" : {
+               "iso8601duration" : "P8M2W"
+            }
+         }
+      },
+      "sampledTissue" : {
+         "id" : "UBERON:0000970",
+         "label" : "eye"
+      },
+      "tumorProgression" : {
+         "id" : "NCIT:C8509",
+         "label" : "Primary Neoplasm"
+      }
+   },
+   {
+      "id" : "biosample 1",
+      "individualId" : "proband A",
+      "procedure" : {
+         "code" : {
+            "id" : "NCIT:C15189",
+            "label" : "Biopsy"
+         }
+      },
+      "sampledTissue" : {
+         "id" : "NCIT:C12389",
+         "label" : "Esophagus"
+      },
+      "timeOfCollection" : {
+         "age" : {
+            "iso8601duration" : "P49Y2M"
+         }
+      },
+      "tumorProgression" : {
+         "id" : "NCIT:C4813",
+         "label" : "Recurrent Malignant Neoplasm"
+      }
+   },
+   {
+      "diagnosticMarkers" : [
+         {
+            "id" : "NCIT:C131711",
+            "label" : "Human Papillomavirus-18 Positive"
+         }
+      ],
+      "histologicalDiagnosis" : {
+         "id" : "NCIT:C4024",
+         "label" : "Esophageal Squamous Cell Carcinoma"
+      },
+      "id" : "biosample 2",
+      "individualId" : "proband A",
+      "procedure" : {
+         "code" : {
+            "id" : "NCIT:C15189",
+            "label" : "Biopsy"
+         }
+      },
+      "sampledTissue" : {
+         "id" : "NCIT:C139196",
+         "label" : "Esophageal Lymph Node"
+      },
+      "timeOfCollection" : {
+         "age" : {
+            "iso8601duration" : "P48Y3M"
+         }
+      },
+      "tumorProgression" : {
+         "id" : "NCIT:C84509",
+         "label" : "Primary Malignant Neoplasm"
+      }
+   },
+   {
+      "id" : "biosample 3",
+      "individualId" : "proband A",
+      "procedure" : {
+         "code" : {
+            "id" : "NCIT:C15189",
+            "label" : "Biopsy"
+         }
+      },
+      "sampledTissue" : {
+         "id" : "NCIT:C12468",
+         "label" : "Lung"
+      },
+      "timeOfCollection" : {
+         "age" : {
+            "iso8601duration" : "P50Y7M"
+         }
+      },
+      "tumorProgression" : {
+         "id" : "NCIT:C3261",
+         "label" : "Metastatic Neoplasm"
+      }
+   },
+   {
+      "histologicalDiagnosis" : {
+         "id" : "NCIT:C5596",
+         "label" : "Prostate Acinar Adenocarcinoma"
+      },
+      "id" : "prostate biosample ID",
+      "individualId" : "patient1",
+      "procedure" : {
+         "code" : {
+            "id" : "NCIT:C15189",
+            "label" : "Biopsy"
+         }
+      },
+      "sampledTissue" : {
+         "id" : "UBERON:0002367",
+         "label" : "prostate gland"
+      },
+      "timeOfCollection" : {
+         "age" : {
+            "iso8601duration" : "P52Y2M"
+         }
+      },
+      "tumorGrade" : {
+         "id" : "NCIT:C28091",
+         "label" : "Gleason Score 7"
+      },
+      "tumorProgression" : {
+         "id" : "NCIT:C95606",
+         "label" : "Second Primary Malignant Neoplasm"
+      }
+   },
+   {
+      "histologicalDiagnosis" : {
+         "id" : "NCIT:C38757",
+         "label" : "Negative Finding"
+      },
+      "id" : "right ureter biosample ID",
+      "individualId" : "patient1",
+      "procedure" : {
+         "code" : {
+            "id" : "NCIT:C15189",
+            "label" : "Biopsy"
+         }
+      },
+      "sampledTissue" : {
+         "id" : "UBERON:0001222",
+         "label" : "right ureter"
+      },
+      "timeOfCollection" : {
+         "age" : {
+            "iso8601duration" : "P52Y2M"
+         }
+      }
+   },
+   {
+      "histologicalDiagnosis" : {
+         "id" : "NCIT:C38757",
+         "label" : "Negative Finding"
+      },
+      "id" : "left ureter biosample ID",
+      "individualId" : "patient1",
+      "procedure" : {
+         "code" : {
+            "id" : "NCIT:C15189",
+            "label" : "Biopsy"
+         }
+      },
+      "sampledTissue" : {
+         "id" : "UBERON:0001223",
+         "label" : "left ureter"
+      },
+      "timeOfCollection" : {
+         "age" : {
+            "iso8601duration" : "P52Y2M"
+         }
+      }
+   },
+   {
+      "files" : [
+         {
+            "fileAttributes" : {
+               "description" : "Urothelial carcinoma sample",
+               "fileFormat" : "vcf",
+               "genomeAssembly" : "GRCh38"
+            },
+            "individualToFileIdentifiers" : {
+               "sample1" : "BS342730"
+            },
+            "uri" : "file://data/genomes/urothelial_ca_wgs.vcf.gz"
+         }
+      ],
+      "histologicalDiagnosis" : {
+         "id" : "NCIT:C39853",
+         "label" : "Infiltrating Urothelial Carcinoma"
+      },
+      "id" : "bladder biopsy id",
+      "individualId" : "patient1",
+      "procedure" : {
+         "code" : {
+            "id" : "NCIT:C5189",
+            "label" : "Radical Cystoprostatectomy"
+         }
+      },
+      "sampledTissue" : {
+         "id" : "UBERON:0001256",
+         "label" : "wall of urinary bladder"
+      },
+      "timeOfCollection" : {
+         "age" : {
+            "iso8601duration" : "P52Y2M"
+         }
+      },
+      "tumorProgression" : {
+         "id" : "NCIT:C84509",
+         "label" : "Primary Malignant Neoplasm"
+      }
+   },
+   {
+      "files" : [
+         {
+            "fileAttributes" : {
+               "description" : "lymph node metastasis sample",
+               "fileFormat" : "vcf",
+               "genomeAssembly" : "GRCh38"
+            },
+            "individualToFileIdentifiers" : {
+               "sample5" : "BS730275"
+            },
+            "uri" : "file://data/genomes/metastasis_wgs.vcf.gz"
+         }
+      ],
+      "id" : "pelvic lymph node biosample ID",
+      "individualId" : "patient1",
+      "procedure" : {
+         "code" : {
+            "id" : "NCIT:C15189",
+            "label" : "Biopsy"
+         }
+      },
+      "sampledTissue" : {
+         "id" : "UBERON:0015876",
+         "label" : "pelvic lymph node"
+      },
+      "timeOfCollection" : {
+         "age" : {
+            "iso8601duration" : "P52Y2M"
+         }
+      },
+      "tumorProgression" : {
+         "id" : "NCIT:C3261",
+         "label" : "Metastatic Neoplasm"
+      }
+   }
 ]

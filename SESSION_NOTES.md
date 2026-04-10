@@ -2,7 +2,14 @@
 
 ## Current Head
 
-- Latest commit from this session: `4c4fcae` (`Refactor OMOP pipeline and restore CLI regressions`)
+- Latest commit from this session: `9e99cb8` (`Refactor CLI and shared module namespaces`)
+
+Uncommitted but staged at the time of this note:
+
+- CI fix for `Convert::Pheno::IO::CSVHandler` circular loading
+- shared `pxf.json` biosamples fixture/output update
+- stricter BFF entity-mode CLI validation
+- per-entity output filename overrides via `--out-entity entity=file`
 
 ## What The Code Does
 
@@ -59,6 +66,11 @@ Important caveat, now partially improved internally:
   - Resolves operations as `legacy` vs `bundle`.
   - Compatibility layer during the refactor away from raw `method` dispatch.
 
+- `lib/Convert/Pheno/CLI/Args.pm`
+  - New extracted CLI argument parser / normalizer.
+  - Owns generic `-i/-o` support, compact flag parsing, validation, and request
+    construction.
+
 - `lib/Convert/Pheno/Context.pm`
   - New internal execution context object.
   - Holds source/target/entity intent and execution resources.
@@ -80,7 +92,7 @@ Important caveat, now partially improved internally:
   - Current `biosamples` support is pass-through/extraction, not yet a true
     semantic PXF -> Beacon biosamples mapping.
 
-- `lib/Convert/Pheno/Bff2Pxf.pm`
+- `lib/Convert/Pheno/BFF/ToPXF.pm`
   - Beacon `individuals` -> PXF.
 
 - `lib/Convert/Pheno/OMOP.pm`
@@ -101,7 +113,7 @@ Important caveat, now partially improved internally:
 - `lib/Convert/Pheno/Emit/OMOP.pm`
   - New OMOP stream emission/serialization helper layer.
 
-- `lib/Convert/Pheno/Bff2Omop.pm`
+- `lib/Convert/Pheno/BFF/ToOMOP.pm`
   - Beacon `individuals` -> OMOP table rows.
 
 - `lib/Convert/Pheno/CSV.pm`
@@ -113,7 +125,7 @@ Important caveat, now partially improved internally:
 - `lib/Convert/Pheno/CDISC.pm`
   - CDISC-ODM -> Beacon `individuals` via an intermediate REDCap-like structure.
 
-- `lib/Convert/Pheno/RDF.pm`
+- `lib/Convert/Pheno/JSONLD.pm`
   - Beacon / PXF -> JSON-LD.
 
 ### I/O and preprocessing
@@ -124,13 +136,15 @@ Important caveat, now partially improved internally:
   - Helpers for transposing OMOP row sets and building table indexes.
   - Also contains CSV writing and gzip-aware filehandle helpers.
   - Recent fix: gzip append handling for newly created stream output files.
+  - Recent fix: removed a circular `use Convert::Pheno;` load that could cause
+    GitHub CI import failures such as missing `read_csv` imports.
 
 - `lib/Convert/Pheno/IO/FileIO.pm`
   - JSON/YAML read/write helpers.
 
 ### Mapping, defaults, DB lookup
 
-- `lib/Convert/Pheno/Utils/Mapping.pm`
+- `lib/Convert/Pheno/Mapping/Shared.pm`
   - Shared mapping utilities.
   - Date/age conversions, ontology mapping helpers, format validation, OMOP
     table merging, misc shared conversions.
@@ -213,6 +227,10 @@ Current implemented state:
 
 - PXF can emit bundle-level `biosamples` internally and through the CLI.
 - CLI supports `--entities biosamples` for `-ipxf ... -obff`.
+- The main regression fixture `t/pxf2bff/in/pxf.json` now contains biosamples
+  and drives both:
+  - `t/pxf2bff/out/individuals.json`
+  - `t/pxf2bff/out/biosamples.json`
 - The current PXF `biosamples` path is intentionally light-weight:
   it promotes/normalizes biosamples rather than performing a full semantic
   Beacon biosamples mapping.
@@ -226,6 +244,33 @@ Recommended implementation order for that work:
 3. Add optional `biosamples` emission first for `pxf2bff`.
 4. Add first-pass `SPECIMEN -> biosamples` mapping for `omop2bff`.
 5. Add CLI/API support for selecting emitted entities.
+
+## Current CLI Rules
+
+The current CLI now supports both:
+
+- compact syntax: `-ipxf ... -obff ...`
+- generic syntax: `-i pxf ... -o bff ...`
+
+Constructor cleanup:
+
+- CLI and shared test helpers now omit absent optional values instead of
+  passing lots of explicit `undef` values into `Convert::Pheno->new(...)`.
+
+BFF output semantics:
+
+- `-obff FILE`
+  - single-output compatibility mode
+  - effectively writes `individuals`
+- `--entities ...`
+  - switches BFF output into entity mode
+  - writes one file per entity into `--out-dir` or `.` by default
+- `--entities` together with `-obff FILE`
+  - hard error
+- custom entity filenames are supported with repeated:
+  - `--out-entity entity=file`
+  - example:
+    - `--out-entity biosamples=samples.json`
 
 ## Test Suite Reorganization
 

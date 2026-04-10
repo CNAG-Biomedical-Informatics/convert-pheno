@@ -18,6 +18,15 @@
       "id" : "16-year-old boy",
       "info" : {
          "phenopacket" : {
+            "biosamples" : [
+               {
+                  "id" : "biosample-16-year-old-boy-1"
+               },
+               {
+                  "id" : "biosample-16-year-old-boy-2",
+                  "individualId" : "16-year-old boy"
+               }
+            ],
             "interpretations" : [
                {
                   "diagnosis" : {

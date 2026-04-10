@@ -58,6 +58,7 @@ sub build_cli_request {
     my @omop_files;
     my ( $out_bff, $out_pxf, $out_csv, $out_jsonf, $out_jsonld, $out_omop );
     my $entities;
+    my @out_entity_specs;
     my ( $help, $man, $mapping_file, $max_lines_sql, $search );
     my ( $text_similarity_method, $min_text_similarity_score, $levenshtein_weight );
     my ( $debug, $verbose, $sep, $exposures_file, $sql2csv, $test );
@@ -83,6 +84,7 @@ sub build_cli_request {
         'oomop=s'                     => \$out_omop,
         'out-dir=s'                   => \$out_dir,
         'entities=s'                  => \$entities,
+        'out-entity=s'                => \@out_entity_specs,
         'help|?'                      => \$help,
         'man'                         => \$man,
         'mapping-file=s'              => \$mapping_file,
@@ -285,8 +287,29 @@ sub build_cli_request {
     $usage_error->("The entity <biosamples> is currently only supported with <-ipxf> and <-obff>")
       if grep { $_ eq 'biosamples' } @entity_list && !$in_pxf;
 
-    $usage_error->("When requesting multiple entities, please use <--out-dir> without <-obff>")
-      if @entity_list > 1 && defined $out_bff;
+    $usage_error->("When using <--entities>, please use <--out-dir> without <-obff FILE>")
+      if defined $entities && defined $out_bff;
+
+    $usage_error->("The flag <--out-entity> requires <--entities>")
+      if @out_entity_specs && !defined $entities;
+
+    my %entity_output_files;
+    for my $spec (@out_entity_specs) {
+        $usage_error->("Invalid <--out-entity> value <$spec>; use entity=filename")
+          unless defined $spec && $spec =~ /\A([^=]+)=(.+)\z/;
+        my ( $entity, $filename ) = ( $1, $2 );
+        $entity =~ s/^\s+|\s+$//g;
+        $filename =~ s/^\s+|\s+$//g;
+
+        $usage_error->("Unsupported entity <$entity> in --out-entity")
+          unless $supported_entities{$entity};
+        $usage_error->("The entity <$entity> must also be requested in <--entities>")
+          unless grep { $_ eq $entity } @entity_list;
+        $usage_error->("Please provide a filename for <--out-entity $entity=...>")
+          unless length $filename;
+
+        $entity_output_files{$entity} = _resolve_output_path( $out_dir, $filename );
+    }
 
     die
 "Error: The value for --oomop ('$out_omop') appears to be an option. Please supply a proper non-option string using --oomop=VALUE\n"
@@ -347,6 +370,8 @@ sub build_cli_request {
         test                      => $test ? 1 : 0,
         entities                  => \@entity_list,
     );
+
+    $data{entity_output_files} = \%entity_output_files if %entity_output_files;
 
     my $resolved_in_file =
         $in_pxf     ? $in_pxf

@@ -14,8 +14,7 @@ use IO::Uncompress::Gunzip qw($GunzipError);
 
 use Data::Dumper;
 use Devel::Size qw(total_size);
-use Convert::Pheno;
-use Convert::Pheno::IO::FileIO;
+use Convert::Pheno::IO::FileIO qw(io_yaml_or_json);
 use Convert::Pheno::OMOP::Definitions;
 use Convert::Pheno::OMOP;
 use Convert::Pheno::Utils::Schema;

@@ -1,5 +1,8 @@
 [
    {
+      "biosamples:0.id" : "biosample-16-year-old-boy-1",
+      "biosamples:1.id" : "biosample-16-year-old-boy-2",
+      "biosamples:1.individualId" : "16-year-old boy",
       "diseases:0.excluded" : false,
       "diseases:0.onset.ontologyClass.id" : "HP:0011463",
       "diseases:0.onset.ontologyClass.label" : "Childhood onset",

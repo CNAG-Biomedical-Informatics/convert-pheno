@@ -67,6 +67,7 @@ Output behavior:
   --out-dir <dir>       Output directory
   --entities <list>     Beacon entities for BFF output [individuals]
                         Current extra support: biosamples from -ipxf
+  --out-entity e=file   Override one entity filename; repeat as needed
   -O                    Overwrite output file(s)
 
 OMOP:
@@ -90,6 +91,7 @@ Examples:
   convert-pheno -i pxf pxf.json -o bff individuals.json
   convert-pheno -ipxf pxf.json -obff individuals.json
   convert-pheno -ipxf pxf.json --entities biosamples --out-dir out/
+  convert-pheno -ipxf pxf.json --entities individuals,biosamples --out-dir out/ --out-entity biosamples=samples.json
   convert-pheno -iomop dump.sql.gz -obff individuals.json.gz --stream --ohdsi-db
 
 Docs:
@@ -195,7 +197,7 @@ sub prepare_output_targets {
 
     if ($entity_mode) {
         for my $entity ( @{ $l_data->{entities} } ) {
-            my $entity_file = catfile( $l_data->{out_dir}, $entity . '.json' );
+            my $entity_file = resolve_entity_output_file( $l_data, $entity );
             if ($overwrite) {
                 unlink($entity_file) if -e $entity_file;
             }
@@ -240,7 +242,7 @@ sub write_conversion_result {
 
     if ($bundle) {
         for my $entity ( @{ $l_data->{entities} } ) {
-            my $entity_file = catfile( $l_data->{out_dir}, $entity . '.json' );
+            my $entity_file = resolve_entity_output_file( $l_data, $entity );
             say BOLD GREEN "Writing <$entity_file> file\n", RESET if $verbose;
             io_yaml_or_json(
                 {
@@ -402,4 +404,12 @@ sub ask_overwrite {
         }
         die "Too many invalid attempts. Operation aborted.\n";
     }
+}
+
+sub resolve_entity_output_file {
+    my ( $l_data, $entity ) = @_;
+    return $l_data->{entity_output_files}{$entity}
+      if exists $l_data->{entity_output_files}
+      && exists $l_data->{entity_output_files}{$entity};
+    return catfile( $l_data->{out_dir}, $entity . '.json' );
 }

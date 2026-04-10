@@ -251,6 +251,15 @@
       },
       "sex": "FEMALE"
     },
+    "biosamples": [
+      {
+        "id": "biosample-16-year-old-boy-1"
+      },
+      {
+        "id": "biosample-16-year-old-boy-2",
+        "individualId": "16-year-old boy"
+      }
+    ],
     "id": "arbitrary.id",
     "diseases": [
       {

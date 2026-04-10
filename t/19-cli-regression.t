@@ -47,7 +47,7 @@ my @cases = (
     {
         name     => 'pxf2bff_biosamples',
         cmd      => [
-            '-ipxf', 't/pxf2bff/in/pxf_biosamples.json',
+            '-ipxf', 't/pxf2bff/in/pxf.json',
             '--entities', 'biosamples',
             '--out-dir',  '/tmp',
         ],
