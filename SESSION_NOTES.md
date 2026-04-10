@@ -15,6 +15,11 @@
     - `Convert::Pheno::OMOP::ToBFF::Individuals`
     - compatibility wrapper retained at
       `Convert::Pheno::OMOP::Mapper::Individuals`
+  - placeholder scaffold added for future OMOP biosamples work:
+    - `Convert::Pheno::OMOP::ToBFF::Biosamples`
+    - `run_omop_to_bundle` now honors requested bundle entities, but OMOP
+      biosamples currently return an empty list until real `SPECIMEN` mapping
+      is implemented
   - CLI help and Markdown docs were updated to explain:
     - legacy `-obff FILE` compatibility behavior
     - `--entities ... --out-dir ...`

@@ -89,6 +89,38 @@ use Convert::Pheno::PXF qw(do_pxf2bff run_pxf_to_bundle);
 {
     no warnings 'redefine';
 
+    local *Convert::Pheno::OMOP::map_participant = sub {
+        my ( $self, $participant ) = @_;
+        return { id => $participant->{PERSON}{person_id} };
+    };
+    local *Convert::Pheno::OMOP::extract_participant_biosamples = sub {
+        my ( $self, $participant, $individual ) = @_;
+        return [];
+    };
+
+    my $convert = bless(
+        {
+            conversion_context => Convert::Pheno::Context->new(
+                {
+                    source_format => 'omop',
+                    target_format => 'beacon',
+                    entities      => [ 'individuals', 'biosamples' ],
+                }
+            ),
+        },
+        'Convert::Pheno'
+    );
+
+    my $participant = { PERSON => { person_id => 8, gender_concept_id => 8507 } };
+
+    my $bundle = run_omop_to_bundle( $convert, $participant, $convert->{conversion_context} );
+    is_deeply( $bundle->entities('individuals'), [ { id => 8 } ], 'run_omop_to_bundle still builds OMOP individuals in multi-entity mode' );
+    is_deeply( $bundle->entities('biosamples'), [], 'run_omop_to_bundle preps OMOP biosamples as an empty placeholder entity' );
+}
+
+{
+    no warnings 'redefine';
+
     local *Convert::Pheno::PXF::map_pxf_to_individual = sub {
         my ( $self, $phenopacket, $cohort, $family ) = @_;
         return { id => $phenopacket->{subject}{id} };
