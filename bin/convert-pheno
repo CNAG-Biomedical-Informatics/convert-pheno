@@ -18,16 +18,16 @@ use strict;
 use warnings;
 use autodie;
 use feature      qw(say);
-use Getopt::Long qw(:config no_ignore_case);
 use Data::Dumper;
 use Sys::Hostname;
 use POSIX                          qw(strftime);
-use File::Spec::Functions          qw(catdir catfile file_name_is_absolute);
+use File::Spec::Functions          qw(catdir catfile);
 use File::ShareDir::ProjectDistDir qw(dist_dir);
 use FindBin                        qw($Bin);
 use lib "$Bin/../lib";
 use Term::ANSIColor qw(:constants);
 use Convert::Pheno;
+use Convert::Pheno::CLI::Args qw(build_cli_request);
 use Convert::Pheno::IO::CSVHandler;
 use Convert::Pheno::OMOP::Definitions;
 
@@ -37,9 +37,6 @@ $Data::Dumper::Sortkeys = 1;
 my $out_dir     = '.';
 my $share_dir   = dist_dir('Convert-Pheno');
 my $schema_file = catfile( $share_dir, 'schema', 'mapping.json' );
-my $color       = 1;
-my $stream      = 0;
-my $ohdsi_db    = 0;
 
 sub print_help {
     my $out = shift || *STDOUT;
@@ -126,386 +123,32 @@ Installation:
 EOF
 }
 
-# Reading arguments
-GetOptions(
-    'i=s'                         => \my $in_type_arg,                         # string
-    'o=s'                         => \my $out_type_arg,                        # string
-    'ipxf=s'                      => \my $in_pxf,                              # string
-    'ibff=s'                      => \my $in_bff,                              # string
-    'iredcap=s'                   => \my $in_redcap,                           # string
-    'icdisc=s'                    => \my $in_cdisc,                            # string
-    'iomop=s{1,}'                 => \my @omop_files,                          # array
-    'icsv=s'                      => \my $in_csv,                              # string
-    'obff=s'                      => \my $out_bff,                             # string
-    'opxf=s'                      => \my $out_pxf,                             # string
-    'ocsv=s'                      => \my $out_csv,                             # string
-    'ojsonf=s'                    => \my $out_jsonf,                           # string
-    'ojsonld=s'                   => \my $out_jsonld,                          # string
-    'oomop=s'                     => \my $out_omop,                            # string
-    'out-dir=s'                   => \$out_dir,                                # string
-    'entities=s'                  => \my $entities,                            # csv string
-    'help|?'                      => \my $help,                                # flag
-    'man'                         => \my $man,                                 # flag
-    'mapping-file=s'              => \my $mapping_file,                        # string
-    'max-lines-sql=i'             => \my $max_lines_sql,                       # integer
-    'search=s'                    => \my $search,                              # string
-    'text-similarity-method=s'    => \my $text_similarity_method,              # string
-    'min-text-similarity-score=f' => \my $min_text_similarity_score,           # floating
-    'levenshtein-weight=f'        => \my $levenshtein_weight,                  # floating
-    'debug=i'                     => \my $debug,                               # integer
-    'verbose|v'                   => \my $verbose,                             # flag
-    'color!'                      => \$color,                                  # flag
-    'separator|sep=s'             => \my $sep,                                 # str
-    'schema-file=s'               => \$schema_file,                            # str
-    'exposures-file=s'            => \my $exposures_file,                      # str
-    'stream!'                     => \$stream,                                 # flag
-    'sql2csv'                     => \my $sql2csv,                             # flag
-    'test'                        => \my $test,                                # flag
-    'ohdsi-db'                    => \$ohdsi_db,                               # flag
-    'omop-tables=s{1,}'           => \my @omop_tables,                         # array
-    'redcap-dictionary|rcd=s'     => \my $redcap_dictionary,                   # string
-    'path-to-ohdsi-db=s'          => \my $path_to_ohdsi_db,                    # string
-    'print-hidden-labels|phl'     => \my $print_hidden_labels,                 # flag
-    'self-validate-schema|svs'    => \my $self_validate_schema,                # flag
-    'O'                           => \my $overwrite,                           # flag
-    'username=s'                  => \my $username,                            # string
-    'log:s'                       => \my $log,                                 # opt-string
-    'version|V'                   => sub { say "$0 Version $VERSION"; exit; }
-) or usage_error('Invalid command-line arguments');
-if ($help) { print_help(); exit 0; }
-if ($man)  { print_man();  exit 0; }
-
-sub normalize_cli_type {
-    my ($type) = @_;
-    return undef unless defined $type;
-    my $norm = lc $type;
-    $norm =~ s/^\s+|\s+$//g;
-    $norm =~ s/[-_\s]+//g;
-    my %map = (
-        bff      => 'bff',
-        beacon   => 'bff',
-        pxf      => 'pxf',
-        phenopackets => 'pxf',
-        omop     => 'omop',
-        omopcdm  => 'omop',
-        redcap   => 'redcap',
-        cdisc    => 'cdisc',
-        cdiscodm => 'cdisc',
-        csv      => 'csv',
-        jsonf    => 'jsonf',
-        jsonld   => 'jsonld',
-    );
-    return $map{$norm};
-}
-
-sub count_defined {
-    return scalar grep { defined $_ } @_;
-}
-
-my $normalized_in_type  = normalize_cli_type($in_type_arg);
-my $normalized_out_type = normalize_cli_type($out_type_arg);
-
-usage_error("Unsupported input type <$in_type_arg> for -i")
-  if defined $in_type_arg && !defined $normalized_in_type;
-usage_error("Unsupported output type <$out_type_arg> for -o")
-  if defined $out_type_arg && !defined $normalized_out_type;
-
-my %specific_in_values = (
-    pxf    => $in_pxf,
-    bff    => $in_bff,
-    redcap => $in_redcap,
-    cdisc  => $in_cdisc,
-    csv    => $in_csv,
-    omop   => @omop_files ? 1 : undef,
+my $cli = build_cli_request(
+    argv        => \@ARGV,
+    usage_error => \&usage_error,
+    schema_file => $schema_file,
+    out_dir     => $out_dir,
+    color       => 1,
+    stream      => 0,
+    ohdsi_db    => 0,
 );
 
-my %specific_out_values = (
-    bff    => $out_bff,
-    pxf    => $out_pxf,
-    csv    => $out_csv,
-    jsonf  => $out_jsonf,
-    jsonld => $out_jsonld,
-    omop   => $out_omop,
-);
+if ( $cli->{action} eq 'help' ) { print_help(); exit 0; }
+if ( $cli->{action} eq 'man' )  { print_man();  exit 0; }
+if ( $cli->{action} eq 'version' ) { say "$0 Version $VERSION"; exit 0; }
 
-usage_error("Please use either the generic <-i/-o> syntax or the compact <-ixxx/-oxxx> flags for each side, not both")
-  if ( defined $normalized_in_type  && count_defined( $in_pxf, $in_bff, $in_redcap, $in_cdisc, $in_csv, @omop_files ? 1 : undef ) )
-  || ( defined $normalized_out_type && count_defined( $out_bff, $out_pxf, $out_csv, $out_jsonf, $out_jsonld, $out_omop ) );
+my $data      = $cli->{data};
+my $out_file  = $cli->{out_file};
+my $log_file  = $cli->{log_file};
+my $overwrite = $cli->{overwrite};
+my $verbose   = $cli->{verbose};
+my $stream    = $cli->{stream};
+my $color     = $cli->{color};
+my $log       = $data->{log};
 
-if ( defined $normalized_in_type ) {
-    if ( $normalized_in_type eq 'omop' ) {
-        usage_error("Please provide OMOP input file(s) after <-i omop>") unless @ARGV;
-        if ( defined $normalized_out_type ) {
-            usage_error("Please provide OMOP input file(s) followed by one output path")
-              unless @ARGV >= 2;
-            @omop_files = @ARGV[ 0 .. $#ARGV - 1 ];
-            my $generic_outfile = $ARGV[-1];
-            if ( $normalized_out_type eq 'bff' ) {
-                $out_bff = $generic_outfile;
-            }
-            elsif ( $normalized_out_type eq 'pxf' ) {
-                $out_pxf = $generic_outfile;
-            }
-            elsif ( $normalized_out_type eq 'csv' ) {
-                $out_csv = $generic_outfile;
-            }
-            elsif ( $normalized_out_type eq 'jsonf' ) {
-                $out_jsonf = $generic_outfile;
-            }
-            elsif ( $normalized_out_type eq 'jsonld' ) {
-                $out_jsonld = $generic_outfile;
-            }
-            elsif ( $normalized_out_type eq 'omop' ) {
-                $out_omop = $generic_outfile;
-            }
-        }
-        else {
-            @omop_files = @ARGV;
-        }
-        @ARGV = ();
-    }
-    else {
-        usage_error("Please provide an input file after <-i $in_type_arg>")
-          unless @ARGV;
-        my $generic_infile = shift @ARGV;
-        if    ( $normalized_in_type eq 'pxf' )    { $in_pxf    = $generic_infile }
-        elsif ( $normalized_in_type eq 'bff' )    { $in_bff    = $generic_infile }
-        elsif ( $normalized_in_type eq 'redcap' ) { $in_redcap = $generic_infile }
-        elsif ( $normalized_in_type eq 'cdisc' )  { $in_cdisc  = $generic_infile }
-        elsif ( $normalized_in_type eq 'csv' )    { $in_csv    = $generic_infile }
-
-        if ( defined $normalized_out_type ) {
-            usage_error("Please provide an output file after <-o $out_type_arg>")
-              unless @ARGV;
-            my $generic_outfile = shift @ARGV;
-            if    ( $normalized_out_type eq 'bff' )    { $out_bff    = $generic_outfile }
-            elsif ( $normalized_out_type eq 'pxf' )    { $out_pxf    = $generic_outfile }
-            elsif ( $normalized_out_type eq 'csv' )    { $out_csv    = $generic_outfile }
-            elsif ( $normalized_out_type eq 'jsonf' )  { $out_jsonf  = $generic_outfile }
-            elsif ( $normalized_out_type eq 'jsonld' ) { $out_jsonld = $generic_outfile }
-            elsif ( $normalized_out_type eq 'omop' )   { $out_omop   = $generic_outfile }
-        }
-    }
-}
-
-usage_error("The flag <-o> requires <-i> when using the generic syntax")
-  if defined $normalized_out_type && !defined $normalized_in_type;
-
-usage_error("Unexpected extra positional arguments: @ARGV") if @ARGV;
-
-# Validate certain CLI options
-# NB: The sequence of validations is important
-my @validation_checks = (
-    {
-        condition => sub {
-            !(     ( defined $in_pxf && -f $in_pxf )
-                || ( defined $in_bff    && -f $in_bff )
-                || ( defined $in_redcap && -f $in_redcap )
-                || ( defined $in_cdisc  && -f $in_cdisc )
-                || ( defined $in_csv    && -f $in_csv )
-                || ( @omop_files        && -f $omop_files[0] ) );
-        },
-        message => "Please specify a valid input [-i input-type] <infile>\n",
-    },
-    {
-        condition => sub { !-d $out_dir },
-        message   => "Please specify a valid directory for --out-dir\n",
-    },
-    {
-        condition => sub { ( $in_redcap || $in_cdisc ) && !$redcap_dictionary },
-        message   =>
-          "Please specify a valid REDCap data dictionary --rcd <file>\n",
-    },
-    {
-        condition =>
-          sub { ( $in_redcap || $in_cdisc || $in_csv ) && !$mapping_file },
-        message =>
-          "Please specify a valid mapping file --mapping-file <file>\n",
-    },
-    {
-        condition =>
-          sub { @omop_files && $omop_files[0] !~ m/\.(csv|sql|tsv)/i },
-        message =>
-          "Please specify a valid OMOP-CDM file(s) (e.g., *csv or .sql)\n",
-    },
-    {
-        condition => sub { @omop_tables && !@omop_files },
-        message   => "The flag <--omop-tables> is only valid with <-iomop>\n",
-    },
-    {
-        condition => sub { $stream && $out_pxf },
-        message   => "The flag <--stream> is only valid with <-obff>\n",
-    },
-    {
-        condition => sub { $stream && $sql2csv },
-        message   =>
-"The flags <--stream> and <--sql2csv> are mutually exclusive.\nIf you are using <--stream> is because you are likely processing huge files and we don't want to duplicate them in your HDD\n",
-    },
-    {
-        condition => sub {
-            @omop_files
-              && ( ( defined $out_bff && $out_bff !~ m/\.json/i )
-                || ( defined $out_pxf && $out_pxf !~ m/\.json/i ) );
-        },
-        message =>
-"The flag <--iomops> only supports output files in <json|json.gz> format\n",
-    },
-    {
-        condition => sub { !-f $schema_file },
-        message   =>
-"Please specify a valid schema for the mapping file --schema-file <file>\n",
-    },
-    {
-        condition => sub { defined $path_to_ohdsi_db && !-d $path_to_ohdsi_db },
-        message   =>
-"Please specify a valid directory for the mapping file --path-to-ohdsi-db <dir>\n",
-    },
-    {
-        condition => sub { defined $exposures_file && !-f $exposures_file },
-        message   => "Please specify a valid --exposures-file <file>\n",
-    },
-    {
-        condition => sub {
-            ( $out_csv || $out_jsonf || $out_jsonld )
-              && ( !$in_bff && !$in_pxf );
-        },
-        message =>
-"Sorry, <--ocsv>, <--ojsonf> and <--ojsonf> are only compatible with <--ibff> or <--ipxf>\n",
-    },
-    {
-        condition => sub { defined $out_omop && !$ohdsi_db },
-        message   =>
-          "Error: Please use --ohdsi-db when using OMOP CDM as an output"
-    },
-    {
-        condition => sub { defined($out_omop) && $out_omop =~ /^-/ },
-        message   =>
-"Error: The value for --oomop appears to be an option. Please supply a proper non-option string using --oomop=VALUE"
-    }
-
-);
-
-foreach my $check (@validation_checks) {
-    if ( $check->{condition}->() ) {
-        usage_error( $check->{message} );
-    }
-}
-
-my @entities =
-  defined $entities
-  ? map { uc($_) eq 'ALL' ? () : $_ } grep { length } map { s/^\s+|\s+$//gr } split /,/, $entities
-  : ('individuals');
-
-@entities = ('individuals') unless @entities;
-
-my %supported_entities = map { $_ => 1 } qw(individuals biosamples);
-for my $entity (@entities) {
-    usage_error("Unsupported entity <$entity> in --entities")
-      unless $supported_entities{$entity};
-}
-
-usage_error("The flag <--entities> is only valid with BFF output")
-  if defined $entities && ( $out_pxf || $out_csv || $out_jsonf || $out_jsonld || $out_omop );
-
-usage_error("The entity <biosamples> is currently only supported with <-ipxf> and <-obff>")
-  if grep { $_ eq 'biosamples' } @entities && !$in_pxf;
-
-usage_error("When requesting multiple entities, please use <--out-dir> without <-obff>")
-  if @entities > 1 && defined $out_bff;
-
-# Validate that --oomop's argument doesn't look like another option.
-if ( defined($out_omop) && $out_omop =~ /^-/ ) {
-    die
-"Error: The value for --oomop ('$out_omop') appears to be an option. Please supply a proper non-option string using --oomop=VALUE\n";
-}
-
-# Turning color off if argument <--no-color>
 $ENV{'ANSI_COLORS_DISABLED'} = 1 unless $color;
 
-sub resolve_output_path {
-    my ( $dir, $path ) = @_;
-    return undef unless defined $path;
-    return $path if file_name_is_absolute($path);
-    return catfile( $dir, $path );
-}
-
-# Defining $out_file
-my $out_file =
-    $out_pxf    ? resolve_output_path( $out_dir, $out_pxf )
-  : $out_bff    ? resolve_output_path( $out_dir, $out_bff )
-  : $out_csv    ? resolve_output_path( $out_dir, $out_csv )
-  : $out_jsonf  ? resolve_output_path( $out_dir, $out_jsonf )
-  : $out_jsonld ? resolve_output_path( $out_dir, $out_jsonld )
-  : $out_omop   ? resolve_output_path( $out_dir, $out_omop )
-  : @entities == 1
-  ? catfile( $out_dir, $entities[0] . '.json' )
-  : catfile( $out_dir, 'individuals.json' );
-
-# Defining $log_file
-my $log_file =
-  catfile( $out_dir, ( $log ? $log : 'convert-pheno-log.json' ) );    # // works for undef
-
-# Defining method
-my $in_type =
-    $in_pxf     ? 'pxf'
-  : $in_bff     ? 'bff'
-  : $in_redcap  ? 'redcap'
-  : $in_cdisc   ? 'cdisc'
-  : $in_csv     ? 'csv'
-  : @omop_files ? 'omop'
-  :               'bff';
-my $out_type =
-    $out_pxf    ? 'pxf'
-  : $out_bff    ? 'bff'
-  : $out_csv    ? 'csv'
-  : $out_jsonf  ? 'jsonf'
-  : $out_jsonld ? 'jsonld'
-  : $out_omop   ? 'omop'
-  :               'bff';
-my $method = $in_type . '2' . $out_type;
-
-#Define job id
-my $id = time . substr( "00000$$", -5 );
-
-# Defining data as a hashref
-my $data = {
-    out_dir     => $out_dir,
-    in_textfile => 1,
-    in_file     => $in_pxf ? $in_pxf
-    : $in_bff    ? $in_bff
-    : $in_redcap ? $in_redcap
-    : $in_cdisc  ? $in_cdisc
-    : $in_csv    ? $in_csv
-    : undef,
-    in_files                  => \@omop_files // undef,        # only for Omop
-    method                    => $method,
-    sep                       => $sep,
-    sql2csv                   => $sql2csv,
-    redcap_dictionary         => $redcap_dictionary,
-    mapping_file              => $mapping_file,
-    exposures_file            => $exposures_file,
-    search                    => $search,
-    ohdsi_db                  => $ohdsi_db,
-    omop_tables               => \@omop_tables,
-    username                  => $username,
-    text_similarity_method    => $text_similarity_method,
-    min_text_similarity_score => $min_text_similarity_score,
-    levenshtein_weight        => $levenshtein_weight,
-    self_validate_schema      => $self_validate_schema,
-    path_to_ohdsi_db          => $path_to_ohdsi_db,
-    print_hidden_labels       => $print_hidden_labels,
-    max_lines_sql             => $max_lines_sql,
-    stream                    => $stream,
-    schema_file               => $schema_file,
-    out_file                  => $out_file,
-    id                        => $id,
-    test                      => $test,
-    debug                     => $debug,
-    log                       => $log,
-    verbose                   => $verbose
-    ,entities                 => \@entities
-};
-print Dumper $data if $debug;
+print Dumper $data if defined $data->{debug};
 
 # Start printing to STDOUT
 say BOLD CYAN program_header($VERSION), RESET if $verbose;
@@ -533,7 +176,23 @@ sub convert {
         || ( $l_data->{entities}[0] || 'individuals' ) ne 'individuals'
       );
 
-    # Before proceeding we ask the user what to do with $o_file
+    prepare_output_targets( $l_data, $o_file, $entity_mode );
+
+    # Start verbose
+    print BOLD BLUE program_body($l_data), RESET if $verbose;
+
+    # Creating object
+    my $convert = Convert::Pheno->new($l_data);
+    my ( $data, $bundle ) = execute_conversion( $convert, $l_data, $o_file, $entity_mode );
+    write_conversion_result( $l_data, $o_file, $data, $bundle );
+
+    # Finish
+    print BOLD GREEN program_footer(), RESET if $verbose;
+}
+
+sub prepare_output_targets {
+    my ( $l_data, $o_file, $entity_mode ) = @_;
+
     if ($entity_mode) {
         for my $entity ( @{ $l_data->{entities} } ) {
             my $entity_file = catfile( $l_data->{out_dir}, $entity . '.json' );
@@ -544,42 +203,41 @@ sub convert {
                 ask_overwrite($entity_file);
             }
         }
+        return;
+    }
+
+    if ($overwrite) {
+        unlink($o_file) if -e $o_file;
     }
     else {
-        if ($overwrite) {
-            unlink($o_file) if -e $o_file;
-        }
-        else {
-            ask_overwrite($o_file);
-        }
+        ask_overwrite($o_file);
     }
+}
 
-    # Start verbose
-    print BOLD BLUE program_body($l_data), RESET if $verbose;
-
-    # Creating object
-    my $convert = Convert::Pheno->new($l_data);
-
-    # Running $method and writing the results to $o_file
+sub execute_conversion {
+    my ( $convert, $l_data, $o_file, $entity_mode ) = @_;
     my $method = $l_data->{method};
 
-    # Perform the conversion based on the method
-    my $data;
-    my $bundle;
-
-    # For omop2bff and omop2pxf we serialize to JSON (not YAML) by individual
     if ($entity_mode) {
-        $bundle = $convert->bundle_dispatcher;
+        my $bundle = $convert->bundle_dispatcher;
+        return ( undef, $bundle );
     }
-    elsif ( $stream || $method eq 'omop2bff' || $method eq 'omop2pxf' ) {
+
+    # For omop2bff and omop2pxf we serialize to JSON (not YAML) by individual.
+    if ( $stream || $method eq 'omop2bff' || $method eq 'omop2pxf' ) {
         say BOLD GREEN "Writing <$o_file> file\n", RESET if $verbose;
         $convert->$method;
-    }
-    else {
-        $data = $convert->$method;
+        return ( undef, undef );
     }
 
-    # Determine the appropriate writing method
+    my $data = $convert->$method;
+    return ( $data, undef );
+}
+
+sub write_conversion_result {
+    my ( $l_data, $o_file, $data, $bundle ) = @_;
+    my $method = $l_data->{method};
+
     if ($bundle) {
         for my $entity ( @{ $l_data->{entities} } ) {
             my $entity_file = catfile( $l_data->{out_dir}, $entity . '.json' );
@@ -592,47 +250,48 @@ sub convert {
                 }
             );
         }
+        return;
     }
-    elsif ($data) {
-        say BOLD GREEN "Writing <$o_file> file\n", RESET if $verbose;
-        if ( $method eq 'bff2csv' || $method eq 'pxf2csv' ) {
+
+    return unless $data;
+
+    say BOLD GREEN "Writing <$o_file> file\n", RESET if $verbose;
+
+    if ( $method eq 'bff2csv' || $method eq 'pxf2csv' ) {
+        write_csv(
+            {
+                sep      => $l_data->{sep} // ';',
+                filepath => $o_file,
+                headers  => get_headers($data),
+                data     => $data,
+            }
+        );
+        return;
+    }
+
+    if ( $method =~ /2omop$/ ) {
+        for my $table ( keys %$data ) {
+            my $filepath = catfile( $o_file . "_$table.csv" );
+            my @headers  = @{ $omop_headers->{$table} };
             write_csv(
                 {
-                    sep      => $l_data->{sep} // ';',
-                    filepath => $o_file,
-                    headers  => get_headers($data),
-                    data     => $data,
+                    sep      => ";",
+                    filepath => $filepath,
+                    headers  => \@headers,
+                    data     => $data->{$table},
                 }
             );
         }
-        elsif ( $method =~ /2omop$/ ) {
-
-            for my $table ( keys %$data ) {
-                my $filepath = catfile( $o_file . "_$table.csv" );
-                my @headers  = @{ $omop_headers->{$table} };
-                write_csv(
-                    {
-                        sep      => ";",                # or the separator your CSV requires
-                        filepath => $filepath,
-                        headers  => \@headers,
-                        data     => $data->{$table},    # array-of-hashes
-                    }
-                );
-            }
-        }
-        else {
-            io_yaml_or_json(
-                {
-                    filepath => $o_file,
-                    mode     => 'write',
-                    data     => $data,
-                }
-            );
-        }
+        return;
     }
 
-    # Finish
-    print BOLD GREEN program_footer(), RESET if $verbose;
+    io_yaml_or_json(
+        {
+            filepath => $o_file,
+            mode     => 'write',
+            data     => $data,
+        }
+    );
 }
 
 sub program_header {

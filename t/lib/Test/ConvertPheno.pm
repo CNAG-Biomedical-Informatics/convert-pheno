@@ -43,19 +43,23 @@ our @EXPORT_OK = qw(
 sub build_convert {
     my (%args) = @_;
 
-    return Convert::Pheno->new(
-        {
-            in_files             => [],
-            in_textfile          => 1,
-            self_validate_schema => 0,
-            schema_file          => 'share/schema/mapping.json',
-            stream               => 0,
-            omop_tables          => [],
-            search               => 'exact',
-            test                 => 1,
-            %args,
-        }
+    my %data = (
+        in_files             => [],
+        in_textfile          => 1,
+        self_validate_schema => 0,
+        schema_file          => 'share/schema/mapping.json',
+        stream               => 0,
+        omop_tables          => [],
+        search               => 'exact',
+        test                 => 1,
     );
+
+    for my $key ( keys %args ) {
+        next unless defined $args{$key};
+        $data{$key} = $args{$key};
+    }
+
+    return Convert::Pheno->new( \%data );
 }
 
 sub is_ld_arch {

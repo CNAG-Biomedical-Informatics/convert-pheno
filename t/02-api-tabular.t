@@ -14,7 +14,6 @@ my @cases = (
         in_file            => 't/redcap2bff/in/redcap_data.csv',
         redcap_dictionary  => 't/redcap2bff/in/redcap_dictionary.csv',
         mapping_file       => 't/redcap2bff/in/redcap_mapping.yaml',
-        sep                => undef,
         out_file           => 't/redcap2bff/out/individuals.json',
     },
     {
@@ -23,7 +22,6 @@ my @cases = (
         in_file            => 't/redcap2bff/in/redcap_data.csv',
         redcap_dictionary  => 't/redcap2bff/in/redcap_dictionary.csv',
         mapping_file       => 't/redcap2bff/in/redcap_mapping.yaml',
-        sep                => undef,
         out_file           => 't/redcap2pxf/out/pxf.json',
     },
     {
@@ -32,7 +30,6 @@ my @cases = (
         in_file            => 't/cdisc2bff/in/cdisc_odm_data.xml',
         redcap_dictionary  => 't/redcap2bff/in/redcap_dictionary.csv',
         mapping_file       => 't/redcap2bff/in/redcap_mapping.yaml',
-        sep                => undef,
         out_file           => 't/cdisc2bff/out/individuals.json',
     },
     {
@@ -41,7 +38,6 @@ my @cases = (
         in_file            => 't/cdisc2bff/in/cdisc_odm_data.xml',
         redcap_dictionary  => 't/redcap2bff/in/redcap_dictionary.csv',
         mapping_file       => 't/redcap2bff/in/redcap_mapping.yaml',
-        sep                => undef,
         out_file           => 't/cdisc2pxf/out/pxf.json',
     },
     {

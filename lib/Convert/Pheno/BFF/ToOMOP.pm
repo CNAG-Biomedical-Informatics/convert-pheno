@@ -1,13 +1,14 @@
-package Convert::Pheno::Bff2Omop;
+package Convert::Pheno::BFF::ToOMOP;
 
 use strict;
 use warnings;
 use autodie;
 use feature qw(say);
+use JSON::PP                      ();
 use Math::BigInt;
 use Scalar::Util                   qw(looks_like_number);
 use Convert::Pheno::Utils::Default qw(get_defaults);
-use Convert::Pheno::Utils::Mapping;
+use Convert::Pheno::Mapping::Shared;
 use Data::Dumper;
 use Exporter 'import';
 
@@ -208,7 +209,7 @@ sub _map_phenotypicFeatures {
         my $obs;
 
         next
-          if ( $feature->{excluded} && $feature->{excluded} == JSON::PP::true );
+          if ( $feature->{excluded} && $feature->{excluded} == JSON::PP::true() );
 
         $obs->{observation_id} = ++$OBSERVATION_ID_COUNT;
 

@@ -19,7 +19,7 @@ use Convert::Pheno::IO::FileIO;
 use Convert::Pheno::OMOP::Definitions;
 use Convert::Pheno::OMOP;
 use Convert::Pheno::Utils::Schema;
-use Convert::Pheno::Utils::Mapping;
+use Convert::Pheno::Mapping::Shared;
 use Exporter 'import';
 our @EXPORT =
   qw(read_csv read_csv_stream read_redcap_dict_file read_mapping_file read_sqldump read_sqldump_stream sqldump2csv transpose_omop_data_structure write_csv open_filehandle load_exposures get_headers convert_table_aoh_to_hoh);

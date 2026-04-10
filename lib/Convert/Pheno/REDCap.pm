@@ -6,7 +6,7 @@ use autodie;
 use feature                        qw(say);
 use List::Util                     qw(any);
 use Convert::Pheno::Utils::Default qw(get_defaults);
-use Convert::Pheno::Utils::Mapping;
+use Convert::Pheno::Mapping::Shared;
 use Data::Dumper;
 use Scalar::Util qw(looks_like_number);
 use Hash::Util   qw(lock_keys);

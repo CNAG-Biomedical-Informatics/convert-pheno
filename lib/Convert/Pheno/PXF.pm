@@ -8,7 +8,7 @@ use Data::Dumper;
 use Convert::Pheno::Context;
 use Convert::Pheno::Model::Bundle;
 use Convert::Pheno::Utils::Default qw(get_defaults);
-use Convert::Pheno::Utils::Mapping;
+use Convert::Pheno::Mapping::Shared;
 use Exporter 'import';
 our @EXPORT = qw(do_pxf2bff run_pxf_to_bundle);
 

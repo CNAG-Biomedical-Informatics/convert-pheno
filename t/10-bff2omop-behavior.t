@@ -7,12 +7,12 @@ use JSON::PP ();
 use Test::More;
 use Test::Exception;
 use Test::Warn;
-use Convert::Pheno::Bff2Omop qw(do_bff2omop);
+use Convert::Pheno::BFF::ToOMOP qw(do_bff2omop);
 
 {
     no warnings 'redefine';
 
-    local *Convert::Pheno::Bff2Omop::inverse_map = sub {
+    local *Convert::Pheno::BFF::ToOMOP::inverse_map = sub {
         my ( $mapping_type, $hashref, $key, $self ) = @_;
         return ( 9000, $hashref->{$key} // '' );
     };
@@ -106,7 +106,7 @@ use Convert::Pheno::Bff2Omop qw(do_bff2omop);
 }
 
 warning_like {
-    my @result = Convert::Pheno::Bff2Omop::inverse_map(
+    my @result = Convert::Pheno::BFF::ToOMOP::inverse_map(
         'unknown',
         { label => 'x' },
         'label',

@@ -5,7 +5,7 @@ use warnings;
 use lib qw(./lib ../lib t/lib);
 use Test::More;
 use Test::Warn;
-use Convert::Pheno::Utils::Mapping qw(
+use Convert::Pheno::Mapping::Shared qw(
   convert2boolean
   convert_label_to_days
   get_age_from_date_and_birthday

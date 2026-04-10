@@ -1,11 +1,12 @@
-package Convert::Pheno::Bff2Pxf;
+package Convert::Pheno::BFF::ToPXF;
 
 use strict;
 use warnings;
 use autodie;
 use feature                        qw(say);
+use JSON::PP                       ();
 use Convert::Pheno::Utils::Default qw(get_defaults);
-use Convert::Pheno::Utils::Mapping;
+use Convert::Pheno::Mapping::Shared;
 use Exporter 'import';
 our @EXPORT = qw(do_bff2pxf);
 
@@ -158,7 +159,7 @@ sub _map_phenotypic_features {
                 excluded => (
                     exists $_->{excluded}
                     ? delete $_->{excluded}
-                    : JSON::PP::false
+                    : JSON::PP::false()
                 ),
 
                 # _notes => $_->{notes}

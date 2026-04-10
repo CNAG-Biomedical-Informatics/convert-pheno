@@ -8,7 +8,7 @@ use feature qw(say);
 use Exporter 'import';
 use Convert::Pheno::OMOP::Definitions;
 use Convert::Pheno::Utils::Default qw(get_defaults);
-use Convert::Pheno::Utils::Mapping;
+use Convert::Pheno::Mapping::Shared;
 
 our @EXPORT_OK = qw(map_participant);
 

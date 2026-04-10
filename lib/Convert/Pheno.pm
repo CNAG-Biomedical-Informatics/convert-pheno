@@ -32,13 +32,13 @@ use Convert::Pheno::OMOP::ParticipantStream qw(
 );
 use Convert::Pheno::OMOP::Definitions;
 use Convert::Pheno::DB::SQLite;
-use Convert::Pheno::Utils::Mapping;
+use Convert::Pheno::Mapping::Shared;
 use Convert::Pheno::CSV;
-use Convert::Pheno::RDF qw(do_bff2jsonld do_pxf2jsonld);
+use Convert::Pheno::JSONLD qw(do_bff2jsonld do_pxf2jsonld);
 use Convert::Pheno::OMOP;
 use Convert::Pheno::PXF;
-use Convert::Pheno::Bff2Pxf;
-use Convert::Pheno::Bff2Omop;
+use Convert::Pheno::BFF::ToPXF;
+use Convert::Pheno::BFF::ToOMOP;
 use Convert::Pheno::CDISC;
 use Convert::Pheno::REDCap;
 
