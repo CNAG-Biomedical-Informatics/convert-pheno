@@ -394,6 +394,18 @@ Fixed in this session:
   `lib/Convert/Pheno/IO/CSVHandler.pm`.
 - Added comment in `lib/Convert/Pheno.pm` documenting that canonical JSON sorts
   keys lexicographically, so `id` will not always appear first in output rows.
+- PXF and OMOP source facades have been replaced by explicit
+  `Source::ToBFF` orchestrators and entity modules:
+  - `Convert::Pheno::PXF::ToBFF`
+  - `Convert::Pheno::PXF::ToBFF::Individuals`
+  - `Convert::Pheno::PXF::ToBFF::Biosamples`
+  - `Convert::Pheno::OMOP::ToBFF`
+  - `Convert::Pheno::OMOP::ToBFF::Individuals`
+  - `Convert::Pheno::OMOP::ToBFF::Biosamples`
+- Shared tabular-to-`individuals` mapping code has been extracted from
+  `lib/Convert/Pheno/REDCap.pm` into
+  `lib/Convert/Pheno/Mapping/BFF/Individuals/Tabular.pm`, so `CSV.pm` no
+  longer imports generic mapping helpers from the REDCap adapter module.
 
 Observed but not fully cleaned up:
 
@@ -420,6 +432,9 @@ If continuing after this session:
    - either carry bundle/entity intent deeper into emitters,
    - or start implementing a proper PXF biosamples mapping.
 5. Do not implement OMOP biosamples until real `SPECIMEN` example data exists.
+6. Keep `REDCap`, `CSV`, and `CDISC` as top-level adapters for now unless
+   they need multi-entity support; the current worthwhile shared layer is
+   `Mapping::BFF::Individuals::Tabular`.
 
 1. Decide whether `95%` means statement coverage or overall Devel::Cover total.
 2. If overall total is still desired, focus next on:
