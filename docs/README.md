@@ -7,14 +7,9 @@
 !!! Note "Project status"
     The software is in active use and still evolving. Some conversion routes are more mature than others, so it is worth checking the format-specific pages before running a new workflow in production.
 
-## Start here
-
-If you are new to the project, these pages are the **best entry points**:
-
-- [What is Convert-Pheno?](what-is-convert-pheno.md)
-- [Supported formats](supported-formats.md)
-- [Download & Installation](download-and-installation.md)
-- [Use as a command-line interface](use-as-a-command-line-interface.md)
+[Get started](what-is-convert-pheno.md){ .md-button .md-button--primary }
+[See supported formats](supported-formats.md){ .md-button }
+[Install the toolkit](download-and-installation.md){ .md-button }
 
 ## Typical workflows
 

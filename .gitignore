@@ -6,6 +6,7 @@
 *.pyc
 test.pl
 TO_DO.md
+README.source.md
 clean.sh
 nytprof.out
 /blib/
