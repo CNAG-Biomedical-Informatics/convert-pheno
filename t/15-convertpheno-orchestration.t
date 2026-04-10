@@ -144,7 +144,7 @@ local $SIG{__WARN__} = sub {
     is( $op->{type}, 'bundle', 'runner resolves omop2bff as a bundle operation' );
     is( $op->{entity}, 'individuals', 'runner resolves omop2bff bundle entity' );
 
-    local *Convert::Pheno::OMOP::run_omop_to_bundle = sub {
+    local *Convert::Pheno::OMOP::ToBFF::run_omop_to_bundle = sub {
         my ( $self, $input, $context ) = @_;
         my $bundle = Convert::Pheno::Model::Bundle->new( { entities => ['individuals'] } );
         $bundle->add_entity( individuals => { id => $input->{id} } );

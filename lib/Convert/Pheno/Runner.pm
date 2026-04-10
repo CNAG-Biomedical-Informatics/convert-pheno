@@ -31,7 +31,7 @@ sub resolve_operation {
         entity => 'individuals',
         run    => sub {
             my ( $convert, $input ) = @_;
-            return Convert::Pheno::OMOP::run_omop_to_bundle(
+            return Convert::Pheno::OMOP::ToBFF::run_omop_to_bundle(
                 $convert, $input, $convert->{conversion_context}
             );
         },
@@ -42,7 +42,7 @@ sub resolve_operation {
         entity => 'individuals',
         run    => sub {
             my ( $convert, $input ) = @_;
-            return Convert::Pheno::PXF::run_pxf_to_bundle(
+            return Convert::Pheno::PXF::ToBFF::run_pxf_to_bundle(
                 $convert, $input, $convert->{conversion_context}
             );
         },

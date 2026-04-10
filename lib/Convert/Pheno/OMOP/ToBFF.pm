@@ -1,4 +1,4 @@
-package Convert::Pheno::OMOP;
+package Convert::Pheno::OMOP::ToBFF;
 
 use strict;
 use warnings;
@@ -10,7 +10,7 @@ use Convert::Pheno::Model::Bundle;
 use Convert::Pheno::OMOP::ToBFF::Individuals qw(map_participant);
 use Convert::Pheno::OMOP::ToBFF::Biosamples qw(extract_participant_biosamples);
 
-our @EXPORT = qw(do_omop2bff run_omop_to_bundle);
+our @EXPORT_OK = qw(do_omop2bff run_omop_to_bundle map_participant extract_participant_biosamples);
 
 sub do_omop2bff {
     my ( $self, $participant ) = @_;

@@ -4,7 +4,7 @@ use warnings;
 
 use lib qw(./lib ../lib t/lib);
 use Test::More;
-use Convert::Pheno::OMOP qw(do_omop2bff);
+use Convert::Pheno::OMOP::ToBFF qw(do_omop2bff);
 
 {
     no warnings 'redefine';

@@ -7,8 +7,8 @@ use Test::More;
 
 use Convert::Pheno::Context;
 use Convert::Pheno::Model::Bundle;
-use Convert::Pheno::OMOP qw(do_omop2bff run_omop_to_bundle);
-use Convert::Pheno::PXF qw(do_pxf2bff run_pxf_to_bundle);
+use Convert::Pheno::OMOP::ToBFF qw(do_omop2bff run_omop_to_bundle map_participant extract_participant_biosamples);
+use Convert::Pheno::PXF::ToBFF qw(do_pxf2bff run_pxf_to_bundle map_pxf_to_individual);
 
 {
     my $convert = bless(
@@ -59,7 +59,7 @@ use Convert::Pheno::PXF qw(do_pxf2bff run_pxf_to_bundle);
 {
     no warnings 'redefine';
 
-    local *Convert::Pheno::OMOP::map_participant = sub {
+    local *Convert::Pheno::OMOP::ToBFF::map_participant = sub {
         my ( $self, $participant ) = @_;
         return { id => $participant->{PERSON}{person_id} };
     };
@@ -89,11 +89,11 @@ use Convert::Pheno::PXF qw(do_pxf2bff run_pxf_to_bundle);
 {
     no warnings 'redefine';
 
-    local *Convert::Pheno::OMOP::map_participant = sub {
+    local *Convert::Pheno::OMOP::ToBFF::map_participant = sub {
         my ( $self, $participant ) = @_;
         return { id => $participant->{PERSON}{person_id} };
     };
-    local *Convert::Pheno::OMOP::extract_participant_biosamples = sub {
+    local *Convert::Pheno::OMOP::ToBFF::extract_participant_biosamples = sub {
         my ( $self, $participant, $individual ) = @_;
         return [];
     };
@@ -121,11 +121,11 @@ use Convert::Pheno::PXF qw(do_pxf2bff run_pxf_to_bundle);
 {
     no warnings 'redefine';
 
-    local *Convert::Pheno::PXF::map_pxf_to_individual = sub {
+    local *Convert::Pheno::PXF::ToBFF::map_pxf_to_individual = sub {
         my ( $self, $phenopacket, $cohort, $family ) = @_;
         return { id => $phenopacket->{subject}{id} };
     };
-    local *Convert::Pheno::PXF::validate_format = sub { return 1 };
+    local *Convert::Pheno::PXF::ToBFF::validate_format = sub { return 1 };
 
     my $convert = bless(
         {

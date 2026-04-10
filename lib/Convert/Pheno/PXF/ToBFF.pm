@@ -1,4 +1,4 @@
-package Convert::Pheno::PXF;
+package Convert::Pheno::PXF::ToBFF;
 
 use strict;
 use warnings;
@@ -12,7 +12,7 @@ use Convert::Pheno::Mapping::Shared;
 use Convert::Pheno::PXF::ToBFF::Individuals qw(map_pxf_to_individual);
 use Convert::Pheno::PXF::ToBFF::Biosamples qw(extract_pxf_biosamples);
 
-our @EXPORT = qw(do_pxf2bff run_pxf_to_bundle);
+our @EXPORT_OK = qw(do_pxf2bff run_pxf_to_bundle map_pxf_to_individual);
 
 sub do_pxf2bff {
     my ( $self, $data ) = @_;
@@ -61,11 +61,9 @@ sub run_pxf_to_bundle {
 sub _extract_pxf_payload {
     my ($data) = @_;
 
-    # PXF top-level elements may arrive as split files or as a combined payload.
     my $phenopacket =
       exists $data->{phenopacket} ? $data->{phenopacket} : $data;
 
-    # Preserve the historical handling of optional top-level cohort/family data.
     my $cohort = exists $data->{family} ? $data->{cohort} : undef;
     my $family = exists $data->{family} ? $data->{family} : undef;
 

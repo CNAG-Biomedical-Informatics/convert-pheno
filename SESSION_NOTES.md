@@ -7,14 +7,12 @@
   - legacy `pxf2bff -obff FILE` now warns when input PXF contains biosamples
     while still preserving them under `info.phenopacket.biosamples`
   - `PXF` BFF mapping was split toward `Source::ToBFF::Entity`:
-    - `Convert::Pheno::PXF`
+    - `Convert::Pheno::PXF::ToBFF`
     - `Convert::Pheno::PXF::ToBFF::Individuals`
     - `Convert::Pheno::PXF::ToBFF::Biosamples`
   - `OMOP` BFF mapping now follows the same shape for `individuals`:
-    - `Convert::Pheno::OMOP`
+    - `Convert::Pheno::OMOP::ToBFF`
     - `Convert::Pheno::OMOP::ToBFF::Individuals`
-    - compatibility wrapper retained at
-      `Convert::Pheno::OMOP::Mapper::Individuals`
   - placeholder scaffold added for future OMOP biosamples work:
     - `Convert::Pheno::OMOP::ToBFF::Biosamples`
     - `run_omop_to_bundle` now honors requested bundle entities, but OMOP
