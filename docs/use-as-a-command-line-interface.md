@@ -1,14 +1,23 @@
 `Convert-Pheno` includes a **command-line utility** for file-based conversions. This is the **primary way** most users work with the project.
 
+[See common usage](usage.md){ .md-button .md-button--primary }
+[Read the tutorial](tutorial.md){ .md-button }
+[Check installation](download-and-installation.md){ .md-button }
+
 ## Basic pattern
 
 The command is organized around **one input format** and **one output format**:
 
 ```bash
-convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [options]
+convert-pheno -i <input-type> <infile> -o <output-type> <outfile> [options]
 ```
 
-The compact flags are the ones most users rely on:
+Both CLI styles are supported:
+
+- **Generic form:** `-i pxf ... -o bff ...`
+- **Compact form:** `-ipxf ... -obff ...`
+
+The compact flags are still the ones most users rely on:
 
 - `-ipxf`, `-ibff`, `-iomop`, `-iredcap`, `-icdisc`, `-icsv`
 - `-obff`, `-opxf`, `-oomop`, `-ocsv`, `-ojsonf`, `-ojsonld`
@@ -25,6 +34,12 @@ Convert Phenopackets to `BFF` `individuals` output:
 
 ```bash
 convert-pheno -ipxf pxf.json -obff individuals.json
+```
+
+The same conversion with the generic form:
+
+```bash
+convert-pheno -i pxf pxf.json -o bff individuals.json
 ```
 
 Convert Phenopackets biosamples when the input contains them:

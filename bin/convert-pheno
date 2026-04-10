@@ -45,9 +45,11 @@ sub print_help {
     my $out = shift || *STDOUT;
     print {$out} <<'EOF';
 Usage:
-  convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [options]
+  convert-pheno -i <input-type> <infile> -o <output-type> <outfile> [options]
+  convert-pheno -ipxf <infile> -obff <outfile> [options]
 
 Common input flags:
+  -i <type> <file>    Generic input form (pxf|bff|omop|redcap|cdisc|csv)
   -ibff <file>      Beacon v2 Models ('individuals' JSON|YAML)
   -ipxf <file>      Phenopackets v2 (JSON|YAML)
   -iomop <files...> OMOP-CDM CSV files or PostgreSQL dump
@@ -56,6 +58,7 @@ Common input flags:
   -icsv <file>      Raw CSV
 
 Common output flags:
+  -o <type> <file>    Generic output form (bff|pxf|omop|csv|jsonf|jsonld)
   -obff <file>      Beacon-oriented JSON/YAML output
   -opxf <file>      Phenopackets v2 output
   -oomop <prefix>   OMOP-CDM CSV prefix
@@ -87,6 +90,7 @@ Other useful options:
   --man
 
 Examples:
+  convert-pheno -i pxf pxf.json -o bff individuals.json
   convert-pheno -ipxf pxf.json -obff individuals.json
   convert-pheno -ipxf pxf.json --entities biosamples --out-dir out/
   convert-pheno -iomop dump.sql.gz -obff individuals.json.gz --stream --ohdsi-db
@@ -124,6 +128,8 @@ EOF
 
 # Reading arguments
 GetOptions(
+    'i=s'                         => \my $in_type_arg,                         # string
+    'o=s'                         => \my $out_type_arg,                        # string
     'ipxf=s'                      => \my $in_pxf,                              # string
     'ibff=s'                      => \my $in_bff,                              # string
     'iredcap=s'                   => \my $in_redcap,                           # string
@@ -168,6 +174,124 @@ GetOptions(
 ) or usage_error('Invalid command-line arguments');
 if ($help) { print_help(); exit 0; }
 if ($man)  { print_man();  exit 0; }
+
+sub normalize_cli_type {
+    my ($type) = @_;
+    return undef unless defined $type;
+    my $norm = lc $type;
+    $norm =~ s/^\s+|\s+$//g;
+    $norm =~ s/[-_\s]+//g;
+    my %map = (
+        bff      => 'bff',
+        beacon   => 'bff',
+        pxf      => 'pxf',
+        phenopackets => 'pxf',
+        omop     => 'omop',
+        omopcdm  => 'omop',
+        redcap   => 'redcap',
+        cdisc    => 'cdisc',
+        cdiscodm => 'cdisc',
+        csv      => 'csv',
+        jsonf    => 'jsonf',
+        jsonld   => 'jsonld',
+    );
+    return $map{$norm};
+}
+
+sub count_defined {
+    return scalar grep { defined $_ } @_;
+}
+
+my $normalized_in_type  = normalize_cli_type($in_type_arg);
+my $normalized_out_type = normalize_cli_type($out_type_arg);
+
+usage_error("Unsupported input type <$in_type_arg> for -i")
+  if defined $in_type_arg && !defined $normalized_in_type;
+usage_error("Unsupported output type <$out_type_arg> for -o")
+  if defined $out_type_arg && !defined $normalized_out_type;
+
+my %specific_in_values = (
+    pxf    => $in_pxf,
+    bff    => $in_bff,
+    redcap => $in_redcap,
+    cdisc  => $in_cdisc,
+    csv    => $in_csv,
+    omop   => @omop_files ? 1 : undef,
+);
+
+my %specific_out_values = (
+    bff    => $out_bff,
+    pxf    => $out_pxf,
+    csv    => $out_csv,
+    jsonf  => $out_jsonf,
+    jsonld => $out_jsonld,
+    omop   => $out_omop,
+);
+
+usage_error("Please use either the generic <-i/-o> syntax or the compact <-ixxx/-oxxx> flags for each side, not both")
+  if ( defined $normalized_in_type  && count_defined( $in_pxf, $in_bff, $in_redcap, $in_cdisc, $in_csv, @omop_files ? 1 : undef ) )
+  || ( defined $normalized_out_type && count_defined( $out_bff, $out_pxf, $out_csv, $out_jsonf, $out_jsonld, $out_omop ) );
+
+if ( defined $normalized_in_type ) {
+    if ( $normalized_in_type eq 'omop' ) {
+        usage_error("Please provide OMOP input file(s) after <-i omop>") unless @ARGV;
+        if ( defined $normalized_out_type ) {
+            usage_error("Please provide OMOP input file(s) followed by one output path")
+              unless @ARGV >= 2;
+            @omop_files = @ARGV[ 0 .. $#ARGV - 1 ];
+            my $generic_outfile = $ARGV[-1];
+            if ( $normalized_out_type eq 'bff' ) {
+                $out_bff = $generic_outfile;
+            }
+            elsif ( $normalized_out_type eq 'pxf' ) {
+                $out_pxf = $generic_outfile;
+            }
+            elsif ( $normalized_out_type eq 'csv' ) {
+                $out_csv = $generic_outfile;
+            }
+            elsif ( $normalized_out_type eq 'jsonf' ) {
+                $out_jsonf = $generic_outfile;
+            }
+            elsif ( $normalized_out_type eq 'jsonld' ) {
+                $out_jsonld = $generic_outfile;
+            }
+            elsif ( $normalized_out_type eq 'omop' ) {
+                $out_omop = $generic_outfile;
+            }
+        }
+        else {
+            @omop_files = @ARGV;
+        }
+        @ARGV = ();
+    }
+    else {
+        usage_error("Please provide an input file after <-i $in_type_arg>")
+          unless @ARGV;
+        my $generic_infile = shift @ARGV;
+        if    ( $normalized_in_type eq 'pxf' )    { $in_pxf    = $generic_infile }
+        elsif ( $normalized_in_type eq 'bff' )    { $in_bff    = $generic_infile }
+        elsif ( $normalized_in_type eq 'redcap' ) { $in_redcap = $generic_infile }
+        elsif ( $normalized_in_type eq 'cdisc' )  { $in_cdisc  = $generic_infile }
+        elsif ( $normalized_in_type eq 'csv' )    { $in_csv    = $generic_infile }
+
+        if ( defined $normalized_out_type ) {
+            usage_error("Please provide an output file after <-o $out_type_arg>")
+              unless @ARGV;
+            my $generic_outfile = shift @ARGV;
+            if    ( $normalized_out_type eq 'bff' )    { $out_bff    = $generic_outfile }
+            elsif ( $normalized_out_type eq 'pxf' )    { $out_pxf    = $generic_outfile }
+            elsif ( $normalized_out_type eq 'csv' )    { $out_csv    = $generic_outfile }
+            elsif ( $normalized_out_type eq 'jsonf' )  { $out_jsonf  = $generic_outfile }
+            elsif ( $normalized_out_type eq 'jsonld' ) { $out_jsonld = $generic_outfile }
+            elsif ( $normalized_out_type eq 'omop' )   { $out_omop   = $generic_outfile }
+        }
+    }
+}
+
+usage_error("The flag <-o> requires <-i> when using the generic syntax")
+  if defined $normalized_out_type && !defined $normalized_in_type;
+
+usage_error("Unexpected extra positional arguments: @ARGV") if @ARGV;
 
 # Validate certain CLI options
 # NB: The sequence of validations is important

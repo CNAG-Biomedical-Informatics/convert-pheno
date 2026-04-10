@@ -38,6 +38,13 @@ my @cases = (
         compare  => 'structured',
     },
     {
+        name     => 'pxf2bff_generic_io',
+        cmd      => [ '-i', 'pxf', 't/pxf2bff/in/pxf.json', '-o', 'bff', '__OUT__' ],
+        expected => 't/pxf2bff/out/individuals.json',
+        suffix   => '.json',
+        compare  => 'structured',
+    },
+    {
         name     => 'pxf2bff_biosamples',
         cmd      => [
             '-ipxf', 't/pxf2bff/in/pxf_biosamples.json',
@@ -88,6 +95,20 @@ my @cases = (
             't/omop2bff/in/CONCEPT.csv',
             't/omop2bff/in/DRUG_EXPOSURE.csv',
             '-obff', '__OUT__',
+        ],
+        expected => 't/omop2bff/out/individuals_csv.json',
+        suffix   => '.json',
+        compare  => 'structured',
+    },
+    {
+        name     => 'omop2bff_csv_plain_generic_io',
+        cmd      => [
+            '-i', 'omop',
+            't/omop2bff/in/PERSON.csv',
+            't/omop2bff/in/CONCEPT.csv',
+            't/omop2bff/in/DRUG_EXPOSURE.csv',
+            '-o', 'bff',
+            '__OUT__',
         ],
         expected => 't/omop2bff/out/individuals_csv.json',
         suffix   => '.json',
