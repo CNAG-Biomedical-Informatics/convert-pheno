@@ -3,6 +3,25 @@
 ## Current Head
 
 - Latest commit from this session: `9e99cb8` (`Refactor CLI and shared module namespaces`)
+- Later local work after those notes:
+  - legacy `pxf2bff -obff FILE` now warns when input PXF contains biosamples
+    while still preserving them under `info.phenopacket.biosamples`
+  - `PXF` BFF mapping was split toward `Source::ToBFF::Entity`:
+    - `Convert::Pheno::PXF`
+    - `Convert::Pheno::PXF::ToBFF::Individuals`
+    - `Convert::Pheno::PXF::ToBFF::Biosamples`
+  - `OMOP` BFF mapping now follows the same shape for `individuals`:
+    - `Convert::Pheno::OMOP`
+    - `Convert::Pheno::OMOP::ToBFF::Individuals`
+    - compatibility wrapper retained at
+      `Convert::Pheno::OMOP::Mapper::Individuals`
+  - CLI help and Markdown docs were updated to explain:
+    - legacy `-obff FILE` compatibility behavior
+    - `--entities ... --out-dir ...`
+    - `--out-entity entity=file`
+  - `--entities` now uses space-separated values rather than comma-separated
+    lists, for example:
+    - `--entities individuals biosamples`
 
 Uncommitted but staged at the time of this note:
 

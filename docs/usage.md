@@ -43,13 +43,29 @@ convert-pheno -ipxf pxf.json --entities biosamples --out-dir out/
 
 This currently works when the `PXF` input contains **biosample data**. The output file will be written as `out/biosamples.json`.
 
+If you want both `individuals` and `biosamples`:
+
+```bash
+convert-pheno -ipxf pxf.json --entities individuals biosamples --out-dir out/
+```
+
+If you want a custom biosample filename:
+
+```bash
+convert-pheno -ipxf pxf.json --entities individuals biosamples --out-dir out/ --out-entity biosamples=samples.json
+```
+
+!!! Note "Legacy `-obff FILE` behavior"
+    `convert-pheno -ipxf pxf.json -obff individuals.json` keeps the backward-compatible single-output path and emits only `individuals`. If the input also contains `biosamples`, the CLI prints a warning and preserves them under `info.phenopacket.biosamples`.
+
 ## Work with repository fixtures
 
 The repository test fixtures under `t/` are useful as **small examples**:
 
 ```bash
 bin/convert-pheno -ipxf t/pxf2bff/in/pxf.json -obff individuals.json
-bin/convert-pheno -ipxf t/pxf2bff/in/pxf_biosamples.json --entities biosamples --out-dir out/
+bin/convert-pheno -ipxf t/pxf2bff/in/pxf.json --entities biosamples --out-dir out/
+bin/convert-pheno -ipxf t/pxf2bff/in/pxf.json --entities individuals biosamples --out-dir out/ --out-entity biosamples=samples.json
 bin/convert-pheno -iomop t/omop2bff/in/omop_cdm_eunomia.sql -opxf phenopackets.json
 ```
 

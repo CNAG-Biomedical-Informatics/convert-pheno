@@ -57,7 +57,7 @@ sub build_cli_request {
     my ( $in_pxf, $in_bff, $in_redcap, $in_cdisc, $in_csv );
     my @omop_files;
     my ( $out_bff, $out_pxf, $out_csv, $out_jsonf, $out_jsonld, $out_omop );
-    my $entities;
+    my @entities_args;
     my @out_entity_specs;
     my ( $help, $man, $mapping_file, $max_lines_sql, $search );
     my ( $text_similarity_method, $min_text_similarity_score, $levenshtein_weight );
@@ -83,7 +83,7 @@ sub build_cli_request {
         'ojsonld=s'                   => \$out_jsonld,
         'oomop=s'                     => \$out_omop,
         'out-dir=s'                   => \$out_dir,
-        'entities=s'                  => \$entities,
+        'entities=s{1,}'              => \@entities_args,
         'out-entity=s'                => \@out_entity_specs,
         'help|?'                      => \$help,
         'man'                         => \$man,
@@ -268,9 +268,12 @@ sub build_cli_request {
         $usage_error->( $check->{message} ) if $check->{condition}->();
     }
 
+    $usage_error->("Please provide <--entities> as a space-separated list, e.g. <--entities individuals biosamples>")
+      if grep { defined $_ && /,/ } @entities_args;
+
     my @entity_list =
-      defined $entities
-      ? map { uc($_) eq 'ALL' ? () : $_ } grep { length } map { s/^\s+|\s+$//gr } split /,/, $entities
+      @entities_args
+      ? map { uc($_) eq 'ALL' ? () : $_ } grep { length } map { s/^\s+|\s+$//gr } @entities_args
       : ('individuals');
 
     @entity_list = ('individuals') unless @entity_list;
@@ -282,16 +285,16 @@ sub build_cli_request {
     }
 
     $usage_error->("The flag <--entities> is only valid with BFF output")
-      if defined $entities && ( $out_pxf || $out_csv || $out_jsonf || $out_jsonld || $out_omop );
+      if @entities_args && ( $out_pxf || $out_csv || $out_jsonf || $out_jsonld || $out_omop );
 
     $usage_error->("The entity <biosamples> is currently only supported with <-ipxf> and <-obff>")
       if grep { $_ eq 'biosamples' } @entity_list && !$in_pxf;
 
     $usage_error->("When using <--entities>, please use <--out-dir> without <-obff FILE>")
-      if defined $entities && defined $out_bff;
+      if @entities_args && defined $out_bff;
 
     $usage_error->("The flag <--out-entity> requires <--entities>")
-      if @out_entity_specs && !defined $entities;
+      if @out_entity_specs && !@entities_args;
 
     my %entity_output_files;
     for my $spec (@out_entity_specs) {

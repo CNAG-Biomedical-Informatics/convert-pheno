@@ -81,11 +81,21 @@ Example:
 
 ```bash
 convert-pheno -ipxf pxf.json --entities biosamples --out-dir out/
+convert-pheno -ipxf pxf.json --entities individuals biosamples --out-dir out/
+convert-pheno -ipxf pxf.json --entities individuals biosamples --out-dir out/ --out-entity biosamples=samples.json
 ```
 
 This writes:
 
 - `out/biosamples.json`
+
+The legacy command:
+
+```bash
+convert-pheno -ipxf pxf.json -obff individuals.json
+```
+
+still emits only `individuals`. If the input contains `biosamples`, the CLI warns and preserves them under `info.phenopacket.biosamples` for backward compatibility.
 
 ## Installation
 

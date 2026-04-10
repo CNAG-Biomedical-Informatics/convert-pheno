@@ -67,7 +67,9 @@ Output behavior:
   --out-dir <dir>       Output directory
   --entities <list>     Beacon entities for BFF output [individuals]
                         Current extra support: biosamples from -ipxf
+                        Use with --out-dir, not with -obff FILE
   --out-entity e=file   Override one entity filename; repeat as needed
+                        Requires --entities
   -O                    Overwrite output file(s)
 
 OMOP:
@@ -91,8 +93,13 @@ Examples:
   convert-pheno -i pxf pxf.json -o bff individuals.json
   convert-pheno -ipxf pxf.json -obff individuals.json
   convert-pheno -ipxf pxf.json --entities biosamples --out-dir out/
-  convert-pheno -ipxf pxf.json --entities individuals,biosamples --out-dir out/ --out-entity biosamples=samples.json
+  convert-pheno -ipxf pxf.json --entities individuals biosamples --out-dir out/ --out-entity biosamples=samples.json
   convert-pheno -iomop dump.sql.gz -obff individuals.json.gz --stream --ohdsi-db
+
+Legacy compatibility:
+  -obff FILE keeps the legacy single-output behavior and emits individuals only.
+  If a PXF input also contains biosamples, convert-pheno warns and preserves them
+  under info.phenopacket.biosamples unless --entities is used.
 
 Docs:
   Site:  https://cnag-biomedical-informatics.github.io/convert-pheno
@@ -178,6 +185,7 @@ sub convert {
         || ( $l_data->{entities}[0] || 'individuals' ) ne 'individuals'
       );
 
+    maybe_warn_legacy_pxf_biosamples( $l_data, $entity_mode );
     prepare_output_targets( $l_data, $o_file, $entity_mode );
 
     # Start verbose
@@ -190,6 +198,41 @@ sub convert {
 
     # Finish
     print BOLD GREEN program_footer(), RESET if $verbose;
+}
+
+sub maybe_warn_legacy_pxf_biosamples {
+    my ( $l_data, $entity_mode ) = @_;
+
+    return if $entity_mode;
+    return unless $l_data->{method} eq 'pxf2bff';
+    return unless defined $l_data->{in_file};
+
+    my $input = io_yaml_or_json(
+        {
+            filepath => $l_data->{in_file},
+            mode     => 'read',
+        }
+    );
+
+    my @items = ref($input) eq 'ARRAY' ? @$input : ($input);
+
+    for my $item (@items) {
+        next unless ref($item) eq 'HASH';
+        my $phenopacket =
+          exists $item->{phenopacket} ? $item->{phenopacket} : $item;
+        next unless ref($phenopacket) eq 'HASH';
+        next
+          unless exists $phenopacket->{biosamples}
+          && ref( $phenopacket->{biosamples} ) eq 'ARRAY'
+          && @{ $phenopacket->{biosamples} };
+
+        print STDERR <<'EOF';
+Warning: input PXF contains biosamples. Legacy <-obff FILE> mode emits only <individuals>; biosamples were preserved under <info.phenopacket.biosamples>. Use <--entities biosamples> or <--entities individuals biosamples> with <--out-dir> for first-class biosample output.
+EOF
+        return;
+    }
+
+    return;
 }
 
 sub prepare_output_targets {

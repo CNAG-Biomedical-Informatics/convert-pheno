@@ -7,7 +7,7 @@ use autodie;
 use Exporter 'import';
 use Convert::Pheno::Context;
 use Convert::Pheno::Model::Bundle;
-use Convert::Pheno::OMOP::Mapper::Individuals qw(map_participant);
+use Convert::Pheno::OMOP::ToBFF::Individuals qw(map_participant);
 
 our @EXPORT = qw(do_omop2bff run_omop_to_bundle);
 

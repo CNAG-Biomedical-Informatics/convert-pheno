@@ -72,6 +72,98 @@ my $custom_biosamples_file = File::Spec->catfile( $custom_out_dir, 'samples.json
 ok( -f $custom_biosamples_file, 'CLI writes custom biosample filename when requested' );
 ok( !-f File::Spec->catfile( $custom_out_dir, 'biosamples.json' ), 'CLI does not also write the default biosamples filename when overridden' );
 
+my $multi_out_dir = ensure_clean_dir('t/cli-entities-multi-out');
+my @multi_cmd = (
+    $^X,
+    $cli,
+    '-ipxf', $input_file,
+    '--entities', 'individuals', 'biosamples',
+    '--out-dir', $multi_out_dir,
+    '--out-entity', 'biosamples=samples.json',
+    '-O',
+);
+
+my $multi_status = system @multi_cmd;
+is( $multi_status, 0, 'CLI accepts space-separated --entities values' );
+ok( -f File::Spec->catfile( $multi_out_dir, 'individuals.json' ), 'CLI writes individuals.json in multi-entity mode' );
+ok( -f File::Spec->catfile( $multi_out_dir, 'samples.json' ), 'CLI writes custom biosample file in multi-entity mode' );
+
+{
+    my $legacy_out_dir = ensure_clean_dir('t/cli-entities-legacy-out');
+    my $legacy_out_file = File::Spec->catfile( $legacy_out_dir, 'individuals.json' );
+    my ( $fh, $log_file ) =
+      tempfile( DIR => '/tmp', SUFFIX => '.cli.log', UNLINK => 1 );
+    my $pid = fork();
+    die 'fork failed' unless defined $pid;
+
+    if ( $pid == 0 ) {
+        open STDOUT, '>&', $fh or die "dup STDOUT failed: $!";
+        open STDERR, '>&', $fh or die "dup STDERR failed: $!";
+        exec(
+            $^X,
+            $cli,
+            '-ipxf', $input_file,
+            '-obff', $legacy_out_file,
+            '-O',
+        ) or die "exec failed: $!";
+    }
+
+    waitpid( $pid, 0 );
+    seek $fh, 0, 0;
+    local $/;
+    my $output = <$fh>;
+    close $fh;
+
+    is( $? >> 8, 0, 'CLI keeps legacy pxf2bff single-output mode working when biosamples are present' );
+    like(
+        $output,
+        qr/Warning: input PXF contains biosamples\./,
+        'CLI warns when legacy pxf2bff output hides first-class biosamples'
+    );
+    ok( -f $legacy_out_file, 'CLI still writes the legacy individuals output file' );
+
+    my $legacy_individuals = load_json_file($legacy_out_file);
+    is(
+        $legacy_individuals->[0]{info}{phenopacket}{biosamples}[0]{id},
+        'bio-1',
+        'legacy pxf2bff output still preserves biosamples under info.phenopacket.biosamples'
+    );
+
+    remove_dir_if_exists($legacy_out_dir);
+}
+
+{
+    my ( $fh, $log_file ) =
+      tempfile( DIR => '/tmp', SUFFIX => '.cli.log', UNLINK => 1 );
+    my $pid = fork();
+    die 'fork failed' unless defined $pid;
+
+    if ( $pid == 0 ) {
+        open STDOUT, '>&', $fh or die "dup STDOUT failed: $!";
+        open STDERR, '>&', $fh or die "dup STDERR failed: $!";
+        exec(
+            $^X,
+            $cli,
+            '-ipxf', $input_file,
+            '--entities', 'individuals,biosamples',
+            '--out-dir', $out_dir,
+        ) or die "exec failed: $!";
+    }
+
+    waitpid( $pid, 0 );
+    seek $fh, 0, 0;
+    local $/;
+    my $output = <$fh>;
+    close $fh;
+
+    isnt( $? >> 8, 0, 'CLI rejects comma-separated --entities values' );
+    like(
+        $output,
+        qr/Please provide <--entities> as a space-separated list/,
+        'CLI prints a focused error for comma-separated --entities'
+    );
+}
+
 {
     my ( $fh, $log_file ) =
       tempfile( DIR => '/tmp', SUFFIX => '.cli.log', UNLINK => 1 );
@@ -137,5 +229,6 @@ ok( !-f File::Spec->catfile( $custom_out_dir, 'biosamples.json' ), 'CLI does not
 
 remove_dir_if_exists($out_dir);
 remove_dir_if_exists($custom_out_dir);
+remove_dir_if_exists($multi_out_dir);
 
 done_testing();

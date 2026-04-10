@@ -30,7 +30,22 @@ Phenopackets organize information using [top-level elements](https://phenopacket
 
 
     ??? Warning "About `biosamples` and `interpretations`"
-        If these properties are present, they will be included in `individuals.json` within the `info.phenopacket` field as unprocessed data, as they are not mapped to any specific entity within the Beacon v2 Models. See additional info [here](mapping-steps.md).
+        In the legacy `-obff individuals.json` path, `convert-pheno` still emits only the Beacon `individuals` entity. If a `PXF` input also contains `biosamples`, the CLI warns and preserves them under `info.phenopacket.biosamples` for backward compatibility.
+
+        If you want first-class Beacon `biosamples` output, use entity mode instead:
+
+        ```bash
+        convert-pheno -ipxf pxf.json --entities biosamples --out-dir out/
+        convert-pheno -ipxf pxf.json --entities individuals biosamples --out-dir out/
+        ```
+
+        You can also override the biosample filename:
+
+        ```bash
+        convert-pheno -ipxf pxf.json --entities individuals biosamples --out-dir out/ --out-entity biosamples=samples.json
+        ```
+
+        `interpretations` are still preserved under `info.phenopacket` because they are not yet exposed as a first-class Beacon output entity in the CLI.
 
 === "Module"
 

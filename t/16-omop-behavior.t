@@ -9,23 +9,23 @@ use Convert::Pheno::OMOP qw(do_omop2bff);
 {
     no warnings 'redefine';
 
-    local *Convert::Pheno::OMOP::Mapper::Individuals::map2ohdsi = sub {
+    local *Convert::Pheno::OMOP::ToBFF::Individuals::map2ohdsi = sub {
         my ($arg) = @_;
         my $id = $arg->{concept_id};
         return { id => "OHDSI:$id", label => "label-$id" };
     };
 
-    local *Convert::Pheno::OMOP::Mapper::Individuals::map_ontology_term = sub {
+    local *Convert::Pheno::OMOP::ToBFF::Individuals::map_ontology_term = sub {
         my ($arg) = @_;
         return { id => "NCIT:$arg->{query}", label => $arg->{query} };
     };
 
-    local *Convert::Pheno::OMOP::Mapper::Individuals::map_omop_visit_occurrence = sub {
+    local *Convert::Pheno::OMOP::ToBFF::Individuals::map_omop_visit_occurrence = sub {
         my ($arg) = @_;
         return { occurrence_id => $arg->{visit_occurrence_id}, id => "visit-$arg->{visit_occurrence_id}" };
     };
 
-    local *Convert::Pheno::OMOP::Mapper::Individuals::map_operator_concept_id = sub {
+    local *Convert::Pheno::OMOP::ToBFF::Individuals::map_operator_concept_id = sub {
         my ($arg) = @_;
         return {
             low  => -1,
@@ -174,8 +174,8 @@ use Convert::Pheno::OMOP qw(do_omop2bff);
 
 {
     no warnings 'redefine';
-    local *Convert::Pheno::OMOP::Mapper::Individuals::map2ohdsi = sub { return { id => 'OHDSI:1', label => 'label-1' } };
-    local *Convert::Pheno::OMOP::Mapper::Individuals::map_ontology_term = sub { return { id => 'NCIT:1', label => 'male' } };
+    local *Convert::Pheno::OMOP::ToBFF::Individuals::map2ohdsi = sub { return { id => 'OHDSI:1', label => 'label-1' } };
+    local *Convert::Pheno::OMOP::ToBFF::Individuals::map_ontology_term = sub { return { id => 'NCIT:1', label => 'male' } };
 
     my $self = bless(
         {

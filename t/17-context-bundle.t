@@ -89,19 +89,10 @@ use Convert::Pheno::PXF qw(do_pxf2bff run_pxf_to_bundle);
 {
     no warnings 'redefine';
 
-    local *Convert::Pheno::PXF::_map_diseases = sub { };
-    local *Convert::Pheno::PXF::_map_exposures = sub { };
-    local *Convert::Pheno::PXF::_map_id = sub {
-        my ( $phenopacket, $individual ) = @_;
-        $individual->{id} = $phenopacket->{subject}{id};
+    local *Convert::Pheno::PXF::map_pxf_to_individual = sub {
+        my ( $self, $phenopacket, $cohort, $family ) = @_;
+        return { id => $phenopacket->{subject}{id} };
     };
-    local *Convert::Pheno::PXF::_map_info = sub { };
-    local *Convert::Pheno::PXF::_map_interventions_or_procedures = sub { };
-    local *Convert::Pheno::PXF::_map_karyotypicSex = sub { };
-    local *Convert::Pheno::PXF::_map_measures = sub { };
-    local *Convert::Pheno::PXF::_map_phenotypic_features = sub { };
-    local *Convert::Pheno::PXF::_map_sex = sub { };
-    local *Convert::Pheno::PXF::_map_treatments = sub { };
     local *Convert::Pheno::PXF::validate_format = sub { return 1 };
 
     my $convert = bless(

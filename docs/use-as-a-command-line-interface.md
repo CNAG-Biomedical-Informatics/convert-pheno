@@ -48,6 +48,12 @@ Convert Phenopackets biosamples when the input contains them:
 convert-pheno -ipxf pxf.json --entities biosamples --out-dir out/
 ```
 
+Convert both `individuals` and `biosamples`, while overriding the biosample filename:
+
+```bash
+convert-pheno -ipxf pxf.json --entities individuals biosamples --out-dir out/ --out-entity biosamples=samples.json
+```
+
 Convert a **large OMOP SQL dump** incrementally:
 
 ```bash
@@ -63,7 +69,10 @@ convert-pheno -ibff individuals.json -opxf pxf.json
 ## Notes
 
 - `-obff` keeps the **legacy `BFF` behavior**. By default this means `individuals`.
+- When `PXF` input contains `biosamples`, the legacy `-obff FILE` path still writes only `individuals`. In that mode, `convert-pheno` warns and preserves the biosamples under `info.phenopacket.biosamples`.
 - `--entities` can be used with `BFF` output. The current extra entity exposed by the CLI is `biosamples` from `-ipxf` input when biosample data is present.
+- `--entities` is an entity-output mode. Use it together with `--out-dir`, not with `-obff FILE`.
+- `--out-entity entity=file` lets you override the filename of one requested entity and requires `--entities`.
 - `--stream` is mainly relevant for **large OMOP inputs**.
 
 ## More help
