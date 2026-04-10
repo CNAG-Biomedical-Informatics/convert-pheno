@@ -1,24 +1,23 @@
 `Convert-Pheno` core is a Perl module available at [CPAN](https://metacpan.org/pod/Convert::Pheno).
 
-## Usage
+## Perl usage
 
-The module can be used within a `Perl` script, but it can also be utilized in scripts written in other languages, such as `Python`. 
+The most direct programmatic interface is the Perl module itself:
 
-```Perl
+```perl
 use Convert::Pheno;
 
 my $my_pxf_json_data = {
-    "phenopacket" => {
-        "id"      => "P0007500",
-        "subject" => {
-            "id"          => "P0007500",
-            "dateOfBirth" => "unknown-01-01T00:00:00Z",
-            "sex"         => "FEMALE"
+    phenopacket => {
+        id      => "P0007500",
+        subject => {
+            id          => "P0007500",
+            dateOfBirth => "unknown-01-01T00:00:00Z",
+            sex         => "FEMALE"
         }
     }
 };
 
-# Create object
 my $convert = Convert::Pheno->new(
     {
         data   => $my_pxf_json_data,
@@ -26,20 +25,24 @@ my $convert = Convert::Pheno->new(
     }
 );
 
-# Apply a method
 my $data = $convert->pxf2bff;
 ```
 
-=== "Inside Perl"
+That is the most complete and best-supported programmatic path in the project.
 
-    Find [here](https://github.com/cnag-biomedical-informatics/convert-pheno/blob/main/share/ex/perl.pl) an example script.
+## Example scripts
 
-=== "Inside Python"
+- Perl example: [share/ex/perl.pl](https://github.com/cnag-biomedical-informatics/convert-pheno/blob/main/share/ex/perl.pl)
+- Python example: [share/ex/python.py](https://github.com/cnag-biomedical-informatics/convert-pheno/blob/main/share/ex/python.py)
 
-    Find [here](https://github.com/cnag-biomedical-informatics/convert-pheno/blob/main/share/ex/python.py) an example script. 
+## About Python usage
 
-    * It should work out of the box with the [containerized version](download-and-installation.md#containerized).
-    * You also have instructions in how to run it in a [conda environment](./download-and-installation.md#non-containerized).
+A Python bridge is included in the repository for interoperability, but the underlying conversion logic still runs in Perl.
 
-    !!! Question "Perl inside Python, is that even possible :smile:?"
-        Perl easily integrates with other languages and allows for embedding them into Perl code (e.g., using `Inline`). However, embedding Perl code into other languages is not as simple. Fortunately, the [PyPerler library](https://github.com/tkluck/pyperler) provides a solution for this issue.
+If you need Python integration, check:
+
+- [Use as an API](use-as-an-api.md)
+- [share/ex/python.py](https://github.com/cnag-biomedical-informatics/convert-pheno/blob/main/share/ex/python.py)
+
+!!! Note "Python support"
+    The Python layer is a wrapper around the Perl module rather than an independent implementation of the conversion logic.

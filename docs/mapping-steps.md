@@ -1,6 +1,6 @@
 ## Step 1: Conversion to the target model
 
-Internally, all models are mapped to the [Beacon v2 Models](bff.md).
+For **most workflows**, `Convert-Pheno` first maps the input data to [BFF](bff.md), the Beacon v2 Models-based format that acts as the **internal target** or **center model** of the toolkit. From there, the data can remain as `BFF` or continue to other outputs such as `PXF` or `OMOP CDM`.
 
 ```mermaid
 %%{init: {'theme':'neutral'}}%%
@@ -30,7 +30,7 @@ graph LR
 ```
 <figcaption>Convert-Pheno internal mapping steps</figcaption>
 
-??? Question "Why use Beacon v2 as the target model?"
+??? Question "Why use Beacon v2 Models as the target model?"
     * **JSON Schema Utilization:** Beacon v2 employs [JSON Schema](https://github.com/ga4gh-beacon/beacon-v2/tree/main/models) for model content definition, facilitating transparency and accessibility in a collaborative environment compared to Phenopackets' Protobuf usage.
     * **Accommodation of Additional Properties:** The Beacon v2 Models schema permits additional properties, enhancing adaptability and enabling near-lossless conversion, especially when using JSON in non-relational databases.
     * **Beacon v2 API Compatibility:** The BFF is directly compatible with the Beacon v2 API ecosystem, a feature not available in Phenopackets without additional mapping.
@@ -194,9 +194,11 @@ During the conversion process, handling variables that cannot be directly mapped
 
 === "Match to a different entity"
 
-    When a variable corresponds to other entities in [Beacon v2 Models](https://github.com/ga4gh-beacon/beacon-v2), it is stored within the `info` term of the [individuals](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema/) entity. For instance, a `PXF` file may contain the [biosamples](https://phenopacket-schema.readthedocs.io/en/latest/phenopacket.html) property, which doesn't find a direct match in the [individuals](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema/) entity as it corresponds to the [biosamples](https://docs.genomebeacons.org/schemas-md/biosamples_defaultSchema/) entity in Beacon v2 Models. To ensure the retention of this information, we place it under `info.phenopacket.biosamples`.
+    When a variable corresponds to a different entity in [Beacon v2 Models](https://github.com/ga4gh-beacon/beacon-v2), `Convert-Pheno` tries to preserve that information without dropping it. In the `individuals`-based output path used **before version 0.30**, this often means storing the data inside the `info` term of the [individuals](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema/) entity. For instance, a `PXF` file may contain the [biosamples](https://phenopacket-schema.readthedocs.io/en/latest/phenopacket.html) property, which does not belong to the Beacon [individuals](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema/) entity but to the Beacon [biosamples](https://docs.genomebeacons.org/schemas-md/biosamples_defaultSchema/) entity. In that path, the data are preserved under `info.phenopacket.biosamples`.
+
+    Starting with **version 0.30**, newer internal bundle-based paths can already expose `biosamples` as a **separate output entity** for `PXF`, while keeping the earlier `individuals` behaviour for backward compatibility.
      
-    Example extracted from `pxf2bff` [conversion](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/t/pxf2bff/out/individuals.json):
+    Example extracted from the `pxf2bff` [conversion](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/t/pxf2bff/out/individuals.json), using the `individuals`-based output path kept for backward compatibility:
      
     ??? Example "See example"
         ```json

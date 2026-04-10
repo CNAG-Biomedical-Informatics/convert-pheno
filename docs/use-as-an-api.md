@@ -1,36 +1,42 @@
-In some cases, using an API for sending and receiving data as a microservice may be more efficient. To address this, we have developed a lightweight REST API that allows for sending `POST` requests and receiving `JSON` responses
+In some workflows it is more convenient to send conversion requests over HTTP instead of calling the module directly. For that case, `Convert-Pheno` includes a lightweight REST API.
 
-## Usage
+## Basic request
 
-Just make sure to send your `POST` data in the proper format. 
+Send a `POST` request to `/api` with a JSON body:
 
 ```bash
 curl -d "@data.json" -H 'Content-Type: application/json' -X POST http://localhost:3000/api
 ```
 
-where `data.json` looks like the below:
+Example payload:
 
 ```json
 {
- "data": {...}
- "method": "pxf2bff"
+  "data": { "...": "..." },
+  "method": "pxf2bff",
+  "ohdsi_db": false
 }
 ```
 
+The response is the result of running the requested `Convert::Pheno` method.
+
 ??? Note "Interactive API specification"
-    Please find [here](redoc-static.html) interactive documentation (built with [ReDoc](https://redocly.github.io/redoc/)).
+    Interactive documentation is available [here](redoc-static.html), built with [ReDoc](https://redocly.github.io/redoc/).
 
-## Included APIs
+## Available implementations
 
-We included two flavours of the same API, one in `Perl` and another in `Python`.Both APIs were created by using OpenAPI 3.0.2 schema and should work out of the box with the [containerized version](download-and-installation.md#containerized).
+The repository currently includes two API wrappers:
 
-!!! Question "Local or remote installation?"
-    The API should be installed on a **local** server.
+- Perl: [api/perl](https://github.com/cnag-biomedical-informatics/convert-pheno/tree/main/api/perl)
+- Python: [api/python](https://github.com/cnag-biomedical-informatics/convert-pheno/tree/main/api/python)
 
-=== "Perl version"
+The Perl implementation is the direct wrapper around the main module. The Python implementation exists for interoperability, but the core conversion logic still lives in Perl.
 
-    Please see more detailed instructions at this [README](https://github.com/cnag-biomedical-informatics/convert-pheno/tree/main/api/perl#readme-convert-pheno-api-perl-version).
+## Deployment note
 
-=== "Python version"
+This API is intended to run on a machine where `Convert-Pheno` and its dependencies are already installed. In practice, the containerized setup is the easiest way to expose it as a local service.
 
-    Please see more detailed instructions at this [README](https://github.com/cnag-biomedical-informatics/convert-pheno/tree/main/api/python#readme-convert-pheno-api-python-version).
+See:
+
+- [Download & Installation](download-and-installation.md)
+- [Containerized installation](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/docker/README.md)

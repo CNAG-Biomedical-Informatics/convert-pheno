@@ -9,5 +9,3 @@
 
 !!! Hint "About `exposures`"
     `exposures` terms are obtained from this [CSV file](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/share/db/concepts_candidates_2_exposure.csv). You can use a different csv file with the option `--exposures-file`.
-
-##### last change 2023-06-09 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)

@@ -6,5 +6,3 @@
      The Beacon v2 schema enforces the presence of specific properties to achieve successful validation. In cases where no suitable match is found, DEFAULT values are employed to guarantee conformity.
 
 --8<-- "tbl/mapping-pxf2bff.md"
-
-##### last change 2023-03-09 by Manuel Rueda [:fontawesome-brands-github:](https://github.com/mrueda)

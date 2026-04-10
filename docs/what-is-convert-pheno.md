@@ -1,37 +1,46 @@
 # What is Convert-Pheno?
 
-`Convert-Pheno` is an **open-source** toolkit designed to **interconvert common phenotypic data models**, facilitating easier data sharing and integration across different standards.
+`Convert-Pheno` is an **open-source toolkit** for converting clinical and phenotypic data between several commonly used exchange models.
 
 <figure markdown>
  ![Convert-Pheno](img/convert-pheno-schema.png){width="500"}
  <figcaption>Convert-Pheno schematic view</figcaption>
 </figure>
 
-## Basic Usage: Command-Line Interface
+In practice, the project is centered on a **Perl module** and a **command-line tool** that work with text files such as:
 
-Most users interact with `Convert-Pheno` via its **Command-Line Interface (CLI)**. The CLI operates directly on text files, providing straightforward input-output interaction.
+- BFF `individuals` JSON/YAML
+- Phenopackets v2 JSON/YAML
+- OMOP-CDM SQL or CSV exports
+- REDCap CSV exports
+- CDISC-ODM XML
+- mapped CSV input
 
+Internally, the toolkit uses `BFF` as its **center model** for most conversions. From there, it can emit `BFF`, `PXF`, or `OMOP CDM` output depending on the selected workflow.
 
-## Advanced Usage: Alternative Operation Modes
+## Most users should start here
 
-`Convert-Pheno` also supports several alternative modes of operation to accommodate diverse user needs:
+For most users, the [command-line interface](use-as-a-command-line-interface.md) is the **right entry point**. It is the most direct way to run conversions on files and the interface that the rest of the project is built around.
 
-- **[Module](use-as-a-module.md)**: Embed `Convert-Pheno` directly into your custom scripts or automated pipelines.
-- **[API Access](use-as-an-api.md)**: Programmatically access conversion functionalities through a standardized API.
+Typical examples are:
 
-## Web Application Interface
+```bash
+convert-pheno -ipxf pxf.json -obff individuals.json
+convert-pheno -iomop dump.sql.gz -obff individuals.json.gz --stream --ohdsi-db
+```
 
-- **[Web Application Interface](https://cnag-biomedical-informatics.github.io/convert-pheno-ui)**: An intuitive and interactive web-based user interface.
+See [Use as a command-line interface](use-as-a-command-line-interface.md) for the CLI entry points and [Usage](usage.md) for more examples.
 
-## Listen to the Paper: Audio Edition
+## Other ways to use it
 
-!!! Abstract "Podcast-Style Audio Format"
+If you need tighter integration:
 
-    Explore the key insights of this paper in audio format! Perfect for learning on the go or through immersive narration.
+- [As a module](use-as-a-module.md): call `Convert::Pheno` from Perl code
+- [As an API](use-as-an-api.md): run the lightweight HTTP API
+- [Web App UI](https://cnag-biomedical-informatics.github.io/convert-pheno-ui/): inspect and try conversions interactively
 
-    <audio controls>
-      <source src="../media/convert-pheno-notebook-llm.mp3" type="audio/mpeg">
-      Your browser does not support the audio element.
-    </audio>
+## What to read next
 
-    Made with [Notebook LM](https://notebooklm.google.com)
+- [Supported formats](supported-formats.md) if you want to know what can be converted
+- [Download & Installation](download-and-installation.md) if you want to install it
+- [Use as a command-line interface](use-as-a-command-line-interface.md) if you want to run it now

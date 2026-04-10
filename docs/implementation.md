@@ -1,6 +1,6 @@
 ## Components
 
-`Convert-Pheno` is a versatile **toolkit** composed of **multiple components**. At its core is a [Perl module](https://metacpan.org/pod/Convert%3A%3APheno) that functions as a node for both the [command-line interface](use-as-a-command-line-interface.md) and the [API](use-as-an-api.md). The Perl module can be used in Python with the included Python Binding that works _out-of-the-box_ with the [containerized version](download-and-installation.md#containerized). The [Web App](https://cnag-biomedical-informatics.github.io/convert-pheno-ui) is built on top of the [command-line interface](use-as-a-command-line-interface.md).
+`Convert-Pheno` is a **toolkit** composed of several interfaces around the same Perl core. At the center is the [Perl module](https://metacpan.org/pod/Convert%3A%3APheno), which is used by the [command-line interface](use-as-a-command-line-interface.md) and by the [API](use-as-an-api.md). A Python interoperability layer is also included in the repository, but the conversion logic itself remains in Perl. The [Web App](https://cnag-biomedical-informatics.github.io/convert-pheno-ui) is built on top of the [command-line interface](use-as-a-command-line-interface.md).
 
 ```mermaid
 %%{init: {'theme':'neutral'}}%%
@@ -36,7 +36,11 @@ graph TB
 
 ## Software architecture
 
-The [core module](https://metacpan.org/pod/Convert::Pheno) is divided into various sub-modules. The main package, `Convert::Pheno`, handles class initialization and employs the [Moo](https://metacpan.org/pod/Moo) module along with [Types::Standard](https://metacpan.org/pod/Types::Standard) for data validation. After validation, the user-selected method (e.g., `pxf2bff`) is executed, directing the data to the respective [independent modules](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/tree/main/lib/Convert/Pheno), each tailored for converting a specific input format.
+The [core module](https://metacpan.org/pod/Convert::Pheno) is divided into several sub-modules. The main package, `Convert::Pheno`, handles class initialization and employs the [Moo](https://metacpan.org/pod/Moo) module along with [Types::Standard](https://metacpan.org/pod/Types::Standard) for data validation. In architectural terms, most conversions still use `BFF` as the internal target or center model: source formats are first mapped to `BFF`, and from there can continue to outputs such as `PXF` or `OMOP CDM`.
+
+At the same time, the implementation is moving toward a more explicit internal conversion context and bundle model. This is relevant for cases where input data contains information that belongs to more than one Beacon entity. A current example is `PXF` biosample data: in the `individuals`-based output path used before version `0.30`, it is preserved losslessly under `info.phenopacket.biosamples`, while the newer internal model can expose it as a separate bundle entity. This preserves backward compatibility while making room for fuller multi-entity mapping in later versions.
+
+After validation, the user-selected method (for example `pxf2bff`) is executed, directing the data to the respective [independent modules](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/tree/main/lib/Convert/Pheno), each tailored for converting a specific input format.
 
 ??? Question "Why Perl?"
     The choice of Perl as a language is due to its inherent **speed in text processing** and its use of **sigils to distinguish data types** within intricate data structures.

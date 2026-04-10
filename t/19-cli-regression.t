@@ -81,6 +81,19 @@ my @cases = (
         compare  => 'structured',
     },
     {
+        name     => 'omop2bff_csv_plain',
+        cmd      => [
+            '-iomop',
+            't/omop2bff/in/PERSON.csv',
+            't/omop2bff/in/CONCEPT.csv',
+            't/omop2bff/in/DRUG_EXPOSURE.csv',
+            '-obff', '__OUT__',
+        ],
+        expected => 't/omop2bff/out/individuals_csv.json',
+        suffix   => '.json',
+        compare  => 'structured',
+    },
+    {
         name     => 'omop2pxf',
         cmd      => [ '-iomop', 't/omop2bff/in/omop_cdm_eunomia.sql', '-opxf', '__OUT__' ],
         expected => 't/omop2pxf/out/pxf.json',

@@ -1,5 +1,9 @@
 # Session Notes
 
+## Current Head
+
+- Latest commit from this session: `4c4fcae` (`Refactor OMOP pipeline and restore CLI regressions`)
+
 ## What The Code Does
 
 `Convert-Pheno` interconverts several clinical/phenotypic data formats.
@@ -14,18 +18,24 @@ Supported practical flows in this repo include:
 - Beacon -> OMOP
 - Beacon / PXF -> CSV / JSON flattening / JSON-LD
 
-The main current design pattern is:
+The historical design pattern was:
 
 1. Parse input format.
 2. Map it into the internal Beacon-like center model.
 3. Optionally map again into the final output format.
 
-Important caveat:
+Important caveat, still true at the public API level:
 
 - The “center model” is not a general Beacon bundle.
 - In practice it is Beacon `individuals`.
 - Data that belong to other Beacon entities, such as `biosamples`, are often
   retained under `info` rather than emitted as first-class entities.
+
+Important caveat, now partially improved internally:
+
+- A new internal `Context` + `Bundle` contract exists.
+- OMOP and PXF can now build a bundle internally.
+- Legacy public behavior still unwraps back to `individuals` by default.
 
 ## How The Code Is Organized
 
@@ -40,9 +50,22 @@ Important caveat:
   - Main orchestrator class.
   - Holds object attributes via `Moo`.
   - Exposes methods such as `omop2bff`, `pxf2bff`, `csv2pxf`, `bff2omop`, etc.
-  - Dispatches into format-specific modules.
-  - Contains important wrapper/orchestration logic, especially OMOP pipeline and
-    stream-vs-non-stream behavior.
+  - Still dispatches into format-specific modules.
+  - No longer carries as much OMOP-specific detail as before.
+  - `array_dispatcher` now routes through `Convert::Pheno::Runner`.
+
+- `lib/Convert/Pheno/Runner.pm`
+  - New internal execution core.
+  - Resolves operations as `legacy` vs `bundle`.
+  - Compatibility layer during the refactor away from raw `method` dispatch.
+
+- `lib/Convert/Pheno/Context.pm`
+  - New internal execution context object.
+  - Holds source/target/entity intent and execution resources.
+
+- `lib/Convert/Pheno/Model/Bundle.pm`
+  - New internal canonical bundle container.
+  - Currently used for `individuals`, and for first-class PXF `biosamples`.
 
 ### Format converters
 
@@ -51,15 +74,32 @@ Important caveat:
   - Also normalizes things like `medical_actions` -> `medicalActions`,
     `meta_data` -> `metaData`.
   - Preserves `biosamples`, `files`, `interpretations`, etc. in `info`.
+  - New internal `run_pxf_to_bundle` path.
+  - When `biosamples` are requested and present in the PXF input, they are also
+    exposed as first-class bundle entities.
+  - Current `biosamples` support is pass-through/extraction, not yet a true
+    semantic PXF -> Beacon biosamples mapping.
 
 - `lib/Convert/Pheno/Bff2Pxf.pm`
   - Beacon `individuals` -> PXF.
 
 - `lib/Convert/Pheno/OMOP.pm`
-  - OMOP -> Beacon `individuals`.
-  - Maps tables such as `PERSON`, `OBSERVATION`, `MEASUREMENT`,
-    `CONDITION_OCCURRENCE`, `PROCEDURE_OCCURRENCE`, `DRUG_EXPOSURE`.
-  - Handles stream duplicate suppression.
+  - Now mostly a compatibility facade over the new OMOP submodules.
+
+- `lib/Convert/Pheno/OMOP/Source.pm`
+  - New OMOP input collection layer.
+  - Detects SQL vs CSV and prepares OMOP source context.
+
+- `lib/Convert/Pheno/OMOP/ParticipantStream.pm`
+  - New OMOP participant/stream orchestration layer.
+  - Owns more of the stream-vs-non-stream preparation behavior.
+
+- `lib/Convert/Pheno/OMOP/Mapper/Individuals.pm`
+  - New extracted OMOP participant -> `individuals` mapper.
+  - Contains the moved OMOP mapping subs from the old monolithic `OMOP.pm`.
+
+- `lib/Convert/Pheno/Emit/OMOP.pm`
+  - New OMOP stream emission/serialization helper layer.
 
 - `lib/Convert/Pheno/Bff2Omop.pm`
   - Beacon `individuals` -> OMOP table rows.
@@ -83,6 +123,7 @@ Important caveat:
   - OMOP SQL/CSV loading and stream processing.
   - Helpers for transposing OMOP row sets and building table indexes.
   - Also contains CSV writing and gzip-aware filehandle helpers.
+  - Recent fix: gzip append handling for newly created stream output files.
 
 - `lib/Convert/Pheno/IO/FileIO.pm`
   - JSON/YAML read/write helpers.
@@ -168,6 +209,16 @@ Feasibility assessment:
 - Emitting Beacon `biosamples` is feasible, but doing it cleanly requires
   refactoring away from the current `individuals`-centric internal model.
 
+Current implemented state:
+
+- PXF can emit bundle-level `biosamples` internally and through the CLI.
+- CLI supports `--entities biosamples` for `-ipxf ... -obff`.
+- The current PXF `biosamples` path is intentionally light-weight:
+  it promotes/normalizes biosamples rather than performing a full semantic
+  Beacon biosamples mapping.
+- OMOP `SPECIMEN -> biosamples` is intentionally deferred until real specimen
+  example data is available.
+
 Recommended implementation order for that work:
 
 1. Keep current behavior as default for backward compatibility.
@@ -203,8 +254,35 @@ Current active test files:
 - `t/14-csvhandler-utils.t`
 - `t/15-convertpheno-orchestration.t`
 - `t/16-omop-behavior.t`
+- `t/17-context-bundle.t`
+- `t/18-cli-entities.t`
+- `t/19-cli-regression.t`
+- `t/20-cli-stream-omop.t`
 
 `xt/` was also cleaned up to be stylistically consistent with `t/`.
+
+Current CLI regression coverage restored in `t/`:
+
+- broad file-based CLI matrix:
+  - `bff2pxf`
+  - `pxf2bff`
+  - `pxf2bff --entities biosamples`
+  - `redcap2bff`
+  - `redcap2pxf`
+  - `omop2bff`
+  - `omop2pxf`
+  - `cdisc2bff`
+  - `cdisc2pxf`
+  - `bff2csv`
+  - `bff2jsonf`
+  - `pxf2csv`
+  - `pxf2jsonf`
+  - `csv2bff`
+  - `csv2pxf`
+
+- dedicated streamed OMOP CLI regressions:
+  - SQL.gz with `DRUG_EXPOSURE`
+  - CSV.gz with `PERSON`, `CONCEPT`, `DRUG_EXPOSURE`
 
 ## Coverage Status
 
@@ -243,12 +321,21 @@ The coverage grind beyond this point is still possible, but no longer cheap.
 Fixed in this session:
 
 - `Utils::Mapping::string2number` now correctly loads `Math::BigInt`.
+- CLI absolute output paths are now preserved correctly in `bin/convert-pheno`
+  instead of being incorrectly prefixed with `out_dir`.
+- Streamed gzip output creation now works for new files in
+  `lib/Convert/Pheno/IO/CSVHandler.pm`.
+- Added comment in `lib/Convert/Pheno.pm` documenting that canonical JSON sorts
+  keys lexicographically, so `id` will not always appear first in output rows.
 
 Observed but not fully cleaned up:
 
-- There is still a runtime warning during `t/13-db-sqlite.t`:
-  `Use of uninitialized value in subroutine entry at lib/Convert/Pheno/DB/SQLite.pm line 95.`
-  It does not fail tests, but is worth cleaning later.
+- There is an unstaged local file named `Changes` in the repo root.
+- There are several unrelated untracked local artifacts still present:
+  `.codex`, `debug_windows-latest/`, `nytprof.readme`, some extra `t/` files,
+  and a few helper scripts under `docs/tbl/`.
+- The streamed plain non-gz OMOP CSV CLI path still looks suspicious and should
+  be treated separately from the now-restored streamed CSV.gz regression.
 
 - Several direct-module tests require preloading `JSON::PP` because some modules
   use `JSON::PP::true` / `JSON::PP::false` as barewords in ways that are brittle
@@ -256,7 +343,16 @@ Observed but not fully cleaned up:
 
 ## Recommended Next Steps
 
-If continuing with testing before refactor:
+If continuing after this session:
+
+1. Decide whether to fix and regression-test the streamed plain CSV OMOP CLI
+   path separately.
+2. Keep moving legacy converter paths onto `Context` + `Bundle` + `Runner`.
+3. Extend docs as needed, but keep CLI POD as the command source of truth.
+4. When ready, define the next internal step for multi-entity output:
+   - either carry bundle/entity intent deeper into emitters,
+   - or start implementing a proper PXF biosamples mapping.
+5. Do not implement OMOP biosamples until real `SPECIMEN` example data exists.
 
 1. Decide whether `95%` means statement coverage or overall Devel::Cover total.
 2. If overall total is still desired, focus next on:

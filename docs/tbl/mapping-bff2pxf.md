@@ -1,13 +1,17 @@
 #### Version 0.25
 
-# Terms
+**Target model:** Phenopackets v2
 
-## id
+**Entity:** phenopacket
+
+## Terms
+
+### id
 |  BFF JSON path                                              | PXF JSON path                                               |
 |  :---:                                                      | :---:                                                       |
 |  (UNIQUE ID)                                                | id                                                          |
 
-## subject
+### subject
 |  BFF JSON path                                              | PXF JSON path                                               |
 |  :---:                                                      | :---:                                                       |
 |  id                                                         | subject.id                                                  |
@@ -16,47 +20,47 @@
 |  info.dateOfBirth                                           | subject.dateOfBirth                                         |
 |  karyotypicSex                                              | subject.karyotypicSex                                       |
 
-## phenotypicFeatures
+### phenotypicFeatures
 |  BFF JSON path                                              | PXF JSON path                                               |
 |  :---:                                                      | :---:                                                       |
 |  phenotypicFeatures.featureType                             | phenotypicFeatures.type                                     |
 |  phenotypicFeatures.excluded                                | phenotypicFeatures.excluded                                 |
 
 
-## measurements
+### measurements
 |  BFF JSON path                                              | PXF JSON path                                               |
 |  :---:                                                      | :---:                                                       |
 |  measures.assayCode                                         | measurements.assay                                          |
 |  measures.measurementValue                                  | measurements.value                                          |
 |  measures.measurementValue.typedQuantities.quantityType     | measurements.complexValue.typedQuantities.type              |
 
-## biosamples
+### biosamples
 |  BFF JSON path                                              | PXF JSON path                                               |
 |  :---:                                                      | :---:                                                       |
 |  info.biosamples                                            | biosamples                                                  |
 
-## interpretations
+### interpretations
 |  BFF JSON path                                              | PXF JSON path                                               |
 |  :---:                                                      | :---:                                                       |
 |  info.interpretations                                       | interpretations                                             |
 
-## diseases
+### diseases
 |  BFF JSON path                                              | PXF JSON path                                               |
 |  :---:                                                      | :---:                                                       |
 |  diseases.diseaseCode                                       | diseases.term                                               |
 |  diseases.ageOfOnset                                        | diseases.onset                                              |
 
-## medicalActions
+### medicalActions
 |  BFF JSON path                                              | PXF JSON path                                               |
 |  :---:                                                      | :---:                                                       |
 |  interventionsOrProcedures.procedureCode                    | medicalActions.procedure.code                               |
 |  interventionsOrProcedures.ageAtProcedure                   | medicalActions.procedure.performed                          |
 |  treatments.treatmentCode                                   | medicalActions.treatment.agent                              |
 
-## files
+### files
 NA
 
-## metaData
+### metaData
 |  BFF JSON path                                              | PXF JSON path                                               |
 |  :---:                                                      | :---:                                                       |
 |  info.metaData                                              | metaData                                                    |

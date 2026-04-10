@@ -48,6 +48,28 @@ The **OMOP CDM** is designed to be database-agnostic, which means it can be impl
         convert-pheno -iomop *csv -obff individuals.json.gz
         ```
 
+        #### Independent table files
+
+        You can also provide **independent table files explicitly**, one file per OMOP table. This is useful when your export is already split by table, or when you only want to work with a reduced set of tables.
+
+        For example:
+
+        ```bash
+        convert-pheno -iomop PERSON.csv CONCEPT.csv DRUG_EXPOSURE.csv -obff individuals.json
+        ```
+
+        In this mode, `Convert-Pheno` infers the OMOP table name from each filename. At minimum, practical conversions usually require:
+
+        - `PERSON`
+        - `CONCEPT` or `--ohdsi-db`
+        - one or more clinical tables such as `DRUG_EXPOSURE`, `MEASUREMENT`, `OBSERVATION`, or `CONDITION_OCCURRENCE`
+
+        The same approach also works with gzipped table files:
+
+        ```bash
+        convert-pheno -iomop PERSON.csv.gz CONCEPT.csv.gz DRUG_EXPOSURE.csv.gz -obff individuals.json.gz
+        ```
+
         #### Selected table(s)
 
         It is possible to convert selected tables. For instance, in case you only want to convert `DRUG_EXPOSURE` table use the option `--omop-tables`. The option accepts a list of tables (case insensitive) separated by spaces:
@@ -95,6 +117,12 @@ The **OMOP CDM** is designed to be database-agnostic, which means it can be impl
 
         ```
         convert-pheno -iomop omop_dump.sql.gz -obff individuals.json.gz --stream
+        ```
+
+        You can also stream **independent OMOP table files** directly:
+
+        ```bash
+        convert-pheno -iomop PERSON.csv.gz CONCEPT.csv.gz DRUG_EXPOSURE.csv.gz -obff individuals.json.gz --stream --ohdsi-db
         ```
 
         !!! Warning "About OMOP **core tables** and RAM usage"
@@ -350,4 +378,3 @@ The **OMOP CDM** is designed to be database-agnostic, which means it can be impl
       "ohdsi_db": true
     }
     ```
-

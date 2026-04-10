@@ -1,8 +1,12 @@
 #### Version 0.25
 
-# Terms
+**Target model:** BFF
 
-## diseases
+**Entity:** individuals
+
+## Terms
+
+### diseases
 |  PXF JSON path                                              | BFF JSON path                                               |
 |  :---:                                                      | :---:                                                       |
 |  diseases                                                   | diseases                                                    |
@@ -10,35 +14,35 @@
 |  diseases.onset                                             | diseases.ageOfOnset                                         |
 
 
-## ethnicity
+### ethnicity
 NA
 
-## geographicOrigin
+### geographicOrigin
 NA
 
-## id
+### id
 |  PXF JSON path                                              | BFF JSON path                                               |
 |  :---:                                                      | :---:                                                       |
 |  subject.id                                                 | id                                                          |
 
-## info
+### info
 |  PXF JSON path                                              | BFF JSON path                                               |
 |  :---:                                                      | :---:                                                       |
 |  dateOfBirth, genes, metaData, variants, interpretations, files, biosample | info                                                        |
 
-## interventionsOrProcedures
+### interventionsOrProcedures
 |  PXF JSON path                                              | BFF JSON path                                               |
 |  :---:                                                      | :---:                                                       |
 |  medicalActions.procedure                                   | interventionsOrProcedures                                   |
 |  medicalActions.procedure.code                              | interventionsOrProcedures.procedureCode                     |
 |  medicalActions.procedure.performed                         | interventionsOrProcedures.ageAtProcedure                    |
 
-## karyotypicSex
+### karyotypicSex
 |  PXF JSON path                                              | BFF JSON path                                               |
 |  :---:                                                      | :---:                                                       |
 |  subject.karyotypicSex                                      | karyotypicSex                                               |
 
-## measures
+### measures
 |  PXF JSON path                                              | BFF JSON path                                               |
 |  :---:                                                      | :---:                                                       |
 |  measurements                                               | measures                                                    |
@@ -49,10 +53,10 @@ NA
 |  measurements.procedure                                     | measures.procedure                                          |
 
 
-## pedigrees
+### pedigrees
 NA
 
-## phenotypicFeatures
+### phenotypicFeatures
 |  PXF JSON path                                              | BFF JSON path                                               |
 |  :---:                                                      | :---:                                                       |
 |  phenotypicFeatures                                         | phenotypicFeatures                                          |
@@ -60,12 +64,12 @@ NA
 |  phenotypicFeatures.negated                                 | phenotypicFeatures.excluded                                 |
 |  phenotypicFeatures.evidence (array)                        | phenotypicFeatures.evidence (v2.0.0 is still object)        |
 
-## sex
+### sex
 |  PXF JSON path                                              | BFF JSON path                                               |
 |  :---:                                                      | :---:                                                       |
 |  subject.sex                                                | sex                                                         |
 
-## treatments
+### treatments
 |  PXF JSON path                                              | BFF JSON path                                               |
 |  :---:                                                      | :---:                                                       |
 |  medicalActions.treatment                                   | treatments                                                  |

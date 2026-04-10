@@ -1,20 +1,58 @@
-`Convert-Pheno` software includes a command-line utility, which is particularly useful when working with **text files**, such as those exported from PostgreSQL, as input.
+`Convert-Pheno` includes a **command-line utility** for file-based conversions. This is the **primary way** most users work with the project.
 
-## Usage
+## Basic pattern
 
-The operation is simple:
+The command is organized around **one input format** and **one output format**:
 
-    $ convert-pheno -input-format <filein> -output-format <fileout>
+```bash
+convert-pheno [-i input-type] <infile> [-o output-type] <outfile> [options]
+```
 
-??? Tip "Google Colab tutorial"
-    We created a [Google Colab tutorial](https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6) notebook to enable testing `Convert-Pheno`in a virtual environment. Users can view notebooks shared publicly without sign-in, but you need a google account to execute code.
+The compact flags are the ones most users rely on:
 
-    <a target="_blank" href="https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6">
-      <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
-    </a>
+- `-ipxf`, `-ibff`, `-iomop`, `-iredcap`, `-icdisc`, `-icsv`
+- `-obff`, `-opxf`, `-oomop`, `-ocsv`, `-ojsonf`, `-ojsonld`
 
-Please see more examples in the [Usage](usage.md) page.
-For installation details, see [Download & Installation](download-and-installation.md).
+You can always check the current built-in help with:
 
-???+ Note "Inspiration"
-    The command line operation was inspired by `convert` tool from [ImageMagick](https://imagemagick.org/script/convert.php) and from [OpenBabel](https://openbabel.org/wiki/Main_Page).
+```bash
+convert-pheno --help
+```
+
+## Common examples
+
+Convert Phenopackets to `BFF` `individuals` output:
+
+```bash
+convert-pheno -ipxf pxf.json -obff individuals.json
+```
+
+Convert Phenopackets biosamples when the input contains them:
+
+```bash
+convert-pheno -ipxf pxf.json --entities biosamples --out-dir out/
+```
+
+Convert a **large OMOP SQL dump** incrementally:
+
+```bash
+convert-pheno -iomop omop.sql.gz -obff individuals.json.gz --stream --ohdsi-db
+```
+
+Convert `BFF` `individuals` to Phenopackets:
+
+```bash
+convert-pheno -ibff individuals.json -opxf pxf.json
+```
+
+## Notes
+
+- `-obff` keeps the **legacy `BFF` behavior**. By default this means `individuals`.
+- `--entities` can be used with `BFF` output. The current extra entity exposed by the CLI is `biosamples` from `-ipxf` input when biosample data is present.
+- `--stream` is mainly relevant for **large OMOP inputs**.
+
+## More help
+
+- [Usage](usage.md) for more examples
+- [Download & Installation](download-and-installation.md) for setup
+- [Google Colab tutorial](https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6) if you want a disposable environment

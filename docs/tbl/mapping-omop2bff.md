@@ -1,8 +1,12 @@
 #### Version 0.25
 
-# Terms
+**Target model:** BFF
 
-## diseases
+**Entity:** individuals
+
+## Terms
+
+### diseases
 |  OMOP Table(s)                                              | OMOP Variable                                              | BFF JSON path                                               |
 |  :---:                                                      | :---:                                                      | :---:                                                       |
 |  CONDITION_OCCURRENCE, PERSON                               | condition_start_date, birth_datetime                       | diseases.ageOfOnset                                         |
@@ -11,12 +15,12 @@
 |  CONDITION_OCCURRENCE                                       | condition_status_concept_id                                | diseases.stage                                              |
 |  CONDITION_OCCURRENCE                                       | person_id, visit_occurrence_id                             | diseases._visit                                             |
 
-## ethnicity
+### ethnicity
 |  OMOP Table(s)                                              | OMOP Variable                                              | BFF JSON path                                               |
 |  :---:                                                      | :---:                                                      | :---:                                                       |
 |  PERSON                                                     | race_source_value                                          | ethnicity                                                   |
 
-## exposures
+### exposures
 |  OMOP Table(s)                                              | OMOP Variable                                              | BFF JSON path                                               |
 |  :---:                                                      | :---:                                                      | :---:                                                       |
 |  OBSERVATION, PERSON                                        | observation_date, birth_datetime                           | exposures.ageAtExposure                                     |
@@ -27,7 +31,7 @@
 |  OBSERVATION                                                | unit_concept_id                                            | exposures.unit                                              |
 |  OBSERVATION                                                | value_as_number                                            | exposures.value                                             |
 
-## geographicOrigin
+### geographicOrigin
 |  OMOP Table(s)                                              | OMOP Variable                                              | BFF JSON path                                               |
 |  :---:                                                      | :---:                                                      | :---:                                                       |
 |  PERSON                                                     | ethnicity_source_value\*                                    | geographicOrigin                                            |
@@ -35,18 +39,18 @@
 >\*We could represent this as `observation_concept_id = Country of birth` with `value_as_concept_id = Italy` (concept 1546579), but this OBSERVATION field is often not populated in practice.
 
 
-## id
+### id
 |  OMOP Table(s)                                              | OMOP Variable                                              | BFF JSON path                                               |
 |  :---:                                                      | :---:                                                      | :---:                                                       |
 |  PERSON                                                     | person_id                                                  | id                                                          |
 
-## info
+### info
 |  OMOP Table(s)                                              | OMOP Variable                                              | BFF JSON path                                               |
 |  :---:                                                      | :---:                                                      | :---:                                                       |
 |  PERSON                                                     | All variables                                              | info.PERSON                                                 |
 |  PERSON                                                     | birth_datetime                                             | info.dateOfBirth                                            |
 
-## interventionsOrProcedures
+### interventionsOrProcedures
 |  OMOP Table(s)                                              | OMOP Variable                                              | BFF JSON path                                               |
 |  :---:                                                      | :---:                                                      | :---:                                                       |
 |  PROCEDURE_OCCURRENCE, PERSON                               | procedure_date, birth_datetime                             | interventionsOrProcedures.ageAtProcedure                    |  
@@ -54,10 +58,10 @@
 |  PROCEDURE_OCCURRENCE                                       | All variables                                              | interventionsOrProcedures._info                             |
 |  PROCEDURE_OCCURRENCE                                       | procedure_concept_id                                       | interventionsOrProcedures.procedureCode                     |
 
-## karyotypicSex
+### karyotypicSex
 NA
 
-## measures
+### measures
 |  OMOP Table(s)                                              | OMOP Variable                                              | BFF JSON path                                               |
 |  :---:                                                      | :---:                                                      | :---:                                                       |
 |  MEASUREMENT                                                | measurement_concept_id                                     | measures.assayCode                                          |
@@ -73,10 +77,10 @@ NA
 |  MEASUREMENT                                                | measurement_type_concept_id                                | measures.procedure.prodecureCode                            |
 |  MEASUREMENT                                                | person_id, visit_occurrence_id                             | diseases._visit                                             |
 
-## pedigrees
+### pedigrees
 NA
 
-## phenotypicFeatures
+### phenotypicFeatures
 |  OMOP Table(s)                                              | OMOP Variable                                              | BFF JSON path                                               |
 |  :---:                                                      | :---:                                                      | :---:                                                       |
 |  OBSERVATION                                                | observation_concept_id                                     | phenotypicFeatures.featureType                              |
@@ -84,12 +88,12 @@ NA
 |  OBSERVATION, PERSON                                        | observation_date, birth_datetime                           | phenotypicFeatures.onset                                    |
 |  OBSERVATION                                                | person_id, visit_occurrence_id                             | phenotypicFeatures._visit                                   |
 
-## sex
+### sex
 |  OMOP Table(s)                                              | OMOP Variable                                              | BFF JSON path                                               |
 |  :---:                                                      | :---:                                                      | :---:                                                       |
 |  PERSON                                                     | gender_concept_id                                          | sex                                                         |
 
-## treatments
+### treatments
 |  OMOP Table(s)                                              | OMOP Variable                                              | BFF JSON path                                               |
 |  :---:                                                      | :---:                                                      | :---:                                                       |
 |  DRUG_EXPOSURE, PERSON                                      | drug_exposure_start_date, birth_datetime                   | treatments.ageOfOnset                                       |
