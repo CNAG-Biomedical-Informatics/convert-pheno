@@ -224,7 +224,7 @@ sub get_ontology_terms {
     $default_value{concept_id} = 0 if $ontology eq 'ohdsi';
 
     # exact_match (always performed)
-    my ( $id, $label, $concept_id ) = execute_query_SQLite(
+    my ( $id, $label, $concept_id, $search_resolution ) = execute_query_SQLite(
         {
             sth                       => $sth_column_ref->{exact_match},    # IMPORTANT STEP
             query                     => $query,
@@ -243,7 +243,7 @@ sub get_ontology_terms {
         if ( $search eq 'mixed' || $search eq 'fuzzy' ) {
             print "EXECUTING SEARCH <$search> on QUERY <$query>\n"
               if DEVEL_MODE;
-            ( $id, $label, $concept_id ) = execute_query_SQLite(
+            ( $id, $label, $concept_id, $search_resolution ) = execute_query_SQLite(
                 {
                     sth        => $sth_column_ref->{'full_text_search'},    # IMPORTANT STEP
                     query      => $query,
@@ -265,12 +265,15 @@ sub get_ontology_terms {
     if ( $ontology eq 'ohdsi' ) {
         $concept_id = $concept_id // $default_value{concept_id};
     }
+    $search_resolution = defined $id && $id eq $default_value{id}
+      ? 'fallback_na'
+      : $search_resolution // 'fallback_na';
 
     #############
     # END QUERY #
     #############
 
-    return ( $id, $label, $concept_id );
+    return ( $id, $label, $concept_id, $search_resolution );
 
 }
 
@@ -287,10 +290,11 @@ sub execute_query_SQLite {
     my $levenshtein_weight        = $arg->{levenshtein_weight};
 
     # Initialize $id and $label to undefined
-    my ( $id, $label, $concept_id ) = ( undef, undef, undef );
+    my ( $id, $label, $concept_id, $search_resolution ) =
+      ( undef, undef, undef, undef );
 
     # Premature return if $query is empty
-    return ( $id, $label, $concept_id ) if $query eq '';
+    return ( $id, $label, $concept_id, $search_resolution ) if $query eq '';
 
     # Preprocess query for execution
     $query = prune_problematic_chars( $query, $match_type );
@@ -321,7 +325,7 @@ sub execute_query_SQLite {
     eval { $sth->execute(); };
     if ($@) {
         warn "Query execution failed: $@";
-        return ( $id, $label, $concept_id );
+        return ( $id, $label, $concept_id, $search_resolution );
     }
 
     # HPO to HP
@@ -337,6 +341,7 @@ sub execute_query_SQLite {
               : $row->[3] . ':' . $row->[$id_column];
             $label      = $row->[$label_column];
             $concept_id = $row->[$concept_id_column];
+            $search_resolution = 'exact';
             last;    # Only the first match is used
         }
     }
@@ -359,6 +364,7 @@ sub execute_query_SQLite {
                     concept_id_column         => $concept_id_column
                 }
             );
+            $search_resolution = defined $id ? 'similarity' : undef;
         }
         else {
 
@@ -378,6 +384,7 @@ sub execute_query_SQLite {
                       # Possibly additional parameters, e.g., weighting factors
                 }
             );
+            $search_resolution = defined $id ? 'similarity' : undef;
         }
     }
 
@@ -385,7 +392,7 @@ sub execute_query_SQLite {
     $sth->finish();
 
     # Return the results
-    return ( $id, $label, $concept_id );
+    return ( $id, $label, $concept_id, $search_resolution );
 }
 
 sub prune_problematic_chars {

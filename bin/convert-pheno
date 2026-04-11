@@ -72,22 +72,39 @@ Output behavior:
                         Requires --entities
   -O                    Overwrite output file(s)
 
+Mapping and search:
+  --mapping-file <file>           Fields mapping YAML or JSON file
+  --redcap-dictionary|-rcd <file> REDCap data dictionary CSV file
+  --schema-file <file>            Alternative JSON Schema for mapping files
+  --self-validate-schema|-svs     Self-validate the mapping JSON Schema
+  --search <type>                 Ontology label search mode [exact|mixed|fuzzy]
+                                  Default: exact
+  --text-similarity-method <m>    Token similarity for mixed/fuzzy search
+                                  [cosine|dice], default: cosine
+  --min-text-similarity-score <s> Minimum score for mixed/fuzzy search
+                                  Default: 0.8
+  --levenshtein-weight <w>        Levenshtein weight in fuzzy composite score
+                                  Default: 0.1, range: 0-1
+  --print-hidden-labels|-phl      Preserve original text labels in output
+  --search-audit-tsv <file>       Write a TSV audit of ontology search results
+
 OMOP:
-  --ohdsi-db            Enable Athena-OHDSI lookup
-  --omop-tables <list>  Restrict OMOP tables
-  --stream              Incremental OMOP processing with legacy -obff output
-  --max-lines-sql <n>   Maximum SQL lines per table [500]
+  --ohdsi-db                      Enable Athena-OHDSI lookup
+  --path-to-ohdsi-db <dir>        Directory containing <ohdsi.db>
+  --omop-tables <list>            Restrict OMOP tables
+  --exposures-file <file>         OMOP concept_id list treated as exposures
+  --stream                        Incremental OMOP processing with legacy
+                                  -obff output
+  --sql2csv                       Print SQL tables instead of converting
+  --max-lines-sql <n>             Maximum SQL lines per table [500]
 
 Other useful options:
-  --mapping-file <file>
-  --redcap-dictionary <file>
-  --search-audit-tsv <file>
-                      Write a TSV audit of ontology search results
-  --sep <char>
-  --test
-  --debug <level>
-  --verbose
-  --version
+  --separator|--sep <char>        Delimiter for CSV input [; for .csv]
+  --username|-u <name>            Override username stored in metadata
+  --test                          Skip time-varying metadata for stable tests
+  --debug <level>                 Print internal request/debug data
+  --verbose|-v                    Print progress information
+  --version|-V
   --help
   --man
 

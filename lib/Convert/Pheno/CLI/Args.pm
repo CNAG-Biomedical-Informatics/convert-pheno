@@ -110,7 +110,7 @@ sub build_cli_request {
         'print-hidden-labels|phl'     => \$print_hidden_labels,
         'self-validate-schema|svs'    => \$self_validate_schema,
         'O'                           => \$overwrite,
-        'username=s'                  => \$username,
+        'username|u=s'                => \$username,
         'log:s'                       => \$log,
         'version|V'                   => \$version,
     ) or $usage_error->('Invalid command-line arguments');

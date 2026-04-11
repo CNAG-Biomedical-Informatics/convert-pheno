@@ -7,7 +7,6 @@ use feature qw(say);
 use utf8;
 use Data::Dumper;
 use JSON::XS;
-use Math::BigInt;
 use Time::HiRes qw(gettimeofday);
 use POSIX       qw(strftime);
 use DateTime::Format::ISO8601;
@@ -21,13 +20,21 @@ use Exporter 'import';
 use open qw(:std :encoding(UTF-8));
 
 our @EXPORT =
-  qw(map_ontology_term dotify_and_coerce_number get_current_utc_iso8601_timestamp map_iso8601_date2timestamp map_iso8601_timestamp2date get_date_component map_reference_range map_reference_range_csv map_age_range map2redcap_dict map2ohdsi convert2boolean get_age_from_date_and_birthday get_date_at_age generate_random_alphanumeric_string map_operator_concept_id map_info_field map_omop_visit_occurrence convert_date_to_iso8601 validate_format get_metaData get_info merge_omop_tables convert_label_to_days string2number number2string finalize_search_audit);
+  qw(map_ontology_term dotify_and_coerce_number get_current_utc_iso8601_timestamp map_iso8601_date2timestamp map_iso8601_timestamp2date get_date_component map_reference_range map_reference_range_csv map_age_range map2redcap_dict map2ohdsi convert2boolean get_age_from_date_and_birthday get_date_at_age generate_random_alphanumeric_string allocate_surrogate_integer map_operator_concept_id map_info_field map_omop_visit_occurrence convert_date_to_iso8601 validate_format get_metaData get_info merge_omop_tables convert_label_to_days finalize_search_audit);
 
 my $DEFAULT = get_defaults();
 use constant DEVEL_MODE => 0;
+use constant MAX_OMOP_INTEGER => 2_147_483_647;
 
 # Global hash (manual memoizing)
 my %SEEN = ();
+
+sub _public_ontology_entry {
+    my ($entry) = @_;
+    my %public_entry = %{$entry};
+    delete $public_entry{search_resolution};
+    return \%public_entry;
+}
 
 sub _tsv_field {
     my ($value) = @_;
@@ -46,10 +53,43 @@ sub _search_audit_match_status {
     return $entry->{id} eq $fallback_id ? 'not_found' : 'matched';
 }
 
+sub _search_audit_config {
+    my ($self) = @_;
+    my $search = $self->can('search')
+      ? $self->search
+      : $self->{search};
+    my $text_similarity_method = $self->can('text_similarity_method')
+      ? $self->text_similarity_method
+      : $self->{text_similarity_method};
+    my $min_text_similarity_score = $self->can('min_text_similarity_score')
+      ? $self->min_text_similarity_score
+      : $self->{min_text_similarity_score};
+    my $levenshtein_weight = $self->can('levenshtein_weight')
+      ? $self->levenshtein_weight
+      : $self->{levenshtein_weight};
+
+    return {
+        search => defined $search ? $search : 'exact',
+        text_similarity_method => defined $text_similarity_method
+        ? $text_similarity_method
+        : 'cosine',
+        min_text_similarity_score =>
+          defined $min_text_similarity_score
+        ? $min_text_similarity_score
+        : 0.8,
+        levenshtein_weight => defined $levenshtein_weight
+        ? $levenshtein_weight
+        : 0.1,
+    };
+}
+
 sub _record_search_audit {
     my ( $self, $query, $ontology, $entry, $source ) = @_;
     return 1 unless defined $self->{search_audit_file} && length $self->{search_audit_file};
     my $status = _search_audit_match_status( $ontology, $entry );
+    my $resolution = $entry->{search_resolution}
+      // ( $status eq 'matched' ? 'exact' : 'fallback_na' );
+    my $config = _search_audit_config($self);
 
     my $fh = $self->{_search_audit_fh};
     unless ($fh) {
@@ -57,7 +97,7 @@ sub _record_search_audit {
         print {$audit_fh}
           join(
             "\t",
-            qw(row original_term_label converted_term_label converted_term_id ontology match_status match_source)
+            qw(row original_term_label converted_term_label converted_term_id ontology configured_search_mode text_similarity_method min_text_similarity_score levenshtein_weight match_status match_source lookup_resolution)
           ) . "\n";
         $self->{_search_audit_fh} = $audit_fh;
         $fh = $audit_fh;
@@ -71,8 +111,13 @@ sub _record_search_audit {
             $entry->{label},
             $entry->{id},
             $ontology,
+            $config->{search},
+            $config->{text_similarity_method},
+            $config->{min_text_similarity_score},
+            $config->{levenshtein_weight},
             $status,
             $source,
+            $resolution,
         )
       ),
       "\n";
@@ -111,7 +156,7 @@ sub map_ontology_term {
         say "Skipping searching for <$query> in <$ontology> (cached)"
           if DEVEL_MODE;
         _record_search_audit( $self, $query, $ontology, $SEEN{$ontology}{$query}, 'cache' );
-        return $SEEN{$ontology}{$query};
+        return _public_ontology_entry( $SEEN{$ontology}{$query} );
     }
 
     # 4) --ohdsi-db
@@ -131,7 +176,7 @@ sub map_ontology_term {
 
     # 5) Perform the lookup
     say "Searching for <$query> in <$ontology>…" if DEVEL_MODE;
-    my ( $id, $label, $concept_id ) = get_ontology_terms(
+    my ( $id, $label, $concept_id, $search_resolution ) = get_ontology_terms(
         {
             sth_column_ref         => $self->{sth}{$ontology}{ $arg->{column} },
             query                  => $query,
@@ -148,8 +193,17 @@ sub map_ontology_term {
     # 6) Store in cache
     my $entry =
       $arg->{require_concept_id}
-      ? { id => $id, label => $label, concept_id => $concept_id }
-      : { id => $id, label => $label };
+      ? {
+        id                => $id,
+        label             => $label,
+        concept_id        => $concept_id,
+        search_resolution => $search_resolution,
+      }
+      : {
+        id                => $id,
+        label             => $label,
+        search_resolution => $search_resolution,
+      };
 
     $SEEN{$ontology}{$query} = $entry;
     _record_search_audit(
@@ -164,8 +218,8 @@ sub map_ontology_term {
 
     # 7) Return (with optional hidden‐label)
     return $arg->{print_hidden_labels}
-      ? { %$entry, _label => $query }
-      : $entry;
+      ? { %{ _public_ontology_entry($entry) }, _label => $query }
+      : _public_ontology_entry($entry);
 }
 
 sub dotify_and_coerce_number {
@@ -733,42 +787,24 @@ sub convert_label_to_days {
     return $factor * $count;
 }
 
-# hex‑encoding the bytes, then parsing that hex as a BigInt.
-sub string2number {
-    my $str = shift;
+sub allocate_surrogate_integer {
+    my ( $self, $scope, $source_key ) = @_;
+    die "Missing scope for surrogate integer allocation\n"
+      unless defined $scope && length $scope;
+    die "Missing source key for surrogate integer allocation\n"
+      unless defined $source_key && length $source_key;
 
-    # Do nothing if we already have integer
-    return $str if is_strict_integer($str);
+    my $map = $self->{_surrogate_integer_map}{$scope} ||= {};
+    return $map->{$source_key} if exists $map->{$source_key};
 
-    # 1) turn "Hello" into "48656c6c6f"
-    my $hex = unpack( 'H*', $str ); 
+    my $next = ( $self->{_surrogate_integer_counter}{$scope} ||= 0 ) + 1;
+    die "Surrogate integer overflow for <$scope>; OMOP integer max is <"
+      . MAX_OMOP_INTEGER . ">\n"
+      if $next > MAX_OMOP_INTEGER;
 
-    # 2) parse that hex as a BigInt 
-    my $big = Math::BigInt->from_hex("0x$hex");
-
-    # 3) return its decimal string 
-    return $big->bstr;
-}
-
-sub is_strict_integer {
-    my ($val) = @_;
-    return 0 unless looks_like_number($val);
-    return $val == int($val);
-}
-
-# Turn the decimal BigInt back into the original string
-sub number2string {
-    my $num = shift;
-
-    # 1) lift into a BigInt
-    my $big = Math::BigInt->new($num);
-
-    # 2) get back the hex digits, e.g. "0x48656c6c6f"
-    my $hex = $big->as_hex;
-    
-    # 3) strip the "0x" and unpack back into raw bytes
-    $hex =~ s/^0[xX]//;
-    return pack( 'H*', $hex );
+    $self->{_surrogate_integer_counter}{$scope} = $next;
+    $map->{$source_key} = $next;
+    return $next;
 }
 
 1;

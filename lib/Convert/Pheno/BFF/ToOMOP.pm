@@ -5,7 +5,6 @@ use warnings;
 use autodie;
 use feature qw(say);
 use JSON::PP                      ();
-use Math::BigInt;
 use Scalar::Util                   qw(looks_like_number);
 use Convert::Pheno::Utils::Default qw(get_defaults);
 use Convert::Pheno::Mapping::Shared;
@@ -45,8 +44,8 @@ sub do_bff2omop {
 
     # Convert ID string to ID integer
     my $person_id = looks_like_number( $bff->{id} )
-      ? $bff->{id}    # If it already looks numeric, use it.
-      : string2number( $bff->{id} );
+      ? 0 + $bff->{id}
+      : allocate_surrogate_integer( $self, 'omop_person_id', $bff->{id} );
 
     # Create a new OMOP structure.
     # This will be a hash with keys corresponding to OMOP table names.
@@ -146,7 +145,7 @@ sub _map_diseases {
         # mrueda: Apr-2025
         $cond->{condition_type_concept_id} = $DEFAULT->{concept_id};
 
-        _attach_common( $cond, $disease, $person_id );
+        _attach_common( $self, $cond, $disease, $person_id );
 
         # Optionally map stage to condition_status_concept_id.
         #if ( exists $disease->{stage} ) {
@@ -191,7 +190,7 @@ sub _map_exposures {
         # mrueda: Apr-2025
         $obs->{observation_type_concept_id} = $DEFAULT->{concept_id};
 
-        _attach_common( $obs, $exposure, $person_id );
+        _attach_common( $self, $obs, $exposure, $person_id );
 
         push @observations, $obs;
     }
@@ -244,7 +243,7 @@ sub _map_phenotypicFeatures {
         # mrueda: Apr-2025
         $obs->{observation_type_concept_id} = $DEFAULT->{concept_id};
 
-        _attach_common( $obs, $feature, $person_id );
+        _attach_common( $self, $obs, $feature, $person_id );
 
         push @observations, $obs;
     }
@@ -292,7 +291,7 @@ sub _map_interventionsOrProcedures {
         # mrueda: Apr-2025
         $procedure->{procedure_type_concept_id} = $DEFAULT->{concept_id};
 
-        _attach_common( $procedure, $proc, $person_id );
+        _attach_common( $self, $procedure, $proc, $person_id );
 
         push @procedures, $procedure;
     }
@@ -355,7 +354,7 @@ sub _map_measurements {
             $m->{measurement_type_source_value} = '';
         }
 
-        _attach_common( $m, $measure, $person_id );
+        _attach_common( $self, $m, $measure, $person_id );
 
         push @measurements, $m;
     }
@@ -395,16 +394,25 @@ sub _map_treatments {
           inverse_map( 'route', $treatment->{routeOfAdministration},
             'label', $self );
 
-        # TEMPORARY: Using 1st array element
+        my ( $interval_start, $interval_end );
         if ( exists $treatment->{doseIntervals}
             and @{ $treatment->{doseIntervals} } )
         {
-            if (   $treatment->{doseIntervals}[0]{interval}{start}
-                && $treatment->{doseIntervals}[0]{interval}{end} )
-            {
-                #$drug->{drug_exposure_start_date} = map_iso8601_timestamp2date($treatment->{doseIntervals}[0]{interval}{start});
-                #$drug->{drug_exposure_end_date} = map_iso8601_timestamp2date($treatment->{doseIntervals}[0]{interval}{send});
-            }
+            my $interval = $treatment->{doseIntervals}[0]{interval} // {};
+            $interval_start = $interval->{start};
+            $interval_end   = $interval->{end};
+        }
+
+        # Prefer explicit dose interval dates. If only one bound is present,
+        # reuse it for both OMOP-required date fields.
+        if ( $interval_start || $interval_end ) {
+            my $resolved_start = $interval_start // $interval_end;
+            my $resolved_end   = $interval_end   // $interval_start;
+
+            $drug->{drug_exposure_start_date} =
+              map_iso8601_timestamp2date($resolved_start);
+            $drug->{drug_exposure_end_date} =
+              map_iso8601_timestamp2date($resolved_end);
         }
         elsif ( $treatment->{ageOfOnset}{age}{iso8601duration} ) {
             $drug->{drug_exposure_start_date} =
@@ -427,7 +435,7 @@ sub _map_treatments {
             $drug->{quantity} )
           : '';
 
-        _attach_common( $drug, $treatment, $person_id );
+        _attach_common( $self, $drug, $treatment, $person_id );
 
         push @treatments, $drug;
     }
@@ -476,9 +484,18 @@ sub _attach_common {
     # Individuals default schema does not provice anything related to visit
     # Taking information if Convert-Pheno set it
 
-    my ( $row, $ent, $pid ) = @_;
+    my ( $self, $row, $ent, $pid ) = @_;
     my $v = $ent->{_visit} // undef;
-    $row->{visit_occurrence_id} = $v->{occurrence_id} // '';
+    my $visit_occurrence_id = $v->{occurrence_id} // '';
+    if ( defined $visit_occurrence_id
+        && $visit_occurrence_id ne ''
+        && !looks_like_number($visit_occurrence_id) )
+    {
+        my $visit_key = $v->{composite} // $visit_occurrence_id;
+        $visit_occurrence_id =
+          allocate_surrogate_integer( $self, 'omop_visit_occurrence_id', $visit_key );
+    }
+    $row->{visit_occurrence_id} = $visit_occurrence_id;
     $row->{visit_detail_id}     = $v->{detail_id} // '';
     $row->{person_id}           = $pid;
 }

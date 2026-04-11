@@ -67,7 +67,7 @@ convert-pheno -iredcap redcap.csv --redcap-dictionary dictionary.csv --mapping-f
 ```
 
 This is useful when you want to review how original source terms were mapped to ontology labels and identifiers.
-The audit also records whether each lookup produced a real database match or fell back to `NA`.
+The audit also records the effective search configuration for the run, whether each lookup produced a real database match or fell back to `NA`, and whether the result came from exact matching, similarity search, or fallback.
 
 ## Work with repository fixtures
 

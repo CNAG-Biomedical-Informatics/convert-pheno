@@ -1,0 +1,821 @@
+[
+{
+   "diseases" : [
+      {
+         "_info" : {
+            "CONDITION_OCCURRENCE" : {
+               "OMOP_columns" : {
+                  "condition_concept_id" : 40479768,
+                  "condition_end_date" : "1981-09-16",
+                  "condition_end_datetime" : "1981-09-16 00:00:00",
+                  "condition_occurrence_id" : 1,
+                  "condition_source_concept_id" : 40479768,
+                  "condition_source_value" : 444470001,
+                  "condition_start_date" : "1981-08-10",
+                  "condition_start_datetime" : "1981-08-10 00:00:00",
+                  "condition_status_concept_id" : 0,
+                  "condition_status_source_value" : null,
+                  "condition_type_concept_id" : 32020,
+                  "person_id" : 1,
+                  "provider_id" : "\\N",
+                  "stop_reason" : null,
+                  "visit_detail_id" : 0,
+                  "visit_occurrence_id" : 82
+               }
+            }
+         },
+         "ageOfOnset" : {
+            "age" : {
+               "iso8601duration" : "P32Y"
+            }
+         },
+         "diseaseCode" : {
+            "id" : "SNOMED:444470001",
+            "label" : "Injury of anterior cruciate ligament"
+         },
+         "stage" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         }
+      },
+      {
+         "_info" : {
+            "CONDITION_OCCURRENCE" : {
+               "OMOP_columns" : {
+                  "condition_concept_id" : 378001,
+                  "condition_end_date" : "2008-07-17",
+                  "condition_end_datetime" : "2008-07-17 00:00:00",
+                  "condition_occurrence_id" : 2,
+                  "condition_source_concept_id" : 378001,
+                  "condition_source_value" : 62106007,
+                  "condition_start_date" : "2008-05-18",
+                  "condition_start_datetime" : "2008-05-18 00:00:00",
+                  "condition_status_concept_id" : 0,
+                  "condition_status_source_value" : null,
+                  "condition_type_concept_id" : 32020,
+                  "person_id" : 1,
+                  "provider_id" : "\\N",
+                  "stop_reason" : null,
+                  "visit_detail_id" : 0,
+                  "visit_occurrence_id" : 84
+               }
+            }
+         },
+         "ageOfOnset" : {
+            "age" : {
+               "iso8601duration" : "P59Y"
+            }
+         },
+         "diseaseCode" : {
+            "id" : "SNOMED:62106007",
+            "label" : "Concussion with no loss of consciousness"
+         },
+         "stage" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         }
+      },
+      {
+         "_info" : {
+            "CONDITION_OCCURRENCE" : {
+               "OMOP_columns" : {
+                  "condition_concept_id" : 4112343,
+                  "condition_end_date" : "1971-02-02",
+                  "condition_end_datetime" : "1971-02-02 00:00:00",
+                  "condition_occurrence_id" : 3,
+                  "condition_source_concept_id" : 4112343,
+                  "condition_source_value" : 195662009,
+                  "condition_start_date" : "1971-01-24",
+                  "condition_start_datetime" : "1971-01-24 00:00:00",
+                  "condition_status_concept_id" : 0,
+                  "condition_status_source_value" : null,
+                  "condition_type_concept_id" : 32020,
+                  "person_id" : 1,
+                  "provider_id" : "\\N",
+                  "stop_reason" : null,
+                  "visit_detail_id" : 0,
+                  "visit_occurrence_id" : 42
+               }
+            }
+         },
+         "ageOfOnset" : {
+            "age" : {
+               "iso8601duration" : "P21Y"
+            }
+         },
+         "diseaseCode" : {
+            "id" : "SNOMED:195662009",
+            "label" : "Acute viral pharyngitis"
+         },
+         "stage" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         }
+      },
+      {
+         "_info" : {
+            "CONDITION_OCCURRENCE" : {
+               "OMOP_columns" : {
+                  "condition_concept_id" : 4112343,
+                  "condition_end_date" : "2017-05-20",
+                  "condition_end_datetime" : "2017-05-20 00:00:00",
+                  "condition_occurrence_id" : 4,
+                  "condition_source_concept_id" : 4112343,
+                  "condition_source_value" : 195662009,
+                  "condition_start_date" : "2017-05-12",
+                  "condition_start_datetime" : "2017-05-12 00:00:00",
+                  "condition_status_concept_id" : 0,
+                  "condition_status_source_value" : null,
+                  "condition_type_concept_id" : 32020,
+                  "person_id" : 1,
+                  "provider_id" : "\\N",
+                  "stop_reason" : null,
+                  "visit_detail_id" : 0,
+                  "visit_occurrence_id" : 64
+               }
+            }
+         },
+         "ageOfOnset" : {
+            "age" : {
+               "iso8601duration" : "P68Y"
+            }
+         },
+         "diseaseCode" : {
+            "id" : "SNOMED:195662009",
+            "label" : "Acute viral pharyngitis"
+         },
+         "stage" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         }
+      },
+      {
+         "_info" : {
+            "CONDITION_OCCURRENCE" : {
+               "OMOP_columns" : {
+                  "condition_concept_id" : 28060,
+                  "condition_end_date" : "1953-02-16",
+                  "condition_end_datetime" : "1953-02-16 00:00:00",
+                  "condition_occurrence_id" : 5,
+                  "condition_source_concept_id" : 28060,
+                  "condition_source_value" : 43878008,
+                  "condition_start_date" : "1953-02-06",
+                  "condition_start_datetime" : "1953-02-06 00:00:00",
+                  "condition_status_concept_id" : 0,
+                  "condition_status_source_value" : null,
+                  "condition_type_concept_id" : 32020,
+                  "person_id" : 1,
+                  "provider_id" : "\\N",
+                  "stop_reason" : null,
+                  "visit_detail_id" : 0,
+                  "visit_occurrence_id" : 41
+               }
+            }
+         },
+         "ageOfOnset" : {
+            "age" : {
+               "iso8601duration" : "P4Y"
+            }
+         },
+         "diseaseCode" : {
+            "id" : "SNOMED:43878008",
+            "label" : "Streptococcal sore throat"
+         },
+         "stage" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         }
+      },
+      {
+         "_info" : {
+            "CONDITION_OCCURRENCE" : {
+               "OMOP_columns" : {
+                  "condition_concept_id" : 40481087,
+                  "condition_end_date" : "2012-02-28",
+                  "condition_end_datetime" : "2012-02-28 00:00:00",
+                  "condition_occurrence_id" : 6,
+                  "condition_source_concept_id" : 40481087,
+                  "condition_source_value" : 444814009,
+                  "condition_start_date" : "2012-02-14",
+                  "condition_start_datetime" : "2012-02-14 00:00:00",
+                  "condition_status_concept_id" : 0,
+                  "condition_status_source_value" : null,
+                  "condition_type_concept_id" : 32020,
+                  "person_id" : 1,
+                  "provider_id" : "\\N",
+                  "stop_reason" : null,
+                  "visit_detail_id" : 0,
+                  "visit_occurrence_id" : 25
+               }
+            }
+         },
+         "ageOfOnset" : {
+            "age" : {
+               "iso8601duration" : "P63Y"
+            }
+         },
+         "diseaseCode" : {
+            "id" : "SNOMED:444814009",
+            "label" : "Viral sinusitis"
+         },
+         "stage" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         }
+      },
+      {
+         "_info" : {
+            "CONDITION_OCCURRENCE" : {
+               "OMOP_columns" : {
+                  "condition_concept_id" : 4112343,
+                  "condition_end_date" : "2008-01-26",
+                  "condition_end_datetime" : "2008-01-26 00:00:00",
+                  "condition_occurrence_id" : 7,
+                  "condition_source_concept_id" : 4112343,
+                  "condition_source_value" : 195662009,
+                  "condition_start_date" : "2008-01-16",
+                  "condition_start_datetime" : "2008-01-16 00:00:00",
+                  "condition_status_concept_id" : 0,
+                  "condition_status_source_value" : null,
+                  "condition_type_concept_id" : 32020,
+                  "person_id" : 1,
+                  "provider_id" : "\\N",
+                  "stop_reason" : null,
+                  "visit_detail_id" : 0,
+                  "visit_occurrence_id" : 76
+               }
+            }
+         },
+         "ageOfOnset" : {
+            "age" : {
+               "iso8601duration" : "P58Y"
+            }
+         },
+         "diseaseCode" : {
+            "id" : "SNOMED:195662009",
+            "label" : "Acute viral pharyngitis"
+         },
+         "stage" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         }
+      },
+      {
+         "_info" : {
+            "CONDITION_OCCURRENCE" : {
+               "OMOP_columns" : {
+                  "condition_concept_id" : 4296205,
+                  "condition_end_date" : "1978-07-27",
+                  "condition_end_datetime" : "1978-07-27 00:00:00",
+                  "condition_occurrence_id" : 8,
+                  "condition_source_concept_id" : 4296205,
+                  "condition_source_value" : 403191005,
+                  "condition_start_date" : "1978-06-22",
+                  "condition_start_datetime" : "1978-06-22 00:00:00",
+                  "condition_status_concept_id" : 0,
+                  "condition_status_source_value" : null,
+                  "condition_type_concept_id" : 32020,
+                  "person_id" : 1,
+                  "provider_id" : "\\N",
+                  "stop_reason" : null,
+                  "visit_detail_id" : 0,
+                  "visit_occurrence_id" : 81
+               }
+            }
+         },
+         "ageOfOnset" : {
+            "age" : {
+               "iso8601duration" : "P29Y"
+            }
+         },
+         "diseaseCode" : {
+            "id" : "SNOMED:403191005",
+            "label" : "Second degree burn"
+         },
+         "stage" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         }
+      }
+   ],
+   "ethnicity" : {
+      "id" : "NCIT:C41261",
+      "label" : "White"
+   },
+   "geographicOrigin" : {
+      "id" : "NCIT:C43857",
+      "label" : "Italian"
+   },
+   "id" : "1",
+   "info" : {
+      "PERSON" : {
+         "OMOP_columns" : {
+            "birth_datetime" : "1949-01-27 00:00:00",
+            "care_site_id" : "\\N",
+            "day_of_birth" : 27,
+            "ethnicity_concept_id" : 0,
+            "ethnicity_source_concept_id" : 0,
+            "ethnicity_source_value" : "italian",
+            "gender_concept_id" : 8507,
+            "gender_source_concept_id" : 0,
+            "gender_source_value" : "M",
+            "location_id" : "\\N",
+            "month_of_birth" : 1,
+            "person_id" : 1,
+            "person_source_value" : "000728a7-80de-420a-9286-2c20e81cb7b8",
+            "provider_id" : "\\N",
+            "race_concept_id" : 8527,
+            "race_source_concept_id" : 0,
+            "race_source_value" : "white",
+            "year_of_birth" : 1949
+         }
+      },
+      "dateOfBirth" : "1949-01-27T00:00:00Z"
+   },
+   "interventionsOrProcedures" : [
+      {
+         "_info" : {
+            "PROCEDURE_OCCURRENCE" : {
+               "OMOP_columns" : {
+                  "modifier_concept_id" : 0,
+                  "modifier_source_value" : null,
+                  "person_id" : 1,
+                  "procedure_concept_id" : 44783196,
+                  "procedure_date" : "1981-08-17",
+                  "procedure_datetime" : "1981-08-17 00:00:00",
+                  "procedure_occurrence_id" : 1,
+                  "procedure_source_concept_id" : 44783196,
+                  "procedure_source_value" : 699253003,
+                  "procedure_type_concept_id" : 38000275,
+                  "provider_id" : "\\N",
+                  "quantity" : "\\N",
+                  "visit_detail_id" : 0,
+                  "visit_occurrence_id" : 85
+               }
+            }
+         },
+         "_visit" : {
+            "_info" : {
+               "VISIT_OCCURRENCE" : {
+                  "OMOP_columns" : {
+                     "admitting_source_concept_id" : 0,
+                     "admitting_source_value" : null,
+                     "care_site_id" : "\\N",
+                     "discharge_to_concept_id" : 0,
+                     "discharge_to_source_value" : null,
+                     "person_id" : 1,
+                     "preceding_visit_occurrence_id" : 82,
+                     "provider_id" : "\\N",
+                     "visit_concept_id" : 9201,
+                     "visit_end_date" : "1981-08-19",
+                     "visit_end_datetime" : "1981-08-19 00:00:00",
+                     "visit_occurrence_id" : 85,
+                     "visit_source_concept_id" : 0,
+                     "visit_source_value" : "7879d5b2-1af2-49a7-a801-121de124c6af",
+                     "visit_start_date" : "1981-08-18",
+                     "visit_start_datetime" : "1981-08-18 00:00:00",
+                     "visit_type_concept_id" : 44818517
+                  }
+               }
+            },
+            "concept" : {
+               "id" : "Visit:IP",
+               "label" : "Inpatient Visit"
+            },
+            "end_date" : "1981-08-19T00:00:00Z",
+            "id" : "85",
+            "occurrence_id" : 85,
+            "start_date" : "1981-08-18T00:00:00Z",
+            "type" : {
+               "id" : "Visit Type:OMOP4822465",
+               "label" : "Visit derived from encounter on claim"
+            }
+         },
+         "ageAtProcedure" : {
+            "age" : {
+               "iso8601duration" : "P32Y"
+            }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
+         "dateOfProcedure" : "1981-08-17",
+         "procedureCode" : {
+            "id" : "SNOMED:699253003",
+            "label" : "Surgical manipulation of joint of knee"
+         }
+      },
+      {
+         "_info" : {
+            "PROCEDURE_OCCURRENCE" : {
+               "OMOP_columns" : {
+                  "modifier_concept_id" : 0,
+                  "modifier_source_value" : null,
+                  "person_id" : 1,
+                  "procedure_concept_id" : 4125906,
+                  "procedure_date" : "1982-09-11",
+                  "procedure_datetime" : "1982-09-11 00:00:00",
+                  "procedure_occurrence_id" : 2,
+                  "procedure_source_concept_id" : 4125906,
+                  "procedure_source_value" : 288086009,
+                  "procedure_type_concept_id" : 38000275,
+                  "provider_id" : "\\N",
+                  "quantity" : "\\N",
+                  "visit_detail_id" : 0,
+                  "visit_occurrence_id" : 83
+               }
+            }
+         },
+         "ageAtProcedure" : {
+            "age" : {
+               "iso8601duration" : "P33Y"
+            }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
+         "dateOfProcedure" : "1982-09-11",
+         "procedureCode" : {
+            "id" : "SNOMED:288086009",
+            "label" : "Suture open wound"
+         }
+      },
+      {
+         "_info" : {
+            "PROCEDURE_OCCURRENCE" : {
+               "OMOP_columns" : {
+                  "modifier_concept_id" : 0,
+                  "modifier_source_value" : null,
+                  "person_id" : 1,
+                  "procedure_concept_id" : 4252419,
+                  "procedure_date" : "1981-08-10",
+                  "procedure_datetime" : "1981-08-10 00:00:00",
+                  "procedure_occurrence_id" : 3,
+                  "procedure_source_concept_id" : 4252419,
+                  "procedure_source_value" : 74016001,
+                  "procedure_type_concept_id" : 38000275,
+                  "provider_id" : "\\N",
+                  "quantity" : "\\N",
+                  "visit_detail_id" : 0,
+                  "visit_occurrence_id" : 82
+               }
+            }
+         },
+         "ageAtProcedure" : {
+            "age" : {
+               "iso8601duration" : "P32Y"
+            }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
+         "dateOfProcedure" : "1981-08-10",
+         "procedureCode" : {
+            "id" : "SNOMED:74016001",
+            "label" : "Radiologic examination of knee"
+         }
+      },
+      {
+         "_info" : {
+            "PROCEDURE_OCCURRENCE" : {
+               "OMOP_columns" : {
+                  "modifier_concept_id" : 0,
+                  "modifier_source_value" : null,
+                  "person_id" : 1,
+                  "procedure_concept_id" : 4170947,
+                  "procedure_date" : "1958-03-11",
+                  "procedure_datetime" : "1958-03-11 00:00:00",
+                  "procedure_occurrence_id" : 4,
+                  "procedure_source_concept_id" : 4170947,
+                  "procedure_source_value" : 274474001,
+                  "procedure_type_concept_id" : 38000275,
+                  "provider_id" : "\\N",
+                  "quantity" : "\\N",
+                  "visit_detail_id" : 0,
+                  "visit_occurrence_id" : 79
+               }
+            }
+         },
+         "ageAtProcedure" : {
+            "age" : {
+               "iso8601duration" : "P9Y"
+            }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
+         "dateOfProcedure" : "1958-03-11",
+         "procedureCode" : {
+            "id" : "SNOMED:274474001",
+            "label" : "Bone immobilization"
+         }
+      },
+      {
+         "_info" : {
+            "PROCEDURE_OCCURRENCE" : {
+               "OMOP_columns" : {
+                  "modifier_concept_id" : 0,
+                  "modifier_source_value" : null,
+                  "person_id" : 1,
+                  "procedure_concept_id" : 4047491,
+                  "procedure_date" : "1958-03-11",
+                  "procedure_datetime" : "1958-03-11 00:00:00",
+                  "procedure_occurrence_id" : 5,
+                  "procedure_source_concept_id" : 4047491,
+                  "procedure_source_value" : 1225002,
+                  "procedure_type_concept_id" : 38000275,
+                  "provider_id" : "\\N",
+                  "quantity" : "\\N",
+                  "visit_detail_id" : 0,
+                  "visit_occurrence_id" : 79
+               }
+            }
+         },
+         "ageAtProcedure" : {
+            "age" : {
+               "iso8601duration" : "P9Y"
+            }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
+         "dateOfProcedure" : "1958-03-11",
+         "procedureCode" : {
+            "id" : "SNOMED:1225002",
+            "label" : "Radiography of humerus"
+         }
+      }
+   ],
+   "sex" : {
+      "id" : "NCIT:C20197",
+      "label" : "Male"
+   }
+},
+{
+   "ethnicity" : {
+      "id" : "NCIT:C41261",
+      "label" : "White"
+   },
+   "geographicOrigin" : {
+      "id" : "NCIT:C43856",
+      "label" : "Irish"
+   },
+   "id" : "2",
+   "info" : {
+      "PERSON" : {
+         "OMOP_columns" : {
+            "birth_datetime" : "1920-06-01 00:00:00",
+            "care_site_id" : "\\N",
+            "day_of_birth" : 1,
+            "ethnicity_concept_id" : 0,
+            "ethnicity_source_concept_id" : 0,
+            "ethnicity_source_value" : "irish",
+            "gender_concept_id" : 8532,
+            "gender_source_concept_id" : 0,
+            "gender_source_value" : "F",
+            "location_id" : "\\N",
+            "month_of_birth" : 6,
+            "person_id" : 2,
+            "person_source_value" : "00093765-abef-4a56-9280-8f92422afae7",
+            "provider_id" : "\\N",
+            "race_concept_id" : 8527,
+            "race_source_concept_id" : 0,
+            "race_source_value" : "white",
+            "year_of_birth" : 1920
+         }
+      },
+      "dateOfBirth" : "1920-06-01T00:00:00Z"
+   },
+   "interventionsOrProcedures" : [
+      {
+         "_info" : {
+            "PROCEDURE_OCCURRENCE" : {
+               "OMOP_columns" : {
+                  "modifier_concept_id" : 0,
+                  "modifier_source_value" : null,
+                  "person_id" : 2,
+                  "procedure_concept_id" : 4163872,
+                  "procedure_date" : "1955-10-22",
+                  "procedure_datetime" : "1955-10-22 00:00:00",
+                  "procedure_occurrence_id" : 6,
+                  "procedure_source_concept_id" : 4163872,
+                  "procedure_source_value" : 399208008,
+                  "procedure_type_concept_id" : 38000275,
+                  "provider_id" : "\\N",
+                  "quantity" : "\\N",
+                  "visit_detail_id" : 0,
+                  "visit_occurrence_id" : 103
+               }
+            }
+         },
+         "ageAtProcedure" : {
+            "age" : {
+               "iso8601duration" : "P35Y"
+            }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
+         "dateOfProcedure" : "1955-10-22",
+         "procedureCode" : {
+            "id" : "SNOMED:399208008",
+            "label" : "Plain chest X-ray"
+         }
+      },
+      {
+         "_info" : {
+            "PROCEDURE_OCCURRENCE" : {
+               "OMOP_columns" : {
+                  "modifier_concept_id" : 0,
+                  "modifier_source_value" : null,
+                  "person_id" : 2,
+                  "procedure_concept_id" : 4125906,
+                  "procedure_date" : "1977-04-08",
+                  "procedure_datetime" : "1977-04-08 00:00:00",
+                  "procedure_occurrence_id" : 7,
+                  "procedure_source_concept_id" : 4125906,
+                  "procedure_source_value" : 288086009,
+                  "procedure_type_concept_id" : 38000275,
+                  "provider_id" : "\\N",
+                  "quantity" : "\\N",
+                  "visit_detail_id" : 0,
+                  "visit_occurrence_id" : 115
+               }
+            }
+         },
+         "ageAtProcedure" : {
+            "age" : {
+               "iso8601duration" : "P56Y"
+            }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
+         "dateOfProcedure" : "1977-04-08",
+         "procedureCode" : {
+            "id" : "SNOMED:288086009",
+            "label" : "Suture open wound"
+         }
+      },
+      {
+         "_info" : {
+            "PROCEDURE_OCCURRENCE" : {
+               "OMOP_columns" : {
+                  "modifier_concept_id" : 0,
+                  "modifier_source_value" : null,
+                  "person_id" : 2,
+                  "procedure_concept_id" : 4151422,
+                  "procedure_date" : "1931-09-03",
+                  "procedure_datetime" : "1931-09-03 00:00:00",
+                  "procedure_occurrence_id" : 8,
+                  "procedure_source_concept_id" : 4151422,
+                  "procedure_source_value" : 269911007,
+                  "procedure_type_concept_id" : 38000275,
+                  "provider_id" : "\\N",
+                  "quantity" : "\\N",
+                  "visit_detail_id" : 0,
+                  "visit_occurrence_id" : 123
+               }
+            }
+         },
+         "ageAtProcedure" : {
+            "age" : {
+               "iso8601duration" : "P11Y"
+            }
+         },
+         "bodySite" : {
+            "id" : "NCIT:C126101",
+            "label" : "Not Available"
+         },
+         "dateOfProcedure" : "1931-09-03",
+         "procedureCode" : {
+            "id" : "SNOMED:269911007",
+            "label" : "Sputum examination"
+         }
+      }
+   ],
+   "sex" : {
+      "id" : "NCIT:C16576",
+      "label" : "Female"
+   }
+},
+{
+   "ethnicity" : {
+      "id" : "NCIT:C41261",
+      "label" : "White"
+   },
+   "geographicOrigin" : {
+      "id" : "NCIT:NA0000",
+      "label" : "NA"
+   },
+   "id" : "3",
+   "info" : {
+      "PERSON" : {
+         "OMOP_columns" : {
+            "birth_datetime" : "1916-01-03 00:00:00",
+            "care_site_id" : "\\N",
+            "day_of_birth" : 3,
+            "ethnicity_concept_id" : 0,
+            "ethnicity_source_concept_id" : 0,
+            "ethnicity_source_value" : "french_canadian",
+            "gender_concept_id" : 8507,
+            "gender_source_concept_id" : 0,
+            "gender_source_value" : "M",
+            "location_id" : "\\N",
+            "month_of_birth" : 1,
+            "person_id" : 3,
+            "person_source_value" : "000cb58f-523d-49a2-a05e-de1e93f35c01",
+            "provider_id" : "\\N",
+            "race_concept_id" : 8527,
+            "race_source_concept_id" : 0,
+            "race_source_value" : "white",
+            "year_of_birth" : 1916
+         }
+      },
+      "dateOfBirth" : "1916-01-03T00:00:00Z"
+   },
+   "phenotypicFeatures" : [
+      {
+         "_info" : {
+            "OBSERVATION" : {
+               "OMOP_columns" : {
+                  "observation_concept_id" : 4323208,
+                  "observation_date" : "1972-12-20",
+                  "observation_datetime" : "1972-12-20 00:00:00",
+                  "observation_id" : 72,
+                  "observation_source_concept_id" : 4323208,
+                  "observation_source_value" : 428251008,
+                  "observation_type_concept_id" : 38000276,
+                  "person_id" : 3,
+                  "provider_id" : 0,
+                  "qualifier_concept_id" : 0,
+                  "qualifier_source_value" : null,
+                  "unit_concept_id" : 0,
+                  "unit_source_value" : null,
+                  "value_as_concept_id" : 0,
+                  "value_as_number" : "\\N",
+                  "value_as_string" : null,
+                  "visit_detail_id" : 0,
+                  "visit_occurrence_id" : 312
+               }
+            }
+         },
+         "_visit" : {
+            "_info" : {
+               "VISIT_OCCURRENCE" : {
+                  "OMOP_columns" : {
+                     "admitting_source_concept_id" : 0,
+                     "admitting_source_value" : null,
+                     "care_site_id" : "\\N",
+                     "discharge_to_concept_id" : 0,
+                     "discharge_to_source_value" : null,
+                     "person_id" : 3,
+                     "preceding_visit_occurrence_id" : 347,
+                     "provider_id" : "\\N",
+                     "visit_concept_id" : 9201,
+                     "visit_end_date" : "1972-12-21",
+                     "visit_end_datetime" : "1972-12-21 00:00:00",
+                     "visit_occurrence_id" : 312,
+                     "visit_source_concept_id" : 0,
+                     "visit_source_value" : "5d035dd1-30d9-4389-b94c-64947bf1f18c",
+                     "visit_start_date" : "1972-12-20",
+                     "visit_start_datetime" : "1972-12-20 00:00:00",
+                     "visit_type_concept_id" : 44818517
+                  }
+               }
+            },
+            "concept" : {
+               "id" : "Visit:IP",
+               "label" : "Inpatient Visit"
+            },
+            "end_date" : "1972-12-21T00:00:00Z",
+            "id" : "312",
+            "occurrence_id" : 312,
+            "start_date" : "1972-12-20T00:00:00Z",
+            "type" : {
+               "id" : "Visit Type:OMOP4822465",
+               "label" : "Visit derived from encounter on claim"
+            }
+         },
+         "featureType" : {
+            "id" : "SNOMED:428251008",
+            "label" : "History of appendectomy"
+         },
+         "onset" : {
+            "iso8601duration" : "P56Y"
+         }
+      }
+   ],
+   "sex" : {
+      "id" : "NCIT:C20197",
+      "label" : "Male"
+   }
+}
+]

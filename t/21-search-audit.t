@@ -49,24 +49,45 @@ use Test::ConvertPheno qw(build_convert temp_output_file slurp_file);
         $lines[0],
         join(
             "\t",
-            qw(row original_term_label converted_term_label converted_term_id ontology match_status match_source)
+            qw(row original_term_label converted_term_label converted_term_id ontology configured_search_mode text_similarity_method min_text_similarity_score levenshtein_weight match_status match_source lookup_resolution)
         ),
         'search audit TSV starts with the expected header'
     );
     cmp_ok( scalar @lines, '>', 1, 'search audit TSV contains at least one mapped row' );
 
     my @cols = split /\t/, $lines[1], -1;
-    is( scalar @cols, 7, 'search audit TSV rows contain the expected number of columns' );
+    is( scalar @cols, 12, 'search audit TSV rows contain the expected number of columns' );
     like( $cols[0], qr/^\d+$/, 'search audit TSV records the source row number' );
     ok( length $cols[1], 'search audit TSV records the original term label' );
     ok( length $cols[2], 'search audit TSV records the converted term label' );
     like( $cols[3], qr/^[A-Z]+:/, 'search audit TSV records the converted term id' );
     ok( length $cols[4], 'search audit TSV records the ontology name' );
-    like( $cols[5], qr/^(?:matched|not_found)$/, 'search audit TSV records whether the DB lookup matched' );
+    like( $cols[5], qr/^(?:exact|mixed|fuzzy)$/, 'search audit TSV records the effective search mode' );
     like(
         $cols[6],
+        qr/^(?:cosine|dice)$/,
+        'search audit TSV records the configured text-similarity method'
+    );
+    like(
+        $cols[7],
+        qr/^(?:0(?:\.\d+)?|1(?:\.0+)?)$/,
+        'search audit TSV records the configured minimum text-similarity score'
+    );
+    like(
+        $cols[8],
+        qr/^(?:0(?:\.\d+)?|1(?:\.0+)?)$/,
+        'search audit TSV records the configured Levenshtein weight'
+    );
+    like( $cols[9], qr/^(?:matched|not_found)$/, 'search audit TSV records whether the DB lookup matched' );
+    like(
+        $cols[10],
         qr/^(?:db|cache|fallback_na)$/,
         'search audit TSV records whether the result came from the DB, cache, or fallback'
+    );
+    like(
+        $cols[11],
+        qr/^(?:exact|similarity|fallback_na)$/,
+        'search audit TSV records how the lookup was resolved'
     );
 }
 

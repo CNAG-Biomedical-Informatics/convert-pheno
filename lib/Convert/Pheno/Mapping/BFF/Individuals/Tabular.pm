@@ -740,8 +740,16 @@ sub _add_visit {
 
     my $pid       = $p->{participant_id} // q{};
     my $composite = join '.', grep { length } $pid, $visit_val;
+    my $self      = $p->{self};
     $item->{_visit}{composite}     = $composite;
-    $item->{_visit}{occurrence_id} = string2number($composite);
+    # Tabular imports synthesize visit ids from source labels. A cached
+    # surrogate integer is enough for referential integrity and much cheaper
+    # than reversible BigInt encoding.
+    $item->{_visit}{occurrence_id} = allocate_surrogate_integer(
+        $self,
+        'bff_visit_occurrence_id',
+        $composite
+    );
 }
 
 1;

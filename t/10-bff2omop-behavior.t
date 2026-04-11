@@ -77,6 +77,17 @@ use Convert::Pheno::BFF::ToOMOP qw(do_bff2omop);
                 cumulativeDose => { unit => { label => 'day' } },
                 _visit => { occurrence_id => 77, detail_id => 88 },
             },
+            {
+                treatmentCode => { label => 'Treatment C' },
+                routeOfAdministration => { label => 'Route C' },
+                doseIntervals => [
+                    {
+                        interval => {
+                            start => '2005-06-01T00:00:00Z',
+                        },
+                    },
+                ],
+            },
         ],
     };
 
@@ -99,10 +110,55 @@ use Convert::Pheno::BFF::ToOMOP qw(do_bff2omop);
     is( $got->{DRUG_EXPOSURE}[0]{drug_exposure_start_date}, '2002-01-01', 'derives treatment start date from ageOfOnset' );
     is( $got->{DRUG_EXPOSURE}[0]{drug_exposure_end_date}, '2002-01-01', 'defaults treatment end date to start date' );
     is( $got->{DRUG_EXPOSURE}[0]{quantity}, -1, 'defaults treatment quantity when doseIntervals are missing' );
+    is( $got->{DRUG_EXPOSURE}[1]{drug_exposure_start_date}, '1900-01-01', 'falls back to the default treatment start date when doseIntervals lack interval dates' );
+    is( $got->{DRUG_EXPOSURE}[1]{drug_exposure_end_date}, '1900-01-01', 'falls back to the default treatment end date when doseIntervals lack interval dates' );
     is( $got->{DRUG_EXPOSURE}[1]{quantity}, 5, 'uses first dose interval quantity when present' );
     is( $got->{DRUG_EXPOSURE}[1]{days_supply}, 5, 'converts cumulativeDose label day to days supply' );
     is( $got->{DRUG_EXPOSURE}[1]{visit_occurrence_id}, 77, 'attaches visit occurrence id' );
     is( $got->{DRUG_EXPOSURE}[1]{visit_detail_id}, 88, 'attaches visit detail id' );
+    is( $got->{DRUG_EXPOSURE}[2]{drug_exposure_start_date}, '2005-06-01', 'maps treatment start date from dose interval start timestamp' );
+    is( $got->{DRUG_EXPOSURE}[2]{drug_exposure_end_date}, '2005-06-01', 'reuses the available dose interval date for treatment end date when end is missing' );
+}
+
+{
+    no warnings 'redefine';
+
+    local *Convert::Pheno::BFF::ToOMOP::inverse_map = sub {
+        my ( $mapping_type, $hashref, $key, $self ) = @_;
+        return ( 9000, $hashref->{$key} // '' );
+    };
+
+    my $bff = {
+        id   => 'subject-a',
+        sex  => { label => 'male' },
+        info => { dateOfBirth => '2000-01-01T00:00:00Z' },
+        diseases => [
+            {
+                diseaseCode => { label => 'Disease A' },
+                _visit      => {
+                    occurrence_id => 'visit-alpha',
+                    composite     => 'subject-a.week-0',
+                },
+            },
+        ],
+        treatments => [
+            {
+                treatmentCode => { label => 'Treatment A' },
+                routeOfAdministration => { label => 'Route A' },
+                _visit => {
+                    occurrence_id => 'visit-alpha',
+                    composite     => 'subject-a.week-0',
+                },
+            },
+        ],
+    };
+
+    my $got = do_bff2omop( bless( {}, 'Convert::Pheno' ), $bff );
+
+    is( $got->{PERSON}{person_id}, 1, 'allocates a surrogate numeric person id for nonnumeric ids' );
+    is( $got->{PERSON}{person_source_value}, 'subject-a', 'preserves original person id in person_source_value' );
+    is( $got->{CONDITION_OCCURRENCE}[0]{visit_occurrence_id}, 1, 'allocates a surrogate numeric visit id for nonnumeric visit ids' );
+    is( $got->{DRUG_EXPOSURE}[0]{visit_occurrence_id}, 1, 'reuses the same surrogate visit id for the same composite visit key' );
 }
 
 warning_like {

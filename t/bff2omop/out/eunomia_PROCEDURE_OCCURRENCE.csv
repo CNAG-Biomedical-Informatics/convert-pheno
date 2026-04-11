@@ -1,0 +1,9 @@
+procedure_occurrence_id;person_id;procedure_concept_id;procedure_date;procedure_datetime;procedure_end_date;procedure_end_datetime;procedure_type_concept_id;modifier_concept_id;quantity;provider_id;visit_occurrence_id;visit_detail_id;procedure_source_value;procedure_source_concept_id;modifier_source_value
+1;1;44783196;1981-08-17;1981-08-17T00:00:00Z;;;0;;;;85;;"Surgical manipulation of joint of knee";;
+2;1;40309874;1982-09-11;1982-09-11T00:00:00Z;;;0;;;;;;"Suture open wound";;
+3;1;4252419;1981-08-10;1981-08-10T00:00:00Z;;;0;;;;;;"Radiologic examination of knee";;
+4;1;40311526;1958-03-11;1958-03-11T00:00:00Z;;;0;;;;;;"Bone immobilization";;
+5;1;4047491;1958-03-11;1958-03-11T00:00:00Z;;;0;;;;;;"Radiography of humerus";;
+6;2;4163872;1955-10-22;1955-10-22T00:00:00Z;;;0;;;;;;"Plain chest X-ray";;
+7;2;40309874;1977-04-08;1977-04-08T00:00:00Z;;;0;;;;;;"Suture open wound";;
+8;2;4151422;1931-09-03;1931-09-03T00:00:00Z;;;0;;;;;;"Sputum examination";;

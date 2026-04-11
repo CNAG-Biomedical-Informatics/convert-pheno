@@ -79,8 +79,47 @@ convert-pheno -ibff individuals.json -opxf pxf.json
 - `--entities` can be used with `BFF` output. The current extra entity exposed by the CLI is `biosamples` from `-ipxf` input when biosample data is present.
 - `--entities` is an entity-output mode. Use it together with `--out-dir`, not with `-obff FILE`.
 - `--out-entity entity=file` lets you override the filename of one requested entity and requires `--entities`.
-- `--search-audit-tsv FILE` writes a tab-separated audit of ontology search results for mapping-file-driven conversions such as `csv2bff`, `redcap2bff`, and `cdisc2bff`, including whether each lookup matched the DB or fell back to `NA`.
+- `--search-audit-tsv FILE` writes a tab-separated audit of ontology search results for mapping-file-driven conversions such as `csv2bff`, `redcap2bff`, and `cdisc2bff`, including the effective configured search mode, whether each lookup matched the DB or fell back to `NA`, and the per-row lookup resolution (`exact`, `similarity`, or `fallback_na`).
 - `--stream` is mainly relevant for **large OMOP inputs**.
+
+## Important options
+
+### Mapping-file conversions
+
+- `--mapping-file FILE` supplies the YAML or JSON mapping file used by `csv2bff`, `redcap2bff`, `cdisc2bff`, and related conversions.
+- `--redcap-dictionary FILE` or `-rcd FILE` supplies the REDCap data dictionary required by REDCap and CDISC input workflows.
+- `--schema-file FILE` lets you validate mapping files against an alternative JSON Schema.
+- `--self-validate-schema` or `-svs` performs a self-validation of the mapping schema itself.
+- `--search-audit-tsv FILE` writes a TSV report of ontology lookups performed during mapping-file-driven conversions.
+  The audit includes both row-level results and the effective search settings used for the run.
+- `--print-hidden-labels` or `-phl` preserves original text labels before ontology mapping in `_label` fields.
+
+### Ontology search tuning
+
+- `--search exact|mixed|fuzzy` selects the ontology lookup strategy. Default: `exact`.
+- `--text-similarity-method cosine|dice` selects the token-similarity method used by `mixed` and `fuzzy`. Default: `cosine`.
+- `--min-text-similarity-score FLOAT` sets the minimum score accepted by `mixed` and `fuzzy`. Default: `0.8`.
+- `--levenshtein-weight FLOAT` sets the normalized Levenshtein weight used by `fuzzy`. Default: `0.1`.
+
+For the search behavior itself, including examples and threshold tradeoffs, see [the DB search explainer](tbl/db-search.md).
+
+### OMOP-specific options
+
+- `--ohdsi-db` enables Athena-OHDSI lookup when OMOP data needs concepts not already present in the local export.
+- `--path-to-ohdsi-db DIR` points to the directory containing `ohdsi.db`.
+- `--omop-tables TABLE ...` restricts which OMOP-CDM tables are processed, while `CONCEPT` and `PERSON` stay included.
+- `--exposures-file FILE` provides a CSV list of OMOP `concept_id` values to be treated as exposures.
+- `--stream` enables incremental OMOP processing for legacy `-obff` output.
+- `--sql2csv` prints SQL tables instead of converting them.
+- `--max-lines-sql N` limits how many lines are read per SQL table. Default: `500`.
+
+### General options
+
+- `--separator CHAR` or `--sep CHAR` overrides the CSV delimiter. For `.csv` files the default remains `;`.
+- `--username NAME` or `-u NAME` overrides the username stored in conversion metadata.
+- `--test` suppresses time-varying metadata so generated files are stable for comparisons.
+- `--verbose` or `-v` prints progress information.
+- `--debug LEVEL` prints the resolved internal request and extra debugging output.
 
 ## More help
 

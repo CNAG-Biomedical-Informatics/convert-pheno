@@ -1,0 +1,9 @@
+condition_occurrence_id;person_id;condition_concept_id;condition_start_date;condition_start_datetime;condition_end_date;condition_end_datetime;condition_type_concept_id;condition_status_concept_id;stop_reason;provider_id;visit_occurrence_id;visit_detail_id;condition_source_value;condition_source_concept_id;condition_status_source_value
+1;1;40479768;1981-01-01;;;;0;;;;;;"Injury of anterior cruciate ligament";;
+2;1;44832796;2008-01-01;;;;0;;;;;;"Concussion with no loss of consciousness";;
+3;1;4112343;1970-01-01;;;;0;;;;;;"Acute viral pharyngitis";;
+4;1;4112343;2017-01-01;;;;0;;;;;;"Acute viral pharyngitis";;
+5;1;44820546;1953-01-01;;;;0;;;;;;"Streptococcal sore throat";;
+6;1;40481087;2012-01-01;;;;0;;;;;;"Viral sinusitis";;
+7;1;4112343;2007-01-01;;;;0;;;;;;"Acute viral pharyngitis";;
+8;1;0;1978-01-01;;;;0;;;;;;"Second degree burn";;
