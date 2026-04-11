@@ -81,6 +81,8 @@ OMOP:
 Other useful options:
   --mapping-file <file>
   --redcap-dictionary <file>
+  --search-audit-tsv <file>
+                      Write a TSV audit of ontology search results
   --sep <char>
   --test
   --debug <level>

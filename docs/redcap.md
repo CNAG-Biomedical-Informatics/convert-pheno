@@ -20,6 +20,9 @@ Due to the flexibility of REDCap projects, it can be challenging to develop a so
     ??? Tip "About REDCap export formats"
         REDCap provides various options for exporting data. We accept the option "All data (all records and fields)" including CSV and Microsoft Excel format, along with an accompanying data dictionary in CSV format. Exportation in REDCap CDISC ODM (XML) format is discussed in the section on [CDISC-ODM](cdisc-odm.md).
 
+    !!! Warning "Keep REDCap text exports as UTF-8 text files"
+        Do not open and resave REDCap CSV exports or CSV data dictionaries with spreadsheet software such as Excel before running `convert-pheno`. This may alter UTF-8 encoding and corrupt non-ASCII characters such as `µ`, `≥`, accents, or degree symbols, which can then break dictionary values and ontology mappings.
+
     We'll need three files:
 
     1. REDCap export (CSV)
@@ -32,6 +35,22 @@ Due to the flexibility of REDCap projects, it can be challenging to develop a so
     ```
     convert-pheno -iredcap redcap.csv --redcap-dictionary dictionary.csv --mapping-file mapping.yaml -obff individuals.json
     ```
+
+    If you want to inspect ontology search results, you can also request a TSV audit file:
+
+    ```bash
+    convert-pheno -iredcap redcap.csv --redcap-dictionary dictionary.csv --mapping-file mapping.yaml -obff individuals.json --search-audit-tsv search-audit.tsv
+    ```
+
+    The audit file is tab-separated and currently includes columns such as:
+
+    - `row`
+    - `original_term_label`
+    - `converted_term_label`
+    - `converted_term_id`
+    - `ontology`
+
+    This is useful when users want to review how REDCap source values were resolved against SQLite-backed ontologies before trusting the final conversion.
 
 === "API"
 

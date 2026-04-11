@@ -61,7 +61,7 @@ sub build_cli_request {
     my @out_entity_specs;
     my ( $help, $man, $mapping_file, $max_lines_sql, $search );
     my ( $text_similarity_method, $min_text_similarity_score, $levenshtein_weight );
-    my ( $debug, $verbose, $sep, $exposures_file, $sql2csv, $test );
+    my ( $debug, $verbose, $sep, $exposures_file, $sql2csv, $test, $search_audit_tsv );
     my ( @omop_tables, $redcap_dictionary, $path_to_ohdsi_db, $print_hidden_labels );
     my ( $self_validate_schema, $overwrite, $username, $log, $version );
     my $schema_file = $schema_default;
@@ -102,6 +102,7 @@ sub build_cli_request {
         'stream!'                     => \$stream,
         'sql2csv'                     => \$sql2csv,
         'test'                        => \$test,
+        'search-audit-tsv=s'          => \$search_audit_tsv,
         'ohdsi-db'                    => \$ohdsi_db,
         'omop-tables=s{1,}'           => \@omop_tables,
         'redcap-dictionary|rcd=s'     => \$redcap_dictionary,
@@ -331,6 +332,10 @@ sub build_cli_request {
 
     my $log_file =
       catfile( $out_dir, ( $log ? $log : 'convert-pheno-log.json' ) );
+    my $search_audit_file =
+      defined $search_audit_tsv
+      ? _resolve_output_path( $out_dir, $search_audit_tsv )
+      : undef;
 
     my $in_type =
         $in_pxf     ? 'pxf'
@@ -392,6 +397,7 @@ sub build_cli_request {
     $data{self_validate_schema} = $self_validate_schema if defined $self_validate_schema;
     $data{path_to_ohdsi_db}     = $path_to_ohdsi_db if defined $path_to_ohdsi_db;
     $data{print_hidden_labels}  = $print_hidden_labels ? 1 : 0 if defined $print_hidden_labels;
+    $data{search_audit_file}    = $search_audit_file if defined $search_audit_file;
     $data{debug}                = $debug if defined $debug;
     $data{log}                  = $log if defined $log;
     $data{verbose}              = $verbose ? 1 : 0 if defined $verbose;

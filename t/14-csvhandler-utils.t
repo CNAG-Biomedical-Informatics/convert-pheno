@@ -11,6 +11,7 @@ use Convert::Pheno::IO::CSVHandler qw(
   get_headers
   load_exposures
   open_filehandle
+  read_redcap_dict_file
   transpose_omop_data_structure
 );
 
@@ -108,6 +109,22 @@ use Convert::Pheno::IO::CSVHandler qw(
     my $gz_content = do { local $/; <$fh_gz_r> };
     close $fh_gz_r;
     is( $gz_content, "hello-gz\n", 'open_filehandle reads gzipped files' );
+}
+
+{
+    my $tmpdir = tempdir( CLEANUP => 1 );
+    my $gz = "$tmpdir/redcap_dictionary.csv.gz";
+
+    my $fh = open_filehandle( $gz, 'w' );
+    print {$fh}
+      "Variable / Field Name;Choices, Calculations, OR Slider Labels;Field Label\n";
+    print {$fh} "sex;1, Male | 2, Female;Sex\n";
+    close $fh;
+
+    my $dict = read_redcap_dict_file( { redcap_dictionary => $gz } );
+    is( $dict->{sex}{'Field Label'}, 'Sex', 'read_redcap_dict_file reads gzipped REDCap dictionary files' );
+    is( $dict->{sex}{_labels}{1}, 'Male', 'read_redcap_dict_file populates labels from gzipped REDCap dictionaries' );
+    is( $dict->{sex}{_labels}{2}, 'Female', 'read_redcap_dict_file preserves all label mappings from gzipped REDCap dictionaries' );
 }
 
 done_testing();

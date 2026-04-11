@@ -160,7 +160,7 @@ has [qw /stream ohdsi_db/] => ( default => 0, is => 'ro' );
 has [qw /in_files/] => ( default => sub { [] }, is => 'ro' );
 
 has [
-    qw /out_file out_dir in_textfile in_file sep sql2csv redcap_dictionary mapping_file schema_file debug log verbose/
+    qw /out_file out_dir in_textfile in_file sep sql2csv redcap_dictionary mapping_file schema_file debug log verbose search_audit_file/
 ] => ( is => 'ro' );
 
 has [qw /data method/] => ( is => 'rw' );
@@ -670,6 +670,7 @@ sub array_dispatcher {
         for (my $i = 0; $i < $elements; $i++) {
             my $count = $i + 1;
             my $item  = $in_data->[$i];
+            $self->{current_row} = $count;
 
             say "[$count] ARRAY ELEMENT from $elements" if $self->{debug};
 
@@ -692,6 +693,7 @@ sub array_dispatcher {
     }
     else {
         say "$self->{method}: NOT ARRAY" if $self->{debug};
+        $self->{current_row} = 1;
 
         my $res = execute_operation( $self, $operation, $in_data );
 
@@ -710,6 +712,8 @@ sub array_dispatcher {
     }
 
     close_connections_SQLite($self) unless $self->{method} eq 'bff2pxf';
+    finalize_search_audit($self);
+    delete $self->{current_row};
 
     if ($stream) {
         finalize_stream_out($stream);
@@ -748,7 +752,9 @@ sub bundle_dispatcher {
 
     my @items = ref($in_data) eq 'ARRAY' ? @$in_data : ($in_data);
 
-    for my $item (@items) {
+    for ( my $i = 0; $i < @items; $i++ ) {
+        my $item = $items[$i];
+        $self->{current_row} = $i + 1;
         my $item_bundle = $operation->{run}->( $self, $item );
         for my $entity ( @{ $self->{entities} } ) {
             for my $entry ( @{ $item_bundle->entities($entity) } ) {
@@ -762,6 +768,8 @@ sub bundle_dispatcher {
     }
 
     close_connections_SQLite($self) unless $self->{method} eq 'bff2pxf';
+    finalize_search_audit($self);
+    delete $self->{current_row};
 
     return $bundle;
 }

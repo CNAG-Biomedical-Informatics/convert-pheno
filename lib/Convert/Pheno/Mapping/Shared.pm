@@ -21,13 +21,56 @@ use Exporter 'import';
 use open qw(:std :encoding(UTF-8));
 
 our @EXPORT =
-  qw(map_ontology_term dotify_and_coerce_number get_current_utc_iso8601_timestamp map_iso8601_date2timestamp map_iso8601_timestamp2date get_date_component map_reference_range map_reference_range_csv map_age_range map2redcap_dict map2ohdsi convert2boolean get_age_from_date_and_birthday get_date_at_age generate_random_alphanumeric_string map_operator_concept_id map_info_field map_omop_visit_occurrence convert_date_to_iso8601 validate_format get_metaData get_info merge_omop_tables convert_label_to_days string2number number2string);
+  qw(map_ontology_term dotify_and_coerce_number get_current_utc_iso8601_timestamp map_iso8601_date2timestamp map_iso8601_timestamp2date get_date_component map_reference_range map_reference_range_csv map_age_range map2redcap_dict map2ohdsi convert2boolean get_age_from_date_and_birthday get_date_at_age generate_random_alphanumeric_string map_operator_concept_id map_info_field map_omop_visit_occurrence convert_date_to_iso8601 validate_format get_metaData get_info merge_omop_tables convert_label_to_days string2number number2string finalize_search_audit);
 
 my $DEFAULT = get_defaults();
 use constant DEVEL_MODE => 0;
 
 # Global hash (manual memoizing)
 my %SEEN = ();
+
+sub _tsv_field {
+    my ($value) = @_;
+    return q{} unless defined $value;
+    $value =~ s/[\t\r\n]+/ /g;
+    return $value;
+}
+
+sub _record_search_audit {
+    my ( $self, $query, $ontology, $entry ) = @_;
+    return 1 unless defined $self->{search_audit_file} && length $self->{search_audit_file};
+
+    my $fh = $self->{_search_audit_fh};
+    unless ($fh) {
+        open my $audit_fh, '>:encoding(UTF-8)', $self->{search_audit_file};
+        print {$audit_fh}
+          join( "\t", qw(row original_term_label converted_term_label converted_term_id ontology) ) . "\n";
+        $self->{_search_audit_fh} = $audit_fh;
+        $fh = $audit_fh;
+    }
+
+    print {$fh} join(
+        "\t",
+        map { _tsv_field($_) } (
+            $self->{current_row},
+            $query,
+            $entry->{label},
+            $entry->{id},
+            $ontology,
+        )
+      ),
+      "\n";
+
+    return 1;
+}
+
+sub finalize_search_audit {
+    my ($self) = @_;
+    return 1 unless exists $self->{_search_audit_fh};
+
+    close delete $self->{_search_audit_fh};
+    return 1;
+}
 
 #############################
 #############################
@@ -51,6 +94,7 @@ sub map_ontology_term {
     if ( exists $SEEN{$ontology}{$query} ) {
         say "Skipping searching for <$query> in <$ontology> (cached)"
           if DEVEL_MODE;
+        _record_search_audit( $self, $query, $ontology, $SEEN{$ontology}{$query} );
         return $SEEN{$ontology}{$query};
     }
 
@@ -92,6 +136,7 @@ sub map_ontology_term {
       : { id => $id, label => $label };
 
     $SEEN{$ontology}{$query} = $entry;
+    _record_search_audit( $self, $query, $ontology, $entry );
 
     # 7) Return (with optional hidden‐label)
     return $arg->{print_hidden_labels}

@@ -58,6 +58,16 @@ convert-pheno -ipxf pxf.json --entities individuals biosamples --out-dir out/ --
 !!! Note "Legacy `-obff FILE` behavior"
     `convert-pheno -ipxf pxf.json -obff individuals.json` keeps the backward-compatible single-output path and emits only `individuals`. If the input also contains `biosamples`, the CLI prints a warning and preserves them under `info.phenopacket.biosamples`.
 
+## Review ontology search results in mapping-file conversions
+
+When using a mapping file, you can ask `convert-pheno` to write a TSV audit of ontology lookups:
+
+```bash
+convert-pheno -iredcap redcap.csv --redcap-dictionary dictionary.csv --mapping-file mapping.yaml -obff individuals.json --search-audit-tsv search-audit.tsv
+```
+
+This is useful when you want to review how original source terms were mapped to ontology labels and identifiers.
+
 ## Work with repository fixtures
 
 The repository test fixtures under `t/` are useful as **small examples**:

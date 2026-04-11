@@ -34,7 +34,7 @@ sub read_redcap_dictionary {
     my $filepath = shift;
 
     # Define split record separator from file extension
-    my ( $separator, $encoding ) = define_separator( $filepath, undef );
+    my ($separator) = define_separator( $filepath, undef );
 
     # We'll create an HoH using as 1D-key the 'Variable / Field Name'
     my $key = 'Variable / Field Name';
@@ -42,20 +42,25 @@ sub read_redcap_dictionary {
     # We'll be adding the key <_labels>. See sub add_labels
     my $labels = 'Choices, Calculations, OR Slider Labels';
 
-    # Loading data directly from Text::CSV_XS
-    # NB1: We want HoH and sub read_csv returns AoH
-    # NB2: By default the Text::CSV module treats all fields in a CSV file as strings, regardless of their actual data type.
-    # NB3: csv function ~ x2  RAM. It's ok here.
-    my $hoh = csv(
-        in       => $filepath,
-        sep_char => $separator,
-
-        #binary    => 1, # default
-        auto_diag => 1,
-        encoding  => $encoding,
-        key       => $key,
-        on_in     => sub { $_{_labels} = add_labels( $_{$labels} ) }
+    my $csv = Text::CSV_XS->new(
+        {
+            sep_char  => $separator,
+            binary    => 1,
+            auto_diag => 1,
+        }
     );
+
+    my $fh = open_filehandle( $filepath, 'r' );
+    my $headers = $csv->getline($fh);
+    $csv->column_names(@$headers);
+
+    my $hoh = {};
+    while ( my $row = $csv->getline_hr($fh) ) {
+        $row->{_labels} = add_labels( $row->{$labels} );
+        $hoh->{ $row->{$key} } = $row;
+    }
+
+    close $fh;
 
     return $hoh;
 }
@@ -552,7 +557,7 @@ sub read_csv {
     my $self     = exists $arg->{self} ? $arg->{self} : { verbose => 0 };
 
     # Define split record separator from file extension
-    my ( $separator, $encoding ) = define_separator( $filepath, $sep );
+    my ($separator) = define_separator( $filepath, $sep );
 
     # *** IMPORTANT ***
     # Text::CSV_XS functional interface
@@ -644,8 +649,7 @@ sub read_csv_stream {
     my $fileout = $self->{out_file};
 
     # Define split record separator
-    my ( $separator, $encoding, $table_name ) =
-      define_separator( $filein, $sep );
+    my ( $separator, undef, $table_name ) = define_separator( $filein, $sep );
     my $table_name_lc = lc($table_name);
 
     # Create a new Text::CSV_XS object
@@ -770,11 +774,8 @@ sub define_separator {
       : $ext eq '.tsv.gz' ? "\t"
       :                     "\t";
 
-    my $encoding =
-      $ext =~ m/\.gz/ ? ':gzip:encoding(utf-8)' : 'encoding(utf-8)';
-
-    # Return 3 but some get only 2
-    return ( $separator, $encoding, $table_name );
+    # Return 3 but some callers only use 1 or 2
+    return ( $separator, undef, $table_name );
 }
 
 sub to_gb {
