@@ -269,4 +269,67 @@ warning_like {
     is( $concept_id, 0, 'get_ontology_terms uses default ohdsi concept_id when no match is found' );
 }
 
+SKIP: {
+    skip 'share/db/ncit.db is required for real SQLite search-mode tests', 9
+      unless -f 'share/db/ncit.db';
+
+    local $Convert::Pheno::share_dir = 'share';
+
+    my $lookup = sub {
+        my (%args) = @_;
+        my $self = bless(
+            {
+                databases                 => ['ncit'],
+                search                    => $args{search},
+                text_similarity_method    => 'cosine',
+                min_text_similarity_score => 0.1,
+                levenshtein_weight        => 0.1,
+            },
+            'Convert::Pheno'
+        );
+
+        Convert::Pheno::DB::SQLite::open_connections_SQLite($self);
+        my @result = Convert::Pheno::DB::SQLite::get_ontology_terms(
+            {
+                ontology                  => 'ncit',
+                sth_column_ref            => $self->{sth}{ncit}{label},
+                query                     => $args{query},
+                column                    => 'label',
+                databases                 => $self->{databases},
+                search                    => $self->{search},
+                text_similarity_method    => $self->{text_similarity_method},
+                min_text_similarity_score => $self->{min_text_similarity_score},
+                levenshtein_weight        => $self->{levenshtein_weight},
+            }
+        );
+        Convert::Pheno::DB::SQLite::close_connections_SQLite($self);
+
+        return @result;
+    };
+
+    my ( $exact_id, $exact_label, $exact_concept_id ) = $lookup->(
+        search => 'exact',
+        query  => 'Acute Bacterial Prostatitis',
+    );
+    is( $exact_id, 'NCIT:C92957', 'exact search returns the expected NCIT id from the real SQLite db' );
+    is( $exact_label, 'Acute Bacterial Prostatitis', 'exact search returns the expected label from the real SQLite db' );
+    is( $exact_concept_id, undef, 'exact search leaves concept_id undef for ncit in the real SQLite db' );
+
+    my ( $mixed_id, $mixed_label, $mixed_concept_id ) = $lookup->(
+        search => 'mixed',
+        query  => 'Acute_Bacterial-Prostatitis',
+    );
+    is( $mixed_id, 'NCIT:C92957', 'mixed search falls back through the real SQLite path and returns the expected NCIT id' );
+    is( $mixed_label, 'Acute Bacterial Prostatitis', 'mixed search normalizes punctuation and returns the expected label' );
+    is( $mixed_concept_id, undef, 'mixed search leaves concept_id undef for ncit in the real SQLite db' );
+
+    my ( $fuzzy_id, $fuzzy_label, $fuzzy_concept_id ) = $lookup->(
+        search => 'fuzzy',
+        query  => 'Acute_Bacterial-Prostatitis',
+    );
+    is( $fuzzy_id, 'NCIT:C92957', 'fuzzy search returns the expected NCIT id from the real SQLite db' );
+    is( $fuzzy_label, 'Acute Bacterial Prostatitis', 'fuzzy search returns the expected label from the real SQLite db' );
+    is( $fuzzy_concept_id, undef, 'fuzzy search leaves concept_id undef for ncit in the real SQLite db' );
+}
+
 done_testing();
