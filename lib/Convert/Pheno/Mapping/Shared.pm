@@ -525,12 +525,13 @@ sub get_info {
           || $ENV{'USER'}
           || $ENV{'USERNAME'}
           || 'dummy-user',
-        username    => $self->{username},
-        threadshost => $threadshost,
-        cwd         => cwd,
-        id          => $self->{id},
-        hostname    => hostname,
-        version     => $::VERSION
+        username            => $self->{username},
+        threadshost         => $threadshost,
+        cwd                 => cwd,
+        id                  => $self->{id},
+        hostname            => hostname,
+        version             => $::VERSION,
+        beaconSchemaVersion => '2.0.0',
     };
 }
 

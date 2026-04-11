@@ -132,4 +132,18 @@ is( $got->{phenotypicFeatures}[0]{featureType}{id}, 'HP:0000118', 'maps feature 
 ok( $got->{phenotypicFeatures}[0]{excluded}, 'maps negated to excluded' );
 ok( !exists $got->{phenotypicFeatures}[0]{type}, 'removes original feature type key' );
 
+my $convert_with_tool_info = build_convert(
+    in_textfile => 0,
+    data        => $wrapped_pxf,
+    method      => 'pxf2bff',
+    test        => 0,
+);
+
+my $got_with_tool_info = $convert_with_tool_info->pxf2bff;
+is(
+    $got_with_tool_info->{info}{convertPheno}{beaconSchemaVersion},
+    '2.0.0',
+    'includes Beacon schema version in convertPheno info when not in test mode'
+);
+
 done_testing();

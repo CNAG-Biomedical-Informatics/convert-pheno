@@ -39,7 +39,10 @@ use Convert::Pheno::OMOP::ToBFF qw(do_omop2bff);
             data_ohdsi_dict => {},
             exposures       => { 1001 => 1 },
             metaData        => { created => 'x' },
-            convertPheno    => { version => 'y' },
+            convertPheno    => {
+                version             => 'y',
+                beaconSchemaVersion => '2.0.0',
+            },
             visit_occurrence => { 10 => { visit_occurrence_id => 10 } },
             test            => 0,
             stream          => 0,
@@ -140,6 +143,7 @@ use Convert::Pheno::OMOP::ToBFF qw(do_omop2bff);
     is( $got->{geographicOrigin}{label}, 'Spanish', 'maps ethnicity_source_value to geographicOrigin' );
     ok( exists $got->{info}{metaData}, 'includes metadata when not in test mode' );
     ok( exists $got->{info}{convertPheno}, 'includes convertPheno when not in test mode' );
+    is( $got->{info}{convertPheno}{beaconSchemaVersion}, '2.0.0', 'includes Beacon schema version in convertPheno info' );
 
     is( $got->{diseases}[0]{stage}{id}, 'NCIT:C126101', 'uses default stage when condition status is missing' );
     is( $got->{diseases}[0]{_visit}{occurrence_id}, 10, 'attaches visit info to diseases' );

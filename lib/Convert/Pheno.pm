@@ -432,6 +432,8 @@ sub cdisc2bff {
     $self->{data}              = $data;
     $self->{data_redcap_dict}  = $data_redcap_dict;
     $self->{data_mapping_file} = $data_mapping_file;
+    $self->{metaData}          = get_metaData($self);
+    $self->{convertPheno}      = get_info($self);
 
     return $self->array_dispatcher;
 }
@@ -482,6 +484,7 @@ sub cdisc2omop {
 
 sub pxf2bff {
     my $self = shift;
+    $self->{convertPheno} = get_info($self);
     $self->{conversion_context} = Convert::Pheno::Context->from_self(
         $self,
         {

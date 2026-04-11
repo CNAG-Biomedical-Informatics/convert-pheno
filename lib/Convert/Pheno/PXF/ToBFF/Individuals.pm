@@ -21,7 +21,7 @@ sub map_pxf_to_individual {
     _map_diseases( $phenopacket, $individual );
     _map_exposures( $phenopacket, $individual );
     _map_id( $phenopacket, $individual );
-    _map_info( $phenopacket, $cohort, $family, $individual );
+    _map_info( $self, $phenopacket, $cohort, $family, $individual );
     _map_interventions_or_procedures( $phenopacket, $individual );
     _map_karyotypicSex( $phenopacket, $individual );
     _map_measures( $phenopacket, $individual );
@@ -89,7 +89,7 @@ sub _map_id {
 }
 
 sub _map_info {
-    my ( $phenopacket, $cohort, $family, $individual ) = @_;
+    my ( $self, $phenopacket, $cohort, $family, $individual ) = @_;
 
     for my $term (
         qw(dateOfBirth genes interpretations metaData variants files biosamples pedigree)
@@ -101,6 +101,10 @@ sub _map_info {
 
     $individual->{info}{cohort} = $cohort if defined $cohort;
     $individual->{info}{family} = $family if defined $family;
+
+    unless ( $self->{test} ) {
+        $individual->{info}{convertPheno} = $self->{convertPheno};
+    }
 }
 
 sub _map_interventions_or_procedures {
