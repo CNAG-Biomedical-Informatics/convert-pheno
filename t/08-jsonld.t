@@ -39,7 +39,10 @@ for my $case (
         ok( exists $got->{ $case->{key} }, "$case->{name} includes expected compacted key" );
     }
     else {
-        dies_ok { $convert->${ \$case->{method} } } "$case->{name} dies without JSONLD dependency";
+        throws_ok
+          { $convert->${ \$case->{method} } }
+          qr/JSONLD Perl module is required/,
+          "$case->{name} reports a clear JSONLD dependency error";
     }
 }
 

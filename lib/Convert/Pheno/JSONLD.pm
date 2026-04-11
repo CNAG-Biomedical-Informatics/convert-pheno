@@ -2,49 +2,40 @@ package Convert::Pheno::JSONLD;
 
 use strict;
 use warnings;
-use autodie;
-use feature qw(say);
-
-#use JSONLD;
-use Data::Dumper;
+use Carp qw(croak);
 use Exporter 'import';
+
 our @EXPORT_OK = qw(do_bff2jsonld do_pxf2jsonld);
 
-#$Data::Dumper::Sortkeys = 1;
+my $JSONLD_AVAILABLE;
 
-###############
-###############
-#  BFF2JSONLD #
-###############
-###############
+sub _load_jsonld {
+    return 1 if $JSONLD_AVAILABLE;
 
-sub do_bff2jsonld {
-    my ( $self, $bff ) = @_;
-
-    # Dynamically load JSONLD
     eval {
         require JSONLD;
-        JSONLD->import();    # Call import if JSONLD exports symbols you need
+        1;
     };
-    if ($@) {
-        die
-"There were errors in installing dependencies on Windows, specifically: 'JSONLD' is not available: $@";
-    }
+    croak "JSONLD Perl module is required but could not be loaded: $@" if $@;
 
-    # Premature return
-    return unless defined($bff);
+    return $JSONLD_AVAILABLE = 1;
+}
 
-    # Create new JSONLD object
-    my $jld = JSONLD->new();
+sub _context_for {
+    my ($format) = @_;
 
-    my $context = {
+    my %common = (
         '@vocab' => 'https://ncithesaurus.nci.nih.gov/ncitbrowser/',
-        'bff'    =>
-'https://github.com/ga4gh-beacon/beacon-v2/tree/main/models/src/beacon-v2-default-model/individuals',
         'HP'                 => 'http://purl.obolibrary.org/obo/HP_',
         'OMIM'               => 'http://purl.obolibrary.org/obo/OMIM_',
         'id'                 => 'id',
         'type'               => 'type',
+    );
+
+    return {
+        %common,
+        'bff'                =>
+'https://github.com/ga4gh-beacon/beacon-v2/tree/main/models/src/beacon-v2-default-model/individuals',
         'subject'            => 'bff:subject',
         'phenotypicFeatures' => 'bff:phenotypicFeatures',
         'description'        => 'bff:description',
@@ -54,19 +45,51 @@ sub do_bff2jsonld {
         'ageAtCollection'    => 'bff:ageAtCollection',
         'sex'                => 'bff:sex',
         'MALE'               => 'bff:MALE',
-    };
+      } if $format eq 'bff';
 
-    # Add key for @contect
-    $bff->{'@context'} = $context;
+    return {
+        %common,
+        'pxf'                =>
+'https://phenopacket-schema.readthedocs.io/en/latest/schema.html#version-2-0/',
+        'subject'            => 'pxf:subject',
+        'phenotypicFeatures' => 'pxf:phenotypicFeatures',
+        'description'        => 'pxf:description',
+        'severity'           => 'pxf:severity',
+        'diagnosis'          => 'pxf:diagnosis',
+        'disease'            => 'pxf:disease',
+        'ageAtCollection'    => 'pxf:ageAtCollection',
+        'sex'                => 'pxf:sex',
+        'MALE'               => 'pxf:MALE',
+      } if $format eq 'pxf';
 
-    # Compact the data
-    my $compact = $jld->compact($bff);
+    croak "Unsupported JSON-LD context format <$format>";
+}
 
-    # Expand the data
-    #my $expanded = $jld->expand($bff);
+sub _compact_document {
+    my ( $document, $context ) = @_;
 
-    # Return the transformed data
-    return $compact;
+    return unless defined $document;
+
+    croak 'JSON-LD conversion expects a hashref document'
+      unless ref($document) eq 'HASH';
+
+    _load_jsonld();
+
+    my $jld = JSONLD->new();
+    $document->{'@context'} = $context;
+
+    return $jld->compact($document);
+}
+
+###############
+###############
+#  BFF2JSONLD #
+###############
+###############
+
+sub do_bff2jsonld {
+    my ( $self, $bff ) = @_;
+    return _compact_document( $bff, _context_for('bff') );
 }
 
 ###############
@@ -77,57 +100,7 @@ sub do_bff2jsonld {
 
 sub do_pxf2jsonld {
     my ( $self, $pxf ) = @_;
-
-    # Dynamically load JSONLD
-    eval {
-        require JSONLD;
-        JSONLD->import();    # Call import if JSONLD exports symbols you need
-    };
-    if ($@) {
-        die
-"There were errors in installing dependencies on Windows, specifically: 'JSONLD' is not available: $@";
-    }
-
-    # Premature return
-    return unless defined($pxf);
-
-    # Create new JSONLD object
-    my $jld = JSONLD->new();
-
-    my $context = {
-        '@vocab' => 'https://ncithesaurus.nci.nih.gov/ncitbrowser/',
-        'pxf'    =>
-'https://phenopacket-schema.readthedocs.io/en/latest/schema.html#version-2-0/',
-        'HP'                 => 'http://purl.obolibrary.org/obo/HP_',
-        'OMIM'               => 'http://purl.obolibrary.org/obo/OMIM_',
-        'id'                 => 'id',
-        'type'               => 'type',
-        'subject'            => 'pxf:subject',
-        'phenotypicFeatures' => 'pxf:phenotypicFeatures',
-        'description'        => 'pxf:description',
-        'severity'           => 'pxf:severity',
-        'diagnosis'          => 'pxf:diagnosis',
-        'disease'            => 'pxf:disease',
-        'ageAtCollection'    => 'pxf:ageAtCollection',
-        'sex'                => 'pxf:sex',
-        'MALE'               => 'pxf:MALE',
-    };
-
-    # Add key for @context
-    # NB: arg [expandContext => $ctx] was not viable
-    $pxf->{'@context'} = $context;
-
-    # Compact the data
-    my $compact = $jld->compact($pxf);
-
-    # Expand the data
-    my $expanded = $jld->expand($pxf);
-
-    # Convert to RDF
-    #my $rdf =  $jld->to_rdf($pxf);
-
-    # Return the transformed data
-    return $compact;
+    return _compact_document( $pxf, _context_for('pxf') );
 }
 
 1;
