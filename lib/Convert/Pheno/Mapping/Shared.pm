@@ -144,6 +144,13 @@ sub map_ontology_term {
     my $query    = $arg->{query};
     my $ontology = $arg->{ontology};
     my $self     = $arg->{self};
+    my $profile_enabled =
+      $self && defined $self->{debug} && $self->{debug} >= 2;
+
+    if ($profile_enabled) {
+        $self->{db_profile}{mapping}{requests}++;
+        $self->{db_profile}{ontology}{$ontology}{requests}++;
+    }
 
     # 1) Skip pure numbers
     return $DEFAULT->{ontology_term} if looks_like_number($query);
@@ -155,6 +162,15 @@ sub map_ontology_term {
     if ( exists $SEEN{$ontology}{$query} ) {
         say "Skipping searching for <$query> in <$ontology> (cached)"
           if DEVEL_MODE;
+        if ($profile_enabled) {
+            $self->{db_profile}{mapping}{cache_hits}++;
+            $self->{db_profile}{ontology}{$ontology}{cache_hits}++;
+            my $resolution =
+              $SEEN{$ontology}{$query}{search_resolution} // 'fallback_na';
+            $self->{db_profile}{final_resolution}{$resolution}++;
+            $self->{db_profile}{ontology}{$ontology}{final_resolution}
+              {$resolution}++;
+        }
         _record_search_audit( $self, $query, $ontology, $SEEN{$ontology}{$query}, 'cache' );
         return _public_ontology_entry( $SEEN{$ontology}{$query} );
     }
@@ -176,8 +192,13 @@ sub map_ontology_term {
 
     # 5) Perform the lookup
     say "Searching for <$query> in <$ontology>…" if DEVEL_MODE;
+    if ($profile_enabled) {
+        $self->{db_profile}{mapping}{db_lookups}++;
+        $self->{db_profile}{ontology}{$ontology}{db_lookups}++;
+    }
     my ( $id, $label, $concept_id, $search_resolution ) = get_ontology_terms(
         {
+            self                   => $self,
             sth_column_ref         => $self->{sth}{$ontology}{ $arg->{column} },
             query                  => $query,
             ontology               => $ontology,
@@ -189,6 +210,12 @@ sub map_ontology_term {
             levenshtein_weight        => $self->{levenshtein_weight},
         }
     );
+    if ($profile_enabled) {
+        my $resolution = $search_resolution // 'fallback_na';
+        $self->{db_profile}{final_resolution}{$resolution}++;
+        $self->{db_profile}{ontology}{$ontology}{final_resolution}
+          {$resolution}++;
+    }
 
     # 6) Store in cache
     my $entry =

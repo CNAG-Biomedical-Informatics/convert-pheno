@@ -8,6 +8,7 @@ use Test::Exception;
 use Test::Warn;
 use File::Temp qw(tempdir);
 use DBI;
+use Convert::Pheno::Mapping::Shared qw(map_ontology_term);
 
 {
     package Test::FakeSTH;
@@ -50,8 +51,8 @@ use Convert::Pheno::DB::SQLite;
 
 is(
     Convert::Pheno::DB::SQLite::build_query( 'ncit', 'label', 'exact_match' ),
-    'SELECT * FROM NCIT_table WHERE label = ? COLLATE NOCASE',
-    'build_query creates exact-match SQL'
+    'SELECT * FROM NCIT_fts WHERE label MATCH ?',
+    'build_query creates FTS-backed exact-match SQL'
 );
 is(
     Convert::Pheno::DB::SQLite::build_query( 'ohdsi', 'concept_id', 'full_text_search' ),
@@ -110,6 +111,7 @@ dies_ok {
 {
     my $sth = Test::FakeSTH->new(
         rows => [
+            [ 'Acute viral pharyngitis extended', 'bad-code', 9999999, 'SNOMED' ],
             [ 'Acute viral pharyngitis', '195662009', 4112343, 'SNOMED' ],
         ],
     );
@@ -120,6 +122,7 @@ dies_ok {
             query                     => 'Acute viral pharyngitis',
             ontology                  => 'ohdsi',
             databases                 => ['ohdsi'],
+            column                    => 'label',
             search                    => 'exact',
             match_type                => 'exact_match',
             text_similarity_method    => 'cosine',
@@ -131,7 +134,7 @@ dies_ok {
     is( $id, 'SNOMED:195662009', 'execute_query_SQLite returns prefixed ohdsi id for exact match' );
     is( $label, 'Acute viral pharyngitis', 'execute_query_SQLite returns label for exact match' );
     is( $concept_id, 4112343, 'execute_query_SQLite returns concept_id for exact match' );
-    is( $sth->{bound}[1], 'Acute viral pharyngitis', 'execute_query_SQLite binds the raw exact query' );
+    is( $sth->{bound}[1], '"Acute viral pharyngitis"', 'execute_query_SQLite binds a quoted FTS phrase for exact match' );
     ok( $sth->{finished}, 'execute_query_SQLite finishes the statement handle' );
 }
 
@@ -143,6 +146,7 @@ dies_ok {
             query                     => '',
             ontology                  => 'ncit',
             databases                 => [ 'ncit' ],
+            column                    => 'label',
             search                    => 'exact',
             match_type                => 'exact_match',
             text_similarity_method    => 'cosine',
@@ -162,6 +166,7 @@ warning_like {
             query                     => 'query',
             ontology                  => 'ncit',
             databases                 => [ 'ncit' ],
+            column                    => 'label',
             search                    => 'exact',
             match_type                => 'exact_match',
             text_similarity_method    => 'cosine',
@@ -169,7 +174,7 @@ warning_like {
             levenshtein_weight        => 0.1,
         }
     );
-    is_deeply( \@result, [ undef, undef, undef ], 'execute_query_SQLite returns undefs after execute failure' );
+    is_deeply( \@result, [ undef, undef, undef, undef ], 'execute_query_SQLite returns undefs after execute failure' );
 } qr/Query execution failed: boom/, 'execute_query_SQLite warns on execute failure';
 
 {
@@ -270,7 +275,7 @@ warning_like {
 }
 
 SKIP: {
-    skip 'share/db/ncit.db is required for real SQLite search-mode tests', 9
+    skip 'share/db/ncit.db is required for real SQLite search-mode tests', 14
       unless -f 'share/db/ncit.db';
 
     local $Convert::Pheno::share_dir = 'share';
@@ -330,6 +335,49 @@ SKIP: {
     is( $fuzzy_id, 'NCIT:C92957', 'fuzzy search returns the expected NCIT id from the real SQLite db' );
     is( $fuzzy_label, 'Acute Bacterial Prostatitis', 'fuzzy search returns the expected label from the real SQLite db' );
     is( $fuzzy_concept_id, undef, 'fuzzy search leaves concept_id undef for ncit in the real SQLite db' );
+
+    my $profile_self = bless(
+        {
+            databases                 => ['ncit'],
+            debug                     => 2,
+            search                    => 'exact',
+            text_similarity_method    => 'cosine',
+            min_text_similarity_score => 0.1,
+            levenshtein_weight        => 0.1,
+        },
+        'Convert::Pheno'
+    );
+
+    Convert::Pheno::DB::SQLite::open_connections_SQLite($profile_self);
+    map_ontology_term(
+        {
+            ontology => 'ncit',
+            query    => 'Acute Bacterial Prostatitis',
+            column   => 'label',
+            self     => $profile_self,
+        }
+    );
+    map_ontology_term(
+        {
+            ontology => 'ncit',
+            query    => 'Acute Bacterial Prostatitis',
+            column   => 'label',
+            self     => $profile_self,
+        }
+    );
+
+    my $stderr = q{};
+    {
+        local *STDERR;
+        open STDERR, '>', \$stderr or die "Could not capture STDERR: $!";
+        Convert::Pheno::DB::SQLite::close_connections_SQLite($profile_self);
+    }
+
+    like( $stderr, qr/DB lookup profile:/, 'debug level 2 prints a DB lookup profile summary' );
+    like( $stderr, qr/mapping requests=2 cache_hits=1 db_lookups=1/, 'DB lookup profile reports cache-hit vs DB-hit counts' );
+    like( $stderr, qr/final resolution exact=2 similarity=0 fallback_na=0/, 'DB lookup profile reports final lookup resolution counts' );
+    like( $stderr, qr/sql exact_match=1 full_text_search=0/, 'DB lookup profile reports SQL execution counts by match type' );
+    like( $stderr, qr/ontology\[ncit\] requests=2 cache_hits=1 db_lookups=1 exact=2 similarity=0 fallback_na=0/, 'DB lookup profile reports per-ontology lookup counts' );
 }
 
 done_testing();

@@ -120,6 +120,8 @@ For the search behavior itself, including examples and threshold tradeoffs, see 
 - `--test` suppresses time-varying metadata so generated files are stable for comparisons.
 - `--verbose` or `-v` prints progress information.
 - `--debug LEVEL` prints the resolved internal request and extra debugging output.
+  With `LEVEL >= 2`, it also prints a compact SQLite lookup summary
+  (requests, cache hits, DB lookups, search resolution, and SQL timings).
 
 ## More help
 

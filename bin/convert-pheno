@@ -103,6 +103,7 @@ Other useful options:
   --username|-u <name>            Override username stored in metadata
   --test                          Skip time-varying metadata for stable tests
   --debug <level>                 Print internal request/debug data
+                                  (level >= 2 also prints DB lookup summary)
   --verbose|-v                    Print progress information
   --version|-V
   --help
