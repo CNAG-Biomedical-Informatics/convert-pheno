@@ -49,6 +49,8 @@ Due to the flexibility of REDCap projects, it can be challenging to develop a so
     - `converted_term_label`
     - `converted_term_id`
     - `ontology`
+    - `match_status`
+    - `match_source`
 
     This is useful when users want to review how REDCap source values were resolved against SQLite-backed ontologies before trusting the final conversion.
 

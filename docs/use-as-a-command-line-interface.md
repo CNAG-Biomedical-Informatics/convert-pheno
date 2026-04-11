@@ -79,7 +79,7 @@ convert-pheno -ibff individuals.json -opxf pxf.json
 - `--entities` can be used with `BFF` output. The current extra entity exposed by the CLI is `biosamples` from `-ipxf` input when biosample data is present.
 - `--entities` is an entity-output mode. Use it together with `--out-dir`, not with `-obff FILE`.
 - `--out-entity entity=file` lets you override the filename of one requested entity and requires `--entities`.
-- `--search-audit-tsv FILE` writes a tab-separated audit of ontology search results for mapping-file-driven conversions such as `csv2bff`, `redcap2bff`, and `cdisc2bff`.
+- `--search-audit-tsv FILE` writes a tab-separated audit of ontology search results for mapping-file-driven conversions such as `csv2bff`, `redcap2bff`, and `cdisc2bff`, including whether each lookup matched the DB or fell back to `NA`.
 - `--stream` is mainly relevant for **large OMOP inputs**.
 
 ## More help

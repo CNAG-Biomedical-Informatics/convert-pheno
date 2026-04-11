@@ -67,6 +67,7 @@ convert-pheno -iredcap redcap.csv --redcap-dictionary dictionary.csv --mapping-f
 ```
 
 This is useful when you want to review how original source terms were mapped to ontology labels and identifiers.
+The audit also records whether each lookup produced a real database match or fell back to `NA`.
 
 ## Work with repository fixtures
 

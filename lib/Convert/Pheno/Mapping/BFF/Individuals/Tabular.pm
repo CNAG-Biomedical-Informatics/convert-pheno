@@ -5,7 +5,6 @@ use warnings;
 use autodie;
 use Convert::Pheno::Utils::Default qw(get_defaults);
 use Convert::Pheno::Mapping::Shared;
-use Data::Dumper;
 use Scalar::Util qw(looks_like_number);
 use Exporter 'import';
 
@@ -738,7 +737,6 @@ sub _add_visit {
 
     my $pid       = $p->{participant_id} // q{};
     my $composite = join '.', grep { length } $pid, $visit_val;
-    print Dumper $composite;
     $item->{_visit}{composite}     = $composite;
     $item->{_visit}{occurrence_id} = string2number($composite);
 }

@@ -36,15 +36,29 @@ sub _tsv_field {
     return $value;
 }
 
+sub _search_audit_match_status {
+    my ( $ontology, $entry ) = @_;
+    my $fallback_id =
+      $ontology eq 'hpo' ? 'HP:NA0000' : uc($ontology) . ':NA0000';
+
+    # get_ontology_terms uses <...:NA0000> as the canonical "not found"
+    # marker, so the audit can expose that directly without another DB query.
+    return $entry->{id} eq $fallback_id ? 'not_found' : 'matched';
+}
+
 sub _record_search_audit {
-    my ( $self, $query, $ontology, $entry ) = @_;
+    my ( $self, $query, $ontology, $entry, $source ) = @_;
     return 1 unless defined $self->{search_audit_file} && length $self->{search_audit_file};
+    my $status = _search_audit_match_status( $ontology, $entry );
 
     my $fh = $self->{_search_audit_fh};
     unless ($fh) {
         open my $audit_fh, '>:encoding(UTF-8)', $self->{search_audit_file};
         print {$audit_fh}
-          join( "\t", qw(row original_term_label converted_term_label converted_term_id ontology) ) . "\n";
+          join(
+            "\t",
+            qw(row original_term_label converted_term_label converted_term_id ontology match_status match_source)
+          ) . "\n";
         $self->{_search_audit_fh} = $audit_fh;
         $fh = $audit_fh;
     }
@@ -57,6 +71,8 @@ sub _record_search_audit {
             $entry->{label},
             $entry->{id},
             $ontology,
+            $status,
+            $source,
         )
       ),
       "\n";
@@ -94,7 +110,7 @@ sub map_ontology_term {
     if ( exists $SEEN{$ontology}{$query} ) {
         say "Skipping searching for <$query> in <$ontology> (cached)"
           if DEVEL_MODE;
-        _record_search_audit( $self, $query, $ontology, $SEEN{$ontology}{$query} );
+        _record_search_audit( $self, $query, $ontology, $SEEN{$ontology}{$query}, 'cache' );
         return $SEEN{$ontology}{$query};
     }
 
@@ -136,7 +152,15 @@ sub map_ontology_term {
       : { id => $id, label => $label };
 
     $SEEN{$ontology}{$query} = $entry;
-    _record_search_audit( $self, $query, $ontology, $entry );
+    _record_search_audit(
+        $self,
+        $query,
+        $ontology,
+        $entry,
+        _search_audit_match_status( $ontology, $entry ) eq 'matched'
+        ? 'db'
+        : 'fallback_na'
+    );
 
     # 7) Return (with optional hidden‐label)
     return $arg->{print_hidden_labels}

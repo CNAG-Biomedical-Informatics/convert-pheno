@@ -47,18 +47,27 @@ use Test::ConvertPheno qw(build_convert temp_output_file slurp_file);
     my @lines = grep { length } split /\n/, slurp_file($audit_file);
     is(
         $lines[0],
-        join( "\t", qw(row original_term_label converted_term_label converted_term_id ontology) ),
+        join(
+            "\t",
+            qw(row original_term_label converted_term_label converted_term_id ontology match_status match_source)
+        ),
         'search audit TSV starts with the expected header'
     );
     cmp_ok( scalar @lines, '>', 1, 'search audit TSV contains at least one mapped row' );
 
     my @cols = split /\t/, $lines[1], -1;
-    is( scalar @cols, 5, 'search audit TSV rows contain the expected number of columns' );
+    is( scalar @cols, 7, 'search audit TSV rows contain the expected number of columns' );
     like( $cols[0], qr/^\d+$/, 'search audit TSV records the source row number' );
     ok( length $cols[1], 'search audit TSV records the original term label' );
     ok( length $cols[2], 'search audit TSV records the converted term label' );
     like( $cols[3], qr/^[A-Z]+:/, 'search audit TSV records the converted term id' );
     ok( length $cols[4], 'search audit TSV records the ontology name' );
+    like( $cols[5], qr/^(?:matched|not_found)$/, 'search audit TSV records whether the DB lookup matched' );
+    like(
+        $cols[6],
+        qr/^(?:db|cache|fallback_na)$/,
+        'search audit TSV records whether the result came from the DB, cache, or fallback'
+    );
 }
 
 done_testing();
