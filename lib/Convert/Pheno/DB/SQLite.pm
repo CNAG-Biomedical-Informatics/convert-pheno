@@ -16,6 +16,13 @@ my @matches = qw(exact_match full_text_search);    # excluded 'contains'
 
 use constant DEVEL_MODE => 0;
 
+my %COLUMN_MATCH_CONFIG = (
+    label         => { exact_collate_nocase => 1 },
+    id            => { exact_collate_nocase => 1 },
+    concept_id    => { exact_collate_nocase => 0 },
+    vocabulary_id => { exact_collate_nocase => 1 },
+);
+
 sub _db_profile_enabled {
     my ($self) = @_;
     return $self && defined $self->{debug} && $self->{debug} >= 2;
@@ -273,6 +280,10 @@ sub build_query {
     my ( $ontology, $column, $match ) = @_;
     my $db     = uc($ontology) . '_table';
     my $db_fts = uc($ontology) . '_fts';
+    my $exact_predicate =
+      $COLUMN_MATCH_CONFIG{$column}{exact_collate_nocase}
+      ? qq($column = ? COLLATE NOCASE)
+      : qq($column = ?);
 
     my %match_type = (
 
@@ -282,7 +293,7 @@ sub build_query {
         # Exact search queries
         # What out for leading spaces!!!
         # SELECT * FROM HPO_table WHERE TRIM(label) = ? COLLATE NOCASE
-        exact_match => qq(SELECT * FROM $db_fts WHERE $column MATCH ?),
+        exact_match => qq(SELECT * FROM $db WHERE $exact_predicate),
 
         # **********************
         # *** IMPORTANT STEP ***
@@ -300,18 +311,6 @@ sub build_query {
 
     );
     return $match_type{$match};
-}
-
-sub _fts_exact_phrase {
-    my ($query) = @_;
-    $query =~ s/"/""/g;
-    return qq("$query");
-}
-
-sub _exact_candidate_matches {
-    my ( $candidate, $query ) = @_;
-    return 0 unless defined $candidate;
-    return lc($candidate) eq lc($query) ? 1 : 0;
 }
 
 sub get_ontology_terms {
@@ -358,7 +357,6 @@ sub get_ontology_terms {
             databases                 => $databases,
             search                    => $search,
             match_type                => 'exact_match',
-            column                    => $column,
             text_similarity_method    => $text_similarity_method,           # Not used here
             min_text_similarity_score => $min_text_similarity_score,
             levenshtein_weight        => $levenshtein_weight,
@@ -418,7 +416,6 @@ sub execute_query_SQLite {
     my $search                    = $arg->{search};
     my $levenshtein_weight        = $arg->{levenshtein_weight};
     my $self                      = $arg->{self};
-    my $column                    = $arg->{column};
     my $started_at                = _db_profile_enabled($self) ? time : undef;
 
     # Initialize $id and $label to undefined
@@ -450,15 +447,9 @@ sub execute_query_SQLite {
     my $id_column         = $position->{$ontology}{id};
     my $label_column      = $position->{$ontology}{label};
     my $concept_id_column = 2;
-    my $query_column =
-        defined $column && $column eq 'concept_id' ? $concept_id_column
-      : defined $column && $column eq 'id'         ? $id_column
-      : $label_column;
 
     # Execute the query
-    my $bound_query =
-      $match_type eq 'exact_match' ? _fts_exact_phrase($query) : $query;
-    $sth->bind_param( 1, $bound_query );
+    $sth->bind_param( 1, $query );
     _db_profile_inc( $self, 'sql', 'match_type', $match_type, 'executions' );
 
     my $execute_started_at = _db_profile_enabled($self) ? time : undef;
@@ -479,7 +470,6 @@ sub execute_query_SQLite {
         say "MATCH_TYPE: <exact_match>" if DEVEL_MODE;
         while ( my $row = $sth->fetchrow_arrayref ) {
             _db_profile_inc( $self, 'sql', 'rows_fetched' );
-            next unless _exact_candidate_matches( $row->[$query_column], $query );
             $id =
               $ontology ne 'ohdsi'
               ? uc($ontology) . ':' . $row->[$id_column]

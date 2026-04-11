@@ -51,8 +51,13 @@ use Convert::Pheno::DB::SQLite;
 
 is(
     Convert::Pheno::DB::SQLite::build_query( 'ncit', 'label', 'exact_match' ),
-    'SELECT * FROM NCIT_fts WHERE label MATCH ?',
-    'build_query creates FTS-backed exact-match SQL'
+    'SELECT * FROM NCIT_table WHERE label = ? COLLATE NOCASE',
+    'build_query creates exact-match SQL'
+);
+is(
+    Convert::Pheno::DB::SQLite::build_query( 'ohdsi', 'concept_id', 'exact_match' ),
+    'SELECT * FROM OHDSI_table WHERE concept_id = ?',
+    'build_query omits COLLATE NOCASE for numeric concept_id exact matches'
 );
 is(
     Convert::Pheno::DB::SQLite::build_query( 'ohdsi', 'concept_id', 'full_text_search' ),
@@ -111,7 +116,6 @@ dies_ok {
 {
     my $sth = Test::FakeSTH->new(
         rows => [
-            [ 'Acute viral pharyngitis extended', 'bad-code', 9999999, 'SNOMED' ],
             [ 'Acute viral pharyngitis', '195662009', 4112343, 'SNOMED' ],
         ],
     );
@@ -122,7 +126,6 @@ dies_ok {
             query                     => 'Acute viral pharyngitis',
             ontology                  => 'ohdsi',
             databases                 => ['ohdsi'],
-            column                    => 'label',
             search                    => 'exact',
             match_type                => 'exact_match',
             text_similarity_method    => 'cosine',
@@ -134,7 +137,7 @@ dies_ok {
     is( $id, 'SNOMED:195662009', 'execute_query_SQLite returns prefixed ohdsi id for exact match' );
     is( $label, 'Acute viral pharyngitis', 'execute_query_SQLite returns label for exact match' );
     is( $concept_id, 4112343, 'execute_query_SQLite returns concept_id for exact match' );
-    is( $sth->{bound}[1], '"Acute viral pharyngitis"', 'execute_query_SQLite binds a quoted FTS phrase for exact match' );
+    is( $sth->{bound}[1], 'Acute viral pharyngitis', 'execute_query_SQLite binds the raw exact query' );
     ok( $sth->{finished}, 'execute_query_SQLite finishes the statement handle' );
 }
 
@@ -146,7 +149,6 @@ dies_ok {
             query                     => '',
             ontology                  => 'ncit',
             databases                 => [ 'ncit' ],
-            column                    => 'label',
             search                    => 'exact',
             match_type                => 'exact_match',
             text_similarity_method    => 'cosine',
@@ -166,7 +168,6 @@ warning_like {
             query                     => 'query',
             ontology                  => 'ncit',
             databases                 => [ 'ncit' ],
-            column                    => 'label',
             search                    => 'exact',
             match_type                => 'exact_match',
             text_similarity_method    => 'cosine',
