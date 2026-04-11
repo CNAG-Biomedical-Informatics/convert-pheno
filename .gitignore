@@ -6,6 +6,7 @@
 *.pyc
 test.pl
 TO_DO.md
+SESSION_NOTES.md
 README.source.md
 clean.sh
 nytprof.out
