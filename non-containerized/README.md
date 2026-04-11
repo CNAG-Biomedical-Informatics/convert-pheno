@@ -121,7 +121,26 @@ echo 'eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)' >> ~/.bashrc
 
 Some OMOP workflows need `ohdsi.db`.
 
-Detailed download and placement instructions are documented in:
+You can either download it manually in a browser from this Google Drive
+directory:
 
-- <https://cnag-biomedical-informatics.github.io/convert-pheno/omop-cdm/>
-- <https://cnag-biomedical-informatics.github.io/convert-pheno/download-and-installation/>
+- <https://drive.google.com/drive/folders/1-5Ywf-hhwb8bX1sRNV2Tf3EjH4TCaC8P?usp=sharing>
+
+or download the file from the command line with `gdown`:
+
+```bash
+pip install gdown
+```
+
+```python
+import gdown
+
+url = "https://drive.google.com/uc?export=download&id=1zQ26Q1qsqTBPDGrtZbhDP-85NhaOrfBP"
+output = "./ohdsi.db"
+gdown.download(url, output, quiet=False)
+```
+
+Once downloaded, either:
+
+1. Move `ohdsi.db` into `share/db/`.
+2. Keep it elsewhere and pass `--path-to-ohdsi-db`.

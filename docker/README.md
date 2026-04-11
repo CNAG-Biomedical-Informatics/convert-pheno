@@ -79,3 +79,28 @@ convert-pheno -ibff /data/individuals.json -opxf pxf.json --out-dir /data
 - At least 4 GB RAM
 - At least 1 CPU core
 - At least 16 GB disk space
+
+## Optional Athena-OHDSI Database
+
+If you need `--ohdsi-db`, download `ohdsi.db` separately and either place it
+under `share/db/` in a local checkout or mount it into the container and point
+to it with `--path-to-ohdsi-db`.
+
+You can either download it manually in a browser from this Google Drive
+directory:
+
+- <https://drive.google.com/drive/folders/1-5Ywf-hhwb8bX1sRNV2Tf3EjH4TCaC8P?usp=sharing>
+
+or download the file from the command line with `gdown`:
+
+```bash
+pip install gdown
+```
+
+```python
+import gdown
+
+url = "https://drive.google.com/uc?export=download&id=1zQ26Q1qsqTBPDGrtZbhDP-85NhaOrfBP"
+output = "./ohdsi.db"
+gdown.download(url, output, quiet=False)
+```
