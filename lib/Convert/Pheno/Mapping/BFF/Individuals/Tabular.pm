@@ -246,9 +246,12 @@ sub map_exposures {
               : $DEFAULT->{$item};
         }
 
+        # Exposure codes come from the field/header concept (for example
+        # smoking -> Smoking), while selector logic below maps the recorded
+        # value (for example Never smoked -> Never Smoker).
         my $exposure_query =
           check_and_replace_field_with_terminology_or_dictionary_if_exist(
-            $term_mapping_cursor, $field, $participant->{$field} );
+            $term_mapping_cursor, $field, $participant->{$field}, 1 );
 
         $exposure->{exposureCode} = map_ontology_term(
             {

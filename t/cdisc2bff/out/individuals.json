@@ -52,8 +52,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:C17998",
-               "label" : "Unknown"
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
             },
             "unit" : {
                "id" : "NCIT:C17998",
@@ -76,8 +76,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C154329",
+               "label" : "Smoking"
             },
             "unit" : {
                "id" : "NCIT:C65108",
@@ -1861,8 +1861,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:C17998",
-               "label" : "Unknown"
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
             },
             "unit" : {
                "id" : "NCIT:C17998",
@@ -1885,8 +1885,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C154329",
+               "label" : "Smoking"
             },
             "unit" : {
                "id" : "NCIT:C65108",
@@ -3600,8 +3600,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:C17998",
-               "label" : "Unknown"
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
             },
             "unit" : {
                "id" : "NCIT:C17998",
@@ -3624,8 +3624,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C154329",
+               "label" : "Smoking"
             },
             "unit" : {
                "id" : "NCIT:C65108",
@@ -5372,8 +5372,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:C126379",
-               "label" : "Non-Drinker"
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
             },
             "unit" : {
                "id" : "NCIT:C126379",
@@ -5396,8 +5396,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C154329",
+               "label" : "Smoking"
             },
             "unit" : {
                "id" : "NCIT:C65108",
@@ -6992,8 +6992,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:C126379",
-               "label" : "Non-Drinker"
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
             },
             "unit" : {
                "id" : "NCIT:C126379",
@@ -7016,8 +7016,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C154329",
+               "label" : "Smoking"
             },
             "unit" : {
                "id" : "NCIT:C65108",
@@ -8563,8 +8563,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:C126379",
-               "label" : "Non-Drinker"
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
             },
             "unit" : {
                "id" : "NCIT:C126379",
@@ -8587,8 +8587,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C154329",
+               "label" : "Smoking"
             },
             "unit" : {
                "id" : "NCIT:C65108",
@@ -10145,8 +10145,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:C126379",
-               "label" : "Non-Drinker"
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
             },
             "unit" : {
                "id" : "NCIT:C126379",
@@ -10169,8 +10169,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C154329",
+               "label" : "Smoking"
             },
             "unit" : {
                "id" : "NCIT:C65108",
@@ -11694,8 +11694,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:C126379",
-               "label" : "Non-Drinker"
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
             },
             "unit" : {
                "id" : "NCIT:C126379",
@@ -11718,8 +11718,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C154329",
+               "label" : "Smoking"
             },
             "unit" : {
                "id" : "NCIT:C65108",
@@ -13359,8 +13359,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:C126379",
-               "label" : "Non-Drinker"
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
             },
             "unit" : {
                "id" : "NCIT:C126379",
@@ -13383,8 +13383,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C154329",
+               "label" : "Smoking"
             },
             "unit" : {
                "id" : "NCIT:C65108",
@@ -15052,8 +15052,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
             },
             "unit" : {
                "id" : "NCIT:C156821",
@@ -15076,8 +15076,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C154329",
+               "label" : "Smoking"
             },
             "unit" : {
                "id" : "NCIT:C67148",
@@ -16864,8 +16864,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
             },
             "unit" : {
                "id" : "NCIT:C156821",
@@ -16888,8 +16888,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C154329",
+               "label" : "Smoking"
             },
             "unit" : {
                "id" : "NCIT:C67148",
@@ -18421,8 +18421,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
             },
             "unit" : {
                "id" : "NCIT:C156821",
@@ -18445,8 +18445,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C154329",
+               "label" : "Smoking"
             },
             "unit" : {
                "id" : "NCIT:C67148",
@@ -20195,8 +20195,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
             },
             "unit" : {
                "id" : "NCIT:C156821",
@@ -20219,8 +20219,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C154329",
+               "label" : "Smoking"
             },
             "unit" : {
                "id" : "NCIT:C67148",
@@ -21730,8 +21730,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
             },
             "unit" : {
                "id" : "NCIT:C156821",
@@ -21754,8 +21754,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C154329",
+               "label" : "Smoking"
             },
             "unit" : {
                "id" : "NCIT:C67148",
@@ -23675,8 +23675,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
             },
             "unit" : {
                "id" : "NCIT:C156821",
@@ -23699,8 +23699,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C154329",
+               "label" : "Smoking"
             },
             "unit" : {
                "id" : "NCIT:C67148",
@@ -25319,8 +25319,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:C17998",
-               "label" : "Unknown"
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
             },
             "unit" : {
                "id" : "NCIT:C17998",
@@ -25343,8 +25343,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C154329",
+               "label" : "Smoking"
             },
             "unit" : {
                "id" : "NCIT:C65108",
@@ -27382,8 +27382,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:C17998",
-               "label" : "Unknown"
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
             },
             "unit" : {
                "id" : "NCIT:C17998",
@@ -27406,8 +27406,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C154329",
+               "label" : "Smoking"
             },
             "unit" : {
                "id" : "NCIT:C65108",
@@ -29337,8 +29337,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:C17998",
-               "label" : "Unknown"
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
             },
             "unit" : {
                "id" : "NCIT:C17998",
@@ -29361,8 +29361,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C154329",
+               "label" : "Smoking"
             },
             "unit" : {
                "id" : "NCIT:C65108",
@@ -31301,8 +31301,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:C17998",
-               "label" : "Unknown"
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
             },
             "unit" : {
                "id" : "NCIT:C17998",
@@ -31325,8 +31325,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C154329",
+               "label" : "Smoking"
             },
             "unit" : {
                "id" : "NCIT:C65108",
@@ -33270,8 +33270,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
             },
             "unit" : {
                "id" : "NCIT:C156821",
@@ -33294,8 +33294,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C154329",
+               "label" : "Smoking"
             },
             "unit" : {
                "id" : "NCIT:C65108",
@@ -35082,8 +35082,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
             },
             "unit" : {
                "id" : "NCIT:C156821",
@@ -35106,8 +35106,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C154329",
+               "label" : "Smoking"
             },
             "unit" : {
                "id" : "NCIT:C65108",
@@ -36676,8 +36676,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
             },
             "unit" : {
                "id" : "NCIT:C156821",
@@ -36700,8 +36700,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C154329",
+               "label" : "Smoking"
             },
             "unit" : {
                "id" : "NCIT:C65108",
@@ -38302,8 +38302,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
             },
             "unit" : {
                "id" : "NCIT:C156821",
@@ -38326,8 +38326,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C154329",
+               "label" : "Smoking"
             },
             "unit" : {
                "id" : "NCIT:C65108",
@@ -40158,8 +40158,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
             },
             "unit" : {
                "id" : "NCIT:C156821",
@@ -40182,8 +40182,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:C67147",
-               "label" : "Current Smoker"
+               "id" : "NCIT:C154329",
+               "label" : "Smoking"
             },
             "unit" : {
                "id" : "NCIT:C67147",
@@ -40206,8 +40206,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C73993",
+               "label" : "Pack Year"
             },
             "unit" : {
                "id" : "NCIT:C126101",
@@ -41840,8 +41840,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
             },
             "unit" : {
                "id" : "NCIT:C156821",
@@ -41864,8 +41864,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:C67147",
-               "label" : "Current Smoker"
+               "id" : "NCIT:C154329",
+               "label" : "Smoking"
             },
             "unit" : {
                "id" : "NCIT:C67147",
@@ -43390,8 +43390,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
             },
             "unit" : {
                "id" : "NCIT:C156821",
@@ -43414,8 +43414,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:C67147",
-               "label" : "Current Smoker"
+               "id" : "NCIT:C154329",
+               "label" : "Smoking"
             },
             "unit" : {
                "id" : "NCIT:C67147",
@@ -45142,8 +45142,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
             },
             "unit" : {
                "id" : "NCIT:C156821",
@@ -45166,8 +45166,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C154329",
+               "label" : "Smoking"
             },
             "unit" : {
                "id" : "NCIT:C67148",
@@ -46919,8 +46919,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
             },
             "unit" : {
                "id" : "NCIT:C156821",
@@ -46943,8 +46943,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C154329",
+               "label" : "Smoking"
             },
             "unit" : {
                "id" : "NCIT:C67148",
@@ -48513,8 +48513,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
             },
             "unit" : {
                "id" : "NCIT:C156821",
@@ -48537,8 +48537,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C154329",
+               "label" : "Smoking"
             },
             "unit" : {
                "id" : "NCIT:C67148",
@@ -50176,8 +50176,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
             },
             "unit" : {
                "id" : "NCIT:C156821",
@@ -50200,8 +50200,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C154329",
+               "label" : "Smoking"
             },
             "unit" : {
                "id" : "NCIT:C67148",
@@ -51784,8 +51784,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
             },
             "unit" : {
                "id" : "NCIT:C156821",
@@ -51808,8 +51808,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C154329",
+               "label" : "Smoking"
             },
             "unit" : {
                "id" : "NCIT:C67148",
@@ -53558,8 +53558,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:C17998",
-               "label" : "Unknown"
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
             },
             "unit" : {
                "id" : "NCIT:C17998",
@@ -53582,8 +53582,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C154329",
+               "label" : "Smoking"
             },
             "unit" : {
                "id" : "NCIT:C65108",
@@ -55564,8 +55564,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:C17998",
-               "label" : "Unknown"
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
             },
             "unit" : {
                "id" : "NCIT:C17998",
@@ -55588,8 +55588,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C154329",
+               "label" : "Smoking"
             },
             "unit" : {
                "id" : "NCIT:C65108",
@@ -57159,8 +57159,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:C17998",
-               "label" : "Unknown"
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
             },
             "unit" : {
                "id" : "NCIT:C17998",
@@ -57183,8 +57183,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C154329",
+               "label" : "Smoking"
             },
             "unit" : {
                "id" : "NCIT:C65108",
@@ -58924,8 +58924,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:C17998",
-               "label" : "Unknown"
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
             },
             "unit" : {
                "id" : "NCIT:C17998",
@@ -58948,8 +58948,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C154329",
+               "label" : "Smoking"
             },
             "unit" : {
                "id" : "NCIT:C65108",
@@ -60728,8 +60728,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:C17998",
-               "label" : "Unknown"
+               "id" : "NCIT:C2190",
+               "label" : "Alcohol"
             },
             "unit" : {
                "id" : "NCIT:C17998",
@@ -60752,8 +60752,8 @@
             "date" : "1900-01-01",
             "duration" : "P999Y",
             "exposureCode" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C154329",
+               "label" : "Smoking"
             },
             "unit" : {
                "id" : "NCIT:C65108",
