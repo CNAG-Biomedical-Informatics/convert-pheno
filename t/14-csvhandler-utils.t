@@ -11,6 +11,7 @@ use Convert::Pheno::IO::CSVHandler qw(
   get_headers
   load_exposures
   open_filehandle
+  read_csv
   read_redcap_dict_file
   transpose_omop_data_structure
 );
@@ -122,9 +123,56 @@ use Convert::Pheno::IO::CSVHandler qw(
     close $fh;
 
     my $dict = read_redcap_dict_file( { redcap_dictionary => $gz } );
-    is( $dict->{sex}{'Field Label'}, 'Sex', 'read_redcap_dict_file reads gzipped REDCap dictionary files' );
-    is( $dict->{sex}{_labels}{1}, 'Male', 'read_redcap_dict_file populates labels from gzipped REDCap dictionaries' );
-    is( $dict->{sex}{_labels}{2}, 'Female', 'read_redcap_dict_file preserves all label mappings from gzipped REDCap dictionaries' );
+    is( $dict->field_label('sex'), 'Sex', 'read_redcap_dict_file reads gzipped REDCap dictionaries into a dictionary object' );
+    is( $dict->choice_label( 'sex', 1 ), 'Male', 'read_redcap_dict_file populates labels from gzipped REDCap dictionaries' );
+    is( $dict->choice_label( 'sex', 2 ), 'Female', 'read_redcap_dict_file preserves all label mappings from gzipped REDCap dictionaries' );
+}
+
+{
+    my $tmpdir = tempdir( CLEANUP => 1 );
+    my $file = "$tmpdir/redcap_dictionary_complex.csv";
+
+    my $fh = open_filehandle( $file, 'w' );
+    print {$fh}
+      "Variable / Field Name;Choices, Calculations, OR Slider Labels;Field Label\n";
+    print {$fh}
+      "severity;1, Mild, moderate symptoms | 2, Severe symptoms;Severity\n";
+    print {$fh}
+      "calc;[foo]+[bar];Calculated field\n";
+    close $fh;
+
+    my $dict = read_redcap_dict_file( { redcap_dictionary => $file } );
+    is(
+        $dict->choice_label( 'severity', 1 ),
+        'Mild, moderate symptoms',
+        'read_redcap_dict_file preserves commas inside REDCap choice labels',
+    );
+    is(
+        $dict->choice_label( 'severity', 2 ),
+        'Severe symptoms',
+        'read_redcap_dict_file still parses later REDCap choice labels',
+    );
+    ok(
+        !$dict->has_choice_labels('calc'),
+        'read_redcap_dict_file leaves non-choice REDCap dictionary content unparsed',
+    );
+}
+
+{
+    my $tmpdir = tempdir( CLEANUP => 1 );
+    my $file = "$tmpdir/raw.csv";
+    open my $fh, '>', $file or die $!;
+    print {$fh} "id;decimal;code\n";
+    print {$fh} "00123;12,5;A01\n";
+    close $fh;
+
+    my $coerced = read_csv( { in => $file, sep => ';' } );
+    is( $coerced->[0]{id}, 123, 'read_csv coerces numeric-looking identifiers by default' );
+    is( $coerced->[0]{decimal}, 12.5, 'read_csv normalizes locale-style decimals in coercing mode' );
+
+    my $raw = read_csv( { in => $file, sep => ';', coerce_numbers => 0 } );
+    is( $raw->[0]{id}, '00123', 'read_csv can preserve leading-zero identifiers in raw-string mode' );
+    is( $raw->[0]{decimal}, '12,5', 'read_csv raw-string mode preserves original scalar text' );
 }
 
 done_testing();

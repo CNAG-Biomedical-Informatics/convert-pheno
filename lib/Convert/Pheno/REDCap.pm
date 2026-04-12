@@ -5,10 +5,10 @@ use warnings;
 use autodie;
 use Data::Dumper;
 use Hash::Util qw(lock_keys);
+use Convert::Pheno::Tabular::Record;
 use Convert::Pheno::Mapping::BFF::Individuals::Tabular qw(
   get_required_terms
   propagate_fields
-  map_fields_to_redcap_dict
   map_diseases
   map_ethnicity
   map_exposures
@@ -56,6 +56,13 @@ sub do_redcap2bff {
       if ( defined $self->{debug} && $self->{debug} > 4 );
 
     my $individual = {};
+    my $record = Convert::Pheno::Tabular::Record->new(
+        {
+            source      => $data_mapping_file->{project}{source},
+            raw         => $participant,
+            redcap_dict => $redcap_dict,
+        }
+    );
 
     my $param_sub = {
         source              => $data_mapping_file->{project}{source},
@@ -64,6 +71,7 @@ sub do_redcap2bff {
         redcap_dict         => $redcap_dict,
         data_mapping_file   => $data_mapping_file,
         participant         => $participant,
+        record              => $record,
         self                => $self,
         individual          => $individual,
         term_mapping_cursor => undef,
@@ -86,8 +94,6 @@ sub do_redcap2bff {
 
     $param_sub->{lock_keys} = [ 'lock_keys', keys %$param_sub ];
     lock_keys %$param_sub, @{ $param_sub->{lock_keys} };
-
-    map_fields_to_redcap_dict( $redcap_dict, $participant );
 
     map_diseases($param_sub);
     map_ethnicity($param_sub);

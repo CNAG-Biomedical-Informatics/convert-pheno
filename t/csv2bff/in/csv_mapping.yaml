@@ -18,26 +18,26 @@ project:
 diseases:
   fields: [Disease_1,Disease_2,Disease_3]
   visitId: VisitOccurrenceId
-  dictionary:
+  valueTermLabels:
     Ashtma: Ashtma
     Diabetes: Diabetes Mellitus
 
 # Term: ethnicity
 ethnicity:
   fields: Ethnicity
-  dictionary:
+  valueTermLabels:
     Caucasian: White
     Hispanic: Hispanic or Latino
 
 # Term: exposures
 exposures: 
   fields: [AlcoholUse,TobaccoUse]
-  assignTermIdFromHeader: [AlcoholUse,TobaccoUse]
+  useHeaderAsTermLabel: [AlcoholUse,TobaccoUse]
   visitId: VisitOccurrenceId
-  dictionary:
+  fieldTermLabels:
     AlcoholUse: Alcohol
     TobaccoUse: Tobacco
-  selector:
+  fieldRules:
     AlcoholUse:
       ageAtExposure: AgeAtAlcoholExposure
     TobaccoUse:
@@ -49,8 +49,8 @@ exposures:
 # Term: id
 id:
   fields: [PatientId,EventName]
-  mapping:
-    primary_key: PatientId 
+  targetFields:
+    primaryKey: PatientId 
 
 # Term: info
 info:
@@ -60,9 +60,9 @@ info:
 measures:
   ontology: ncit
   fields: [Hemoglobin (g/dL), WBC (10^9/L), Platelets (10^9/L), BMI (kg/m^2)]
-  assignTermIdFromHeader: [Hemoglobin (g/dL), WBC (10^9/L), Platelets (10^9/L), BMI (kg/m^2)]
+  useHeaderAsTermLabel: [Hemoglobin (g/dL), WBC (10^9/L), Platelets (10^9/L), BMI (kg/m^2)]
   visitId: VisitOccurrenceId 
-  dictionary:
+  fieldTermLabels:
     'Hemoglobin (g/dL)': Hemoglobin Measurement
     'WBC (10^9/L)': Leukocyte
     'Platelets (10^9/L)': Platelet Count

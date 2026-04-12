@@ -100,13 +100,19 @@
             }
           ]
         },
-        "dictionary": {
+        "fieldTermLabels": {
           "type": "object",
           "additionalProperties": {
             "type": "string"
           }
         },
-        "selector": {
+        "valueTermLabels": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "fieldRules": {
           "type": "object",
           "additionalProperties": {
             "type": "object"
@@ -146,7 +152,7 @@
             "hpo"
           ]
         },
-        "mapping": {
+        "targetFields": {
           "type": "object",
           "additionalProperties": {
             "type": "string"
@@ -172,7 +178,7 @@
             "additionalProperties": false
           }
         },
-        "assignTermIdFromHeader": {
+        "useHeaderAsTermLabel": {
           "$ref": "#/$defs/arrayField"
         },
         "drugDose": {
@@ -215,6 +221,12 @@
           }
         },
         "ageOfOnset": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "ageAtProcedure": {
           "type": "object",
           "additionalProperties": {
             "type": "string"

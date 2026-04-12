@@ -11,7 +11,6 @@ use Exporter 'import';
 our @EXPORT_OK = qw(
   get_required_terms
   propagate_fields
-  map_fields_to_redcap_dict
   map_diseases
   map_ethnicity
   map_exposures
@@ -28,29 +27,39 @@ my $DEFAULT = get_defaults();
 
 my @redcap_field_types = ( 'Field Label', 'Field Note', 'Field Type' );
 
-sub map_fields_to_redcap_dict {
-    my ( $redcap_dict, $participant ) = @_;
+sub source_value {
+    my ( $arg, $field ) = @_;
+    return exists $arg->{record}
+      ? $arg->{record}->value($field)
+      : $arg->{participant}{$field};
+}
 
-    my @fields2map =
-      grep { defined $redcap_dict->{$_}{_labels} } sort keys %{$redcap_dict};
+sub raw_value {
+    my ( $arg, $field ) = @_;
+    return exists $arg->{record}
+      ? $arg->{record}->raw_value($field)
+      : $arg->{participant}{$field};
+}
 
-    for my $field (@fields2map) {
-        next unless defined $participant->{$field};
+sub field_note {
+    my ( $arg, $field ) = @_;
+    return exists $arg->{record}
+      ? $arg->{record}->field_note($field)
+      : undef;
+}
 
-        $participant->{ $field . '_ori' } = $participant->{$field};
+sub field_meta {
+    my ( $arg, $field ) = @_;
+    return exists $arg->{record}
+      ? $arg->{record}->field_meta($field)
+      : undef;
+}
 
-        $participant->{$field} = dotify_and_coerce_number(
-            map2redcap_dict(
-                {
-                    redcap_dict => $redcap_dict,
-                    participant => $participant,
-                    field       => $field,
-                    labels      => 1
-                }
-            )
-        );
-    }
-    return 1;
+sub source_columns_snapshot {
+    my ($arg) = @_;
+    return exists $arg->{record}
+      ? $arg->{record}->columns_snapshot
+      : { %{ $arg->{participant} } };
 }
 
 sub remap_mapping_hash_term {
@@ -61,7 +70,7 @@ sub remap_mapping_hash_term {
           ? $mapping_file_data->{$term}{$_}
           : undef
     } (
-        qw/fields assignTermIdFromHeader assignTermIdFromHeader_hash dictionary mapping selector terminology unit age drugDose drugUnit duration durationUnit dateOfProcedure bodySite ageOfOnset familyHistory visitId/
+        qw/fields useHeaderAsTermLabel useHeaderAsTermLabel_hash fieldTermLabels valueTermLabels targetFields fieldRules terminology unit age drugDose drugUnit duration durationUnit dateOfProcedure bodySite ageOfOnset ageAtProcedure familyHistory visitId/
     );
 
     $hash_out{ontology} =
@@ -76,30 +85,41 @@ sub remap_mapping_hash_term {
     return \%hash_out;
 }
 
-sub check_and_replace_field_with_terminology_or_dictionary_if_exist {
-    my ( $term_mapping_cursor, $field, $participant_field, $switch ) = @_;
-    $switch //= 0;
+sub resolve_field_query {
+    my ( $term_mapping_cursor, $field ) = @_;
 
-    my $value =
-      ( $switch
-          || defined $term_mapping_cursor->{assignTermIdFromHeader_hash}{$field}
-      )
-      ? $field
-      : $participant_field;
+    return
+      exists $term_mapping_cursor->{terminology}{$field}
+      ? $term_mapping_cursor->{terminology}{$field}
+      : exists $term_mapping_cursor->{fieldTermLabels}{$field}
+      ? $term_mapping_cursor->{fieldTermLabels}{$field}
+      : $field;
+}
+
+sub resolve_value_query {
+    my ( $term_mapping_cursor, $value ) = @_;
 
     return
       exists $term_mapping_cursor->{terminology}{$value}
       ? $term_mapping_cursor->{terminology}{$value}
-      : exists $term_mapping_cursor->{dictionary}{$value}
-      ? $term_mapping_cursor->{dictionary}{$value}
+      : exists $term_mapping_cursor->{valueTermLabels}{$value}
+      ? $term_mapping_cursor->{valueTermLabels}{$value}
       : $value;
+}
+
+sub resolve_term_query {
+    my ( $term_mapping_cursor, $field, $participant_field ) = @_;
+
+    return defined $term_mapping_cursor->{useHeaderAsTermLabel_hash}{$field}
+      ? resolve_field_query( $term_mapping_cursor, $field )
+      : resolve_value_query( $term_mapping_cursor, $participant_field );
 }
 
 sub get_required_terms {
     my $arg               = shift;
     my $data_mapping_file = $arg->{data_mapping_file};
     return ( $data_mapping_file->{sex}{fields},
-        $data_mapping_file->{id}{mapping}{primary_key} );
+        $data_mapping_file->{id}{targetFields}{primaryKey} );
 }
 
 sub propagate_fields {
@@ -134,18 +154,18 @@ sub map_diseases {
     $arg->{term_mapping_cursor} = $term_mapping_cursor;
 
     for my $field ( @{ $term_mapping_cursor->{fields} } ) {
-        next unless defined $participant->{$field};
+        next unless defined raw_value( $arg, $field );
 
         my $disease;
         $disease->{ageOfOnset} =
           exists $term_mapping_cursor->{ageOfOnset}{$field}
           ? map_age_range(
-            $participant->{ $term_mapping_cursor->{ageOfOnset}{$field} } )
+            source_value( $arg, $term_mapping_cursor->{ageOfOnset}{$field} ) )
           : $DEFAULT->{age};
 
         my $disease_query =
-          check_and_replace_field_with_terminology_or_dictionary_if_exist(
-            $term_mapping_cursor, $field, $participant->{$field} );
+          resolve_term_query( $term_mapping_cursor, $field,
+            source_value( $arg, $field ) );
 
         next unless defined $disease_query;
 
@@ -160,10 +180,10 @@ sub map_diseases {
 
         if ( exists $term_mapping_cursor->{familyHistory}{$field}
             && defined
-            $participant->{ $term_mapping_cursor->{familyHistory}{$field} } )
+            raw_value( $arg, $term_mapping_cursor->{familyHistory}{$field} ) )
         {
             $disease->{familyHistory} = convert2boolean(
-                $participant->{ $term_mapping_cursor->{familyHistory}{$field} }
+                source_value( $arg, $term_mapping_cursor->{familyHistory}{$field} )
             );
         }
 
@@ -186,15 +206,14 @@ sub map_ethnicity {
     my $individual        = $arg->{individual};
 
     my $ethnicity_field = $data_mapping_file->{ethnicity}{fields};
-    if ( defined $participant->{$ethnicity_field} ) {
+    if ( defined raw_value( $arg, $ethnicity_field ) ) {
         my $term_mapping_cursor =
           remap_mapping_hash_term( $data_mapping_file, 'ethnicity' );
         $arg->{term_mapping_cursor} = $term_mapping_cursor;
 
         my $ethnicity_query =
-          check_and_replace_field_with_terminology_or_dictionary_if_exist(
-            $term_mapping_cursor, $ethnicity_field,
-            $participant->{$ethnicity_field} );
+          resolve_term_query( $term_mapping_cursor, $ethnicity_field,
+            source_value( $arg, $ethnicity_field ) );
 
         $individual->{ethnicity} = map_ontology_term(
             {
@@ -221,37 +240,36 @@ sub map_exposures {
     $arg->{term_mapping_cursor} = $term_mapping_cursor;
 
     for my $field ( @{ $term_mapping_cursor->{fields} } ) {
-        next unless defined $participant->{$field};
+        next unless defined raw_value( $arg, $field );
         next
-          if ( $participant->{$field} eq 'No'
-            || $participant->{$field} eq 'False' );
+          if ( source_value( $arg, $field ) eq 'No'
+            || source_value( $arg, $field ) eq 'False' );
 
         my $exposure;
 
         my $subkey_ageAtExposure =
-          ( exists $term_mapping_cursor->{selector}{$field}
-              && defined $term_mapping_cursor->{selector}{$field} )
-          ? $term_mapping_cursor->{selector}{$field}{ageAtExposure}
+          ( exists $term_mapping_cursor->{fieldRules}{$field}
+              && defined $term_mapping_cursor->{fieldRules}{$field} )
+          ? $term_mapping_cursor->{fieldRules}{$field}{ageAtExposure}
           : undef;
 
         $exposure->{ageAtExposure} =
           defined $subkey_ageAtExposure
-          ? map_age_range( $participant->{$subkey_ageAtExposure} )
+          ? map_age_range( source_value( $arg, $subkey_ageAtExposure ) )
           : $DEFAULT->{age};
 
         for my $item (qw/date duration/) {
             $exposure->{$item} =
-              exists $term_mapping_cursor->{mapping}{$item}
-              ? $participant->{ $term_mapping_cursor->{mapping}{$item} }
+              exists $term_mapping_cursor->{targetFields}{$item}
+              ? source_value( $arg, $term_mapping_cursor->{targetFields}{$item} )
               : $DEFAULT->{$item};
         }
 
         # Exposure codes come from the field/header concept (for example
-        # smoking -> Smoking), while selector logic below maps the recorded
-        # value (for example Never smoked -> Never Smoker).
+        # smoking -> Smoking), while fieldRules below map the recorded value
+        # (for example Never smoked -> Never Smoker).
         my $exposure_query =
-          check_and_replace_field_with_terminology_or_dictionary_if_exist(
-            $term_mapping_cursor, $field, $participant->{$field}, 1 );
+          resolve_field_query( $term_mapping_cursor, $field );
 
         $exposure->{exposureCode} = map_ontology_term(
             {
@@ -266,13 +284,13 @@ sub map_exposures {
 
         my $subkey =
           ( lc( $data_mapping_file->{project}{source} ) eq 'redcap'
-              && exists $term_mapping_cursor->{selector}{$field} )
+              && exists $term_mapping_cursor->{fieldRules}{$field} )
           ? $field
           : undef;
 
         my $unit_query = defined $subkey
-          ? $term_mapping_cursor->{selector}{$field}{ $participant->{$subkey} }
-          : $participant->{$field};
+          ? $term_mapping_cursor->{fieldRules}{$field}{ source_value( $arg, $subkey ) }
+          : source_value( $arg, $field );
 
         my $unit = map_ontology_term(
             {
@@ -284,8 +302,8 @@ sub map_exposures {
         );
         $exposure->{unit} = $unit;
         $exposure->{value} =
-          looks_like_number( $participant->{$field} )
-          ? $participant->{$field}
+          looks_like_number( source_value( $arg, $field ) )
+          ? source_value( $arg, $field )
           : -1;
 
         _add_visit( $exposure, $arg );
@@ -302,27 +320,27 @@ sub map_info {
     my $self              = $arg->{self};
     my $individual        = $arg->{individual};
     my $source            = $arg->{source};
-    my $redcap_dict = lc($source) eq 'redcap' ? $arg->{redcap_dict} : undef;
 
     my $term_mapping_cursor =
       remap_mapping_hash_term( $data_mapping_file, 'info' );
 
     for my $field ( @{ $term_mapping_cursor->{fields} } ) {
-        next unless defined $participant->{$field};
+        next unless defined raw_value( $arg, $field );
 
-        $individual->{info}{$field} = $participant->{$field};
+        $individual->{info}{$field} = source_value( $arg, $field );
 
-        if ( exists $redcap_dict->{$field}{'Field Label'} ) {
+        my $meta = field_meta( $arg, $field );
+        if ( defined $meta && exists $meta->{'Field Label'} ) {
             $individual->{info}{objects}{ $field . '_obj' } = {
-                value => dotify_and_coerce_number( $participant->{$field} ),
-                map { $_ => $redcap_dict->{$field}{$_} } @redcap_field_types
+                value => dotify_and_coerce_number( source_value( $arg, $field ) ),
+                map { $_ => $meta->{$_} } @redcap_field_types
             };
         }
     }
 
-    if ( exists $term_mapping_cursor->{mapping}{age} ) {
+    if ( exists $term_mapping_cursor->{targetFields}{age} ) {
         my $age_range = map_age_range(
-            $participant->{ $term_mapping_cursor->{mapping}{age} } );
+            source_value( $arg, $term_mapping_cursor->{targetFields}{age} ) );
         $individual->{info}{ageRange} = $age_range->{ageRange};
     }
 
@@ -336,7 +354,7 @@ sub map_info {
 
     my $output  = $source eq 'redcap' ? 'REDCap' : 'CSV';
     my $tmp_str = $output . '_columns';
-    $individual->{info}{$tmp_str} = $participant;
+    $individual->{info}{$tmp_str} = source_columns_snapshot($arg);
     return 1;
 }
 
@@ -355,14 +373,14 @@ sub map_interventionsOrProcedures {
     $arg->{term_mapping_cursor} = $term_mapping_cursor;
 
     for my $field ( @{ $term_mapping_cursor->{fields} } ) {
-        next unless defined $participant->{$field};
+        next unless defined raw_value( $arg, $field );
 
         my $intervention;
 
         $intervention->{ageAtProcedure} =
           exists $term_mapping_cursor->{ageAtProcedure}{$field}
           ? map_age_range(
-            $participant->{ $term_mapping_cursor->{ageAtProcedure}{$field} } )
+            source_value( $arg, $term_mapping_cursor->{ageAtProcedure}{$field} ) )
           : $DEFAULT->{age};
 
         $intervention->{bodySite} =
@@ -380,19 +398,19 @@ sub map_interventionsOrProcedures {
         $intervention->{dateOfProcedure} =
           exists $term_mapping_cursor->{dateOfProcedure}{$field}
           ? convert_date_to_iso8601(
-            $participant->{ $term_mapping_cursor->{dateOfProcedure}{$field} } )
+            source_value( $arg, $term_mapping_cursor->{dateOfProcedure}{$field} ) )
           : $DEFAULT->{date};
 
         $intervention->{_info} = $field;
 
         my $subkey =
-          exists $term_mapping_cursor->{selector}{$field} ? $field : undef;
+          exists $term_mapping_cursor->{fieldRules}{$field} ? $field : undef;
 
         my $intervention_query =
           defined $subkey
-          ? $term_mapping_cursor->{selector}{$subkey}{ $participant->{$field} }
-          : check_and_replace_field_with_terminology_or_dictionary_if_exist(
-            $term_mapping_cursor, $field, $participant->{$field} );
+          ? $term_mapping_cursor->{fieldRules}{$subkey}{ source_value( $arg, $field ) }
+          : resolve_term_query(
+            $term_mapping_cursor, $field, source_value( $arg, $field ) );
 
         $intervention->{procedureCode} = map_ontology_term(
             {
@@ -416,7 +434,6 @@ sub map_measures {
     my $self              = $arg->{self};
     my $individual        = $arg->{individual};
     my $source            = $arg->{source};
-    my $redcap_dict = lc($source) eq 'redcap' ? $arg->{redcap_dict} : undef;
 
     my $term_mapping_cursor =
       remap_mapping_hash_term( $data_mapping_file, 'measures' );
@@ -424,15 +441,13 @@ sub map_measures {
     $arg->{term_mapping_cursor} = $term_mapping_cursor;
 
     for my $field ( @{ $term_mapping_cursor->{fields} } ) {
-        next unless defined $participant->{$field};
+        next unless defined raw_value( $arg, $field );
         my $measure;
 
         $measure->{assayCode} = map_ontology_term(
             {
                 query =>
-                  check_and_replace_field_with_terminology_or_dictionary_if_exist(
-                    $term_mapping_cursor, $field, $participant->{$field}, 1
-                  ),
+                  resolve_field_query( $term_mapping_cursor, $field ),
                 column   => 'label',
                 ontology => $term_mapping_cursor->{ontology},
                 self     => $self,
@@ -442,21 +457,15 @@ sub map_measures {
         $measure->{date} = $DEFAULT->{date};
 
         my ( $tmp_unit, $unit_cursor );
+        my $measure_value = raw_value( $arg, $field );
 
         if ( lc($source) eq 'redcap' ) {
-            $tmp_unit = map2redcap_dict(
-                {
-                    redcap_dict => $redcap_dict,
-                    participant => $participant,
-                    field       => $field,
-                    labels      => 0
-                }
-            );
+            $tmp_unit = field_note( $arg, $field );
 
-            if ( $participant->{$field} =~ m/ \- / ) {
+            if ( $measure_value =~ m/ \- / ) {
                 my ( $tmp_val, $tmp_scale ) = split / \- /,
-                  $participant->{$field};
-                $participant->{$field} = $tmp_val;
+                  $measure_value;
+                $measure_value = $tmp_val;
                 $tmp_unit              = $tmp_scale;
             }
         }
@@ -469,10 +478,7 @@ sub map_measures {
         my $unit = map_ontology_term(
             {
                 query =>
-                  check_and_replace_field_with_terminology_or_dictionary_if_exist(
-                    $term_mapping_cursor,   $tmp_unit,
-                    $participant->{$field}, 1
-                  ),
+                  resolve_value_query( $term_mapping_cursor, $tmp_unit ),
                 column   => 'label',
                 ontology => $term_mapping_cursor->{ontology},
                 self     => $self
@@ -484,7 +490,7 @@ sub map_measures {
           : map_reference_range(
             {
                 unit        => $unit,
-                redcap_dict => $redcap_dict,
+                redcap_dict => $arg->{redcap_dict},
                 field       => $field,
                 source      => $source
             }
@@ -493,13 +499,15 @@ sub map_measures {
         $measure->{measurementValue} = {
             quantity => {
                 unit  => $unit,
-                value => dotify_and_coerce_number( $participant->{$field} ),
+                value => dotify_and_coerce_number($measure_value),
                 referenceRange => $reference_range
             }
         };
-        $measure->{notes} = join ' /// ', $field,
-          ( map { qq/$_=$redcap_dict->{$field}{$_}/ } @redcap_field_types )
-          if lc($source) eq 'redcap';
+        if ( lc($source) eq 'redcap' ) {
+            my $meta = field_meta( $arg, $field ) || {};
+            $measure->{notes} = join ' /// ', $field,
+              ( map { qq/$_=$meta->{$_}/ } @redcap_field_types );
+        }
 
         $measure->{procedure} = {
             procedureCode => map_ontology_term(
@@ -534,7 +542,6 @@ sub map_phenotypicFeatures {
     my $self              = $arg->{self};
     my $individual        = $arg->{individual};
     my $source            = $arg->{source};
-    my $redcap_dict = lc($source) eq 'redcap' ? $arg->{redcap_dict} : undef;
 
     my $term_mapping_cursor =
       remap_mapping_hash_term( $data_mapping_file, 'phenotypicFeatures' );
@@ -544,16 +551,16 @@ sub map_phenotypicFeatures {
         my $phenotypicFeature;
 
         next
-          unless ( defined $participant->{$field}
-            && $participant->{$field} ne '' );
+          unless ( defined raw_value( $arg, $field )
+            && raw_value( $arg, $field ) ne '' );
 
         $phenotypicFeature->{excluded_ori} =
-          dotify_and_coerce_number( $participant->{$field} );
+          dotify_and_coerce_number( raw_value( $arg, $field ) );
 
         my $is_boolean = 0;
-        if ( looks_like_number( $participant->{$field} ) ) {
+        if ( looks_like_number( raw_value( $arg, $field ) ) ) {
             $phenotypicFeature->{excluded} =
-              $participant->{$field} ? JSON::XS::false : JSON::XS::true;
+              raw_value( $arg, $field ) ? JSON::XS::false : JSON::XS::true;
             $is_boolean++;
         }
         else {
@@ -561,15 +568,15 @@ sub map_phenotypicFeatures {
         }
 
         my $subkey =
-          exists $term_mapping_cursor->{selector}{$field} ? $field : undef;
+          exists $term_mapping_cursor->{fieldRules}{$field} ? $field : undef;
 
-        my $participant_field = $is_boolean ? $field : $participant->{$field};
+        my $participant_field = $is_boolean ? $field : source_value( $arg, $field );
 
         my $phenotypicFeature_query =
           defined $subkey
-          ? $term_mapping_cursor->{selector}{$subkey}{$participant_field}
-          : check_and_replace_field_with_terminology_or_dictionary_if_exist(
-            $term_mapping_cursor, $field, $participant->{$field} );
+          ? $term_mapping_cursor->{fieldRules}{$subkey}{$participant_field}
+          : resolve_term_query(
+            $term_mapping_cursor, $field, source_value( $arg, $field ) );
 
         $phenotypicFeature->{featureType} = map_ontology_term(
             {
@@ -581,11 +588,11 @@ sub map_phenotypicFeatures {
         );
 
         $field =~ s/___\w+$// if $field =~ m/___\w+$/;
-        $phenotypicFeature->{notes} = join ' /// ',
-          (
-            $field,
-            map { qq/$_=$redcap_dict->{$field}{$_}/ } @redcap_field_types
-          ) if lc($source) eq 'redcap';
+        if ( lc($source) eq 'redcap' ) {
+            my $meta = field_meta( $arg, $field ) || {};
+            $phenotypicFeature->{notes} = join ' /// ',
+              ( $field, map { qq/$_=$meta->{$_}/ } @redcap_field_types );
+        }
 
         _add_visit( $phenotypicFeature, $arg );
 
@@ -609,8 +616,8 @@ sub map_sex {
       remap_mapping_hash_term( $data_mapping_file, 'sex' );
 
     my $sex_query =
-      check_and_replace_field_with_terminology_or_dictionary_if_exist(
-        $term_mapping_cursor, $sex_field, $participant->{$sex_field} );
+      resolve_term_query(
+        $term_mapping_cursor, $sex_field, source_value( $arg, $sex_field ) );
 
     $individual->{sex} = map_ontology_term(
         {
@@ -637,13 +644,13 @@ sub map_treatments {
     $arg->{term_mapping_cursor} = $term_mapping_cursor;
 
     for my $field ( @{ $term_mapping_cursor->{fields} } ) {
-        next unless defined $participant->{$field};
+        next unless defined raw_value( $arg, $field );
 
         my $treatment;
 
         my $treatment_name =
-          check_and_replace_field_with_terminology_or_dictionary_if_exist(
-            $term_mapping_cursor, $field, $participant->{$field} );
+          resolve_term_query(
+            $term_mapping_cursor, $field, source_value( $arg, $field ) );
 
         $treatment->{ageAtOnset} = $DEFAULT->{age};
 
@@ -652,6 +659,10 @@ sub map_treatments {
         my $duration =
           exists $term_mapping_cursor->{duration}{$field}
           ? $term_mapping_cursor->{duration}{$field}
+          : undef;
+        my $drug_dose =
+          exists $term_mapping_cursor->{drugDose}{$field}
+          ? $term_mapping_cursor->{drugDose}{$field}
           : undef;
         my $duration_unit =
           exists $term_mapping_cursor->{durationUnit}{$field}
@@ -665,9 +676,18 @@ sub map_treatments {
           )
           : $DEFAULT->{ontology_term};
         if ( defined $duration ) {
+            my $duration_value =
+              defined source_value( $arg, $duration )
+              ? dotify_and_coerce_number( source_value( $arg, $duration ) )
+              : -1;
+            my $drug_dose_value =
+              defined $drug_dose && defined source_value( $arg, $drug_dose )
+              ? dotify_and_coerce_number( source_value( $arg, $drug_dose ) )
+              : -1;
+
             $treatment->{cumulativeDose} = {
                 unit  => $duration_unit,
-                value => $participant->{$duration} // -1
+                value => $duration_value
             };
             my $drug_unit =
               exists $term_mapping_cursor->{drugUnit}{$field}
@@ -682,7 +702,10 @@ sub map_treatments {
               : $DEFAULT->{ontology_term};
             $dose_interval->{interval} = $DEFAULT->{interval};
 
-            $dose_interval->{quantity}{value} = $participant->{$duration};
+            # Duration and amount are modeled separately. Keep the duration in
+            # cumulativeDose, and emit the actual administered amount from the
+            # dedicated dose field when the mapping provides one.
+            $dose_interval->{quantity}{value} = $drug_dose_value;
             $dose_interval->{quantity}{unit}  = $drug_unit;
             $dose_interval->{quantity}{referenceRange} =
               $DEFAULT->{referenceRange};
@@ -693,14 +716,14 @@ sub map_treatments {
 
         my $route =
           exists $term_mapping_cursor->{routeOfAdministration}
-          { $participant->{$field} }
+          { source_value( $arg, $field ) }
           ? $term_mapping_cursor->{routeOfAdministration}
-          { $participant->{$field} }
+          { source_value( $arg, $field ) }
           : 'oral';
         my $route_query = ucfirst($route) . ' Route of Administration';
         $treatment->{_info} = {
             field     => $field,
-            value     => $participant->{$field},
+            value     => source_value( $arg, $field ),
             drug_name => $treatment_name,
             route     => $route
         };
@@ -736,7 +759,7 @@ sub _add_visit {
     my $vf = $cursor->{visitId}
       or return;
     my $visit_val = $p->{participant}{$vf};
-    $item->{_visit}{id} = $visit_val;
+    $item->{_visit}{id} = dotify_and_coerce_number($visit_val);
 
     my $pid       = $p->{participant_id} // q{};
     my $composite = join '.', grep { length } $pid, $visit_val;

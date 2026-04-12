@@ -108,26 +108,26 @@
       "info" : {
          "CSV_columns" : {
             "AgeAtAlcoholExposure" : null,
-            "AgeAtTobaccoExposure" : 14,
+            "AgeAtTobaccoExposure" : "14.0",
             "AlcoholUse" : "No",
-            "BMI (kg/m^2)" : 29,
+            "BMI (kg/m^2)" : "29.0",
             "Disease_1" : "Asthma",
             "Disease_2" : "Hypertension",
             "Disease_3" : "Diabetes",
-            "DrugDose (mg)" : 500,
+            "DrugDose (mg)" : "500",
             "DrugName" : "Lisinopril",
             "Ethnicity" : "Caucasian",
             "EventName" : "Baseline",
-            "Hemoglobin (g/dL)" : 16.9,
+            "Hemoglobin (g/dL)" : "16.9",
             "PatientId" : "P001",
             "PhenotypicFeature_1" : "Abnormal heart valve morphology",
             "PhenotypicFeature_2" : "Emphysema",
-            "Platelets (10^9/L)" : 288,
+            "Platelets (10^9/L)" : "288.0",
             "Sex" : "Male",
             "TobaccoUse" : "Yes",
-            "TreatmentDuration (weeks)" : 62,
-            "VisitOccurrenceId" : 1,
-            "WBC (10^9/L)" : 5.4
+            "TreatmentDuration (weeks)" : "62",
+            "VisitOccurrenceId" : "1",
+            "WBC (10^9/L)" : "5.4"
          },
          "project" : {
             "description" : "Mapping file for a CSV with generic clinical data",
@@ -355,7 +355,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 62
+                     "value" : 500
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -483,26 +483,26 @@
       "info" : {
          "CSV_columns" : {
             "AgeAtAlcoholExposure" : null,
-            "AgeAtTobaccoExposure" : 14,
+            "AgeAtTobaccoExposure" : "14.0",
             "AlcoholUse" : "No",
-            "BMI (kg/m^2)" : 29,
+            "BMI (kg/m^2)" : "29.0",
             "Disease_1" : "Asthma",
             "Disease_2" : "Hypertension",
             "Disease_3" : "Diabetes",
-            "DrugDose (mg)" : 500,
+            "DrugDose (mg)" : "500",
             "DrugName" : "Lisinopril",
             "Ethnicity" : "Caucasian",
             "EventName" : "Treatment",
-            "Hemoglobin (g/dL)" : 12.6,
+            "Hemoglobin (g/dL)" : "12.6",
             "PatientId" : "P001",
             "PhenotypicFeature_1" : "Abnormal heart valve morphology",
             "PhenotypicFeature_2" : "Emphysema",
-            "Platelets (10^9/L)" : 272,
+            "Platelets (10^9/L)" : "272.0",
             "Sex" : "Male",
             "TobaccoUse" : "Yes",
-            "TreatmentDuration (weeks)" : 62,
-            "VisitOccurrenceId" : 2,
-            "WBC (10^9/L)" : 8.6
+            "TreatmentDuration (weeks)" : "62",
+            "VisitOccurrenceId" : "2",
+            "WBC (10^9/L)" : "8.6"
          },
          "project" : {
             "description" : "Mapping file for a CSV with generic clinical data",
@@ -730,7 +730,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 62
+                     "value" : 500
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -834,24 +834,24 @@
             "AgeAtAlcoholExposure" : null,
             "AgeAtTobaccoExposure" : null,
             "AlcoholUse" : "No",
-            "BMI (kg/m^2)" : 22.9,
+            "BMI (kg/m^2)" : "22.9",
             "Disease_1" : "Asthma",
             "Disease_2" : "Hypertension",
             "Disease_3" : "Diabetes",
-            "DrugDose (mg)" : 90,
+            "DrugDose (mg)" : "90",
             "DrugName" : "Metformin",
             "Ethnicity" : "Hispanic",
             "EventName" : "Baseline",
-            "Hemoglobin (g/dL)" : 16.3,
+            "Hemoglobin (g/dL)" : "16.3",
             "PatientId" : "P002",
             "PhenotypicFeature_1" : "Emphysema",
             "PhenotypicFeature_2" : "Abnormal heart valve morphology",
-            "Platelets (10^9/L)" : 206,
+            "Platelets (10^9/L)" : "206.0",
             "Sex" : "Male",
             "TobaccoUse" : "No",
-            "TreatmentDuration (weeks)" : 25,
-            "VisitOccurrenceId" : 3,
-            "WBC (10^9/L)" : 10.9
+            "TreatmentDuration (weeks)" : "25",
+            "VisitOccurrenceId" : "3",
+            "WBC (10^9/L)" : "10.9"
          },
          "project" : {
             "description" : "Mapping file for a CSV with generic clinical data",
@@ -1079,7 +1079,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 25
+                     "value" : 90
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -1183,24 +1183,24 @@
             "AgeAtAlcoholExposure" : null,
             "AgeAtTobaccoExposure" : null,
             "AlcoholUse" : "No",
-            "BMI (kg/m^2)" : 22.9,
+            "BMI (kg/m^2)" : "22.9",
             "Disease_1" : "Asthma",
             "Disease_2" : "Hypertension",
             "Disease_3" : "Diabetes",
-            "DrugDose (mg)" : 90,
+            "DrugDose (mg)" : "90",
             "DrugName" : "Metformin",
             "Ethnicity" : "Hispanic",
             "EventName" : "Treatment",
-            "Hemoglobin (g/dL)" : 12.9,
+            "Hemoglobin (g/dL)" : "12.9",
             "PatientId" : "P002",
             "PhenotypicFeature_1" : "Emphysema",
             "PhenotypicFeature_2" : "Abnormal heart valve morphology",
-            "Platelets (10^9/L)" : 244,
+            "Platelets (10^9/L)" : "244.0",
             "Sex" : "Male",
             "TobaccoUse" : "No",
-            "TreatmentDuration (weeks)" : 25,
-            "VisitOccurrenceId" : 4,
-            "WBC (10^9/L)" : 5.5
+            "TreatmentDuration (weeks)" : "25",
+            "VisitOccurrenceId" : "4",
+            "WBC (10^9/L)" : "5.5"
          },
          "project" : {
             "description" : "Mapping file for a CSV with generic clinical data",
@@ -1428,7 +1428,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 25
+                     "value" : 90
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -1579,27 +1579,27 @@
       "id" : "P003:Baseline",
       "info" : {
          "CSV_columns" : {
-            "AgeAtAlcoholExposure" : 26,
-            "AgeAtTobaccoExposure" : 17,
+            "AgeAtAlcoholExposure" : "26.0",
+            "AgeAtTobaccoExposure" : "17.0",
             "AlcoholUse" : "Yes",
-            "BMI (kg/m^2)" : 27.8,
+            "BMI (kg/m^2)" : "27.8",
             "Disease_1" : "Diabetes",
             "Disease_2" : "Hypertension",
             "Disease_3" : "Asthma",
-            "DrugDose (mg)" : 1000,
+            "DrugDose (mg)" : "1000",
             "DrugName" : "Albuterol",
             "Ethnicity" : "Native American",
             "EventName" : "Baseline",
-            "Hemoglobin (g/dL)" : 14.3,
+            "Hemoglobin (g/dL)" : "14.3",
             "PatientId" : "P003",
             "PhenotypicFeature_1" : "Emphysema",
             "PhenotypicFeature_2" : "Abnormal heart valve morphology",
-            "Platelets (10^9/L)" : 247,
+            "Platelets (10^9/L)" : "247.0",
             "Sex" : "Male",
             "TobaccoUse" : "Yes",
-            "TreatmentDuration (weeks)" : 36,
-            "VisitOccurrenceId" : 5,
-            "WBC (10^9/L)" : 10.7
+            "TreatmentDuration (weeks)" : "36",
+            "VisitOccurrenceId" : "5",
+            "WBC (10^9/L)" : "10.7"
          },
          "project" : {
             "description" : "Mapping file for a CSV with generic clinical data",
@@ -1827,7 +1827,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 36
+                     "value" : 1000
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -1978,27 +1978,27 @@
       "id" : "P003:Treatment",
       "info" : {
          "CSV_columns" : {
-            "AgeAtAlcoholExposure" : 26,
-            "AgeAtTobaccoExposure" : 17,
+            "AgeAtAlcoholExposure" : "26.0",
+            "AgeAtTobaccoExposure" : "17.0",
             "AlcoholUse" : "Yes",
-            "BMI (kg/m^2)" : 27.8,
+            "BMI (kg/m^2)" : "27.8",
             "Disease_1" : "Diabetes",
             "Disease_2" : "Hypertension",
             "Disease_3" : "Asthma",
-            "DrugDose (mg)" : 1000,
+            "DrugDose (mg)" : "1000",
             "DrugName" : "Albuterol",
             "Ethnicity" : "Native American",
             "EventName" : "Treatment",
-            "Hemoglobin (g/dL)" : 14.9,
+            "Hemoglobin (g/dL)" : "14.9",
             "PatientId" : "P003",
             "PhenotypicFeature_1" : "Emphysema",
             "PhenotypicFeature_2" : "Abnormal heart valve morphology",
-            "Platelets (10^9/L)" : 274,
+            "Platelets (10^9/L)" : "274.0",
             "Sex" : "Male",
             "TobaccoUse" : "Yes",
-            "TreatmentDuration (weeks)" : 36,
-            "VisitOccurrenceId" : 6,
-            "WBC (10^9/L)" : 4.7
+            "TreatmentDuration (weeks)" : "36",
+            "VisitOccurrenceId" : "6",
+            "WBC (10^9/L)" : "4.7"
          },
          "project" : {
             "description" : "Mapping file for a CSV with generic clinical data",
@@ -2226,7 +2226,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 36
+                     "value" : 1000
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -2330,24 +2330,24 @@
             "AgeAtAlcoholExposure" : null,
             "AgeAtTobaccoExposure" : null,
             "AlcoholUse" : "No",
-            "BMI (kg/m^2)" : 25.1,
+            "BMI (kg/m^2)" : "25.1",
             "Disease_1" : "Diabetes",
             "Disease_2" : "Asthma",
             "Disease_3" : "Hypertension",
-            "DrugDose (mg)" : 50,
+            "DrugDose (mg)" : "50",
             "DrugName" : "Albuterol",
             "Ethnicity" : "Native American",
             "EventName" : "Baseline",
-            "Hemoglobin (g/dL)" : 12,
+            "Hemoglobin (g/dL)" : "12.0",
             "PatientId" : "P004",
             "PhenotypicFeature_1" : "Emphysema",
             "PhenotypicFeature_2" : "Abnormal heart valve morphology",
-            "Platelets (10^9/L)" : 194,
+            "Platelets (10^9/L)" : "194.0",
             "Sex" : "Male",
             "TobaccoUse" : "No",
-            "TreatmentDuration (weeks)" : 22,
-            "VisitOccurrenceId" : 7,
-            "WBC (10^9/L)" : 10.2
+            "TreatmentDuration (weeks)" : "22",
+            "VisitOccurrenceId" : "7",
+            "WBC (10^9/L)" : "10.2"
          },
          "project" : {
             "description" : "Mapping file for a CSV with generic clinical data",
@@ -2575,7 +2575,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 22
+                     "value" : 50
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -2679,24 +2679,24 @@
             "AgeAtAlcoholExposure" : null,
             "AgeAtTobaccoExposure" : null,
             "AlcoholUse" : "No",
-            "BMI (kg/m^2)" : 25.1,
+            "BMI (kg/m^2)" : "25.1",
             "Disease_1" : "Diabetes",
             "Disease_2" : "Asthma",
             "Disease_3" : "Hypertension",
-            "DrugDose (mg)" : 50,
+            "DrugDose (mg)" : "50",
             "DrugName" : "Albuterol",
             "Ethnicity" : "Native American",
             "EventName" : "Treatment",
-            "Hemoglobin (g/dL)" : 11.5,
+            "Hemoglobin (g/dL)" : "11.5",
             "PatientId" : "P004",
             "PhenotypicFeature_1" : "Emphysema",
             "PhenotypicFeature_2" : "Abnormal heart valve morphology",
-            "Platelets (10^9/L)" : 227,
+            "Platelets (10^9/L)" : "227.0",
             "Sex" : "Male",
             "TobaccoUse" : "No",
-            "TreatmentDuration (weeks)" : 22,
-            "VisitOccurrenceId" : 8,
-            "WBC (10^9/L)" : 6.3
+            "TreatmentDuration (weeks)" : "22",
+            "VisitOccurrenceId" : "8",
+            "WBC (10^9/L)" : "6.3"
          },
          "project" : {
             "description" : "Mapping file for a CSV with generic clinical data",
@@ -2924,7 +2924,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 22
+                     "value" : 50
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -3051,27 +3051,27 @@
       "id" : "P005:Baseline",
       "info" : {
          "CSV_columns" : {
-            "AgeAtAlcoholExposure" : 41,
+            "AgeAtAlcoholExposure" : "41.0",
             "AgeAtTobaccoExposure" : null,
             "AlcoholUse" : "Yes",
-            "BMI (kg/m^2)" : 20.6,
+            "BMI (kg/m^2)" : "20.6",
             "Disease_1" : "Diabetes",
             "Disease_2" : "Asthma",
             "Disease_3" : "Hypertension",
-            "DrugDose (mg)" : 50,
+            "DrugDose (mg)" : "50",
             "DrugName" : "Atorvastatin",
             "Ethnicity" : "African American",
             "EventName" : "Baseline",
-            "Hemoglobin (g/dL)" : 13.5,
+            "Hemoglobin (g/dL)" : "13.5",
             "PatientId" : "P005",
             "PhenotypicFeature_1" : "Abnormal heart valve morphology",
             "PhenotypicFeature_2" : "Limitation of joint mobility",
-            "Platelets (10^9/L)" : 336,
+            "Platelets (10^9/L)" : "336.0",
             "Sex" : "Male",
             "TobaccoUse" : "No",
-            "TreatmentDuration (weeks)" : 22,
-            "VisitOccurrenceId" : 9,
-            "WBC (10^9/L)" : 5.7
+            "TreatmentDuration (weeks)" : "22",
+            "VisitOccurrenceId" : "9",
+            "WBC (10^9/L)" : "5.7"
          },
          "project" : {
             "description" : "Mapping file for a CSV with generic clinical data",
@@ -3299,7 +3299,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 22
+                     "value" : 50
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -3426,27 +3426,27 @@
       "id" : "P005:Treatment",
       "info" : {
          "CSV_columns" : {
-            "AgeAtAlcoholExposure" : 41,
+            "AgeAtAlcoholExposure" : "41.0",
             "AgeAtTobaccoExposure" : null,
             "AlcoholUse" : "Yes",
-            "BMI (kg/m^2)" : 20.6,
+            "BMI (kg/m^2)" : "20.6",
             "Disease_1" : "Diabetes",
             "Disease_2" : "Asthma",
             "Disease_3" : "Hypertension",
-            "DrugDose (mg)" : 50,
+            "DrugDose (mg)" : "50",
             "DrugName" : "Atorvastatin",
             "Ethnicity" : "African American",
             "EventName" : "Treatment",
-            "Hemoglobin (g/dL)" : 16.8,
+            "Hemoglobin (g/dL)" : "16.8",
             "PatientId" : "P005",
             "PhenotypicFeature_1" : "Abnormal heart valve morphology",
             "PhenotypicFeature_2" : "Limitation of joint mobility",
-            "Platelets (10^9/L)" : 345,
+            "Platelets (10^9/L)" : "345.0",
             "Sex" : "Male",
             "TobaccoUse" : "No",
-            "TreatmentDuration (weeks)" : 22,
-            "VisitOccurrenceId" : 10,
-            "WBC (10^9/L)" : 9.1
+            "TreatmentDuration (weeks)" : "22",
+            "VisitOccurrenceId" : "10",
+            "WBC (10^9/L)" : "9.1"
          },
          "project" : {
             "description" : "Mapping file for a CSV with generic clinical data",
@@ -3674,7 +3674,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 22
+                     "value" : 50
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -3802,26 +3802,26 @@
       "info" : {
          "CSV_columns" : {
             "AgeAtAlcoholExposure" : null,
-            "AgeAtTobaccoExposure" : 21,
+            "AgeAtTobaccoExposure" : "21.0",
             "AlcoholUse" : "No",
-            "BMI (kg/m^2)" : 25,
+            "BMI (kg/m^2)" : "25.0",
             "Disease_1" : "Diabetes",
             "Disease_2" : "Asthma",
             "Disease_3" : "Hypertension",
-            "DrugDose (mg)" : 90,
+            "DrugDose (mg)" : "90",
             "DrugName" : "Lisinopril",
             "Ethnicity" : "Asian",
             "EventName" : "Baseline",
-            "Hemoglobin (g/dL)" : 12.5,
+            "Hemoglobin (g/dL)" : "12.5",
             "PatientId" : "P006",
             "PhenotypicFeature_1" : "Abnormal heart valve morphology",
             "PhenotypicFeature_2" : "Limitation of joint mobility",
-            "Platelets (10^9/L)" : 220,
+            "Platelets (10^9/L)" : "220.0",
             "Sex" : "Male",
             "TobaccoUse" : "Yes",
-            "TreatmentDuration (weeks)" : 25,
-            "VisitOccurrenceId" : 11,
-            "WBC (10^9/L)" : 6.8
+            "TreatmentDuration (weeks)" : "25",
+            "VisitOccurrenceId" : "11",
+            "WBC (10^9/L)" : "6.8"
          },
          "project" : {
             "description" : "Mapping file for a CSV with generic clinical data",
@@ -4049,7 +4049,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 25
+                     "value" : 90
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -4177,26 +4177,26 @@
       "info" : {
          "CSV_columns" : {
             "AgeAtAlcoholExposure" : null,
-            "AgeAtTobaccoExposure" : 21,
+            "AgeAtTobaccoExposure" : "21.0",
             "AlcoholUse" : "No",
-            "BMI (kg/m^2)" : 25,
+            "BMI (kg/m^2)" : "25.0",
             "Disease_1" : "Diabetes",
             "Disease_2" : "Asthma",
             "Disease_3" : "Hypertension",
-            "DrugDose (mg)" : 90,
+            "DrugDose (mg)" : "90",
             "DrugName" : "Lisinopril",
             "Ethnicity" : "Asian",
             "EventName" : "Treatment",
-            "Hemoglobin (g/dL)" : 12.6,
+            "Hemoglobin (g/dL)" : "12.6",
             "PatientId" : "P006",
             "PhenotypicFeature_1" : "Abnormal heart valve morphology",
             "PhenotypicFeature_2" : "Limitation of joint mobility",
-            "Platelets (10^9/L)" : 399,
+            "Platelets (10^9/L)" : "399.0",
             "Sex" : "Male",
             "TobaccoUse" : "Yes",
-            "TreatmentDuration (weeks)" : 25,
-            "VisitOccurrenceId" : 12,
-            "WBC (10^9/L)" : 8.8
+            "TreatmentDuration (weeks)" : "25",
+            "VisitOccurrenceId" : "12",
+            "WBC (10^9/L)" : "8.8"
          },
          "project" : {
             "description" : "Mapping file for a CSV with generic clinical data",
@@ -4424,7 +4424,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 25
+                     "value" : 90
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -4552,26 +4552,26 @@
       "info" : {
          "CSV_columns" : {
             "AgeAtAlcoholExposure" : null,
-            "AgeAtTobaccoExposure" : 49,
+            "AgeAtTobaccoExposure" : "49.0",
             "AlcoholUse" : "No",
-            "BMI (kg/m^2)" : 25.4,
+            "BMI (kg/m^2)" : "25.4",
             "Disease_1" : "Hypertension",
             "Disease_2" : "Asthma",
             "Disease_3" : "Diabetes",
-            "DrugDose (mg)" : 50,
+            "DrugDose (mg)" : "50",
             "DrugName" : "Albuterol",
             "Ethnicity" : "Asian",
             "EventName" : "Baseline",
-            "Hemoglobin (g/dL)" : 15.8,
+            "Hemoglobin (g/dL)" : "15.8",
             "PatientId" : "P007",
             "PhenotypicFeature_1" : "Emphysema",
             "PhenotypicFeature_2" : "Abnormal heart valve morphology",
-            "Platelets (10^9/L)" : 259,
+            "Platelets (10^9/L)" : "259.0",
             "Sex" : "Male",
             "TobaccoUse" : "Yes",
-            "TreatmentDuration (weeks)" : 22,
-            "VisitOccurrenceId" : 13,
-            "WBC (10^9/L)" : 5.7
+            "TreatmentDuration (weeks)" : "22",
+            "VisitOccurrenceId" : "13",
+            "WBC (10^9/L)" : "5.7"
          },
          "project" : {
             "description" : "Mapping file for a CSV with generic clinical data",
@@ -4799,7 +4799,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 22
+                     "value" : 50
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -4927,26 +4927,26 @@
       "info" : {
          "CSV_columns" : {
             "AgeAtAlcoholExposure" : null,
-            "AgeAtTobaccoExposure" : 49,
+            "AgeAtTobaccoExposure" : "49.0",
             "AlcoholUse" : "No",
-            "BMI (kg/m^2)" : 25.4,
+            "BMI (kg/m^2)" : "25.4",
             "Disease_1" : "Hypertension",
             "Disease_2" : "Asthma",
             "Disease_3" : "Diabetes",
-            "DrugDose (mg)" : 50,
+            "DrugDose (mg)" : "50",
             "DrugName" : "Albuterol",
             "Ethnicity" : "Asian",
             "EventName" : "Treatment",
-            "Hemoglobin (g/dL)" : 16.8,
+            "Hemoglobin (g/dL)" : "16.8",
             "PatientId" : "P007",
             "PhenotypicFeature_1" : "Emphysema",
             "PhenotypicFeature_2" : "Abnormal heart valve morphology",
-            "Platelets (10^9/L)" : 243,
+            "Platelets (10^9/L)" : "243.0",
             "Sex" : "Male",
             "TobaccoUse" : "Yes",
-            "TreatmentDuration (weeks)" : 22,
-            "VisitOccurrenceId" : 14,
-            "WBC (10^9/L)" : 5.6
+            "TreatmentDuration (weeks)" : "22",
+            "VisitOccurrenceId" : "14",
+            "WBC (10^9/L)" : "5.6"
          },
          "project" : {
             "description" : "Mapping file for a CSV with generic clinical data",
@@ -5174,7 +5174,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 22
+                     "value" : 50
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -5278,24 +5278,24 @@
             "AgeAtAlcoholExposure" : null,
             "AgeAtTobaccoExposure" : null,
             "AlcoholUse" : "No",
-            "BMI (kg/m^2)" : 29.2,
+            "BMI (kg/m^2)" : "29.2",
             "Disease_1" : "Diabetes",
             "Disease_2" : "Asthma",
             "Disease_3" : "Hypertension",
-            "DrugDose (mg)" : 50,
+            "DrugDose (mg)" : "50",
             "DrugName" : "Lisinopril",
             "Ethnicity" : "Asian",
             "EventName" : "Baseline",
-            "Hemoglobin (g/dL)" : 13.2,
+            "Hemoglobin (g/dL)" : "13.2",
             "PatientId" : "P008",
             "PhenotypicFeature_1" : "Emphysema",
             "PhenotypicFeature_2" : "Limitation of joint mobility",
-            "Platelets (10^9/L)" : 385,
+            "Platelets (10^9/L)" : "385.0",
             "Sex" : "Male",
             "TobaccoUse" : "No",
-            "TreatmentDuration (weeks)" : 22,
-            "VisitOccurrenceId" : 15,
-            "WBC (10^9/L)" : 8
+            "TreatmentDuration (weeks)" : "22",
+            "VisitOccurrenceId" : "15",
+            "WBC (10^9/L)" : "8.0"
          },
          "project" : {
             "description" : "Mapping file for a CSV with generic clinical data",
@@ -5523,7 +5523,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 22
+                     "value" : 50
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -5627,24 +5627,24 @@
             "AgeAtAlcoholExposure" : null,
             "AgeAtTobaccoExposure" : null,
             "AlcoholUse" : "No",
-            "BMI (kg/m^2)" : 29.2,
+            "BMI (kg/m^2)" : "29.2",
             "Disease_1" : "Diabetes",
             "Disease_2" : "Asthma",
             "Disease_3" : "Hypertension",
-            "DrugDose (mg)" : 50,
+            "DrugDose (mg)" : "50",
             "DrugName" : "Lisinopril",
             "Ethnicity" : "Asian",
             "EventName" : "Treatment",
-            "Hemoglobin (g/dL)" : 12.1,
+            "Hemoglobin (g/dL)" : "12.1",
             "PatientId" : "P008",
             "PhenotypicFeature_1" : "Emphysema",
             "PhenotypicFeature_2" : "Limitation of joint mobility",
-            "Platelets (10^9/L)" : 372,
+            "Platelets (10^9/L)" : "372.0",
             "Sex" : "Male",
             "TobaccoUse" : "No",
-            "TreatmentDuration (weeks)" : 22,
-            "VisitOccurrenceId" : 16,
-            "WBC (10^9/L)" : 6
+            "TreatmentDuration (weeks)" : "22",
+            "VisitOccurrenceId" : "16",
+            "WBC (10^9/L)" : "6.0"
          },
          "project" : {
             "description" : "Mapping file for a CSV with generic clinical data",
@@ -5872,7 +5872,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 22
+                     "value" : 50
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -5999,27 +5999,27 @@
       "id" : "P009:Baseline",
       "info" : {
          "CSV_columns" : {
-            "AgeAtAlcoholExposure" : 15,
+            "AgeAtAlcoholExposure" : "15.0",
             "AgeAtTobaccoExposure" : null,
             "AlcoholUse" : "Yes",
-            "BMI (kg/m^2)" : 29.6,
+            "BMI (kg/m^2)" : "29.6",
             "Disease_1" : "Hypertension",
             "Disease_2" : "Asthma",
             "Disease_3" : "Diabetes",
-            "DrugDose (mg)" : 90,
+            "DrugDose (mg)" : "90",
             "DrugName" : "Metformin",
             "Ethnicity" : "Native American",
             "EventName" : "Baseline",
-            "Hemoglobin (g/dL)" : 13.5,
+            "Hemoglobin (g/dL)" : "13.5",
             "PatientId" : "P009",
             "PhenotypicFeature_1" : "Emphysema",
             "PhenotypicFeature_2" : "Limitation of joint mobility",
-            "Platelets (10^9/L)" : 292,
+            "Platelets (10^9/L)" : "292.0",
             "Sex" : "Female",
             "TobaccoUse" : "No",
-            "TreatmentDuration (weeks)" : 25,
-            "VisitOccurrenceId" : 17,
-            "WBC (10^9/L)" : 8.3
+            "TreatmentDuration (weeks)" : "25",
+            "VisitOccurrenceId" : "17",
+            "WBC (10^9/L)" : "8.3"
          },
          "project" : {
             "description" : "Mapping file for a CSV with generic clinical data",
@@ -6247,7 +6247,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 25
+                     "value" : 90
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -6374,27 +6374,27 @@
       "id" : "P009:Treatment",
       "info" : {
          "CSV_columns" : {
-            "AgeAtAlcoholExposure" : 15,
+            "AgeAtAlcoholExposure" : "15.0",
             "AgeAtTobaccoExposure" : null,
             "AlcoholUse" : "Yes",
-            "BMI (kg/m^2)" : 29.6,
+            "BMI (kg/m^2)" : "29.6",
             "Disease_1" : "Hypertension",
             "Disease_2" : "Asthma",
             "Disease_3" : "Diabetes",
-            "DrugDose (mg)" : 90,
+            "DrugDose (mg)" : "90",
             "DrugName" : "Metformin",
             "Ethnicity" : "Native American",
             "EventName" : "Treatment",
-            "Hemoglobin (g/dL)" : 11.4,
+            "Hemoglobin (g/dL)" : "11.4",
             "PatientId" : "P009",
             "PhenotypicFeature_1" : "Emphysema",
             "PhenotypicFeature_2" : "Limitation of joint mobility",
-            "Platelets (10^9/L)" : 156,
+            "Platelets (10^9/L)" : "156.0",
             "Sex" : "Female",
             "TobaccoUse" : "No",
-            "TreatmentDuration (weeks)" : 25,
-            "VisitOccurrenceId" : 18,
-            "WBC (10^9/L)" : 10
+            "TreatmentDuration (weeks)" : "25",
+            "VisitOccurrenceId" : "18",
+            "WBC (10^9/L)" : "10.0"
          },
          "project" : {
             "description" : "Mapping file for a CSV with generic clinical data",
@@ -6622,7 +6622,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 25
+                     "value" : 90
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -6749,27 +6749,27 @@
       "id" : "P010:Baseline",
       "info" : {
          "CSV_columns" : {
-            "AgeAtAlcoholExposure" : 28,
+            "AgeAtAlcoholExposure" : "28.0",
             "AgeAtTobaccoExposure" : null,
             "AlcoholUse" : "Yes",
-            "BMI (kg/m^2)" : 20.5,
+            "BMI (kg/m^2)" : "20.5",
             "Disease_1" : "Asthma",
             "Disease_2" : "Diabetes",
             "Disease_3" : "Hypertension",
-            "DrugDose (mg)" : 50,
+            "DrugDose (mg)" : "50",
             "DrugName" : "Lisinopril",
             "Ethnicity" : "Caucasian",
             "EventName" : "Baseline",
-            "Hemoglobin (g/dL)" : 13.9,
+            "Hemoglobin (g/dL)" : "13.9",
             "PatientId" : "P010",
             "PhenotypicFeature_1" : "Emphysema",
             "PhenotypicFeature_2" : "Abnormal heart valve morphology",
-            "Platelets (10^9/L)" : 275,
+            "Platelets (10^9/L)" : "275.0",
             "Sex" : "Male",
             "TobaccoUse" : "No",
-            "TreatmentDuration (weeks)" : 22,
-            "VisitOccurrenceId" : 19,
-            "WBC (10^9/L)" : 9.4
+            "TreatmentDuration (weeks)" : "22",
+            "VisitOccurrenceId" : "19",
+            "WBC (10^9/L)" : "9.4"
          },
          "project" : {
             "description" : "Mapping file for a CSV with generic clinical data",
@@ -6997,7 +6997,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 22
+                     "value" : 50
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",
@@ -7124,27 +7124,27 @@
       "id" : "P010:Treatment",
       "info" : {
          "CSV_columns" : {
-            "AgeAtAlcoholExposure" : 28,
+            "AgeAtAlcoholExposure" : "28.0",
             "AgeAtTobaccoExposure" : null,
             "AlcoholUse" : "Yes",
-            "BMI (kg/m^2)" : 20.5,
+            "BMI (kg/m^2)" : "20.5",
             "Disease_1" : "Asthma",
             "Disease_2" : "Diabetes",
             "Disease_3" : "Hypertension",
-            "DrugDose (mg)" : 50,
+            "DrugDose (mg)" : "50",
             "DrugName" : "Lisinopril",
             "Ethnicity" : "Caucasian",
             "EventName" : "Treatment",
-            "Hemoglobin (g/dL)" : 15.3,
+            "Hemoglobin (g/dL)" : "15.3",
             "PatientId" : "P010",
             "PhenotypicFeature_1" : "Emphysema",
             "PhenotypicFeature_2" : "Abnormal heart valve morphology",
-            "Platelets (10^9/L)" : 390,
+            "Platelets (10^9/L)" : "390.0",
             "Sex" : "Male",
             "TobaccoUse" : "No",
-            "TreatmentDuration (weeks)" : 22,
-            "VisitOccurrenceId" : 20,
-            "WBC (10^9/L)" : 6.7
+            "TreatmentDuration (weeks)" : "22",
+            "VisitOccurrenceId" : "20",
+            "WBC (10^9/L)" : "6.7"
          },
          "project" : {
             "description" : "Mapping file for a CSV with generic clinical data",
@@ -7372,7 +7372,7 @@
                         "id" : "NCIT:C28253",
                         "label" : "Milligram"
                      },
-                     "value" : 22
+                     "value" : 50
                   },
                   "scheduleFrequency" : {
                      "id" : "NCIT:C126101",

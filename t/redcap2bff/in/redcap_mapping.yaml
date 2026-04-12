@@ -18,7 +18,7 @@ project:
 diseases:
   fields: [diagnosis]
   visitId: redcap_event_name
-  dictionary:
+  valueTermLabels:
     'Ulcerative Colitis (UC)': Ulcerative Colitis 
     "Crohn's Disease (CD)": Crohn Disease
   ageOfOnset: 
@@ -29,21 +29,21 @@ diseases:
 # Term: ethnicity
 ethnicity:
   fields: ethnicity
-  dictionary:
+  valueTermLabels:
     Caucasian: White
 
 # Term: exposures
 exposures: 
   fields: [alcohol,smoking,cigarettes_days,cigarettes_years,packyears,smoking_quit]
   visitId: redcap_event_name
-  dictionary:
+  fieldTermLabels:
     alcohol: Alcohol
     smoking: Smoking
     cigarettes_days: Average Number Cigarettes Smoked a Day
     cigarettes_years: Total Years Have Smoked Cigarettes
     packyears: Pack Year
     smoking_quit: Smoking Cessation Year
-  selector:
+  fieldRules:
     #alcohol;anamnesis;;radio;Alcohol drinking habits";"0, Non-drinker | 1, Ex-drinker | 2, occasional drinking | 3, regular drinking | 4, unknown";;;;;;;y;;;;;
     #smoking;anamnesis;;radio;"Smoking habits";"0, Never smoked | 1, Ex-smoker | 2, Current smoker";;;;;;;y;;;;;
     #cigarettes_days;anamnesis;;text;"On average, how many cigarettes do/did you smoke per day?";;;integer;0;300;;"[smoking] = '2' or [smoking] = '1'";;;;;;
@@ -67,21 +67,21 @@ exposures:
 # Term: id
 id:
   fields: [study_id,redcap_event_name]
-  mapping:
-    primary_key: study_id 
+  targetFields:
+    primaryKey: study_id 
 
 # Term: info
 info:
  fields: [study_id,dob,diet,redcap_event_name,age,first_name,last_name,consent,consent_date,consent_noneu,consent_devices,consent_recontact,consent_week2_endo,education,zipcode,consents_and_demographics_complete]
- mapping:
+ targetFields:
    age: age
 
 # Term: interventionsOrProcedures
 interventionsOrProcedures: 
   fields: [surgery_details___1,surgery_details___2,surgery_details___3,surgery_details___4,surgery_details___5,surgery_details___6,surgery_details___7,surgery_details___8,surgery_details___99,endoscopy_performed,endoscopy_complete,intestinal_surgery,partial_mayo,complete_mayo,prev_endosc_dilatation]
-  assignTermIdFromHeader: [surgery_details___1,surgery_details___2,surgery_details___3,surgery_details___4,surgery_details___5,surgery_details___6,surgery_details___7,surgery_details___8,surgery_details___99,endoscopy_performed]
+  useHeaderAsTermLabel: [surgery_details___1,surgery_details___2,surgery_details___3,surgery_details___4,surgery_details___5,surgery_details___6,surgery_details___7,surgery_details___8,surgery_details___99,endoscopy_performed]
   visitId: redcap_event_name
-  dictionary:
+  fieldTermLabels:
     surgery_details___1: Ileocolectomy
     surgery_details___2: Colostomy
     surgery_details___3: Ileostomy
@@ -112,7 +112,7 @@ interventionsOrProcedures:
 measures: 
   fields: [leucocytes,hemoglobin,hematokrit,mcv,mhc,thrombocytes,neutrophils,lymphocytes,eosinophils,creatinine,gfr,bilirubin,gpt,ggt,lipase,crp,iron,il6,calprotectin,nancy_index_acute,nancy_index_chronic,nancy_index_ulceration,endo_mayo]
   visitId: redcap_event_name
-  dictionary:
+  valueTermLabels:
     # Unit
     xx.xx /10^-9 l: Cells per Microliter
     x.xx /10^-9 l: Cells per Microliter
@@ -135,6 +135,7 @@ measures:
     xxxx.x ng/l: Nanogram per Liter
     mg/kg stool: Microgram per Kilogram
     'xx.x %': Percentage
+  fieldTermLabels:
     # Test
     hemoglobin: Hemoglobin Measurement
     leucocytes: Leukocyte Count
@@ -169,7 +170,7 @@ phenotypicFeatures:
   fields: [comorb_asthma,comorb_copd,comorb_ms,comorb_sle,comorb_ra,comorb_pso,comorb_ad,comorb_cancer,comorb_cancer_specified,comorb_hypertension,comorb_diabetes,comorb_lipids,comorb_stroke,comorb_other_ai,comorb_other_ai_specified,immunodeficiency,rectal_bleeding]
   ontology: ncit
   visitId: redcap_event_name
-  dictionary:
+  fieldTermLabels:
     comorb_asthma: Asthma
     comorb_copd: Chronic Obstructive Pulmonary Disease
     comorb_ms: Multiple Sclerosis
@@ -185,6 +186,7 @@ phenotypicFeatures:
     comorb_stroke: Stroke
     comorb_other_ai: Other
     comorb_other_ai_specified: Other
+  valueTermLabels:
     atopic dermatitis: eczema
     cancer: Cancer Patient
     COPD: Chronic Obstructive Pulmonary Disease
@@ -199,9 +201,9 @@ sex:
 # Term: treatments
 treatments:
   fields: [asa_oral_status,aza_oral_status,mtx_oral_status,mp_oral_status,prednisolone_status]
-  assignTermIdFromHeader: [asa_oral_status,aza_oral_status,mtx_oral_status,mp_oral_status,prednisolone_status]
+  useHeaderAsTermLabel: [asa_oral_status,aza_oral_status,mtx_oral_status,mp_oral_status,prednisolone_status]
   visitId: redcap_event_name
-  dictionary:
+  fieldTermLabels:
     asa_oral_status: aspirin 
     aza_oral_status: azathioprine
     mtx_oral_status: methotrexate

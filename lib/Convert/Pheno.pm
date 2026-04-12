@@ -240,7 +240,13 @@ sub bff2omop {
 sub redcap2bff {
     my $self = shift;
 
-    my $data = read_csv( { in => $self->{in_file}, sep => $self->{sep} } );
+    my $data = read_csv(
+        {
+            in             => $self->{in_file},
+            sep            => $self->{sep},
+            coerce_numbers => 0,
+        }
+    );
     my $data_redcap_dict = read_redcap_dict_file(
         {
             redcap_dictionary => $self->{redcap_dictionary},
@@ -524,7 +530,13 @@ sub pxf2omop {
 sub csv2bff {
     my $self = shift;
 
-    my $data = read_csv( { in => $self->{in_file}, sep => $self->{sep} } );
+    my $data = read_csv(
+        {
+            in             => $self->{in_file},
+            sep            => $self->{sep},
+            coerce_numbers => 0,
+        }
+    );
 
     my $data_mapping_file = read_mapping_file(
         {

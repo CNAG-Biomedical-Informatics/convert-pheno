@@ -4,11 +4,11 @@ use strict;
 use warnings;
 use autodie;
 use feature                        qw(say);
+use Convert::Pheno::Tabular::Record;
 use Convert::Pheno::Utils::Default qw(get_defaults);
 use Convert::Pheno::Mapping::BFF::Individuals::Tabular qw(
   get_required_terms
   propagate_fields
-  map_fields_to_redcap_dict
   map_diseases
   map_ethnicity
   map_exposures
@@ -95,6 +95,12 @@ sub do_csv2bff {
 
     # Data structure (hashref) for each individual
     my $individual = {};
+    my $record = Convert::Pheno::Tabular::Record->new(
+        {
+            source => $data_mapping_file->{project}{source},
+            raw    => $participant,
+        }
+    );
 
     # Intialize parameters for most subs
     my $param_sub = {
@@ -103,6 +109,7 @@ sub do_csv2bff {
         project_ontology     => $data_mapping_file->{project}{ontology},
         data_mapping_file    => $data_mapping_file,
         participant          => $participant,
+        record               => $record,
         self                 => $self,
         individual           => $individual,
         term_mapping_cursor  => undef,

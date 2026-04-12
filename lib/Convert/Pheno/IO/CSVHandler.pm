@@ -15,6 +15,7 @@ use IO::Uncompress::Gunzip qw($GunzipError);
 use Data::Dumper;
 use Devel::Size qw(total_size);
 use Convert::Pheno::IO::FileIO qw(io_yaml_or_json);
+use Convert::Pheno::Tabular::REDCap::Dictionary;
 use Convert::Pheno::OMOP::Definitions;
 use Convert::Pheno::Utils::Schema;
 use Convert::Pheno::Mapping::Shared;
@@ -32,55 +33,7 @@ use constant DEVEL_MODE => 0;
 
 sub read_redcap_dictionary {
     my $filepath = shift;
-
-    # Define split record separator from file extension
-    my ($separator) = define_separator( $filepath, undef );
-
-    # We'll create an HoH using as 1D-key the 'Variable / Field Name'
-    my $key = 'Variable / Field Name';
-
-    # We'll be adding the key <_labels>. See sub add_labels
-    my $labels = 'Choices, Calculations, OR Slider Labels';
-
-    my $csv = Text::CSV_XS->new(
-        {
-            sep_char  => $separator,
-            binary    => 1,
-            auto_diag => 1,
-        }
-    );
-
-    my $fh = open_filehandle( $filepath, 'r' );
-    my $headers = $csv->getline($fh);
-    $csv->column_names(@$headers);
-
-    my $hoh = {};
-    while ( my $row = $csv->getline_hr($fh) ) {
-        $row->{_labels} = add_labels( $row->{$labels} );
-        $hoh->{ $row->{$key} } = $row;
-    }
-
-    close $fh;
-
-    return $hoh;
-}
-
-sub add_labels {
-    my $value = shift;
-
-    # *** IMPORTANT ***
-    # This sub can return undef, i.e., $_{labels} = undef
-    # That's OK as we won't perform exists $_{_label}
-    # Note that in $hoh (above) empty columns are  key = ''.
-
-    # Premature return if empty ('' = 0)
-    return undef unless $value;    # perlcritic Severity: 5
-
-    # We'll skip values that don't provide even number of key-values
-    my @tmp = map { s/^\s//; s/\s+$//; $_; } ( split /\||,/, $value );    # perlcritic Severity: 5
-
-    # Return undef for non-valid entries
-    return @tmp % 2 == 0 ? {@tmp} : undef;
+    return Convert::Pheno::Tabular::REDCap::Dictionary->from_file($filepath);
 }
 
 sub read_redcap_dict_file {
@@ -107,8 +60,9 @@ sub read_mapping_file {
     );
     $jv->json_validate;
 
-    # Remap for quick looukup
-    remap_assignTermIdFromHeader($data_mapping_file);
+    # Precompute array-based header rules into hashes for faster lookups in the
+    # tabular mapper.
+    remap_useHeaderAsTermLabel($data_mapping_file);
 
     # Return if succesful
     return $data_mapping_file;
@@ -555,6 +509,8 @@ sub read_csv {
     my $filepath = $arg->{in};
     my $sep      = $arg->{sep};
     my $self     = exists $arg->{self} ? $arg->{self} : { verbose => 0 };
+    my $coerce_numbers =
+      exists $arg->{coerce_numbers} ? $arg->{coerce_numbers} : 1;
 
     # Define split record separator from file extension
     my ($separator) = define_separator( $filepath, $sep );
@@ -614,10 +570,18 @@ sub read_csv {
 "==========================\nRows read (total): $count\n==========================\n\n"
       if $self->{verbose};
 
-    # Coercing the data before returning it
+    # Generic CSV loading defaults to numeric coercion because OMOP-style tabular
+    # inputs are largely typed. Mapping-file workflows opt out so raw strings such
+    # as REDCap choice codes, identifiers, or leading-zero values survive until a
+    # source-aware mapper decides how to interpret them.
     for my $item (@aoh) {
         for my $key ( @{$headers} ) {
-            $item->{$key} = dotify_and_coerce_number( $item->{$key} );
+            if ($coerce_numbers) {
+                $item->{$key} = dotify_and_coerce_number( $item->{$key} );
+            }
+            elsif ( defined $item->{$key} && $item->{$key} eq '' ) {
+                $item->{$key} = undef;
+            }
         }
     }
 
@@ -829,12 +793,12 @@ sub get_headers {
     return \@headers;
 }
 
-sub remap_assignTermIdFromHeader {
+sub remap_useHeaderAsTermLabel {
     my $hash = shift;
     for my $key (%$hash) {
-        if ( exists $hash->{$key}{assignTermIdFromHeader} ) {
-            $hash->{$key}{assignTermIdFromHeader_hash} =
-              array_ref_to_hash( $hash->{$key}{assignTermIdFromHeader} );
+        if ( exists $hash->{$key}{useHeaderAsTermLabel} ) {
+            $hash->{$key}{useHeaderAsTermLabel_hash} =
+              array_ref_to_hash( $hash->{$key}{useHeaderAsTermLabel} );
         }
     }
     return 1;
@@ -844,7 +808,7 @@ sub array_ref_to_hash {
     my $array_ref = shift;
 
     # Check if the input is an array reference
-    die "Expected an array reference at <assignTermIdFromHeader>"
+    die "Expected an array reference at <useHeaderAsTermLabel>"
       unless ref($array_ref) eq 'ARRAY';
 
     my %hash;

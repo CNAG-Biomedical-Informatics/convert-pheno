@@ -326,8 +326,9 @@ sub map_reference_range {
         map { $_ => undef } qw(low high)
     };    # Initialize low,high to undef
     for my $range (qw (low high)) {
+        my $meta = $redcap_dict->field_meta($field);
         $hashref->{$range} =
-          dotify_and_coerce_number( $redcap_dict->{$field}{ $hash{$range} } );
+          dotify_and_coerce_number( $meta->{ $hash{$range} } );
     }
 
     return $hashref;
