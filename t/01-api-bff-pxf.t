@@ -4,12 +4,12 @@ use warnings;
 
 use lib qw(./lib ../lib t/lib);
 use Test::More;
+use Convert::Pheno::IO::CSVHandler qw(get_headers);
 use Test::ConvertPheno qw(
   build_convert
   read_first_json_object
   temp_output_file
   write_json_file
-  csv_headers_from_file
   write_csv_rows
   structured_files_match
 );
@@ -79,7 +79,7 @@ for my $case (@cases) {
 
     if ( $case->{writer} eq 'csv' ) {
         my $data = $convert->${ \$case->{method} };
-        my $headers = csv_headers_from_file( $case->{out_file} );
+        my $headers = get_headers($data);
         write_csv_rows( $tmp_file, $headers, $data );
     }
     else {
@@ -111,6 +111,23 @@ for my $case (@cases) {
     $got->{$_} = undef for qw(id metaData);
 
     is_deeply( $got, $pxf, 'bff2pxf module conversion matches fixture' );
+}
+
+{
+    use Convert::Pheno::CSV qw(do_pxf2csv);
+    use Convert::Pheno::IO::FileIO qw(io_yaml_or_json);
+
+    my $pxf = read_first_json_object('t/pxf2bff/in/pxf.json');
+    my $row = do_pxf2csv( bless( {}, 'Convert::Pheno' ), $pxf );
+    my @ref_keys = grep { ref $row->{$_} } keys %{$row};
+
+    is_deeply( \@ref_keys, [], 'pxf2csv normalizes folded ref values to CSV-safe scalars' );
+    is( $row->{'diseases:0.excluded'}, 'false', 'pxf2csv preserves folded JSON booleans as scalar text' );
+    is(
+        $row->{'interpretations:1.diagnosis.genomicInterpretations:0.variantInterpretation.variationDescriptor.variation.allele.literalSequenceExpression'},
+        '{}',
+        'pxf2csv preserves folded empty hashes as JSON text'
+    );
 }
 
 done_testing();

@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use autodie;
 use feature                        qw(say);
+use JSON::XS;
 use Convert::Pheno::Tabular::Record;
 use Convert::Pheno::Utils::Default qw(get_defaults);
 use Convert::Pheno::Mapping::BFF::Individuals::Tabular qw(
@@ -28,6 +29,7 @@ our @EXPORT = qw(do_bff2csv do_pxf2csv do_csv2bff);
 #$Data::Dumper::Sortkeys = 1;
 
 my $DEFAULT = get_defaults();
+my $JSON    = JSON::XS->new->canonical;
 
 ###############
 ###############
@@ -43,6 +45,7 @@ sub do_bff2csv {
 
     # Flatten the hash to 1D
     my $csv = fold($bff);
+    _normalize_folded_csv_values($csv);
 
     # Return the flattened hash
     return $csv;
@@ -62,9 +65,32 @@ sub do_pxf2csv {
 
     # Flatten the hash to 1D
     my $csv = fold($pxf);
+    _normalize_folded_csv_values($csv);
 
     # Return the flattened hash
     return $csv;
+}
+
+sub _normalize_folded_csv_values {
+    my ($row) = @_;
+
+    # CSV output cannot preserve nested Perl refs. When Hash::Fold leaves a
+    # boolean/object/array/hash at the leaf, convert it to a JSON literal so
+    # headers stay stable and the value is still inspectable by the user.
+    for my $key ( keys %{$row} ) {
+        next unless ref $row->{$key};
+        my $type = ref $row->{$key};
+
+        if ( $type =~ /::Boolean$/ ) {
+            $row->{$key} = $row->{$key} ? 'true' : 'false';
+            next;
+        }
+
+        my $encoded = eval { $JSON->encode( $row->{$key} ) };
+        $row->{$key} = defined $encoded ? $encoded : q{};
+    }
+
+    return $row;
 }
 
 ###############
