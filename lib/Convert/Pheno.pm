@@ -18,7 +18,7 @@ use File::ShareDir::ProjectDistDir qw(dist_dir);
 use Convert::Pheno::IO::CSVHandler;
 use Convert::Pheno::IO::FileIO;
 use Convert::Pheno::Context;
-use Convert::Pheno::Runner qw(resolve_operation execute_operation);
+use Convert::Pheno::Runner qw(run_operation);
 use Convert::Pheno::Emit::OMOP qw(
   dispatcher_open_stream_out
   transform_item
@@ -184,7 +184,7 @@ sub BUILD {
 
 sub bff2pxf {
     my $self = shift;
-    return $self->array_dispatcher;
+    return _run_primary_view($self);
 }
 
 #############
@@ -195,7 +195,7 @@ sub bff2pxf {
 
 sub bff2csv {
     my $self = shift;
-    return $self->array_dispatcher;
+    return _run_primary_view($self);
 }
 
 #############
@@ -206,7 +206,7 @@ sub bff2csv {
 
 sub bff2jsonf {
     my $self = shift;
-    return $self->array_dispatcher;
+    return _run_primary_view($self);
 }
 
 ##############
@@ -217,7 +217,7 @@ sub bff2jsonf {
 
 sub bff2jsonld {
     my $self = shift;
-    return $self->array_dispatcher;
+    return _run_primary_view($self);
 }
 
 ##############
@@ -228,7 +228,7 @@ sub bff2jsonld {
 
 sub bff2omop {
     my $self = shift;
-    return merge_omop_tables( $self->array_dispatcher );
+    return merge_omop_tables( _run_primary_view($self) );
 }
 
 ################
@@ -266,7 +266,7 @@ sub redcap2bff {
     $self->{metaData}          = get_metaData($self);
     $self->{convertPheno}      = get_info($self);
 
-    return $self->array_dispatcher;
+    return _run_primary_view($self);
 }
 
 ################
@@ -277,15 +277,11 @@ sub redcap2bff {
 
 sub redcap2pxf {
     my $self = shift;
-
-    $self->{method} = 'redcap2bff';
-    my $bff = redcap2bff($self);
-
-    $self->{method}      = 'bff2pxf';
-    $self->{data}        = $bff;
-    $self->{in_textfile} = 0;
-
-    return $self->array_dispatcher;
+    return _convert_via_bff(
+        $self,
+        via_method => 'redcap2bff',
+        to_method  => 'bff2pxf',
+    );
 }
 
 #################
@@ -296,15 +292,12 @@ sub redcap2pxf {
 
 sub redcap2omop {
     my $self = shift;
-
-    $self->{method} = 'redcap2bff';
-    my $bff = redcap2bff($self);
-
-    $self->{method}      = 'bff2omop';
-    $self->{data}        = $bff;
-    $self->{in_textfile} = 0;
-
-    return merge_omop_tables( $self->array_dispatcher );
+    return _convert_via_bff(
+        $self,
+        via_method => 'redcap2bff',
+        to_method  => 'bff2omop',
+        merge_omop => 1,
+    );
 }
 
 ##########################################################
@@ -379,7 +372,7 @@ sub omop2bff {
         );
     }
 
-    return $self->array_dispatcher;
+    return _run_primary_view($self);
 }
 
 ##############
@@ -393,14 +386,11 @@ sub omop2pxf {
 
     if ( exists $self->{data} ) {
         $self->{omop_cli} = 0;
-        $self->{method}   = 'omop2bff';
-        my $bff = omop2bff($self);
-
-        $self->{method}      = 'bff2pxf';
-        $self->{data}        = $bff;
-        $self->{in_textfile} = 0;
-
-        return $self->array_dispatcher;
+        return _convert_via_bff(
+            $self,
+            via_method => 'omop2bff',
+            to_method  => 'bff2pxf',
+        );
     }
 
     $self->{method_ori} = 'omop2pxf';
@@ -441,7 +431,7 @@ sub cdisc2bff {
     $self->{metaData}          = get_metaData($self);
     $self->{convertPheno}      = get_info($self);
 
-    return $self->array_dispatcher;
+    return _run_primary_view($self);
 }
 
 ###############
@@ -452,15 +442,11 @@ sub cdisc2bff {
 
 sub cdisc2pxf {
     my $self = shift;
-
-    $self->{method} = 'cdisc2bff';
-    my $bff = cdisc2bff($self);
-
-    $self->{method}      = 'bff2pxf';
-    $self->{data}        = $bff;
-    $self->{in_textfile} = 0;
-
-    return $self->array_dispatcher;
+    return _convert_via_bff(
+        $self,
+        via_method => 'cdisc2bff',
+        to_method  => 'bff2pxf',
+    );
 }
 
 ################
@@ -471,15 +457,12 @@ sub cdisc2pxf {
 
 sub cdisc2omop {
     my $self = shift;
-
-    $self->{method} = 'cdisc2bff';
-    my $bff = cdisc2bff($self);
-
-    $self->{method}      = 'bff2omop';
-    $self->{data}        = $bff;
-    $self->{in_textfile} = 0;
-
-    return merge_omop_tables( $self->array_dispatcher );
+    return _convert_via_bff(
+        $self,
+        via_method => 'cdisc2bff',
+        to_method  => 'bff2omop',
+        merge_omop => 1,
+    );
 }
 
 #############
@@ -499,7 +482,7 @@ sub pxf2bff {
             entities      => ['individuals'],
         }
     );
-    return $self->array_dispatcher;
+    return _run_primary_view($self);
 }
 
 ##############
@@ -510,15 +493,12 @@ sub pxf2bff {
 
 sub pxf2omop {
     my $self = shift;
-
-    $self->{method} = 'pxf2bff';
-    my $bff = pxf2bff($self);
-
-    $self->{method}      = 'bff2omop';
-    $self->{data}        = $bff;
-    $self->{in_textfile} = 0;
-
-    return merge_omop_tables( $self->array_dispatcher );
+    return _convert_via_bff(
+        $self,
+        via_method => 'pxf2bff',
+        to_method  => 'bff2omop',
+        merge_omop => 1,
+    );
 }
 
 #############
@@ -551,7 +531,7 @@ sub csv2bff {
     $self->{metaData}          = get_metaData($self);
     $self->{convertPheno}      = get_info($self);
 
-    return $self->array_dispatcher;
+    return _run_primary_view($self);
 }
 
 #############
@@ -562,15 +542,11 @@ sub csv2bff {
 
 sub csv2pxf {
     my $self = shift;
-
-    $self->{method} = 'csv2bff';
-    my $bff = csv2bff($self);
-
-    $self->{method}      = 'bff2pxf';
-    $self->{data}        = $bff;
-    $self->{in_textfile} = 0;
-
-    return $self->array_dispatcher;
+    return _convert_via_bff(
+        $self,
+        via_method => 'csv2bff',
+        to_method  => 'bff2pxf',
+    );
 }
 
 ##############
@@ -581,15 +557,12 @@ sub csv2pxf {
 
 sub csv2omop {
     my $self = shift;
-
-    $self->{method} = 'csv2bff';
-    my $bff = csv2bff($self);
-
-    $self->{method}      = 'bff2omop';
-    $self->{data}        = $bff;
-    $self->{in_textfile} = 0;
-
-    return merge_omop_tables( $self->array_dispatcher );
+    return _convert_via_bff(
+        $self,
+        via_method => 'csv2bff',
+        to_method  => 'bff2omop',
+        merge_omop => 1,
+    );
 }
 
 #############
@@ -600,7 +573,7 @@ sub csv2omop {
 
 sub pxf2csv {
     my $self = shift;
-    return $self->array_dispatcher;
+    return _run_primary_view($self);
 }
 
 #############
@@ -611,7 +584,7 @@ sub pxf2csv {
 
 sub pxf2jsonf {
     my $self = shift;
-    return $self->array_dispatcher;
+    return _run_primary_view($self);
 }
 
 ##############
@@ -622,7 +595,7 @@ sub pxf2jsonf {
 
 sub pxf2jsonld {
     my $self = shift;
-    return $self->array_dispatcher;
+    return _run_primary_view($self);
 }
 
 #################
@@ -642,148 +615,93 @@ sub _dispatcher_open_stream_out {
     return dispatcher_open_stream_out(@_);
 }
 
-sub array_dispatcher {
-    my $self = shift;
-
-    my $in_data = _dispatcher_input_data($self);
-    my $operation = resolve_operation($self);
-
-    open_connections_SQLite($self) if $self->{method} ne 'bff2pxf';
-
-    # Canonical JSON sorts object keys lexicographically, so top-level field order
-    # can differ between records when some individuals have extra fields.
-    my $json   = JSON::XS->new->canonical->pretty;
-    my $stream = _dispatcher_open_stream_out($self);
-
-    my $out_data;  # IMPORTANT: can be ARRAYREF or scalar, matching old behavior
-
-    my $emit_array_item = sub {
-        my ($obj) = @_;
-        return unless $obj;
-
-        if ($stream) {
-            print { $stream->{fh} } ",\n" unless $stream->{first};
-            _transform_item($self, $obj, $stream->{fh}, 1, $json);
-            $stream->{first} = 0;
-            return;
-        }
-
-        push @{ $out_data }, $obj;
-    };
-
-    if (ref($in_data) eq 'ARRAY') {
-        say "$self->{method}: ARRAY" if $self->{debug};
-
-        $out_data = [];  # array mode returns arrayref (as before)
-
-        my $total    = 0;
-        my $elements = scalar @$in_data;
-
-        for (my $i = 0; $i < $elements; $i++) {
-            my $count = $i + 1;
-            my $item  = $in_data->[$i];
-            $self->{current_row} = $count;
-
-            say "[$count] ARRAY ELEMENT from $elements" if $self->{debug};
-
-            my $res = execute_operation( $self, $operation, $item );
-            if ($res) {
-                $total++;
-                say " * [$count] ARRAY ELEMENT is defined" if $self->{debug};
-                $emit_array_item->($res);
-
-                last if ( $self->{method} eq 'omop2bff'
-                       && $self->{max_lines_sql}
-                       && $total >= $self->{max_lines_sql} );
-            }
-        }
-
-        @$in_data = ();  # preserve old side effect
-
-        say "==============\nIndividuals total:     $total\n"
-          if ( $self->{verbose} && $self->{method} eq 'omop2bff' );
-    }
-    else {
-        say "$self->{method}: NOT ARRAY" if $self->{debug};
-        $self->{current_row} = 1;
-
-        my $res = execute_operation( $self, $operation, $in_data );
-
-        if ($stream) {
-            # stream mode expects array output; a single object is one element in array
-            if ($res) {
-                _transform_item($self, $res, $stream->{fh}, 1, $json);
-                $stream->{first} = 0;
-            }
-            $out_data = 1;  # keep your old "return 1" semantics in streaming after closing
-        }
-        else {
-            # scalar mode returns scalar (HASHREF), matching old behavior
-            $out_data = $res;
-        }
-    }
-
-    close_connections_SQLite($self) unless $self->{method} eq 'bff2pxf';
-    finalize_search_audit($self);
-    delete $self->{current_row};
-
-    if ($stream) {
-        finalize_stream_out($stream);
-        return 1;
-    }
-
-    return $out_data;
+sub _run_primary_view {
+    my ($self) = @_;
+    return run_operation(
+        $self,
+        _dispatcher_input_data($self),
+        view => 'primary',
+    );
 }
 
-sub bundle_dispatcher {
-    my $self = shift;
-
-    my $in_data    = _dispatcher_input_data($self);
-    my $operation  = resolve_operation($self);
-    die "Method <$self->{method}> does not support bundle dispatch\n"
-      unless $operation->{type} eq 'bundle';
-
-    my $context = $self->{conversion_context}
-      || Convert::Pheno::Context->from_self(
+sub _run_bundle_view {
+    my ($self) = @_;
+    return run_operation(
         $self,
-        {
-            source_format => $self->{method} =~ /^omop/ ? 'omop' : 'pxf',
-            target_format => 'beacon',
-            entities      => $self->{entities},
-        }
-      );
+        _dispatcher_input_data($self),
+        view => 'bundle',
+    );
+}
 
-    my $bundle = Convert::Pheno::Model::Bundle->new(
-        {
-            context  => $context,
-            entities => $self->{entities},
+sub _with_temp_self_fields {
+    my ( $self, $fields, $code ) = @_;
+
+    my %state;
+    for my $field ( keys %{$fields} ) {
+        $state{$field} = {
+            had   => exists $self->{$field} ? 1 : 0,
+            value => exists $self->{$field} ? $self->{$field} : undef,
+        };
+        $self->{$field} = $fields->{$field};
+    }
+
+    my ( $ok, $err, @ret );
+    my $wantarray = wantarray;
+    $ok = eval {
+        if ( !defined $wantarray ) {
+            $code->();
+            @ret = ();
+        }
+        elsif ($wantarray) {
+            @ret = $code->();
+        }
+        else {
+            $ret[0] = $code->();
+        }
+        1;
+    };
+    $err = $@;
+
+    for my $field ( keys %{$fields} ) {
+        if ( $state{$field}{had} ) {
+            $self->{$field} = $state{$field}{value};
+        }
+        else {
+            delete $self->{$field};
+        }
+    }
+
+    die $err unless $ok;
+    return if !defined $wantarray;
+    return $wantarray ? @ret : $ret[0];
+}
+
+sub _convert_via_bff {
+    my ( $self, %arg ) = @_;
+    my $via_method = $arg{via_method};
+
+    my $bff = _with_temp_self_fields(
+        $self,
+        { method => $via_method },
+        sub {
+            return $self->$via_method();
         }
     );
 
-    open_connections_SQLite($self) if $self->{method} ne 'bff2pxf';
-
-    my @items = ref($in_data) eq 'ARRAY' ? @$in_data : ($in_data);
-
-    for ( my $i = 0; $i < @items; $i++ ) {
-        my $item = $items[$i];
-        $self->{current_row} = $i + 1;
-        my $item_bundle = $operation->{run}->( $self, $item );
-        for my $entity ( @{ $self->{entities} } ) {
-            for my $entry ( @{ $item_bundle->entities($entity) } ) {
-                $bundle->add_entity( $entity => $entry );
-            }
+    # Compound CLI commands stay stable, but internally they are a
+    # simple two-step pipeline through the BFF intermediate.
+    return _with_temp_self_fields(
+        $self,
+        {
+            method      => $arg{to_method},
+            data        => $bff,
+            in_textfile => 0,
+        },
+        sub {
+            my $out = _run_primary_view($self);
+            return $arg{merge_omop} ? merge_omop_tables($out) : $out;
         }
-    }
-
-    if ( ref($in_data) eq 'ARRAY' ) {
-        @$in_data = ();
-    }
-
-    close_connections_SQLite($self) unless $self->{method} eq 'bff2pxf';
-    finalize_search_audit($self);
-    delete $self->{current_row};
-
-    return $bundle;
+    );
 }
 
 sub _transform_item {

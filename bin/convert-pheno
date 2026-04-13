@@ -284,7 +284,7 @@ sub execute_conversion {
     my $method = $l_data->{method};
 
     if ($entity_mode) {
-        my $bundle = $convert->bundle_dispatcher;
+        my $bundle = $convert->_run_bundle_view;
         return ( undef, $bundle );
     }
 

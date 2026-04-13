@@ -7,7 +7,7 @@ use Test::More;
 use Test::Exception;
 use File::Temp qw(tempfile);
 use Convert::Pheno;
-use Convert::Pheno::Runner qw(resolve_operation execute_operation);
+use Convert::Pheno::Runner qw(resolve_operation run_operation);
 
 my $orig_warn_handler = $SIG{__WARN__};
 local $SIG{__WARN__} = sub {
@@ -23,7 +23,7 @@ local $SIG{__WARN__} = sub {
     local *Convert::Pheno::csv2bff    = sub { return [ { id => 'csv1' } ] };
     local *Convert::Pheno::pxf2bff    = sub { return [ { id => 'p1' } ] };
     local *Convert::Pheno::omop2bff   = sub { return [ { id => 'o1' } ] };
-    local *Convert::Pheno::array_dispatcher = sub {
+    local *Convert::Pheno::_run_primary_view = sub {
         my ($self) = @_;
         return {
             method      => $self->{method},
@@ -142,7 +142,7 @@ local $SIG{__WARN__} = sub {
     my $convert = Convert::Pheno->new( { method => 'omop2bff' } );
     my $op = resolve_operation($convert);
     is( $op->{type}, 'bundle', 'runner resolves omop2bff as a bundle operation' );
-    is( $op->{entity}, 'individuals', 'runner resolves omop2bff bundle entity' );
+    is_deeply( $op->{default_entities}, ['individuals'], 'runner resolves omop2bff default bundle entities' );
 
     local *Convert::Pheno::OMOP::ToBFF::run_omop_to_bundle = sub {
         my ( $self, $input, $context ) = @_;
@@ -151,14 +151,65 @@ local $SIG{__WARN__} = sub {
         return $bundle;
     };
 
-    my $res = execute_operation( $convert, $op, { id => 'bundle-1' } );
-    is_deeply( $res, { id => 'bundle-1' }, 'runner unwraps bundle operations to legacy output' );
+    local *Convert::Pheno::open_connections_SQLite       = sub { return 1 };
+    local *Convert::Pheno::close_connections_SQLite      = sub { return 1 };
+    local *Convert::Pheno::finalize_search_audit         = sub { return 1 };
+    local *Convert::Pheno::_dispatcher_open_stream_out   = sub { return undef };
+
+    my $res = run_operation( $convert, { id => 'bundle-1' }, operation => $op, view => 'primary' );
+    is_deeply( $res, { id => 'bundle-1' }, 'runner unwraps bundle operations to the primary view' );
 }
 
 {
     my $convert = Convert::Pheno->new( { method => 'bff2csv' } );
     my $op = resolve_operation($convert);
-    is( $op->{type}, 'legacy', 'runner resolves bff2csv as a legacy operation' );
+    is( $op->{type}, 'direct', 'runner resolves bff2csv as a direct operation' );
+}
+
+{
+    no warnings 'redefine';
+
+    my $convert = Convert::Pheno->new(
+        {
+            method   => 'omop2bff',
+            entities => [ 'individuals', 'biosamples' ],
+        }
+    );
+
+    local *Convert::Pheno::open_connections_SQLite       = sub { return 1 };
+    local *Convert::Pheno::close_connections_SQLite      = sub { return 1 };
+    local *Convert::Pheno::finalize_search_audit         = sub { return 1 };
+    local *Convert::Pheno::_dispatcher_open_stream_out   = sub { return undef };
+
+    local *Convert::Pheno::OMOP::ToBFF::run_omop_to_bundle = sub {
+        my ( $self, $input, $context ) = @_;
+        my $bundle = Convert::Pheno::Model::Bundle->new(
+            {
+                context  => $context,
+                entities => $context->entities,
+            }
+        );
+        $bundle->add_entity( individuals => { id => $input->{id} } );
+        $bundle->add_entity( biosamples  => { id => "bio-$input->{id}" } );
+        return $bundle;
+    };
+
+    my $bundle = run_operation(
+        $convert,
+        [ { id => 'i1' }, { id => 'i2' } ],
+        view => 'bundle',
+    );
+
+    is_deeply(
+        $bundle->entities('individuals'),
+        [ { id => 'i1' }, { id => 'i2' } ],
+        'runner merges individuals across bundle operations'
+    );
+    is_deeply(
+        $bundle->entities('biosamples'),
+        [ { id => 'bio-i1' }, { id => 'bio-i2' } ],
+        'runner merges secondary entities across bundle operations'
+    );
 }
 
 done_testing();

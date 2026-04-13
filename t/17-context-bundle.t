@@ -53,7 +53,7 @@ use Convert::Pheno::PXF::ToBFF qw(do_pxf2bff run_pxf_to_bundle map_pxf_to_indivi
     ok( $bundle->add_entity( individuals => { id => 'i1' } ), 'bundle accepts individuals' );
     is_deeply( $bundle->entities('individuals'), [ { id => 'i1' } ], 'bundle stores entity arrays' );
     is_deeply( $bundle->entities('biosamples'), [], 'bundle preinitializes requested entity arrays' );
-    is_deeply( $bundle->legacy_primary_entity('individuals'), { id => 'i1' }, 'bundle exposes legacy primary entity view' );
+    is_deeply( $bundle->primary_entity('individuals'), { id => 'i1' }, 'bundle exposes primary entity view' );
 }
 
 {
@@ -82,8 +82,8 @@ use Convert::Pheno::PXF::ToBFF qw(do_pxf2bff run_pxf_to_bundle map_pxf_to_indivi
     my $bundle = run_omop_to_bundle( $convert, $participant, $convert->{conversion_context} );
     is_deeply( $bundle->entities('individuals'), [ { id => 7 } ], 'run_omop_to_bundle builds a bundle' );
 
-    my $legacy = do_omop2bff( $convert, $participant );
-    is_deeply( $legacy, { id => 7 }, 'do_omop2bff unwraps the bundle to the legacy result' );
+    my $primary = do_omop2bff( $convert, $participant );
+    is_deeply( $primary, { id => 7 }, 'do_omop2bff unwraps the bundle to the primary result' );
 }
 
 {
@@ -157,8 +157,8 @@ use Convert::Pheno::PXF::ToBFF qw(do_pxf2bff run_pxf_to_bundle map_pxf_to_indivi
         'run_pxf_to_bundle includes requested biosamples in the bundle'
     );
 
-    my $legacy = do_pxf2bff( $convert, $pxf );
-    is_deeply( $legacy, { id => 'pxf-1' }, 'do_pxf2bff unwraps the bundle to the legacy result' );
+    my $primary = do_pxf2bff( $convert, $pxf );
+    is_deeply( $primary, { id => 'pxf-1' }, 'do_pxf2bff unwraps the bundle to the primary result' );
 }
 
 done_testing();

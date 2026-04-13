@@ -40,7 +40,7 @@ sub entities {
     return $self->{$entity_type};
 }
 
-sub legacy_primary_entity {
+sub primary_entity {
     my ( $self, $entity_type ) = @_;
     my $entities = $self->entities($entity_type);
     return unless @$entities;

@@ -17,7 +17,7 @@ our @EXPORT_OK = qw(do_pxf2bff run_pxf_to_bundle map_pxf_to_individual);
 sub do_pxf2bff {
     my ( $self, $data ) = @_;
     my $bundle = run_pxf_to_bundle( $self, $data, $self->{conversion_context} );
-    return $bundle->legacy_primary_entity('individuals');
+    return $bundle->primary_entity('individuals');
 }
 
 sub run_pxf_to_bundle {
