@@ -9,7 +9,7 @@
 
 In practice, the project is centered on a **Perl module** and a **command-line tool** that work with text files such as:
 
-- BFF `individuals` JSON/YAML
+- BFF `individuals` JSON/YAML, plus entity-aware BFF output for `biosamples`, `datasets`, and `cohorts`
 - Phenopackets v2 JSON/YAML
 - OMOP-CDM SQL or CSV exports
 - REDCap CSV exports
@@ -26,6 +26,7 @@ Typical examples are:
 
 ```bash
 convert-pheno -ipxf pxf.json -obff individuals.json
+convert-pheno -ipxf pxf.json --entities individuals biosamples datasets cohorts --out-dir out/
 convert-pheno -iomop dump.sql.gz -obff individuals.json.gz --stream --ohdsi-db
 ```
 

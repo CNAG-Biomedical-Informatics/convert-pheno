@@ -21,7 +21,7 @@ use Convert::Pheno::Utils::Schema;
 use Convert::Pheno::Mapping::Shared;
 use Exporter 'import';
 our @EXPORT =
-  qw(read_csv read_csv_stream read_redcap_dict_file read_mapping_file read_sqldump read_sqldump_stream sqldump2csv transpose_omop_data_structure write_csv open_filehandle load_exposures get_headers convert_table_aoh_to_hoh);
+  qw(read_csv read_csv_stream read_redcap_dict_file read_mapping_file select_mapping_entity read_sqldump read_sqldump_stream sqldump2csv transpose_omop_data_structure write_csv open_filehandle load_exposures get_headers convert_table_aoh_to_hoh);
 
 use constant DEVEL_MODE => 0;
 
@@ -60,12 +60,38 @@ sub read_mapping_file {
     );
     $jv->json_validate;
 
-    # Precompute array-based header rules into hashes for faster lookups in the
-    # tabular mapper.
-    remap_useHeaderAsTermLabel($data_mapping_file);
-
     # Return if succesful
     return $data_mapping_file;
+}
+
+sub select_mapping_entity {
+    my ( $mapping_file, $entity ) = @_;
+    $entity ||= 'individuals';
+
+    die "Expected a hash reference for the mapping file"
+      unless ref($mapping_file) eq 'HASH';
+
+    die "The mapping file must contain a top-level <beacon> section.\n"
+      unless exists $mapping_file->{beacon}
+      && ref( $mapping_file->{beacon} ) eq 'HASH';
+
+    die "The mapping file must contain a <beacon.$entity> section.\n"
+      unless exists $mapping_file->{beacon}{$entity}
+      && ref( $mapping_file->{beacon}{$entity} ) eq 'HASH';
+
+    my $selected = $mapping_file->{beacon}{$entity};
+
+    my %entity_mapping = %{$selected};
+    $entity_mapping{project} = $mapping_file->{project}
+      if exists $mapping_file->{project}
+      && ref( $mapping_file->{project} ) eq 'HASH'
+      && !exists $entity_mapping{project};
+
+    # Precompute array-based header rules into hashes for faster lookups in the
+    # tabular mapper, but only on the selected entity mapping.
+    remap_useHeaderAsTermLabel( \%entity_mapping );
+
+    return \%entity_mapping;
 }
 
 sub read_sqldump {

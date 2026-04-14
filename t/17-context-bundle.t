@@ -5,6 +5,7 @@ use warnings;
 use lib qw(./lib ../lib t/lib);
 use Test::More;
 
+use Convert::Pheno::BFF::DerivedEntities qw(execution_entities);
 use Convert::Pheno::Context;
 use Convert::Pheno::Model::Bundle;
 use Convert::Pheno::OMOP::ToBFF qw(do_omop2bff run_omop_to_bundle map_participant extract_participant_biosamples);
@@ -41,6 +42,14 @@ use Convert::Pheno::PXF::ToBFF qw(do_pxf2bff run_pxf_to_bundle map_pxf_to_indivi
     is_deeply( $context->entities, ['individuals'], 'context stores requested entities' );
     is( $context->options->{method}, 'omop2bff', 'context stores execution options' );
     is( $context->resources->{metaData}{created}, 'now', 'context stores resources' );
+}
+
+{
+    is_deeply(
+        execution_entities( ['datasets', 'cohorts'] ),
+        [ 'individuals', 'datasets', 'cohorts' ],
+        'derived entity requests keep individuals in the internal bundle'
+    );
 }
 
 {

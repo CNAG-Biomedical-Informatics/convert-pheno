@@ -12,7 +12,11 @@ use Convert::Pheno::OMOP::ToBFF qw(do_omop2bff);
     local *Convert::Pheno::OMOP::ToBFF::Individuals::map2ohdsi = sub {
         my ($arg) = @_;
         my $id = $arg->{concept_id};
-        return { id => "OHDSI:$id", label => "label-$id" };
+        my %labels = (
+            9000 => 'Country of birth',
+            9001 => 'Italy',
+        );
+        return { id => "OHDSI:$id", label => $labels{$id} // "label-$id" };
     };
 
     local *Convert::Pheno::OMOP::ToBFF::Individuals::map_ontology_term = sub {
@@ -68,6 +72,14 @@ use Convert::Pheno::OMOP::ToBFF qw(do_omop2bff);
             },
         ],
         OBSERVATION => [
+            {
+                person_id               => 5,
+                observation_concept_id  => 9000,
+                observation_date        => '2014-04-01',
+                value_as_concept_id     => 9001,
+                observation_source_value => 'Country of birth',
+                visit_occurrence_id     => 10,
+            },
             {
                 person_id               => 5,
                 observation_concept_id  => 1001,
@@ -140,7 +152,7 @@ use Convert::Pheno::OMOP::ToBFF qw(do_omop2bff);
 
     is( $got->{id}, '5', 'maps person id as string' );
     is( $got->{ethnicity}{label}, 'African', 'maps race_source_value to ethnicity' );
-    is( $got->{geographicOrigin}{label}, 'Spanish', 'maps ethnicity_source_value to geographicOrigin' );
+    is( $got->{geographicOrigin}{label}, 'Italy', 'prefers country-of-birth observations over ethnicity_source_value for geographicOrigin' );
     ok( exists $got->{info}{metaData}, 'includes metadata when not in test mode' );
     ok( exists $got->{info}{convertPheno}, 'includes convertPheno when not in test mode' );
     is( $got->{info}{convertPheno}{beaconSchemaVersion}, '2.0.0', 'includes Beacon schema version in convertPheno info' );
@@ -168,6 +180,42 @@ use Convert::Pheno::OMOP::ToBFF qw(do_omop2bff);
     is( scalar @{ $got->{treatments} }, 1, 'maps treatments' );
     is( $got->{treatments}[0]{routeOfAdministration}{id}, 'NCIT:C126101', 'uses default treatment route' );
     is( $got->{treatments}[0]{_visit}{occurrence_id}, 10, 'attaches visit info to treatments' );
+}
+
+{
+    no warnings 'redefine';
+
+    local *Convert::Pheno::OMOP::ToBFF::Individuals::map2ohdsi = sub {
+        my ($arg) = @_;
+        my $id = $arg->{concept_id};
+        return { id => "OHDSI:$id", label => "label-$id" };
+    };
+
+    local *Convert::Pheno::OMOP::ToBFF::Individuals::map_ontology_term = sub {
+        my ($arg) = @_;
+        return { id => "NCIT:$arg->{query}", label => $arg->{query} };
+    };
+
+    my $self = bless(
+        {
+            data_ohdsi_dict => {},
+            stream          => 0,
+            test            => 1,
+        },
+        'Convert::Pheno'
+    );
+
+    my $participant = {
+        PERSON => {
+            person_id              => 6,
+            birth_datetime         => '2000-01-01 00:00:00',
+            gender_concept_id      => 8507,
+            ethnicity_source_value => 'Spanish',
+        },
+    };
+
+    my $got = do_omop2bff( $self, $participant );
+    is( $got->{geographicOrigin}{label}, 'Spanish', 'falls back to ethnicity_source_value when OBSERVATION is absent' );
 }
 
 {

@@ -165,6 +165,7 @@ has [
 
 has [qw /data method/] => ( is => 'rw' );
 has entities => ( is => 'ro', default => sub { ['individuals'] } );
+has derived_entity_overrides => ( is => 'ro', default => sub { {} } );
 
 ##########################################
 # End declaring attributes for the class #
@@ -239,33 +240,7 @@ sub bff2omop {
 
 sub redcap2bff {
     my $self = shift;
-
-    my $data = read_csv(
-        {
-            in             => $self->{in_file},
-            sep            => $self->{sep},
-            coerce_numbers => 0,
-        }
-    );
-    my $data_redcap_dict = read_redcap_dict_file(
-        {
-            redcap_dictionary => $self->{redcap_dictionary},
-        }
-    );
-    my $data_mapping_file = read_mapping_file(
-        {
-            mapping_file         => $self->{mapping_file},
-            self_validate_schema => $self->{self_validate_schema},
-            schema_file          => $self->{schema_file}
-        }
-    );
-
-    $self->{data}              = $data;
-    $self->{data_redcap_dict}  = $data_redcap_dict;
-    $self->{data_mapping_file} = $data_mapping_file;
-    $self->{metaData}          = get_metaData($self);
-    $self->{convertPheno}      = get_info($self);
-
+    _prepare_redcap2bff_input($self);
     return _run_primary_view($self);
 }
 
@@ -344,31 +319,23 @@ sub _omop_prepare_data_shape {
 
 sub omop2bff {
     my $self = shift;
-
-    $self->{method_ori} =
-      exists $self->{method_ori} ? $self->{method_ori} : 'omop2bff';
-    $self->{prev_omop_tables} = [ @{ $self->{omop_tables} } ];
-
-    my $ctx  = _omop_collect_input($self);
-    my $data = $ctx->{data};
-
-    _omop_require_concept( $self, $data );
-    _omop_init_caches_and_metadata( $self, $data );
-    _omop_prepare_data_shape( $self, $data );
+    _prepare_omop2bff_input($self);
     $self->{conversion_context} = Convert::Pheno::Context->from_self(
         $self,
         {
             source_format => 'omop',
             target_format => 'beacon',
-            entities      => ['individuals'],
+            entities      => $self->{entities} || ['individuals'],
         }
     );
 
-    $data = undef;
-
     if ( $self->{stream} ) {
         return omop_stream_dispatcher(
-            { self => $self, filepath => $ctx->{filepath_sql}, filepaths => $ctx->{filepaths_csv} }
+            {
+                self      => $self,
+                filepath  => $self->{filepath_sql},
+                filepaths => $self->{filepaths_csv},
+            }
         );
     }
 
@@ -408,29 +375,7 @@ sub omop2pxf {
 
 sub cdisc2bff {
     my $self = shift;
-    my $str  = path( $self->{in_file} )->slurp_utf8;
-    my $hash = xml2hash $str, attr => '-', text => '~';
-    my $data = cdisc2redcap($hash);
-
-    my $data_redcap_dict = read_redcap_dict_file(
-        {
-            redcap_dictionary => $self->{redcap_dictionary},
-        }
-    );
-    my $data_mapping_file = read_mapping_file(
-        {
-            mapping_file         => $self->{mapping_file},
-            self_validate_schema => $self->{self_validate_schema},
-            schema_file          => $self->{schema_file}
-        }
-    );
-
-    $self->{data}              = $data;
-    $self->{data_redcap_dict}  = $data_redcap_dict;
-    $self->{data_mapping_file} = $data_mapping_file;
-    $self->{metaData}          = get_metaData($self);
-    $self->{convertPheno}      = get_info($self);
-
+    _prepare_cdisc2bff_input($self);
     return _run_primary_view($self);
 }
 
@@ -479,7 +424,7 @@ sub pxf2bff {
         {
             source_format => 'pxf',
             target_format => 'beacon',
-            entities      => ['individuals'],
+            entities      => $self->{entities} || ['individuals'],
         }
     );
     return _run_primary_view($self);
@@ -509,28 +454,7 @@ sub pxf2omop {
 
 sub csv2bff {
     my $self = shift;
-
-    my $data = read_csv(
-        {
-            in             => $self->{in_file},
-            sep            => $self->{sep},
-            coerce_numbers => 0,
-        }
-    );
-
-    my $data_mapping_file = read_mapping_file(
-        {
-            mapping_file         => $self->{mapping_file},
-            self_validate_schema => $self->{self_validate_schema},
-            schema_file          => $self->{schema_file}
-        }
-    );
-
-    $self->{data}              = $data;
-    $self->{data_mapping_file} = $data_mapping_file;
-    $self->{metaData}          = get_metaData($self);
-    $self->{convertPheno}      = get_info($self);
-
+    _prepare_csv2bff_input($self);
     return _run_primary_view($self);
 }
 
@@ -626,11 +550,203 @@ sub _run_primary_view {
 
 sub _run_bundle_view {
     my ($self) = @_;
+    _prepare_bundle_input($self);
     return run_operation(
         $self,
         _dispatcher_input_data($self),
         view => 'bundle',
     );
+}
+
+sub _prepare_bundle_input {
+    my ($self) = @_;
+
+    return _prepare_redcap2bff_input($self) if $self->{method} eq 'redcap2bff';
+    return _prepare_cdisc2bff_input($self)  if $self->{method} eq 'cdisc2bff';
+    return _prepare_csv2bff_input($self)    if $self->{method} eq 'csv2bff';
+    if ( $self->{method} eq 'omop2bff' ) {
+        delete $self->{mapping_file_derived_entity_overrides};
+        return _prepare_omop2bff_input($self);
+    }
+
+    # PXF bundle mode bypasses the public method, so initialize conversion
+    # provenance here as well for synthesized dataset/cohort metadata.
+    delete $self->{mapping_file_derived_entity_overrides};
+    $self->{convertPheno} ||= get_info($self) if $self->{method} eq 'pxf2bff';
+
+    return 1;
+}
+
+sub _prepare_redcap2bff_input {
+    my ($self) = @_;
+    return 1 if exists $self->{data} && exists $self->{data_mapping_file};
+
+    $self->{data} = read_csv(
+        {
+            in             => $self->{in_file},
+            sep            => $self->{sep},
+            coerce_numbers => 0,
+        }
+    );
+    $self->{data_redcap_dict} = read_redcap_dict_file(
+        {
+            redcap_dictionary => $self->{redcap_dictionary},
+        }
+    );
+    my $loaded_mapping_file = read_mapping_file(
+        {
+            mapping_file         => $self->{mapping_file},
+            self_validate_schema => $self->{self_validate_schema},
+            schema_file          => $self->{schema_file}
+        }
+    );
+    $self->{data_mapping_file} =
+      select_mapping_entity( $loaded_mapping_file, 'individuals' );
+    $self->{metaData}     = get_metaData($self);
+    $self->{convertPheno} = get_info($self);
+    $self->{mapping_file_derived_entity_overrides} =
+      _mapping_file_derived_entity_overrides($loaded_mapping_file);
+
+    return 1;
+}
+
+sub _prepare_cdisc2bff_input {
+    my ($self) = @_;
+    return 1 if exists $self->{data} && exists $self->{data_mapping_file};
+
+    my $str  = path( $self->{in_file} )->slurp_utf8;
+    my $hash = xml2hash $str, attr => '-', text => '~';
+
+    $self->{data} = cdisc2redcap($hash);
+    $self->{data_redcap_dict} = read_redcap_dict_file(
+        {
+            redcap_dictionary => $self->{redcap_dictionary},
+        }
+    );
+    my $loaded_mapping_file = read_mapping_file(
+        {
+            mapping_file         => $self->{mapping_file},
+            self_validate_schema => $self->{self_validate_schema},
+            schema_file          => $self->{schema_file}
+        }
+    );
+    $self->{data_mapping_file} =
+      select_mapping_entity( $loaded_mapping_file, 'individuals' );
+    $self->{metaData}     = get_metaData($self);
+    $self->{convertPheno} = get_info($self);
+    $self->{mapping_file_derived_entity_overrides} =
+      _mapping_file_derived_entity_overrides($loaded_mapping_file);
+
+    return 1;
+}
+
+sub _prepare_csv2bff_input {
+    my ($self) = @_;
+    return 1 if exists $self->{data} && exists $self->{data_mapping_file};
+
+    $self->{data} = read_csv(
+        {
+            in             => $self->{in_file},
+            sep            => $self->{sep},
+            coerce_numbers => 0,
+        }
+    );
+    my $loaded_mapping_file = read_mapping_file(
+        {
+            mapping_file         => $self->{mapping_file},
+            self_validate_schema => $self->{self_validate_schema},
+            schema_file          => $self->{schema_file}
+        }
+    );
+    $self->{data_mapping_file} =
+      select_mapping_entity( $loaded_mapping_file, 'individuals' );
+    $self->{metaData}     = get_metaData($self);
+    $self->{convertPheno} = get_info($self);
+    $self->{mapping_file_derived_entity_overrides} =
+      _mapping_file_derived_entity_overrides($loaded_mapping_file);
+
+    return 1;
+}
+
+sub _prepare_omop2bff_input {
+    my ($self) = @_;
+    return 1 if exists $self->{data};
+
+    $self->{method_ori} =
+      exists $self->{method_ori} ? $self->{method_ori} : 'omop2bff';
+    $self->{prev_omop_tables} = [ @{ $self->{omop_tables} } ];
+
+    my $ctx  = _omop_collect_input($self);
+    my $data = $ctx->{data};
+
+    _omop_require_concept( $self, $data );
+    _omop_init_caches_and_metadata( $self, $data );
+    _omop_prepare_data_shape( $self, $data );
+
+    $self->{filepath_sql}  = $ctx->{filepath_sql}  if exists $ctx->{filepath_sql};
+    $self->{filepaths_csv} = $ctx->{filepaths_csv} if exists $ctx->{filepaths_csv};
+
+    return 1;
+}
+
+sub _mapping_file_derived_entity_overrides {
+    my ($mapping) = @_;
+    return {} unless defined $mapping && ref($mapping) eq 'HASH';
+    return {} unless exists $mapping->{project} && ref( $mapping->{project} ) eq 'HASH';
+
+    my $project = $mapping->{project};
+    my %overrides;
+
+    if ( defined $project->{id} ) {
+        $overrides{datasets}{id}   = $project->{id};
+        $overrides{datasets}{name} = $project->{id};
+        $overrides{cohorts}{id}    = $project->{id} . '-cohort';
+        $overrides{cohorts}{name}  = $project->{id};
+    }
+
+    $overrides{datasets}{description} = $project->{description}
+      if defined $project->{description};
+    $overrides{datasets}{version} = $project->{version}
+      if defined $project->{version};
+
+    if ( exists $mapping->{beacon} && ref( $mapping->{beacon} ) eq 'HASH' ) {
+        _merge_hash_into( $overrides{datasets}, $mapping->{beacon}{datasets} )
+          if exists $mapping->{beacon}{datasets}
+          && ref( $mapping->{beacon}{datasets} ) eq 'HASH';
+        _merge_hash_into( $overrides{cohorts}, $mapping->{beacon}{cohorts} )
+          if exists $mapping->{beacon}{cohorts}
+          && ref( $mapping->{beacon}{cohorts} ) eq 'HASH';
+        _merge_hash_into( $overrides{biosamples}, $mapping->{beacon}{biosamples} )
+          if exists $mapping->{beacon}{biosamples}
+          && ref( $mapping->{beacon}{biosamples} ) eq 'HASH';
+    }
+
+    return \%overrides;
+}
+
+sub _merge_hash_into {
+    my ( $target, $source ) = @_;
+    return $target unless defined $source && ref($source) eq 'HASH';
+    $target ||= {};
+
+    for my $key ( keys %{$source} ) {
+        my $value = $source->{$key};
+
+        if ( ref($value) eq 'HASH' ) {
+            $target->{$key} ||= {};
+            _merge_hash_into( $target->{$key}, $value );
+            next;
+        }
+
+        if ( ref($value) eq 'ARRAY' ) {
+            $target->{$key} = [ @{$value} ];
+            next;
+        }
+
+        $target->{$key} = $value;
+    }
+
+    return $target;
 }
 
 sub _with_temp_self_fields {

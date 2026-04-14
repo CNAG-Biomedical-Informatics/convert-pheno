@@ -1,7 +1,5 @@
 # Convert-Pheno Documentation
 
-![Convert-Pheno logo](img/CP-logo.png){ width="110" }
-
 `Convert-Pheno` is a toolkit for converting **clinical and phenotypic data** between supported exchange models such as `BFF`, `PXF`, `OMOP-CDM`, `REDCap`, `CDISC-ODM`, and mapped `CSV`.
 
 !!! Note "Project status"
@@ -15,7 +13,7 @@
 
 Most users come to `Convert-Pheno` for one of these tasks:
 
-- convert `PXF` to `BFF`
+- convert `PXF` to `BFF` `individuals`, `biosamples`, `datasets`, and `cohorts`
 - convert `OMOP-CDM` exports to `BFF` or `PXF`
 - convert `REDCap` or raw `CSV` data through a **mapping file**
 - convert `BFF` to `PXF`, flattened `CSV`, flattened `JSON`, or `JSON-LD`

@@ -56,7 +56,8 @@ Common input flags:
 
 Common output flags:
   -o <type> <file>    Generic output form (bff|pxf|omop|csv|jsonf|jsonld)
-  -obff <file>      Beacon-oriented JSON/YAML output
+  -obff <file>      Beacon-oriented JSON/YAML output (legacy single-file
+                    individuals mode)
   -opxf <file>      Phenopackets v2 output
   -oomop <prefix>   OMOP-CDM CSV prefix
   -ocsv <file>      Flattened CSV (with -ibff or -ipxf)
@@ -64,9 +65,11 @@ Common output flags:
   -ojsonld <file>   JSON-LD / YAML-LD (with -ibff or -ipxf)
 
 Output behavior:
-  --out-dir <dir>       Output directory
+  --out-dir <dir>       Output directory (required for BFF entity mode)
   --entities <list>     Beacon entities for BFF output [individuals]
-                        Current extra support: biosamples from -ipxf
+                        Supported: individuals, biosamples, datasets, cohorts
+                        biosamples are emitted from -ipxf when present
+                        datasets and cohorts are synthesized from individuals
                         Use with --out-dir, not with -obff FILE
   --out-entity e=file   Override one entity filename; repeat as needed
                         Requires --entities
@@ -114,6 +117,8 @@ Examples:
   convert-pheno -ipxf pxf.json -obff individuals.json
   convert-pheno -ipxf pxf.json --entities biosamples --out-dir out/
   convert-pheno -ipxf pxf.json --entities individuals biosamples --out-dir out/ --out-entity biosamples=samples.json
+  convert-pheno -ipxf pxf.json --entities individuals datasets cohorts --out-dir out/
+  convert-pheno -icsv data.csv --mapping-file mapping.yaml --entities individuals datasets cohorts --out-dir out/
   convert-pheno -iomop dump.sql.gz -obff individuals.json.gz --stream --ohdsi-db
 
 Legacy compatibility:

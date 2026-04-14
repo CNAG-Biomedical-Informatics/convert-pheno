@@ -29,6 +29,14 @@
     ```
     convert-pheno -icdisc cdisc.xml --redcap-dictionary dictionary.csv --mapping-file mapping.yaml -obff individuals.json
     ```
+
+    If you also want synthesized Beacon `datasets` and `cohorts`, use entity mode:
+
+    ```bash
+    convert-pheno -icdisc cdisc.xml --redcap-dictionary dictionary.csv --mapping-file mapping.yaml --entities individuals datasets cohorts --out-dir out/
+    ```
+
+    In this mode, the top-level `beacon` section of the mapping file can override dataset and cohort metadata.
+
     !!! Warning "About other CDISC data exchange standards"
         We are aware of the [Dataset-XML](https://www.cdisc.org/standards/data-exchange/dataset-xml) format (an extension of ODM-XML) and the emerging [Dataset-JSON](https://wiki.cdisc.org/display/ODM2/Dataset-JSON) specification. While we do not currently support them, we are following their development with interest.
-

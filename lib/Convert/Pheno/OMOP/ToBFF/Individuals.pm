@@ -54,14 +54,28 @@ sub _map_person {
         }
     ) if defined $person->{race_source_value};
 
-    $individual->{geographicOrigin} = map_ontology_term(
-        {
-            query    => $person->{ethnicity_source_value},
-            column   => 'label',
-            ontology => 'ncit',
-            self     => $self
-        }
-    ) if defined $person->{ethnicity_source_value};
+    my $geographic_origin =
+      _map_geographic_origin_from_country_of_birth( $self, $participant, $ohdsi_dict );
+
+    # Prefer an explicit OMOP OBSERVATION for country of birth. Keep the older
+    # PERSON.ethnicity_source_value fallback when no country-of-birth
+    # observation can be resolved, because many synthetic OMOP fixtures do not
+    # carry that signal in OBSERVATION.
+    $individual->{geographicOrigin} = $geographic_origin
+      if defined $geographic_origin;
+
+    if ( !defined $geographic_origin
+        && defined $person->{ethnicity_source_value} )
+    {
+        $individual->{geographicOrigin} = map_ontology_term(
+            {
+                query    => $person->{ethnicity_source_value},
+                column   => 'label',
+                ontology => 'ncit',
+                self     => $self
+            }
+        );
+    }
 
     $individual->{id} = $person->{person_id};
     $individual->{id} = qq/$individual->{id}/;
@@ -93,6 +107,107 @@ sub _map_person {
         }
 
     ) if $sex;
+}
+
+sub _map_geographic_origin_from_country_of_birth {
+    my ( $self, $participant, $ohdsi_dict ) = @_;
+    return unless defined $participant->{OBSERVATION};
+
+    for my $field ( @{ $participant->{OBSERVATION} } ) {
+        next unless _is_country_of_birth_observation( $self, $field, $ohdsi_dict );
+
+        my $query = _country_of_birth_query( $self, $field, $ohdsi_dict );
+        next unless defined $query && length $query;
+
+        return map_ontology_term(
+            {
+                query    => $query,
+                column   => 'label',
+                ontology => 'ncit',
+                self     => $self
+            }
+        );
+    }
+
+    return;
+}
+
+sub _is_country_of_birth_observation {
+    my ( $self, $field, $ohdsi_dict ) = @_;
+    my @labels;
+    my $observation_source_value =
+      exists $field->{observation_source_value}
+      ? $field->{observation_source_value}
+      : undef;
+    my $observation_concept_id =
+      exists $field->{observation_concept_id}
+      ? $field->{observation_concept_id}
+      : undef;
+
+    if ( defined $observation_source_value
+        && length $observation_source_value
+        && $observation_source_value ne '\\N' )
+    {
+        push @labels, $observation_source_value;
+    }
+
+    if ( defined $observation_concept_id
+        && $observation_concept_id ne '\\N'
+        && $observation_concept_id != 0 )
+    {
+        my $observation = map2ohdsi(
+            {
+                ohdsi_dict => $ohdsi_dict,
+                concept_id => $observation_concept_id,
+                self       => $self
+            }
+        );
+        push @labels, $observation->{label}
+          if defined $observation && defined $observation->{label};
+    }
+
+    return scalar grep { _matches_country_of_birth_label($_) } @labels;
+}
+
+sub _country_of_birth_query {
+    my ( $self, $field, $ohdsi_dict ) = @_;
+    my $value_as_concept_id =
+      exists $field->{value_as_concept_id}
+      ? $field->{value_as_concept_id}
+      : undef;
+
+    if ( defined $value_as_concept_id
+        && $value_as_concept_id ne '\\N'
+        && $value_as_concept_id != 0 )
+    {
+        my $country = map2ohdsi(
+            {
+                ohdsi_dict => $ohdsi_dict,
+                concept_id => $value_as_concept_id,
+                self       => $self
+            }
+        );
+        return $country->{label}
+          if defined $country && defined $country->{label};
+    }
+
+    for my $key (qw(value_as_string value_source_value)) {
+        next unless exists $field->{$key};
+        my $value = $field->{$key};
+        next unless defined $value && length $value;
+        next if $value eq '\\N';
+        return $value;
+    }
+
+    return;
+}
+
+sub _matches_country_of_birth_label {
+    my ($label) = @_;
+    return 0 unless defined $label && length $label;
+    $label =~ s/\s+/ /g;
+    return $label =~ /^country of birth(?:\s*\[location\])?$/i
+      || $label =~ /^country of birth\b/i;
 }
 
 sub _map_diseases {
@@ -218,6 +333,7 @@ sub _map_phenotypicFeatures {
         for my $field ( @{ $participant->{$table} } ) {
             my $field_observation_concept_id = $field->{observation_concept_id};
             next if exists $self->{exposures}{$field_observation_concept_id};
+            next if _is_country_of_birth_observation( $self, $field, $ohdsi_dict );
 
             my $phenotypicFeature;
 

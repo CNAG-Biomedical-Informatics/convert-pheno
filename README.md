@@ -45,7 +45,9 @@
 
 It currently supports practical workflows around:
 
-- BFF `individuals` JSON
+- BFF entity bundles centered on `individuals`
+- first-class BFF `biosamples` output from `PXF`
+- synthesized BFF `datasets` and `cohorts`
 - Phenopackets v2 (PXF)
 - OMOP-CDM
 - REDCap
@@ -60,6 +62,7 @@ Typical CLI usage:
 
 ```bash
 convert-pheno -ipxf pxf.json -obff individuals.json
+convert-pheno -ipxf pxf.json --entities individuals biosamples datasets cohorts --out-dir out/
 convert-pheno -ibff individuals.json -opxf phenopackets.json
 convert-pheno -iomop dump.sql.gz -obff individuals.json.gz --stream --ohdsi-db
 ```
@@ -74,18 +77,24 @@ BFF output can now be entity-aware through `--entities`.
 
 Current support:
 
-- `individuals` as the legacy default
-- `biosamples` for `-ipxf` when the input contains biosample data
+- `individuals` as the default BFF output entity
+- `biosamples` as first-class BFF output for `-ipxf` when the input contains biosample data
+- `datasets` and `cohorts` synthesized from the normalized `individuals` collection
 
 Example:
 
 ```bash
-convert-pheno -ipxf pxf.json --entities biosamples --out-dir out/
+convert-pheno -ipxf pxf.json --entities individuals biosamples datasets cohorts --out-dir out/
 ```
 
-This writes:
+This can write:
 
+- `out/individuals.json`
 - `out/biosamples.json`
+- `out/datasets.json`
+- `out/cohorts.json`
+
+For mapping-file workflows such as `csv2bff`, `redcap2bff`, and `cdisc2bff`, synthesized `datasets` and `cohorts` can be customized through the top-level `beacon` section of the mapping file.
 
 ## Installation
 
@@ -115,7 +124,7 @@ Useful examples:
 
 ```bash
 bin/convert-pheno -ipxf t/pxf2bff/in/pxf.json -obff individuals.json
-bin/convert-pheno -ipxf t/pxf2bff/in/pxf_biosamples.json --entities biosamples --out-dir out/
+bin/convert-pheno -ipxf t/pxf2bff/in/pxf_biosamples.json --entities individuals biosamples datasets cohorts --out-dir out/
 bin/convert-pheno -iomop t/omop2bff/in/omop_cdm_eunomia.sql -opxf phenopackets.json
 bin/convert-pheno -iomop t/omop2bff/in/gz/omop_cdm_eunomia.sql.gz -obff individuals.json.gz --stream --omop-tables DRUG_EXPOSURE
 ```

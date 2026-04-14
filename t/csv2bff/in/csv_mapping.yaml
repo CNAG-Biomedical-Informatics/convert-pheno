@@ -14,104 +14,106 @@ project:
 # Beacon v2 Models: individuals #
 #################################
 
-# Term: diseases
-diseases:
-  fields: [Disease_1,Disease_2,Disease_3]
-  visitId: VisitOccurrenceId
-  valueTermLabels:
-    Ashtma: Ashtma
-    Diabetes: Diabetes Mellitus
-
-# Term: ethnicity
-ethnicity:
-  fields: Ethnicity
-  valueTermLabels:
-    Caucasian: White
-    Hispanic: Hispanic or Latino
-
-# Term: exposures
-exposures: 
-  fields: [AlcoholUse,TobaccoUse]
-  useHeaderAsTermLabel: [AlcoholUse,TobaccoUse]
-  visitId: VisitOccurrenceId
-  fieldTermLabels:
-    AlcoholUse: Alcohol
-    TobaccoUse: Tobacco
-  fieldRules:
-    AlcoholUse:
-      ageAtExposure: AgeAtAlcoholExposure
-    TobaccoUse:
-      ageAtExposure: AgeAtTobaccoExposure
-
-# Term: geographicOrigin
-# geographicOrigin: null
-
-# Term: id
-id:
-  fields: [PatientId,EventName]
-  targetFields:
-    primaryKey: PatientId 
-
-# Term: info
-info:
- fields: []
-
-# Term: measures
-measures:
-  ontology: ncit
-  fields: [Hemoglobin (g/dL), WBC (10^9/L), Platelets (10^9/L), BMI (kg/m^2)]
-  useHeaderAsTermLabel: [Hemoglobin (g/dL), WBC (10^9/L), Platelets (10^9/L), BMI (kg/m^2)]
-  visitId: VisitOccurrenceId 
-  fieldTermLabels:
-    'Hemoglobin (g/dL)': Hemoglobin Measurement
-    'WBC (10^9/L)': Leukocyte
-    'Platelets (10^9/L)': Platelet Count
-    'BMI (kg/m^2)': Body Mass Index
-  unit:
-    'Hemoglobin (g/dL)':
-      label: Gram per Deciliter
-      referenceRange:
-        low: 12.1
-        high: 17.2
-    'WBC (10^9/L)':
-      label: Cells per Microliter
-      referenceRange:
-        low: 4.0
-        high: 11.0
-    'Platelets (10^9/L)':
-      label: Cells per Microliter
-      referenceRange:
-        low: 150
-        high: 450
-    'BMI (kg/m^2)':
-      label: Kilogram per Square Meter
-      referenceRange:
-        low: 18.5
-        high: 24.9
-      procedureCodeLabel: Physical Examination Category
-
-# Term: phenotypicFeatures
-phenotypicFeatures: 
-  ontology: hpo
-  fields: [PhenotypicFeature_1,PhenotypicFeature_2]
-  visitId: VisitOccurrenceId
-
-# Term: sex
-sex: 
-  fields: Sex
-
-# Term: treatments
-treatments:
-  fields: [DrugName]
-  visitId: VisitOccurrenceId
-  drugDose:
-    DrugName: DrugDose (mg)
-  drugUnit:
-    DrugName: Milligram
-  duration:
-    DrugName: TreatmentDuration (weeks)
-  durationUnit:
-    DrugName: Week
-  routeOfAdministration: 
-    Albuterol: oral
-    Lisinopril: oral
+beacon:
+  individuals:
+    # Term: diseases
+    diseases:
+      fields: [Disease_1,Disease_2,Disease_3]
+      visitId: VisitOccurrenceId
+      valueTermLabels:
+        Ashtma: Ashtma
+        Diabetes: Diabetes Mellitus
+  
+    # Term: ethnicity
+    ethnicity:
+      fields: Ethnicity
+      valueTermLabels:
+        Caucasian: White
+        Hispanic: Hispanic or Latino
+  
+    # Term: exposures
+    exposures: 
+      fields: [AlcoholUse,TobaccoUse]
+      useHeaderAsTermLabel: [AlcoholUse,TobaccoUse]
+      visitId: VisitOccurrenceId
+      fieldTermLabels:
+        AlcoholUse: Alcohol
+        TobaccoUse: Tobacco
+      fieldRules:
+        AlcoholUse:
+          ageAtExposure: AgeAtAlcoholExposure
+        TobaccoUse:
+          ageAtExposure: AgeAtTobaccoExposure
+  
+    # Term: geographicOrigin
+    # geographicOrigin: null
+  
+    # Term: id
+    id:
+      fields: [PatientId,EventName]
+      targetFields:
+        primaryKey: PatientId 
+  
+    # Term: info
+    info:
+     fields: []
+  
+    # Term: measures
+    measures:
+      ontology: ncit
+      fields: [Hemoglobin (g/dL), WBC (10^9/L), Platelets (10^9/L), BMI (kg/m^2)]
+      useHeaderAsTermLabel: [Hemoglobin (g/dL), WBC (10^9/L), Platelets (10^9/L), BMI (kg/m^2)]
+      visitId: VisitOccurrenceId 
+      fieldTermLabels:
+        'Hemoglobin (g/dL)': Hemoglobin Measurement
+        'WBC (10^9/L)': Leukocyte
+        'Platelets (10^9/L)': Platelet Count
+        'BMI (kg/m^2)': Body Mass Index
+      unit:
+        'Hemoglobin (g/dL)':
+          label: Gram per Deciliter
+          referenceRange:
+            low: 12.1
+            high: 17.2
+        'WBC (10^9/L)':
+          label: Cells per Microliter
+          referenceRange:
+            low: 4.0
+            high: 11.0
+        'Platelets (10^9/L)':
+          label: Cells per Microliter
+          referenceRange:
+            low: 150
+            high: 450
+        'BMI (kg/m^2)':
+          label: Kilogram per Square Meter
+          referenceRange:
+            low: 18.5
+            high: 24.9
+          procedureCodeLabel: Physical Examination Category
+  
+    # Term: phenotypicFeatures
+    phenotypicFeatures: 
+      ontology: hpo
+      fields: [PhenotypicFeature_1,PhenotypicFeature_2]
+      visitId: VisitOccurrenceId
+  
+    # Term: sex
+    sex: 
+      fields: Sex
+  
+    # Term: treatments
+    treatments:
+      fields: [DrugName]
+      visitId: VisitOccurrenceId
+      drugDose:
+        DrugName: DrugDose (mg)
+      drugUnit:
+        DrugName: Milligram
+      duration:
+        DrugName: TreatmentDuration (weeks)
+      durationUnit:
+        DrugName: Week
+      routeOfAdministration: 
+        Albuterol: oral
+        Lisinopril: oral

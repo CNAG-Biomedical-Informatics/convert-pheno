@@ -30,7 +30,7 @@ convert-pheno --help
 
 ## Common examples
 
-Convert Phenopackets to `BFF` `individuals` output:
+Convert Phenopackets to the legacy single-file `BFF` `individuals` output:
 
 ```bash
 convert-pheno -ipxf pxf.json -obff individuals.json
@@ -42,10 +42,16 @@ The same conversion with the generic form:
 convert-pheno -i pxf pxf.json -o bff individuals.json
 ```
 
-Convert Phenopackets biosamples when the input contains them:
+Convert Phenopackets to entity-aware `BFF` output:
 
 ```bash
-convert-pheno -ipxf pxf.json --entities biosamples --out-dir out/
+convert-pheno -ipxf pxf.json --entities individuals biosamples datasets cohorts --out-dir out/
+```
+
+Convert a mapping-file workflow to `individuals`, `datasets`, and `cohorts`:
+
+```bash
+convert-pheno -icsv data.csv --mapping-file mapping.yaml --entities individuals datasets cohorts --out-dir out/
 ```
 
 Convert both `individuals` and `biosamples`, while overriding the biosample filename:
@@ -76,7 +82,10 @@ convert-pheno -ibff individuals.json -opxf pxf.json
 
 - `-obff` keeps the **legacy `BFF` behavior**. By default this means `individuals`.
 - When `PXF` input contains `biosamples`, the legacy `-obff FILE` path still writes only `individuals`. In that mode, `convert-pheno` warns and preserves the biosamples under `info.phenopacket.biosamples`.
-- `--entities` can be used with `BFF` output. The current extra entity exposed by the CLI is `biosamples` from `-ipxf` input when biosample data is present.
+- `--entities` can be used with `BFF` output. The supported output entities are `individuals`, `biosamples`, `datasets`, and `cohorts`.
+- `biosamples` are currently emitted as first-class output from `-ipxf` input when biosample data is present.
+- `datasets` and `cohorts` are synthesized from the normalized `individuals` collection.
+- In mapping-file workflows, the top-level `beacon` section can override metadata for synthesized `datasets` and `cohorts`.
 - `--entities` is an entity-output mode. Use it together with `--out-dir`, not with `-obff FILE`.
 - `--out-entity entity=file` lets you override the filename of one requested entity and requires `--entities`.
 - `--search-audit-tsv FILE` writes a tab-separated audit of ontology search results for mapping-file-driven conversions such as `csv2bff`, `redcap2bff`, and `cdisc2bff`, including the effective configured search mode, whether each lookup matched the DB or fell back to `NA`, and the per-row lookup resolution (`exact`, `similarity`, or `fallback_na`).

@@ -42,6 +42,14 @@ Due to the flexibility of REDCap projects, it can be challenging to develop a so
     convert-pheno -iredcap redcap.csv --redcap-dictionary dictionary.csv --mapping-file mapping.yaml -obff individuals.json --search-audit-tsv search-audit.tsv
     ```
 
+    If you also want synthesized Beacon `datasets` and `cohorts`, use entity mode:
+
+    ```bash
+    convert-pheno -iredcap redcap.csv --redcap-dictionary dictionary.csv --mapping-file mapping.yaml --entities individuals datasets cohorts --out-dir out/
+    ```
+
+    In this mode, the top-level `beacon` section of the mapping file can override dataset and cohort metadata such as `id`, `name`, `description`, `version`, or `cohortType`.
+
     The audit file is tab-separated and currently includes columns such as:
 
     - `row`

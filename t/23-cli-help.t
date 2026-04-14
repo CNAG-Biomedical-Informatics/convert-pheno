@@ -52,5 +52,30 @@ like(
     qr/--username\|-u <name>/,
     'CLI help documents the restored username alias'
 );
+like(
+    $help,
+    qr/Supported:\s+individuals,\s+biosamples,\s+datasets,\s+cohorts/s,
+    'CLI help documents the supported BFF entities'
+);
+like(
+    $help,
+    qr/biosamples are emitted from -ipxf when present/s,
+    'CLI help documents first-class biosample output from PXF'
+);
+like(
+    $help,
+    qr/datasets and\s+cohorts are synthesized from individuals/s,
+    'CLI help documents synthesized dataset and cohort entities'
+);
+like(
+    $help,
+    qr/Use with --out-dir, not with -obff FILE/s,
+    'CLI help documents the entity-mode output requirement'
+);
+like(
+    $help,
+    qr/-obff FILE keeps the legacy single-output behavior and emits individuals only\./s,
+    'CLI help documents the legacy single-file BFF behavior'
+);
 
 done_testing();

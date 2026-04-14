@@ -21,6 +21,9 @@ The **OMOP CDM** is designed to be database-agnostic, which means it can be impl
 
     When using the `convert-pheno` command-line interface, simply ensure the [correct syntax](usage.md) is provided.
 
+    !!! Note "Legacy single-file vs entity-aware BFF output"
+        Most examples below use the legacy `-obff FILE` path, which still emits Beacon `individuals` as one file. In non-stream BFF workflows, you can also request synthesized `datasets` and `cohorts` with `--entities ... --out-dir out/`. `biosamples` are not yet synthesized from `OMOP`.
+
     ??? Tip "Does `Convert-Pheno` accept `gz` files?"
 
         Yes, both input and output files can be **gzipped** to save space. However, it's important to note that the **gzip layer introduces an overhead**. 
@@ -56,6 +59,12 @@ The **OMOP CDM** is designed to be database-agnostic, which means it can be impl
 
         ```bash
         convert-pheno -iomop PERSON.csv CONCEPT.csv DRUG_EXPOSURE.csv -obff individuals.json
+        ```
+
+        To emit entity-aware `BFF` output instead:
+
+        ```bash
+        convert-pheno -iomop PERSON.csv CONCEPT.csv DRUG_EXPOSURE.csv --entities individuals datasets cohorts --out-dir out/
         ```
 
         In this mode, `Convert-Pheno` infers the OMOP table name from each filename. At minimum, practical conversions usually require:
@@ -111,7 +120,7 @@ The **OMOP CDM** is designed to be database-agnostic, which means it can be impl
         To choose incremental data processing we'll be using the flag `--stream`:
 
         ??? Danger " `--stream` mode supported output"
-            We only support output to BFF (`-obff`).
+            We currently support only the legacy single-file `BFF` path (`-obff FILE`) in `--stream` mode.
 
         #### All tables at once
 

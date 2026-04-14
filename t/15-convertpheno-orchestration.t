@@ -212,4 +212,58 @@ local $SIG{__WARN__} = sub {
     );
 }
 
+{
+    no warnings 'redefine';
+
+    my $convert = Convert::Pheno->new(
+        {
+            method       => 'omop2bff',
+            entities     => [ 'datasets', 'cohorts' ],
+            convertPheno => { version => '0.29_1', beaconSchemaVersion => '2.0.0' },
+        }
+    );
+
+    local *Convert::Pheno::open_connections_SQLite     = sub { return 1 };
+    local *Convert::Pheno::close_connections_SQLite    = sub { return 1 };
+    local *Convert::Pheno::finalize_search_audit       = sub { return 1 };
+    local *Convert::Pheno::_dispatcher_open_stream_out = sub { return undef };
+
+    local *Convert::Pheno::OMOP::ToBFF::run_omop_to_bundle = sub {
+        my ( $self, $input, $context ) = @_;
+        my $bundle = Convert::Pheno::Model::Bundle->new(
+            {
+                context  => $context,
+                entities => $context->entities,
+            }
+        );
+        $bundle->add_entity( individuals => $input );
+        return $bundle;
+    };
+
+    my $bundle = run_operation(
+        $convert,
+        [
+            { id => 'i1', diseases => [ { diseaseCode => { id => 'NCIT:C1' } } ] },
+            { id => 'i2' },
+        ],
+        view => 'bundle',
+    );
+
+    is(
+        $bundle->entities('datasets')->[0]{id},
+        'dataset-1',
+        'runner synthesizes a dataset from individuals in bundle mode'
+    );
+    is(
+        $bundle->entities('cohorts')->[0]{cohortSize},
+        2,
+        'runner synthesizes a cohort with the correct size'
+    );
+    is(
+        $bundle->entities('cohorts')->[0]{cohortDataTypes}[0]{id},
+        'OGMS:0000015',
+        'runner infers cohort data types from individual content'
+    );
+}
+
 done_testing();

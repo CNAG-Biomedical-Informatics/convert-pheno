@@ -6,8 +6,7 @@
   "type": "object",
   "required": [
     "project",
-    "id",
-    "sex"
+    "beacon"
   ],
   "properties": {
     "project": {
@@ -45,47 +44,81 @@
         }
       }
     },
-    "diseases": {
-      "$ref": "#/$defs/objectField"
-    },
-    "ethnicity": {
-      "$ref": "#/$defs/objectField"
-    },
-    "exposures": {
-      "$ref": "#/$defs/objectField"
-    },
-    "geographicOrigin": {
-      "$ref": "#/$defs/stringField"
-    },
-    "id": {
-      "$ref": "#/$defs/objectField"
-    },
-    "info": {
-      "$ref": "#/$defs/objectField"
-    },
-    "interventionsOrProcedures": {
-      "$ref": "#/$defs/objectField"
-    },
-    "karyotypicSex": {
-      "$ref": "#/$defs/stringField"
-    },
-    "measures": {
-      "$ref": "#/$defs/objectField"
-    },
-    "pedigrees": {
-      "$ref": "#/$defs/objectField"
-    },
-    "phenotypicFeatures": {
-      "$ref": "#/$defs/objectField"
-    },
-    "sex": {
-      "$ref": "#/$defs/objectField"
-    },
-    "treatments": {
-      "$ref": "#/$defs/objectField"
+    "beacon": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "individuals"
+      ],
+      "properties": {
+        "individuals": {
+          "$ref": "#/$defs/individualsMapping"
+        },
+        "datasets": {
+          "$ref": "#/$defs/freeFormObject"
+        },
+        "cohorts": {
+          "$ref": "#/$defs/freeFormObject"
+        },
+        "biosamples": {
+          "$ref": "#/$defs/freeFormObject"
+        }
+      }
     }
   },
   "$defs": {
+    "freeFormObject": {
+      "type": "object"
+    },
+    "individualsMapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "sex"
+      ],
+      "properties": {
+        "diseases": {
+          "$ref": "#/$defs/objectField"
+        },
+        "ethnicity": {
+          "$ref": "#/$defs/objectField"
+        },
+        "exposures": {
+          "$ref": "#/$defs/objectField"
+        },
+        "geographicOrigin": {
+          "$ref": "#/$defs/stringField"
+        },
+        "id": {
+          "$ref": "#/$defs/objectField"
+        },
+        "info": {
+          "$ref": "#/$defs/objectField"
+        },
+        "interventionsOrProcedures": {
+          "$ref": "#/$defs/objectField"
+        },
+        "karyotypicSex": {
+          "$ref": "#/$defs/stringField"
+        },
+        "measures": {
+          "$ref": "#/$defs/objectField"
+        },
+        "pedigrees": {
+          "$ref": "#/$defs/objectField"
+        },
+        "phenotypicFeatures": {
+          "$ref": "#/$defs/objectField"
+        },
+        "sex": {
+          "$ref": "#/$defs/objectField"
+        },
+        "treatments": {
+          "$ref": "#/$defs/objectField"
+        }
+      }
+    },
     "objectField": {
       "type": "object",
       "additionalProperties": false,

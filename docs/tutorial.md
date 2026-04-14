@@ -58,6 +58,16 @@ convert-pheno -iomop omop.sql.gz -obff individuals.json.gz --stream --ohdsi-db
 
 If you are working with OMOP regularly, see [OMOP-CDM](omop-cdm.md) for the fuller explanation of SQL, CSV, `CONCEPT`, and streaming behavior.
 
+If you want entity-aware `BFF` output instead of the legacy single-file `individuals.json` path, request the entities explicitly:
+
+```bash
+convert-pheno -iomop PERSON.csv CONCEPT.csv DRUG_EXPOSURE.csv \
+  --entities individuals datasets cohorts \
+  --out-dir out/
+```
+
+In mapping-file workflows, the top-level `beacon` section can override synthesized `datasets` and `cohorts` metadata.
+
 ## CSV to BFF
 
 This route is intended for **raw clinical CSV data** that does not already follow one of the supported data models.
@@ -79,6 +89,15 @@ convert-pheno -icsv clinical_data.csv \
 ```
 
 If your separator is not the default one expected by the tool, add `--sep`.
+
+If you want `datasets` and `cohorts` as well, switch to entity mode:
+
+```bash
+convert-pheno -icsv clinical_data.csv \
+  --mapping-file clinical_data_mapping.yaml \
+  --entities individuals datasets cohorts \
+  --out-dir out/
+```
 
 ## Need more detail?
 

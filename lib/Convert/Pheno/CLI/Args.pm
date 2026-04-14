@@ -279,7 +279,7 @@ sub build_cli_request {
 
     @entity_list = ('individuals') unless @entity_list;
 
-    my %supported_entities = map { $_ => 1 } qw(individuals biosamples);
+    my %supported_entities = map { $_ => 1 } qw(individuals biosamples datasets cohorts);
     for my $entity (@entity_list) {
         $usage_error->("Unsupported entity <$entity> in --entities")
           unless $supported_entities{$entity};

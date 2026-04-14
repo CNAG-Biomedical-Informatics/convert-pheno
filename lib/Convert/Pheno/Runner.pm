@@ -6,6 +6,10 @@ use autodie;
 use feature qw(say);
 
 use JSON::XS;
+use Convert::Pheno::BFF::DerivedEntities qw(
+  execution_entities
+  synthesize_bundle_entities
+);
 use Convert::Pheno::Context;
 use Convert::Pheno::Model::Bundle;
 use Exporter 'import';
@@ -13,9 +17,6 @@ use Exporter 'import';
 our @EXPORT_OK = qw(resolve_operation run_operation);
 
 my %DIRECT_OPERATIONS = (
-    redcap2bff => \&Convert::Pheno::do_redcap2bff,
-    cdisc2bff  => \&Convert::Pheno::do_cdisc2bff,
-    csv2bff    => \&Convert::Pheno::do_csv2bff,
     csv2pxf    => \&Convert::Pheno::do_csv2pxf,
     bff2pxf    => \&Convert::Pheno::do_bff2pxf,
     bff2csv    => \&Convert::Pheno::do_bff2csv,
@@ -29,6 +30,51 @@ my %DIRECT_OPERATIONS = (
 
 sub resolve_operation {
     my ($self) = @_;
+
+    return _bundle_operation(
+        name             => 'redcap2bff',
+        source_format    => 'redcap',
+        target_format    => 'beacon',
+        default_entities => ['individuals'],
+        primary_entity   => 'individuals',
+        run              => sub {
+            my ( $convert, $input, $context ) = @_;
+            return _wrap_individual_in_bundle(
+                $context,
+                Convert::Pheno::do_redcap2bff( $convert, $input )
+            );
+        },
+    ) if $self->{method} eq 'redcap2bff';
+
+    return _bundle_operation(
+        name             => 'cdisc2bff',
+        source_format    => 'cdisc',
+        target_format    => 'beacon',
+        default_entities => ['individuals'],
+        primary_entity   => 'individuals',
+        run              => sub {
+            my ( $convert, $input, $context ) = @_;
+            return _wrap_individual_in_bundle(
+                $context,
+                Convert::Pheno::do_cdisc2bff( $convert, $input )
+            );
+        },
+    ) if $self->{method} eq 'cdisc2bff';
+
+    return _bundle_operation(
+        name             => 'csv2bff',
+        source_format    => 'csv',
+        target_format    => 'beacon',
+        default_entities => ['individuals'],
+        primary_entity   => 'individuals',
+        run              => sub {
+            my ( $convert, $input, $context ) = @_;
+            return _wrap_individual_in_bundle(
+                $context,
+                Convert::Pheno::do_csv2bff( $convert, $input )
+            );
+        },
+    ) if $self->{method} eq 'csv2bff';
 
     return _bundle_operation(
         name             => 'omop2bff',
@@ -162,6 +208,9 @@ sub run_operation {
         }
     }
 
+    synthesize_bundle_entities( $self, $out_data, $context )
+      if $view eq 'bundle';
+
     Convert::Pheno::close_connections_SQLite($self)
       unless $self->{method} eq 'bff2pxf';
     Convert::Pheno::finalize_search_audit($self);
@@ -188,7 +237,9 @@ sub _resolve_context {
         {
             source_format => $operation->{source_format},
             target_format => $operation->{target_format},
-            entities      => $self->{entities} || $operation->{default_entities},
+            entities      => execution_entities(
+                $self->{entities} || $operation->{default_entities}
+            ),
         }
     ) if $operation->{type} eq 'bundle';
 
@@ -236,6 +287,21 @@ sub _direct_operation {
         name => $arg{name},
         run  => $arg{run},
     };
+}
+
+sub _wrap_individual_in_bundle {
+    my ( $context, $individual ) = @_;
+
+    my $bundle = Convert::Pheno::Model::Bundle->new(
+        {
+            context  => $context,
+            entities => $context->entities,
+        }
+    );
+
+    $bundle->add_entity( individuals => $individual );
+
+    return $bundle;
 }
 
 1;
