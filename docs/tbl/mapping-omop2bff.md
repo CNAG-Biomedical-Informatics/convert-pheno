@@ -1,4 +1,4 @@
-#### Version 0.25
+#### Version 0.30
 
 **Target model:** BFF
 
@@ -7,99 +7,100 @@
 ## Terms
 
 ### diseases
-|  OMOP Table(s)                                              | OMOP Variable                                              | BFF JSON path                                               |
-|  :---:                                                      | :---:                                                      | :---:                                                       |
-|  CONDITION_OCCURRENCE, PERSON                               | condition_start_date, birth_datetime                       | diseases.ageOfOnset                                         |
-|  CONDITION_OCCURRENCE                                       | condition_concept_id                                       | diseases.diseaseCode                                        |
-|  CONDITION_OCCURRENCE                                       | All variables                                              | diseases._info                                              |
-|  CONDITION_OCCURRENCE                                       | condition_status_concept_id                                | diseases.stage                                              |
-|  CONDITION_OCCURRENCE                                       | person_id, visit_occurrence_id                             | diseases._visit                                             |
+| Source field | Target field | Notes |
+| --- | --- | --- |
+| `CONDITION_OCCURRENCE.condition_concept_id` | `diseases.diseaseCode` | Mapped through OHDSI concepts |
+| `CONDITION_OCCURRENCE.condition_start_date` + `PERSON.birth_datetime` | `diseases.ageOfOnset` | Derived age |
+| `CONDITION_OCCURRENCE.condition_status_concept_id` | `diseases.stage` | Defaulted when absent |
+| `CONDITION_OCCURRENCE.*` | `diseases._info.CONDITION_OCCURRENCE.OMOP_columns` | Provenance payload |
+| `VISIT_OCCURRENCE` context | `diseases._visit` | Added when visit context is available |
 
 ### ethnicity
-|  OMOP Table(s)                                              | OMOP Variable                                              | BFF JSON path                                               |
-|  :---:                                                      | :---:                                                      | :---:                                                       |
-|  PERSON                                                     | race_source_value                                          | ethnicity                                                   |
+| Source field | Target field | Notes |
+| --- | --- | --- |
+| `PERSON.race_source_value` | `ethnicity` | Normalized through ontology lookup |
 
 ### exposures
-|  OMOP Table(s)                                              | OMOP Variable                                              | BFF JSON path                                               |
-|  :---:                                                      | :---:                                                      | :---:                                                       |
-|  OBSERVATION, PERSON                                        | observation_date, birth_datetime                           | exposures.ageAtExposure                                     |
-|  OBSERVATION                                                | observation_date                                           | exposures.date                                              |
-|                                                             | DEFAULT                                                    | exposures.duration                                          |
-|  OBSERVATION                                                | All variables                                              | exposures._info                                             |
-|  OBSERVATION                                                | observation_concept_id                                     | exposures.exposureCode                                      |
-|  OBSERVATION                                                | unit_concept_id                                            | exposures.unit                                              |
-|  OBSERVATION                                                | value_as_number                                            | exposures.value                                             |
+| Source field | Target field | Notes |
+| --- | --- | --- |
+| `OBSERVATION.observation_concept_id` | `exposures.exposureCode` | Only observations classified as exposures are used |
+| `OBSERVATION.observation_date` + `PERSON.birth_datetime` | `exposures.ageAtExposure` | Derived age |
+| `OBSERVATION.observation_date` | `exposures.date` | Direct |
+| `OBSERVATION.unit_concept_id` | `exposures.unit` | Defaulted when absent |
+| `OBSERVATION.value_as_number` | `exposures.value` | `\N` is converted to `-1` |
+| `DEFAULT` | `exposures.duration` | Added for Beacon completeness |
+| `OBSERVATION.*` | `exposures._info.OBSERVATION.OMOP_columns` | Provenance payload |
 
 ### geographicOrigin
-|  OMOP Table(s)                                              | OMOP Variable                                              | BFF JSON path                                               |
-|  :---:                                                      | :---:                                                      | :---:                                                       |
-|  PERSON                                                     | ethnicity_source_value\*                                    | geographicOrigin                                            |
-
->\*We could represent this as `observation_concept_id = Country of birth` with `value_as_concept_id = Italy` (concept 1546579), but this OBSERVATION field is often not populated in practice.
-
+| Source field | Target field | Notes |
+| --- | --- | --- |
+| `PERSON.ethnicity_source_value` | `geographicOrigin` | Normalized through ontology lookup |
 
 ### id
-|  OMOP Table(s)                                              | OMOP Variable                                              | BFF JSON path                                               |
-|  :---:                                                      | :---:                                                      | :---:                                                       |
-|  PERSON                                                     | person_id                                                  | id                                                          |
+| Source field | Target field | Notes |
+| --- | --- | --- |
+| `PERSON.person_id` | `id` | Stringified in Beacon output |
 
 ### info
-|  OMOP Table(s)                                              | OMOP Variable                                              | BFF JSON path                                               |
-|  :---:                                                      | :---:                                                      | :---:                                                       |
-|  PERSON                                                     | All variables                                              | info.PERSON                                                 |
-|  PERSON                                                     | birth_datetime                                             | info.dateOfBirth                                            |
+| Source field | Target field | Notes |
+| --- | --- | --- |
+| `PERSON.*` | `info.PERSON.OMOP_columns` | Raw OMOP row is preserved |
+| `PERSON.birth_datetime` | `info.dateOfBirth` | Timestamp form |
+| `metaData` | `info.metaData` | Emitted outside `--test` mode |
+| `convertPheno` | `info.convertPheno` | Emitted outside `--test` mode |
 
 ### interventionsOrProcedures
-|  OMOP Table(s)                                              | OMOP Variable                                              | BFF JSON path                                               |
-|  :---:                                                      | :---:                                                      | :---:                                                       |
-|  PROCEDURE_OCCURRENCE, PERSON                               | procedure_date, birth_datetime                             | interventionsOrProcedures.ageAtProcedure                    |  
-|  PROCEDURE_OCCURRENCE                                       | procedure_date                                             | interventionsOrProcedures.dateOfProcedure                   |
-|  PROCEDURE_OCCURRENCE                                       | All variables                                              | interventionsOrProcedures._info                             |
-|  PROCEDURE_OCCURRENCE                                       | procedure_concept_id                                       | interventionsOrProcedures.procedureCode                     |
+| Source field | Target field | Notes |
+| --- | --- | --- |
+| `PROCEDURE_OCCURRENCE.procedure_concept_id` | `interventionsOrProcedures.procedureCode` | Mapped through OHDSI concepts |
+| `PROCEDURE_OCCURRENCE.procedure_date` + `PERSON.birth_datetime` | `interventionsOrProcedures.ageAtProcedure` | Derived age |
+| `PROCEDURE_OCCURRENCE.procedure_date` | `interventionsOrProcedures.dateOfProcedure` | Direct |
+| `DEFAULT` | `interventionsOrProcedures.bodySite` | Added for Beacon completeness |
+| `PROCEDURE_OCCURRENCE.*` | `interventionsOrProcedures._info.PROCEDURE_OCCURRENCE.OMOP_columns` | Provenance payload |
+| `VISIT_OCCURRENCE` context | `interventionsOrProcedures._visit` | Added when visit context is available |
 
 ### karyotypicSex
 NA
 
 ### measures
-|  OMOP Table(s)                                              | OMOP Variable                                              | BFF JSON path                                               |
-|  :---:                                                      | :---:                                                      | :---:                                                       |
-|  MEASUREMENT                                                | measurement_concept_id                                     | measures.assayCode                                          |
-|  MEASUREMENT                                                | measurement_date                                           | measures.date                                               |
-|  MEASUREMENT                                                | value_as_concept_id                                        | measures.measurementValue
-|  MEASUREMENT                                                | unit_concept_id                                            | measures.measurementValue.quantity.unit                     |
-|  MEASUREMENT                                                | value_as_number                                            | measures.measurementValue.quantity.value                    |
-|  MEASUREMENT                                                | operator_concept_id, value_as_number, unit_concept_id      | measures.measurementValue.quantity.referenceRange           |
-|  MEASUREMENT                                                | All variables                                              | measures._info                                              |
-|  MEASUREMENT, PERSON                                        | measurement_date, birth_datetime                           | measures.observationMoment                                  |
-|  MEASUREMENT                                                | measurement_date, birth_datetime                           | measures.procedure.ageAtProcedure                           |
-|  MEASUREMENT                                                | measurement_date                                           | measures.procedure.dateOfProcedure                          |
-|  MEASUREMENT                                                | measurement_type_concept_id                                | measures.procedure.prodecureCode                            |
-|  MEASUREMENT                                                | person_id, visit_occurrence_id                             | diseases._visit                                             |
+| Source field | Target field | Notes |
+| --- | --- | --- |
+| `MEASUREMENT.measurement_concept_id` | `measures.assayCode` | Mapped through OHDSI concepts |
+| `MEASUREMENT.measurement_date` | `measures.date` | Direct |
+| `MEASUREMENT.value_as_concept_id` | `measures.measurementValue` | Used for ontology-valued measurements |
+| `MEASUREMENT.value_as_number` | `measures.measurementValue.quantity.value` | Used for numeric measurements |
+| `MEASUREMENT.unit_concept_id` | `measures.measurementValue.quantity.unit` | Defaulted when absent |
+| `MEASUREMENT.operator_concept_id` + numeric value + unit | `measures.measurementValue.quantity.referenceRange` | Derived range payload |
+| `MEASUREMENT.measurement_date` + `PERSON.birth_datetime` | `measures.observationMoment` | Derived age |
+| `MEASUREMENT.measurement_date` + `PERSON.birth_datetime` | `measures.procedure.ageAtProcedure` | Mirrors `observationMoment` |
+| `MEASUREMENT.measurement_date` | `measures.procedure.dateOfProcedure` | Direct |
+| `MEASUREMENT.measurement_type_concept_id` | `measures.procedure.procedureCode` | Mapped through OHDSI concepts |
+| `DEFAULT` | `measures.procedure.bodySite` | Added for Beacon completeness |
+| `MEASUREMENT.*` | `measures._info.MEASUREMENT.OMOP_columns` | Provenance payload |
+| `VISIT_OCCURRENCE` context | `measures._visit` | Added when visit context is available |
 
 ### pedigrees
 NA
 
 ### phenotypicFeatures
-|  OMOP Table(s)                                              | OMOP Variable                                              | BFF JSON path                                               |
-|  :---:                                                      | :---:                                                      | :---:                                                       |
-|  OBSERVATION                                                | observation_concept_id                                     | phenotypicFeatures.featureType                              |
-|  OBSERVATION                                                | All variables                                              | phenotypicFeatures._info                                    |
-|  OBSERVATION, PERSON                                        | observation_date, birth_datetime                           | phenotypicFeatures.onset                                    |
-|  OBSERVATION                                                | person_id, visit_occurrence_id                             | phenotypicFeatures._visit                                   |
+| Source field | Target field | Notes |
+| --- | --- | --- |
+| `OBSERVATION.observation_concept_id` | `phenotypicFeatures.featureType` | Only non-exposure observations are used |
+| `OBSERVATION.observation_date` + `PERSON.birth_datetime` | `phenotypicFeatures.onset` | Derived age |
+| `OBSERVATION.*` | `phenotypicFeatures._info.OBSERVATION.OMOP_columns` | Provenance payload |
+| `VISIT_OCCURRENCE` context | `phenotypicFeatures._visit` | Added when visit context is available |
 
 ### sex
-|  OMOP Table(s)                                              | OMOP Variable                                              | BFF JSON path                                               |
-|  :---:                                                      | :---:                                                      | :---:                                                       |
-|  PERSON                                                     | gender_concept_id                                          | sex                                                         |
+| Source field | Target field | Notes |
+| --- | --- | --- |
+| `PERSON.gender_concept_id` | `sex` | Mapped through OHDSI concepts and then normalized to Beacon terms |
 
 ### treatments
-|  OMOP Table(s)                                              | OMOP Variable                                              | BFF JSON path                                               |
-|  :---:                                                      | :---:                                                      | :---:                                                       |
-|  DRUG_EXPOSURE, PERSON                                      | drug_exposure_start_date, birth_datetime                   | treatments.ageOfOnset                                       |
-|                                                             | DEFAULT                                                    | treatments.date                                             |
-|  DRUG_EXPOSURE                                              | All variables                                              | treatments._info                                            |
-|                                                             | DEFAULT                                                    | treatments.doseIntervals                                    |
-|                                                             | DEFAULT                                                    | treatments.routeOfAdministration                            |
-|  DRUG_EXPOSURE                                              | drug_concept_id                                            | treatments.treatmentCode                                    |
-|  DRUG_EXPOSURE                                              | person_id, visit_occurrence_id                             | treatments._visit                                           |
+| Source field | Target field | Notes |
+| --- | --- | --- |
+| `DRUG_EXPOSURE.drug_concept_id` | `treatments.treatmentCode` | Mapped through OHDSI concepts |
+| `DRUG_EXPOSURE.drug_exposure_start_date` + `PERSON.birth_datetime` | `treatments.ageAtOnset` | Derived age |
+| `DEFAULT` | `treatments.routeOfAdministration` | Placeholder |
+| `DEFAULT` | `treatments.doseIntervals` | Initialized as an empty list |
+| `DRUG_EXPOSURE.*` | `treatments._info.DRUG_EXPOSURE.OMOP_columns` | Provenance payload |
+| `VISIT_OCCURRENCE` context | `treatments._visit` | Added when visit context is available |
