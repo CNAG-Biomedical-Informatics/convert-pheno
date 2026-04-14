@@ -30,17 +30,6 @@
     - `targetFields` points to source columns used to populate target-side attributes such as `primaryKey`, `age`, or `date`.
     - `fieldRules` holds field-specific nested configuration, for example value-to-term rules or auxiliary pointers such as `ageAtExposure`.
 
-    ### Key renames
-
-    Some inner keys were renamed to make their purpose clearer:
-
-    | Old key | New key | Meaning |
-    | ----------- | ----------- | ------------------- |
-    | `dictionary` | `fieldTermLabels` and `valueTermLabels` | Split the old ambiguous term-label mapping into field-level and value-level mapping. |
-    | `mapping` | `targetFields` | Maps target-side attributes to source columns. |
-    | `selector` | `fieldRules` | Holds nested per-field rules and overrides. |
-    | `assignTermIdFromHeader` | `useHeaderAsTermLabel` | Tells `Convert-Pheno` to derive the ontology lookup from the column/header name instead of the recorded value. |
-
     ### Creating a mapping file
 
     To create a mapping file, start by reviewing the [example mapping file](https://github.com/cnag-biomedical-informatics/convert-pheno/blob/main/t/redcap2bff/in/redcap_mapping.yaml) provided with the installation. The goal is to replace the contents of such file with those from your REDCap project. The mapping file contains the following types of data:
