@@ -13,6 +13,7 @@ my $wrapped_pxf = {
             id            => 'subject-1',
             sex           => '',
             karyotypicSex => 'UNKNOWN_KARYOTYPE',
+            dateOfBirth   => '1980-01-02',
         },
         meta_data => {
             created => '2022-01-01T00:00:00Z',
@@ -20,7 +21,14 @@ my $wrapped_pxf = {
         medical_actions => [
             {
                 procedure => {
-                    bodySite => { id => 'UBERON:0002107', label => 'liver' },
+                    bodySite  => { id => 'UBERON:0002107', label => 'liver' },
+                    performed => { age => { iso8601duration => 'P20Y' } },
+                },
+            },
+            {
+                procedure => {
+                    code      => { id => 'NCIT:C28743', label => 'Biopsy' },
+                    performed => { timestamp => '2021-01-02T03:04:05Z' },
                 },
             },
             {
@@ -46,6 +54,10 @@ my $wrapped_pxf = {
                 type       => { id => 'NCIT:C20197', label => 'male' },
                 occurrence => { timestamp => '2020-03-04T10:11:12Z' },
             },
+            {
+                type       => { id => 'NCIT:C68767', label => 'Tobacco Use Exposure' },
+                occurrence => { age => { iso8601duration => 'P42Y' } },
+            },
         ],
         measurements => [
             {
@@ -68,6 +80,13 @@ my $wrapped_pxf = {
             {
                 type     => { id => 'HP:0000118', label => 'Phenotypic abnormality' },
                 negated  => JSON::PP::true,
+                onset    => { age => { iso8601duration => 'P6M' } },
+                evidence => [
+                    {
+                        evidenceCode => { id => 'ECO:0000033', label => 'author statement supported by traceable reference' },
+                        reference    => { id => 'PMID:123', description => 'paper title' },
+                    }
+                ],
             },
         ],
         diseases => [
@@ -100,6 +119,7 @@ ok( !exists $got->{sex}, 'empty sex is not mapped' );
 
 is( $got->{info}{cohort}{id}, 'cohort-1', 'retains top-level cohort info' );
 is( $got->{info}{family}{id}, 'family-1', 'retains top-level family info' );
+is( $got->{info}{phenopacket}{dateOfBirth}, '1980-01-02', 'retains subject dateOfBirth in info' );
 is( $got->{info}{phenopacket}{metaData}{created}, '2022-01-01T00:00:00Z', 'normalizes meta_data to metaData' );
 is( $got->{info}{phenopacket}{biosamples}[0]{id}, 'biosample-1', 'retains biosamples in info' );
 is( $got->{info}{phenopacket}{files}[0]{uri}, 'file://example', 'retains files in info' );
@@ -108,15 +128,21 @@ is( $got->{info}{phenopacket}{pedigree}{id}, 'ped-1', 'retains pedigree in info'
 
 is( $got->{diseases}[0]{diseaseCode}{id}, 'MONDO:0000001', 'normalizes disease term to diseaseCode' );
 ok( !exists $got->{diseases}[0]{term}, 'removes original disease term key' );
-ok( exists $got->{diseases}[0]{ageOfOnset}, 'maps disease onset' );
+is( $got->{diseases}[0]{ageOfOnset}{iso8601duration}, 'P3Y', 'unwraps disease onset time element' );
 
 is( $got->{exposures}[0]{date}, '2020-03-04', 'maps exposure timestamp to date' );
+ok( !exists $got->{exposures}[0]{occurrence}, 'removes mapped exposure occurrence' );
 ok( exists $got->{exposures}[0]{unit}, 'adds default unit to exposure' );
 ok( exists $got->{exposures}[0]{duration}, 'adds default duration to exposure' );
 ok( exists $got->{exposures}[0]{ageAtExposure}, 'adds default ageAtExposure to exposure' );
+is( $got->{exposures}[1]{ageAtExposure}{iso8601duration}, 'P42Y', 'maps exposure age to ageAtExposure' );
+ok( !exists $got->{exposures}[1]{occurrence}, 'removes age-based exposure occurrence after mapping' );
 
 is( $got->{interventionsOrProcedures}[0]{procedureCode}{id}, 'NCIT:C126101', 'adds default procedure code when missing' );
-ok( exists $got->{interventionsOrProcedures}[0]{ageOfProcedure}, 'adds default ageOfProcedure when missing' );
+is( $got->{interventionsOrProcedures}[0]{ageAtProcedure}{iso8601duration}, 'P20Y', 'maps procedure age to ageAtProcedure' );
+ok( !exists $got->{interventionsOrProcedures}[0]{ageOfProcedure}, 'does not write legacy ageOfProcedure key' );
+is( $got->{interventionsOrProcedures}[1]{procedureCode}{id}, 'NCIT:C28743', 'preserves provided procedure code' );
+is( $got->{interventionsOrProcedures}[1]{dateOfProcedure}, '2021-01-02', 'maps procedure timestamp to dateOfProcedure' );
 
 is( $got->{treatments}[0]{treatmentCode}{id}, 'NCIT:C126101', 'adds default treatment code when agent is missing' );
 is( $got->{treatments}[0]{doseIntervals}[0]{scheduleFrequency}{id}, 'NCIT:C126101', 'adds default schedule frequency' );
@@ -126,11 +152,14 @@ is( $got->{treatments}[0]{doseIntervals}[1]{quantity}{value}, 5, 'preserves prov
 is( $got->{measures}[0]{assayCode}{id}, 'LOINC:1234-5', 'maps assay to assayCode' );
 is( $got->{measures}[0]{measurementValue}{typedQuantities}[0]{quantityType}{id}, 'NCIT:C25208', 'normalizes complexValue typed quantity type' );
 ok( !exists $got->{measures}[0]{complexValue}, 'removes original complexValue key' );
-ok( exists $got->{measures}[0]{observationMoment}, 'maps timeObserved to observationMoment' );
+is( $got->{measures}[0]{observationMoment}{iso8601duration}, 'P10Y', 'unwraps measurement timeObserved to observationMoment' );
 
 is( $got->{phenotypicFeatures}[0]{featureType}{id}, 'HP:0000118', 'maps feature type' );
 ok( $got->{phenotypicFeatures}[0]{excluded}, 'maps negated to excluded' );
 ok( !exists $got->{phenotypicFeatures}[0]{type}, 'removes original feature type key' );
+is( $got->{phenotypicFeatures}[0]{onset}{iso8601duration}, 'P6M', 'unwraps phenotypic feature onset time element' );
+is( $got->{phenotypicFeatures}[0]{evidence}{reference}{notes}, 'paper title', 'maps evidence reference description to notes' );
+is( $got->{phenotypicFeatures}[0]{evidence}{info}{phenopacket}{evidence}[0]{reference}{description}, 'paper title', 'preserves original evidence array under info' );
 
 my $convert_with_tool_info = build_convert(
     in_textfile => 0,

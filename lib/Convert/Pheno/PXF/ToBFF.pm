@@ -10,9 +10,9 @@ use Convert::Pheno::Context;
 use Convert::Pheno::Model::Bundle;
 use Convert::Pheno::Mapping::Shared;
 use Convert::Pheno::PXF::ToBFF::Individuals qw(map_pxf_to_individual);
-use Convert::Pheno::PXF::ToBFF::Biosamples qw(extract_pxf_biosamples);
+use Convert::Pheno::PXF::ToBFF::Biosamples qw(extract_pxf_biosamples map_pxf_to_biosample);
 
-our @EXPORT_OK = qw(do_pxf2bff run_pxf_to_bundle map_pxf_to_individual);
+our @EXPORT_OK = qw(do_pxf2bff run_pxf_to_bundle map_pxf_to_individual map_pxf_to_biosample);
 
 sub do_pxf2bff {
     my ( $self, $data ) = @_;
@@ -50,7 +50,7 @@ sub run_pxf_to_bundle {
     $bundle->add_entity( individuals => $individual );
 
     if ( _context_requests_entity( $context, 'biosamples' ) ) {
-        for my $biosample ( @{ extract_pxf_biosamples( $phenopacket, $individual->{id} ) } ) {
+        for my $biosample ( @{ extract_pxf_biosamples( $self, $phenopacket, $individual->{id} ) } ) {
             $bundle->add_entity( biosamples => $biosample );
         }
     }
