@@ -12,6 +12,7 @@ use Test::ConvertPheno qw(
   structured_files_match
   csv_files_match
   gunzip_file_content
+  slurp_file
   load_json_file
   has_ohdsi_db
 );
@@ -154,6 +155,13 @@ my @cases = (
         compare  => 'csv',
     },
     {
+        name     => 'bff2csv_gzip',
+        cmd      => [ '-ibff', 't/bff2pxf/in/individuals.json', '-ocsv', '__OUT__' ],
+        expected => 't/bff2csv/out/individuals.csv',
+        suffix   => '.csv.gz',
+        compare  => 'gunzip_to_plain',
+    },
+    {
         name     => 'bff2jsonf',
         cmd      => [ '-ibff', 't/bff2pxf/in/individuals.json', '-ojsonf', '__OUT__' ],
         expected => 't/bff2jsonf/out/individuals.fold.json',
@@ -166,6 +174,13 @@ my @cases = (
         expected => 't/pxf2csv/out/pxf.csv',
         suffix   => '.csv',
         compare  => 'csv',
+    },
+    {
+        name     => 'pxf2csv_gzip',
+        cmd      => [ '-ipxf', 't/pxf2bff/in/pxf.json', '-ocsv', '__OUT__' ],
+        expected => 't/pxf2csv/out/pxf.csv',
+        suffix   => '.csv.gz',
+        compare  => 'gunzip_to_plain',
     },
     {
         name     => 'pxf2jsonf',
@@ -207,6 +222,8 @@ sub compare_case_output {
     return csv_files_match( $expected, $actual )         if $kind eq 'csv';
     return gunzip_file_content($expected) eq gunzip_file_content($actual)
       if $kind eq 'gunzip';
+    return slurp_file($expected) eq gunzip_file_content($actual)
+      if $kind eq 'gunzip_to_plain';
 
     die "Unknown compare kind <$kind>";
 }

@@ -85,6 +85,21 @@ Frequently Asked Questions
 
     Prefer **raw data** together with the REDCap dictionary file. If your export uses labels instead, use the [CSV](csv.md) route. See [Troubleshooting](troubleshooting.md#redcap-export-mode).
 
+??? faq "Which formats accept gzipped (`.gz`) files?"
+
+    Based on the current I/O code, gzip support is available for these file families:
+
+    | File family | Typical use | Read `.gz` | Write `.gz` | Notes |
+    | --- | --- | --- | --- | --- |
+    | JSON / YAML structured files | `BFF`, `PXF`, `JSON-LD`, flattened `JSON/YAML`, mapping files, schema files | Yes | Yes | Implemented through the shared JSON/YAML I/O layer for `.json`, `.yaml`, `.yml`, `.jsonld`, `.yamlld`, `.ymlld` and their `.gz` variants |
+    | CSV / TSV / TXT tabular inputs | `csv2*`, `redcap2*`, REDCap dictionary files | Yes | N/A | Input readers accept `.csv.gz`, `.tsv.gz` and `.txt.gz` |
+    | SQL dumps | `omop2*` from `.sql` dumps | Yes | N/A | OMOP SQL input accepts `.sql.gz` |
+    | Streamed OMOP output | `omop2bff --stream` | N/A | Yes | CLI restricts streamed OMOP output to `json` or `json.gz` |
+    | OMOP table output | `*2omop` | N/A | Yes | Use `--oomop PREFIX.csv.gz` or `--oomop PREFIX.gz` to get `PREFIX_TABLE.csv.gz` files |
+    | CSV / TSV output | `bff2csv`, `pxf2csv`, search-audit TSV | N/A | Yes | The current writers accept `.csv.gz` and `.tsv.gz` in addition to plain text output |
+
+    In practice, gzip is supported both for structured JSON/YAML-style outputs and for the main CSV/TSV output paths.
+
 
 ## Installation
 

@@ -14,6 +14,7 @@ use Scalar::Util qw(looks_like_number);
 use List::Util   qw(first);
 use Cwd          qw(cwd);
 use Sys::Hostname;
+use IO::Compress::Gzip qw($GzipError);
 use Convert::Pheno::DB::SQLite;
 use Convert::Pheno::Utils::Default qw(get_defaults);
 use Exporter 'import';
@@ -93,7 +94,7 @@ sub _record_search_audit {
 
     my $fh = $self->{_search_audit_fh};
     unless ($fh) {
-        open my $audit_fh, '>:encoding(UTF-8)', $self->{search_audit_file};
+        my $audit_fh = _open_search_audit_handle( $self->{search_audit_file} );
         print {$audit_fh}
           join(
             "\t",
@@ -123,6 +124,20 @@ sub _record_search_audit {
       "\n";
 
     return 1;
+}
+
+sub _open_search_audit_handle {
+    my ($filepath) = @_;
+
+    if ( $filepath =~ /\.gz$/ ) {
+        my $fh = IO::Compress::Gzip->new($filepath)
+          or die "Cannot gzip <$filepath>: $GzipError";
+        binmode( $fh, ':encoding(UTF-8)' );
+        return $fh;
+    }
+
+    open my $fh, '>:encoding(UTF-8)', $filepath;
+    return $fh;
 }
 
 sub finalize_search_audit {

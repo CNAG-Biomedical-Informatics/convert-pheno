@@ -707,22 +707,33 @@ sub write_csv {
         $data = [$data];    # Convert to an array reference containing one hash
     }
 
-    my @exts = qw(.csv .tsv);
+    my @exts = qw(.csv .tsv .csv.gz .tsv.gz);
     my $msg =
       qq(Can't recognize <$filepath> extension. Extensions allowed are: )
       . ( join ',', @exts ) . "\n";
     my ( undef, undef, $ext ) = fileparse( $filepath, @exts );
     die $msg unless any { $_ eq $ext } @exts;
 
-    # Use Text::CSV_XS to write to CSV, ensuring $data is always an AoH
-    csv(
-        in       => $data,       # This now can be an AoH or a single hash converted to AoH
-        out      => $filepath,
-        sep_char => $sep,
-        eol      => "\n",
-        encoding => 'UTF-8',
-        headers  => $headers     # Ensure headers are defined or auto-detection is enabled
-    );
+    $headers ||= get_headers($data);
+
+    my $fh = open_filehandle( $filepath, 'w' );
+    my $csv = Text::CSV_XS->new(
+        {
+            binary   => 1,
+            eol      => "\n",
+            sep_char => $sep,
+        }
+    ) or die "Cannot initialize CSV writer for <$filepath>";
+
+    $csv->print( $fh, $headers );
+    for my $row ( @{$data} ) {
+        $csv->print(
+            $fh,
+            [ map { exists $row->{$_} ? $row->{$_} : undef } @{$headers} ]
+        );
+    }
+
+    close $fh;
     return 1;
 }
 

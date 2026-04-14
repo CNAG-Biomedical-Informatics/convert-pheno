@@ -348,7 +348,7 @@ sub write_conversion_result {
 
     if ( $method =~ /2omop$/ ) {
         for my $table ( keys %$data ) {
-            my $filepath = catfile( $o_file . "_$table.csv" );
+            my $filepath = resolve_omop_table_output_file( $o_file, $table );
             my @headers  = @{ $omop_headers->{$table} };
             write_csv(
                 {
@@ -369,6 +369,18 @@ sub write_conversion_result {
             data     => $data,
         }
     );
+}
+
+sub resolve_omop_table_output_file {
+    my ( $prefix, $table ) = @_;
+
+    my $gzip = $prefix =~ /\.gz$/i ? 1 : 0;
+    my $base = $prefix;
+
+    $base =~ s/\.gz$//i if $gzip;
+    $base =~ s/\.csv$//i;
+
+    return $base . "_$table.csv" . ( $gzip ? '.gz' : '' );
 }
 
 sub program_header {

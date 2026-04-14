@@ -5,7 +5,7 @@ use warnings;
 use lib qw(./lib ../lib t/lib);
 use Test::More;
 use Convert::Pheno::CLI::Args qw(build_cli_request);
-use Test::ConvertPheno qw(build_convert temp_output_file slurp_file);
+use Test::ConvertPheno qw(build_convert temp_output_file slurp_file gunzip_file_content);
 
 {
     my $request = build_cli_request(
@@ -26,6 +26,27 @@ use Test::ConvertPheno qw(build_convert temp_output_file slurp_file);
         $request->{data}{search_audit_file},
         '/tmp/search-audit.tsv',
         'CLI parser resolves --search-audit-tsv relative to --out-dir'
+    );
+}
+
+{
+    my $request = build_cli_request(
+        argv => [
+            '-icsv', 't/csv2bff/in/csv_data.csv',
+            '--mapping-file', 't/csv2bff/in/csv_mapping.yaml',
+            '-obff', 'individuals.json',
+            '--search-audit-tsv', 'search-audit.tsv.gz',
+        ],
+        usage_error => sub { die @_ },
+        schema_file => 'share/schema/mapping.json',
+        out_dir     => '/tmp',
+        color       => 1,
+    );
+
+    is(
+        $request->{data}{search_audit_file},
+        '/tmp/search-audit.tsv.gz',
+        'CLI parser resolves gzipped --search-audit-tsv relative to --out-dir'
     );
 }
 
@@ -89,6 +110,33 @@ use Test::ConvertPheno qw(build_convert temp_output_file slurp_file);
         qr/^(?:exact|similarity|fallback_na)$/,
         'search audit TSV records how the lookup was resolved'
     );
+}
+
+{
+    my $audit_file = temp_output_file( suffix => '.tsv.gz', dir => '/tmp' );
+    my $convert = build_convert(
+        in_file           => 't/csv2bff/in/csv_data.csv',
+        mapping_file      => 't/csv2bff/in/csv_mapping.yaml',
+        sep               => ',',
+        out_file          => temp_output_file(),
+        method            => 'csv2bff',
+        search_audit_file => $audit_file,
+    );
+
+    my $data = $convert->csv2bff;
+    ok( ref $data eq 'ARRAY' && @{$data}, 'csv2bff still returns data when gzipped search audit is enabled' );
+    ok( -f $audit_file, 'gzipped search audit TSV is written when requested' );
+
+    my @lines = grep { length } split /\n/, gunzip_file_content($audit_file);
+    is(
+        $lines[0],
+        join(
+            "\t",
+            qw(row original_term_label converted_term_label converted_term_id ontology configured_search_mode text_similarity_method min_text_similarity_score levenshtein_weight match_status match_source lookup_resolution)
+        ),
+        'gzipped search audit TSV starts with the expected header'
+    );
+    cmp_ok( scalar @lines, '>', 1, 'gzipped search audit TSV contains at least one mapped row' );
 }
 
 done_testing();
