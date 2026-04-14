@@ -61,7 +61,10 @@ use Convert::Pheno::BFF::ToOMOP qw(do_bff2omop);
                 treatmentCode => { label => 'Treatment A' },
                 routeOfAdministration => { label => 'Route A' },
                 ageOfOnset => { age => { iso8601duration => 'P2Y' } },
-                cumulativeDose => { unit => { label => 'week' } },
+                cumulativeDose => {
+                    unit  => { label => 'week' },
+                    value => 2,
+                },
             },
             {
                 treatmentCode => { label => 'Treatment B' },
@@ -74,7 +77,10 @@ use Convert::Pheno::BFF::ToOMOP qw(do_bff2omop);
                         },
                     },
                 ],
-                cumulativeDose => { unit => { label => 'day' } },
+                cumulativeDose => {
+                    unit  => { label => 'day' },
+                    value => 9,
+                },
                 _visit => { occurrence_id => 77, detail_id => 88 },
             },
             {
@@ -110,10 +116,11 @@ use Convert::Pheno::BFF::ToOMOP qw(do_bff2omop);
     is( $got->{DRUG_EXPOSURE}[0]{drug_exposure_start_date}, '2002-01-01', 'derives treatment start date from ageOfOnset' );
     is( $got->{DRUG_EXPOSURE}[0]{drug_exposure_end_date}, '2002-01-01', 'defaults treatment end date to start date' );
     is( $got->{DRUG_EXPOSURE}[0]{quantity}, -1, 'defaults treatment quantity when doseIntervals are missing' );
+    is( $got->{DRUG_EXPOSURE}[0]{days_supply}, 14, 'derives days supply from cumulativeDose value and unit' );
     is( $got->{DRUG_EXPOSURE}[1]{drug_exposure_start_date}, '1900-01-01', 'falls back to the default treatment start date when doseIntervals lack interval dates' );
     is( $got->{DRUG_EXPOSURE}[1]{drug_exposure_end_date}, '1900-01-01', 'falls back to the default treatment end date when doseIntervals lack interval dates' );
     is( $got->{DRUG_EXPOSURE}[1]{quantity}, 5, 'uses first dose interval quantity when present' );
-    is( $got->{DRUG_EXPOSURE}[1]{days_supply}, 5, 'converts cumulativeDose label day to days supply' );
+    is( $got->{DRUG_EXPOSURE}[1]{days_supply}, 9, 'uses cumulativeDose duration rather than dose quantity for days supply' );
     is( $got->{DRUG_EXPOSURE}[1]{visit_occurrence_id}, 77, 'attaches visit occurrence id' );
     is( $got->{DRUG_EXPOSURE}[1]{visit_detail_id}, 88, 'attaches visit detail id' );
     is( $got->{DRUG_EXPOSURE}[2]{drug_exposure_start_date}, '2005-06-01', 'maps treatment start date from dose interval start timestamp' );

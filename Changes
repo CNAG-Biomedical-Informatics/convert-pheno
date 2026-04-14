@@ -1,9 +1,16 @@
 Revision history for Perl distribution Convert-Pheno
 
-0.30 2026-XX-XXXXT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
+0.30 2026-04-14XXT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
- - Minor Pheno.pm refactor: simplify helpers to improve OMOP dispatch and JSON streaming performance
- - Updated test suite
+ - Refactored BFF internals to support entity-aware and multi-entity conversion
+ - Added BFF entity output mode via --entities/--out-dir/--out-entity while keeping legacy -obff behavior for individuals
+ - PXF input can now emit first-class biosamples, and datasets/cohorts can be synthesized from the normalized individuals collection
+ - Refactored the mapping file to an entity-aware layout with beacon.individuals plus optional beacon.{datasets,cohorts,biosamples}
+ - Refreshed mapping tables and improved mapping-file documentation
+ - Improved PXF <-> BFF round-trip mapping and preserved/restored Phenopackets vitalStatus
+ - Added configurable fallback for PXF subject.vitalStatus via --default-vital-status
+ - Added --search-audit-tsv and improved SQLite exact-search reporting
+ - Reworked CLI internals, expanded test coverage and removed the legacy RDF module
 
 0.29 2025-12-23XXT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 

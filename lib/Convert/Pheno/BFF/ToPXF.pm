@@ -112,6 +112,8 @@ sub do_bff2pxf {
     # END MAPPING TO PHENOPACKET V2 TERMS #
     #######################################
 
+    _strip_private_keys($pxf);
+
     return $pxf;
 }
 
@@ -161,20 +163,24 @@ sub _map_phenotypic_features {
     $pxf->{phenotypicFeatures} = [
         map {
             my $feature = _clone_data($_);
-            my %mapped  = %{$feature};
+            my %mapped;
 
-            $mapped{type} = delete $mapped{featureType}
-              if exists $mapped{featureType};
+            $mapped{type} = _clone_data( $feature->{featureType} )
+              if exists $feature->{featureType};
             $mapped{excluded} =
-              exists $mapped{excluded}
-              ? delete $mapped{excluded}
+              exists $feature->{excluded}
+              ? $feature->{excluded}
               : JSON::PP::false();
-            $mapped{evidence} = _map_evidence_to_pxf( $mapped{evidence} )
-              if exists $mapped{evidence};
-            $mapped{onset} = _map_time_element_to_pxf( $mapped{onset} )
-              if exists $mapped{onset};
-            $mapped{resolution} = _map_time_element_to_pxf( $mapped{resolution} )
-              if exists $mapped{resolution};
+            $mapped{severity} = _clone_data( $feature->{severity} )
+              if exists $feature->{severity};
+            $mapped{modifiers} = _clone_data( $feature->{modifiers} )
+              if exists $feature->{modifiers};
+            $mapped{evidence} = _map_evidence_to_pxf( $feature->{evidence} )
+              if exists $feature->{evidence};
+            $mapped{onset} = _map_time_element_to_pxf( $feature->{onset} )
+              if exists $feature->{onset};
+            $mapped{resolution} = _map_time_element_to_pxf( $feature->{resolution} )
+              if exists $feature->{resolution};
 
             \%mapped;
         } @{ $bff->{phenotypicFeatures} }
@@ -230,13 +236,24 @@ sub _map_diseases {
     $pxf->{diseases} = [
         map {
             my $disease = _clone_data($_);
-            my %mapped  = %{$disease};
+            my %mapped;
 
-            $mapped{term} = delete $mapped{diseaseCode}
-              if exists $mapped{diseaseCode};
-            $mapped{onset} = _map_time_element_to_pxf( $mapped{ageOfOnset} )
-              if exists $mapped{ageOfOnset};
-            delete $mapped{ageOfOnset};
+            $mapped{term} = _clone_data( $disease->{diseaseCode} )
+              if exists $disease->{diseaseCode};
+            $mapped{excluded} = $disease->{excluded}
+              if exists $disease->{excluded};
+            $mapped{onset} = _map_time_element_to_pxf( $disease->{ageOfOnset} )
+              if exists $disease->{ageOfOnset};
+            $mapped{resolution} = _map_time_element_to_pxf( $disease->{resolution} )
+              if exists $disease->{resolution};
+            $mapped{diseaseStage} = _clone_data( $disease->{diseaseStage} )
+              if exists $disease->{diseaseStage};
+            $mapped{clinicalTnmFinding} = _clone_data( $disease->{clinicalTnmFinding} )
+              if exists $disease->{clinicalTnmFinding};
+            $mapped{primarySite} = _clone_data( $disease->{primarySite} )
+              if exists $disease->{primarySite};
+            $mapped{laterality} = _clone_data( $disease->{laterality} )
+              if exists $disease->{laterality};
 
             \%mapped;
         } @{ $bff->{diseases} }
@@ -257,20 +274,16 @@ sub _map_medical_actions {
     # **** treatments ****
     my @treatments = map {
         my $treatment = _clone_data($_);
-        my %mapped    = %{$treatment};
+        my %mapped;
+        $mapped{agent} = _clone_data( $treatment->{treatmentCode} )
+          if exists $treatment->{treatmentCode};
+        $mapped{routeOfAdministration} =
+          _clone_data( $treatment->{routeOfAdministration} )
+          if exists $treatment->{routeOfAdministration};
+        $mapped{doseIntervals} = _clone_data( $treatment->{doseIntervals} )
+          if exists $treatment->{doseIntervals};
         {
             treatment => {
-                agent => delete $mapped{treatmentCode},
-                (
-                    exists $mapped{routeOfAdministration}
-                    ? ( routeOfAdministration => delete $mapped{routeOfAdministration} )
-                    : ()
-                ),
-                (
-                    exists $mapped{doseIntervals}
-                    ? ( doseIntervals => delete $mapped{doseIntervals} )
-                    : ()
-                ),
                 %mapped,
             }
         }
@@ -349,6 +362,29 @@ sub _clone_data {
     }
 
     return $data;
+}
+
+sub _strip_private_keys {
+    my ($data) = @_;
+    return unless defined $data;
+
+    if ( ref($data) eq 'HASH' ) {
+        for my $key ( keys %{$data} ) {
+            if ( $key =~ /^_/ ) {
+                delete $data->{$key};
+                next;
+            }
+            _strip_private_keys( $data->{$key} );
+        }
+        return;
+    }
+
+    if ( ref($data) eq 'ARRAY' ) {
+        _strip_private_keys($_) for @{$data};
+        return;
+    }
+
+    return;
 }
 
 sub _map_sex {

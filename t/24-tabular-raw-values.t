@@ -29,19 +29,23 @@ io_yaml_or_json(
                 version                   => 'test-0.1',
                 baselineFieldsToPropagate => [],
             },
-            id => {
-                fields       => [ 'PatientId', 'EventName' ],
-                targetFields => { primaryKey => 'PatientId' },
-            },
-            sex => {
-                fields => 'Sex',
-            },
-            ethnicity => {
-                fields => 'Ethnicity',
-            },
-            diseases => {
-                fields          => ['Disease_1'],
-                valueTermLabels => { Diabetes => 'Diabetes Mellitus' },
+            beacon => {
+                individuals => {
+                    id => {
+                        fields       => [ 'PatientId', 'EventName' ],
+                        targetFields => { primaryKey => 'PatientId' },
+                    },
+                    sex => {
+                        fields => 'Sex',
+                    },
+                    ethnicity => {
+                        fields => 'Ethnicity',
+                    },
+                    diseases => {
+                        fields          => ['Disease_1'],
+                        valueTermLabels => { Diabetes => 'Diabetes Mellitus' },
+                    },
+                },
             },
         },
     }

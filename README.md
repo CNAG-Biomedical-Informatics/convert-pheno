@@ -10,7 +10,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/CNAG-Biomedical-Informatics/convert-pheno/badge.svg?branch=main)](https://coveralls.io/github/CNAG-Biomedical-Informatics/convert-pheno?branch=main)
 [![CPAN Publish](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/cpan-publish.yml/badge.svg)](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/cpan-publish.yml)
 [![Kwalitee Score](https://cpants.cpanauthors.org/dist/Convert-Pheno.svg)](https://cpants.cpanauthors.org/dist/Convert-Pheno)
-![version](https://img.shields.io/badge/version-0.29_beta-orange)
+![version](https://img.shields.io/badge/version-0.30_beta-orange)
 [![Docker Build](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/docker-build-multi-arch.yml/badge.svg)](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/docker-build-multi-arch.yml)
 [![Docker Pulls](https://badgen.net/docker/pulls/manuelrueda/convert-pheno?icon=docker&label=pulls)](https://hub.docker.com/r/manuelrueda/convert-pheno/)
 [![Docker Image Size](https://img.shields.io/docker/image-size/manuelrueda/convert-pheno/latest?logo=docker&label=image%20size)](https://hub.docker.com/r/manuelrueda/convert-pheno/)
@@ -41,20 +41,9 @@
 
 # Convert-Pheno
 
-`Convert-Pheno` is a toolkit for interconverting standard clinical and phenotypic data models.
+`Convert-Pheno` is a toolkit for interconverting standard clinical and phenotypic data models
 
-It currently supports practical workflows around:
-
-- BFF entity bundles centered on `individuals`
-- first-class BFF `biosamples` output from `PXF`
-- synthesized BFF `datasets` and `cohorts`
-- Phenopackets v2 (PXF)
-- OMOP-CDM
-- REDCap
-- CDISC-ODM
-- CSV
-- flattened CSV / 1D JSON
-- JSON-LD
+Supported formats include BFF, PXF, OMOP CDM, REDCap, CDISC-ODM and CSV
 
 ## Quick Start
 
@@ -94,7 +83,26 @@ This can write:
 - `out/datasets.json`
 - `out/cohorts.json`
 
-For mapping-file workflows such as `csv2bff`, `redcap2bff`, and `cdisc2bff`, synthesized `datasets` and `cohorts` can be customized through the top-level `beacon` section of the mapping file.
+For mapping-file workflows such as `csv2bff`, `redcap2bff`, and `cdisc2bff`, synthesized `datasets` and `cohorts` can be customized through the top-level `beacon` section of the mapping file
+
+## Mapping Files
+
+Mapping-file based tabular conversions now use an entity-aware layout
+
+- `project` keeps project-level metadata
+- `beacon.individuals` contains the semantic mapping rules for Beacon `individuals`
+- `beacon.datasets`, `beacon.cohorts`, and `beacon.biosamples` can provide metadata or defaults for emitted Beacon entities
+
+This makes the mapping structure consistent with multi-entity BFF output while keeping `individuals` as the central normalized model
+
+## Selected CLI Features
+
+Useful recent options include:
+
+- `--default-vital-status` to control the fallback `subject.vitalStatus.status` in `bff2pxf`
+- `--search-audit-tsv` to write a TSV report of ontology lookup results for mapping-file conversions
+- generic `-i/-o` syntax in addition to the format-specific shortcuts
+- `--out-entity entity=file` to customize filenames in multi-entity BFF output
 
 ## Installation
 
@@ -125,6 +133,8 @@ Useful examples:
 ```bash
 bin/convert-pheno -ipxf t/pxf2bff/in/pxf.json -obff individuals.json
 bin/convert-pheno -ipxf t/pxf2bff/in/pxf_biosamples.json --entities individuals biosamples datasets cohorts --out-dir out/
+bin/convert-pheno -icsv t/csv2bff/in/csv_data.csv --mapping-file t/csv2bff/in/csv_mapping.yaml --search-audit-tsv search-audit.tsv -obff individuals.json
+bin/convert-pheno -ibff t/bff2pxf/in/individuals.json -opxf phenopackets.json --default-vital-status UNKNOWN_STATUS
 bin/convert-pheno -iomop t/omop2bff/in/omop_cdm_eunomia.sql -opxf phenopackets.json
 bin/convert-pheno -iomop t/omop2bff/in/gz/omop_cdm_eunomia.sql.gz -obff individuals.json.gz --stream --omop-tables DRUG_EXPOSURE
 ```

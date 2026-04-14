@@ -2,23 +2,10 @@
    {
       "diseases" : [
          {
-            "_visit" : {
-               "composite" : "1",
-               "id" : 1,
-               "occurrence_id" : 1
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C28397",
@@ -26,23 +13,10 @@
             }
          },
          {
-            "_visit" : {
-               "composite" : "1",
-               "id" : 1,
-               "occurrence_id" : 1
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C3117",
@@ -50,23 +24,10 @@
             }
          },
          {
-            "_visit" : {
-               "composite" : "1",
-               "id" : 1,
-               "occurrence_id" : 1
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C2985",
@@ -208,32 +169,9 @@
       "medicalActions" : [
          {
             "treatment" : {
-               "_info" : {
-                  "drug_name" : "Lisinopril",
-                  "field" : "DrugName",
-                  "route" : "oral",
-                  "value" : "Lisinopril"
-               },
-               "_visit" : {
-                  "composite" : "1",
-                  "id" : 1,
-                  "occurrence_id" : 1
-               },
-               "ageAtOnset" : {
-                  "age" : {
-                     "iso8601duration" : "P999Y"
-                  }
-               },
                "agent" : {
                   "id" : "NCIT:C29159",
                   "label" : "Lisinopril"
-               },
-               "cumulativeDose" : {
-                  "unit" : {
-                     "id" : "NCIT:C29844",
-                     "label" : "Week"
-                  },
-                  "value" : 62
                },
                "doseIntervals" : [
                   {
@@ -272,26 +210,14 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
-            "_visit" : {
-               "composite" : "1",
-               "id" : 1,
-               "occurrence_id" : 1
-            },
             "excluded" : false,
-            "excluded_ori" : "Abnormal heart valve morphology",
             "type" : {
                "id" : "HP:0001654",
                "label" : "Abnormal heart valve morphology"
             }
          },
          {
-            "_visit" : {
-               "composite" : "1",
-               "id" : 1,
-               "occurrence_id" : 1
-            },
             "excluded" : false,
-            "excluded_ori" : "Emphysema",
             "type" : {
                "id" : "HP:0002097",
                "label" : "Emphysema"
@@ -309,23 +235,10 @@
    {
       "diseases" : [
          {
-            "_visit" : {
-               "composite" : "2",
-               "id" : 2,
-               "occurrence_id" : 2
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C28397",
@@ -333,23 +246,10 @@
             }
          },
          {
-            "_visit" : {
-               "composite" : "2",
-               "id" : 2,
-               "occurrence_id" : 2
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C3117",
@@ -357,23 +257,10 @@
             }
          },
          {
-            "_visit" : {
-               "composite" : "2",
-               "id" : 2,
-               "occurrence_id" : 2
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C2985",
@@ -515,32 +402,9 @@
       "medicalActions" : [
          {
             "treatment" : {
-               "_info" : {
-                  "drug_name" : "Lisinopril",
-                  "field" : "DrugName",
-                  "route" : "oral",
-                  "value" : "Lisinopril"
-               },
-               "_visit" : {
-                  "composite" : "2",
-                  "id" : 2,
-                  "occurrence_id" : 2
-               },
-               "ageAtOnset" : {
-                  "age" : {
-                     "iso8601duration" : "P999Y"
-                  }
-               },
                "agent" : {
                   "id" : "NCIT:C29159",
                   "label" : "Lisinopril"
-               },
-               "cumulativeDose" : {
-                  "unit" : {
-                     "id" : "NCIT:C29844",
-                     "label" : "Week"
-                  },
-                  "value" : 62
                },
                "doseIntervals" : [
                   {
@@ -579,26 +443,14 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
-            "_visit" : {
-               "composite" : "2",
-               "id" : 2,
-               "occurrence_id" : 2
-            },
             "excluded" : false,
-            "excluded_ori" : "Abnormal heart valve morphology",
             "type" : {
                "id" : "HP:0001654",
                "label" : "Abnormal heart valve morphology"
             }
          },
          {
-            "_visit" : {
-               "composite" : "2",
-               "id" : 2,
-               "occurrence_id" : 2
-            },
             "excluded" : false,
-            "excluded_ori" : "Emphysema",
             "type" : {
                "id" : "HP:0002097",
                "label" : "Emphysema"
@@ -616,23 +468,10 @@
    {
       "diseases" : [
          {
-            "_visit" : {
-               "composite" : "3",
-               "id" : 3,
-               "occurrence_id" : 3
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C28397",
@@ -640,23 +479,10 @@
             }
          },
          {
-            "_visit" : {
-               "composite" : "3",
-               "id" : 3,
-               "occurrence_id" : 3
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C3117",
@@ -664,23 +490,10 @@
             }
          },
          {
-            "_visit" : {
-               "composite" : "3",
-               "id" : 3,
-               "occurrence_id" : 3
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C2985",
@@ -822,32 +635,9 @@
       "medicalActions" : [
          {
             "treatment" : {
-               "_info" : {
-                  "drug_name" : "Metformin",
-                  "field" : "DrugName",
-                  "route" : "oral",
-                  "value" : "Metformin"
-               },
-               "_visit" : {
-                  "composite" : "3",
-                  "id" : 3,
-                  "occurrence_id" : 3
-               },
-               "ageAtOnset" : {
-                  "age" : {
-                     "iso8601duration" : "P999Y"
-                  }
-               },
                "agent" : {
                   "id" : "NCIT:C61612",
                   "label" : "Metformin"
-               },
-               "cumulativeDose" : {
-                  "unit" : {
-                     "id" : "NCIT:C29844",
-                     "label" : "Week"
-                  },
-                  "value" : 25
                },
                "doseIntervals" : [
                   {
@@ -886,26 +676,14 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
-            "_visit" : {
-               "composite" : "3",
-               "id" : 3,
-               "occurrence_id" : 3
-            },
             "excluded" : false,
-            "excluded_ori" : "Emphysema",
             "type" : {
                "id" : "HP:0002097",
                "label" : "Emphysema"
             }
          },
          {
-            "_visit" : {
-               "composite" : "3",
-               "id" : 3,
-               "occurrence_id" : 3
-            },
             "excluded" : false,
-            "excluded_ori" : "Abnormal heart valve morphology",
             "type" : {
                "id" : "HP:0001654",
                "label" : "Abnormal heart valve morphology"
@@ -923,23 +701,10 @@
    {
       "diseases" : [
          {
-            "_visit" : {
-               "composite" : "4",
-               "id" : 4,
-               "occurrence_id" : 4
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C28397",
@@ -947,23 +712,10 @@
             }
          },
          {
-            "_visit" : {
-               "composite" : "4",
-               "id" : 4,
-               "occurrence_id" : 4
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C3117",
@@ -971,23 +723,10 @@
             }
          },
          {
-            "_visit" : {
-               "composite" : "4",
-               "id" : 4,
-               "occurrence_id" : 4
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C2985",
@@ -1129,32 +868,9 @@
       "medicalActions" : [
          {
             "treatment" : {
-               "_info" : {
-                  "drug_name" : "Metformin",
-                  "field" : "DrugName",
-                  "route" : "oral",
-                  "value" : "Metformin"
-               },
-               "_visit" : {
-                  "composite" : "4",
-                  "id" : 4,
-                  "occurrence_id" : 4
-               },
-               "ageAtOnset" : {
-                  "age" : {
-                     "iso8601duration" : "P999Y"
-                  }
-               },
                "agent" : {
                   "id" : "NCIT:C61612",
                   "label" : "Metformin"
-               },
-               "cumulativeDose" : {
-                  "unit" : {
-                     "id" : "NCIT:C29844",
-                     "label" : "Week"
-                  },
-                  "value" : 25
                },
                "doseIntervals" : [
                   {
@@ -1193,26 +909,14 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
-            "_visit" : {
-               "composite" : "4",
-               "id" : 4,
-               "occurrence_id" : 4
-            },
             "excluded" : false,
-            "excluded_ori" : "Emphysema",
             "type" : {
                "id" : "HP:0002097",
                "label" : "Emphysema"
             }
          },
          {
-            "_visit" : {
-               "composite" : "4",
-               "id" : 4,
-               "occurrence_id" : 4
-            },
             "excluded" : false,
-            "excluded_ori" : "Abnormal heart valve morphology",
             "type" : {
                "id" : "HP:0001654",
                "label" : "Abnormal heart valve morphology"
@@ -1230,23 +934,10 @@
    {
       "diseases" : [
          {
-            "_visit" : {
-               "composite" : "5",
-               "id" : 5,
-               "occurrence_id" : 5
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C2985",
@@ -1254,23 +945,10 @@
             }
          },
          {
-            "_visit" : {
-               "composite" : "5",
-               "id" : 5,
-               "occurrence_id" : 5
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C3117",
@@ -1278,23 +956,10 @@
             }
          },
          {
-            "_visit" : {
-               "composite" : "5",
-               "id" : 5,
-               "occurrence_id" : 5
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C28397",
@@ -1436,32 +1101,9 @@
       "medicalActions" : [
          {
             "treatment" : {
-               "_info" : {
-                  "drug_name" : "Albuterol",
-                  "field" : "DrugName",
-                  "route" : "oral",
-                  "value" : "Albuterol"
-               },
-               "_visit" : {
-                  "composite" : "5",
-                  "id" : 5,
-                  "occurrence_id" : 5
-               },
-               "ageAtOnset" : {
-                  "age" : {
-                     "iso8601duration" : "P999Y"
-                  }
-               },
                "agent" : {
                   "id" : "NCIT:C215",
                   "label" : "Albuterol"
-               },
-               "cumulativeDose" : {
-                  "unit" : {
-                     "id" : "NCIT:C29844",
-                     "label" : "Week"
-                  },
-                  "value" : 36
                },
                "doseIntervals" : [
                   {
@@ -1500,26 +1142,14 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
-            "_visit" : {
-               "composite" : "5",
-               "id" : 5,
-               "occurrence_id" : 5
-            },
             "excluded" : false,
-            "excluded_ori" : "Emphysema",
             "type" : {
                "id" : "HP:0002097",
                "label" : "Emphysema"
             }
          },
          {
-            "_visit" : {
-               "composite" : "5",
-               "id" : 5,
-               "occurrence_id" : 5
-            },
             "excluded" : false,
-            "excluded_ori" : "Abnormal heart valve morphology",
             "type" : {
                "id" : "HP:0001654",
                "label" : "Abnormal heart valve morphology"
@@ -1537,23 +1167,10 @@
    {
       "diseases" : [
          {
-            "_visit" : {
-               "composite" : "6",
-               "id" : 6,
-               "occurrence_id" : 6
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C2985",
@@ -1561,23 +1178,10 @@
             }
          },
          {
-            "_visit" : {
-               "composite" : "6",
-               "id" : 6,
-               "occurrence_id" : 6
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C3117",
@@ -1585,23 +1189,10 @@
             }
          },
          {
-            "_visit" : {
-               "composite" : "6",
-               "id" : 6,
-               "occurrence_id" : 6
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C28397",
@@ -1743,32 +1334,9 @@
       "medicalActions" : [
          {
             "treatment" : {
-               "_info" : {
-                  "drug_name" : "Albuterol",
-                  "field" : "DrugName",
-                  "route" : "oral",
-                  "value" : "Albuterol"
-               },
-               "_visit" : {
-                  "composite" : "6",
-                  "id" : 6,
-                  "occurrence_id" : 6
-               },
-               "ageAtOnset" : {
-                  "age" : {
-                     "iso8601duration" : "P999Y"
-                  }
-               },
                "agent" : {
                   "id" : "NCIT:C215",
                   "label" : "Albuterol"
-               },
-               "cumulativeDose" : {
-                  "unit" : {
-                     "id" : "NCIT:C29844",
-                     "label" : "Week"
-                  },
-                  "value" : 36
                },
                "doseIntervals" : [
                   {
@@ -1807,26 +1375,14 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
-            "_visit" : {
-               "composite" : "6",
-               "id" : 6,
-               "occurrence_id" : 6
-            },
             "excluded" : false,
-            "excluded_ori" : "Emphysema",
             "type" : {
                "id" : "HP:0002097",
                "label" : "Emphysema"
             }
          },
          {
-            "_visit" : {
-               "composite" : "6",
-               "id" : 6,
-               "occurrence_id" : 6
-            },
             "excluded" : false,
-            "excluded_ori" : "Abnormal heart valve morphology",
             "type" : {
                "id" : "HP:0001654",
                "label" : "Abnormal heart valve morphology"
@@ -1844,23 +1400,10 @@
    {
       "diseases" : [
          {
-            "_visit" : {
-               "composite" : "7",
-               "id" : 7,
-               "occurrence_id" : 7
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C2985",
@@ -1868,23 +1411,10 @@
             }
          },
          {
-            "_visit" : {
-               "composite" : "7",
-               "id" : 7,
-               "occurrence_id" : 7
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C28397",
@@ -1892,23 +1422,10 @@
             }
          },
          {
-            "_visit" : {
-               "composite" : "7",
-               "id" : 7,
-               "occurrence_id" : 7
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C3117",
@@ -2050,32 +1567,9 @@
       "medicalActions" : [
          {
             "treatment" : {
-               "_info" : {
-                  "drug_name" : "Albuterol",
-                  "field" : "DrugName",
-                  "route" : "oral",
-                  "value" : "Albuterol"
-               },
-               "_visit" : {
-                  "composite" : "7",
-                  "id" : 7,
-                  "occurrence_id" : 7
-               },
-               "ageAtOnset" : {
-                  "age" : {
-                     "iso8601duration" : "P999Y"
-                  }
-               },
                "agent" : {
                   "id" : "NCIT:C215",
                   "label" : "Albuterol"
-               },
-               "cumulativeDose" : {
-                  "unit" : {
-                     "id" : "NCIT:C29844",
-                     "label" : "Week"
-                  },
-                  "value" : 22
                },
                "doseIntervals" : [
                   {
@@ -2114,26 +1608,14 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
-            "_visit" : {
-               "composite" : "7",
-               "id" : 7,
-               "occurrence_id" : 7
-            },
             "excluded" : false,
-            "excluded_ori" : "Emphysema",
             "type" : {
                "id" : "HP:0002097",
                "label" : "Emphysema"
             }
          },
          {
-            "_visit" : {
-               "composite" : "7",
-               "id" : 7,
-               "occurrence_id" : 7
-            },
             "excluded" : false,
-            "excluded_ori" : "Abnormal heart valve morphology",
             "type" : {
                "id" : "HP:0001654",
                "label" : "Abnormal heart valve morphology"
@@ -2151,23 +1633,10 @@
    {
       "diseases" : [
          {
-            "_visit" : {
-               "composite" : "8",
-               "id" : 8,
-               "occurrence_id" : 8
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C2985",
@@ -2175,23 +1644,10 @@
             }
          },
          {
-            "_visit" : {
-               "composite" : "8",
-               "id" : 8,
-               "occurrence_id" : 8
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C28397",
@@ -2199,23 +1655,10 @@
             }
          },
          {
-            "_visit" : {
-               "composite" : "8",
-               "id" : 8,
-               "occurrence_id" : 8
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C3117",
@@ -2357,32 +1800,9 @@
       "medicalActions" : [
          {
             "treatment" : {
-               "_info" : {
-                  "drug_name" : "Albuterol",
-                  "field" : "DrugName",
-                  "route" : "oral",
-                  "value" : "Albuterol"
-               },
-               "_visit" : {
-                  "composite" : "8",
-                  "id" : 8,
-                  "occurrence_id" : 8
-               },
-               "ageAtOnset" : {
-                  "age" : {
-                     "iso8601duration" : "P999Y"
-                  }
-               },
                "agent" : {
                   "id" : "NCIT:C215",
                   "label" : "Albuterol"
-               },
-               "cumulativeDose" : {
-                  "unit" : {
-                     "id" : "NCIT:C29844",
-                     "label" : "Week"
-                  },
-                  "value" : 22
                },
                "doseIntervals" : [
                   {
@@ -2421,26 +1841,14 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
-            "_visit" : {
-               "composite" : "8",
-               "id" : 8,
-               "occurrence_id" : 8
-            },
             "excluded" : false,
-            "excluded_ori" : "Emphysema",
             "type" : {
                "id" : "HP:0002097",
                "label" : "Emphysema"
             }
          },
          {
-            "_visit" : {
-               "composite" : "8",
-               "id" : 8,
-               "occurrence_id" : 8
-            },
             "excluded" : false,
-            "excluded_ori" : "Abnormal heart valve morphology",
             "type" : {
                "id" : "HP:0001654",
                "label" : "Abnormal heart valve morphology"
@@ -2458,23 +1866,10 @@
    {
       "diseases" : [
          {
-            "_visit" : {
-               "composite" : "9",
-               "id" : 9,
-               "occurrence_id" : 9
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C2985",
@@ -2482,23 +1877,10 @@
             }
          },
          {
-            "_visit" : {
-               "composite" : "9",
-               "id" : 9,
-               "occurrence_id" : 9
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C28397",
@@ -2506,23 +1888,10 @@
             }
          },
          {
-            "_visit" : {
-               "composite" : "9",
-               "id" : 9,
-               "occurrence_id" : 9
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C3117",
@@ -2664,32 +2033,9 @@
       "medicalActions" : [
          {
             "treatment" : {
-               "_info" : {
-                  "drug_name" : "Atorvastatin",
-                  "field" : "DrugName",
-                  "route" : "oral",
-                  "value" : "Atorvastatin"
-               },
-               "_visit" : {
-                  "composite" : "9",
-                  "id" : 9,
-                  "occurrence_id" : 9
-               },
-               "ageAtOnset" : {
-                  "age" : {
-                     "iso8601duration" : "P999Y"
-                  }
-               },
                "agent" : {
                   "id" : "NCIT:C61527",
                   "label" : "Atorvastatin"
-               },
-               "cumulativeDose" : {
-                  "unit" : {
-                     "id" : "NCIT:C29844",
-                     "label" : "Week"
-                  },
-                  "value" : 22
                },
                "doseIntervals" : [
                   {
@@ -2728,26 +2074,14 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
-            "_visit" : {
-               "composite" : "9",
-               "id" : 9,
-               "occurrence_id" : 9
-            },
             "excluded" : false,
-            "excluded_ori" : "Abnormal heart valve morphology",
             "type" : {
                "id" : "HP:0001654",
                "label" : "Abnormal heart valve morphology"
             }
          },
          {
-            "_visit" : {
-               "composite" : "9",
-               "id" : 9,
-               "occurrence_id" : 9
-            },
             "excluded" : false,
-            "excluded_ori" : "Limitation of joint mobility",
             "type" : {
                "id" : "HP:0001376",
                "label" : "Limitation of joint mobility"
@@ -2765,23 +2099,10 @@
    {
       "diseases" : [
          {
-            "_visit" : {
-               "composite" : "10",
-               "id" : 10,
-               "occurrence_id" : 10
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C2985",
@@ -2789,23 +2110,10 @@
             }
          },
          {
-            "_visit" : {
-               "composite" : "10",
-               "id" : 10,
-               "occurrence_id" : 10
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C28397",
@@ -2813,23 +2121,10 @@
             }
          },
          {
-            "_visit" : {
-               "composite" : "10",
-               "id" : 10,
-               "occurrence_id" : 10
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C3117",
@@ -2971,32 +2266,9 @@
       "medicalActions" : [
          {
             "treatment" : {
-               "_info" : {
-                  "drug_name" : "Atorvastatin",
-                  "field" : "DrugName",
-                  "route" : "oral",
-                  "value" : "Atorvastatin"
-               },
-               "_visit" : {
-                  "composite" : "10",
-                  "id" : 10,
-                  "occurrence_id" : 10
-               },
-               "ageAtOnset" : {
-                  "age" : {
-                     "iso8601duration" : "P999Y"
-                  }
-               },
                "agent" : {
                   "id" : "NCIT:C61527",
                   "label" : "Atorvastatin"
-               },
-               "cumulativeDose" : {
-                  "unit" : {
-                     "id" : "NCIT:C29844",
-                     "label" : "Week"
-                  },
-                  "value" : 22
                },
                "doseIntervals" : [
                   {
@@ -3035,26 +2307,14 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
-            "_visit" : {
-               "composite" : "10",
-               "id" : 10,
-               "occurrence_id" : 10
-            },
             "excluded" : false,
-            "excluded_ori" : "Abnormal heart valve morphology",
             "type" : {
                "id" : "HP:0001654",
                "label" : "Abnormal heart valve morphology"
             }
          },
          {
-            "_visit" : {
-               "composite" : "10",
-               "id" : 10,
-               "occurrence_id" : 10
-            },
             "excluded" : false,
-            "excluded_ori" : "Limitation of joint mobility",
             "type" : {
                "id" : "HP:0001376",
                "label" : "Limitation of joint mobility"
@@ -3072,23 +2332,10 @@
    {
       "diseases" : [
          {
-            "_visit" : {
-               "composite" : "11",
-               "id" : 11,
-               "occurrence_id" : 11
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C2985",
@@ -3096,23 +2343,10 @@
             }
          },
          {
-            "_visit" : {
-               "composite" : "11",
-               "id" : 11,
-               "occurrence_id" : 11
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C28397",
@@ -3120,23 +2354,10 @@
             }
          },
          {
-            "_visit" : {
-               "composite" : "11",
-               "id" : 11,
-               "occurrence_id" : 11
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C3117",
@@ -3278,32 +2499,9 @@
       "medicalActions" : [
          {
             "treatment" : {
-               "_info" : {
-                  "drug_name" : "Lisinopril",
-                  "field" : "DrugName",
-                  "route" : "oral",
-                  "value" : "Lisinopril"
-               },
-               "_visit" : {
-                  "composite" : "11",
-                  "id" : 11,
-                  "occurrence_id" : 11
-               },
-               "ageAtOnset" : {
-                  "age" : {
-                     "iso8601duration" : "P999Y"
-                  }
-               },
                "agent" : {
                   "id" : "NCIT:C29159",
                   "label" : "Lisinopril"
-               },
-               "cumulativeDose" : {
-                  "unit" : {
-                     "id" : "NCIT:C29844",
-                     "label" : "Week"
-                  },
-                  "value" : 25
                },
                "doseIntervals" : [
                   {
@@ -3342,26 +2540,14 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
-            "_visit" : {
-               "composite" : "11",
-               "id" : 11,
-               "occurrence_id" : 11
-            },
             "excluded" : false,
-            "excluded_ori" : "Abnormal heart valve morphology",
             "type" : {
                "id" : "HP:0001654",
                "label" : "Abnormal heart valve morphology"
             }
          },
          {
-            "_visit" : {
-               "composite" : "11",
-               "id" : 11,
-               "occurrence_id" : 11
-            },
             "excluded" : false,
-            "excluded_ori" : "Limitation of joint mobility",
             "type" : {
                "id" : "HP:0001376",
                "label" : "Limitation of joint mobility"
@@ -3379,23 +2565,10 @@
    {
       "diseases" : [
          {
-            "_visit" : {
-               "composite" : "12",
-               "id" : 12,
-               "occurrence_id" : 12
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C2985",
@@ -3403,23 +2576,10 @@
             }
          },
          {
-            "_visit" : {
-               "composite" : "12",
-               "id" : 12,
-               "occurrence_id" : 12
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C28397",
@@ -3427,23 +2587,10 @@
             }
          },
          {
-            "_visit" : {
-               "composite" : "12",
-               "id" : 12,
-               "occurrence_id" : 12
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C3117",
@@ -3585,32 +2732,9 @@
       "medicalActions" : [
          {
             "treatment" : {
-               "_info" : {
-                  "drug_name" : "Lisinopril",
-                  "field" : "DrugName",
-                  "route" : "oral",
-                  "value" : "Lisinopril"
-               },
-               "_visit" : {
-                  "composite" : "12",
-                  "id" : 12,
-                  "occurrence_id" : 12
-               },
-               "ageAtOnset" : {
-                  "age" : {
-                     "iso8601duration" : "P999Y"
-                  }
-               },
                "agent" : {
                   "id" : "NCIT:C29159",
                   "label" : "Lisinopril"
-               },
-               "cumulativeDose" : {
-                  "unit" : {
-                     "id" : "NCIT:C29844",
-                     "label" : "Week"
-                  },
-                  "value" : 25
                },
                "doseIntervals" : [
                   {
@@ -3649,26 +2773,14 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
-            "_visit" : {
-               "composite" : "12",
-               "id" : 12,
-               "occurrence_id" : 12
-            },
             "excluded" : false,
-            "excluded_ori" : "Abnormal heart valve morphology",
             "type" : {
                "id" : "HP:0001654",
                "label" : "Abnormal heart valve morphology"
             }
          },
          {
-            "_visit" : {
-               "composite" : "12",
-               "id" : 12,
-               "occurrence_id" : 12
-            },
             "excluded" : false,
-            "excluded_ori" : "Limitation of joint mobility",
             "type" : {
                "id" : "HP:0001376",
                "label" : "Limitation of joint mobility"
@@ -3686,23 +2798,10 @@
    {
       "diseases" : [
          {
-            "_visit" : {
-               "composite" : "13",
-               "id" : 13,
-               "occurrence_id" : 13
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C3117",
@@ -3710,23 +2809,10 @@
             }
          },
          {
-            "_visit" : {
-               "composite" : "13",
-               "id" : 13,
-               "occurrence_id" : 13
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C28397",
@@ -3734,23 +2820,10 @@
             }
          },
          {
-            "_visit" : {
-               "composite" : "13",
-               "id" : 13,
-               "occurrence_id" : 13
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C2985",
@@ -3892,32 +2965,9 @@
       "medicalActions" : [
          {
             "treatment" : {
-               "_info" : {
-                  "drug_name" : "Albuterol",
-                  "field" : "DrugName",
-                  "route" : "oral",
-                  "value" : "Albuterol"
-               },
-               "_visit" : {
-                  "composite" : "13",
-                  "id" : 13,
-                  "occurrence_id" : 13
-               },
-               "ageAtOnset" : {
-                  "age" : {
-                     "iso8601duration" : "P999Y"
-                  }
-               },
                "agent" : {
                   "id" : "NCIT:C215",
                   "label" : "Albuterol"
-               },
-               "cumulativeDose" : {
-                  "unit" : {
-                     "id" : "NCIT:C29844",
-                     "label" : "Week"
-                  },
-                  "value" : 22
                },
                "doseIntervals" : [
                   {
@@ -3956,26 +3006,14 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
-            "_visit" : {
-               "composite" : "13",
-               "id" : 13,
-               "occurrence_id" : 13
-            },
             "excluded" : false,
-            "excluded_ori" : "Emphysema",
             "type" : {
                "id" : "HP:0002097",
                "label" : "Emphysema"
             }
          },
          {
-            "_visit" : {
-               "composite" : "13",
-               "id" : 13,
-               "occurrence_id" : 13
-            },
             "excluded" : false,
-            "excluded_ori" : "Abnormal heart valve morphology",
             "type" : {
                "id" : "HP:0001654",
                "label" : "Abnormal heart valve morphology"
@@ -3993,23 +3031,10 @@
    {
       "diseases" : [
          {
-            "_visit" : {
-               "composite" : "14",
-               "id" : 14,
-               "occurrence_id" : 14
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C3117",
@@ -4017,23 +3042,10 @@
             }
          },
          {
-            "_visit" : {
-               "composite" : "14",
-               "id" : 14,
-               "occurrence_id" : 14
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C28397",
@@ -4041,23 +3053,10 @@
             }
          },
          {
-            "_visit" : {
-               "composite" : "14",
-               "id" : 14,
-               "occurrence_id" : 14
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C2985",
@@ -4199,32 +3198,9 @@
       "medicalActions" : [
          {
             "treatment" : {
-               "_info" : {
-                  "drug_name" : "Albuterol",
-                  "field" : "DrugName",
-                  "route" : "oral",
-                  "value" : "Albuterol"
-               },
-               "_visit" : {
-                  "composite" : "14",
-                  "id" : 14,
-                  "occurrence_id" : 14
-               },
-               "ageAtOnset" : {
-                  "age" : {
-                     "iso8601duration" : "P999Y"
-                  }
-               },
                "agent" : {
                   "id" : "NCIT:C215",
                   "label" : "Albuterol"
-               },
-               "cumulativeDose" : {
-                  "unit" : {
-                     "id" : "NCIT:C29844",
-                     "label" : "Week"
-                  },
-                  "value" : 22
                },
                "doseIntervals" : [
                   {
@@ -4263,26 +3239,14 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
-            "_visit" : {
-               "composite" : "14",
-               "id" : 14,
-               "occurrence_id" : 14
-            },
             "excluded" : false,
-            "excluded_ori" : "Emphysema",
             "type" : {
                "id" : "HP:0002097",
                "label" : "Emphysema"
             }
          },
          {
-            "_visit" : {
-               "composite" : "14",
-               "id" : 14,
-               "occurrence_id" : 14
-            },
             "excluded" : false,
-            "excluded_ori" : "Abnormal heart valve morphology",
             "type" : {
                "id" : "HP:0001654",
                "label" : "Abnormal heart valve morphology"
@@ -4300,23 +3264,10 @@
    {
       "diseases" : [
          {
-            "_visit" : {
-               "composite" : "15",
-               "id" : 15,
-               "occurrence_id" : 15
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C2985",
@@ -4324,23 +3275,10 @@
             }
          },
          {
-            "_visit" : {
-               "composite" : "15",
-               "id" : 15,
-               "occurrence_id" : 15
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C28397",
@@ -4348,23 +3286,10 @@
             }
          },
          {
-            "_visit" : {
-               "composite" : "15",
-               "id" : 15,
-               "occurrence_id" : 15
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C3117",
@@ -4506,32 +3431,9 @@
       "medicalActions" : [
          {
             "treatment" : {
-               "_info" : {
-                  "drug_name" : "Lisinopril",
-                  "field" : "DrugName",
-                  "route" : "oral",
-                  "value" : "Lisinopril"
-               },
-               "_visit" : {
-                  "composite" : "15",
-                  "id" : 15,
-                  "occurrence_id" : 15
-               },
-               "ageAtOnset" : {
-                  "age" : {
-                     "iso8601duration" : "P999Y"
-                  }
-               },
                "agent" : {
                   "id" : "NCIT:C29159",
                   "label" : "Lisinopril"
-               },
-               "cumulativeDose" : {
-                  "unit" : {
-                     "id" : "NCIT:C29844",
-                     "label" : "Week"
-                  },
-                  "value" : 22
                },
                "doseIntervals" : [
                   {
@@ -4570,26 +3472,14 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
-            "_visit" : {
-               "composite" : "15",
-               "id" : 15,
-               "occurrence_id" : 15
-            },
             "excluded" : false,
-            "excluded_ori" : "Emphysema",
             "type" : {
                "id" : "HP:0002097",
                "label" : "Emphysema"
             }
          },
          {
-            "_visit" : {
-               "composite" : "15",
-               "id" : 15,
-               "occurrence_id" : 15
-            },
             "excluded" : false,
-            "excluded_ori" : "Limitation of joint mobility",
             "type" : {
                "id" : "HP:0001376",
                "label" : "Limitation of joint mobility"
@@ -4607,23 +3497,10 @@
    {
       "diseases" : [
          {
-            "_visit" : {
-               "composite" : "16",
-               "id" : 16,
-               "occurrence_id" : 16
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C2985",
@@ -4631,23 +3508,10 @@
             }
          },
          {
-            "_visit" : {
-               "composite" : "16",
-               "id" : 16,
-               "occurrence_id" : 16
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C28397",
@@ -4655,23 +3519,10 @@
             }
          },
          {
-            "_visit" : {
-               "composite" : "16",
-               "id" : 16,
-               "occurrence_id" : 16
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C3117",
@@ -4813,32 +3664,9 @@
       "medicalActions" : [
          {
             "treatment" : {
-               "_info" : {
-                  "drug_name" : "Lisinopril",
-                  "field" : "DrugName",
-                  "route" : "oral",
-                  "value" : "Lisinopril"
-               },
-               "_visit" : {
-                  "composite" : "16",
-                  "id" : 16,
-                  "occurrence_id" : 16
-               },
-               "ageAtOnset" : {
-                  "age" : {
-                     "iso8601duration" : "P999Y"
-                  }
-               },
                "agent" : {
                   "id" : "NCIT:C29159",
                   "label" : "Lisinopril"
-               },
-               "cumulativeDose" : {
-                  "unit" : {
-                     "id" : "NCIT:C29844",
-                     "label" : "Week"
-                  },
-                  "value" : 22
                },
                "doseIntervals" : [
                   {
@@ -4877,26 +3705,14 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
-            "_visit" : {
-               "composite" : "16",
-               "id" : 16,
-               "occurrence_id" : 16
-            },
             "excluded" : false,
-            "excluded_ori" : "Emphysema",
             "type" : {
                "id" : "HP:0002097",
                "label" : "Emphysema"
             }
          },
          {
-            "_visit" : {
-               "composite" : "16",
-               "id" : 16,
-               "occurrence_id" : 16
-            },
             "excluded" : false,
-            "excluded_ori" : "Limitation of joint mobility",
             "type" : {
                "id" : "HP:0001376",
                "label" : "Limitation of joint mobility"
@@ -4914,23 +3730,10 @@
    {
       "diseases" : [
          {
-            "_visit" : {
-               "composite" : "17",
-               "id" : 17,
-               "occurrence_id" : 17
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C3117",
@@ -4938,23 +3741,10 @@
             }
          },
          {
-            "_visit" : {
-               "composite" : "17",
-               "id" : 17,
-               "occurrence_id" : 17
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C28397",
@@ -4962,23 +3752,10 @@
             }
          },
          {
-            "_visit" : {
-               "composite" : "17",
-               "id" : 17,
-               "occurrence_id" : 17
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C2985",
@@ -5120,32 +3897,9 @@
       "medicalActions" : [
          {
             "treatment" : {
-               "_info" : {
-                  "drug_name" : "Metformin",
-                  "field" : "DrugName",
-                  "route" : "oral",
-                  "value" : "Metformin"
-               },
-               "_visit" : {
-                  "composite" : "17",
-                  "id" : 17,
-                  "occurrence_id" : 17
-               },
-               "ageAtOnset" : {
-                  "age" : {
-                     "iso8601duration" : "P999Y"
-                  }
-               },
                "agent" : {
                   "id" : "NCIT:C61612",
                   "label" : "Metformin"
-               },
-               "cumulativeDose" : {
-                  "unit" : {
-                     "id" : "NCIT:C29844",
-                     "label" : "Week"
-                  },
-                  "value" : 25
                },
                "doseIntervals" : [
                   {
@@ -5184,26 +3938,14 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
-            "_visit" : {
-               "composite" : "17",
-               "id" : 17,
-               "occurrence_id" : 17
-            },
             "excluded" : false,
-            "excluded_ori" : "Emphysema",
             "type" : {
                "id" : "HP:0002097",
                "label" : "Emphysema"
             }
          },
          {
-            "_visit" : {
-               "composite" : "17",
-               "id" : 17,
-               "occurrence_id" : 17
-            },
             "excluded" : false,
-            "excluded_ori" : "Limitation of joint mobility",
             "type" : {
                "id" : "HP:0001376",
                "label" : "Limitation of joint mobility"
@@ -5221,23 +3963,10 @@
    {
       "diseases" : [
          {
-            "_visit" : {
-               "composite" : "18",
-               "id" : 18,
-               "occurrence_id" : 18
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C3117",
@@ -5245,23 +3974,10 @@
             }
          },
          {
-            "_visit" : {
-               "composite" : "18",
-               "id" : 18,
-               "occurrence_id" : 18
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C28397",
@@ -5269,23 +3985,10 @@
             }
          },
          {
-            "_visit" : {
-               "composite" : "18",
-               "id" : 18,
-               "occurrence_id" : 18
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C2985",
@@ -5427,32 +4130,9 @@
       "medicalActions" : [
          {
             "treatment" : {
-               "_info" : {
-                  "drug_name" : "Metformin",
-                  "field" : "DrugName",
-                  "route" : "oral",
-                  "value" : "Metformin"
-               },
-               "_visit" : {
-                  "composite" : "18",
-                  "id" : 18,
-                  "occurrence_id" : 18
-               },
-               "ageAtOnset" : {
-                  "age" : {
-                     "iso8601duration" : "P999Y"
-                  }
-               },
                "agent" : {
                   "id" : "NCIT:C61612",
                   "label" : "Metformin"
-               },
-               "cumulativeDose" : {
-                  "unit" : {
-                     "id" : "NCIT:C29844",
-                     "label" : "Week"
-                  },
-                  "value" : 25
                },
                "doseIntervals" : [
                   {
@@ -5491,26 +4171,14 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
-            "_visit" : {
-               "composite" : "18",
-               "id" : 18,
-               "occurrence_id" : 18
-            },
             "excluded" : false,
-            "excluded_ori" : "Emphysema",
             "type" : {
                "id" : "HP:0002097",
                "label" : "Emphysema"
             }
          },
          {
-            "_visit" : {
-               "composite" : "18",
-               "id" : 18,
-               "occurrence_id" : 18
-            },
             "excluded" : false,
-            "excluded_ori" : "Limitation of joint mobility",
             "type" : {
                "id" : "HP:0001376",
                "label" : "Limitation of joint mobility"
@@ -5528,23 +4196,10 @@
    {
       "diseases" : [
          {
-            "_visit" : {
-               "composite" : "19",
-               "id" : 19,
-               "occurrence_id" : 19
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C28397",
@@ -5552,23 +4207,10 @@
             }
          },
          {
-            "_visit" : {
-               "composite" : "19",
-               "id" : 19,
-               "occurrence_id" : 19
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C2985",
@@ -5576,23 +4218,10 @@
             }
          },
          {
-            "_visit" : {
-               "composite" : "19",
-               "id" : 19,
-               "occurrence_id" : 19
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C3117",
@@ -5734,32 +4363,9 @@
       "medicalActions" : [
          {
             "treatment" : {
-               "_info" : {
-                  "drug_name" : "Lisinopril",
-                  "field" : "DrugName",
-                  "route" : "oral",
-                  "value" : "Lisinopril"
-               },
-               "_visit" : {
-                  "composite" : "19",
-                  "id" : 19,
-                  "occurrence_id" : 19
-               },
-               "ageAtOnset" : {
-                  "age" : {
-                     "iso8601duration" : "P999Y"
-                  }
-               },
                "agent" : {
                   "id" : "NCIT:C29159",
                   "label" : "Lisinopril"
-               },
-               "cumulativeDose" : {
-                  "unit" : {
-                     "id" : "NCIT:C29844",
-                     "label" : "Week"
-                  },
-                  "value" : 22
                },
                "doseIntervals" : [
                   {
@@ -5798,26 +4404,14 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
-            "_visit" : {
-               "composite" : "19",
-               "id" : 19,
-               "occurrence_id" : 19
-            },
             "excluded" : false,
-            "excluded_ori" : "Emphysema",
             "type" : {
                "id" : "HP:0002097",
                "label" : "Emphysema"
             }
          },
          {
-            "_visit" : {
-               "composite" : "19",
-               "id" : 19,
-               "occurrence_id" : 19
-            },
             "excluded" : false,
-            "excluded_ori" : "Abnormal heart valve morphology",
             "type" : {
                "id" : "HP:0001654",
                "label" : "Abnormal heart valve morphology"
@@ -5835,23 +4429,10 @@
    {
       "diseases" : [
          {
-            "_visit" : {
-               "composite" : "20",
-               "id" : 20,
-               "occurrence_id" : 20
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C28397",
@@ -5859,23 +4440,10 @@
             }
          },
          {
-            "_visit" : {
-               "composite" : "20",
-               "id" : 20,
-               "occurrence_id" : 20
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C2985",
@@ -5883,23 +4451,10 @@
             }
          },
          {
-            "_visit" : {
-               "composite" : "20",
-               "id" : 20,
-               "occurrence_id" : 20
-            },
             "onset" : {
                "age" : {
                   "iso8601duration" : "P999Y"
                }
-            },
-            "severity" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
-            },
-            "stage" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
             },
             "term" : {
                "id" : "NCIT:C3117",
@@ -6041,32 +4596,9 @@
       "medicalActions" : [
          {
             "treatment" : {
-               "_info" : {
-                  "drug_name" : "Lisinopril",
-                  "field" : "DrugName",
-                  "route" : "oral",
-                  "value" : "Lisinopril"
-               },
-               "_visit" : {
-                  "composite" : "20",
-                  "id" : 20,
-                  "occurrence_id" : 20
-               },
-               "ageAtOnset" : {
-                  "age" : {
-                     "iso8601duration" : "P999Y"
-                  }
-               },
                "agent" : {
                   "id" : "NCIT:C29159",
                   "label" : "Lisinopril"
-               },
-               "cumulativeDose" : {
-                  "unit" : {
-                     "id" : "NCIT:C29844",
-                     "label" : "Week"
-                  },
-                  "value" : 22
                },
                "doseIntervals" : [
                   {
@@ -6105,26 +4637,14 @@
       "metaData" : null,
       "phenotypicFeatures" : [
          {
-            "_visit" : {
-               "composite" : "20",
-               "id" : 20,
-               "occurrence_id" : 20
-            },
             "excluded" : false,
-            "excluded_ori" : "Emphysema",
             "type" : {
                "id" : "HP:0002097",
                "label" : "Emphysema"
             }
          },
          {
-            "_visit" : {
-               "composite" : "20",
-               "id" : 20,
-               "occurrence_id" : 20
-            },
             "excluded" : false,
-            "excluded_ori" : "Abnormal heart valve morphology",
             "type" : {
                "id" : "HP:0001654",
                "label" : "Abnormal heart valve morphology"

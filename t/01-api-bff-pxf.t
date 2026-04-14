@@ -272,6 +272,37 @@ for my $case (@cases) {
 }
 
 {
+    my $bff = {
+        id => 'subject-4',
+        diseases => [
+            {
+                diseaseCode => { id => 'MONDO:0000001', label => 'disease 1' },
+                _visit      => { occurrence_id => 42 },
+            },
+        ],
+        treatments => [
+            {
+                treatmentCode => { id => 'NCIT:C123', label => 'Treatment X' },
+                _info         => { field => 'DrugName' },
+                _visit        => { occurrence_id => 42 },
+            },
+        ],
+    };
+
+    my $convert = build_convert(
+        in_textfile => 0,
+        data        => $bff,
+        method      => 'bff2pxf',
+    );
+
+    my $got = $convert->bff2pxf;
+
+    ok( !exists $got->{diseases}[0]{_visit}, 'bff2pxf strips private disease helper fields from Phenopackets output' );
+    ok( !exists $got->{medicalActions}[0]{treatment}{_info}, 'bff2pxf strips private treatment helper fields from Phenopackets output' );
+    ok( !exists $got->{medicalActions}[0]{treatment}{_visit}, 'bff2pxf strips private visit helper fields from Phenopackets output' );
+}
+
+{
     use Convert::Pheno::CSV qw(do_pxf2csv);
     use Convert::Pheno::IO::FileIO qw(io_yaml_or_json);
 

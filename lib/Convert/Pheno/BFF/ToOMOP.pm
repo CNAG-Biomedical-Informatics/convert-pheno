@@ -431,8 +431,10 @@ sub _map_treatments {
 
         $drug->{days_supply} =
           $treatment->{cumulativeDose}{unit}{label}
-          ? convert_label_to_days( $treatment->{cumulativeDose}{unit}{label},
-            $drug->{quantity} )
+          ? convert_label_to_days(
+            $treatment->{cumulativeDose}{unit}{label},
+            $treatment->{cumulativeDose}{value}
+            )
           : '';
 
         _attach_common( $self, $drug, $treatment, $person_id );
