@@ -26,6 +26,46 @@ is(
     'CLI parser accepts -u as an alias for --username'
 );
 
+$request = build_cli_request(
+    argv => [
+        '-ibff',                  't/bff2pxf/in/individuals.json',
+        '-opxf',                  'phenopackets.json',
+        '--default-vital-status', 'UNKNOWN_STATUS',
+    ],
+    usage_error => sub { die @_ },
+    schema_file => 'share/schema/mapping.json',
+    out_dir     => '/tmp',
+    color       => 1,
+);
+
+is(
+    $request->{data}{default_vital_status},
+    'UNKNOWN_STATUS',
+    'CLI parser accepts --default-vital-status for PXF output'
+);
+
+my $usage_error;
+eval {
+    build_cli_request(
+        argv => [
+            '-ipxf',                  't/pxf2bff/in/pxf.json',
+            '-obff',                  'individuals.json',
+            '--default-vital-status', 'DECEASED',
+        ],
+        usage_error => sub { die @_ },
+        schema_file => 'share/schema/mapping.json',
+        out_dir     => '/tmp',
+        color       => 1,
+    );
+    1;
+} or $usage_error = $@;
+
+like(
+    $usage_error,
+    qr/--default-vital-status> is only valid with PXF output/,
+    'CLI parser rejects --default-vital-status without PXF output'
+);
+
 my $cli = cli_script_path();
 plan skip_all => "convert-pheno CLI not found at $cli" unless -f $cli;
 
@@ -51,6 +91,16 @@ like(
     $help,
     qr/--username\|-u <name>/,
     'CLI help documents the restored username alias'
+);
+like(
+    $help,
+    qr/--default-vital-status <s>/,
+    'CLI help documents --default-vital-status'
+);
+like(
+    $help,
+    qr/\[ALIVE\|DECEASED\|UNKNOWN_STATUS\]/,
+    'CLI help documents supported vitalStatus fallback values'
 );
 like(
     $help,

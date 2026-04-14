@@ -157,6 +157,12 @@ has [qw /test print_hidden_labels self_validate_schema path_to_ohdsi_db/] =>
 
 has [qw /stream ohdsi_db/] => ( default => 0, is => 'ro' );
 
+has default_vital_status => (
+    is     => 'ro',
+    coerce => sub { $_[0] // 'ALIVE' },
+    isa    => Enum [qw(ALIVE DECEASED UNKNOWN_STATUS)]
+);
+
 has [qw /in_files/] => ( default => sub { [] }, is => 'ro' );
 
 has [

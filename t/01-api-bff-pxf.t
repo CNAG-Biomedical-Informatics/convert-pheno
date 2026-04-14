@@ -229,6 +229,49 @@ for my $case (@cases) {
 }
 
 {
+    my $bff = {
+        id   => 'subject-2',
+        info => {
+            phenopacket => {
+                vitalStatus => {
+                    status       => 'DECEASED',
+                    causeOfDeath => { id => 'MONDO:0100096', label => 'COVID-19' },
+                },
+            },
+        },
+    };
+
+    my $convert = build_convert(
+        in_textfile => 0,
+        data        => $bff,
+        method      => 'bff2pxf',
+        default_vital_status => 'UNKNOWN_STATUS',
+    );
+
+    my $got = $convert->bff2pxf;
+
+    is( $got->{subject}{vitalStatus}{status}, 'DECEASED', 'bff2pxf prefers preserved Phenopackets vitalStatus over the default fallback' );
+    is( $got->{subject}{vitalStatus}{causeOfDeath}{id}, 'MONDO:0100096', 'bff2pxf restores preserved vitalStatus details' );
+}
+
+{
+    my $bff = {
+        id => 'subject-3',
+    };
+
+    my $convert = build_convert(
+        in_textfile => 0,
+        data        => $bff,
+        method      => 'bff2pxf',
+        default_vital_status => 'UNKNOWN_STATUS',
+    );
+
+    my $got = $convert->bff2pxf;
+
+    is( $got->{subject}{vitalStatus}{status}, 'UNKNOWN_STATUS', 'bff2pxf uses the configured default vitalStatus when no source value is available' );
+}
+
+{
     use Convert::Pheno::CSV qw(do_pxf2csv);
     use Convert::Pheno::IO::FileIO qw(io_yaml_or_json);
 

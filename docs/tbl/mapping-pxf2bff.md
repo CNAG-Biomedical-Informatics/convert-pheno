@@ -41,6 +41,7 @@ NA
 | Source field | Target field | Notes |
 | --- | --- | --- |
 | `subject.dateOfBirth` | `info.phenopacket.dateOfBirth` | Preserved; top-level alias is also accepted |
+| `subject.vitalStatus` | `info.phenopacket.vitalStatus` | Preserved for round-trip restoration |
 | `genes` | `info.phenopacket.genes` | Preserved |
 | `interpretations` | `info.phenopacket.interpretations` | Preserved |
 | `metaData` | `info.phenopacket.metaData` | Preserved |

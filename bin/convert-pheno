@@ -102,6 +102,10 @@ OMOP:
   --max-lines-sql <n>             Maximum SQL lines per table [500]
 
 Other useful options:
+  --default-vital-status <s>   Fallback PXF subject vitalStatus
+                               [ALIVE|DECEASED|UNKNOWN_STATUS]
+                               Used only with PXF output when no source
+                               vitalStatus is available
   --separator|--sep <char>        Delimiter for CSV input [; for .csv]
   --username|-u <name>            Override username stored in metadata
   --test                          Skip time-varying metadata for stable tests
@@ -119,12 +123,15 @@ Examples:
   convert-pheno -ipxf pxf.json --entities individuals biosamples --out-dir out/ --out-entity biosamples=samples.json
   convert-pheno -ipxf pxf.json --entities individuals datasets cohorts --out-dir out/
   convert-pheno -icsv data.csv --mapping-file mapping.yaml --entities individuals datasets cohorts --out-dir out/
+  convert-pheno -iomop dump.sql.gz -opxf phenopackets.json.gz --default-vital-status UNKNOWN_STATUS --ohdsi-db
   convert-pheno -iomop dump.sql.gz -obff individuals.json.gz --stream --ohdsi-db
 
 Legacy compatibility:
   -obff FILE keeps the legacy single-output behavior and emits individuals only.
   If a PXF input also contains biosamples, convert-pheno warns and preserves them
   under info.phenopacket.biosamples unless --entities is used.
+  PXF output still defaults subject.vitalStatus to ALIVE unless a preserved
+  source vitalStatus or --default-vital-status is available.
 
 Docs:
   Site:  https://cnag-biomedical-informatics.github.io/convert-pheno

@@ -12,6 +12,7 @@ use Test::ConvertPheno qw(
   structured_files_match
   csv_files_match
   gunzip_file_content
+  load_json_file
   has_ohdsi_db
 );
 
@@ -254,6 +255,31 @@ for my $case (@cases) {
             "CLI $case->{name} matches reference output",
         );
     }
+}
+
+SKIP: {
+    skip 'CLI file comparisons are unreliable on Windows', 2 if IS_WINDOWS;
+
+    my $tmp_file = temp_output_file( suffix => '.json', dir => '/tmp' );
+    my @cmd = (
+        $^X, $cli,
+        '-ibff', 't/bff2pxf/in/individuals.json',
+        '-opxf', $tmp_file,
+        '--default-vital-status', 'UNKNOWN_STATUS',
+        '-O',
+        '--test',
+    );
+
+    my ( $status, $output ) = run_cli(@cmd);
+    diag($output) if $status != 0 && defined $output && length $output;
+    is( $status, 0, 'CLI bff2pxf accepts --default-vital-status' );
+
+    my $pxf = load_json_file($tmp_file);
+    is(
+        $pxf->[0]{subject}{vitalStatus}{status},
+        'UNKNOWN_STATUS',
+        'CLI bff2pxf applies the configured default vitalStatus when no source value is available',
+    );
 }
 
 done_testing();

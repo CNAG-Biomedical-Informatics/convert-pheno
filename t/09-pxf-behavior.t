@@ -14,6 +14,10 @@ my $wrapped_pxf = {
             sex           => '',
             karyotypicSex => 'UNKNOWN_KARYOTYPE',
             dateOfBirth   => '1980-01-02',
+            vitalStatus   => {
+                status       => 'DECEASED',
+                causeOfDeath => { id => 'MONDO:0100096', label => 'COVID-19' },
+            },
         },
         meta_data => {
             created => '2022-01-01T00:00:00Z',
@@ -120,6 +124,8 @@ ok( !exists $got->{sex}, 'empty sex is not mapped' );
 is( $got->{info}{cohort}{id}, 'cohort-1', 'retains top-level cohort info' );
 is( $got->{info}{family}{id}, 'family-1', 'retains top-level family info' );
 is( $got->{info}{phenopacket}{dateOfBirth}, '1980-01-02', 'retains subject dateOfBirth in info' );
+is( $got->{info}{phenopacket}{vitalStatus}{status}, 'DECEASED', 'retains subject vitalStatus in info' );
+is( $got->{info}{phenopacket}{vitalStatus}{causeOfDeath}{id}, 'MONDO:0100096', 'retains subject vitalStatus details in info' );
 is( $got->{info}{phenopacket}{metaData}{created}, '2022-01-01T00:00:00Z', 'normalizes meta_data to metaData' );
 is( $got->{info}{phenopacket}{biosamples}[0]{id}, 'biosample-1', 'retains biosamples in info' );
 is( $got->{info}{phenopacket}{files}[0]{uri}, 'file://example', 'retains files in info' );

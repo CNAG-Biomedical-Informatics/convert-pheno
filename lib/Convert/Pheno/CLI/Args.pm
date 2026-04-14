@@ -64,6 +64,7 @@ sub build_cli_request {
     my ( $debug, $verbose, $sep, $exposures_file, $sql2csv, $test, $search_audit_tsv );
     my ( @omop_tables, $redcap_dictionary, $path_to_ohdsi_db, $print_hidden_labels );
     my ( $self_validate_schema, $overwrite, $username, $log, $version );
+    my $default_vital_status;
     my $schema_file = $schema_default;
 
     GetOptionsFromArray(
@@ -109,6 +110,7 @@ sub build_cli_request {
         'path-to-ohdsi-db=s'          => \$path_to_ohdsi_db,
         'print-hidden-labels|phl'     => \$print_hidden_labels,
         'self-validate-schema|svs'    => \$self_validate_schema,
+        'default-vital-status=s'      => \$default_vital_status,
         'O'                           => \$overwrite,
         'username|u=s'                => \$username,
         'log:s'                       => \$log,
@@ -297,6 +299,15 @@ sub build_cli_request {
     $usage_error->("The flag <--out-entity> requires <--entities>")
       if @out_entity_specs && !@entities_args;
 
+    if ( defined $default_vital_status ) {
+        $default_vital_status =~ s/^\s+|\s+$//g;
+        $usage_error->("Unsupported value <$default_vital_status> for --default-vital-status")
+          unless $default_vital_status =~ /\A(?:ALIVE|DECEASED|UNKNOWN_STATUS)\z/;
+    }
+
+    $usage_error->("The flag <--default-vital-status> is only valid with PXF output")
+      if defined $default_vital_status && !$out_pxf;
+
     my %entity_output_files;
     for my $spec (@out_entity_specs) {
         $usage_error->("Invalid <--out-entity> value <$spec>; use entity=filename")
@@ -398,6 +409,7 @@ sub build_cli_request {
     $data{path_to_ohdsi_db}     = $path_to_ohdsi_db if defined $path_to_ohdsi_db;
     $data{print_hidden_labels}  = $print_hidden_labels ? 1 : 0 if defined $print_hidden_labels;
     $data{search_audit_file}    = $search_audit_file if defined $search_audit_file;
+    $data{default_vital_status} = $default_vital_status if defined $default_vital_status;
     $data{debug}                = $debug if defined $debug;
     $data{log}                  = $log if defined $log;
     $data{verbose}              = $verbose ? 1 : 0 if defined $verbose;

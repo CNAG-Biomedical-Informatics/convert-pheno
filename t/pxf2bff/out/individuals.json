@@ -1037,6 +1037,13 @@
                      "version" : "2.1"
                   }
                ]
+            },
+            "vitalStatus" : {
+               "causeOfDeath" : {
+                  "id" : "MONDO:0100096",
+                  "label" : "COVID-19"
+               },
+               "status" : "DECEASED"
             }
          }
       },
@@ -2176,6 +2183,13 @@
                      "version" : "2022-03-05"
                   }
                ]
+            },
+            "vitalStatus" : {
+               "causeOfDeath" : {
+                  "id" : "MONDO:0014138",
+                  "label" : "nemaline myopathy 8"
+               },
+               "status" : "DECEASED"
             }
          }
       },

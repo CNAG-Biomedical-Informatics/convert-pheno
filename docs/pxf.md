@@ -50,6 +50,15 @@ Phenopackets organize information using [top-level elements](https://phenopacket
 
         `interpretations` are still preserved under `info.phenopacket` because they are not yet exposed as a first-class Beacon output entity in the CLI.
 
+    ??? Tip "About `vitalStatus` preservation and fallback"
+        When converting `PXF` to `BFF`, `subject.vitalStatus` is preserved under `info.phenopacket.vitalStatus`.
+
+        If that `BFF` record is later converted back to `PXF`, `convert-pheno` restores the preserved `vitalStatus`. If no source `vitalStatus` is available, `convert-pheno` falls back to `ALIVE` by default, or to the value provided with `--default-vital-status`:
+
+        ```bash
+        convert-pheno -ibff individuals.json -opxf pxf.json --default-vital-status UNKNOWN_STATUS
+        ```
+
 === "Module"
 
     The concept is to pass the necessary information as a hash (in Perl) or dictionary (in Python).

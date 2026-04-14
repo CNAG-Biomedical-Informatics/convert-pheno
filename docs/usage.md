@@ -18,6 +18,12 @@ convert-pheno -ibff individuals.json -opxf pxf.json
 
 Use this when your starting point is a `BFF` `individuals` file.
 
+If the source `BFF` record does not preserve an original Phenopackets `subject.vitalStatus`, the output still needs a fallback status. By default `convert-pheno` uses `ALIVE`, but you can change it:
+
+```bash
+convert-pheno -ibff individuals.json -opxf pxf.json --default-vital-status UNKNOWN_STATUS
+```
+
 ## Convert OMOP SQL to BFF output
 
 For smaller inputs:

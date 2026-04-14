@@ -295,6 +295,10 @@ sub _map_info {
     $individual->{info}{phenopacket}{dateOfBirth} = $date_of_birth
       if defined $date_of_birth;
 
+    my $vitalStatus = _subject_value( $phenopacket, qw/vitalStatus vital_status/ );
+    $individual->{info}{phenopacket}{vitalStatus} = $vitalStatus
+      if defined $vitalStatus;
+
     for my $term (
         qw(genes interpretations metaData variants files biosamples pedigree)
       )

@@ -78,6 +78,12 @@ Convert `BFF` `individuals` to Phenopackets:
 convert-pheno -ibff individuals.json -opxf pxf.json
 ```
 
+Convert `BFF` `individuals` to Phenopackets while changing the fallback `subject.vitalStatus` used when no source value is available:
+
+```bash
+convert-pheno -ibff individuals.json -opxf pxf.json --default-vital-status UNKNOWN_STATUS
+```
+
 ## Notes
 
 - `-obff` keeps the **legacy `BFF` behavior**. By default this means `individuals`.
@@ -126,6 +132,7 @@ For the search behavior itself, including examples and threshold tradeoffs, see 
 
 - `--separator CHAR` or `--sep CHAR` overrides the CSV delimiter. For `.csv` files the default remains `;`.
 - `--username NAME` or `-u NAME` overrides the username stored in conversion metadata.
+- `--default-vital-status ALIVE|DECEASED|UNKNOWN_STATUS` sets the fallback `subject.vitalStatus.status` used for `PXF` output when no source-derived value is available. Default: `ALIVE`.
 - `--test` suppresses time-varying metadata so generated files are stable for comparisons.
 - `--verbose` or `-v` prints progress information.
 - `--debug LEVEL` prints the resolved internal request and extra debugging output.

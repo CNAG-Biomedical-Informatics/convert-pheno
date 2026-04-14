@@ -15,7 +15,10 @@
 | Source field | Target field | Notes |
 | --- | --- | --- |
 | `id` | `subject.id` | Direct |
-| `ALIVE` | `subject.vitalStatus.status` | Fixed default |
+| `info.phenopacket.vitalStatus` | `subject.vitalStatus` | Preferred source |
+| `info.vitalStatus` | `subject.vitalStatus` | Fallback preserved source |
+| `--default-vital-status` | `subject.vitalStatus.status` | Used when no preserved source value is available |
+| `ALIVE` | `subject.vitalStatus.status` | Built-in fallback when no preserved source value or CLI default is available |
 | `sex` | `subject.sex` | Normalized to the Phenopackets enum |
 | `info.phenopacket.dateOfBirth` | `subject.dateOfBirth` | Preferred source |
 | `info.dateOfBirth` | `subject.dateOfBirth` | Fallback source |

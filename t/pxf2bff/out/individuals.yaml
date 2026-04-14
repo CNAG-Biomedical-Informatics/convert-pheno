@@ -658,6 +658,11 @@
           namespacePrefix: UCUM
           url: https://ucum.org
           version: 2.1
+      vitalStatus:
+        causeOfDeath:
+          id: MONDO:0100096
+          label: COVID-19
+        status: DECEASED
   interventionsOrProcedures:
   - dateOfProcedure: 2016-01-01
     procedureCode:
@@ -1363,6 +1368,11 @@
           namespacePrefix: GENO
           url: http://purl.obolibrary.org/obo/geno.owl
           version: 2022-03-05
+      vitalStatus:
+        causeOfDeath:
+          id: MONDO:0014138
+          label: nemaline myopathy 8
+        status: DECEASED
   karyotypicSex: UNKNOWN_KARYOTYPE
   phenotypicFeatures:
   - excluded: 0

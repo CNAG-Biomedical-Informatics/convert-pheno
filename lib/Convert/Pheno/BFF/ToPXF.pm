@@ -130,13 +130,14 @@ sub _map_id {
 sub _map_subject {
     my ( $self, $bff, $pxf ) = @_;
 
+    my $vitalStatus = _resolve_vitalStatus( $self, $bff );
+
     # =======
     # subject
     # =======
     $pxf->{subject} = {
         id          => $bff->{id},
-        vitalStatus => { status => 'ALIVE' }
-        ,    #["UNKNOWN_STATUS", "ALIVE", "DECEASED"]
+        vitalStatus => $vitalStatus,
     };
 
     my $sex = _map_sex( $bff->{sex} );
@@ -320,6 +321,15 @@ sub _get_phenopacket_info_term {
     return $bff->{info}{$term} if exists $bff->{info}{$term};
 
     return;
+}
+
+sub _resolve_vitalStatus {
+    my ( $self, $bff ) = @_;
+
+    my $vitalStatus = _get_phenopacket_info_term( $bff, 'vitalStatus' );
+    return _clone_data($vitalStatus) if defined $vitalStatus;
+
+    return { status => $self->{default_vital_status} || 'ALIVE' };
 }
 
 sub _clone_data {
