@@ -30,10 +30,10 @@
     convert-pheno -icdisc cdisc.xml --redcap-dictionary dictionary.csv --mapping-file mapping.yaml -obff individuals.json
     ```
 
-    If you also want synthesized Beacon `datasets` and `cohorts`, use entity mode:
+    If you also want synthesized Beacon `datasets` and `cohorts`, keep `-obff` and use entity mode:
 
     ```bash
-    convert-pheno -icdisc cdisc.xml --redcap-dictionary dictionary.csv --mapping-file mapping.yaml --entities individuals datasets cohorts --out-dir out/
+    convert-pheno -icdisc cdisc.xml --redcap-dictionary dictionary.csv --mapping-file mapping.yaml -obff --entities individuals datasets cohorts --out-dir out/
     ```
 
     In this mode, the top-level `beacon` section of the mapping file can override dataset and cohort metadata.

@@ -44,15 +44,17 @@ convert-pheno -iomop omop.sql.gz -obff individuals.json.gz --stream --ohdsi-db
 ## Emit multi-entity BFF output
 
 ```bash
-convert-pheno -ipxf pxf.json --entities biosamples --out-dir out/
+convert-pheno -ipxf pxf.json -obff --entities biosamples --out-dir out/
 ```
+
+This is the entity-aware `BFF` form. Keep `-obff` to select `BFF` output, then use `--entities` and `--out-dir` to choose which entity files are written.
 
 This currently works when the `PXF` input contains **biosample data**. The output file will be written as `out/biosamples.json`.
 
 You can also request synthesized `datasets` and `cohorts`:
 
 ```bash
-convert-pheno -icsv clinical_data.csv --mapping-file clinical_data_mapping.yaml --entities individuals datasets cohorts --out-dir out/
+convert-pheno -icsv clinical_data.csv --mapping-file clinical_data_mapping.yaml -obff --entities individuals datasets cohorts --out-dir out/
 ```
 
 `datasets` and `cohorts` are synthesized from the normalized `individuals` collection, so they are available from BFF conversion routes beyond `PXF`. In mapping-file workflows, the top-level `beacon` section can override metadata such as `id`, `name`, `description`, `version`, or `cohortType`.
@@ -60,13 +62,13 @@ convert-pheno -icsv clinical_data.csv --mapping-file clinical_data_mapping.yaml 
 If you want both `individuals` and `biosamples`:
 
 ```bash
-convert-pheno -ipxf pxf.json --entities individuals biosamples --out-dir out/
+convert-pheno -ipxf pxf.json -obff --entities individuals biosamples --out-dir out/
 ```
 
 If you want a custom biosample filename:
 
 ```bash
-convert-pheno -ipxf pxf.json --entities individuals biosamples --out-dir out/ --out-entity biosamples=samples.json
+convert-pheno -ipxf pxf.json -obff --entities individuals biosamples --out-dir out/ --out-entity biosamples=samples.json
 ```
 
 !!! Note "Legacy `-obff FILE` behavior"
@@ -89,9 +91,9 @@ The repository test fixtures under `t/` are useful as **small examples**:
 
 ```bash
 bin/convert-pheno -ipxf t/pxf2bff/in/pxf.json -obff individuals.json
-bin/convert-pheno -ipxf t/pxf2bff/in/pxf.json --entities biosamples --out-dir out/
-bin/convert-pheno -ipxf t/pxf2bff/in/pxf.json --entities individuals biosamples --out-dir out/ --out-entity biosamples=samples.json
-bin/convert-pheno -icsv t/csv2bff/in/csv_data.csv --mapping-file t/csv2bff/in/csv_mapping.yaml --entities individuals datasets cohorts --out-dir out/
+bin/convert-pheno -ipxf t/pxf2bff/in/pxf.json -obff --entities biosamples --out-dir out/
+bin/convert-pheno -ipxf t/pxf2bff/in/pxf.json -obff --entities individuals biosamples --out-dir out/ --out-entity biosamples=samples.json
+bin/convert-pheno -icsv t/csv2bff/in/csv_data.csv --mapping-file t/csv2bff/in/csv_mapping.yaml -obff --entities individuals datasets cohorts --out-dir out/
 bin/convert-pheno -iomop t/omop2bff/in/omop_cdm_eunomia.sql -opxf phenopackets.json
 ```
 

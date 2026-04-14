@@ -22,7 +22,7 @@ The **OMOP CDM** is designed to be database-agnostic, which means it can be impl
     When using the `convert-pheno` command-line interface, simply ensure the [correct syntax](usage.md) is provided.
 
     !!! Note "Legacy single-file vs entity-aware BFF output"
-        Most examples below use the legacy `-obff FILE` path, which still emits Beacon `individuals` as one file. In non-stream BFF workflows, you can also request synthesized `datasets` and `cohorts` with `--entities ... --out-dir out/`. `biosamples` are not yet synthesized from `OMOP`.
+        Most examples below use the legacy `-obff FILE` path, which still emits Beacon `individuals` as one file. In non-stream BFF workflows, you can also request synthesized `datasets` and `cohorts` with `-obff --entities ... --out-dir out/`. `biosamples` are not yet synthesized from `OMOP`.
 
     ??? Tip "Does `Convert-Pheno` accept `gz` files?"
 
@@ -64,7 +64,7 @@ The **OMOP CDM** is designed to be database-agnostic, which means it can be impl
         To emit entity-aware `BFF` output instead:
 
         ```bash
-        convert-pheno -iomop PERSON.csv CONCEPT.csv DRUG_EXPOSURE.csv --entities individuals datasets cohorts --out-dir out/
+        convert-pheno -iomop PERSON.csv CONCEPT.csv DRUG_EXPOSURE.csv -obff --entities individuals datasets cohorts --out-dir out/
         ```
 
         In this mode, `Convert-Pheno` infers the OMOP table name from each filename. At minimum, practical conversions usually require:

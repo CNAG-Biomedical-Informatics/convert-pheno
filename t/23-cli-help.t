@@ -44,6 +44,31 @@ is(
     'CLI parser accepts --default-vital-status for PXF output'
 );
 
+$request = build_cli_request(
+    argv => [
+        '-ipxf',     't/pxf2bff/in/pxf.json',
+        '-obff',
+        '--entities', 'biosamples',
+        '--out-dir', '/tmp',
+    ],
+    usage_error => sub { die @_ },
+    schema_file => 'share/schema/mapping.json',
+    out_dir     => '.',
+    color       => 1,
+);
+
+is(
+    $request->{data}{method},
+    'pxf2bff',
+    'CLI parser keeps -obff as the explicit BFF selector in entity mode'
+);
+
+is_deeply(
+    $request->{data}{entities},
+    ['biosamples'],
+    'CLI parser accepts -obff together with --entities'
+);
+
 my $usage_error;
 eval {
     build_cli_request(
@@ -119,13 +144,37 @@ like(
 );
 like(
     $help,
-    qr/Use with --out-dir, not with -obff FILE/s,
-    'CLI help documents the entity-mode output requirement'
+    qr/Use with -obff and --out-dir/s,
+    'CLI help documents that entity mode keeps -obff explicit'
 );
 like(
     $help,
     qr/-obff FILE keeps the legacy single-output behavior and emits individuals only\./s,
     'CLI help documents the legacy single-file BFF behavior'
+);
+like(
+    $help,
+    qr/-obff --entities \.\.\. --out-dir DIR writes one file per requested BFF entity\./s,
+    'CLI help documents the explicit entity-aware BFF form'
+);
+
+my $usage_error_output =
+  qx{$^X $cli -ipxf t/pxf2bff/in/pxf.json --entities biosamples --out-dir /tmp 2>&1};
+is( $? >> 8, 1, 'CLI validation error exits with status 1' );
+like(
+    $usage_error_output,
+    qr/Error: .*select BFF output with <-obff>/s,
+    'CLI validation error keeps the focused message'
+);
+like(
+    $usage_error_output,
+    qr/Run `convert-pheno --help` for full usage/,
+    'CLI validation error points users to --help for the full reference'
+);
+unlike(
+    $usage_error_output,
+    qr/Common input flags:/,
+    'CLI validation error no longer dumps the full help text'
 );
 
 done_testing();

@@ -23,10 +23,10 @@
     Please refer to the [Convert-Pheno tutorial](https://cnag-biomedical-informatics.github.io/convert-pheno/tutorial/#how-to-convert) for more information.
     
     !!! Question "How do I emit more than `individuals`?"
-        Mapping-file conversions can also emit synthesized Beacon `datasets` and `cohorts`:
+        Mapping-file conversions can also emit synthesized Beacon `datasets` and `cohorts`. Keep `-obff` to select `BFF` output, then add `--entities` and `--out-dir`:
 
         ```bash
-        convert-pheno -icsv clinical_data.csv --mapping-file clinical_data_mapping.yaml --entities individuals datasets cohorts --out-dir out/
+        convert-pheno -icsv clinical_data.csv --mapping-file clinical_data_mapping.yaml -obff --entities individuals datasets cohorts --out-dir out/
         ```
 
         The top-level `beacon` section of the mapping file can override metadata for these synthesized entities. Raw CSV input does not currently generate first-class Beacon `biosamples`.

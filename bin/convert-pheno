@@ -44,6 +44,7 @@ sub print_help {
 Usage:
   convert-pheno -i <input-type> <infile> -o <output-type> <outfile> [options]
   convert-pheno -ipxf <infile> -obff <outfile> [options]
+  convert-pheno -ipxf <infile> -obff --entities <list> --out-dir <dir> [options]
 
 Common input flags:
   -i <type> <file>    Generic input form (pxf|bff|omop|redcap|cdisc|csv)
@@ -56,8 +57,9 @@ Common input flags:
 
 Common output flags:
   -o <type> <file>    Generic output form (bff|pxf|omop|csv|jsonf|jsonld)
-  -obff <file>      Beacon-oriented JSON/YAML output (legacy single-file
-                    individuals mode)
+  -obff [file]      Beacon-oriented JSON/YAML output
+                    Use -obff FILE for legacy single-file individuals mode
+                    Use -obff with --entities --out-dir for entity-aware BFF
   -opxf <file>      Phenopackets v2 output
   -oomop <prefix>   OMOP-CDM CSV prefix
   -ocsv <file>      Flattened CSV (with -ibff or -ipxf)
@@ -65,12 +67,12 @@ Common output flags:
   -ojsonld <file>   JSON-LD / YAML-LD (with -ibff or -ipxf)
 
 Output behavior:
-  --out-dir <dir>       Output directory (required for BFF entity mode)
+  --out-dir <dir>       Output directory (required for entity-aware BFF mode)
   --entities <list>     Beacon entities for BFF output [individuals]
                         Supported: individuals, biosamples, datasets, cohorts
                         biosamples are emitted from -ipxf when present
                         datasets and cohorts are synthesized from individuals
-                        Use with --out-dir, not with -obff FILE
+                        Use with -obff and --out-dir
   --out-entity e=file   Override one entity filename; repeat as needed
                         Requires --entities
   -O                    Overwrite output file(s)
@@ -119,15 +121,16 @@ Other useful options:
 Examples:
   convert-pheno -i pxf pxf.json -o bff individuals.json
   convert-pheno -ipxf pxf.json -obff individuals.json
-  convert-pheno -ipxf pxf.json --entities biosamples --out-dir out/
-  convert-pheno -ipxf pxf.json --entities individuals biosamples --out-dir out/ --out-entity biosamples=samples.json
-  convert-pheno -ipxf pxf.json --entities individuals datasets cohorts --out-dir out/
-  convert-pheno -icsv data.csv --mapping-file mapping.yaml --entities individuals datasets cohorts --out-dir out/
+  convert-pheno -ipxf pxf.json -obff --entities biosamples --out-dir out/
+  convert-pheno -ipxf pxf.json -obff --entities individuals biosamples --out-dir out/ --out-entity biosamples=samples.json
+  convert-pheno -ipxf pxf.json -obff --entities individuals datasets cohorts --out-dir out/
+  convert-pheno -icsv data.csv --mapping-file mapping.yaml -obff --entities individuals datasets cohorts --out-dir out/
   convert-pheno -iomop dump.sql.gz -opxf phenopackets.json.gz --default-vital-status UNKNOWN_STATUS --ohdsi-db
   convert-pheno -iomop dump.sql.gz -obff individuals.json.gz --stream --ohdsi-db
 
-Legacy compatibility:
+BFF output modes:
   -obff FILE keeps the legacy single-output behavior and emits individuals only.
+  -obff --entities ... --out-dir DIR writes one file per requested BFF entity.
   If a PXF input also contains biosamples, convert-pheno warns and preserves them
   under info.phenopacket.biosamples unless --entities is used.
   PXF output still defaults subject.vitalStatus to ALIVE unless a preserved
@@ -141,11 +144,24 @@ Docs:
 EOF
 }
 
+sub print_usage_summary {
+    my $out = shift || *STDERR;
+    print {$out} <<'EOF';
+Usage:
+  convert-pheno -i <input-type> <infile> -o <output-type> <outfile> [options]
+  convert-pheno -ipxf <infile> -obff <outfile> [options]
+  convert-pheno -ipxf <infile> -obff --entities <list> --out-dir <dir> [options]
+
+Run `convert-pheno --help` for full usage
+EOF
+}
+
 sub usage_error {
     my ($message) = @_;
     print STDERR "Error: $message";
     print STDERR "\n" unless $message =~ /\n\z/;
-    print_help(*STDERR);
+    print STDERR "\n";
+    print_usage_summary(*STDERR);
     exit 1;
 }
 
@@ -259,7 +275,7 @@ sub maybe_warn_legacy_pxf_biosamples {
           && @{ $phenopacket->{biosamples} };
 
         print STDERR <<'EOF';
-Warning: input PXF contains biosamples. Legacy <-obff FILE> mode emits only <individuals>; biosamples were preserved under <info.phenopacket.biosamples>. Use <--entities biosamples> or <--entities individuals biosamples> with <--out-dir> for first-class biosample output.
+Warning: input PXF contains biosamples. Legacy <-obff FILE> mode emits only <individuals>; biosamples were preserved under <info.phenopacket.biosamples>. Use <-obff --entities biosamples --out-dir DIR> or <-obff --entities individuals biosamples --out-dir DIR> for first-class biosample output.
 EOF
         return;
     }

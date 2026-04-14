@@ -32,18 +32,18 @@ Phenopackets organize information using [top-level elements](https://phenopacket
     ??? Warning "About `biosamples` and `interpretations`"
         In the legacy `-obff individuals.json` path, `convert-pheno` still emits only the Beacon `individuals` entity. If a `PXF` input also contains `biosamples`, the CLI warns and preserves them under `info.phenopacket.biosamples` for backward compatibility.
 
-        If you want entity-aware BFF output, use entity mode instead:
+        If you want entity-aware BFF output, keep `-obff` and use entity mode instead:
 
         ```bash
-        convert-pheno -ipxf pxf.json --entities biosamples --out-dir out/
-        convert-pheno -ipxf pxf.json --entities individuals biosamples --out-dir out/
-        convert-pheno -ipxf pxf.json --entities individuals biosamples datasets cohorts --out-dir out/
+        convert-pheno -ipxf pxf.json -obff --entities biosamples --out-dir out/
+        convert-pheno -ipxf pxf.json -obff --entities individuals biosamples --out-dir out/
+        convert-pheno -ipxf pxf.json -obff --entities individuals biosamples datasets cohorts --out-dir out/
         ```
 
         You can also override the biosample filename:
 
         ```bash
-        convert-pheno -ipxf pxf.json --entities individuals biosamples --out-dir out/ --out-entity biosamples=samples.json
+        convert-pheno -ipxf pxf.json -obff --entities individuals biosamples --out-dir out/ --out-entity biosamples=samples.json
         ```
 
         In entity mode, `biosamples` are mapped directly from the `PXF` input, while `datasets` and `cohorts` are synthesized from the normalized `individuals` collection.

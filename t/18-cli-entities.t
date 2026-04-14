@@ -38,6 +38,7 @@ my @cmd = (
     $^X,
     $cli,
     '-ipxf', $input_file,
+    '-obff',
     '--entities', 'biosamples',
     '--out-dir', $out_dir,
     '-O',
@@ -60,6 +61,7 @@ my @custom_cmd = (
     $^X,
     $cli,
     '-ipxf', $input_file,
+    '-obff',
     '--entities', 'biosamples',
     '--out-dir', $custom_out_dir,
     '--out-entity', 'biosamples=samples.json',
@@ -78,6 +80,7 @@ my @multi_cmd = (
     $^X,
     $cli,
     '-ipxf', $input_file,
+    '-obff',
     '--entities', 'individuals', 'biosamples',
     '--out-dir', $multi_out_dir,
     '--out-entity', 'biosamples=samples.json',
@@ -94,6 +97,7 @@ my @derived_cmd = (
     $^X,
     $cli,
     '-ipxf', $input_file,
+    '-obff',
     '--entities', 'datasets', 'cohorts',
     '--out-dir', $derived_out_dir,
     '-O',
@@ -155,6 +159,7 @@ is( $cohorts->[0]{cohortSize}, 1, 'cohorts output records the cohort size' );
         '-icsv', 't/csv2bff/in/csv_data.csv',
         '--mapping-file', $mapping_file,
         '--sep', ',',
+        '-obff',
         '--entities', 'datasets', 'cohorts',
         '--out-dir', $mapping_out_dir,
         '-O',
@@ -283,8 +288,40 @@ is( $cohorts->[0]{cohortSize}, 1, 'cohorts output records the cohort size' );
     isnt( $? >> 8, 0, 'CLI rejects -obff FILE together with --entities' );
     like(
         $output,
-        qr/When using <--entities>, please use <--out-dir> without <-obff FILE>/,
+        qr/please omit the file and use <-obff --entities \.\.\. --out-dir DIR>/,
         'CLI prints a focused error for --entities with -obff FILE'
+    );
+}
+
+{
+    my ( $fh, $log_file ) =
+      tempfile( DIR => '/tmp', SUFFIX => '.cli.log', UNLINK => 1 );
+    my $pid = fork();
+    die 'fork failed' unless defined $pid;
+
+    if ( $pid == 0 ) {
+        open STDOUT, '>&', $fh or die "dup STDOUT failed: $!";
+        open STDERR, '>&', $fh or die "dup STDERR failed: $!";
+        exec(
+            $^X,
+            $cli,
+            '-ipxf', $input_file,
+            '--entities', 'biosamples',
+            '--out-dir', $out_dir,
+        ) or die "exec failed: $!";
+    }
+
+    waitpid( $pid, 0 );
+    seek $fh, 0, 0;
+    local $/;
+    my $output = <$fh>;
+    close $fh;
+
+    isnt( $? >> 8, 0, 'CLI rejects --entities without selecting BFF output' );
+    like(
+        $output,
+        qr/select BFF output with <-obff>/,
+        'CLI explains that entity mode still requires -obff'
     );
 }
 

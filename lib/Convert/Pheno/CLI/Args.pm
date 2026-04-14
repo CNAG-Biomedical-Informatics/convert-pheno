@@ -57,6 +57,7 @@ sub build_cli_request {
     my ( $in_pxf, $in_bff, $in_redcap, $in_cdisc, $in_csv );
     my @omop_files;
     my ( $out_bff, $out_pxf, $out_csv, $out_jsonf, $out_jsonld, $out_omop );
+    my $out_bff_selected = 0;
     my @entities_args;
     my @out_entity_specs;
     my ( $help, $man, $mapping_file, $max_lines_sql, $search );
@@ -77,7 +78,11 @@ sub build_cli_request {
         'icdisc=s'                    => \$in_cdisc,
         'iomop=s{1,}'                 => \@omop_files,
         'icsv=s'                      => \$in_csv,
-        'obff=s'                      => \$out_bff,
+        'obff:s'                     => sub {
+            my ( $opt_name, $opt_value ) = @_;
+            $out_bff_selected = 1;
+            $out_bff = $opt_value if defined $opt_value;
+        },
         'opxf=s'                      => \$out_pxf,
         'ocsv=s'                      => \$out_csv,
         'ojsonf=s'                    => \$out_jsonf,
@@ -144,7 +149,7 @@ sub build_cli_request {
       if ( defined $normalized_in_type
         && _count_defined( $in_pxf, $in_bff, $in_redcap, $in_cdisc, $in_csv, @omop_files ? 1 : undef ) )
       || ( defined $normalized_out_type
-        && _count_defined( $out_bff, $out_pxf, $out_csv, $out_jsonf, $out_jsonld, $out_omop ) );
+        && _count_defined( $out_bff_selected ? 1 : undef, $out_pxf, $out_csv, $out_jsonf, $out_jsonld, $out_omop ) );
 
     if ( defined $normalized_in_type ) {
         if ( $normalized_in_type eq 'omop' ) {
@@ -154,7 +159,7 @@ sub build_cli_request {
                   unless @{$argv} >= 2;
                 @omop_files = @{$argv}[ 0 .. $#{$argv} - 1 ];
                 my $generic_outfile = $argv->[-1];
-                if    ( $normalized_out_type eq 'bff' )    { $out_bff    = $generic_outfile }
+                if    ( $normalized_out_type eq 'bff' )    { $out_bff_selected = 1; $out_bff = $generic_outfile }
                 elsif ( $normalized_out_type eq 'pxf' )    { $out_pxf    = $generic_outfile }
                 elsif ( $normalized_out_type eq 'csv' )    { $out_csv    = $generic_outfile }
                 elsif ( $normalized_out_type eq 'jsonf' )  { $out_jsonf  = $generic_outfile }
@@ -180,7 +185,7 @@ sub build_cli_request {
                 $usage_error->("Please provide an output file after <-o $out_type_arg>")
                   unless @{$argv};
                 my $generic_outfile = shift @{$argv};
-                if    ( $normalized_out_type eq 'bff' )    { $out_bff    = $generic_outfile }
+                if    ( $normalized_out_type eq 'bff' )    { $out_bff_selected = 1; $out_bff = $generic_outfile }
                 elsif ( $normalized_out_type eq 'pxf' )    { $out_pxf    = $generic_outfile }
                 elsif ( $normalized_out_type eq 'csv' )    { $out_csv    = $generic_outfile }
                 elsif ( $normalized_out_type eq 'jsonf' )  { $out_jsonf  = $generic_outfile }
@@ -192,6 +197,10 @@ sub build_cli_request {
 
     $usage_error->("The flag <-o> requires <-i> when using the generic syntax")
       if defined $normalized_out_type && !defined $normalized_in_type;
+
+    if ( @entities_args && @{$argv} == 1 && !$out_bff_selected && $argv->[0] eq $out_dir ) {
+        $usage_error->("When using <--entities>, please also select BFF output with <-obff> and keep <--out-dir> as the directory target");
+    }
 
     $usage_error->("Unexpected extra positional arguments: @{$argv}") if @{$argv};
 
@@ -236,7 +245,7 @@ sub build_cli_request {
         {
             condition => sub {
                 @omop_files
-                  && ( ( defined $out_bff && $out_bff !~ m/\.json/i )
+                  && ( ( defined $out_bff && length $out_bff && $out_bff !~ m/\.json/i )
                     || ( defined $out_pxf && $out_pxf !~ m/\.json/i ) );
             },
             message => "The flag <--iomops> only supports output files in <json|json.gz> format\n",
@@ -293,8 +302,11 @@ sub build_cli_request {
     $usage_error->("The entity <biosamples> is currently only supported with <-ipxf> and <-obff>")
       if grep { $_ eq 'biosamples' } @entity_list && !$in_pxf;
 
-    $usage_error->("When using <--entities>, please use <--out-dir> without <-obff FILE>")
-      if @entities_args && defined $out_bff;
+    $usage_error->("When using <--entities>, please select BFF output with <-obff> and write the requested entities with <--out-dir>. Use either <-obff FILE> for legacy single-file output or <-obff --entities ... --out-dir DIR> for entity-aware BFF output")
+      if @entities_args && !$out_bff_selected;
+
+    $usage_error->("When using <-obff FILE> together with <--entities>, please omit the file and use <-obff --entities ... --out-dir DIR>")
+      if @entities_args && defined $out_bff && length $out_bff;
 
     $usage_error->("The flag <--out-entity> requires <--entities>")
       if @out_entity_specs && !@entities_args;
@@ -332,7 +344,7 @@ sub build_cli_request {
 
     my $out_file =
         $out_pxf    ? _resolve_output_path( $out_dir, $out_pxf )
-      : $out_bff    ? _resolve_output_path( $out_dir, $out_bff )
+      : defined $out_bff && length $out_bff ? _resolve_output_path( $out_dir, $out_bff )
       : $out_csv    ? _resolve_output_path( $out_dir, $out_csv )
       : $out_jsonf  ? _resolve_output_path( $out_dir, $out_jsonf )
       : $out_jsonld ? _resolve_output_path( $out_dir, $out_jsonld )
@@ -358,7 +370,7 @@ sub build_cli_request {
       :               'bff';
     my $out_type =
         $out_pxf    ? 'pxf'
-      : $out_bff    ? 'bff'
+      : $out_bff_selected ? 'bff'
       : $out_csv    ? 'csv'
       : $out_jsonf  ? 'jsonf'
       : $out_jsonld ? 'jsonld'

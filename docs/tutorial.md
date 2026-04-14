@@ -62,6 +62,7 @@ If you want entity-aware `BFF` output instead of the legacy single-file `individ
 
 ```bash
 convert-pheno -iomop PERSON.csv CONCEPT.csv DRUG_EXPOSURE.csv \
+  -obff \
   --entities individuals datasets cohorts \
   --out-dir out/
 ```
@@ -95,6 +96,7 @@ If you want `datasets` and `cohorts` as well, switch to entity mode:
 ```bash
 convert-pheno -icsv clinical_data.csv \
   --mapping-file clinical_data_mapping.yaml \
+  -obff \
   --entities individuals datasets cohorts \
   --out-dir out/
 ```

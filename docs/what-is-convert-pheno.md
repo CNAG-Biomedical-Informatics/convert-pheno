@@ -26,7 +26,7 @@ Typical examples are:
 
 ```bash
 convert-pheno -ipxf pxf.json -obff individuals.json
-convert-pheno -ipxf pxf.json --entities individuals biosamples datasets cohorts --out-dir out/
+convert-pheno -ipxf pxf.json -obff --entities individuals biosamples datasets cohorts --out-dir out/
 convert-pheno -iomop dump.sql.gz -obff individuals.json.gz --stream --ohdsi-db
 ```
 
