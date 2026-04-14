@@ -1,5 +1,9 @@
 Revision history for Perl distribution Convert-Pheno
 
+0.31 2026-0X-XXXXT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
+
+ - Foo
+
 0.30 2026-04-14XXT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
  - Refactored BFF internals to support entity-aware and multi-entity conversion

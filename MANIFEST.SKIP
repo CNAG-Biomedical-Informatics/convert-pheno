@@ -23,3 +23,5 @@
 ^docs/
 ^api/
 ^nb/
+^docker/
+^non-containerized/

@@ -7,6 +7,11 @@
 
 Phenopackets organize information using [top-level elements](https://phenopacket-schema.readthedocs.io/en/latest/toplevel.html). Our software, `Convert-Pheno`, specifically processes data from the [Phenopacket element](https://phenopacket-schema.readthedocs.io/en/latest/phenopacket.html), serialized in [PXF](http://phenopackets.org/) format.
 
+`Convert-Pheno` supports `PXF` in both directions:
+
+- as **input**, for conversions such as `pxf2bff`, `pxf2csv`, and `pxf2jsonf`
+- as **output**, for conversions such as `bff2pxf`, `omop2pxf`, `redcap2pxf`, `csv2pxf`, and `cdisc2pxf`
+
 ??? Tip "Browsing PXF `JSON` data"
 
     You can browse a public Phenopackets v2 file with onf of teh following **JSON viewers**:
@@ -15,7 +20,7 @@ Phenopackets organize information using [top-level elements](https://phenopacket
     * [JSON Hero](https://jsonhero.io/new?url=https://raw.githubusercontent.com/cnag-biomedical-informatics/convert-pheno/main/t/pxf2bff/in/pxf.json)
     * [Datasette](https://lite.datasette.io/?json=https%3A%2F%2Fraw.githubusercontent.com%2Fcnag-biomedical-informatics%2Fconvert-pheno%2Fmain%2Ft%2Fomop2pxf%2Fout%2Fpxf.json#/data?sql=select+*+from+pxf)
 
-## PXF (Phenopacket top-element) as input ![PXF](https://avatars.githubusercontent.com/u/17553567?s=280&v=4){ width="20" }
+## PXF As Input ![PXF](https://avatars.githubusercontent.com/u/17553567?s=280&v=4){ width="20" }
 
 === "Command-line"
 
@@ -32,18 +37,18 @@ Phenopackets organize information using [top-level elements](https://phenopacket
     ??? Warning "About `biosamples` and `interpretations`"
         In the legacy `-obff individuals.json` path, `convert-pheno` still emits only the Beacon `individuals` entity. If a `PXF` input also contains `biosamples`, the CLI warns and preserves them under `info.phenopacket.biosamples` for backward compatibility.
 
-        If you want entity-aware BFF output, keep `-obff` and use entity mode instead:
+        If you want entity-aware BFF output, use entity mode instead:
 
         ```bash
-        convert-pheno -ipxf pxf.json -obff --entities biosamples --out-dir out/
-        convert-pheno -ipxf pxf.json -obff --entities individuals biosamples --out-dir out/
-        convert-pheno -ipxf pxf.json -obff --entities individuals biosamples datasets cohorts --out-dir out/
+        convert-pheno -ipxf pxf.json --entities biosamples --out-dir out/
+        convert-pheno -ipxf pxf.json --entities individuals biosamples --out-dir out/
+        convert-pheno -ipxf pxf.json --entities individuals biosamples datasets cohorts --out-dir out/
         ```
 
         You can also override the biosample filename:
 
         ```bash
-        convert-pheno -ipxf pxf.json -obff --entities individuals biosamples --out-dir out/ --out-entity biosamples=samples.json
+        convert-pheno -ipxf pxf.json --entities individuals biosamples --out-dir out/ --out-entity biosamples=samples.json
         ```
 
         In entity mode, `biosamples` are mapped directly from the `PXF` input, while `datasets` and `cohorts` are synthesized from the normalized `individuals` collection.
@@ -89,6 +94,24 @@ Phenopackets organize information using [top-level elements](https://phenopacket
     "method": "pxf2bff"
     }
     ```
+
+## PXF As Output
+
+`PXF` can also be emitted as an output format. Common routes include:
+
+- `bff2pxf`
+- `omop2pxf`
+- `redcap2pxf`
+- `csv2pxf`
+- `cdisc2pxf`
+
+Examples:
+
+```bash
+convert-pheno -ibff individuals.json -opxf phenopackets.json
+convert-pheno -iomop omop.sql.gz -opxf phenopackets.json.gz --ohdsi-db
+convert-pheno -icsv clinical.csv --mapping-file clinical.yaml -opxf phenopackets.json
+```
 
 Please find below examples of data:
 

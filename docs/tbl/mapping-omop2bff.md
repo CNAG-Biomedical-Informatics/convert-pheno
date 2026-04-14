@@ -34,7 +34,10 @@
 ### geographicOrigin
 | Source field | Target field | Notes |
 | --- | --- | --- |
-| `PERSON.ethnicity_source_value` | `geographicOrigin` | Normalized through ontology lookup |
+| `OBSERVATION.value_as_concept_id` | `geographicOrigin` | Preferred when the observation represents `Country of birth`; normalized through ontology lookup |
+| `OBSERVATION.value_as_string` | `geographicOrigin` | Preferred string fallback when the observation represents `Country of birth` |
+| `OBSERVATION.value_source_value` | `geographicOrigin` | Preferred string fallback when the observation represents `Country of birth` |
+| `PERSON.ethnicity_source_value` | `geographicOrigin` | Fallback when no `Country of birth` observation can be resolved |
 
 ### id
 | Source field | Target field | Notes |

@@ -7,11 +7,14 @@
 </figure>
 
 !!! Abstract "About Beacon v2 Models' entities"
-    Among the seven entity types (also known as entry types) in the Beacon v2 Models, the [individuals](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema) entity is typically the only one that contains phenotypic data, represented with record-level granularity. Other entities, such as [datasets](https://docs.genomebeacons.org/schemas-md/datasets_defaultSchema) and [biosamples](https://docs.genomebeacons.org/schemas-md/biosamples_defaultSchema), may also hold useful information. However, they generally pose fewer challenges for data conversion, primarily consisting of plain text with fewer nested properties.
+    Among the Beacon v2 Models entities, [individuals](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema) is usually the main record-level carrier of phenotypic and clinical information. Other entities such as [biosamples](https://docs.genomebeacons.org/schemas-md/biosamples_defaultSchema), [datasets](https://docs.genomebeacons.org/schemas-md/datasets_defaultSchema), and cohorts are also important, but they tend to be more focused: `biosamples` capture specimen-level context, while `datasets` and `cohorts` are mostly collection-level metadata. In practice, this means `individuals` usually drives the most complex semantic mapping, whereas the other entities are often derived, enriched, or populated with lighter transformation rules.
 
-As an input, `Convert-Pheno` currently accepts data from the [individuals](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema) entity, serialized in [BFF](https://b2ri-documentation.readthedocs.io/en/latest/data-ingestion) format (`individuals.json`).
+`Convert-Pheno` supports `BFF` in both directions.
 
-On the output side, the CLI can now emit additional `BFF` entities in entity mode. The currently supported output entities are `individuals`, `biosamples`, `datasets`, and `cohorts`, although `BFF` input for reverse conversion is still centered on `individuals`.
+- As **input**, it currently accepts the [individuals](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema) entity serialized as `individuals.json`.
+- As **output**, the CLI can emit `individuals`, `biosamples`, `datasets`, and `cohorts`.
+
+So `BFF` is no longer only an `individuals`-centered output format, even though reverse conversion from `BFF` input is still centered on `individuals`.
 
 ??? Tip "Browsing BFF `JSON` data"
     You can browse a public BFF v2 file with the following **JSON viewers**:
@@ -20,7 +23,7 @@ On the output side, the CLI can now emit additional `BFF` entities in entity mod
     * [JSON Hero](https://jsonhero.io/new?url=https://raw.githubusercontent.com/cnag-biomedical-informatics/convert-pheno/main/t/bff2pxf/in/individuals.json)
     * [Datasette](https://lite.datasette.io/?json=https%3A%2F%2Fraw.githubusercontent.com%2Fcnag-biomedical-informatics%2Fconvert-pheno%2Fmain%2Ft%2Fomop2bff%2Fout%2Findividuals.json#/data?sql=select+*+from+individuals)
 
-## BFF (individuals) as input ![BFF](https://avatars.githubusercontent.com/u/33450937?s=200&v=4){ width="20" }
+## BFF As Input ![BFF](https://avatars.githubusercontent.com/u/33450937?s=200&v=4){ width="20" }
 
 === "Command-line"
 
@@ -64,6 +67,30 @@ On the output side, the CLI can now emit additional `BFF` entities in entity mod
     "method": "bff2pxf"
     }
     ```
+
+## BFF As Output
+
+As an output format, `BFF` can be emitted in two modes:
+
+- **legacy single-file mode**, using `-obff FILE`, which writes only `individuals`
+- **entity-aware mode**, using `--entities ... --out-dir DIR`, which can write multiple Beacon entities
+
+The currently supported `BFF` output entities are:
+
+- `individuals`
+- `biosamples`
+- `datasets`
+- `cohorts`
+
+Examples:
+
+```bash
+convert-pheno -ipxf pxf.json -obff individuals.json
+convert-pheno -ipxf pxf.json --entities individuals biosamples --out-dir out/
+convert-pheno -icsv clinical.csv --mapping-file clinical.yaml --entities individuals datasets cohorts --out-dir out/
+```
+
+At the moment, reverse conversion from `BFF` input still expects `individuals` rather than a full multi-entity Beacon bundle.
 
 Please find below examples of data:
 

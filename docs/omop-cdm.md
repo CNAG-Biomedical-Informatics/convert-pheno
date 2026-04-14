@@ -9,20 +9,37 @@ The **OMOP CDM** is designed to be database-agnostic, which means it can be impl
 
 `Convert-Pheno` is capable of performing both **file-based conversions** (from PostgreSQL exports in `.sql` or from any other SQL database via `.csv` files) and **real-time conversions** (e.g., from [SQL queries](http://cdmqueries.omop.org)) as long as the data has been converted to the accepted JSON format.
 
+`Convert-Pheno` supports `OMOP-CDM` in both directions:
+
+- as **input**, from `.sql`, `.csv`, `.sql.gz`, or `.csv.gz` exports
+- as **output**, as OMOP CSV tables generated from `BFF` input
+
 ??? Warning "About OMOP CDM longitudinal data"
     OMOP CDM stores `visit_occurrence_id` for each `person_id` in the `VISIT_OCCURRENCE table`. However, [Beacon v2 Models](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema) currently lack a way to store longitudinal data. To address this, we added a property named `_visit` to each record, which stores visit information. This property will be serialized only if the `VISIT_OCCURRENCE` table is provided.
 
 !!! Tip "OMOP CDM supported version(s)"
     Currently, Convert-Pheno supports versions **5.3** and **5.4** of OMOP CDM, and its prepared to support v6 once we can test the code with v6 projects.
 
-## OMOP as input
+## OMOP As Output
+
+`OMOP-CDM` can also be emitted as output from `BFF` input. In that direction, `Convert-Pheno` writes OMOP CSV tables rather than Beacon-style JSON.
+
+Example:
+
+```bash
+convert-pheno -ibff individuals.json -oomop omop_export
+```
+
+This writes table files such as `omop_export_PERSON.csv`, `omop_export_CONDITION_OCCURRENCE.csv`, and related OMOP outputs.
+
+## OMOP As Input
 
 === "Command-line"
 
     When using the `convert-pheno` command-line interface, simply ensure the [correct syntax](usage.md) is provided.
 
     !!! Note "Legacy single-file vs entity-aware BFF output"
-        Most examples below use the legacy `-obff FILE` path, which still emits Beacon `individuals` as one file. In non-stream BFF workflows, you can also request synthesized `datasets` and `cohorts` with `-obff --entities ... --out-dir out/`. `biosamples` are not yet synthesized from `OMOP`.
+        Most examples below use the legacy `-obff FILE` path, which still emits Beacon `individuals` as one file. In non-stream BFF workflows, you can also request synthesized `datasets` and `cohorts` with `--entities ... --out-dir out/`. `biosamples` are not yet synthesized from `OMOP`.
 
     ??? Tip "Does `Convert-Pheno` accept `gz` files?"
 
@@ -64,7 +81,7 @@ The **OMOP CDM** is designed to be database-agnostic, which means it can be impl
         To emit entity-aware `BFF` output instead:
 
         ```bash
-        convert-pheno -iomop PERSON.csv CONCEPT.csv DRUG_EXPOSURE.csv -obff --entities individuals datasets cohorts --out-dir out/
+        convert-pheno -iomop PERSON.csv CONCEPT.csv DRUG_EXPOSURE.csv --entities individuals datasets cohorts --out-dir out/
         ```
 
         In this mode, `Convert-Pheno` infers the OMOP table name from each filename. At minimum, practical conversions usually require:
