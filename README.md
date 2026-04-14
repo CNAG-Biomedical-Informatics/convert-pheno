@@ -51,7 +51,7 @@ Typical CLI usage:
 
 ```bash
 convert-pheno -ipxf pxf.json -obff individuals.json
-convert-pheno -ipxf pxf.json --entities individuals biosamples datasets cohorts --out-dir out/
+convert-pheno -ipxf pxf.json -obff --entities individuals biosamples datasets cohorts --out-dir out/
 convert-pheno -ibff individuals.json -opxf phenopackets.json
 convert-pheno -iomop dump.sql.gz -obff individuals.json.gz --stream --ohdsi-db
 ```
@@ -73,7 +73,7 @@ Current support:
 Example:
 
 ```bash
-convert-pheno -ipxf pxf.json --entities individuals biosamples datasets cohorts --out-dir out/
+convert-pheno -ipxf pxf.json -obff --entities individuals biosamples datasets cohorts --out-dir out/
 ```
 
 This can write:
@@ -132,7 +132,7 @@ Useful examples:
 
 ```bash
 bin/convert-pheno -ipxf t/pxf2bff/in/pxf.json -obff individuals.json
-bin/convert-pheno -ipxf t/pxf2bff/in/pxf_biosamples.json --entities individuals biosamples datasets cohorts --out-dir out/
+bin/convert-pheno -ipxf t/pxf2bff/in/pxf_biosamples.json -obff --entities individuals biosamples datasets cohorts --out-dir out/
 bin/convert-pheno -icsv t/csv2bff/in/csv_data.csv --mapping-file t/csv2bff/in/csv_mapping.yaml --search-audit-tsv search-audit.tsv -obff individuals.json
 bin/convert-pheno -ibff t/bff2pxf/in/individuals.json -opxf phenopackets.json --default-vital-status UNKNOWN_STATUS
 bin/convert-pheno -iomop t/omop2bff/in/omop_cdm_eunomia.sql -opxf phenopackets.json
