@@ -1,9 +1,8 @@
 ---
 - diseases:
   - ageOfOnset:
-      ontologyClass:
-        id: HP:0011463
-        label: Childhood onset
+      id: HP:0011463
+      label: Childhood onset
     diseaseCode:
       id: MONDO:0100308
       label: atactic disorder
@@ -144,9 +143,9 @@
           label: microgram per deciliter
         value: 45
     observationMoment: &1
-      age:
-        iso8601duration: P16Y
-    timeObserved: *1
+      iso8601duration: P16Y
+    timeObserved:
+      age: *1
   - assayCode:
       id: LOINC:1823-4
       label: Alpha tocopherol [Mass/volume] in Serum or Plasma
@@ -163,9 +162,9 @@
           label: milligram per deciliter
         value: 3.9
     observationMoment: &2
-      age:
-        iso8601duration: P16Y
-    timeObserved: *2
+      iso8601duration: P16Y
+    timeObserved:
+      age: *2
   - assayCode:
       id: LOINC:2157-6
       label: Creatine kinase [Enzymatic activity/volume] in Serum or Plasma
@@ -182,9 +181,9 @@
           label: enzyme unit per liter
         value: 80
     observationMoment: &3
-      age:
-        iso8601duration: P16Y
-    timeObserved: *3
+      iso8601duration: P16Y
+    timeObserved:
+      age: *3
   - assayCode:
       id: LOINC:1823-4
       label: Alpha tocopherol [Mass/volume] in Serum or Plasma
@@ -201,17 +200,16 @@
           label: milligram per deciliter
         value: 17.34
     observationMoment: &4
-      age:
-        iso8601duration: P16Y6M
-    timeObserved: *4
+      iso8601duration: P16Y6M
+    timeObserved:
+      age: *4
   phenotypicFeatures:
   - excluded: 0
     featureType:
       id: HP:0001288
       label: Gait disturbance
     onset:
-      age:
-        iso8601duration: P10Y
+      iso8601duration: P10Y
   - excluded: 0
     featureType:
       id: HP:0001324
@@ -220,85 +218,73 @@
     - id: HP:0012837
       label: Generalized
     onset:
-      age:
-        iso8601duration: P10Y
+      iso8601duration: P10Y
   - excluded: 0
     featureType:
       id: HP:0002066
       label: Gait ataxia
     onset:
-      age:
-        iso8601duration: P16Y
+      iso8601duration: P16Y
   - excluded: 0
     featureType:
       id: HP:0001308
       label: Tongue fasciculations
     onset:
-      age:
-        iso8601duration: P16Y
+      iso8601duration: P16Y
   - excluded: 0
     featureType:
       id: HP:0002080
       label: Intention tremor
     onset:
-      age:
-        iso8601duration: P16Y
+      iso8601duration: P16Y
   - excluded: 0
     featureType:
       id: HP:0002075
       label: Dysdiadochokinesis
     onset:
-      age:
-        iso8601duration: P16Y
+      iso8601duration: P16Y
   - excluded: 0
     featureType:
       id: HP:0001251
       label: Ataxia
     onset:
-      age:
-        iso8601duration: P16Y
+      iso8601duration: P16Y
   - excluded: 0
     featureType:
       id: HP:0001284
       label: Areflexia
     onset:
-      age:
-        iso8601duration: P16Y
+      iso8601duration: P16Y
   - excluded: 0
     featureType:
       id: HP:0011448
       label: Ankle clonus
     onset:
-      age:
-        iso8601duration: P16Y
+      iso8601duration: P16Y
   - excluded: 0
     featureType:
       id: HP:0003690
       label: Limb muscle weakness
     onset:
-      age:
-        iso8601duration: P16Y
+      iso8601duration: P16Y
   - excluded: 1
     featureType:
       id: HP:0003474
       label: Somatic sensory dysfunction
     onset:
-      age:
-        iso8601duration: P16Y
+      iso8601duration: P16Y
   - excluded: 1
     featureType:
       id: HP:0002599
       label: Head titubation
     onset:
-      age:
-        iso8601duration: P16Y
+      iso8601duration: P16Y
   - excluded: 1
     featureType:
       id: HP:0031910
       label: Abnormal cranial nerve physiology
     onset:
-      age:
-        iso8601duration: P16Y
+      iso8601duration: P16Y
   sex:
     id: NCIT:C16576
     label: Female
@@ -380,153 +366,226 @@
   karyotypicSex: UNKNOWN_KARYOTYPE
   phenotypicFeatures:
   - evidence:
-    - evidenceCode:
+      evidenceCode: &5
         id: ECO:0000033
         label: author statement supported by traceable reference
+      info:
+        phenopacket:
+          evidence:
+          - evidenceCode: *5
+            reference:
+              description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent
+                hematuria: a case report'
+              id: PMID:30808312
       reference:
-        description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria:
-          a case report'
         id: PMID:30808312
+        notes: 'COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria:
+          a case report'
     excluded: 0
     featureType:
       id: HP:0001629
       label: Ventricular septal defect
     onset:
-      ontologyClass:
-        id: HP:0003577
-        label: Congenital onset
+      id: HP:0003577
+      label: Congenital onset
   - evidence:
-    - evidenceCode:
+      evidenceCode: &6
         id: ECO:0000033
         label: author statement supported by traceable reference
+      info:
+        phenopacket:
+          evidence:
+          - evidenceCode: *6
+            reference:
+              description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent
+                hematuria: a case report'
+              id: PMID:30808312
       reference:
-        description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria:
-          a case report'
         id: PMID:30808312
+        notes: 'COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria:
+          a case report'
     excluded: 0
     featureType:
       id: HP:0000280
       label: Coarse facial features
   - evidence:
-    - evidenceCode:
+      evidenceCode: &7
         id: ECO:0000033
         label: author statement supported by traceable reference
+      info:
+        phenopacket:
+          evidence:
+          - evidenceCode: *7
+            reference:
+              description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent
+                hematuria: a case report'
+              id: PMID:30808312
       reference:
-        description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria:
-          a case report'
         id: PMID:30808312
+        notes: 'COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria:
+          a case report'
     excluded: 0
     featureType:
       id: HP:0008689
       label: Bilateral cryptorchidism
     onset:
-      ontologyClass:
-        id: HP:0003577
-        label: Congenital onset
+      id: HP:0003577
+      label: Congenital onset
   - evidence:
-    - evidenceCode:
+      evidenceCode: &8
         id: ECO:0000033
         label: author statement supported by traceable reference
+      info:
+        phenopacket:
+          evidence:
+          - evidenceCode: *8
+            reference:
+              description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent
+                hematuria: a case report'
+              id: PMID:30808312
       reference:
-        description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria:
-          a case report'
         id: PMID:30808312
+        notes: 'COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria:
+          a case report'
     excluded: 0
     featureType:
       id: HP:0001561
       label: Polyhydramnios
     onset:
-      ontologyClass:
-        id: HP:0011461
-        label: Fetal onset
+      id: HP:0011461
+      label: Fetal onset
   - evidence:
-    - evidenceCode:
+      evidenceCode: &9
         id: ECO:0000033
         label: author statement supported by traceable reference
+      info:
+        phenopacket:
+          evidence:
+          - evidenceCode: *9
+            reference:
+              description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent
+                hematuria: a case report'
+              id: PMID:30808312
       reference:
-        description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria:
-          a case report'
         id: PMID:30808312
+        notes: 'COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria:
+          a case report'
     excluded: 0
     featureType:
       id: HP:0000054
       label: Micropenis
     onset:
-      ontologyClass:
-        id: HP:0003577
-        label: Congenital onset
+      id: HP:0003577
+      label: Congenital onset
   - evidence:
-    - evidenceCode:
+      evidenceCode: &10
         id: ECO:0000033
         label: author statement supported by traceable reference
+      info:
+        phenopacket:
+          evidence:
+          - evidenceCode: *10
+            reference:
+              description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent
+                hematuria: a case report'
+              id: PMID:30808312
       reference:
-        description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria:
-          a case report'
         id: PMID:30808312
+        notes: 'COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria:
+          a case report'
     excluded: 0
     featureType:
       id: HP:0001798
       label: Anonychia
     onset:
-      ontologyClass:
-        id: HP:0003577
-        label: Congenital onset
+      id: HP:0003577
+      label: Congenital onset
   - evidence:
-    - evidenceCode:
+      evidenceCode: &11
         id: ECO:0000033
         label: author statement supported by traceable reference
+      info:
+        phenopacket:
+          evidence:
+          - evidenceCode: *11
+            reference:
+              description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent
+                hematuria: a case report'
+              id: PMID:30808312
       reference:
-        description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria:
-          a case report'
         id: PMID:30808312
+        notes: 'COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria:
+          a case report'
     excluded: 0
     featureType:
       id: HP:0001320
       label: Cerebellar vermis hypoplasia
   - evidence:
-    - evidenceCode:
+      evidenceCode: &12
         id: ECO:0000033
         label: author statement supported by traceable reference
+      info:
+        phenopacket:
+          evidence:
+          - evidenceCode: *12
+            reference:
+              description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent
+                hematuria: a case report'
+              id: PMID:30808312
       reference:
-        description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria:
-          a case report'
         id: PMID:30808312
+        notes: 'COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria:
+          a case report'
     excluded: 0
     featureType:
       id: HP:0000518
       label: Cataract
     onset:
-      ontologyClass:
-        id: HP:0003593
-        label: Infantile onset
+      id: HP:0003593
+      label: Infantile onset
   - evidence:
-    - evidenceCode:
+      evidenceCode: &13
         id: ECO:0000033
         label: author statement supported by traceable reference
+      info:
+        phenopacket:
+          evidence:
+          - evidenceCode: *13
+            reference:
+              description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent
+                hematuria: a case report'
+              id: PMID:30808312
       reference:
-        description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria:
-          a case report'
         id: PMID:30808312
+        notes: 'COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria:
+          a case report'
     excluded: 0
     featureType:
       id: HP:0002198
       label: Dilated fourth ventricle
   - evidence:
-    - evidenceCode:
+      evidenceCode: &14
         id: ECO:0000033
         label: author statement supported by traceable reference
+      info:
+        phenopacket:
+          evidence:
+          - evidenceCode: *14
+            reference:
+              description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent
+                hematuria: a case report'
+              id: PMID:30808312
       reference:
-        description: 'COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria:
-          a case report'
         id: PMID:30808312
+        notes: 'COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria:
+          a case report'
     excluded: 0
     featureType:
       id: HP:0100333
       label: Unilateral cleft lip
     onset:
-      ontologyClass:
-        id: HP:0003577
-        label: Congenital onset
+      id: HP:0003577
+      label: Congenital onset
   sex:
     id: NCIT:C20197
     label: Male
@@ -539,8 +598,7 @@
       id: MONDO:0004994
       label: cardiomyopathy
     excluded: 0
-  - ageOfOnset:
-      timestamp: 2020-03-17T00:00:00Z
+  - ageOfOnset: 2020-03-17T00:00:00Z
     diseaseCode:
       id: MONDO:0100096
       label: COVID-19
@@ -601,13 +659,11 @@
           url: https://ucum.org
           version: 2.1
   interventionsOrProcedures:
-  - ageOfProcedure:
-      timestamp: 2016-01-01T00:00:00Z
+  - dateOfProcedure: 2016-01-01
     procedureCode:
       id: NCIT:C80473
       label: Left Ventricular Assist Device
-  - ageOfProcedure:
-      timestamp: 2020-03-22T00:00:00Z
+  - dateOfProcedure: 2020-03-22
     procedureCode:
       id: NCIT:C116648
       label: Tracheal Intubation
@@ -622,11 +678,11 @@
           id: NCIT:C67245
           label: Thousand Cells
         value: 1.4
-    observationMoment: &5
-      interval:
-        end: 2020-03-01T00:00:00Z
-        start: 2019-09-01T00:00:00Z
-    timeObserved: *5
+    observationMoment: &15
+      end: 2020-03-01T00:00:00Z
+      start: 2019-09-01T00:00:00Z
+    timeObserved:
+      interval: *15
   - assayCode:
       id: LOINC:26474-7
       label: Lymphocytes [#/volume] in Blood
@@ -636,65 +692,57 @@
           id: NCIT:C67245
           label: Thousand Cells
         value: 0.7
-    observationMoment: &6
+    observationMoment: 2020-03-20T00:00:00Z
+    timeObserved:
       timestamp: 2020-03-20T00:00:00Z
-    timeObserved: *6
   phenotypicFeatures:
   - excluded: 0
     featureType:
       id: HP:0001945
       label: 'Fever '
-    onset:
-      timestamp: 2021-02-01T05:00:00Z
+    onset: 2021-02-01T05:00:00Z
   - excluded: 0
     featureType:
       id: HP:0030157
       label: Flank pain
-    onset:
-      timestamp: 2021-02-01T05:00:00Z
+    onset: 2021-02-01T05:00:00Z
   - excluded: 0
     featureType:
       id: HP:0000790
       label: Hematuria
-    onset:
-      timestamp: 2021-02-01T05:00:00Z
+    onset: 2021-02-01T05:00:00Z
   - excluded: 0
     featureType:
       id: HP:0012625
       label: Stage 3 chronic kidney disease
-    onset:
-      timestamp: 2021-02-01T05:00:00Z
+    onset: 2021-02-01T05:00:00Z
   - excluded: 0
     featureType:
       id: HP:0003326
       label: Myalgia
     onset:
-      interval:
-        end: 2020-03-20T00:00:00Z
-        start: 2020-03-18T00:00:00Z
+      end: 2020-03-20T00:00:00Z
+      start: 2020-03-18T00:00:00Z
   - excluded: 0
     featureType:
       id: HP:0002014
       label: Diarrhea
     onset:
-      interval:
-        end: 2020-03-20T00:00:00Z
-        start: 2020-03-18T00:00:00Z
+      end: 2020-03-20T00:00:00Z
+      start: 2020-03-18T00:00:00Z
   - excluded: 0
     featureType:
       id: HP:0002094
       label: Dyspnea
     onset:
-      interval:
-        end: 2020-03-20T00:00:00Z
-        start: 2020-03-18T00:00:00Z
+      end: 2020-03-20T00:00:00Z
+      start: 2020-03-18T00:00:00Z
   - excluded: 0
     featureType:
       id: HP:0033677
       label: Acute respiratory distress syndrome
-    onset:
-      timestamp: 2020-03-20T00:00:00Z
-  sex: &7
+    onset: 2020-03-20T00:00:00Z
+  sex:
     id: NCIT:C20197
     label: Male
   treatments:
@@ -852,39 +900,36 @@
       id: HP:0031936
       label: Delayed ability to walk
     onset:
-      age:
-        iso8601duration: P1Y6M
+      iso8601duration: P1Y6M
   - excluded: 0
     featureType:
       id: HP:0003707
       label: Calf muscle pseudohypertrophy
     onset:
-      ontologyClass:
-        id: HP:0011463
-        label: Childhood onset
+      id: HP:0011463
+      label: Childhood onset
   - excluded: 0
     featureType:
       id: HP:0009046
       label: Difficulty running
     onset:
-      ontologyClass:
-        id: HP:0011463
-        label: Childhood onset
+      id: HP:0011463
+      label: Childhood onset
   - excluded: 0
     featureType:
       id: HP:0003458
       label: 'EMG: myopathic abnormalities'
     onset:
-      age:
-        iso8601duration: P10Y
+      iso8601duration: P10Y
   - excluded: 0
     featureType:
       id: HP:0003236
       label: Elevated circulating creatine kinase concentration
     onset:
-      age:
-        iso8601duration: P10Y
-  sex: *7
+      iso8601duration: P10Y
+  sex:
+    id: NCIT:C20197
+    label: Male
 - id: nine-month old infant
   info:
     phenopacket:
@@ -954,120 +999,168 @@
   karyotypicSex: UNKNOWN_KARYOTYPE
   phenotypicFeatures:
   - evidence:
-    - evidenceCode:
+      evidenceCode: &16
         id: ECO:0000033
         label: author statement supported by traceable reference
+      info:
+        phenopacket:
+          evidence:
+          - evidenceCode: *16
+            reference:
+              description: Xiong J, et al., 2019
+              id: PMID:30855487
       reference:
-        description: Xiong J, et al., 2019
         id: PMID:30855487
+        notes: Xiong J, et al., 2019
     excluded: 0
     featureType:
       id: HP:0000238
       label: Hydrocephalus
     onset:
-      gestationalAge:
-        weeks: 40
+      weeks: 40
   - evidence:
-    - evidenceCode:
+      evidenceCode: &17
         id: ECO:0000033
         label: author statement supported by traceable reference
+      info:
+        phenopacket:
+          evidence:
+          - evidenceCode: *17
+            reference:
+              description: Xiong J, et al., 2019
+              id: PMID:30855487
       reference:
-        description: Xiong J, et al., 2019
         id: PMID:30855487
+        notes: Xiong J, et al., 2019
     excluded: 0
     featureType:
       id: HP:0002507
       label: Semilobar holoprosencephaly
     onset:
-      ontologyClass:
-        id: HP:0003577
-        label: Congenital onset
+      id: HP:0003577
+      label: Congenital onset
   - evidence:
-    - evidenceCode:
+      evidenceCode: &18
         id: ECO:0000033
         label: author statement supported by traceable reference
+      info:
+        phenopacket:
+          evidence:
+          - evidenceCode: *18
+            reference:
+              description: Xiong J, et al., 2019
+              id: PMID:30855487
       reference:
-        description: Xiong J, et al., 2019
         id: PMID:30855487
+        notes: Xiong J, et al., 2019
     excluded: 0
     featureType:
       id: HP:0001750
       label: Single ventricle
     onset:
-      gestationalAge:
-        weeks: 40
+      weeks: 40
   - evidence:
-    - evidenceCode:
+      evidenceCode: &19
         id: ECO:0000033
         label: author statement supported by traceable reference
+      info:
+        phenopacket:
+          evidence:
+          - evidenceCode: *19
+            reference:
+              description: Xiong J, et al., 2019
+              id: PMID:30855487
       reference:
-        description: Xiong J, et al., 2019
         id: PMID:30855487
+        notes: Xiong J, et al., 2019
     excluded: 0
     featureType:
       id: HP:0001272
       label: Cerebellar atrophy
     onset:
-      age:
-        iso8601duration: P9M
+      iso8601duration: P9M
   - evidence:
-    - evidenceCode:
+      evidenceCode: &20
         id: ECO:0000033
         label: author statement supported by traceable reference
+      info:
+        phenopacket:
+          evidence:
+          - evidenceCode: *20
+            reference:
+              description: Xiong J, et al., 2019
+              id: PMID:30855487
       reference:
-        description: Xiong J, et al., 2019
         id: PMID:30855487
+        notes: Xiong J, et al., 2019
     excluded: 0
     featureType:
       id: HP:0100702
       label: Arachnoid cyst
     onset:
-      age:
-        iso8601duration: P9M
+      iso8601duration: P9M
   - evidence:
-    - evidenceCode:
+      evidenceCode: &21
         id: ECO:0000033
         label: author statement supported by traceable reference
+      info:
+        phenopacket:
+          evidence:
+          - evidenceCode: *21
+            reference:
+              description: Xiong J, et al., 2019
+              id: PMID:30855487
       reference:
-        description: Xiong J, et al., 2019
         id: PMID:30855487
+        notes: Xiong J, et al., 2019
     excluded: 0
     featureType:
       id: HP:0001272
       label: Cerebellar atrophy
     onset:
-      age:
-        iso8601duration: P9M
+      iso8601duration: P9M
   - evidence:
-    - evidenceCode:
+      evidenceCode: &22
         id: ECO:0000033
         label: author statement supported by traceable reference
+      info:
+        phenopacket:
+          evidence:
+          - evidenceCode: *22
+            reference:
+              description: Xiong J, et al., 2019
+              id: PMID:30855487
       reference:
-        description: Xiong J, et al., 2019
         id: PMID:30855487
+        notes: Xiong J, et al., 2019
     excluded: 0
     featureType:
       id: HP:0001263
       label: Global developmental delay
     onset:
-      ontologyClass:
-        id: HP:0003593
-        label: Infantile onset
+      id: HP:0003593
+      label: Infantile onset
   - evidence:
-    - evidenceCode:
+      evidenceCode: &23
         id: ECO:0000033
         label: author statement supported by traceable reference
+      info:
+        phenopacket:
+          evidence:
+          - evidenceCode: *23
+            reference:
+              description: Xiong J, et al., 2019
+              id: PMID:30855487
       reference:
-        description: Xiong J, et al., 2019
         id: PMID:30855487
+        notes: Xiong J, et al., 2019
     excluded: 0
     featureType:
       id: HP:0001347
       label: Hyperreflexia
     onset:
-      gestationalAge:
-        weeks: 40
-  sex: &8
+      weeks: 40
+  sex:
     id: NCIT:C16576
     label: Female
 - diseases:
@@ -1119,7 +1212,9 @@
     featureType:
       id: HP:0002616
       label: Aortic root aneurysm
-  sex: *8
+  sex:
+    id: NCIT:C16576
+    label: Female
   treatments:
   - doseIntervals:
     - interval:
@@ -1275,24 +1370,21 @@
       id: HP:0001558
       label: Decreased fetal movement
     onset:
-      gestationalAge:
-        weeks: 23
+      weeks: 23
   - excluded: 0
     featureType:
       id: HP:0025672
       label: Fetal skin edema
     onset:
-      gestationalAge:
-        days: 4
-        weeks: 32
+      days: 4
+      weeks: 32
   - excluded: 0
     featureType:
       id: HP:0010557
       label: Overlapping fingers
     onset:
-      gestationalAge:
-        days: 4
-        weeks: 32
+      days: 4
+      weeks: 32
   - excluded: 0
     featureType:
       id: HP:0001561
@@ -1301,55 +1393,50 @@
     - id: HP:0012827
       label: Borderline
     onset:
-      gestationalAge:
-        days: 4
-        weeks: 32
+      days: 4
+      weeks: 32
   - excluded: 0
     featureType:
       id: HP:0030931
       label: 1-minute APGAR score of 4
     onset:
-      ontologyClass:
-        id: HP:0003577
-        label: Congenital onset
+      id: HP:0003577
+      label: Congenital onset
   - excluded: 0
     featureType:
       id: HP:0030922
       label: 5-minute APGAR score of 2
     onset:
-      ontologyClass:
-        id: HP:0003577
-        label: Congenital onset
+      id: HP:0003577
+      label: Congenital onset
   - excluded: 0
     featureType:
       id: HP:0033469
       label: 10-minute APGAR score of 1
     onset:
-      ontologyClass:
-        id: HP:0003577
-        label: Congenital onset
+      id: HP:0003577
+      label: Congenital onset
   - excluded: 0
     featureType:
       id: HP:0012027
       label: Laryngeal edema
     onset:
-      ontologyClass:
-        id: HP:0003577
-        label: Congenital onset
+      id: HP:0003577
+      label: Congenital onset
   - excluded: 0
     featureType:
       id: HP:0001290
       label: Generalized hypotonia
     onset:
-      ontologyClass:
-        id: HP:0003577
-        label: Congenital onset
-  sex: *7
+      id: HP:0003577
+      label: Congenital onset
+  sex:
+    id: NCIT:C20197
+    label: Male
 - diseases:
   - ageOfOnset:
-      ontologyClass:
-        id: HP:0003581
-        label: Adult onset
+      id: HP:0003581
+      label: Adult onset
     diseaseCode:
       id: MONDO:0008327
       label: exfoliation syndrome
@@ -1414,27 +1501,24 @@
           url: https://www.snomed.org/
           version: 2023-03-31
   interventionsOrProcedures:
-  - ageOfProcedure:
-      age:
-        iso8601duration: P70Y
+  - ageAtProcedure:
+      iso8601duration: P70Y
     bodySite:
       id: UBERON:0004549
       label: right eye
     procedureCode:
       id: NCIT:C157809
       label: Cataract Surgery
-  - ageOfProcedure:
-      age:
-        iso8601duration: P70Y6W
+  - ageAtProcedure:
+      iso8601duration: P70Y6W
     bodySite:
       id: UBERON:0004548
       label: left eye
     procedureCode:
       id: NCIT:C157809
       label: Cataract Surgery
-  - ageOfProcedure:
-      age:
-        iso8601duration: P71Y1M
+  - ageAtProcedure:
+      iso8601duration: P71Y1M
     bodySite:
       id: UBERON:0004549
       label: right eye
@@ -1458,10 +1542,10 @@
           id: UCUM:mm[Hg]
           label: millimetres of mercury
         value: 14
-    observationMoment: &9
-      age:
-        iso8601duration: P71Y1M1D
-    timeObserved: *9
+    observationMoment: &24
+      iso8601duration: P71Y1M1D
+    timeObserved:
+      age: *24
   - assayCode:
       id: NCIT:C156778
       label: Vision Assessment
@@ -1490,10 +1574,10 @@
           id: UCUM:mm
           label: millimeter
         value: 3.93
-    observationMoment: &10
-      age:
-        iso8601duration: P71Y1M1D
-    timeObserved: *10
+    observationMoment: &25
+      iso8601duration: P71Y1M1D
+    timeObserved:
+      age: *25
   - assayCode:
       id: SNOMEDCT:397312009
       label: Intraocular lens anterior chamber depth
@@ -1509,10 +1593,10 @@
           id: UCUM:mm
           label: millimeter
         value: 5.21
-    observationMoment: &11
-      age:
-        iso8601duration: P71Y1M1D
-    timeObserved: *11
+    observationMoment: &26
+      iso8601duration: P71Y1M1D
+    timeObserved:
+      age: *26
   - assayCode:
       id: NCIT:C156778
       label: Vision Assessment
@@ -1526,10 +1610,10 @@
         quantityType:
           id: NCIT:C87149
           label: Visual Acuity
-    observationMoment: &12
-      age:
-        iso8601duration: P70Y1W
-    timeObserved: *12
+    observationMoment: &27
+      iso8601duration: P70Y1W
+    timeObserved:
+      age: *27
   - assayCode:
       id: LOINC:79895-9
       label: Subjective refraction method
@@ -1545,10 +1629,10 @@
           id: UCUM:[diop]
           label: diopter
         value: -0.25
-    observationMoment: &13
-      age:
-        iso8601duration: P70Y1W
-    timeObserved: *13
+    observationMoment: &28
+      iso8601duration: P70Y1W
+    timeObserved:
+      age: *28
   - assayCode:
       id: SNOMEDCT:252886007
       label: Refraction assessment (procedure)
@@ -1582,10 +1666,10 @@
         quantityType:
           id: LOINC:9829-8
           label: Recht eye cylindrical degree
-    observationMoment: &14
-      age:
-        iso8601duration: P70Y1W
-    timeObserved: *14
+    observationMoment: &29
+      iso8601duration: P70Y1W
+    timeObserved:
+      age: *29
   - assayCode:
       id: LOINC:79850-4
       label: Right eye spherical refraction
@@ -1601,10 +1685,10 @@
           id: UCUM:[diop]
           label: diopter
         value: -0.25
-    observationMoment: &15
-      age:
-        iso8601duration: P70Y1W
-    timeObserved: *15
+    observationMoment: &30
+      iso8601duration: P70Y1W
+    timeObserved:
+      age: *30
   - assayCode:
       id: LOINC:79892-6
       label: Right eye Intraocular pressure
@@ -1620,10 +1704,10 @@
           id: UCUM:mm[Hg]
           label: millimetres of mercury
         value: 29
-    observationMoment: &16
-      age:
-        iso8601duration: P71Y1M
-    timeObserved: *16
+    observationMoment: &31
+      iso8601duration: P71Y1M
+    timeObserved:
+      age: *31
   phenotypicFeatures:
   - excluded: 1
     featureType:
@@ -1633,8 +1717,7 @@
     - id: HP:0012834
       label: Right
     onset:
-      age:
-        iso8601duration: P70Y
+      iso8601duration: P70Y
   - excluded: 0
     featureType:
       id: HP:0000545
@@ -1643,8 +1726,7 @@
     - id: HP:0012834
       label: Right
     onset:
-      age:
-        iso8601duration: P71Y1M
+      iso8601duration: P71Y1M
   - excluded: 0
     featureType:
       id: NCIT:C50618
@@ -1653,8 +1735,7 @@
     - id: HP:0012834
       label: Right
     onset:
-      age:
-        iso8601duration: P71Y1M
+      iso8601duration: P71Y1M
   - excluded: 1
     featureType:
       id: HP:0007686
@@ -1667,7 +1748,9 @@
     featureType:
       id: SNOMEDCT:414775001
       label: monovision
-  sex: *7
+  sex:
+    id: NCIT:C20197
+    label: Male
   treatments:
   - doseIntervals:
     - interval:
@@ -1690,8 +1773,7 @@
       label: brimonidine
 - diseases:
   - ageOfOnset:
-      age:
-        iso8601duration: P4M
+      iso8601duration: P4M
     clinicalTnmFinding:
     - id: NCIT:C140678
       label: Retinoblastoma cM0 TNM Finding v8
@@ -1899,9 +1981,8 @@
           url: https://drugcentral.org/
           version: 2022-08-22
   interventionsOrProcedures:
-  - ageOfProcedure:
-      age:
-        iso8601duration: P8M2W
+  - ageAtProcedure:
+      iso8601duration: P8M2W
     bodySite:
       id: UBERON:0004548
       label: left eye
@@ -1925,10 +2006,10 @@
           id: UCUM:mm[Hg]
           label: millimetres of mercury
         value: 25
-    observationMoment: &17
-      age:
-        iso8601duration: P6M
-    timeObserved: *17
+    observationMoment: &32
+      iso8601duration: P6M
+    timeObserved:
+      age: *32
   - assayCode:
       id: LOINC:79892-6
       label: Right eye Intraocular pressure
@@ -1944,10 +2025,10 @@
           id: UCUM:mm[Hg]
           label: millimetres of mercury
         value: 15
-    observationMoment: &18
-      age:
-        iso8601duration: P6M
-    timeObserved: *18
+    observationMoment: &33
+      iso8601duration: P6M
+    timeObserved:
+      age: *33
   phenotypicFeatures:
   - excluded: 0
     featureType:
@@ -1957,8 +2038,7 @@
     - id: HP:0012834
       label: Right
     onset:
-      age:
-        iso8601duration: P3M
+      iso8601duration: P3M
   - excluded: 0
     featureType:
       id: HP:0000555
@@ -1967,8 +2047,7 @@
     - id: HP:0012835
       label: Left
     onset:
-      age:
-        iso8601duration: P4M
+      iso8601duration: P4M
   - excluded: 0
     featureType:
       id: HP:0000486
@@ -1977,8 +2056,7 @@
     - id: HP:0012835
       label: Left
     onset:
-      age:
-        iso8601duration: P5M15D
+      iso8601duration: P5M15D
   - excluded: 0
     featureType:
       id: HP:0000541
@@ -1987,9 +2065,10 @@
     - id: HP:0012835
       label: Left
     onset:
-      age:
-        iso8601duration: P6M
-  sex: *8
+      iso8601duration: P6M
+  sex:
+    id: NCIT:C16576
+    label: Female
   treatments:
   - doseIntervals:
     - interval:
@@ -2107,18 +2186,18 @@
           url: http://purl.obolibrary.org/obo/ncbitaxon.owl
           version: 2021-06-10
   karyotypicSex: UNKNOWN_KARYOTYPE
-  sex: *7
+  sex:
+    id: NCIT:C20197
+    label: Male
 - diseases:
   - ageOfOnset:
-      age:
-        iso8601duration: P55Y
+      iso8601duration: P55Y
     diseaseCode:
       id: MONDO:0005148
       label: type 2 diabetes mellitus
     excluded: 0
   - ageOfOnset:
-      age:
-        iso8601duration: P55Y
+      iso8601duration: P55Y
     diseaseCode:
       id: MONDO:0001134
       label: essential hypertension
@@ -2209,51 +2288,46 @@
       id: HP:0008994
       label: Proximal muscle weakness in lower limbs
     onset:
-      age:
-        iso8601duration: P65Y
+      iso8601duration: P65Y
   - excluded: 0
     featureType:
       id: HP:0007289
       label: Limb fasciculations
     onset:
-      age:
-        iso8601duration: P65Y
+      iso8601duration: P65Y
   - excluded: 0
     featureType:
       id: HP:0008956
       label: Proximal lower limb amyotrophy
     onset:
-      age:
-        iso8601duration: P65Y
+      iso8601duration: P65Y
   - excluded: 1
     featureType:
       id: HP:0003808
       label: Abnormal muscle tone
     onset:
-      age:
-        iso8601duration: P65Y
+      iso8601duration: P65Y
   - excluded: 0
     featureType:
       id: HP:0003391
       label: Gowers sign
     onset:
-      age:
-        iso8601duration: P65Y
+      iso8601duration: P65Y
   - excluded: 0
     featureType:
       id: HP:0003551
       label: Difficulty climbing stairs
     onset:
-      age:
-        iso8601duration: P65Y
+      iso8601duration: P65Y
   - excluded: 0
     featureType:
       id: HP:0006886
       label: Impaired distal vibration sensation
     onset:
-      age:
-        iso8601duration: P65Y
-  sex: *7
+      iso8601duration: P65Y
+  sex:
+    id: NCIT:C20197
+    label: Male
   treatments:
   - doseIntervals:
     - interval:
@@ -2469,6 +2543,7 @@
         tumorProgression:
           id: NCIT:C3261
           label: Metastatic Neoplasm
+      dateOfBirth: 1964-03-15T00:00:00Z
       files:
       - fileAttributes:
           description: Matched normal germline sample
@@ -2525,11 +2600,12 @@
     featureType:
       id: HP:0000790
       label: Hematuria
-  sex: *7
+  sex:
+    id: NCIT:C20197
+    label: Male
 - diseases:
   - ageOfOnset:
-      age:
-        iso8601duration: P4D
+      iso8601duration: P4D
     diseaseCode:
       id: MONDO:0016649
       label: Warburg micro syndrome
@@ -2561,36 +2637,33 @@
       id: HP:0034248
       label: Increased fetal lens echogenicity
     onset:
-      gestationalAge:
-        days: 2
-        weeks: 27
+      days: 2
+      weeks: 27
   - excluded: 1
     featureType:
       id: HP:0000568
       label: Microphthalmia
     onset:
-      gestationalAge:
-        days: 2
-        weeks: 27
+      days: 2
+      weeks: 27
   - excluded: 0
     featureType:
       id: HP:0000369
       label: Low-set ears
     onset:
-      age:
-        iso8601duration: P4D
+      iso8601duration: P4D
   - excluded: 0
     featureType:
       id: HP:0008936
       label: Axial hypotonia
     onset:
-      age:
-        iso8601duration: P4D
+      iso8601duration: P4D
   - excluded: 0
     featureType:
       id: HP:0000568
       label: Microphthalmia
     onset:
-      age:
-        iso8601duration: P4D
-  sex: *7
+      iso8601duration: P4D
+  sex:
+    id: NCIT:C20197
+    label: Male

@@ -114,6 +114,121 @@ for my $case (@cases) {
 }
 
 {
+    my $bff = {
+        id   => 'subject-1',
+        sex  => { id => 'NCIT:C20197', label => 'male' },
+        info => {
+            phenopacket => {
+                dateOfBirth    => '1980-01-02',
+                biosamples     => [ { id => 'bio-1' } ],
+                interpretations => [ { id => 'int-1' } ],
+                files          => [ { uri => 'file://example' } ],
+                genes          => [ { id => 'HGNC:5' } ],
+                variants       => [ { id => 'var-1' } ],
+                pedigree       => { id => 'ped-1' },
+            },
+        },
+        phenotypicFeatures => [
+            {
+                featureType => { id => 'HP:0000118', label => 'Phenotypic abnormality' },
+                onset       => { iso8601duration => 'P6M' },
+                evidence    => {
+                    evidenceCode => { id => 'ECO:0000033', label => 'author statement supported by traceable reference' },
+                    reference    => {
+                        id    => 'PMID:123',
+                        notes => 'paper title',
+                    },
+                    info => {
+                        phenopacket => {
+                            evidence => [
+                                {
+                                    evidenceCode => { id => 'ECO:0000033', label => 'author statement supported by traceable reference' },
+                                    reference    => {
+                                        id          => 'PMID:123',
+                                        description => 'paper title',
+                                    },
+                                }
+                            ],
+                        },
+                    },
+                },
+            },
+        ],
+        interventionsOrProcedures => [
+            {
+                procedureCode   => { id => 'NCIT:C28743', label => 'Biopsy' },
+                ageAtProcedure  => { iso8601duration => 'P20Y' },
+            },
+            {
+                procedureCode   => { id => 'NCIT:C5189', label => 'Surgery' },
+                dateOfProcedure => '2021-01-02',
+            },
+            {
+                procedureCode => { id => 'NCIT:C111', label => 'Code only procedure' },
+            },
+        ],
+        measures => [
+            {
+                assayCode         => { id => 'LOINC:1234-5', label => 'Example assay' },
+                observationMoment => { iso8601duration => 'P2Y' },
+                measurementValue  => {
+                    typedQuantities => [
+                        {
+                            quantityType => { id => 'NCIT:C25208', label => 'Quantity' },
+                            quantity     => {
+                                unit  => { id => 'NCIT:C28253', label => 'Milligram' },
+                                value => 10,
+                            },
+                        },
+                    ],
+                },
+            },
+            {
+                assayCode        => { id => 'LOINC:3141-9', label => 'Weight' },
+                date             => '2021-09-24',
+                measurementValue => {
+                    quantity => {
+                        unit  => { id => 'NCIT:C28252', label => 'Kilogram' },
+                        value => 85.6,
+                    },
+                },
+            },
+        ],
+    };
+
+    my $convert = build_convert(
+        in_textfile => 0,
+        data        => $bff,
+        method      => 'bff2pxf',
+    );
+
+    my $got = $convert->bff2pxf;
+
+    is( $got->{subject}{dateOfBirth}, '1980-01-02', 'bff2pxf restores dateOfBirth from info.phenopacket' );
+    is( $got->{biosamples}[0]{id}, 'bio-1', 'bff2pxf restores biosamples from info.phenopacket' );
+    is( $got->{interpretations}[0]{id}, 'int-1', 'bff2pxf restores interpretations from info.phenopacket' );
+    is( $got->{files}[0]{uri}, 'file://example', 'bff2pxf restores files from info.phenopacket' );
+    is( $got->{genes}[0]{id}, 'HGNC:5', 'bff2pxf restores genes from info.phenopacket' );
+    is( $got->{variants}[0]{id}, 'var-1', 'bff2pxf restores variants from info.phenopacket' );
+    is( $got->{pedigree}{id}, 'ped-1', 'bff2pxf restores pedigree from info.phenopacket' );
+
+    is( $got->{phenotypicFeatures}[0]{type}{id}, 'HP:0000118', 'bff2pxf renames featureType to type without mutating source' );
+    is( $got->{phenotypicFeatures}[0]{onset}{age}{iso8601duration}, 'P6M', 'bff2pxf wraps onset back into a Phenopackets time element' );
+    is( $got->{phenotypicFeatures}[0]{evidence}[0]{reference}{description}, 'paper title', 'bff2pxf restores evidence arrays and reference descriptions' );
+
+    is( $got->{medicalActions}[0]{procedure}{performed}{age}{iso8601duration}, 'P20Y', 'bff2pxf maps ageAtProcedure back to performed.age' );
+    is( $got->{medicalActions}[1]{procedure}{performed}{timestamp}, '2021-01-02T00:00:00Z', 'bff2pxf maps dateOfProcedure back to performed.timestamp' );
+    ok( !exists $got->{medicalActions}[2]{procedure}{performed}, 'bff2pxf does not fabricate performed when procedure timing is absent' );
+    ok( !exists $got->{medicalActions}[2]{procedure}{bodySite}, 'bff2pxf does not fabricate bodySite when it is absent' );
+
+    is( $got->{measurements}[0]{timeObserved}{age}{iso8601duration}, 'P2Y', 'bff2pxf wraps observationMoment back into timeObserved' );
+    is( $got->{measurements}[0]{complexValue}{typedQuantities}[0]{type}{id}, 'NCIT:C25208', 'bff2pxf restores quantityType to type inside complexValue' );
+    is( $got->{measurements}[1]{timeObserved}{timestamp}, '2021-09-24T00:00:00Z', 'bff2pxf derives timeObserved from Beacon measure date when needed' );
+
+    is( $bff->{phenotypicFeatures}[0]{featureType}{id}, 'HP:0000118', 'bff2pxf does not mutate the input BFF record' );
+}
+
+{
     use Convert::Pheno::CSV qw(do_pxf2csv);
     use Convert::Pheno::IO::FileIO qw(io_yaml_or_json);
 

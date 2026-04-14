@@ -5,6 +5,7 @@ use warnings;
 use autodie;
 use feature                        qw(say);
 use JSON::PP                       ();
+use Scalar::Util                   qw(blessed);
 use Convert::Pheno::Utils::Default qw(get_defaults);
 use Convert::Pheno::Mapping::Shared;
 use Exporter 'import';
@@ -60,6 +61,11 @@ sub do_bff2pxf {
     # medicalActions
     # ===============
     _map_medical_actions( $self, $bff, $pxf );
+
+    # =================================================
+    # Phenopacket payload preserved under info.phenopacket
+    # =================================================
+    _map_phenopacket_payload( $self, $bff, $pxf );
 
     # =====
     # files
@@ -131,13 +137,13 @@ sub _map_subject {
         id          => $bff->{id},
         vitalStatus => { status => 'ALIVE' }
         ,    #["UNKNOWN_STATUS", "ALIVE", "DECEASED"]
-        sex => uc( $bff->{sex}{label} ),
     };
 
-    # Miscellanea
-    for (qw(dateOfBirth)) {
-        $pxf->{subject}{$_} = $bff->{info}{$_} if exists $bff->{info}{$_};
-    }
+    my $sex = _map_sex( $bff->{sex} );
+    $pxf->{subject}{sex} = $sex if defined $sex;
+
+    my $dateOfBirth = _get_phenopacket_info_term( $bff, 'dateOfBirth' );
+    $pxf->{subject}{dateOfBirth} = $dateOfBirth if defined $dateOfBirth;
 
     # karyotypicSex
     $pxf->{subject}{karyotypicSex} = $bff->{karyotypicSex}
@@ -153,17 +159,23 @@ sub _map_phenotypic_features {
  # Assign transformed 'phenotypicFeatures' to $pxf, only if it's defined in $bff
     $pxf->{phenotypicFeatures} = [
         map {
-            {
-                type => delete $_->{featureType}
-                ,    # Rename 'featureType' to 'type'
-                excluded => (
-                    exists $_->{excluded}
-                    ? delete $_->{excluded}
-                    : JSON::PP::false()
-                ),
+            my $feature = _clone_data($_);
+            my %mapped  = %{$feature};
 
-                # _notes => $_->{notes}
-            }
+            $mapped{type} = delete $mapped{featureType}
+              if exists $mapped{featureType};
+            $mapped{excluded} =
+              exists $mapped{excluded}
+              ? delete $mapped{excluded}
+              : JSON::PP::false();
+            $mapped{evidence} = _map_evidence_to_pxf( $mapped{evidence} )
+              if exists $mapped{evidence};
+            $mapped{onset} = _map_time_element_to_pxf( $mapped{onset} )
+              if exists $mapped{onset};
+            $mapped{resolution} = _map_time_element_to_pxf( $mapped{resolution} )
+              if exists $mapped{resolution};
+
+            \%mapped;
         } @{ $bff->{phenotypicFeatures} }
       ]
       if defined $bff->{phenotypicFeatures};
@@ -179,21 +191,26 @@ sub _map_measurements {
         $pxf->{measurements} = [];    # Initialize as an empty array reference
 
         for my $measure ( @{ $bff->{measures} } ) {
-
-            # Check if measurementValue hash contain the typedQuantities key
-            my $has_typedQuantities =
-              exists $measure->{measurementValue}{typedQuantities} ? 1 : 0;
+            my $measurementValue = _map_measurement_value_to_pxf( $measure->{measurementValue} );
+            my $hasTypedQuantities =
+              ref($measurementValue) eq 'HASH'
+              && exists $measurementValue->{typedQuantities} ? 1 : 0;
 
             # Construct the hash
-            my $result = { assay => $measure->{assayCode} };
+            my $result = { assay => _clone_data( $measure->{assayCode} ) };
 
             # Add the complexValue key if typedQuantities was found
-            if ($has_typedQuantities) {
-                $result->{complexValue} = $measure->{measurementValue};
+            if ($hasTypedQuantities) {
+                $result->{complexValue} = $measurementValue;
             }
             else {
-                $result->{value} = $measure->{measurementValue};
+                $result->{value} = $measurementValue;
             }
+            $result->{timeObserved} = _map_time_element_to_pxf( $measure->{observationMoment} )
+              if exists $measure->{observationMoment};
+            $result->{timeObserved} = { timestamp => map_iso8601_date2timestamp( $measure->{date} ) }
+              if !exists $result->{timeObserved}
+              && exists $measure->{date};
             $result->{procedure} = map_procedures( $measure->{procedure} )
               if defined $measure->{procedure};
 
@@ -209,9 +226,20 @@ sub _map_diseases {
     # ========
     # diseases
     # ========
-    $pxf->{diseases} =
-      [ map { { term => $_->{diseaseCode}, onset => $_->{ageOfOnset} } }
-          @{ $bff->{diseases} } ];
+    $pxf->{diseases} = [
+        map {
+            my $disease = _clone_data($_);
+            my %mapped  = %{$disease};
+
+            $mapped{term} = delete $mapped{diseaseCode}
+              if exists $mapped{diseaseCode};
+            $mapped{onset} = _map_time_element_to_pxf( $mapped{ageOfOnset} )
+              if exists $mapped{ageOfOnset};
+            delete $mapped{ageOfOnset};
+
+            \%mapped;
+        } @{ $bff->{diseases} }
+    ];
 }
 
 sub _map_medical_actions {
@@ -227,20 +255,38 @@ sub _map_medical_actions {
 
     # **** treatments ****
     my @treatments = map {
+        my $treatment = _clone_data($_);
+        my %mapped    = %{$treatment};
         {
             treatment => {
-                agent                 => $_->{treatmentCode},
-                routeOfAdministration => $_->{routeOfAdministration},
-                doseIntervals         => $_->{doseIntervals}
-
-#performed => { timestamp => exists $_->{dateOfProcedure} ? $_->{dateOfProcedure} : undef}
+                agent => delete $mapped{treatmentCode},
+                (
+                    exists $mapped{routeOfAdministration}
+                    ? ( routeOfAdministration => delete $mapped{routeOfAdministration} )
+                    : ()
+                ),
+                (
+                    exists $mapped{doseIntervals}
+                    ? ( doseIntervals => delete $mapped{doseIntervals} )
+                    : ()
+                ),
+                %mapped,
             }
         }
-    } @{ $bff->{treatments} };
+    } @{ $bff->{treatments} // [] };
 
     # Load
     push @{ $pxf->{medicalActions} }, @procedures if @procedures;
     push @{ $pxf->{medicalActions} }, @treatments if @treatments;
+}
+
+sub _map_phenopacket_payload {
+    my ( $self, $bff, $pxf ) = @_;
+
+    for my $term (qw(biosamples interpretations genes variants files pedigree)) {
+        my $value = _get_phenopacket_info_term( $bff, $term );
+        $pxf->{$term} = _clone_data($value) if defined $value;
+    }
 }
 
 sub _map_metaData {
@@ -251,14 +297,195 @@ sub _map_metaData {
     # =========
     # Depending on the origion (redcap) , _info and resources may exist
     $pxf->{metaData} =
-        $self->{test}                 ? undef
-      : exists $bff->{info}{metaData} ? $bff->{info}{metaData}
-      :                                 get_metaData($self);
+        $self->{test} ? undef
+      : defined( _get_phenopacket_info_term( $bff, 'metaData' ) )
+      ? _clone_data( _get_phenopacket_info_term( $bff, 'metaData' ) )
+      : get_metaData($self);
 }
 
 #----------------------------------------------------------------------
 # Helper subs
 #----------------------------------------------------------------------
+
+sub _get_phenopacket_info_term {
+    my ( $bff, $term ) = @_;
+
+    return unless exists $bff->{info} && ref( $bff->{info} ) eq 'HASH';
+
+    return $bff->{info}{phenopacket}{$term}
+      if exists $bff->{info}{phenopacket}
+      && ref( $bff->{info}{phenopacket} ) eq 'HASH'
+      && exists $bff->{info}{phenopacket}{$term};
+
+    return $bff->{info}{$term} if exists $bff->{info}{$term};
+
+    return;
+}
+
+sub _clone_data {
+    my ($data) = @_;
+    return undef unless defined $data;
+
+    if ( ref($data) eq 'HASH' ) {
+        return { map { $_ => _clone_data( $data->{$_} ) } keys %{$data} };
+    }
+
+    if ( ref($data) eq 'ARRAY' ) {
+        return [ map { _clone_data($_) } @{$data} ];
+    }
+
+    if ( blessed($data) && blessed($data) eq 'JSON::PP::Boolean' ) {
+        return $data ? JSON::PP::true() : JSON::PP::false();
+    }
+
+    return $data;
+}
+
+sub _map_sex {
+    my ($sex) = @_;
+    return 'UNKNOWN_SEX' unless defined $sex;
+
+    my $id    = ref($sex) eq 'HASH' ? $sex->{id}    : undef;
+    my $label = ref($sex) eq 'HASH' ? $sex->{label} : $sex;
+
+    return 'MALE'   if defined $id && $id eq 'NCIT:C20197';
+    return 'FEMALE' if defined $id && $id eq 'NCIT:C16576';
+
+    return 'MALE'        if defined $label && $label =~ /^male$/i;
+    return 'FEMALE'      if defined $label && $label =~ /^female$/i;
+    return 'OTHER_SEX'   if defined $label && $label =~ /^other(?:_sex)?$/i;
+    return 'UNKNOWN_SEX' if defined $label
+      && $label =~ /^(?:unknown(?:[_ ]sex)?|not available)$/i;
+
+    return 'UNKNOWN_SEX';
+}
+
+sub _looks_like_pxf_time_element {
+    my ($time) = @_;
+    return 0 unless ref($time) eq 'HASH';
+
+    return scalar grep { exists $time->{$_} }
+      qw(age ageRange gestationalAge interval ontologyClass timestamp);
+}
+
+sub _map_time_element_to_pxf {
+    my ($time) = @_;
+    return unless defined $time;
+
+    return _clone_data($time) if _looks_like_pxf_time_element($time);
+
+    if ( !ref($time) ) {
+        return {
+            timestamp => $time =~ /^\d{4}-\d{2}-\d{2}$/
+            ? map_iso8601_date2timestamp($time)
+            : $time,
+        };
+    }
+
+    return _clone_data($time) unless ref($time) eq 'HASH';
+
+    if ( exists $time->{iso8601duration} ) {
+        return { age => _clone_data($time) };
+    }
+
+    if ( exists $time->{weeks} || exists $time->{days} ) {
+        return { gestationalAge => _clone_data($time) };
+    }
+
+    if ( exists $time->{id} ) {
+        return { ontologyClass => _clone_data($time) };
+    }
+
+    if ( exists $time->{start} && exists $time->{end} ) {
+        my $start = $time->{start};
+        my $end   = $time->{end};
+        return {
+            ref($start) eq 'HASH' || ref($end) eq 'HASH'
+            ? ( ageRange => _clone_data($time) )
+            : ( interval => _clone_data($time) )
+        };
+    }
+
+    return _clone_data($time);
+}
+
+sub _normalize_evidence_for_pxf {
+    my ($evidence) = @_;
+    return unless ref($evidence) eq 'HASH';
+
+    my $mapped = _clone_data($evidence);
+    delete $mapped->{info} if exists $mapped->{info};
+
+    if ( exists $mapped->{reference}
+        && ref( $mapped->{reference} ) eq 'HASH'
+        && exists $mapped->{reference}{notes}
+        && !exists $mapped->{reference}{description} )
+    {
+        $mapped->{reference}{description} = delete $mapped->{reference}{notes};
+    }
+
+    return $mapped;
+}
+
+sub _map_evidence_to_pxf {
+    my ($evidence) = @_;
+    return unless defined $evidence;
+
+    if ( ref($evidence) eq 'HASH'
+        && exists $evidence->{info}
+        && ref( $evidence->{info} ) eq 'HASH'
+        && exists $evidence->{info}{phenopacket}
+        && ref( $evidence->{info}{phenopacket} ) eq 'HASH'
+        && exists $evidence->{info}{phenopacket}{evidence}
+        && ref( $evidence->{info}{phenopacket}{evidence} ) eq 'ARRAY' )
+    {
+        return _clone_data( $evidence->{info}{phenopacket}{evidence} );
+    }
+
+    if ( ref($evidence) eq 'ARRAY' ) {
+        return [
+            map { _normalize_evidence_for_pxf($_) }
+              grep { defined $_ }
+              map  { _normalize_evidence_for_pxf($_) } @{$evidence}
+        ];
+    }
+
+    my $mapped = _normalize_evidence_for_pxf($evidence);
+    return defined $mapped ? [$mapped] : undef;
+}
+
+sub _map_measurement_value_to_pxf {
+    my ($value) = @_;
+    return unless defined $value;
+
+    my $mapped = _clone_data($value);
+    return $mapped unless ref($mapped) eq 'HASH';
+
+    if ( exists $mapped->{typedQuantities}
+        && ref( $mapped->{typedQuantities} ) eq 'ARRAY' )
+    {
+        for my $typedQuantity ( @{ $mapped->{typedQuantities} } ) {
+            next unless ref($typedQuantity) eq 'HASH';
+            $typedQuantity->{type} = delete $typedQuantity->{quantityType}
+              if exists $typedQuantity->{quantityType};
+        }
+    }
+
+    return $mapped;
+}
+
+sub _map_procedure_performed {
+    my ($procedure) = @_;
+    return unless ref($procedure) eq 'HASH';
+
+    return _map_time_element_to_pxf( $procedure->{ageAtProcedure} )
+      if exists $procedure->{ageAtProcedure};
+
+    return { timestamp => map_iso8601_date2timestamp( $procedure->{dateOfProcedure} ) }
+      if exists $procedure->{dateOfProcedure};
+
+    return;
+}
 
 sub map_procedures {
     my $data = shift;
@@ -266,15 +493,16 @@ sub map_procedures {
     # Helper to apply mapping logic to a single item
     my $map_item = sub {
         my $item = shift;
-        return {
-            bodySite  => $item->{bodySite} // $DEFAULT->{ontology_term},
-            code      => $item->{procedureCode},
-            performed => {
-                timestamp => exists $item->{dateOfProcedure}
-                ? map_iso8601_date2timestamp( $item->{dateOfProcedure} )
-                : $DEFAULT->{timestamp},
-            },
-        };
+        my %mapped;
+        $mapped{bodySite} = _clone_data( $item->{bodySite} )
+          if exists $item->{bodySite};
+        $mapped{code} = _clone_data( $item->{procedureCode} )
+          if exists $item->{procedureCode};
+
+        my $performed = _map_procedure_performed($item);
+        $mapped{performed} = $performed if defined $performed;
+
+        return \%mapped;
     };
 
     # Check if the input is an array reference
