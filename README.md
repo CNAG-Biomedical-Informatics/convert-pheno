@@ -139,6 +139,8 @@ bin/convert-pheno -iomop t/omop2bff/in/omop_cdm_eunomia.sql -opxf phenopackets.j
 bin/convert-pheno -iomop t/omop2bff/in/gz/omop_cdm_eunomia.sql.gz -obff individuals.json.gz --stream --omop-tables DRUG_EXPOSURE
 ```
 
+Note: OMOP `SPECIMEN` to Beacon `biosamples` support is currently experimental and still pending validation with external collaborators.
+
 ## Citation
 
 If you use `Convert-Pheno` in published work, please cite:

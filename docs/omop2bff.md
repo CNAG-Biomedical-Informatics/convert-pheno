@@ -8,6 +8,8 @@
 
      OMOP `SPECIMEN` rows can now be emitted as first-class Beacon `biosamples`, but only in entity-aware BFF mode such as `-obff --entities biosamples --out-dir out/` or `-obff --entities individuals biosamples --out-dir out/`.
 
+     OMOP `SPECIMEN` to Beacon `biosamples` support should still be considered **experimental**. The mapping is implemented and covered by local tests and schema validation, but it is still pending review and validation with external collaborators.
+
      With `--stream`, OMOP BFF output is written as line-delimited JSON suitable for MongoDB-style ingestion. Stream mode supports `individuals`, `biosamples`, or both together, each written to its own file in `--out-dir`. Aggregate entities such as `datasets` and `cohorts` are not available in stream mode.
 
      If `biosamples` are explicitly requested and the OMOP input does not contain the `SPECIMEN` table, the conversion fails with a focused error. If `SPECIMEN` exists but is empty, the conversion succeeds and emits an empty `biosamples` collection.

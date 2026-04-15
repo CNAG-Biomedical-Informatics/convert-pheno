@@ -8,6 +8,7 @@ Revision history for Perl distribution Convert-Pheno
  - Added streamed OMOP multi-entity BFF output for individuals and biosamples using line-delimited JSON files
  - OMOP biosamples now require the SPECIMEN table when explicitly requested and fail fast when it is missing
  - Added OMOP biosamples mapping/tests/docs and preserved legacy individuals-only -obff behavior
+ - OMOP SPECIMEN -> BFF biosamples support remains experimental and is pending validation with external collaborators
 
 0.30 2026-04-14XXT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
