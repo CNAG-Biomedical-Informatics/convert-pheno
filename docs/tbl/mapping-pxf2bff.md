@@ -48,7 +48,7 @@ NA
 | `variants` | `info.phenopacket.variants` | Preserved |
 | `files` | `info.phenopacket.files` | Preserved |
 | `pedigree` | `info.phenopacket.pedigree` | Preserved |
-| `biosamples` | `info.phenopacket.biosamples` | Preserved in the legacy individuals-only output path |
+| `biosamples` | `info.phenopacket.biosamples` | Preserved in the individuals-only output path |
 
 ### interventionsOrProcedures
 | Source field | Target field | Notes |

@@ -2,13 +2,13 @@
 
 This page collects a few **common `convert-pheno` command-line patterns**. For the flag reference, see [Use as a command-line interface](use-as-a-command-line-interface.md).
 
-## Convert Phenopackets to legacy single-file BFF output
+## Convert Phenopackets to individuals-only BFF output
 
 ```bash
 convert-pheno -ipxf pxf.json -obff individuals.json
 ```
 
-Use this when your input is a **Phenopackets v2** file and you want the legacy single-file `BFF` `individuals` output.
+Use this when your input is a **Phenopackets v2** file and you want the individuals-only `BFF` output.
 
 ## Convert BFF output to Phenopackets
 
@@ -39,7 +39,7 @@ convert-pheno -iomop omop.sql.gz -obff individuals.json.gz --stream --ohdsi-db
 ```
 
 !!! Note "OMOP streaming"
-    `--stream` is mainly intended for large OMOP exports. The legacy `-iomop ... -obff` path still emits `individuals` by default.
+    `--stream` is mainly intended for large OMOP exports. The individuals-only `-iomop ... -obff` path still emits `individuals` by default.
 
 ## Emit multi-entity BFF output
 
@@ -71,7 +71,7 @@ If you want a custom biosample filename:
 convert-pheno -ipxf pxf.json -obff --entities individuals biosamples --out-dir out/ --out-entity biosamples=samples.json
 ```
 
-!!! Note "Legacy `-obff FILE` behavior"
+!!! Note "`-obff FILE` Individuals-Only Behavior"
     `convert-pheno -ipxf pxf.json -obff individuals.json` keeps the backward-compatible single-output path and emits only `individuals`. If the input also contains `biosamples`, the CLI prints a warning and preserves them under `info.phenopacket.biosamples`.
 
 ## Review ontology search results in mapping-file conversions

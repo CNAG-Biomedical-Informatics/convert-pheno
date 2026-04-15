@@ -35,7 +35,7 @@ Phenopackets organize information using [top-level elements](https://phenopacket
 
 
     ??? Warning "About `biosamples` and `interpretations`"
-        In the legacy `-obff individuals.json` path, `convert-pheno` still emits only the Beacon `individuals` entity. If a `PXF` input also contains `biosamples`, the CLI warns and preserves them under `info.phenopacket.biosamples` for backward compatibility.
+        In the individuals-only `-obff individuals.json` path, `convert-pheno` still emits only the Beacon `individuals` entity. If a `PXF` input also contains `biosamples`, the CLI warns and preserves them under `info.phenopacket.biosamples` for backward compatibility.
 
         If you want entity-aware BFF output, use entity mode instead:
 

@@ -72,7 +72,7 @@ So `BFF` is no longer only an `individuals`-centered output format, even though 
 
 As an output format, `BFF` can be emitted in two modes:
 
-- **legacy single-file mode**, using `-obff FILE`, which writes only `individuals`
+- **individuals-only BFF mode**, using `-obff FILE`
 - **entity-aware mode**, using `--entities ... --out-dir DIR`, which can write multiple Beacon entities
 
 The currently supported `BFF` output entities are:

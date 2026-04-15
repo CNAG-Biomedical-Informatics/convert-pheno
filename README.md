@@ -56,7 +56,7 @@ convert-pheno -ibff individuals.json -opxf phenopackets.json
 convert-pheno -iomop dump.sql.gz -obff individuals.json.gz --stream --ohdsi-db
 ```
 
-For backward compatibility, the legacy form `-iomop ... -obff` still emits Beacon `individuals` by default.
+For backward compatibility, the `-iomop ... -obff` form still keeps the individuals-only BFF output behavior.
 
 Internally, most conversions use `BFF` as the center model before continuing to other output formats when needed.
 

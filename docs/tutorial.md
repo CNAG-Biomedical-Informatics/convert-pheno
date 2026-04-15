@@ -58,7 +58,7 @@ convert-pheno -iomop omop.sql.gz -obff individuals.json.gz --stream --ohdsi-db
 
 If you are working with OMOP regularly, see [OMOP-CDM](omop-cdm.md) for the fuller explanation of SQL, CSV, `CONCEPT`, and streaming behavior.
 
-If you want entity-aware `BFF` output instead of the legacy single-file `individuals.json` path, request the entities explicitly:
+If you want entity-aware `BFF` output instead of the individuals-only `individuals.json` path, request the entities explicitly:
 
 ```bash
 convert-pheno -iomop PERSON.csv CONCEPT.csv DRUG_EXPOSURE.csv \

@@ -32,14 +32,14 @@ convert-pheno --help
 
 `BFF` output has two explicit CLI forms:
 
-- Legacy single-file output: `-obff FILE`
+- `individuals`-only BFF output: `-obff FILE`
 - Entity-aware output: `-obff --entities ... --out-dir DIR`
 
 In other words, `--entities` does not replace `-obff`. It refines which `BFF` entities are written after you have already selected `BFF` as the output format.
 
 ## Common examples
 
-Convert Phenopackets to the legacy single-file `BFF` `individuals` output:
+Convert Phenopackets to the `individuals`-only `BFF` output:
 
 ```bash
 convert-pheno -ipxf pxf.json -obff individuals.json
@@ -95,9 +95,9 @@ convert-pheno -ibff individuals.json -opxf pxf.json --default-vital-status UNKNO
 
 ## Notes
 
-- `-obff` keeps the **legacy `BFF` behavior**. By default this means `individuals`.
+- `-obff` keeps the **individuals-only `BFF` behavior**.
 - `BFF` entity mode is also explicit: use `-obff --entities ... --out-dir DIR`.
-- When `PXF` input contains `biosamples`, the legacy `-obff FILE` path still writes only `individuals`. In that mode, `convert-pheno` warns and preserves the biosamples under `info.phenopacket.biosamples`.
+- When `PXF` input contains `biosamples`, the individuals-only `-obff FILE` path still writes only `individuals`. In that mode, `convert-pheno` warns and preserves the biosamples under `info.phenopacket.biosamples`.
 - `--entities` can be used with `BFF` output. The supported output entities are `individuals`, `biosamples`, `datasets`, and `cohorts`.
 - `biosamples` are currently emitted as first-class output from `-ipxf` input when biosample data is present.
 - `datasets` and `cohorts` are synthesized from the normalized `individuals` collection.
@@ -134,7 +134,7 @@ For the search behavior itself, including examples and threshold tradeoffs, see 
 - `--path-to-ohdsi-db DIR` points to the directory containing `ohdsi.db`.
 - `--omop-tables TABLE ...` restricts which OMOP-CDM tables are processed, while `CONCEPT` and `PERSON` stay included.
 - `--exposures-file FILE` provides a CSV list of OMOP `concept_id` values to be treated as exposures.
-- `--stream` enables incremental OMOP processing for legacy `-obff` output.
+- `--stream` enables incremental OMOP processing for individuals-only `-obff` output.
 - `--sql2csv` prints SQL tables instead of converting them.
 - `--max-lines-sql N` limits how many lines are read per SQL table. Default: `500`.
 

@@ -58,7 +58,7 @@ Common input flags:
 Common output flags:
   -o <type> <file>    Generic output form (bff|pxf|omop|csv|jsonf|jsonld)
   -obff [file]      Beacon-oriented JSON/YAML output
-                    Use -obff FILE for legacy single-file individuals mode
+                    Use -obff FILE for individuals-only BFF output
                     Use -obff with --entities --out-dir for entity-aware BFF
   -opxf <file>      Phenopackets v2 output
   -oomop <prefix>   OMOP-CDM CSV prefix
@@ -98,7 +98,7 @@ OMOP:
   --path-to-ohdsi-db <dir>        Directory containing <ohdsi.db>
   --omop-tables <list>            Restrict OMOP tables
   --exposures-file <file>         OMOP concept_id list treated as exposures
-  --stream                        Incremental OMOP processing with legacy
+  --stream                        Incremental OMOP processing with single-file
                                   -obff output
   --sql2csv                       Print SQL tables instead of converting
   --max-lines-sql <n>             Maximum SQL lines per table [500]
@@ -129,7 +129,7 @@ Examples:
   convert-pheno -iomop dump.sql.gz -obff individuals.json.gz --stream --ohdsi-db
 
 BFF output modes:
-  -obff FILE keeps the legacy single-output behavior and emits individuals only.
+  -obff FILE keeps the individuals-only BFF behavior.
   -obff --entities ... --out-dir DIR writes one file per requested BFF entity.
   If a PXF input also contains biosamples, convert-pheno warns and preserves them
   under info.phenopacket.biosamples unless --entities is used.
@@ -275,7 +275,7 @@ sub maybe_warn_legacy_pxf_biosamples {
           && @{ $phenopacket->{biosamples} };
 
         print STDERR <<'EOF';
-Warning: input PXF contains biosamples. Legacy <-obff FILE> mode emits only <individuals>; biosamples were preserved under <info.phenopacket.biosamples>. Use <-obff --entities biosamples --out-dir DIR> or <-obff --entities individuals biosamples --out-dir DIR> for first-class biosample output.
+Warning: input PXF contains biosamples. Single-file <-obff FILE> mode emits only <individuals>; biosamples were preserved under <info.phenopacket.biosamples>. Use <-obff --entities biosamples --out-dir DIR> or <-obff --entities individuals biosamples --out-dir DIR> for first-class biosample output.
 EOF
         return;
     }

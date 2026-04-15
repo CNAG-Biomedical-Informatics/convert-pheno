@@ -149,8 +149,8 @@ like(
 );
 like(
     $help,
-    qr/-obff FILE keeps the legacy single-output behavior and emits individuals only\./s,
-    'CLI help documents the legacy single-file BFF behavior'
+    qr/-obff FILE keeps the individuals-only BFF behavior\./s,
+    'CLI help documents the individuals-only BFF behavior'
 );
 like(
     $help,

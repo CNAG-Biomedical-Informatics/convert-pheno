@@ -186,8 +186,8 @@ is( $cohorts->[0]{cohortSize}, 1, 'cohorts output records the cohort size' );
 }
 
 {
-    my $legacy_out_dir = ensure_clean_dir('t/cli-entities-legacy-out');
-    my $legacy_out_file = File::Spec->catfile( $legacy_out_dir, 'individuals.json' );
+    my $single_file_out_dir = ensure_clean_dir('t/cli-entities-single-file-out');
+    my $single_file_out_file = File::Spec->catfile( $single_file_out_dir, 'individuals.json' );
     my ( $fh, $log_file ) =
       tempfile( DIR => '/tmp', SUFFIX => '.cli.log', UNLINK => 1 );
     my $pid = fork();
@@ -200,7 +200,7 @@ is( $cohorts->[0]{cohortSize}, 1, 'cohorts output records the cohort size' );
             $^X,
             $cli,
             '-ipxf', $input_file,
-            '-obff', $legacy_out_file,
+            '-obff', $single_file_out_file,
             '-O',
         ) or die "exec failed: $!";
     }
@@ -211,22 +211,22 @@ is( $cohorts->[0]{cohortSize}, 1, 'cohorts output records the cohort size' );
     my $output = <$fh>;
     close $fh;
 
-    is( $? >> 8, 0, 'CLI keeps legacy pxf2bff single-output mode working when biosamples are present' );
+    is( $? >> 8, 0, 'CLI keeps individuals-only pxf2bff output working when biosamples are present' );
     like(
         $output,
         qr/Warning: input PXF contains biosamples\./,
-        'CLI warns when legacy pxf2bff output hides first-class biosamples'
+        'CLI warns when individuals-only pxf2bff output hides first-class biosamples'
     );
-    ok( -f $legacy_out_file, 'CLI still writes the legacy individuals output file' );
+    ok( -f $single_file_out_file, 'CLI still writes the individuals-only output file' );
 
-    my $legacy_individuals = load_json_file($legacy_out_file);
+    my $single_file_individuals = load_json_file($single_file_out_file);
     is(
-        $legacy_individuals->[0]{info}{phenopacket}{biosamples}[0]{id},
+        $single_file_individuals->[0]{info}{phenopacket}{biosamples}[0]{id},
         'bio-1',
-        'legacy pxf2bff output still preserves biosamples under info.phenopacket.biosamples'
+        'individuals-only pxf2bff output still preserves biosamples under info.phenopacket.biosamples'
     );
 
-    remove_dir_if_exists($legacy_out_dir);
+    remove_dir_if_exists($single_file_out_dir);
 }
 
 {

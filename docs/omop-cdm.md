@@ -38,8 +38,8 @@ This writes table files such as `omop_export_PERSON.csv`, `omop_export_CONDITION
 
     When using the `convert-pheno` command-line interface, simply ensure the [correct syntax](usage.md) is provided.
 
-    !!! Note "Legacy single-file vs entity-aware BFF output"
-        Most examples below use the legacy `-obff FILE` path, which still emits Beacon `individuals` as one file. In non-stream BFF workflows, you can also request synthesized `datasets` and `cohorts` with `--entities ... --out-dir out/`. `biosamples` are not yet synthesized from `OMOP`.
+    !!! Note "Individuals-only vs entity-aware BFF output"
+        Most examples below use the individuals-only `-obff FILE` path, which still emits Beacon `individuals` as one file. In non-stream BFF workflows, you can also request synthesized `datasets` and `cohorts` with `--entities ... --out-dir out/`. `biosamples` are not yet synthesized from `OMOP`.
 
     ??? Tip "Does `Convert-Pheno` accept `gz` files?"
 
@@ -137,7 +137,7 @@ This writes table files such as `omop_export_PERSON.csv`, `omop_export_CONDITION
         To choose incremental data processing we'll be using the flag `--stream`:
 
         ??? Danger " `--stream` mode supported output"
-            We currently support only the legacy single-file `BFF` path (`-obff FILE`) in `--stream` mode.
+            We currently support only the individuals-only `BFF` path (`-obff FILE`) in `--stream` mode.
 
         #### All tables at once
 

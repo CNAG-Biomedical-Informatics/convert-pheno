@@ -302,7 +302,7 @@ sub build_cli_request {
     $usage_error->("The entity <biosamples> is currently only supported with <-ipxf> and <-obff>")
       if grep { $_ eq 'biosamples' } @entity_list && !$in_pxf;
 
-    $usage_error->("When using <--entities>, please select BFF output with <-obff> and write the requested entities with <--out-dir>. Use either <-obff FILE> for legacy single-file output or <-obff --entities ... --out-dir DIR> for entity-aware BFF output")
+    $usage_error->("When using <--entities>, please select BFF output with <-obff> and write the requested entities with <--out-dir>. Use either <-obff FILE> for individuals-only BFF output or <-obff --entities ... --out-dir DIR> for entity-aware BFF output")
       if @entities_args && !$out_bff_selected;
 
     $usage_error->("When using <-obff FILE> together with <--entities>, please omit the file and use <-obff --entities ... --out-dir DIR>")
