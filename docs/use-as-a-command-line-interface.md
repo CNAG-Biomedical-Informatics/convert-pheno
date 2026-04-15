@@ -66,7 +66,7 @@ convert-pheno -icsv data.csv --mapping-file mapping.yaml -obff --entities indivi
 Convert both `individuals` and `biosamples`, while overriding the biosample filename:
 
 ```bash
-convert-pheno -ipxf pxf.json -obff --entities individuals biosamples --out-dir out/ --out-entity biosamples=samples.json
+convert-pheno -ipxf pxf.json -obff --entities individuals biosamples --out-dir out/ --out-name biosamples=samples.json
 ```
 
 Convert a **large OMOP SQL dump** incrementally:
@@ -102,8 +102,9 @@ convert-pheno -ibff individuals.json -opxf pxf.json --default-vital-status UNKNO
 - `biosamples` are currently emitted as first-class output from `-ipxf` input when biosample data is present.
 - `datasets` and `cohorts` are synthesized from the normalized `individuals` collection.
 - In mapping-file workflows, the top-level `beacon` section can override metadata for synthesized `datasets` and `cohorts`.
+- This mapping-based augmentation is currently available only for `csv2bff`, `redcap2bff`, and `cdisc2bff`, which are the routes that use a mapping file.
 - `--entities` narrows `BFF` output. It must be combined with `-obff` and `--out-dir`.
-- `--out-entity entity=file` lets you override the filename of one requested entity and requires `--entities`.
+- `--out-name key=file` lets you override one multi-file output name. Use entity keys for `BFF` entity mode and table keys for `OMOP` output.
 - `--search-audit-tsv FILE` writes a tab-separated audit of ontology search results for mapping-file-driven conversions such as `csv2bff`, `redcap2bff`, and `cdisc2bff`, including the effective configured search mode, whether each lookup matched the DB or fell back to `NA`, and the per-row lookup resolution (`exact`, `similarity`, or `fallback_na`).
 - `--stream` is mainly relevant for **large OMOP inputs**.
 

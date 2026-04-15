@@ -27,10 +27,16 @@ The **OMOP CDM** is designed to be database-agnostic, which means it can be impl
 Example:
 
 ```bash
-convert-pheno -ibff individuals.json -oomop omop_export
+convert-pheno -ibff individuals.json -oomop --out-dir omop_export/
 ```
 
-This writes table files such as `omop_export_PERSON.csv`, `omop_export_CONDITION_OCCURRENCE.csv`, and related OMOP outputs.
+This writes table files such as `omop_export/PERSON.csv`, `omop_export/CONDITION_OCCURRENCE.csv`, and related OMOP outputs.
+
+To rename one of the emitted tables:
+
+```bash
+convert-pheno -ibff individuals.json -oomop --out-dir omop_export/ --out-name PERSON=patients.csv
+```
 
 ## OMOP As Input
 

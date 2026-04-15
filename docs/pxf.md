@@ -48,7 +48,7 @@ Phenopackets organize information using [top-level elements](https://phenopacket
         You can also override the biosample filename:
 
         ```bash
-        convert-pheno -ipxf pxf.json --entities individuals biosamples --out-dir out/ --out-entity biosamples=samples.json
+        convert-pheno -ipxf pxf.json -obff --entities individuals biosamples --out-dir out/ --out-name biosamples=samples.json
         ```
 
         In entity mode, `biosamples` are mapped directly from the `PXF` input, while `datasets` and `cohorts` are synthesized from the normalized `individuals` collection.

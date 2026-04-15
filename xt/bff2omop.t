@@ -22,14 +22,13 @@ my $infile     = 't/bff2omop/in/individuals.json';
 my $refdir     = 't/bff2omop/out';
 my $outdir     = 't/bff2omop/out/tmp';
 my $ref_prefix = 'eunomia';
-my $test_prefix = 'test';
 
 ensure_clean_dir($outdir);
 
 my $cmd = join ' ',
     $cli,
     '-ibff',      $infile,
-    '--oomop',    $test_prefix,
+    '--oomop',
     '--out-dir',  $outdir,
     '--test',
     '--ohdsi-db';
@@ -44,7 +43,7 @@ my @tables = qw(
 
 for my $tbl (@tables) {
     my $ref = File::Spec->catfile($refdir,     "${ref_prefix}_${tbl}.csv");
-    my $got = File::Spec->catfile($outdir,     "${test_prefix}_${tbl}.csv");
+    my $got = File::Spec->catfile($outdir,     "${tbl}.csv");
 
     ok( -e $got, "$tbl: $got was generated" );
     ok( csv_files_match($ref, $got), "$tbl: $got matches $ref" );
@@ -53,22 +52,27 @@ for my $tbl (@tables) {
 remove_dir_if_exists($outdir);
 
 my $gz_outdir      = 't/bff2omop/out/tmp-gz';
-my $gz_test_prefix = 'test.csv.gz';
 
 ensure_clean_dir($gz_outdir);
+
+my @gz_name_args;
+for my $tbl (@tables) {
+    push @gz_name_args, '--out-name', "$tbl=$tbl.csv.gz";
+}
 
 my $gz_cmd = join ' ',
     $cli,
     '-ibff',      $infile,
-    '--oomop',    $gz_test_prefix,
+    '--oomop',
     '--out-dir',  $gz_outdir,
+    @gz_name_args,
     '--test',
     '--ohdsi-db';
 ok( system($gz_cmd) == 0, "CLI ran without error for gzipped OMOP output" );
 
 for my $tbl (@tables) {
     my $ref = File::Spec->catfile($refdir,    "${ref_prefix}_${tbl}.csv");
-    my $got = File::Spec->catfile($gz_outdir, "test_${tbl}.csv.gz");
+    my $got = File::Spec->catfile($gz_outdir, "${tbl}.csv.gz");
 
     ok( -e $got, "$tbl: $got was generated in gzipped mode" );
     is( gunzip_file_content($got), slurp_file($ref),

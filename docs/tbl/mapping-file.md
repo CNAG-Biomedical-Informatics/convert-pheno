@@ -7,6 +7,7 @@
     - `beacon` groups Beacon entities at the same level.
     - `beacon.individuals` holds the semantic mapping rules to the [individuals](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema) entity from the Beacon v2 models, which remains the central normalized model for mapping-file based conversions.
     - `beacon.datasets`, `beacon.cohorts`, and `beacon.biosamples` hold optional metadata/defaults for emitted Beacon entities.
+    - These metadata overrides are currently consumed only by the conversion routes that use a mapping file: `csv2bff`, `redcap2bff`, and `cdisc2bff`.
 
     The `beacon.individuals` wrapper is mandatory in `v0.30`.
 
@@ -102,7 +103,7 @@
     These are the properties needed to map your data to the entity `individuals` in the Beacon v2 Models:
 
     - **beacon.individuals**, an `object` containing the semantic mapping rules for the Beacon `individuals` entity.
-    - **beacon**, a top-level `object` with the entity sections. Use `beacon.datasets` and `beacon.cohorts` to override synthesized metadata such as `id`, `name`, `description`, `externalUrl`, `cohortType`, or `cohortDataTypes`. These values are merged with the tool-generated defaults.
+    - **beacon**, a top-level `object` with the entity sections. Use `beacon.datasets` and `beacon.cohorts` to override synthesized metadata such as `id`, `name`, `description`, `externalUrl`, `cohortType`, or `cohortDataTypes`. These values are merged with the tool-generated defaults. This augmentation currently applies only to `csv2bff`, `redcap2bff`, and `cdisc2bff`.
     
     - **baselineFieldsToPropagate**, an array of columns containing measurements that were taken only at the initial time point (time = 0). Use this if you wish to duplicate these columns across subsequent rows for the same patient ID. It is important to ensure that the row containing baseline information appears first in the CSV.
     - **age**, a `string` representing the column that points to the age of the patient.

@@ -6,6 +6,7 @@ use warnings;
 use Exporter 'import';
 use Getopt::Long qw(GetOptionsFromArray :config no_ignore_case);
 use File::Spec::Functions qw(catfile file_name_is_absolute);
+use Convert::Pheno::OMOP::Definitions qw(@omop_supported_tables);
 
 our @EXPORT_OK = qw(build_cli_request);
 
@@ -56,10 +57,11 @@ sub build_cli_request {
     my ( $in_type_arg, $out_type_arg );
     my ( $in_pxf, $in_bff, $in_redcap, $in_cdisc, $in_csv );
     my @omop_files;
-    my ( $out_bff, $out_pxf, $out_csv, $out_jsonf, $out_jsonld, $out_omop );
+    my ( $out_bff, $out_pxf, $out_csv, $out_jsonf, $out_jsonld );
+    my $out_omop_selected = 0;
     my $out_bff_selected = 0;
     my @entities_args;
-    my @out_entity_specs;
+    my @out_name_specs;
     my ( $help, $man, $mapping_file, $max_lines_sql, $search );
     my ( $text_similarity_method, $min_text_similarity_score, $levenshtein_weight );
     my ( $debug, $verbose, $sep, $exposures_file, $sql2csv, $test, $search_audit_tsv );
@@ -87,10 +89,10 @@ sub build_cli_request {
         'ocsv=s'                      => \$out_csv,
         'ojsonf=s'                    => \$out_jsonf,
         'ojsonld=s'                   => \$out_jsonld,
-        'oomop=s'                     => \$out_omop,
+        'oomop'                       => \$out_omop_selected,
         'out-dir=s'                   => \$out_dir,
         'entities=s{1,}'              => \@entities_args,
-        'out-entity=s'                => \@out_entity_specs,
+        'out-name=s'                  => \@out_name_specs,
         'help|?'                      => \$help,
         'man'                         => \$man,
         'mapping-file=s'              => \$mapping_file,
@@ -149,22 +151,27 @@ sub build_cli_request {
       if ( defined $normalized_in_type
         && _count_defined( $in_pxf, $in_bff, $in_redcap, $in_cdisc, $in_csv, @omop_files ? 1 : undef ) )
       || ( defined $normalized_out_type
-        && _count_defined( $out_bff_selected ? 1 : undef, $out_pxf, $out_csv, $out_jsonf, $out_jsonld, $out_omop ) );
+        && _count_defined( $out_bff_selected ? 1 : undef, $out_pxf, $out_csv, $out_jsonf, $out_jsonld, $out_omop_selected ? 1 : undef ) );
 
     if ( defined $normalized_in_type ) {
         if ( $normalized_in_type eq 'omop' ) {
             $usage_error->("Please provide OMOP input file(s) after <-i omop>") unless @{$argv};
             if ( defined $normalized_out_type ) {
-                $usage_error->("Please provide OMOP input file(s) followed by one output path")
-                  unless @{$argv} >= 2;
-                @omop_files = @{$argv}[ 0 .. $#{$argv} - 1 ];
-                my $generic_outfile = $argv->[-1];
-                if    ( $normalized_out_type eq 'bff' )    { $out_bff_selected = 1; $out_bff = $generic_outfile }
-                elsif ( $normalized_out_type eq 'pxf' )    { $out_pxf    = $generic_outfile }
-                elsif ( $normalized_out_type eq 'csv' )    { $out_csv    = $generic_outfile }
-                elsif ( $normalized_out_type eq 'jsonf' )  { $out_jsonf  = $generic_outfile }
-                elsif ( $normalized_out_type eq 'jsonld' ) { $out_jsonld = $generic_outfile }
-                elsif ( $normalized_out_type eq 'omop' )   { $out_omop   = $generic_outfile }
+                if ( $normalized_out_type eq 'omop' ) {
+                    @omop_files = @{$argv};
+                    $out_omop_selected = 1;
+                }
+                else {
+                    $usage_error->("Please provide OMOP input file(s) followed by one output path")
+                      unless @{$argv} >= 2;
+                    @omop_files = @{$argv}[ 0 .. $#{$argv} - 1 ];
+                    my $generic_outfile = $argv->[-1];
+                    if    ( $normalized_out_type eq 'bff' )    { $out_bff_selected = 1; $out_bff = $generic_outfile }
+                    elsif ( $normalized_out_type eq 'pxf' )    { $out_pxf    = $generic_outfile }
+                    elsif ( $normalized_out_type eq 'csv' )    { $out_csv    = $generic_outfile }
+                    elsif ( $normalized_out_type eq 'jsonf' )  { $out_jsonf  = $generic_outfile }
+                    elsif ( $normalized_out_type eq 'jsonld' ) { $out_jsonld = $generic_outfile }
+                }
             }
             else {
                 @omop_files = @{$argv};
@@ -182,15 +189,19 @@ sub build_cli_request {
             elsif ( $normalized_in_type eq 'csv' )    { $in_csv    = $generic_infile }
 
             if ( defined $normalized_out_type ) {
-                $usage_error->("Please provide an output file after <-o $out_type_arg>")
-                  unless @{$argv};
-                my $generic_outfile = shift @{$argv};
-                if    ( $normalized_out_type eq 'bff' )    { $out_bff_selected = 1; $out_bff = $generic_outfile }
-                elsif ( $normalized_out_type eq 'pxf' )    { $out_pxf    = $generic_outfile }
-                elsif ( $normalized_out_type eq 'csv' )    { $out_csv    = $generic_outfile }
-                elsif ( $normalized_out_type eq 'jsonf' )  { $out_jsonf  = $generic_outfile }
-                elsif ( $normalized_out_type eq 'jsonld' ) { $out_jsonld = $generic_outfile }
-                elsif ( $normalized_out_type eq 'omop' )   { $out_omop   = $generic_outfile }
+                if ( $normalized_out_type eq 'omop' ) {
+                    $out_omop_selected = 1;
+                }
+                else {
+                    $usage_error->("Please provide an output file after <-o $out_type_arg>")
+                      unless @{$argv};
+                    my $generic_outfile = shift @{$argv};
+                    if    ( $normalized_out_type eq 'bff' )    { $out_bff_selected = 1; $out_bff = $generic_outfile }
+                    elsif ( $normalized_out_type eq 'pxf' )    { $out_pxf    = $generic_outfile }
+                    elsif ( $normalized_out_type eq 'csv' )    { $out_csv    = $generic_outfile }
+                    elsif ( $normalized_out_type eq 'jsonf' )  { $out_jsonf  = $generic_outfile }
+                    elsif ( $normalized_out_type eq 'jsonld' ) { $out_jsonld = $generic_outfile }
+                }
             }
         }
     }
@@ -201,6 +212,9 @@ sub build_cli_request {
     if ( @entities_args && @{$argv} == 1 && !$out_bff_selected && $argv->[0] eq $out_dir ) {
         $usage_error->("When using <--entities>, please also select BFF output with <-obff> and keep <--out-dir> as the directory target");
     }
+
+    $usage_error->("The flag <-oomop> no longer accepts a prefix. Use <-oomop --out-dir DIR> and optional <--out-name TABLE=file> overrides instead")
+      if $out_omop_selected && @{$argv};
 
     $usage_error->("Unexpected extra positional arguments: @{$argv}") if @{$argv};
 
@@ -267,12 +281,8 @@ sub build_cli_request {
             message   => "Sorry, <--ocsv>, <--ojsonf> and <--ojsonf> are only compatible with <--ibff> or <--ipxf>\n",
         },
         {
-            condition => sub { defined $out_omop && !$ohdsi_db },
+            condition => sub { $out_omop_selected && !$ohdsi_db },
             message   => "Error: Please use --ohdsi-db when using OMOP CDM as an output",
-        },
-        {
-            condition => sub { defined($out_omop) && $out_omop =~ /^-/ },
-            message   => "Error: The value for --oomop appears to be an option. Please supply a proper non-option string using --oomop=VALUE",
         },
     );
 
@@ -297,7 +307,7 @@ sub build_cli_request {
     }
 
     $usage_error->("The flag <--entities> is only valid with BFF output")
-      if @entities_args && ( $out_pxf || $out_csv || $out_jsonf || $out_jsonld || $out_omop );
+      if @entities_args && ( $out_pxf || $out_csv || $out_jsonf || $out_jsonld || $out_omop_selected );
 
     $usage_error->("The entity <biosamples> is currently only supported with <-ipxf> or <-iomop> together with <-obff>")
       if grep { $_ eq 'biosamples' } @entity_list
@@ -315,8 +325,8 @@ sub build_cli_request {
     $usage_error->("When using <-obff FILE> together with <--entities>, please omit the file and use <-obff --entities ... --out-dir DIR>")
       if @entities_args && defined $out_bff && length $out_bff;
 
-    $usage_error->("The flag <--out-entity> requires <--entities>")
-      if @out_entity_specs && !@entities_args;
+    $usage_error->("The flag <--out-name> requires either entity-aware BFF output or OMOP output")
+      if @out_name_specs && !@entities_args && !$out_omop_selected;
 
     if ( defined $default_vital_status ) {
         $default_vital_status =~ s/^\s+|\s+$//g;
@@ -327,27 +337,34 @@ sub build_cli_request {
     $usage_error->("The flag <--default-vital-status> is only valid with PXF output")
       if defined $default_vital_status && !$out_pxf;
 
-    my %entity_output_files;
-    for my $spec (@out_entity_specs) {
-        $usage_error->("Invalid <--out-entity> value <$spec>; use entity=filename")
+    my %output_name_overrides;
+    for my $spec (@out_name_specs) {
+        $usage_error->("Invalid <--out-name> value <$spec>; use key=filename")
           unless defined $spec && $spec =~ /\A([^=]+)=(.+)\z/;
-        my ( $entity, $filename ) = ( $1, $2 );
-        $entity =~ s/^\s+|\s+$//g;
+        my ( $key, $filename ) = ( $1, $2 );
+        $key =~ s/^\s+|\s+$//g;
         $filename =~ s/^\s+|\s+$//g;
 
-        $usage_error->("Unsupported entity <$entity> in --out-entity")
-          unless $supported_entities{$entity};
-        $usage_error->("The entity <$entity> must also be requested in <--entities>")
-          unless grep { $_ eq $entity } @entity_list;
-        $usage_error->("Please provide a filename for <--out-entity $entity=...>")
+        $usage_error->("Please provide a filename for <--out-name $key=...>")
           unless length $filename;
 
-        $entity_output_files{$entity} = _resolve_output_path( $out_dir, $filename );
-    }
+        if (@entities_args) {
+            $usage_error->("Unsupported entity <$key> in --out-name")
+              unless $supported_entities{$key};
+            $usage_error->("The entity <$key> must also be requested in <--entities>")
+              unless grep { $_ eq $key } @entity_list;
+            $output_name_overrides{$key} =
+              _resolve_output_path( $out_dir, $filename );
+            next;
+        }
 
-    die
-"Error: The value for --oomop ('$out_omop') appears to be an option. Please supply a proper non-option string using --oomop=VALUE\n"
-      if defined($out_omop) && $out_omop =~ /^-/;
+        my $table = uc $key;
+        my %supported_tables = map { $_ => 1 } @omop_supported_tables;
+        $usage_error->("Unsupported OMOP table <$key> in --out-name")
+          unless $supported_tables{$table};
+        $output_name_overrides{$table} =
+          _resolve_output_path( $out_dir, $filename );
+    }
 
     my $out_file =
         $out_pxf    ? _resolve_output_path( $out_dir, $out_pxf )
@@ -355,7 +372,7 @@ sub build_cli_request {
       : $out_csv    ? _resolve_output_path( $out_dir, $out_csv )
       : $out_jsonf  ? _resolve_output_path( $out_dir, $out_jsonf )
       : $out_jsonld ? _resolve_output_path( $out_dir, $out_jsonld )
-      : $out_omop   ? _resolve_output_path( $out_dir, $out_omop )
+      : $out_omop_selected ? undef
       : @entity_list == 1
       ? catfile( $out_dir, $entity_list[0] . '.json' )
       : catfile( $out_dir, 'individuals.json' );
@@ -381,7 +398,7 @@ sub build_cli_request {
       : $out_csv    ? 'csv'
       : $out_jsonf  ? 'jsonf'
       : $out_jsonld ? 'jsonld'
-      : $out_omop   ? 'omop'
+      : $out_omop_selected ? 'omop'
       :               'bff';
     my $method = $in_type . '2' . $out_type;
 
@@ -409,7 +426,7 @@ sub build_cli_request {
         entities                  => \@entity_list,
     );
 
-    $data{entity_output_files} = \%entity_output_files if %entity_output_files;
+    $data{output_name_overrides} = \%output_name_overrides if %output_name_overrides;
 
     my $resolved_in_file =
         $in_pxf     ? $in_pxf

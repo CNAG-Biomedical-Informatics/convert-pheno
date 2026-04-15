@@ -10,8 +10,10 @@ use Test::ConvertPheno qw(
   cli_script_path
   ensure_clean_dir
   remove_dir_if_exists
+  has_ohdsi_db
   load_data_file
   load_json_file
+  csv_files_match
   write_json_file
 );
 
@@ -64,7 +66,7 @@ my @custom_cmd = (
     '-obff',
     '--entities', 'biosamples',
     '--out-dir', $custom_out_dir,
-    '--out-entity', 'biosamples=samples.json',
+    '--out-name', 'biosamples=samples.json',
     '-O',
 );
 
@@ -83,7 +85,7 @@ my @multi_cmd = (
     '-obff',
     '--entities', 'individuals', 'biosamples',
     '--out-dir', $multi_out_dir,
-    '--out-entity', 'biosamples=samples.json',
+    '--out-name', 'biosamples=samples.json',
     '-O',
 );
 
@@ -338,7 +340,7 @@ is( $cohorts->[0]{cohortSize}, 1, 'cohorts output records the cohort size' );
             $^X,
             $cli,
             '-ipxf', $input_file,
-            '--out-entity', 'biosamples=samples.json'
+            '--out-name', 'biosamples=samples.json'
         ) or die "exec failed: $!";
     }
 
@@ -348,12 +350,47 @@ is( $cohorts->[0]{cohortSize}, 1, 'cohorts output records the cohort size' );
     my $output = <$fh>;
     close $fh;
 
-    isnt( $? >> 8, 0, 'CLI rejects --out-entity without --entities' );
+    isnt( $? >> 8, 0, 'CLI rejects --out-name without a compatible multi-file output mode' );
     like(
         $output,
-        qr/The flag <--out-entity> requires <--entities>/,
-        'CLI prints a focused error for --out-entity without --entities'
+        qr/The flag <--out-name> requires either entity-aware BFF output or OMOP output/,
+        'CLI prints a focused error for --out-name without a compatible multi-file output mode'
     );
+}
+
+SKIP: {
+    skip 'share/db/ohdsi.db is required for bff2omop CLI naming test', 5
+      unless has_ohdsi_db();
+
+    my $omop_out_dir = ensure_clean_dir('t/cli-omop-out');
+    my @omop_cmd = (
+        $^X,
+        $cli,
+        '-ibff', 't/bff2omop/in/individuals.json',
+        '-oomop',
+        '--out-dir', $omop_out_dir,
+        '--out-name', 'PERSON=patients.csv',
+        '--ohdsi-db',
+        '--test',
+        '-O',
+    );
+
+    my $omop_status = system @omop_cmd;
+    is( $omop_status, 0, 'CLI writes OMOP tables into --out-dir without a prefix' );
+
+    my $renamed_person = File::Spec->catfile( $omop_out_dir, 'patients.csv' );
+    my $default_person = File::Spec->catfile( $omop_out_dir, 'PERSON.csv' );
+    my $default_obs    = File::Spec->catfile( $omop_out_dir, 'OBSERVATION.csv' );
+
+    ok( -f $renamed_person, 'CLI honors --out-name for OMOP table output' );
+    ok( !-f $default_person, 'CLI does not also write the default PERSON.csv when overridden' );
+    ok( -f $default_obs, 'CLI keeps default OMOP table names for non-overridden tables' );
+    ok(
+        csv_files_match( 't/bff2omop/out/eunomia_PERSON.csv', $renamed_person ),
+        'renamed PERSON.csv still matches the reference OMOP content'
+    );
+
+    remove_dir_if_exists($omop_out_dir);
 }
 
 remove_dir_if_exists($out_dir);

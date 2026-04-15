@@ -102,7 +102,7 @@ Useful recent options include:
 - `--default-vital-status` to control the fallback `subject.vitalStatus.status` in `bff2pxf`
 - `--search-audit-tsv` to write a TSV report of ontology lookup results for mapping-file conversions
 - generic `-i/-o` syntax in addition to the format-specific shortcuts
-- `--out-entity entity=file` to customize filenames in multi-entity BFF output
+- `--out-name key=file` to customize filenames in multi-file BFF or OMOP output
 
 ## Installation
 

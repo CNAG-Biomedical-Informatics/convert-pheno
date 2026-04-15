@@ -69,6 +69,52 @@ is_deeply(
     'CLI parser accepts -obff together with --entities'
 );
 
+$request = build_cli_request(
+    argv => [
+        '-ibff', 't/bff2pxf/in/individuals.json',
+        '-oomop',
+        '--out-dir', '/tmp',
+        '--out-name', 'PERSON=patients.csv',
+        '--ohdsi-db',
+    ],
+    usage_error => sub { die @_ },
+    schema_file => 'share/schema/mapping.json',
+    out_dir     => '.',
+    color       => 1,
+);
+
+is(
+    $request->{data}{method},
+    'bff2omop',
+    'CLI parser accepts -oomop without a prefix value'
+);
+
+is(
+    $request->{data}{output_name_overrides}{PERSON},
+    '/tmp/patients.csv',
+    'CLI parser accepts --out-name for OMOP table output'
+);
+
+$request = build_cli_request(
+    argv => [
+        '-i', 'bff',
+        't/bff2pxf/in/individuals.json',
+        '-o', 'omop',
+        '--out-dir', '/tmp',
+        '--ohdsi-db',
+    ],
+    usage_error => sub { die @_ },
+    schema_file => 'share/schema/mapping.json',
+    out_dir     => '.',
+    color       => 1,
+);
+
+is(
+    $request->{data}{method},
+    'bff2omop',
+    'CLI parser accepts generic -o omop without an output prefix'
+);
+
 my $usage_error;
 eval {
     build_cli_request(
@@ -89,6 +135,29 @@ like(
     $usage_error,
     qr/--default-vital-status> is only valid with PXF output/,
     'CLI parser rejects --default-vital-status without PXF output'
+);
+
+$usage_error = undef;
+eval {
+    build_cli_request(
+        argv => [
+            '-ibff', 't/bff2pxf/in/individuals.json',
+            '-oomop', 'old-prefix',
+            '--out-dir', '/tmp',
+            '--ohdsi-db',
+        ],
+        usage_error => sub { die @_ },
+        schema_file => 'share/schema/mapping.json',
+        out_dir     => '.',
+        color       => 1,
+    );
+    1;
+} or $usage_error = $@;
+
+like(
+    $usage_error,
+    qr/no longer accepts a prefix/,
+    'CLI parser prints a focused error for the removed -oomop PREFIX form'
 );
 
 my $cli = cli_script_path();
@@ -156,6 +225,21 @@ like(
     $help,
     qr/-obff --entities \.\.\. --out-dir DIR writes one file per requested BFF entity\./s,
     'CLI help documents the explicit entity-aware BFF form'
+);
+like(
+    $help,
+    qr/-oomop --out-dir DIR writes one file per emitted OMOP table\./s,
+    'CLI help documents the out-dir based OMOP table output mode'
+);
+like(
+    $help,
+    qr/-oomop\s+OMOP-CDM CSV table output \(use with --out-dir\)/s,
+    'CLI help documents OMOP output as out-dir based multi-file output'
+);
+like(
+    $help,
+    qr/--out-name k=file\s+Override one multi-file output name/s,
+    'CLI help documents the shared multi-file rename flag'
 );
 
 my $usage_error_output =

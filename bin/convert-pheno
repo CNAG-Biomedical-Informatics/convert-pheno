@@ -61,7 +61,7 @@ Common output flags:
                     Use -obff FILE for individuals-only BFF output
                     Use -obff with --entities --out-dir for entity-aware BFF
   -opxf <file>      Phenopackets v2 output
-  -oomop <prefix>   OMOP-CDM CSV prefix
+  -oomop            OMOP-CDM CSV table output (use with --out-dir)
   -ocsv <file>      Flattened CSV (with -ibff or -ipxf)
   -ojsonf <file>    Flattened 1D JSON/YAML (with -ibff or -ipxf)
   -ojsonld <file>   JSON-LD / YAML-LD (with -ibff or -ipxf)
@@ -74,8 +74,8 @@ Output behavior:
                         from -iomop when the SPECIMEN table is provided
                         datasets and cohorts are synthesized from individuals
                         Use with -obff and --out-dir
-  --out-entity e=file   Override one entity filename; repeat as needed
-                        Requires --entities
+  --out-name k=file     Override one multi-file output name; repeat as needed
+                        Use entity keys for BFF and table keys for OMOP
   -O                    Overwrite output file(s)
 
 Mapping and search:
@@ -127,9 +127,11 @@ Examples:
   convert-pheno -i pxf pxf.json -o bff individuals.json
   convert-pheno -ipxf pxf.json -obff individuals.json
   convert-pheno -ipxf pxf.json -obff --entities biosamples --out-dir out/
-  convert-pheno -ipxf pxf.json -obff --entities individuals biosamples --out-dir out/ --out-entity biosamples=samples.json
+  convert-pheno -ipxf pxf.json -obff --entities individuals biosamples --out-dir out/ --out-name biosamples=samples.json
   convert-pheno -ipxf pxf.json -obff --entities individuals datasets cohorts --out-dir out/
   convert-pheno -icsv data.csv --mapping-file mapping.yaml -obff --entities individuals datasets cohorts --out-dir out/
+  convert-pheno -ibff individuals.json -oomop --out-dir omop_out/
+  convert-pheno -ibff individuals.json -oomop --out-dir omop_out/ --out-name PERSON=patients.csv
   convert-pheno -iomop dump.sql.gz -opxf phenopackets.json.gz --default-vital-status UNKNOWN_STATUS --ohdsi-db
   convert-pheno -iomop dump.sql.gz -obff individuals.json.gz --stream --ohdsi-db
   convert-pheno -iomop dump.sql.gz -obff --stream --entities individuals biosamples --out-dir out/ --ohdsi-db
@@ -137,6 +139,7 @@ Examples:
 BFF output modes:
   -obff FILE keeps the individuals-only BFF behavior.
   -obff --entities ... --out-dir DIR writes one file per requested BFF entity.
+  -oomop --out-dir DIR writes one file per emitted OMOP table.
   If a PXF input also contains biosamples, convert-pheno warns and preserves them
   under info.phenopacket.biosamples unless --entities is used.
   PXF output still defaults subject.vitalStatus to ALIVE unless a preserved
@@ -305,6 +308,8 @@ sub prepare_output_targets {
         return;
     }
 
+    return if $l_data->{method} =~ /2omop$/;
+
     if ($overwrite) {
         unlink($o_file) if -e $o_file;
     }
@@ -374,8 +379,14 @@ sub write_conversion_result {
     }
 
     if ( $method =~ /2omop$/ ) {
-        for my $table ( keys %$data ) {
-            my $filepath = resolve_omop_table_output_file( $o_file, $table );
+        for my $table ( sort keys %$data ) {
+            my $filepath = resolve_omop_table_output_file( $l_data, $table );
+            if ($overwrite) {
+                unlink($filepath) if -e $filepath;
+            }
+            else {
+                ask_overwrite($filepath);
+            }
             my @headers  = @{ $omop_headers->{$table} };
             write_csv(
                 {
@@ -399,15 +410,11 @@ sub write_conversion_result {
 }
 
 sub resolve_omop_table_output_file {
-    my ( $prefix, $table ) = @_;
-
-    my $gzip = $prefix =~ /\.gz$/i ? 1 : 0;
-    my $base = $prefix;
-
-    $base =~ s/\.gz$//i if $gzip;
-    $base =~ s/\.csv$//i;
-
-    return $base . "_$table.csv" . ( $gzip ? '.gz' : '' );
+    my ( $l_data, $table ) = @_;
+    return $l_data->{output_name_overrides}{$table}
+      if exists $l_data->{output_name_overrides}
+      && exists $l_data->{output_name_overrides}{$table};
+    return catfile( $l_data->{out_dir}, $table . '.csv' );
 }
 
 sub program_header {
@@ -522,8 +529,8 @@ sub ask_overwrite {
 
 sub resolve_entity_output_file {
     my ( $l_data, $entity ) = @_;
-    return $l_data->{entity_output_files}{$entity}
-      if exists $l_data->{entity_output_files}
-      && exists $l_data->{entity_output_files}{$entity};
+    return $l_data->{output_name_overrides}{$entity}
+      if exists $l_data->{output_name_overrides}
+      && exists $l_data->{output_name_overrides}{$entity};
     return catfile( $l_data->{out_dir}, $entity . '.json' );
 }

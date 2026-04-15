@@ -162,10 +162,10 @@ sub _stream_output_path {
         return $self->{out_file};
     }
 
-    if ( exists $self->{entity_output_files}
-        && exists $self->{entity_output_files}{$entity} )
+    if ( exists $self->{output_name_overrides}
+        && exists $self->{output_name_overrides}{$entity} )
     {
-        return $self->{entity_output_files}{$entity};
+        return $self->{output_name_overrides}{$entity};
     }
 
     return $self->{out_dir} . q{/} . $entity . '.json';

@@ -57,7 +57,7 @@ You can also request synthesized `datasets` and `cohorts`:
 convert-pheno -icsv clinical_data.csv --mapping-file clinical_data_mapping.yaml -obff --entities individuals datasets cohorts --out-dir out/
 ```
 
-`datasets` and `cohorts` are synthesized from the normalized `individuals` collection, so they are available from BFF conversion routes beyond `PXF`. In mapping-file workflows, the top-level `beacon` section can override metadata such as `id`, `name`, `description`, `version`, or `cohortType`.
+`datasets` and `cohorts` are synthesized from the normalized `individuals` collection, so they are available from BFF conversion routes beyond `PXF`. Mapping-based augmentation of these synthesized entities is currently available only for the conversion routes that use a mapping file: `csv2bff`, `redcap2bff`, and `cdisc2bff`. In those workflows, the top-level `beacon` section can override metadata such as `id`, `name`, `description`, `version`, or `cohortType`.
 
 If you want both `individuals` and `biosamples`:
 
@@ -68,7 +68,7 @@ convert-pheno -ipxf pxf.json -obff --entities individuals biosamples --out-dir o
 If you want a custom biosample filename:
 
 ```bash
-convert-pheno -ipxf pxf.json -obff --entities individuals biosamples --out-dir out/ --out-entity biosamples=samples.json
+convert-pheno -ipxf pxf.json -obff --entities individuals biosamples --out-dir out/ --out-name biosamples=samples.json
 ```
 
 !!! Note "`-obff FILE` Individuals-Only Behavior"
@@ -92,7 +92,7 @@ The repository test fixtures under `t/` are useful as **small examples**:
 ```bash
 bin/convert-pheno -ipxf t/pxf2bff/in/pxf.json -obff individuals.json
 bin/convert-pheno -ipxf t/pxf2bff/in/pxf.json -obff --entities biosamples --out-dir out/
-bin/convert-pheno -ipxf t/pxf2bff/in/pxf.json -obff --entities individuals biosamples --out-dir out/ --out-entity biosamples=samples.json
+bin/convert-pheno -ipxf t/pxf2bff/in/pxf.json -obff --entities individuals biosamples --out-dir out/ --out-name biosamples=samples.json
 bin/convert-pheno -icsv t/csv2bff/in/csv_data.csv --mapping-file t/csv2bff/in/csv_mapping.yaml -obff --entities individuals datasets cohorts --out-dir out/
 bin/convert-pheno -iomop t/omop2bff/in/omop_cdm_eunomia.sql -opxf phenopackets.json
 ```

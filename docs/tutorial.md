@@ -67,7 +67,7 @@ convert-pheno -iomop PERSON.csv CONCEPT.csv DRUG_EXPOSURE.csv \
   --out-dir out/
 ```
 
-In mapping-file workflows, the top-level `beacon` section can override synthesized `datasets` and `cohorts` metadata.
+In mapping-file workflows, the top-level `beacon` section can override synthesized `datasets` and `cohorts` metadata. This currently applies to `csv2bff`, `redcap2bff`, and `cdisc2bff`, which are the routes that use a mapping file.
 
 ## CSV to BFF
 

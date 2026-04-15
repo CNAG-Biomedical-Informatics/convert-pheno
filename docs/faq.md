@@ -85,6 +85,14 @@ Frequently Asked Questions
 
     Prefer **raw data** together with the REDCap dictionary file. If your export uses labels instead, use the [CSV](csv.md) route. See [Troubleshooting](troubleshooting.md#redcap-export-mode).
 
+??? faq "Can I use the mapping file to customize synthesized `datasets` and `cohorts` for any `*2bff` conversion?"
+
+    No. Mapping-based augmentation of synthesized `datasets` and `cohorts` is currently available only for the routes that use a mapping file: `csv2bff`, `redcap2bff`, and `cdisc2bff`.
+
+    For those workflows, the top-level `beacon` section of the mapping file can override metadata such as `id`, `name`, `description`, `version`, `externalUrl`, `cohortType`, or `cohortDataTypes`.
+
+    This does not currently apply to `omop2bff` or `pxf2bff`.
+
 ??? faq "Which formats accept gzipped (`.gz`) files?"
 
     Based on the current I/O code, gzip support is available for these file families:
@@ -95,7 +103,7 @@ Frequently Asked Questions
     | CSV / TSV / TXT tabular inputs | `csv2*`, `redcap2*`, REDCap dictionary files | Yes | N/A | Input readers accept `.csv.gz`, `.tsv.gz` and `.txt.gz` |
     | SQL dumps | `omop2*` from `.sql` dumps | Yes | N/A | OMOP SQL input accepts `.sql.gz` |
     | Streamed OMOP output | `omop2bff --stream` | N/A | Yes | CLI restricts streamed OMOP output to `json` or `json.gz` |
-    | OMOP table output | `*2omop` | N/A | Yes | Use `--oomop PREFIX.csv.gz` or `--oomop PREFIX.gz` to get `PREFIX_TABLE.csv.gz` files |
+    | OMOP table output | `*2omop` | N/A | Yes | Use `-oomop --out-dir DIR` to get `TABLE.csv` files. Use `--out-name TABLE=filename.csv.gz` to rename or gzip specific tables |
     | CSV / TSV output | `bff2csv`, `pxf2csv`, search-audit TSV | N/A | Yes | The current writers accept `.csv.gz` and `.tsv.gz` in addition to plain text output |
 
     In practice, gzip is supported both for structured JSON/YAML-style outputs and for the main CSV/TSV output paths.
