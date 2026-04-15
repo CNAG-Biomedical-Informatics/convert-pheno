@@ -299,8 +299,15 @@ sub build_cli_request {
     $usage_error->("The flag <--entities> is only valid with BFF output")
       if @entities_args && ( $out_pxf || $out_csv || $out_jsonf || $out_jsonld || $out_omop );
 
-    $usage_error->("The entity <biosamples> is currently only supported with <-ipxf> and <-obff>")
-      if grep { $_ eq 'biosamples' } @entity_list && !$in_pxf;
+    $usage_error->("The entity <biosamples> is currently only supported with <-ipxf> or <-iomop> together with <-obff>")
+      if grep { $_ eq 'biosamples' } @entity_list
+      && !( $in_pxf || @omop_files );
+
+    $usage_error->("The flag <--stream> is only valid with <-iomop> and <-obff>")
+      if $stream && !@omop_files;
+
+    $usage_error->("The entities <datasets> and <cohorts> are not supported with <--stream>; please request only <individuals> and/or <biosamples>")
+      if $stream && grep { $_ eq 'datasets' || $_ eq 'cohorts' } @entity_list;
 
     $usage_error->("When using <--entities>, please select BFF output with <-obff> and write the requested entities with <--out-dir>. Use either <-obff FILE> for individuals-only BFF output or <-obff --entities ... --out-dir DIR> for entity-aware BFF output")
       if @entities_args && !$out_bff_selected;

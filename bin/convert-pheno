@@ -70,7 +70,8 @@ Output behavior:
   --out-dir <dir>       Output directory (required for entity-aware BFF mode)
   --entities <list>     Beacon entities for BFF output [individuals]
                         Supported: individuals, biosamples, datasets, cohorts
-                        biosamples are emitted from -ipxf when present
+                        biosamples are emitted from -ipxf when present, or
+                        from -iomop when the SPECIMEN table is provided
                         datasets and cohorts are synthesized from individuals
                         Use with -obff and --out-dir
   --out-entity e=file   Override one entity filename; repeat as needed
@@ -100,7 +101,10 @@ OMOP:
   --omop-tables <list>            Restrict OMOP tables
   --exposures-file <file>         OMOP concept_id list treated as exposures
   --stream                        Incremental OMOP processing with single-file
-                                  -obff output
+                                  line-delimited JSON output
+                                  Supports individuals-only <-obff FILE>, or
+                                  entity-aware <-obff --entities individuals
+                                  biosamples --out-dir DIR>
   --sql2csv                       Print SQL tables instead of converting
   --max-lines-sql <n>             Maximum SQL lines per table [500]
 
@@ -128,6 +132,7 @@ Examples:
   convert-pheno -icsv data.csv --mapping-file mapping.yaml -obff --entities individuals datasets cohorts --out-dir out/
   convert-pheno -iomop dump.sql.gz -opxf phenopackets.json.gz --default-vital-status UNKNOWN_STATUS --ohdsi-db
   convert-pheno -iomop dump.sql.gz -obff individuals.json.gz --stream --ohdsi-db
+  convert-pheno -iomop dump.sql.gz -obff --stream --entities individuals biosamples --out-dir out/ --ohdsi-db
 
 BFF output modes:
   -obff FILE keeps the individuals-only BFF behavior.
@@ -311,6 +316,11 @@ sub prepare_output_targets {
 sub execute_conversion {
     my ( $convert, $l_data, $o_file, $entity_mode ) = @_;
     my $method = $l_data->{method};
+
+    if ( $stream && $method eq 'omop2bff' ) {
+        $convert->$method;
+        return ( undef, undef );
+    }
 
     if ($entity_mode) {
         my $bundle = $convert->_run_bundle_view;

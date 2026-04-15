@@ -23,6 +23,10 @@ use Convert::Pheno::Emit::OMOP qw(
   dispatcher_open_stream_out
   transform_item
   finalize_stream_out
+  omop_stream_targets_open
+  omop_stream_targets_write
+  omop_stream_targets_finalize
+  omop_streams_multiple_entities
 );
 use Convert::Pheno::OMOP::Source qw(collect_omop_input);
 use Convert::Pheno::OMOP::ParticipantStream qw(
@@ -680,12 +684,14 @@ sub _prepare_omop2bff_input {
 
     $self->{method_ori} =
       exists $self->{method_ori} ? $self->{method_ori} : 'omop2bff';
+    _ensure_omop_specimen_table_for_biosamples($self);
     $self->{prev_omop_tables} = [ @{ $self->{omop_tables} } ];
 
     my $ctx  = _omop_collect_input($self);
     my $data = $ctx->{data};
 
     _omop_require_concept( $self, $data );
+    _require_omop_specimen_for_biosamples( $self, $data, $ctx );
     _omop_init_caches_and_metadata( $self, $data );
     _omop_prepare_data_shape( $self, $data );
 
@@ -693,6 +699,45 @@ sub _prepare_omop2bff_input {
     $self->{filepaths_csv} = $ctx->{filepaths_csv} if exists $ctx->{filepaths_csv};
 
     return 1;
+}
+
+sub _omop_requests_biosamples {
+    my ($self) = @_;
+    return scalar grep { $_ eq 'biosamples' } @{ $self->{entities} || [] };
+}
+
+sub _ensure_omop_specimen_table_for_biosamples {
+    my ($self) = @_;
+    return 1 unless _omop_requests_biosamples($self);
+    return 1 if grep { $_ eq 'SPECIMEN' } @{ $self->{omop_tables} || [] };
+
+    $self->{omop_tables} = [ @{ $self->{omop_tables} || [] }, 'SPECIMEN' ];
+    return 1;
+}
+
+sub _require_omop_specimen_for_biosamples {
+    my ( $self, $data, $ctx ) = @_;
+    return 1 unless _omop_requests_biosamples($self);
+    return 1 if exists $data->{SPECIMEN};
+    return 1 if _omop_stream_source_has_specimen( $self, $ctx );
+
+    die "The entity <biosamples> requires the OMOP table <SPECIMEN>\n";
+}
+
+sub _omop_stream_source_has_specimen {
+    my ( $self, $ctx ) = @_;
+    return 0 unless $self->{stream};
+    return 0 unless defined $ctx && ref($ctx) eq 'HASH';
+
+    if ( defined $ctx->{filepath_sql} && length $ctx->{filepath_sql} ) {
+        return scalar grep { $_ eq 'SPECIMEN' } @{ $self->{prev_omop_tables} || [] };
+    }
+
+    for my $file ( @{ $ctx->{filepaths_csv} || [] } ) {
+        return 1 if $file =~ m{(?:^|/|\\)SPECIMEN\.(?:csv|tsv)(?:\.gz)?$}i;
+    }
+
+    return 0;
 }
 
 sub _mapping_file_derived_entity_overrides {
@@ -848,7 +893,28 @@ sub process_sqldump_stream {
 
 sub omop2bff_stream_processing {
     my ( $self, $data ) = @_;
+    return Convert::Pheno::OMOP::ToBFF::run_omop_to_bundle(
+        $self, $data, $self->{conversion_context}
+      )
+      if omop_streams_multiple_entities($self);
+
     return do_omop2bff( $self, $data );
+}
+
+sub omop_stream_targets_open_wrapper {
+    return omop_stream_targets_open(@_);
+}
+
+sub omop_stream_targets_write_wrapper {
+    return omop_stream_targets_write(@_);
+}
+
+sub omop_stream_targets_finalize_wrapper {
+    return omop_stream_targets_finalize(@_);
+}
+
+sub omop_streams_multiple_entities_wrapper {
+    return omop_streams_multiple_entities(@_);
 }
 
 sub Dumper_concise {

@@ -76,7 +76,7 @@ sub collect_omop_input {
 
         # CSV/TSV
         warn "<$table_name> is not a valid table in OMOP-CDM\n" and next
-          unless any { $_ eq $table_name } @omop_essential_tables;
+          unless any { $_ eq $table_name } @omop_supported_tables;
 
         my $msg = "Reading <$table_name> and storing it in RAM memory...";
 

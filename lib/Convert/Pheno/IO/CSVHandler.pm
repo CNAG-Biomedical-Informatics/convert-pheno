@@ -243,16 +243,18 @@ sub read_sqldump_stream {
     my $filein        = $arg->{in};
     my $self          = $arg->{self};
     my $person        = $arg->{person};
-    my $fileout       = $self->{out_file};
     my $table_name    = $self->{omop_tables}[0];
     my $table_name_lc = lc($table_name);
+    my $entity_stream_mode =
+      Convert::Pheno::omop_streams_multiple_entities_wrapper($self);
 
     # Define variables that modify what we load
     my $max_lines_sql = $self->{max_lines_sql};
 
     # Open filehandles
     my $fh_in  = open_filehandle( $filein,  'r' );
-    my $fh_out = open_filehandle( $fileout, 'a' );
+    my $fh_out =
+      $entity_stream_mode ? undef : open_filehandle( $self->{out_file}, 'a' );
 
     # Determine the print interval based on file size
     my $print_interval = get_print_interval($filein);
@@ -320,7 +322,9 @@ sub read_sqldump_stream {
                 $self );
 
             # Only after encoding we are able to discard 'null'
-            say $fh_out $encoded_data if $encoded_data ne 'null';
+            say $fh_out $encoded_data
+              if defined $encoded_data
+              && $encoded_data ne 'null';
 
             # adhoc filter to speed-up development
             last if $count == $max_lines_sql;
@@ -336,7 +340,7 @@ sub read_sqldump_stream {
 
     # Closing filehandles
     close $fh_in;
-    close $fh_out;
+    close $fh_out if $fh_out;
     return 1;
 }
 
@@ -358,6 +362,11 @@ sub encode_omop_stream {
 
     # Obtain
     my $stream = Convert::Pheno::omop2bff_stream_processing( $self, $data );
+
+    if ( Convert::Pheno::omop_streams_multiple_entities_wrapper($self) ) {
+        Convert::Pheno::omop_stream_targets_write_wrapper( $self, $stream );
+        return undef;
+    }
 
     # Return JSON string
     #  - canonical has some overhead but needed for t/)
@@ -636,7 +645,8 @@ sub read_csv_stream {
     my $self    = $arg->{self};
     my $sep     = $arg->{sep};
     my $person  = $arg->{person};
-    my $fileout = $self->{out_file};
+    my $entity_stream_mode =
+      Convert::Pheno::omop_streams_multiple_entities_wrapper($self);
 
     # Define split record separator
     my ( $separator, undef, $table_name ) = define_separator( $filein, $sep );
@@ -653,7 +663,8 @@ sub read_csv_stream {
 
     # Open filehandles
     my $fh_in  = open_filehandle( $filein,  'r' );
-    my $fh_out = open_filehandle( $fileout, 'a' );
+    my $fh_out =
+      $entity_stream_mode ? undef : open_filehandle( $self->{out_file}, 'a' );
 
     # Get headers
     my $headers = $csv->getline($fh_in);
@@ -678,7 +689,9 @@ sub read_csv_stream {
             $self );
 
         # Only after encoding we are able to discard 'null'
-        say $fh_out $encoded_data if $encoded_data ne 'null';
+        say $fh_out $encoded_data
+          if defined $encoded_data
+          && $encoded_data ne 'null';
 
         # Increment $count
         $count++;
@@ -691,7 +704,7 @@ sub read_csv_stream {
     say "==============\nRows total:     $count\n" if $self->{verbose};
 
     close $fh_in;
-    close $fh_out;
+    close $fh_out if $fh_out;
     return 1;
 }
 

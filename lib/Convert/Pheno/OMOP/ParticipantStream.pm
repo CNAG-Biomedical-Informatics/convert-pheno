@@ -65,10 +65,26 @@ sub omop_stream_dispatcher {
     my $omop_tables = $self->{prev_omop_tables};
 
     Convert::Pheno::open_connections_SQLite($self) if $self->{method} ne 'bff2pxf';
+    my $multi_entity_stream =
+      Convert::Pheno::omop_streams_multiple_entities_wrapper($self);
+    Convert::Pheno::omop_stream_targets_open_wrapper($self)
+      if $multi_entity_stream;
 
-    return @$filepaths
-      ? process_csv_files_stream( $self, $filepaths )
-      : process_sqldump_stream( $self, $filepath, $omop_tables );
+    my $ok = eval {
+        @$filepaths
+          ? process_csv_files_stream( $self, $filepaths )
+          : process_sqldump_stream( $self, $filepath, $omop_tables );
+    };
+    my $err = $@;
+
+    Convert::Pheno::omop_stream_targets_finalize_wrapper($self)
+      if $multi_entity_stream;
+    Convert::Pheno::close_connections_SQLite($self)
+      unless $self->{method} eq 'bff2pxf';
+    Convert::Pheno::finalize_search_audit($self);
+
+    die $err if $err;
+    return $ok;
 }
 
 sub process_csv_files_stream {

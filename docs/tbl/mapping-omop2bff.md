@@ -2,7 +2,7 @@
 
 **Target model:** BFF
 
-**Entity:** individuals
+**Entity:** individuals, biosamples
 
 ## Terms
 
@@ -107,3 +107,19 @@ NA
 | `DEFAULT` | `treatments.doseIntervals` | Initialized as an empty list |
 | `DRUG_EXPOSURE.*` | `treatments._info.DRUG_EXPOSURE.OMOP_columns` | Provenance payload |
 | `VISIT_OCCURRENCE` context | `treatments._visit` | Added when visit context is available |
+
+## Biosamples
+
+### biosamples
+| Source field | Target field | Notes |
+| --- | --- | --- |
+| `SPECIMEN.specimen_id` | `biosamples.id` | Stringified in Beacon output |
+| `SPECIMEN.person_id` | `biosamples.individualId` | Stringified in Beacon output |
+| `SPECIMEN.specimen_concept_id` | `biosamples.sampleOriginType` | Mapped through OHDSI concepts; defaulted when absent |
+| `SPECIMEN.anatomic_site_concept_id` | `biosamples.sampleOriginDetail` | Mapped through OHDSI concepts when present |
+| `SPECIMEN.specimen_date` | `biosamples.collectionDate` | Direct |
+| `SPECIMEN.specimen_date` + `PERSON.birth_datetime` | `biosamples.collectionMoment` | Derived age |
+| `SPECIMEN.disease_status_concept_id` | `biosamples.histologicalDiagnosis` | Mapped through OHDSI concepts when present |
+| `SPECIMEN.specimen_source_value` | `biosamples.notes` | Copied as free-text notes when present |
+| `DEFAULT` | `biosamples.biosampleStatus` | Defaulted for Beacon completeness |
+| `SPECIMEN.*` | `biosamples.info.SPECIMEN.OMOP_columns` | Provenance payload |

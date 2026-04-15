@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Exporter 'import';
 our @EXPORT =
-  qw($omop_version $omop_main_table @omop_array_tables @omop_essential_tables @stream_ram_memory_tables $omop_headers);
+  qw($omop_version $omop_main_table @omop_array_tables @omop_essential_tables @omop_supported_tables @stream_ram_memory_tables $omop_headers);
 
 # NB: Direct export w/o encapsulation in subroutine
 
@@ -56,6 +56,7 @@ our @omop_array_tables = qw(
   CONDITION_OCCURRENCE
   PROCEDURE_OCCURRENCE
   DRUG_EXPOSURE
+  SPECIMEN
   VISIT_OCCURRENCE
 );
 
@@ -68,6 +69,11 @@ our @omop_essential_tables = qw(
   OBSERVATION
   DRUG_EXPOSURE
   VISIT_OCCURRENCE
+);
+
+our @omop_supported_tables = (
+    @omop_essential_tables,
+    qw(SPECIMEN)
 );
 
 our $omop_headers = {
@@ -211,6 +217,23 @@ our $omop_headers = {
         'procedure_source_value',
         'procedure_source_concept_id',
         'modifier_source_value',
+    ],
+    "SPECIMEN" => [
+        'specimen_id',
+        'person_id',
+        'specimen_concept_id',
+        'specimen_type_concept_id',
+        'specimen_date',
+        'specimen_datetime',
+        'quantity',
+        'unit_concept_id',
+        'anatomic_site_concept_id',
+        'disease_status_concept_id',
+        'specimen_source_id',
+        'specimen_source_value',
+        'unit_source_value',
+        'anatomic_site_source_value',
+        'disease_status_source_value',
     ],
     "VISIT_OCCURRENCE" => [
         'visit_occurrence_id',
