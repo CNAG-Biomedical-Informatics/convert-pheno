@@ -30,6 +30,99 @@ The response is a JSON envelope with `ok`, `data`, and `meta.conversion`.
 ??? Note "OpenAPI specification"
     The source schema for the Perl/Mojolicious wrapper lives in [api/perl/openapi.json](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/api/perl/openapi.json).
 
+## JavaScript usage
+
+The HTTP API is language-agnostic. JavaScript clients can call the same `/api` endpoint with the same JSON request body.
+
+=== "Browser (`fetch`)"
+
+    ```javascript
+    async function run() {
+      const payload = {
+        conversion: "pxf2bff",
+        input: {
+          data: {
+            subject: {
+              id: "P0007500",
+              sex: "FEMALE"
+            }
+          }
+        },
+        output: {
+          entities: ["individuals"]
+        },
+        options: {
+          test: true
+        }
+      };
+
+      const response = await fetch("http://localhost:3000/api", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const result = await response.json();
+
+      if (!result.ok) {
+        console.error(result.error);
+      } else {
+        console.log(result.data);
+      }
+    }
+
+    run();
+    ```
+
+    This browser example assumes the API is same-origin with the page, or that the deployment enables CORS.
+
+=== "Node.js (`fetch`)"
+
+    ```javascript
+    async function run() {
+      const payload = {
+        conversion: "pxf2bff",
+        input: {
+          data: {
+            subject: {
+              id: "P0007500",
+              sex: "FEMALE"
+            }
+          }
+        },
+        output: {
+          entities: ["individuals"]
+        },
+        options: {
+          test: true
+        }
+      };
+
+      const response = await fetch("http://localhost:3000/api", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const result = await response.json();
+
+      if (!result.ok) {
+        throw new Error(result.error.message);
+      }
+
+      console.log(result.meta.conversion);
+      console.log(result.data);
+    }
+
+    run().catch(console.error);
+    ```
+
+    Node.js 21+ includes stable built-in `fetch`. Older Node.js versions may require a polyfill such as `undici`.
+
 ## Recommended API routes
 
 The HTTP API works best for **self-contained payloads** where the request already carries the data needed for conversion.
@@ -53,6 +146,8 @@ The repository currently includes two API wrappers:
 - Python: [api/python](https://github.com/cnag-biomedical-informatics/convert-pheno/tree/main/api/python)
 
 The Perl implementation is the direct wrapper around the main module. The Python implementation exists for interoperability and calls the Perl conversion layer through an internal JSON bridge, so the core conversion logic still lives in Perl.
+
+Client applications in JavaScript can consume the same HTTP API without needing a dedicated JavaScript server wrapper.
 
 ## Deployment note
 

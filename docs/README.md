@@ -29,7 +29,7 @@ Most users come to `Convert-Pheno` for one of these tasks:
 
 - [Use](use-as-a-command-line-interface.md) if you want to **run the tool now**
 - [Tutorial](tutorial.md) if you want **short guided examples**
-- [Use as an API](use-as-an-api.md) if you want the **HTTP contract and API support matrix**
+- [Use as an API](use-as-an-api.md) if you want the **HTTP contract, API support matrix, and JavaScript `fetch` examples**
 - [Analysis](analysis.md) if you want to work with the generated `individuals.json`
 - [Troubleshooting](troubleshooting.md) if something is not behaving as expected
 - [Implementation](implementation.md) if you want the **architectural view**

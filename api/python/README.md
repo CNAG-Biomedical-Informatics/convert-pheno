@@ -1,32 +1,30 @@
 # README Convert-Pheno-API (Python version)
 
-Here we provide a light API to enable requests/responses to `Convert::Pheno`. 
-
-At the time of writting this (Dec-2022) the API consists of **very basic functionalities**, but this might change depening on the community adoption.
+This directory contains the Python HTTP wrapper around `Convert::Pheno`.
 
 ### Notes:
 
 * The API is built with FastAPI.
-* This API only accepts requests using `POST` http method.
-* This API only has one endpoint `/api`.
+* The public HTTP contract uses a single `POST /api` endpoint.
 * `/api` receives a JSON object with explicit `conversion`, `input`, `output`, and `options` sections.
-* The incoming JSON data are validated against OpenAPI schema. However, the validation is superficial (i.e., we don't check clinical data themselves).
+* Incoming request bodies are validated at the payload-shape level before conversion.
 * The Python layer calls the Perl conversion code through `api/perl/json_bridge.pl`.
+* The conversion logic still runs in Perl; this wrapper only exposes the same HTTP contract through FastAPI.
 
-## Installation 
+## Installation
 
-## From GitHub + CPAN 
+### From GitHub + CPAN
 
 First install sys-level dependencies:
 
     sudo apt-get install cpanminus libbz2-dev zlib1g-dev libperl-dev python3-pip # sys-level
 
-We'll install Convert-Pheno and the dependencies in a "virtual environment" (at `local/`) . We'll be using the module `Carton` for that:
+We'll install Convert-Pheno and the dependencies in a "virtual environment" (at `local/`). We'll be using the module `Carton` for that:
 
     wget https://raw.githubusercontent.com/CNAG-Biomedical-Informatics/convert-pheno/main/api/python/install.sh
     export PATH=$PATH:local/bin; export PERL5LIB=$(pwd)/local/lib/perl5:$PERL5LIB
 
-    ./install.sh 
+    bash install.sh
 
 The installer creates a small local layout with:
 
@@ -50,7 +48,7 @@ With `uvicorn` for development:
 With `uvicorn` for production:
 
     $ cd api/python
-    $ uvicorn main:app
+    $ uvicorn main:app --host 0.0.0.0
 
 ### Containerized version
 
@@ -165,3 +163,5 @@ Successful responses use an envelope:
   }
 }
 ```
+
+Error responses use the same envelope style with `ok: false` plus an `error` object, and may also include `meta.conversion`.

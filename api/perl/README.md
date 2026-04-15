@@ -1,16 +1,14 @@
 # README Convert-Pheno-API (Perl version)
 
-Here we provide a light API to enable requests/responses to `Convert::Pheno`. 
-
-At the time of writting this (Jun-2023) the API consists of **very basic functionalities**, but this might change depening on the community adoption.
+This directory contains the Perl HTTP wrapper around `Convert::Pheno`.
 
 ### Notes:
 
-* The API is built with Mojolicius.
-* This API only accepts requests using `POST` http method.
-* This API only has one endpoint `/api`.
+* The API is built with `Mojolicious`.
+* The public HTTP contract uses a single `POST /api` endpoint.
 * `/api` receives a JSON object with explicit `conversion`, `input`, `output`, and `options` sections.
-* The incoming JSON data are validated against [OpenAPI schema](./openapi.json). However, the validation is superficial (i.e., we don't check clinical data themselves).
+* Incoming request bodies are validated against [OpenAPI schema](./openapi.json), but only at the payload-shape level.
+* The conversion logic still runs in `Convert::Pheno`; this wrapper only exposes it over HTTP.
     
 ## Installation 
 
@@ -26,7 +24,7 @@ Now we install sys-level dependencies:
 
     sudo apt-get install cpanminus libbz2-dev zlib1g-dev libperl-dev libssl-dev
 
-Now you have two choose between one of the 3 options below:
+Now choose one of the 3 options below:
 
 Option 1: System-level installation:
 
@@ -39,7 +37,7 @@ Option 2: Install Convert-Pheno and the dependencies at `~/perl5`:
     echo "requires 'Convert::Pheno';" >> cpanfile
     cpanm --notest --installdeps .
 
-Option 3: Install Convert-Pheno and the dependencies in a "virtual environment" (at `local/`) . We'll be using the module `Carton` for that:
+Option 3: Install Convert-Pheno and the dependencies in a "virtual environment" (at `local/`). We'll be using the module `Carton` for that:
 
     mkdir local
     cpanm --notest --local-lib=local/ Carton
@@ -192,3 +190,5 @@ Successful responses use an envelope:
   }
 }
 ```
+
+Error responses use the same envelope style with `ok: false` plus an `error` object, and may also include `meta.conversion`.
