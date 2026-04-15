@@ -38,24 +38,35 @@ So `BFF` is no longer only an `individuals`-centered output format, even though 
 
 === "Module"
 
-    The concept is to pass the necessary information as a hash (in Perl) or dictionary (in Python).
+    The module interface takes one flat payload. Unlike the HTTP API, module arguments are not split into `input`, `output`, and `options`.
 
     === "Perl"
 
         ```Perl
-        $bff = {
-            data => $my_bff_json_data,
-            method => 'bff2pxf'
+        use Convert::Pheno;
+
+        my $payload = {
+            method => 'bff2pxf',
+            data   => $my_bff_json_data,
+            test   => 1,
         };
+
+        my $convert = Convert::Pheno->new($payload);
+        my $pxf     = $convert->bff2pxf;
         ```
 
     === "Python"
 
         ```Python
-        bff = {
-             "data" : my_bff_json_data,
-             "method" : "bff2pxf"
+        from convertpheno import PythonBinding
+
+        payload = {
+            "method": "bff2pxf",
+            "data": my_bff_json_data,
+            "test": 1,
         }
+
+        pxf = PythonBinding(payload).convert_pheno()
         ```
 
 === "API"

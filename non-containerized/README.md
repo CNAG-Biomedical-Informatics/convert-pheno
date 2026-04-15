@@ -7,8 +7,17 @@ Use this path when you want to run `convert-pheno` directly from CPAN, GitHub, o
 On Debian-based distributions, install:
 
 ```bash
-sudo apt-get install cpanminus libbz2-dev zlib1g-dev libperl-dev libssl-dev
+sudo apt-get install cpanminus libbz2-dev zlib1g-dev libperl-dev
 ```
+
+Optional for development:
+
+```bash
+sudo apt-get install libssl-dev
+```
+
+`libssl-dev` is only needed for SSL-backed development features such as
+`--self-validate-schema`. It is not required for normal conversions.
 
 ## Method 1: From CPAN
 

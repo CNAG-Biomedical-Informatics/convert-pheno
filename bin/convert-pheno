@@ -82,6 +82,7 @@ Mapping and search:
   --redcap-dictionary|-rcd <file> REDCap data dictionary CSV file
   --schema-file <file>            Alternative JSON Schema for mapping files
   --self-validate-schema|-svs     Self-validate the mapping JSON Schema
+                                  (mainly for author/development checks)
   --search <type>                 Ontology label search mode [exact|mixed|fuzzy]
                                   Default: exact
   --text-similarity-method <m>    Token similarity for mixed/fuzzy search

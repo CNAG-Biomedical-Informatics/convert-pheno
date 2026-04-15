@@ -5,7 +5,7 @@ use warnings;
 use lib qw(./lib ../lib t/lib);
 use Test::More;
 use Test::Exception;
-use Test::ConvertPheno qw(build_convert is_ld_arch is_windows);
+use Test::ConvertPheno qw(build_convert is_ld_arch);
 
 BEGIN {
     if ( is_ld_arch() ) {
@@ -16,9 +16,6 @@ BEGIN {
         exit;
     }
 }
-
-use constant HAS_IO_SOCKET_SSL => defined eval { require IO::Socket::SSL };
-my $SELF_VALIDATE = is_windows() ? 0 : HAS_IO_SOCKET_SSL ? 1 : 0;
 
 my $base = {
     in_file           => 't/redcap2bff/in/redcap_data.csv',
@@ -33,11 +30,7 @@ my $base = {
         ERR1 => build_convert( %{$base}, in_file => 'dummy' ),
         ERR2 => build_convert( %{$base}, mapping_file => 'dummy' ),
         ERR3 => build_convert( %{$base}, method => 'foo2bar' ),
-        ERR4 => build_convert(
-            %{$base},
-            self_validate_schema => $SELF_VALIDATE ? 1 : 0,
-            schema_file          => 't/schema/malformed.json',
-        ),
+        ERR4 => build_convert( %{$base}, schema_file => 'dummy' ),
     );
 
     for my $name ( sort keys %err ) {

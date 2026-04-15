@@ -114,7 +114,7 @@ convert-pheno -ibff individuals.json -opxf pxf.json --default-vital-status UNKNO
 - `--mapping-file FILE` supplies the YAML or JSON mapping file used by `csv2bff`, `redcap2bff`, `cdisc2bff`, and related conversions.
 - `--redcap-dictionary FILE` or `-rcd FILE` supplies the REDCap data dictionary required by REDCap and CDISC input workflows.
 - `--schema-file FILE` lets you validate mapping files against an alternative JSON Schema.
-- `--self-validate-schema` or `-svs` performs a self-validation of the mapping schema itself.
+- `--self-validate-schema` or `-svs` performs a self-validation of the mapping schema itself. This is mainly an author or development check and may require SSL support in the Perl environment.
 - `--search-audit-tsv FILE` writes a TSV report of ontology lookups performed during mapping-file-driven conversions.
   The audit includes both row-level results and the effective search settings used for the run.
 - `--print-hidden-labels` or `-phl` preserves original text labels before ontology mapping in `_label` fields.

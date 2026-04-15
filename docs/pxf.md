@@ -66,23 +66,34 @@ Phenopackets organize information using [top-level elements](https://phenopacket
 
 === "Module"
 
-    The concept is to pass the necessary information as a hash (in Perl) or dictionary (in Python).
+    The module interface takes one flat payload. Unlike the HTTP API, module arguments are not split into `input`, `output`, and `options`.
 
     === "Perl"
 
         ```Perl
-        $bff = {
-            data => $my_pxf_json_data,
-            method => 'pxf2bff'
+        use Convert::Pheno;
+
+        my $payload = {
+            method => 'pxf2bff',
+            data   => $my_pxf_json_data,
+            test   => 1,
         };
+
+        my $convert = Convert::Pheno->new($payload);
+        my $bff     = $convert->pxf2bff;
         ```
    
     === "Python"
         ```Python
-        bff = {
-             "data" : my_pxf_json_data,
-             "method" : "pxf2bff"
+        from convertpheno import PythonBinding
+
+        payload = {
+            "method": "pxf2bff",
+            "data": my_pxf_json_data,
+            "test": 1,
         }
+
+        bff = PythonBinding(payload).convert_pheno()
         ```
 
 === "API"

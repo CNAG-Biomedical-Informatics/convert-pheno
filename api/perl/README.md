@@ -22,7 +22,14 @@ First we download the needed files:
 
 Now we install sys-level dependencies:
 
-    sudo apt-get install cpanminus libbz2-dev zlib1g-dev libperl-dev libssl-dev
+    sudo apt-get install cpanminus libbz2-dev zlib1g-dev libperl-dev
+
+Optional for SSL-backed development features:
+
+    sudo apt-get install libssl-dev
+
+`libssl-dev` is only needed if you want HTTPS support in the Perl wrapper or if
+you plan to use `--self-validate-schema` in the same environment.
 
 Install Convert-Pheno and the dependencies at `~/perl5`:
 
