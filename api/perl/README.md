@@ -9,7 +9,7 @@ At the time of writting this (Jun-2023) the API consists of **very basic functio
 * The API is built with Mojolicius.
 * This API only accepts requests using `POST` http method.
 * This API only has one endpoint `/api`.
-* `/api` directly receives a `POST` request with the [request body](https://swagger.io/docs/specification/2-0/describing-request-body) (payload) as JSON object. All the needed data are inside the JSON object (i.e., it does not use request parameters). 
+* `/api` receives a JSON object with explicit `conversion`, `input`, `output`, and `options` sections.
 * The incoming JSON data are validated against [OpenAPI schema](./openapi.json). However, the validation is superficial (i.e., we don't check clinical data themselves).
     
 ## Installation 
@@ -19,7 +19,7 @@ At the time of writting this (Jun-2023) the API consists of **very basic functio
 First we download the needed files:
 
     wget https://raw.githubusercontent.com/CNAG-Biomedical-Informatics/convert-pheno/main/api/perl/cpanfile
-    wget https://raw.githubusercontent.com/CNAG-Biomedical-Informatics/convert-pheno/main/api/perl/convert-pheno-api
+    wget https://raw.githubusercontent.com/CNAG-Biomedical-Informatics/convert-pheno/main/api/perl/main.pl
     wget https://raw.githubusercontent.com/CNAG-Biomedical-Informatics/convert-pheno/main/api/perl/openapi.json 
 
 Now we install sys-level dependencies:
@@ -57,33 +57,33 @@ Please see installation instructions [here](https://github.com/CNAG-Biomedical-I
 
 With `morbo` for development:
 
-    $ morbo convert-pheno-api # development (default: port 3000)
+    $ morbo main.pl # development (default: port 3000)
     
 If you installed it in a local environment then use `carton exec -- `:
 
-    $ carton exec -- morbo convert-pheno-api
+    $ carton exec -- morbo main.pl
 
 If you want to use a self-signed certificate:
 
-    $ morbo convert-pheno-api daemon -l https://*:3000
+    $ morbo main.pl daemon -l https://*:3000
 
 or with `hypnotoad`:
 
-    $ hypnotoad convert-pheno-api # production (https://localhost:8080)
+    $ hypnotoad main.pl # production (https://localhost:8080)
 
 ### Containerized version
 
 With `morbo` for development:
 
-    $ docker container run -p 3000:3000 --name convert-pheno-morbo cnag/convert-pheno:latest morbo share/api/perl/convert-pheno-api
+    $ docker container run -p 3000:3000 --name convert-pheno-morbo cnag/convert-pheno:latest morbo share/api/perl/main.pl
 
 If you want to use a self-signed certificate:
 
-    $ docker container run -p 3000:3000 --name convert-pheno-morbo cnag/convert-pheno:latest morbo share/api/perl/convert-pheno-api daemon -l https://*:3000
+    $ docker container run -p 3000:3000 --name convert-pheno-morbo cnag/convert-pheno:latest morbo share/api/perl/main.pl daemon -l https://*:3000
 
 or with `hypnotoad`:
 
-    $ docker container run -p 8080:8080 --name convert-pheno-hypnptoad cnag/convert-pheno:latest hypnotoad -f share/api/perl/convert-pheno-api
+    $ docker container run -p 8080:8080 --name convert-pheno-hypnptoad cnag/convert-pheno:latest hypnotoad -f share/api/perl/main.pl
 
 ## Examples
 
@@ -95,78 +95,100 @@ or with `hypnotoad`:
 [data.json](data.json) contents:
 ```json
 {
-  "method": "bff2pfx",
-  "data": {
-    "ethnicity": {
-      "id": "NCIT:C42331",
-      "label": "African"
-    },
-    "id": "HG00096",
-    "info": {
-      "eid": "fake1"
-    },
-    "interventionsOrProcedures": [
-      {
-        "procedureCode": {
-          "id": "OPCS4:L46.3",
-          "label": "OPCS(v4-0.0):Ligation of visceral branch of abdominal aorta NEC"
-        }
-      }
-    ],
-    "measures": [
-      {
-        "assayCode": {
-          "id": "LOINC:35925-4",
-          "label": "BMI"
-        },
-        "date": "2021-09-24",
-        "measurementValue": {
-          "quantity": {
-            "unit": {
-              "id": "NCIT:C49671",
-              "label": "Kilogram per Square Meter"
-            },
-            "value": 26.63838307
-          }
-        }
+  "conversion": "bff2pxf",
+  "input": {
+    "data": {
+      "ethnicity": {
+        "id": "NCIT:C42331",
+        "label": "African"
       },
-      {
-        "assayCode": {
-          "id": "LOINC:3141-9",
-          "label": "Weight"
-        },
-        "date": "2021-09-24",
-        "measurementValue": {
-          "quantity": {
-            "unit": {
-              "id": "NCIT:C28252",
-              "label": "Kilogram"
-            },
-            "value": 85.6358
-          }
-        }
+      "id": "HG00096",
+      "info": {
+        "eid": "fake1"
       },
-      {
-        "assayCode": {
-          "id": "LOINC:8308-9",
-          "label": "Height-standing"
-        },
-        "date": "2021-09-24",
-        "measurementValue": {
-          "quantity": {
-            "unit": {
-              "id": "NCIT:C49668",
-              "label": "Centimeter"
-            },
-            "value": 179.2973
+      "interventionsOrProcedures": [
+        {
+          "procedureCode": {
+            "id": "OPCS4:L46.3",
+            "label": "OPCS(v4-0.0):Ligation of visceral branch of abdominal aorta NEC"
           }
         }
+      ],
+      "measures": [
+        {
+          "assayCode": {
+            "id": "LOINC:35925-4",
+            "label": "BMI"
+          },
+          "date": "2021-09-24",
+          "measurementValue": {
+            "quantity": {
+              "unit": {
+                "id": "NCIT:C49671",
+                "label": "Kilogram per Square Meter"
+              },
+              "value": 26.63838307
+            }
+          }
+        },
+        {
+          "assayCode": {
+            "id": "LOINC:3141-9",
+            "label": "Weight"
+          },
+          "date": "2021-09-24",
+          "measurementValue": {
+            "quantity": {
+              "unit": {
+                "id": "NCIT:C28252",
+                "label": "Kilogram"
+              },
+              "value": 85.6358
+            }
+          }
+        },
+        {
+          "assayCode": {
+            "id": "LOINC:8308-9",
+            "label": "Height-standing"
+          },
+          "date": "2021-09-24",
+          "measurementValue": {
+            "quantity": {
+              "unit": {
+                "id": "NCIT:C49668",
+                "label": "Centimeter"
+              },
+              "value": 179.2973
+            }
+          }
+        }
+      ],
+      "sex": {
+        "id": "NCIT:C20197",
+        "label": "male"
       }
-    ],
-    "sex": {
-      "id": "NCIT:C20197",
-      "label": "male"
     }
+  },
+  "output": {
+    "entities": ["individuals"]
+  },
+  "options": {
+    "ohdsi_db": false
+  }
+}
+```
+
+Successful responses use an envelope:
+
+```json
+{
+  "ok": true,
+  "data": {
+    "...": "conversion result"
+  },
+  "meta": {
+    "conversion": "bff2pxf"
   }
 }
 ```

@@ -1,8 +1,8 @@
 {
-  "method": "omop2bff",
-  "ohdsi_db": false,
-  "data": {
-    "CONCEPT": [
+  "conversion": "omop2bff",
+  "input": {
+    "data": {
+      "CONCEPT": [
       {
         "concept_class_id": "Undefined",
         "concept_code": "No matching concept",
@@ -40,7 +40,7 @@
         "vocabulary_id": "LOINC"
       }
     ],
-    "MEASUREMENT": [
+      "MEASUREMENT": [
       {
         "measurement_concept_id": 3006322,
         "measurement_date": "1998-10-03",
@@ -64,7 +64,7 @@
         "visit_occurrence_id": 64994
       }
     ],
-    "PERSON": [
+      "PERSON": [
       {
         "birth_datetime": "1963-12-31 00:00:00",
         "care_site_id": "\\N",
@@ -85,6 +85,10 @@
         "race_source_value": "black",
         "year_of_birth": 1963
       }
-    ]
+      ]
+    }
+  },
+  "options": {
+    "ohdsi_db": false
   }
 }

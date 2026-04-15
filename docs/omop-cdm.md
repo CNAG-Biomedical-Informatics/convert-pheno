@@ -192,215 +192,108 @@ This writes table files such as `omop_export_PERSON.csv`, `omop_export_CONDITION
 
 === "Module"
 
-    For developers who wish to retrieve data in **real-time**, we also offer the option of using the module version. With this option, the developer has to handle database credentials, queries, etc. using one of the many available PostgreSQL [drivers](https://wiki.postgresql.org/wiki/List_of_drivers).
-
-    The idea is to pass the essential information to `Convert-Pheno` as a hash (in Perl) or dictionary (in Python). It is not necessary to send all the tables shown in the example, only the ones you wish to transform.
-
+    For developers who wish to retrieve data in **real time**, the module can also receive OMOP tables directly as in-memory data structures. The module interface uses one flat payload. Unlike the API, the arguments are not split into `input`, `output`, and `options` sections.
 
     !!! Tip "Tip"
-        The defintions are stored in table `CONCEPT`. If you send the complete `CONCEPT` table then `Convert-Pheno` will be able to find a match, otherwise it will require setting the parameter `ohdsi_db = 1` (true).
+        Definitions are stored in table `CONCEPT`. If you do not pass the relevant `CONCEPT` rows yourself, set `ohdsi_db => 1` (or `True` in Python) so the converter can resolve terms from the Athena-OHDSI SQLite database.
 
     === "Perl"
-        ```Perl
-        my $data = 
-        {
-          method => 'omop2bff',
-          ohdsi_db => 0,
-          data => 
-          {
-              'CONCEPT' => [
-                             {
-                               'concept_class_id' => 'Undefined',
-                               'concept_code' => 'No matching concept',
-                               'concept_id' => 0,
-                               'concept_name' => 'No matching concept',
-                               'domain_id' => 'Metadata',
-                               'invalid_reason' => undef,
-                               'standard_concept' => undef,
-                               'valid_end_date' => '2099-12-31',
-                               'valid_start_date' => '1970-01-01',
-                               'vocabulary_id' => 'None'
-                             },
-                             {
-                               'concept_class_id' => 'Gender',
-                               'concept_code' => 'F',
-                               'concept_id' => 8532,
-                               'concept_name' => 'FEMALE',
-                               'domain_id' => 'Gender',
-                               'invalid_reason' => undef,
-                               'standard_concept' => 'S',
-                               'valid_end_date' => '2099-12-31',
-                               'valid_start_date' => '1970-01-01',
-                               'vocabulary_id' => 'Gender'
-                             },
-                             {
-                               'concept_class_id' => 'Clinical Observation',
-                               'concept_code' => '8331-1',
-                               'concept_id' => 3006322,
-                               'concept_name' => 'Oral temperature',
-                               'domain_id' => 'Measurement',
-                               'invalid_reason' => undef,
-                               'standard_concept' => 'S',
-                               'valid_end_date' => '2099-12-31',
-                               'valid_start_date' => '1996-09-06',
-                               'vocabulary_id' => 'LOINC'
-                             }
-                           ],
-              'MEASUREMENT' => [
-                                 {
-                                   'measurement_concept_id' => 3006322,
-                                   'measurement_date' => '1998-10-03',
-                                   'measurement_datetime' => '1998-10-03 00:00:00',
-                                   'measurement_id' => 10204,
-                                   'measurement_source_concept_id' => 3006322,
-                                   'measurement_source_value' => '8331-1',
-                                   'measurement_time' => '1998-10-03',
-                                   'measurement_type_concept_id' => 5001,
-                                   'operator_concept_id' => 0,
-                                   'person_id' => 974,
-                                   'provider_id' => 0,
-                                   'range_high' => '\\N',
-                                   'range_low' => '\\N',
-                                   'unit_concept_id' => 0,
-                                   'unit_source_value' => undef,
-                                   'value_as_concept_id' => 0,
-                                   'value_as_number' => 4,
-                                   'value_source_value' => undef,
-                                   'visit_detail_id' => 0,
-                                   'visit_occurrence_id' => 64994
-                                 }
-                               ],
-              'PERSON' => [
-                            {
-                              'birth_datetime' => '1963-12-31 00:00:00',
-                              'care_site_id' => '\\N',
-                              'day_of_birth' => 31,
-                              'ethnicity_concept_id' => 0,
-                              'ethnicity_source_concept_id' => 0,
-                              'ethnicity_source_value' => 'west_indian',
-                              'gender_concept_id' => 8532,
-                              'gender_source_concept_id' => 0,
-                              'gender_source_value' => 'F',
-                              'location_id' => '\\N',
-                              'month_of_birth' => 12,
-                              'person_id' => 974,
-                              'person_source_value' => '001f4a87-70d0-435c-a4b9-1425f6928d33',
-                              'provider_id' => '\\N',
-                              'race_concept_id' => 8516,
-                              'race_source_concept_id' => 0,
-                              'race_source_value' => 'black',
-                              'year_of_birth' => 1963
-                            }
-                          ]
-               }
+        ```perl
+        use Convert::Pheno;
+
+        my $payload = {
+            method   => 'omop2bff',
+            ohdsi_db => 0,
+            test     => 1,
+            data     => {
+                PERSON => [
+                    {
+                        person_id                => 974,
+                        gender_concept_id        => 8532,
+                        gender_source_value      => 'F',
+                        year_of_birth            => 1963,
+                        ethnicity_source_value   => 'west_indian',
+                    }
+                ],
+                CONCEPT => [
+                    {
+                        concept_id     => 8532,
+                        concept_name   => 'FEMALE',
+                        vocabulary_id  => 'Gender',
+                    }
+                ],
+            },
         };
+
+        my $convert = Convert::Pheno->new($payload);
+        my $bff     = $convert->omop2bff;
         ```
 
     === "Python"
 
-         ```Python
-         data = 
-         {
-           "method": "omop2bff",
-           "ohdsi_db": False,
-           "data": {
-             "CONCEPT": [
-               {
-                 "concept_class_id": "Undefined",
-                 "concept_code": "No matching concept",
-                 "concept_id": 0,
-                 "concept_name": "No matching concept",
-                 "domain_id": "Metadata",
-                 "invalid_reason": null,
-                 "standard_concept": null,
-                 "valid_end_date": "2099-12-31",
-                 "valid_start_date": "1970-01-01",
-                 "vocabulary_id": "None"
-               },
-               {
-                 "concept_class_id": "Gender",
-                 "concept_code": "F",
-                 "concept_id": 8532,
-                 "concept_name": "FEMALE",
-                 "domain_id": "Gender",
-                 "invalid_reason": null,
-                 "standard_concept": "S",
-                 "valid_end_date": "2099-12-31",
-                 "valid_start_date": "1970-01-01",
-                 "vocabulary_id": "Gender"
-               },
-               {
-                 "concept_class_id": "Clinical Observation",
-                 "concept_code": "8331-1",
-                 "concept_id": 3006322,
-                 "concept_name": "Oral temperature",
-                 "domain_id": "Measurement",
-                 "invalid_reason": null,
-                 "standard_concept": "S",
-                 "valid_end_date": "2099-12-31",
-                 "valid_start_date": "1996-09-06",
-                 "vocabulary_id": "LOINC"
-               }
-             ],
-             "MEASUREMENT": [
-               {
-                 "measurement_concept_id": 3006322,
-                 "measurement_date": "1998-10-03",
-                 "measurement_datetime": "1998-10-03 00:00:00",
-                 "measurement_id": 10204,
-                 "measurement_source_concept_id": 3006322,
-                 "measurement_source_value": "8331-1",
-                 "measurement_time": "1998-10-03",
-                 "measurement_type_concept_id": 5001,
-                 "operator_concept_id": 0,
-                 "person_id": 974,
-                 "provider_id": 0,
-                 "range_high": "\\N",
-                 "range_low": "\\N",
-                 "unit_concept_id": 0,
-                 "unit_source_value": null,
-                 "value_as_concept_id": 0,
-                 "value_as_number": 4,
-                 "value_source_value": null,
-                 "visit_detail_id": 0,
-                 "visit_occurrence_id": 64994
-               }
-             ],
-             "PERSON": [
-               {
-                 "birth_datetime": "1963-12-31 00:00:00",
-                 "care_site_id": "\\N",
-                 "day_of_birth": 31,
-                 "ethnicity_concept_id": 0,
-                 "ethnicity_source_concept_id": 0,
-                 "ethnicity_source_value": "west_indian",
-                 "gender_concept_id": 8532,
-                 "gender_source_concept_id": 0,
-                 "gender_source_value": "F",
-                 "location_id": "\\N",
-                 "month_of_birth": 12,
-                 "person_id": 974,
-                 "person_source_value": "001f4a87-70d0-435c-a4b9-1425f6928d33",
-                 "provider_id": "\\N",
-                 "race_concept_id": 8516,
-                 "race_source_concept_id": 0,
-                 "race_source_value": "black",
-                 "year_of_birth": 1963
-               }
-             ]
-           }
-         }
-         ```
+        ```python
+        from convertpheno import PythonBinding
+
+        payload = {
+            "method": "omop2bff",
+            "ohdsi_db": False,
+            "test": 1,
+            "data": {
+                "PERSON": [
+                    {
+                        "person_id": 974,
+                        "gender_concept_id": 8532,
+                        "gender_source_value": "F",
+                        "year_of_birth": 1963,
+                        "ethnicity_source_value": "west_indian",
+                    }
+                ],
+                "CONCEPT": [
+                    {
+                        "concept_id": 8532,
+                        "concept_name": "FEMALE",
+                        "vocabulary_id": "Gender",
+                    }
+                ],
+            },
+        }
+
+        bff = PythonBinding(payload).convert_pheno()
+        ```
 
 === "API"
 
     All said for the Module also works for the API.
-    See example data [here](https://github.com/cnag-biomedical-informatics/convert-pheno/blob/main/api/perl/omop.json).
+    The API request payload now uses explicit `conversion`, `input`, `output`, and `options` sections. A small example is:
 
     ```json
     {
-      "data": { ... },
-      "method": "omop2bff",
-      "ohdsi_db": true
+      "conversion": "omop2bff",
+      "input": {
+        "data": {
+          "PERSON": [
+            {
+              "person_id": 974,
+              "gender_concept_id": 8532,
+              "year_of_birth": 1963
+            }
+          ],
+          "CONCEPT": [
+            {
+              "concept_id": 8532,
+              "concept_name": "FEMALE",
+              "vocabulary_id": "Gender"
+            }
+          ]
+        }
+      },
+      "output": {
+        "entities": ["individuals"]
+      },
+      "options": {
+        "ohdsi_db": true
+      }
     }
     ```
+
+    See a larger example payload [here](https://github.com/cnag-biomedical-informatics/convert-pheno/blob/main/api/perl/omop.json).

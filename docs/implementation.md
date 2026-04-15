@@ -34,6 +34,11 @@ graph TB
 
     Power users may want to check the [module](use-as-a-module.md) or the [API](use-as-an-api.md) version. 
 
+!!! Note "API scope"
+    The HTTP API is primarily intended for **self-contained JSON conversions** such as `BFF`, `PXF`, and carefully prepared `OMOP-CDM` payloads.
+
+    Mapping-file-based routes such as `CSV`, `REDCap`, and `CDISC-ODM` are still better handled through the CLI, because they depend on extra artifacts like mapping files and data dictionaries rather than on one clean request payload.
+
 ## Software architecture
 
 The [core module](https://metacpan.org/pod/Convert::Pheno) is divided into several sub-modules. The main package, `Convert::Pheno`, handles class initialization and employs the [Moo](https://metacpan.org/pod/Moo) module along with [Types::Standard](https://metacpan.org/pod/Types::Standard) for data validation. In architectural terms, most conversions still use `BFF` as the internal target or center model: source formats are first mapped to normalized Beacon `individuals`, and from there can continue to outputs such as `PXF` or `OMOP CDM`.

@@ -66,6 +66,22 @@ Due to the flexibility of REDCap projects, it can be challenging to develop a so
 
     While it is _technically possible_ to perform a transformation via API we don't think it's a viable option with REDCap projects due to the need for loading the data dictionary and mapping files along with the data. Therefore, we recommend using the **command-line** version by utilizing REDCap data exports.
 
+    If you still want to call the API, the request payload uses explicit `conversion`, `input`, and `options` sections:
+
+    ```json
+    {
+      "conversion": "redcap2bff",
+      "input": {
+        "in_file": "redcap.csv",
+        "redcap_dictionary": "dictionary.csv",
+        "mapping_file": "mapping.yaml"
+      },
+      "options": {
+        "search": "exact"
+      }
+    }
+    ```
+
     ??? Warning "REDCap built in API"
         REDCap has a built-in API that in theory could be used to retrieve data in real-time (as opposed to data exports). However, the current version of `Convert-Pheno` does not support REDCap API calls.
     --8<-- "tbl/formats.md"

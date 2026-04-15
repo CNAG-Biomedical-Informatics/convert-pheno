@@ -15,24 +15,32 @@
           "content": {
             "application/json": {
               "schema": {
-                "title": "Data",
+                "title": "ConversionRequest",
                 "required": [
-                  "method",
-                  "data"
+                  "conversion",
+                  "input"
                 ],
                 "type": "object",
+                "additionalProperties": false,
                 "properties": {
-                  "method": {
-                    "title": "Method",
+                  "conversion": {
+                    "title": "Conversion",
                     "type": "string"
                   },
-                  "data": {
-                    "title": "Data",
-                    "type": "object"
+                  "input": {
+                    "title": "Input",
+                    "type": "object",
+                    "additionalProperties": true
                   },
-                  "ohdsi_db": {
-                    "title": "OHDSI-DB",
-                    "type": "boolean"
+                  "output": {
+                    "title": "Output",
+                    "type": "object",
+                    "additionalProperties": true
+                  },
+                  "options": {
+                    "title": "Options",
+                    "type": "object",
+                    "additionalProperties": true
                   }
                 }
               }
@@ -45,7 +53,74 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "ok",
+                    "data",
+                    "meta"
+                  ],
+                  "properties": {
+                    "ok": {
+                      "type": "boolean",
+                      "enum": [true]
+                    },
+                    "data": {},
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "conversion": {
+                          "type": "string"
+                        }
+                      },
+                      "required": ["conversion"]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Request validation or conversion error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "ok",
+                    "error"
+                  ],
+                  "properties": {
+                    "ok": {
+                      "type": "boolean",
+                      "enum": [false]
+                    },
+                    "error": {
+                      "type": "object",
+                      "required": [
+                        "code",
+                        "message"
+                      ],
+                      "properties": {
+                        "code": {
+                          "type": "string"
+                        },
+                        "message": {
+                          "type": "string"
+                        },
+                        "details": {}
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "conversion": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
               }
             }
           }

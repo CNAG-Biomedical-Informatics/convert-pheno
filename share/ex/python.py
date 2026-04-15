@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 #
-#   Example script on how to use Convert::Pheno in Python
+#   Example script on how to use Convert::Pheno directly from Python
 #
 #   This file is part of Convert::Pheno
 #
-#   Last Modified: Dec/14/2022
+#   Last Modified: Apr/15/2026
 #
 #   $VERSION taken from Convert::Pheno
 #
@@ -14,8 +14,10 @@
 
 import json
 import sys
+
+# Provide the path to <convert-pheno/lib> when running from the repository
+# checkout instead of an installed Python environment.
 sys.path.append('../../lib/')
-sys.path.append('lib/perl5/site_perl/')
 from convertpheno import PythonBinding
 
 
@@ -33,16 +35,20 @@ def main():
       }
     }
 
-    # Create dictionary
-    json_data = {
+    # Create request payload. Module parameters are passed in one flat payload,
+    # unlike the structured HTTP API. PythonBinding shells out to the Perl JSON
+    # bridge under api/perl/json_bridge.pl, but it can still be used directly
+    # from Python code without running the HTTP API.
+    payload = {
         "method": "pxf2bff",
-        "data": my_pxf_json_data
+        "data": my_pxf_json_data,
+        "test": 1,
     }
 
-    # Creating object for class PythonBinding
-    convert = PythonBinding(json_data)
+    # Create bridge-backed binding object
+    convert = PythonBinding(payload)
 
-    # Run method convert_pheno and beautify with json.dumps
+    # Run method convert_pheno and print formatted JSON
     print(json.dumps(convert.convert_pheno(), indent=4, sort_keys=True))
 
 

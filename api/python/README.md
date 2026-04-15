@@ -9,8 +9,9 @@ At the time of writting this (Dec-2022) the API consists of **very basic functio
 * The API is built with FastAPI.
 * This API only accepts requests using `POST` http method.
 * This API only has one endpoint `/api`.
-* `/api` directly receives a `POST` request with the [request body](https://swagger.io/docs/specification/2-0/describing-request-body) (payload) as JSON object. All the needed data are inside the JSON object (i.e., it does not use request parameters).
+* `/api` receives a JSON object with explicit `conversion`, `input`, `output`, and `options` sections.
 * The incoming JSON data are validated against OpenAPI schema. However, the validation is superficial (i.e., we don't check clinical data themselves).
+* The Python layer calls the Perl conversion code through `api/perl/json_bridge.pl`.
 
 ## Installation 
 
@@ -27,6 +28,12 @@ We'll install Convert-Pheno and the dependencies in a "virtual environment" (at 
 
     ./install.sh 
 
+The installer creates a small local layout with:
+
+- `api/python/main.py`
+- `api/perl/json_bridge.pl`
+- `lib/convertpheno.py`
+
 ### With Docker
 
 Please see installation instructions [here](https://github.com/mrueda/convert-pheno#containerized-recommended-method).
@@ -37,11 +44,13 @@ Please see installation instructions [here](https://github.com/mrueda/convert-ph
 
 With `uvicorn` for development:
 
+    $ cd api/python
     $ uvicorn main:app --reload # development (default: port 8000)
 
 With `uvicorn` for production:
 
-    $ uvicorn main:app 
+    $ cd api/python
+    $ uvicorn main:app
 
 ### Containerized version
 
@@ -53,84 +62,106 @@ With `uvicorn` for development:
 
 ### POST with a data file (Beacon v2 to Phenopacket v2)
 
-    $ curl -d "@data.json" -X POST http://localhost:8000/api
-    $ curl -k -d "@data.json" -X POST https://localhost:8000/api # -k tells cURL to accept self-signed certificates
+    $ curl -d "@data.json" -H 'Content-Type: application/json' -X POST http://localhost:8000/api
+    $ curl -k -d "@data.json" -H 'Content-Type: application/json' -X POST https://localhost:8000/api # -k tells cURL to accept self-signed certificates
 
 [data.json](data.json) contents:
 ```json
 {
-  "method": "bff2pfx",
-  "data": {
-    "ethnicity": {
-      "id": "NCIT:C42331",
-      "label": "African"
-    },
-    "id": "HG00096",
-    "info": {
-      "eid": "fake1"
-    },
-    "interventionsOrProcedures": [
-      {
-        "procedureCode": {
-          "id": "OPCS4:L46.3",
-          "label": "OPCS(v4-0.0):Ligation of visceral branch of abdominal aorta NEC"
-        }
-      }
-    ],
-    "measures": [
-      {
-        "assayCode": {
-          "id": "LOINC:35925-4",
-          "label": "BMI"
-        },
-        "date": "2021-09-24",
-        "measurementValue": {
-          "quantity": {
-            "unit": {
-              "id": "NCIT:C49671",
-              "label": "Kilogram per Square Meter"
-            },
-            "value": 26.63838307
-          }
-        }
+  "conversion": "bff2pxf",
+  "input": {
+    "data": {
+      "ethnicity": {
+        "id": "NCIT:C42331",
+        "label": "African"
       },
-      {
-        "assayCode": {
-          "id": "LOINC:3141-9",
-          "label": "Weight"
-        },
-        "date": "2021-09-24",
-        "measurementValue": {
-          "quantity": {
-            "unit": {
-              "id": "NCIT:C28252",
-              "label": "Kilogram"
-            },
-            "value": 85.6358
-          }
-        }
+      "id": "HG00096",
+      "info": {
+        "eid": "fake1"
       },
-      {
-        "assayCode": {
-          "id": "LOINC:8308-9",
-          "label": "Height-standing"
-        },
-        "date": "2021-09-24",
-        "measurementValue": {
-          "quantity": {
-            "unit": {
-              "id": "NCIT:C49668",
-              "label": "Centimeter"
-            },
-            "value": 179.2973
+      "interventionsOrProcedures": [
+        {
+          "procedureCode": {
+            "id": "OPCS4:L46.3",
+            "label": "OPCS(v4-0.0):Ligation of visceral branch of abdominal aorta NEC"
           }
         }
+      ],
+      "measures": [
+        {
+          "assayCode": {
+            "id": "LOINC:35925-4",
+            "label": "BMI"
+          },
+          "date": "2021-09-24",
+          "measurementValue": {
+            "quantity": {
+              "unit": {
+                "id": "NCIT:C49671",
+                "label": "Kilogram per Square Meter"
+              },
+              "value": 26.63838307
+            }
+          }
+        },
+        {
+          "assayCode": {
+            "id": "LOINC:3141-9",
+            "label": "Weight"
+          },
+          "date": "2021-09-24",
+          "measurementValue": {
+            "quantity": {
+              "unit": {
+                "id": "NCIT:C28252",
+                "label": "Kilogram"
+              },
+              "value": 85.6358
+            }
+          }
+        },
+        {
+          "assayCode": {
+            "id": "LOINC:8308-9",
+            "label": "Height-standing"
+          },
+          "date": "2021-09-24",
+          "measurementValue": {
+            "quantity": {
+              "unit": {
+                "id": "NCIT:C49668",
+                "label": "Centimeter"
+              },
+              "value": 179.2973
+            }
+          }
+        }
+      ],
+      "sex": {
+        "id": "NCIT:C20197",
+        "label": "male"
       }
-    ],
-    "sex": {
-      "id": "NCIT:C20197",
-      "label": "male"
     }
+  },
+  "output": {
+    "entities": ["individuals"]
+  },
+  "options": {
+    "ohdsi_db": false
+  }
+}
+```
+
+Successful responses use an envelope:
+
+```json
+{
+  "ok": true,
+  "data": {
+    "...": "conversion result"
+  },
+  "meta": {
+    "conversion": "bff2pxf"
   }
 }
 ```

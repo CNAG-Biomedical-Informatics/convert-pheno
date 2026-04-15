@@ -76,18 +76,6 @@ To deactivate the environment:
 conda deactivate
 ```
 
-### Optional: Use The Perl Module From Python
-
-If you still want the legacy Python bridge inside the Conda environment, install `PyPerler` separately:
-
-```bash
-git clone https://github.com/tkluck/pyperler
-cd pyperler
-make install 2> install.log
-```
-
-After that, the example script installed with `Convert::Pheno` should be available under your Conda environment's Perl shared files.
-
 ## Method 3: From GitHub
 
 Clone the repository:

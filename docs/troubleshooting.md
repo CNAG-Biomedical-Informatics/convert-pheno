@@ -33,18 +33,24 @@ and the matching REDCap dictionary file should be included.
 
 If your export uses labels instead of raw data, you can still work through the [CSV](csv.md) route instead of the `-iredcap` route.
 
-## PyPerler / Python binding installation
+## Python API / local bridge installation
 
-If you are installing the non-containerized version from source and run into problems around the legacy Python binding, check whether the system is missing:
+The current Python support path shells out to a small Perl JSON bridge.
 
-- `cython3`
-- `libperl-dev`
+If you are installing the non-containerized version from source, check whether the system is missing:
+
+- `perl`
+- `cpanm`
+- `python3-pip`
 
 On Debian or Ubuntu systems, that usually means:
 
 ```bash
-sudo apt-get install cython3 libperl-dev
+sudo apt-get install cpanminus python3-pip perl
 ```
 
-This only applies if you need the old Python binding layer.
+If the Python API still fails, also verify that:
 
+- `Convert::Pheno` and its Perl dependencies were installed successfully
+- the repo-local helper exists at `api/perl/json_bridge.pl`
+- the Python helper exists at `lib/convertpheno.py`

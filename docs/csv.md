@@ -45,4 +45,19 @@
 
     While it is *technically possible* to perform a transformation via the `Convert-Pheno` API, we don't think this is how most people will transform CSV files (due to the need of the mapping file). Therefore, we recommend using the **command-line** version.
 
+    If you still want to call the API, the request payload uses explicit `conversion`, `input`, and `options` sections:
+
+    ```json
+    {
+      "conversion": "csv2bff",
+      "input": {
+        "in_file": "clinical_data.csv",
+        "mapping_file": "clinical_data_mapping.yaml"
+      },
+      "options": {
+        "sep": ","
+      }
+    }
+    ```
+
     --8<-- "tbl/formats.md"

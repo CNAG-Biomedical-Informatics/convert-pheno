@@ -60,13 +60,27 @@ So `BFF` is no longer only an `individuals`-centered output format, even though 
 
 === "API"
 
-    The data will be sent as `POST` to the API's URL (see more info [here](use-as-an-api.md)).
-    ```
+    Send a `POST` request to the API URL (see more info [here](use-as-an-api.md)) with a small payload like:
+
+    ```json
     {
-    "data": {...}
-    "method": "bff2pxf"
+      "conversion": "bff2pxf",
+      "input": {
+        "data": {
+          "id": "HG00096",
+          "sex": {
+            "id": "NCIT:C20197",
+            "label": "male"
+          }
+        }
+      },
+      "output": {
+        "entities": ["individuals"]
+      }
     }
     ```
+
+    Successful API responses wrap the conversion result under `data`.
 
 ## BFF As Output
 

@@ -87,13 +87,29 @@ Phenopackets organize information using [top-level elements](https://phenopacket
 
 === "API"
 
-    The data will be sent as `POST` to the API's URL (see more info [here](use-as-an-api.md)).
-    ```
+    Send a `POST` request to the API URL (see more info [here](use-as-an-api.md)) with a small payload like:
+
+    ```json
     {
-    "data": {...}
-    "method": "pxf2bff"
+      "conversion": "pxf2bff",
+      "input": {
+        "data": {
+          "phenopacket": {
+            "id": "P0007500",
+            "subject": {
+              "id": "P0007500",
+              "sex": "FEMALE"
+            }
+          }
+        }
+      },
+      "output": {
+        "entities": ["individuals"]
+      }
     }
     ```
+
+    Successful API responses wrap the conversion result under `data`.
 
 ## PXF As Output
 

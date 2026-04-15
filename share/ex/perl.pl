@@ -1,10 +1,10 @@
 #!/usr/bin/env perl
 #
-#   Example script on how to use Convert::Pheno in Perl
+#   Example script on how to use Convert::Pheno directly from Perl
 #
 #   This file is part of Convert::Pheno
 #
-#   Last Modified: Dec/14/2022
+#   Last Modified: Apr/15/2026
 #
 #   $VERSION taken from Convert::Pheno
 #
@@ -14,17 +14,11 @@
 
 use strict;
 use warnings;
-use Data::Dumper;
+use JSON::XS;
 
-# *** IMPORTANT ***
-###############################
-# We have to provide the path #
-# to <convert-pheno/lib>      #
-# if the module WAS NOT       #
-# installed from CPAN         #
-###############################
-use lib '../../lib';             #
-###############################
+# Provide the path to <convert-pheno/lib> when running from the repository
+# checkout instead of an installed Perl environment.
+use lib '../../lib';
 use Convert::Pheno;
 
 # Define method
@@ -40,16 +34,18 @@ my $my_pxf_json_data = {
             "sex"         => "FEMALE"
         }
     }
-  } ;
+};
 
-# Create object
+# Create object. Module parameters are passed in one flat hash, unlike the
+# structured HTTP API payload.
 my $convert = Convert::Pheno->new(
     {
         data   => $my_pxf_json_data,
-        method => $method
+        method => $method,
+        test   => 1,
     }
 );
 
-# Run method and store result in hashref
-my $hashref = $convert->$method;
-print Dumper $hashref;
+# Run method and print formatted JSON
+my $result = $convert->$method;
+print JSON::XS->new->canonical->pretty->encode($result);

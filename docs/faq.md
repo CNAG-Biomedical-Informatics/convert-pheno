@@ -105,4 +105,4 @@ Frequently Asked Questions
 
 ??? faq "I am installing `Convert-Pheno` from source ([non-containerized version](download-and-installation.md#non-containerized)) but I can't make it work. Any suggestions?"
 
-    See [Troubleshooting](troubleshooting.md#pyperler-python-binding-installation).
+    See [Troubleshooting](troubleshooting.md#python-api--local-bridge-installation).
