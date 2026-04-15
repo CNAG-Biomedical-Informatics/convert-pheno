@@ -48,7 +48,58 @@ with a non-stream command equivalent to:
   -obff individuals_csv.json --test
 ```
 
-## 3. Gzipped CSV fixtures
+## 3. Reduced MIMIC specimen fixture
+
+- `mimic_specimen/PERSON.csv`
+- `mimic_specimen/CONCEPT.csv`
+- `mimic_specimen/SPECIMEN.csv`
+
+These files are a reduced fixture derived from the public MIMIC-IV demo OMOP
+CSV export hosted by PhysioNet:
+
+- <https://physionet.org/content/mimic-iv-demo-omop/0.9/>
+
+Source files used:
+
+- `1_omop_data_csv/person.csv`
+- `1_omop_data_csv/specimen.csv`
+
+Important notes:
+
+- This fixture is intentionally reduced to only the rows needed for OMOP
+  `SPECIMEN` -> Beacon `biosamples` regression tests.
+- `PERSON.csv` keeps the original MIMIC `person_id` values for the selected
+  rows.
+- The demo OMOP `person.csv` provides year-level birth data; this fixture
+  synthesizes `birth_datetime`, `month_of_birth`, and `day_of_birth` as
+  January 1 of `year_of_birth` so `collectionMoment` tests remain
+  deterministic.
+- `CONCEPT.csv` is reduced to the concept ids referenced by the selected
+  `PERSON` and `SPECIMEN` rows.
+
+These reduced MIMIC specimen CSV fixtures are covered by:
+
+- `t/26-omop-biosamples.t`
+
+Provenance details for `mimic_specimen/`:
+
+- Download source: PhysioNet MIMIC-IV demo OMOP dataset, version `0.9`
+- Source URLs:
+  - <https://physionet.org/files/mimic-iv-demo-omop/0.9/1_omop_data_csv/person.csv>
+  - <https://physionet.org/files/mimic-iv-demo-omop/0.9/1_omop_data_csv/specimen.csv>
+- Retrieved for this fixture on `2026-04-15`
+- Selected original MIMIC `person_id` values kept in the fixture:
+  - `4668337230155062633`
+  - `2288881942133868955`
+  - `3192038106523208432`
+  - `7131048714591189903`
+- `SPECIMEN.csv` rows are reduced from those public MIMIC rows for biosample
+  regression coverage only
+- `CONCEPT.csv` is not copied from the MIMIC download; it is a reduced local
+  companion fixture containing only the OMOP concept rows needed by the
+  selected `PERSON` and `SPECIMEN` rows
+
+## 4. Gzipped CSV fixtures
 
 - `gz/PERSON.csv.gz`
 - `gz/CONCEPT.csv.gz`

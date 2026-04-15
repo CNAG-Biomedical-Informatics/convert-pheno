@@ -77,6 +77,17 @@ sub map_specimen_to_biosample {
     $biosample->{sampleOriginDetail} = $sample_origin_detail
       if defined $sample_origin_detail;
 
+    my $obtention_procedure = _map_concept(
+        $self,
+        $ohdsi_dict,
+        $specimen->{specimen_type_concept_id},
+    );
+    if ( defined $obtention_procedure ) {
+        $biosample->{obtentionProcedure} = {
+            procedureCode => $obtention_procedure,
+        };
+    }
+
     my $histological_diagnosis = _map_concept(
         $self,
         $ohdsi_dict,
@@ -85,8 +96,10 @@ sub map_specimen_to_biosample {
     $biosample->{histologicalDiagnosis} = $histological_diagnosis
       if defined $histological_diagnosis;
 
-    $biosample->{notes} = $specimen->{specimen_source_value}
-      if _has_value( $specimen->{specimen_source_value} );
+    unless ( $self->{test} ) {
+        $biosample->{info}{metaData}     = $self->{metaData};
+        $biosample->{info}{convertPheno} = $self->{convertPheno};
+    }
 
     return $biosample;
 }

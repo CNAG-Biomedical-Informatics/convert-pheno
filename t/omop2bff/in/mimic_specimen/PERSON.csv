@@ -1,0 +1,5 @@
+birth_datetime;care_site_id;day_of_birth;ethnicity_concept_id;ethnicity_source_concept_id;ethnicity_source_value;gender_concept_id;gender_source_concept_id;gender_source_value;location_id;month_of_birth;person_id;person_source_value;provider_id;race_concept_id;race_source_concept_id;race_source_value;year_of_birth
+"2073-01-01 00:00:00";\N;1;0;0;;8507;0;M;\N;1;4668337230155062633;10021487;\N;8527;2000001404;WHITE;2073
+"2102-01-01 00:00:00";\N;1;0;0;;8532;0;F;\N;1;2288881942133868955;10001217;\N;8527;2000001404;WHITE;2102
+"2083-01-01 00:00:00";\N;1;0;0;;8532;0;F;\N;1;3192038106523208432;10007795;\N;8527;2000001404;WHITE;2083
+"2133-01-01 00:00:00";\N;1;0;0;;8507;0;M;\N;1;7131048714591189903;10015860;\N;8527;2000001404;WHITE;2133

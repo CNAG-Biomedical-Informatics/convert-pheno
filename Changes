@@ -4,6 +4,10 @@ Revision history for Perl distribution Convert-Pheno
 
  - Refactored the Perl and Python APIs around the JSON bridge
  - Added support for structured multi-entity API payloads
+ - Added OMOP SPECIMEN -> BFF biosamples conversion in entity-aware BFF output
+ - Added streamed OMOP multi-entity BFF output for individuals and biosamples using line-delimited JSON files
+ - OMOP biosamples now require the SPECIMEN table when explicitly requested and fail fast when it is missing
+ - Added OMOP biosamples mapping/tests/docs and preserved legacy individuals-only -obff behavior
 
 0.30 2026-04-14XXT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 

@@ -1,0 +1,6 @@
+concept_class_id;concept_code;concept_id;concept_name;domain_id;invalid_reason;standard_concept;valid_end_date;valid_start_date;vocabulary_id
+Gender;M;8507;MALE;Gender;;S;2099-12-31;1970-01-01;Gender
+Gender;F;8532;FEMALE;Gender;;S;2099-12-31;1970-01-01;Gender
+Type Concept;OMOP4976929;32856;Lab;Metadata;;;2099-12-31;1970-01-01;"Type Concept"
+Specimen;119371008;4001183;"Specimen from abscess";Specimen;;S;2099-12-31;1970-01-01;SNOMED
+Specimen;119297000;4001225;"Blood specimen";Specimen;;S;2099-12-31;1970-01-01;SNOMED

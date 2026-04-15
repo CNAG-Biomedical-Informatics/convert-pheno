@@ -117,9 +117,11 @@ NA
 | `SPECIMEN.person_id` | `biosamples.individualId` | Stringified in Beacon output |
 | `SPECIMEN.specimen_concept_id` | `biosamples.sampleOriginType` | Mapped through OHDSI concepts; defaulted when absent |
 | `SPECIMEN.anatomic_site_concept_id` | `biosamples.sampleOriginDetail` | Mapped through OHDSI concepts when present |
+| `SPECIMEN.specimen_type_concept_id` | `biosamples.obtentionProcedure.procedureCode` | Mapped through OHDSI concepts when present |
 | `SPECIMEN.specimen_date` | `biosamples.collectionDate` | Direct |
 | `SPECIMEN.specimen_date` + `PERSON.birth_datetime` | `biosamples.collectionMoment` | Derived age |
 | `SPECIMEN.disease_status_concept_id` | `biosamples.histologicalDiagnosis` | Mapped through OHDSI concepts when present |
-| `SPECIMEN.specimen_source_value` | `biosamples.notes` | Copied as free-text notes when present |
+| `SPECIMEN.specimen_source_id` / `SPECIMEN.specimen_source_value` | none | Kept only in provenance; not promoted to Beacon schema fields by default |
 | `DEFAULT` | `biosamples.biosampleStatus` | Defaulted for Beacon completeness |
+| `metaData` / `convertPheno` | `biosamples.info.metaData` / `biosamples.info.convertPheno` | Emitted outside `--test` mode |
 | `SPECIMEN.*` | `biosamples.info.SPECIMEN.OMOP_columns` | Provenance payload |

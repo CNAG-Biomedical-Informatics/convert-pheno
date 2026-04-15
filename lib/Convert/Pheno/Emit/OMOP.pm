@@ -98,6 +98,7 @@ sub omop_stream_targets_open {
     }
 
     $self->{_omop_stream_targets} = \%targets;
+    $self->{_omop_stream_seen}    = {};
     return $self->{_omop_stream_targets};
 }
 
@@ -105,10 +106,12 @@ sub omop_stream_targets_write {
     my ( $self, $result ) = @_;
     my $targets = omop_stream_targets_open($self);
     my $json    = JSON::XS->new->canonical;
+    my $seen    = $self->{_omop_stream_seen} ||= {};
 
     if ( ref($result) && $result->can('entities') ) {
         for my $entity ( keys %{$targets} ) {
             for my $entry ( @{ $result->entities($entity) } ) {
+                next if _stream_entity_entry_seen( $seen, $entity, $entry );
                 print { $targets->{$entity}{fh} } $json->encode($entry), "\n";
             }
         }
@@ -117,6 +120,7 @@ sub omop_stream_targets_write {
 
     return 1 unless defined $result;
     return 1 unless exists $targets->{individuals};
+    return 1 if _stream_entity_entry_seen( $seen, 'individuals', $result );
 
     print { $targets->{individuals}{fh} } $json->encode($result), "\n";
     return 1;
@@ -131,7 +135,20 @@ sub omop_stream_targets_finalize {
     }
 
     delete $self->{_omop_stream_targets};
+    delete $self->{_omop_stream_seen};
     return 1;
+}
+
+sub _stream_entity_entry_seen {
+    my ( $seen, $entity, $entry ) = @_;
+    return 0
+      unless $entity eq 'individuals'
+      && ref($entry) eq 'HASH'
+      && exists $entry->{id}
+      && defined $entry->{id};
+
+    return 1 if $seen->{$entity}{ $entry->{id} }++;
+    return 0;
 }
 
 sub _stream_output_path {

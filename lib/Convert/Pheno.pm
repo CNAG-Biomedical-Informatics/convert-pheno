@@ -129,14 +129,14 @@ has max_lines_sql => (
 );
 
 has 'omop_tables' => (
-    default => sub { [@omop_essential_tables] },
+    default => sub { [@omop_supported_tables] },
     coerce  => sub {
         my $tables = shift;
 
         $tables =
           @$tables
           ? [ uniq( map { uc($_) } ( 'CONCEPT', 'PERSON', @$tables ) ) ]
-          : \@omop_essential_tables;
+          : \@omop_supported_tables;
 
         return $tables;
     },

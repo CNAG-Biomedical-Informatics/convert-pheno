@@ -232,6 +232,27 @@ sub load_json_lines {
     return [ map { decode_json($_) } @items ];
 }
 
+sub mimic_specimen_fixture_dir {
+    return File::Spec->catdir( 't', 'omop2bff', 'in', 'mimic_specimen' );
+}
+
+sub mimic_specimen_fixture_files {
+    my $dir = mimic_specimen_fixture_dir();
+    return (
+        concept  => File::Spec->catfile( $dir, 'CONCEPT.csv' ),
+        person   => File::Spec->catfile( $dir, 'PERSON.csv' ),
+        specimen => File::Spec->catfile( $dir, 'SPECIMEN.csv' ),
+    );
+}
+
+sub find_biosample_by_id {
+    my ( $biosamples, $id ) = @_;
+    for my $biosample ( @{$biosamples} ) {
+        return $biosample if $biosample->{id} eq $id;
+    }
+    return;
+}
+
 {
     no warnings 'redefine';
 
@@ -254,6 +275,7 @@ sub load_json_lines {
                 specimen_id               => 901,
                 person_id                 => 5,
                 specimen_concept_id       => 1001,
+                specimen_type_concept_id  => 1004,
                 specimen_date             => '2020-03-01',
                 anatomic_site_concept_id  => 1002,
                 disease_status_concept_id => 1003,
@@ -263,10 +285,11 @@ sub load_json_lines {
                 specimen_id               => 902,
                 person_id                 => 5,
                 specimen_concept_id       => 0,
+                specimen_type_concept_id  => 0,
                 specimen_date             => '2021-04-01',
                 anatomic_site_concept_id  => 0,
                 disease_status_concept_id => 0,
-                specimen_source_value     => '',
+                specimen_source_value     => 70003,
             },
         ],
     };
@@ -280,12 +303,58 @@ sub load_json_lines {
     is( $got->[0]{collectionMoment}, 'P40Y', 'derives collectionMoment from specimen_date and birth date' );
     is( $got->[0]{sampleOriginType}{id}, 'OHDSI:1001', 'maps specimen_concept_id to sampleOriginType' );
     is( $got->[0]{sampleOriginDetail}{id}, 'OHDSI:1002', 'maps anatomic_site_concept_id to sampleOriginDetail' );
+    is( $got->[0]{obtentionProcedure}{procedureCode}{id}, 'OHDSI:1004', 'maps specimen_type_concept_id to obtentionProcedure.procedureCode' );
     is( $got->[0]{histologicalDiagnosis}{id}, 'OHDSI:1003', 'maps disease_status_concept_id to histologicalDiagnosis' );
-    is( $got->[0]{notes}, 'first note', 'maps specimen_source_value to notes' );
     is( $got->[1]{sampleOriginType}{id}, 'NCIT:C126101', 'defaults sampleOriginType when specimen concept is missing' );
     ok( !exists $got->[1]{sampleOriginDetail}, 'does not synthesize sampleOriginDetail without a concept id' );
+    ok( !exists $got->[1]{obtentionProcedure}, 'does not synthesize obtentionProcedure without a concept id' );
     ok( !exists $got->[1]{histologicalDiagnosis}, 'does not synthesize histologicalDiagnosis without a concept id' );
+    ok( !exists $got->[0]{notes}, 'does not map specimen_source_value to notes by default' );
     is( $got->[0]{info}{SPECIMEN}{OMOP_columns}{specimen_id}, 901, 'keeps raw specimen provenance' );
+}
+
+{
+    no warnings 'redefine';
+
+    local *Convert::Pheno::OMOP::ToBFF::Biosamples::map2ohdsi = sub {
+        my ($arg) = @_;
+        return {
+            id    => "OHDSI:$arg->{concept_id}",
+            label => "label-$arg->{concept_id}",
+        };
+    };
+
+    my $self = bless(
+        {
+            data_ohdsi_dict => {},
+            test            => 0,
+            metaData        => { created => 'now' },
+            convertPheno    => { beaconSchemaVersion => '2.0.0' },
+        },
+        'Convert::Pheno'
+    );
+    my $participant = {
+        PERSON => {
+            person_id      => 5,
+            birth_datetime => '1980-01-15 00:00:00',
+        },
+        SPECIMEN => [
+            {
+                specimen_id              => 901,
+                person_id                => 5,
+                specimen_concept_id      => 1001,
+                specimen_type_concept_id => 1004,
+                specimen_date            => '2020-03-01',
+            },
+        ],
+    };
+
+    my $got = extract_participant_biosamples( $self, $participant, { id => '5' } );
+    is(
+        $got->[0]{info}{convertPheno}{beaconSchemaVersion},
+        '2.0.0',
+        'includes Beacon schema version in biosample convertPheno info when not in test mode'
+    );
 }
 
 {
@@ -317,25 +386,29 @@ sub load_json_lines {
 }
 
 {
-    my $dir = ensure_clean_dir('t/omop-biosamples-fixture');
-    my %files = write_minimal_omop_inputs($dir);
+    my %files = mimic_specimen_fixture_files();
 
     my $convert = build_convert(
         in_files  => [ @files{qw(concept person specimen)} ],
         method    => 'omop2bff',
         entities  => [ 'individuals', 'biosamples', 'datasets', 'cohorts' ],
-        out_file  => File::Spec->catfile( $dir, 'unused.json' ),
+        out_file  => File::Spec->catfile( 't', 'unused-mimic-biosamples.json' ),
         sep       => ';',
     );
 
     my $bundle = $convert->_run_bundle_view;
+    my $sample = find_biosample_by_id(
+        $bundle->entities('biosamples'),
+        '-5102033398575528989'
+    );
 
-    is( scalar @{ $bundle->entities('biosamples') }, 2, 'bundle view emits biosamples from SPECIMEN rows' );
-    is( $bundle->entities('biosamples')->[0]{id}, '101', 'bundle biosamples keep specimen ids' );
-    is( $bundle->entities('datasets')->[0]{info}{biosampleCount}, 2, 'dataset synthesis counts biosamples' );
-    is( $bundle->entities('cohorts')->[0]{cohortSize}, 1, 'cohort synthesis still uses the individuals collection' );
-
-    remove_dir_if_exists($dir);
+    is( scalar @{ $bundle->entities('biosamples') }, 12, 'bundle view emits biosamples from MIMIC SPECIMEN rows' );
+    ok( defined $sample, 'bundle biosamples include the expected MIMIC specimen row' );
+    is( $sample->{individualId}, '4668337230155062633', 'bundle biosamples keep MIMIC person linkage' );
+    is( $sample->{collectionMoment}, 'P44Y', 'bundle biosamples derive collectionMoment from fixture birth date' );
+    is( $sample->{obtentionProcedure}{procedureCode}{id}, 'Type Concept:OMOP4976929', 'bundle biosamples map specimen_type_concept_id without ohdsi.db' );
+    is( $bundle->entities('datasets')->[0]{info}{biosampleCount}, 12, 'dataset synthesis counts biosamples from the MIMIC fixture' );
+    is( $bundle->entities('cohorts')->[0]{cohortSize}, 4, 'cohort synthesis still uses the individuals collection' );
 }
 
 {
@@ -357,7 +430,7 @@ sub load_json_lines {
 
 {
     my $dir = ensure_clean_dir('t/omop-biosamples-stream-fixture');
-    my %files = write_minimal_omop_inputs($dir);
+    my %files = mimic_specimen_fixture_files();
 
     my $convert = build_convert(
         in_files => [ @files{qw(concept person specimen)} ],
@@ -374,20 +447,19 @@ sub load_json_lines {
     my $individuals = load_json_lines( File::Spec->catfile( $dir, 'individuals.json' ) );
     my $biosamples  = load_json_lines( File::Spec->catfile( $dir, 'biosamples.json' ) );
 
-    is( scalar @{$individuals}, 1, 'stream mode writes one individual line' );
-    is( scalar @{$biosamples}, 2, 'stream mode writes one biosample line per specimen row' );
-    is( $biosamples->[0]{id}, '101', 'streamed biosamples keep specimen ids' );
-    is( $biosamples->[0]{individualId}, '1', 'streamed biosamples keep participant linkage' );
+    is( scalar @{$individuals}, 4, 'stream mode writes one individual line per MIMIC person' );
+    is( scalar @{$biosamples}, 12, 'stream mode writes one biosample line per MIMIC specimen row' );
+    is( $biosamples->[0]{id}, '-5102033398575528989', 'streamed biosamples keep MIMIC specimen ids' );
+    is( $biosamples->[0]{individualId}, '4668337230155062633', 'streamed biosamples keep MIMIC participant linkage' );
 
     remove_dir_if_exists($dir);
 }
 
 {
 SKIP: {
-        skip "convert-pheno CLI not found at $cli", 11 unless -f $cli;
+        skip "convert-pheno CLI not found at $cli", 12 unless -f $cli;
 
-        my $in_dir = ensure_clean_dir('t/omop-biosamples-cli-in');
-        my %files = write_minimal_omop_inputs($in_dir);
+        my %files = mimic_specimen_fixture_files();
 
         my $out_dir = ensure_clean_dir('t/omop-biosamples-cli-out');
         my @cmd = (
@@ -408,10 +480,12 @@ SKIP: {
         my $biosamples_file = File::Spec->catfile( $out_dir, 'biosamples.json' );
         ok( -f $biosamples_file, 'CLI writes biosamples.json for OMOP biosample output' );
 
-        my $biosamples = load_json_file($biosamples_file);
-        is( scalar @{$biosamples}, 2, 'CLI biosamples output contains one entry per specimen row' );
-        is( $biosamples->[0]{id}, '101', 'CLI biosamples output uses specimen_id as id' );
-        is( $biosamples->[0]{collectionMoment}, 'P40Y', 'CLI biosamples output derives collectionMoment' );
+    my $biosamples = load_json_file($biosamples_file);
+    my $sample = find_biosample_by_id( $biosamples, '-5102033398575528989' );
+    is( scalar @{$biosamples}, 12, 'CLI biosamples output contains one entry per MIMIC specimen row' );
+    ok( defined $sample, 'CLI biosamples output includes the expected MIMIC specimen id' );
+    is( $sample->{collectionMoment}, 'P44Y', 'CLI biosamples output derives collectionMoment from the MIMIC fixture' );
+    is( $sample->{obtentionProcedure}{procedureCode}{id}, 'Type Concept:OMOP4976929', 'CLI biosamples map specimen_type_concept_id without ohdsi.db' );
 
         my $stream_out_dir = ensure_clean_dir('t/omop-biosamples-cli-stream-out');
         my @stream_cmd = (
@@ -432,8 +506,8 @@ SKIP: {
 
         my $stream_individuals = load_json_lines( File::Spec->catfile( $stream_out_dir, 'individuals.json' ) );
         my $stream_biosamples  = load_json_lines( File::Spec->catfile( $stream_out_dir, 'biosamples.json' ) );
-        is( scalar @{$stream_individuals}, 1, 'CLI stream writes individuals as line-delimited JSON' );
-        is( scalar @{$stream_biosamples}, 2, 'CLI stream writes biosamples as line-delimited JSON' );
+        is( scalar @{$stream_individuals}, 4, 'CLI stream writes MIMIC individuals as line-delimited JSON' );
+        is( scalar @{$stream_biosamples}, 12, 'CLI stream writes MIMIC biosamples as line-delimited JSON' );
 
         my $missing_dir = ensure_clean_dir('t/omop-biosamples-cli-missing-in');
         my %missing_files = write_minimal_omop_inputs( $missing_dir, with_specimen => 0 );
@@ -508,7 +582,6 @@ SKIP: {
             'CLI prints a focused error for non-streamable entities',
         );
 
-        remove_dir_if_exists($in_dir);
         remove_dir_if_exists($out_dir);
         remove_dir_if_exists($stream_out_dir);
         remove_dir_if_exists($missing_dir);
