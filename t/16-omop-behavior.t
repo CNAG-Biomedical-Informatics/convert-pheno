@@ -153,7 +153,7 @@ use Convert::Pheno::OMOP::ToBFF qw(do_omop2bff);
     is( $got->{id}, '5', 'maps person id as string' );
     is( $got->{ethnicity}{label}, 'African', 'maps race_source_value to ethnicity' );
     is( $got->{geographicOrigin}{label}, 'Italy', 'prefers country-of-birth observations over ethnicity_source_value for geographicOrigin' );
-    ok( exists $got->{info}{metaData}, 'includes metadata when not in test mode' );
+    ok( !exists $got->{info}{metaData}, 'does not include Phenopacket-style metadata in OMOP BFF output' );
     ok( exists $got->{info}{convertPheno}, 'includes convertPheno when not in test mode' );
     is( $got->{info}{convertPheno}{beaconSchemaVersion}, '2.0.0', 'includes Beacon schema version in convertPheno info' );
 

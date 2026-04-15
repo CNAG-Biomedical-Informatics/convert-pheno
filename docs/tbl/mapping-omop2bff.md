@@ -49,7 +49,6 @@
 | --- | --- | --- |
 | `PERSON.*` | `info.PERSON.OMOP_columns` | Raw OMOP row is preserved |
 | `PERSON.birth_datetime` | `info.dateOfBirth` | Timestamp form |
-| `metaData` | `info.metaData` | Emitted outside `--test` mode |
 | `convertPheno` | `info.convertPheno` | Emitted outside `--test` mode |
 
 ### interventionsOrProcedures
@@ -123,5 +122,5 @@ NA
 | `SPECIMEN.disease_status_concept_id` | `biosamples.histologicalDiagnosis` | Mapped through OHDSI concepts when present |
 | `SPECIMEN.specimen_source_id` / `SPECIMEN.specimen_source_value` | none | Kept only in provenance; not promoted to Beacon schema fields by default |
 | `DEFAULT` | `biosamples.biosampleStatus` | Defaulted for Beacon completeness |
-| `metaData` / `convertPheno` | `biosamples.info.metaData` / `biosamples.info.convertPheno` | Emitted outside `--test` mode |
+| `convertPheno` | `biosamples.info.convertPheno` | Emitted outside `--test` mode |
 | `SPECIMEN.*` | `biosamples.info.SPECIMEN.OMOP_columns` | Provenance payload |

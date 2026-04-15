@@ -97,7 +97,6 @@ sub map_specimen_to_biosample {
       if defined $histological_diagnosis;
 
     unless ( $self->{test} ) {
-        $biosample->{info}{metaData}     = $self->{metaData};
         $biosample->{info}{convertPheno} = $self->{convertPheno};
     }
 

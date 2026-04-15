@@ -345,7 +345,6 @@ sub map_info {
     }
 
     unless ( $self->{test} ) {
-        $individual->{info}{metaData}     = $self->{metaData};
         $individual->{info}{convertPheno} = $self->{convertPheno};
     }
 
