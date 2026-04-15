@@ -99,3 +99,4 @@ post '/api' =>  sub {
 plugin OpenAPI => { url => 'file://' . catfile( $API_DIR, 'openapi.json' ), schema => 'v3' };
 app->config( hypnotoad => { listen => ['https://*:8080'] } );
 app->start unless caller;
+app;
