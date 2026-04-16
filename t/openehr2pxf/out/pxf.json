@@ -1,0 +1,159 @@
+{
+   "diseases" : [
+      {
+         "term" : {
+            "id" : "openEHR:at0002:ELEMENT:Problem_Diagnosis_name:Problem_Diagnosis_name_23",
+            "label" : "Problem/Diagnosis name 23"
+         }
+      },
+      {
+         "term" : {
+            "id" : "openEHR:at0002:ELEMENT:Problem_Diagnosis_name:Problem_Diagnosis_name_37",
+            "label" : "Problem/Diagnosis name 37"
+         }
+      },
+      {
+         "term" : {
+            "id" : "openEHR:at0002:ELEMENT:Problem_Diagnosis_name:Problem_Diagnosis_name_10",
+            "label" : "Problem/Diagnosis name 10"
+         }
+      }
+   ],
+   "id" : null,
+   "measurements" : [
+      {
+         "assay" : {
+            "id" : "LOINC:2093-3",
+            "label" : "S-Cholesterol"
+         },
+         "value" : {
+            "quantity" : {
+               "referenceRange" : {
+                  "high" : 200,
+                  "unit" : {
+                     "label" : "mg/dL"
+                  }
+               },
+               "unit" : {
+                  "label" : "mg/dL"
+               },
+               "value" : 203
+            }
+         }
+      },
+      {
+         "assay" : {
+            "id" : "openEHR:openEHR-EHR-OBSERVATION.body_temperature.v2:OBSERVATION:K_rpertemperatur:K_rpertemperatur",
+            "label" : "Körpertemperatur"
+         },
+         "value" : {
+            "quantity" : {
+               "unit" : {
+                  "label" : "°C"
+               },
+               "value" : 39
+            }
+         }
+      }
+   ],
+   "medicalActions" : [
+      {
+         "procedure" : {
+            "bodySite" : {
+               "id" : "openEHR:at0063:ELEMENT:Body_site:Body_site_65",
+               "label" : "Body site 65"
+            },
+            "code" : {
+               "id" : "openEHR:at0002:ELEMENT:Procedure_name:Procedure_name_5",
+               "label" : "Procedure name 5"
+            },
+            "performed" : {
+               "timestamp" : "2021-12-03T00:00:00Z"
+            }
+         }
+      },
+      {
+         "treatment" : {
+            "agent" : {
+               "id" : "openEHR:at0132:ELEMENT:Name:Name_5",
+               "label" : "Name 5"
+            },
+            "routeOfAdministration" : {
+               "id" : "openEHR:at0147:ELEMENT:Route:Route_20",
+               "label" : "Route 20"
+            }
+         }
+      },
+      {
+         "treatment" : {
+            "agent" : {
+               "id" : "openEHR:at0020:ELEMENT:Immunisation_item:Immunisation_item_11",
+               "label" : "Immunisation item 11"
+            },
+            "routeOfAdministration" : {
+               "id" : "openEHR:at0147:ELEMENT:Route:Route_76",
+               "label" : "Route 76"
+            }
+         }
+      }
+   ],
+   "metaData" : null,
+   "phenotypicFeatures" : [
+      {
+         "excluded" : false,
+         "type" : {
+            "id" : "openEHR:openEHR-EHR-OBSERVATION.symptom_sign_screening.v0:OBSERVATION:Husten:Husten",
+            "label" : "Husten"
+         }
+      },
+      {
+         "excluded" : false,
+         "type" : {
+            "id" : "openEHR:openEHR-EHR-OBSERVATION.symptom_sign_screening.v0:OBSERVATION:Schnupfen:Schnupfen",
+            "label" : "Schnupfen"
+         }
+      },
+      {
+         "excluded" : true,
+         "type" : {
+            "id" : "openEHR:openEHR-EHR-OBSERVATION.symptom_sign_screening.v0:OBSERVATION:Heiserkeit:Heiserkeit",
+            "label" : "Heiserkeit"
+         }
+      },
+      {
+         "excluded" : false,
+         "type" : {
+            "id" : "openEHR:openEHR-EHR-OBSERVATION.symptom_sign_screening.v0:OBSERVATION:Fieber_oder_erh_hte_K_rpertemperatur:Fieber_oder_erh_hte_K_rpertemperatur",
+            "label" : "Fieber oder erhöhte Körpertemperatur"
+         }
+      },
+      {
+         "excluded" : true,
+         "type" : {
+            "id" : "openEHR:openEHR-EHR-OBSERVATION.symptom_sign_screening.v0:OBSERVATION:Gest_rter_Geruchssinn:gest_rter_Geruchssinn",
+            "label" : "gestörter Geruchssinn"
+         }
+      },
+      {
+         "excluded" : true,
+         "type" : {
+            "id" : "openEHR:openEHR-EHR-OBSERVATION.symptom_sign_screening.v0:OBSERVATION:Gest_rter_Geschmackssinn:gest_rter_Geschmackssinn",
+            "label" : "gestörter Geschmackssinn"
+         }
+      },
+      {
+         "excluded" : true,
+         "type" : {
+            "id" : "openEHR:openEHR-EHR-OBSERVATION.symptom_sign_screening.v0:OBSERVATION:Durchfall:Durchfall",
+            "label" : "Durchfall"
+         }
+      }
+   ],
+   "subject" : {
+      "id" : "openehr-patient-2",
+      "sex" : "MALE",
+      "vitalStatus" : {
+         "status" : "ALIVE"
+      }
+   }
+}
