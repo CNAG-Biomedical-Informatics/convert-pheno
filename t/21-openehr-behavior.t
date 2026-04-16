@@ -31,6 +31,43 @@ sub with_subject_id {
     return \%copy;
 }
 
+sub rewrite_admin_gender {
+    my ( $node, $name, $code ) = @_;
+    return unless defined $node;
+
+    if ( ref($node) eq 'HASH' ) {
+        if ( exists $node->{name}
+            && ref( $node->{name} ) eq 'HASH'
+            && defined $node->{name}{value}
+            && $node->{name}{value} =~ /Administratives Geschlecht/i
+            && exists $node->{value}
+            && ref( $node->{value} ) eq 'HASH'
+            && exists $node->{value}{defining_code}
+            && ref( $node->{value}{defining_code} ) eq 'HASH' )
+        {
+            $node->{name}{value} = $name if defined $name;
+            $node->{value}{defining_code}{code_string} = $code if defined $code;
+            return 1;
+        }
+
+        for my $value ( values %{$node} ) {
+            my $updated = rewrite_admin_gender( $value, $name, $code );
+            return 1 if $updated;
+        }
+
+        return 0;
+    }
+
+    if ( ref($node) eq 'ARRAY' ) {
+        for my $entry ( @{$node} ) {
+            my $updated = rewrite_admin_gender( $entry, $name, $code );
+            return 1 if $updated;
+        }
+    }
+
+    return 0;
+}
+
 subtest 'openehr2bff aggregates canonical compositions into one individual' => sub {
     my $convert = build_convert(
         method      => 'openehr2bff',
@@ -209,6 +246,28 @@ subtest 'openehr2bff splits raw composition arrays when distinct patient ids are
     );
 };
 
+subtest 'openehr2bff splits enveloped composition arrays by embedded patient ids even when the envelope has its own id' => sub {
+    my $patient_a = with_subject_id( $gender, 'patient-a' );
+    my $patient_b = with_subject_id( $gender, 'patient-b' );
+
+    my $convert = build_convert(
+        method      => 'openehr2bff',
+        data        => {
+            id           => 'envelope-1',
+            compositions => [ $patient_a, $patient_b ],
+        },
+        in_textfile => 0,
+    );
+
+    my $individuals = $convert->openehr2bff;
+    is( ref($individuals), 'ARRAY', 'returns an array for mixed-patient enveloped input' );
+    is_deeply(
+        [ map { $_->{id} } @{$individuals} ],
+        [ 'patient-a', 'patient-b' ],
+        'does not let the envelope id suppress patient splitting'
+    );
+};
+
 subtest 'openehr2bff does not split raw composition arrays by composition-level ids' => sub {
     my $patient_a = with_subject_id( $gender, 'patient-a' );
     my $patient_b = with_subject_id( $ips,    'patient-a' );
@@ -224,6 +283,27 @@ subtest 'openehr2bff does not split raw composition arrays by composition-level 
     my $individual = $convert->openehr2bff;
     is( ref($individual), 'HASH', 'keeps one individual when embedded patient id is the same' );
     is( $individual->{id}, 'patient-a', 'uses embedded patient id instead of composition ids' );
+};
+
+subtest 'openehr2bff accepts administrative gender values beyond male and female' => sub {
+    my $gender_other = load_json_file('t/openehr2bff/in/gecco_personendaten.json');
+    ok(
+        rewrite_admin_gender( $gender_other, 'Administrative gender', 'other' ),
+        'updated the fixture to an English administrative gender node with code <other>'
+    );
+
+    my $convert = build_convert(
+        method      => 'openehr2bff',
+        data        => {
+            patient      => { id => 'openehr-patient-other' },
+            compositions => [$gender_other],
+        },
+        in_textfile => 0,
+    );
+
+    my $individual = $convert->openehr2bff;
+    is( $individual->{sex}{id}, 'NCIT:C17998', 'maps administrative gender <other> to Beacon sex <Other>' );
+    is( $individual->{sex}{label}, 'Other', 'preserves the expected Beacon sex label' );
 };
 
 done_testing;

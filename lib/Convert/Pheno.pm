@@ -892,14 +892,16 @@ sub _openehr_document_has_patient_context {
     my ($doc) = @_;
     return 0 unless ref($doc) eq 'HASH';
 
+    # Keep only explicitly patient-scoped envelope identifiers here.
+    # Top-level envelope ids such as <id> or <ehr_id> are accepted later as
+    # fallback patient identifiers, but they must not suppress per-composition
+    # splitting when distinct embedded patient ids are present.
     return 1
       if exists $doc->{patient}
       && ref( $doc->{patient} ) eq 'HASH'
       && defined $doc->{patient}{id}
       && length $doc->{patient}{id};
 
-    return 1 if defined $doc->{id} && !ref( $doc->{id} ) && length $doc->{id};
-    return 1 if defined $doc->{ehr_id};
     return 1
       if exists $doc->{ehr_status}
       && ref( $doc->{ehr_status} ) eq 'HASH'

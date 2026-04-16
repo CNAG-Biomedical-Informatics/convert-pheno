@@ -237,7 +237,7 @@ sub _find_gender_code {
         if ( exists $node->{name}
             && ref( $node->{name} ) eq 'HASH'
             && defined $node->{name}{value}
-            && $node->{name}{value} =~ /Administratives Geschlecht/i
+            && _matches_administrative_gender_name( $node->{name}{value} )
             && exists $node->{value}
             && ref( $node->{value} ) eq 'HASH'
             && exists $node->{value}{defining_code}
@@ -268,11 +268,24 @@ sub _find_gender_code {
 sub _map_gender_code {
     my ($code) = @_;
     return unless defined $code;
+    $code = lc $code;
 
     return { %{ $DEFAULT->{sex}{male} } } if $code eq 'male';
     return { %{ $DEFAULT->{sex}{female} } } if $code eq 'female';
+    return { %{ $DEFAULT->{sex}{other} } } if $code eq 'other';
+    return { %{ $DEFAULT->{sex}{unknown} } } if $code eq 'unknown';
 
     return;
+}
+
+sub _matches_administrative_gender_name {
+    my ($name) = @_;
+    return 0 unless defined $name && length $name;
+
+    return 1 if $name =~ /Administratives Geschlecht/i;
+    return 1 if $name =~ /Administrative gender/i;
+
+    return 0;
 }
 
 sub _map_first_class_arrays {

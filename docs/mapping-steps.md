@@ -39,7 +39,9 @@ graph LR
 
 ### Schema mapping
 
-When starting a new conversion between two data models, the first step is to **map variables** between the two data schemas. At the time of writing this (Sep-2023) the mapping of variables is still performed **manually** by human brains :cold_sweat:.
+When starting a new conversion between two data models, the first step is to **map variables** between the two data schemas.
+
+Starting with **version 0.31**, the mapping is no longer carried out only by **human brains** :cold_sweat:. `Convert-Pheno` can also rely on **`gpt-5.4`** with **`high`** reasoning when needed.
 
 ??? Info "Mapping strategy: External or hardcoded?"
     In the early stages of development, we explored the possibility of employing configuration files to guide the mapping process as an alternative to hardcoded solutions. However, JSON data structures' complexity, mainly due to nesting, made this approach impractical for most scenarios, except for [REDCap](redcap.md) and [CDISC-ODM](cdisc-odm.md) data, which are mapped to Beacon v2 Models via configuration files.
