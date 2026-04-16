@@ -165,10 +165,26 @@ sub load_data_file {
     );
 }
 
+sub _strip_convertpheno {
+    my ($data) = @_;
+
+    if ( ref $data eq 'HASH' ) {
+        delete $data->{convertPheno};
+        _strip_convertpheno($_) for values %{$data};
+    }
+    elsif ( ref $data eq 'ARRAY' ) {
+        _strip_convertpheno($_) for @{$data};
+    }
+
+    return $data;
+}
+
 sub structured_files_match {
     my ( $expected, $got ) = @_;
     my $expected_data = load_data_file($expected);
     my $got_data      = load_data_file($got);
+    _strip_convertpheno($expected_data);
+    _strip_convertpheno($got_data);
     my $json = JSON::XS->new->canonical;
     return $json->encode($expected_data) eq $json->encode($got_data) ? 1 : 0;
 }

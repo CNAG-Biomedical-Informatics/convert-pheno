@@ -1,2 +1,64 @@
 concept_class_id;concept_code;concept_id;concept_name;domain_id;invalid_reason;standard_concept;valid_end_date;valid_start_date;vocabulary_id
-"4-char billing code";K92.2;35208414;"Gastrointestinal hemorrhage, unspecified";Condition;;;2099-12-31;2007-01-01;ICD10CM
+Gender;M;8507;MALE;Gender;;S;2099-12-31;1970-01-01;Gender
+;2;8515;Asian;;;;;;Race
+;3;8516;Black or African American;;;;;;Race
+;5;8527;White;;;;;;Race
+Gender;F;8532;FEMALE;Gender;;S;2099-12-31;1970-01-01;Gender
+;OMOP4822253;581452;Dispensed in Outpatient office;;;;;;Drug Type
+Clinical Drug;311989;920300;Nitrofurantoin 5 MG/ML Oral Suspension;Drug;;S;2099-12-31;1970-01-01;RxNorm
+Clinical Drug;311995;920334;NITROFURANTOIN, MACROCRYSTALS 50 MG Oral Capsule;Drug;;S;2099-12-31;1970-01-01;RxNorm
+Clinical Drug;849574;1115171;Naproxen sodium 220 MG Oral Tablet;Drug;;S;2099-12-31;2009-05-31;RxNorm
+Ingredient;140587;1118084;celecoxib;Drug;;S;2099-12-31;1970-01-01;RxNorm
+Ingredient;3355;1124300;Diclofenac;Drug;;S;2099-12-31;1970-01-01;RxNorm
+Clinical Drug;282464;1127078;Acetaminophen 160 MG Oral Tablet;Drug;;S;2099-12-31;1970-01-01;RxNorm
+Clinical Drug;313782;1127433;Acetaminophen 325 MG Oral Tablet;Drug;;S;2099-12-31;1970-01-01;RxNorm
+Quant Clinical Drug;745679;1154615;200 ACTUAT Albuterol 0.09 MG/ACTUAT Metered Dose Inhaler;Drug;;S;2099-12-31;2007-12-30;RxNorm
+Quant Clinical Drug;834357;1310034;3 ML Amiodarone hydrochloride 50 MG/ML Prefilled Syringe;Drug;;S;2099-12-31;2009-03-01;RxNorm
+Clinical Drug;312617;1551192;Prednisone 5 MG Oral Tablet;Drug;;S;2099-12-31;1970-01-01;RxNorm
+Clinical Drug;562251;1713671;Amoxicillin 250 MG / Clavulanate 125 MG Oral Tablet;Drug;;S;2099-12-31;2005-09-11;RxNorm
+Clinical Drug;105078;19006318;Penicillin G 375 MG/ML Injectable Solution;Drug;;S;2099-12-31;1970-01-01;RxNorm
+Clinical Drug;198014;19019273;Naproxen 500 MG Oral Tablet;Drug;;S;2099-12-31;1970-01-01;RxNorm
+Clinical Drug;198405;19019979;Ibuprofen 100 MG Oral Tablet;Drug;;S;2099-12-31;1970-01-01;RxNorm
+Clinical Drug;243670;19059056;Aspirin 81 MG Oral Tablet;Drug;;S;2099-12-31;1970-01-01;RxNorm
+Clinical Drug;308182;19073183;Amoxicillin 250 MG Oral Capsule;Drug;;S;2099-12-31;1970-01-01;RxNorm
+Clinical Drug;308192;19073188;Amoxicillin 500 MG Oral Tablet;Drug;;S;2099-12-31;1970-01-01;RxNorm
+Branded Drug;308971;19074679;Carbamazepine 20 MG/ML Oral Suspension [Tegretol];Drug;;S;2099-12-31;1970-01-01;RxNorm
+Quant Clinical Drug;309043;19074841;12 HR Cefaclor 500 MG Extended Release Oral Tablet;Drug;;S;2099-12-31;1970-01-01;RxNorm
+Clinical Drug;309045;19074843;Cefaclor 250 MG Oral Capsule;Drug;;S;2099-12-31;1970-01-01;RxNorm
+Clinical Drug;309097;19075001;Cefuroxime 250 MG Oral Tablet;Drug;;S;2099-12-31;1970-01-01;RxNorm
+Clinical Drug;309362;19075601;clopidogrel 75 MG Oral Tablet;Drug;;S;2099-12-31;1970-01-01;RxNorm
+Clinical Drug;310965;19078461;Ibuprofen 200 MG Oral Tablet;Drug;;S;2099-12-31;1970-01-01;RxNorm
+Clinical Drug;477045;19112599;Chlorpheniramine Maleate 2 MG/ML Oral Solution;Drug;;S;2099-12-31;1970-01-01;RxNorm
+Branded Pack;749785;19128022;{7 (Ethinyl Estradiol 0.035 MG / norgestimate 0.18 MG Oral Tablet) / 7 (Ethinyl Estradiol 0.035 MG / norgestimate 0.215 MG Oral Tablet) / 7 (Ethinyl Estradiol 0.035 MG / norgestimate 0.25 MG Oral Tablet) / 7 (Inert Ingredients 1 MG Oral Tablet) } Pack [Or;Drug;;S;2099-12-31;2007-12-30;RxNorm
+Branded Pack;749882;19128065;{7 (Inert Ingredients 1 MG Oral Tablet) / 21 (Mestranol 0.05 MG / Norethindrone 1 MG Oral Tablet) } Pack [Norinyl 1+50 28 Day];Drug;;S;2099-12-31;2007-12-30;RxNorm
+Clinical Drug;789980;19129655;Ampicillin 100 MG/ML Injectable Solution;Drug;;S;2099-12-31;2008-03-30;RxNorm
+Clinical Drug;834061;19133873;Penicillin V Potassium 250 MG Oral Tablet;Drug;;S;2099-12-31;2009-03-01;RxNorm
+Clinical Drug;834102;19133905;Penicillin V Potassium 500 MG Oral Tablet;Drug;;S;2099-12-31;2009-03-01;RxNorm
+;OMOP4822241;38000177;Prescription written;;;;;;Drug Type
+;Hispanic;38003563;Hispanic or Latino;;;;;;Ethnicity
+Clinical Drug;857005;40162522;Acetaminophen 325 MG / Hydrocodone Bitartrate 7.5 MG Oral Tablet;Drug;;S;2099-12-31;2009-08-02;RxNorm
+Clinical Drug;861467;40165015;Meperidine Hydrochloride 50 MG Oral Tablet;Drug;;S;2099-12-31;2009-09-06;RxNorm
+Quant Clinical Drug;895994;40169216;120 ACTUAT Fluticasone propionate 0.044 MG/ACTUAT Metered Dose Inhaler;Drug;;S;2099-12-31;2010-01-31;RxNorm
+Quant Clinical Drug;896209;40169281;60 ACTUAT Fluticasone propionate 0.25 MG/ACTUAT / salmeterol 0.05 MG/ACTUAT Dry Powder Inhaler;Drug;;S;2099-12-31;2010-01-31;RxNorm
+Clinical Drug;904419;40173590;Alendronic acid 10 MG Oral Tablet;Drug;;S;2099-12-31;2010-04-04;RxNorm
+CVX;10;40213160;poliovirus vaccine, inactivated;Drug;;S;2099-12-31;2008-12-01;CVX
+CVX;133;40213198;pneumococcal conjugate vaccine, 13 valent;Drug;;S;2099-12-31;2009-10-15;CVX
+CVX;33;40213201;pneumococcal polysaccharide vaccine, 23 valent;Drug;;S;2099-12-31;2008-12-01;CVX
+CVX;113;40213227;tetanus and diphtheria toxoids, adsorbed, preservative free, for adult use;Drug;;S;2099-12-31;2008-12-01;CVX
+CVX;21;40213251;varicella virus vaccine;Drug;;S;2099-12-31;2008-12-01;CVX
+CVX;121;40213260;zoster vaccine, live;Drug;;S;2099-12-31;2008-12-01;CVX
+CVX;52;40213296;hepatitis A vaccine, adult dosage;Drug;;S;2099-12-31;2008-12-01;CVX
+CVX;43;40213306;hepatitis B vaccine, adult dosage;Drug;;S;2099-12-31;2008-12-01;CVX
+CVX;49;40213314;Haemophilus influenzae type b vaccine, PRP-OMP conjugate;Drug;;S;2099-12-31;2008-12-01;CVX
+Clinical Drug;1804799;40220960;alteplase 100 MG Injection;Drug;;S;2099-12-31;2016-10-03;RxNorm
+Clinical Drug;1043400;40229134;Acetaminophen 21.7 MG/ML / Dextromethorphan Hydrobromide 1 MG/ML / doxylamine succinate 0.417 MG/ML Oral Solution;Drug;;S;2099-12-31;2010-12-05;RxNorm
+Clinical Drug;1049221;40231925;Acetaminophen 325 MG / Oxycodone Hydrochloride 5 MG Oral Tablet;Drug;;S;2099-12-31;2011-01-02;RxNorm
+Clinical Drug;1049630;40232448;Diphenhydramine Hydrochloride 25 MG Oral Tablet;Drug;;S;2099-12-31;2011-01-02;RxNorm
+Clinical Drug;1091392;40236446;Methylphenidate Hydrochloride 20 MG Oral Tablet;Drug;;S;2099-12-31;2011-03-06;RxNorm
+Clinical Drug;1094107;40236824;Phenazopyridine hydrochloride 100 MG Oral Tablet;Drug;;S;2099-12-31;2011-04-03;RxNorm
+Quant Clinical Drug;1190795;40243436;1 ML Atropine Sulfate 1 MG/ML Injection;Drug;;S;2099-12-31;2011-11-06;RxNorm
+Branded Pack;1359133;42902245;{5 (Ethinyl Estradiol 0.02 MG / norethindrone acetate 1 MG Oral Tablet) / 7 (Ethinyl Estradiol 0.03 MG / norethindrone acetate 1 MG Oral Tablet) / 9 (Ethinyl Estradiol 0.035 MG / norethindrone acetate 1 MG Oral Tablet) / 7 (Ferrous fumarate 75 MG Oral Tab;Drug;;S;2099-12-31;2012-12-03;RxNorm
+11-digit NDC;00025152531;44923712;celecoxib 200 MG Oral Capsule [Celebrex];Drug;;;2099-12-31;2000-01-01;NDC
+11-digit NDC;00781178901;45011828;Diclofenac Sodium 75 MG Delayed Release Oral Tablet;Drug;;;2099-12-31;2000-01-01;NDC
+Clinical Drug;1650142;46233710;Doxycycline Monohydrate 100 MG Oral Tablet;Drug;;S;2099-12-31;2015-07-06;RxNorm
+Clinical Drug;1652673;46233988;Doxycycline Monohydrate 50 MG Oral Tablet;Drug;;S;2099-12-31;2015-07-06;RxNorm
