@@ -104,6 +104,20 @@ sub resolve_operation {
         },
     ) if $self->{method} eq 'pxf2bff';
 
+    return _bundle_operation(
+        name             => 'openehr2bff',
+        source_format    => 'openehr',
+        target_format    => 'beacon',
+        default_entities => ['individuals'],
+        primary_entity   => 'individuals',
+        run              => sub {
+            my ( $convert, $input, $context ) = @_;
+            return Convert::Pheno::OpenEHR::ToBFF::run_openehr_to_bundle(
+                $convert, $input, $context
+            );
+        },
+    ) if $self->{method} eq 'openehr2bff';
+
     return _direct_operation(
         name => $self->{method},
         run  => sub {

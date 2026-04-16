@@ -27,6 +27,16 @@
                "unit_concept_id" : 0,
                "unit_source_value" : null
             }
+         },
+         "convertPheno" : {
+            "beaconSchemaVersion" : "2.0.0",
+            "cwd" : "/media/mrueda/2TBS/CNAG/Project_ConvertPheno/convert-pheno/t/omop2bff/in/mimic_specimen",
+            "hostname" : "mrueda-ws1",
+            "id" : "177625449783652",
+            "threadshost" : 5,
+            "user" : "mrueda",
+            "username" : "mrueda",
+            "version" : "0.30_1"
          }
       },
       "obtentionProcedure" : {
@@ -68,6 +78,16 @@
                "unit_concept_id" : 0,
                "unit_source_value" : null
             }
+         },
+         "convertPheno" : {
+            "beaconSchemaVersion" : "2.0.0",
+            "cwd" : "/media/mrueda/2TBS/CNAG/Project_ConvertPheno/convert-pheno/t/omop2bff/in/mimic_specimen",
+            "hostname" : "mrueda-ws1",
+            "id" : "177625449783652",
+            "threadshost" : 5,
+            "user" : "mrueda",
+            "username" : "mrueda",
+            "version" : "0.30_1"
          }
       },
       "obtentionProcedure" : {
@@ -109,6 +129,16 @@
                "unit_concept_id" : 0,
                "unit_source_value" : null
             }
+         },
+         "convertPheno" : {
+            "beaconSchemaVersion" : "2.0.0",
+            "cwd" : "/media/mrueda/2TBS/CNAG/Project_ConvertPheno/convert-pheno/t/omop2bff/in/mimic_specimen",
+            "hostname" : "mrueda-ws1",
+            "id" : "177625449783652",
+            "threadshost" : 5,
+            "user" : "mrueda",
+            "username" : "mrueda",
+            "version" : "0.30_1"
          }
       },
       "obtentionProcedure" : {
@@ -150,6 +180,16 @@
                "unit_concept_id" : 0,
                "unit_source_value" : null
             }
+         },
+         "convertPheno" : {
+            "beaconSchemaVersion" : "2.0.0",
+            "cwd" : "/media/mrueda/2TBS/CNAG/Project_ConvertPheno/convert-pheno/t/omop2bff/in/mimic_specimen",
+            "hostname" : "mrueda-ws1",
+            "id" : "177625449783652",
+            "threadshost" : 5,
+            "user" : "mrueda",
+            "username" : "mrueda",
+            "version" : "0.30_1"
          }
       },
       "obtentionProcedure" : {
@@ -191,6 +231,16 @@
                "unit_concept_id" : 0,
                "unit_source_value" : null
             }
+         },
+         "convertPheno" : {
+            "beaconSchemaVersion" : "2.0.0",
+            "cwd" : "/media/mrueda/2TBS/CNAG/Project_ConvertPheno/convert-pheno/t/omop2bff/in/mimic_specimen",
+            "hostname" : "mrueda-ws1",
+            "id" : "177625449783652",
+            "threadshost" : 5,
+            "user" : "mrueda",
+            "username" : "mrueda",
+            "version" : "0.30_1"
          }
       },
       "obtentionProcedure" : {
@@ -232,6 +282,16 @@
                "unit_concept_id" : 0,
                "unit_source_value" : null
             }
+         },
+         "convertPheno" : {
+            "beaconSchemaVersion" : "2.0.0",
+            "cwd" : "/media/mrueda/2TBS/CNAG/Project_ConvertPheno/convert-pheno/t/omop2bff/in/mimic_specimen",
+            "hostname" : "mrueda-ws1",
+            "id" : "177625449783652",
+            "threadshost" : 5,
+            "user" : "mrueda",
+            "username" : "mrueda",
+            "version" : "0.30_1"
          }
       },
       "obtentionProcedure" : {
@@ -273,6 +333,16 @@
                "unit_concept_id" : 0,
                "unit_source_value" : null
             }
+         },
+         "convertPheno" : {
+            "beaconSchemaVersion" : "2.0.0",
+            "cwd" : "/media/mrueda/2TBS/CNAG/Project_ConvertPheno/convert-pheno/t/omop2bff/in/mimic_specimen",
+            "hostname" : "mrueda-ws1",
+            "id" : "177625449783652",
+            "threadshost" : 5,
+            "user" : "mrueda",
+            "username" : "mrueda",
+            "version" : "0.30_1"
          }
       },
       "obtentionProcedure" : {
@@ -314,6 +384,16 @@
                "unit_concept_id" : 0,
                "unit_source_value" : null
             }
+         },
+         "convertPheno" : {
+            "beaconSchemaVersion" : "2.0.0",
+            "cwd" : "/media/mrueda/2TBS/CNAG/Project_ConvertPheno/convert-pheno/t/omop2bff/in/mimic_specimen",
+            "hostname" : "mrueda-ws1",
+            "id" : "177625449783652",
+            "threadshost" : 5,
+            "user" : "mrueda",
+            "username" : "mrueda",
+            "version" : "0.30_1"
          }
       },
       "obtentionProcedure" : {
@@ -355,6 +435,16 @@
                "unit_concept_id" : 0,
                "unit_source_value" : null
             }
+         },
+         "convertPheno" : {
+            "beaconSchemaVersion" : "2.0.0",
+            "cwd" : "/media/mrueda/2TBS/CNAG/Project_ConvertPheno/convert-pheno/t/omop2bff/in/mimic_specimen",
+            "hostname" : "mrueda-ws1",
+            "id" : "177625449783652",
+            "threadshost" : 5,
+            "user" : "mrueda",
+            "username" : "mrueda",
+            "version" : "0.30_1"
          }
       },
       "obtentionProcedure" : {
@@ -396,6 +486,16 @@
                "unit_concept_id" : 0,
                "unit_source_value" : null
             }
+         },
+         "convertPheno" : {
+            "beaconSchemaVersion" : "2.0.0",
+            "cwd" : "/media/mrueda/2TBS/CNAG/Project_ConvertPheno/convert-pheno/t/omop2bff/in/mimic_specimen",
+            "hostname" : "mrueda-ws1",
+            "id" : "177625449783652",
+            "threadshost" : 5,
+            "user" : "mrueda",
+            "username" : "mrueda",
+            "version" : "0.30_1"
          }
       },
       "obtentionProcedure" : {
@@ -437,6 +537,16 @@
                "unit_concept_id" : 0,
                "unit_source_value" : null
             }
+         },
+         "convertPheno" : {
+            "beaconSchemaVersion" : "2.0.0",
+            "cwd" : "/media/mrueda/2TBS/CNAG/Project_ConvertPheno/convert-pheno/t/omop2bff/in/mimic_specimen",
+            "hostname" : "mrueda-ws1",
+            "id" : "177625449783652",
+            "threadshost" : 5,
+            "user" : "mrueda",
+            "username" : "mrueda",
+            "version" : "0.30_1"
          }
       },
       "obtentionProcedure" : {
@@ -478,6 +588,16 @@
                "unit_concept_id" : 0,
                "unit_source_value" : null
             }
+         },
+         "convertPheno" : {
+            "beaconSchemaVersion" : "2.0.0",
+            "cwd" : "/media/mrueda/2TBS/CNAG/Project_ConvertPheno/convert-pheno/t/omop2bff/in/mimic_specimen",
+            "hostname" : "mrueda-ws1",
+            "id" : "177625449783652",
+            "threadshost" : 5,
+            "user" : "mrueda",
+            "username" : "mrueda",
+            "version" : "0.30_1"
          }
       },
       "obtentionProcedure" : {

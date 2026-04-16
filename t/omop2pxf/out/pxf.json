@@ -3536,8 +3536,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -3579,8 +3579,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -3888,8 +3888,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -3931,8 +3931,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -3989,8 +3989,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -4032,8 +4032,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -4143,8 +4143,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -6394,8 +6394,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -7484,8 +7484,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -7527,8 +7527,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -7674,8 +7674,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -7717,8 +7717,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -8158,8 +8158,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -8201,8 +8201,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -8244,8 +8244,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -8287,8 +8287,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -8345,8 +8345,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -8388,8 +8388,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -10359,8 +10359,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -10402,8 +10402,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -10474,8 +10474,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -10517,8 +10517,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -10560,8 +10560,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -10603,8 +10603,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -10661,8 +10661,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -11892,8 +11892,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -11935,8 +11935,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -11978,8 +11978,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -12021,8 +12021,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -12064,8 +12064,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -12107,8 +12107,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -12150,8 +12150,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -13271,8 +13271,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -13314,8 +13314,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -13357,8 +13357,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -13400,8 +13400,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -13443,8 +13443,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -13501,8 +13501,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -13544,8 +13544,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -13587,8 +13587,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -14410,8 +14410,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -14453,8 +14453,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -14496,8 +14496,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -14764,8 +14764,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -14807,8 +14807,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -14865,8 +14865,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -14908,8 +14908,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -15169,8 +15169,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -15212,8 +15212,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -15255,8 +15255,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -17855,8 +17855,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -19080,8 +19080,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -19123,8 +19123,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -19302,8 +19302,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -19345,8 +19345,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -19388,8 +19388,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -19431,8 +19431,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -19474,8 +19474,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -19517,8 +19517,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -19560,8 +19560,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -19697,8 +19697,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -19769,8 +19769,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -19812,8 +19812,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -19855,8 +19855,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -22906,8 +22906,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -22949,8 +22949,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -22992,8 +22992,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -23076,8 +23076,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -23119,8 +23119,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -23162,8 +23162,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -23205,8 +23205,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -23248,8 +23248,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -23291,8 +23291,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -23334,8 +23334,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -23406,8 +23406,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -23464,8 +23464,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -23507,8 +23507,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -24281,8 +24281,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -24324,8 +24324,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -24624,8 +24624,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -24667,8 +24667,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -24710,8 +24710,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -24753,8 +24753,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -24796,8 +24796,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -24839,8 +24839,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -24882,8 +24882,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -24953,8 +24953,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -24996,8 +24996,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -25054,8 +25054,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -25295,8 +25295,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -25338,8 +25338,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -25422,8 +25422,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -25465,8 +25465,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -25508,8 +25508,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -25551,8 +25551,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -25793,8 +25793,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -25836,8 +25836,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -25879,8 +25879,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -25922,8 +25922,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -25965,8 +25965,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -26430,8 +26430,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -26473,8 +26473,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -26516,8 +26516,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {
@@ -26559,8 +26559,8 @@
                "label" : "Not Available"
             },
             "code" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             },
             "performed" : {
                "age" : {

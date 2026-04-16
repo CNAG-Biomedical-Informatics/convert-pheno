@@ -10479,8 +10479,8 @@
             },
             "dateOfProcedure" : "2004-10-04",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -10550,8 +10550,8 @@
             },
             "dateOfProcedure" : "1987-01-20",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       }
@@ -11337,8 +11337,8 @@
             },
             "dateOfProcedure" : "1999-08-12",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -11408,8 +11408,8 @@
             },
             "dateOfProcedure" : "1986-12-05",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       }
@@ -11631,8 +11631,8 @@
             },
             "dateOfProcedure" : "1991-01-26",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -11702,8 +11702,8 @@
             },
             "dateOfProcedure" : "1987-03-16",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       }
@@ -11925,8 +11925,8 @@
             },
             "dateOfProcedure" : "2000-08-16",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       }
@@ -18410,8 +18410,8 @@
             },
             "dateOfProcedure" : "2007-11-11",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       }
@@ -21424,8 +21424,8 @@
             },
             "dateOfProcedure" : "1962-08-09",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -21495,8 +21495,8 @@
             },
             "dateOfProcedure" : "1981-01-08",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       }
@@ -21906,8 +21906,8 @@
             },
             "dateOfProcedure" : "1984-02-15",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -21977,8 +21977,8 @@
             },
             "dateOfProcedure" : "1993-05-27",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       }
@@ -23213,8 +23213,8 @@
             },
             "dateOfProcedure" : "1963-05-08",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -23284,8 +23284,8 @@
             },
             "dateOfProcedure" : "1965-10-29",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -23355,8 +23355,8 @@
             },
             "dateOfProcedure" : "1963-05-08",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -23426,8 +23426,8 @@
             },
             "dateOfProcedure" : "1963-05-08",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       }
@@ -23539,8 +23539,8 @@
             },
             "dateOfProcedure" : "1988-07-10",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -23610,8 +23610,8 @@
             },
             "dateOfProcedure" : "2002-11-03",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       }
@@ -29383,8 +29383,8 @@
             },
             "dateOfProcedure" : "1985-02-01",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -29454,8 +29454,8 @@
             },
             "dateOfProcedure" : "1998-06-06",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       }
@@ -29602,8 +29602,8 @@
             },
             "dateOfProcedure" : "2016-07-28",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -29673,8 +29673,8 @@
             },
             "dateOfProcedure" : "1992-10-11",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -29744,8 +29744,8 @@
             },
             "dateOfProcedure" : "1984-09-09",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -29815,8 +29815,8 @@
             },
             "dateOfProcedure" : "1985-06-06",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       }
@@ -29928,8 +29928,8 @@
             },
             "dateOfProcedure" : "2009-08-25",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       }
@@ -33334,8 +33334,8 @@
             },
             "dateOfProcedure" : "1912-10-27",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -33405,8 +33405,8 @@
             },
             "dateOfProcedure" : "1912-10-27",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -33476,8 +33476,8 @@
             },
             "dateOfProcedure" : "1913-11-21",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -33547,8 +33547,8 @@
             },
             "dateOfProcedure" : "1913-11-21",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -33618,8 +33618,8 @@
             },
             "dateOfProcedure" : "1913-11-21",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -33689,8 +33689,8 @@
             },
             "dateOfProcedure" : "1913-11-21",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -33760,8 +33760,8 @@
             },
             "dateOfProcedure" : "1913-04-25",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       }
@@ -36836,8 +36836,8 @@
             },
             "dateOfProcedure" : "2008-11-17",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -36907,8 +36907,8 @@
             },
             "dateOfProcedure" : "2016-05-17",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -36978,8 +36978,8 @@
             },
             "dateOfProcedure" : "1961-03-27",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -37049,8 +37049,8 @@
             },
             "dateOfProcedure" : "2009-05-14",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -37120,8 +37120,8 @@
             },
             "dateOfProcedure" : "1964-12-22",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       }
@@ -37233,8 +37233,8 @@
             },
             "dateOfProcedure" : "1986-05-18",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -37304,8 +37304,8 @@
             },
             "dateOfProcedure" : "1978-03-31",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -37375,8 +37375,8 @@
             },
             "dateOfProcedure" : "1981-01-04",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       }
@@ -40041,8 +40041,8 @@
             },
             "dateOfProcedure" : "1976-12-26",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -40112,8 +40112,8 @@
             },
             "dateOfProcedure" : "2010-06-28",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -40183,8 +40183,8 @@
             },
             "dateOfProcedure" : "1993-10-12",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       }
@@ -40594,8 +40594,8 @@
             },
             "dateOfProcedure" : "1961-03-23",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -40665,8 +40665,8 @@
             },
             "dateOfProcedure" : "2016-03-31",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       }
@@ -40778,8 +40778,8 @@
             },
             "dateOfProcedure" : "2009-05-25",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -40849,8 +40849,8 @@
             },
             "dateOfProcedure" : "1998-12-08",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       }
@@ -41464,8 +41464,8 @@
             },
             "dateOfProcedure" : "1990-12-06",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -41535,8 +41535,8 @@
             },
             "dateOfProcedure" : "1979-06-01",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -41606,8 +41606,8 @@
             },
             "dateOfProcedure" : "1955-03-31",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       }
@@ -49371,8 +49371,8 @@
             },
             "dateOfProcedure" : "1983-02-17",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       }
@@ -53049,8 +53049,8 @@
             },
             "dateOfProcedure" : "2017-03-19",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -53120,8 +53120,8 @@
             },
             "dateOfProcedure" : "1998-11-16",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       }
@@ -53233,8 +53233,8 @@
             },
             "dateOfProcedure" : "1982-09-29",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -53304,8 +53304,8 @@
             },
             "dateOfProcedure" : "1998-11-27",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -53375,8 +53375,8 @@
             },
             "dateOfProcedure" : "1974-05-16",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -53446,8 +53446,8 @@
             },
             "dateOfProcedure" : "2009-03-11",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -53517,8 +53517,8 @@
             },
             "dateOfProcedure" : "1983-02-01",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -53588,8 +53588,8 @@
             },
             "dateOfProcedure" : "1965-05-01",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -53659,8 +53659,8 @@
             },
             "dateOfProcedure" : "2008-02-16",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       }
@@ -54007,8 +54007,8 @@
             },
             "dateOfProcedure" : "1983-09-05",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       }
@@ -54155,8 +54155,8 @@
             },
             "dateOfProcedure" : "2008-12-15",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -54226,8 +54226,8 @@
             },
             "dateOfProcedure" : "1978-03-13",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -54297,8 +54297,8 @@
             },
             "dateOfProcedure" : "1989-10-30",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       }
@@ -62458,8 +62458,8 @@
             },
             "dateOfProcedure" : "1993-10-03",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -62529,8 +62529,8 @@
             },
             "dateOfProcedure" : "1978-05-30",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -62600,8 +62600,8 @@
             },
             "dateOfProcedure" : "2005-05-04",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       }
@@ -62793,8 +62793,8 @@
             },
             "dateOfProcedure" : "1996-09-29",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -62864,8 +62864,8 @@
             },
             "dateOfProcedure" : "2010-04-18",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -62935,8 +62935,8 @@
             },
             "dateOfProcedure" : "2011-04-24",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -63006,8 +63006,8 @@
             },
             "dateOfProcedure" : "2014-05-11",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -63077,8 +63077,8 @@
             },
             "dateOfProcedure" : "2016-05-22",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -63148,8 +63148,8 @@
             },
             "dateOfProcedure" : "1994-09-25",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -63219,8 +63219,8 @@
             },
             "dateOfProcedure" : "2013-05-05",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       }
@@ -63367,8 +63367,8 @@
             },
             "dateOfProcedure" : "1997-12-22",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       }
@@ -63770,8 +63770,8 @@
             },
             "dateOfProcedure" : "1976-11-02",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -63841,8 +63841,8 @@
             },
             "dateOfProcedure" : "1996-09-08",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       }
@@ -65518,8 +65518,8 @@
             },
             "dateOfProcedure" : "2012-03-13",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -65589,8 +65589,8 @@
             },
             "dateOfProcedure" : "1978-11-26",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       }
@@ -66300,8 +66300,8 @@
             },
             "dateOfProcedure" : "1943-02-03",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -66371,8 +66371,8 @@
             },
             "dateOfProcedure" : "1946-01-01",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -66442,8 +66442,8 @@
             },
             "dateOfProcedure" : "1965-10-04",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -66513,8 +66513,8 @@
             },
             "dateOfProcedure" : "1956-07-24",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -66584,8 +66584,8 @@
             },
             "dateOfProcedure" : "1958-12-25",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -66655,8 +66655,8 @@
             },
             "dateOfProcedure" : "1925-02-07",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -66726,8 +66726,8 @@
             },
             "dateOfProcedure" : "1937-06-19",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       }
@@ -66879,8 +66879,8 @@
             },
             "dateOfProcedure" : "2010-09-23",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -66950,8 +66950,8 @@
             },
             "dateOfProcedure" : "1992-03-12",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       }
@@ -67063,8 +67063,8 @@
             },
             "dateOfProcedure" : "1993-12-21",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       }
@@ -67756,8 +67756,8 @@
             },
             "dateOfProcedure" : "1998-10-03",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -67827,8 +67827,8 @@
             },
             "dateOfProcedure" : "2010-08-14",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       }
@@ -68008,8 +68008,8 @@
             },
             "dateOfProcedure" : "1985-10-12",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -68079,8 +68079,8 @@
             },
             "dateOfProcedure" : "2004-02-15",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -68150,8 +68150,8 @@
             },
             "dateOfProcedure" : "1967-10-03",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -68221,8 +68221,8 @@
             },
             "dateOfProcedure" : "2004-11-27",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       }
@@ -69048,8 +69048,8 @@
             },
             "dateOfProcedure" : "1995-02-21",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -69119,8 +69119,8 @@
             },
             "dateOfProcedure" : "1992-02-10",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -69190,8 +69190,8 @@
             },
             "dateOfProcedure" : "1955-07-17",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -69261,8 +69261,8 @@
             },
             "dateOfProcedure" : "2019-06-16",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -69332,8 +69332,8 @@
             },
             "dateOfProcedure" : "1999-01-30",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       }
@@ -70268,8 +70268,8 @@
             },
             "dateOfProcedure" : "1990-02-14",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -70339,8 +70339,8 @@
             },
             "dateOfProcedure" : "1996-09-05",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -70410,8 +70410,8 @@
             },
             "dateOfProcedure" : "1995-04-02",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       },
@@ -70481,8 +70481,8 @@
             },
             "dateOfProcedure" : "1979-08-30",
             "procedureCode" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "Meas Type:OMOP4822277",
+               "label" : "Test ordered through EHR"
             }
          }
       }

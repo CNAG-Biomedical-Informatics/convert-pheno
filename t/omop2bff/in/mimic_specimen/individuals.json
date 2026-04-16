@@ -28,6 +28,16 @@
                "year_of_birth" : 2102
             }
          },
+         "convertPheno" : {
+            "beaconSchemaVersion" : "2.0.0",
+            "cwd" : "/media/mrueda/2TBS/CNAG/Project_ConvertPheno/convert-pheno/t/omop2bff/in/mimic_specimen",
+            "hostname" : "mrueda-ws1",
+            "id" : "177625449783652",
+            "threadshost" : 5,
+            "user" : "mrueda",
+            "username" : "mrueda",
+            "version" : "0.30_1"
+         },
          "dateOfBirth" : "2102-01-01T00:00:00Z"
       },
       "sex" : {
@@ -63,6 +73,16 @@
                "race_source_value" : "WHITE",
                "year_of_birth" : 2083
             }
+         },
+         "convertPheno" : {
+            "beaconSchemaVersion" : "2.0.0",
+            "cwd" : "/media/mrueda/2TBS/CNAG/Project_ConvertPheno/convert-pheno/t/omop2bff/in/mimic_specimen",
+            "hostname" : "mrueda-ws1",
+            "id" : "177625449783652",
+            "threadshost" : 5,
+            "user" : "mrueda",
+            "username" : "mrueda",
+            "version" : "0.30_1"
          },
          "dateOfBirth" : "2083-01-01T00:00:00Z"
       },
@@ -100,6 +120,16 @@
                "year_of_birth" : 2073
             }
          },
+         "convertPheno" : {
+            "beaconSchemaVersion" : "2.0.0",
+            "cwd" : "/media/mrueda/2TBS/CNAG/Project_ConvertPheno/convert-pheno/t/omop2bff/in/mimic_specimen",
+            "hostname" : "mrueda-ws1",
+            "id" : "177625449783652",
+            "threadshost" : 5,
+            "user" : "mrueda",
+            "username" : "mrueda",
+            "version" : "0.30_1"
+         },
          "dateOfBirth" : "2073-01-01T00:00:00Z"
       },
       "sex" : {
@@ -135,6 +165,16 @@
                "race_source_value" : "WHITE",
                "year_of_birth" : 2133
             }
+         },
+         "convertPheno" : {
+            "beaconSchemaVersion" : "2.0.0",
+            "cwd" : "/media/mrueda/2TBS/CNAG/Project_ConvertPheno/convert-pheno/t/omop2bff/in/mimic_specimen",
+            "hostname" : "mrueda-ws1",
+            "id" : "177625449783652",
+            "threadshost" : 5,
+            "user" : "mrueda",
+            "username" : "mrueda",
+            "version" : "0.30_1"
          },
          "dateOfBirth" : "2133-01-01T00:00:00Z"
       },

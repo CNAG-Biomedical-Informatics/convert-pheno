@@ -14,6 +14,7 @@
 | --- | --- | --- |
 | `diseases.term` | `diseases.diseaseCode` | Renamed ontology term |
 | `diseases.onset` | `diseases.ageOfOnset` | Supported Phenopackets time elements are unwrapped |
+| `diseases.excluded` / `diseases.negated` | `diseases.excluded` / `diseases.negated` | Preserved when present; no fallback is added |
 
 ### ethnicity
 NA
@@ -28,6 +29,9 @@ NA
 | `exposures.value` | `exposures.value` | Preserved when present |
 | `exposures.unit` | `exposures.unit` | Preserved when present; defaulted when absent |
 | `DEFAULT` | `exposures.duration` | Added for Beacon validation |
+| missing `exposures.ageAtExposure` | `exposures.ageAtExposure` | Defaults to `P999Y` |
+| missing `exposures.unit` | `exposures.unit` | Defaults to `NCIT:C126101` / `Not Available` |
+| missing `exposures.duration` | `exposures.duration` | Defaults to `P999Y` |
 
 ### geographicOrigin
 NA
@@ -36,6 +40,7 @@ NA
 | Source field | Target field | Notes |
 | --- | --- | --- |
 | `subject.id` | `id` | Direct |
+| missing `subject.id` | `id` | Omitted; no surrogate id is generated in this direction |
 
 ### info
 | Source field | Target field | Notes |
@@ -49,6 +54,8 @@ NA
 | `files` | `info.phenopacket.files` | Preserved |
 | `pedigree` | `info.phenopacket.pedigree` | Preserved |
 | `biosamples` | `info.phenopacket.biosamples` | Preserved in the individuals-only output path |
+| `cohort` | `info.cohort` | Preserved when present at the top level |
+| `family` | `info.family` | Preserved when present at the top level |
 
 ### interventionsOrProcedures
 | Source field | Target field | Notes |
@@ -61,6 +68,7 @@ NA
 | `medicalActions.procedure.performed.ontologyClass` | `interventionsOrProcedures.ageAtProcedure` | Unwrapped ontology-term form |
 | `medicalActions.procedure.performed.timestamp` | `interventionsOrProcedures.dateOfProcedure` | Date only |
 | `medicalActions.procedure.performed` | `interventionsOrProcedures.info.phenopacket.performed` | Preserved when not mapped directly |
+| missing directly mappable `medicalActions.procedure.performed` | `interventionsOrProcedures.info.phenopacket.performed` | Preserved instead of defaulting a date or age |
 
 ### karyotypicSex
 | Source field | Target field | Notes |
@@ -76,6 +84,7 @@ NA
 | `measurements.complexValue.typedQuantities.type` | `measures.measurementValue.typedQuantities.quantityType` | Inner key renamed |
 | `measurements.timeObserved` | `measures.observationMoment` | Supported Phenopackets time elements are unwrapped |
 | `measurements.procedure` | `measures.procedure` | Nested procedure is remapped with the same rules |
+| missing `measurements.value` and `measurements.complexValue` | `measures.measurementValue` | Defaults to `-1` |
 
 ### pedigrees
 NA
@@ -88,11 +97,13 @@ NA
 | `phenotypicFeatures.onset` | `phenotypicFeatures.onset` | Supported Phenopackets time elements are unwrapped |
 | `phenotypicFeatures.evidence[0]` | `phenotypicFeatures.evidence` | Beacon individuals expects one object |
 | `phenotypicFeatures.evidence[]` | `phenotypicFeatures.evidence.info.phenopacket.evidence` | Full source array is preserved |
+| missing `phenotypicFeatures.excluded` / `negated` | `phenotypicFeatures.excluded` | Omitted; no boolean default is added in this direction |
 
 ### sex
 | Source field | Target field | Notes |
 | --- | --- | --- |
 | `subject.sex` | `sex` | Normalized through ontology lookup |
+| missing or empty `subject.sex` | `sex` | Omitted; no fallback sex is generated |
 
 ### treatments
 | Source field | Target field | Notes |
@@ -100,6 +111,7 @@ NA
 | `medicalActions.treatment.agent` | `treatments.treatmentCode` | Renamed |
 | `medicalActions.treatment.routeOfAdministration` | `treatments.routeOfAdministration` | Preserved |
 | `medicalActions.treatment.doseIntervals` | `treatments.doseIntervals` | Preserved; nested defaults may be added for validation |
+| missing `medicalActions.treatment.doseIntervals` | `treatments.doseIntervals` | Omitted; no empty list is forced in this direction |
 
 ## Biosamples
 
@@ -110,6 +122,7 @@ These rows apply when `PXF` biosamples are emitted as a first-class Beacon `bios
 | --- | --- | --- |
 | `biosamples.id` | `biosamples.id` | Direct |
 | `biosamples.individualId` | `biosamples.individualId` | Direct |
+| missing `biosamples.individualId` | `biosamples.individualId` | Defaults to the enclosing phenopacket `subject.id` |
 | `biosamples.materialSample` | `biosamples.biosampleStatus` | Renamed; defaulted when absent |
 | `biosamples.sampleType` | `biosamples.sampleOriginType` | Renamed; defaulted when absent |
 | `biosamples.sampledTissue` | `biosamples.sampleOriginDetail` | Renamed |
@@ -125,6 +138,8 @@ These rows apply when `PXF` biosamples are emitted as a first-class Beacon `bios
 | `biosamples.tumorProgression` | `biosamples.tumorProgression` | Direct |
 | `biosamples.sampleProcessing` | `biosamples.sampleProcessing` | Direct |
 | `biosamples.sampleStorage` | `biosamples.sampleStorage` | Direct |
+| missing `biosamples.materialSample` | `biosamples.biosampleStatus` | Defaults to `NCIT:C126101` / `Not Available` |
+| missing `biosamples.sampleType` | `biosamples.sampleOriginType` | Defaults to `NCIT:C126101` / `Not Available` |
 | `biosamples.phenotypicFeatures.type` | `biosamples.phenotypicFeatures.featureType` | Renamed |
 | `biosamples.phenotypicFeatures.evidence[].reference.description` | `biosamples.phenotypicFeatures.evidence[].reference.notes` | Renamed |
 | `biosamples.measurements.assay` | `biosamples.measurements.assayCode` | Renamed |

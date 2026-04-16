@@ -14,6 +14,7 @@
 | `CONDITION_OCCURRENCE.condition_status_concept_id` | `diseases.stage` | Defaulted when absent |
 | `CONDITION_OCCURRENCE.*` | `diseases._info.CONDITION_OCCURRENCE.OMOP_columns` | Provenance payload |
 | `VISIT_OCCURRENCE` context | `diseases._visit` | Added when visit context is available |
+| missing `CONDITION_OCCURRENCE.condition_status_concept_id` | `diseases.stage` | Defaults to `NCIT:C126101` / `Not Available` |
 
 ### ethnicity
 | Source field | Target field | Notes |
@@ -30,6 +31,9 @@
 | `OBSERVATION.value_as_number` | `exposures.value` | `\N` is converted to `-1` |
 | `DEFAULT` | `exposures.duration` | Added for Beacon completeness |
 | `OBSERVATION.*` | `exposures._info.OBSERVATION.OMOP_columns` | Provenance payload |
+| missing `OBSERVATION.unit_concept_id` | `exposures.unit` | Defaults to `NCIT:C126101` / `Not Available` |
+| `DEFAULT` | `exposures.duration` | Defaults to `P0Y` in the OMOP-specific path |
+| `OBSERVATION.value_as_number = \N` | `exposures.value` | Defaults to `-1` |
 
 ### geographicOrigin
 | Source field | Target field | Notes |
@@ -50,6 +54,7 @@
 | `PERSON.*` | `info.PERSON.OMOP_columns` | Raw OMOP row is preserved |
 | `PERSON.birth_datetime` | `info.dateOfBirth` | Timestamp form |
 | `convertPheno` | `info.convertPheno` | Emitted outside `--test` mode |
+| missing `PERSON.gender_concept_id` | none | The participant is skipped entirely in this direction |
 
 ### interventionsOrProcedures
 | Source field | Target field | Notes |
@@ -60,6 +65,7 @@
 | `DEFAULT` | `interventionsOrProcedures.bodySite` | Added for Beacon completeness |
 | `PROCEDURE_OCCURRENCE.*` | `interventionsOrProcedures._info.PROCEDURE_OCCURRENCE.OMOP_columns` | Provenance payload |
 | `VISIT_OCCURRENCE` context | `interventionsOrProcedures._visit` | Added when visit context is available |
+| `DEFAULT` | `interventionsOrProcedures.bodySite` | Defaults to `NCIT:C126101` / `Not Available` |
 
 ### karyotypicSex
 NA
@@ -80,6 +86,10 @@ NA
 | `DEFAULT` | `measures.procedure.bodySite` | Added for Beacon completeness |
 | `MEASUREMENT.*` | `measures._info.MEASUREMENT.OMOP_columns` | Provenance payload |
 | `VISIT_OCCURRENCE` context | `measures._visit` | Added when visit context is available |
+| missing `MEASUREMENT.unit_concept_id` | `measures.measurementValue.quantity.unit` | Defaults to `NCIT:C126101` / `Not Available` |
+| `MEASUREMENT.value_as_number = \N` and no `value_as_concept_id` | `measures.measurementValue.quantity` | Defaults to quantity `-1` with `Not Available` unit and `-1/-1` reference range |
+| missing `MEASUREMENT.measurement_concept_id` | none | The row is skipped rather than emitting a default measure |
+| `DEFAULT` | `measures.procedure.bodySite` | Defaults to `NCIT:C126101` / `Not Available` |
 
 ### pedigrees
 NA
@@ -96,6 +106,7 @@ NA
 | Source field | Target field | Notes |
 | --- | --- | --- |
 | `PERSON.gender_concept_id` | `sex` | Mapped through OHDSI concepts and then normalized to Beacon terms |
+| missing `PERSON.gender_concept_id` | none | The participant is skipped before an individual is emitted |
 
 ### treatments
 | Source field | Target field | Notes |
@@ -106,6 +117,8 @@ NA
 | `DEFAULT` | `treatments.doseIntervals` | Initialized as an empty list |
 | `DRUG_EXPOSURE.*` | `treatments._info.DRUG_EXPOSURE.OMOP_columns` | Provenance payload |
 | `VISIT_OCCURRENCE` context | `treatments._visit` | Added when visit context is available |
+| `DEFAULT` | `treatments.routeOfAdministration` | Defaults to `NCIT:C126101` / `Not Available` |
+| `DEFAULT` | `treatments.doseIntervals` | Defaults to an empty list |
 
 ## Biosamples
 
@@ -124,3 +137,5 @@ NA
 | `DEFAULT` | `biosamples.biosampleStatus` | Defaulted for Beacon completeness |
 | `convertPheno` | `biosamples.info.convertPheno` | Emitted outside `--test` mode |
 | `SPECIMEN.*` | `biosamples.info.SPECIMEN.OMOP_columns` | Provenance payload |
+| missing `SPECIMEN.specimen_concept_id` | `biosamples.sampleOriginType` | Defaults to `NCIT:C126101` / `Not Available` |
+| `DEFAULT` | `biosamples.biosampleStatus` | Defaults to `NCIT:C126101` / `Not Available` |

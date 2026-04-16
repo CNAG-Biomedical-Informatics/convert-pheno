@@ -167,8 +167,11 @@ sub map_ontology_term {
         $self->{db_profile}{ontology}{$ontology}{requests}++;
     }
 
-    # 1) Skip pure numbers
-    return $DEFAULT->{ontology_term} if looks_like_number($query);
+    # 1) Skip pure numbers for label-like lookups, but never for OMOP
+    # concept-id resolution.
+    return $DEFAULT->{ontology_term}
+      if looks_like_number($query)
+      && ( !defined $arg->{column} || $arg->{column} ne 'concept_id' );
 
     # 2) If already an object, assume pre‑mapped
     return $query if ref $query eq 'HASH';

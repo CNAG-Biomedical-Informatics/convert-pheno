@@ -41,6 +41,7 @@ use Convert::Pheno::CSV;
 use Convert::Pheno::JSONLD qw(do_bff2jsonld do_pxf2jsonld);
 use Convert::Pheno::OMOP::ToBFF qw(do_omop2bff);
 use Convert::Pheno::PXF::ToBFF;
+use Convert::Pheno::OpenEHR::ToBFF;
 use Convert::Pheno::BFF::ToPXF;
 use Convert::Pheno::BFF::ToOMOP;
 use Convert::Pheno::CDISC;
@@ -172,6 +173,7 @@ has [qw /in_files/] => ( default => sub { [] }, is => 'ro' );
 has [
     qw /out_file out_dir in_textfile in_file sep sql2csv redcap_dictionary mapping_file schema_file debug log verbose search_audit_file/
 ] => ( is => 'ro' );
+has [qw /openehr_patient_id/] => ( is => 'ro' );
 
 has [qw /data method/] => ( is => 'rw' );
 has entities => ( is => 'ro', default => sub { ['individuals'] } );
@@ -456,6 +458,27 @@ sub pxf2omop {
     );
 }
 
+#################
+#################
+# OPENEHR2BFF   #
+#################
+#################
+
+sub openehr2bff {
+    my $self = shift;
+    _prepare_openehr2bff_input($self);
+    $self->{convertPheno} ||= get_info($self);
+    $self->{conversion_context} = Convert::Pheno::Context->from_self(
+        $self,
+        {
+            source_format => 'openehr',
+            target_format => 'beacon',
+            entities      => $self->{entities} || ['individuals'],
+        }
+    );
+    return _run_primary_view($self);
+}
+
 #############
 #############
 #  CSV2BFF  #
@@ -540,6 +563,7 @@ sub pxf2jsonld {
 
 sub _dispatcher_input_data {
     my ($self) = @_;
+    return $self->{data} if exists $self->{data};
     return ( $self->{in_textfile} && $self->{method} !~ m/^(redcap2|omop2|cdisc2|csv)/ )
       ? io_yaml_or_json( { filepath => $self->{in_file}, mode => 'read' } )
       : $self->{data};
@@ -574,6 +598,7 @@ sub _prepare_bundle_input {
     return _prepare_redcap2bff_input($self) if $self->{method} eq 'redcap2bff';
     return _prepare_cdisc2bff_input($self)  if $self->{method} eq 'cdisc2bff';
     return _prepare_csv2bff_input($self)    if $self->{method} eq 'csv2bff';
+    return _prepare_openehr2bff_input($self) if $self->{method} eq 'openehr2bff';
     if ( $self->{method} eq 'omop2bff' ) {
         delete $self->{mapping_file_derived_entity_overrides};
         return _prepare_omop2bff_input($self);
@@ -582,7 +607,8 @@ sub _prepare_bundle_input {
     # PXF bundle mode bypasses the public method, so initialize conversion
     # provenance here as well for synthesized dataset/cohort metadata.
     delete $self->{mapping_file_derived_entity_overrides};
-    $self->{convertPheno} ||= get_info($self) if $self->{method} eq 'pxf2bff';
+    $self->{convertPheno} ||= get_info($self)
+      if $self->{method} eq 'pxf2bff' || $self->{method} eq 'openehr2bff';
 
     return 1;
 }
@@ -697,6 +723,51 @@ sub _prepare_omop2bff_input {
 
     $self->{filepath_sql}  = $ctx->{filepath_sql}  if exists $ctx->{filepath_sql};
     $self->{filepaths_csv} = $ctx->{filepaths_csv} if exists $ctx->{filepaths_csv};
+
+    return 1;
+}
+
+sub _prepare_openehr2bff_input {
+    my ($self) = @_;
+    return 1 if exists $self->{data};
+
+    my @files = @{ $self->{in_files} || [] };
+    push @files, $self->{in_file} if !@files && defined $self->{in_file};
+
+    my @documents = map {
+        io_yaml_or_json(
+            {
+                filepath => $_,
+                mode     => 'read',
+            }
+        )
+    } @files;
+
+    my $data;
+    if ( @documents == 1 ) {
+        my $doc = $documents[0];
+        if ( ref($doc) eq 'HASH' && exists $doc->{compositions} ) {
+            $data = $doc;
+        }
+        elsif ( ref($doc) eq 'ARRAY' ) {
+            $data = { compositions => $doc };
+        }
+        else {
+            $data = { compositions => [$doc] };
+        }
+    }
+    else {
+        $data = { compositions => \@documents };
+    }
+
+    if ( defined $self->{openehr_patient_id} && length $self->{openehr_patient_id} ) {
+        $data->{patient} ||= {};
+        $data->{patient}{id} = $self->{openehr_patient_id}
+          unless defined $data->{patient}{id} && length $data->{patient}{id};
+    }
+
+    $self->{data} = $data;
+    $self->{convertPheno} ||= get_info($self);
 
     return 1;
 }

@@ -1,14 +1,14 @@
 # README Convert-Pheno-API (Perl version)
 
-This directory contains the Perl HTTP wrapper around `Convert::Pheno`.
+This directory contains the Perl REST wrapper around `Convert::Pheno`.
 
 ### Notes:
 
 * The API is built with `Mojolicious`.
-* The public HTTP contract uses a single `POST /api` endpoint.
+* The public REST contract uses a single `POST /api` endpoint.
 * `/api` receives a JSON object with explicit `conversion`, `input`, `output`, and `options` sections.
 * Incoming request bodies are validated against [OpenAPI schema](./openapi.json), but only at the payload-shape level.
-* The conversion logic still runs in `Convert::Pheno`; this wrapper only exposes it over HTTP.
+* The conversion logic still runs in `Convert::Pheno`; this wrapper only exposes it over an HTTP(S) endpoint.
     
 ## Installation 
 
@@ -48,6 +48,8 @@ Please see installation instructions [here](https://github.com/CNAG-Biomedical-I
 With `morbo` for development:
 
     $ morbo main.pl # development (default: port 3000)
+
+This default `morbo` example serves plain HTTP.
     
 If you want to use a self-signed certificate:
 
@@ -56,6 +58,8 @@ If you want to use a self-signed certificate:
 or with `hypnotoad`:
 
     $ hypnotoad main.pl # production (https://localhost:8080)
+
+`hypnotoad` uses the HTTPS listener configured in [main.pl](./main.pl).
 
 ### Containerized version
 

@@ -1,8 +1,8 @@
-In some workflows it is more convenient to send conversion requests over HTTP instead of calling the module directly. For that case, `Convert-Pheno` includes a lightweight REST API.
+In some workflows it is more convenient to send conversion requests over an HTTP(S) endpoint instead of calling the module directly. For that case, `Convert-Pheno` includes a lightweight REST API.
 
 ## Basic request
 
-Send a `POST` request to `/api` with a JSON body:
+Send a `POST` request to `/api` with a JSON body. Local examples below use plain `http://` for simplicity, but the same API can also be exposed over `https://` depending on deployment:
 
 ```bash
 curl -d "@data.json" -H 'Content-Type: application/json' -X POST http://localhost:3000/api
@@ -32,7 +32,7 @@ The response is a JSON envelope with `ok`, `data`, and `meta.conversion`.
 
 ## JavaScript usage
 
-The HTTP API is language-agnostic. JavaScript clients can call the same `/api` endpoint with the same JSON request body.
+The REST API is language-agnostic. JavaScript clients can call the same `/api` endpoint with the same JSON request body.
 
 === "Browser (`fetch`)"
 
@@ -125,9 +125,9 @@ The HTTP API is language-agnostic. JavaScript clients can call the same `/api` e
 
 ## Recommended API routes
 
-The HTTP API works best for **self-contained payloads** where the request already carries the data needed for conversion.
+The REST API works best for **self-contained payloads** where the request already carries the data needed for conversion.
 
-| Input family | HTTP API status | Why |
+| Input family | REST API status | Why |
 | --- | --- | --- |
 | `BFF` | Recommended | Small JSON payloads are natural to send over HTTP |
 | `PXF` | Recommended | Small JSON payloads are natural to send over HTTP |
@@ -136,7 +136,7 @@ The HTTP API works best for **self-contained payloads** where the request alread
 | `REDCap` | Not recommended | Requires both project data and a REDCap dictionary plus mapping-file context |
 | `CDISC-ODM` | Not recommended | Follows the same mapping-file-driven pattern as REDCap |
 
-For `CSV`, `REDCap`, and `CDISC-ODM`, the **CLI is the preferred interface**. Those routes are better treated as file workflows than as public HTTP workflows.
+For `CSV`, `REDCap`, and `CDISC-ODM`, the **CLI is the preferred interface**. Those routes are better treated as file workflows than as public REST workflows.
 
 ## Available implementations
 
@@ -147,11 +147,11 @@ The repository currently includes two API wrappers:
 
 The Perl implementation is the direct wrapper around the main module. The Python implementation exists for interoperability and calls the Perl conversion layer through an internal JSON bridge, so the core conversion logic still lives in Perl.
 
-Client applications in JavaScript can consume the same HTTP API without needing a dedicated JavaScript server wrapper.
+Client applications in JavaScript can consume the same REST API without needing a dedicated JavaScript server wrapper.
 
 ## Deployment note
 
-This API is intended to run on a machine where `Convert-Pheno` and its dependencies are already installed. In practice, the containerized setup is the easiest way to expose it as a local service.
+This API is intended to run on a machine where `Convert-Pheno` and its dependencies are already installed. In practice, the containerized setup is the easiest way to expose it as a local service. The Perl/Mojolicious wrapper is configured for HTTPS when run with `hypnotoad`, while the Python/FastAPI wrapper is typically served over plain HTTP in local `uvicorn` examples unless TLS is added explicitly or terminated upstream.
 
 See:
 

@@ -1,15 +1,15 @@
 # README Convert-Pheno-API (Python version)
 
-This directory contains the Python HTTP wrapper around `Convert::Pheno`.
+This directory contains the Python REST wrapper around `Convert::Pheno`.
 
 ### Notes:
 
 * The API is built with FastAPI.
-* The public HTTP contract uses a single `POST /api` endpoint.
+* The public REST contract uses a single `POST /api` endpoint.
 * `/api` receives a JSON object with explicit `conversion`, `input`, `output`, and `options` sections.
 * Incoming request bodies are validated at the payload-shape level before conversion.
 * The Python layer calls the Perl conversion code through `api/perl/json_bridge.pl`.
-* The conversion logic still runs in Perl; this wrapper only exposes the same HTTP contract through FastAPI.
+* The conversion logic still runs in Perl; this wrapper only exposes the same REST contract through FastAPI.
 
 ## Installation
 
@@ -45,10 +45,14 @@ With `uvicorn` for development:
     $ cd api/python
     $ uvicorn main:app --reload # development (default: port 8000)
 
+This default `uvicorn` example serves plain HTTP.
+
 With `uvicorn` for production:
 
     $ cd api/python
     $ uvicorn main:app --host 0.0.0.0
+
+If you need HTTPS, add TLS in the ASGI server configuration or terminate TLS in a reverse proxy in front of FastAPI.
 
 ### Containerized version
 

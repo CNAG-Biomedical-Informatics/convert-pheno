@@ -17,6 +17,11 @@ This is the larger PostgreSQL dump fixture used for:
 - `omop2pxf`
 - streamed SQL-based OMOP regressions
 
+Note:
+
+- `concept_id = 5001` was added to the fixture `CONCEPT` data so this SQL
+  export remains self-contained without `--ohdsi-db`.
+
 ## 2. Reduced plain CSV fixtures
 
 - `PERSON.csv`
