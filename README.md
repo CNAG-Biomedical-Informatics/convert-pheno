@@ -54,14 +54,12 @@ convert-pheno -ipxf pxf.json -obff individuals.json
 convert-pheno -ipxf pxf.json -obff --entities individuals biosamples datasets cohorts --out-dir out/
 convert-pheno -ibff individuals.json -opxf phenopackets.json
 convert-pheno -iomop dump.sql.gz -obff individuals.json.gz --stream --ohdsi-db
-convert-pheno -i openehr patient-set.json -o bff individual.json
-convert-pheno -i openehr patient-set.json -o pxf phenopacket.json
 ```
 
 For backward compatibility, the `-iomop ... -obff` form still keeps the individuals-only BFF output behavior.
 
 Note: `openEHR` support is currently experimental and currently limited to canonical composition input with `BFF` or `PXF` output.
-Input must carry a resolvable patient identifier in the payload or envelope. Multiple openEHR JSON files are supported when patient identity can be resolved, and multi-patient input is grouped automatically.
+See the CLI documentation for the current experimental `openEHR` usage details.
 
 Internally, most conversions use `BFF` as the center model before continuing to other output formats when needed.
 
@@ -143,8 +141,6 @@ bin/convert-pheno -ibff t/bff2pxf/in/individuals.json -opxf phenopackets.json --
 bin/convert-pheno -iomop t/omop2bff/in/omop_cdm_eunomia.sql -opxf phenopackets.json
 bin/convert-pheno -iomop t/omop2bff/in/gz/omop_cdm_eunomia.sql.gz -obff individuals.json.gz --stream --omop-tables DRUG_EXPOSURE
 ```
-
-Note: OMOP `SPECIMEN` to Beacon `biosamples` support is currently experimental and still pending validation with external collaborators.
 
 ## Citation
 
