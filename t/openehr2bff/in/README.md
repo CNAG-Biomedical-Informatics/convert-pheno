@@ -14,6 +14,13 @@ Copied files:
 - `gecco_personendaten.json`
 - `compo_corona.json`
 
+Derived local fixture:
+
+- `gecco_personendaten_patient.json`
+  Derived from `gecco_personendaten.json` by adding
+  `subject.external_ref.id.value = openehr-patient-2`
+  for patient-identified openEHR input tests.
+
 ## Note
 
 In the current `openEHR -> BFF` mapper, terms with an external

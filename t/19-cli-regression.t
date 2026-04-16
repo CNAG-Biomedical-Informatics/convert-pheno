@@ -14,6 +14,7 @@ use Test::ConvertPheno qw(
   gunzip_file_content
   slurp_file
   load_json_file
+  write_json_file
   has_ohdsi_db
 );
 
@@ -273,6 +274,34 @@ for my $case (@cases) {
             "CLI $case->{name} matches reference output",
         );
     }
+}
+
+SKIP: {
+    skip 'CLI file comparisons are unreliable on Windows', 2 if IS_WINDOWS;
+
+    my $tmp_file  = temp_output_file( suffix => '.json', dir => '/tmp' );
+    my $input_file = temp_output_file( suffix => '.json', dir => '/tmp' );
+
+    my $payload = {
+        patient      => { id => 'openehr-patient-2' },
+        compositions => [
+            load_json_file('t/openehr2bff/in/gecco_personendaten.json'),
+            load_json_file('t/openehr2bff/in/ips_canonical.json'),
+            load_json_file('t/openehr2bff/in/laboratory_report.json'),
+            load_json_file('t/openehr2bff/in/compo_corona.json'),
+        ],
+    };
+    write_json_file( $input_file, $payload );
+
+    my @cmd = ( $^X, $cli, '-iopenehr', $input_file, '-opxf', $tmp_file, '-O', '--test' );
+    my ( $exit, $output ) = run_cli(@cmd);
+
+    is( $exit, 0, 'CLI openehr2pxf exits successfully' )
+      or diag $output;
+    ok(
+        structured_files_match( 't/openehr2pxf/out/pxf.json', $tmp_file ),
+        'CLI openehr2pxf matches reference output'
+    );
 }
 
 SKIP: {

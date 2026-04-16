@@ -71,7 +71,6 @@ sub build_cli_request {
     my ( @omop_tables, $redcap_dictionary, $path_to_ohdsi_db, $print_hidden_labels );
     my ( $self_validate_schema, $overwrite, $username, $log, $version );
     my $default_vital_status;
-    my $openehr_patient_id;
     my $schema_file = $schema_default;
 
     GetOptionsFromArray(
@@ -123,7 +122,6 @@ sub build_cli_request {
         'print-hidden-labels|phl'     => \$print_hidden_labels,
         'self-validate-schema|svs'    => \$self_validate_schema,
         'default-vital-status=s'      => \$default_vital_status,
-        'openehr-patient-id=s'        => \$openehr_patient_id,
         'O'                           => \$overwrite,
         'username|u=s'                => \$username,
         'log:s'                       => \$log,
@@ -337,12 +335,9 @@ sub build_cli_request {
     $usage_error->("The flag <--stream> is only valid with <-iomop> and <-obff>")
       if $stream && !@omop_files;
 
-    $usage_error->("The flag <--openehr-patient-id> is only valid with <-iopenehr> or <-i openehr>")
-      if defined $openehr_patient_id && !@openehr_files && !( defined $normalized_in_type && $normalized_in_type eq 'openehr' );
-
-    $usage_error->("The openEHR input path currently supports only BFF output")
+    $usage_error->("The openEHR input path currently supports only BFF or PXF output")
       if ( @openehr_files || ( defined $normalized_in_type && $normalized_in_type eq 'openehr' ) )
-      && ( $out_pxf || $out_csv || $out_jsonf || $out_jsonld || $out_omop_selected );
+      && ( $out_csv || $out_jsonf || $out_jsonld || $out_omop_selected );
 
     $usage_error->("The entities <datasets> and <cohorts> are not supported with <--stream>; please request only <individuals> and/or <biosamples>")
       if $stream && grep { $_ eq 'datasets' || $_ eq 'cohorts' } @entity_list;
@@ -476,7 +471,6 @@ sub build_cli_request {
     $data{print_hidden_labels}  = $print_hidden_labels ? 1 : 0 if defined $print_hidden_labels;
     $data{search_audit_file}    = $search_audit_file if defined $search_audit_file;
     $data{default_vital_status} = $default_vital_status if defined $default_vital_status;
-    $data{openehr_patient_id}   = $openehr_patient_id if defined $openehr_patient_id;
     $data{debug}                = $debug if defined $debug;
     $data{log}                  = $log if defined $log;
     $data{verbose}              = $verbose ? 1 : 0 if defined $verbose;

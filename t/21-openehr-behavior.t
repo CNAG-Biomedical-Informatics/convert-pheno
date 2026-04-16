@@ -17,6 +17,20 @@ my $ips    = load_json_file('t/openehr2bff/in/ips_canonical.json');
 my $lab    = load_json_file('t/openehr2bff/in/laboratory_report.json');
 my $corona = load_json_file('t/openehr2bff/in/compo_corona.json');
 
+sub with_subject_id {
+    my ( $composition, $id ) = @_;
+    my %copy = %{$composition};
+    $copy{subject} = {
+        _type        => 'PARTY_SELF',
+        external_ref => {
+            id        => { _type => 'GENERIC_ID', value => $id, scheme => 'PMI' },
+            namespace => 'PMI',
+            type      => 'PERSON',
+        },
+    };
+    return \%copy;
+}
+
 subtest 'openehr2bff aggregates canonical compositions into one individual' => sub {
     my $convert = build_convert(
         method      => 'openehr2bff',
@@ -78,18 +92,64 @@ subtest 'openehr2bff emits first-class arrays from multiple canonical compositio
     );
 };
 
-subtest 'openehr2bff accepts an explicit patient id fallback' => sub {
-    my $convert = build_convert(
-        method             => 'openehr2bff',
-        data               => {
-            compositions => [$gender],
+subtest 'openehr2bff accepts openEHR ehr_id and ehr_status patient identifiers' => sub {
+    {
+        my $convert = build_convert(
+            method      => 'openehr2bff',
+            data        => {
+                ehr_id       => { value => 'ehr-123' },
+                compositions => [$gender],
+            },
+            in_textfile => 0,
+        );
+
+        my $individual = $convert->openehr2bff;
+        is( $individual->{id}, 'ehr-123', 'uses ehr_id.value when present in the payload envelope' );
+    }
+
+    {
+        my $convert = build_convert(
+            method      => 'openehr2bff',
+            data        => {
+                ehr_status   => {
+                    subject => {
+                        _type        => 'PARTY_SELF',
+                        external_ref => {
+                            id        => { _type => 'GENERIC_ID', value => 'subject-456', scheme => 'PMI' },
+                            namespace => 'PMI',
+                            type      => 'PERSON',
+                        },
+                    },
+                },
+                compositions => [$gender],
+            },
+            in_textfile => 0,
+        );
+
+        my $individual = $convert->openehr2bff;
+        is( $individual->{id}, 'subject-456', 'uses ehr_status.subject.external_ref.id.value when present' );
+    }
+};
+
+subtest 'openehr2bff accepts PARTY_SELF external_ref identifiers inside compositions' => sub {
+    my $gender_with_subject = load_json_file('t/openehr2bff/in/gecco_personendaten.json');
+    $gender_with_subject->{subject} = {
+        _type        => 'PARTY_SELF',
+        external_ref => {
+            id        => { _type => 'GENERIC_ID', value => 'subject-789', scheme => 'PMI' },
+            namespace => 'PMI',
+            type      => 'PERSON',
         },
-        in_textfile        => 0,
-        openehr_patient_id => 'fallback-patient',
+    };
+
+    my $convert = build_convert(
+        method      => 'openehr2bff',
+        data        => { compositions => [$gender_with_subject] },
+        in_textfile => 0,
     );
 
     my $individual = $convert->openehr2bff;
-    is( $individual->{id}, 'fallback-patient', 'uses explicit fallback patient id when the payload has none' );
+    is( $individual->{id}, 'subject-789', 'uses PARTY_SELF.external_ref.id.value when present in a composition' );
 };
 
 subtest 'openehr2bff fails clearly when patient id cannot be resolved' => sub {
@@ -102,6 +162,31 @@ subtest 'openehr2bff fails clearly when patient id cannot be resolved' => sub {
     my $ok = eval { $convert->openehr2bff; 1 };
     ok( !$ok, 'conversion failed' );
     like( $@, qr/patient id/i, 'error mentions missing patient id' );
+};
+
+subtest 'openehr2bff groups multiple patients before mapping' => sub {
+    my $patient_a = with_subject_id( $gender, 'patient-a' );
+    my $patient_b = with_subject_id( $gender, 'patient-b' );
+
+    my $convert = build_convert(
+        method      => 'openehr2bff',
+        data        => [
+            { compositions => [$patient_a] },
+            { compositions => [$patient_b] },
+        ],
+        in_textfile => 0,
+    );
+
+    my $individuals = $convert->openehr2bff;
+    is( ref($individuals), 'ARRAY', 'returns an array for multi-patient openEHR input' );
+    is( scalar @{$individuals}, 2, 'emits one individual per patient bucket' );
+    is_deeply(
+        [ map { $_->{id} } @{$individuals} ],
+        [ 'patient-a', 'patient-b' ],
+        'keeps deterministic patient ordering'
+    );
+    is( $individuals->[0]{sex}{id}, 'NCIT:C20197', 'maps first patient sex' );
+    is( $individuals->[1]{sex}{id}, 'NCIT:C20197', 'maps second patient sex' );
 };
 
 done_testing;

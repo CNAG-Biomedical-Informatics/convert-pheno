@@ -173,7 +173,6 @@ has [qw /in_files/] => ( default => sub { [] }, is => 'ro' );
 has [
     qw /out_file out_dir in_textfile in_file sep sql2csv redcap_dictionary mapping_file schema_file debug log verbose search_audit_file/
 ] => ( is => 'ro' );
-has [qw /openehr_patient_id/] => ( is => 'ro' );
 
 has [qw /data method/] => ( is => 'rw' );
 has entities => ( is => 'ro', default => sub { ['individuals'] } );
@@ -479,6 +478,21 @@ sub openehr2bff {
     return _run_primary_view($self);
 }
 
+#################
+#################
+# OPENEHR2PXF   #
+#################
+#################
+
+sub openehr2pxf {
+    my $self = shift;
+    return _convert_via_bff(
+        $self,
+        via_method => 'openehr2bff',
+        to_method  => 'bff2pxf',
+    );
+}
+
 #############
 #############
 #  CSV2BFF  #
@@ -598,7 +612,8 @@ sub _prepare_bundle_input {
     return _prepare_redcap2bff_input($self) if $self->{method} eq 'redcap2bff';
     return _prepare_cdisc2bff_input($self)  if $self->{method} eq 'cdisc2bff';
     return _prepare_csv2bff_input($self)    if $self->{method} eq 'csv2bff';
-    return _prepare_openehr2bff_input($self) if $self->{method} eq 'openehr2bff';
+    return _prepare_openehr2bff_input($self)
+      if $self->{method} eq 'openehr2bff' || $self->{method} eq 'openehr2pxf';
     if ( $self->{method} eq 'omop2bff' ) {
         delete $self->{mapping_file_derived_entity_overrides};
         return _prepare_omop2bff_input($self);
@@ -608,7 +623,9 @@ sub _prepare_bundle_input {
     # provenance here as well for synthesized dataset/cohort metadata.
     delete $self->{mapping_file_derived_entity_overrides};
     $self->{convertPheno} ||= get_info($self)
-      if $self->{method} eq 'pxf2bff' || $self->{method} eq 'openehr2bff';
+      if $self->{method} eq 'pxf2bff'
+      || $self->{method} eq 'openehr2bff'
+      || $self->{method} eq 'openehr2pxf';
 
     return 1;
 }
@@ -729,47 +746,100 @@ sub _prepare_omop2bff_input {
 
 sub _prepare_openehr2bff_input {
     my ($self) = @_;
-    return 1 if exists $self->{data};
+    return 1 if $self->{openehr_input_prepared};
+
+    my @documents = _collect_openehr_documents($self);
+    my $grouped   = _group_openehr_documents_by_patient( $self, \@documents );
+
+    $self->{data} = @{$grouped} == 1 ? $grouped->[0] : $grouped;
+    $self->{convertPheno} ||= get_info($self);
+    $self->{openehr_input_prepared} = 1;
+
+    return 1;
+}
+
+sub _collect_openehr_documents {
+    my ($self) = @_;
+
+    return _normalize_openehr_documents( $self->{data} ) if exists $self->{data};
 
     my @files = @{ $self->{in_files} || [] };
     push @files, $self->{in_file} if !@files && defined $self->{in_file};
 
-    my @documents = map {
-        io_yaml_or_json(
+    my @documents;
+    for my $file (@files) {
+        my $loaded = io_yaml_or_json(
             {
-                filepath => $_,
+                filepath => $file,
                 mode     => 'read',
             }
-        )
-    } @files;
-
-    my $data;
-    if ( @documents == 1 ) {
-        my $doc = $documents[0];
-        if ( ref($doc) eq 'HASH' && exists $doc->{compositions} ) {
-            $data = $doc;
-        }
-        elsif ( ref($doc) eq 'ARRAY' ) {
-            $data = { compositions => $doc };
-        }
-        else {
-            $data = { compositions => [$doc] };
-        }
-    }
-    else {
-        $data = { compositions => \@documents };
+        );
+        push @documents, _normalize_openehr_documents($loaded);
     }
 
-    if ( defined $self->{openehr_patient_id} && length $self->{openehr_patient_id} ) {
-        $data->{patient} ||= {};
-        $data->{patient}{id} = $self->{openehr_patient_id}
-          unless defined $data->{patient}{id} && length $data->{patient}{id};
+    return @documents;
+}
+
+sub _normalize_openehr_documents {
+    my ($data) = @_;
+    return () unless defined $data;
+
+    if ( ref($data) eq 'ARRAY' ) {
+        my $all_envelopes = 1;
+        for my $item ( @{$data} ) {
+            if ( ref($item) ne 'HASH' || !exists $item->{compositions} ) {
+                $all_envelopes = 0;
+                last;
+            }
+        }
+
+        return map { _normalize_openehr_document($_) } @{$data}
+          if @{$data} && $all_envelopes;
+
+        return ( _normalize_openehr_document($data) );
     }
 
-    $self->{data} = $data;
-    $self->{convertPheno} ||= get_info($self);
+    return ( _normalize_openehr_document($data) );
+}
 
-    return 1;
+sub _normalize_openehr_document {
+    my ($doc) = @_;
+
+    return $doc
+      if ref($doc) eq 'HASH' && exists $doc->{compositions};
+
+    return { compositions => $doc } if ref($doc) eq 'ARRAY';
+    return { compositions => [$doc] };
+}
+
+sub _group_openehr_documents_by_patient {
+    my ( $self, $documents ) = @_;
+
+    my %by_patient;
+    my @order;
+
+    for my $doc ( @{$documents} ) {
+        my $patient_id =
+          Convert::Pheno::OpenEHR::ToBFF::resolve_openehr_patient_id( $self, $doc );
+
+        die "The input <openEHR> data could not be resolved to a patient id; please provide one composition set with a stable patient identifier in the payload or envelope\n"
+          unless defined $patient_id && length $patient_id;
+
+        if ( !exists $by_patient{$patient_id} ) {
+            $by_patient{$patient_id} = {
+                patient      => { id => $patient_id },
+                compositions => [],
+            };
+            push @order, $patient_id;
+        }
+
+        push @{ $by_patient{$patient_id}{compositions} },
+          @{
+            Convert::Pheno::OpenEHR::ToBFF::extract_openehr_compositions($doc);
+          };
+    }
+
+    return [ map { $by_patient{$_} } @order ];
 }
 
 sub _omop_requests_biosamples {

@@ -3,7 +3,7 @@
 This page gives a compact overview of the formats that `Convert-Pheno` can read and write. Internally, most conversions go through `BFF` first, and then continue to the requested output format when needed.
 
 !!! Note
-    `openEHR` support is currently **experimental** and currently limited to **canonical composition input** with `BFF` output.
+    `openEHR` support is currently **experimental** and currently limited to **canonical composition input** with `BFF` and `PXF` output. Patient identity must be resolvable from the payload or envelope, and multi-patient input is grouped automatically.
 
 ```mermaid
 %%{init:{'theme':'neutral'}}%%

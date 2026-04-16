@@ -7,6 +7,7 @@ use Test::More;
 use Convert::Pheno::IO::CSVHandler qw(get_headers);
 use Test::ConvertPheno qw(
   build_convert
+  load_json_file
   read_first_json_object
   temp_output_file
   write_json_file
@@ -111,6 +112,64 @@ for my $case (@cases) {
     $got->{$_} = undef for qw(id metaData);
 
     is_deeply( $got, $pxf, 'bff2pxf module conversion matches fixture' );
+}
+
+{
+    my $gender = load_json_file('t/openehr2bff/in/gecco_personendaten.json');
+    my $ips    = load_json_file('t/openehr2bff/in/ips_canonical.json');
+    my $lab    = load_json_file('t/openehr2bff/in/laboratory_report.json');
+    my $corona = load_json_file('t/openehr2bff/in/compo_corona.json');
+
+    my $convert = build_convert(
+        method      => 'openehr2pxf',
+        data        => {
+            patient      => { id => 'openehr-patient-2' },
+            compositions => [ $gender, $ips, $lab, $corona ],
+        },
+        in_textfile => 0,
+    );
+
+    my $tmp_file = temp_output_file( suffix => '.json' );
+    write_json_file( $tmp_file, $convert->openehr2pxf );
+    ok(
+        structured_files_match( 't/openehr2pxf/out/pxf.json', $tmp_file ),
+        'openehr2pxf module conversion matches fixture'
+    );
+}
+
+{
+    my $patient_a = load_json_file('t/openehr2bff/in/gecco_personendaten.json');
+    my $patient_b = load_json_file('t/openehr2bff/in/gecco_personendaten.json');
+
+    $patient_a->{subject} = {
+        _type        => 'PARTY_SELF',
+        external_ref => {
+            id        => { _type => 'GENERIC_ID', value => 'patient-a', scheme => 'PMI' },
+            namespace => 'PMI',
+            type      => 'PERSON',
+        },
+    };
+    $patient_b->{subject} = {
+        _type        => 'PARTY_SELF',
+        external_ref => {
+            id        => { _type => 'GENERIC_ID', value => 'patient-b', scheme => 'PMI' },
+            namespace => 'PMI',
+            type      => 'PERSON',
+        },
+    };
+
+    my $convert = build_convert(
+        method      => 'openehr2pxf',
+        data        => [
+            { compositions => [$patient_a] },
+            { compositions => [$patient_b] },
+        ],
+        in_textfile => 0,
+    );
+
+    my $pxf = $convert->openehr2pxf;
+    is( ref($pxf), 'ARRAY', 'openehr2pxf returns an array for multi-patient input' );
+    is( scalar @{$pxf}, 2, 'openehr2pxf emits one phenopacket per patient bucket' );
 }
 
 {

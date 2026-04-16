@@ -11,7 +11,12 @@ use Convert::Pheno::Context;
 use Convert::Pheno::Model::Bundle;
 use Convert::Pheno::Utils::Default qw(get_defaults);
 
-our @EXPORT_OK = qw(do_openehr2bff run_openehr_to_bundle);
+our @EXPORT_OK = qw(
+  do_openehr2bff
+  run_openehr_to_bundle
+  extract_openehr_compositions
+  resolve_openehr_patient_id
+);
 my $DEFAULT = get_defaults();
 
 sub do_openehr2bff {
@@ -39,14 +44,14 @@ sub run_openehr_to_bundle {
         }
     );
 
-    my $compositions = _extract_compositions($data);
+    my $compositions = extract_openehr_compositions($data);
     _validate_compositions($compositions);
 
-    my $id  = _resolve_patient_id( $self, $data );
+    my $id  = resolve_openehr_patient_id( $self, $data, $compositions );
     my $sex = _resolve_sex($compositions);
     my $mapped = _map_first_class_arrays($compositions);
 
-    die "The input <openEHR> data could not be resolved to a patient id; please provide one composition set with a stable patient identifier or use --openehr-patient-id\n"
+    die "The input <openEHR> data could not be resolved to a patient id; please provide one composition set with a stable patient identifier in the payload or envelope\n"
       unless defined $id && length $id;
     die "The input <openEHR> data could not be resolved to <sex>; please include a demographic composition carrying administrative gender\n"
       unless defined $sex;
@@ -75,7 +80,7 @@ sub run_openehr_to_bundle {
     return $bundle;
 }
 
-sub _extract_compositions {
+sub extract_openehr_compositions {
     my ($data) = @_;
 
     return [] unless defined $data;
@@ -104,8 +109,10 @@ sub _validate_compositions {
     return 1;
 }
 
-sub _resolve_patient_id {
-    my ( $self, $data ) = @_;
+sub resolve_openehr_patient_id {
+    my ( $self, $data, $compositions ) = @_;
+
+    $compositions ||= extract_openehr_compositions($data);
 
     if ( ref($data) eq 'HASH' ) {
         return $data->{patient}{id}
@@ -116,10 +123,73 @@ sub _resolve_patient_id {
 
         return $data->{id}
           if defined $data->{id} && !ref( $data->{id} ) && length $data->{id};
+
+        my $ehr_id = _extract_identifier_value( $data->{ehr_id} );
+        return $ehr_id if defined $ehr_id && length $ehr_id;
+
+        my $ehr_status_subject_id = _extract_party_proxy_external_ref_id( $data->{ehr_status}{subject} )
+          if exists $data->{ehr_status} && ref( $data->{ehr_status} ) eq 'HASH';
+        return $ehr_status_subject_id
+          if defined $ehr_status_subject_id && length $ehr_status_subject_id;
     }
 
-    return $self->{openehr_patient_id}
-      if defined $self->{openehr_patient_id} && length $self->{openehr_patient_id};
+    if ( ref($compositions) eq 'ARRAY' ) {
+        for my $composition ( @{$compositions} ) {
+            my $subject_id = _find_party_self_external_ref_id($composition);
+            return $subject_id if defined $subject_id && length $subject_id;
+        }
+    }
+
+    return;
+}
+
+sub _extract_identifier_value {
+    my ($value) = @_;
+    return unless defined $value;
+
+    return $value
+      if !ref($value) && length $value;
+
+    return $value->{value}
+      if ref($value) eq 'HASH'
+      && defined $value->{value}
+      && !ref( $value->{value} )
+      && length $value->{value};
+
+    return;
+}
+
+sub _extract_party_proxy_external_ref_id {
+    my ($party) = @_;
+    return unless ref($party) eq 'HASH';
+    return unless exists $party->{external_ref} && ref( $party->{external_ref} ) eq 'HASH';
+    return _extract_identifier_value( $party->{external_ref}{id} );
+}
+
+sub _find_party_self_external_ref_id {
+    my ($node) = @_;
+    return unless defined $node;
+
+    if ( ref($node) eq 'HASH' ) {
+        if ( ( $node->{_type} || '' ) eq 'PARTY_SELF' ) {
+            my $id = _extract_party_proxy_external_ref_id($node);
+            return $id if defined $id && length $id;
+        }
+
+        for my $value ( values %{$node} ) {
+            my $id = _find_party_self_external_ref_id($value);
+            return $id if defined $id;
+        }
+
+        return;
+    }
+
+    if ( ref($node) eq 'ARRAY' ) {
+        for my $entry ( @{$node} ) {
+            my $id = _find_party_self_external_ref_id($entry);
+            return $id if defined $id;
+        }
+    }
 
     return;
 }

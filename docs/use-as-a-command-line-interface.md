@@ -23,7 +23,7 @@ The compact flags are still the ones most users rely on:
 - `-obff`, `-opxf`, `-oomop`, `-ocsv`, `-ojsonf`, `-ojsonld`
 
 !!! Note
-    `openEHR` input support is currently **experimental**. The current CLI path is aimed at **EHRbase-style canonical JSON compositions**, and it currently supports **BFF output only**.
+    `openEHR` input support is currently **experimental**. The current CLI path is aimed at **EHRbase-style canonical JSON compositions**, and it currently supports **BFF** and **PXF** output.
 
 You can always check the current built-in help with:
 
@@ -78,10 +78,16 @@ Convert a **large OMOP SQL dump** incrementally:
 convert-pheno -iomop omop.sql.gz -obff individuals.json.gz --stream --ohdsi-db
 ```
 
-Convert multiple openEHR canonical compositions to `BFF`:
+Convert an openEHR patient envelope to `BFF`:
 
 ```bash
-convert-pheno -i openehr demographics.json ips.json -o bff individual.json --openehr-patient-id patient-1
+convert-pheno -i openehr patient-set.json -o bff individual.json
+```
+
+Convert an openEHR patient envelope to `PXF`:
+
+```bash
+convert-pheno -i openehr patient-set.json -o pxf phenopacket.json
 ```
 
 Write a TSV audit of ontology lookups during a mapping-file conversion:
@@ -150,9 +156,10 @@ For the search behavior itself, including examples and threshold tradeoffs, see 
 
 ### openEHR-specific options
 
-- `-iopenehr FILE ...` or `-i openehr FILE ...` accepts one or more canonical openEHR JSON or YAML compositions.
-- `--openehr-patient-id ID` supplies a patient identifier when it cannot be resolved from the openEHR payload itself.
-- The current openEHR CLI path is **experimental** and currently supports **BFF output only**.
+- `-iopenehr FILE ...` or `-i openehr FILE ...` accepts openEHR JSON or YAML input as patient-bearing envelopes or composition sets.
+- openEHR input must carry a resolvable patient identifier in the payload or envelope; otherwise the conversion fails.
+- multiple openEHR files are supported when patient identity can be resolved; multi-patient input is grouped automatically before mapping.
+- The current openEHR CLI path is **experimental** and currently supports **BFF** and **PXF** output.
 
 ### General options
 
