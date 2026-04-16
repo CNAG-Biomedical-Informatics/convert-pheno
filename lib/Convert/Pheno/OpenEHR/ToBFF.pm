@@ -5,11 +5,14 @@ use warnings;
 use autodie;
 
 use Exporter 'import';
+use JSON::PP ();
 
 use Convert::Pheno::Context;
 use Convert::Pheno::Model::Bundle;
+use Convert::Pheno::Utils::Default qw(get_defaults);
 
 our @EXPORT_OK = qw(do_openehr2bff run_openehr_to_bundle);
+my $DEFAULT = get_defaults();
 
 sub do_openehr2bff {
     my ( $self, $data ) = @_;
@@ -173,10 +176,8 @@ sub _map_gender_code {
     my ($code) = @_;
     return unless defined $code;
 
-    return { id => 'NCIT:C20197', label => 'Male' }
-      if $code eq 'male';
-    return { id => 'NCIT:C16576', label => 'Female' }
-      if $code eq 'female';
+    return { %{ $DEFAULT->{sex}{male} } } if $code eq 'male';
+    return { %{ $DEFAULT->{sex}{female} } } if $code eq 'female';
 
     return;
 }
@@ -268,12 +269,12 @@ sub _map_lab_measure {
     my $assay =
          _find_first_element_value( $node, 'Test result name', 'Test name', 'Analyte name' )
       || _find_first_named_cluster_code( $node, 'Result group' )
-      || _term_from_text( _node_name($node) );
+      || _term_from_text( _node_name($node), $node );
 
     my $quantity = _find_first_quantity_value( $node, 'Result value', 'Temperatur' );
     my $time     = _find_first_datetime_value($node);
 
-    return unless defined $assay || defined $quantity;
+    return unless defined $assay && defined $quantity;
 
     my $measure = {
         _info => {
@@ -300,7 +301,7 @@ sub _map_temperature_measure {
     return unless defined $quantity;
 
     my $measure = {
-        assayCode => _term_from_text( _node_name($node) ),
+        assayCode => _term_from_text( _node_name($node), $node ),
         measurementValue => {
             quantity => $quantity,
         },
@@ -325,7 +326,7 @@ sub _map_phenotypic_feature {
     my $excluded = _excluded_from_presence($presence);
 
     my $feature = {
-        featureType => _term_from_text($feature_name),
+        featureType => _term_from_text( $feature_name, $node ),
         _info       => {
             openEHR => $node,
         },
@@ -407,7 +408,7 @@ sub _find_first_element_value {
             my $name = _node_name($cursor);
             return unless defined $name && $wanted{$name};
 
-            $found = _term_from_value( $cursor->{value} );
+            $found = _term_from_value( $cursor->{value}, $cursor );
         }
     );
 
@@ -483,7 +484,7 @@ sub _find_first_named_cluster_code {
                     my $name = $item->{name};
                     next unless ref($name) eq 'HASH';
                     next unless ( $name->{_type} || '' ) eq 'DV_CODED_TEXT';
-                    $found = _term_from_value($name);
+                    $found = _term_from_value( $name, $item );
                     last if defined $found;
                 }
             }
@@ -526,27 +527,35 @@ sub _find_first_datetime_value {
 }
 
 sub _term_from_value {
-    my ($value) = @_;
+    my ( $value, $source_node ) = @_;
     return unless defined $value;
 
     if ( ref($value) eq 'HASH' ) {
         if ( defined $value->{value} ) {
             my %term = ( label => $value->{value} );
             my $id = _term_id_from_defining_code( $value->{defining_code} );
+            $id ||= _synthetic_term_id( $value->{value}, $source_node );
             $term{id} = $id if defined $id;
             return \%term;
         }
         return;
     }
 
-    return { label => $value } if !ref($value) && length $value;
+    return {
+        id    => _synthetic_term_id( $value, $source_node ),
+        label => $value,
+      }
+      if !ref($value) && length $value;
     return;
 }
 
 sub _term_from_text {
-    my ($text) = @_;
+    my ( $text, $source_node ) = @_;
     return unless defined $text && length $text;
-    return { label => $text };
+    return {
+        id    => _synthetic_term_id( $text, $source_node ),
+        label => $text,
+    };
 }
 
 sub _term_id_from_defining_code {
@@ -597,12 +606,47 @@ sub _excluded_from_presence {
     my ($presence) = @_;
     return unless defined $presence && ref($presence) eq 'HASH';
 
-    return 1 if defined $presence->{label}
+    return JSON::PP::true() if defined $presence->{label}
       && $presence->{label} =~ /Nicht vorhanden/i;
-    return 0 if defined $presence->{label}
+    return JSON::PP::false() if defined $presence->{label}
       && ( $presence->{label} =~ /Vorhanden/i || $presence->{label} =~ /Present/i );
 
     return;
+}
+
+sub _synthetic_term_id {
+    my ( $text, $source_node ) = @_;
+    return unless defined $text && length $text;
+
+    my @parts = ('openEHR');
+    if ( ref($source_node) eq 'HASH' ) {
+        push @parts, $source_node->{archetype_node_id}
+          if defined $source_node->{archetype_node_id} && length $source_node->{archetype_node_id};
+        push @parts, $source_node->{_type}
+          if defined $source_node->{_type} && length $source_node->{_type};
+        if ( ref( $source_node->{name} ) eq 'HASH'
+            && defined $source_node->{name}{value}
+            && length $source_node->{name}{value} )
+        {
+            push @parts, _normalize_term_id_component( $source_node->{name}{value} );
+        }
+    }
+    push @parts, _normalize_term_id_component($text);
+
+    return join ':', grep { defined && length } @parts;
+}
+
+sub _normalize_term_id_component {
+    my ($text) = @_;
+    return unless defined $text;
+
+    $text =~ s/^\s+|\s+$//g;
+    $text =~ s/\s+/_/g;
+    $text =~ s/[^A-Za-z0-9_.:-]+/_/g;
+    $text =~ s/_+/_/g;
+    $text =~ s/^_+|_+$//g;
+
+    return length $text ? $text : 'term';
 }
 
 sub _extract_date {

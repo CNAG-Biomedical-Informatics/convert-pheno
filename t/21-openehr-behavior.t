@@ -4,7 +4,13 @@ use warnings;
 
 use lib qw(./lib ../lib t/lib);
 use Test::More;
-use Test::ConvertPheno qw(build_convert load_json_file);
+use Test::ConvertPheno qw(
+  build_convert
+  load_json_file
+  temp_output_file
+  write_json_file
+  structured_files_match
+);
 
 my $gender = load_json_file('t/openehr2bff/in/gecco_personendaten.json');
 my $ips    = load_json_file('t/openehr2bff/in/ips_canonical.json');
@@ -41,7 +47,7 @@ subtest 'openehr2bff emits first-class arrays from multiple canonical compositio
     my $individual = $convert->openehr2bff;
 
     is( scalar @{ $individual->{diseases} }, 3, 'maps problem diagnosis entries to diseases' );
-    is( scalar @{ $individual->{measures} }, 3, 'maps multiple observations to measures' );
+    is( scalar @{ $individual->{measures} }, 2, 'maps multiple observations with values to measures' );
     is( scalar @{ $individual->{phenotypicFeatures} }, 7, 'maps symptom screening observations to phenotypicFeatures' );
     is( scalar @{ $individual->{interventionsOrProcedures} }, 1, 'maps procedure actions to interventionsOrProcedures' );
     is( scalar @{ $individual->{treatments} }, 2, 'maps medication actions to treatments' );
@@ -63,6 +69,13 @@ subtest 'openehr2bff emits first-class arrays from multiple canonical compositio
 
     ok( defined $present_feature, 'marks present symptoms as non-excluded phenotypic features' );
     ok( defined $absent_feature, 'marks absent symptoms as excluded phenotypic features' );
+
+    my $tmp_file = temp_output_file( suffix => '.json', dir => 't' );
+    write_json_file( $tmp_file, [$individual] );
+    ok(
+        structured_files_match( 't/openehr2bff/out/individuals.json', $tmp_file ),
+        'matches the openEHR fixture snapshot'
+    );
 };
 
 subtest 'openehr2bff accepts an explicit patient id fallback' => sub {

@@ -13,3 +13,10 @@ Copied files:
 - `laboratory_report.json`
 - `gecco_personendaten.json`
 - `compo_corona.json`
+
+## Note
+
+In the current `openEHR -> BFF` mapper, terms with an external
+`defining_code` keep that CURIE (for example `LOINC:2093-3`), while uncoded
+`DV_TEXT` terms are emitted with synthetic `openEHR:` ids so BFF ontology
+terms still have both `id` and `label`.
