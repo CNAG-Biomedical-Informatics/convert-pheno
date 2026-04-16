@@ -18,7 +18,7 @@ jobs:
         perl: ['5.42', '5.40', '5.38', '5.36', '5.34', '5.32', '5.30']
     name: Perl ${{ matrix.perl }} on ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Run tests (no coverage)
         uses: shogo82148/actions-setup-perl@v1
         with:
