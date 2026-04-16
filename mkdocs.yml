@@ -89,6 +89,7 @@ nav:
       - "Mapping Steps": mapping-steps.md
       - "Mapping Tables":
           - "OMOP to BFF": omop2bff.md
+          - "openEHR to BFF": openehr2bff.md
           - "PXF to BFF": pxf2bff.md
           - "BFF to PXF": bff2pxf.md
           - "BFF to OMOP CDM": bff2omop.md
