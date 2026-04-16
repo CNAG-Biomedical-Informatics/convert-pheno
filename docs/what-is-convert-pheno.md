@@ -19,7 +19,7 @@ In practice, the project is centered on a **Perl module** and a **command-line t
 
 Internally, the toolkit uses `BFF` as its **center model** for most conversions. From there, it can emit `BFF`, `PXF`, or `OMOP CDM` output depending on the selected workflow.
 
-The current `openEHR` path should still be treated as **experimental**. It is currently aimed at canonical composition input and `BFF` output.
+The current `openEHR` path should still be treated as **experimental**. It is currently aimed at canonical composition input and `BFF` or `PXF` output.
 
 ## Most users should start here
 

@@ -104,7 +104,6 @@ sub _map_person {
             ontology => 'ncit',
             self     => $self
         }
-
     ) if $sex;
 }
 

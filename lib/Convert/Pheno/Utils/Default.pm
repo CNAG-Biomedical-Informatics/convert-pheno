@@ -9,6 +9,12 @@ our @EXPORT_OK = qw(get_defaults);
 # Define your default values
 my %DEFAULT = (
     ontology_term => { id => 'NCIT:C126101', label => 'Not Available' },
+    sex           => {
+        male    => { id => 'NCIT:C20197', label => 'Male' },
+        female  => { id => 'NCIT:C16576', label => 'Female' },
+        other   => { id => 'NCIT:C17998', label => 'Other' },
+        unknown => { id => 'NCIT:C46109', label => 'Unknown' },
+    },
     date          => '1900-01-01',
     duration      => 'P999Y',
     duration_OMOP => 'P0Y',
