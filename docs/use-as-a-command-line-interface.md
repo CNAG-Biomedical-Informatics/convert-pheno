@@ -19,8 +19,11 @@ Both CLI styles are supported:
 
 The compact flags are still the ones most users rely on:
 
-- `-ipxf`, `-ibff`, `-iomop`, `-iredcap`, `-icdisc`, `-icsv`
+- `-ipxf`, `-ibff`, `-iomop`, `-iopenehr`, `-iredcap`, `-icdisc`, `-icsv`
 - `-obff`, `-opxf`, `-oomop`, `-ocsv`, `-ojsonf`, `-ojsonld`
+
+!!! Note
+    `openEHR` input support is currently **experimental**. The current CLI path is aimed at **EHRbase-style canonical JSON compositions**, and it currently supports **BFF output only**.
 
 You can always check the current built-in help with:
 
@@ -73,6 +76,12 @@ Convert a **large OMOP SQL dump** incrementally:
 
 ```bash
 convert-pheno -iomop omop.sql.gz -obff individuals.json.gz --stream --ohdsi-db
+```
+
+Convert multiple openEHR canonical compositions to `BFF`:
+
+```bash
+convert-pheno -i openehr demographics.json ips.json -o bff individual.json --openehr-patient-id patient-1
 ```
 
 Write a TSV audit of ontology lookups during a mapping-file conversion:
@@ -138,6 +147,12 @@ For the search behavior itself, including examples and threshold tradeoffs, see 
 - `--stream` enables incremental OMOP processing for individuals-only `-obff` output.
 - `--sql2csv` prints SQL tables instead of converting them.
 - `--max-lines-sql N` limits how many lines are read per SQL table. Default: `500`.
+
+### openEHR-specific options
+
+- `-iopenehr FILE ...` or `-i openehr FILE ...` accepts one or more canonical openEHR JSON or YAML compositions.
+- `--openehr-patient-id ID` supplies a patient identifier when it cannot be resolved from the openEHR payload itself.
+- The current openEHR CLI path is **experimental** and currently supports **BFF output only**.
 
 ### General options
 

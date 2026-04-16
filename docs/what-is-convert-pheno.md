@@ -12,11 +12,14 @@ In practice, the project is centered on a **Perl module** and a **command-line t
 - BFF `individuals` JSON/YAML, plus entity-aware BFF output for `biosamples`, `datasets`, and `cohorts`
 - Phenopackets v2 JSON/YAML
 - OMOP-CDM SQL or CSV exports
+- experimental openEHR canonical JSON/YAML composition input
 - REDCap CSV exports
 - CDISC-ODM XML
 - mapped CSV input
 
 Internally, the toolkit uses `BFF` as its **center model** for most conversions. From there, it can emit `BFF`, `PXF`, or `OMOP CDM` output depending on the selected workflow.
+
+The current `openEHR` path should still be treated as **experimental**. It is currently aimed at canonical composition input and `BFF` output.
 
 ## Most users should start here
 

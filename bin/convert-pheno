@@ -47,10 +47,13 @@ Usage:
   convert-pheno -ipxf <infile> -obff --entities <list> --out-dir <dir> [options]
 
 Common input flags:
-  -i <type> <file>    Generic input form (pxf|bff|omop|redcap|cdisc|csv)
+  -i <type> <file>    Generic input form (pxf|bff|omop|redcap|cdisc|csv|openehr)
   -ibff <file>      Beacon v2 Models ('individuals' JSON|YAML)
   -ipxf <file>      Phenopackets v2 (JSON|YAML)
   -iomop <files...> OMOP-CDM CSV files or PostgreSQL dump
+  -iopenehr <files...>
+                    Experimental openEHR canonical JSON/YAML compositions
+                    (currently EHRbase-oriented; input-only; BFF output only)
   -iredcap <file>   REDCap export CSV
   -icdisc <file>    CDISC-ODM XML
   -icsv <file>      Raw CSV
@@ -109,6 +112,8 @@ OMOP:
   --max-lines-sql <n>             Maximum SQL lines per table [500]
 
 Other useful options:
+  --openehr-patient-id <id>   Explicit patient id for openEHR input when the
+                              compositions do not carry one directly
   --default-vital-status <s>   Fallback PXF subject vitalStatus
                                [ALIVE|DECEASED|UNKNOWN_STATUS]
                                Used only with PXF output when no source
@@ -135,6 +140,7 @@ Examples:
   convert-pheno -iomop dump.sql.gz -opxf phenopackets.json.gz --default-vital-status UNKNOWN_STATUS --ohdsi-db
   convert-pheno -iomop dump.sql.gz -obff individuals.json.gz --stream --ohdsi-db
   convert-pheno -iomop dump.sql.gz -obff --stream --entities individuals biosamples --out-dir out/ --ohdsi-db
+  convert-pheno -i openehr demographics.json ips.json -o bff individual.json --openehr-patient-id patient-1
 
 BFF output modes:
   -obff FILE keeps the individuals-only BFF behavior.
@@ -144,6 +150,7 @@ BFF output modes:
   under info.phenopacket.biosamples unless --entities is used.
   PXF output still defaults subject.vitalStatus to ALIVE unless a preserved
   source vitalStatus or --default-vital-status is available.
+  openEHR input support is currently experimental and limited to BFF output.
 
 Docs:
   Site:  https://cnag-biomedical-informatics.github.io/convert-pheno

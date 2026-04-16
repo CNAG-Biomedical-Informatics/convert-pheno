@@ -43,7 +43,7 @@
 
 `Convert-Pheno` is a toolkit for interconverting standard clinical and phenotypic data models
 
-Supported formats include BFF, PXF, OMOP CDM, REDCap, CDISC-ODM and CSV
+Supported formats include BFF, PXF, OMOP CDM, REDCap, CDISC-ODM, CSV, and experimental openEHR canonical input
 
 ## Quick Start
 
@@ -54,9 +54,12 @@ convert-pheno -ipxf pxf.json -obff individuals.json
 convert-pheno -ipxf pxf.json -obff --entities individuals biosamples datasets cohorts --out-dir out/
 convert-pheno -ibff individuals.json -opxf phenopackets.json
 convert-pheno -iomop dump.sql.gz -obff individuals.json.gz --stream --ohdsi-db
+convert-pheno -i openehr demographics.json ips.json -o bff individual.json --openehr-patient-id patient-1
 ```
 
 For backward compatibility, the `-iomop ... -obff` form still keeps the individuals-only BFF output behavior.
+
+Note: `openEHR` support is currently experimental and currently limited to canonical composition input with `BFF` output.
 
 Internally, most conversions use `BFF` as the center model before continuing to other output formats when needed.
 

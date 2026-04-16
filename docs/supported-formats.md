@@ -2,6 +2,9 @@
 
 This page gives a compact overview of the formats that `Convert-Pheno` can read and write. Internally, most conversions go through `BFF` first, and then continue to the requested output format when needed.
 
+!!! Note
+    `openEHR` support is currently **experimental** and currently limited to **canonical composition input** with `BFF` output.
+
 ```mermaid
 %%{init:{'theme':'neutral'}}%%
 graph LR
@@ -42,6 +45,7 @@ graph LR
     - [Beacon v2 Models (JSON | YAML)](bff.md)
     - [Phenopackets v2 (JSON | YAML)](pxf.md)
     - [OMOP-CDM (SQL export | CSV)](omop-cdm.md)
+    - `openEHR` canonical JSON/YAML compositions (`experimental`)
     - [REDCap exports (CSV)](redcap.md)
     - [CDISC-ODM v1 (XML)](cdisc-odm.md)
     - [CSV raw data](csv.md)
