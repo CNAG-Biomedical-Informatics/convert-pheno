@@ -18,7 +18,7 @@ jobs:
         perl: [ '5.30']
     name: Perl ${{ matrix.perl }} on ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Get version
         id: get_version

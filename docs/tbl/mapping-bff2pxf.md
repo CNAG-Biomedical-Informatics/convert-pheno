@@ -1,4 +1,4 @@
-#### Version 0.30
+#### Version 0.31
 
 **Target model:** Phenopackets v2
 
