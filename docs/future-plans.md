@@ -15,6 +15,7 @@
 
     section Input-Formats
     CSV (in)        :done, f1, after f0,   350d
+    openEHR (in)    :    , f3, after f2,   200d
 
     section Output-formats
     CSV (out)       :done, f0, 2024-02-01, 70d
