@@ -4,6 +4,7 @@ use warnings;
 
 use lib qw(./lib ../lib t/lib);
 use Config;
+use File::Spec;
 use Test::More;
 use File::Temp qw(tempfile);
 use Test::ConvertPheno qw(
@@ -16,6 +17,7 @@ use Test::ConvertPheno qw(
   load_json_file
   write_json_file
   has_ohdsi_db
+  test_tmpdir
 );
 
 my $cli = cli_script_path();
@@ -24,6 +26,7 @@ plan skip_all => 'Skipping CLI regression tests on ld architectures due to known
   if $Config{archname} =~ /-ld\b/;
 
 use constant IS_WINDOWS => ( $^O eq 'MSWin32' || $^O eq 'cygwin' ) ? 1 : 0;
+my $tmpdir = test_tmpdir();
 
 my @cases = (
     {
@@ -53,7 +56,7 @@ my @cases = (
             '-ipxf', 't/pxf2bff/in/pxf.json',
             '-obff',
             '--entities', 'biosamples',
-            '--out-dir',  '/tmp',
+            '--out-dir',  $tmpdir,
         ],
         expected => 't/pxf2bff/out/biosamples.json',
         suffix   => '.json',
@@ -232,7 +235,7 @@ sub compare_case_output {
 
 sub run_cli {
     my (@cmd) = @_;
-    my ( $fh, $log_file ) = tempfile( DIR => '/tmp', SUFFIX => '.cli.log', UNLINK => 1 );
+    my ( $fh, $log_file ) = tempfile( DIR => $tmpdir, SUFFIX => '.cli.log', UNLINK => 1 );
     my $pid = fork();
     die 'fork failed' unless defined $pid;
 
@@ -257,13 +260,13 @@ for my $case (@cases) {
         skip q{share/db/ohdsi.db is required for this CLI OMOP test}, 2
           if $case->{requires_db} && !has_ohdsi_db();
 
-        my $tmp_file = temp_output_file( suffix => $case->{suffix}, dir => '/tmp' );
+        my $tmp_file = temp_output_file( suffix => $case->{suffix}, dir => $tmpdir );
         my @cmd      = map { $_ eq '__OUT__' ? $tmp_file : $_ } @{ $case->{cmd} };
         unshift @cmd, $^X, $cli;
         push @cmd, '-O', '--test';
 
         my $actual_file = $case->{entity_output}
-          ? "/tmp/$case->{entity_output}"
+          ? File::Spec->catfile( $tmpdir, $case->{entity_output} )
           : $tmp_file;
 
         my ( $status, $output ) = run_cli(@cmd);
@@ -279,8 +282,8 @@ for my $case (@cases) {
 SKIP: {
     skip 'CLI file comparisons are unreliable on Windows', 2 if IS_WINDOWS;
 
-    my $tmp_file  = temp_output_file( suffix => '.json', dir => '/tmp' );
-    my $input_file = temp_output_file( suffix => '.json', dir => '/tmp' );
+    my $tmp_file  = temp_output_file( suffix => '.json', dir => $tmpdir );
+    my $input_file = temp_output_file( suffix => '.json', dir => $tmpdir );
 
     my $payload = {
         patient      => { id => 'openehr-patient-2' },
@@ -307,7 +310,7 @@ SKIP: {
 SKIP: {
     skip 'CLI file comparisons are unreliable on Windows', 2 if IS_WINDOWS;
 
-    my $tmp_file = temp_output_file( suffix => '.json', dir => '/tmp' );
+    my $tmp_file = temp_output_file( suffix => '.json', dir => $tmpdir );
     my @cmd = (
         $^X, $cli,
         '-ibff', 't/bff2pxf/in/individuals.json',

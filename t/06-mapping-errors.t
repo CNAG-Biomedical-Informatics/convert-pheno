@@ -33,7 +33,7 @@ for my $err ( 1 .. 5 ) {
         project => $entity_mapping->{project},
     };
 
-    my ( $fh, $mapping_file ) = tempfile( DIR => '/tmp', SUFFIX => '.json', UNLINK => 1 );
+    my ( $fh, $mapping_file ) = tempfile( SUFFIX => '.json', UNLINK => 1 );
     close $fh;
     write_json_file( $mapping_file, $flat_mapping );
 

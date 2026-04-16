@@ -3,9 +3,12 @@ use strict;
 use warnings;
 
 use lib qw(./lib ../lib t/lib);
+use File::Spec;
 use Test::More;
 use Convert::Pheno::CLI::Args qw(build_cli_request);
-use Test::ConvertPheno qw(build_convert temp_output_file slurp_file gunzip_file_content);
+use Test::ConvertPheno qw(build_convert temp_output_file slurp_file gunzip_file_content test_tmpdir);
+
+my $tmpdir = test_tmpdir();
 
 {
     my $request = build_cli_request(
@@ -17,14 +20,14 @@ use Test::ConvertPheno qw(build_convert temp_output_file slurp_file gunzip_file_
         ],
         usage_error => sub { die @_ },
         schema_file => 'share/schema/mapping.json',
-        out_dir     => '/tmp',
+        out_dir     => $tmpdir,
         color       => 1,
     );
 
     is( $request->{action}, 'run', 'CLI parser returns a run action for search audit requests' );
     is(
         $request->{data}{search_audit_file},
-        '/tmp/search-audit.tsv',
+        File::Spec->catfile( $tmpdir, 'search-audit.tsv' ),
         'CLI parser resolves --search-audit-tsv relative to --out-dir'
     );
 }
@@ -39,19 +42,19 @@ use Test::ConvertPheno qw(build_convert temp_output_file slurp_file gunzip_file_
         ],
         usage_error => sub { die @_ },
         schema_file => 'share/schema/mapping.json',
-        out_dir     => '/tmp',
+        out_dir     => $tmpdir,
         color       => 1,
     );
 
     is(
         $request->{data}{search_audit_file},
-        '/tmp/search-audit.tsv.gz',
+        File::Spec->catfile( $tmpdir, 'search-audit.tsv.gz' ),
         'CLI parser resolves gzipped --search-audit-tsv relative to --out-dir'
     );
 }
 
 {
-    my $audit_file = temp_output_file( suffix => '.tsv', dir => '/tmp' );
+    my $audit_file = temp_output_file( suffix => '.tsv', dir => $tmpdir );
     my $convert = build_convert(
         in_file           => 't/csv2bff/in/csv_data.csv',
         mapping_file      => 't/csv2bff/in/csv_mapping.yaml',
@@ -113,7 +116,7 @@ use Test::ConvertPheno qw(build_convert temp_output_file slurp_file gunzip_file_
 }
 
 {
-    my $audit_file = temp_output_file( suffix => '.tsv.gz', dir => '/tmp' );
+    my $audit_file = temp_output_file( suffix => '.tsv.gz', dir => $tmpdir );
     my $convert = build_convert(
         in_file           => 't/csv2bff/in/csv_data.csv',
         mapping_file      => 't/csv2bff/in/csv_mapping.yaml',

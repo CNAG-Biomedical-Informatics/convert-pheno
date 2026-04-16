@@ -6,6 +6,7 @@ use lib qw(./lib ../lib t/lib);
 use Test::More;
 use Test::Exception;
 use Test::Warn;
+use File::Spec::Functions qw(catdir catfile);
 use File::Temp qw(tempdir);
 use DBI;
 use Convert::Pheno::Mapping::Shared qw(map_ontology_term);
@@ -85,12 +86,12 @@ is(
     local $Convert::Pheno::share_dir = '/tmp/convert-pheno-share';
     is(
         Convert::Pheno::DB::SQLite::get_database_file_path( 'ncit', undef ),
-        '/tmp/convert-pheno-share/db/ncit.db',
+        catfile( catdir( '/tmp/convert-pheno-share', 'db' ), 'ncit.db' ),
         'get_database_file_path uses default share dir for regular ontologies'
     );
     is(
         Convert::Pheno::DB::SQLite::get_database_file_path( 'ohdsi', '/custom/ohdsi' ),
-        '/custom/ohdsi/ohdsi.db',
+        catfile( '/custom/ohdsi', 'ohdsi.db' ),
         'get_database_file_path uses custom ohdsi path when provided'
     );
 }

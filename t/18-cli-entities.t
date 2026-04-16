@@ -14,6 +14,7 @@ use Test::ConvertPheno qw(
   load_data_file
   load_json_file
   csv_files_match
+  test_tmpdir
   write_json_file
 );
 
@@ -22,6 +23,7 @@ plan skip_all => "convert-pheno CLI not found at $cli" unless -f $cli;
 
 my $out_dir = ensure_clean_dir('t/cli-entities-out');
 my $input_file = File::Spec->catfile( $out_dir, 'pxf-biosamples.json' );
+my $tmpdir = test_tmpdir();
 
 write_json_file(
     $input_file,
@@ -150,7 +152,7 @@ is( $cohorts->[0]{cohortSize}, 1, 'cohorts output records the cohort size' );
         },
     };
 
-    my ( $fh, $mapping_file ) = tempfile( DIR => '/tmp', SUFFIX => '.json', UNLINK => 1 );
+    my ( $fh, $mapping_file ) = tempfile( DIR => $tmpdir, SUFFIX => '.json', UNLINK => 1 );
     close $fh;
     write_json_file( $mapping_file, $mapping );
 
@@ -191,7 +193,7 @@ is( $cohorts->[0]{cohortSize}, 1, 'cohorts output records the cohort size' );
     my $single_file_out_dir = ensure_clean_dir('t/cli-entities-single-file-out');
     my $single_file_out_file = File::Spec->catfile( $single_file_out_dir, 'individuals.json' );
     my ( $fh, $log_file ) =
-      tempfile( DIR => '/tmp', SUFFIX => '.cli.log', UNLINK => 1 );
+      tempfile( DIR => $tmpdir, SUFFIX => '.cli.log', UNLINK => 1 );
     my $pid = fork();
     die 'fork failed' unless defined $pid;
 
@@ -233,7 +235,7 @@ is( $cohorts->[0]{cohortSize}, 1, 'cohorts output records the cohort size' );
 
 {
     my ( $fh, $log_file ) =
-      tempfile( DIR => '/tmp', SUFFIX => '.cli.log', UNLINK => 1 );
+      tempfile( DIR => $tmpdir, SUFFIX => '.cli.log', UNLINK => 1 );
     my $pid = fork();
     die 'fork failed' unless defined $pid;
 
@@ -265,7 +267,7 @@ is( $cohorts->[0]{cohortSize}, 1, 'cohorts output records the cohort size' );
 
 {
     my ( $fh, $log_file ) =
-      tempfile( DIR => '/tmp', SUFFIX => '.cli.log', UNLINK => 1 );
+      tempfile( DIR => $tmpdir, SUFFIX => '.cli.log', UNLINK => 1 );
     my $pid = fork();
     die 'fork failed' unless defined $pid;
 
@@ -297,7 +299,7 @@ is( $cohorts->[0]{cohortSize}, 1, 'cohorts output records the cohort size' );
 
 {
     my ( $fh, $log_file ) =
-      tempfile( DIR => '/tmp', SUFFIX => '.cli.log', UNLINK => 1 );
+      tempfile( DIR => $tmpdir, SUFFIX => '.cli.log', UNLINK => 1 );
     my $pid = fork();
     die 'fork failed' unless defined $pid;
 
@@ -329,7 +331,7 @@ is( $cohorts->[0]{cohortSize}, 1, 'cohorts output records the cohort size' );
 
 {
     my ( $fh, $log_file ) =
-      tempfile( DIR => '/tmp', SUFFIX => '.cli.log', UNLINK => 1 );
+      tempfile( DIR => $tmpdir, SUFFIX => '.cli.log', UNLINK => 1 );
     my $pid = fork();
     die 'fork failed' unless defined $pid;
 

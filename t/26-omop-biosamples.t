@@ -17,10 +17,12 @@ use Test::ConvertPheno qw(
   load_json_file
   remove_dir_if_exists
   slurp_file
+  test_tmpdir
   write_csv_rows
 );
 
 my $cli = cli_script_path();
+my $tmpdir = test_tmpdir();
 
 sub concept_headers {
     return [
@@ -514,7 +516,7 @@ SKIP: {
         my $missing_out_dir = ensure_clean_dir('t/omop-biosamples-cli-missing-out');
 
         my ( $fh, $log_file ) =
-          tempfile( DIR => '/tmp', SUFFIX => '.omop-biosamples.log', UNLINK => 1 );
+          tempfile( DIR => $tmpdir, SUFFIX => '.omop-biosamples.log', UNLINK => 1 );
         my $pid = fork();
         die 'fork failed' unless defined $pid;
 
@@ -548,7 +550,7 @@ SKIP: {
         );
 
         my ( $fh_stream, undef ) =
-          tempfile( DIR => '/tmp', SUFFIX => '.omop-biosamples-stream.log', UNLINK => 1 );
+          tempfile( DIR => $tmpdir, SUFFIX => '.omop-biosamples-stream.log', UNLINK => 1 );
         my $pid_stream = fork();
         die 'fork failed' unless defined $pid_stream;
 

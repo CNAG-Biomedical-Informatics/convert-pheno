@@ -675,20 +675,28 @@ sub get_info {
 
     # Detecting the number of logical CPUs across different OSes
     my $os = $^O;
-    chomp(
-        my $threadshost =
-          lc($os) eq 'darwin' ? qx{/usr/sbin/sysctl -n hw.logicalcpu}
-        : lc($os) eq 'freebsd' ? qx{sysctl -n hw.ncpu}
-        : $os eq 'MSWin32'     ? qx{wmic cpu get NumberOfLogicalProcessors}
-        :                        qx{/usr/bin/nproc} // 1
-    );
+    my $threadshost = 1;
 
-    # For the Windows command, the result will also contain the string
-    # "NumberOfLogicalProcessors" which is the header of the output.
-    # So we need to extract the actual number from it:
-    if ( $os eq 'MSWin32' ) {
-        ($threadshost) = $threadshost =~ /(\d+)/;
+    if ( lc($os) eq 'darwin' ) {
+        my $out = qx{/usr/sbin/sysctl -n hw.logicalcpu 2>/dev/null};
+        chomp $out;
+        $threadshost = $1 if defined $out && $out =~ /(\d+)/;
     }
+    elsif ( lc($os) eq 'freebsd' ) {
+        my $out = qx{sysctl -n hw.ncpu 2>/dev/null};
+        chomp $out;
+        $threadshost = $1 if defined $out && $out =~ /(\d+)/;
+    }
+    elsif ( $os eq 'MSWin32' ) {
+        my $out = $ENV{NUMBER_OF_PROCESSORS};
+        $threadshost = $1 if defined $out && $out =~ /(\d+)/;
+    }
+    else {
+        my $out = qx{/usr/bin/nproc 2>/dev/null};
+        chomp $out;
+        $threadshost = $1 if defined $out && $out =~ /(\d+)/;
+    }
+
     $threadshost = 0 + $threadshost;    # coercing it to be a number
 
     return {

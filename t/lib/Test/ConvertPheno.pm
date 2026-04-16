@@ -34,6 +34,7 @@ our @EXPORT_OK = qw(
   load_data_file
   structured_files_match
   cli_script_path
+  test_tmpdir
   ensure_clean_dir
   remove_dir_if_exists
   csv_files_match
@@ -95,10 +96,15 @@ sub read_first_json_object {
     return $json->[0];
 }
 
+sub test_tmpdir {
+    return File::Spec->tmpdir();
+}
+
 sub temp_output_file {
     my (%args) = @_;
     my $suffix = exists $args{suffix} ? $args{suffix} : '.json';
     my $dir    = exists $args{dir}    ? $args{dir}    : 't';
+    $dir = test_tmpdir() if !defined $dir || !-d $dir;
     my ( undef, $file ) = tempfile( DIR => $dir, SUFFIX => $suffix, UNLINK => 1 );
     return $file;
 }

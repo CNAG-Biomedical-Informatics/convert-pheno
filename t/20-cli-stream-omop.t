@@ -9,6 +9,7 @@ use File::Temp qw(tempfile);
 use Test::ConvertPheno qw(
   cli_script_path
   temp_output_file
+  test_tmpdir
   gunzip_file_content
   has_ohdsi_db
 );
@@ -19,10 +20,11 @@ plan skip_all => 'Skipping CLI stream tests on ld architectures due to known iss
   if $Config{archname} =~ /-ld\b/;
 
 use constant IS_WINDOWS => ( $^O eq 'MSWin32' || $^O eq 'cygwin' ) ? 1 : 0;
+my $tmpdir = test_tmpdir();
 
 sub run_cli {
     my (@cmd) = @_;
-    my ( $fh, undef ) = tempfile( DIR => '/tmp', SUFFIX => '.cli.log', UNLINK => 1 );
+    my ( $fh, undef ) = tempfile( DIR => $tmpdir, SUFFIX => '.cli.log', UNLINK => 1 );
     my $pid = fork();
     die 'fork failed' unless defined $pid;
 
@@ -45,7 +47,7 @@ sub run_cli {
   SKIP: {
         skip 'CLI file comparisons are unreliable on Windows', 2 if IS_WINDOWS;
 
-        my $tmp_file = temp_output_file( suffix => '.json.gz', dir => '/tmp' );
+        my $tmp_file = temp_output_file( suffix => '.json.gz', dir => $tmpdir );
         my @cmd = (
             $^X,
             $cli,
@@ -76,7 +78,7 @@ sub run_cli {
         skip q{share/db/ohdsi.db is required for streamed CSV.gz OMOP CLI test}, 2
           unless has_ohdsi_db();
 
-        my $tmp_file = temp_output_file( suffix => '.json.gz', dir => '/tmp' );
+        my $tmp_file = temp_output_file( suffix => '.json.gz', dir => $tmpdir );
         my @cmd = (
             $^X,
             $cli,

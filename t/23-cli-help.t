@@ -3,9 +3,12 @@ use strict;
 use warnings;
 
 use lib qw(./lib ../lib t/lib);
+use File::Spec;
 use Test::More;
-use Test::ConvertPheno qw(cli_script_path);
+use Test::ConvertPheno qw(cli_script_path test_tmpdir);
 use Convert::Pheno::CLI::Args qw(build_cli_request);
+
+my $tmpdir = test_tmpdir();
 
 my $request = build_cli_request(
     argv => [
@@ -16,7 +19,7 @@ my $request = build_cli_request(
     ],
     usage_error => sub { die @_ },
     schema_file => 'share/schema/mapping.json',
-    out_dir     => '/tmp',
+    out_dir     => $tmpdir,
     color       => 1,
 );
 
@@ -34,7 +37,7 @@ $request = build_cli_request(
     ],
     usage_error => sub { die @_ },
     schema_file => 'share/schema/mapping.json',
-    out_dir     => '/tmp',
+    out_dir     => $tmpdir,
     color       => 1,
 );
 
@@ -49,7 +52,7 @@ $request = build_cli_request(
         '-ipxf',     't/pxf2bff/in/pxf.json',
         '-obff',
         '--entities', 'biosamples',
-        '--out-dir', '/tmp',
+        '--out-dir', $tmpdir,
     ],
     usage_error => sub { die @_ },
     schema_file => 'share/schema/mapping.json',
@@ -73,7 +76,7 @@ $request = build_cli_request(
     argv => [
         '-ibff', 't/bff2pxf/in/individuals.json',
         '-oomop',
-        '--out-dir', '/tmp',
+        '--out-dir', $tmpdir,
         '--out-name', 'PERSON=patients.csv',
         '--ohdsi-db',
     ],
@@ -91,7 +94,7 @@ is(
 
 is(
     $request->{data}{output_name_overrides}{PERSON},
-    '/tmp/patients.csv',
+    File::Spec->catfile( $tmpdir, 'patients.csv' ),
     'CLI parser accepts --out-name for OMOP table output'
 );
 
@@ -100,7 +103,7 @@ $request = build_cli_request(
         '-i', 'bff',
         't/bff2pxf/in/individuals.json',
         '-o', 'omop',
-        '--out-dir', '/tmp',
+        '--out-dir', $tmpdir,
         '--ohdsi-db',
     ],
     usage_error => sub { die @_ },
@@ -125,7 +128,7 @@ eval {
         ],
         usage_error => sub { die @_ },
         schema_file => 'share/schema/mapping.json',
-        out_dir     => '/tmp',
+        out_dir     => $tmpdir,
         color       => 1,
     );
     1;
@@ -143,7 +146,7 @@ eval {
         argv => [
             '-ibff', 't/bff2pxf/in/individuals.json',
             '-oomop', 'old-prefix',
-            '--out-dir', '/tmp',
+            '--out-dir', $tmpdir,
             '--ohdsi-db',
         ],
         usage_error => sub { die @_ },
@@ -243,7 +246,7 @@ like(
 );
 
 my $usage_error_output =
-  qx{$^X $cli -ipxf t/pxf2bff/in/pxf.json --entities biosamples --out-dir /tmp 2>&1};
+  qx{$^X $cli -ipxf t/pxf2bff/in/pxf.json --entities biosamples --out-dir $tmpdir 2>&1};
 is( $? >> 8, 1, 'CLI validation error exits with status 1' );
 like(
     $usage_error_output,
