@@ -11,10 +11,11 @@
 | --- | --- | --- |
 | `patient.id` | `id` | Preferred patient envelope id |
 | `id` | `id` | Accepted top-level envelope id |
-| `ehr_id.value` / `ehr_id` | `id` | Accepted openEHR envelope identifier |
 | `ehr_status.subject.external_ref.id.value` | `id` | Accepted patient identifier from `ehr_status` |
+| `ehr_id.value` / `ehr_id` | `id` | Accepted openEHR envelope identifier after `ehr_status.subject.external_ref.id.value` |
 | `PARTY_SELF.external_ref.id.value` | `id` | Accepted when present inside a canonical composition |
 | multiple input documents with the same resolved patient id | one `individual.id` | Compositions are grouped before mapping |
+| raw composition arrays with multiple embedded patient ids | multiple `individual.id` values | Split only by embedded patient-scoped identifiers; composition-level ids are ignored |
 | missing resolvable patient id | none | Conversion fails |
 
 ### sex

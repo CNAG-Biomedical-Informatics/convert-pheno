@@ -38,9 +38,9 @@ Important notes:
 - These files are useful for regression-testing mechanics of the conversion
   path, but they are **not** a gold-standard fixture for complete OHDSI concept
   resolution.
-- In this reduced path, some concept-dependent values may degrade to defaults
-  such as `NCIT:C126101 / Not Available` instead of representing full semantic
-  OMOP-to-Beacon mapping.
+- When required OMOP `concept_id` values are missing from this reduced
+  `CONCEPT.csv`, the conversion fails unless `--ohdsi-db` is enabled for
+  Athena-OHDSI fallback.
 
 These reduced CSV fixtures are currently covered by the CLI regression test:
 

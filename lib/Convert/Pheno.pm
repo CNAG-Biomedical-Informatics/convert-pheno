@@ -819,8 +819,9 @@ sub _group_openehr_documents_by_patient {
     my @order;
 
     for my $doc ( @{$documents} ) {
+        for my $patient_doc ( _split_openehr_document_by_patient( $self, $doc ) ) {
         my $patient_id =
-          Convert::Pheno::OpenEHR::ToBFF::resolve_openehr_patient_id( $self, $doc );
+          Convert::Pheno::OpenEHR::ToBFF::resolve_openehr_patient_id( $self, $patient_doc );
 
         die "The input <openEHR> data could not be resolved to a patient id; please provide one composition set with a stable patient identifier in the payload or envelope\n"
           unless defined $patient_id && length $patient_id;
@@ -835,11 +836,76 @@ sub _group_openehr_documents_by_patient {
 
         push @{ $by_patient{$patient_id}{compositions} },
           @{
-            Convert::Pheno::OpenEHR::ToBFF::extract_openehr_compositions($doc);
+            Convert::Pheno::OpenEHR::ToBFF::extract_openehr_compositions($patient_doc);
           };
+        }
     }
 
     return [ map { $by_patient{$_} } @order ];
+}
+
+sub _split_openehr_document_by_patient {
+    my ( $self, $doc ) = @_;
+
+    return ($doc) if _openehr_document_has_patient_context($doc);
+
+    my $compositions =
+      Convert::Pheno::OpenEHR::ToBFF::extract_openehr_compositions($doc);
+    return ($doc) unless ref($compositions) eq 'ARRAY' && @{$compositions} > 1;
+
+    my %by_patient;
+    my @order;
+    my $missing = 0;
+
+    for my $composition ( @{$compositions} ) {
+        my $patient_id = Convert::Pheno::OpenEHR::ToBFF::resolve_openehr_embedded_patient_id(
+            $composition,
+            [$composition]
+        );
+
+        if ( !defined $patient_id || !length $patient_id ) {
+            $missing = 1;
+            next;
+        }
+
+        if ( !exists $by_patient{$patient_id} ) {
+            $by_patient{$patient_id} = [];
+            push @order, $patient_id;
+        }
+        push @{ $by_patient{$patient_id} }, $composition;
+    }
+
+    return ($doc) unless @order > 1;
+
+    die "The input <openEHR> data mixes patient-identified and unidentified compositions; please provide patient-bearing envelopes or per-patient composition sets\n"
+      if $missing;
+
+    return map {
+        {
+            patient      => { id => $_ },
+            compositions => $by_patient{$_},
+        }
+    } @order;
+}
+
+sub _openehr_document_has_patient_context {
+    my ($doc) = @_;
+    return 0 unless ref($doc) eq 'HASH';
+
+    return 1
+      if exists $doc->{patient}
+      && ref( $doc->{patient} ) eq 'HASH'
+      && defined $doc->{patient}{id}
+      && length $doc->{patient}{id};
+
+    return 1 if defined $doc->{id} && !ref( $doc->{id} ) && length $doc->{id};
+    return 1 if defined $doc->{ehr_id};
+    return 1
+      if exists $doc->{ehr_status}
+      && ref( $doc->{ehr_status} ) eq 'HASH'
+      && exists $doc->{ehr_status}{subject};
+
+    return 0;
 }
 
 sub _omop_requests_biosamples {

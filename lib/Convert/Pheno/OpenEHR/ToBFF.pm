@@ -15,6 +15,7 @@ our @EXPORT_OK = qw(
   do_openehr2bff
   run_openehr_to_bundle
   extract_openehr_compositions
+  resolve_openehr_embedded_patient_id
   resolve_openehr_patient_id
 );
 my $DEFAULT = get_defaults();
@@ -124,9 +125,31 @@ sub resolve_openehr_patient_id {
         return $data->{id}
           if defined $data->{id} && !ref( $data->{id} ) && length $data->{id};
 
+        my $ehr_status_subject_id = _extract_party_proxy_external_ref_id( $data->{ehr_status}{subject} )
+          if exists $data->{ehr_status} && ref( $data->{ehr_status} ) eq 'HASH';
+        return $ehr_status_subject_id
+          if defined $ehr_status_subject_id && length $ehr_status_subject_id;
+
         my $ehr_id = _extract_identifier_value( $data->{ehr_id} );
         return $ehr_id if defined $ehr_id && length $ehr_id;
+    }
 
+    if ( ref($compositions) eq 'ARRAY' ) {
+        for my $composition ( @{$compositions} ) {
+            my $subject_id = _find_party_self_external_ref_id($composition);
+            return $subject_id if defined $subject_id && length $subject_id;
+        }
+    }
+
+    return;
+}
+
+sub resolve_openehr_embedded_patient_id {
+    my ( $data, $compositions ) = @_;
+
+    $compositions ||= extract_openehr_compositions($data);
+
+    if ( ref($data) eq 'HASH' ) {
         my $ehr_status_subject_id = _extract_party_proxy_external_ref_id( $data->{ehr_status}{subject} )
           if exists $data->{ehr_status} && ref( $data->{ehr_status} ) eq 'HASH';
         return $ehr_status_subject_id

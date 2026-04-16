@@ -5,7 +5,7 @@ Revision history for Perl distribution Convert-Pheno
  - Deprecated pyperler and updated Python binding
  - Refactored Perl/Python APIs with structured multi-entity JSON support
  - Added experimental OMOP SPECIMEN -> BFF biosamples conversion to entity-aware output
- - Fixed OMOP concept_id fallback regressions
+ - Fixed OMOP concept_id fallback when the local CONCEPT input is incomplete
  - Harmonized nomenclature across multi-output formats
  - Removed 'metaData' from BFF 'info'; now only present in PXF to reduce payload size
  - Added initial openEHR canonical JSON to BFF support:

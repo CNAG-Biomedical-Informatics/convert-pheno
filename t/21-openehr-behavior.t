@@ -111,6 +111,7 @@ subtest 'openehr2bff accepts openEHR ehr_id and ehr_status patient identifiers' 
         my $convert = build_convert(
             method      => 'openehr2bff',
             data        => {
+                ehr_id       => { value => 'ehr-123' },
                 ehr_status   => {
                     subject => {
                         _type        => 'PARTY_SELF',
@@ -127,7 +128,7 @@ subtest 'openehr2bff accepts openEHR ehr_id and ehr_status patient identifiers' 
         );
 
         my $individual = $convert->openehr2bff;
-        is( $individual->{id}, 'subject-456', 'uses ehr_status.subject.external_ref.id.value when present' );
+        is( $individual->{id}, 'subject-456', 'prefers ehr_status.subject.external_ref.id.value over ehr_id when both are present' );
     }
 };
 
@@ -187,6 +188,42 @@ subtest 'openehr2bff groups multiple patients before mapping' => sub {
     );
     is( $individuals->[0]{sex}{id}, 'NCIT:C20197', 'maps first patient sex' );
     is( $individuals->[1]{sex}{id}, 'NCIT:C20197', 'maps second patient sex' );
+};
+
+subtest 'openehr2bff splits raw composition arrays when distinct patient ids are embedded per composition' => sub {
+    my $patient_a = with_subject_id( $gender, 'patient-a' );
+    my $patient_b = with_subject_id( $gender, 'patient-b' );
+
+    my $convert = build_convert(
+        method      => 'openehr2bff',
+        data        => [ $patient_a, $patient_b ],
+        in_textfile => 0,
+    );
+
+    my $individuals = $convert->openehr2bff;
+    is( ref($individuals), 'ARRAY', 'returns an array for mixed-patient raw composition input' );
+    is_deeply(
+        [ map { $_->{id} } @{$individuals} ],
+        [ 'patient-a', 'patient-b' ],
+        'splits raw composition arrays by embedded patient id'
+    );
+};
+
+subtest 'openehr2bff does not split raw composition arrays by composition-level ids' => sub {
+    my $patient_a = with_subject_id( $gender, 'patient-a' );
+    my $patient_b = with_subject_id( $ips,    'patient-a' );
+    $patient_a->{id} = 'composition-a';
+    $patient_b->{id} = 'composition-b';
+
+    my $convert = build_convert(
+        method      => 'openehr2bff',
+        data        => [ $patient_a, $patient_b ],
+        in_textfile => 0,
+    );
+
+    my $individual = $convert->openehr2bff;
+    is( ref($individual), 'HASH', 'keeps one individual when embedded patient id is the same' );
+    is( $individual->{id}, 'patient-a', 'uses embedded patient id instead of composition ids' );
 };
 
 done_testing;
