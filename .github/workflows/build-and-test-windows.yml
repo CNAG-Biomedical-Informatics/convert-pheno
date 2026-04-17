@@ -27,7 +27,7 @@ jobs:
           # the real failing module instead of only the final --installdeps
           # summary. cpanfile.windows keeps the Windows CI dependency policy
           # explicit, including the current JSONLD exclusion.
-          cpanm --verbose -n DateTime::Format::ISO8601@0.17
+          cpanm --verbose -n DateTime::Format::ISO8601@0.19
           cpanm --verbose -n DBD::SQLite@1.72
           cpanm --verbose -n --installdeps --cpanfile cpanfile.windows .
         shell: pwsh
