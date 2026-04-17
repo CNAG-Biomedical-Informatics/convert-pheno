@@ -52,6 +52,9 @@ jobs:
           cpanm @localArgs --verbose -n DateTime::Locale@1.44
           if ($LASTEXITCODE -ne 0) { Show-CpanmLogs; exit $LASTEXITCODE }
 
+          cpanm @localArgs --verbose -n Variable::Magic@0.64
+          if ($LASTEXITCODE -ne 0) { Show-CpanmLogs; exit $LASTEXITCODE }
+
           cpanm @localArgs --verbose -n DateTime@1.65
           if ($LASTEXITCODE -ne 0) { Show-CpanmLogs; exit $LASTEXITCODE }
 
