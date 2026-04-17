@@ -23,13 +23,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          Get-Content cpanfile |
-            Where-Object { $_ -notmatch "requires 'JSONLD';" } |
-            Set-Content cpanfile.windows
-
           # Install the Windows troublemakers explicitly first so the logs show
           # the real failing module instead of only the final --installdeps
-          # summary. JSONLD stays filtered out for this workflow.
+          # summary. cpanfile.windows keeps the Windows CI dependency policy
+          # explicit, including the current JSONLD exclusion.
           cpanm --verbose -n DateTime::Format::ISO8601
           cpanm --verbose -n DBD::SQLite
           cpanm --verbose -n --installdeps --cpanfile cpanfile.windows .

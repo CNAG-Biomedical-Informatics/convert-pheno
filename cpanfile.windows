@@ -1,0 +1,33 @@
+# Windows CI dependency set.
+# Keep this aligned with cpanfile, but exclude modules that are intentionally
+# skipped in the Windows workflow until they are known to install reliably.
+
+requires 'JSON::XS';
+requires 'YAML::XS';
+requires 'Path::Tiny';
+requires 'Term::ANSIColor';
+requires 'Text::CSV_XS';
+requires 'Text::Similarity';
+requires 'Text::Levenshtein::XS';
+requires 'Sort::Naturally';
+requires 'DBI';
+requires 'Moo';
+requires 'DBD::SQLite';
+requires 'Mojolicious::Lite';
+requires 'XML::Fast';
+requires 'JSON::Validator';
+requires 'IO::Socket::SSL';
+requires 'Types::Standard';
+requires 'File::ShareDir::ProjectDistDir';
+requires 'Data::Leaf::Walker';
+requires 'Hash::Fold';
+requires 'Devel::Size';
+requires 'DateTime::Format::ISO8601';
+
+# t
+requires 'Test::Deep';
+requires 'Test::Exception';
+requires 'Test::Warn';
+
+# api
+requires 'Mojolicious::Plugin::OpenAPI';
