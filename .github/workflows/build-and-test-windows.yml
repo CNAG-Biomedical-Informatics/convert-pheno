@@ -41,6 +41,9 @@ jobs:
           cpanm --verbose -n DateTime::Locale@1.44
           if ($LASTEXITCODE -ne 0) { Show-CpanmLogs; exit $LASTEXITCODE }
 
+          cpanm --verbose -n DateTime@1.65
+          if ($LASTEXITCODE -ne 0) { Show-CpanmLogs; exit $LASTEXITCODE }
+
           cpanm --verbose -n DateTime::Format::ISO8601@0.19
           if ($LASTEXITCODE -ne 0) { Show-CpanmLogs; exit $LASTEXITCODE }
 
