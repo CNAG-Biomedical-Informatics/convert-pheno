@@ -1,6 +1,6 @@
 Revision history for Perl distribution Convert-Pheno
 
-0.31 2026-0X-XXXXT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
+0.31 2026-04-17XXT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
  - Deprecated pyperler and updated Python binding
  - Refactored Perl/Python APIs with structured multi-entity JSON support
