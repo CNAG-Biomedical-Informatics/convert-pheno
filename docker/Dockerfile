@@ -5,7 +5,7 @@ LABEL maintainer Manuel Rueda <manuel.rueda@cnag.eu>
 
 # Install Linux tools
 RUN apt-get update && \
-    apt-get -y install gcc unzip make git cpanminus perl-doc vim sudo libbz2-dev zlib1g-dev libperl-dev python3-pip && \
+    apt-get -y install gcc unzip make git cpanminus perl-doc vim sudo libbz2-dev zlib1g-dev libperl-dev libssl-dev python3-pip && \
     pip3 install setuptools "fastapi[all]"
 
 # Download Convert-Pheno

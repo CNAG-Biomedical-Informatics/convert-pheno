@@ -10,14 +10,16 @@ On Debian-based distributions, install:
 sudo apt-get install cpanminus libbz2-dev zlib1g-dev libperl-dev
 ```
 
-Optional for development:
+Also install the following when your install path pulls the full dependency set
+from `cpanfile` or `Makefile.PL`:
 
 ```bash
 sudo apt-get install libssl-dev
 ```
 
-`libssl-dev` is only needed for SSL-backed development features such as
-`--self-validate-schema`. It is not required for normal conversions.
+In practice, this matters for repository installs such as
+`cpanm --notest --installdeps .` and for dependencies like `JSONLD`,
+`IO::Socket::SSL`, and `Net::SSLeay`.
 
 ## Method 1: From CPAN
 
@@ -107,6 +109,9 @@ cpanm --local-lib=~/perl5 local::lib && eval $(perl -I ~/perl5/lib/perl5/ -Mloca
 cpanm --notest --installdeps .
 bin/convert-pheno --help
 ```
+
+If this step fails in `Net::SSLeay`, `IO::Socket::SSL`, or `JSONLD`, make sure
+`libssl-dev` is installed and rerun it.
 
 Persist the local Perl library:
 
