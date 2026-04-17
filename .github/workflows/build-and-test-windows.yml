@@ -26,7 +26,13 @@ jobs:
           Get-Content cpanfile |
             Where-Object { $_ -notmatch "requires 'JSONLD';" } |
             Set-Content cpanfile.windows
-          cpanm -n --installdeps --cpanfile cpanfile.windows .
+
+          # Install the Windows troublemakers explicitly first so the logs show
+          # the real failing module instead of only the final --installdeps
+          # summary. JSONLD stays filtered out for this workflow.
+          cpanm --verbose -n DateTime::Format::ISO8601
+          cpanm --verbose -n DBD::SQLite
+          cpanm --verbose -n --installdeps --cpanfile cpanfile.windows .
         shell: pwsh
 
       - run: prove -l t
