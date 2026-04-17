@@ -72,6 +72,12 @@ Convert both `individuals` and `biosamples`, while overriding the biosample file
 convert-pheno -ipxf pxf.json -obff --entities individuals biosamples --out-dir out/ --out-name biosamples=samples.json
 ```
 
+Convert OMOP `SPECIMEN` rows to Beacon `biosamples`:
+
+```bash
+convert-pheno -iomop PERSON.csv CONCEPT.csv SPECIMEN.csv -obff --entities biosamples --out-dir out/
+```
+
 Convert a **large OMOP SQL dump** incrementally:
 
 ```bash

@@ -29,6 +29,7 @@ The response is a JSON envelope with `ok`, `data`, and `meta.conversion`.
 
 ??? Note "OpenAPI specification"
     The source schema for the Perl/Mojolicious wrapper lives in [api/perl/openapi.json](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/api/perl/openapi.json).
+    A rendered OpenAPI reference is also available as [Redoc](redoc-static.html).
 
 ## JavaScript usage
 

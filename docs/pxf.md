@@ -40,9 +40,9 @@ Phenopackets organize information using [top-level elements](https://phenopacket
         If you want entity-aware BFF output, use entity mode instead:
 
         ```bash
-        convert-pheno -ipxf pxf.json --entities biosamples --out-dir out/
-        convert-pheno -ipxf pxf.json --entities individuals biosamples --out-dir out/
-        convert-pheno -ipxf pxf.json --entities individuals biosamples datasets cohorts --out-dir out/
+        convert-pheno -ipxf pxf.json -obff --entities biosamples --out-dir out/
+        convert-pheno -ipxf pxf.json -obff --entities individuals biosamples --out-dir out/
+        convert-pheno -ipxf pxf.json -obff --entities individuals biosamples datasets cohorts --out-dir out/
         ```
 
         You can also override the biosample filename:

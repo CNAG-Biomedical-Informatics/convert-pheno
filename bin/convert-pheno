@@ -133,6 +133,7 @@ Examples:
   convert-pheno -ipxf pxf.json -obff --entities individuals biosamples --out-dir out/ --out-name biosamples=samples.json
   convert-pheno -ipxf pxf.json -obff --entities individuals datasets cohorts --out-dir out/
   convert-pheno -icsv data.csv --mapping-file mapping.yaml -obff --entities individuals datasets cohorts --out-dir out/
+  convert-pheno -iomop PERSON.csv CONCEPT.csv SPECIMEN.csv -obff --entities biosamples --out-dir out/
   convert-pheno -ibff individuals.json -oomop --out-dir omop_out/
   convert-pheno -ibff individuals.json -oomop --out-dir omop_out/ --out-name PERSON=patients.csv
   convert-pheno -iomop dump.sql.gz -opxf phenopackets.json.gz --default-vital-status UNKNOWN_STATUS --ohdsi-db

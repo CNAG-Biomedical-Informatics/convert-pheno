@@ -65,6 +65,12 @@ If you want both `individuals` and `biosamples`:
 convert-pheno -ipxf pxf.json -obff --entities individuals biosamples --out-dir out/
 ```
 
+If you want OMOP `SPECIMEN` rows as Beacon `biosamples` only:
+
+```bash
+convert-pheno -iomop PERSON.csv CONCEPT.csv SPECIMEN.csv -obff --entities biosamples --out-dir out/
+```
+
 If you want a custom biosample filename:
 
 ```bash

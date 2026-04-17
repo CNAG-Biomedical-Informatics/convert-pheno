@@ -87,7 +87,13 @@ convert-pheno -ibff individuals.json -oomop --out-dir omop_export/ --out-name PE
         To emit entity-aware `BFF` output instead:
 
         ```bash
-        convert-pheno -iomop PERSON.csv CONCEPT.csv DRUG_EXPOSURE.csv --entities individuals datasets cohorts --out-dir out/
+        convert-pheno -iomop PERSON.csv CONCEPT.csv DRUG_EXPOSURE.csv -obff --entities individuals datasets cohorts --out-dir out/
+        ```
+
+        To emit Beacon `biosamples` from OMOP `SPECIMEN` without synthesized `datasets` or `cohorts`:
+
+        ```bash
+        convert-pheno -iomop PERSON.csv CONCEPT.csv SPECIMEN.csv -obff --entities biosamples --out-dir out/
         ```
 
         In this mode, `Convert-Pheno` infers the OMOP table name from each filename. At minimum, practical conversions usually require:
