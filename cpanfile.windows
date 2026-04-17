@@ -12,7 +12,9 @@ requires 'Text::Levenshtein::XS';
 requires 'Sort::Naturally';
 requires 'DBI';
 requires 'Moo';
-requires 'DBD::SQLite';
+# Pin Windows-sensitive modules to the same versions declared by the
+# distribution metadata, instead of following the newest CPAN releases.
+requires 'DBD::SQLite', '== 1.72';
 requires 'Mojolicious::Lite';
 requires 'XML::Fast';
 requires 'JSON::Validator';
@@ -22,7 +24,7 @@ requires 'File::ShareDir::ProjectDistDir';
 requires 'Data::Leaf::Walker';
 requires 'Hash::Fold';
 requires 'Devel::Size';
-requires 'DateTime::Format::ISO8601';
+requires 'DateTime::Format::ISO8601', '== 0.17';
 
 # t
 requires 'Test::Deep';
