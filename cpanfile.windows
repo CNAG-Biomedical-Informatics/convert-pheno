@@ -20,6 +20,7 @@ requires 'XML::Fast';
 requires 'JSON::Validator';
 requires 'IO::Socket::SSL';
 requires 'Types::Standard';
+requires 'DateTime::Locale', '== 1.44';
 requires 'File::ShareDir::ProjectDistDir';
 requires 'Data::Leaf::Walker';
 requires 'Hash::Fold';
