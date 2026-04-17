@@ -30,7 +30,7 @@ jobs:
 
       - name: Install dependencies
         env:
-          PERL5LIB: ""
+          PERL5LIB: D:\a\convert-pheno\convert-pheno\local\lib\perl5;D:\a\convert-pheno\convert-pheno\local\lib\perl5\MSWin32-x64-multi-thread
         run: |
           # Install the Windows troublemakers explicitly first so the logs show
           # the real failing module instead of only the final --installdeps
