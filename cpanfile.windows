@@ -19,7 +19,7 @@ requires 'Mojolicious::Lite';
 requires 'XML::Fast';
 requires 'JSON::Validator';
 requires 'IO::Socket::SSL';
-requires 'Variable::Magic', '== 0.63';
+requires 'Variable::Magic', '== 0.62';
 requires 'Types::Standard';
 requires 'DateTime::Locale', '== 1.44';
 requires 'DateTime', '== 1.65';
