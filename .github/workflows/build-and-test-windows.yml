@@ -21,7 +21,16 @@ jobs:
 
       - run: perl -V
 
+      - name: Clean repo-local Perl libs
+        run: |
+          # Avoid loading stale XS artifacts from a repo-local local/ tree
+          # built under a different Perl version.
+          if (Test-Path local) { Remove-Item -Recurse -Force local }
+        shell: pwsh
+
       - name: Install dependencies
+        env:
+          PERL5LIB: ""
         run: |
           # Install the Windows troublemakers explicitly first so the logs show
           # the real failing module instead of only the final --installdeps
@@ -55,3 +64,5 @@ jobs:
         shell: pwsh
 
       - run: prove -l t
+        env:
+          PERL5LIB: ""
