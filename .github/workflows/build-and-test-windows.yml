@@ -27,9 +27,28 @@ jobs:
           # the real failing module instead of only the final --installdeps
           # summary. cpanfile.windows keeps the Windows CI dependency policy
           # explicit, including the current JSONLD exclusion.
+          function Show-CpanmLogs {
+            Get-ChildItem "$env:USERPROFILE\\.cpanm\\work" -Recurse -Filter build.log -ErrorAction SilentlyContinue |
+              Sort-Object LastWriteTime -Descending |
+              Select-Object -First 5 |
+              ForEach-Object {
+                Write-Host ""
+                Write-Host "===== $($_.FullName) ====="
+                Get-Content $_.FullName -Tail 200
+              }
+          }
+
+          cpanm --verbose -n DateTime::Locale@1.44
+          if ($LASTEXITCODE -ne 0) { Show-CpanmLogs; exit $LASTEXITCODE }
+
           cpanm --verbose -n DateTime::Format::ISO8601@0.19
+          if ($LASTEXITCODE -ne 0) { Show-CpanmLogs; exit $LASTEXITCODE }
+
           cpanm --verbose -n DBD::SQLite@1.72
+          if ($LASTEXITCODE -ne 0) { Show-CpanmLogs; exit $LASTEXITCODE }
+
           cpanm --verbose -n --installdeps --cpanfile cpanfile.windows .
+          if ($LASTEXITCODE -ne 0) { Show-CpanmLogs; exit $LASTEXITCODE }
         shell: pwsh
 
       - run: prove -l t
