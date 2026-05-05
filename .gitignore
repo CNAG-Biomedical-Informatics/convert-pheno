@@ -8,6 +8,7 @@ test.pl
 TO_DO.md
 SESSION_NOTES.md
 README.source.md
+cpanfile.windows
 clean.sh
 nytprof.out
 /blib/

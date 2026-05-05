@@ -21,7 +21,11 @@
 ^\.git/
 ^\.github/
 ^docs/
-^api/
+^api/perl/bck/
+^api/python/bck/
+^api/python/__pycache__/
+^api/python/\.pytest_cache/
+\.pyc$
 ^nb/
 ^docker/
 ^non-containerized/

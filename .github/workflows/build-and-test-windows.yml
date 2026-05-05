@@ -32,6 +32,17 @@ jobs:
         env:
           PERL5LIB: D:\a\convert-pheno\convert-pheno\local\lib\perl5;D:\a\convert-pheno\convert-pheno\local\lib\perl5\MSWin32-x64-multi-thread
         run: |
+          # NOTE FOR FUTURE WORK:
+          # Windows CI currently gets blocked before tests by an upstream XS/toolchain
+          # incompatibility in the DateTime/Variable::Magic chain
+          # ("Magic.c: loadable library and perl binaries are mismatched").
+          # We already tried:
+          # - fresh job-local local::lib installs
+          # - PERL5LIB isolation
+          # - Variable::Magic 0.64, 0.63, 0.62
+          # - DateTime::Locale 1.44 and DateTime 1.65 pinning
+          # This is not a convert-pheno code bug. Revisit only if the Windows
+          # Perl/XS toolchain story changes upstream.
           # Install the Windows troublemakers explicitly first so the logs show
           # the real failing module instead of only the final --installdeps
           # summary. cpanfile.windows keeps the Windows CI dependency policy
