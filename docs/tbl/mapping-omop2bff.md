@@ -155,3 +155,8 @@ for the measured sample property. For this reason, `Convert-Pheno` uses the
 valid local CURIE `OMOP:SPECIMEN.quantity` with label `Specimen quantity` as the
 Beacon `assayCode`, while the original OMOP columns remain available under
 `biosamples.info.SPECIMEN.OMOP_columns`.
+
+When ontology ids are generated from OMOP `CONCEPT.vocabulary_id` and
+`CONCEPT.concept_code`, whitespace in the vocabulary prefix is replaced with
+underscores. For example, `Type Concept` becomes `Type_Concept`, producing ids
+such as `Type_Concept:OMOP4976929`.

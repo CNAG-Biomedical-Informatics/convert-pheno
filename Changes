@@ -1,5 +1,11 @@
 Revision history for Perl distribution Convert-Pheno
 
+0.32 2026-0X-XXXXT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
+
+ - Added OMOP SPECIMEN quantity mapping to structured BFF biosample measurements
+ - Added --source-info/--no-source-info to control raw source provenance in BFF info
+ - Sanitized whitespace in OMOP vocabulary prefixes used as ontology ids
+
 0.31 2026-04-17XXT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
  - Deprecated pyperler and updated Python binding

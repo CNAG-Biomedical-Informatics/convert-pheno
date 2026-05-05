@@ -419,6 +419,9 @@ sub map2ohdsi {
         $id         = $ohdsi_dict->{$concept_id}{concept_code};
         $label      = $ohdsi_dict->{$concept_id}{concept_name};
         $vocabulary = $ohdsi_dict->{$concept_id}{vocabulary_id};
+        # OMOP has local vocabulary labels such as "Type Concept" or "Meas Type".
+        # Keep the vocabulary information but make it safe for Beacon CURIE-like ids.
+        $vocabulary =~ s/\s+/_/g;
         $data       = { id => qq($vocabulary:$id), label => $label };
     }
 
@@ -602,7 +605,7 @@ sub map_omop_visit_occurrence {
     # *** IMPORTANT ***
     # Ad hoc to avoid using --ohdsi-db while we find a solution to EUNOMIA not being self-contained
     my $ad_hoc_44818517 = {
-        id    => "Visit Type:OMOP4822465",
+        id    => "Visit_Type:OMOP4822465",
         label => "Visit derived from encounter on claim"
     };
     my $type =

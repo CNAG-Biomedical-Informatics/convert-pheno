@@ -161,6 +161,18 @@ sub write_minimal_omop_inputs {
                 valid_end_date     => '2099-12-31',
                 invalid_reason     => '',
             },
+            {
+                concept_id         => 32856,
+                concept_name       => 'Lab',
+                domain_id          => 'Metadata',
+                vocabulary_id      => 'Type Concept',
+                concept_class_id   => 'Type Concept',
+                standard_concept   => '',
+                concept_code       => 'OMOP4976929',
+                valid_start_date   => '1970-01-01',
+                valid_end_date     => '2099-12-31',
+                invalid_reason     => '',
+            },
         ]
     );
 
@@ -217,7 +229,7 @@ sub write_minimal_omop_inputs {
                     specimen_id                 => 102,
                     person_id                   => 1,
                     specimen_concept_id         => 0,
-                    specimen_type_concept_id    => 0,
+                    specimen_type_concept_id    => 32856,
                     specimen_date               => '2021-06-11',
                     specimen_datetime           => '2021-06-11 10:30:00',
                     quantity                    => 1,
@@ -480,7 +492,7 @@ sub find_biosample_by_id {
     ok( defined $sample, 'bundle biosamples include the expected MIMIC specimen row' );
     is( $sample->{individualId}, '4668337230155062633', 'bundle biosamples keep MIMIC person linkage' );
     is( $sample->{collectionMoment}, 'P44Y', 'bundle biosamples derive collectionMoment from fixture birth date' );
-    is( $sample->{obtentionProcedure}{procedureCode}{id}, 'Type Concept:OMOP4976929', 'bundle biosamples map specimen_type_concept_id without ohdsi.db' );
+    is( $sample->{obtentionProcedure}{procedureCode}{id}, 'Type_Concept:OMOP4976929', 'bundle biosamples sanitize whitespace in OMOP vocabulary prefixes' );
     is( $bundle->entities('datasets')->[0]{info}{biosampleCount}, 12, 'dataset synthesis counts biosamples from the MIMIC fixture' );
     is( $bundle->entities('cohorts')->[0]{cohortSize}, 4, 'cohort synthesis still uses the individuals collection' );
 }
@@ -559,7 +571,7 @@ SKIP: {
     is( scalar @{$biosamples}, 12, 'CLI biosamples output contains one entry per MIMIC specimen row' );
     ok( defined $sample, 'CLI biosamples output includes the expected MIMIC specimen id' );
     is( $sample->{collectionMoment}, 'P44Y', 'CLI biosamples output derives collectionMoment from the MIMIC fixture' );
-    is( $sample->{obtentionProcedure}{procedureCode}{id}, 'Type Concept:OMOP4976929', 'CLI biosamples map specimen_type_concept_id without ohdsi.db' );
+    is( $sample->{obtentionProcedure}{procedureCode}{id}, 'Type_Concept:OMOP4976929', 'CLI biosamples sanitize whitespace in OMOP vocabulary prefixes' );
 
         my $stream_out_dir = ensure_clean_dir('t/omop-biosamples-cli-stream-out');
         my @stream_cmd = (

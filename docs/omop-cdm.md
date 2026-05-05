@@ -104,6 +104,17 @@ convert-pheno -ibff individuals.json -oomop --out-dir omop_export/ --out-name PE
         field, the Beacon `assayCode` uses the valid local CURIE
         `OMOP:SPECIMEN.quantity` with label `Specimen quantity`.
 
+        !!! Note "OMOP vocabulary prefixes in generated ontology ids"
+            When `Convert-Pheno` builds ontology ids from OMOP
+            `CONCEPT.vocabulary_id` and `CONCEPT.concept_code`, whitespace in
+            the vocabulary prefix is replaced with underscores. For example,
+            `Type Concept` becomes `Type_Concept`, producing ids such as
+            `Type_Concept:OMOP4976929`.
+
+            Beacon schema validation is permissive for CURIE-like values, but
+            whitespace in identifier prefixes can make downstream APIs, indexes,
+            and query layers harder to handle consistently.
+
         By default, the original OMOP rows are also preserved under fields such
         as `info.PERSON.OMOP_columns` or
         `biosamples.info.SPECIMEN.OMOP_columns`. This is intentional: it helps

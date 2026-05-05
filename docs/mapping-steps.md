@@ -180,7 +180,7 @@ During the conversion process, handling variables that cannot be directly mapped
                 "occurrence_id" : 312,
                 "start_date" : "1972-12-20T00:00:00Z",
                 "type" : {
-                   "id" : "Visit Type:OMOP4822465",
+                   "id" : "Visit_Type:OMOP4822465",
                    "label" : "Visit derived from encounter on claim"
                 }
              },
