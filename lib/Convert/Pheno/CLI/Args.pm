@@ -72,6 +72,7 @@ sub build_cli_request {
     my ( $self_validate_schema, $overwrite, $username, $log, $version );
     my $default_vital_status;
     my $schema_file = $schema_default;
+    my $source_info = 1;
 
     GetOptionsFromArray(
         $argv,
@@ -115,6 +116,7 @@ sub build_cli_request {
         'sql2csv'                     => \$sql2csv,
         'test'                        => \$test,
         'search-audit-tsv=s'          => \$search_audit_tsv,
+        'source-info!'                => \$source_info,
         'ohdsi-db'                    => \$ohdsi_db,
         'omop-tables=s{1,}'           => \@omop_tables,
         'redcap-dictionary|rcd=s'     => \$redcap_dictionary,
@@ -447,6 +449,7 @@ sub build_cli_request {
         out_file                  => $out_file,
         id                        => $id,
         test                      => $test ? 1 : 0,
+        source_info               => $source_info ? 1 : 0,
         entities                  => \@entity_list,
     );
 

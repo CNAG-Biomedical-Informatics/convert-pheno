@@ -4,6 +4,11 @@
 
 **Entity:** individuals, biosamples
 
+By default, raw OMOP rows are preserved under `OMOP_columns` provenance blocks so
+converted `BFF` can be audited against the source data and source-specific OMOP
+values remain queryable. Use `--no-source-info` to omit these raw provenance
+payloads.
+
 ## Terms
 
 ### diseases

@@ -39,7 +39,7 @@ convert-pheno -iomop omop.sql.gz -obff individuals.json.gz --stream --ohdsi-db
 ```
 
 !!! Note "OMOP streaming"
-    `--stream` is mainly intended for large OMOP exports. The individuals-only `-iomop ... -obff` path still emits `individuals` by default.
+    `--stream` is mainly intended for large OMOP exports. The individuals-only `-iomop ... -obff` path still emits `individuals` by default. Use `--no-stream` to explicitly keep the default in-memory mode.
 
 ## Emit multi-entity BFF output
 
@@ -90,6 +90,16 @@ convert-pheno -iredcap redcap.csv --redcap-dictionary dictionary.csv --mapping-f
 
 This is useful when you want to review how original source terms were mapped to ontology labels and identifiers.
 The audit also records the effective search configuration for the run, whether each lookup produced a real database match or fell back to `NA`, and whether the result came from exact matching, similarity search, or fallback.
+
+## Omit raw source provenance from BFF output
+
+By default, `BFF` output preserves copied source values under `info` for auditability and source-level querying. For smaller exports, or when raw source values should not be carried forward, use:
+
+```bash
+convert-pheno -iomop omop.sql -obff individuals.json --no-source-info
+```
+
+This omits raw payloads such as `OMOP_columns`, `CSV_columns`, and `REDCap_columns`, while keeping regular mapped fields and conversion metadata.
 
 ## Work with repository fixtures
 

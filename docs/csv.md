@@ -20,6 +20,10 @@
     convert-pheno -icsv clinical_data.csv --mapping-file clinical_data_mapping.yaml -obff individuals.json --sep ,
     ```
 
+    By default, the generated `BFF` keeps a copy of the source row under
+    `info.CSV_columns` so users can audit mapped values against the original
+    input. Use `--no-source-info` to omit that raw source snapshot.
+
     Please refer to the [Convert-Pheno tutorial](https://cnag-biomedical-informatics.github.io/convert-pheno/tutorial/#how-to-convert) for more information.
     
     !!! Question "How do I emit more than `individuals`?"

@@ -618,10 +618,12 @@ sub map_omop_visit_occurrence {
       );
     my $start_date = map_iso8601_date2timestamp( $hashref->{visit_start_date} );
     my $end_date   = map_iso8601_date2timestamp( $hashref->{visit_end_date} );
-    my $info       = { VISIT_OCCURRENCE => { OMOP_columns => $hashref } };
+    my $info =
+      _source_info_enabled($self)
+      ? { VISIT_OCCURRENCE => { OMOP_columns => $hashref } }
+      : undef;
 
-    return {
-        _info         => $info,
+    my $visit = {
         id            => $visit_occurrence_id,
         concept       => $concept,
         type          => $type,
@@ -629,6 +631,8 @@ sub map_omop_visit_occurrence {
         end_date      => $end_date,
         occurrence_id => $hashref->{visit_occurrence_id}
     };
+    $visit->{_info} = $info if defined $info;
+    return $visit;
 }
 
 sub convert_date_to_iso8601 {
@@ -861,6 +865,11 @@ sub allocate_surrogate_integer {
     $self->{_surrogate_integer_counter}{$scope} = $next;
     $map->{$source_key} = $next;
     return $next;
+}
+
+sub _source_info_enabled {
+    my ($self) = @_;
+    return !exists $self->{source_info} || $self->{source_info};
 }
 
 1;

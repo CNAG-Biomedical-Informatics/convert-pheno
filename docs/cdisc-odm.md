@@ -30,6 +30,10 @@
     convert-pheno -icdisc cdisc.xml --redcap-dictionary dictionary.csv --mapping-file mapping.yaml -obff individuals.json
     ```
 
+    CDISC-ODM follows the same mapping-file path as REDCap. By default, generated
+    `BFF` records preserve copied source values in `info` for auditability. Use
+    `--no-source-info` to omit raw source payloads from the `BFF` output.
+
     If you also want synthesized Beacon `datasets` and `cohorts`, keep `-obff` and use entity mode:
 
     ```bash

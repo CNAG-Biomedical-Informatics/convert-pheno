@@ -78,6 +78,12 @@ Convert OMOP `SPECIMEN` rows to Beacon `biosamples`:
 convert-pheno -iomop PERSON.csv CONCEPT.csv SPECIMEN.csv -obff --entities biosamples --out-dir out/
 ```
 
+Create a smaller BFF export without copied raw source payloads:
+
+```bash
+convert-pheno -iomop omop.sql -obff individuals.json --no-source-info
+```
+
 Convert a **large OMOP SQL dump** incrementally:
 
 ```bash
@@ -126,8 +132,9 @@ convert-pheno -ibff individuals.json -opxf pxf.json --default-vital-status UNKNO
 - This mapping-based augmentation is currently available only for `csv2bff`, `redcap2bff`, and `cdisc2bff`, which are the routes that use a mapping file.
 - `--entities` narrows `BFF` output. It must be combined with `-obff` and `--out-dir`.
 - `--out-name key=file` lets you override one multi-file output name. Use entity keys for `BFF` entity mode and table keys for `OMOP` output.
+- `--no-source-info` omits raw source provenance copied into `BFF` `info`, such as `OMOP_columns`, `CSV_columns`, and `REDCap_columns`. Mapped fields and `info.convertPheno` are kept.
 - `--search-audit-tsv FILE` writes a tab-separated audit of ontology search results for mapping-file-driven conversions such as `csv2bff`, `redcap2bff`, and `cdisc2bff`, including the effective configured search mode, whether each lookup matched the DB or fell back to `NA`, and the per-row lookup resolution (`exact`, `similarity`, or `fallback_na`).
-- `--stream` is mainly relevant for **large OMOP inputs**.
+- `--stream` is mainly relevant for **large OMOP inputs**. Use `--no-stream` to force the default in-memory mode when a wrapper or previous option may have enabled streaming.
 
 ## Important options
 
@@ -156,7 +163,7 @@ For the search behavior itself, including examples and threshold tradeoffs, see 
 - `--path-to-ohdsi-db DIR` points to the directory containing `ohdsi.db`.
 - `--omop-tables TABLE ...` restricts which OMOP-CDM tables are processed, while `CONCEPT` and `PERSON` stay included.
 - `--exposures-file FILE` provides a CSV list of OMOP `concept_id` values to be treated as exposures.
-- `--stream` enables incremental OMOP processing for individuals-only `-obff` output.
+- `--stream` enables incremental OMOP processing for `-iomop ... -obff` output. Use `--no-stream` to explicitly keep the default non-streaming mode.
 - `--sql2csv` prints SQL tables instead of converting them.
 - `--max-lines-sql N` limits how many lines are read per SQL table. Default: `500`.
 
@@ -172,6 +179,9 @@ For the search behavior itself, including examples and threshold tradeoffs, see 
 - `--separator CHAR` or `--sep CHAR` overrides the CSV delimiter. For `.csv` files the default remains `;`.
 - `--username NAME` or `-u NAME` overrides the username stored in conversion metadata.
 - `--default-vital-status ALIVE|DECEASED|UNKNOWN_STATUS` sets the fallback `subject.vitalStatus.status` used for `PXF` output when no source-derived value is available. Default: `ALIVE`.
+- `--source-info` / `--no-source-info` controls whether raw source payloads are preserved in `BFF` `info`. Default: `--source-info`.
+- `--log [FILE]` writes the resolved request/configuration JSON. If no filename is provided, the default is `convert-pheno-log.json` in `--out-dir`.
+- `--color` / `--no-color` controls colored terminal output. Default: `--color`.
 - `--test` suppresses time-varying metadata so generated files are stable for comparisons.
 - `--verbose` or `-v` prints progress information.
 - `--debug LEVEL` prints the resolved internal request and extra debugging output.

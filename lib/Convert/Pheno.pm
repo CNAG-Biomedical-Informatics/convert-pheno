@@ -161,6 +161,7 @@ has [qw /test print_hidden_labels self_validate_schema path_to_ohdsi_db/] =>
   ( default => undef, is => 'ro' );
 
 has [qw /stream ohdsi_db/] => ( default => 0, is => 'ro' );
+has source_info => ( default => 1, is => 'ro' );
 
 has default_vital_status => (
     is     => 'ro',

@@ -36,6 +36,10 @@ Due to the flexibility of REDCap projects, it can be challenging to develop a so
     convert-pheno -iredcap redcap.csv --redcap-dictionary dictionary.csv --mapping-file mapping.yaml -obff individuals.json
     ```
 
+    By default, the generated `BFF` keeps a copy of the source row under
+    `info.REDCap_columns` so users can audit mapped values against the original
+    REDCap export. Use `--no-source-info` to omit that raw source snapshot.
+
     If you want to inspect ontology search results, you can also request a TSV audit file:
 
     ```bash

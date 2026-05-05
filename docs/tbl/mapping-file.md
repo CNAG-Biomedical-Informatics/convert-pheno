@@ -106,6 +106,7 @@
     - **beacon**, a top-level `object` with the entity sections. Use `beacon.datasets` and `beacon.cohorts` to override synthesized metadata such as `id`, `name`, `description`, `externalUrl`, `cohortType`, or `cohortDataTypes`. These values are merged with the tool-generated defaults. This augmentation currently applies only to `csv2bff`, `redcap2bff`, and `cdisc2bff`.
     
     - **baselineFieldsToPropagate**, an array of columns containing measurements that were taken only at the initial time point (time = 0). Use this if you wish to duplicate these columns across subsequent rows for the same patient ID. It is important to ensure that the row containing baseline information appears first in the CSV.
+    - Mapping-file conversions preserve a raw source-row snapshot in the generated `BFF` `info` object by default, such as `CSV_columns` or `REDCap_columns`. This helps users audit mapped values against the input file. Use `--no-source-info` to omit these copied source payloads.
     - **age**, a `string` representing the column that points to the age of the patient.
     - **ageAtProcedure**, an `object` representing the column that points to the age when a procedure took place.
     - **ageOfOnset**, an `object` representing the column that points to the age at which the patient first experienced symptoms or was diagnosed with a condition.

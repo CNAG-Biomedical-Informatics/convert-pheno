@@ -81,7 +81,7 @@ sub _map_person {
     $individual->{id} = qq/$individual->{id}/;
 
     my $table = 'PERSON';
-    $individual->{info}{$table}{OMOP_columns} = $person;
+    $individual->{info}{$table}{OMOP_columns} = $person if _source_info_enabled($self);
     $individual->{info}{dateOfBirth} =
       map_iso8601_date2timestamp( $person->{birth_datetime} );
 
@@ -235,7 +235,7 @@ sub _map_diseases {
                 }
             ) if defined $field->{condition_concept_id};
 
-            $disease->{_info}{$table}{OMOP_columns} = $field;
+            $disease->{_info}{$table}{OMOP_columns} = $field if _source_info_enabled($self);
             $disease->{stage} = $field->{condition_status_concept_id}
               ? map2ohdsi(
                 {
@@ -289,7 +289,7 @@ sub _map_exposures {
 
             $exposure->{date}     = $field->{observation_date};
             $exposure->{duration} = $DEFAULT->{duration_OMOP};
-            $exposure->{_info}{$table}{OMOP_columns} = $field;
+            $exposure->{_info}{$table}{OMOP_columns} = $field if _source_info_enabled($self);
 
             $exposure->{exposureCode} = map2ohdsi(
                 {
@@ -344,7 +344,7 @@ sub _map_phenotypicFeatures {
                 }
             ) if defined $field->{observation_concept_id};
 
-            $phenotypicFeature->{_info}{$table}{OMOP_columns} = $field;
+            $phenotypicFeature->{_info}{$table}{OMOP_columns} = $field if _source_info_enabled($self);
 
             $phenotypicFeature->{onset} = {
                 iso8601duration => get_age_from_date_and_birthday(
@@ -395,7 +395,7 @@ sub _map_interventionsOrProcedures {
 
             $intervention->{bodySite}        = $DEFAULT->{ontology_term};
             $intervention->{dateOfProcedure} = $field->{procedure_date};
-            $intervention->{_info}{$table}{OMOP_columns} = $field;
+            $intervention->{_info}{$table}{OMOP_columns} = $field if _source_info_enabled($self);
             $intervention->{procedureCode} = map2ohdsi(
                 {
                     ohdsi_dict => $ohdsi_dict,
@@ -503,7 +503,7 @@ sub _map_measures {
             }
 
             $measure->{measurementValue} = $measurement_value;
-            $measure->{_info}{$table}{OMOP_columns} = $field;
+            $measure->{_info}{$table}{OMOP_columns} = $field if _source_info_enabled($self);
             $measure->{observationMoment} = {
                 age => {
                     iso8601duration => get_age_from_date_and_birthday(
@@ -566,7 +566,7 @@ sub _map_treatments {
             };
 
             $treatment->{doseIntervals} = [];
-            $treatment->{_info}{$table}{OMOP_columns} = $field;
+            $treatment->{_info}{$table}{OMOP_columns} = $field if _source_info_enabled($self);
             $treatment->{routeOfAdministration} = $DEFAULT->{ontology_term};
             $treatment->{treatmentCode} = map2ohdsi(
                 {
@@ -620,6 +620,11 @@ sub set_default_measure {
         measurementValue => $DEFAULT->{quantity},
         procedure        => $DEFAULT->{ontology_term}
     };
+}
+
+sub _source_info_enabled {
+    my ($self) = @_;
+    return !exists $self->{source_info} || $self->{source_info};
 }
 
 1;

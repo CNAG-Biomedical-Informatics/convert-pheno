@@ -48,12 +48,8 @@ sub map_specimen_to_biosample {
             $ohdsi_dict,
             $specimen->{specimen_concept_id},
         ),
-        info => {
-            SPECIMEN => {
-                OMOP_columns => $specimen,
-            },
-        },
     };
+    $biosample->{info}{SPECIMEN}{OMOP_columns} = $specimen if _source_info_enabled($self);
     $biosample->{individualId} = $individual_id if defined $individual_id;
 
     if ( _has_value( $specimen->{specimen_date} ) ) {
@@ -135,6 +131,11 @@ sub _map_concept_or_default {
     my ( $self, $ohdsi_dict, $concept_id ) = @_;
     my $mapped = _map_concept( $self, $ohdsi_dict, $concept_id );
     return defined $mapped ? $mapped : $DEFAULT->{ontology_term};
+}
+
+sub _source_info_enabled {
+    my ($self) = @_;
+    return !exists $self->{source_info} || $self->{source_info};
 }
 
 sub _map_concept {

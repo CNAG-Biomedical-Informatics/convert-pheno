@@ -61,5 +61,18 @@ my $convert = build_convert(
 my $result = $convert->csv2bff;
 is( ref $result, 'ARRAY', 'csv2bff returns an arrayref for tabular conversions' );
 is( $result->[0]{id}, '00123:baseline', 'csv2bff preserves leading-zero identifiers from raw CSV values' );
+ok( exists $result->[0]{info}{CSV_columns}, 'csv2bff keeps source CSV columns by default' );
+
+$convert = build_convert(
+    in_file      => $csv_file,
+    mapping_file => $mapping_file,
+    sep          => ',',
+    method       => 'csv2bff',
+    source_info  => 0,
+);
+
+$result = $convert->csv2bff;
+ok( !exists $result->[0]{info}{CSV_columns}, 'csv2bff omits source CSV columns when source_info is disabled' );
+is( $result->[0]{id}, '00123:baseline', 'csv2bff still maps regular fields when source_info is disabled' );
 
 done_testing();

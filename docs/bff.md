@@ -16,6 +16,11 @@
 
 So `BFF` is no longer only an `individuals`-centered output format, even though reverse conversion from `BFF` input is still centered on `individuals`.
 
+!!! Note "Source provenance in `info`"
+    By default, `Convert-Pheno` preserves raw source values in `info` when creating `BFF` from source formats such as `OMOP-CDM`, `CSV`, `REDCap`, and `CDISC-ODM`. This is deliberate: it makes converted records easier to audit against the original input and allows source-specific values to remain queryable through Beacon-style APIs.
+
+    For smaller production exports, or when raw source values should not be carried forward, use `--no-source-info`. This removes copied source payloads such as `OMOP_columns`, `CSV_columns`, and `REDCap_columns`, while keeping regular mapped fields and conversion metadata such as `info.convertPheno`.
+
 ??? Tip "Browsing BFF `JSON` data"
     You can browse a public BFF v2 file with the following **JSON viewers**:
 
@@ -111,8 +116,8 @@ Examples:
 
 ```bash
 convert-pheno -ipxf pxf.json -obff individuals.json
-convert-pheno -ipxf pxf.json --entities individuals biosamples --out-dir out/
-convert-pheno -icsv clinical.csv --mapping-file clinical.yaml --entities individuals datasets cohorts --out-dir out/
+convert-pheno -ipxf pxf.json -obff --entities individuals biosamples --out-dir out/
+convert-pheno -icsv clinical.csv --mapping-file clinical.yaml -obff --entities individuals datasets cohorts --out-dir out/
 ```
 
 At the moment, reverse conversion from `BFF` input still expects `individuals` rather than a full multi-entity Beacon bundle.

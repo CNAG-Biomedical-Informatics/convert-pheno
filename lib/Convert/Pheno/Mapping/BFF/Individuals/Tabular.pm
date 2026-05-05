@@ -280,7 +280,7 @@ sub map_exposures {
             }
         );
 
-        $exposure->{_info} = $field;
+        $exposure->{_info} = $field if _source_info_enabled($self);
 
         my $subkey =
           ( lc( $data_mapping_file->{project}{source} ) eq 'redcap'
@@ -351,9 +351,11 @@ sub map_info {
     $individual->{info}{project}{$_} = $data_mapping_file->{project}{$_}
       for (qw/id source ontology version description/);
 
-    my $output  = $source eq 'redcap' ? 'REDCap' : 'CSV';
-    my $tmp_str = $output . '_columns';
-    $individual->{info}{$tmp_str} = source_columns_snapshot($arg);
+    if ( _source_info_enabled($self) ) {
+        my $output  = $source eq 'redcap' ? 'REDCap' : 'CSV';
+        my $tmp_str = $output . '_columns';
+        $individual->{info}{$tmp_str} = source_columns_snapshot($arg);
+    }
     return 1;
 }
 
@@ -400,7 +402,7 @@ sub map_interventionsOrProcedures {
             source_value( $arg, $term_mapping_cursor->{dateOfProcedure}{$field} ) )
           : $DEFAULT->{date};
 
-        $intervention->{_info} = $field;
+        $intervention->{_info} = $field if _source_info_enabled($self);
 
         my $subkey =
           exists $term_mapping_cursor->{fieldRules}{$field} ? $field : undef;
@@ -725,7 +727,7 @@ sub map_treatments {
             value     => source_value( $arg, $field ),
             drug_name => $treatment_name,
             route     => $route
-        };
+        } if _source_info_enabled($self);
 
         $treatment->{routeOfAdministration} = map_ontology_term(
             {
@@ -772,6 +774,11 @@ sub _add_visit {
         'bff_visit_occurrence_id',
         $composite
     );
+}
+
+sub _source_info_enabled {
+    my ($self) = @_;
+    return !exists $self->{source_info} || $self->{source_info};
 }
 
 1;

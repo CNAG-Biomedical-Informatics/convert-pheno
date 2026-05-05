@@ -97,14 +97,16 @@ Mapping and search:
                                   Default: 0.1, range: 0-1
   --print-hidden-labels|-phl      Preserve original text labels in output
   --search-audit-tsv <file>       Write a TSV audit of ontology search results
+  --source-info|--no-source-info  Preserve or omit raw source provenance in BFF
+                                  output [source-info]
 
 OMOP:
   --ohdsi-db                      Enable Athena-OHDSI lookup
   --path-to-ohdsi-db <dir>        Directory containing <ohdsi.db>
   --omop-tables <list>            Restrict OMOP tables
   --exposures-file <file>         OMOP concept_id list treated as exposures
-  --stream                        Incremental OMOP processing with single-file
-                                  line-delimited JSON output
+  --stream|--no-stream            Incremental OMOP processing with single-file
+                                  line-delimited JSON output [no-stream]
                                   Supports individuals-only <-obff FILE>, or
                                   entity-aware <-obff --entities individuals
                                   biosamples --out-dir DIR>
@@ -119,6 +121,10 @@ Other useful options:
   --separator|--sep <char>        Delimiter for CSV input [; for .csv]
   --username|-u <name>            Override username stored in metadata
   --test                          Skip time-varying metadata for stable tests
+  --log [file]                    Write resolved request JSON log
+                                  [convert-pheno-log.json]
+  --color|--no-color              Enable or disable colored terminal output
+                                  [color]
   --debug <level>                 Print internal request/debug data
                                   (level >= 2 also prints DB lookup summary)
   --verbose|-v                    Print progress information

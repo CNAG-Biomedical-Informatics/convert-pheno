@@ -49,6 +49,24 @@ is(
 
 $request = build_cli_request(
     argv => [
+        '-iomop', 't/omop2bff/in/omop_cdm_eunomia.sql',
+        '-obff',  'individuals.json',
+        '--no-source-info',
+    ],
+    usage_error => sub { die @_ },
+    schema_file => 'share/schema/mapping.json',
+    out_dir     => $tmpdir,
+    color       => 1,
+);
+
+is(
+    $request->{data}{source_info},
+    0,
+    'CLI parser accepts --no-source-info'
+);
+
+$request = build_cli_request(
+    argv => [
         '-ipxf',     't/pxf2bff/in/pxf.json',
         '-obff',
         '--entities', 'biosamples',
@@ -193,6 +211,26 @@ like(
     $help,
     qr/--default-vital-status <s>/,
     'CLI help documents --default-vital-status'
+);
+like(
+    $help,
+    qr/--source-info\|--no-source-info/,
+    'CLI help documents --no-source-info'
+);
+like(
+    $help,
+    qr/--stream\|--no-stream/,
+    'CLI help documents --no-stream'
+);
+like(
+    $help,
+    qr/--log \[file\]/,
+    'CLI help documents --log'
+);
+like(
+    $help,
+    qr/--color\|--no-color/,
+    'CLI help documents --no-color'
 );
 like(
     $help,

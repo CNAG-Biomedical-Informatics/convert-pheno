@@ -408,6 +408,27 @@ sub find_biosample_by_id {
         structured_files_match( 't/omop2bff/out/biosamples.json', $tmp_file ),
         'omop2bff biosamples fixture maps SPECIMEN quantity as structured measurements'
     );
+
+    $convert = build_convert(
+        in_files    => [ @files{qw(concept person specimen)} ],
+        method      => 'omop2bff',
+        entities    => ['biosamples'],
+        sep         => ';',
+        test        => 1,
+        source_info => 0,
+    );
+
+    $bundle = $convert->_run_bundle_view;
+    my $biosamples = $bundle->entities('biosamples');
+    ok(
+        !exists $biosamples->[0]{info}{SPECIMEN}{OMOP_columns},
+        'omop2bff biosamples omit raw SPECIMEN columns when source_info is disabled'
+    );
+    is(
+        $biosamples->[0]{measurements}[0]{measurementValue}{quantity}{value},
+        2,
+        'omop2bff biosample measurements are still emitted when source_info is disabled'
+    );
 }
 
 {

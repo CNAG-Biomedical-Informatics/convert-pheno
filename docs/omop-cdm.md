@@ -104,6 +104,13 @@ convert-pheno -ibff individuals.json -oomop --out-dir omop_export/ --out-name PE
         field, the Beacon `assayCode` uses the valid local CURIE
         `OMOP:SPECIMEN.quantity` with label `Specimen quantity`.
 
+        By default, the original OMOP rows are also preserved under fields such
+        as `info.PERSON.OMOP_columns` or
+        `biosamples.info.SPECIMEN.OMOP_columns`. This is intentional: it helps
+        users audit the mapping and, when desired, query original OMOP values
+        through Beacon-oriented APIs. Use `--no-source-info` to omit these raw
+        OMOP payloads from the generated `BFF`.
+
         In this mode, `Convert-Pheno` infers the OMOP table name from each filename. At minimum, practical conversions usually require:
 
         - `PERSON`
