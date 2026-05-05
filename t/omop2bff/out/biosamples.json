@@ -1,0 +1,114 @@
+[
+   {
+      "biosampleStatus" : {
+         "id" : "NCIT:C126101",
+         "label" : "Not Available"
+      },
+      "collectionDate" : "2020-05-10",
+      "collectionMoment" : "P40Y",
+      "histologicalDiagnosis" : {
+         "id" : "SNOMED:10828004",
+         "label" : "Positive finding"
+      },
+      "id" : "101",
+      "individualId" : "1",
+      "info" : {
+         "SPECIMEN" : {
+            "OMOP_columns" : {
+               "anatomic_site_concept_id" : 9003,
+               "anatomic_site_source_value" : "Liver",
+               "disease_status_concept_id" : 9004,
+               "disease_status_source_value" : "Positive",
+               "person_id" : 1,
+               "quantity" : 2,
+               "specimen_concept_id" : 9001,
+               "specimen_date" : "2020-05-10",
+               "specimen_datetime" : "2020-05-10 09:30:00",
+               "specimen_id" : 101,
+               "specimen_source_id" : "SRC-101",
+               "specimen_source_value" : "Specimen note 101",
+               "specimen_type_concept_id" : 0,
+               "unit_concept_id" : 9100,
+               "unit_source_value" : "mL"
+            }
+         }
+      },
+      "measurements" : [
+         {
+            "assayCode" : {
+               "id" : "OMOP:SPECIMEN.quantity",
+               "label" : "Specimen quantity"
+            },
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "UCUM:mL",
+                     "label" : "Milliliter"
+                  },
+                  "value" : 2
+               }
+            }
+         }
+      ],
+      "sampleOriginDetail" : {
+         "id" : "SNOMED:10200004",
+         "label" : "Liver structure"
+      },
+      "sampleOriginType" : {
+         "id" : "SNOMED:119297000",
+         "label" : "Blood specimen"
+      }
+   },
+   {
+      "biosampleStatus" : {
+         "id" : "NCIT:C126101",
+         "label" : "Not Available"
+      },
+      "collectionDate" : "2021-06-11",
+      "collectionMoment" : "P41Y",
+      "id" : "102",
+      "individualId" : "1",
+      "info" : {
+         "SPECIMEN" : {
+            "OMOP_columns" : {
+               "anatomic_site_concept_id" : 0,
+               "anatomic_site_source_value" : null,
+               "disease_status_concept_id" : 0,
+               "disease_status_source_value" : null,
+               "person_id" : 1,
+               "quantity" : 1.5,
+               "specimen_concept_id" : 9001,
+               "specimen_date" : "2021-06-11",
+               "specimen_datetime" : "2021-06-11 10:30:00",
+               "specimen_id" : 102,
+               "specimen_source_id" : "SRC-102",
+               "specimen_source_value" : null,
+               "specimen_type_concept_id" : 0,
+               "unit_concept_id" : 0,
+               "unit_source_value" : "aliquot"
+            }
+         }
+      },
+      "measurements" : [
+         {
+            "assayCode" : {
+               "id" : "OMOP:SPECIMEN.quantity",
+               "label" : "Specimen quantity"
+            },
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "NCIT:C126101",
+                     "label" : "aliquot"
+                  },
+                  "value" : 1.5
+               }
+            }
+         }
+      ],
+      "sampleOriginType" : {
+         "id" : "SNOMED:119297000",
+         "label" : "Blood specimen"
+      }
+   }
+]

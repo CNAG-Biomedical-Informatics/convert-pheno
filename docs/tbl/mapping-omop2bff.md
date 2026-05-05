@@ -133,9 +133,20 @@ NA
 | `SPECIMEN.specimen_date` | `biosamples.collectionDate` | Direct |
 | `SPECIMEN.specimen_date` + `PERSON.birth_datetime` | `biosamples.collectionMoment` | Derived age |
 | `SPECIMEN.disease_status_concept_id` | `biosamples.histologicalDiagnosis` | Mapped through OHDSI concepts when present |
+| `SPECIMEN.quantity` | `biosamples.measurements.measurementValue.quantity.value` | Emitted as a sample-level measurement when numeric |
+| `SPECIMEN.unit_concept_id` | `biosamples.measurements.measurementValue.quantity.unit` | Mapped through OHDSI concepts when present |
+| `SPECIMEN.unit_source_value` | `biosamples.measurements.measurementValue.quantity.unit.label` | Used as fallback unit label when no unit concept is available |
+| `OMOP:SPECIMEN.quantity` | `biosamples.measurements.assayCode` | Local valid CURIE identifying the OMOP source field; OMOP `SPECIMEN` has no `measurement_concept_id` equivalent |
 | `SPECIMEN.specimen_source_id` / `SPECIMEN.specimen_source_value` | none | Kept only in provenance; not promoted to Beacon schema fields by default |
 | `DEFAULT` | `biosamples.biosampleStatus` | Defaulted for Beacon completeness |
 | `convertPheno` | `biosamples.info.convertPheno` | Emitted outside `--test` mode |
 | `SPECIMEN.*` | `biosamples.info.SPECIMEN.OMOP_columns` | Provenance payload |
 | missing `SPECIMEN.specimen_concept_id` | `biosamples.sampleOriginType` | Defaults to `NCIT:C126101` / `Not Available` |
 | `DEFAULT` | `biosamples.biosampleStatus` | Defaults to `NCIT:C126101` / `Not Available` |
+
+`SPECIMEN.quantity` is promoted conservatively. OMOP provides the value and unit,
+but the `SPECIMEN` table does not include a `measurement_concept_id` equivalent
+for the measured sample property. For this reason, `Convert-Pheno` uses the
+valid local CURIE `OMOP:SPECIMEN.quantity` with label `Specimen quantity` as the
+Beacon `assayCode`, while the original OMOP columns remain available under
+`biosamples.info.SPECIMEN.OMOP_columns`.

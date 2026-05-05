@@ -17,8 +17,10 @@ use Test::ConvertPheno qw(
   load_json_file
   remove_dir_if_exists
   slurp_file
+  structured_files_match
   test_tmpdir
   write_csv_rows
+  write_json_file
 );
 
 my $cli = cli_script_path();
@@ -147,6 +149,18 @@ sub write_minimal_omop_inputs {
                 valid_end_date     => '2099-12-31',
                 invalid_reason     => '',
             },
+            {
+                concept_id         => 9100,
+                concept_name       => 'Milliliter',
+                domain_id          => 'Unit',
+                vocabulary_id      => 'UCUM',
+                concept_class_id   => 'Unit',
+                standard_concept   => 'S',
+                concept_code       => 'mL',
+                valid_start_date   => '1970-01-01',
+                valid_end_date     => '2099-12-31',
+                invalid_reason     => '',
+            },
         ]
     );
 
@@ -190,12 +204,12 @@ sub write_minimal_omop_inputs {
                     specimen_date               => '2020-05-10',
                     specimen_datetime           => '2020-05-10 09:30:00',
                     quantity                    => 2,
-                    unit_concept_id             => 0,
+                    unit_concept_id             => 9100,
                     anatomic_site_concept_id    => 9003,
                     disease_status_concept_id   => 9004,
                     specimen_source_id          => 'SRC-101',
                     specimen_source_value       => 'Specimen note 101',
-                    unit_source_value           => '',
+                    unit_source_value           => 'mL',
                     anatomic_site_source_value  => 'Liver',
                     disease_status_source_value => 'Positive',
                 },
@@ -247,6 +261,15 @@ sub mimic_specimen_fixture_files {
     );
 }
 
+sub specimen_quantity_fixture_files {
+    my $dir = File::Spec->catdir( 't', 'omop2bff', 'in', 'specimen_quantity' );
+    return (
+        concept  => File::Spec->catfile( $dir, 'CONCEPT.csv' ),
+        person   => File::Spec->catfile( $dir, 'PERSON.csv' ),
+        specimen => File::Spec->catfile( $dir, 'SPECIMEN.csv' ),
+    );
+}
+
 sub find_biosample_by_id {
     my ( $biosamples, $id ) = @_;
     for my $biosample ( @{$biosamples} ) {
@@ -279,6 +302,8 @@ sub find_biosample_by_id {
                 specimen_concept_id       => 1001,
                 specimen_type_concept_id  => 1004,
                 specimen_date             => '2020-03-01',
+                quantity                  => 2,
+                unit_concept_id           => 1005,
                 anatomic_site_concept_id  => 1002,
                 disease_status_concept_id => 1003,
                 specimen_source_value     => 'first note',
@@ -289,9 +314,11 @@ sub find_biosample_by_id {
                 specimen_concept_id       => 0,
                 specimen_type_concept_id  => 0,
                 specimen_date             => '2021-04-01',
+                quantity                  => 1.5,
                 anatomic_site_concept_id  => 0,
                 disease_status_concept_id => 0,
                 specimen_source_value     => 70003,
+                unit_source_value         => 'aliquot',
             },
         ],
     };
@@ -307,7 +334,11 @@ sub find_biosample_by_id {
     is( $got->[0]{sampleOriginDetail}{id}, 'OHDSI:1002', 'maps anatomic_site_concept_id to sampleOriginDetail' );
     is( $got->[0]{obtentionProcedure}{procedureCode}{id}, 'OHDSI:1004', 'maps specimen_type_concept_id to obtentionProcedure.procedureCode' );
     is( $got->[0]{histologicalDiagnosis}{id}, 'OHDSI:1003', 'maps disease_status_concept_id to histologicalDiagnosis' );
+    is( $got->[0]{measurements}[0]{assayCode}{id}, 'OMOP:SPECIMEN.quantity', 'uses a valid CURIE for the specimen quantity assayCode' );
+    is( $got->[0]{measurements}[0]{measurementValue}{quantity}{value}, 2, 'maps specimen quantity to biosample measurement value' );
+    is( $got->[0]{measurements}[0]{measurementValue}{quantity}{unit}{id}, 'OHDSI:1005', 'maps specimen quantity unit_concept_id to the measurement unit' );
     is( $got->[1]{sampleOriginType}{id}, 'NCIT:C126101', 'defaults sampleOriginType when specimen concept is missing' );
+    is( $got->[1]{measurements}[0]{measurementValue}{quantity}{unit}{label}, 'aliquot', 'uses unit_source_value as unit label when no unit concept is available' );
     ok( !exists $got->[1]{sampleOriginDetail}, 'does not synthesize sampleOriginDetail without a concept id' );
     ok( !exists $got->[1]{obtentionProcedure}, 'does not synthesize obtentionProcedure without a concept id' );
     ok( !exists $got->[1]{histologicalDiagnosis}, 'does not synthesize histologicalDiagnosis without a concept id' );
@@ -356,6 +387,26 @@ sub find_biosample_by_id {
         $got->[0]{info}{convertPheno}{beaconSchemaVersion},
         '2.0.0',
         'includes Beacon schema version in biosample convertPheno info when not in test mode'
+    );
+}
+
+{
+    my %files = specimen_quantity_fixture_files();
+    my $convert = build_convert(
+        in_files => [ @files{qw(concept person specimen)} ],
+        method   => 'omop2bff',
+        entities => ['biosamples'],
+        sep      => ';',
+        test     => 1,
+    );
+
+    my $tmp_file = File::Spec->catfile( $tmpdir, 'omop-specimen-quantity-biosamples.json' );
+    my $bundle   = $convert->_run_bundle_view;
+    write_json_file( $tmp_file, $bundle->entities('biosamples') );
+
+    ok(
+        structured_files_match( 't/omop2bff/out/biosamples.json', $tmp_file ),
+        'omop2bff biosamples fixture maps SPECIMEN quantity as structured measurements'
     );
 }
 

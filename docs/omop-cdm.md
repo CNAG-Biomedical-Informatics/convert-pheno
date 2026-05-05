@@ -96,6 +96,14 @@ convert-pheno -ibff individuals.json -oomop --out-dir omop_export/ --out-name PE
         convert-pheno -iomop PERSON.csv CONCEPT.csv SPECIMEN.csv -obff --entities biosamples --out-dir out/
         ```
 
+        When `SPECIMEN.quantity` is present, `Convert-Pheno` also emits it as a
+        sample-level `biosamples.measurements` entry. The value comes from
+        `SPECIMEN.quantity`, the unit is resolved from `unit_concept_id` when
+        available, and `unit_source_value` is used as a fallback label. Because
+        OMOP `SPECIMEN` has no `measurement_concept_id` equivalent for this
+        field, the Beacon `assayCode` uses the valid local CURIE
+        `OMOP:SPECIMEN.quantity` with label `Specimen quantity`.
+
         In this mode, `Convert-Pheno` infers the OMOP table name from each filename. At minimum, practical conversions usually require:
 
         - `PERSON`

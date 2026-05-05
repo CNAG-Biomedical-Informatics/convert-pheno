@@ -96,11 +96,39 @@ sub map_specimen_to_biosample {
     $biosample->{histologicalDiagnosis} = $histological_diagnosis
       if defined $histological_diagnosis;
 
+    my $measurement = _map_specimen_quantity_measurement( $self, $ohdsi_dict, $specimen );
+    $biosample->{measurements} = [$measurement] if defined $measurement;
+
     unless ( $self->{test} ) {
         $biosample->{info}{convertPheno} = $self->{convertPheno};
     }
 
     return $biosample;
+}
+
+sub _map_specimen_quantity_measurement {
+    my ( $self, $ohdsi_dict, $specimen ) = @_;
+    return unless _has_numeric_value( $specimen->{quantity} );
+
+    my $unit = _map_concept( $self, $ohdsi_dict, $specimen->{unit_concept_id} )
+      || _unit_from_source_value( $specimen->{unit_source_value} )
+      || $DEFAULT->{ontology_term};
+
+    # OMOP SPECIMEN has quantity and unit fields but no measurement_concept_id.
+    # Use a valid CURIE that explicitly identifies the OMOP source field instead
+    # of pretending that specimen_concept_id or specimen_type_concept_id is an assay.
+    return {
+        assayCode => {
+            id    => 'OMOP:SPECIMEN.quantity',
+            label => 'Specimen quantity',
+        },
+        measurementValue => {
+            quantity => {
+                value => $specimen->{quantity} + 0,
+                unit  => $unit,
+            },
+        },
+    };
 }
 
 sub _map_concept_or_default {
@@ -136,6 +164,21 @@ sub _has_value {
     return 0 if $value eq q{};
     return 0 if $value eq '\\N';
     return 1;
+}
+
+sub _has_numeric_value {
+    my ($value) = @_;
+    return 0 unless _has_value($value);
+    return $value =~ /\A[+-]?(?:\d+(?:\.\d*)?|\.\d+)\z/;
+}
+
+sub _unit_from_source_value {
+    my ($value) = @_;
+    return unless _has_value($value);
+    return {
+        id    => $DEFAULT->{ontology_term}{id},
+        label => $value,
+    };
 }
 
 sub _stringify_if_defined {

@@ -1,0 +1,6 @@
+concept_class_id;concept_code;concept_id;concept_name;domain_id;invalid_reason;standard_concept;valid_end_date;valid_start_date;vocabulary_id
+Gender;M;8507;MALE;Gender;;S;2099-12-31;1970-01-01;Gender
+Specimen;119297000;9001;Blood specimen;Specimen;;S;2099-12-31;1970-01-01;SNOMED
+Body Structure;10200004;9003;Liver structure;Specimen;;S;2099-12-31;1970-01-01;SNOMED
+Clinical Finding;10828004;9004;Positive finding;Observation;;S;2099-12-31;1970-01-01;SNOMED
+Unit;mL;9100;Milliliter;Unit;;S;2099-12-31;1970-01-01;UCUM
