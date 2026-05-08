@@ -1,0 +1,64 @@
+---
+title: CDISC-ODM
+sidebar_label: CDISC-ODM
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+:::warning[Experimental]
+CDISC-ODM conversion is still experimental. Please use it with caution.
+
+:::
+**CDISC** stands for **C**linical **D**ata **I**nterchange **S**tandards **C**onsortium. **ODM** stands for **O**perational **D**ata **M**odel.
+
+<figure>
+<img src="https://www.cdisc.org/themes/custom/cdiscd8/logo.svg" alt="CDISC" className="convert-pheno-image-md" />
+   <figcaption>Image extracted from www.cdisc.org</figcaption>
+</figure>
+
+[CDISC](https://www.cdisc.org) is an organization that develops [standards](https://www.cdisc.org/standards/data-exchange) for data exchange of clinical research. From their standards, we accept the [Operational Data Model (ODM)-XML](https://www.cdisc.org/standards/data-exchange/odm) as input as it is [widely used](https://en.wikipedia.org/wiki/Clinical_Data_Interchange_Standards_Consortium#ODM_and_EDC_integration) for representing forms for case-reporting in many electronic data capture (EDC) tools. 
+
+:::info[About ODM-XML]
+ODM-XML is a vendor-neutral, platform-independent format for exchanging and archiving clinical and translational research data, along with their associated metadata, administrative data, reference data, and audit information.
+
+:::
+## CDISC-ODM as input
+
+
+<Tabs>
+<TabItem value="command-line" label="Command-line">
+
+
+:::info[ODM versions]
+We're accepting CDISC-ODM v1 (XML). Currently, v2 is in the [process of being approved](https://www.cdisc.org/public-review/odm-v2-0).
+
+:::
+We'll need three files:
+
+1. CDISC-ODM v1 (XML)
+2. REDCap data dictionary (CSV)
+3. Mapping file (YAML or JSON) (see [tutorial](tutorial))
+
+```
+    convert-pheno -icdisc cdisc.xml --redcap-dictionary dictionary.csv --mapping-file mapping.yaml -obff individuals.json
+    ```
+
+CDISC-ODM follows the same mapping-file path as REDCap. By default, generated
+`BFF` records preserve copied source values in `info` for auditability. Use
+`--no-source-info` to omit raw source payloads from the `BFF` output.
+
+If you also want synthesized Beacon `datasets` and `cohorts`, keep `-obff` and use entity mode:
+
+```bash
+    convert-pheno -icdisc cdisc.xml --redcap-dictionary dictionary.csv --mapping-file mapping.yaml -obff --entities individuals datasets cohorts --out-dir out/
+    ```
+
+In this mode, the top-level `beacon` section of the mapping file can override dataset and cohort metadata.
+
+:::warning[About other CDISC data exchange standards]
+We are aware of the [Dataset-XML](https://www.cdisc.org/standards/data-exchange/dataset-xml) format (an extension of ODM-XML) and the emerging [Dataset-JSON](https://wiki.cdisc.org/display/ODM2/Dataset-JSON) specification. While we do not currently support them, we are following their development with interest.
+:::
+
+</TabItem>
+</Tabs>
