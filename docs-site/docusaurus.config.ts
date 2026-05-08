@@ -59,7 +59,8 @@ const config: Config = {
       title: 'Convert-Pheno',
       logo: {
         alt: 'Convert-Pheno',
-        src: 'img/CP-logo-grey.png',
+        src: 'img/CP-logo.png',
+        srcDark: 'img/CP-logo.png',
       },
       items: [
         {

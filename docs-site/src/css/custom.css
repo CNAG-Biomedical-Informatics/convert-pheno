@@ -52,11 +52,80 @@
   border-right: 1px solid var(--ifm-color-emphasis-200);
 }
 
+.navbar__logo {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 999px;
+  box-shadow: 0 1px 8px rgba(15, 111, 143, 0.14);
+  display: inline-flex;
+  height: 34px;
+  justify-content: center;
+  margin-right: 0.45rem;
+  padding: 3px;
+  width: 34px;
+}
+
+.navbar__logo img {
+  height: 28px;
+  width: 28px;
+}
+
 .button-row {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
   margin: 1rem 0 1.5rem;
+}
+
+.about-hero {
+  background:
+    linear-gradient(135deg, rgba(237, 250, 253, 0.96), rgba(255, 248, 235, 0.94)),
+    radial-gradient(circle at top right, rgba(245, 151, 45, 0.2), transparent 42%);
+  border: 1px solid rgba(15, 111, 143, 0.16);
+  border-radius: 24px;
+  box-shadow: 0 18px 45px rgba(22, 72, 92, 0.09);
+  margin: 1.2rem 0 1.6rem;
+  padding: 1.4rem 1.6rem;
+}
+
+.about-hero p {
+  color: var(--ifm-color-emphasis-800);
+  font-size: 1.08rem;
+  margin: 0;
+}
+
+.about-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  margin: 1rem 0 2rem;
+}
+
+.about-card {
+  background: var(--ifm-card-background-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(22, 72, 92, 0.08);
+  padding: 1.15rem;
+}
+
+.about-card h3 {
+  font-size: 1.18rem;
+  margin: 0.35rem 0 0.5rem;
+}
+
+.about-card p {
+  color: var(--ifm-color-emphasis-800);
+  margin: 0;
+}
+
+.about-kicker {
+  color: #0f6f8f;
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .convert-pheno-image-sm {

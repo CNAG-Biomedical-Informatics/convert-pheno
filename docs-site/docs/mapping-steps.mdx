@@ -7,6 +7,20 @@ slug: /mapping-steps
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
+## At a Glance
+
+Most conversions use `BFF` as the center model:
+
+| Step | What Happens | Why It Matters |
+|------|--------------|----------------|
+| 1 | Source data is normalized into Beacon v2 Models / BFF | This gives the software one consistent internal target |
+| 2 | BFF is optionally converted into the requested final model | This enables `PXF` and `OMOP-CDM` output without rewriting every source route |
+| 3 | Unmapped source values are preserved when useful | Users can audit the conversion and query source-specific fields later |
+
+:::tip[Practical shortcut]
+If you only need commands, use [Conversion Recipes](conversion-recipes). Use this page when you want to understand why mappings are structured the way they are.
+:::
+
 ## Step 1: Conversion to the target model
 
 For **most workflows**, `Convert-Pheno` first maps the input data to [BFF](bff), the Beacon v2 Models-based format that acts as the **internal target** or **center model** of the toolkit. From there, the data can remain as `BFF` or continue to other outputs such as `PXF` or `OMOP CDM`.
@@ -49,6 +63,9 @@ graph LR
 * **Overlap with Phenopackets v2:** Despite minor differences in nomenclature or hierarchy, many essential terms remain identical, encouraging interoperability.
 
 </details>
+<details>
+<summary>Advanced mapping details, ontology preservation, and search behavior</summary>
+
 ### Schema mapping
 
 When starting a new conversion between two data models, the first step is to **map variables** between the two data schemas.
@@ -453,6 +470,8 @@ Where:
 - `\beta` (or `lev_weight`) is the weight assigned to the normalized Levenshtein similarity.
 
 A common default is to set `\alpha = 0.9` and `\beta = 0.1`, emphasizing the token-based similarity. However, for short strings (4–5 words), you might consider adjusting the balance (for example, `\alpha = 0.95` and `\beta = 0.05`) if small typographical differences are less critical.
+
+</details>
 
 </details>
 ## Step 2: Conversion to the final model

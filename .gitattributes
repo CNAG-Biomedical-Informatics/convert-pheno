@@ -2,3 +2,6 @@
 *.pm linguist-language=Perl
 *.t linguist-language=Perl
 nb/** linguist-vendored
+
+# Docusaurus documentation source should not skew GitHub language statistics.
+docs-site/** linguist-documentation

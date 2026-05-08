@@ -21,6 +21,11 @@ const sidebars: SidebarsConfig = {
           id: 'supported-formats',
           label: 'Supported Formats',
         },
+        {
+          type: 'doc',
+          id: 'choose-an-interface',
+          label: 'Which Interface?',
+        },
       ],
     },
     {
@@ -32,6 +37,11 @@ const sidebars: SidebarsConfig = {
       type: 'category',
       label: '🛠️ Use',
       items: [
+        {
+          type: 'doc',
+          id: 'conversion-recipes',
+          label: 'Conversion Recipes',
+        },
         {
           type: 'doc',
           id: 'use-as-a-command-line-interface',
@@ -165,6 +175,11 @@ const sidebars: SidebarsConfig = {
           type: 'doc',
           id: 'troubleshooting',
           label: 'Troubleshooting',
+        },
+        {
+          type: 'doc',
+          id: 'trust-and-validation',
+          label: 'Trust & Validation',
         },
         {
           type: 'doc',

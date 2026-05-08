@@ -13,6 +13,19 @@ A runnable notebook version is available in [Google Colab](https://colab.researc
 These examples assume that `Convert-Pheno` is already installed. If not, start with [Download & Installation](download-and-installation).
 
 :::
+## Choose a Walkthrough
+
+| Goal | Start Here |
+|------|------------|
+| I have a REDCap export and want Phenopackets | [REDCap to PXF](#redcap-to-pxf) |
+| I have OMOP-CDM data and want BFF | [OMOP CDM to BFF](#omop-cdm-to-bff) |
+| I have a plain CSV and a mapping file | [CSV to BFF](#csv-to-bff) |
+
+For short copy-paste commands without tutorial context, use [Conversion Recipes](conversion-recipes).
+
+<details>
+<summary>Full walkthroughs and mapping-file examples</summary>
+
 ## REDCap to PXF
 
 This is a good route when you have a **REDCap export** and want to produce **Phenopackets**.
@@ -737,6 +750,8 @@ convert-pheno -icsv clinical_data.csv \
   --entities individuals datasets cohorts \
   --out-dir out/
 ```
+
+</details>
 
 ## Need more detail?
 

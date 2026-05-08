@@ -28,6 +28,9 @@ export default function Home() {
               <Link className="button button--primary button--lg" to="/what-is-convert-pheno">
                 Start Here
               </Link>
+              <Link className="button button--secondary button--lg" to="/choose-an-interface">
+                Choose Interface
+              </Link>
               <Link className="button button--secondary button--lg" to="/use-as-a-command-line-interface">
                 Run the CLI
               </Link>
@@ -44,6 +47,10 @@ export default function Home() {
             <Link className={styles.card} to="/supported-formats">
               <h2>Choose</h2>
               <p>Supported input and output formats, including entity-aware BFF output.</p>
+            </Link>
+            <Link className={styles.card} to="/conversion-recipes">
+              <h2>Recipes</h2>
+              <p>Copy-paste commands for PXF, OMOP-CDM, REDCap, CSV, CDISC-ODM, and BFF workflows.</p>
             </Link>
             <Link className={styles.card} to="/omop-cdm">
               <h2>Convert OMOP</h2>

@@ -5,9 +5,69 @@ sidebar_label: Command-Line Interface
 
 `Convert-Pheno` includes a **command-line utility** for file-based conversions. This is the **primary way** most users work with the project.
 
-<a className="button button--primary" href="usage">See common usage</a>
+<a className="button button--primary" href="conversion-recipes">Copy-paste recipes</a>
 <a className="button button--secondary" href="tutorial">Read the tutorial</a>
 <a className="button button--secondary" href="download-and-installation">Check installation</a>
+
+## Start with One of These
+
+Convert a Phenopacket to BFF `individuals`:
+
+```bash
+convert-pheno -ipxf phenopacket.json -obff individuals.json
+```
+
+Convert a Phenopacket to multiple BFF entities:
+
+```bash
+convert-pheno -ipxf phenopacket.json -obff \
+  --entities individuals biosamples datasets cohorts \
+  --out-dir bff_out/
+```
+
+Convert OMOP-CDM CSV tables to BFF:
+
+```bash
+convert-pheno -iomop PERSON.csv CONCEPT.csv CONDITION_OCCURRENCE.csv \
+  -obff individuals.json
+```
+
+Convert a mapped CSV file and audit ontology searches:
+
+```bash
+convert-pheno -icsv clinical.csv \
+  --mapping-file mapping.yaml \
+  --search-audit-tsv search-audit.tsv \
+  -obff individuals.json
+```
+
+Convert BFF `individuals` to Phenopackets:
+
+```bash
+convert-pheno -ibff individuals.json -opxf phenopacket.json
+```
+
+:::tip[Need a command for a specific route?]
+Use [Conversion Recipes](conversion-recipes) for the practical examples. Use this page when you want to understand the CLI model and option groups.
+:::
+
+## Command Model
+
+Every command has three parts:
+
+| Part | Meaning | Example |
+|------|---------|---------|
+| Input | What format is being read | `-ipxf phenopacket.json` |
+| Output | What format is being written | `-obff individuals.json` |
+| Options | Extra behavior | `--entities individuals biosamples --out-dir out/` |
+
+The most important distinction is BFF output mode:
+
+- `-obff FILE` writes one `individuals` file.
+- `-obff --entities ... --out-dir DIR` writes one file per requested BFF entity.
+
+<details>
+<summary>Detailed CLI reference</summary>
 
 ## Basic pattern
 
@@ -199,3 +259,5 @@ For the search behavior itself, including examples and threshold tradeoffs, see 
 - [Usage](usage) for more examples
 - [Download & Installation](download-and-installation) for setup
 - [Google Colab tutorial](https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6) if you want a disposable environment
+
+</details>

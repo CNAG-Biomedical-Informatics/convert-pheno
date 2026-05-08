@@ -22,6 +22,17 @@ The **OMOP CDM** is designed to be database-agnostic, which means it can be impl
 - as **input**, from `.sql`, `.csv`, `.sql.gz`, or `.csv.gz` exports
 - as **output**, as OMOP CSV tables generated from `BFF` input
 
+## Quick OMOP Commands
+
+| Goal | Command |
+|------|---------|
+| OMOP CSV tables to BFF individuals | `convert-pheno -iomop PERSON.csv CONCEPT.csv CONDITION_OCCURRENCE.csv -obff individuals.json` |
+| OMOP `SPECIMEN` to BFF biosamples | `convert-pheno -iomop PERSON.csv CONCEPT.csv SPECIMEN.csv -obff --entities biosamples --out-dir bff_out/` |
+| Large OMOP SQL dump to streamed BFF | `convert-pheno -iomop dump.sql.gz -obff individuals.json.gz --stream --ohdsi-db` |
+| BFF individuals to OMOP CSV tables | `convert-pheno -ibff individuals.json -oomop --out-dir omop_export/` |
+
+For more examples, see [Conversion Recipes](conversion-recipes).
+
 <details>
 <summary>About OMOP CDM longitudinal data</summary>
 
