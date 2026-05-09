@@ -32,6 +32,10 @@ converted `BFF` can be audited against the source data and source-specific OMOP
 values remain queryable. Use `--no-source-info` to omit these raw provenance
 payloads.
 
+For the validation approach used during development, including Beacon/BFF schema
+validation, OMOP CSV validation, EUNOMIA checks, and manual/domain review, see
+[Output Validation](output-validation).
+
 ## Terms
 
 ### diseases

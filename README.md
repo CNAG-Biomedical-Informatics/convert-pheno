@@ -1,6 +1,6 @@
 <p align="left">
-  <a href="https://github.com/cnag-biomedical-informatics/convert-pheno"><img src="https://raw.githubusercontent.com/cnag-biomedical-informatics/convert-pheno/main/docs/img/CP-logo.png" width="180" alt="Convert-Pheno"></a>
-  <a href="https://github.com/cnag-biomedical-informatics/convert-pheno"><img src="https://raw.githubusercontent.com/cnag-biomedical-informatics/convert-pheno/main/docs/img/CP-text.png" width="500" alt="Convert-Pheno"></a>
+  <a href="https://github.com/cnag-biomedical-informatics/convert-pheno"><img src="https://raw.githubusercontent.com/cnag-biomedical-informatics/convert-pheno/main/docs-site/static/img/CP-logo.png" width="180" alt="Convert-Pheno"></a>
+  <a href="https://github.com/cnag-biomedical-informatics/convert-pheno"><img src="https://raw.githubusercontent.com/cnag-biomedical-informatics/convert-pheno/main/docs-site/static/img/CP-text.png" width="500" alt="Convert-Pheno"></a>
 </p>
 <p align="center">
     <em>A software toolkit for the interconversion of standard data models for phenotypic data</em>
@@ -127,8 +127,8 @@ The CLI now keeps concise built-in help in `bin/convert-pheno`.
 
 Long-form CLI documentation lives in Markdown:
 
-- [CLI guide](docs/use-as-a-command-line-interface.md)
-- [Download and installation](docs/download-and-installation.md)
+- [CLI guide](https://cnag-biomedical-informatics.github.io/convert-pheno/use-as-a-command-line-interface)
+- [Download and installation](https://cnag-biomedical-informatics.github.io/convert-pheno/download-and-installation)
 
 ## Examples
 

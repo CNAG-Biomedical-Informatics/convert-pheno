@@ -1,28 +1,38 @@
 ---
-title: Which Interface Should I Use?
-sidebar_label: Which Interface?
+title: Ways to Run Convert-Pheno
+sidebar_label: Ways to Run It
 ---
 
-# Which Interface Should I Use?
+<div className="convertDocHero">
+  <p className="convertEyebrow">How to run it</p>
+  <h2>Choose the entry point by the shape of your input data.</h2>
+  <p>
+    The command-line interface is the main entry point. Use the API or module
+    only when you are writing code that needs to call Convert-Pheno directly.
+  </p>
+  <div className="convertHeroActions">
+    <a className="button button--primary" href="use-as-a-command-line-interface">CLI</a>
+    <a className="button button--secondary" href="use-as-an-api">API</a>
+    <a className="button button--secondary" href="use-as-a-module">Module</a>
+  </div>
+</div>
 
-Most users should start with the **command-line interface**. It exposes the full feature set and is the safest choice for file-based workflows.
-
-| Interface | Best For | Avoid When |
+| Entry point | Best for | Avoid when |
 |-----------|----------|------------|
-| [Command-Line Interface](use-as-a-command-line-interface) | Real files, mapping files, OMOP tables, REDCap exports, CDISC-ODM XML, audit logs, multi-entity BFF output | You need to call Convert-Pheno inside a web service |
-| [API](use-as-an-api) | Self-contained JSON payloads from applications, notebooks, or JavaScript clients | The conversion needs several local files, mapping files, or large OMOP exports |
-| [Module](use-as-a-module) | Perl/Python code that runs in the same environment as Convert-Pheno | You need a language-agnostic network contract |
+| [Command-Line Interface](use-as-a-command-line-interface) | Normal use: real files, mapping files, OMOP tables, REDCap exports, CDISC-ODM XML, audit logs, multi-entity BFF output | You are building a service that must call Convert-Pheno over HTTP |
+| [API](use-as-an-api) | Developer use: self-contained JSON payloads from applications, notebooks, or JavaScript clients | The conversion needs several local files, mapping files, or large OMOP exports |
+| [Module](use-as-a-module) | Developer use: Perl/Python code that runs in the same environment as Convert-Pheno | You need a language-agnostic network contract |
 | [Web App UI](https://cnag-biomedical-informatics.github.io/convert-pheno-ui/) | Interactive exploration and smaller manual conversions | You need reproducible batch processing |
 
 ## Practical Rule
 
 - Use the **CLI** when your input is a file on disk.
 - Use the **CLI** when the conversion needs `--mapping-file`, `--redcap-dictionary`, `--search-audit-tsv`, `--ohdsi-db`, or `--out-dir`.
-- Use the **API** when your input and output can be represented as one JSON request and response.
-- Use the **Module** when you are embedding Convert-Pheno in local Perl or Python code.
+- Use the **API** only when your input and output can be represented as one JSON request and response.
+- Use the **Module** only when you are embedding Convert-Pheno in local Perl or Python code.
 
-:::info[Mapping-file workflows]
-Mapping-file augmentation for `datasets`, `cohorts`, and `biosamples` is available only in conversions that actually read a mapping file, such as `CSV`, `REDCap`, and `CDISC-ODM` workflows.
+:::info[Mapping-file conversions]
+Mapping-file augmentation for `datasets`, `cohorts`, and `biosamples` is available only in conversions that actually read a mapping file, such as `CSV`, `REDCap`, and `CDISC-ODM`.
 
 `OMOP-CDM` conversion does not use the mapping file, so dataset and cohort metadata must come from the source data, defaults, or command-line options.
 :::

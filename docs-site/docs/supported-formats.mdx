@@ -6,9 +6,40 @@ sidebar_label: Supported Formats
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Supported Formats
-
 This page gives a compact overview of the formats that `Convert-Pheno` can read and write. Internally, most conversions go through `BFF` first, and then continue to the requested output format when needed.
+
+<div className="convertFormatGrid">
+  <a className="convertFormatCard" href="bff">
+    <span className="convertCardLabel">Beacon</span>
+    <h3>BFF</h3>
+    <p>Input and output. BFF output can include individuals, biosamples, datasets, and cohorts.</p>
+  </a>
+  <a className="convertFormatCard" href="pxf">
+    <span className="convertCardLabel">GA4GH</span>
+    <h3>Phenopackets v2</h3>
+    <p>Input and output for phenotypic and biosample-centered records.</p>
+  </a>
+  <a className="convertFormatCard" href="omop-cdm">
+    <span className="convertCardLabel">Clinical DB</span>
+    <h3>OMOP-CDM</h3>
+    <p>SQL or CSV input, and CSV output for selected OMOP tables.</p>
+  </a>
+  <a className="convertFormatCard" href="redcap">
+    <span className="convertCardLabel">Mapping file</span>
+    <h3>REDCap</h3>
+    <p>CSV exports with data dictionary support and ontology search auditing.</p>
+  </a>
+  <a className="convertFormatCard" href="cdisc-odm">
+    <span className="convertCardLabel">Mapping file</span>
+    <h3>CDISC-ODM</h3>
+    <p>XML input using the same mapping model as other tabular conversions.</p>
+  </a>
+  <a className="convertFormatCard" href="csv">
+    <span className="convertCardLabel">Mapping file</span>
+    <h3>CSV</h3>
+    <p>Generic tabular input for BFF, PXF, and OMOP output routes.</p>
+  </a>
+</div>
 
 :::note[Note]
 `openEHR` support is currently **experimental** and currently limited to **canonical composition input** with `BFF` and `PXF` output. Patient identity must be resolvable from the payload or envelope, and multi-patient input is grouped automatically.
@@ -47,7 +78,7 @@ graph LR
   linkStyle 1,7,8,9,11,12,13 stroke:#0000FF,stroke-width:1px,stroke-dasharray:5 5,opacity:0.5;
 ```
 
-<figcaption>Supported conversions. Dotted blue lines go via BFF, which serves as the internal center model for most workflows.</figcaption>
+<figcaption>Supported conversions. Dotted blue lines go via BFF, which serves as the internal center model for most routes.</figcaption>
 
 
 <Tabs>
@@ -104,5 +135,5 @@ graph LR
 <figcaption>Additional output formats from BFF and PXF.</figcaption>
 
 :::note[Why BFF matters in the diagrams]
-`BFF` is the internal center model for most conversions. User-facing output, however, is not limited to `BFF`: the toolkit also supports `PXF` and `OMOP CDM` output paths.
+`BFF` is the internal center model for most conversions. User-facing output, however, is not limited to `BFF`: Convert-Pheno also supports `PXF` and `OMOP CDM` output paths.
 :::

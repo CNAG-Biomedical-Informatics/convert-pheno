@@ -9,6 +9,13 @@ import beaconModels from '@site/static/img/beacon-v2-models.png';
 
 **BFF** stands for **B**eacon **F**riendly **F**ormat. The [BFF](https://b2ri-documentation.readthedocs.io/en/latest/data-ingestion) is a data exchange format composed of 7 `JSON` files. These files correspond to the 7 entities of the [Beacon v2 Models](https://docs.genomebeacons.org/models).
 
+<div className="convertFormatSummary" aria-label="At a glance">
+  <div><span>Role</span><strong>Input and output</strong></div>
+  <div><span>Accepted input</span><strong>`individuals` for `bff2pxf`</strong></div>
+  <div><span>Main output</span><strong>`individuals`, `biosamples`, `datasets`, `cohorts`</strong></div>
+  <div><span>Notes</span><strong>`info` provenance unless `--no-source-info` is used</strong></div>
+</div>
+
 
 <figure>
 <img src={beaconModels} alt="Beacon v2" className="convert-pheno-image-md" />
@@ -21,15 +28,15 @@ Among the Beacon v2 Models entities, [individuals](https://docs.genomebeacons.or
 :::
 `Convert-Pheno` supports `BFF` in both directions.
 
-- As **input**, it currently accepts the [individuals](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema) entity serialized as `individuals.json`.
+- As **input**, the current `bff2pxf` route reads the [individuals](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema) entity, typically serialized as `individuals.json`.
 - As **output**, the CLI can emit `individuals`, `biosamples`, `datasets`, and `cohorts`.
 
-So `BFF` is no longer only an `individuals`-centered output format, even though reverse conversion from `BFF` input is still centered on `individuals`.
+This means `BFF` output is no longer only `individuals`. The `individuals` limitation applies to the current BFF input conversion route, not to BFF output.
 
 :::note[Source provenance in `info`]
 By default, `Convert-Pheno` preserves raw source values in `info` when creating `BFF` from source formats such as `OMOP-CDM`, `CSV`, `REDCap`, and `CDISC-ODM`. This is deliberate: it makes converted records easier to audit against the original input and allows source-specific values to remain queryable through Beacon-style APIs.
 
-For smaller production exports, or when raw source values should not be carried forward, use `--no-source-info`. This removes copied source payloads such as `OMOP_columns`, `CSV_columns`, and `REDCap_columns`, while keeping regular mapped fields and conversion metadata such as `info.convertPheno`.
+For smaller exports, or when raw source values should not be carried forward, use `--no-source-info`. This removes copied source payloads such as `OMOP_columns`, `CSV_columns`, and `REDCap_columns`, while keeping regular mapped fields and conversion metadata such as `info.convertPheno`.
 
 :::
 <details>
@@ -135,7 +142,7 @@ Successful API responses wrap the conversion result under `data`.
 
 As an output format, `BFF` can be emitted in two modes:
 
-- **individuals-only BFF mode**, using `-obff FILE`
+- **single-file individuals mode**, using `-obff FILE`
 - **entity-aware mode**, using `--entities ... --out-dir DIR`, which can write multiple Beacon entities
 
 The currently supported `BFF` output entities are:
@@ -153,7 +160,7 @@ convert-pheno -ipxf pxf.json -obff --entities individuals biosamples --out-dir o
 convert-pheno -icsv clinical.csv --mapping-file clinical.yaml -obff --entities individuals datasets cohorts --out-dir out/
 ```
 
-At the moment, reverse conversion from `BFF` input still expects `individuals` rather than a full multi-entity Beacon bundle.
+At the moment, reverse conversion from `BFF` input still expects `individuals` rather than a full multi-entity Beacon bundle. This does not limit BFF output, which can write `individuals`, `biosamples`, `datasets`, and `cohorts`.
 
 Please find below examples of data:
 

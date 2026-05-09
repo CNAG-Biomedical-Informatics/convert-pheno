@@ -12,6 +12,13 @@ REDCap conversion is still experimental. Please use it with caution.
 :::
 **REDCap** stands for **R**esearch **E**lectronic **D**ata **Cap**ture. REDCap [documentation](https://www.project-redcap.org).
 
+<div className="convertFormatSummary" aria-label="At a glance">
+  <div><span>Role</span><strong>Input</strong></div>
+  <div><span>Accepted input</span><strong>CSV export, dictionary, mapping file</strong></div>
+  <div><span>Main output</span><strong>BFF, PXF, OMOP-CDM</strong></div>
+  <div><span>Notes</span><strong>Keep exports as UTF-8 text files</strong></div>
+</div>
+
 ## REDCap as input
 
 REDCap projects are inherently **"free format"**, meaning the project creator has the flexibility to determine the identifiers for variables, data dictionaries, and other elements.
@@ -126,7 +133,7 @@ Phenopackets v2    | YES        | YES   | YES   | YES
 OMOP-CDM           | YES        | YES   | YES   | YES
 REDCap             | YES        | YES   | YES   | **NO**
 
-`Public API = NO` here means **not recommended as a public HTTP workflow**, even if advanced local or internal setups could still call the module with file-oriented parameters.
+`Public API = NO` here means **not recommended as a public HTTP route**, even if advanced local or internal setups could still call the module with file-oriented parameters.
 
 In practice, the public API is meant for **self-contained JSON payloads** such as `BFF`, `PXF`, and carefully prepared `OMOP-CDM`. Mapping-file-based conversions such as `CSV`, `REDCap`, and `CDISC-ODM` are better handled through the CLI.
 

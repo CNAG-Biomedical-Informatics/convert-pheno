@@ -21,6 +21,7 @@
 ^\.git/
 ^\.github/
 ^docs/
+^docs-site/
 ^api/perl/bck/
 ^api/python/bck/
 ^api/python/__pycache__/

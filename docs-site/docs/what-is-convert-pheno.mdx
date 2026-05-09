@@ -5,53 +5,62 @@ sidebar_label: What Is Convert-Pheno?
 
 import schemaImage from '@site/static/img/convert-pheno-schema.png';
 
-# What Is Convert-Pheno?
+<div className="convertDocHero">
+  <p className="convertEyebrow">Concept</p>
+  <h2>A converter between clinical and phenotypic data models.</h2>
+  <p>
+    `Convert-Pheno` helps move record-level clinical and phenotypic data
+    between standards used by Beacon, Phenopackets, OMOP-CDM, REDCap,
+    CDISC-ODM, and tabular files.
+  </p>
+</div>
 
-`Convert-Pheno` is an **open-source toolkit** for converting clinical and phenotypic data between several commonly used exchange models.
+`Convert-Pheno` is **open-source software** for converting clinical and phenotypic data between commonly used exchange models. It is mainly designed for file-based transformations, validation checks, and reproducible batch conversion.
 
 <figure>
 <img src={schemaImage} alt="Convert-Pheno" className="convert-pheno-image-lg" />
  <figcaption>Convert-Pheno schematic view</figcaption>
 </figure>
 
-In practice, the project is centered on a **Perl module** and a **command-line tool** that work with text files such as:
+## What Problem It Solves
 
-- BFF `individuals` JSON/YAML, plus entity-aware BFF output for `biosamples`, `datasets`, and `cohorts`
-- Phenopackets v2 JSON/YAML
-- OMOP-CDM SQL or CSV exports
-- experimental openEHR canonical JSON/YAML composition input
-- REDCap CSV exports
-- CDISC-ODM XML
-- mapped CSV input
+Clinical datasets often arrive in formats that are useful inside one project but hard to reuse elsewhere. A REDCap export, an OMOP database dump, and a Phenopacket can describe overlapping clinical concepts while using different structures, identifiers, and nesting rules.
 
-Internally, the toolkit uses `BFF` as its **center model** for most conversions. From there, it can emit `BFF`, `PXF`, or `OMOP CDM` output depending on the selected workflow.
+`Convert-Pheno` provides a controlled conversion layer so users can:
 
-The current `openEHR` path should still be treated as **experimental**. It is currently aimed at canonical composition input and `BFF` or `PXF` output.
+- transform supported source formats into Beacon-compatible `BFF`
+- generate Phenopackets v2 or OMOP-CDM outputs when supported
+- keep source provenance in `info` for auditability
+- inspect ontology lookup results through optional search audit files
+- validate outputs with external schema-aware tools
 
-## Most users should start here
+## How It Works
 
-For most users, the [command-line interface](use-as-a-command-line-interface) is the **right entry point**. It is the most direct way to run conversions on files and the interface that the rest of the project is built around.
+Most routes normalize data through `BFF`, which acts as the internal center model. That does not mean the final output must be `BFF`: depending on the selected route, the output can be Beacon entities, Phenopackets, OMOP-CDM CSV tables, flattened JSON, flattened CSV, or JSON-LD.
 
-Typical examples are:
+For mapping-file conversions such as `CSV`, `REDCap`, and `CDISC-ODM`, the mapping file defines how source columns become Beacon `individuals` fields and, when requested, metadata for `datasets`, `cohorts`, or `biosamples`.
 
-```bash
-convert-pheno -ipxf pxf.json -obff individuals.json
-convert-pheno -ipxf pxf.json -obff --entities individuals biosamples datasets cohorts --out-dir out/
-convert-pheno -iomop dump.sql.gz -obff individuals.json.gz --stream --ohdsi-db
-```
+For structured standards such as `PXF` and `OMOP-CDM`, the converter uses source-specific mapping code rather than a user mapping file.
 
-See [Use as a command-line interface](use-as-a-command-line-interface) for the CLI entry points and [Usage](usage) for more examples.
+## What It Is Not
 
-## Other ways to use it
+`Convert-Pheno` is not a clinical terminology curation platform, an OMOP ETL framework, or a Beacon API server. It can preserve source values, map known fields, and query configured ontology databases, but users still need to review mappings and validate outputs for their project.
 
-If you need tighter integration:
+It is also not equally mature for every route. The core file-based routes are more established than experimental areas such as openEHR input.
 
-- [As a module](use-as-a-module): call `Convert::Pheno` from Perl code
-- [As an API](use-as-an-api): run the lightweight HTTP API
-- [Web App UI](https://cnag-biomedical-informatics.github.io/convert-pheno-ui/): inspect and try conversions interactively
+## Main Interfaces
+
+Most users should use the [command-line interface](use-as-a-command-line-interface), especially for real files, mapping files, OMOP tables, audit logs, and multi-entity BFF output.
+
+For developers who need to call Convert-Pheno from other code, the project also exposes:
+
+- [Module usage](use-as-a-module) for local Perl or Python code
+- [HTTP API usage](use-as-an-api) for self-contained JSON requests
+- [Web App UI](https://cnag-biomedical-informatics.github.io/convert-pheno-ui/) for interactive exploration
 
 ## What to read next
 
-- [Supported Formats](supported-formats) if you want to know what can be converted
-- [Download & Installation](download-and-installation) if you want to install it
-- [Use as a command-line interface](use-as-a-command-line-interface) if you want to run it now
+- [Supported Formats](supported-formats) for accepted input and output formats
+- [Ways to Run Convert-Pheno](choose-an-interface) for CLI/API/module selection
+- [Conversion Recipes](conversion-recipes) for short commands
+- [Output Validation](output-validation) for provenance, audit files, and validation

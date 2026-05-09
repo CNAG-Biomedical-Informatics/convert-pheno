@@ -3,23 +3,32 @@ title: Convert-Pheno Documentation
 sidebar_label: Overview
 ---
 
-# Convert-Pheno Documentation
-
-`Convert-Pheno` is a toolkit for converting **clinical and phenotypic data** between supported exchange models such as `BFF`, `PXF`, `OMOP-CDM`, `REDCap`, `CDISC-ODM`, and mapped `CSV`.
+<div className="convertDocHero">
+  <p className="convertEyebrow">Overview</p>
+  <h2>Clinical and phenotypic data conversion across supported exchange models.</h2>
+  <p>
+    `Convert-Pheno` converts between `BFF`, `PXF`, `OMOP-CDM`,
+    `REDCap`, `CDISC-ODM`, mapped `CSV`, and related inspection formats.
+  </p>
+  <div className="convertHeroActions">
+    <a className="button button--primary" href="what-is-convert-pheno">What it does</a>
+    <a className="button button--secondary" href="choose-an-interface">Ways to run it</a>
+    <a className="button button--secondary" href="conversion-recipes">Conversion recipes</a>
+  </div>
+</div>
 
 :::note[Project status]
 This documentation tracks `Convert-Pheno 0.31`.
 
-The software is in active use and still evolving. Some conversion routes are more mature than others, so it is worth checking the format-specific pages before running a new workflow in production.
+The software is in active use and still evolving. Some conversion routes are more mature than others, so it is worth checking the format-specific pages before running a new conversion on real data.
 
 :::
-<a className="button button--primary" href="what-is-convert-pheno">Get started</a>
-<a className="button button--secondary" href="choose-an-interface">Choose interface</a>
-<a className="button button--secondary" href="conversion-recipes">Conversion recipes</a>
-<a className="button button--secondary" href="supported-formats">See supported formats</a>
-<a className="button button--secondary" href="download-and-installation">Install the toolkit</a>
+:::tip[Most users should use the CLI]
+The command-line interface is the main entry point for normal use. It supports real files, mapping files, REDCap dictionaries, OMOP tables, audit TSV files, and multi-entity BFF output.
 
-## Typical workflows
+The API and module interfaces are mainly for developers who need to call Convert-Pheno from another application or script.
+:::
+## Typical conversions
 
 Most users come to `Convert-Pheno` for one of these tasks:
 
@@ -30,14 +39,14 @@ Most users come to `Convert-Pheno` for one of these tasks:
 
 ## Start Here
 
-- [Which Interface Should I Use?](choose-an-interface) if you are deciding between CLI, API, module, and Web App usage
-- [Conversion Recipes](conversion-recipes) if you want copy-paste commands for common workflows
-- [Trust and Validation](trust-and-validation) if you need to inspect provenance, audit ontology search, or validate output
+- [Ways to Run Convert-Pheno](choose-an-interface) if you are deciding between CLI, API, module, and Web App usage
+- [Conversion Recipes](conversion-recipes) if you want copy-paste commands for common conversions
+- [Output Validation](output-validation) if you need to inspect provenance, audit ontology search, or validate output
 
 :::note[API vs CLI]
 Use the HTTP API mainly for **self-contained JSON payloads** such as `BFF`, `PXF`, and carefully prepared `OMOP-CDM` requests.
 
-For mapping-file-based workflows such as `CSV`, `REDCap`, and `CDISC-ODM`, prefer the CLI.
+For mapping-file-based conversions such as `CSV`, `REDCap`, and `CDISC-ODM`, prefer the CLI.
 
 :::
 ## Documentation map

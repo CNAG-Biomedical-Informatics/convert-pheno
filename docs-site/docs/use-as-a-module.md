@@ -5,6 +5,8 @@ sidebar_label: Module
 
 `Convert-Pheno` core is a Perl module available at [CPAN](https://metacpan.org/pod/Convert::Pheno).
 
+The module interface is mainly for developers embedding Convert-Pheno in local Perl or Python code. Most users should use the [command-line interface](use-as-a-command-line-interface).
+
 ## Perl usage
 
 The most direct programmatic interface is the Perl module itself:
@@ -33,7 +35,7 @@ my $convert = Convert::Pheno->new(
 my $data = $convert->pxf2bff;
 ```
 
-That is the most complete and best-supported programmatic path in the project.
+This is the native programmatic interface used by the project.
 
 ## Example scripts
 

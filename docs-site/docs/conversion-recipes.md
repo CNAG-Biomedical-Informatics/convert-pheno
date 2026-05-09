@@ -3,9 +3,19 @@ title: Conversion Recipes
 sidebar_label: Conversion Recipes
 ---
 
-# Conversion Recipes
-
-These examples are intentionally short. Replace file names and output directories with your own paths.
+<div className="convertDocHero">
+  <p className="convertEyebrow">Recipes</p>
+  <h2>Copy-paste commands for common conversion routes.</h2>
+  <p>
+    These examples are intentionally short. Replace file names and output
+    directories with your own paths.
+  </p>
+  <div className="convertHeroActions">
+    <a className="button button--primary" href="#pxf-to-bff">PXF to BFF</a>
+    <a className="button button--secondary" href="#omop-cdm-to-bff">OMOP to BFF</a>
+    <a className="button button--secondary" href="#mapping-file-conversions">Mapping files</a>
+  </div>
+</div>
 
 :::tip[Start with stable output]
 Use `--test` when comparing output files in tests or examples. It removes time-changing metadata.
@@ -50,7 +60,7 @@ convert-pheno -iomop dump.sql.gz -obff individuals.json.gz \
   --stream --ohdsi-db
 ```
 
-## Mapping-File Workflows
+## Mapping-File Conversions
 
 CSV to multi-entity BFF with ontology search audit:
 
@@ -96,7 +106,7 @@ convert-pheno -ibff individuals.json -oomop --out-dir omop_out/
 
 ## Reduce Source Provenance
 
-By default, BFF output keeps source values in `info` so users can audit and query original variables. For smaller production exports, disable that payload:
+By default, BFF output keeps source values in `info` so users can audit and query original variables. For smaller exports, disable that payload:
 
 ```bash
 convert-pheno -iomop PERSON.csv CONCEPT.csv CONDITION_OCCURRENCE.csv \
@@ -117,4 +127,4 @@ convert-pheno -icsv clinical.csv \
   -obff individuals.json
 ```
 
-For interpretation of audit and validation output, see [Trust and Validation](trust-and-validation).
+For interpretation of audit and validation output, see [Output Validation](output-validation).

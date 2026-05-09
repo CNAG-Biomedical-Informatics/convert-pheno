@@ -106,21 +106,11 @@ Not directly. `Convert-Pheno` converts data models, but it does not rewrite sour
 <details>
 <summary>What type of data validation is carried out?</summary>
 
+Convert-Pheno uses external validators during development where practical: `bff-tools validate` from [beacon2-cbi-tools](https://github.com/CNAG-Biomedical-Informatics/beacon2-cbi-tools) for Beacon/BFF output, the extended `xt/protobuff.t` protobuf parsing test for PXF output, and [omop-csv-validator](https://github.com/CNAG-Biomedical-Informatics/omop-csv-validator) for OMOP CSV output. For BFF mappings, validator failures are used to refine runtime mappings, defaults, and type coercions until generated entity files validate against the Beacon v2 schemas.
 
-    :::tip[Data validation]
-    
-    To ensure the integrity and validity of converted outputs, we employ **external validation tools during development and in unit tests**. Specifically, we used the [bff-tools validate](https://github.com/CNAG-Biomedical-Informatics/beacon2-cbi-tools?tab=readme-ov-file#bff-tools-script-binbff-tools) for Beacon Friendly Format (BFF) and [phenopacket-tools](http://phenopackets.org/phenopacket-tools/stable) for Phenotype Exchange Format (PXF). These validators were instrumental in ensuring converted data adhere to the respective schemas and standards; for example, conversions were validated until the output was 100% compliant with the target schema. The same validation process is applied to Beacon v2 and OMOP CDM outputs. By preserving non-mapped variables where appropriate and applying rigorous validation, we aim to mitigate information loss and maximise fidelity of the converted data.
-    
-    **Important:** Convert-Pheno **does not validate your input data**. Input validation is out of scope for the software. If fields are missing or malformed, Convert-Pheno will handle these cases internally and apply default values where appropriate, but it will not verify that your source files are complete or correct. We therefore recommend validating and cleaning source files before conversion.
-    
-    See:
-    
-    * [bff-tools validate](https://github.com/CNAG-Biomedical-Informatics/beacon2-cbi-tools?tab=readme-ov-file#bff-tools-script-binbff-tools)
-    * [phenopacket-tools](http://phenopackets.org/phenopacket-tools/stable)
-    * [OMOP CSV Validator](https://github.com/CNAG-Biomedical-Informatics/omop-csv-validator)
+Convert-Pheno does **not** validate the clinical correctness or completeness of your input data. Source files should be checked before conversion.
 
-
-    :::
+See [Output Validation](output-validation) for details.
 </details>
 <details>
 <summary>What type of **database search** is carried out?</summary>
@@ -291,7 +281,7 @@ Prefer **raw data** together with the REDCap dictionary file. If your export use
 
 No. Mapping-based augmentation of synthesized `datasets` and `cohorts` is currently available only for the routes that use a mapping file: `csv2bff`, `redcap2bff`, and `cdisc2bff`.
 
-For those workflows, the top-level `beacon` section of the mapping file can override metadata such as `id`, `name`, `description`, `version`, `externalUrl`, `cohortType`, or `cohortDataTypes`.
+For those conversions, the top-level `beacon` section of the mapping file can override metadata such as `id`, `name`, `description`, `version`, `externalUrl`, `cohortType`, or `cohortDataTypes`.
 
 This does not currently apply to `omop2bff` or `pxf2bff`.
 

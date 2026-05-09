@@ -16,7 +16,7 @@ RUN git clone https://github.com/CNAG-Biomedical-Informatics/convert-pheno.git
 RUN rm -rf convert-pheno/.git convert-pheno/.github convert-pheno/.gitattributes convert-pheno/.gitignore
 
 # Remove docs
-RUN rm -rf convert-pheno/docs/ convert-pheno/mkdocs.yml
+RUN rm -rf convert-pheno/docs/ convert-pheno/docs-site/ convert-pheno/mkdocs.yml
 
 # Install Perl modules
 WORKDIR /usr/share/convert-pheno

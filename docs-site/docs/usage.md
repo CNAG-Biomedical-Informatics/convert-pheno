@@ -63,7 +63,7 @@ You can also request synthesized `datasets` and `cohorts`:
 convert-pheno -icsv clinical_data.csv --mapping-file clinical_data_mapping.yaml -obff --entities individuals datasets cohorts --out-dir out/
 ```
 
-`datasets` and `cohorts` are synthesized from the normalized `individuals` collection, so they are available from BFF conversion routes beyond `PXF`. Mapping-based augmentation of these synthesized entities is currently available only for the conversion routes that use a mapping file: `csv2bff`, `redcap2bff`, and `cdisc2bff`. In those workflows, the top-level `beacon` section can override metadata such as `id`, `name`, `description`, `version`, or `cohortType`.
+`datasets` and `cohorts` are synthesized from the normalized `individuals` collection, so they are available from BFF conversion routes beyond `PXF`. Mapping-based augmentation of these synthesized entities is currently available only for the conversion routes that use a mapping file: `csv2bff`, `redcap2bff`, and `cdisc2bff`. In those conversions, the top-level `beacon` section can override metadata such as `id`, `name`, `description`, `version`, or `cohortType`.
 
 If you want both `individuals` and `biosamples`:
 

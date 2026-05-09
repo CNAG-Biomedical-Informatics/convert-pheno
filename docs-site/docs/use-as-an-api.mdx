@@ -7,7 +7,9 @@ slug: /use-as-an-api
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-In some workflows it is more convenient to send conversion requests over an HTTP(S) endpoint instead of calling the module directly. For that case, `Convert-Pheno` includes a lightweight REST API.
+The API is intended for developers who need to call Convert-Pheno from another application. Most users should use the [command-line interface](use-as-a-command-line-interface).
+
+In some cases it is more convenient to send conversion requests over an HTTP(S) endpoint instead of calling the module directly. For that case, `Convert-Pheno` includes a lightweight REST API.
 
 ## Basic request
 
@@ -158,7 +160,7 @@ The REST API works best for **self-contained payloads** where the request alread
 | `REDCap` | Not recommended | Requires both project data and a REDCap dictionary plus mapping-file context |
 | `CDISC-ODM` | Not recommended | Follows the same mapping-file-driven pattern as REDCap |
 
-For `CSV`, `REDCap`, and `CDISC-ODM`, the **CLI is the preferred interface**. Those routes are better treated as file workflows than as public REST workflows.
+For `CSV`, `REDCap`, and `CDISC-ODM`, the **CLI is the preferred interface**. Those routes are better treated as file conversions than as public REST calls.
 
 ## Available implementations
 
@@ -178,4 +180,4 @@ This API is intended to run on a machine where `Convert-Pheno` and its dependenc
 See:
 
 - [Download & Installation](download-and-installation)
-- [Containerized installation](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/docker/README.md)
+- [Docker Installation](download-and-installation/docker-based)

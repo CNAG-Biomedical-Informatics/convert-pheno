@@ -29,9 +29,24 @@ const sidebars: SidebarsConfig = {
       ],
     },
     {
-      type: 'doc',
-      id: 'download-and-installation',
+      type: 'category',
       label: '📦 Download & Installation',
+      link: {
+        type: 'doc',
+        id: 'download-and-installation',
+      },
+      items: [
+        {
+          type: 'doc',
+          id: 'download-and-installation/non-containerized',
+          label: 'Non-Containerized',
+        },
+        {
+          type: 'doc',
+          id: 'download-and-installation/docker-based',
+          label: 'Docker',
+        },
+      ],
     },
     {
       type: 'category',
@@ -115,6 +130,11 @@ const sidebars: SidebarsConfig = {
           label: 'Mapping Steps',
         },
         {
+          type: 'doc',
+          id: 'output-validation',
+          label: 'Output Validation',
+        },
+        {
           type: 'category',
           label: 'Mapping Tables',
           items: [
@@ -175,11 +195,6 @@ const sidebars: SidebarsConfig = {
           type: 'doc',
           id: 'troubleshooting',
           label: 'Troubleshooting',
-        },
-        {
-          type: 'doc',
-          id: 'trust-and-validation',
-          label: 'Trust & Validation',
         },
         {
           type: 'doc',

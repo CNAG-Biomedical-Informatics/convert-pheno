@@ -1,77 +1,74 @@
-.hero {
-  min-height: 68vh;
-  display: flex;
-  align-items: center;
-  padding: 6rem 0 4rem;
+.page {
+  min-height: calc(100vh - var(--ifm-navbar-height));
   background:
-    radial-gradient(circle at 16% 18%, rgba(15, 111, 143, 0.16), transparent 30rem),
-    radial-gradient(circle at 86% 12%, rgba(226, 126, 52, 0.18), transparent 26rem),
-    linear-gradient(135deg, #f8fbf8 0%, #eef7f9 52%, #fff3e7 100%);
-  color: #143042;
+    radial-gradient(circle at 10% 16%, rgba(255, 255, 255, 0.18), transparent 28rem),
+    radial-gradient(circle at 86% 8%, rgba(245, 151, 45, 0.26), transparent 25rem),
+    linear-gradient(135deg, #0b4155 0%, #126f8e 48%, #ec8c3d 100%);
 }
 
-.heroInner {
-  max-width: 980px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-}
-
-.identity {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.25rem;
-  align-items: center;
-  margin-bottom: 1.75rem;
-  width: fit-content;
-  max-width: 100%;
-  padding: 1.1rem 1.25rem;
-  border: 1px solid rgba(15, 111, 143, 0.14);
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.78);
-  box-shadow: 0 18px 44px rgba(20, 48, 66, 0.12);
-  color: inherit;
-  text-decoration: none;
-  transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
-}
-
-.identity:hover {
-  border-color: rgba(15, 111, 143, 0.34);
-  box-shadow: 0 22px 54px rgba(20, 48, 66, 0.16);
-  color: inherit;
-  text-decoration: none;
-  transform: translateY(-2px);
-}
-
-.heroLogo {
-  width: min(150px, 38vw);
-  height: auto;
-  filter: drop-shadow(0 10px 20px rgba(20, 48, 66, 0.12));
-}
-
-.heroWordmark {
-  width: min(500px, 78vw);
-  height: auto;
-  filter: drop-shadow(0 10px 20px rgba(20, 48, 66, 0.1));
-}
-
-.srOnly {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
+.hero {
+  position: relative;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
+  padding: clamp(4.5rem, 9vw, 7.5rem) 1.5rem clamp(3rem, 7vw, 5rem);
+  color: white;
 }
 
-.heroSubtitle {
-  max-width: 760px;
-  font-size: 1.25rem;
-  line-height: 1.6;
-  margin-bottom: 2rem;
-  color: #244a5e;
+.hero::after {
+  position: absolute;
+  right: -14rem;
+  bottom: -18rem;
+  width: 36rem;
+  height: 36rem;
+  border: 1px solid rgba(255, 255, 255, 0.17);
+  border-radius: 999px;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.08),
+    rgba(255, 255, 255, 0.08) 2px,
+    transparent 2px,
+    transparent 13px
+  );
+  content: "";
+}
+
+.heroGrid,
+.sections {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+}
+
+.heroGrid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+  gap: clamp(2rem, 6vw, 4.5rem);
+  align-items: center;
+}
+
+.copy h1 {
+  max-width: 860px;
+  margin: 0;
+  font-size: clamp(2.35rem, 5vw, 4.7rem);
+  line-height: 1.02;
+  letter-spacing: -0.045em;
+}
+
+.kicker {
+  margin: 0 0 0.8rem;
+  color: #ffd0a2;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.lede {
+  max-width: 720px;
+  margin: 1.45rem 0 2rem;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 1.22rem;
+  line-height: 1.64;
 }
 
 .actions {
@@ -80,43 +77,167 @@
   flex-wrap: wrap;
 }
 
-.sections {
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 3rem 1.5rem;
+.flowCard {
+  display: grid;
+  gap: 1rem;
+  padding: 1.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 30px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.08)),
+    rgba(7, 45, 59, 0.46);
+  box-shadow: 0 28px 80px rgba(3, 24, 32, 0.32);
+  backdrop-filter: blur(18px);
+}
+
+.identity {
+  display: inline-flex;
+  gap: 0.8rem;
+  align-items: center;
+  width: fit-content;
+  max-width: 100%;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+.identity:hover {
+  color: white;
+  text-decoration: none;
+}
+
+.heroLogo {
+  width: 72px;
+  height: 72px;
+  padding: 0.35rem;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.92);
+  filter: drop-shadow(0 14px 24px rgba(4, 24, 32, 0.2));
+}
+
+.flow {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.flow > div:not(.arrow) {
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.flow span {
+  display: block;
+  color: #ffd0a2;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.flow strong {
+  display: block;
+  margin-top: 0.25rem;
+  color: white;
+  font-size: 1.04rem;
+}
+
+.centerModel {
+  background: rgba(255, 255, 255, 0.9) !important;
+  color: #143042;
+}
+
+.centerModel span,
+.centerModel strong {
+  color: #143042;
+}
+
+.arrow {
+  display: grid;
+  place-items: center;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 1.35rem;
+}
+
+.tokens {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.tokens span {
+  padding: 0.32rem 0.58rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.74rem;
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1rem;
+  padding: 0 1.5rem 4rem;
 }
 
 .card {
-  display: block;
-  border: 1px solid var(--ifm-color-emphasis-200);
-  border-radius: 8px;
-  padding: 1.25rem;
-  background: var(--ifm-card-background-color);
-  color: inherit;
+  display: grid;
+  gap: 0.4rem;
+  min-height: 176px;
+  padding: 1.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 18px 44px rgba(4, 24, 32, 0.14);
+  color: white;
   text-decoration: none;
-  transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+  transition:
+    background 160ms ease,
+    transform 160ms ease;
 }
 
 .card:hover {
-  border-color: var(--ifm-color-primary);
-  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
-  color: inherit;
+  background: rgba(255, 255, 255, 0.18);
+  color: white;
   text-decoration: none;
   transform: translateY(-2px);
 }
 
+.card span {
+  color: #ffd0a2;
+  font-size: 0.74rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
 .card h2 {
-  font-size: 1.1rem;
-  margin-bottom: 0.5rem;
+  color: white;
+  font-size: 1.28rem;
+  margin: 0;
 }
 
 .card p {
   margin: 0;
-  color: var(--ifm-color-emphasis-700);
+  color: rgba(255, 255, 255, 0.76);
+  line-height: 1.55;
+}
+
+@media (max-width: 980px) {
+  .heroGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .flowCard {
+    max-width: 560px;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding-top: 3.5rem;
+  }
 }

@@ -15,9 +15,29 @@ The software `Convert-Pheno` can be installed **locally** on the following opera
 | Windows          | Windows Server OS             |
 
 :::
-We provide several alternatives for download and installation.
+<div className="convertQuickHero">
+  <p className="convertEyebrow">Installation</p>
+  <h2>Choose the setup that matches how you will run the converter.</h2>
+  <p>
+    Most command-line users can install locally. Docker is the recommended
+    route for API usage and reproducible execution environments.
+  </p>
+</div>
 
-<details>
+<div className="convertInstallGrid">
+  <a className="convertInstallCard" href="download-and-installation/non-containerized">
+    <span className="convertCardLabel">Local</span>
+    <h3>Non-containerized installation</h3>
+    <p>Use CPAN, GitHub, Conda, or an existing Perl environment to run `convert-pheno` directly.</p>
+  </a>
+  <a className="convertInstallCard" href="download-and-installation/docker-based">
+    <span className="convertCardLabel">Container</span>
+    <h3>Docker installation</h3>
+    <p>Use a prebuilt environment for the HTTP API, deployments, and reproducible runs.</p>
+  </a>
+</div>
+
+<details className="convertSetupDetails">
 <summary>Which download method should I use?</summary>
 
 
@@ -37,7 +57,7 @@ Use this path when you want to run `convert-pheno` directly from CPAN, GitHub, C
 
 Detailed instructions:
 
-- [non-containerized/README.md](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/non-containerized/README.md)
+- [Non-Containerized Installation](download-and-installation/non-containerized)
 
 ## Containerized
 
@@ -45,4 +65,4 @@ Use this path when you want a reproducible environment with the dependencies pre
 
 Detailed instructions:
 
-- [docker/README.md](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/docker/README.md)
+- [Docker Installation](download-and-installation/docker-based)

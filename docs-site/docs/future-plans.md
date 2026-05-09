@@ -14,7 +14,7 @@ sidebar_label: Future Plans
   <article className="roadmap-card roadmap-card--done">
     <span className="roadmap-kicker">2024</span>
     <h2>CSV output</h2>
-    <p>Support for CSV output, improving compatibility with lightweight downstream workflows.</p>
+    <p>Support for CSV output, improving compatibility with lightweight downstream use.</p>
   </article>
   <article className="roadmap-card roadmap-card--active">
     <span className="roadmap-kicker">2025-2026</span>

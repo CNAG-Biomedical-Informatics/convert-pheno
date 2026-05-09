@@ -5,35 +5,63 @@ import styles from './index.module.css';
 
 export default function Home() {
   const logoUrl = useBaseUrl('/img/CP-logo.png');
-  const wordmarkUrl = useBaseUrl('/img/CP-text.png');
 
   return (
     <Layout
       title="Convert-Pheno"
       description="A toolkit for interconverting clinical and phenotypic data models">
-      <main>
+      <main className={styles.page}>
         <section className={styles.hero}>
-          <div className={styles.heroInner}>
-            <Link className={styles.identity} to="/what-is-convert-pheno">
-              <img className={styles.heroLogo} src={logoUrl} alt="Convert-Pheno logo" />
-              <img className={styles.heroWordmark} src={wordmarkUrl} alt="Convert-Pheno" />
-            </Link>
-            <h1 className={styles.srOnly}>Convert-Pheno</h1>
-            <p className={styles.heroSubtitle}>
-              An open-source toolkit for converting clinical and phenotypic data
-              between Beacon v2 Models, Phenopackets v2, OMOP-CDM, REDCap,
-              CDISC-ODM, CSV, and related exchange formats.
-            </p>
-            <div className={styles.actions}>
-              <Link className="button button--primary button--lg" to="/what-is-convert-pheno">
-                Start Here
+          <div className={styles.heroGrid}>
+            <div className={styles.copy}>
+              <p className={styles.kicker}>Convert-Pheno</p>
+              <h1>Clinical and phenotypic data conversion across standard data models.</h1>
+              <p className={styles.lede}>
+                Convert between Beacon v2 Models, Phenopackets v2, OMOP-CDM,
+                REDCap, CDISC-ODM, CSV, and related exchange formats through one
+                command-line tool. A Perl module and HTTP API are available for
+                developers who need to call the converter from other code.
+              </p>
+              <div className={styles.actions}>
+                <Link className="button button--primary button--lg" to="/conversion-recipes">
+                  Conversion Recipes
+                </Link>
+                <Link className="button button--secondary button--lg" to="/use-as-a-command-line-interface">
+                  Command Line
+                </Link>
+                <Link className="button button--secondary button--lg" to="/download-and-installation">
+                  Install
+                </Link>
+              </div>
+            </div>
+
+            <div className={styles.flowCard} aria-label="Convert-Pheno conversion flow">
+              <Link className={styles.identity} to="/what-is-convert-pheno">
+                <img className={styles.heroLogo} src={logoUrl} alt="Convert-Pheno logo" />
+                <span>Convert-Pheno</span>
               </Link>
-              <Link className="button button--secondary button--lg" to="/choose-an-interface">
-                Choose Interface
-              </Link>
-              <Link className="button button--secondary button--lg" to="/use-as-a-command-line-interface">
-                Run the CLI
-              </Link>
+              <div className={styles.flow}>
+                <div>
+                  <span>Input</span>
+                  <strong>PXF · OMOP · REDCap · CSV</strong>
+                </div>
+                <div className={styles.arrow}>→</div>
+                <div className={styles.centerModel}>
+                  <span>Center model</span>
+                  <strong>BFF</strong>
+                </div>
+                <div className={styles.arrow}>→</div>
+                <div>
+                  <span>Output</span>
+                  <strong>BFF · PXF · OMOP · CSV</strong>
+                </div>
+              </div>
+              <div className={styles.tokens}>
+                <span>individuals</span>
+                <span>biosamples</span>
+                <span>datasets</span>
+                <span>cohorts</span>
+              </div>
             </div>
           </div>
         </section>
@@ -41,24 +69,29 @@ export default function Home() {
         <section className={styles.sections}>
           <div className={styles.grid}>
             <Link className={styles.card} to="/download-and-installation">
+              <span>Setup</span>
               <h2>Install</h2>
               <p>Containerized and non-containerized setup paths, including optional OMOP resources.</p>
             </Link>
             <Link className={styles.card} to="/supported-formats">
+              <span>Formats</span>
               <h2>Choose</h2>
               <p>Supported input and output formats, including entity-aware BFF output.</p>
             </Link>
             <Link className={styles.card} to="/conversion-recipes">
-              <h2>Recipes</h2>
-              <p>Copy-paste commands for PXF, OMOP-CDM, REDCap, CSV, CDISC-ODM, and BFF workflows.</p>
+              <span>Commands</span>
+              <h2>Run the CLI</h2>
+              <p>Copy-paste commands for PXF, OMOP-CDM, REDCap, CSV, CDISC-ODM, and BFF conversions.</p>
             </Link>
             <Link className={styles.card} to="/omop-cdm">
+              <span>Clinical DB</span>
               <h2>Convert OMOP</h2>
               <p>OMOP-CDM SQL or CSV input to Beacon and Phenopackets outputs.</p>
             </Link>
             <Link className={styles.card} to="/use-as-an-api">
-              <h2>Integrate</h2>
-              <p>Use the module, HTTP API, Python bridge, or JavaScript fetch examples.</p>
+              <span>Developers</span>
+              <h2>Call from Code</h2>
+              <p>Use the Perl module or HTTP API only when you need programmatic access.</p>
             </Link>
           </div>
         </section>

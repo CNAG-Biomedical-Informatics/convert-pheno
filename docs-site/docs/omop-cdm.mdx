@@ -8,6 +8,13 @@ import TabItem from '@theme/TabItem';
 
 **OMOP CDM** stands for **O**bservational **M**edical **O**utcomes **P**artnership **C**ommon **D**ata **M**odel. **OMOP CDM** [documentation](https://www.ohdsi.org/data-standardization/the-common-data-model).
 
+<div className="convertFormatSummary" aria-label="At a glance">
+  <div><span>Role</span><strong>Input and output</strong></div>
+  <div><span>Accepted input</span><strong>SQL, CSV, and gzipped exports</strong></div>
+  <div><span>Main output</span><strong>OMOP-CDM CSV tables</strong></div>
+  <div><span>Notes</span><strong>`--stream` for large OMOP-to-BFF</strong></div>
+</div>
+
 <figure>
 <img src="https://www.ohdsi.org/wp-content/uploads/2015/02/h243-ohdsi-logo-with-text.png" alt="OMOP CDM" className="convert-pheno-image-md" />
    <figcaption>Image extracted from www.ohdsi.org</figcaption>
@@ -71,7 +78,7 @@ convert-pheno -ibff individuals.json -oomop --out-dir omop_export/ --out-name PE
 When using the `convert-pheno` command-line interface, simply ensure the [correct syntax](usage) is provided.
 
 :::note[Individuals-only vs entity-aware BFF output]
-Most examples below use the individuals-only `-obff FILE` path, which still emits Beacon `individuals` as one file. In non-stream BFF workflows, you can also request synthesized `datasets` and `cohorts` with `--entities ... --out-dir out/`. `biosamples` can now be emitted from OMOP `SPECIMEN`, but this OMOP-to-BFF biosample path is still experimental and pending validation with external collaborators.
+Most examples below use the individuals-only `-obff FILE` path, which still emits Beacon `individuals` as one file. In non-stream BFF conversions, you can also request synthesized `datasets` and `cohorts` with `--entities ... --out-dir out/`. `biosamples` can now be emitted from OMOP `SPECIMEN`, but this OMOP-to-BFF biosample path is still experimental and pending validation with external collaborators.
 
 :::
 <details>
@@ -279,11 +286,11 @@ Please note that for **PostgreSQL dumps**, we have configured `--max-lines-sql=5
     <details>
     <summary>About parallelization and speed</summary>
 
-    `Convert-Pheno` has been optimized for speed, and, in general the CLI results are generated almost immediatly. For instance, all tests with synthetic data take less than a second or a few seconds to complete. It should be noted that the speed of the results depends on the performance of the CPU and disk speed. When `Convert-Pheno` has to retrieve ontologies from a database to annotate the data, the processing takes longer.
+    Runtime depends on input size, CPU, disk speed, compression, and ontology lookup requirements. Small synthetic test files usually complete in seconds, while large OMOP exports and conversions that require database-backed ontology resolution take longer.
 
     The calculation is I/O limited and using _internal_ [threads](https://en.wikipedia.org/wiki/Thread_(computing)) did not speed up the calculation. Another valid option is to run **simultaneous jobs** with external tools such as [GNU Parallel](https://www.gnu.org/software/parallel), but keep in mind that **SQLite** database _may_ complain.
 
-    As a final consideration, it is important to remember that pheno-clinical data conversions are executed only "once". The goal is obtaining **intermediate files** which will be later loaded into a database. If a large file has been converted, it is verly likely that the **performance bottleneck** will not occur at the `Convert-Pheno` step, but rather during the **database load**.
+    As a final consideration, pheno-clinical data conversions are often run to produce **intermediate files** that are later loaded into a database. For large datasets, the database load can be a substantial part of the total runtime.
 
     </details>
 
@@ -298,7 +305,10 @@ Definitions are stored in table `CONCEPT`. If you do not pass the relevant `CONC
 
 :::
 
-### Perl
+<details>
+<summary>Perl module payload example</summary>
+
+**Perl**
 
     ```perl
         use Convert::Pheno;
@@ -331,8 +341,12 @@ Definitions are stored in table `CONCEPT`. If you do not pass the relevant `CONC
         my $bff     = $convert->omop2bff;
         ```
 
+</details>
 
-### Python
+<details>
+<summary>Python bridge payload example</summary>
+
+**Python**
 
 
     ```python
@@ -365,13 +379,17 @@ Definitions are stored in table `CONCEPT`. If you do not pass the relevant `CONC
         bff = PythonBinding(payload).convert_pheno()
         ```
 
+</details>
 
 </TabItem>
 <TabItem value="api" label="API">
 
 
 All said for the Module also works for the API.
-The API request payload now uses explicit `conversion`, `input`, `output`, and `options` sections. A small example is:
+The API request payload now uses explicit `conversion`, `input`, `output`, and `options` sections.
+
+<details>
+<summary>Small OMOP API payload example</summary>
 
 ```json
     {
@@ -402,6 +420,8 @@ The API request payload now uses explicit `conversion`, `input`, `output`, and `
       }
     }
     ```
+
+</details>
 
 See a larger example payload [here](https://github.com/cnag-biomedical-informatics/convert-pheno/blob/main/api/perl/omop.json).
 
