@@ -49,9 +49,9 @@
 .copy h1 {
   max-width: 860px;
   margin: 0;
-  font-size: clamp(2.35rem, 5vw, 4.7rem);
-  line-height: 1.02;
-  letter-spacing: -0.045em;
+  font-size: clamp(2.15rem, 4.4vw, 4rem);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
 }
 
 .kicker {
@@ -65,9 +65,9 @@
 
 .lede {
   max-width: 720px;
-  margin: 1.45rem 0 2rem;
+  margin: 1.25rem 0 2rem;
   color: rgba(255, 255, 255, 0.82);
-  font-size: 1.22rem;
+  font-size: 1.15rem;
   line-height: 1.64;
 }
 

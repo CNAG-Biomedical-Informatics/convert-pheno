@@ -18,9 +18,8 @@ export default function Home() {
               <h1>Clinical and phenotypic data conversion across standard data models.</h1>
               <p className={styles.lede}>
                 Convert between Beacon v2 Models, Phenopackets v2, OMOP-CDM,
-                REDCap, CDISC-ODM, CSV, and related exchange formats through one
-                command-line tool. A Perl module and HTTP API are available for
-                developers who need to call the converter from other code.
+                REDCap, CDISC-ODM, CSV, and related exchange formats through a
+                command-line tool, Perl module, Python binding, and HTTP(s) APIs.
               </p>
               <div className={styles.actions}>
                 <Link className="button button--primary button--lg" to="/conversion-recipes">
@@ -43,7 +42,7 @@ export default function Home() {
               <div className={styles.flow}>
                 <div>
                   <span>Input</span>
-                  <strong>PXF · OMOP · REDCap · CSV</strong>
+                  <strong>BFF · PXF · OMOP · REDCap · CSV</strong>
                 </div>
                 <div className={styles.arrow}>→</div>
                 <div className={styles.centerModel}>
@@ -91,7 +90,7 @@ export default function Home() {
             <Link className={styles.card} to="/use-as-an-api">
               <span>Developers</span>
               <h2>Call from Code</h2>
-              <p>Use the Perl module or HTTP API only when you need programmatic access.</p>
+              <p>Use the Perl API, Python binding, or HTTP API only when you need programmatic access.</p>
             </Link>
           </div>
         </section>

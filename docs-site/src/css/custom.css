@@ -128,9 +128,9 @@
   max-width: 780px;
   margin: 0;
   color: var(--cp-ink);
-  font-size: clamp(1.9rem, 4.5vw, 3.6rem);
-  line-height: 1;
-  letter-spacing: -0.045em;
+  font-size: clamp(1.65rem, 3.8vw, 3rem);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
 }
 
 .convertDocHero p:not(.convertEyebrow),
