@@ -3,42 +3,43 @@ title: Supported Formats
 sidebar_label: Supported Formats
 ---
 
+import Link from '@docusaurus/Link';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 This page gives a compact overview of the formats that `Convert-Pheno` can read and write. Internally, most conversions go through `BFF` first, and then continue to the requested output format when needed.
 
 <div className="convertFormatGrid">
-  <a className="convertFormatCard" href="bff">
+  <Link className="convertFormatCard" to="/bff">
     <span className="convertCardLabel">Beacon</span>
     <h3>BFF</h3>
     <p>Input and output. BFF output can include individuals, biosamples, datasets, and cohorts.</p>
-  </a>
-  <a className="convertFormatCard" href="pxf">
+  </Link>
+  <Link className="convertFormatCard" to="/pxf">
     <span className="convertCardLabel">GA4GH</span>
     <h3>Phenopackets v2</h3>
     <p>Input and output for phenotypic and biosample-centered records.</p>
-  </a>
-  <a className="convertFormatCard" href="omop-cdm">
+  </Link>
+  <Link className="convertFormatCard" to="/omop-cdm">
     <span className="convertCardLabel">Clinical DB</span>
     <h3>OMOP-CDM</h3>
     <p>SQL or CSV input, and CSV output for selected OMOP tables.</p>
-  </a>
-  <a className="convertFormatCard" href="redcap">
+  </Link>
+  <Link className="convertFormatCard" to="/redcap">
     <span className="convertCardLabel">Mapping file</span>
     <h3>REDCap</h3>
     <p>CSV exports with data dictionary support and ontology search auditing.</p>
-  </a>
-  <a className="convertFormatCard" href="cdisc-odm">
+  </Link>
+  <Link className="convertFormatCard" to="/cdisc-odm">
     <span className="convertCardLabel">Mapping file</span>
     <h3>CDISC-ODM</h3>
     <p>XML input using the same mapping model as other tabular conversions.</p>
-  </a>
-  <a className="convertFormatCard" href="csv">
+  </Link>
+  <Link className="convertFormatCard" to="/csv">
     <span className="convertCardLabel">Mapping file</span>
     <h3>CSV</h3>
     <p>Generic tabular input for BFF, PXF, and OMOP output routes.</p>
-  </a>
+  </Link>
 </div>
 
 :::note[Note]

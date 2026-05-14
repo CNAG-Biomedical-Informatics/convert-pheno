@@ -3,6 +3,8 @@ title: Convert-Pheno Documentation
 sidebar_label: Overview
 ---
 
+import Link from '@docusaurus/Link';
+
 <div className="convertDocHero">
   <p className="convertEyebrow">Overview</p>
   <h2>Clinical and phenotypic data conversion across supported exchange models.</h2>
@@ -11,9 +13,9 @@ sidebar_label: Overview
     `REDCap`, `CDISC-ODM`, mapped `CSV`, and related inspection formats.
   </p>
   <div className="convertHeroActions">
-    <a className="button button--primary" href="what-is-convert-pheno">What it does</a>
-    <a className="button button--secondary" href="choose-an-interface">Ways to run it</a>
-    <a className="button button--secondary" href="conversion-recipes">Conversion recipes</a>
+    <Link className="button button--primary" to="/what-is-convert-pheno">What it does</Link>
+    <Link className="button button--secondary" to="/choose-an-interface">Ways to run it</Link>
+    <Link className="button button--secondary" to="/conversion-recipes">Conversion recipes</Link>
   </div>
 </div>
 
@@ -60,5 +62,5 @@ For mapping-file-based conversions such as `CSV`, `REDCap`, and `CDISC-ODM`, pre
 
 ## External components
 
-- [Web App UI](https://cnag-biomedical-informatics.github.io/convert-pheno-ui/)
+- [Web App UI](https://cnag-biomedical-informatics.github.io/convert-pheno-ui/) for display and exploration only; it currently runs an older Convert-Pheno version than this documentation
 - [GitHub repository](https://github.com/CNAG-Biomedical-Informatics/convert-pheno)

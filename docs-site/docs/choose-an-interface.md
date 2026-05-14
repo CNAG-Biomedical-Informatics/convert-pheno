@@ -3,6 +3,8 @@ title: Ways to Run Convert-Pheno
 sidebar_label: Ways to Run It
 ---
 
+import Link from '@docusaurus/Link';
+
 <div className="convertDocHero">
   <p className="convertEyebrow">How to run it</p>
   <h2>Choose the entry point by the shape of your input data.</h2>
@@ -11,9 +13,9 @@ sidebar_label: Ways to Run It
     only when you are writing code that needs to call Convert-Pheno directly.
   </p>
   <div className="convertHeroActions">
-    <a className="button button--primary" href="use-as-a-command-line-interface">CLI</a>
-    <a className="button button--secondary" href="use-as-an-api">API</a>
-    <a className="button button--secondary" href="use-as-a-module">Module</a>
+    <Link className="button button--primary" to="/use-as-a-command-line-interface">CLI</Link>
+    <Link className="button button--secondary" to="/use-as-an-api">API</Link>
+    <Link className="button button--secondary" to="/use-as-a-module">Module</Link>
   </div>
 </div>
 
@@ -22,7 +24,7 @@ sidebar_label: Ways to Run It
 | [Command-Line Interface](use-as-a-command-line-interface) | Normal use: real files, mapping files, OMOP tables, REDCap exports, CDISC-ODM XML, audit logs, multi-entity BFF output | You are building a service that must call Convert-Pheno over HTTP(s) |
 | [API](use-as-an-api) | Developer use: self-contained JSON payloads from applications, notebooks, or JavaScript clients | The conversion needs several local files, mapping files, or large OMOP exports |
 | [Module](use-as-a-module) | Developer use: Perl/Python code that runs in the same environment as Convert-Pheno | You need a language-agnostic network contract |
-| [Web App UI](https://cnag-biomedical-informatics.github.io/convert-pheno-ui/) | Interactive exploration and smaller manual conversions | You need reproducible batch processing |
+| [Web App UI](https://cnag-biomedical-informatics.github.io/convert-pheno-ui/) | Display and exploration only; it currently uses an older Convert-Pheno version | You need reproducible batch processing or current v0.31 behavior |
 
 ## Practical Rule
 

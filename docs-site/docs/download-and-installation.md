@@ -4,6 +4,8 @@ sidebar_label: Download & Installation
 slug: /download-and-installation
 ---
 
+import Link from '@docusaurus/Link';
+
 :::info[Compatibility]
 
 The software `Convert-Pheno` can be installed **locally** on the following operating systems:
@@ -25,16 +27,16 @@ The software `Convert-Pheno` can be installed **locally** on the following opera
 </div>
 
 <div className="convertInstallGrid">
-  <a className="convertInstallCard" href="download-and-installation/non-containerized">
+  <Link className="convertInstallCard" to="/download-and-installation/non-containerized">
     <span className="convertCardLabel">Local</span>
     <h3>Non-containerized installation</h3>
     <p>Use CPAN, GitHub, Conda, or an existing Perl environment to run `convert-pheno` directly.</p>
-  </a>
-  <a className="convertInstallCard" href="download-and-installation/docker-based">
+  </Link>
+  <Link className="convertInstallCard" to="/download-and-installation/docker-based">
     <span className="convertCardLabel">Container</span>
     <h3>Docker installation</h3>
     <p>Use a prebuilt environment for the HTTP(s) API, deployments, and reproducible runs.</p>
-  </a>
+  </Link>
 </div>
 
 <details className="convertSetupDetails">
@@ -48,7 +50,7 @@ It depends on which components you want to use and your familiarity with Docker-
 | CLI | Non-containerized (CPAN) |
 | CLI in Conda | Non-containerized (Conda) |
 | API | Docker |
-| Web App UI | [Convert-Pheno UI](https://cnag-biomedical-informatics.github.io/convert-pheno-ui) |
+| Web App UI | Display and exploration only; the deployed UI currently uses an older Convert-Pheno version |
 
 </details>
 ## Non-Containerized
