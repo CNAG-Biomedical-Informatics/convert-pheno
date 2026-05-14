@@ -90,7 +90,7 @@ export default function Home() {
             <Link className={styles.card} to="/use-as-an-api">
               <span>Developers</span>
               <h2>Call from Code</h2>
-              <p>Use the Perl API, Python binding, or HTTP API only when you need programmatic access.</p>
+              <p>Use the Perl API, Python binding, or HTTP(s) API only when you need programmatic access.</p>
             </Link>
           </div>
         </section>

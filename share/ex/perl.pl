@@ -37,7 +37,7 @@ my $my_pxf_json_data = {
 };
 
 # Create object. Module parameters are passed in one flat hash, unlike the
-# structured HTTP API payload.
+# structured HTTP(s) API payload.
 my $convert = Convert::Pheno->new(
     {
         data   => $my_pxf_json_data,

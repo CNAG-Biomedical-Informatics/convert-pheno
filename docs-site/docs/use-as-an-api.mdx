@@ -9,7 +9,7 @@ import TabItem from '@theme/TabItem';
 
 The API is intended for developers who need to call Convert-Pheno from another application. Most users should use the [command-line interface](use-as-a-command-line-interface).
 
-In some cases it is more convenient to send conversion requests over an HTTP(S) endpoint instead of calling the module directly. For that case, `Convert-Pheno` includes a lightweight REST API.
+In some cases it is more convenient to send conversion requests over an HTTP(s) endpoint instead of calling the module directly. For that case, `Convert-Pheno` includes a lightweight REST API.
 
 ## Basic request
 
@@ -51,7 +51,7 @@ The REST API is language-agnostic. JavaScript clients can call the same `/api` e
 
 
 <Tabs>
-<TabItem value="browser-fetch" label="Browser (`fetch`)">
+<TabItem value="browser-fetch" label="Browser fetch">
 
 
 ```javascript
@@ -98,7 +98,7 @@ This browser example assumes the API is same-origin with the page, or that the d
 
 
 </TabItem>
-<TabItem value="node-js-fetch" label="Node.js (`fetch`)">
+<TabItem value="node-js-fetch" label="Node.js fetch">
 
 
 ```javascript
@@ -142,7 +142,7 @@ This browser example assumes the API is same-origin with the page, or that the d
     run().catch(console.error);
     ```
 
-Node.js 21+ includes stable built-in `fetch`. Older Node.js versions may require a polyfill such as `undici`.
+Node.js 21+ includes stable built-in fetch. Older Node.js versions may require a polyfill such as `undici`.
 
 
 </TabItem>
@@ -153,8 +153,8 @@ The REST API works best for **self-contained payloads** where the request alread
 
 | Input family | REST API status | Why |
 | --- | --- | --- |
-| `BFF` | Recommended | Small JSON payloads are natural to send over HTTP |
-| `PXF` | Recommended | Small JSON payloads are natural to send over HTTP |
+| `BFF` | Recommended | Small JSON payloads are natural to send over HTTP(s) |
+| `PXF` | Recommended | Small JSON payloads are natural to send over HTTP(s) |
 | `OMOP-CDM` | Recommended with care | Acceptable when the client transposes query results into the JSON shape expected by the API |
 | `CSV` | Not recommended | Mapping-file-based conversion depends on extra artifacts and file semantics that are awkward to serialize into a clean public API |
 | `REDCap` | Not recommended | Requires both project data and a REDCap dictionary plus mapping-file context |
@@ -175,7 +175,7 @@ Client applications in JavaScript can consume the same REST API without needing 
 
 ## Deployment note
 
-This API is intended to run on a machine where `Convert-Pheno` and its dependencies are already installed. In practice, the containerized setup is the easiest way to expose it as a local service. The Perl/Mojolicious wrapper is configured for HTTPS when run with `hypnotoad`, while the Python/FastAPI wrapper is typically served over plain HTTP in local `uvicorn` examples unless TLS is added explicitly or terminated upstream.
+This API is intended to run on a machine where `Convert-Pheno` and its dependencies are already installed. In practice, the containerized setup is the easiest way to expose it as a local service. The Perl/Mojolicious wrapper is configured for HTTPS when run with `hypnotoad`, while the Python/FastAPI wrapper is typically served over HTTP(s) in local `uvicorn` examples depending on whether TLS is configured directly or terminated upstream.
 
 See:
 

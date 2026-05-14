@@ -5,7 +5,17 @@ sidebar_label: Output Validation
 
 # Output Validation
 
-Clinical conversion is easier to review when users can inspect both the mapped output and the source values that produced it.
+Output validation in Convert-Pheno is not a single switch. During development, converted files are checked against the target schemas or table definitions, and validation errors are used to improve the conversion code. For users, the same idea shows up as preserved source values, ontology search audit files, and documented mapping tables.
+
+The goal is practical: converted files should be structurally valid, and users should still be able to inspect how source values became target fields.
+
+<div className="convertNotePanel">
+  <p>
+    Development loop: generate output, validate it, inspect schema or table
+    errors, update mappings/defaults/type coercions in the runtime code, and
+    repeat until the generated files validate for the tested route.
+  </p>
+</div>
 
 ## Source Provenance in `info`
 
@@ -44,17 +54,15 @@ The audit file is useful for checking:
 - the ontology source
 - whether the result came from an exact match, a fuzzy/mixed search, or a fallback
 
-## Validators
+## Development Validators
 
 Convert-Pheno does not validate source files as clinical truth. Input validation and cleaning remain the user's responsibility.
 
-During development, generated outputs are checked with external validators where practical:
+During development, generated outputs are checked with external validators where practical.
 
-| Output | Development validation |
-|--------|---------------------|
-| BFF | Beacon v2 JSON entities are checked with `bff-tools validate` from [beacon2-cbi-tools](https://github.com/CNAG-Biomedical-Informatics/beacon2-cbi-tools). During mapper development, validator failures are used to update runtime mapping logic, defaults, and type coercions until the generated entity files validate against the Beacon v2 schemas. |
-| PXF | Phenopackets output is checked in the extended `xt/protobuff.t` test. The test uses Inline Python to parse generated PXF JSON into the Phenopackets protobuf model with `google.protobuf.json_format.Parse` and `phenopackets.Phenopacket`. |
-| OMOP-CDM | Emitted OMOP CSV tables are checked with [omop-csv-validator](https://github.com/CNAG-Biomedical-Informatics/omop-csv-validator), which validates table files against the OMOP-CDM DDL. |
+- **BFF:** Beacon v2 JSON entities are checked with `bff-tools validate` from [beacon2-cbi-tools](https://github.com/CNAG-Biomedical-Informatics/beacon2-cbi-tools). Validator failures are used to update runtime mapping logic, defaults, and type coercions until generated entity files validate against the Beacon v2 schemas.
+- **PXF:** Phenopackets output is checked in the extended `xt/protobuff.t` test. The test uses Inline Python to parse generated PXF JSON into the Phenopackets protobuf model with `google.protobuf.json_format.Parse` and `phenopackets.Phenopacket`.
+- **OMOP-CDM:** Emitted OMOP CSV tables are checked with [omop-csv-validator](https://github.com/CNAG-Biomedical-Informatics/omop-csv-validator), which validates table files against the OMOP-CDM DDL.
 
 :::note[BFF entity filenames]
 BFF validators usually infer the entity from the file name. Use standard names such as `individuals.json`, `biosamples.json`, `datasets.json`, and `cohorts.json`.
@@ -64,7 +72,7 @@ BFF validators usually infer the entity from the file name. Use standard names s
 
 OMOP-CDM v5.4 is a relational SQL model, while Beacon v2 Models are hierarchical JSON schemas. For example, OMOP stores clinical facts across tables such as `PERSON`, `CONDITION_OCCURRENCE`, `MEASUREMENT`, `OBSERVATION`, `PROCEDURE_OCCURRENCE`, and `SPECIMEN`; Beacon `individuals` and `biosamples` represent related information as nested JSON objects.
 
-The OMOP-to-BFF mappings were developed to bridge that difference while keeping the converted JSON structurally valid against Beacon v2 schemas. During development, generated BFF files were iteratively validated with `bff-tools validate`; schema errors were then addressed in the runtime conversion code by refining mappings, adding required defaults, and correcting data types.
+The OMOP-to-BFF mappings were developed to bridge that difference while keeping the converted JSON structurally valid against Beacon v2 schemas. During development, generated BFF files were iteratively validated with `bff-tools validate`; schema errors were then addressed in the runtime conversion code by refining mappings, adding required defaults, and correcting data types. This is why some apparently artificial defaults exist: they are there to satisfy required Beacon structure when the source model has no direct equivalent.
 
 Validation was also supported by dataset-specific checks:
 

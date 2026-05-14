@@ -42,7 +42,7 @@ Power users may want to check the [module](use-as-a-module) or the [API](use-as-
 
 :::
 :::note[API scope]
-The HTTP API is primarily intended for **self-contained JSON conversions** such as `BFF`, `PXF`, and carefully prepared `OMOP-CDM` payloads.
+The HTTP(s) API is primarily intended for **self-contained JSON conversions** such as `BFF`, `PXF`, and carefully prepared `OMOP-CDM` payloads.
 
 Mapping-file-based routes such as `CSV`, `REDCap`, and `CDISC-ODM` are still better handled through the CLI, because they depend on extra artifacts like mapping files and data dictionaries rather than on one clean request payload.
 

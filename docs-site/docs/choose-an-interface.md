@@ -19,7 +19,7 @@ sidebar_label: Ways to Run It
 
 | Entry point | Best for | Avoid when |
 |-----------|----------|------------|
-| [Command-Line Interface](use-as-a-command-line-interface) | Normal use: real files, mapping files, OMOP tables, REDCap exports, CDISC-ODM XML, audit logs, multi-entity BFF output | You are building a service that must call Convert-Pheno over HTTP |
+| [Command-Line Interface](use-as-a-command-line-interface) | Normal use: real files, mapping files, OMOP tables, REDCap exports, CDISC-ODM XML, audit logs, multi-entity BFF output | You are building a service that must call Convert-Pheno over HTTP(s) |
 | [API](use-as-an-api) | Developer use: self-contained JSON payloads from applications, notebooks, or JavaScript clients | The conversion needs several local files, mapping files, or large OMOP exports |
 | [Module](use-as-a-module) | Developer use: Perl/Python code that runs in the same environment as Convert-Pheno | You need a language-agnostic network contract |
 | [Web App UI](https://cnag-biomedical-informatics.github.io/convert-pheno-ui/) | Interactive exploration and smaller manual conversions | You need reproducible batch processing |

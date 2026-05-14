@@ -36,9 +36,9 @@ def main():
     }
 
     # Create request payload. Module parameters are passed in one flat payload,
-    # unlike the structured HTTP API. PythonBinding shells out to the Perl JSON
+    # unlike the structured HTTP(s) API. PythonBinding shells out to the Perl JSON
     # bridge under api/perl/json_bridge.pl, but it can still be used directly
-    # from Python code without running the HTTP API.
+    # from Python code without running the HTTP(s) API.
     payload = {
         "method": "pxf2bff",
         "data": my_pxf_json_data,

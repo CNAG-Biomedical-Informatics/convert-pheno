@@ -33,7 +33,7 @@ The software `Convert-Pheno` can be installed **locally** on the following opera
   <a className="convertInstallCard" href="download-and-installation/docker-based">
     <span className="convertCardLabel">Container</span>
     <h3>Docker installation</h3>
-    <p>Use a prebuilt environment for the HTTP API, deployments, and reproducible runs.</p>
+    <p>Use a prebuilt environment for the HTTP(s) API, deployments, and reproducible runs.</p>
   </a>
 </div>
 
