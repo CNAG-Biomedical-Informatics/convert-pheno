@@ -20,7 +20,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
 
       - name: Install docs dependencies
         working-directory: docs-site
@@ -33,6 +33,10 @@ jobs:
       - name: Build Docusaurus site
         working-directory: docs-site
         run: npm run build
+
+      - name: Verify search index
+        working-directory: docs-site
+        run: test -s build/search-index.json
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

@@ -41,7 +41,19 @@ const config: Config = {
       } satisfies Preset.Options,
     ],
   ],
-  themes: ['@docusaurus/theme-mermaid'],
+  themes: [
+    '@docusaurus/theme-mermaid',
+    [
+      '@easyops-cn/docusaurus-search-local',
+      {
+        hashed: true,
+        language: ['en'],
+        indexDocs: true,
+        indexBlog: false,
+        docsRouteBasePath: '/',
+      },
+    ],
+  ],
   stylesheets: [
     {
       href: 'https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css',
