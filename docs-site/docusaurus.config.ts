@@ -97,11 +97,6 @@ const config: Config = {
           position: 'left',
         },
         {
-          href: 'https://convert-pheno.cnag.cat',
-          label: 'Web App',
-          position: 'left',
-        },
-        {
           href: 'https://github.com/CNAG-Biomedical-Informatics/convert-pheno',
           label: 'GitHub',
           position: 'right',

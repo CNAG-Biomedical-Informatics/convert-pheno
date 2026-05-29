@@ -9,7 +9,7 @@ import TabItem from '@theme/TabItem';
 
 ## At a Glance
 
-Most conversions use `BFF` as the target model:
+Most conversions use `BFF` as the internal target model:
 
 | Step | What Happens | Why It Matters |
 |------|--------------|----------------|
@@ -23,7 +23,7 @@ If you only need commands, use [Conversion Recipes](conversion-recipes). Use thi
 
 ## Step 1: Conversion to the target model
 
-For **most routes**, `Convert-Pheno` first maps the input data to [BFF](bff), the Beacon v2 Models-based format that acts as the **target model**. From there, the data can remain as `BFF` or continue to other outputs such as `PXF` or `OMOP CDM`.
+For **most routes**, `Convert-Pheno` first maps the input data to [BFF](bff), the Beacon v2 Models-based format that acts as the **internal target model**. From there, the data can remain as `BFF` or continue to other outputs such as `PXF` or `OMOP CDM`.
 
 ```mermaid
 %%{init: {'theme':'neutral'}}%%

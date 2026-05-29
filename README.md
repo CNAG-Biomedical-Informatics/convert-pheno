@@ -28,7 +28,7 @@
 
 **🐳 Docker Hub Image:** <a href="https://hub.docker.com/r/manuelrueda/convert-pheno/tags" target="_blank">https://hub.docker.com/r/manuelrueda/convert-pheno/tags</a>
 
-**🌐 Web App UI:** <a href="https://convert-pheno.cnag.cat" target="_blank">https://convert-pheno.cnag.cat</a>
+**🌐 Legacy Web App UI:** <a href="https://convert-pheno.cnag.cat" target="_blank">https://convert-pheno.cnag.cat</a>
 
 ---
 
@@ -61,7 +61,7 @@ For backward compatibility, the `-iomop ... -obff` form still keeps the individu
 Note: `openEHR` support is currently experimental and currently limited to canonical composition input with `BFF` or `PXF` output.
 See the CLI documentation for the current experimental `openEHR` usage details.
 
-Internally, most conversions use `BFF` as the target model before continuing to other output formats when needed.
+Internally, most conversions use `BFF` as the internal target model before continuing to other output formats when needed.
 
 ## Multi-Entity Output
 

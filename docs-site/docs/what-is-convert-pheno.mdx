@@ -36,7 +36,7 @@ Clinical datasets often arrive in formats that are useful inside one project but
 
 ## How It Works
 
-Most routes normalize data through `BFF`, which acts as the target model. That does not mean the final output must be `BFF`: depending on the selected route, the output can be Beacon entities, Phenopackets, OMOP-CDM CSV tables, flattened JSON, flattened CSV, or JSON-LD.
+Most routes normalize data through `BFF`, which acts as the **internal target model**. That does not mean the final output must be `BFF`: depending on the selected route, the output can be Beacon entities, Phenopackets, OMOP-CDM CSV tables, flattened JSON, flattened CSV, or JSON-LD.
 
 For mapping-file conversions such as `CSV`, `REDCap`, and `CDISC-ODM`, the mapping file defines how source columns become Beacon `individuals` fields and, when requested, metadata for `datasets`, `cohorts`, or `biosamples`.
 
@@ -56,7 +56,7 @@ For developers who need to call Convert-Pheno from other code, the project also 
 
 - [Module usage](use-as-a-module) for local Perl or Python code
 - [HTTP(s) API usage](use-as-an-api) for self-contained JSON requests
-- [Web App UI](https://cnag-biomedical-informatics.github.io/convert-pheno-ui/) for interactive exploration
+- [Legacy Web App UI](https://cnag-biomedical-informatics.github.io/convert-pheno-ui/) for interactive exploration; it will be deprecated soon, so prefer the CLI, module, or API for supported workflows
 
 ## What to read next
 

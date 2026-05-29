@@ -50,7 +50,7 @@ It depends on which components you want to use and your familiarity with Docker-
 | CLI | Non-containerized (CPAN) |
 | CLI in Conda | Non-containerized (Conda) |
 | API | Docker |
-| Web App UI | Display and exploration only; the deployed UI currently uses an older Convert-Pheno version |
+| Legacy Web App UI | Display and exploration only; it will be deprecated soon and the deployed UI currently uses an older Convert-Pheno version |
 
 </details>
 ## Non-Containerized
