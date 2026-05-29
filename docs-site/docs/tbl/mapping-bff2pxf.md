@@ -5,7 +5,7 @@ sidebar_label: BFF to PXF Mapping
 
 #### Version 0.31
 
-**Target model:** Phenopackets v2
+**Output model:** Phenopackets v2
 
 **Entity:** phenopacket
 

@@ -5,7 +5,7 @@ sidebar_label: PXF to BFF Mapping
 
 #### Version 0.31
 
-**Target model:** BFF
+**Output model:** BFF
 
 **Entities:** individuals, biosamples
 

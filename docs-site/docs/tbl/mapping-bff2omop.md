@@ -5,7 +5,7 @@ sidebar_label: BFF to OMOP Mapping
 
 #### Version 0.31
 
-**Target model:** OMOP CDM
+**Output model:** OMOP CDM
 
 **Entity:** PERSON, CONDITION_OCCURRENCE, OBSERVATION, PROCEDURE_OCCURRENCE, MEASUREMENT, DRUG_EXPOSURE
 

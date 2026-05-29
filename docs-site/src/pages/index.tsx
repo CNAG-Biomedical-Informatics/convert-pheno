@@ -46,7 +46,7 @@ export default function Home() {
                 </div>
                 <div className={styles.arrow}>→</div>
                 <div className={styles.centerModel}>
-                  <span>Center model</span>
+                  <span>Target model</span>
                   <strong>BFF</strong>
                 </div>
                 <div className={styles.arrow}>→</div>

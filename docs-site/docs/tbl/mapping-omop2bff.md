@@ -5,7 +5,7 @@ sidebar_label: OMOP to BFF Mapping
 
 #### Version 0.31
 
-**Target model:** BFF
+**Output model:** BFF
 
 **Entity:** individuals, biosamples
 

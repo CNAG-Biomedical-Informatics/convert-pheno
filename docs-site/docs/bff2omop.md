@@ -17,7 +17,7 @@ repeated Beacon fields into OMOP row arrays such as `CONDITION_OCCURRENCE`,
 :::
 #### Version 0.31
 
-**Target model:** OMOP CDM
+**Output model:** OMOP CDM
 
 **Entity:** PERSON, CONDITION_OCCURRENCE, OBSERVATION, PROCEDURE_OCCURRENCE, MEASUREMENT, DRUG_EXPOSURE
 

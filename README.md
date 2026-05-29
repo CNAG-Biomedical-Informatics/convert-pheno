@@ -61,7 +61,7 @@ For backward compatibility, the `-iomop ... -obff` form still keeps the individu
 Note: `openEHR` support is currently experimental and currently limited to canonical composition input with `BFF` or `PXF` output.
 See the CLI documentation for the current experimental `openEHR` usage details.
 
-Internally, most conversions use `BFF` as the center model before continuing to other output formats when needed.
+Internally, most conversions use `BFF` as the target model before continuing to other output formats when needed.
 
 ## Multi-Entity Output
 
