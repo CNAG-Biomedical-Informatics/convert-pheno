@@ -17,14 +17,7 @@ The software `Convert-Pheno` can be installed **locally** on the following opera
 | Windows          | Windows Server OS             |
 
 :::
-<div className="convertQuickHero">
-  <p className="convertEyebrow">Installation</p>
-  <h2>Choose the setup that matches how you will run the converter.</h2>
-  <p>
-    Most command-line users can install locally. Docker is the recommended
-    route for API usage and reproducible execution environments.
-  </p>
-</div>
+Choose the setup that matches how you will run the converter. Most command-line users can install locally. Docker is the recommended route for API usage and reproducible execution environments.
 
 <div className="convertInstallGrid">
   <Link className="convertInstallCard" to="/download-and-installation/non-containerized">
@@ -50,7 +43,6 @@ It depends on which components you want to use and your familiarity with Docker-
 | CLI | Non-containerized (CPAN) |
 | CLI in Conda | Non-containerized (Conda) |
 | API | Docker |
-| Legacy Web App UI | Display and exploration only; it will be deprecated soon and the deployed UI currently uses an older Convert-Pheno version |
 
 </details>
 ## Non-Containerized

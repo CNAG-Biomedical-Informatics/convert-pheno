@@ -26,7 +26,10 @@ docker buildx build -t cnag/convert-pheno:latest .
 Start a detached container:
 
 ```bash
-docker run -tid -e USERNAME=root --name convert-pheno cnag/convert-pheno:latest
+docker run -tid \
+  -e USERNAME=root \
+  --name convert-pheno \
+  cnag/convert-pheno:latest
 ```
 
 Enter the container:
@@ -44,7 +47,9 @@ The command-line executable is available at:
 The default container user is `root`, but you can also run as `UID=1000` (`dockeruser`):
 
 ```bash
-docker run --user 1000 -tid --name convert-pheno cnag/convert-pheno:latest
+docker run --user 1000 -tid \
+  --name convert-pheno \
+  cnag/convert-pheno:latest
 ```
 
 ## Use `make`
@@ -59,18 +64,81 @@ make -f makefile.docker enter
 
 ## Mount Volumes
 
-Containers are isolated, so mount a host directory when you need to read or write local data:
+Containers are isolated: files on your computer are not visible inside the
+container unless you mount them. The easiest approach is to put the input files,
+mapping files, dictionaries, optional databases, and output directory under one
+project directory and mount that directory as `/data`.
 
-```bash
-docker run -tid --volume /media/mrueda/4TBT/data:/data --name convert-pheno-mount cnag/convert-pheno:latest
+Recommended layout on the host:
+
+```text
+my_convert_pheno_run/
+|-- input/
+|   |-- clinical.csv
+|   |-- redcap.csv
+|   `-- redcap-dictionary.csv
+|-- mapping/
+|   `-- mapping.yaml
+|-- db/
+|   `-- ohdsi.db
+`-- output/
 ```
 
-One convenient pattern is to create an alias on the host:
+Start the container with that directory mounted:
 
 ```bash
-alias convert-pheno='docker exec -ti convert-pheno-mount /usr/share/convert-pheno/bin/convert-pheno'
-convert-pheno -ibff /data/individuals.json -opxf pxf.json --out-dir /data
+docker run -tid \
+  --volume "$PWD/my_convert_pheno_run:/data" \
+  --name convert-pheno-mount \
+  cnag/convert-pheno:latest
 ```
+
+Then run commands using the container paths:
+
+```bash
+convert-pheno() {
+  docker exec -ti convert-pheno-mount \
+    /usr/share/convert-pheno/bin/convert-pheno "$@"
+}
+
+convert-pheno -icsv /data/input/clinical.csv \
+  --mapping-file /data/mapping/mapping.yaml \
+  --search-audit-tsv /data/output/search-audit.tsv \
+  -obff /data/output/individuals.json
+```
+
+For REDCap input, keep both the export and dictionary under the mounted
+directory:
+
+```bash
+convert-pheno -iredcap /data/input/redcap.csv \
+  --redcap-dictionary /data/input/redcap-dictionary.csv \
+  --mapping-file /data/mapping/mapping.yaml \
+  -obff /data/output/individuals.json
+```
+
+If your files are already in different host directories, you do not need to copy
+them. Mount each directory explicitly and use the container paths in the command:
+
+```bash
+docker run -tid \
+  --volume /path/to/input:/input:ro \
+  --volume /path/to/mapping:/mapping:ro \
+  --volume /path/to/output:/output \
+  --volume /path/to/db:/db:ro \
+  --name convert-pheno-mount \
+  cnag/convert-pheno:latest
+
+docker exec -ti convert-pheno-mount /usr/share/convert-pheno/bin/convert-pheno \
+  -icsv /input/clinical.csv \
+  --mapping-file /mapping/mapping.yaml \
+  --path-to-ohdsi-db /db \
+  -obff /output/individuals.json
+```
+
+Use read-only mounts (`:ro`) for inputs, mappings, and databases when you do not
+want the container to modify those files. Do not use `:ro` for output
+directories.
 
 ## System Requirements
 

@@ -36,6 +36,9 @@ For the validation approach used during development, including Beacon/BFF schema
 validation, OMOP CSV validation, EUNOMIA checks, and manual/domain review, see
 [Output Validation](output-validation).
 
+For the dedicated OMOP-CDM to Beacon v2 mapping work and manuscript repository, see
+[OMOP-CDM to Beacon v2](https://github.com/CNAG-Biomedical-Informatics/omop-cdm-2-beacon-v2).
+
 ## Terms
 
 ### diseases

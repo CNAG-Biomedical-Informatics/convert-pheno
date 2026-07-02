@@ -55,7 +55,7 @@ const sidebars: SidebarsConfig = {
         {
           type: 'doc',
           id: 'conversion-recipes',
-          label: 'Conversion Recipes',
+          label: 'Conversion Routes',
         },
         {
           type: 'doc',
@@ -71,11 +71,6 @@ const sidebars: SidebarsConfig = {
           type: 'doc',
           id: 'use-as-an-api',
           label: 'API',
-        },
-        {
-          type: 'link',
-          href: 'https://cnag-biomedical-informatics.github.io/convert-pheno-ui/',
-          label: 'Web App User Interface',
         },
       ],
     },

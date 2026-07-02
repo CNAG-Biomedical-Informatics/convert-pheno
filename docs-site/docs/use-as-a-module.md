@@ -80,14 +80,3 @@ The Python binding shells out to the Perl JSON bridge internally, so it is a con
 - Perl example: [share/ex/perl.pl](https://github.com/cnag-biomedical-informatics/convert-pheno/blob/main/share/ex/perl.pl)
 - Python example: [share/ex/python.py](https://github.com/cnag-biomedical-informatics/convert-pheno/blob/main/share/ex/python.py)
 
-## About Python usage
-
-A Python bridge is included in the repository for interoperability, but the underlying conversion logic still runs in Perl.
-
-If you need Python integration, check:
-
-- [share/ex/python.py](https://github.com/cnag-biomedical-informatics/convert-pheno/blob/main/share/ex/python.py)
-
-:::note[Python support]
-The Python layer is a wrapper around the Perl module rather than an independent implementation of the conversion logic.
-:::

@@ -6,7 +6,7 @@ slug: /implementation
 
 ## Components
 
-`Convert-Pheno` is a **toolkit** composed of several interfaces around the same Perl core. At the center is the [Perl module](https://metacpan.org/pod/Convert%3A%3APheno), which is used by the [command-line interface](use-as-a-command-line-interface) and by the [API](use-as-an-api). A Python interoperability layer is also included in the repository, but the conversion logic itself remains in Perl. The [Legacy Web App](https://cnag-biomedical-informatics.github.io/convert-pheno-ui) is built on top of the [command-line interface](use-as-a-command-line-interface) and will be deprecated soon.
+`Convert-Pheno` is a **toolkit** composed of several interfaces around the same Perl core. At the center is the [Perl module](https://metacpan.org/pod/Convert%3A%3APheno), which is used by the [command-line interface](use-as-a-command-line-interface) and by the [API](use-as-an-api). A Python interoperability layer is also included in the repository, but the conversion logic itself remains in Perl.
 
 ```mermaid
 %%{init: {'theme':'neutral'}}%%
@@ -14,10 +14,6 @@ graph TB
   subgraph "Perl"
   A[Module]--> B[CLI]
   A[Module]--> C[API]
-  end
-
-  subgraph "Python / JavaScript"
-  B --> D[Legacy Web App UI]
   end
 
   subgraph "Python"
@@ -29,16 +25,13 @@ graph TB
   style A fill: #6495ED, stroke: #6495ED
   style B fill: #6495ED, stroke: #6495ED
   style C fill: #6495ED, stroke: #6495ED
-  style D fill: #AFEEEE, stroke: #AFEEEE
   style E fill: #FFFF33, stroke: #FFFF33
   style F fill: #FFFF33, stroke: #FFFF33
 ```
 <figcaption>Diagram showing Convert-Pheno implementation</figcaption>
 
 :::tip[Which one should I use?]
-Most users find the [CLI](use-as-a-command-line-interface) suitable for their needs. The [Legacy Web App UI Playground](https://convert-pheno.cnag.cat) remains available for display and exploration, but it will be deprecated soon.
-
-Power users may want to check the [module](use-as-a-module) or the [API](use-as-an-api) version. 
+Most users find the [CLI](use-as-a-command-line-interface) suitable for their needs. Power users may want to check the [module](use-as-a-module) or the [API](use-as-an-api) version. 
 
 :::
 :::note[API scope]
