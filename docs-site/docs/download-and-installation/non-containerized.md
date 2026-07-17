@@ -100,7 +100,25 @@ conda deactivate
 
 ## Method 3: From GitHub
 
-Clone the repository:
+If you want to install the latest GitHub version without keeping an editable
+checkout, `cpanm` can install directly from the repository URL:
+
+```bash
+cpanm --notest https://github.com/CNAG-Biomedical-Informatics/convert-pheno.git
+convert-pheno --help
+```
+
+The same pattern works for other Perl distributions hosted on GitHub, for
+example:
+
+```bash
+cpanm https://github.com/mrueda/pad-lattice.git
+```
+
+### Developer Checkout
+
+Use a full clone when you want to inspect the source, run tests, or edit the
+code locally:
 
 ```bash
 git clone https://github.com/cnag-biomedical-informatics/convert-pheno.git
@@ -113,7 +131,7 @@ Update an existing clone:
 git pull
 ```
 
-### Option 1: Install Dependencies Under `~/perl5`
+Install dependencies under `~/perl5`:
 
 ```bash
 cpanm --local-lib=~/perl5 local::lib && eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
