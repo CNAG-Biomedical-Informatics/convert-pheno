@@ -97,13 +97,6 @@ cpanm --notest https://github.com/CNAG-Biomedical-Informatics/convert-pheno.git
 convert-pheno --help
 ```
 
-The same pattern works for other Perl distributions hosted on GitHub, for
-example:
-
-```bash
-cpanm https://github.com/mrueda/pad-lattice.git
-```
-
 ### Developer Checkout
 
 Use a full clone when you want to inspect the source, run tests, or edit the
