@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 240" role="img" aria-labelledby="objective-title objective-description">
+  <title id="objective-title">Convert-Pheno objective</title>
+  <desc id="objective-description">
+    Supported input data models pass through conversion in Convert-Pheno to produce a selected output data model.
+  </desc>
+  <style>
+    .line { fill: none; stroke: #315f72; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2; }
+    .muted-line { fill: none; stroke: #9eb8bf; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.5; }
+    .surface { fill: #f8fbfa; stroke: #7e9fa8; stroke-width: 1.5; }
+    .accent { fill: #b86b33; }
+    .label { fill: #244b5a; font: 700 12px "Noto Sans", "DejaVu Sans", sans-serif; letter-spacing: 1.2px; }
+    .detail { fill: #59717a; font: 400 12px "Noto Sans", "DejaVu Sans", sans-serif; }
+
+    @media (prefers-color-scheme: dark) {
+      .line { stroke: #8bbdcb; }
+      .muted-line { stroke: #5f7d86; }
+      .surface { fill: #1b3038; stroke: #75afc0; }
+      .accent { fill: #e5a36c; }
+      .label { fill: #edf5f5; }
+      .detail { fill: #bfd0d3; }
+    }
+  </style>
+
+  <g aria-label="Input data models">
+    <rect class="muted-line" x="28" y="42" width="84" height="94" rx="6" />
+    <rect class="muted-line" x="36" y="50" width="84" height="94" rx="6" />
+    <rect class="surface" x="44" y="58" width="84" height="94" rx="6" />
+    <path class="line" d="M60 78 H112 M60 92 H112 M60 106 H112 M60 120 H91" />
+    <path class="muted-line" d="M77 78 V120 M95 78 V120" />
+    <text class="label" x="86" y="181" text-anchor="middle">INPUT DATA MODELS</text>
+    <text class="detail" x="86" y="202" text-anchor="middle">Supported formats</text>
+  </g>
+
+  <path class="line" d="M151 101 H185" />
+  <path class="accent" d="M191 101 L181 95 V107 Z" />
+
+  <g aria-label="Conversion">
+    <circle class="surface" cx="220" cy="70" r="7" />
+    <circle class="surface" cx="220" cy="101" r="7" />
+    <circle class="surface" cx="220" cy="132" r="7" />
+    <circle class="surface" cx="300" cy="70" r="7" />
+    <circle class="surface" cx="300" cy="101" r="7" />
+    <circle class="surface" cx="300" cy="132" r="7" />
+    <path class="muted-line" d="M227 70 L293 101 M227 101 L293 70 M227 101 L293 132 M227 132 L293 101" />
+    <path class="line" d="M227 70 H293 M227 132 H293" />
+    <circle class="accent" cx="260" cy="101" r="6" />
+    <text class="label" x="260" y="181" text-anchor="middle">CONVERSION</text>
+    <text class="detail" x="260" y="202" text-anchor="middle">Convert-Pheno</text>
+  </g>
+
+  <path class="line" d="M329 101 H363" />
+  <path class="accent" d="M369 101 L359 95 V107 Z" />
+
+  <g aria-label="Output data model">
+    <rect class="surface" x="394" y="50" width="92" height="106" rx="6" />
+    <circle class="accent" cx="440" cy="74" r="5" />
+    <path class="line" d="M440 79 V94 M414 110 V123 M440 110 V123 M466 110 V123" />
+    <path class="line" d="M414 110 H466 M414 110 V104 H466 V110" />
+    <rect class="muted-line" x="406" y="123" width="16" height="12" rx="2" />
+    <rect class="muted-line" x="432" y="123" width="16" height="12" rx="2" />
+    <rect class="muted-line" x="458" y="123" width="16" height="12" rx="2" />
+    <text class="label" x="440" y="181" text-anchor="middle">OUTPUT DATA MODEL</text>
+    <text class="detail" x="440" y="202" text-anchor="middle">Selected format</text>
+  </g>
+</svg>

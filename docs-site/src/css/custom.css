@@ -47,6 +47,34 @@
   text-align: center;
 }
 
+.convertDiagramFrame {
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 10px;
+  background: var(--ifm-background-surface-color);
+}
+
+.convertDiagramScroller {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.convertDiagramFrame .convertDiagramScroller img {
+  display: block;
+  width: 100%;
+  min-width: 760px;
+  margin: 0;
+}
+
+.convertDiagramFrame figcaption {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+}
+
 .markdown img[alt='Convert-Pheno'] {
   display: block;
   width: min(500px, 88vw);

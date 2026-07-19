@@ -3,23 +3,26 @@ title: What Is Convert-Pheno?
 sidebar_label: What Is Convert-Pheno?
 ---
 
-import schemaImage from '@site/static/img/convert-pheno-schema.png';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
-<div className="convertDocHero">
-  <p className="convertEyebrow">Concept</p>
-  <h2>A converter between clinical and phenotypic data models.</h2>
-  <p>
-    `Convert-Pheno` helps move record-level clinical and phenotypic data
-    between standards used by Beacon, Phenopackets, OMOP-CDM, REDCap,
-    CDISC-ODM, and tabular files.
-  </p>
-</div>
+export const ConversionDiagram = () => {
+  const diagramUrl = useBaseUrl('/img/convert-pheno-flow.svg');
+
+  return (
+    <img
+      src={diagramUrl}
+      alt="Supported inputs pass through Convert-Pheno and the Beacon v2 Models BFF target model to supported outputs"
+    />
+  );
+};
 
 `Convert-Pheno` is **open-source software** for converting clinical and phenotypic data between commonly used exchange models. It is mainly designed for file-based transformations, validation checks, and reproducible batch conversion.
 
-<figure>
-<img src={schemaImage} alt="Convert-Pheno" className="convert-pheno-image-lg" />
- <figcaption>Convert-Pheno schematic view</figcaption>
+<figure className="convertDiagramFrame">
+<div className="convertDiagramScroller">
+<ConversionDiagram />
+</div>
+<figcaption>Convert-Pheno conversion architecture. BFF is the internal target model for most routes.</figcaption>
 </figure>
 
 ## What Problem It Solves

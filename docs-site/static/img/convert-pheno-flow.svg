@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" role="img" aria-labelledby="diagram-title diagram-description">
+  <title id="diagram-title">Convert-Pheno conversion architecture</title>
+  <desc id="diagram-description">
+    Supported clinical and phenotypic input formats enter Convert-Pheno, which uses Beacon v2 Models BFF as the internal target model for most routes and writes Beacon, Phenopackets, OMOP-CDM, or inspection outputs.
+  </desc>
+  <style>
+    .canvas { fill: #f8fbfa; stroke: #bfd0d3; }
+    .panel { fill: #ffffff; stroke: #9eb8bf; }
+    .target-panel { fill: #edf4f2; stroke: #315f72; }
+    .format-box { fill: #f5f8f7; stroke: #c3d2d5; }
+    .target-box { fill: #ffffff; stroke: #315f72; }
+    .output-box { fill: #ffffff; stroke: #b5c8cc; }
+    .connector { fill: none; stroke: #315f72; stroke-width: 3; }
+    .connector-head { fill: #315f72; }
+    .rule { stroke: #c4d2d5; stroke-width: 1; }
+    .heading { fill: #16323d; font: 700 24px "Noto Sans", "DejaVu Sans", sans-serif; }
+    .section-label { fill: #8f552b; font: 700 15px "Noto Sans", "DejaVu Sans", sans-serif; letter-spacing: 2px; }
+    .format-label { fill: #244b5a; font: 700 17px "Noto Sans", "DejaVu Sans", sans-serif; }
+    .small-label { fill: #59717a; font: 400 14px "Noto Sans", "DejaVu Sans", sans-serif; }
+    .target-label { fill: #8f552b; font: 700 14px "Noto Sans", "DejaVu Sans", sans-serif; letter-spacing: 1.5px; }
+    .target-name { fill: #16323d; font: 700 23px "Noto Sans", "DejaVu Sans", sans-serif; }
+    .caption { fill: #4e6871; font: 400 15px "Noto Sans", "DejaVu Sans", sans-serif; }
+
+    @media (prefers-color-scheme: dark) {
+      .canvas { fill: #14242b; stroke: #405b64; }
+      .panel { fill: #192d35; stroke: #52717b; }
+      .target-panel { fill: #203840; stroke: #75afc0; }
+      .format-box { fill: #21353d; stroke: #49636c; }
+      .target-box,
+      .output-box { fill: #21353d; stroke: #5f7d86; }
+      .connector { stroke: #75afc0; }
+      .connector-head { fill: #75afc0; }
+      .rule { stroke: #49636c; }
+      .heading,
+      .format-label,
+      .target-name { fill: #edf5f5; }
+      .section-label,
+      .target-label { fill: #e5a36c; }
+      .small-label,
+      .caption { fill: #bfd0d3; }
+    }
+  </style>
+
+  <rect class="canvas" x="1" y="1" width="1198" height="618" rx="14" />
+
+  <text class="section-label" x="40" y="61">SUPPORTED INPUTS</text>
+  <rect class="panel" x="32" y="82" width="334" height="442" rx="10" />
+
+  <rect class="format-box" x="52" y="112" width="137" height="58" rx="6" />
+  <text class="format-label" x="120.5" y="147" text-anchor="middle">BFF</text>
+
+  <rect class="format-box" x="209" y="112" width="137" height="58" rx="6" />
+  <text class="format-label" x="277.5" y="139" text-anchor="middle">Phenopackets</text>
+  <text class="small-label" x="277.5" y="158" text-anchor="middle">v2</text>
+
+  <rect class="format-box" x="52" y="186" width="137" height="58" rx="6" />
+  <text class="format-label" x="120.5" y="221" text-anchor="middle">OMOP-CDM</text>
+
+  <rect class="format-box" x="209" y="186" width="137" height="58" rx="6" />
+  <text class="format-label" x="277.5" y="221" text-anchor="middle">REDCap</text>
+
+  <rect class="format-box" x="52" y="260" width="137" height="58" rx="6" />
+  <text class="format-label" x="120.5" y="295" text-anchor="middle">CDISC-ODM</text>
+
+  <rect class="format-box" x="209" y="260" width="137" height="58" rx="6" />
+  <text class="format-label" x="277.5" y="295" text-anchor="middle">CSV</text>
+
+  <rect class="format-box" x="52" y="334" width="294" height="66" rx="6" />
+  <text class="format-label" x="199" y="361" text-anchor="middle">openEHR</text>
+  <text class="small-label" x="199" y="382" text-anchor="middle">experimental input</text>
+
+  <line class="rule" x1="52" y1="428" x2="346" y2="428" />
+  <text class="small-label" x="52" y="458">Mapping files support REDCap,</text>
+  <text class="small-label" x="52" y="480">CDISC-ODM, and generic CSV input.</text>
+
+  <path class="connector" d="M376 303 H418" />
+  <path class="connector-head" d="M418 303 L403 294 L403 312 Z" />
+
+  <text class="section-label" x="438" y="124">CONVERSION LAYER</text>
+  <rect class="target-panel" x="428" y="145" width="344" height="318" rx="10" />
+  <text class="heading" x="600" y="200" text-anchor="middle">Convert-Pheno</text>
+  <text class="small-label" x="600" y="226" text-anchor="middle">Source-specific mapping and normalization</text>
+  <line class="rule" x1="458" y1="252" x2="742" y2="252" />
+  <text class="target-label" x="600" y="283" text-anchor="middle">TARGET MODEL</text>
+  <rect class="target-box" x="462" y="302" width="276" height="112" rx="7" />
+  <text class="target-name" x="600" y="344" text-anchor="middle">Beacon v2 Models</text>
+  <text class="format-label" x="600" y="375" text-anchor="middle">BFF</text>
+  <text class="small-label" x="600" y="399" text-anchor="middle">Internal target for most routes</text>
+
+  <path class="connector" d="M782 303 H824" />
+  <path class="connector-head" d="M824 303 L809 294 L809 312 Z" />
+
+  <text class="section-label" x="846" y="61">SUPPORTED OUTPUTS</text>
+  <rect class="panel" x="834" y="82" width="334" height="442" rx="10" />
+
+  <rect class="output-box" x="856" y="112" width="290" height="112" rx="6" />
+  <text class="format-label" x="1001" y="144" text-anchor="middle">Beacon v2 Models (BFF)</text>
+  <text class="small-label" x="1001" y="174" text-anchor="middle">individuals &#183; biosamples</text>
+  <text class="small-label" x="1001" y="196" text-anchor="middle">datasets &#183; cohorts</text>
+
+  <rect class="output-box" x="856" y="240" width="290" height="66" rx="6" />
+  <text class="format-label" x="1001" y="280" text-anchor="middle">Phenopackets v2 (PXF)</text>
+
+  <rect class="output-box" x="856" y="322" width="290" height="66" rx="6" />
+  <text class="format-label" x="1001" y="362" text-anchor="middle">OMOP-CDM (CSV)</text>
+
+  <line class="rule" x1="856" y1="417" x2="1146" y2="417" />
+  <text class="small-label" x="856" y="449">Inspection outputs:</text>
+  <text class="small-label" x="856" y="473">flattened JSON or CSV, JSON-LD</text>
+
+  <text class="caption" x="600" y="572" text-anchor="middle">
+    BFF is the internal target model for most routes; the selected route determines the final output.
+  </text>
+</svg>

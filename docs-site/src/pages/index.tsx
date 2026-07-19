@@ -4,95 +4,113 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import styles from './index.module.css';
 
 export default function Home() {
-  const logoUrl = useBaseUrl('/img/CP-logo.png');
+  const diagramUrl = useBaseUrl('/img/convert-pheno-flow.svg');
+  const objectiveUrl = useBaseUrl('/img/convert-pheno-objective.svg');
 
   return (
     <Layout
       title="Convert-Pheno"
-      description="A toolkit for interconverting clinical and phenotypic data models">
+      description="Open-source software for interconverting clinical and phenotypic data models">
       <main className={styles.page}>
         <section className={styles.hero}>
-          <div className={styles.heroGrid}>
-            <div className={styles.copy}>
-              <p className={styles.kicker}>Convert-Pheno</p>
-              <h1>Clinical and phenotypic data conversion across standard data models.</h1>
+          <div className={styles.heroInner}>
+            <div className={styles.heroCopy}>
+              <p className={styles.kicker}>Clinical data model conversion</p>
+              <h1>Convert-Pheno</h1>
+              <p className={styles.claim}>
+                Conversion of clinical and phenotypic data between supported data models.
+              </p>
               <p className={styles.lede}>
-                Convert between Beacon v2 Models, Phenopackets v2, OMOP-CDM,
-                REDCap, CDISC-ODM, CSV, and related exchange formats through a
-                command-line tool, Perl module, Python binding, and HTTP(s) APIs.
+                Open-source software for reproducible transformations among Beacon v2
+                Models, Phenopackets v2, OMOP-CDM, and mapping-based clinical data
+                sources. The command-line interface is the primary user interface;
+                Perl, Python, and HTTP(s) interfaces are also available for integration.
               </p>
               <div className={styles.actions}>
-                <Link className="button button--primary button--lg" to="/conversion-recipes">
-                  Conversion Recipes
+                <Link className={styles.action} to="/conversion-recipes">
+                  Quickstart
                 </Link>
-                <Link className="button button--secondary button--lg" to="/use-as-a-command-line-interface">
-                  Command Line
+                <Link className={styles.action} to="/supported-formats">
+                  Supported Formats
                 </Link>
-                <Link className="button button--secondary button--lg" to="/download-and-installation">
-                  Install
+                <Link className={styles.action} to="/citation">
+                  Publications
                 </Link>
               </div>
             </div>
-
-            <div className={styles.flowCard} aria-label="Convert-Pheno conversion flow">
-              <Link className={styles.identity} to="/what-is-convert-pheno">
-                <img className={styles.heroLogo} src={logoUrl} alt="Convert-Pheno logo" />
-                <span>Convert-Pheno</span>
-              </Link>
-              <div className={styles.flow}>
-                <div>
-                  <span>Input</span>
-                  <strong>BFF · PXF · OMOP · REDCap · CSV</strong>
-                </div>
-                <div className={styles.arrow}>→</div>
-                <div className={styles.centerModel}>
-                  <span>Target model</span>
-                  <strong>BFF</strong>
-                </div>
-                <div className={styles.arrow}>→</div>
-                <div>
-                  <span>Output</span>
-                  <strong>BFF · PXF · OMOP · CSV</strong>
-                </div>
-              </div>
-              <div className={styles.tokens}>
-                <span>individuals</span>
-                <span>biosamples</span>
-                <span>datasets</span>
-                <span>cohorts</span>
-              </div>
-            </div>
+            <img
+              className={styles.objective}
+              src={objectiveUrl}
+              alt="Supported input data models are converted by Convert-Pheno into a selected output data model"
+            />
           </div>
         </section>
 
-        <section className={styles.sections}>
-          <div className={styles.grid}>
-            <Link className={styles.card} to="/download-and-installation">
-              <span>Setup</span>
-              <h2>Install</h2>
-              <p>Containerized and non-containerized setup paths, including optional OMOP resources.</p>
-            </Link>
-            <Link className={styles.card} to="/supported-formats">
-              <span>Formats</span>
-              <h2>Choose</h2>
-              <p>Supported input and output formats, including entity-aware BFF output.</p>
-            </Link>
-            <Link className={styles.card} to="/conversion-recipes">
-              <span>Commands</span>
-              <h2>Run the CLI</h2>
-              <p>Copy-paste commands for PXF, OMOP-CDM, REDCap, CSV, CDISC-ODM, and BFF conversions.</p>
-            </Link>
-            <Link className={styles.card} to="/omop-cdm">
-              <span>Clinical DB</span>
-              <h2>Convert OMOP</h2>
-              <p>OMOP-CDM SQL or CSV input to Beacon and Phenopackets outputs.</p>
-            </Link>
-            <Link className={styles.card} to="/use-as-an-api">
-              <span>Developers</span>
-              <h2>Call from Code</h2>
-              <p>Use the Perl API, Python binding, or HTTP(s) API only when you need programmatic access.</p>
-            </Link>
+        <section className={styles.workflow}>
+          <div className={styles.sectionHeading}>
+            <div>
+              <p className={styles.sectionLabel}>Conversion architecture</p>
+              <h2>A common target model connects supported routes.</h2>
+            </div>
+            <p>
+              Most conversions normalize source records through Beacon v2 Models
+              BFF before writing the output selected by the user.
+            </p>
           </div>
+          <figure className={styles.diagramFrame}>
+            <div className={styles.diagramScroller}>
+              <img
+                src={diagramUrl}
+                alt="Supported inputs pass through Convert-Pheno and the Beacon v2 Models BFF target model to supported outputs"
+              />
+            </div>
+            <figcaption>
+              BFF is the internal target model for most conversion routes; final
+              output is not limited to BFF.
+            </figcaption>
+          </figure>
+        </section>
+
+        <section className={styles.scopeSection}>
+          <div className={styles.sectionHeading}>
+            <div>
+              <p className={styles.sectionLabel}>Current scope</p>
+              <h2>Supported operations</h2>
+            </div>
+            <p>
+              Conversion behavior depends on the selected source and output route.
+              Route-specific requirements are documented with the corresponding format.
+            </p>
+          </div>
+          <div className={styles.operationGrid}>
+            <article className={styles.operation}>
+              <span>Structured models</span>
+              <h3>Convert BFF, PXF, and OMOP-CDM</h3>
+              <p>Read and write established clinical and phenotypic models through supported routes.</p>
+            </article>
+            <article className={styles.operation}>
+              <span>Mapped sources</span>
+              <h3>Transform REDCap, CDISC-ODM, and CSV</h3>
+              <p>Use project mapping files to relate source fields to the target model.</p>
+            </article>
+            <article className={styles.operation}>
+              <span>Beacon entities</span>
+              <h3>Write entity-aware BFF collections</h3>
+              <p>Produce individuals, biosamples, datasets, and cohorts where the route supports them.</p>
+            </article>
+            <article className={styles.operation}>
+              <span>Auditability</span>
+              <h3>Retain provenance and inspect searches</h3>
+              <p>Preserve source fields and optionally record ontology lookup decisions.</p>
+            </article>
+          </div>
+          <aside className={styles.scopeNote}>
+            <strong>Scope</strong>
+            <p>
+              Convert-Pheno does not replace terminology curation, a general OMOP ETL
+              framework, or project-specific review and validation of converted data.
+            </p>
+          </aside>
         </section>
       </main>
     </Layout>
