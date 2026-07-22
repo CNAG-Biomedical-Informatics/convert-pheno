@@ -32,6 +32,7 @@ jobs:
         run: |
           version="$(tr -d '\r\n' < VERSION)"
           test -n "$version"
+          git fetch --force origin "refs/tags/$RELEASE_TAG:refs/tags/$RELEASE_TAG"
           if [[ "$(git cat-file -t "refs/tags/$RELEASE_TAG")" != "tag" ]]; then
             echo "Docker release tag $RELEASE_TAG must be annotated" >&2
             exit 1
