@@ -1,7 +1,16 @@
 name: Docker build (multi-arch)
 
 on:
-  workflow_dispatch
+  push:
+    tags:
+      - "*"
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+concurrency:
+  group: docker-${{ github.ref }}
+  cancel-in-progress: false
 
 permissions:
   contents: read
@@ -10,29 +19,33 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - name: Check out release
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
-      - name: Get version
-        id: get_version
+      - name: Read build metadata
+        id: build_metadata
         shell: bash
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
         run: |
           version="$(tr -d '\r\n' < VERSION)"
           test -n "$version"
+          if [[ "$(git cat-file -t "refs/tags/$RELEASE_TAG")" != "tag" ]]; then
+            echo "Docker release tag $RELEASE_TAG must be annotated" >&2
+            exit 1
+          fi
+          if [[ "$(git rev-parse "refs/tags/${RELEASE_TAG}^{commit}")" != "$(git rev-parse HEAD)" ]]; then
+            echo "Checked-out commit does not match Docker release tag $RELEASE_TAG" >&2
+            exit 1
+          fi
+          if [[ "$RELEASE_TAG" != "$version" ]]; then
+            echo "Docker tag $RELEASE_TAG does not match VERSION $version" >&2
+            exit 1
+          fi
           echo "version=$version" >> "$GITHUB_OUTPUT"
-
-      - name: Verify release tag
-        shell: bash
-        env:
-          IMAGE_VERSION: ${{ steps.get_version.outputs.version }}
-        run: |
-          if [[ "$GITHUB_REF_TYPE" != "tag" ]]; then
-            echo "Select release tag $IMAGE_VERSION when running this publishing workflow" >&2
-            exit 1
-          fi
-          if [[ "$GITHUB_REF_NAME" != "$IMAGE_VERSION" ]]; then
-            echo "Tag $GITHUB_REF_NAME does not match VERSION $IMAGE_VERSION" >&2
-            exit 1
-          fi
+          echo "revision=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -55,18 +68,18 @@ jobs:
           file: docker/Dockerfile
           push: true
           tags: |
-            manuelrueda/convert-pheno:${{ steps.get_version.outputs.version }}
+            manuelrueda/convert-pheno:${{ steps.build_metadata.outputs.version }}
             manuelrueda/convert-pheno:latest
           platforms: linux/amd64,linux/arm64
           build-args: |
-            BUILD_VERSION=${{ steps.get_version.outputs.version }}
-            VCS_REF=${{ github.sha }}
+            BUILD_VERSION=${{ steps.build_metadata.outputs.version }}
+            VCS_REF=${{ steps.build_metadata.outputs.revision }}
           labels: |
             org.opencontainers.image.title=Convert-Pheno
             org.opencontainers.image.description=Clinical and phenotypic data model converter
             org.opencontainers.image.source=https://github.com/CNAG-Biomedical-Informatics/convert-pheno
-            org.opencontainers.image.version=${{ steps.get_version.outputs.version }}
-            org.opencontainers.image.revision=${{ github.sha }}
+            org.opencontainers.image.version=${{ steps.build_metadata.outputs.version }}
+            org.opencontainers.image.revision=${{ steps.build_metadata.outputs.revision }}
             org.opencontainers.image.licenses=Artistic-2.0
           cache-from: type=gha
           cache-to: type=gha,mode=max

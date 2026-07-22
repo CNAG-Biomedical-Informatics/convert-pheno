@@ -50,14 +50,15 @@ value in `VERSION`:
 
 ```bash
 VERSION="$(cat VERSION)"
-git tag "$VERSION"
+git tag -a "$VERSION" -m "Tagging version $VERSION"
 git push origin "$VERSION"
 ```
 
-Then manually launch the **Docker build (multi-arch)** GitHub workflow and
-select that tag as the workflow ref. The workflow builds the selected checkout
-and records its Git SHA and Convert-Pheno version in the image labels. It refuses
-branch refs and tags that do not match `VERSION`.
+Pushing the tag automatically launches the **Docker build (multi-arch)** GitHub
+workflow. The workflow builds the tagged checkout and records its Git SHA and
+Convert-Pheno version in the image labels. It refuses lightweight tags, tags
+that do not point to the checked-out commit, and tags that do not match
+`VERSION`.
 
 </details>
 
