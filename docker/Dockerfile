@@ -19,12 +19,14 @@ RUN apt-get update \
     && pip3 install --no-cache-dir setuptools "fastapi[all]" \
     && rm -rf /var/lib/apt/lists/*
 
-# Build from the caller-supplied checkout so tags and workflow refs are reproducible.
+# Install dependencies before copying the source so this layer survives code changes.
 WORKDIR /usr/share/convert-pheno
-COPY . .
+COPY cpanfile ./
+# ARM emulation can make otherwise valid configure steps exceed cpanm's 60s default.
+RUN cpanm --notest --configure-timeout 300 --installdeps .
 
-# Install Perl modules
-RUN cpanm --notest --installdeps .
+# Build from the caller-supplied checkout so tags and workflow refs are reproducible.
+COPY . .
 
 # Add user "dockeruser"
 ARG UID=1000
