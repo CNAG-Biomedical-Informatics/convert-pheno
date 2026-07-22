@@ -40,6 +40,13 @@ $t->post_ok('/api', json => { conversion => 'not_a_method', input => { data => {
   ->json_is('/error/code', 'conversion_error')
   ->json_like('/error/message', qr/not_a_method/);
 
+note 'Callable internal methods should not be API conversions';
+$t->post_ok('/api', json => { conversion => 'get_info', input => {} })
+  ->status_is(422)->json_is('/ok', Mojo::JSON->false)
+  ->json_is('/error/code', 'conversion_error')
+  ->json_like('/error/message', qr/Unsupported conversion <get_info>/)
+  ->json_hasnt('/data');
+
 note 'Duplicate keys across sections should be rejected';
 $t->post_ok(
     '/api',

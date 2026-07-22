@@ -1,7 +1,10 @@
-name: Docker build
+name: Docker build (multi-arch)
 
 on:
   workflow_dispatch
+
+permissions:
+  contents: read
 
 jobs:
   build:
@@ -11,29 +14,59 @@ jobs:
 
       - name: Get version
         id: get_version
-        run: echo "::set-output name=VERSION::$(cat VERSION)"
+        shell: bash
+        run: |
+          version="$(tr -d '\r\n' < VERSION)"
+          test -n "$version"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Verify release tag
+        shell: bash
+        env:
+          IMAGE_VERSION: ${{ steps.get_version.outputs.version }}
+        run: |
+          if [[ "$GITHUB_REF_TYPE" != "tag" ]]; then
+            echo "Select release tag $IMAGE_VERSION when running this publishing workflow" >&2
+            exit 1
+          fi
+          if [[ "$GITHUB_REF_NAME" != "$IMAGE_VERSION" ]]; then
+            echo "Tag $GITHUB_REF_NAME does not match VERSION $IMAGE_VERSION" >&2
+            exit 1
+          fi
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
+        uses: docker/setup-qemu-action@v3
         with:
           platforms: arm64,amd64
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
 
       - name: Log in to Docker Hub
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and push multi-arch image
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v6
         with:
           context: .
           file: docker/Dockerfile
           push: true
           tags: |
-            manuelrueda/convert-pheno:${{ steps.get_version.outputs.VERSION }}
+            manuelrueda/convert-pheno:${{ steps.get_version.outputs.version }}
             manuelrueda/convert-pheno:latest
           platforms: linux/amd64,linux/arm64
+          build-args: |
+            BUILD_VERSION=${{ steps.get_version.outputs.version }}
+            VCS_REF=${{ github.sha }}
+          labels: |
+            org.opencontainers.image.title=Convert-Pheno
+            org.opencontainers.image.description=Clinical and phenotypic data model converter
+            org.opencontainers.image.source=https://github.com/CNAG-Biomedical-Informatics/convert-pheno
+            org.opencontainers.image.version=${{ steps.get_version.outputs.version }}
+            org.opencontainers.image.revision=${{ github.sha }}
+            org.opencontainers.image.licenses=Artistic-2.0
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

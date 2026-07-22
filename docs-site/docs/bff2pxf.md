@@ -12,7 +12,7 @@ sidebar_label: BFF to PXF
  The Phenopacket v2 schema enforces the presence of specific properties to achieve successful validation. We display in parenthesis the fields that are employed to guarantee conformity.
 
 :::
-#### Version 0.31
+#### Version 0.32
 
 **Output model:** Phenopackets v2
 

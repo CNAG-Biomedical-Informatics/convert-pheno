@@ -1,6 +1,6 @@
 ---
-title: Conversion Routes
-sidebar_label: Conversion Routes
+title: Choose a Conversion
+sidebar_label: Choose a Conversion
 ---
 
 This page is the quickest way to choose a conversion route. Start with your **input format**, then pick the output you need and copy the matching command.
@@ -206,7 +206,7 @@ convert-pheno -iredcap redcap.csv \
   -obff individuals.json
 ```
 
-More detail: [REDCap](redcap), [Tutorial](tutorial).
+More detail: [REDCap](redcap), [Guided Examples](tutorial).
 
 ### REDCap Input: PXF Output
 

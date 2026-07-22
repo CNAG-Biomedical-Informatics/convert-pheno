@@ -14,6 +14,7 @@ use FindBin qw($Bin);
 use lib "$Bin/../../lib";
 use JSON::XS;
 use Convert::Pheno;
+use Convert::Pheno::Operations qw(is_public_conversion);
 
 binmode STDIN,  ':raw';
 binmode STDOUT, ':raw';
@@ -40,6 +41,8 @@ fail('JSON payload must decode to an object')
 my $method = $payload->{method};
 fail("Payload must include string field 'method'")
   unless defined $method && !ref $method && length $method;
+fail("Unsupported conversion <$method>")
+  unless is_public_conversion($method);
 
 my $result = eval {
     my $convert = Convert::Pheno->new($payload);

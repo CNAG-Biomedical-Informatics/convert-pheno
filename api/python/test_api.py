@@ -102,6 +102,19 @@ class PythonApiTests(unittest.TestCase):
         self.assertEqual(body["error"]["code"], "invalid_request")
         self.assertIn("Duplicate key 'entities'", body["error"]["message"])
 
+    def test_api_rejects_callable_internal_method(self):
+        client = TestClient(main.app)
+        response = client.post(
+            "/api",
+            json={"conversion": "get_info", "input": {}},
+        )
+
+        self.assertEqual(response.status_code, 422)
+        body = response.json()
+        self.assertEqual(body["ok"], False)
+        self.assertEqual(body["error"]["code"], "conversion_error")
+        self.assertIn("Unsupported conversion <get_info>", body["error"]["message"])
+
 
 if __name__ == "__main__":
     unittest.main()

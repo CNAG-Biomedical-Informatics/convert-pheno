@@ -9,12 +9,17 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: '📘 Introduction',
+      label: '📘 Start Here',
       items: [
         {
           type: 'doc',
           id: 'what-is-convert-pheno',
           label: 'What Is Convert-Pheno?',
+        },
+        {
+          type: 'doc',
+          id: 'quickstart',
+          label: '5-Minute Quickstart',
         },
         {
           type: 'doc',
@@ -55,7 +60,7 @@ const sidebars: SidebarsConfig = {
         {
           type: 'doc',
           id: 'conversion-recipes',
-          label: 'Conversion Routes',
+          label: 'Choose a Conversion',
         },
         {
           type: 'doc',
@@ -169,7 +174,7 @@ const sidebars: SidebarsConfig = {
         {
           type: 'doc',
           id: 'tutorial',
-          label: 'Tutorial',
+          label: 'Guided Examples',
         },
         {
           type: 'link',
@@ -179,7 +184,7 @@ const sidebars: SidebarsConfig = {
         {
           type: 'doc',
           id: 'usage',
-          label: 'Usage',
+          label: 'Common CLI Patterns',
         },
         {
           type: 'doc',

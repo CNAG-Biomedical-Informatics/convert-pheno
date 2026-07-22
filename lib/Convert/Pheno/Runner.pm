@@ -158,8 +158,76 @@ sub run_operation {
       )
       : undef;
 
-    Convert::Pheno::open_connections_SQLite($self)
-      if $self->{method} ne 'bff2pxf';
+    my $connections_open = 0;
+    my ( $ok, $error );
+
+    $ok = eval {
+        if ( $self->{method} ne 'bff2pxf' ) {
+            Convert::Pheno::open_connections_SQLite($self);
+            $connections_open = 1;
+        }
+
+        $out_data = _process_operation_items(
+            $self,
+            $input,
+            $operation,
+            $context,
+            $view,
+            $stream,
+            $json,
+            $out_data,
+        );
+        1;
+    };
+    $error = $@ unless $ok;
+
+    my @cleanup_errors;
+    _run_cleanup(
+        \@cleanup_errors,
+        'closing SQLite connections',
+        sub { Convert::Pheno::close_connections_SQLite($self) },
+      )
+      if $connections_open;
+    _run_cleanup(
+        \@cleanup_errors,
+        'closing the search audit',
+        sub { Convert::Pheno::finalize_search_audit($self) },
+    );
+    delete $self->{current_row};
+
+    if ($stream) {
+        if ( $ok && !@cleanup_errors ) {
+            _run_cleanup(
+                \@cleanup_errors,
+                'finalizing streamed output',
+                sub { Convert::Pheno::finalize_stream_out($stream) },
+            );
+        }
+        else {
+            _run_cleanup(
+                \@cleanup_errors,
+                'closing failed streamed output',
+                sub {
+                    close $stream->{fh}
+                      if $stream->{fh} && defined fileno( $stream->{fh} );
+                    return 1;
+                },
+            );
+        }
+    }
+
+    _throw_run_failure( $error, \@cleanup_errors )
+      if !$ok || @cleanup_errors;
+
+    return 1 if $stream;
+    return $out_data;
+}
+
+sub _process_operation_items {
+    my (
+        $self,      $input,   $operation, $context,
+        $view,      $stream,  $json,      $out_data,
+    ) = @_;
 
     my $is_array = ref($input) eq 'ARRAY';
     my @items    = $is_array ? @{$input} : ($input);
@@ -225,18 +293,34 @@ sub run_operation {
     synthesize_bundle_entities( $self, $out_data, $context )
       if $view eq 'bundle';
 
-    Convert::Pheno::close_connections_SQLite($self)
-      unless $self->{method} eq 'bff2pxf';
-    Convert::Pheno::finalize_search_audit($self);
-    delete $self->{current_row};
+    return $out_data;
+}
 
-    if ($stream) {
-        Convert::Pheno::finalize_stream_out($stream);
-        return 1;
+sub _run_cleanup {
+    my ( $errors, $label, $code ) = @_;
+    my $ok = eval {
+        $code->();
+        1;
+    };
+    return 1 if $ok;
+
+    my $error = $@ || 'unknown cleanup error';
+    chomp $error;
+    push @{$errors}, "$label: $error";
+    return;
+}
+
+sub _throw_run_failure {
+    my ( $error, $cleanup_errors ) = @_;
+    my $message = defined $error ? $error : q{};
+    $message .= "\n" if length($message) && $message !~ /\n\z/;
+
+    if ( @{$cleanup_errors} ) {
+        $message .= "Conversion cleanup failed:\n" unless length $message;
+        $message .= join q{}, map { "  $_\n" } @{$cleanup_errors};
     }
 
-    return $out_data if $view eq 'bundle';
-    return $is_array ? $out_data : $out_data;
+    die $message;
 }
 
 sub _resolve_context {

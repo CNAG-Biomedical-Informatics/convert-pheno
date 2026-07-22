@@ -159,25 +159,59 @@ sub open_connections_SQLite {
     my @databases = @{ $self->{databases} };
 
     # Open databases
-    my $dbh;
-    $dbh->{$_} = open_db_SQLite( $_, $self->{path_to_ohdsi_db} )
-      for (@databases);
+    my $dbh = {};
+    my $ok = eval {
+        for my $database (@databases) {
+            $dbh->{$database} =
+              open_db_SQLite( $database, $self->{path_to_ohdsi_db} );
+        }
 
-    # Add $dbh HANDLE to $self
-    $self->{dbh} = $dbh;    # Dynamically adding attributes (setter)
+        # Add $dbh HANDLE to $self
+        $self->{dbh} = $dbh;    # Dynamically adding attributes (setter)
 
-    # Prepare the query once
-    prepare_query_SQLite($self);
+        # Prepare the query once
+        prepare_query_SQLite($self);
+        1;
+    };
+
+    unless ($ok) {
+        my $error = $@;
+        delete $self->{sth};
+        for my $database ( reverse @databases ) {
+            next unless exists $dbh->{$database};
+            eval { close_db_SQLite( $dbh->{$database} ) };
+        }
+        delete $self->{dbh};
+        die $error;
+    }
 
     return 1;
 }
 
 sub close_connections_SQLite {
     my $self      = shift;
-    my $dbh       = $self->{dbh};
+    my $dbh       = $self->{dbh} || {};
     my @databases = @{ $self->{databases} };
-    close_db_SQLite( $dbh->{$_} ) for (@databases);
-    _emit_db_profile_summary($self);
+    my @errors;
+
+    delete $self->{sth};
+    for my $database (@databases) {
+        next unless exists $dbh->{$database};
+        my $ok = eval {
+            close_db_SQLite( $dbh->{$database} );
+            1;
+        };
+        push @errors, $@ unless $ok;
+    }
+    delete $self->{dbh};
+
+    my $profile_ok = eval {
+        _emit_db_profile_summary($self);
+        1;
+    };
+    push @errors, $@ unless $profile_ok;
+
+    die join q{}, @errors if @errors;
     return 1;
 }
 

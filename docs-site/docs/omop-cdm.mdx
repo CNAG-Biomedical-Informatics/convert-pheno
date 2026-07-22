@@ -38,7 +38,7 @@ The **OMOP CDM** is designed to be database-agnostic, which means it can be impl
 | Large OMOP SQL dump to streamed BFF | `convert-pheno -iomop dump.sql.gz -obff individuals.json.gz --stream --ohdsi-db` |
 | BFF individuals to OMOP CSV tables | `convert-pheno -ibff individuals.json -oomop --out-dir omop_export/` |
 
-For more examples, see [Conversion Recipes](conversion-recipes).
+For more examples, see [Choose a Conversion](conversion-recipes).
 
 For the dedicated OMOP-CDM to Beacon v2 mapping work and manuscript repository, see
 [OMOP-CDM to Beacon v2](https://github.com/CNAG-Biomedical-Informatics/omop-cdm-2-beacon-v2).
@@ -78,7 +78,7 @@ convert-pheno -ibff individuals.json -oomop --out-dir omop_export/ --out-name PE
 <TabItem value="command-line" label="Command-line">
 
 
-When using the `convert-pheno` command-line interface, simply ensure the [correct syntax](usage) is provided.
+When using the `convert-pheno` command-line interface, see [Common CLI Patterns](usage) for reusable command forms.
 
 :::note[Individuals-only vs entity-aware BFF output]
 Most examples below use the individuals-only `-obff FILE` path, which still emits Beacon `individuals` as one file. In non-stream BFF conversions, you can also request synthesized `datasets` and `cohorts` with `--entities ... --out-dir out/`. `biosamples` can now be emitted from OMOP `SPECIMEN`, but this OMOP-to-BFF biosample path is still experimental and pending validation with external collaborators.
@@ -96,7 +96,9 @@ This overhead can be substantial, potentially doubling the processing time in `-
 <details>
 <summary>About `--max-lines-sql` default value</summary>
 
-Please note that for **PostgreSQL dumps**, we have configured `--max-lines-sql=500` which is suitable for testing purposes. However, for real data, it is recommended to **increase this limit** to match the size of your largest table. This flag does not apply when your input files are `CSV`.
+`--max-lines-sql` deliberately defaults to `500` to keep exploratory and test runs bounded. For **PostgreSQL dumps**, it limits the rows read from each selected table. In the default **non-streaming** OMOP conversion, it also limits the number of individuals emitted, including when the input is CSV/TSV or in-memory API data. CSV/TSV rows processed with `--stream` are not capped by this option.
+
+For a complete conversion, set the value high enough for both the largest required SQL table and the expected number of individuals.
 
 </details>
 

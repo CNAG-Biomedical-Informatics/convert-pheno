@@ -7,6 +7,11 @@ use feature qw(say);
 
 use Exporter 'import';
 use JSON::XS;
+use Convert::Pheno::IO::Atomic qw(
+  commit_staged_path
+  create_staged_path
+  discard_staged_path
+);
 
 our @EXPORT_OK = qw(
   dispatcher_open_stream_out
@@ -88,13 +93,27 @@ sub omop_stream_targets_open {
     my @entities = @{ $self->{entities} || ['individuals'] };
     my %targets;
 
-    for my $entity (@entities) {
-        my $path = _stream_output_path( $self, $entity );
-        my $fh   = Convert::Pheno::open_filehandle( $path, 'w' );
-        $targets{$entity} = {
-            fh   => $fh,
-            path => $path,
-        };
+    my $ok = eval {
+        for my $entity (@entities) {
+            my $path   = _stream_output_path( $self, $entity );
+            my $staged = create_staged_path($path);
+            my $fh     = Convert::Pheno::open_filehandle( $staged, 'w' );
+            $targets{$entity} = {
+                fh     => $fh,
+                path   => $path,
+                staged => $staged,
+            };
+        }
+        1;
+    };
+
+    unless ($ok) {
+        my $error = $@;
+        for my $target ( values %targets ) {
+            eval { close $target->{fh} if defined fileno( $target->{fh} ) };
+            eval { discard_staged_path( $target->{staged} ) };
+        }
+        die $error;
     }
 
     $self->{_omop_stream_targets} = \%targets;
@@ -127,15 +146,51 @@ sub omop_stream_targets_write {
 }
 
 sub omop_stream_targets_finalize {
-    my ($self) = @_;
+    my ( $self, $commit ) = @_;
+    $commit = 1 unless defined $commit;
     return 1 unless exists $self->{_omop_stream_targets};
 
+    my @errors;
     for my $entity ( keys %{ $self->{_omop_stream_targets} } ) {
-        close $self->{_omop_stream_targets}{$entity}{fh};
+        my $target = $self->{_omop_stream_targets}{$entity};
+        my $ok = eval {
+            close $target->{fh} if defined fileno( $target->{fh} );
+            1;
+        };
+        push @errors, $@ unless $ok;
+    }
+
+    $commit = 0 if @errors;
+    for my $entity ( sort keys %{ $self->{_omop_stream_targets} } ) {
+        my $target = $self->{_omop_stream_targets}{$entity};
+        if ($commit) {
+            my $ok = eval {
+                commit_staged_path( $target->{staged}, $target->{path} );
+                1;
+            };
+            unless ($ok) {
+                push @errors, $@;
+                my $discarded = eval {
+                    discard_staged_path( $target->{staged} );
+                    1;
+                };
+                push @errors, $@ unless $discarded;
+                $commit = 0;
+            }
+        }
+        else {
+            my $ok = eval {
+                discard_staged_path( $target->{staged} );
+                1;
+            };
+            push @errors, $@ unless $ok;
+        }
     }
 
     delete $self->{_omop_stream_targets};
     delete $self->{_omop_stream_seen};
+
+    die join q{}, @errors if @errors;
     return 1;
 }
 

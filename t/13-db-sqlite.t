@@ -110,6 +110,68 @@ is(
     ok( Convert::Pheno::DB::SQLite::close_db_SQLite($ro), 'close_db_SQLite disconnects cleanly' );
 }
 
+{
+    no warnings 'redefine';
+
+    my $disconnects = 0;
+    my $self = bless(
+        {
+            databases => [ 'first', 'second' ],
+            debug     => 0,
+        },
+        'Convert::Pheno'
+    );
+
+    local *Convert::Pheno::DB::SQLite::open_db_SQLite = sub {
+        my ($database) = @_;
+        die "second database failed\n" if $database eq 'second';
+        return {};
+    };
+    local *Convert::Pheno::DB::SQLite::close_db_SQLite = sub {
+        $disconnects++;
+        return 1;
+    };
+
+    throws_ok(
+        sub { Convert::Pheno::DB::SQLite::open_connections_SQLite($self) },
+        qr/second database failed/,
+        'open_connections_SQLite preserves connection failures'
+    );
+    is( $disconnects, 1, 'open_connections_SQLite closes handles opened before a failure' );
+    ok( !exists $self->{dbh}, 'failed connection setup removes transient database handles' );
+    ok( !exists $self->{sth}, 'failed connection setup removes transient statement handles' );
+}
+
+{
+    no warnings 'redefine';
+
+    my $disconnects = 0;
+    my $self = bless(
+        {
+            databases => [ 'first', 'second' ],
+            dbh       => { first => {}, second => {} },
+            sth       => { first => {}, second => {} },
+            debug     => 0,
+        },
+        'Convert::Pheno'
+    );
+
+    local *Convert::Pheno::DB::SQLite::close_db_SQLite = sub {
+        $disconnects++;
+        die "first disconnect failed\n" if $disconnects == 1;
+        return 1;
+    };
+
+    throws_ok(
+        sub { Convert::Pheno::DB::SQLite::close_connections_SQLite($self) },
+        qr/first disconnect failed/,
+        'close_connections_SQLite reports disconnect failures'
+    );
+    is( $disconnects, 2, 'close_connections_SQLite attempts every disconnect after a failure' );
+    ok( !exists $self->{dbh}, 'connection cleanup removes database handles' );
+    ok( !exists $self->{sth}, 'connection cleanup removes statement handles' );
+}
+
 dies_ok {
     Convert::Pheno::DB::SQLite::open_db_SQLite( 'missing_ontology', '/definitely/missing/path' );
 } 'open_db_SQLite dies when the database file is missing';

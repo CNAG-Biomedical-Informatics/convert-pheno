@@ -1,0 +1,17 @@
+[
+  {
+    "id": "quickstart-phenopacket",
+    "subject": {
+      "id": "patient-1",
+      "sex": "FEMALE"
+    },
+    "phenotypicFeatures": [
+      {
+        "type": {
+          "id": "HP:0001250",
+          "label": "Seizure"
+        }
+      }
+    ]
+  }
+]

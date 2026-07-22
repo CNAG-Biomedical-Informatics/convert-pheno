@@ -27,9 +27,6 @@ my $DEFAULT = get_defaults();
 use constant DEVEL_MODE => 0;
 use constant MAX_OMOP_INTEGER => 2_147_483_647;
 
-# Global hash (manual memoizing)
-my %SEEN = ();
-
 sub _public_ontology_entry {
     my ($entry) = @_;
     my %public_entry = %{$entry};
@@ -178,21 +175,29 @@ sub map_ontology_term {
     # 2) If already an object, assume pre‑mapped
     return $query if ref $query eq 'HASH';
 
+    # Cache lookup semantics as well as the query itself. Keeping the cache on
+    # the converter prevents results leaking between API requests.
+    my $column_key = defined $arg->{column} ? $arg->{column} : q{};
+    my $result_key = $arg->{require_concept_id} ? 'with_concept_id' : 'term';
+    my $cache =
+      ( $self->{_ontology_term_cache} ||= {} )->{$ontology}{$column_key}
+      {$result_key} ||= {};
+
     # 3) Fast return on cache hit
-    if ( exists $SEEN{$ontology}{$query} ) {
+    if ( exists $cache->{$query} ) {
         say "Skipping searching for <$query> in <$ontology> (cached)"
           if DEVEL_MODE;
         if ($profile_enabled) {
             $self->{db_profile}{mapping}{cache_hits}++;
             $self->{db_profile}{ontology}{$ontology}{cache_hits}++;
             my $resolution =
-              $SEEN{$ontology}{$query}{search_resolution} // 'fallback_na';
+              $cache->{$query}{search_resolution} // 'fallback_na';
             $self->{db_profile}{final_resolution}{$resolution}++;
             $self->{db_profile}{ontology}{$ontology}{final_resolution}
               {$resolution}++;
         }
-        _record_search_audit( $self, $query, $ontology, $SEEN{$ontology}{$query}, 'cache' );
-        return _public_ontology_entry( $SEEN{$ontology}{$query} );
+        _record_search_audit( $self, $query, $ontology, $cache->{$query}, 'cache' );
+        return _public_ontology_entry( $cache->{$query} );
     }
 
     # 4) --ohdsi-db
@@ -252,7 +257,7 @@ sub map_ontology_term {
         search_resolution => $search_resolution,
       };
 
-    $SEEN{$ontology}{$query} = $entry;
+    $cache->{$query} = $entry;
     _record_search_audit(
         $self,
         $query,

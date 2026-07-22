@@ -21,7 +21,7 @@ Uncoded `DV_TEXT` terms are emitted with synthetic `openEHR:` ids so Beacon onto
 * openEHR canonical `COMPOSITION` JSON/YAML input (current implementation target)
 
 :::
-#### Version 0.31
+#### Version 0.32
 
 Starting with **v0.31**, this mapping table may be drafted or refined with **LLM assistance** to carry part of the heavy schema-mapping load. When the openEHR source material is especially dense or ambiguous, the documented default is **`gpt-5.4`** with **`high`** reasoning, followed by human review.
 

@@ -1,0 +1,58 @@
+---
+title: 5-Minute Quickstart
+sidebar_label: 5-Minute Quickstart
+slug: /quickstart
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+export const QuickstartInput = () => {
+  const inputUrl = useBaseUrl('/examples/quickstart-phenopacket.json');
+
+  return <a href={inputUrl} download>Download the example Phenopacket</a>;
+};
+
+Convert one small Phenopacket into Beacon v2 Models (`BFF`). This route needs no mapping file or external terminology database.
+
+## 1. Check the CLI
+
+```bash
+convert-pheno --version
+```
+
+If the command is unavailable, follow [Download & Installation](download-and-installation) first.
+
+## 2. Get the Example Input
+
+<QuickstartInput /> and save it as `phenopacket.json`.
+
+The file contains a one-record Phenopacket collection with one phenotypic feature. You can [view the PXF format details](pxf) later; they are not required for this example.
+
+## 3. Run the Conversion
+
+```bash
+convert-pheno -ipxf phenopacket.json -obff individuals.json
+```
+
+The command creates `individuals.json` in the current directory. The result contains the individual `patient-1`, its normalized sex ontology term, and the `HP:0001250` phenotypic feature.
+
+:::tip[You have completed a conversion]
+`phenopacket.json` was the source, `-ipxf` selected the input format, and `-obff individuals.json` selected the BFF output and filename.
+:::
+
+## 4. Check the Result
+
+Open `individuals.json`, or inspect its first lines:
+
+```bash
+head -40 individuals.json
+```
+
+For schema-aware checks, continue to [Output Validation](output-validation).
+
+## Where Next?
+
+- [Choose a Conversion](conversion-recipes) for commands matching your own input and target formats.
+- [Supported Formats](supported-formats) for the complete format overview.
+- [CLI Options & Behavior](use-as-a-command-line-interface) for output directories, multiple entities, ontology search, and large OMOP exports.
+- [Guided Examples](tutorial) for REDCap, OMOP-CDM, and mapped CSV walkthroughs.

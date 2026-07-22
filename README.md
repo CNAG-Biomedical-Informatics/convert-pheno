@@ -10,7 +10,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/CNAG-Biomedical-Informatics/convert-pheno/badge.svg?branch=main)](https://coveralls.io/github/CNAG-Biomedical-Informatics/convert-pheno?branch=main)
 [![CPAN Publish](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/cpan-publish.yml/badge.svg)](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/cpan-publish.yml)
 [![Kwalitee Score](https://cpants.cpanauthors.org/dist/Convert-Pheno.svg)](https://cpants.cpanauthors.org/dist/Convert-Pheno)
-![version](https://img.shields.io/badge/version-0.31_beta-orange)
+![version](https://img.shields.io/badge/version-0.32_beta-orange)
 [![Docker Build](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/docker-build-multi-arch.yml/badge.svg)](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/docker-build-multi-arch.yml)
 [![Docker Pulls](https://badgen.net/docker/pulls/manuelrueda/convert-pheno?icon=docker&label=pulls)](https://hub.docker.com/r/manuelrueda/convert-pheno/)
 [![Docker Image Size](https://img.shields.io/docker/image-size/manuelrueda/convert-pheno/latest?logo=docker&label=image%20size)](https://hub.docker.com/r/manuelrueda/convert-pheno/)
@@ -60,7 +60,7 @@ For backward compatibility, the `-iomop ... -obff` form still keeps the individu
 Note: `openEHR` support is currently experimental and currently limited to canonical composition input with `BFF` or `PXF` output.
 See the CLI documentation for the current experimental `openEHR` usage details.
 
-Internally, most conversions use `BFF` as the internal target model before continuing to other output formats when needed.
+Internally, most conversions use `BFF` as the target model before continuing to other output formats when needed.
 
 ## Multi-Entity Output
 

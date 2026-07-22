@@ -24,6 +24,7 @@ BEGIN {
     lib->import("$API_DIR/../../lib");
 }
 use Convert::Pheno;
+use Convert::Pheno::Operations qw(is_public_conversion);
 use Mojo::JSON qw(true false);
 
 sub render_error {
@@ -74,6 +75,14 @@ post '/api' =>  sub {
     my $request = $c->req->json;
     my ( $conversion, $hash ) = eval { flatten_public_request($request) };
     return render_error( $c, 422, 'invalid_request', "$@" ) if $@;
+    return render_error(
+        $c,
+        422,
+        'conversion_error',
+        "Unsupported conversion <$conversion>",
+        $conversion,
+      )
+      unless is_public_conversion($conversion);
 
     # Create new object
     my $result = eval {

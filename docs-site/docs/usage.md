@@ -1,9 +1,9 @@
 ---
-title: Usage
-sidebar_label: Usage
+title: Common CLI Patterns
+sidebar_label: Common CLI Patterns
 ---
 
-# Usage
+# Common CLI Patterns
 
 This page collects a few **common `convert-pheno` command-line patterns**. For the flag reference, see [Use as a command-line interface](use-as-a-command-line-interface).
 

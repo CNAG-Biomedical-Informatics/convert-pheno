@@ -1,6 +1,6 @@
 ---
-title: Tutorial
-sidebar_label: Tutorial
+title: Guided Examples
+sidebar_label: Guided Examples
 ---
 
 This page gives **short walkthroughs** for three common `convert-pheno` conversions.
@@ -21,7 +21,7 @@ These examples assume that `Convert-Pheno` is already installed. If not, start w
 | I have OMOP-CDM data and want BFF | [OMOP CDM to BFF](#omop-cdm-to-bff) |
 | I have a plain CSV and a mapping file | [CSV to BFF](#csv-to-bff) |
 
-For short copy-paste commands without tutorial context, use [Conversion Recipes](conversion-recipes).
+For short copy-paste commands without walkthrough context, use [Choose a Conversion](conversion-recipes).
 
 ## REDCap to PXF
 
@@ -431,7 +431,7 @@ convert-pheno -icsv clinical_data.csv \
 
 ## Need more detail?
 
-- [Usage](usage) for more command examples
+- [Common CLI Patterns](usage) for more command examples
 - [CSV](csv) for raw CSV input
 - [REDCap](redcap) for REDCap exports
 - [OMOP-CDM](omop-cdm) for OMOP-specific options and caveats

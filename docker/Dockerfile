@@ -1,25 +1,29 @@
 FROM ubuntu:22.04
 
-# File Author / Maintainer
-LABEL maintainer Manuel Rueda <manuel.rueda@cnag.eu>
+ARG BUILD_VERSION=dev
+ARG VCS_REF=unknown
+
+LABEL maintainer="Manuel Rueda <manuel.rueda@cnag.eu>" \
+      org.opencontainers.image.title="Convert-Pheno" \
+      org.opencontainers.image.description="Clinical and phenotypic data model converter" \
+      org.opencontainers.image.source="https://github.com/CNAG-Biomedical-Informatics/convert-pheno" \
+      org.opencontainers.image.version="${BUILD_VERSION}" \
+      org.opencontainers.image.revision="${VCS_REF}" \
+      org.opencontainers.image.licenses="Artistic-2.0"
 
 # Install Linux tools
-RUN apt-get update && \
-    apt-get -y install gcc unzip make git cpanminus perl-doc vim sudo libbz2-dev zlib1g-dev libperl-dev libssl-dev python3-pip && \
-    pip3 install setuptools "fastapi[all]"
+RUN apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends \
+       gcc unzip make git cpanminus perl-doc vim sudo libbz2-dev libexpat1-dev \
+       zlib1g-dev libperl-dev libssl-dev python3-pip \
+    && pip3 install --no-cache-dir setuptools "fastapi[all]" \
+    && rm -rf /var/lib/apt/lists/*
 
-# Download Convert-Pheno
-WORKDIR /usr/share/
-RUN git clone https://github.com/CNAG-Biomedical-Informatics/convert-pheno.git
-
-# Remove Git metadata and CI configs to shrink image and avoid shipping them
-RUN rm -rf convert-pheno/.git convert-pheno/.github convert-pheno/.gitattributes convert-pheno/.gitignore
-
-# Remove docs
-RUN rm -rf convert-pheno/docs/ convert-pheno/docs-site/ convert-pheno/mkdocs.yml
+# Build from the caller-supplied checkout so tags and workflow refs are reproducible.
+WORKDIR /usr/share/convert-pheno
+COPY . .
 
 # Install Perl modules
-WORKDIR /usr/share/convert-pheno
 RUN cpanm --notest --installdeps .
 
 # Add user "dockeruser"
@@ -32,5 +36,4 @@ RUN groupadd -g "${GID}" dockeruser \
 # To change default user from root -> dockeruser
 #USER dockeruser
 
-# Get back to entry dir
 WORKDIR /usr/share/convert-pheno

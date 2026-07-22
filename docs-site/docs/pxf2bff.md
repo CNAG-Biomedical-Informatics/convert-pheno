@@ -12,7 +12,7 @@ sidebar_label: PXF to BFF
  The Beacon v2 schema enforces the presence of specific properties to achieve successful validation. In cases where no suitable match is found, DEFAULT values are employed to guarantee conformity.
 
 :::
-#### Version 0.31
+#### Version 0.32
 
 **Output model:** BFF
 

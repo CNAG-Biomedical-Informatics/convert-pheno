@@ -29,39 +29,94 @@ The repository includes a `docker/Dockerfile`.
 Build the image locally with:
 
 ```bash
-docker buildx build -t cnag/convert-pheno:latest .
+docker buildx build --load \
+  --file docker/Dockerfile \
+  --build-arg BUILD_VERSION="$(cat VERSION)" \
+  --build-arg VCS_REF="$(git rev-parse HEAD)" \
+  --tag cnag/convert-pheno:latest \
+  .
 ```
 
-## Run The Container
+The Dockerfile packages the **current repository checkout**; it does not clone
+the moving `main` branch. Uncommitted files are also part of a local build unless
+they are excluded by `.dockerignore`. Check out a release tag before building if
+you need an image that exactly matches that release.
 
-Start a detached container:
+<details>
+<summary>Maintainer release builds</summary>
+
+After committing the version and changelog, create and push a tag matching the
+value in `VERSION`:
+
+```bash
+VERSION="$(cat VERSION)"
+git tag "$VERSION"
+git push origin "$VERSION"
+```
+
+Then manually launch the **Docker build (multi-arch)** GitHub workflow and
+select that tag as the workflow ref. The workflow builds the selected checkout
+and records its Git SHA and Convert-Pheno version in the image labels. It refuses
+branch refs and tags that do not match `VERSION`.
+
+</details>
+
+## Run Convert-Pheno
+
+Run each conversion in the foreground and mount the current directory so
+Convert-Pheno can read local inputs and write its results back to the host:
+
+```bash
+docker run --rm \
+  --volume "$PWD:/data" \
+  --workdir /data \
+  cnag/convert-pheno:latest \
+  /usr/share/convert-pheno/bin/convert-pheno \
+  -ipxf pxf.json -obff individuals.json
+```
+
+The command displays progress and errors in the terminal, then removes the
+container when it finishes. A successful run creates `individuals.json` in the
+current directory. Replace the final line with the Convert-Pheno arguments
+required for your conversion.
+
+The image runs as `root` by default. On Linux, add
+`--user "$(id -u):$(id -g)"` to keep output files owned by your current user:
+
+```bash
+docker run --rm \
+  --user "$(id -u):$(id -g)" \
+  --volume "$PWD:/data" \
+  --workdir /data \
+  cnag/convert-pheno:latest \
+  /usr/share/convert-pheno/bin/convert-pheno \
+  -ipxf pxf.json -obff individuals.json
+```
+
+## Interactive Container (Optional)
+
+Use a named, detached container when you want to inspect the image or run
+several commands in the same environment:
 
 ```bash
 docker run -tid \
-  -e USERNAME=root \
+  --volume "$PWD:/data" \
+  --workdir /data \
   --name convert-pheno \
   cnag/convert-pheno:latest
-```
-
-Enter the container:
-
-```bash
 docker exec -ti convert-pheno bash
 ```
 
-The command-line executable is available at:
-
-```text
-/usr/share/convert-pheno/bin/convert-pheno
-```
-
-The default container user is `root`, but you can also run as `UID=1000` (`dockeruser`):
+The command-line executable is available at
+`/usr/share/convert-pheno/bin/convert-pheno`. Remove the named container when it
+is no longer needed:
 
 ```bash
-docker run --user 1000 -tid \
-  --name convert-pheno \
-  cnag/convert-pheno:latest
+docker rm -f convert-pheno
 ```
+
+The image also includes `dockeruser` with `UID=1000`. To use it, add
+`--user 1000:1000` to the initial `docker run` command.
 
 ## Use `make`
 
@@ -95,24 +150,15 @@ my_convert_pheno_run/
 `-- output/
 ```
 
-Start the container with that directory mounted:
+Run a conversion with that directory mounted:
 
 ```bash
-docker run -tid \
+docker run --rm \
   --volume "$PWD/my_convert_pheno_run:/data" \
-  --name convert-pheno-mount \
-  cnag/convert-pheno:latest
-```
-
-Then run commands using the container paths:
-
-```bash
-convert-pheno() {
-  docker exec -ti convert-pheno-mount \
-    /usr/share/convert-pheno/bin/convert-pheno "$@"
-}
-
-convert-pheno -icsv /data/input/clinical.csv \
+  --workdir /data \
+  cnag/convert-pheno:latest \
+  /usr/share/convert-pheno/bin/convert-pheno \
+  -icsv /data/input/clinical.csv \
   --mapping-file /data/mapping/mapping.yaml \
   --search-audit-tsv /data/output/search-audit.tsv \
   -obff /data/output/individuals.json
@@ -122,7 +168,12 @@ For REDCap input, keep both the export and dictionary under the mounted
 directory:
 
 ```bash
-convert-pheno -iredcap /data/input/redcap.csv \
+docker run --rm \
+  --volume "$PWD/my_convert_pheno_run:/data" \
+  --workdir /data \
+  cnag/convert-pheno:latest \
+  /usr/share/convert-pheno/bin/convert-pheno \
+  -iredcap /data/input/redcap.csv \
   --redcap-dictionary /data/input/redcap-dictionary.csv \
   --mapping-file /data/mapping/mapping.yaml \
   -obff /data/output/individuals.json
@@ -132,15 +183,13 @@ If your files are already in different host directories, you do not need to copy
 them. Mount each directory explicitly and use the container paths in the command:
 
 ```bash
-docker run -tid \
+docker run --rm \
   --volume /path/to/input:/input:ro \
   --volume /path/to/mapping:/mapping:ro \
   --volume /path/to/output:/output \
   --volume /path/to/db:/db:ro \
-  --name convert-pheno-mount \
-  cnag/convert-pheno:latest
-
-docker exec -ti convert-pheno-mount /usr/share/convert-pheno/bin/convert-pheno \
+  cnag/convert-pheno:latest \
+  /usr/share/convert-pheno/bin/convert-pheno \
   -icsv /input/clinical.csv \
   --mapping-file /mapping/mapping.yaml \
   --path-to-ohdsi-db /db \

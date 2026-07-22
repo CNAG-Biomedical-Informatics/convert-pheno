@@ -3,7 +3,7 @@ title: OMOP to BFF Mapping
 sidebar_label: OMOP to BFF Mapping
 ---
 
-#### Version 0.31
+#### Version 0.32
 
 **Output model:** BFF
 

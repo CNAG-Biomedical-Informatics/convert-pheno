@@ -41,4 +41,4 @@ Mapping-file augmentation for `datasets`, `cohorts`, and `biosamples` is availab
 | OMOP-CDM CSV tables | `-oomop --out-dir out/` |
 | Flattened inspection files | `-ocsv`, `-ojsonf`, or `-ojsonld` |
 
-For concrete commands, see [Conversion Recipes](conversion-recipes).
+For concrete commands, see [Choose a Conversion](conversion-recipes).

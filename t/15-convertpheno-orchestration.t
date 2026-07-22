@@ -103,6 +103,29 @@ local $SIG{__WARN__} = sub {
 
 {
     my $convert = Convert::Pheno->new( {} );
+    $convert->{temporary_probe} = 'original';
+
+    throws_ok(
+        sub {
+            Convert::Pheno::_with_temp_self_field(
+                $convert,
+                'temporary_probe',
+                'temporary',
+                sub { die "temporary callback failed\n" },
+            );
+        },
+        qr/temporary callback failed/,
+        '_with_temp_self_field preserves callback failures'
+    );
+    is(
+        $convert->{temporary_probe},
+        'original',
+        '_with_temp_self_field restores object state after failure'
+    );
+}
+
+{
+    my $convert = Convert::Pheno->new( {} );
     dies_ok { Convert::Pheno::_omop_require_concept( $convert, {} ) } '_omop_require_concept dies when CONCEPT is missing';
     ok( Convert::Pheno::_omop_require_concept( $convert, { CONCEPT => [] } ), '_omop_require_concept passes when CONCEPT exists' );
 }
@@ -120,6 +143,46 @@ local $SIG{__WARN__} = sub {
 
     ok( Convert::Pheno::process_sqldump_stream( $convert, 'dump.sql', [ 'CONCEPT', 'DRUG_EXPOSURE', 'PERSON' ] ), 'process_sqldump_stream succeeds' );
     is_deeply( \@sql_calls, [ 'DRUG_EXPOSURE' ], 'process_sqldump_stream skips RAM-memory OMOP tables' );
+}
+
+{
+    no warnings 'redefine';
+
+    my ( $closed, $audit_finalized, $stream_commit );
+    my $convert = Convert::Pheno->new(
+        {
+            method           => 'omop2bff',
+            prev_omop_tables => ['PERSON'],
+        }
+    );
+
+    local *Convert::Pheno::open_connections_SQLite = sub { return 1 };
+    local *Convert::Pheno::close_connections_SQLite = sub { $closed++; return 1 };
+    local *Convert::Pheno::finalize_search_audit = sub { $audit_finalized++; return 1 };
+    local *Convert::Pheno::omop_streams_multiple_entities_wrapper = sub { return 1 };
+    local *Convert::Pheno::omop_stream_targets_open_wrapper = sub { return 1 };
+    local *Convert::Pheno::omop_stream_targets_finalize_wrapper = sub {
+        ( undef, $stream_commit ) = @_;
+        return 1;
+    };
+    local *Convert::Pheno::OMOP::ParticipantStream::process_csv_files_stream =
+      sub { die "stream mapping failed\n" };
+
+    throws_ok(
+        sub {
+            Convert::Pheno::OMOP::ParticipantStream::omop_stream_dispatcher(
+                {
+                    self      => $convert,
+                    filepaths => ['table.csv'],
+                }
+            );
+        },
+        qr/stream mapping failed/,
+        'stream dispatcher preserves conversion failures'
+    );
+    is( $stream_commit, 0, 'failed streams discard staged entity outputs' );
+    is( $closed, 1, 'stream dispatcher closes SQLite connections after failure' );
+    is( $audit_finalized, 1, 'stream dispatcher finalizes search audits after failure' );
 }
 
 {
@@ -164,6 +227,38 @@ local $SIG{__WARN__} = sub {
     my $convert = Convert::Pheno->new( { method => 'bff2csv' } );
     my $op = resolve_operation($convert);
     is( $op->{type}, 'direct', 'runner resolves bff2csv as a direct operation' );
+}
+
+{
+    no warnings 'redefine';
+
+    my $closed    = 0;
+    my $finalized = 0;
+    my $convert   = Convert::Pheno->new( { method => 'csv2bff' } );
+    my $operation = {
+        type => 'direct',
+        run  => sub { die "mapping failed\n" },
+    };
+
+    local *Convert::Pheno::open_connections_SQLite = sub { return 1 };
+    local *Convert::Pheno::close_connections_SQLite = sub {
+        $closed++;
+        return 1;
+    };
+    local *Convert::Pheno::finalize_search_audit = sub {
+        $finalized++;
+        return 1;
+    };
+    local *Convert::Pheno::_dispatcher_open_stream_out = sub { return undef };
+
+    throws_ok(
+        sub { run_operation( $convert, {}, operation => $operation ) },
+        qr/mapping failed/,
+        'runner preserves conversion failures'
+    );
+    is( $closed, 1, 'runner closes SQLite connections after a conversion failure' );
+    is( $finalized, 1, 'runner finalizes search audit output after a conversion failure' );
+    ok( !exists $convert->{current_row}, 'runner clears transient row state after a conversion failure' );
 }
 
 {

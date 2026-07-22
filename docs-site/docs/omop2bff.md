@@ -21,7 +21,7 @@ sidebar_label: OMOP to BFF
  If `biosamples` are explicitly requested and the OMOP input does not contain the `SPECIMEN` table, the conversion fails with a focused error. If `SPECIMEN` exists but is empty, the conversion succeeds and emits an empty `biosamples` collection.
 
 :::
-#### Version 0.31
+#### Version 0.32
 
 **Output model:** BFF
 

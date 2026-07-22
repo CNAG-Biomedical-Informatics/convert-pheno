@@ -112,11 +112,17 @@ sub _with_temp_self_field {
     my $old = $had ? $self->{$field} : undef;
 
     $self->{$field} = $value;
-    my $ret = $code->();
+    my ( $ok, $ret );
+    $ok = eval {
+        $ret = $code->();
+        1;
+    };
+    my $error = $@;
 
     if ($had) { $self->{$field} = $old }
     else      { delete $self->{$field} }
 
+    die $error unless $ok;
     return $ret;
 }
 

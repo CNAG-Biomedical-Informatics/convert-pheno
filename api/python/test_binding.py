@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import os
+import re
 import sys
 import tempfile
 import textwrap
@@ -9,10 +10,35 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "lib"))
 
+import convertpheno
 from convertpheno import PythonBinding, PythonBridgeError
 
 
 class PythonBindingTests(unittest.TestCase):
+    def test_python_version_tracks_perl_and_release_versions(self):
+        perl_source = (
+            Path(convertpheno.__file__).resolve().parent / "Convert" / "Pheno.pm"
+        ).read_text(encoding="utf-8")
+        match = re.search(
+            r"our\s+\$VERSION\s*=\s*['\"]([^'\"]+)['\"]",
+            perl_source,
+        )
+        self.assertIsNotNone(match)
+        self.assertEqual(convertpheno.__version__, match.group(1))
+
+        release_version = (
+            Path(convertpheno.__file__).resolve().parent.parent / "VERSION"
+        ).read_text(encoding="utf-8").strip()
+        self.assertEqual(convertpheno.__version__.split("_", 1)[0], release_version)
+
+    def test_binding_rejects_callable_internal_method(self):
+        binding = PythonBinding({"method": "get_info"})
+        with self.assertRaisesRegex(
+            PythonBridgeError,
+            r"Unsupported conversion <get_info>",
+        ):
+            binding.convert_pheno()
+
     def setUp(self):
         self.original_bridge = os.environ.get("CONVERT_PHENO_PERL_BRIDGE")
 

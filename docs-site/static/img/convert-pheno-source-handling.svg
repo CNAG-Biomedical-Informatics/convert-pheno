@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 660" role="img" aria-labelledby="source-handling-title source-handling-description">
+  <title id="source-handling-title">How Convert-Pheno handles source data</title>
+  <desc id="source-handling-description">
+    Source data passes through route-specific mapping rules. Mapped values become first-class target fields and may preserve codes or resolve ontology terms. Source provenance may also be retained in info or _info. Unsupported or unconfigured values may be omitted. Missing target data is handled by a documented default, omission, or conversion failure depending on the route.
+  </desc>
+  <style>
+    .canvas { fill: #f8fbfa; stroke: #bfd0d3; }
+    .source-panel { fill: #ffffff; stroke: #9eb8bf; }
+    .mapping-panel { fill: #edf4f2; stroke: #315f72; }
+    .outcome-panel { fill: #ffffff; stroke: #b5c8cc; }
+    .warning-panel { fill: #fff7ef; stroke: #c8824f; }
+    .choice-panel { fill: #ffffff; stroke: #d2b9a5; }
+    .connector { fill: none; stroke: #315f72; stroke-linecap: round; stroke-linejoin: round; stroke-width: 3; }
+    .connector-muted { fill: none; stroke: #78949d; stroke-dasharray: 7 7; stroke-linecap: round; stroke-width: 2; }
+    .connector-head { fill: #315f72; }
+    .rule { stroke: #c4d2d5; stroke-width: 1; }
+    .eyebrow { fill: #8f552b; font: 700 14px "Noto Sans", "DejaVu Sans", sans-serif; letter-spacing: 1.8px; }
+    .heading { fill: #16323d; font: 700 23px "Noto Sans", "DejaVu Sans", sans-serif; }
+    .mapping-heading { font-size: 21px; }
+    .label { fill: #244b5a; font: 700 17px "Noto Sans", "DejaVu Sans", sans-serif; }
+    .detail { fill: #59717a; font: 400 14px "Noto Sans", "DejaVu Sans", sans-serif; }
+    .small { fill: #59717a; font: 400 13px "Noto Sans", "DejaVu Sans", sans-serif; }
+    .code { fill: #315f72; font: 700 14px "DejaVu Sans Mono", "Liberation Mono", monospace; }
+    .caption { fill: #4e6871; font: 400 14px "Noto Sans", "DejaVu Sans", sans-serif; }
+
+    @media (prefers-color-scheme: dark) {
+      .canvas { fill: #14242b; stroke: #405b64; }
+      .source-panel,
+      .outcome-panel,
+      .choice-panel { fill: #192d35; stroke: #52717b; }
+      .mapping-panel { fill: #203840; stroke: #75afc0; }
+      .warning-panel { fill: #392d25; stroke: #d89a6b; }
+      .connector { stroke: #75afc0; }
+      .connector-muted { stroke: #78949d; }
+      .connector-head { fill: #75afc0; }
+      .rule { stroke: #49636c; }
+      .eyebrow { fill: #e5a36c; }
+      .heading,
+      .label { fill: #edf5f5; }
+      .detail,
+      .small,
+      .caption { fill: #bfd0d3; }
+      .code { fill: #9dcedb; }
+    }
+  </style>
+
+  <rect class="canvas" x="1" y="1" width="1198" height="658" rx="14" />
+
+  <text class="eyebrow" x="40" y="60">SOURCE</text>
+  <rect class="source-panel" x="32" y="82" width="230" height="176" rx="10" />
+  <text class="heading" x="147" y="130" text-anchor="middle">Source data</text>
+  <line class="rule" x1="62" y1="151" x2="232" y2="151" />
+  <text class="detail" x="147" y="184" text-anchor="middle">Structured records,</text>
+  <text class="detail" x="147" y="207" text-anchor="middle">tables, or mapped fields</text>
+  <text class="small" x="147" y="237" text-anchor="middle">Route determines interpretation</text>
+
+  <path class="connector" d="M272 170 H343" />
+  <path class="connector-head" d="M343 170 L328 161 L328 179 Z" />
+
+  <text class="eyebrow" x="366" y="60">CONVERSION</text>
+  <rect class="mapping-panel" x="354" y="82" width="310" height="176" rx="10" />
+  <text class="heading mapping-heading" x="509" y="130" text-anchor="middle">Route-specific mapping</text>
+  <line class="rule" x1="384" y1="151" x2="634" y2="151" />
+  <text class="detail" x="509" y="184" text-anchor="middle">Explicit field rules</text>
+  <text class="detail" x="509" y="207" text-anchor="middle">and target construction</text>
+  <text class="small" x="509" y="237" text-anchor="middle">Outcomes are not mutually exclusive</text>
+
+  <path class="connector" d="M674 170 H719 V115 H760" />
+  <path class="connector-head" d="M760 115 L745 106 L745 124 Z" />
+  <path class="connector" d="M674 170 H719 V248 H760" />
+  <path class="connector-head" d="M760 248 L745 239 L745 257 Z" />
+  <path class="connector-muted" d="M674 170 H719 V381 H760" />
+
+  <text class="eyebrow" x="780" y="60">POSSIBLE OUTCOMES</text>
+
+  <rect class="outcome-panel" x="770" y="78" width="398" height="104" rx="9" />
+  <text class="label" x="795" y="111">First-class target field</text>
+  <text class="detail" x="795" y="139">Known source values map into the target schema.</text>
+  <text class="small" x="795" y="163">Codes are preserved or ontology terms are resolved.</text>
+
+  <rect class="outcome-panel" x="770" y="211" width="398" height="104" rx="9" />
+  <text class="label" x="795" y="244">Source provenance retained</text>
+  <text class="detail" x="795" y="272">When supported, source context accompanies output.</text>
+  <text class="code" x="795" y="296">info.*  /  _info.*</text>
+
+  <rect class="outcome-panel" x="770" y="344" width="398" height="78" rx="9" />
+  <text class="label" x="795" y="377">Value may be omitted</text>
+  <text class="detail" x="795" y="402">Unsupported or unconfigured source data.</text>
+
+  <path class="connector" d="M509 268 V326" />
+  <path class="connector-head" d="M509 326 L500 311 H518 Z" />
+
+  <rect class="warning-panel" x="354" y="336" width="310" height="86" rx="9" />
+  <text class="label" x="509" y="369" text-anchor="middle">Target data is missing</text>
+  <text class="detail" x="509" y="397" text-anchor="middle">Handling depends on the route</text>
+
+  <path class="connector" d="M509 432 V468 H204 V500" />
+  <path class="connector" d="M509 432 V500" />
+  <path class="connector" d="M509 432 V468 H814 V500" />
+  <path class="connector-head" d="M204 500 L195 485 H213 Z" />
+  <path class="connector-head" d="M509 500 L500 485 H518 Z" />
+  <path class="connector-head" d="M814 500 L805 485 H823 Z" />
+
+  <rect class="choice-panel" x="74" y="510" width="260" height="78" rx="9" />
+  <text class="label" x="204" y="543" text-anchor="middle">Apply a default</text>
+  <text class="small" x="204" y="568" text-anchor="middle">When the route documents one</text>
+
+  <rect class="choice-panel" x="379" y="510" width="260" height="78" rx="9" />
+  <text class="label" x="509" y="543" text-anchor="middle">Omit the item</text>
+  <text class="small" x="509" y="568" text-anchor="middle">When optional or unusable</text>
+
+  <rect class="choice-panel" x="684" y="510" width="260" height="78" rx="9" />
+  <text class="label" x="814" y="543" text-anchor="middle">Stop conversion</text>
+  <text class="small" x="814" y="568" text-anchor="middle">When required data is unresolved</text>
+
+  <text class="caption" x="600" y="628" text-anchor="middle">
+    A mapped value may populate a target field and retain its source provenance at the same time.
+  </text>
+</svg>

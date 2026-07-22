@@ -10,8 +10,8 @@ import Link from '@docusaurus/Link';
 The CLI is organized around one input format, one output format, and optional controls for BFF entities, mapping files, ontology search, streaming, and source provenance.
 
 <div className="button-row">
-  <Link className="button button--primary" to="/conversion-recipes">Find routes / recipes</Link>
-  <Link className="button button--secondary" to="/tutorial">Read the tutorial</Link>
+  <Link className="button button--primary" to="/conversion-recipes">Choose a conversion</Link>
+  <Link className="button button--secondary" to="/tutorial">Guided examples</Link>
   <Link className="button button--secondary" to="/download-and-installation">Check installation</Link>
 </div>
 
@@ -97,7 +97,7 @@ convert-pheno -ibff individuals.json -opxf phenopacket.json
 ```
 
 :::tip[Need a command for a specific route?]
-Use [Conversion Routes](conversion-recipes) for route-specific examples. Use this page when you want to understand the CLI model and option groups.
+Use [Choose a Conversion](conversion-recipes) for route-specific examples. Use this page when you want to understand the CLI model and option groups.
 :::
 
 ## Command Model
@@ -280,7 +280,7 @@ For the search behavior itself, including examples and threshold tradeoffs, see 
 - `--exposures-file FILE` provides a CSV list of OMOP `concept_id` values to be treated as exposures.
 - `--stream` enables incremental OMOP processing for `-iomop ... -obff` output. Use `--no-stream` to explicitly keep the default non-streaming mode.
 - `--sql2csv` prints SQL tables instead of converting them.
-- `--max-lines-sql N` limits how many lines are read per SQL table. Default: `500`.
+- `--max-lines-sql N` caps rows read per SQL table and individuals emitted by non-streaming OMOP conversions, including CSV/TSV input. CSV/TSV streaming is not capped by this option. Default: `500`.
 
 ### openEHR-specific options
 
@@ -305,7 +305,7 @@ For the search behavior itself, including examples and threshold tradeoffs, see 
 
 ## More help
 
-- [Usage](usage) for more examples
+- [Common CLI Patterns](usage) for more examples
 - [Download & Installation](download-and-installation) for setup
 - [Google Colab tutorial](https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6) if you want a disposable environment
 

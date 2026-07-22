@@ -13,14 +13,14 @@ import Link from '@docusaurus/Link';
     `REDCap`, `CDISC-ODM`, mapped `CSV`, and related inspection formats.
   </p>
   <div className="convertHeroActions">
-    <Link className="button button--primary" to="/what-is-convert-pheno">What it does</Link>
-    <Link className="button button--secondary" to="/choose-an-interface">Ways to run it</Link>
-    <Link className="button button--secondary" to="/conversion-recipes">Conversion recipes</Link>
+    <Link className="button button--primary" to="/quickstart">Run your first conversion</Link>
+    <Link className="button button--secondary" to="/conversion-recipes">Choose a conversion</Link>
+    <Link className="button button--secondary" to="/download-and-installation">Install</Link>
   </div>
 </div>
 
 :::note[Project status]
-This documentation tracks `Convert-Pheno 0.31`.
+This documentation tracks `Convert-Pheno 0.32`.
 
 The software is in active use and still evolving. Some conversion routes are more mature than others, so it is worth checking the format-specific pages before running a new conversion on real data.
 
@@ -41,8 +41,9 @@ Most users come to `Convert-Pheno` for one of these tasks:
 
 ## Start Here
 
+- [5-Minute Quickstart](quickstart) if you want to complete one small conversion now
 - [Ways to Run Convert-Pheno](choose-an-interface) if you are deciding between CLI, API, and module usage
-- [Conversion Recipes](conversion-recipes) if you want a route finder and copy-paste commands for common conversions
+- [Choose a Conversion](conversion-recipes) if you want a route finder and copy-paste commands for common conversions
 - [Output Validation](output-validation) if you need to inspect provenance, audit ontology search, or validate output
 
 :::note[API vs CLI]
@@ -54,7 +55,7 @@ For mapping-file-based conversions such as `CSV`, `REDCap`, and `CDISC-ODM`, pre
 ## Documentation map
 
 - [Command-Line Interface](use-as-a-command-line-interface) if you want to **run the tool now**
-- [Tutorial](tutorial) if you want **short guided examples**
+- [Guided Examples](tutorial) if you want **walkthroughs with additional context**
 - [Use as an API](use-as-an-api) if you want the **HTTP(s) contract, API support matrix, and JavaScript fetch examples**
 - [Analysis](analysis) if you want to work with the generated `individuals.json`
 - [Troubleshooting](troubleshooting) if something is not behaving as expected

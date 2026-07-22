@@ -27,14 +27,14 @@ export default function Home() {
                 Perl, Python, and HTTP(s) interfaces are also available for integration.
               </p>
               <div className={styles.actions}>
+                <Link className={styles.action} to="/quickstart">
+                  Run Your First Conversion
+                </Link>
                 <Link className={styles.action} to="/conversion-recipes">
-                  Quickstart
+                  Choose a Conversion
                 </Link>
-                <Link className={styles.action} to="/supported-formats">
-                  Supported Formats
-                </Link>
-                <Link className={styles.action} to="/citation">
-                  Publications
+                <Link className={styles.action} to="/download-and-installation">
+                  Install
                 </Link>
               </div>
             </div>

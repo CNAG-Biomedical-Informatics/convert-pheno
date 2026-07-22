@@ -6,6 +6,18 @@ slug: /mapping-steps
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+export const SourceHandlingDiagram = () => {
+  const diagramUrl = useBaseUrl('/img/convert-pheno-source-handling.svg');
+
+  return (
+    <img
+      src={diagramUrl}
+      alt="Source data passes through route-specific mapping and may become target fields, retain provenance, be omitted, use defaults, or stop conversion"
+    />
+  );
+};
 
 ## At a Glance
 
@@ -18,7 +30,7 @@ Most conversions use `BFF` as the internal target model:
 | 3 | Unmapped source values are preserved when useful | Users can audit the conversion and query source-specific fields later |
 
 :::tip[Practical shortcut]
-If you only need commands, use [Conversion Recipes](conversion-recipes). Use this page when you want to understand why mappings are structured the way they are.
+If you only need commands, use [Choose a Conversion](conversion-recipes). Use this page when you want to understand why mappings are structured the way they are.
 :::
 
 ## Step 1: Conversion to the target model
@@ -101,16 +113,25 @@ These tables serve as a **reference** for implementing Convert-Pheno's source co
 
 ### Lossless or lossy conversion?
 
-When converting data from one data standard to another, it is important to consider the possibility of losing information due to differences in schema and field mapping. To mitigate this, we aimed for a **lossless** conversion by incorporating non-mappable variables as `additionalProperties` within the Beacon v2 Models [schema](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema/). This allows users to access the original variables and their values through database queries, especially when using non-relational databases like MongoDB. 
+Source handling is route-specific rather than one global algorithm. A mapped value may populate a first-class target field and retain its source provenance, while unsupported or unconfigured values may be omitted. If required target data cannot be constructed, the route may apply a documented default, omit the affected item, or stop the conversion.
 
-During the conversion process, handling variables that cannot be directly mapped can result in one of two scenarios:
+<figure className="convertDiagramFrame">
+<div className="convertDiagramScroller">
+<SourceHandlingDiagram />
+</div>
+<figcaption>Possible source-data outcomes during conversion. More than one outcome can apply to the same value.</figcaption>
+</figure>
+
+Converting between data standards can lose information because their schemas do not represent every concept in the same way. Where a route supports it, `Convert-Pheno` reduces that loss by retaining source context as `additionalProperties` allowed by the Beacon v2 Models [schema](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema/). This can keep original variables available for auditing and later queries, including in non-relational databases such as MongoDB. Preservation is not universal, so users should review the relevant mapping table and validate the generated output.
+
+Two common preservation strategies are shown below:
 
 
 <Tabs>
 <TabItem value="unmappable-variables" label="Unmappable variables">
 
 
-Often, the input data model has variables that do not directly map to the target but are still useful to retain in the output format. If the target format allows for extra properties in a given term (as BFF does), these original variables are stored under the `_info` property (or `_` + ‘property name’). This commonly happens in conversions from OMOP CDM to BFF. 
+Input data can contain variables that do not directly map to the target but remain useful as source context. Depending on the route, this context may be retained under `_info` on a mapped element or in a route-specific `info` snapshot. Element-level `_info` is common in conversions from OMOP CDM to BFF.
 
 Example extracted from `omop2bff` [conversion](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/t/omop2bff/out/individuals.json):
  

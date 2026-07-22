@@ -3,7 +3,7 @@ title: BFF to OMOP Mapping
 sidebar_label: BFF to OMOP Mapping
 ---
 
-#### Version 0.31
+#### Version 0.32
 
 **Output model:** OMOP CDM
 

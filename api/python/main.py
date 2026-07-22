@@ -19,9 +19,9 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field, ValidationError, parse_obj_as
 
 LIB_DIR = Path(__file__).resolve().parents[2] / "lib"
-sys.path.append(str(LIB_DIR))
+sys.path.insert(0, str(LIB_DIR))
 
-from convertpheno import PythonBinding, PythonBridgeError
+from convertpheno import PythonBinding, PythonBridgeError, is_public_conversion
 
 # Here we start the API
 app = FastAPI()
@@ -117,6 +117,14 @@ async def get_body(request: Request):
         conversion, convert_payload = flatten_public_request(payload)
     except ValueError as exc:
         return api_error(422, "invalid_request", str(exc))
+
+    if not is_public_conversion(conversion):
+        return api_error(
+            422,
+            "conversion_error",
+            f"Unsupported conversion <{conversion}>",
+            method=conversion,
+        )
 
     # Creating object for class PythonBinding
     convert = PythonBinding(convert_payload)

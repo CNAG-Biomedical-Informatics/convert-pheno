@@ -64,27 +64,72 @@ sub omop_stream_dispatcher {
     my $filepaths   = $arg->{filepaths};
     my $omop_tables = $self->{prev_omop_tables};
 
-    Convert::Pheno::open_connections_SQLite($self) if $self->{method} ne 'bff2pxf';
     my $multi_entity_stream =
       Convert::Pheno::omop_streams_multiple_entities_wrapper($self);
-    Convert::Pheno::omop_stream_targets_open_wrapper($self)
-      if $multi_entity_stream;
+    my $connections_open = 0;
 
     my $ok = eval {
+        if ( $self->{method} ne 'bff2pxf' ) {
+            Convert::Pheno::open_connections_SQLite($self);
+            $connections_open = 1;
+        }
+        Convert::Pheno::omop_stream_targets_open_wrapper($self)
+          if $multi_entity_stream;
+
         @$filepaths
           ? process_csv_files_stream( $self, $filepaths )
           : process_sqldump_stream( $self, $filepath, $omop_tables );
+        1;
     };
     my $err = $@;
 
-    Convert::Pheno::omop_stream_targets_finalize_wrapper($self)
+    my @cleanup_errors;
+    _run_cleanup(
+        \@cleanup_errors,
+        'finalizing streamed entity output',
+        sub {
+            Convert::Pheno::omop_stream_targets_finalize_wrapper(
+                $self,
+                $ok ? 1 : 0,
+            );
+        },
+      )
       if $multi_entity_stream;
-    Convert::Pheno::close_connections_SQLite($self)
-      unless $self->{method} eq 'bff2pxf';
-    Convert::Pheno::finalize_search_audit($self);
+    _run_cleanup(
+        \@cleanup_errors,
+        'closing SQLite connections',
+        sub { Convert::Pheno::close_connections_SQLite($self) },
+      )
+      if $connections_open;
+    _run_cleanup(
+        \@cleanup_errors,
+        'closing the search audit',
+        sub { Convert::Pheno::finalize_search_audit($self) },
+    );
 
-    die $err if $err;
-    return $ok;
+    if ( !$ok || @cleanup_errors ) {
+        my $message = $err || q{};
+        $message .= "\n" if length($message) && $message !~ /\n\z/;
+        $message .= "Stream cleanup failed:\n" if !length($message) && @cleanup_errors;
+        $message .= join q{}, map { "  $_\n" } @cleanup_errors;
+        die $message;
+    }
+
+    return 1;
+}
+
+sub _run_cleanup {
+    my ( $errors, $label, $code ) = @_;
+    my $ok = eval {
+        $code->();
+        1;
+    };
+    return 1 if $ok;
+
+    my $error = $@ || 'unknown cleanup error';
+    chomp $error;
+    push @{$errors}, "$label: $error";
+    return;
 }
 
 sub process_csv_files_stream {

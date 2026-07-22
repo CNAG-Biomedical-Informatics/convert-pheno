@@ -1,0 +1,46 @@
+# Repository and automation metadata
+.git
+.github
+.gitattributes
+.gitignore
+.codex
+AGENTS.md
+TO_DO.md
+SESSION*.md
+
+# Documentation and developer-only directories
+/README*
+/docs
+/docs-site
+/nb
+/non-containerized
+/docker
+/bck
+/old
+/debug_windows-latest
+
+# Local build and profiling artifacts
+/Makefile
+/MANIFEST
+/META*
+/MYMETA*
+/pm_to_blib
+/blib
+/cover_db
+/local
+/_Inline
+/nytprof*
+node_modules
+__pycache__
+*.pyc
+*.pyo
+*.swp
+*.tmp
+*.log
+/*.tar
+/*.tar.gz
+
+# Optional local data and credentials
+/share/db/ohdsi.db
+.env
+.env.*

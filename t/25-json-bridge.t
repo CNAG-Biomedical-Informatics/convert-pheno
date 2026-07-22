@@ -64,6 +64,16 @@ my ( $exit_invalid_method, undef, $stderr_invalid_method ) =
 isnt( $exit_invalid_method, 0, 'bridge fails for invalid method name' );
 like( $stderr_invalid_method, qr/not_a_method/, 'invalid method is reported' );
 
+my ( $exit_internal_method, $stdout_internal_method, $stderr_internal_method ) =
+  run_bridge( $json->encode( { method => 'get_info', data => {} } ) );
+isnt( $exit_internal_method, 0, 'bridge rejects callable internal methods' );
+is( $stdout_internal_method, q{}, 'bridge does not return internal method data' );
+like(
+    $stderr_internal_method,
+    qr/Unsupported conversion <get_info>/,
+    'bridge reports internal methods as unsupported conversions'
+);
+
 my ( $exit_bad_json, undef, $stderr_bad_json ) = run_bridge('{');
 isnt( $exit_bad_json, 0, 'bridge fails for malformed JSON input' );
 like( $stderr_bad_json, qr/Invalid JSON payload:/, 'malformed JSON is reported' );
