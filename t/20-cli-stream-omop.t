@@ -5,13 +5,13 @@ use warnings;
 use lib qw(./lib ../lib t/lib);
 use Config;
 use Test::More;
-use File::Temp qw(tempfile);
 use Test::ConvertPheno qw(
   cli_script_path
   temp_output_file
   test_tmpdir
   gunzip_file_content
   has_ohdsi_db
+  run_command_capture
 );
 
 my $cli = cli_script_path();
@@ -19,34 +19,17 @@ plan skip_all => "convert-pheno CLI not found at $cli" unless -f $cli;
 plan skip_all => 'Skipping CLI stream tests on ld architectures due to known issues'
   if $Config{archname} =~ /-ld\b/;
 
-use constant IS_WINDOWS => ( $^O eq 'MSWin32' || $^O eq 'cygwin' ) ? 1 : 0;
 my $tmpdir = test_tmpdir();
 
 sub run_cli {
     my (@cmd) = @_;
-    my ( $fh, undef ) = tempfile( DIR => $tmpdir, SUFFIX => '.cli.log', UNLINK => 1 );
-    my $pid = fork();
-    die 'fork failed' unless defined $pid;
-
-    if ( $pid == 0 ) {
-        open STDOUT, '>&', $fh or die "dup STDOUT failed: $!";
-        open STDERR, '>&', $fh or die "dup STDERR failed: $!";
-        exec @cmd or die "exec failed: $!";
-    }
-
-    waitpid( $pid, 0 );
-    seek $fh, 0, 0;
-    local $/;
-    my $output = <$fh>;
-    close $fh;
-
-    return ( $? >> 8, $output );
+    my ( $status, $stdout, $stderr ) =
+      run_command_capture( command => \@cmd );
+    return ( $status, $stdout . $stderr );
 }
 
 {
   SKIP: {
-        skip 'CLI file comparisons are unreliable on Windows', 2 if IS_WINDOWS;
-
         my $tmp_file = temp_output_file( suffix => '.json.gz', dir => $tmpdir );
         my @cmd = (
             $^X,
@@ -74,7 +57,6 @@ sub run_cli {
 
 {
   SKIP: {
-        skip 'CLI file comparisons are unreliable on Windows', 2 if IS_WINDOWS;
         skip q{share/db/ohdsi.db is required for streamed CSV.gz OMOP CLI test}, 2
           unless has_ohdsi_db();
 

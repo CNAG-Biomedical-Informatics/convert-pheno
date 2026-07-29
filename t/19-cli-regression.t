@@ -6,7 +6,6 @@ use lib qw(./lib ../lib t/lib);
 use Config;
 use File::Spec;
 use Test::More;
-use File::Temp qw(tempfile);
 use Test::ConvertPheno qw(
   cli_script_path
   temp_output_file
@@ -18,6 +17,7 @@ use Test::ConvertPheno qw(
   write_json_file
   has_ohdsi_db
   test_tmpdir
+  run_command_capture
 );
 
 my $cli = cli_script_path();
@@ -25,7 +25,6 @@ plan skip_all => "convert-pheno CLI not found at $cli" unless -f $cli;
 plan skip_all => 'Skipping CLI regression tests on ld architectures due to known issues'
   if $Config{archname} =~ /-ld\b/;
 
-use constant IS_WINDOWS => ( $^O eq 'MSWin32' || $^O eq 'cygwin' ) ? 1 : 0;
 my $tmpdir = test_tmpdir();
 
 my @cases = (
@@ -235,28 +234,13 @@ sub compare_case_output {
 
 sub run_cli {
     my (@cmd) = @_;
-    my ( $fh, $log_file ) = tempfile( DIR => $tmpdir, SUFFIX => '.cli.log', UNLINK => 1 );
-    my $pid = fork();
-    die 'fork failed' unless defined $pid;
-
-    if ( $pid == 0 ) {
-        open STDOUT, '>&', $fh or die "dup STDOUT failed: $!";
-        open STDERR, '>&', $fh or die "dup STDERR failed: $!";
-        exec @cmd or die "exec failed: $!";
-    }
-
-    waitpid( $pid, 0 );
-    seek $fh, 0, 0;
-    local $/;
-    my $output = <$fh>;
-    close $fh;
-
-    return ( $? >> 8, $output );
+    my ( $status, $stdout, $stderr ) =
+      run_command_capture( command => \@cmd );
+    return ( $status, $stdout . $stderr );
 }
 
 for my $case (@cases) {
   SKIP: {
-        skip 'CLI file comparisons are unreliable on Windows', 2 if IS_WINDOWS;
         skip q{share/db/ohdsi.db is required for this CLI OMOP test}, 2
           if $case->{requires_db} && !has_ohdsi_db();
 
@@ -279,9 +263,7 @@ for my $case (@cases) {
     }
 }
 
-SKIP: {
-    skip 'CLI file comparisons are unreliable on Windows', 2 if IS_WINDOWS;
-
+{
     my $tmp_file  = temp_output_file( suffix => '.json', dir => $tmpdir );
     my $input_file = temp_output_file( suffix => '.json', dir => $tmpdir );
 
@@ -307,9 +289,7 @@ SKIP: {
     );
 }
 
-SKIP: {
-    skip 'CLI file comparisons are unreliable on Windows', 2 if IS_WINDOWS;
-
+{
     my $tmp_file = temp_output_file( suffix => '.json', dir => $tmpdir );
     my @cmd = (
         $^X, $cli,
