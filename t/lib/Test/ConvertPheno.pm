@@ -107,7 +107,14 @@ sub temp_output_file {
     my $suffix = exists $args{suffix} ? $args{suffix} : '.json';
     my $dir    = exists $args{dir}    ? $args{dir}    : 't';
     $dir = test_tmpdir() if !defined $dir || !-d $dir;
-    my ( undef, $file ) = tempfile( DIR => $dir, SUFFIX => $suffix, UNLINK => 1 );
+    my ( $fh, $file ) = tempfile( DIR => $dir, SUFFIX => $suffix, UNLINK => 1 );
+    close $fh or die "Could not close temporary output placeholder '$file': $!";
+
+    # Return a reserved path rather than an existing file. Windows cannot move
+    # an open File::Temp placeholder when the CLI preserves atomic output.
+    unlink $file if -e $file
+      or die "Could not remove temporary output placeholder '$file': $!";
+
     return $file;
 }
 
