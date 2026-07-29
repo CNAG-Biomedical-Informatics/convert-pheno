@@ -1,84 +1,41 @@
 name: Build and test Windows
 
 on:
-  workflow_dispatch
+  workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
+    runs-on: windows-latest
     strategy:
+      fail-fast: false
       matrix:
-        os: ['windows-latest']
         perl: ['5.42', '5.40']
-    name: Perl ${{ matrix.perl }} on ${{ matrix.os }}
+    name: Perl ${{ matrix.perl }} on Windows
     steps:
       - uses: actions/checkout@v5
 
-      - name: Run tests (no coverage)
+      # Strawberry Perl supplies a compiler and runtime built as one toolchain.
+      # Mixing the runner's MinGW with another Perl build caused the historical
+      # XS linker and "loadable library ... mismatched" failures.
+      - name: Set up Strawberry Perl
         uses: shogo82148/actions-setup-perl@v1
         with:
           perl-version: ${{ matrix.perl }}
+          distribution: strawberry
 
-      - run: perl -V
-
-      - name: Clean repo-local Perl libs
-        run: |
-          # Avoid loading stale XS artifacts from a repo-local local/ tree
-          # built under a different Perl version.
-          if (Test-Path local) { Remove-Item -Recurse -Force local }
+      - name: Show Perl and compiler toolchain
         shell: pwsh
+        run: |
+          Get-Command perl
+          Get-Command cpanm
+          Get-Command gcc
+          perl -V
+          perl -MConfig -e 'print qq{Compiler: $Config{cc}\nArchitecture: $Config{archname}\n}'
 
       - name: Install dependencies
-        env:
-          PERL5LIB: D:\a\convert-pheno\convert-pheno\local\lib\perl5;D:\a\convert-pheno\convert-pheno\local\lib\perl5\MSWin32-x64-multi-thread
-        run: |
-          # NOTE FOR FUTURE WORK:
-          # Windows CI currently gets blocked before tests by an upstream XS/toolchain
-          # incompatibility in the DateTime/Variable::Magic chain
-          # ("Magic.c: loadable library and perl binaries are mismatched").
-          # We already tried:
-          # - fresh job-local local::lib installs
-          # - PERL5LIB isolation
-          # - Variable::Magic 0.64, 0.63, 0.62
-          # - DateTime::Locale 1.44 and DateTime 1.65 pinning
-          # This is not a convert-pheno code bug. Revisit only if the Windows
-          # Perl/XS toolchain story changes upstream.
-          # Install the Windows troublemakers explicitly first so the logs show
-          # the real failing module instead of only the final --installdeps
-          # summary. cpanfile.windows keeps the Windows CI dependency policy
-          # explicit, including the current JSONLD exclusion.
-          $localArgs = @('--local-lib-contained', 'local')
-
-          function Show-CpanmLogs {
-            Get-ChildItem "$env:USERPROFILE\\.cpanm\\work" -Recurse -Filter build.log -ErrorAction SilentlyContinue |
-              Sort-Object LastWriteTime -Descending |
-              Select-Object -First 5 |
-              ForEach-Object {
-                Write-Host ""
-                Write-Host "===== $($_.FullName) ====="
-                Get-Content $_.FullName -Tail 200
-              }
-          }
-
-          cpanm @localArgs --verbose -n DateTime::Locale@1.44
-          if ($LASTEXITCODE -ne 0) { Show-CpanmLogs; exit $LASTEXITCODE }
-
-          cpanm @localArgs --verbose -n Variable::Magic@0.62
-          if ($LASTEXITCODE -ne 0) { Show-CpanmLogs; exit $LASTEXITCODE }
-
-          cpanm @localArgs --verbose -n DateTime@1.65
-          if ($LASTEXITCODE -ne 0) { Show-CpanmLogs; exit $LASTEXITCODE }
-
-          cpanm @localArgs --verbose -n DateTime::Format::ISO8601@0.19
-          if ($LASTEXITCODE -ne 0) { Show-CpanmLogs; exit $LASTEXITCODE }
-
-          cpanm @localArgs --verbose -n DBD::SQLite@1.72
-          if ($LASTEXITCODE -ne 0) { Show-CpanmLogs; exit $LASTEXITCODE }
-
-          cpanm @localArgs --verbose -n --installdeps --cpanfile cpanfile.windows .
-          if ($LASTEXITCODE -ne 0) { Show-CpanmLogs; exit $LASTEXITCODE }
         shell: pwsh
+        run: cpanm --verbose --notest --installdeps .
 
-      - run: prove -l t
-        env:
-          PERL5LIB: D:\a\convert-pheno\convert-pheno\local\lib\perl5;D:\a\convert-pheno\convert-pheno\local\lib\perl5\MSWin32-x64-multi-thread
+      - name: Run tests
+        shell: pwsh
+        run: prove -lr t
