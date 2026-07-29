@@ -32,6 +32,13 @@ jobs:
           perl -V
           perl -MConfig -e 'print qq{Compiler: $Config{cc}\nArchitecture: $Config{archname}\n}'
 
+      # Net::IDN::Encode 2.500 calls a Perl C API removed in Perl 5.38.
+      # Remove this pin once https://github.com/cfaerber/Net-IDN-Encode/pull/11
+      # is included in a CPAN release.
+      - name: Install Net::IDN::Encode compatibility patch
+        shell: pwsh
+        run: cpanm --verbose --notest https://github.com/ernix/Net-IDN-Encode/archive/3ebe6f2e239b470efcb64a044edc8202798188af.tar.gz
+
       - name: Install dependencies
         shell: pwsh
         run: cpanm --verbose --notest --installdeps .
