@@ -1,13 +1,13 @@
 use strict;
 use warnings;
+use lib qw(./lib ../lib t/lib);
 
 use File::Spec::Functions qw(catfile);
 use File::Temp qw(tempdir);
-use IPC::Open3;
 use Path::Tiny qw(path);
-use Symbol qw(gensym);
 use Test::Exception;
 use Test::More;
+use Test::ConvertPheno qw(run_command_capture);
 
 use Convert::Pheno::IO::Atomic qw(write_atomically);
 
@@ -43,28 +43,19 @@ is( path($target)->slurp_raw, "new output\n", 'successful writes replace existin
 my $invalid_input = catfile( $tmpdir, 'invalid-pxf.json' );
 path($invalid_input)->spew_raw("{\n");
 path($target)->spew_raw("existing CLI output\n");
-my $stderr = gensym;
-my $pid = open3(
-    my $stdin,
-    my $stdout,
-    $stderr,
-    $^X,
-    catfile( 'bin', 'convert-pheno' ),
-    '-ipxf',
-    $invalid_input,
-    '-obff',
-    $target,
-    '-O',
+my ( $exit, undef, undef ) = run_command_capture(
+    command => [
+        $^X,
+        catfile( 'bin', 'convert-pheno' ),
+        '-ipxf',
+        $invalid_input,
+        '-obff',
+        $target,
+        '-O',
+    ],
 );
-close $stdin;
-{
-    local $/;
-    my $ignored_stdout = <$stdout>;
-    my $ignored_stderr = <$stderr>;
-}
-waitpid( $pid, 0 );
 
-isnt( $? >> 8, 0, 'CLI reports a failed conversion' );
+isnt( $exit, 0, 'CLI reports a failed conversion' );
 is(
     path($target)->slurp_raw,
     "existing CLI output\n",

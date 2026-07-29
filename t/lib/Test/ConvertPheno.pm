@@ -10,6 +10,7 @@ use File::Path qw(mkpath remove_tree);
 use File::Spec;
 use File::Temp qw(tempfile);
 use FindBin qw($Bin);
+use IPC::Open3 qw(open3);
 use IO::Uncompress::Gunzip;
 use JSON::XS qw(decode_json);
 use Text::CSV_XS;
@@ -39,6 +40,7 @@ our @EXPORT_OK = qw(
   remove_dir_if_exists
   csv_files_match
   gunzip_file_content
+  run_command_capture
 );
 
 sub build_convert {
@@ -107,6 +109,40 @@ sub temp_output_file {
     $dir = test_tmpdir() if !defined $dir || !-d $dir;
     my ( undef, $file ) = tempfile( DIR => $dir, SUFFIX => $suffix, UNLINK => 1 );
     return $file;
+}
+
+sub run_command_capture {
+    my (%args) = @_;
+    my $command = $args{command};
+    die 'run_command_capture requires a command array reference'
+      unless ref $command eq 'ARRAY' && @{$command};
+
+    my ( $stdin,  undef ) = tempfile( DIR => test_tmpdir(), UNLINK => 1 );
+    my ( $stdout, undef ) = tempfile( DIR => test_tmpdir(), UNLINK => 1 );
+    my ( $stderr, undef ) = tempfile( DIR => test_tmpdir(), UNLINK => 1 );
+    binmode $_, ':raw' for ( $stdin, $stdout, $stderr );
+
+    print {$stdin} $args{stdin} if defined $args{stdin};
+    seek $stdin, 0, 0 or die "Could not rewind command input: $!";
+
+    # Direct file handles avoid the pipe EOF deadlocks that IPC::Open3 can
+    # trigger on Windows while preserving separate stdout and stderr capture.
+    my $pid = open3(
+        '<&' . fileno($stdin),
+        '>&' . fileno($stdout),
+        '>&' . fileno($stderr),
+        @{$command},
+    );
+    waitpid( $pid, 0 );
+    my $status = $?;
+
+    seek $stdout, 0, 0 or die "Could not rewind command output: $!";
+    seek $stderr, 0, 0 or die "Could not rewind command errors: $!";
+    local $/;
+    my $output = <$stdout> // q{};
+    my $errors = <$stderr> // q{};
+
+    return ( $status == -1 ? -1 : $status >> 8, $output, $errors );
 }
 
 sub json_files_match {

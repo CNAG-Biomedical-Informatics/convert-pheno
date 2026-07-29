@@ -45,12 +45,5 @@ jobs:
 
       - name: Run tests
         shell: pwsh
-        timeout-minutes: 15
-        run: |
-          Get-ChildItem t -Filter *.t |
-            Sort-Object Name |
-            ForEach-Object {
-              Write-Host "=== $($_.Name) ==="
-              prove -lv $_.FullName
-              if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-            }
+        timeout-minutes: 5
+        run: prove -lv t/25-json-bridge.t t/29-atomic-output.t

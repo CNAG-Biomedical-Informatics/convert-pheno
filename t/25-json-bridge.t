@@ -1,28 +1,21 @@
 use strict;
 use warnings;
+use lib qw(./lib ../lib t/lib);
 use FindBin qw($Bin);
 use File::Spec::Functions qw(catfile);
-use IPC::Open3;
 use JSON::XS;
-use Symbol qw(gensym);
 use Test::More;
+use Test::ConvertPheno qw(run_command_capture);
 
 my $script = catfile( $Bin, '..', 'api', 'perl', 'json_bridge.pl' );
 my $json   = JSON::XS->new->canonical;
 
 sub run_bridge {
     my ($payload) = @_;
-    my $stderr = gensym;
-    my $pid = open3( my $in, my $out, $stderr, $^X, $script );
-    print {$in} $payload if defined $payload;
-    close $in;
-
-    local $/;
-    my $stdout = <$out>;
-    my $err    = <$stderr>;
-
-    waitpid( $pid, 0 );
-    return ( $? >> 8, $stdout // q{}, $err // q{} );
+    return run_command_capture(
+        command => [ $^X, $script ],
+        stdin   => $payload,
+    );
 }
 
 my ( $exit_ok, $stdout_ok, $stderr_ok ) = run_bridge(
