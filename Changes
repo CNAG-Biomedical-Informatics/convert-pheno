@@ -1,5 +1,9 @@
 Revision history for Perl distribution Convert-Pheno
 
+0.33 2026-0X-XXT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
+
+ - Added native Windows support and CI coverage with Strawberry Perl 5.40 and 5.42
+
 0.32 2026-07-22T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
  - Added OMOP SPECIMEN quantity mapping to structured BFF biosample measurements

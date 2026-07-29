@@ -16,6 +16,8 @@ In `v0.30`, the layout is entity-aware:
 - `beacon.datasets`, `beacon.cohorts`, and `beacon.biosamples` hold optional metadata/defaults for emitted Beacon entities.
 - These metadata overrides are currently consumed only by the conversion routes that use a mapping file: `csv2bff`, `redcap2bff`, and `cdisc2bff`.
 
+The semantic mapping under `beacon.individuals` is also reused when the requested final output is `PXF` or `OMOP-CDM`. For example, `csv2omop` applies the CSV-to-BFF mapping first and then the built-in BFF-to-OMOP mapping; it does not require a second OMOP-specific user mapping file.
+
 The `beacon.individuals` wrapper is mandatory in `v0.30`.
 
 ### Mental model

@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img" aria-labelledby="title description">
+  <title id="title">CDISC ODM hierarchy and conversion context</title>
+  <desc id="description">Nested ODM clinical data are resolved with dictionary and mapping context before becoming a normalized clinical record.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#60747d"/>
+    </marker>
+  </defs>
+  <rect x="1" y="1" width="718" height="298" rx="8" fill="#ffffff" stroke="#d6e1e5" stroke-width="2"/>
+  <g font-family="Arial, sans-serif">
+    <text x="24" y="28" fill="#49616c" font-size="13" font-weight="700">ODM-XML HIERARCHY</text>
+    <text x="316" y="28" fill="#49616c" font-size="13" font-weight="700">PROJECT CONTEXT</text>
+    <text x="548" y="28" fill="#49616c" font-size="13" font-weight="700">NORMALIZED RECORD</text>
+
+    <rect x="24" y="49" width="245" height="222" rx="7" fill="#f5f2fb" stroke="#8b78b6" stroke-width="2"/>
+    <path d="M47 78v153M47 94h18M47 130h35M47 166h52M47 202h69" fill="none" stroke="#9689b4" stroke-width="2"/>
+    <g font-family="monospace" font-size="13">
+      <rect x="65" y="72" width="160" height="31" rx="5" fill="#ffffff" stroke="#9c8cbd"/>
+      <text x="81" y="92" fill="#5f4b8b" font-weight="700">Study</text>
+      <rect x="82" y="108" width="160" height="31" rx="5" fill="#ffffff" stroke="#9c8cbd"/>
+      <text x="98" y="128" fill="#5f4b8b" font-weight="700">ClinicalData</text>
+      <rect x="99" y="144" width="143" height="31" rx="5" fill="#ffffff" stroke="#9c8cbd"/>
+      <text x="115" y="164" fill="#5f4b8b" font-weight="700">SubjectData</text>
+      <rect x="116" y="180" width="126" height="31" rx="5" fill="#ffffff" stroke="#9c8cbd"/>
+      <text x="132" y="200" fill="#5f4b8b" font-weight="700">StudyEventData</text>
+      <rect x="133" y="216" width="109" height="31" rx="5" fill="#ffffff" stroke="#9c8cbd"/>
+      <text x="149" y="236" fill="#5f4b8b" font-weight="700">ItemData</text>
+    </g>
+
+    <path d="M269 153H296M296 106V213" fill="none" stroke="#60747d" stroke-width="2"/>
+    <path d="M296 106H312" fill="none" stroke="#60747d" stroke-width="2" marker-end="url(#arrow)"/>
+    <path d="M296 213H312" fill="none" stroke="#60747d" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <rect x="316" y="65" width="184" height="82" rx="7" fill="#fff4f4" stroke="#be6266"/>
+    <text x="337" y="93" fill="#8d272c" font-family="monospace" font-size="15" font-weight="700">dictionary.csv</text>
+    <text x="337" y="119" fill="#536871" font-size="12">item labels and field metadata</text>
+    <rect x="316" y="172" width="184" height="82" rx="7" fill="#f3f8fb" stroke="#6d98b4"/>
+    <text x="337" y="200" fill="#315f82" font-family="monospace" font-size="15" font-weight="700">mapping.yaml</text>
+    <text x="337" y="226" fill="#536871" font-size="12">item OID → target semantics</text>
+
+    <path d="M500 106H520M500 213H520M520 106V213" fill="none" stroke="#60747d" stroke-width="2"/>
+    <path d="M520 153H540" fill="none" stroke="#60747d" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <rect x="548" y="65" width="148" height="189" rx="7" fill="#eff9f3" stroke="#58a27b" stroke-width="2"/>
+    <rect x="548" y="65" width="148" height="38" rx="7" fill="#2f9665"/>
+    <text x="570" y="90" fill="#ffffff" font-size="15" font-weight="700">individual</text>
+    <g font-family="monospace" font-size="12">
+      <text x="570" y="130" fill="#276749">id</text>
+      <text x="570" y="156" fill="#276749">sex</text>
+      <text x="570" y="182" fill="#276749">diseases[]</text>
+      <text x="570" y="208" fill="#276749">measures[]</text>
+      <text x="570" y="234" fill="#276749">treatments[]</text>
+    </g>
+  </g>
+</svg>

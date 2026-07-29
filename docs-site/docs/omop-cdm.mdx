@@ -5,6 +5,29 @@ sidebar_label: OMOP-CDM
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+export const OmopFormatImage = () => (
+  <img
+    src={useBaseUrl('/img/omop-format.svg')}
+    alt="Representative OMOP table joins through person and concept identifiers"
+    className="convertFormatDiagram"
+  />
+);
+
+export const OmopCsvExampleDownloads = () => {
+  const personUrl = useBaseUrl('/examples/omop/PERSON.csv');
+  const conceptUrl = useBaseUrl('/examples/omop/CONCEPT.csv');
+  const drugExposureUrl = useBaseUrl('/examples/omop/DRUG_EXPOSURE.csv');
+
+  return (
+    <span>
+      Download the tested OMOP CSV inputs: <a href={personUrl} download>PERSON</a>,{' '}
+      <a href={conceptUrl} download>CONCEPT</a>, and{' '}
+      <a href={drugExposureUrl} download>DRUG_EXPOSURE</a>.
+    </span>
+  );
+};
 
 **OMOP CDM** stands for **O**bservational **M**edical **O**utcomes **P**artnership **C**ommon **D**ata **M**odel. **OMOP CDM** [documentation](https://www.ohdsi.org/data-standardization/the-common-data-model).
 
@@ -15,9 +38,9 @@ import TabItem from '@theme/TabItem';
   <div><span>Notes</span><strong>`--stream` for large OMOP-to-BFF</strong></div>
 </div>
 
-<figure>
-<img src="https://www.ohdsi.org/wp-content/uploads/2015/02/h243-ohdsi-logo-with-text.png" alt="OMOP CDM" className="convert-pheno-image-md" />
-   <figcaption>Image extracted from www.ohdsi.org</figcaption>
+<figure className="convertFormatFigure">
+<OmopFormatImage />
+<figcaption>Representative OMOP tables joined through person and concept identifiers</figcaption>
 </figure>
 
 The **OMOP CDM** is designed to be database-agnostic, which means it can be implemented using different relational database management systems, with **PostgreSQL** being a popular choice.
@@ -40,8 +63,9 @@ The **OMOP CDM** is designed to be database-agnostic, which means it can be impl
 
 For more examples, see [Choose a Conversion](conversion-recipes).
 
-For the dedicated OMOP-CDM to Beacon v2 mapping work and manuscript repository, see
-[OMOP-CDM to Beacon v2](https://github.com/CNAG-Biomedical-Informatics/omop-cdm-2-beacon-v2).
+For the evaluated OMOP-CDM to Beacon v2 workflow, see the
+[published study](https://doi.org/10.1186/s12911-026-03649-0) and its
+[tutorial repository](https://github.com/CNAG-Biomedical-Informatics/omop-cdm-2-beacon-v2).
 
 <details>
 <summary>About OMOP CDM longitudinal data</summary>
@@ -73,6 +97,7 @@ convert-pheno -ibff individuals.json -oomop --out-dir omop_export/ --out-name PE
 
 ## OMOP As Input
 
+<OmopCsvExampleDownloads /> Keep the three files together and pass all of them after `-iomop`.
 
 <Tabs>
 <TabItem value="command-line" label="Command-line">
@@ -81,7 +106,7 @@ convert-pheno -ibff individuals.json -oomop --out-dir omop_export/ --out-name PE
 When using the `convert-pheno` command-line interface, see [Common CLI Patterns](usage) for reusable command forms.
 
 :::note[Individuals-only vs entity-aware BFF output]
-Most examples below use the individuals-only `-obff FILE` path, which still emits Beacon `individuals` as one file. In non-stream BFF conversions, you can also request synthesized `datasets` and `cohorts` with `--entities ... --out-dir out/`. `biosamples` can now be emitted from OMOP `SPECIMEN`, but this OMOP-to-BFF biosample path is still experimental and pending validation with external collaborators.
+Most examples below use the individuals-only `-obff FILE` path, which still emits Beacon `individuals` as one file. In non-stream BFF conversions, you can also request synthesized `datasets` and `cohorts` with `--entities ... --out-dir out/`. `biosamples` can now be emitted from OMOP `SPECIMEN`; this path is implemented and regression-tested, while broader validation with external collaborators remains pending.
 
 :::
 <details>

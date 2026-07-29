@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img" aria-labelledby="title description">
+  <title id="title">Phenopacket record structure</title>
+  <desc id="description">A Phenopacket contains subject and metadata fields together with nested arrays of clinical and biosample content.</desc>
+  <rect x="1" y="1" width="718" height="298" rx="8" fill="#ffffff" stroke="#d6e1e5" stroke-width="2"/>
+  <g font-family="Arial, sans-serif">
+    <text x="24" y="28" fill="#49616c" font-size="13" font-weight="700">ONE PHENOPACKET RECORD</text>
+    <text x="348" y="28" fill="#49616c" font-size="13" font-weight="700">NESTED CLINICAL CONTENT</text>
+
+    <rect x="24" y="49" width="250" height="222" rx="7" fill="#fff7f2" stroke="#df825f" stroke-width="2"/>
+    <rect x="24" y="49" width="250" height="43" rx="7" fill="#e56f43"/>
+    <text x="46" y="76" fill="#ffffff" font-size="17" font-weight="700">phenopacket</text>
+    <rect x="46" y="112" width="206" height="44" rx="6" fill="#ffffff" stroke="#e5b09d"/>
+    <circle cx="67" cy="134" r="9" fill="#0f6f8f"/>
+    <text x="88" y="131" fill="#314c57" font-size="14" font-weight="700">subject</text>
+    <text x="88" y="147" fill="#60747d" font-size="11">id · sex · dateOfBirth · vitalStatus</text>
+    <rect x="46" y="171" width="206" height="35" rx="6" fill="#ffffff" stroke="#e5b09d"/>
+    <text x="61" y="193" fill="#536871" font-family="monospace" font-size="13">id</text>
+    <rect x="46" y="219" width="206" height="35" rx="6" fill="#ffffff" stroke="#e5b09d"/>
+    <text x="61" y="241" fill="#536871" font-family="monospace" font-size="13">metaData</text>
+
+    <path d="M274 92H322V252H338M322 92H338M322 145H338M322 198H338" fill="none" stroke="#8a9ca5" stroke-width="2"/>
+
+    <rect x="348" y="49" width="348" height="43" rx="6" fill="#eef8fa" stroke="#75a9b7"/>
+    <rect x="348" y="49" width="6" height="43" rx="3" fill="#0f6f8f"/>
+    <text x="370" y="76" fill="#174e62" font-family="monospace" font-size="15" font-weight="700">phenotypicFeatures[]</text>
+    <text x="680" y="76" text-anchor="end" fill="#60747d" font-size="12">observed / excluded</text>
+
+    <rect x="348" y="102" width="348" height="43" rx="6" fill="#fff7ef" stroke="#d9a171"/>
+    <rect x="348" y="102" width="6" height="43" rx="3" fill="#e58a3d"/>
+    <text x="370" y="129" fill="#8c4d1d" font-family="monospace" font-size="15" font-weight="700">biosamples[]</text>
+    <text x="680" y="129" text-anchor="end" fill="#60747d" font-size="12">specimens / assays</text>
+
+    <rect x="348" y="155" width="348" height="43" rx="6" fill="#eff9f3" stroke="#7eb499"/>
+    <rect x="348" y="155" width="6" height="43" rx="3" fill="#2f9665"/>
+    <text x="370" y="182" fill="#276749" font-family="monospace" font-size="15" font-weight="700">measurements[]</text>
+    <text x="680" y="182" text-anchor="end" fill="#60747d" font-size="12">values / units / time</text>
+
+    <rect x="348" y="208" width="348" height="43" rx="6" fill="#f5f2fb" stroke="#9c8cbd"/>
+    <rect x="348" y="208" width="6" height="43" rx="3" fill="#7563a6"/>
+    <text x="370" y="235" fill="#5f4b8b" font-family="monospace" font-size="15" font-weight="700">diseases[] · treatments[]</text>
+    <text x="680" y="235" text-anchor="end" fill="#60747d" font-size="12">clinical events</text>
+
+    <text x="348" y="274" fill="#60747d" font-size="12">Other top-level arrays are preserved when no direct target exists.</text>
+  </g>
+</svg>

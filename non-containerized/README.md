@@ -2,6 +2,25 @@
 
 Use this path when you want to run `convert-pheno` directly from CPAN, GitHub, or inside your own Perl environment.
 
+:::note[Windows installation]
+
+Native Windows support is tested with Strawberry Perl 5.40 and 5.42. The
+current CPAN release of `Net::IDN::Encode`, an indirect dependency of
+`JSON::Validator`, does not build with these Perl versions. Until a compatible
+release reaches CPAN, install the upstream patch before Convert-Pheno:
+
+```powershell
+$netIdnPatch = 'https://github.com/ernix/Net-IDN-Encode/archive/3ebe6f2e239b470efcb64a044edc8202798188af.tar.gz'
+cpanm --notest $netIdnPatch
+cpanm --notest Convert::Pheno
+convert-pheno --help
+```
+
+This dependency supports internationalized domain-name validation; it is not
+used by the conversion logic itself.
+
+:::
+
 ## System Dependencies
 
 On Debian-based distributions, install:

@@ -1,17 +1,18 @@
 ---
-title: Format Support Matrix
-sidebar_label: Format Support Matrix
+title: Interface Availability
+sidebar_label: Interface Availability
 ---
 
-Input           | CLI        |  UI        | Module | Public API
-        :---:   |   :---:    | :---:      | :---:  | :---:
-Beacon v2 Models   | YES        | YES   | YES   | YES
-CDISC-ODM          | YES        | YES   | YES   | **NO**
-CSV                | YES        | **NO**| YES   | **NO**
-Phenopackets v2    | YES        | YES   | YES   | YES
-OMOP-CDM           | YES        | YES   | YES   | YES
-REDCap             | YES        | YES   | YES   | **NO**
+Format | CLI | Perl/Python module | HTTP(s) API
+--- | --- | --- | ---
+[Beacon v2 Models](../bff) | Recommended | Supported | Recommended
+[Phenopackets v2](../pxf) | Recommended | Supported | Recommended
+[OMOP-CDM](../omop-cdm) | Recommended | Supported | Supported with care for self-contained requests
+[openEHR canonical](../openehr) | Supported; experimental profile | Supported; experimental profile | Supported with care for self-contained requests
+[CSV](../csv) | Recommended | Supported | Not recommended
+[REDCap](../redcap) | Recommended | Supported | Not recommended
+[CDISC-ODM](../cdisc-odm) | Recommended | Supported | Not recommended
 
-`Public API = NO` here means **not recommended as a public HTTP(s) route**, even if advanced local or internal setups could still call the module with file-oriented parameters.
+This table describes **interface suitability**, not conversion coverage. See [Supported Formats](../supported-formats) for the input/output map and [Choose a Conversion](../conversion-recipes) for commands.
 
-In practice, the public API is meant for **self-contained JSON payloads** such as `BFF`, `PXF`, and carefully prepared `OMOP-CDM`. Mapping-file-based conversions such as `CSV`, `REDCap`, and `CDISC-ODM` are better handled through the CLI.
+The HTTP(s) API is intended primarily for self-contained payloads. Mapping-file-based conversions such as CSV, REDCap, and CDISC-ODM depend on additional files and are therefore better handled through the CLI, even though the underlying conversion methods are available to local programmatic integrations.

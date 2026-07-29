@@ -3,71 +3,38 @@ title: Supported Formats
 sidebar_label: Supported Formats
 ---
 
-import Link from '@docusaurus/Link';
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+This page is a quick map of the formats that `Convert-Pheno` can read and write. For file requirements and format-specific options, use the **Format Guides** in the sidebar.
 
-This page gives a compact overview of the formats that `Convert-Pheno` can read and write. Internally, most conversions go through `BFF` first, and then continue to the requested output format when needed.
+- **Inputs:** [BFF](bff), [Phenopackets v2](pxf), [OMOP-CDM](omop-cdm), [REDCap](redcap), [CDISC-ODM](cdisc-odm), [CSV](csv), and experimental [openEHR canonical compositions](openehr)
+- **Main outputs:** BFF, Phenopackets v2, and OMOP-CDM CSV tables
+- **[Inspection outputs](conversion-recipes#inspection-outputs):** flattened JSON or YAML, CSV, and JSON-LD or YAML-LD from BFF or PXF input
 
-<div className="convertFormatGrid">
-  <Link className="convertFormatCard" to="/bff">
-    <span className="convertCardLabel">Beacon</span>
-    <h3>BFF</h3>
-    <p>Input and output. BFF output can include individuals, biosamples, datasets, and cohorts.</p>
-  </Link>
-  <Link className="convertFormatCard" to="/pxf">
-    <span className="convertCardLabel">GA4GH</span>
-    <h3>Phenopackets v2</h3>
-    <p>Input and output for phenotypic and biosample-centered records.</p>
-  </Link>
-  <Link className="convertFormatCard" to="/omop-cdm">
-    <span className="convertCardLabel">Clinical DB</span>
-    <h3>OMOP-CDM</h3>
-    <p>SQL or CSV input, and CSV output for selected OMOP tables.</p>
-  </Link>
-  <Link className="convertFormatCard" to="/redcap">
-    <span className="convertCardLabel">Mapping file</span>
-    <h3>REDCap</h3>
-    <p>CSV exports with data dictionary support and ontology search auditing.</p>
-  </Link>
-  <Link className="convertFormatCard" to="/cdisc-odm">
-    <span className="convertCardLabel">Mapping file</span>
-    <h3>CDISC-ODM</h3>
-    <p>XML input using the same mapping model as other tabular conversions.</p>
-  </Link>
-  <Link className="convertFormatCard" to="/csv">
-    <span className="convertCardLabel">Mapping file</span>
-    <h3>CSV</h3>
-    <p>Generic tabular input for BFF, PXF, and OMOP output routes.</p>
-  </Link>
-</div>
+Most routes use BFF as the internal target model. The CLI handles any intermediate BFF conversion automatically.
 
-:::note[Note]
-`openEHR` support is currently **experimental** and currently limited to **canonical composition input** with `BFF` and `PXF` output. Patient identity must be resolvable from the payload or envelope, and multi-patient input is grouped automatically.
+## Conversion map
 
-:::
 ```mermaid
 %%{init:{'theme':'neutral'}}%%
 graph LR
-  subgraph "Target model"
-    A[Beacon v2 Models]
+  subgraph "Source files"
+    C[REDCap]
+    E[CDISC-ODM]
+    F[CSV]
+    G[openEHR]
   end
 
-  A -->|bff2pxf| B[Phenopackets v2]
-  C[REDCap] -->|redcap2pxf| B
-  D[OMOP-CDM] -->|omop2bff| A
-  E[CDISC-ODM] -->|cdisc2bff| A
-  F[CSV] -->|csv2bff| A
-  B -->|pxf2bff| A
+  subgraph "Target model"
+    A["BFF<br/>Beacon v2 Models"]
+  end
+
   C -->|redcap2bff| A
-  D -->|omop2pxf| B
-  E -->|cdisc2pxf| B
-  F -->|csv2pxf| B
+  E -->|cdisc2bff| A
+  F -->|csv2bff| A
+  G -->|openehr2bff| A
+  B[Phenopackets v2] -->|pxf2bff| A
+  A -->|bff2pxf| B
+  D[OMOP-CDM] -->|omop2bff| A
   A -->|bff2omop| D
-  F -->|csv2omop| D
-  E -->|cdisc2omop| D
-  C -->|redcap2omop| D
-  B -->|pxf2omop| D
 
   style A fill:#6495ED,stroke:#6495ED
   style B fill:#FF7F50,stroke:#FF7F50
@@ -75,50 +42,21 @@ graph LR
   style D fill:#3CB371,stroke:#3CB371
   style E fill:#DDA0DD,stroke:#DDA0DD
   style F fill:#FFFF00,stroke:#FFFF00
-
-  linkStyle 1,7,8,9,11,12,13 stroke:#0000FF,stroke-width:1px,stroke-dasharray:5 5,opacity:0.5;
+  style G fill:#B8E0D2,stroke:#5B8F7B,stroke-width:2px,stroke-dasharray:5 4
 ```
 
-<figcaption>Supported conversions. Dotted blue lines go via BFF, which serves as the internal target model for most routes.</figcaption>
+<figcaption>Direct mapping steps around BFF, which can be the requested output or an internal intermediate. Any connected path through BFF runs as one CLI command: for example, openEHR to PXF performs openEHR to BFF and then BFF to PXF in memory, writing only the requested PXF output. The same rule applies to every two-step path shown. The dashed openEHR border marks experimental source-profile coverage.</figcaption>
 
+<details className="convertRouteDetails">
+<summary>Additional outputs from BFF and PXF</summary>
 
-<Tabs>
-<TabItem value="input-formats" label="Input formats">
-
-
-- [Beacon v2 Models (JSON | YAML)](bff)
-- [Phenopackets v2 (JSON | YAML)](pxf)
-- [OMOP-CDM (SQL export | CSV)](omop-cdm)
-- `openEHR` canonical JSON/YAML compositions (`experimental`)
-- [REDCap exports (CSV)](redcap)
-- [CDISC-ODM v1 (XML)](cdisc-odm)
-- [CSV raw data](csv)
-
-
-</TabItem>
-<TabItem value="main-output-formats" label="Main output formats">
-
-
-- [Beacon v2 Models (JSON | YAML)](bff)
-- [Phenopackets v2 (JSON | YAML)](pxf)
-- [OMOP CDM (CSV)](omop-cdm)
-
-
-</TabItem>
-</Tabs>
-## Additional output formats
-
-For `BFF` and `PXF` input, the tool can also produce simpler output forms that are easier to inspect or use downstream:
-
-- flattened JSON or YAML with `--ojsonf`
-- CSV with `--ocsv`
-- JSON-LD or YAML-LD with `--ojsonld`
+For inspection and downstream processing, BFF and PXF input can also be written as flattened JSON or YAML, CSV, and JSON-LD or YAML-LD.
 
 ```mermaid
 %%{init: {'theme':'neutral'}}%%
 graph LR
 
-  A[BFF] -->|bff2jsonf| C[JSON Flattened]
+  A[BFF] -->|bff2jsonf| C[Flattened JSON]
   A -->|bff2csv| D[CSV]
   A -->|bff2jsonld| E[JSON-LD]
 
@@ -133,8 +71,6 @@ graph LR
   style E fill:#9999FF,stroke:#9999FF
 ```
 
-<figcaption>Additional output formats from BFF and PXF.</figcaption>
+</details>
 
-:::note[Why BFF matters in the diagrams]
-`BFF` is the internal target model for most conversions. User-facing output, however, is not limited to `BFF`: Convert-Pheno also supports `PXF` and `OMOP CDM` output paths.
-:::
+For runnable commands, continue to [Choose a Conversion](conversion-recipes).

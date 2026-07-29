@@ -47,6 +47,25 @@
   text-align: center;
 }
 
+.markdown figure.convertFormatFigure {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
+}
+
+.markdown .convertFormatDiagram {
+  display: block;
+  width: 100%;
+  min-width: 600px;
+  max-width: 720px;
+  margin: 0 auto 0.7rem;
+}
+
+.markdown details.convertRouteDetails {
+  margin-top: 3.5rem;
+}
+
 .convertDiagramFrame {
   width: 100%;
   min-width: 0;

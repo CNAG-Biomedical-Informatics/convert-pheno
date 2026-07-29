@@ -3,13 +3,19 @@ title: Module
 sidebar_label: Module
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 `Convert-Pheno` core is a Perl module available at [CPAN](https://metacpan.org/pod/Convert::Pheno).
 
 The module interface is mainly for developers embedding Convert-Pheno in local Perl or Python code. Most users should use the [command-line interface](use-as-a-command-line-interface).
 
 Both bindings use the same module-style payload: `method`, `data`, and optional conversion arguments are passed together in one object. This is different from the HTTP(s) API, where request fields are grouped into `input`, `output`, and `options`.
 
-## Perl usage
+## Language bindings
+
+<Tabs groupId="module-language">
+<TabItem value="perl" label="Perl" default>
 
 The most direct programmatic interface is the Perl module itself:
 
@@ -39,7 +45,10 @@ my $data = $convert->pxf2bff;
 
 This is the native programmatic interface used by the project.
 
-## Python usage
+[View the complete Perl example](https://github.com/cnag-biomedical-informatics/convert-pheno/blob/main/share/ex/perl.pl).
+
+</TabItem>
+<TabItem value="python" label="Python">
 
 Python code can use the local binding without starting the HTTP(s) API:
 
@@ -75,8 +84,7 @@ print(json.dumps(convert.convert_pheno(), indent=4, sort_keys=True))
 
 The Python binding shells out to the Perl JSON bridge internally, so it is a convenience layer over the same conversion engine rather than a separate implementation.
 
-## Example scripts
+[View the complete Python example](https://github.com/cnag-biomedical-informatics/convert-pheno/blob/main/share/ex/python.py).
 
-- Perl example: [share/ex/perl.pl](https://github.com/cnag-biomedical-informatics/convert-pheno/blob/main/share/ex/perl.pl)
-- Python example: [share/ex/python.py](https://github.com/cnag-biomedical-informatics/convert-pheno/blob/main/share/ex/python.py)
-
+</TabItem>
+</Tabs>

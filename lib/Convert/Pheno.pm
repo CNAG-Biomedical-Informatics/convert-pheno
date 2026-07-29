@@ -56,7 +56,7 @@ our @EXPORT =
 use constant DEVEL_MODE => 0;
 
 # Global variables:
-our $VERSION   = '0.32';
+our $VERSION   = '0.32_1';
 our $share_dir = dist_dir('Convert-Pheno');
 
 # SQLite database

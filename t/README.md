@@ -1,0 +1,73 @@
+# Regression Fixtures and Runnable Examples
+
+The directories under `t/` serve two purposes: they are the inputs and expected
+outputs used by the automated tests, and they are small examples that can be run
+from a source checkout. The test suite compares generated data structurally, so
+formatting differences alone do not require reference-file changes.
+
+## Start with Three Core Routes
+
+Run these commands from the repository root. `--test` removes changing runtime
+metadata and `-O` permits replacing an earlier local result.
+
+PXF to BFF:
+
+```bash
+bin/convert-pheno \
+  -ipxf t/pxf2bff/in/pxf.json \
+  -obff individuals.json \
+  --test -O
+```
+
+Reference output: [`t/pxf2bff/out/individuals.json`](pxf2bff/out/individuals.json)
+
+BFF to PXF:
+
+```bash
+bin/convert-pheno \
+  -ibff t/bff2pxf/in/individuals.json \
+  -opxf pxf.json \
+  --test -O
+```
+
+Reference output: [`t/bff2pxf/out/pxf.json`](bff2pxf/out/pxf.json)
+
+OMOP CSV tables to BFF:
+
+```bash
+bin/convert-pheno \
+  -iomop \
+  t/omop2bff/in/PERSON.csv \
+  t/omop2bff/in/CONCEPT.csv \
+  t/omop2bff/in/DRUG_EXPOSURE.csv \
+  -obff individuals-omop.json \
+  --test -O
+```
+
+Reference output: [`t/omop2bff/out/individuals_csv.json`](omop2bff/out/individuals_csv.json)
+
+## Fixture Index
+
+| Input format | Input directory | Reference output directories |
+| --- | --- | --- |
+| BFF | [`bff2pxf/in`](bff2pxf/in) | `bff2pxf/out`, `bff2omop/out`, `bff2csv/out`, `bff2jsonf/out` |
+| PXF | [`pxf2bff/in`](pxf2bff/in) | `pxf2bff/out`, `pxf2csv/out`, `pxf2jsonf/out` |
+| OMOP-CDM | [`omop2bff/in`](omop2bff/in) | `omop2bff/out`, `omop2pxf/out` |
+| CSV | [`csv2bff/in`](csv2bff/in) | `csv2bff/out`, `csv2pxf/out`, `csv2omop/out` |
+| REDCap | [`redcap2bff/in`](redcap2bff/in) | `redcap2bff/out`, `redcap2pxf/out` |
+| CDISC-ODM | [`cdisc2bff/in`](cdisc2bff/in) | `cdisc2bff/out`, `cdisc2pxf/out` |
+| openEHR canonical JSON | [`openehr2bff/in`](openehr2bff/in) | `openehr2bff/out`, `openehr2pxf/out` |
+
+Some output routes intentionally reuse the canonical input from another fixture
+directory. The exact commands maintained by the test suite are in
+[`t/19-cli-regression.t`](19-cli-regression.t).
+
+## Run the Suite
+
+```bash
+prove -lr t
+```
+
+Generated files are written to temporary directories by the tests. Do not
+replace files under `t/*/out/` unless a deliberate conversion change has been
+reviewed and the expected structure has changed.

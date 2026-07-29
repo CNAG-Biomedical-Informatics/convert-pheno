@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img" aria-labelledby="title description">
+  <title id="title">Supported Beacon entity collections</title>
+  <desc id="description">Individuals and biosamples hold record-level data, while datasets and cohorts provide collection context.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#60747d"/>
+    </marker>
+  </defs>
+  <rect x="1" y="1" width="718" height="298" rx="8" fill="#ffffff" stroke="#d6e1e5" stroke-width="2"/>
+  <g font-family="Arial, sans-serif">
+    <text x="24" y="28" fill="#49616c" font-size="13" font-weight="700">RECORD-LEVEL DATA</text>
+    <text x="410" y="28" fill="#49616c" font-size="13" font-weight="700">COLLECTION CONTEXT</text>
+
+    <rect x="24" y="48" width="286" height="88" rx="7" fill="#eef8fa" stroke="#4a96aa" stroke-width="2"/>
+    <rect x="24" y="48" width="7" height="88" rx="3" fill="#0f6f8f"/>
+    <circle cx="58" cy="83" r="13" fill="#0f6f8f"/>
+    <path d="M42 119c2-15 8-23 16-23s14 8 16 23" fill="none" stroke="#0f6f8f" stroke-width="5" stroke-linecap="round"/>
+    <text x="92" y="78" fill="#174e62" font-size="18" font-weight="700">individuals</text>
+    <text x="92" y="101" fill="#536871" font-size="13">phenotypes · diseases · measures</text>
+    <text x="92" y="120" fill="#60747d" font-size="12">demographics and clinical history</text>
+
+    <rect x="24" y="180" width="286" height="88" rx="7" fill="#fff7ef" stroke="#d99355" stroke-width="2"/>
+    <rect x="24" y="180" width="7" height="88" rx="3" fill="#e58a3d"/>
+    <path d="M48 211h26l9 9v28H48z" fill="#ffffff" stroke="#c56e28" stroke-width="2"/>
+    <path d="M74 211v9h9M54 229h21M54 238h17" fill="none" stroke="#c56e28" stroke-width="2"/>
+    <text x="92" y="210" fill="#8c4d1d" font-size="18" font-weight="700">biosamples</text>
+    <text x="92" y="233" fill="#536871" font-size="13">specimen type · collection · analyses</text>
+    <text x="92" y="252" fill="#60747d" font-size="12">linked back through individualId</text>
+
+    <path d="M167 180V142" fill="none" stroke="#60747d" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="178" y="164" fill="#60747d" font-family="monospace" font-size="12">individualId</text>
+
+    <rect x="410" y="48" width="286" height="88" rx="7" fill="#f3f8fb" stroke="#6d98b4" stroke-width="2"/>
+    <rect x="410" y="48" width="7" height="88" rx="3" fill="#315f82"/>
+    <path d="M441 72h36v40h-36zM447 80h24M447 89h24M447 98h18" fill="#ffffff" stroke="#315f82" stroke-width="2"/>
+    <text x="495" y="78" fill="#315f82" font-size="18" font-weight="700">datasets</text>
+    <text x="495" y="101" fill="#536871" font-size="13">provenance · access · version</text>
+    <text x="495" y="120" fill="#60747d" font-size="12">metadata for the distributed records</text>
+
+    <rect x="410" y="180" width="286" height="88" rx="7" fill="#f5f2fb" stroke="#8b78b6" stroke-width="2"/>
+    <rect x="410" y="180" width="7" height="88" rx="3" fill="#7563a6"/>
+    <circle cx="449" cy="216" r="9" fill="#7563a6"/>
+    <circle cx="470" cy="216" r="9" fill="#a296c5"/>
+    <path d="M436 248c1-13 6-20 13-20s12 7 13 20M457 248c1-13 6-20 13-20s12 7 13 20" fill="none" stroke="#7563a6" stroke-width="4" stroke-linecap="round"/>
+    <text x="495" y="210" fill="#5f4b8b" font-size="18" font-weight="700">cohorts</text>
+    <text x="495" y="233" fill="#536871" font-size="13">groups · inclusion criteria · types</text>
+    <text x="495" y="252" fill="#60747d" font-size="12">population-level collection metadata</text>
+  </g>
+</svg>

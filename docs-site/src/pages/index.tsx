@@ -107,8 +107,8 @@ export default function Home() {
           <aside className={styles.scopeNote}>
             <strong>Scope</strong>
             <p>
-              Convert-Pheno does not replace terminology curation, a general OMOP ETL
-              framework, or project-specific review and validation of converted data.
+              Convert-Pheno does not replace terminology curation or project-specific
+              review and validation of converted data.
             </p>
           </aside>
         </section>

@@ -16,7 +16,7 @@ export const ConversionDiagram = () => {
   );
 };
 
-`Convert-Pheno` is **open-source software** for converting clinical and phenotypic data between commonly used exchange models. It is mainly designed for file-based transformations, validation checks, and reproducible batch conversion.
+`Convert-Pheno` is **open-source software** for converting clinical and phenotypic data between commonly used exchange models. It is mainly designed for file-based transformations and reproducible batch conversion.
 
 <figure className="convertDiagramFrame">
 <div className="convertDiagramScroller">
@@ -33,9 +33,9 @@ Clinical datasets often arrive in formats that are useful inside one project but
 
 - transform supported source formats into Beacon-compatible `BFF`
 - generate Phenopackets v2 or OMOP-CDM outputs when supported
+- use mapped `CSV` records as input for ETL into `BFF`, `PXF`, or supported OMOP-CDM tables
 - keep source provenance in `info` for auditability
 - inspect ontology lookup results through optional search audit files
-- validate outputs with external schema-aware tools
 
 ## How It Works
 
@@ -45,11 +45,13 @@ For mapping-file conversions such as `CSV`, `REDCap`, and `CDISC-ODM`, the mappi
 
 For structured standards such as `PXF` and `OMOP-CDM`, the converter uses source-specific mapping code rather than a user mapping file.
 
-## What It Is Not
+## CSV-based ETL
 
-`Convert-Pheno` is not a clinical terminology curation platform, an OMOP ETL framework, or a Beacon API server. It can preserve source values, map known fields, and query configured ontology databases, but users still need to review mappings and validate outputs for their project.
+When `CSV` is the input, Convert-Pheno can be used for mapping-driven ETL. A project mapping file maps source columns to `BFF`; the same CLI run can then write `BFF`, `PXF`, or supported OMOP-CDM tables. Users do not need to create the intermediate `BFF` file themselves.
 
-It is also not equally mature for every route. The core file-based routes are more established than experimental areas such as openEHR input.
+The mapping still has to be defined and reviewed before generated output is loaded into a target system.
+
+Supported routes are covered by automated regression tests and target-format checks where practical. Independent use across diverse real-world datasets varies by route. openEHR input remains experimental because its implemented source profile is still evolving.
 
 ## Main Interfaces
 
@@ -66,4 +68,3 @@ For developers who need to call Convert-Pheno from other code, the project also 
 - [Supported Formats](supported-formats) for accepted input and output formats
 - [Ways to Run Convert-Pheno](choose-an-interface) for CLI/API/module selection
 - [Choose a Conversion](conversion-recipes) for short commands
-- [Output Validation](output-validation) for provenance, audit files, and validation

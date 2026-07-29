@@ -9,7 +9,7 @@ This page is the quickest way to choose a conversion route. Start with your **in
 Use the command-line interface for real files, mapping files, REDCap dictionaries, OMOP tables, audit TSV files, and multi-entity BFF output.
 :::
 
-For a compact list of accepted inputs and outputs, see [Supported Formats](supported-formats). Route-specific setup details remain on the linked format pages.
+For a compact list of accepted inputs and outputs, see [Supported Formats](supported-formats). Route-specific setup details remain on the linked format pages. Small inputs and reference outputs for every implemented route are indexed in the repository's [`t/` fixture guide](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/tree/main/t).
 
 ## Choose by Input Format
 
@@ -42,6 +42,7 @@ For a compact list of accepted inputs and outputs, see [Supported Formats](suppo
 | --- | --- | --- |
 | Beacon v2 / `BFF` | [`redcap2bff`](#redcap-input-bff-output) | Requires `--mapping-file` and usually `--redcap-dictionary` |
 | Phenopackets v2 / `PXF` | [`redcap2pxf`](#redcap-input-pxf-output) | Uses the same mapping model as `redcap2bff` |
+| OMOP-CDM CSV | [`redcap2omop`](#redcap-input-omop-cdm-output) | Goes through BFF; requires `--ohdsi-db` |
 
 ### CSV Input
 
@@ -49,6 +50,7 @@ For a compact list of accepted inputs and outputs, see [Supported Formats](suppo
 | --- | --- | --- |
 | Beacon v2 / `BFF` | [`csv2bff`](#csv-input-bff-output) | Requires `--mapping-file` |
 | Phenopackets v2 / `PXF` | [`csv2pxf`](#csv-input-pxf-output) | Requires `--mapping-file` |
+| OMOP-CDM CSV | [`csv2omop`](#csv-input-omop-cdm-output) | Goes through BFF; requires `--ohdsi-db` |
 
 ### CDISC-ODM Input
 
@@ -56,6 +58,14 @@ For a compact list of accepted inputs and outputs, see [Supported Formats](suppo
 | --- | --- | --- |
 | Beacon v2 / `BFF` | [`cdisc2bff`](#cdisc-odm-input-bff-output) | Requires `--mapping-file` |
 | Phenopackets v2 / `PXF` | [`cdisc2pxf`](#cdisc-odm-input-pxf-output) | Requires `--mapping-file` |
+| OMOP-CDM CSV | [`cdisc2omop`](#cdisc-odm-input-omop-cdm-output) | Goes through BFF; requires `--ohdsi-db` |
+
+### openEHR Input
+
+| Target output | Route | Notes |
+| --- | --- | --- |
+| Beacon v2 / `BFF` | [openEHR format guide](openehr) | Canonical JSON or YAML compositions become Beacon `individuals` |
+| Phenopackets v2 / `PXF` | [openEHR format guide](openehr) | Internally goes through BFF |
 
 ## Before You Run
 
@@ -64,6 +74,7 @@ For a compact list of accepted inputs and outputs, see [Supported Formats](suppo
 - Use `--search-audit-tsv FILE` for mapping-file conversions if you want to inspect ontology lookup results.
 - Use `--no-source-info` only when you want smaller BFF output and do not need copied source columns under `info`.
 - Use `--entities` only with `-obff` and `--out-dir` when writing multiple Beacon entity files.
+- Start with a regression fixture when evaluating a route; this separates installation problems from project-specific input or mapping issues.
 
 ## Command Examples
 
@@ -152,7 +163,7 @@ convert-pheno -iomop dump.sql.gz -obff individuals.json.gz \
   --stream --ohdsi-db --no-source-info
 ```
 
-More detail: [OMOP-CDM](omop-cdm), [OMOP to BFF mapping](omop2bff), [Output Validation](output-validation).
+More detail: [OMOP-CDM](omop-cdm), [OMOP to BFF mapping](omop2bff).
 
 ### OMOP-CDM Input: PXF Output
 
@@ -196,6 +207,18 @@ convert-pheno -icsv clinical.csv \
   -opxf phenopackets.json
 ```
 
+### CSV Input: OMOP-CDM Output
+
+```bash
+convert-pheno -icsv clinical.csv \
+  --mapping-file mapping.yaml \
+  --sep , \
+  -oomop --out-dir omop_out/ \
+  --ohdsi-db
+```
+
+This is a single CLI route, but internally the mapped CSV records are normalized to BFF before the supported OMOP tables are written. More detail: [CSV](csv), [BFF to OMOP mapping](bff2omop).
+
 ### REDCap Input: BFF Output
 
 ```bash
@@ -217,6 +240,16 @@ convert-pheno -iredcap redcap.csv \
   -opxf phenopackets.json
 ```
 
+### REDCap Input: OMOP-CDM Output
+
+```bash
+convert-pheno -iredcap redcap.csv \
+  --redcap-dictionary redcap-dictionary.csv \
+  --mapping-file mapping.yaml \
+  -oomop --out-dir omop_out/ \
+  --ohdsi-db
+```
+
 ### CDISC-ODM Input: BFF Output
 
 ```bash
@@ -233,6 +266,15 @@ More detail: [CDISC-ODM](cdisc-odm).
 convert-pheno -icdisc study.xml \
   --mapping-file mapping.yaml \
   -opxf phenopackets.json
+```
+
+### CDISC-ODM Input: OMOP-CDM Output
+
+```bash
+convert-pheno -icdisc study.xml \
+  --mapping-file mapping.yaml \
+  -oomop --out-dir omop_out/ \
+  --ohdsi-db
 ```
 
 ## Inspection Outputs
@@ -260,4 +302,4 @@ convert-pheno -icsv clinical.csv \
   -obff individuals.json
 ```
 
-For interpretation of audit and validation output, see [Output Validation](output-validation).
+For interpretation of ontology lookup results, see [DB Search](tbl/db-search).

@@ -164,12 +164,37 @@ For `CSV`, `REDCap`, and `CDISC-ODM`, the **CLI is the preferred interface**. Th
 
 ## Available implementations
 
-The repository currently includes two API wrappers:
+Both server implementations expose the same `POST /api` contract. Choose the
+one that fits the surrounding application stack.
 
-- Perl: [api/perl](https://github.com/cnag-biomedical-informatics/convert-pheno/tree/main/api/perl)
-- Python: [api/python](https://github.com/cnag-biomedical-informatics/convert-pheno/tree/main/api/python)
+<Tabs groupId="api-implementation">
+<TabItem value="perl" label="Perl" default>
 
-The Perl implementation is the direct wrapper around the main module. The Python implementation exists for interoperability and calls the Perl conversion layer through an internal JSON bridge, so the core conversion logic still lives in Perl.
+The Mojolicious implementation calls `Convert::Pheno` directly and serves on
+port `3000` by default:
+
+```bash
+cd api/perl
+morbo main.pl
+```
+
+See the [Perl API setup](https://github.com/cnag-biomedical-informatics/convert-pheno/tree/main/api/perl).
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+The FastAPI implementation calls the same Perl conversion layer through the
+internal JSON bridge and serves on port `8000` by default:
+
+```bash
+cd api/python
+uvicorn main:app --reload
+```
+
+See the [Python API setup](https://github.com/cnag-biomedical-informatics/convert-pheno/tree/main/api/python).
+
+</TabItem>
+</Tabs>
 
 Client applications in JavaScript can consume the same REST API without needing a dedicated JavaScript server wrapper.
 

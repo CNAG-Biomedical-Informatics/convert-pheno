@@ -10,14 +10,14 @@ import Link from '@docusaurus/Link';
 
 The software `Convert-Pheno` can be installed **locally** on the following operating systems:
 
-| Operating System | Supported Versions            |
-|------------------|-------------------------------|
-| Linux            | All major distributions       |
-| macOS            | macOS 10.14 (Mojave) and later|
-| Windows          | Windows Server OS             |
+| Operating System | Supported Versions                                      |
+|------------------|---------------------------------------------------------|
+| Linux            | All major distributions                                 |
+| macOS            | macOS 10.14 (Mojave) and later                          |
+| Windows          | CI-tested with Strawberry Perl 5.40 and 5.42            |
 
 :::
-Choose the setup that matches how you will run the converter. Most command-line users can install locally. Docker is the recommended route for API usage and reproducible execution environments.
+Choose the setup that matches how you will run the converter. Most command-line users can install locally. Docker is the simplest option on Windows and the recommended route for API usage and reproducible execution environments.
 
 <div className="convertInstallGrid">
   <Link className="convertInstallCard" to="/download-and-installation/non-containerized">
@@ -42,6 +42,7 @@ It depends on which components you want to use and your familiarity with Docker-
 | -- | -- |
 | CLI | Non-containerized (CPAN) |
 | CLI in Conda | Non-containerized (Conda) |
+| CLI on Windows | Docker; native Strawberry Perl is also supported |
 | API | Docker |
 
 </details>

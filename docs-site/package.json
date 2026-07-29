@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
-    "prestart": "node scripts/sync-readmes.mjs",
+    "sync-content": "node scripts/sync-readmes.mjs && node scripts/sync-examples.mjs",
+    "prestart": "npm run sync-content",
     "start": "docusaurus start",
-    "prebuild": "node scripts/sync-readmes.mjs",
+    "prebuild": "npm run sync-content",
     "build": "docusaurus build",
     "clear": "docusaurus clear",
     "preview": "npm run build && docusaurus serve",

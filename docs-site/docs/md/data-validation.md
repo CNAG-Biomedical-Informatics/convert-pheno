@@ -9,5 +9,5 @@ Convert-Pheno uses external validators during development where practical: `bff-
 
 **Important:** Convert-Pheno **does not validate your input data**. Source files should be checked before conversion.
 
-See [Output Validation](../output-validation) for details.
+See [Development Validation](../development-validation) for details.
 :::

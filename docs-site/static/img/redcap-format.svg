@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img" aria-labelledby="title description">
+  <title id="title">REDCap conversion inputs and mapping context</title>
+  <desc id="description">A REDCap data export and data dictionary are interpreted through a project mapping and optional terminology lookup to produce a normalized clinical record.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#60747d"/>
+    </marker>
+  </defs>
+  <rect x="1" y="1" width="718" height="298" rx="8" fill="#ffffff" stroke="#d6e1e5" stroke-width="2"/>
+  <g font-family="Arial, sans-serif">
+    <text x="24" y="28" fill="#49616c" font-size="13" font-weight="700">PROJECT EXPORTS</text>
+    <text x="268" y="28" fill="#49616c" font-size="13" font-weight="700">CONVERSION CONTEXT</text>
+    <text x="524" y="28" fill="#49616c" font-size="13" font-weight="700">NORMALIZED RECORD</text>
+
+    <rect x="24" y="51" width="194" height="91" rx="7" fill="#fff4f4" stroke="#be6266" stroke-width="2"/>
+    <rect x="24" y="51" width="7" height="91" rx="3" fill="#a92d32"/>
+    <text x="47" y="78" fill="#8d272c" font-family="monospace" font-size="16" font-weight="700">data.csv</text>
+    <rect x="47" y="91" width="147" height="31" fill="#ffffff" stroke="#d8a4a6"/>
+    <path d="M96 91v31M145 91v31M47 106h147" stroke="#d8a4a6"/>
+
+    <rect x="24" y="166" width="194" height="91" rx="7" fill="#fff4f4" stroke="#be6266" stroke-width="2"/>
+    <rect x="24" y="166" width="7" height="91" rx="3" fill="#a92d32"/>
+    <text x="47" y="193" fill="#8d272c" font-family="monospace" font-size="16" font-weight="700">dictionary.csv</text>
+    <text x="47" y="218" fill="#536871" font-size="12">field type · choices · labels</text>
+    <text x="47" y="238" fill="#60747d" font-size="12">project metadata</text>
+
+    <path d="M218 96H250M218 211H250M250 96V211" fill="none" stroke="#60747d" stroke-width="2"/>
+    <path d="M250 153H264" fill="none" stroke="#60747d" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <rect x="268" y="63" width="202" height="112" rx="7" fill="#f3f8fb" stroke="#6d98b4" stroke-width="2"/>
+    <rect x="268" y="63" width="202" height="39" rx="7" fill="#315f82"/>
+    <text x="290" y="88" fill="#ffffff" font-family="monospace" font-size="16" font-weight="700">mapping.yaml</text>
+    <text x="290" y="126" fill="#315f82" font-family="monospace" font-size="12">field: diseases</text>
+    <text x="290" y="147" fill="#536871" font-family="monospace" font-size="12">source: diagnosis</text>
+    <text x="290" y="166" fill="#60747d" font-size="11">user-defined project semantics</text>
+
+    <rect x="268" y="198" width="202" height="59" rx="7" fill="#fff7ef" stroke="#d99355"/>
+    <circle cx="293" cy="227" r="10" fill="#e58a3d"/>
+    <path d="M287 227h12M293 221v12" stroke="#ffffff" stroke-width="2"/>
+    <text x="315" y="223" fill="#8c4d1d" font-size="13" font-weight="700">ontology lookup</text>
+    <text x="315" y="242" fill="#60747d" font-size="11">optional, auditable resolution</text>
+
+    <path d="M470 119H494M470 227H494M494 119V227" fill="none" stroke="#60747d" stroke-width="2"/>
+    <path d="M494 153H520" fill="none" stroke="#60747d" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <rect x="524" y="63" width="172" height="194" rx="7" fill="#eff9f3" stroke="#58a27b" stroke-width="2"/>
+    <rect x="524" y="63" width="172" height="39" rx="7" fill="#2f9665"/>
+    <text x="546" y="88" fill="#ffffff" font-size="16" font-weight="700">individual</text>
+    <g font-family="monospace" font-size="12">
+      <text x="546" y="127" fill="#276749">id</text>
+      <text x="546" y="153" fill="#276749">sex</text>
+      <text x="546" y="179" fill="#276749">diseases[]</text>
+      <text x="546" y="205" fill="#276749">measures[]</text>
+      <text x="546" y="231" fill="#276749">info.REDCap_columns</text>
+    </g>
+  </g>
+</svg>

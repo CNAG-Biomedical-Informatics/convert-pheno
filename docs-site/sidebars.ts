@@ -81,7 +81,7 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: '🧬 Formats Accepted',
+      label: '🧬 Format Guides',
       items: [
         {
           type: 'doc',
@@ -113,6 +113,11 @@ const sidebars: SidebarsConfig = {
           id: 'csv',
           label: 'CSV',
         },
+        {
+          type: 'doc',
+          id: 'openehr',
+          label: 'openEHR (Experimental)',
+        },
       ],
     },
     {
@@ -131,8 +136,8 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: 'doc',
-          id: 'output-validation',
-          label: 'Output Validation',
+          id: 'development-validation',
+          label: 'Development Validation',
         },
         {
           type: 'category',

@@ -27,6 +27,7 @@ RUN cpanm --notest --configure-timeout 300 --installdeps .
 
 # Build from the caller-supplied checkout so tags and workflow refs are reproducible.
 COPY . .
+ENV PATH="/usr/share/convert-pheno/bin:${PATH}"
 
 # Add user "dockeruser"
 ARG UID=1000

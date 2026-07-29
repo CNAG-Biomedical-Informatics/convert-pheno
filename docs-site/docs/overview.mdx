@@ -36,7 +36,8 @@ Most users come to `Convert-Pheno` for one of these tasks:
 
 - convert `PXF` to `BFF` `individuals`, `biosamples`, `datasets`, and `cohorts`
 - convert `OMOP-CDM` exports to `BFF` or `PXF`
-- convert `REDCap` or raw `CSV` data through a **mapping file**
+- convert `REDCap` or `CDISC-ODM` data through a **mapping file**
+- use mapped raw `CSV` as an ETL source for `BFF`, `PXF`, or supported `OMOP-CDM` tables
 - convert `BFF` to `PXF`, flattened `CSV`, flattened `JSON`, or `JSON-LD`
 
 ## Start Here
@@ -44,7 +45,6 @@ Most users come to `Convert-Pheno` for one of these tasks:
 - [5-Minute Quickstart](quickstart) if you want to complete one small conversion now
 - [Ways to Run Convert-Pheno](choose-an-interface) if you are deciding between CLI, API, and module usage
 - [Choose a Conversion](conversion-recipes) if you want a route finder and copy-paste commands for common conversions
-- [Output Validation](output-validation) if you need to inspect provenance, audit ontology search, or validate output
 
 :::note[API vs CLI]
 Use the HTTP(s) API mainly for **self-contained JSON payloads** such as `BFF`, `PXF`, and carefully prepared `OMOP-CDM` requests.

@@ -1,13 +1,11 @@
 ---
-title: Output Validation
-sidebar_label: Output Validation
+title: Development Validation
+sidebar_label: Development Validation
 ---
 
-# Output Validation
+This page records how generated output is checked while conversion mappings are developed and maintained. It is a development methodology, not an extra command that users are expected to run after every conversion.
 
-Output validation in Convert-Pheno is not a single switch. During development, converted files are checked against the target schemas or table definitions, and validation errors are used to improve the conversion code. For users, the same idea shows up as preserved source values, ontology search audit files, and documented mapping tables.
-
-The goal is practical: converted files should be structurally valid, and users should still be able to inspect how source values became target fields.
+These checks assess structural conformance and known mapping behavior. They do not establish the clinical correctness or completeness of a source dataset, and they do not imply that every vendor or project profile has been independently reviewed.
 
 <div className="convertNotePanel">
   <p>
@@ -17,48 +15,9 @@ The goal is practical: converted files should be structurally valid, and users s
   </p>
 </div>
 
-## Source Provenance in `info`
+## Validation Methods
 
-When Convert-Pheno creates BFF from `OMOP-CDM`, `CSV`, `REDCap`, or `CDISC-ODM`, it preserves raw source values in `info` by default.
-
-This is deliberate:
-
-- Users can cross-check converted records against the original input.
-- Beacon-style APIs can still expose or query source-specific values.
-- Conversion bugs are easier to diagnose because the source context is retained.
-
-Use `--no-source-info` only when you need smaller payloads or do not want to carry raw source values forward.
-
-```bash
-convert-pheno -iomop PERSON.csv CONCEPT.csv \
-  -obff individuals.json \
-  --no-source-info
-```
-
-## Ontology Search Audit
-
-For mapping-file conversions, use `--search-audit-tsv` to write a user-readable TSV of ontology lookups.
-
-```bash
-convert-pheno -icsv clinical.csv \
-  --mapping-file mapping.yaml \
-  --search-audit-tsv search-audit.tsv \
-  -obff individuals.json
-```
-
-The audit file is useful for checking:
-
-- the original label from the input
-- the converted label
-- the converted ontology identifier
-- the ontology source
-- whether the result came from an exact match, a fuzzy/mixed search, or a fallback
-
-## Development Validators
-
-Convert-Pheno does not validate source files as clinical truth. Input validation and cleaning remain the user's responsibility.
-
-During development, generated outputs are checked with external validators where practical.
+During development, generated outputs are checked with external validators where practical:
 
 - **BFF:** Beacon v2 JSON entities are checked with `bff-tools validate` from [beacon2-cbi-tools](https://github.com/CNAG-Biomedical-Informatics/beacon2-cbi-tools). Validator failures are used to update runtime mapping logic, defaults, and type coercions until generated entity files validate against the Beacon v2 schemas.
 - **PXF:** Phenopackets output is checked in the extended `xt/protobuff.t` test. The test uses Inline Python to parse generated PXF JSON into the Phenopackets protobuf model with `google.protobuf.json_format.Parse` and `phenopackets.Phenopacket`.
@@ -89,14 +48,18 @@ Two choices are important when reviewing OMOP-derived BFF:
 - **Source preservation:** Original OMOP row values are retained under `info` or `_info` provenance blocks by default. This helps domain experts cross-check converted records and allows source-specific OMOP values to remain queryable when BFF is loaded into downstream systems. Use `--no-source-info` if you do not want to carry those raw values forward.
 - **Exposure selection:** Beacon `exposures` are populated from a curated set of OMOP `concept_id` values. The candidate list is maintained in [`share/db/concepts_candidates_2_exposure.csv`](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/share/db/concepts_candidates_2_exposure.csv).
 
-## Conversion Status
+## Implementation and Validation Evidence
 
-| Route | Status | Notes |
-|-------|--------|-------|
-| `PXF -> BFF individuals` | Mature | Core pathway |
-| `BFF individuals -> PXF` | Mature | Used for round-trip conversion |
-| `OMOP-CDM -> BFF individuals` | Mature | Depends on available OMOP tables and concept lookup |
-| `PXF -> BFF biosamples` | Beta | Uses Phenopackets biosample content when present |
-| `OMOP SPECIMEN -> BFF biosamples` | Beta | Supports structured biosample measurements for specimen quantity |
-| `CSV`, `REDCap`, `CDISC-ODM` -> BFF | Beta | Depends on mapping-file quality |
-| `openEHR -> BFF/PXF` | Experimental | Canonical composition support is still evolving |
+`Supported` means that the route is implemented and covered by automated regression tests. It does not imply that every source profile or project-specific mapping has been independently reviewed. The validation column records that separate evidence.
+
+| Route | Implementation | Validation experience |
+|-------|----------------|-----------------------|
+| `PXF -> BFF individuals` | Supported | Regression- and schema-validated core pathway |
+| `BFF individuals -> PXF` | Supported | Regression- and protobuf-validated round-trip pathway |
+| `OMOP-CDM -> BFF individuals` | Supported | Tested with synthetic and larger OMOP datasets; output depends on available tables and concept lookup |
+| `PXF -> BFF biosamples` | Supported | Regression- and schema-validated; independent use remains limited |
+| `OMOP SPECIMEN -> BFF biosamples` | Supported | Regression- and schema-validated; broader external validation is pending |
+| `CSV -> BFF/PXF/supported OMOP-CDM tables` | Supported | Regression-tested; semantic results depend on the project mapping and terminology review |
+| `REDCap -> BFF/PXF/supported OMOP-CDM tables` | Supported | Regression-tested; validation across diverse project structures is ongoing |
+| `CDISC-ODM v1 -> BFF/PXF/supported OMOP-CDM tables` | Supported profile | Regression-tested for the documented ODM-XML v1 structure; broader vendor coverage is limited |
+| `openEHR -> BFF/PXF` | Experimental | Canonical composition support and source-profile coverage are still evolving |

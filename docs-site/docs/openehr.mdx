@@ -1,0 +1,83 @@
+---
+title: openEHR
+sidebar_label: openEHR
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+export const OpenEhrFormatImage = () => (
+  <img
+    src={useBaseUrl('/img/openehr-format.svg')}
+    alt="openEHR compositions grouped by patient into normalized clinical content"
+    className="convertFormatDiagram"
+  />
+);
+
+:::note[Implementation status]
+Implemented and regression-tested. Experimental status reflects limited
+independent validation across openEHR templates and deployments.
+:::
+
+<div className="convertFormatSummary" aria-label="At a glance">
+  <div><span>Role</span><strong>Input</strong></div>
+  <div><span>Accepted input</span><strong>Canonical JSON or YAML compositions</strong></div>
+  <div><span>Main output</span><strong>BFF individuals or PXF</strong></div>
+  <div><span>Required context</span><strong>Patient identifier and administrative gender</strong></div>
+</div>
+
+<figure className="convertFormatFigure">
+<OpenEhrFormatImage />
+<figcaption>Canonical compositions are grouped by patient and normalized into clinical arrays</figcaption>
+</figure>
+
+## openEHR as input
+
+Convert-Pheno accepts EHRbase-style canonical compositions as JSON or YAML,
+including gzip-compressed files. Input can be a patient envelope containing a
+`compositions` array, a raw composition, or multiple files supplied in one
+command. A mapping file is not required.
+
+Convert one patient envelope to Beacon v2 `individuals`:
+
+```bash
+convert-pheno -iopenehr patient-set.json -obff individuals.json
+```
+
+Aggregate several compositions and write Phenopackets v2 output:
+
+```bash
+convert-pheno -iopenehr demographics.json ips.json laboratory.json \
+  -opxf phenopackets.json
+```
+
+Files are grouped by resolved patient identity before conversion. Compositions
+for the same patient become one record; input containing distinct embedded
+patient identifiers can produce multiple records. Conversion fails when a
+stable patient identifier or administrative gender cannot be resolved.
+
+## Implemented clinical content
+
+The current profile maps:
+
+- administrative gender to `sex`
+- problem and diagnosis entries to `diseases`
+- laboratory results and body temperature to `measures`
+- symptom screening to `phenotypicFeatures`
+- procedures to `interventionsOrProcedures`
+- medication actions to `treatments`
+
+External codes are retained as CURIEs. Uncoded text receives a local
+`openEHR:` identifier where a target ontology term requires both an identifier
+and label. Source compositions are preserved under
+`info.openehr.compositions` for traceability.
+
+## Current boundaries
+
+The openEHR route currently writes BFF or PXF. It does not directly write OMOP,
+CSV, flattened JSON, or JSON-LD, and it does not yet map first-class Beacon
+`biosamples`. Coverage depends on the archetypes and node names represented in
+the implemented canonical profile.
+
+For field-level behavior and omissions, see the [openEHR to BFF mapping](openehr2bff).
+The regression inputs are available under
+[`t/openehr2bff/in`](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/tree/main/t/openehr2bff/in).

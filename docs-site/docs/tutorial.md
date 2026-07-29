@@ -8,6 +8,9 @@ This page gives **short walkthroughs** for three common `convert-pheno` conversi
 :::tip[Google Colab version]
 A runnable notebook version is available in [Google Colab](https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6). A local copy is also available in the [repo](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/nb/convert_pheno_cli_tutorial.ipynb).
 
+The notebook clones the latest `main` branch when it runs and reports both the
+Convert-Pheno version and exact Git commit used.
+
 :::
 :::note[Before you start]
 These examples assume that `Convert-Pheno` is already installed. If not, start with [Download & Installation](download-and-installation).

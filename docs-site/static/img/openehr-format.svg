@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img" aria-labelledby="title description">
+  <title id="title">openEHR composition aggregation</title>
+  <desc id="description">Multiple canonical compositions are grouped by patient identity and normalized into one record with clinical arrays.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#60747d"/>
+    </marker>
+  </defs>
+  <rect x="1" y="1" width="718" height="298" rx="8" fill="#ffffff" stroke="#d6e1e5" stroke-width="2"/>
+  <g font-family="Arial, sans-serif">
+    <text x="24" y="28" fill="#49616c" font-size="13" font-weight="700">CANONICAL COMPOSITIONS</text>
+    <text x="291" y="28" fill="#49616c" font-size="13" font-weight="700">PATIENT GROUPING</text>
+    <text x="521" y="28" fill="#49616c" font-size="13" font-weight="700">NORMALIZED CONTENT</text>
+
+    <rect x="24" y="51" width="218" height="62" rx="7" fill="#eef8fa" stroke="#75a9b7"/>
+    <rect x="24" y="51" width="6" height="62" rx="3" fill="#258bb0"/>
+    <text x="47" y="78" fill="#174e62" font-size="15" font-weight="700">demographics</text>
+    <text x="47" y="99" fill="#60747d" font-size="11">identity · sex · birth date</text>
+    <rect x="24" y="126" width="218" height="62" rx="7" fill="#fff7ef" stroke="#d9a171"/>
+    <rect x="24" y="126" width="6" height="62" rx="3" fill="#ff861c"/>
+    <text x="47" y="153" fill="#8c4d1d" font-size="15" font-weight="700">laboratory report</text>
+    <text x="47" y="174" fill="#60747d" font-size="11">analytes · quantities · times</text>
+    <rect x="24" y="201" width="218" height="62" rx="7" fill="#f5f2fb" stroke="#9c8cbd"/>
+    <rect x="24" y="201" width="6" height="62" rx="3" fill="#7563a6"/>
+    <text x="47" y="228" fill="#5f4b8b" font-size="15" font-weight="700">medication / procedure</text>
+    <text x="47" y="249" fill="#60747d" font-size="11">actions · timing · coded terms</text>
+
+    <path d="M242 82H270M242 157H270M242 232H270M270 82V232" fill="none" stroke="#60747d" stroke-width="2"/>
+    <path d="M270 157H287" fill="none" stroke="#60747d" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <rect x="291" y="83" width="184" height="148" rx="7" fill="#f3f8fb" stroke="#6d98b4" stroke-width="2"/>
+    <circle cx="383" cy="126" r="21" fill="#315f82"/>
+    <circle cx="383" cy="119" r="7" fill="#ffffff"/>
+    <path d="M370 140c2-11 6-17 13-17s11 6 13 17" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+    <text x="383" y="173" text-anchor="middle" fill="#315f82" font-family="monospace" font-size="14" font-weight="700">patientId</text>
+    <text x="383" y="196" text-anchor="middle" fill="#536871" font-size="12">group compositions</text>
+    <text x="383" y="214" text-anchor="middle" fill="#60747d" font-size="11">one patient → one record</text>
+
+    <path d="M475 157H513" fill="none" stroke="#60747d" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <rect x="521" y="51" width="175" height="212" rx="7" fill="#eff9f3" stroke="#58a27b" stroke-width="2"/>
+    <rect x="521" y="51" width="175" height="39" rx="7" fill="#2f9665"/>
+    <text x="543" y="76" fill="#ffffff" font-size="15" font-weight="700">individual</text>
+    <g font-family="monospace" font-size="12">
+      <text x="543" y="118" fill="#276749">sex</text>
+      <text x="543" y="146" fill="#276749">diseases[]</text>
+      <text x="543" y="174" fill="#276749">measures[]</text>
+      <text x="543" y="202" fill="#276749">phenotypicFeatures[]</text>
+      <text x="543" y="230" fill="#276749">treatments[]</text>
+    </g>
+    <text x="543" y="250" fill="#60747d" font-size="10">source retained in info.openehr</text>
+  </g>
+</svg>

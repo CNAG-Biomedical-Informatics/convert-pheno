@@ -131,7 +131,9 @@ Long-form CLI documentation lives in Markdown:
 
 ## Examples
 
-Repository fixtures under `t/` double as runnable examples.
+Repository fixtures under `t/` double as runnable examples. See the
+[`t/` fixture guide](t/README.md) for tested inputs, reference outputs, and
+commands that mirror the regression suite.
 
 Useful examples:
 

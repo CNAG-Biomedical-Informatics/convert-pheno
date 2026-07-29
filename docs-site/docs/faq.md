@@ -16,6 +16,16 @@ sidebar_label: FAQs
 
 </details>
 <details>
+<summary>Can `Convert-Pheno` be used as an ETL tool for CSV-to-OMOP?</summary>
+
+
+Yes, within its supported mapping scope. A project mapping file describes how CSV columns become `BFF` individuals fields, and Convert-Pheno then applies its built-in BFF-to-OMOP mapping in the same CLI run. Users do not need to create the intermediate BFF file.
+
+This is not an arbitrary OMOP loader: the source data must fit the supported mapping-file concepts, and output is limited to the OMOP tables documented in [BFF to OMOP](bff2omop). The generated CSV tables still require terminology review, validation, and a separate database import step. See the [CSV guide](csv) for the command and workflow boundaries.
+
+
+</details>
+<details>
 <summary>Is `Convert-Pheno` free?</summary>
 
 
@@ -110,7 +120,7 @@ Convert-Pheno uses external validators during development where practical: `bff-
 
 Convert-Pheno does **not** validate the clinical correctness or completeness of your input data. Source files should be checked before conversion.
 
-See [Output Validation](output-validation) for details.
+See [Development Validation](development-validation) for details.
 </details>
 <details>
 <summary>What type of **database search** is carried out?</summary>

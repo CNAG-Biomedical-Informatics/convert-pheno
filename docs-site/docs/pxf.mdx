@@ -5,6 +5,21 @@ sidebar_label: Phenopackets v2 (PXF)
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+export const PxfFormatImage = () => (
+  <img
+    src={useBaseUrl('/img/pxf-format.svg')}
+    alt="Phenopacket record with nested clinical content"
+    className="convertFormatDiagram"
+  />
+);
+
+export const PxfBiosamplesExampleDownload = () => {
+  const exampleUrl = useBaseUrl('/examples/pxf-biosamples.json');
+
+  return <a href={exampleUrl} download>Download the tested PXF biosamples input</a>;
+};
 
 **PXF** stands for **P**henotype e**X**change **F**ormat. Phenopackets v2 [documentation](https://phenopacket-schema.readthedocs.io/en/latest/basics.html).
 
@@ -15,9 +30,9 @@ import TabItem from '@theme/TabItem';
   <div><span>Notes</span><strong>Biosamples can become BFF `biosamples`</strong></div>
 </div>
 
-<figure>
-<img src="https://www.ga4gh.org/wp-content/uploads/2022/02/phenopachets-v2-final-1.jpeg" alt="Phenopackets v2" className="convert-pheno-image-lg" />
-   <figcaption>Figure extracted from www.ga4gh.org</figcaption>
+<figure className="convertFormatFigure">
+<PxfFormatImage />
+<figcaption>A Phenopacket combines subject metadata with nested clinical arrays</figcaption>
 </figure>
 
 Phenopackets organize information using [top-level elements](https://phenopacket-schema.readthedocs.io/en/latest/toplevel.html). Our software, `Convert-Pheno`, specifically processes data from the [Phenopacket element](https://phenopacket-schema.readthedocs.io/en/latest/phenopacket.html), serialized in [PXF](http://phenopackets.org/) format.
@@ -38,8 +53,9 @@ You can browse a public Phenopackets v2 file with onf of teh following **JSON vi
 * [Datasette](https://lite.datasette.io/?json=https%3A%2F%2Fraw.githubusercontent.com%2Fcnag-biomedical-informatics%2Fconvert-pheno%2Fmain%2Ft%2Fomop2pxf%2Fout%2Fpxf.json#/data?sql=select+*+from+pxf)
 
 </details>
-## PXF As Input <img src="https://avatars.githubusercontent.com/u/17553567?s=280&v=4" alt="PXF" className="convert-pheno-image-sm" />
+## PXF As Input
 
+Use the small input from the [5-Minute Quickstart](quickstart), or <PxfBiosamplesExampleDownload /> to exercise multi-entity BFF output.
 
 <Tabs>
 <TabItem value="command-line" label="Command-line">

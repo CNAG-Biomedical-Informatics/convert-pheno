@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img" aria-labelledby="title description">
+  <title id="title">Tabular clinical data conversion</title>
+  <desc id="description">Delimited source columns are interpreted through a mapping and optional ontology search, normalized through BFF, and written to the requested target format.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#60747d"/>
+    </marker>
+  </defs>
+  <rect x="1" y="1" width="718" height="298" rx="8" fill="#ffffff" stroke="#d6e1e5" stroke-width="2"/>
+  <g font-family="Arial, sans-serif">
+    <text x="24" y="28" fill="#49616c" font-size="13" font-weight="700">DELIMITED SOURCE</text>
+    <text x="277" y="28" fill="#49616c" font-size="13" font-weight="700">SEMANTIC MAPPING</text>
+    <text x="526" y="28" fill="#49616c" font-size="13" font-weight="700">REQUESTED OUTPUT</text>
+
+    <rect x="24" y="51" width="211" height="206" rx="7" fill="#f3f8fb" stroke="#6d98b4" stroke-width="2"/>
+    <text x="45" y="78" fill="#315f82" font-family="monospace" font-size="16" font-weight="700">clinical.csv</text>
+    <rect x="45" y="95" width="169" height="133" fill="#ffffff" stroke="#a9c0cc"/>
+    <rect x="45" y="95" width="169" height="30" fill="#dceff3"/>
+    <path d="M101 95v133M158 95v133M45 125h169M45 159h169M45 193h169" fill="none" stroke="#a9c0cc"/>
+    <text x="58" y="115" fill="#315f82" font-size="10" font-weight="700">id</text>
+    <text x="112" y="115" fill="#315f82" font-size="10" font-weight="700">term</text>
+    <text x="166" y="115" fill="#315f82" font-size="10" font-weight="700">value</text>
+    <text x="45" y="246" fill="#60747d" font-size="11">separator set with --sep</text>
+
+    <path d="M235 153H269" fill="none" stroke="#60747d" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <rect x="277" y="65" width="193" height="103" rx="7" fill="#fff7ef" stroke="#d99355" stroke-width="2"/>
+    <rect x="277" y="65" width="193" height="37" rx="7" fill="#e58a3d"/>
+    <text x="298" y="89" fill="#ffffff" font-family="monospace" font-size="15" font-weight="700">mapping.yaml</text>
+    <text x="298" y="126" fill="#8c4d1d" font-family="monospace" font-size="12">source → target field</text>
+    <text x="298" y="149" fill="#536871" font-size="12">value rules and defaults</text>
+
+    <rect x="277" y="191" width="193" height="66" rx="7" fill="#eef8fa" stroke="#75a9b7"/>
+    <text x="298" y="217" fill="#174e62" font-size="13" font-weight="700">ontology search</text>
+    <text x="298" y="239" fill="#60747d" font-size="11">optional TSV audit of each lookup</text>
+
+    <path d="M470 116H494M470 224H494M494 116V224" fill="none" stroke="#60747d" stroke-width="2"/>
+    <path d="M494 153H522" fill="none" stroke="#60747d" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <rect x="526" y="51" width="170" height="206" rx="7" fill="#eff9f3" stroke="#58a27b" stroke-width="2"/>
+    <text x="611" y="79" text-anchor="middle" fill="#276749" font-size="13" font-weight="700">normalized through BFF</text>
+    <rect x="547" y="98" width="128" height="43" rx="6" fill="#ffffff" stroke="#79b194"/>
+    <text x="611" y="125" text-anchor="middle" fill="#276749" font-size="14" font-weight="700">BFF JSON</text>
+    <rect x="547" y="153" width="128" height="43" rx="6" fill="#fff7f2" stroke="#df825f"/>
+    <text x="611" y="180" text-anchor="middle" fill="#a84f30" font-size="14" font-weight="700">PXF JSON</text>
+    <rect x="547" y="208" width="128" height="43" rx="6" fill="#f3f8fb" stroke="#6d98b4"/>
+    <text x="611" y="235" text-anchor="middle" fill="#315f82" font-size="14" font-weight="700">OMOP CSV</text>
+  </g>
+</svg>
