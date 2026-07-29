@@ -45,4 +45,12 @@ jobs:
 
       - name: Run tests
         shell: pwsh
-        run: prove -lr t
+        timeout-minutes: 15
+        run: |
+          Get-ChildItem t -Filter *.t |
+            Sort-Object Name |
+            ForEach-Object {
+              Write-Host "=== $($_.Name) ==="
+              prove -lv $_.FullName
+              if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+            }
