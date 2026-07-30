@@ -177,10 +177,11 @@ The REST API works best for **self-contained payloads** where the request alread
 | `CSV` | CLI/module only | Mapping-file conversion depends on file artifacts that are not accepted by the HTTP boundary |
 | `REDCap` | CLI/module only | Requires project data, a REDCap dictionary, and mapping-file context |
 | `CDISC-ODM` | CLI/module only | Requires XML and the same dictionary/mapping context as REDCap |
+| `CDISC Dataset-JSON` | CLI/module only | Accepts multiple SDTM domain documents that are grouped before conversion |
 
-For `CSV`, `REDCap`, and `CDISC-ODM`, use the **CLI or module interface**. The
-HTTP wrappers reject those file-based routes rather than accepting server-local
-paths.
+For `CSV`, `REDCap`, `CDISC-ODM`, and Dataset-JSON, use the **CLI or module
+interface**. The HTTP wrappers reject those file-based routes rather than
+accepting server-local paths.
 
 ## Available implementations
 

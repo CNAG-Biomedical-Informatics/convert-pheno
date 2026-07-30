@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$id": "https://cdisc.org/dataset-json/model",
+  "title": "CDISC Dataset-JSON 1.1 dataset",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "datasetJSONCreationDateTime",
+    "datasetJSONVersion",
+    "itemGroupOID",
+    "records",
+    "name",
+    "label",
+    "columns"
+  ],
+  "properties": {
+    "datasetJSONCreationDateTime": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?(?:Z|[+-][0-9]{2}:[0-9]{2})?$"
+    },
+    "datasetJSONVersion": {
+      "type": "string",
+      "pattern": "^1\\.1(?:\\.(?:0|[1-9][0-9]*))?$"
+    },
+    "dbLastModifiedDateTime": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?(?:Z|[+-][0-9]{2}:[0-9]{2})?$"
+    },
+    "fileOID": { "type": "string" },
+    "itemGroupOID": { "type": "string" },
+    "label": { "type": "string" },
+    "metaDataRef": { "type": "string" },
+    "metaDataVersionOID": { "type": "string" },
+    "name": { "type": "string" },
+    "originator": { "type": "string" },
+    "records": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": ["string", "integer", "number", "boolean"]
+        }
+      }
+    },
+    "sourceSystem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version"],
+      "properties": {
+        "name": { "type": "string" },
+        "version": { "type": "string" }
+      }
+    },
+    "studyOID": { "type": "string" },
+    "columns": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/column" }
+    }
+  },
+  "$defs": {
+    "column": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["itemOID", "name", "label", "dataType"],
+      "properties": {
+        "dataType": {
+          "type": "string",
+          "enum": [
+            "string",
+            "integer",
+            "decimal",
+            "float",
+            "double",
+            "boolean",
+            "datetime",
+            "date",
+            "time",
+            "URI"
+          ]
+        },
+        "displayFormat": { "type": "string" },
+        "itemOID": { "type": "string" },
+        "keySequence": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "label": { "type": "string" },
+        "length": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "name": { "type": "string" },
+        "targetDataType": {
+          "type": "string",
+          "enum": ["integer", "decimal"]
+        }
+      }
+    }
+  }
+}

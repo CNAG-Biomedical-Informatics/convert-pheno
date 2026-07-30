@@ -26,6 +26,7 @@ plan skip_all => 'Skipping CLI regression tests on ld architectures due to known
   if $Config{archname} =~ /-ld\b/;
 
 my $tmpdir = test_tmpdir();
+my @datasetjson_files = sort glob 't/datasetjson2bff/in/*.json';
 
 my @cases = (
     {
@@ -128,26 +129,47 @@ my @cases = (
         compare  => 'structured',
     },
     {
-        name     => 'cdisc2bff',
+        name     => 'cdiscodm2bff',
         cmd      => [
-            '-icdisc',             't/cdisc2bff/in/cdisc_odm_data.xml',
+            '-icdisc-odm',         't/cdiscodm2bff/in/cdisc_odm_data.xml',
             '--redcap-dictionary', 't/redcap2bff/in/redcap_dictionary.csv',
             '--mapping-file',      't/redcap2bff/in/redcap_mapping.yaml',
             '-obff',               '__OUT__',
         ],
-        expected => 't/cdisc2bff/out/individuals.json',
+        expected => 't/cdiscodm2bff/out/individuals.json',
         suffix   => '.json',
         compare  => 'structured',
     },
     {
-        name     => 'cdisc2pxf',
+        name     => 'cdiscodm2pxf',
         cmd      => [
-            '-icdisc',             't/cdisc2bff/in/cdisc_odm_data.xml',
+            '-icdisc-odm',         't/cdiscodm2bff/in/cdisc_odm_data.xml',
             '--redcap-dictionary', 't/redcap2bff/in/redcap_dictionary.csv',
             '--mapping-file',      't/redcap2bff/in/redcap_mapping.yaml',
             '-opxf',               '__OUT__',
         ],
-        expected => 't/cdisc2pxf/out/pxf.json',
+        expected => 't/cdiscodm2pxf/out/pxf.json',
+        suffix   => '.json',
+        compare  => 'structured',
+    },
+    {
+        name     => 'datasetjson2bff',
+        cmd      => [ '-idataset-json', @datasetjson_files, '-obff', '__OUT__' ],
+        expected => 't/datasetjson2bff/out/individuals.json',
+        suffix   => '.json',
+        compare  => 'structured',
+    },
+    {
+        name     => 'datasetjson2bff_generic_io',
+        cmd      => [ '-i', 'dataset-json', @datasetjson_files, '-o', 'bff', '__OUT__' ],
+        expected => 't/datasetjson2bff/out/individuals.json',
+        suffix   => '.json',
+        compare  => 'structured',
+    },
+    {
+        name     => 'datasetjson2pxf',
+        cmd      => [ '-idataset-json', @datasetjson_files, '-opxf', '__OUT__' ],
+        expected => 't/datasetjson2pxf/out/pxf.json',
         suffix   => '.json',
         compare  => 'structured',
     },

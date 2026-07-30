@@ -28,6 +28,32 @@ is_deeply(
 ok( $csv_to_omop->{resources}{sqlite}, 'registry defines route resources' );
 ok( !$csv_to_omop->{http_enabled}, 'registry excludes file-based routes from HTTP' );
 
+my $datasetjson_to_bff = conversion_spec('datasetjson2bff');
+is_deeply(
+    $datasetjson_to_bff->{pipeline},
+    ['datasetjson2bff'],
+    'registry defines Dataset-JSON as a direct BFF bundle operation'
+);
+ok(
+    !$datasetjson_to_bff->{resources}{sqlite},
+    'Dataset-JSON to BFF does not open ontology databases'
+);
+is_deeply(
+    $datasetjson_to_bff->{entities}{supported},
+    [ 'individuals', 'datasets', 'cohorts' ],
+    'registry limits Dataset-JSON BFF output to implemented entities'
+);
+ok(
+    !is_http_conversion('datasetjson2bff'),
+    'registry keeps multi-file Dataset-JSON conversion outside HTTP'
+);
+
+is_deeply(
+    conversion_spec('datasetjson2omop')->{pipeline},
+    [ 'datasetjson2bff', 'bff2omop' ],
+    'registry defines Dataset-JSON to OMOP as a compound conversion'
+);
+
 my $omop_to_bff = conversion_spec('omop2bff');
 ok( $omop_to_bff->{streaming}, 'registry defines streaming capability' );
 is_deeply(

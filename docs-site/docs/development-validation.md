@@ -62,4 +62,5 @@ Two choices are important when reviewing OMOP-derived BFF:
 | `CSV -> BFF/PXF/supported OMOP-CDM tables` | Supported | Regression-tested; semantic results depend on the project mapping and terminology review |
 | `REDCap -> BFF/PXF/supported OMOP-CDM tables` | Supported | Regression-tested; validation across diverse project structures is ongoing |
 | `CDISC-ODM v1 -> BFF/PXF/supported OMOP-CDM tables` | Supported profile | Regression-tested for the documented ODM-XML v1 structure; broader vendor coverage is limited |
+| `CDISC Dataset-JSON v1.1 SDTM -> BFF/PXF/supported OMOP-CDM tables` | Experimental profile | Schema- and semantic-input checks plus regression fixtures; BFF/PXF outputs and OMOP CDM 5.4 CSV tables are validator-checked, while broader study coverage is limited |
 | `openEHR -> BFF/PXF` | Experimental | Canonical composition support and source-profile coverage are still evolving |

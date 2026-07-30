@@ -11,7 +11,7 @@ sidebar_label: FAQs
 <summary>What does `Convert-Pheno` do?</summary>
 
 
-`Convert-Pheno` is an open-source toolkit for converting clinical and phenotypic data between supported exchange models such as `BFF`, `PXF`, `OMOP-CDM`, `REDCap`, `CDISC-ODM`, and mapped `CSV`.
+`Convert-Pheno` is an open-source toolkit for converting clinical and phenotypic data between supported exchange models such as `BFF`, `PXF`, `OMOP-CDM`, `REDCap`, `CDISC-ODM`, CDISC `Dataset-JSON`, and mapped `CSV`.
 
 
 </details>
@@ -289,11 +289,13 @@ Prefer **raw data** together with the REDCap dictionary file. If your export use
 <summary>Can I use the mapping file to customize synthesized `datasets` and `cohorts` for any `*2bff` conversion?</summary>
 
 
-No. Mapping-based augmentation of synthesized `datasets` and `cohorts` is currently available only for the routes that use a mapping file: `csv2bff`, `redcap2bff`, and `cdisc2bff`.
+No. Mapping-based augmentation of synthesized `datasets` and `cohorts` is currently available only for the routes that use a mapping file: `csv2bff`, `redcap2bff`, and `cdiscodm2bff`.
 
 For those conversions, `beacon.datasets.defaults` and `beacon.cohorts.defaults` can override metadata such as `id`, `name`, `description`, `version`, `externalUrl`, `cohortType`, or `cohortDataTypes`.
 
-This does not currently apply to `omop2bff` or `pxf2bff`.
+This does not currently apply to `omop2bff` or `pxf2bff`. Dataset-JSON does
+not read a mapping file, but it can prepopulate synthesized dataset and cohort
+metadata from `studyOID` and the `TS` study title.
 
 </details>
 <details>

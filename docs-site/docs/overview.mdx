@@ -10,7 +10,7 @@ import Link from '@docusaurus/Link';
   <h2>Clinical and phenotypic data conversion across supported exchange models.</h2>
   <p>
     `Convert-Pheno` converts between `BFF`, `PXF`, `OMOP-CDM`,
-    `REDCap`, `CDISC-ODM`, mapped `CSV`, and related inspection formats.
+    `REDCap`, `CDISC-ODM`, CDISC `Dataset-JSON`, mapped `CSV`, and related inspection formats.
   </p>
   <div className="convertHeroActions">
     <Link className="button button--primary" to="/quickstart">Run your first conversion</Link>
@@ -37,6 +37,7 @@ Most users come to `Convert-Pheno` for one of these tasks:
 - convert `PXF` to `BFF` `individuals`, `biosamples`, `datasets`, and `cohorts`
 - convert `OMOP-CDM` exports to `BFF` or `PXF`
 - convert `REDCap` or `CDISC-ODM` data through a **mapping file**
+- convert CDISC Dataset-JSON SDTM domains to `BFF`, `PXF`, or supported `OMOP-CDM` tables
 - use mapped raw `CSV` as an ETL source for `BFF`, `PXF`, or supported `OMOP-CDM` tables
 - convert `BFF` to `PXF`, flattened `CSV`, flattened `JSON`, or `JSON-LD`
 
@@ -49,7 +50,8 @@ Most users come to `Convert-Pheno` for one of these tasks:
 :::note[API vs CLI]
 Use the HTTP(s) API mainly for **self-contained JSON payloads** such as `BFF`, `PXF`, and carefully prepared `OMOP-CDM` requests.
 
-For mapping-file-based conversions such as `CSV`, `REDCap`, and `CDISC-ODM`, prefer the CLI.
+For mapping-file-based conversions such as `CSV`, `REDCap`, and `CDISC-ODM`,
+or multi-file Dataset-JSON input, prefer the CLI.
 
 :::
 ## Documentation map

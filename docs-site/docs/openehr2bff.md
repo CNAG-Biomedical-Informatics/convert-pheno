@@ -3,10 +3,14 @@ title: openEHR to BFF
 sidebar_label: openEHR to BFF
 ---
 
-:::warning[openEHR to BFF - Experimental]
-This mapping is still **experimental**.
-It currently documents the implemented `openEHR -> BFF` behavior for EHRbase-style canonical JSON/YAML compositions and may change as more openEHR payloads are tested.
-Starting with **v0.31**, we used **LLM assistance** for part of the mapping work.
+:::warning[Mapping status]
+This table documents the experimental openEHR canonical JSON/YAML profile
+introduced in **v0.31**. Its current coverage reflects EHRbase-style
+compositions and the fixtures described below and may be refined as additional
+payloads and archetypes are evaluated.
+
+Parts of the mapping were drafted or refined with LLM assistance, followed by
+human review and regression testing.
 
 The current mapper groups openEHR input by patient identity before mapping.
 Patient identity must be resolvable from the payload or envelope, and multiple compositions for the same patient are aggregated into one Beacon `individual`.
@@ -23,7 +27,10 @@ Uncoded `DV_TEXT` terms are emitted with synthetic `openEHR:` ids so Beacon onto
 :::
 #### Version 0.32
 
-Starting with **v0.31**, this mapping table may be drafted or refined with **LLM assistance** to carry part of the heavy schema-mapping load. When the openEHR source material is especially dense or ambiguous, the documented default is **`gpt-5.4`** with **`high`** reasoning, followed by human review.
+Starting with **v0.31**, this mapping table may be drafted or refined with
+**LLM assistance** when the openEHR source material is dense or ambiguous. The
+documented default is **`gpt-5.4`** with **`high`** reasoning, followed by human
+review.
 
 **Output model:** BFF
 

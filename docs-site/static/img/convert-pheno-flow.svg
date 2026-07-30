@@ -65,9 +65,13 @@
   <rect class="format-box" x="209" y="260" width="137" height="58" rx="6" />
   <text class="format-label" x="277.5" y="295" text-anchor="middle">CSV</text>
 
-  <rect class="format-box" x="52" y="334" width="294" height="66" rx="6" />
-  <text class="format-label" x="199" y="361" text-anchor="middle">openEHR</text>
-  <text class="small-label" x="199" y="382" text-anchor="middle">experimental input</text>
+  <rect class="format-box" x="52" y="334" width="137" height="66" rx="6" />
+  <text class="format-label" x="120.5" y="360" text-anchor="middle">Dataset-JSON</text>
+  <text class="small-label" x="120.5" y="381" text-anchor="middle">experimental</text>
+
+  <rect class="format-box" x="209" y="334" width="137" height="66" rx="6" />
+  <text class="format-label" x="277.5" y="360" text-anchor="middle">openEHR</text>
+  <text class="small-label" x="277.5" y="381" text-anchor="middle">experimental</text>
 
   <line class="rule" x1="52" y1="428" x2="346" y2="428" />
   <text class="small-label" x="52" y="458">Mapping files support REDCap,</text>

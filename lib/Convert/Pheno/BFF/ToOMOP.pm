@@ -81,15 +81,22 @@ sub _map_person {
     $person->{person_id}           = $person_id;
     $person->{person_source_value} = $bff->{id};
 
-    # Map dateOfBirth (if available) to birth_datetime.
-    $person->{birth_datetime} = $bff->{info}{dateOfBirth}
-      // $DEFAULT->{timestamp};
+    # Phenopacket-derived BFF stores subject metadata under info.phenopacket;
+    # older BFF producers may still place dateOfBirth directly under info.
+    my $info = ref( $bff->{info} ) eq 'HASH' ? $bff->{info} : {};
+    my $phenopacket_info =
+      ref( $info->{phenopacket} ) eq 'HASH' ? $info->{phenopacket} : {};
+    my $date_of_birth =
+      $phenopacket_info->{dateOfBirth} // $info->{dateOfBirth};
 
     # Map dateOfBirth (if available) to birth_datetime.
-    if ( defined( $bff->{info}{dateOfBirth} ) ) {
+    $person->{birth_datetime} = $date_of_birth // $DEFAULT->{timestamp};
+
+    # Map dateOfBirth (if available) to birth_datetime.
+    if ( defined($date_of_birth) ) {
         for (qw/year month day/) {
             $person->{ $_ . '_of_birth' } =
-              get_date_component( $bff->{info}{dateOfBirth}, $_ );
+              get_date_component( $date_of_birth, $_ );
         }
     }
     else {
@@ -312,33 +319,46 @@ sub _map_measurements {
           inverse_map( 'measurement', $measure->{assayCode}, 'label', $self );
         $m->{measurement_date} = $measure->{date};
 
-        # Determine measurement value.
+        # Determine measurement value. Beacon permits either a quantity or an
+        # ontology term; the latter maps to OMOP value_as_concept_id.
         if ( exists $measure->{measurementValue} ) {
+            my $value = $measure->{measurementValue};
 
-            # If measurementValue is a hash (e.g., with quantity details)
-            if ( ref $measure->{measurementValue} eq 'HASH' ) {
-                $m->{value_as_number} =
-                  $measure->{measurementValue}{quantity}{value}
-                  // $measure->{measurementValue}{quantity} // -1;
-                $m->{range_low} =
-                  $measure->{measurementValue}{quantity}{referenceRange}{low};
-                $m->{range_high} =
-                  $measure->{measurementValue}{quantity}{referenceRange}{high};
-                ( $m->{unit_concept_id}, $m->{unit_source_value} ) =
-                  inverse_map( 'unit',
-                    $measure->{measurementValue}{quantity}{unit},
-                    'label', $self );
+            if ( ref($value) eq 'HASH' ) {
+                my $quantity =
+                    exists $value->{quantity} ? $value->{quantity}
+                  : exists $value->{value} && exists $value->{unit} ? $value
+                  : undef;
 
+                if ( ref($quantity) eq 'HASH' ) {
+                    $m->{value_as_number} = $quantity->{value} // -1;
+                    if ( ref( $quantity->{referenceRange} ) eq 'HASH' ) {
+                        $m->{range_low}  = $quantity->{referenceRange}{low};
+                        $m->{range_high} = $quantity->{referenceRange}{high};
+                    }
+                    if ( ref( $quantity->{unit} ) eq 'HASH' ) {
+                        ( $m->{unit_concept_id}, $m->{unit_source_value} ) =
+                          inverse_map( 'unit', $quantity->{unit}, 'label', $self );
+                    }
+                }
+                elsif ( exists $value->{id} ) {
+                    ( $m->{value_as_concept_id}, $m->{value_source_value} ) =
+                      inverse_map( 'measurement', $value, 'label', $self );
+                }
+                else {
+                    $m->{value_as_number} = -1;
+                }
             }
             else {
-                $m->{value_as_number} = $measure->{measurementValue};
+                $m->{value_as_number} = $value;
             }
         }
         else {
             $m->{value_as_number} = -1;
         }
 
-        $m->{value_source_value} = $m->{value_as_number};
+        $m->{value_source_value} = $m->{value_as_number}
+          unless exists $m->{value_source_value};
 
         # Optionally map procedure details from measurement if available.
         if ( exists $measure->{procedure} ) {

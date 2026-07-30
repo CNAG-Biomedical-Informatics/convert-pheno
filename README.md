@@ -42,7 +42,7 @@
 
 `Convert-Pheno` is a toolkit for interconverting standard clinical and phenotypic data models
 
-Supported formats include BFF, PXF, OMOP CDM, REDCap, CDISC-ODM, CSV, and experimental openEHR canonical input
+Supported formats include BFF, PXF, OMOP CDM, REDCap, CDISC-ODM, CDISC Dataset-JSON, CSV, and openEHR canonical input
 
 ## Quick Start
 
@@ -53,12 +53,13 @@ convert-pheno -ipxf pxf.json -obff individuals.json
 convert-pheno -ipxf pxf.json -obff --entities individuals biosamples datasets cohorts --out-dir out/
 convert-pheno -ibff individuals.json -opxf phenopackets.json
 convert-pheno -iomop dump.sql.gz -obff individuals.json.gz --stream --ohdsi-db
+convert-pheno -idataset-json dm.json mh.json lb.json -obff individuals.json
 ```
 
 For backward compatibility, the `-iomop ... -obff` form still keeps the individuals-only BFF output behavior.
 
-Note: `openEHR` support is currently experimental and currently limited to canonical composition input with `BFF` or `PXF` output.
-See the CLI documentation for the current experimental `openEHR` usage details.
+Note: `openEHR` canonical input and CDISC Dataset-JSON SDTM input are currently experimental because independent source coverage remains limited.
+See the CLI documentation for their implemented routes and current boundaries.
 
 Internally, most conversions use `BFF` as the target model before continuing to other output formats when needed.
 
@@ -85,7 +86,7 @@ This can write:
 - `out/datasets.json`
 - `out/cohorts.json`
 
-For mapping-file workflows such as `csv2bff`, `redcap2bff`, and `cdisc2bff`, synthesized `datasets` and `cohorts` can be customized through the top-level `beacon` section of the mapping file
+For mapping-file workflows such as `csv2bff`, `redcap2bff`, and `cdiscodm2bff`, synthesized `datasets` and `cohorts` can be customized through the top-level `beacon` section of the mapping file
 
 ## Mapping Files
 

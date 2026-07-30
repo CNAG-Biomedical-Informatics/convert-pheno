@@ -1,0 +1,22 @@
+{
+  "datasetJSONCreationDateTime": "2026-07-30T10:00:00Z",
+  "datasetJSONVersion": "1.1.0",
+  "studyOID": "STUDY-JSON-01",
+  "itemGroupOID": "IG.VS",
+  "records": 2,
+  "name": "VS",
+  "label": "Vital Signs",
+  "columns": [
+    { "itemOID": "IT.VS.USUBJID", "name": "USUBJID", "label": "Unique Subject Identifier", "dataType": "string" },
+    { "itemOID": "IT.VS.DOMAIN", "name": "DOMAIN", "label": "Domain Abbreviation", "dataType": "string" },
+    { "itemOID": "IT.VS.VSTESTCD", "name": "VSTESTCD", "label": "Vital Signs Test Short Name", "dataType": "string" },
+    { "itemOID": "IT.VS.VSTEST", "name": "VSTEST", "label": "Vital Signs Test Name", "dataType": "string" },
+    { "itemOID": "IT.VS.VSSTRESN", "name": "VSSTRESN", "label": "Numeric Result in Standard Units", "dataType": "decimal" },
+    { "itemOID": "IT.VS.VSSTRESU", "name": "VSSTRESU", "label": "Standard Units", "dataType": "string" },
+    { "itemOID": "IT.VS.VSDTC", "name": "VSDTC", "label": "Collection Date/Time", "dataType": "string" }
+  ],
+  "rows": [
+    ["P001", "VS", "WEIGHT", "Weight", 81.5, "kg", "2025-01-02"],
+    ["P002", "VS", "WEIGHT", "Weight", 62, "kg", "2025-02-09"]
+  ]
+}

@@ -58,9 +58,17 @@ For a compact list of accepted inputs and outputs, see [Supported Formats](suppo
 
 | Target output | Route | Notes |
 | --- | --- | --- |
-| Beacon v2 / `BFF` | [`cdisc2bff`](#cdisc-odm-input-bff-output) | Requires `--mapping-file` |
-| Phenopackets v2 / `PXF` | [`cdisc2pxf`](#cdisc-odm-input-pxf-output) | Requires `--mapping-file` |
-| OMOP-CDM CSV | [`cdisc2omop`](#cdisc-odm-input-omop-cdm-output) | Goes through BFF; requires `--ohdsi-db` |
+| Beacon v2 / `BFF` | [`cdiscodm2bff`](#cdisc-odm-input-bff-output) | Requires a REDCap-compatible dictionary and `--mapping-file` |
+| Phenopackets v2 / `PXF` | [`cdiscodm2pxf`](#cdisc-odm-input-pxf-output) | Uses the same ODM mapping context |
+| OMOP-CDM CSV | [`cdiscodm2omop`](#cdisc-odm-input-omop-cdm-output) | Goes through BFF; requires `--ohdsi-db` |
+
+### CDISC Dataset-JSON Input
+
+| Target output | Route | Notes |
+| --- | --- | --- |
+| Beacon v2 / `BFF` | [`datasetjson2bff`](#dataset-json-input-bff-output) | SDTM domains are grouped by `USUBJID`; no mapping file |
+| Phenopackets v2 / `PXF` | [`datasetjson2pxf`](#dataset-json-input-pxf-output) | Internally goes through BFF |
+| OMOP-CDM CSV | [`datasetjson2omop`](#dataset-json-input-omop-cdm-output) | Internally goes through BFF; requires `--ohdsi-db` |
 
 ### openEHR Input
 
@@ -255,7 +263,8 @@ convert-pheno -iredcap redcap.csv \
 ### CDISC-ODM Input: BFF Output
 
 ```bash
-convert-pheno -icdisc study.xml \
+convert-pheno -icdisc-odm study.xml \
+  --redcap-dictionary dictionary.csv \
   --mapping-file mapping.yaml \
   -obff individuals.json
 ```
@@ -265,7 +274,8 @@ More detail: [CDISC-ODM](cdisc-odm).
 ### CDISC-ODM Input: PXF Output
 
 ```bash
-convert-pheno -icdisc study.xml \
+convert-pheno -icdisc-odm study.xml \
+  --redcap-dictionary dictionary.csv \
   --mapping-file mapping.yaml \
   -opxf phenopackets.json
 ```
@@ -273,11 +283,54 @@ convert-pheno -icdisc study.xml \
 ### CDISC-ODM Input: OMOP-CDM Output
 
 ```bash
-convert-pheno -icdisc study.xml \
+convert-pheno -icdisc-odm study.xml \
+  --redcap-dictionary dictionary.csv \
   --mapping-file mapping.yaml \
   -oomop --out-dir omop_out/ \
   --ohdsi-db
 ```
+
+## Dataset-JSON Input Examples
+
+Dataset-JSON input accepts one SDTM domain document per file. `DM` is required;
+additional mapped or provenance-only domains can be supplied in the same
+command.
+
+### Dataset-JSON Input: BFF Output
+
+```bash
+convert-pheno -idataset-json dm.json mh.json ae.json lb.json \
+  -obff individuals.json
+```
+
+Entity-aware output can also synthesize dataset and cohort metadata from
+`studyOID` and the `TS` title:
+
+```bash
+convert-pheno -idataset-json dm.json mh.json ts.json \
+  -obff --entities individuals datasets cohorts \
+  --out-dir bff_out/
+```
+
+More detail: [CDISC Dataset-JSON](dataset-json),
+[Dataset-JSON to BFF mapping](datasetjson2bff).
+
+### Dataset-JSON Input: PXF Output
+
+```bash
+convert-pheno -idataset-json dm.json mh.json ae.json lb.json \
+  -opxf phenopackets.json
+```
+
+### Dataset-JSON Input: OMOP-CDM Output
+
+```bash
+convert-pheno -idataset-json dm.json mh.json ae.json lb.json \
+  -oomop --out-dir omop_out/ \
+  --ohdsi-db
+```
+
+All supplied Dataset-JSON domains are currently loaded and grouped in memory.
 
 ## openEHR Input Examples
 

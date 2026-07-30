@@ -7,6 +7,8 @@ use Test::More;
 use Test::ConvertPheno
   qw(build_convert temp_output_file write_json_file structured_files_match);
 
+my @datasetjson_files = sort glob 't/datasetjson2bff/in/*.json';
+
 my @cases = (
     {
         name               => 'redcap2bff',
@@ -25,20 +27,32 @@ my @cases = (
         out_file           => 't/redcap2pxf/out/pxf.json',
     },
     {
-        name               => 'cdisc2bff',
-        method             => 'cdisc2bff',
-        in_file            => 't/cdisc2bff/in/cdisc_odm_data.xml',
+        name               => 'cdiscodm2bff',
+        method             => 'cdiscodm2bff',
+        in_file            => 't/cdiscodm2bff/in/cdisc_odm_data.xml',
         redcap_dictionary  => 't/redcap2bff/in/redcap_dictionary.csv',
         mapping_file       => 't/redcap2bff/in/redcap_mapping.yaml',
-        out_file           => 't/cdisc2bff/out/individuals.json',
+        out_file           => 't/cdiscodm2bff/out/individuals.json',
     },
     {
-        name               => 'cdisc2pxf',
-        method             => 'cdisc2pxf',
-        in_file            => 't/cdisc2bff/in/cdisc_odm_data.xml',
+        name               => 'cdiscodm2pxf',
+        method             => 'cdiscodm2pxf',
+        in_file            => 't/cdiscodm2bff/in/cdisc_odm_data.xml',
         redcap_dictionary  => 't/redcap2bff/in/redcap_dictionary.csv',
         mapping_file       => 't/redcap2bff/in/redcap_mapping.yaml',
-        out_file           => 't/cdisc2pxf/out/pxf.json',
+        out_file           => 't/cdiscodm2pxf/out/pxf.json',
+    },
+    {
+        name               => 'datasetjson2bff',
+        method             => 'datasetjson2bff',
+        in_files           => \@datasetjson_files,
+        out_file           => 't/datasetjson2bff/out/individuals.json',
+    },
+    {
+        name               => 'datasetjson2pxf',
+        method             => 'datasetjson2pxf',
+        in_files           => \@datasetjson_files,
+        out_file           => 't/datasetjson2pxf/out/pxf.json',
     },
     {
         name               => 'csv2bff',
@@ -62,6 +76,7 @@ for my $case (@cases) {
     my $tmp_file = temp_output_file();
     my $convert  = build_convert(
         in_file            => $case->{in_file},
+        in_files           => $case->{in_files},
         redcap_dictionary  => $case->{redcap_dictionary},
         mapping_file       => $case->{mapping_file},
         sep                => $case->{sep},

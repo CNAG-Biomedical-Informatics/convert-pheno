@@ -37,12 +37,12 @@ Most users find the [CLI](use-as-a-command-line-interface) suitable for their ne
 :::note[API scope]
 The HTTP(s) API is primarily intended for **self-contained JSON conversions** such as `BFF`, `PXF`, and carefully prepared `OMOP-CDM` payloads.
 
-Mapping-file-based routes such as `CSV`, `REDCap`, and `CDISC-ODM` are still better handled through the CLI, because they depend on extra artifacts like mapping files and data dictionaries rather than on one clean request payload.
+Mapping-file-based routes such as `CSV`, `REDCap`, and `CDISC-ODM` are still better handled through the CLI, because they depend on extra artifacts like mapping files and data dictionaries rather than on one clean request payload. Multi-file Dataset-JSON input is likewise available through the CLI or local module rather than the HTTP(s) API.
 
 :::
 ## Software architecture
 
-The [core module](https://metacpan.org/pod/Convert::Pheno) is divided into several sub-modules. The main package, `Convert::Pheno`, handles class initialization and employs the [Moo](https://metacpan.org/pod/Moo) module along with [Types::Standard](https://metacpan.org/pod/Types::Standard) for data validation. In architectural terms, most conversions still use `BFF` as the internal target model: source formats are first mapped to normalized Beacon `individuals`, and from there can continue to outputs such as `PXF` or `OMOP CDM`.
+The [core module](https://metacpan.org/pod/Convert::Pheno) is divided into several sub-modules. The main package, `Convert::Pheno`, handles class initialization and employs the [Moo](https://metacpan.org/pod/Moo) module along with [Types::Standard](https://metacpan.org/pod/Types::Standard) for data validation. In architectural terms, most conversions use `BFF` as the internal target model: source adapters parse and normalize input, route-specific mappers construct Beacon `individuals` and related entities, and target stages can continue to outputs such as `PXF` or `OMOP CDM`. Dataset-JSON follows this path by validating each domain document, grouping subject rows by `USUBJID`, and mapping the grouped SDTM record to BFF.
 
 Starting with `v0.30`, the implementation also uses an explicit internal conversion context and bundle model for `BFF` output. This matters whenever the input contains information that belongs to more than one Beacon entity. `PXF` biosample data can now be emitted as first-class `biosamples`, while `datasets` and `cohorts` can be synthesized from the normalized `individuals` collection. The `-obff FILE` path is still kept as a backward-compatible individuals-only BFF output mode.
 

@@ -20,7 +20,9 @@ use Convert::Pheno::BFF::ToOMOP qw(do_bff2omop);
     my $bff = {
         id   => 123,
         sex  => { label => 'male' },
-        info => { dateOfBirth => '2000-01-01T00:00:00Z' },
+        info => {
+            phenopacket => { dateOfBirth => '2000-01-01T00:00:00Z' },
+        },
         diseases => [
             {
                 diseaseCode => { label => 'Disease A' },
@@ -54,6 +56,13 @@ use Convert::Pheno::BFF::ToOMOP qw(do_bff2omop);
             },
             {
                 assayCode => { label => 'Missing value measure' },
+            },
+            {
+                assayCode => { label => 'Categorical measure' },
+                measurementValue => {
+                    id    => 'CDISC:LBSTRESC.NEGATIVE',
+                    label => 'Negative',
+                },
             },
         ],
         treatments => [
@@ -112,6 +121,8 @@ use Convert::Pheno::BFF::ToOMOP qw(do_bff2omop);
     is( $got->{MEASUREMENT}[1]{range_high}, 20, 'maps quantity reference high' );
     is( $got->{MEASUREMENT}[1]{measurement_type_concept_id}, 9000, 'maps measurement procedure when present' );
     is( $got->{MEASUREMENT}[2]{value_as_number}, -1, 'defaults missing measurement value to -1' );
+    is( $got->{MEASUREMENT}[3]{value_as_concept_id}, 9000, 'maps categorical measurement values to OMOP concepts' );
+    is( $got->{MEASUREMENT}[3]{value_source_value}, 'Negative', 'preserves categorical measurement source values' );
 
     is( $got->{DRUG_EXPOSURE}[0]{drug_exposure_start_date}, '2002-01-01', 'derives treatment start date from ageOfOnset' );
     is( $got->{DRUG_EXPOSURE}[0]{drug_exposure_end_date}, '2002-01-01', 'defaults treatment end date to start date' );

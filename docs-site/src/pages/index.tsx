@@ -85,8 +85,8 @@ export default function Home() {
           <div className={styles.operationGrid}>
             <article className={styles.operation}>
               <span>Structured models</span>
-              <h3>Convert BFF, PXF, and OMOP-CDM</h3>
-              <p>Read and write established clinical and phenotypic models through supported routes.</p>
+              <h3>Convert BFF, PXF, OMOP-CDM, and SDTM data</h3>
+              <p>Read supported structured models, including CDISC Dataset-JSON domain datasets.</p>
             </article>
             <article className={styles.operation}>
               <span>Mapped sources</span>

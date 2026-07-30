@@ -55,7 +55,8 @@ Reference output: [`t/omop2bff/out/individuals_csv.json`](omop2bff/out/individua
 | OMOP-CDM | [`omop2bff/in`](omop2bff/in) | `omop2bff/out`, `omop2pxf/out` |
 | CSV | [`csv2bff/in`](csv2bff/in) | `csv2bff/out`, `csv2pxf/out`, `csv2omop/out` |
 | REDCap | [`redcap2bff/in`](redcap2bff/in) | `redcap2bff/out`, `redcap2pxf/out` |
-| CDISC-ODM | [`cdisc2bff/in`](cdisc2bff/in) | `cdisc2bff/out`, `cdisc2pxf/out` |
+| CDISC-ODM | [`cdiscodm2bff/in`](cdiscodm2bff/in) | `cdiscodm2bff/out`, `cdiscodm2pxf/out` |
+| CDISC Dataset-JSON | [`datasetjson2bff/in`](datasetjson2bff/in) | `datasetjson2bff/out`, `datasetjson2pxf/out`, `datasetjson2omop/out` |
 | openEHR canonical JSON | [`openehr2bff/in`](openehr2bff/in) | `openehr2bff/out`, `openehr2pxf/out` |
 
 Some output routes intentionally reuse the canonical input from another fixture

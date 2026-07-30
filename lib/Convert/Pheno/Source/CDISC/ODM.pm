@@ -6,7 +6,7 @@ use warnings;
 use Path::Tiny qw(path);
 use XML::Fast qw(xml2hash);
 
-use Convert::Pheno::CDISC qw(cdisc2redcap);
+use Convert::Pheno::CDISC::ODM qw(odm2redcap);
 use Convert::Pheno::IO::CSVHandler qw(
   get_headers
   read_mapping_file
@@ -33,7 +33,7 @@ sub load {
             schema_file          => $converter->{schema_file},
         }
     );
-    my $data = cdisc2redcap($odm);
+    my $data = odm2redcap($odm);
     my $compiled_mapping = compile_mapping(
         $mapping,
         source_profile => 'cdisc-odm',

@@ -16,7 +16,7 @@ export const CdiscOdmFormatImage = () => (
 :::note[Supported scope]
 The documented CDISC ODM-XML v1 path is implemented and covered by regression
 tests. Independent validation across diverse vendor exports remains limited.
-ODM v2 and other CDISC exchange formats are not currently supported.
+ODM v2 is not currently supported by this route.
 :::
 
 **CDISC** stands for **C**linical **D**ata **I**nterchange **S**tandards
@@ -59,7 +59,8 @@ for BFF, PXF, and OMOP-CDM commands. See [Mapping File](tbl/mapping-file) for
 the mapping schema.
 
 :::warning[Other CDISC exchange standards]
-[Dataset-XML](https://www.cdisc.org/standards/data-exchange/dataset-xml) and
-[Dataset-JSON](https://wiki.cdisc.org/display/ODM2/Dataset-JSON) are not
-currently accepted inputs.
+[Dataset-XML](https://www.cdisc.org/standards/data-exchange/dataset-xml) is not
+currently accepted. CDISC Dataset-JSON is supported through its own
+experimental [Dataset-JSON](dataset-json) route; it does not use the ODM
+dictionary and mapping-file workflow described on this page.
 :::

@@ -53,7 +53,8 @@ sidebar_label: BFF to PXF
 | Source field | Target field | Notes |
 | --- | --- | --- |
 | `measures.assayCode` | `measurements.assay` | Renamed |
-| `measures.measurementValue` | `measurements.value` | Used for plain values |
+| `measures.measurementValue.quantity` | `measurements.value.quantity` | Numeric quantity arm of the Phenopackets value |
+| `measures.measurementValue` ontology term | `measurements.value.ontologyClass` | Bare Beacon `id`/`label` is wrapped in the Phenopackets value arm |
 | `measures.measurementValue.typedQuantities` | `measurements.complexValue.typedQuantities` | Used for complex values |
 | `measures.measurementValue.typedQuantities.quantityType` | `measurements.complexValue.typedQuantities.type` | Inner key renamed |
 | `measures.observationMoment` | `measurements.timeObserved` | Wrapped back into a Phenopackets time element |

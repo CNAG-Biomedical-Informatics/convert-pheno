@@ -1,0 +1,19 @@
+{
+  "datasetJSONCreationDateTime": "2026-07-30T10:00:00Z",
+  "datasetJSONVersion": "1.1.0",
+  "studyOID": "STUDY-JSON-01",
+  "itemGroupOID": "IG.CM",
+  "records": 1,
+  "name": "CM",
+  "label": "Concomitant Medications",
+  "columns": [
+    { "itemOID": "IT.CM.USUBJID", "name": "USUBJID", "label": "Unique Subject Identifier", "dataType": "string" },
+    { "itemOID": "IT.CM.DOMAIN", "name": "DOMAIN", "label": "Domain Abbreviation", "dataType": "string" },
+    { "itemOID": "IT.CM.CMTRT", "name": "CMTRT", "label": "Reported Name of Drug", "dataType": "string" },
+    { "itemOID": "IT.CM.CMDECOD", "name": "CMDECOD", "label": "Standardized Medication Name", "dataType": "string" },
+    { "itemOID": "IT.CM.CMROUTE", "name": "CMROUTE", "label": "Route of Administration", "dataType": "string" }
+  ],
+  "rows": [
+    ["P001", "CM", "Metformin", "METFORMIN", "ORAL"]
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "datasetJSONCreationDateTime": "2026-07-30T10:00:00Z",
+  "datasetJSONVersion": "1.1.0",
+  "studyOID": "STUDY-JSON-01",
+  "itemGroupOID": "IG.TS",
+  "records": 1,
+  "name": "TS",
+  "label": "Trial Summary",
+  "columns": [
+    { "itemOID": "IT.TS.STUDYID", "name": "STUDYID", "label": "Study Identifier", "dataType": "string" },
+    { "itemOID": "IT.TS.DOMAIN", "name": "DOMAIN", "label": "Domain Abbreviation", "dataType": "string" },
+    { "itemOID": "IT.TS.TSPARMCD", "name": "TSPARMCD", "label": "Trial Summary Parameter Short Name", "dataType": "string" },
+    { "itemOID": "IT.TS.TSVAL", "name": "TSVAL", "label": "Parameter Value", "dataType": "string" }
+  ],
+  "rows": [
+    ["STUDY-JSON-01", "TS", "TITLE", "Dataset-JSON example study"]
+  ]
+}

@@ -104,9 +104,20 @@ const sidebars: SidebarsConfig = {
           label: 'OMOP-CDM',
         },
         {
-          type: 'doc',
-          id: 'cdisc-odm',
-          label: 'CDISC-ODM',
+          type: 'category',
+          label: 'CDISC',
+          items: [
+            {
+              type: 'doc',
+              id: 'cdisc-odm',
+              label: 'ODM',
+            },
+            {
+              type: 'doc',
+              id: 'dataset-json',
+              label: 'Dataset-JSON (Experimental)',
+            },
+          ],
         },
         {
           type: 'doc',
@@ -152,6 +163,11 @@ const sidebars: SidebarsConfig = {
               type: 'doc',
               id: 'openehr2bff',
               label: 'openEHR to BFF',
+            },
+            {
+              type: 'doc',
+              id: 'datasetjson2bff',
+              label: 'Dataset-JSON to BFF',
             },
             {
               type: 'doc',

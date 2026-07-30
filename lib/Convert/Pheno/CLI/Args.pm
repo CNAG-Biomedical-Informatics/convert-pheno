@@ -27,8 +27,8 @@ sub _normalize_cli_type {
         openehr      => 'openehr',
         ehrbase      => 'openehr',
         redcap       => 'redcap',
-        cdisc        => 'cdisc',
-        cdiscodm     => 'cdisc',
+        cdiscodm     => 'cdiscodm',
+        datasetjson  => 'datasetjson',
         csv          => 'csv',
         jsonf        => 'jsonf',
         jsonld       => 'jsonld',
@@ -58,7 +58,8 @@ sub build_cli_request {
     my $ohdsi_db       = exists $arg{ohdsi_db}  ? $arg{ohdsi_db}  : 0;
 
     my ( $in_type_arg, $out_type_arg );
-    my ( $in_pxf, $in_bff, $in_redcap, $in_cdisc, $in_csv );
+    my ( $in_pxf, $in_bff, $in_redcap, $in_cdiscodm, $in_csv );
+    my @datasetjson_files;
     my @openehr_files;
     my @omop_files;
     my ( $out_bff, $out_pxf, $out_csv, $out_jsonf, $out_jsonld );
@@ -82,7 +83,8 @@ sub build_cli_request {
         'ipxf=s'                      => \$in_pxf,
         'ibff=s'                      => \$in_bff,
         'iredcap=s'                   => \$in_redcap,
-        'icdisc=s'                    => \$in_cdisc,
+        'icdisc-odm=s'                => \$in_cdiscodm,
+        'idataset-json=s{1,}'          => \@datasetjson_files,
         'iomop=s{1,}'                 => \@omop_files,
         'iopenehr=s{1,}'              => \@openehr_files,
         'icsv=s'                      => \$in_csv,
@@ -156,16 +158,27 @@ sub build_cli_request {
 
     $usage_error->("Please use either the generic <-i/-o> syntax or the compact <-ixxx/-oxxx> flags for each side, not both")
       if ( defined $normalized_in_type
-        && _count_defined( $in_pxf, $in_bff, $in_redcap, $in_cdisc, $in_csv, @omop_files ? 1 : undef, @openehr_files ? 1 : undef ) )
+        && _count_defined( $in_pxf, $in_bff, $in_redcap, $in_cdiscodm, $in_csv, @datasetjson_files ? 1 : undef, @omop_files ? 1 : undef, @openehr_files ? 1 : undef ) )
       || ( defined $normalized_out_type
         && _count_defined( $out_bff_selected ? 1 : undef, $out_pxf, $out_csv, $out_jsonf, $out_jsonld, $out_omop_selected ? 1 : undef ) );
 
     if ( defined $normalized_in_type ) {
-        if ( $normalized_in_type eq 'omop' || $normalized_in_type eq 'openehr' ) {
+        if ( $normalized_in_type eq 'omop'
+            || $normalized_in_type eq 'openehr'
+            || $normalized_in_type eq 'datasetjson' )
+        {
             $usage_error->("Please provide $in_type_arg input file(s) after <-i $in_type_arg>") unless @{$argv};
             if ( defined $normalized_out_type ) {
                 if ( $normalized_out_type eq 'omop' ) {
-                    @omop_files = @{$argv};
+                    if ( $normalized_in_type eq 'omop' ) {
+                        @omop_files = @{$argv};
+                    }
+                    elsif ( $normalized_in_type eq 'openehr' ) {
+                        @openehr_files = @{$argv};
+                    }
+                    else {
+                        @datasetjson_files = @{$argv};
+                    }
                     $out_omop_selected = 1;
                 }
                 else {
@@ -174,8 +187,11 @@ sub build_cli_request {
                     if ( $normalized_in_type eq 'omop' ) {
                         @omop_files = @{$argv}[ 0 .. $#{$argv} - 1 ];
                     }
-                    else {
+                    elsif ( $normalized_in_type eq 'openehr' ) {
                         @openehr_files = @{$argv}[ 0 .. $#{$argv} - 1 ];
+                    }
+                    else {
+                        @datasetjson_files = @{$argv}[ 0 .. $#{$argv} - 1 ];
                     }
                     my $generic_outfile = $argv->[-1];
                     if    ( $normalized_out_type eq 'bff' )    { $out_bff_selected = 1; $out_bff = $generic_outfile }
@@ -189,8 +205,11 @@ sub build_cli_request {
                 if ( $normalized_in_type eq 'omop' ) {
                     @omop_files = @{$argv};
                 }
-                else {
+                elsif ( $normalized_in_type eq 'openehr' ) {
                     @openehr_files = @{$argv};
+                }
+                else {
+                    @datasetjson_files = @{$argv};
                 }
             }
             @{$argv} = ();
@@ -202,7 +221,7 @@ sub build_cli_request {
             if    ( $normalized_in_type eq 'pxf' )    { $in_pxf    = $generic_infile }
             elsif ( $normalized_in_type eq 'bff' )    { $in_bff    = $generic_infile }
             elsif ( $normalized_in_type eq 'redcap' ) { $in_redcap = $generic_infile }
-            elsif ( $normalized_in_type eq 'cdisc' )  { $in_cdisc  = $generic_infile }
+            elsif ( $normalized_in_type eq 'cdiscodm' ) { $in_cdiscodm = $generic_infile }
             elsif ( $normalized_in_type eq 'csv' )    { $in_csv    = $generic_infile }
 
             if ( defined $normalized_out_type ) {
@@ -241,8 +260,9 @@ sub build_cli_request {
                 !(     ( defined $in_pxf && -f $in_pxf )
                     || ( defined $in_bff    && -f $in_bff )
                     || ( defined $in_redcap && -f $in_redcap )
-                    || ( defined $in_cdisc  && -f $in_cdisc )
+                    || ( defined $in_cdiscodm && -f $in_cdiscodm )
                     || ( defined $in_csv    && -f $in_csv )
+                    || ( @datasetjson_files && -f $datasetjson_files[0] )
                     || ( @omop_files        && -f $omop_files[0] )
                     || ( @openehr_files     && -f $openehr_files[0] ) );
             },
@@ -250,12 +270,20 @@ sub build_cli_request {
         },
         { condition => sub { !-d $out_dir }, message => "Please specify a valid directory for --out-dir\n", },
         {
-            condition => sub { ( $in_redcap || $in_cdisc ) && !$redcap_dictionary },
+            condition => sub { ( $in_redcap || $in_cdiscodm ) && !$redcap_dictionary },
             message   => "Please specify a valid REDCap data dictionary --rcd <file>\n",
         },
         {
-            condition => sub { ( $in_redcap || $in_cdisc || $in_csv ) && !$mapping_file },
+            condition => sub { ( $in_redcap || $in_cdiscodm || $in_csv ) && !$mapping_file },
             message   => "Please specify a valid mapping file --mapping-file <file>\n",
+        },
+        {
+            condition => sub {
+                @datasetjson_files
+                  && grep { !-f $_ || $_ !~ m/\.json(?:\.gz)?$/i }
+                  @datasetjson_files;
+            },
+            message   => "Please specify valid CDISC Dataset-JSON file(s) (.json or .json.gz)\n",
         },
         {
             condition => sub { @omop_files && $omop_files[0] !~ m/\.(csv|sql|tsv)/i },
@@ -410,7 +438,8 @@ sub build_cli_request {
         $in_pxf     ? 'pxf'
       : $in_bff     ? 'bff'
       : $in_redcap  ? 'redcap'
-      : $in_cdisc   ? 'cdisc'
+      : $in_cdiscodm ? 'cdiscodm'
+      : @datasetjson_files ? 'datasetjson'
       : $in_csv     ? 'csv'
       : @openehr_files ? 'openehr'
       : @omop_files ? 'omop'
@@ -472,11 +501,12 @@ sub build_cli_request {
         $in_pxf     ? $in_pxf
       : $in_bff     ? $in_bff
       : $in_redcap  ? $in_redcap
-      : $in_cdisc   ? $in_cdisc
+      : $in_cdiscodm ? $in_cdiscodm
       : $in_csv     ? $in_csv
       :               undef;
 
     $data{in_file}              = $resolved_in_file if defined $resolved_in_file;
+    $data{in_files}             = \@datasetjson_files if @datasetjson_files;
     $data{in_files}             = \@omop_files      if @omop_files;
     $data{in_files}             = \@openehr_files   if @openehr_files;
     $data{sep}                  = $sep if defined $sep;

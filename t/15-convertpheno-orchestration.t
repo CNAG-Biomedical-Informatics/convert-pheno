@@ -21,7 +21,8 @@ local $SIG{__WARN__} = sub {
     no warnings 'redefine';
 
     local *Convert::Pheno::redcap2bff = sub { return [ { id => 'r1' } ] };
-    local *Convert::Pheno::cdisc2bff  = sub { return [ { id => 'c1' } ] };
+    local *Convert::Pheno::cdiscodm2bff = sub { return [ { id => 'c1' } ] };
+    local *Convert::Pheno::datasetjson2bff = sub { return [ { id => 'd1' } ] };
     local *Convert::Pheno::csv2bff    = sub { return [ { id => 'csv1' } ] };
     local *Convert::Pheno::pxf2bff    = sub { return [ { id => 'p1' } ] };
     local *Convert::Pheno::omop2bff   = sub { return [ { id => 'o1' } ] };
@@ -52,8 +53,20 @@ local $SIG{__WARN__} = sub {
         'compound conversion does not attach intermediate data to the caller converter'
     );
 
-    my $cdisc = Convert::Pheno->new( { method => 'cdisc2omop', in_textfile => 1 } )->cdisc2omop;
-    is( $cdisc->{merged}{data}[0]{id}, 'c1', 'cdisc2omop merges cdisc2bff output' );
+    my $cdisc = Convert::Pheno->new( { method => 'cdiscodm2omop', in_textfile => 1 } )->cdiscodm2omop;
+    is( $cdisc->{merged}{data}[0]{id}, 'c1', 'cdiscodm2omop merges cdiscodm2bff output' );
+
+    my $datasetjson = Convert::Pheno->new( { method => 'datasetjson2pxf', in_textfile => 1 } )->datasetjson2pxf;
+    is( $datasetjson->{data}[0]{id}, 'd1', 'datasetjson2pxf forwards datasetjson2bff output' );
+
+    my $datasetjson_omop =
+      Convert::Pheno->new( { method => 'datasetjson2omop', in_textfile => 1 } )
+      ->datasetjson2omop;
+    is(
+        $datasetjson_omop->{merged}{data}[0]{id},
+        'd1',
+        'datasetjson2omop merges datasetjson2bff output'
+    );
 
     my $csv = Convert::Pheno->new( { method => 'csv2omop', in_textfile => 1 } )->csv2omop;
     is( $csv->{merged}{data}[0]{id}, 'csv1', 'csv2omop merges csv2bff output' );

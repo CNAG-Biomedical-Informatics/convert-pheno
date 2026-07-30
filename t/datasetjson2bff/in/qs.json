@@ -1,0 +1,18 @@
+{
+  "datasetJSONCreationDateTime": "2026-07-30T10:00:00Z",
+  "datasetJSONVersion": "1.1.0",
+  "studyOID": "STUDY-JSON-01",
+  "itemGroupOID": "IG.QS",
+  "records": 1,
+  "name": "QS",
+  "label": "Questionnaires",
+  "columns": [
+    { "itemOID": "IT.QS.USUBJID", "name": "USUBJID", "label": "Unique Subject Identifier", "dataType": "string" },
+    { "itemOID": "IT.QS.DOMAIN", "name": "DOMAIN", "label": "Domain Abbreviation", "dataType": "string" },
+    { "itemOID": "IT.QS.QSTESTCD", "name": "QSTESTCD", "label": "Question Short Name", "dataType": "string" },
+    { "itemOID": "IT.QS.QSSTRESC", "name": "QSSTRESC", "label": "Result in Standard Format", "dataType": "string" }
+  ],
+  "rows": [
+    ["P001", "QS", "EQ5D3L", "11111"]
+  ]
+}

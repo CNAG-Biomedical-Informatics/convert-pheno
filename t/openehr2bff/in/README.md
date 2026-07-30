@@ -6,6 +6,8 @@ specifically from its test-data module under canonical composition JSON:
 - repository: <https://github.com/ehrbase/openEHR_SDK>
 - source directory:
   `test-data/src/main/resources/composition/canonical_json/`
+- upstream license: Apache License 2.0
+  (<https://github.com/ehrbase/openEHR_SDK/blob/develop/LICENSE.md>)
 
 Copied files:
 

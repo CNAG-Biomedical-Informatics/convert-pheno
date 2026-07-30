@@ -1,0 +1,22 @@
+{
+  "datasetJSONCreationDateTime": "2026-07-30T10:00:00Z",
+  "datasetJSONVersion": "1.1.0",
+  "studyOID": "STUDY-JSON-01",
+  "itemGroupOID": "IG.AE",
+  "records": 2,
+  "name": "AE",
+  "label": "Adverse Events",
+  "columns": [
+    { "itemOID": "IT.AE.USUBJID", "name": "USUBJID", "label": "Unique Subject Identifier", "dataType": "string" },
+    { "itemOID": "IT.AE.DOMAIN", "name": "DOMAIN", "label": "Domain Abbreviation", "dataType": "string" },
+    { "itemOID": "IT.AE.AETERM", "name": "AETERM", "label": "Reported Term", "dataType": "string" },
+    { "itemOID": "IT.AE.AEDECOD", "name": "AEDECOD", "label": "Dictionary-Derived Term", "dataType": "string" },
+    { "itemOID": "IT.AE.AESEV", "name": "AESEV", "label": "Severity", "dataType": "string" },
+    { "itemOID": "IT.AE.AESTDTC", "name": "AESTDTC", "label": "Start Date/Time", "dataType": "string" },
+    { "itemOID": "IT.AE.AEENDTC", "name": "AEENDTC", "label": "End Date/Time", "dataType": "string" }
+  ],
+  "rows": [
+    ["P001", "AE", "Headache", "HEADACHE", "MILD", "2025-01-03", "2025-01-04"],
+    ["P002", "AE", "Nausea", "NAUSEA", "MODERATE", "2025-02-10T09:30:00Z", "2025-02-10T12:00:00Z"]
+  ]
+}

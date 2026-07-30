@@ -4,7 +4,7 @@ sidebar_label: Mapping File
 ---
 
 The mapping file is the typed source-to-Beacon contract used by `csv2*`,
-`redcap2*`, and `cdisc2*` routes. YAML and JSON are accepted, including their
+`redcap2*`, and `cdiscodm2*` routes. YAML and JSON are accepted, including their
 gzip-compressed forms.
 
 For a guided example, start with [Working with Mapping Files](../mapping-files).

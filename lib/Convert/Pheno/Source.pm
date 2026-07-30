@@ -5,6 +5,7 @@ use warnings;
 
 use Exporter 'import';
 
+use Convert::Pheno::Source::CDISC::DatasetJSON;
 use Convert::Pheno::Source::CDISC::ODM;
 use Convert::Pheno::Source::OMOP;
 use Convert::Pheno::Source::OpenEHR;
@@ -22,10 +23,10 @@ sub source_adapter {
       if $format eq 'csv';
     return Convert::Pheno::Source::Tabular->new( $converter, kind => 'redcap' )
       if $format eq 'redcap';
-    # Keep CDISC encodings behind format-specific adapters. Dataset-JSON can
-    # later be added as a sibling that returns the same Source::Result shape.
     return Convert::Pheno::Source::CDISC::ODM->new($converter)
-      if $format eq 'cdisc';
+      if $format eq 'cdisc-odm';
+    return Convert::Pheno::Source::CDISC::DatasetJSON->new($converter)
+      if $format eq 'dataset-json';
     return Convert::Pheno::Source::OpenEHR->new($converter)
       if $format eq 'openehr';
     return Convert::Pheno::Source::OMOP->new($converter)

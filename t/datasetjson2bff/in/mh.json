@@ -1,0 +1,20 @@
+{
+  "datasetJSONCreationDateTime": "2026-07-30T10:00:00Z",
+  "datasetJSONVersion": "1.1.0",
+  "studyOID": "STUDY-JSON-01",
+  "itemGroupOID": "IG.MH",
+  "records": 2,
+  "name": "MH",
+  "label": "Medical History",
+  "columns": [
+    { "itemOID": "IT.MH.USUBJID", "name": "USUBJID", "label": "Unique Subject Identifier", "dataType": "string" },
+    { "itemOID": "IT.MH.DOMAIN", "name": "DOMAIN", "label": "Domain Abbreviation", "dataType": "string" },
+    { "itemOID": "IT.MH.MHSEQ", "name": "MHSEQ", "label": "Sequence Number", "dataType": "integer" },
+    { "itemOID": "IT.MH.MHTERM", "name": "MHTERM", "label": "Reported Term", "dataType": "string" },
+    { "itemOID": "IT.MH.MHDECOD", "name": "MHDECOD", "label": "Dictionary-Derived Term", "dataType": "string" }
+  ],
+  "rows": [
+    ["P001", "MH", 1, "Type 2 diabetes mellitus", "DIABETES MELLITUS"],
+    ["P002", "MH", 1, "Asthma", "ASTHMA"]
+  ]
+}

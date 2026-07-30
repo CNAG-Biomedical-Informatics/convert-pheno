@@ -94,3 +94,9 @@ The Python binding shells out to the Perl JSON bridge internally, so it is a con
 
 </TabItem>
 </Tabs>
+
+For multi-document Dataset-JSON conversions, pass an array of decoded domain
+documents as `data` and select `datasetjson2bff`, `datasetjson2pxf`, or
+`datasetjson2omop`. The module groups those documents by `USUBJID`; it does not
+expect the already grouped internal participant structure. OMOP output also
+requires access to `ohdsi.db` through the normal module arguments.

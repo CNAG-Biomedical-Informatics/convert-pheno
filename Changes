@@ -4,6 +4,7 @@ Revision history for Perl distribution Convert-Pheno
 
  - Added native Windows support and CI coverage with Strawberry Perl 5.40 and 5.42
  - Introduced Mapping V2 with concise rules and shared defaults, explicit source profiles and Beacon 2.0.0 contracts, immutable source provenance and first-class tabular biosamples
+ - Added experimental CDISC Dataset-JSON v1.1 SDTM input with BFF, PXF and OMOP-CDM output
 
 0.32 2026-07-22T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 

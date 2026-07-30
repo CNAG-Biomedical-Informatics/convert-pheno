@@ -1,0 +1,22 @@
+{
+  "datasetJSONCreationDateTime": "2026-07-30T10:00:00Z",
+  "datasetJSONVersion": "1.1.0",
+  "studyOID": "STUDY-JSON-01",
+  "itemGroupOID": "IG.DM",
+  "records": 2,
+  "name": "DM",
+  "label": "Demographics",
+  "columns": [
+    { "itemOID": "IT.DM.USUBJID", "name": "USUBJID", "label": "Unique Subject Identifier", "dataType": "string" },
+    { "itemOID": "IT.DM.DOMAIN", "name": "DOMAIN", "label": "Domain Abbreviation", "dataType": "string" },
+    { "itemOID": "IT.DM.BRTHDTC", "name": "BRTHDTC", "label": "Date/Time of Birth", "dataType": "string" },
+    { "itemOID": "IT.DM.SEX", "name": "SEX", "label": "Sex", "dataType": "string" },
+    { "itemOID": "IT.DM.ETHNIC", "name": "ETHNIC", "label": "Ethnicity", "dataType": "string" },
+    { "itemOID": "IT.DM.COUNTRY", "name": "COUNTRY", "label": "Country", "dataType": "string" },
+    { "itemOID": "IT.DM.DTHFL", "name": "DTHFL", "label": "Subject Death Flag", "dataType": "string" }
+  ],
+  "rows": [
+    ["P001", "DM", "1980-02-03", "M", "NOT HISPANIC OR LATINO", "USA", ""],
+    ["P002", "DM", "1975-06-20", "F", "HISPANIC OR LATINO", "ESP", "Y"]
+  ]
+}

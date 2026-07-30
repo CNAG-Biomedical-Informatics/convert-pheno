@@ -44,7 +44,8 @@ graph LR
   B[Phenopackets v2] -->|pxf2bff| A
   C[REDCap] -->|redcap2bff| A[Beacon v2 Models]
   D[OMOP-CDM] -->|omop2bff| A
-  E[CDISC-ODM] -->|cdisc2bff| A
+  E[CDISC-ODM] -->|cdiscodm2bff| A
+  I[Dataset-JSON] -->|datasetjson2bff| A
   G[CSV] -->|csv2bff| A
   end
 
@@ -61,6 +62,7 @@ graph LR
   style F fill: #FF7F50, stroke: #FF7F50
   style G fill: #FFFF00, stroke: #FFFF00
   style H fill: #3CB371, stroke: #3CB371
+  style I fill: #F3E7B3, stroke: #A58A28
 
 ```
 <figcaption>Convert-Pheno internal mapping steps</figcaption>
@@ -349,6 +351,12 @@ For input types that do not contain ontologies, such as `CSV`, _REDCap_, and _CD
 * [CDISC](https://www.cdisc.org/standards/terminology/controlled-terminology) (Study Data Tabulation Model Terminology)
 * [OMIM](https://www.omim.org/) Online Mendelian Inheritance in Man
 * [HPO](https://hpo.jax.org/app) Human Phenotype Ontology (Note that prefixes are `HP:`, without the `O`)
+
+Dataset-JSON follows a different policy. The current SDTM profile does not run
+mapping-file ontology searches; when a target field requires a term, it emits
+a source-derived `CDISC:` identifier that records the SDTM field and value.
+See [Dataset-JSON to BFF](datasetjson2bff) for the exact mapping and terminology
+boundary.
 
 </details>
 <div className="convertNotePanel">

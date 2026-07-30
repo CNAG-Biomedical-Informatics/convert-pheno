@@ -136,6 +136,46 @@ is(
     'CLI parser accepts generic -o omop without an output prefix'
 );
 
+my @datasetjson_files = sort glob 't/datasetjson2bff/in/*.json';
+$request = build_cli_request(
+    argv => [
+        '-i', 'dataset-json',
+        @datasetjson_files,
+        '-o', 'pxf',
+        'phenopackets.json',
+    ],
+    usage_error => sub { die @_ },
+    schema_file => 'share/schema/mapping.json',
+    out_dir     => $tmpdir,
+    color       => 1,
+);
+
+is( $request->{data}{method}, 'datasetjson2pxf', 'CLI parser accepts Dataset-JSON input' );
+is_deeply(
+    $request->{data}{in_files},
+    \@datasetjson_files,
+    'CLI parser retains every Dataset-JSON domain file'
+);
+
+$request = build_cli_request(
+    argv => [
+        '-idataset-json', @datasetjson_files,
+        '-oomop',
+        '--out-dir', $tmpdir,
+        '--ohdsi-db',
+    ],
+    usage_error => sub { die @_ },
+    schema_file => 'share/schema/mapping.json',
+    out_dir     => '.',
+    color       => 1,
+);
+
+is(
+    $request->{data}{method},
+    'datasetjson2omop',
+    'CLI parser accepts Dataset-JSON to OMOP output'
+);
+
 my $usage_error;
 eval {
     build_cli_request(
@@ -253,6 +293,9 @@ like(
     qr/--color\|--no-color/,
     'CLI help documents --no-color'
 );
+like( $help, qr/-icdisc-odm <file>/, 'CLI help names CDISC-ODM explicitly' );
+unlike( $help, qr/-icdisc(?:\s|\x20)<file>/, 'CLI help does not advertise the removed -icdisc flag' );
+like( $help, qr/-idataset-json <files\.\.\.>/, 'CLI help documents Dataset-JSON input' );
 like(
     $help,
     qr/\[ALIVE\|DECEASED\|UNKNOWN_STATUS\]/,

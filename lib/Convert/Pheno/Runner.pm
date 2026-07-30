@@ -12,6 +12,7 @@ use Convert::Pheno::BFF::DerivedEntities qw(
 );
 use Convert::Pheno::Context;
 use Convert::Pheno::ConversionRequest;
+use Convert::Pheno::CDISC::SDTM::ToBFF qw(run_sdtm_to_bundle);
 use Convert::Pheno::ExecutionContext;
 use Convert::Pheno::Model::Bundle;
 use Convert::Pheno::Operations qw(conversion_spec);
@@ -50,7 +51,15 @@ sub resolve_operation {
             my ( $convert, $input, $context ) = @_;
             return run_tabular_to_bundle( $convert, $input, $context );
         },
-    ) if $self->{method} eq 'cdisc2bff';
+    ) if $self->{method} eq 'cdiscodm2bff';
+
+    return _bundle_operation(
+        spec => $spec,
+        run  => sub {
+            my ( $convert, $input, $context ) = @_;
+            return run_sdtm_to_bundle( $convert, $input, $context );
+        },
+    ) if $self->{method} eq 'datasetjson2bff';
 
     return _bundle_operation(
         spec => $spec,

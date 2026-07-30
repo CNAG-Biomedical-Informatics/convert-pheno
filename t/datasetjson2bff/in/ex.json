@@ -1,0 +1,18 @@
+{
+  "datasetJSONCreationDateTime": "2026-07-30T10:00:00Z",
+  "datasetJSONVersion": "1.1.0",
+  "studyOID": "STUDY-JSON-01",
+  "itemGroupOID": "IG.EX",
+  "records": 1,
+  "name": "EX",
+  "label": "Exposure",
+  "columns": [
+    { "itemOID": "IT.EX.USUBJID", "name": "USUBJID", "label": "Unique Subject Identifier", "dataType": "string" },
+    { "itemOID": "IT.EX.DOMAIN", "name": "DOMAIN", "label": "Domain Abbreviation", "dataType": "string" },
+    { "itemOID": "IT.EX.EXTRT", "name": "EXTRT", "label": "Name of Treatment", "dataType": "string" },
+    { "itemOID": "IT.EX.EXROUTE", "name": "EXROUTE", "label": "Route of Administration", "dataType": "string" }
+  ],
+  "rows": [
+    ["P002", "EX", "Investigational product", "INTRAVENOUS"]
+  ]
+}

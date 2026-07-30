@@ -1,4 +1,4 @@
-package Convert::Pheno::CDISC;
+package Convert::Pheno::CDISC::ODM;
 
 use strict;
 use warnings;
@@ -8,21 +8,21 @@ use Data::Dumper;
 use Convert::Pheno::Tabular::ToBFF qw(map_tabular_individual);
 use Convert::Pheno::Mapping::Shared;
 use Exporter 'import';
-our @EXPORT = qw(do_cdisc2bff cdisc2redcap);
+our @EXPORT_OK = qw(do_cdiscodm2bff odm2redcap);
 $Data::Dumper::Sortkeys = 1;
 
 ###############
 ###############
-#  CDISC2BFF  #
+# CDISCODM2BFF #
 ###############
 ###############
 
-sub do_cdisc2bff {
+sub do_cdiscodm2bff {
     my ( $self, $participant ) = @_;
     return map_tabular_individual( $self, $participant );
 }
 
-sub cdisc2redcap {
+sub odm2redcap {
     my $data = shift;
 
     # Extract subject information from nested data structure

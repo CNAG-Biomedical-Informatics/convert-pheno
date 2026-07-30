@@ -1,0 +1,26 @@
+{
+  "datasetJSONCreationDateTime": "2026-07-30T10:00:00Z",
+  "datasetJSONVersion": "1.1.0",
+  "studyOID": "STUDY-JSON-01",
+  "itemGroupOID": "IG.LB",
+  "records": 3,
+  "name": "LB",
+  "label": "Laboratory Test Results",
+  "columns": [
+    { "itemOID": "IT.LB.USUBJID", "name": "USUBJID", "label": "Unique Subject Identifier", "dataType": "string" },
+    { "itemOID": "IT.LB.DOMAIN", "name": "DOMAIN", "label": "Domain Abbreviation", "dataType": "string" },
+    { "itemOID": "IT.LB.LBTESTCD", "name": "LBTESTCD", "label": "Lab Test Short Name", "dataType": "string" },
+    { "itemOID": "IT.LB.LBTEST", "name": "LBTEST", "label": "Lab Test Name", "dataType": "string" },
+    { "itemOID": "IT.LB.LBSTRESC", "name": "LBSTRESC", "label": "Result in Standard Format", "dataType": "string" },
+    { "itemOID": "IT.LB.LBSTRESN", "name": "LBSTRESN", "label": "Numeric Result in Standard Units", "dataType": "decimal" },
+    { "itemOID": "IT.LB.LBSTRESU", "name": "LBSTRESU", "label": "Standard Units", "dataType": "string" },
+    { "itemOID": "IT.LB.LBSTNRLO", "name": "LBSTNRLO", "label": "Reference Range Lower Limit", "dataType": "decimal" },
+    { "itemOID": "IT.LB.LBSTNRHI", "name": "LBSTNRHI", "label": "Reference Range Upper Limit", "dataType": "decimal" },
+    { "itemOID": "IT.LB.LBDTC", "name": "LBDTC", "label": "Collection Date/Time", "dataType": "string" }
+  ],
+  "rows": [
+    ["P001", "LB", "ALT", "Alanine Aminotransferase", "42", 42, "U/L", 7, 56, "2025-01-02"],
+    ["P001", "LB", "COV2", "SARS-CoV-2 RNA", "NEGATIVE", "", "", "", "", "2025-01-05"],
+    ["P002", "LB", "HGB", "Hemoglobin", "13.2", 13.2, "g/dL", 12, 16, "2025-02-09"]
+  ]
+}

@@ -120,6 +120,17 @@ sub _entity_overrides {
 
     my $overrides = {};
 
+    if ( exists $self->{source_derived_entity_overrides}
+      && ref( $self->{source_derived_entity_overrides} ) eq 'HASH'
+      && exists $self->{source_derived_entity_overrides}{$entity}
+      && ref( $self->{source_derived_entity_overrides}{$entity} ) eq 'HASH' )
+    {
+        _merge_hash_into(
+            $overrides,
+            _clone_data( $self->{source_derived_entity_overrides}{$entity} )
+        );
+    }
+
     if ( exists $self->{mapping_file_derived_entity_overrides}
       && ref( $self->{mapping_file_derived_entity_overrides} ) eq 'HASH'
       && exists $self->{mapping_file_derived_entity_overrides}{$entity}

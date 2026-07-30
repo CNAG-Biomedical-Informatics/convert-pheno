@@ -518,6 +518,15 @@ sub _map_measurement_value_to_pxf {
         }
     }
 
+    # Phenopackets Value is a oneof wrapper. Beacon represents categorical
+    # values directly as ontology terms, so restore the ontologyClass arm
+    # rather than emitting id/label beside quantity.
+    return { ontologyClass => $mapped }
+      if exists $mapped->{id}
+      && !exists $mapped->{quantity}
+      && !exists $mapped->{ontologyClass}
+      && !exists $mapped->{typedQuantities};
+
     return $mapped;
 }
 

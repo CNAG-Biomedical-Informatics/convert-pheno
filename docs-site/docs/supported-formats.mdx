@@ -5,7 +5,7 @@ sidebar_label: Supported Formats
 
 This page is a quick map of the formats that `Convert-Pheno` can read and write. For file requirements and format-specific options, use the **Format Guides** in the sidebar.
 
-- **Inputs:** [BFF](bff), [Phenopackets v2](pxf), [OMOP-CDM](omop-cdm), [REDCap](redcap), [CDISC-ODM](cdisc-odm), [CSV](csv), and experimental [openEHR canonical compositions](openehr)
+- **Inputs:** [BFF](bff), [Phenopackets v2](pxf), [OMOP-CDM](omop-cdm), [REDCap](redcap), [CDISC-ODM](cdisc-odm), [CDISC Dataset-JSON](dataset-json), [CSV](csv), and [openEHR canonical compositions](openehr)
 - **Main outputs:** BFF, Phenopackets v2, and OMOP-CDM CSV tables
 - **[Inspection outputs](conversion-recipes#inspection-outputs):** flattened JSON or YAML, CSV, and JSON-LD or YAML-LD from BFF or PXF input
 
@@ -19,6 +19,7 @@ graph LR
   subgraph "Source files"
     C[REDCap]
     E[CDISC-ODM]
+    H[Dataset-JSON]
     F[CSV]
     G[openEHR]
   end
@@ -28,7 +29,8 @@ graph LR
   end
 
   C -->|redcap2bff| A
-  E -->|cdisc2bff| A
+  E -->|cdiscodm2bff| A
+  H -->|datasetjson2bff| A
   F -->|csv2bff| A
   G -->|openehr2bff| A
   B[Phenopackets v2] -->|pxf2bff| A
@@ -41,11 +43,12 @@ graph LR
   style C fill:#FF6965,stroke:#FF6965
   style D fill:#3CB371,stroke:#3CB371
   style E fill:#DDA0DD,stroke:#DDA0DD
+  style H fill:#F3E7B3,stroke:#A58A28,stroke-width:2px,stroke-dasharray:5 4
   style F fill:#FFFF00,stroke:#FFFF00
   style G fill:#B8E0D2,stroke:#5B8F7B,stroke-width:2px,stroke-dasharray:5 4
 ```
 
-<figcaption>Direct mapping steps around BFF, which can be the requested output or an internal intermediate. Any connected path through BFF runs as one CLI command: for example, openEHR to PXF performs openEHR to BFF and then BFF to PXF in memory, writing only the requested PXF output. The same rule applies to every two-step path shown. The dashed openEHR border marks experimental source-profile coverage.</figcaption>
+<figcaption>Direct mapping steps around BFF, which can be the requested output or an internal intermediate. Any connected path through BFF runs as one CLI command: for example, Dataset-JSON to PXF performs Dataset-JSON to BFF and then BFF to PXF in memory. Dashed source borders mark implemented profiles with limited independent dataset coverage.</figcaption>
 
 <details className="convertRouteDetails">
 <summary>Additional outputs from BFF and PXF</summary>

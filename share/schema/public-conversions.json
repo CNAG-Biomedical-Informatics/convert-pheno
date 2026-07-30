@@ -69,32 +69,62 @@
       "streaming": false,
       "http_enabled": true
     },
-    "cdisc2bff": {
-      "source": "cdisc",
+    "cdiscodm2bff": {
+      "source": "cdisc-odm",
       "target": "beacon",
       "operation": "bundle",
-      "pipeline": ["cdisc2bff"],
+      "pipeline": ["cdiscodm2bff"],
       "resources": { "sqlite": true },
       "entities": { "default": ["individuals"], "supported": ["individuals", "datasets", "cohorts"], "primary": "individuals" },
       "streaming": false,
       "http_enabled": false
     },
-    "cdisc2omop": {
-      "source": "cdisc",
+    "cdiscodm2omop": {
+      "source": "cdisc-odm",
       "target": "omop",
       "operation": "pipeline",
-      "pipeline": ["cdisc2bff", "bff2omop"],
+      "pipeline": ["cdiscodm2bff", "bff2omop"],
       "resources": { "sqlite": true },
       "entities": { "default": [], "supported": [], "primary": null },
       "streaming": false,
       "http_enabled": false
     },
-    "cdisc2pxf": {
-      "source": "cdisc",
+    "cdiscodm2pxf": {
+      "source": "cdisc-odm",
       "target": "pxf",
       "operation": "pipeline",
-      "pipeline": ["cdisc2bff", "bff2pxf"],
+      "pipeline": ["cdiscodm2bff", "bff2pxf"],
       "resources": { "sqlite": true },
+      "entities": { "default": [], "supported": [], "primary": null },
+      "streaming": false,
+      "http_enabled": false
+    },
+    "datasetjson2bff": {
+      "source": "dataset-json",
+      "target": "beacon",
+      "operation": "bundle",
+      "pipeline": ["datasetjson2bff"],
+      "resources": { "sqlite": false },
+      "entities": { "default": ["individuals"], "supported": ["individuals", "datasets", "cohorts"], "primary": "individuals" },
+      "streaming": false,
+      "http_enabled": false
+    },
+    "datasetjson2omop": {
+      "source": "dataset-json",
+      "target": "omop",
+      "operation": "pipeline",
+      "pipeline": ["datasetjson2bff", "bff2omop"],
+      "resources": { "sqlite": true },
+      "entities": { "default": [], "supported": [], "primary": null },
+      "streaming": false,
+      "http_enabled": false
+    },
+    "datasetjson2pxf": {
+      "source": "dataset-json",
+      "target": "pxf",
+      "operation": "pipeline",
+      "pipeline": ["datasetjson2bff", "bff2pxf"],
+      "resources": { "sqlite": false },
       "entities": { "default": [], "supported": [], "primary": null },
       "streaming": false,
       "http_enabled": false

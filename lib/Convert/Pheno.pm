@@ -44,7 +44,8 @@ use Convert::Pheno::PXF::ToBFF;
 use Convert::Pheno::OpenEHR::ToBFF;
 use Convert::Pheno::BFF::ToPXF;
 use Convert::Pheno::BFF::ToOMOP;
-use Convert::Pheno::CDISC;
+use Convert::Pheno::CDISC::ODM;
+use Convert::Pheno::CDISC::SDTM::ToBFF;
 use Convert::Pheno::REDCap;
 
 use Exporter 'import';
@@ -350,34 +351,77 @@ sub omop2pxf {
 
 ###############
 ###############
-#  CDISC2BFF  #
+# CDISCODM2BFF #
 ###############
 ###############
 
-sub cdisc2bff {
+sub cdiscodm2bff {
     my $self = shift;
-    _prepare_cdisc2bff_input($self);
+    _prepare_cdiscodm2bff_input($self);
     return _run_primary_view($self);
 }
 
 ###############
 ###############
-#  CDISC2PXF  #
+# CDISCODM2PXF #
 ###############
 ###############
 
-sub cdisc2pxf {
+sub cdiscodm2pxf {
     my $self = shift;
     return run_conversion_pipeline($self);
 }
 
 ################
 ################
-#  CDISC2OMOP  #
+# CDISCODM2OMOP #
 ################
 ################
 
-sub cdisc2omop {
+sub cdiscodm2omop {
+    my $self = shift;
+    return run_conversion_pipeline($self);
+}
+
+####################
+####################
+# DATASETJSON2BFF   #
+####################
+####################
+
+sub datasetjson2bff {
+    my $self = shift;
+    _prepare_datasetjson2bff_input($self);
+    $self->{convertPheno} ||= get_info($self);
+    $self->{conversion_context} = Convert::Pheno::Context->from_self(
+        $self,
+        {
+            source_format => 'dataset-json',
+            target_format => 'beacon',
+            entities      => $self->{entities} || ['individuals'],
+        }
+    );
+    return _run_primary_view($self);
+}
+
+####################
+####################
+# DATASETJSON2PXF   #
+####################
+####################
+
+sub datasetjson2pxf {
+    my $self = shift;
+    return run_conversion_pipeline($self);
+}
+
+####################
+####################
+# DATASETJSON2OMOP  #
+####################
+####################
+
+sub datasetjson2omop {
     my $self = shift;
     return run_conversion_pipeline($self);
 }
@@ -523,7 +567,7 @@ sub _dispatcher_input_data {
     return $self->{data} if exists $self->{data};
     return $self->{data}
       unless $self->{in_textfile}
-      && $self->{method} !~ m/^(redcap2|omop2|cdisc2|csv)/;
+      && $self->{method} !~ m/^(redcap2|omop2|cdiscodm2|csv)/;
 
     my $spec = conversion_spec( $self->{method} )
       or die "Unsupported conversion <$self->{method}>\n";
@@ -584,7 +628,10 @@ sub _prepare_bundle_input {
     my ($self) = @_;
 
     return _prepare_redcap2bff_input($self) if $self->{method} eq 'redcap2bff';
-    return _prepare_cdisc2bff_input($self)  if $self->{method} eq 'cdisc2bff';
+    return _prepare_cdiscodm2bff_input($self)
+      if $self->{method} eq 'cdiscodm2bff';
+    return _prepare_datasetjson2bff_input($self)
+      if $self->{method} eq 'datasetjson2bff';
     return _prepare_csv2bff_input($self)    if $self->{method} eq 'csv2bff';
     return _prepare_openehr2bff_input($self)
       if $self->{method} eq 'openehr2bff' || $self->{method} eq 'openehr2pxf';
@@ -610,10 +657,37 @@ sub _prepare_redcap2bff_input {
     return _prepare_tabular_input( $self, 'redcap' );
 }
 
-sub _prepare_cdisc2bff_input {
+sub _prepare_cdiscodm2bff_input {
     my ($self) = @_;
     return 1 if exists $self->{data} && exists $self->{data_mapping_file};
-    return _prepare_tabular_input( $self, 'cdisc' );
+    return _prepare_tabular_input( $self, 'cdisc-odm' );
+}
+
+sub _prepare_datasetjson2bff_input {
+    my ($self) = @_;
+    return 1
+      if $self->{dataset_json_input_prepared} && exists $self->{data};
+
+    # Keep the caller's Dataset-JSON documents separate from the normalized
+    # participant buffer. The latter is released after each conversion, while
+    # the former allows a module caller to reuse the same converter safely.
+    $self->{_dataset_json_source_data} = $self->{data}
+      if exists $self->{data} && !exists $self->{_dataset_json_source_data};
+    $self->{data} = $self->{_dataset_json_source_data}
+      if !exists $self->{data} && exists $self->{_dataset_json_source_data};
+
+    my $source = source_adapter( $self, 'dataset-json' )->load;
+    $self->{data} = $source->data;
+    $self->{_owns_prepared_data} = 1 if $source->owned;
+    $self->{dataset_json_metadata} = $source->artifact('dataset_metadata');
+    $self->{dataset_json_subject_independent_domains} =
+      $source->artifact('subject_independent_domains');
+    $self->{source_derived_entity_overrides} =
+      $source->artifact('derived_entity_overrides') || {};
+    $self->{convertPheno} ||= get_info($self);
+    $self->{dataset_json_input_prepared} = 1;
+
+    return 1;
 }
 
 sub _prepare_csv2bff_input {

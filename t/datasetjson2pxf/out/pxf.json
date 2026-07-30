@@ -1,0 +1,230 @@
+[
+   {
+      "diseases" : [
+         {
+            "term" : {
+               "id" : "CDISC:MHDECOD.DIABETES_MELLITUS",
+               "label" : "Type 2 diabetes mellitus"
+            }
+         }
+      ],
+      "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "CDISC:LBTESTCD.ALT",
+               "label" : "Alanine Aminotransferase"
+            },
+            "timeObserved" : {
+               "timestamp" : "2025-01-02T00:00:00Z"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 56,
+                     "low" : 7,
+                     "unit" : {
+                        "id" : "CDISC:UNIT.U_L",
+                        "label" : "U/L"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "CDISC:UNIT.U_L",
+                     "label" : "U/L"
+                  },
+                  "value" : 42
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "CDISC:LBTESTCD.COV2",
+               "label" : "SARS-CoV-2 RNA"
+            },
+            "timeObserved" : {
+               "timestamp" : "2025-01-05T00:00:00Z"
+            },
+            "value" : {
+               "ontologyClass" : {
+                  "id" : "CDISC:LBSTRESC.NEGATIVE",
+                  "label" : "NEGATIVE"
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "CDISC:VSTESTCD.WEIGHT",
+               "label" : "Weight"
+            },
+            "timeObserved" : {
+               "timestamp" : "2025-01-02T00:00:00Z"
+            },
+            "value" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "CDISC:UNIT.KG",
+                     "label" : "kg"
+                  },
+                  "value" : 81.5
+               }
+            }
+         }
+      ],
+      "medicalActions" : [
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "CDISC:CMDECOD.METFORMIN",
+                  "label" : "Metformin"
+               },
+               "routeOfAdministration" : {
+                  "id" : "CDISC:CMROUTE.ORAL",
+                  "label" : "ORAL"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "onset" : {
+               "timestamp" : "2025-01-03T00:00:00Z"
+            },
+            "resolution" : {
+               "timestamp" : "2025-01-04T00:00:00Z"
+            },
+            "severity" : {
+               "id" : "CDISC:AESEV.MILD",
+               "label" : "MILD"
+            },
+            "type" : {
+               "id" : "CDISC:AEDECOD.HEADACHE",
+               "label" : "Headache"
+            }
+         }
+      ],
+      "subject" : {
+         "dateOfBirth" : "1980-02-03T00:00:00Z",
+         "id" : "P001",
+         "sex" : "MALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "term" : {
+               "id" : "CDISC:MHDECOD.ASTHMA",
+               "label" : "Asthma"
+            }
+         }
+      ],
+      "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "CDISC:LBTESTCD.HGB",
+               "label" : "Hemoglobin"
+            },
+            "timeObserved" : {
+               "timestamp" : "2025-02-09T00:00:00Z"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 16,
+                     "low" : 12,
+                     "unit" : {
+                        "id" : "CDISC:UNIT.G_DL",
+                        "label" : "g/dL"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "CDISC:UNIT.G_DL",
+                     "label" : "g/dL"
+                  },
+                  "value" : 13.2
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "CDISC:VSTESTCD.WEIGHT",
+               "label" : "Weight"
+            },
+            "timeObserved" : {
+               "timestamp" : "2025-02-09T00:00:00Z"
+            },
+            "value" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "CDISC:UNIT.KG",
+                     "label" : "kg"
+                  },
+                  "value" : 62
+               }
+            }
+         }
+      ],
+      "medicalActions" : [
+         {
+            "procedure" : {
+               "bodySite" : {
+                  "id" : "CDISC:PRLOC.SKIN",
+                  "label" : "SKIN"
+               },
+               "code" : {
+                  "id" : "CDISC:PRDECOD.BIOPSY",
+                  "label" : "Skin biopsy"
+               },
+               "performed" : {
+                  "timestamp" : "2025-02-11T00:00:00Z"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "CDISC:EXTRT.INVESTIGATIONAL_PRODUCT",
+                  "label" : "Investigational product"
+               },
+               "routeOfAdministration" : {
+                  "id" : "CDISC:EXROUTE.INTRAVENOUS",
+                  "label" : "INTRAVENOUS"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "onset" : {
+               "timestamp" : "2025-02-10T09:30:00Z"
+            },
+            "resolution" : {
+               "timestamp" : "2025-02-10T12:00:00Z"
+            },
+            "severity" : {
+               "id" : "CDISC:AESEV.MODERATE",
+               "label" : "MODERATE"
+            },
+            "type" : {
+               "id" : "CDISC:AEDECOD.NAUSEA",
+               "label" : "Nausea"
+            }
+         }
+      ],
+      "subject" : {
+         "dateOfBirth" : "1975-06-20T00:00:00Z",
+         "id" : "P002",
+         "sex" : "FEMALE",
+         "vitalStatus" : {
+            "status" : "DECEASED"
+         }
+      }
+   }
+]

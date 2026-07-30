@@ -67,14 +67,14 @@ use Convert::Pheno::Source qw(source_adapter);
 {
     my $convert = Convert::Pheno->new(
         {
-            method             => 'cdisc2bff',
-            in_file            => 't/cdisc2bff/in/cdisc_odm_data.xml',
+            method             => 'cdiscodm2bff',
+            in_file            => 't/cdiscodm2bff/in/cdisc_odm_data.xml',
             mapping_file       => 't/redcap2bff/in/redcap_mapping.yaml',
             redcap_dictionary  => 't/redcap2bff/in/redcap_dictionary.csv',
             schema_file        => 'share/schema/mapping.json',
         }
     );
-    my $source = source_adapter( $convert, 'cdisc' )->load;
+    my $source = source_adapter( $convert, 'cdisc-odm' )->load;
 
     ok( @{ $source->data }, 'CDISC-ODM source adapter emits tabular participant rows' );
     isa_ok(
@@ -118,12 +118,29 @@ use Convert::Pheno::Source qw(source_adapter);
 }
 
 {
+    my @files = sort glob 't/datasetjson2bff/in/*.json';
+    my $convert = Convert::Pheno->new(
+        {
+            method   => 'datasetjson2bff',
+            in_files => \@files,
+        }
+    );
+    my $source = source_adapter( $convert, 'dataset-json' )->load;
+
+    is( scalar @{ $source->data }, 2, 'Dataset-JSON source adapter groups SDTM rows by USUBJID' );
+    ok(
+        exists $source->data->[0]{domains}{LB},
+        'Dataset-JSON source adapter retains subject domain rows'
+    );
+}
+
+{
     my $error;
-    eval { source_adapter( bless( {}, 'Convert::Pheno' ), 'dataset-json' ); 1 }
+    eval { source_adapter( bless( {}, 'Convert::Pheno' ), 'unsupported-format' ); 1 }
       or $error = $@;
     like(
         $error,
-        qr/No source adapter is registered for <dataset-json>/,
+        qr/No source adapter is registered for <unsupported-format>/,
         'unknown source formats fail at the adapter boundary'
     );
 }

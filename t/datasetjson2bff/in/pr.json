@@ -1,0 +1,20 @@
+{
+  "datasetJSONCreationDateTime": "2026-07-30T10:00:00Z",
+  "datasetJSONVersion": "1.1.0",
+  "studyOID": "STUDY-JSON-01",
+  "itemGroupOID": "IG.PR",
+  "records": 1,
+  "name": "PR",
+  "label": "Procedures",
+  "columns": [
+    { "itemOID": "IT.PR.USUBJID", "name": "USUBJID", "label": "Unique Subject Identifier", "dataType": "string" },
+    { "itemOID": "IT.PR.DOMAIN", "name": "DOMAIN", "label": "Domain Abbreviation", "dataType": "string" },
+    { "itemOID": "IT.PR.PRTRT", "name": "PRTRT", "label": "Reported Name of Procedure", "dataType": "string" },
+    { "itemOID": "IT.PR.PRDECOD", "name": "PRDECOD", "label": "Standardized Procedure Name", "dataType": "string" },
+    { "itemOID": "IT.PR.PRLOC", "name": "PRLOC", "label": "Location of Procedure", "dataType": "string" },
+    { "itemOID": "IT.PR.PRSTDTC", "name": "PRSTDTC", "label": "Start Date/Time", "dataType": "string" }
+  ],
+  "rows": [
+    ["P002", "PR", "Skin biopsy", "BIOPSY", "SKIN", "2025-02-11"]
+  ]
+}
