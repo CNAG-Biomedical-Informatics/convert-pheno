@@ -847,15 +847,20 @@ sub _mapping_file_derived_entity_overrides {
       if defined $project->{version};
 
     if ( exists $mapping->{beacon} && ref( $mapping->{beacon} ) eq 'HASH' ) {
-        _merge_hash_into( $overrides{datasets}, $mapping->{beacon}{datasets} )
+        _merge_hash_into(
+            $overrides{datasets},
+            $mapping->{beacon}{datasets}{defaults}
+          )
           if exists $mapping->{beacon}{datasets}
-          && ref( $mapping->{beacon}{datasets} ) eq 'HASH';
-        _merge_hash_into( $overrides{cohorts}, $mapping->{beacon}{cohorts} )
+          && ref( $mapping->{beacon}{datasets} ) eq 'HASH'
+          && ref( $mapping->{beacon}{datasets}{defaults} ) eq 'HASH';
+        _merge_hash_into(
+            $overrides{cohorts},
+            $mapping->{beacon}{cohorts}{defaults}
+          )
           if exists $mapping->{beacon}{cohorts}
-          && ref( $mapping->{beacon}{cohorts} ) eq 'HASH';
-        _merge_hash_into( $overrides{biosamples}, $mapping->{beacon}{biosamples} )
-          if exists $mapping->{beacon}{biosamples}
-          && ref( $mapping->{beacon}{biosamples} ) eq 'HASH';
+          && ref( $mapping->{beacon}{cohorts} ) eq 'HASH'
+          && ref( $mapping->{beacon}{cohorts}{defaults} ) eq 'HASH';
     }
 
     return \%overrides;

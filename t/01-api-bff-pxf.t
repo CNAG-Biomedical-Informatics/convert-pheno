@@ -68,8 +68,12 @@ my @cases = (
 );
 
 for my $case (@cases) {
+    my $suffix = $case->{writer} eq 'csv'
+      ? '.csv'
+      : $case->{out_file} =~ /\.ya?ml$/ ? '.yaml'
+      : '.json';
     my $tmp_file = temp_output_file(
-        suffix => $case->{writer} eq 'csv' ? '.csv' : '.json'
+        suffix => $suffix,
     );
 
     my $convert = build_convert(
@@ -84,8 +88,6 @@ for my $case (@cases) {
         write_csv_rows( $tmp_file, $headers, $data );
     }
     else {
-        my $suffix = $case->{out_file} =~ /\.ya?ml$/ ? '.yaml' : '.json';
-        $tmp_file =~ s/\.[^.]+$/$suffix/;
         write_json_file( $tmp_file, $convert->${ \$case->{method} } );
     }
 

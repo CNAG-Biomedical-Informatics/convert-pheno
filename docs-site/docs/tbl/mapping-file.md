@@ -3,181 +3,207 @@ title: Mapping File
 sidebar_label: Mapping File
 ---
 
-<details>
-<summary>What is a `Convert-Pheno` mapping file?</summary>
+The mapping file is the typed source-to-Beacon contract used by `csv2*`,
+`redcap2*`, and `cdisc2*` routes. YAML and JSON are accepted, including their
+gzip-compressed forms.
 
-A mapping file is a text file in [YAML](https://en.wikipedia.org/wiki/YAML) format ([JSON](https://en.wikipedia.org/wiki/JSON) is also accepted) that connects a set of variables to a format that is understood by `Convert-Pheno`.
+For a guided example, start with [Working with Mapping Files](../mapping-files).
 
-In `v0.30`, the layout is entity-aware:
+## Version Contract
 
-- `project` holds project-level metadata.
-- `beacon` groups Beacon entities at the same level.
-- `beacon.individuals` holds the semantic mapping rules to the [individuals](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema) entity from the Beacon v2 models, which remains the central normalized model for mapping-file based conversions.
-- `beacon.datasets`, `beacon.cohorts`, and `beacon.biosamples` hold optional metadata/defaults for emitted Beacon entities.
-- These metadata overrides are currently consumed only by the conversion routes that use a mapping file: `csv2bff`, `redcap2bff`, and `cdisc2bff`.
+| Key | Required value | Purpose |
+| --- | --- | --- |
+| `mappingVersion` | `2` | Selects the Convert-Pheno mapping language |
+| `target.model` | `beacon` | Identifies the target data model |
+| `target.schemaVersion` | `'2.0.0'` | Selects the supported Beacon/BFF schema |
+| `project.version` | Project-defined string | Tracks revisions of the project mapping |
 
-The semantic mapping under `beacon.individuals` is also reused when the requested final output is `PXF` or `OMOP-CDM`. For example, `csv2omop` applies the CSV-to-BFF mapping first and then the built-in BFF-to-OMOP mapping; it does not require a second OMOP-specific user mapping file.
+These versions are independent. Changing `project.version` does not change the
+mapping grammar or Beacon schema.
 
-The `beacon.individuals` wrapper is mandatory in `v0.30`.
+:::warning[Pre-V2 mappings]
+Pre-V2 mappings are rejected. There is no compatibility interpreter for keys
+such as `fieldTermLabels`, `valueTermLabels`, `targetFields`, or
+`baselineFieldsToPropagate`.
+:::
 
-### Mental model
+## Top-Level Sections
 
-A mapping section inside `beacon.individuals`, such as `diseases`, `exposures`, or `treatments`, usually answers four different questions:
+| Section | Required | Contents |
+| --- | --- | --- |
+| `mappingVersion` | Yes | Mapping language version |
+| `source.profiles` | Yes | One or more of `csv`, `redcap`, `cdisc-odm` |
+| `target` | Yes | `model` and `schemaVersion` |
+| `project` | Yes | `id`, `version`, and optional `description` |
+| `defaults` | Yes | Default `ontology` |
+| `records` | Yes | Optional `visitId` and `baseline` behavior |
+| `beacon.individuals` | Yes | Individual mapping; `id` and `sex` are required |
+| `beacon.biosamples` | No | First-class biosample rules |
+| `beacon.datasets` | No | Defaults for synthesized datasets |
+| `beacon.cohorts` | No | Defaults for synthesized cohorts |
 
-1. Which source columns participate?
-   Use `fields`.
-2. If the source field name is not the ontology label, what field-level term should be searched?
-   Use `fieldTermLabels`.
-3. If the recorded value is not the ontology label, what value-level term should be searched?
-   Use `valueTermLabels`.
-4. If extra target-side attributes are needed, where do they come from?
-   Use `targetFields` for simple target attributes and `fieldRules` for per-field nested rules.
+Supported default ontologies are `ncit`, `icd10`, `ohdsi`, `cdisc`, `omim`,
+and `hpo`. A term rule can override the project default with its own
+`ontology`.
 
-In practice:
+## Source Selectors
 
-- `fieldTermLabels` describes the meaning of the **column/header itself**.
-- `valueTermLabels` describes the meaning of the **recorded cell value**.
-- `targetFields` points to source columns used to populate target-side attributes such as `primaryKey`, `age`, or `date`.
-- `fieldRules` holds field-specific nested configuration, for example value-to-term rules or auxiliary pointers such as `ageAtExposure`.
+Entity rules select one source field and can add conditions:
 
-### Creating a mapping file
+```yaml
+source:
+  field: smoking
+  optional: true
+  when:
+    notValues: [No, unknown]
+```
 
-To create a mapping file, start by reviewing the [example mapping file](https://github.com/cnag-biomedical-informatics/convert-pheno/blob/main/t/redcap2bff/in/redcap_mapping.yaml) provided with the installation. The goal is to replace the contents of such file with those from your REDCap project. The mapping file contains the following types of data:
+| Key | Meaning |
+| --- | --- |
+| `field` | Source column evaluated by the rule |
+| `optional` | Allows the column and other source fields inside that rule to be absent from the input header |
+| `when.nonEmpty` | Requires a non-empty value |
+| `when.values` | Accepts only the listed values |
+| `when.notValues` | Rejects the listed values |
 
-    <details>
-    <summary>Minimal mapping skeleton</summary>
+`optional` describes schema variation between compatible exports. It should
+not be used to hide a misspelled required column.
 
-    ```yaml
-        project:
-          id: my_project
-          source: redcap
-          ontology: ncit
-          version: 0.1
+## Ontology Terms
 
-        beacon:
-          datasets:
-            id: my-project-dataset
-            name: My Project Dataset
-          cohorts:
-            id: my-project-cohort
-            name: My Project Cohort
-            cohortType: study-defined
-          individuals:
-            id:
-              fields: [record_id, visit_name]
-              targetFields:
-                primaryKey: record_id
+A target ontology term can be resolved by query or supplied directly.
 
-            sex:
-              fields: sex
-              valueTermLabels:
-                Male: Male
-                Female: Female
+```yaml
+target:
+  featureType:
+    ontology: hpo
+    query:
+      from: value
+      aliases:
+        Joint limitation: Limitation of joint mobility
+```
 
-            diseases:
-              fields: [diagnosis]
-              valueTermLabels:
-                UC: Ulcerative Colitis
-                CD: Crohn Disease
+| Key | Meaning |
+| --- | --- |
+| `query.from: value` | Uses the normalized source value |
+| `query.from: field` | Uses the source field name |
+| `query.from: fieldNote` | Uses the REDCap dictionary field note |
+| `query.literal` | Uses one fixed query label |
+| `query.aliases` | Rewrites known source labels before lookup |
+| `ontology` | Overrides `defaults.ontology` for this term |
+| `term` | Supplies one curated `{id, label}` object and bypasses lookup |
+| `terms` | Supplies curated terms keyed by possible source query values |
 
-            exposures:
-              fields: [smoking]
-              fieldTermLabels:
-                smoking: Smoking
-              valueTermLabels:
-                Current smoker: Current Smoker
-                Ex-smoker: Former Smoker
-                Never smoked: Never Smoker
+Ontology term IDs must be CURIE-like strings such as `NCIT:C17610` or
+`HP:0001388`. Use `term` or `terms` only when the identifier and label are
+already curated.
 
-            info:
-              fields: [record_id, age, visit_name]
-              targetFields:
-                age: age
-        ```
+## Scalar Values
 
-    This skeleton shows the minimum structure most users need first:
+Non-ontology target values use one of these forms:
 
-    - `project` defines the source and default ontology.
-    - `beacon` groups all Beacon entity sections in one place.
-    - `beacon.individuals` contains the semantic mapping for the Beacon `individuals` entity.
-    - `beacon.individuals.id.targetFields.primaryKey` points to the source column used as the main individual identifier.
-    - `fieldTermLabels` maps the meaning of a **column/header**.
-    - `valueTermLabels` maps the meaning of a **recorded cell value**.
-    - `targetFields` maps extra target-side attributes such as `age`.
+| Form | Result |
+| --- | --- |
+| `{ from: sourceValue }` | Uses the current rule's source value |
+| `{ from: individualId }` | Uses the generated BFF individual ID |
+| `{ sourceField: age }` | Uses another named source field |
+| `{ literal: value }` | Uses a fixed string, number, or boolean |
 
-    </details>
-| Type        | Required (Optional)   | Required properties | Optional properties |
-| ----------- | ----------- | ------------------- | ------------------- |
-| Internal    | `project`   | `id, source, ontology, version` | `description, baselineFieldsToPropagate` |
-| Beacon entities | `beacon` | `individuals` | `datasets, cohorts, biosamples` |
-| Entity mapping   | `beacon.individuals` | `id, sex` | `diseases, exposures, info, interventionsOrProcedures, measures, phenotypicFeatures, treatments, ethnicity, geographicOrigin, karyotypicSex, pedigrees` |
+## Records
 
-These are the properties needed to map your data to the entity `individuals` in the Beacon v2 Models:
+`records.visitId.sourceField` adds visit provenance to mapped repeated terms.
+Visit composite keys include the generated individual ID so they remain unique
+between participants.
 
-- **beacon.individuals**, an `object` containing the semantic mapping rules for the Beacon `individuals` entity.
-- **beacon**, a top-level `object` with the entity sections. Use `beacon.datasets` and `beacon.cohorts` to override synthesized metadata such as `id`, `name`, `description`, `externalUrl`, `cohortType`, or `cohortDataTypes`. These values are merged with the tool-generated defaults. This augmentation currently applies only to `csv2bff`, `redcap2bff`, and `cdisc2bff`.
+`records.baseline` supports the `firstNonNull` strategy:
 
-- **baselineFieldsToPropagate**, an array of columns containing measurements that were taken only at the initial time point (time = 0). Use this if you wish to duplicate these columns across subsequent rows for the same patient ID. It is important to ensure that the row containing baseline information appears first in the CSV.
-- Mapping-file conversions preserve a raw source-row snapshot in the generated `BFF` `info` object by default, such as `CSV_columns` or `REDCap_columns`. This helps users audit mapped values against the input file. Use `--no-source-info` to omit these copied source payloads.
-- **age**, a `string` representing the column that points to the age of the patient.
-- **ageAtProcedure**, an `object` representing the column that points to the age when a procedure took place.
-- **ageOfOnset**, an `object` representing the column that points to the age at which the patient first experienced symptoms or was diagnosed with a condition.
-- **bodySite**, an `object` representing the column that points to the part of the body affected by a condition or where a procedure was performed.
-- **dateOfProcedure**, an `object` representing the column that points to when a procedure took place.
-- **drugDose**, an `object` representing the column that points to the dose column for each treatment.
-- **drugUnit**, an `object` representing the column that points to the unit column for each treatment.
-- **duration**, an `object` representing the column that points to the duration column for each treatment.
-- **durationUnit**, an `object` representing the column that points to the duration unit column for each treatment.
-- **familyHistory**, an `object` representing the column that points to the family medical history relevant to the patient's condition.
-- **fieldRules**, a nested `object` with per-field rules such as value-to-term mappings or auxiliary field configuration like `ageAtExposure`. Use this when a single Beacon term needs field-specific behavior rather than one global rule.
-- **fieldTermLabels**, is an `object` in the form of `key: value`. The `key` represents the original variable or header name and the `value` represents the ontology query phrase used for the field itself. Use this when the **column name** carries the term meaning. For instance, you may have a variable named `cigarettes_days`, but you know that in [NCIt](https://www.ebi.ac.uk/ols/ontologies/ncit) the label is `Average Number Cigarettes Smoked a Day`. In this case, you will use `cigarettes_days: Average Number Cigarettes Smoked a Day`.
-- **fields**, can be either a `string` or an `array` consisting of the name of the source variables that map to that Beacon v2 term.
-- **procedureCodeLabel** , a nested `object` with specific mappings for `interventionsOrProcedures`.
-- **ontology**, it's an `string` to define more granularly the ontology for this particular Beacon v2 term. If not present, the script will use that from `project.ontology`.
-- **routeOfAdministration**, a nested `object` with specific mappings for `treatments`.
-- **targetFields**, is an `object` in the form of `key: value` that maps target-side attributes such as `primaryKey`, `age`, `date`, or `duration` to source columns. Use this when the target model expects a named attribute that is not itself an ontology lookup.
-- **terminology**, a nested `object` value with user-defined ontology terms. Use this when you already know the exact ontology object and want to bypass database lookup for that term.
-- **useHeaderAsTermLabel**, an `array` for columns on which the ontology-term labels have to be assigned from the header instead of the recorded value. This is common for checkbox-like columns where the header says the term and the cell only says whether it is present.
+```yaml
+records:
+  baseline:
+    strategy: firstNonNull
+    sourceFields: [sex, ethnicity, diagnosis]
+```
 
-    <details>
-    <summary>Terminology example</summary>
+The first non-empty value for each listed field and individual is available to
+later rows. This working value does not replace the original value stored in
+source provenance.
 
-    ```yaml
-        terminology:
-          My fav term:
-            id: FOO:12345678
-        label: Label for my fav term
-        ```
-    
-    </details>
-- **unit**, an `object` representing the column that points to the unit of measurement for a given value or treatment.
-- **valueTermLabels**, is an `object` in the form of `key: value` where the `key` is the original recorded value and the `value` is the ontology query phrase used to map that value. Use this when the **cell value** carries the term meaning, for example `Current smoker -> Current Smoker`.
-- **visitId**, the column with visit occurrence id.
+## Individuals
 
-    <details>
-    <summary>Field vs value mapping</summary>
+`beacon.individuals.id` defines ID construction:
 
-    ```yaml
-        exposures:
-          fields: [smoking, cigarettes_days]
-          fieldTermLabels:
-            smoking: Smoking
-            cigarettes_days: Average Number Cigarettes Smoked a Day
-          valueTermLabels:
-            Current smoker: Current Smoker
-            Ex-smoker: Former Smoker
-            Never smoked: Never Smoker
-        ```
+```yaml
+id:
+  source:
+    fields: [record_id, event_name]
+    primaryKey: record_id
+  separator: ':'
+  missingValue: NA
+```
 
-    In this example:
+The supported BFF individual sections are:
 
-    - `smoking -> Smoking` comes from the **field/header**, so it belongs in `fieldTermLabels`.
-    - `Current smoker -> Current Smoker` comes from the **recorded value**, so it belongs in `valueTermLabels`.
+| Section | Rule shape | Main target properties |
+| --- | --- | --- |
+| `sex`, `ethnicity`, `geographicOrigin` | One term rule | Corresponding ontology term |
+| `karyotypicSex` | One scalar rule | Corresponding scalar value |
+| `diseases[]` | Repeated rule | `diseaseCode`, `ageOfOnset`, `familyHistory` |
+| `exposures[]` | Repeated rule | `exposureCode`, `ageAtExposure`, `unit`, `value`, `date`, `duration` |
+| `interventionsOrProcedures[]` | Repeated rule | `procedureCode`, `ageAtProcedure`, `bodySite`, `dateOfProcedure` |
+| `measures[]` | Repeated rule | `assayCode`, quantity, reference range, procedure |
+| `phenotypicFeatures[]` | Repeated rule | `featureType` |
+| `treatments[]` | Repeated rule | `treatmentCode`, route, age, cumulative dose, dose interval |
+| `info` | Field list | Selected project fields and optional age range |
 
-    </details>
-    <details>
-    <summary>Defining the values in `fieldTermLabels` and `valueTermLabels`</summary>
+Target property names use the camelCase spelling from the Beacon v2 schema.
+Repeated sections use one independent source/target rule per source field,
+which keeps conditions and auxiliary columns local to that rule.
 
-    Before assigning values to `fieldTermLabels` or `valueTermLabels` it's important that you think about which ontologies or terminologies you want to use. The field `project.ontology` defines the ontology for the whole project, but you can also specify another ontology at the Beacon v2 term level. Once you know which ontologies to use, search for accurate labels first. For example, if you have chosen `ncit`, you can search for the values within NCIt at [EBI Search](https://www.ebi.ac.uk/ols/ontologies/ncit). `Convert-Pheno` will use these values to retrieve the actual ontology term from its internal databases.
-    </details>
-</details>
+## Biosamples
+
+`beacon.biosamples.mappings[]` uses the same source/target structure. Every
+biosample rule declares these target properties:
+
+| Property | Purpose |
+| --- | --- |
+| `id` | Biosample identifier, commonly `{ from: sourceValue }` |
+| `biosampleStatus` | Required ontology term |
+| `sampleOriginType` | Required ontology term |
+| `individualId` | Optional explicit link; defaults to the generated individual ID |
+
+Optional properties are `sampleOriginDetail`, `collectionDate`, `notes`,
+`obtentionProcedure`, `measurements`, and selected `info.sourceFields`.
+Biosample measurements use the same structured measure rule as individual
+measurements: `assayCode` identifies what was measured, while the quantity
+contains the numeric value and unit.
+
+The mapping is evaluated only when `biosamples` is requested with entity-aware
+BFF output. Missing or empty biosample IDs do not produce placeholder records.
+
+## Datasets And Cohorts
+
+`beacon.datasets.defaults` and `beacon.cohorts.defaults` augment entities
+synthesized from the converted individuals. They do not map one entity per
+source row.
+
+Dataset defaults can include `id`, `name`, `description`, `version`,
+`externalUrl`, `createDateTime`, `updateDateTime`, and `info`. Cohort defaults
+can include `id`, `name`, `description`, `cohortType`, `cohortDesign`,
+`cohortDataTypes`, `inclusionCriteria`, `exclusionCriteria`, and `info`.
+
+These overrides apply only to routes that read a mapping file. OMOP conversion
+does not read this configuration.
+
+## Validation And Provenance
+
+Before conversion, Convert-Pheno:
+
+1. Rejects duplicate YAML or JSON mapping keys
+2. Validates the document against `share/schema/mapping.json`
+3. Checks the mapping and Beacon schema versions
+4. Checks that the selected route is listed in `source.profiles`
+5. Checks referenced source fields against the input header
+
+Generated BFF preserves the unmodified input row under `info.CSV_columns` or
+`info.REDCap_columns` by default. Use `--no-source-info` to omit this copy.
+Use `--search-audit-tsv FILE` to record ontology queries and their resolution.

@@ -22,29 +22,51 @@ io_yaml_or_json(
         filepath => $mapping_file,
         mode     => 'write',
         data     => {
-            project => {
-                id                        => 'raw_values_test',
-                source                    => 'csv',
-                ontology                  => 'ncit',
-                version                   => 'test-0.1',
-                baselineFieldsToPropagate => [],
+            mappingVersion => 2,
+            source => {
+                profiles => ['csv'],
             },
+            target => {
+                model         => 'beacon',
+                schemaVersion => '2.0.0',
+            },
+            project => {
+                id      => 'raw_values_test',
+                version => 'test-0.1',
+            },
+            defaults => {
+                ontology => 'ncit',
+            },
+            records => {},
             beacon => {
                 individuals => {
                     id => {
-                        fields       => [ 'PatientId', 'EventName' ],
-                        targetFields => { primaryKey => 'PatientId' },
+                        source => {
+                            fields     => [ 'PatientId', 'EventName' ],
+                            primaryKey => 'PatientId',
+                        },
                     },
                     sex => {
-                        fields => 'Sex',
+                        source => { field => 'Sex' },
+                        target => { query => { from => 'value' } },
                     },
                     ethnicity => {
-                        fields => 'Ethnicity',
+                        source => { field => 'Ethnicity' },
+                        target => { query => { from => 'value' } },
                     },
-                    diseases => {
-                        fields          => ['Disease_1'],
-                        valueTermLabels => { Diabetes => 'Diabetes Mellitus' },
-                    },
+                    diseases => [
+                        {
+                            source => { field => 'Disease_1' },
+                            target => {
+                                diseaseCode => {
+                                    query => {
+                                        from    => 'value',
+                                        aliases => { Diabetes => 'Diabetes Mellitus' },
+                                    },
+                                },
+                            },
+                        },
+                    ],
                 },
             },
         },

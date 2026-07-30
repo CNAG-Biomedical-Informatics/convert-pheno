@@ -29,7 +29,7 @@ Choose the entry point by the shape of your input data. The command-line interfa
 - Use the **Module** only when you are embedding Convert-Pheno in local Perl or Python code.
 
 :::info[Mapping-file conversions]
-Mapping-file augmentation for `datasets`, `cohorts`, and `biosamples` is available only in conversions that actually read a mapping file, such as `CSV`, `REDCap`, and `CDISC-ODM`.
+First-class biosample rules and dataset/cohort metadata defaults are available only in conversions that actually read a mapping file, such as `CSV`, `REDCap`, and `CDISC-ODM`.
 
 `OMOP-CDM` conversion does not use the mapping file, so dataset and cohort metadata must come from the source data, defaults, or command-line options.
 :::

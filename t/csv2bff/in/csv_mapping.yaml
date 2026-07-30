@@ -1,119 +1,186 @@
-#######################
-# Project identifiers #
-#######################
+mappingVersion: 2
+
+source:
+  profiles: [csv]
+
+target:
+  model: beacon
+  schemaVersion: '2.0.0'
 
 project:
   id: CSV_src_test
-  source: csv
-  ontology: ncit
   version: test-0.1
   description: Mapping file for a CSV with generic clinical data
-  baselineFieldsToPropagate: [Sex,Ethnicity,TobaccoUse,AgeAtTobaccoExposure,AlcoholUse,AgeAtAlcoholExposure,Disease_1,Disease_2,Disease_3,PhenotypicFeature_1,PhenotypicFeature_2]
 
-#################################
-# Beacon v2 Models: individuals #
-#################################
+defaults:
+  ontology: ncit
+
+records:
+  visitId:
+    sourceField: VisitOccurrenceId
+  baseline:
+    strategy: firstNonNull
+    sourceFields: [Sex, Ethnicity, TobaccoUse, AgeAtTobaccoExposure, AlcoholUse, AgeAtAlcoholExposure, Disease_1, Disease_2, Disease_3, PhenotypicFeature_1, PhenotypicFeature_2]
 
 beacon:
   individuals:
-    # Term: diseases
-    diseases:
-      fields: [Disease_1,Disease_2,Disease_3]
-      visitId: VisitOccurrenceId
-      valueTermLabels:
-        Ashtma: Ashtma
-        Diabetes: Diabetes Mellitus
-  
-    # Term: ethnicity
-    ethnicity:
-      fields: Ethnicity
-      valueTermLabels:
-        Caucasian: White
-        Hispanic: Hispanic or Latino
-  
-    # Term: exposures
-    exposures: 
-      fields: [AlcoholUse,TobaccoUse]
-      useHeaderAsTermLabel: [AlcoholUse,TobaccoUse]
-      visitId: VisitOccurrenceId
-      fieldTermLabels:
-        AlcoholUse: Alcohol
-        TobaccoUse: Tobacco
-      fieldRules:
-        AlcoholUse:
-          ageAtExposure: AgeAtAlcoholExposure
-        TobaccoUse:
-          ageAtExposure: AgeAtTobaccoExposure
-  
-    # Term: geographicOrigin
-    # geographicOrigin: null
-  
-    # Term: id
     id:
-      fields: [PatientId,EventName]
-      targetFields:
-        primaryKey: PatientId 
-  
-    # Term: info
+      source:
+        fields: [PatientId, EventName]
+        primaryKey: PatientId
+      separator: ':'
+      missingValue: NA
+
+    sex:
+      source:
+        field: Sex
+      target:
+        query:
+          from: value
+
+    ethnicity:
+      source:
+        field: Ethnicity
+      target:
+        query:
+          from: value
+          aliases:
+            Caucasian: White
+            Hispanic: Hispanic or Latino
+
+    diseases:
+      - source:
+          field: Disease_1
+          when: { nonEmpty: true }
+        target:
+          diseaseCode:
+            query:
+              from: value
+              aliases: { Ashtma: Ashtma, Diabetes: Diabetes Mellitus }
+      - source:
+          field: Disease_2
+          when: { nonEmpty: true }
+        target:
+          diseaseCode:
+            query:
+              from: value
+              aliases: { Ashtma: Ashtma, Diabetes: Diabetes Mellitus }
+      - source:
+          field: Disease_3
+          when: { nonEmpty: true }
+        target:
+          diseaseCode:
+            query:
+              from: value
+              aliases: { Ashtma: Ashtma, Diabetes: Diabetes Mellitus }
+
+    exposures:
+      - source:
+          field: AlcoholUse
+          when: { notValues: ['No', 'False'] }
+        target:
+          exposureCode:
+            query: { literal: Alcohol }
+          ageAtExposure:
+            sourceField: AgeAtAlcoholExposure
+          unit:
+            query: { from: value }
+      - source:
+          field: TobaccoUse
+          when: { notValues: ['No', 'False'] }
+        target:
+          exposureCode:
+            query: { literal: Tobacco }
+          ageAtExposure:
+            sourceField: AgeAtTobaccoExposure
+          unit:
+            query: { from: value }
+
     info:
-     fields: []
-  
-    # Term: measures
+      source:
+        fields: []
+
     measures:
-      ontology: ncit
-      fields: [Hemoglobin (g/dL), WBC (10^9/L), Platelets (10^9/L), BMI (kg/m^2)]
-      useHeaderAsTermLabel: [Hemoglobin (g/dL), WBC (10^9/L), Platelets (10^9/L), BMI (kg/m^2)]
-      visitId: VisitOccurrenceId 
-      fieldTermLabels:
-        'Hemoglobin (g/dL)': Hemoglobin Measurement
-        'WBC (10^9/L)': Leukocyte
-        'Platelets (10^9/L)': Platelet Count
-        'BMI (kg/m^2)': Body Mass Index
-      unit:
-        'Hemoglobin (g/dL)':
-          label: Gram per Deciliter
-          referenceRange:
-            low: 12.1
-            high: 17.2
-        'WBC (10^9/L)':
-          label: Cells per Microliter
-          referenceRange:
-            low: 4.0
-            high: 11.0
-        'Platelets (10^9/L)':
-          label: Cells per Microliter
-          referenceRange:
-            low: 150
-            high: 450
-        'BMI (kg/m^2)':
-          label: Kilogram per Square Meter
-          referenceRange:
-            low: 18.5
-            high: 24.9
-          procedureCodeLabel: Physical Examination Category
-  
-    # Term: phenotypicFeatures
-    phenotypicFeatures: 
-      ontology: hpo
-      fields: [PhenotypicFeature_1,PhenotypicFeature_2]
-      visitId: VisitOccurrenceId
-  
-    # Term: sex
-    sex: 
-      fields: Sex
-  
-    # Term: treatments
+      - source: { field: 'Hemoglobin (g/dL)' }
+        target:
+          assayCode:
+            query: { literal: Hemoglobin Measurement }
+          measurementValue:
+            quantity:
+              unit:
+                query: { literal: Gram per Deciliter }
+              referenceRange: { low: 12.1, high: 17.2 }
+          procedure:
+            procedureCode:
+              query: { literal: Blood Test Result }
+      - source: { field: 'WBC (10^9/L)' }
+        target:
+          assayCode:
+            query: { literal: Leukocyte }
+          measurementValue:
+            quantity:
+              unit:
+                query: { literal: Cells per Microliter }
+              referenceRange: { low: 4.0, high: 11.0 }
+          procedure:
+            procedureCode:
+              query: { literal: Blood Test Result }
+      - source: { field: 'Platelets (10^9/L)' }
+        target:
+          assayCode:
+            query: { literal: Platelet Count }
+          measurementValue:
+            quantity:
+              unit:
+                query: { literal: Cells per Microliter }
+              referenceRange: { low: 150, high: 450 }
+          procedure:
+            procedureCode:
+              query: { literal: Blood Test Result }
+      - source: { field: 'BMI (kg/m^2)' }
+        target:
+          assayCode:
+            query: { literal: Body Mass Index }
+          measurementValue:
+            quantity:
+              unit:
+                query: { literal: Kilogram per Square Meter }
+              referenceRange: { low: 18.5, high: 24.9 }
+          procedure:
+            procedureCode:
+              query: { literal: Physical Examination Category }
+
+    phenotypicFeatures:
+      - source:
+          field: PhenotypicFeature_1
+          when: { nonEmpty: true }
+        target:
+          featureType:
+            ontology: hpo
+            query: { from: value }
+      - source:
+          field: PhenotypicFeature_2
+          when: { nonEmpty: true }
+        target:
+          featureType:
+            ontology: hpo
+            query: { from: value }
+
     treatments:
-      fields: [DrugName]
-      visitId: VisitOccurrenceId
-      drugDose:
-        DrugName: DrugDose (mg)
-      drugUnit:
-        DrugName: Milligram
-      duration:
-        DrugName: TreatmentDuration (weeks)
-      durationUnit:
-        DrugName: Week
-      routeOfAdministration: 
-        Albuterol: oral
-        Lisinopril: oral
+      - source:
+          field: DrugName
+          when: { nonEmpty: true }
+        target:
+          treatmentCode:
+            query: { from: value }
+          routeOfAdministration:
+            query: { literal: Oral Route of Administration }
+          cumulativeDose:
+            value: { sourceField: 'TreatmentDuration (weeks)' }
+            unit:
+              query: { literal: Week }
+          doseIntervals:
+            quantity:
+              value: { sourceField: 'DrugDose (mg)' }
+              unit:
+                query: { literal: Milligram }

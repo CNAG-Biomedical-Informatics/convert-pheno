@@ -291,7 +291,7 @@ Prefer **raw data** together with the REDCap dictionary file. If your export use
 
 No. Mapping-based augmentation of synthesized `datasets` and `cohorts` is currently available only for the routes that use a mapping file: `csv2bff`, `redcap2bff`, and `cdisc2bff`.
 
-For those conversions, the top-level `beacon` section of the mapping file can override metadata such as `id`, `name`, `description`, `version`, `externalUrl`, `cohortType`, or `cohortDataTypes`.
+For those conversions, `beacon.datasets.defaults` and `beacon.cohorts.defaults` can override metadata such as `id`, `name`, `description`, `version`, `externalUrl`, `cohortType`, or `cohortDataTypes`.
 
 This does not currently apply to `omop2bff` or `pxf2bff`.
 

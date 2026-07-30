@@ -5,215 +5,202 @@ sidebar_label: Mapping Files
 slug: /mapping-files
 ---
 
-This page follows one end-to-end REDCap conversion to explain the mapping file,
-ontology lookup, and generated Phenopackets output. Copy-paste commands for all
-other routes are centralized under [Choose a Conversion](conversion-recipes).
+Mapping files describe how project-specific `CSV`, `REDCap`, or `CDISC-ODM`
+fields become Beacon v2 records. This page follows a REDCap example; the full
+key reference is under [Mapping File](tbl/mapping-file).
 
 :::tip[Google Colab version]
-A runnable notebook version is available in [Google Colab](https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6). A local copy is also available in the [repo](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/nb/convert_pheno_cli_tutorial.ipynb).
+A runnable notebook is available in [Google Colab](https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6), with a local copy in the [repository](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/nb/convert_pheno_cli_tutorial.ipynb).
 
-The notebook clones the latest `main` branch when it runs and reports both the
-Convert-Pheno version and exact Git commit used.
-
+The notebook clones the latest `main` branch and reports the Convert-Pheno
+version and Git commit used.
 :::
-:::note[Before you start]
-These examples assume that `Convert-Pheno` is already installed. If not, start with [Download & Installation](download-and-installation).
 
+## Files Required
+
+A REDCap conversion normally uses:
+
+1. The data export in CSV format
+2. The REDCap data dictionary in CSV format
+3. A Convert-Pheno mapping file in YAML or JSON format
+
+The data dictionary explains REDCap field types, labels, choices, notes, and
+ranges. The mapping file makes the project-specific semantic decisions.
+
+## Mapping V2 At A Glance
+
+Two independent versions are declared at the top of every mapping:
+
+| Key | Meaning |
+| --- | --- |
+| `mappingVersion: 2` | Version of the Convert-Pheno mapping language |
+| `target.schemaVersion: '2.0.0'` | Beacon v2 schema version targeted by the mapping |
+| `project.version` | Version assigned by your project to this mapping |
+
+:::warning[Breaking mapping format]
+Mapping V2 is intentionally not compatible with the pre-V2 layout. Removed
+constructs such as `fieldTermLabels`, `valueTermLabels`, `targetFields`, and
+`baselineFieldsToPropagate` are not accepted. This prevents old configuration
+from being interpreted with new semantics.
 :::
-## REDCap to PXF
-
-This is a good route when you have a **REDCap export** and want to produce **Phenopackets**.
-
-You will usually need three files:
-
-1. REDCap data export in CSV format
-2. REDCap data dictionary in CSV format
-3. Mapping file in YAML or JSON format
-
-Because REDCap projects are **free-form**, the mapping file is what tells `Convert-Pheno` how your project variables should be interpreted.
 
 <details>
-<summary>What is a `Convert-Pheno` mapping file?</summary>
+<summary>Compact REDCap mapping</summary>
 
-A mapping file is a text file in [YAML](https://en.wikipedia.org/wiki/YAML) format ([JSON](https://en.wikipedia.org/wiki/JSON) is also accepted) that connects a set of variables to a format that is understood by `Convert-Pheno`.
+```yaml
+mappingVersion: 2
 
-In `v0.30`, the layout is entity-aware:
+source:
+  profiles: [redcap]
 
-- `project` holds project-level metadata.
-- `beacon` groups Beacon entities at the same level.
-- `beacon.individuals` holds the semantic mapping rules to the [individuals](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema) entity from the Beacon v2 models, which remains the central normalized model for mapping-file based conversions.
-- `beacon.datasets`, `beacon.cohorts`, and `beacon.biosamples` hold optional metadata/defaults for emitted Beacon entities.
-- These metadata overrides are currently consumed only by the conversion routes that use a mapping file: `csv2bff`, `redcap2bff`, and `cdisc2bff`.
+target:
+  model: beacon
+  schemaVersion: '2.0.0'
 
-The `beacon.individuals` wrapper is mandatory in `v0.30`.
+project:
+  id: my_study
+  version: '1.0'
 
-**Mental model**
+defaults:
+  ontology: ncit
 
-A mapping section inside `beacon.individuals`, such as `diseases`, `exposures`, or `treatments`, usually answers four different questions:
+records:
+  visitId:
+    sourceField: redcap_event_name
+  baseline:
+    strategy: firstNonNull
+    sourceFields: [sex, diagnosis]
 
-1. Which source columns participate?
-   Use `fields`.
-2. If the source field name is not the ontology label, what field-level term should be searched?
-   Use `fieldTermLabels`.
-3. If the recorded value is not the ontology label, what value-level term should be searched?
-   Use `valueTermLabels`.
-4. If extra target-side attributes are needed, where do they come from?
-   Use `targetFields` for simple target attributes and `fieldRules` for per-field nested rules.
+beacon:
+  individuals:
+    id:
+      source:
+        fields: [record_id, redcap_event_name]
+        primaryKey: record_id
+      separator: ':'
 
-In practice:
+    sex:
+      source: { field: sex }
+      target:
+        query: { from: value }
 
-- `fieldTermLabels` describes the meaning of the **column/header itself**.
-- `valueTermLabels` describes the meaning of the **recorded cell value**.
-- `targetFields` points to source columns used to populate target-side attributes such as `primaryKey`, `age`, or `date`.
-- `fieldRules` holds field-specific nested configuration, for example value-to-term rules or auxiliary pointers such as `ageAtExposure`.
-
-**Creating a mapping file**
-
-To create a mapping file, start by reviewing the [example mapping file](https://github.com/cnag-biomedical-informatics/convert-pheno/blob/main/t/redcap2bff/in/redcap_mapping.yaml) provided with the installation. The goal is to replace the contents of such file with those from your REDCap project. The mapping file contains the following types of data:
-
-    <details>
-    <summary>Minimal mapping skeleton</summary>
-
-    ```yaml
-        project:
-          id: my_project
-          source: redcap
-          ontology: ncit
-          version: 0.1
-
-        beacon:
-          datasets:
-            id: my-project-dataset
-            name: My Project Dataset
-          cohorts:
-            id: my-project-cohort
-            name: My Project Cohort
-            cohortType: study-defined
-          individuals:
-            id:
-              fields: [record_id, visit_name]
-              targetFields:
-                primaryKey: record_id
-
-            sex:
-              fields: sex
-              valueTermLabels:
-                Male: Male
-                Female: Female
-
-            diseases:
-              fields: [diagnosis]
-              valueTermLabels:
+    diseases:
+      - source:
+          field: diagnosis
+          when: { nonEmpty: true }
+        target:
+          diseaseCode:
+            query:
+              from: value
+              aliases:
                 UC: Ulcerative Colitis
                 CD: Crohn Disease
+          ageOfOnset: { sourceField: age_at_diagnosis }
 
-            exposures:
-              fields: [smoking]
-              fieldTermLabels:
-                smoking: Smoking
-              valueTermLabels:
-                Current smoker: Current Smoker
-                Ex-smoker: Former Smoker
-                Never smoked: Never Smoker
+    info:
+      source:
+        fields: [record_id, redcap_event_name]
+```
 
-            info:
-              fields: [record_id, age, visit_name]
-              targetFields:
-                age: age
-        ```
-
-    This skeleton shows the minimum structure most users need first:
-
-    - `project` defines the source and default ontology.
-    - `beacon` groups all Beacon entity sections in one place.
-    - `beacon.individuals` contains the semantic mapping for the Beacon `individuals` entity.
-    - `beacon.individuals.id.targetFields.primaryKey` points to the source column used as the main individual identifier.
-    - `fieldTermLabels` maps the meaning of a **column/header**.
-    - `valueTermLabels` maps the meaning of a **recorded cell value**.
-    - `targetFields` maps extra target-side attributes such as `age`.
-
-    </details>
-| Type        | Required (Optional)   | Required properties | Optional properties |
-| ----------- | ----------- | ------------------- | ------------------- |
-| Internal    | `project`   | `id, source, ontology, version` | `description, baselineFieldsToPropagate` |
-| Beacon entities | `beacon` | `individuals` | `datasets, cohorts, biosamples` |
-| Entity mapping   | `beacon.individuals` | `id, sex` | `diseases, exposures, info, interventionsOrProcedures, measures, phenotypicFeatures, treatments, ethnicity, geographicOrigin, karyotypicSex, pedigrees` |
-
-These are the properties needed to map your data to the entity `individuals` in the Beacon v2 Models:
-
-- **beacon.individuals**, an `object` containing the semantic mapping rules for the Beacon `individuals` entity.
-- **beacon**, a top-level `object` with the entity sections. Use `beacon.datasets` and `beacon.cohorts` to override synthesized metadata such as `id`, `name`, `description`, `externalUrl`, `cohortType`, or `cohortDataTypes`. These values are merged with the tool-generated defaults. This augmentation currently applies only to `csv2bff`, `redcap2bff`, and `cdisc2bff`.
-
-- **baselineFieldsToPropagate**, an array of columns containing measurements that were taken only at the initial time point (time = 0). Use this if you wish to duplicate these columns across subsequent rows for the same patient ID. It is important to ensure that the row containing baseline information appears first in the CSV.
-- Mapping-file conversions preserve a raw source-row snapshot in the generated `BFF` `info` object by default, such as `CSV_columns` or `REDCap_columns`. This helps users audit mapped values against the input file. Use `--no-source-info` to omit these copied source payloads.
-- **age**, a `string` representing the column that points to the age of the patient.
-- **ageAtProcedure**, an `object` representing the column that points to the age when a procedure took place.
-- **ageOfOnset**, an `object` representing the column that points to the age at which the patient first experienced symptoms or was diagnosed with a condition.
-- **bodySite**, an `object` representing the column that points to the part of the body affected by a condition or where a procedure was performed.
-- **dateOfProcedure**, an `object` representing the column that points to when a procedure took place.
-- **drugDose**, an `object` representing the column that points to the dose column for each treatment.
-- **drugUnit**, an `object` representing the column that points to the unit column for each treatment.
-- **duration**, an `object` representing the column that points to the duration column for each treatment.
-- **durationUnit**, an `object` representing the column that points to the duration unit column for each treatment.
-- **familyHistory**, an `object` representing the column that points to the family medical history relevant to the patient's condition.
-- **fieldRules**, a nested `object` with per-field rules such as value-to-term mappings or auxiliary field configuration like `ageAtExposure`. Use this when a single Beacon term needs field-specific behavior rather than one global rule.
-- **fieldTermLabels**, is an `object` in the form of `key: value`. The `key` represents the original variable or header name and the `value` represents the ontology query phrase used for the field itself. Use this when the **column name** carries the term meaning. For instance, you may have a variable named `cigarettes_days`, but you know that in [NCIt](https://www.ebi.ac.uk/ols/ontologies/ncit) the label is `Average Number Cigarettes Smoked a Day`. In this case, you will use `cigarettes_days: Average Number Cigarettes Smoked a Day`.
-- **fields**, can be either a `string` or an `array` consisting of the name of the source variables that map to that Beacon v2 term.
-- **procedureCodeLabel** , a nested `object` with specific mappings for `interventionsOrProcedures`.
-- **ontology**, it's an `string` to define more granularly the ontology for this particular Beacon v2 term. If not present, the script will use that from `project.ontology`.
-- **routeOfAdministration**, a nested `object` with specific mappings for `treatments`.
-- **targetFields**, is an `object` in the form of `key: value` that maps target-side attributes such as `primaryKey`, `age`, `date`, or `duration` to source columns. Use this when the target model expects a named attribute that is not itself an ontology lookup.
-- **terminology**, a nested `object` value with user-defined ontology terms. Use this when you already know the exact ontology object and want to bypass database lookup for that term.
-- **useHeaderAsTermLabel**, an `array` for columns on which the ontology-term labels have to be assigned from the header instead of the recorded value. This is common for checkbox-like columns where the header says the term and the cell only says whether it is present.
-
-    <details>
-    <summary>Terminology example</summary>
-
-    ```yaml
-        terminology:
-          My fav term:
-            id: FOO:12345678
-        label: Label for my fav term
-        ```
-    
-    </details>
-- **unit**, an `object` representing the column that points to the unit of measurement for a given value or treatment.
-- **valueTermLabels**, is an `object` in the form of `key: value` where the `key` is the original recorded value and the `value` is the ontology query phrase used to map that value. Use this when the **cell value** carries the term meaning, for example `Current smoker -> Current Smoker`.
-- **visitId**, the column with visit occurrence id.
-
-    <details>
-    <summary>Field vs value mapping</summary>
-
-    ```yaml
-        exposures:
-          fields: [smoking, cigarettes_days]
-          fieldTermLabels:
-            smoking: Smoking
-            cigarettes_days: Average Number Cigarettes Smoked a Day
-          valueTermLabels:
-            Current smoker: Current Smoker
-            Ex-smoker: Former Smoker
-            Never smoked: Never Smoker
-        ```
-
-    In this example:
-
-    - `smoking -> Smoking` comes from the **field/header**, so it belongs in `fieldTermLabels`.
-    - `Current smoker -> Current Smoker` comes from the **recorded value**, so it belongs in `valueTermLabels`.
-
-    </details>
-    <details>
-    <summary>Defining the values in `fieldTermLabels` and `valueTermLabels`</summary>
-
-    Before assigning values to `fieldTermLabels` or `valueTermLabels` it's important that you think about which ontologies or terminologies you want to use. The field `project.ontology` defines the ontology for the whole project, but you can also specify another ontology at the Beacon v2 term level. Once you know which ontologies to use, search for accurate labels first. For example, if you have chosen `ncit`, you can search for the values within NCIt at [EBI Search](https://www.ebi.ac.uk/ols/ontologies/ncit). `Convert-Pheno` will use these values to retrieve the actual ontology term from its internal databases.
-
-    </details>
 </details>
-Mapping-file conversions use exact ontology-label lookup by default. The
-`mixed` and `fuzzy` modes, score thresholds, ranking behavior, and audit TSV
-columns are documented once under [Database Search](tbl/db-search). Review the
-audit whenever similarity search is enabled.
-Run the conversion:
+
+The top-level sections have distinct responsibilities:
+
+| Section | Purpose |
+| --- | --- |
+| `source` | Declares which input routes may use the mapping |
+| `target` | Declares the target model and Beacon schema version |
+| `project` | Identifies and versions the project mapping |
+| `defaults` | Sets the default ontology for term lookup |
+| `records` | Defines visit and longitudinal baseline behavior |
+| `beacon` | Contains entity-specific target mappings and defaults |
+
+The route still determines how the source is parsed. For example,
+`source.profiles: [redcap]` does not turn a CSV route into REDCap; it only
+confirms that this mapping is intended for the selected route.
+
+## Reading A Rule
+
+Each rule separates the source condition from the target property:
+
+```yaml
+- source:
+    field: diagnosis
+    when: { nonEmpty: true }
+  target:
+    diseaseCode:
+      query:
+        from: value
+        aliases:
+          UC: Ulcerative Colitis
+```
+
+Here, `diagnosis` is the source column. Empty cells are skipped. The recorded
+value is used as the ontology query, after applying the optional alias.
+
+Ontology queries can come from different places:
+
+| Form | Use |
+| --- | --- |
+| `query: { from: value }` | Search using the recorded value |
+| `query: { from: field }` | Search using the source column name |
+| `query: { from: fieldNote }` | Search using the REDCap dictionary field note |
+| `query: { literal: Hemoglobin Measurement }` | Search a fixed label |
+| `term: { id: 'NCIT:C...', label: ... }` | Use a known ontology term without a database search |
+
+Use exact terms when the identifier is already curated. Otherwise, use a
+query and review ontology resolution with `--search-audit-tsv`.
+
+## Longitudinal Values
+
+`records.baseline` can make a value recorded only at baseline available to
+later rows for the same `primaryKey`:
+
+```yaml
+records:
+  baseline:
+    strategy: firstNonNull
+    sourceFields: [sex, diagnosis]
+```
+
+Rows must be ordered so the first non-empty value appears before rows that need
+it. Propagation affects target mapping only. The raw row preserved under
+`info.REDCap_columns` or `info.CSV_columns` remains unchanged, so provenance
+continues to reflect the input file.
+
+## Other Beacon Entities
+
+`beacon.biosamples` contains executable mapping rules, not just metadata. A
+biosample is emitted when its source condition matches and an ID is available:
+
+```yaml
+beacon:
+  biosamples:
+    mappings:
+      - source:
+          field: sample_id
+          when: { nonEmpty: true }
+        target:
+          id: { from: sourceValue }
+          individualId: { from: individualId }
+          biosampleStatus:
+            term: { id: 'NCIT:C126101', label: Not Available }
+          sampleOriginType:
+            query: { literal: Whole Blood }
+          collectionDate: { sourceField: collection_date }
+```
+
+Rules can also populate `sampleOriginDetail`, `obtentionProcedure`, `notes`,
+`measurements`, and selected `info` fields. Request `biosamples` explicitly in
+entity-aware BFF output.
+
+`beacon.datasets.defaults` and `beacon.cohorts.defaults` provide metadata for
+entities synthesized from the converted individuals. These defaults are used
+only by mapping-file routes.
+
+## Run And Review
+
+Convert REDCap directly to Phenopackets:
 
 ```bash
 convert-pheno -iredcap redcap.csv \
@@ -222,11 +209,20 @@ convert-pheno -iredcap redcap.csv \
   -opxf phenopackets.json
 ```
 
-If you need more detail about REDCap-specific behavior, see [REDCap](redcap).
+Write individuals and mapped biosamples as separate BFF files:
 
-## Continue with Other Routes
+```bash
+convert-pheno -iredcap redcap.csv \
+  --redcap-dictionary dictionary.csv \
+  --mapping-file mapping.yaml \
+  -obff \
+  --entities individuals biosamples \
+  --out-dir bff-output/
+```
 
-- [Choose a Conversion](conversion-recipes) for the canonical command catalog
-- [CSV](csv), [REDCap](redcap), and [OMOP-CDM](omop-cdm) for input requirements
-- [Mapping File](tbl/mapping-file) for the complete mapping-key reference
-- [FAQ](faq) for common questions
+For ontology review, add `--search-audit-tsv mapping-audit.tsv`. Exact search
+is the default; similarity modes and audit columns are documented under
+[Database Search](tbl/db-search).
+
+Continue with [REDCap](redcap), [CSV](csv), or the complete
+[Mapping File](tbl/mapping-file) reference.

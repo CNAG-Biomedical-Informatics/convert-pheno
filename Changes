@@ -3,6 +3,7 @@ Revision history for Perl distribution Convert-Pheno
 0.33 2026-0X-XXT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
  - Added native Windows support and CI coverage with Strawberry Perl 5.40 and 5.42
+ - Introduced Mapping V2 with strict source and Beacon 2.0.0 contracts, immutable source provenance and first-class tabular biosamples
 
 0.32 2026-07-22T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 

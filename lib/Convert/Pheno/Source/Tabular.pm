@@ -4,11 +4,12 @@ use strict;
 use warnings;
 
 use Convert::Pheno::IO::CSVHandler qw(
+  get_headers
   read_csv
   read_mapping_file
   read_redcap_dict_file
-  select_mapping_entity
 );
+use Convert::Pheno::Mapping::Compiler qw(compile_mapping);
 use Convert::Pheno::Source::Result;
 
 sub new {
@@ -30,24 +31,29 @@ sub load {
         }
     );
 
-    my %artifacts = (
-        mapping        => $mapping,
-        entity_mapping => select_mapping_entity( $mapping, 'individuals' ),
+    my $data = read_csv(
+        {
+            in             => $converter->{in_file},
+            sep            => $converter->{sep},
+            coerce_numbers => 0,
+        }
     );
+
+    my %artifacts = ( mapping => $mapping );
     $artifacts{redcap_dictionary} = read_redcap_dict_file(
         { redcap_dictionary => $converter->{redcap_dictionary} }
       )
       if $self->{kind} eq 'redcap';
 
+    $artifacts{entity_mapping} = compile_mapping(
+        $mapping,
+        source_profile => $self->{kind},
+        headers        => get_headers($data),
+    );
+
     return Convert::Pheno::Source::Result->new(
         {
-            data => read_csv(
-                {
-                    in             => $converter->{in_file},
-                    sep            => $converter->{sep},
-                    coerce_numbers => 0,
-                }
-            ),
+            data      => $data,
             owned     => 1,
             artifacts => \%artifacts,
         }

@@ -36,7 +36,8 @@ ontology-search audit, and generated output for each dataset.
 
 CSV input is intended for project-specific clinical tables that do not already
 follow another supported model. A YAML or JSON mapping file is required to
-connect source columns and values to Beacon individuals fields.
+connect source columns and values to Beacon individuals fields and, when the
+source includes specimen records, first-class biosamples.
 
 :::warning[CSV separator]
 The default separator is `;`. Use `--sep` when a file uses a comma, tab, or
@@ -69,10 +70,9 @@ Rabbit-in-a-Hat, or Usagi.
 ### Output Review
 
 BFF output preserves each source row under `info.CSV_columns` by default. Use
-`--no-source-info` to omit that copy. Mapping-file routes can also synthesize
-`datasets` and `cohorts`, with metadata overrides under the corresponding
-top-level `beacon` sections. Raw CSV does not currently create first-class
-Beacon `biosamples`.
+`--no-source-info` to omit that copy. Mapping-file routes can map biosamples
+through `beacon.biosamples.mappings` and synthesize `datasets` and `cohorts`,
+with metadata under the corresponding `defaults` sections.
 
 Tested source, mapping, and reference-output files are indexed in the
 [`t/` fixture guide](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/tree/main/t).

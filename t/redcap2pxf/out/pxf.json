@@ -726,106 +726,106 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3199",
+               "label" : "Chronic Obstructive Pulmonary Disease"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3243",
+               "label" : "Multiple Sclerosis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3201",
+               "label" : "Systemic Lupus Erythematosus"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C2884",
+               "label" : "Rheumatoid Arthritis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3346",
+               "label" : "Psoriasis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C41366",
+               "label" : "Atopy"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C16213",
+               "label" : "Cancer Diagnosis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3390",
+               "label" : "Stroke"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C17649",
+               "label" : "Other"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
             "excluded" : false,
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C27054",
+               "label" : "Rectal Hemorrhage"
             }
          }
       ],
@@ -1564,106 +1564,106 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3199",
+               "label" : "Chronic Obstructive Pulmonary Disease"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3243",
+               "label" : "Multiple Sclerosis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3201",
+               "label" : "Systemic Lupus Erythematosus"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C2884",
+               "label" : "Rheumatoid Arthritis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3346",
+               "label" : "Psoriasis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C41366",
+               "label" : "Atopy"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C16213",
+               "label" : "Cancer Diagnosis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3390",
+               "label" : "Stroke"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C17649",
+               "label" : "Other"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C41132",
-               "label" : "None"
+               "id" : "NCIT:C27054",
+               "label" : "Rectal Hemorrhage"
             }
          }
       ],
@@ -2385,106 +2385,106 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3199",
+               "label" : "Chronic Obstructive Pulmonary Disease"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3243",
+               "label" : "Multiple Sclerosis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3201",
+               "label" : "Systemic Lupus Erythematosus"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C2884",
+               "label" : "Rheumatoid Arthritis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3346",
+               "label" : "Psoriasis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C41366",
+               "label" : "Atopy"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C16213",
+               "label" : "Cancer Diagnosis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3390",
+               "label" : "Stroke"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C17649",
+               "label" : "Other"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
             "excluded" : false,
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C27054",
+               "label" : "Rectal Hemorrhage"
             }
          }
       ],
@@ -3223,15 +3223,15 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
             "excluded" : false,
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C27054",
+               "label" : "Rectal Hemorrhage"
             }
          }
       ],
@@ -3970,15 +3970,15 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C41132",
-               "label" : "None"
+               "id" : "NCIT:C27054",
+               "label" : "Rectal Hemorrhage"
             }
          }
       ],
@@ -4717,15 +4717,15 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C41132",
-               "label" : "None"
+               "id" : "NCIT:C27054",
+               "label" : "Rectal Hemorrhage"
             }
          }
       ],
@@ -5447,15 +5447,15 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C41132",
-               "label" : "None"
+               "id" : "NCIT:C27054",
+               "label" : "Rectal Hemorrhage"
             }
          }
       ],
@@ -6354,15 +6354,15 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C41132",
-               "label" : "None"
+               "id" : "NCIT:C27054",
+               "label" : "Rectal Hemorrhage"
             }
          }
       ],
@@ -7212,15 +7212,15 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C41132",
-               "label" : "None"
+               "id" : "NCIT:C27054",
+               "label" : "Rectal Hemorrhage"
             }
          }
       ],
@@ -8121,15 +8121,15 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
             "excluded" : false,
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C27054",
+               "label" : "Rectal Hemorrhage"
             }
          }
       ],
@@ -9030,15 +9030,15 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
             "excluded" : false,
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C27054",
+               "label" : "Rectal Hemorrhage"
             }
          }
       ],
@@ -9762,15 +9762,15 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
             "excluded" : false,
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C27054",
+               "label" : "Rectal Hemorrhage"
             }
          }
       ],
@@ -10477,15 +10477,15 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C41132",
-               "label" : "None"
+               "id" : "NCIT:C27054",
+               "label" : "Rectal Hemorrhage"
             }
          }
       ],
@@ -11546,15 +11546,15 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C41132",
-               "label" : "None"
+               "id" : "NCIT:C27054",
+               "label" : "Rectal Hemorrhage"
             }
          }
       ],
@@ -12357,15 +12357,15 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C41132",
-               "label" : "None"
+               "id" : "NCIT:C27054",
+               "label" : "Rectal Hemorrhage"
             }
          }
       ],
@@ -13288,6 +13288,45 @@
          {
             "treatment" : {
                "agent" : {
+                  "id" : "NCIT:C290",
+                  "label" : "Azathioprine"
+               },
+               "doseIntervals" : [
+                  {
+                     "interval" : {
+                        "end" : "1900-01-01T00:00:00Z",
+                        "start" : "1900-01-01T00:00:00Z"
+                     },
+                     "quantity" : {
+                        "referenceRange" : {
+                           "high" : -1,
+                           "low" : -1,
+                           "unit" : {
+                              "id" : "NCIT:C126101",
+                              "label" : "Not Available"
+                           }
+                        },
+                        "unit" : {
+                           "id" : "NCIT:C28253",
+                           "label" : "Milligram"
+                        },
+                        "value" : -1
+                     },
+                     "scheduleFrequency" : {
+                        "id" : "NCIT:C126101",
+                        "label" : "Not Available"
+                     }
+                  }
+               ],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
                   "id" : "NCIT:C769",
                   "label" : "Prednisolone"
                },
@@ -13330,106 +13369,106 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3199",
+               "label" : "Chronic Obstructive Pulmonary Disease"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3243",
+               "label" : "Multiple Sclerosis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3201",
+               "label" : "Systemic Lupus Erythematosus"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C2884",
+               "label" : "Rheumatoid Arthritis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3346",
+               "label" : "Psoriasis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C41366",
+               "label" : "Atopy"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C16213",
+               "label" : "Cancer Diagnosis"
             }
          },
          {
             "excluded" : false,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
             }
          },
          {
             "excluded" : false,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3390",
+               "label" : "Stroke"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C17649",
+               "label" : "Other"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C41132",
-               "label" : "None"
+               "id" : "NCIT:C27054",
+               "label" : "Rectal Hemorrhage"
             }
          }
       ],
@@ -14303,6 +14342,45 @@
          {
             "treatment" : {
                "agent" : {
+                  "id" : "NCIT:C290",
+                  "label" : "Azathioprine"
+               },
+               "doseIntervals" : [
+                  {
+                     "interval" : {
+                        "end" : "1900-01-01T00:00:00Z",
+                        "start" : "1900-01-01T00:00:00Z"
+                     },
+                     "quantity" : {
+                        "referenceRange" : {
+                           "high" : -1,
+                           "low" : -1,
+                           "unit" : {
+                              "id" : "NCIT:C126101",
+                              "label" : "Not Available"
+                           }
+                        },
+                        "unit" : {
+                           "id" : "NCIT:C28253",
+                           "label" : "Milligram"
+                        },
+                        "value" : -1
+                     },
+                     "scheduleFrequency" : {
+                        "id" : "NCIT:C126101",
+                        "label" : "Not Available"
+                     }
+                  }
+               ],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
                   "id" : "NCIT:C769",
                   "label" : "Prednisolone"
                },
@@ -14345,106 +14423,106 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3199",
+               "label" : "Chronic Obstructive Pulmonary Disease"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3243",
+               "label" : "Multiple Sclerosis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3201",
+               "label" : "Systemic Lupus Erythematosus"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C2884",
+               "label" : "Rheumatoid Arthritis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3346",
+               "label" : "Psoriasis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C41366",
+               "label" : "Atopy"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C16213",
+               "label" : "Cancer Diagnosis"
             }
          },
          {
             "excluded" : false,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
             }
          },
          {
             "excluded" : false,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3390",
+               "label" : "Stroke"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C17649",
+               "label" : "Other"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C41132",
-               "label" : "None"
+               "id" : "NCIT:C27054",
+               "label" : "Rectal Hemorrhage"
             }
          }
       ],
@@ -15318,6 +15396,45 @@
          {
             "treatment" : {
                "agent" : {
+                  "id" : "NCIT:C290",
+                  "label" : "Azathioprine"
+               },
+               "doseIntervals" : [
+                  {
+                     "interval" : {
+                        "end" : "1900-01-01T00:00:00Z",
+                        "start" : "1900-01-01T00:00:00Z"
+                     },
+                     "quantity" : {
+                        "referenceRange" : {
+                           "high" : -1,
+                           "low" : -1,
+                           "unit" : {
+                              "id" : "NCIT:C126101",
+                              "label" : "Not Available"
+                           }
+                        },
+                        "unit" : {
+                           "id" : "NCIT:C28253",
+                           "label" : "Milligram"
+                        },
+                        "value" : -1
+                     },
+                     "scheduleFrequency" : {
+                        "id" : "NCIT:C126101",
+                        "label" : "Not Available"
+                     }
+                  }
+               ],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
                   "id" : "NCIT:C769",
                   "label" : "Prednisolone"
                },
@@ -15360,106 +15477,106 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3199",
+               "label" : "Chronic Obstructive Pulmonary Disease"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3243",
+               "label" : "Multiple Sclerosis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3201",
+               "label" : "Systemic Lupus Erythematosus"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C2884",
+               "label" : "Rheumatoid Arthritis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3346",
+               "label" : "Psoriasis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C41366",
+               "label" : "Atopy"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C16213",
+               "label" : "Cancer Diagnosis"
             }
          },
          {
             "excluded" : false,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
             }
          },
          {
             "excluded" : false,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3390",
+               "label" : "Stroke"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C17649",
+               "label" : "Other"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
             "excluded" : false,
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C27054",
+               "label" : "Rectal Hemorrhage"
             }
          }
       ],
@@ -16348,6 +16465,45 @@
          {
             "treatment" : {
                "agent" : {
+                  "id" : "NCIT:C290",
+                  "label" : "Azathioprine"
+               },
+               "doseIntervals" : [
+                  {
+                     "interval" : {
+                        "end" : "1900-01-01T00:00:00Z",
+                        "start" : "1900-01-01T00:00:00Z"
+                     },
+                     "quantity" : {
+                        "referenceRange" : {
+                           "high" : -1,
+                           "low" : -1,
+                           "unit" : {
+                              "id" : "NCIT:C126101",
+                              "label" : "Not Available"
+                           }
+                        },
+                        "unit" : {
+                           "id" : "NCIT:C28253",
+                           "label" : "Milligram"
+                        },
+                        "value" : -1
+                     },
+                     "scheduleFrequency" : {
+                        "id" : "NCIT:C126101",
+                        "label" : "Not Available"
+                     }
+                  }
+               ],
+               "routeOfAdministration" : {
+                  "id" : "NCIT:C38288",
+                  "label" : "Oral Route of Administration"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
                   "id" : "NCIT:C769",
                   "label" : "Prednisolone"
                },
@@ -16390,106 +16546,106 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3199",
+               "label" : "Chronic Obstructive Pulmonary Disease"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3243",
+               "label" : "Multiple Sclerosis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3201",
+               "label" : "Systemic Lupus Erythematosus"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C2884",
+               "label" : "Rheumatoid Arthritis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3346",
+               "label" : "Psoriasis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C41366",
+               "label" : "Atopy"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C16213",
+               "label" : "Cancer Diagnosis"
             }
          },
          {
             "excluded" : false,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
             }
          },
          {
             "excluded" : false,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3390",
+               "label" : "Stroke"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C17649",
+               "label" : "Other"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C41132",
-               "label" : "None"
+               "id" : "NCIT:C27054",
+               "label" : "Rectal Hemorrhage"
             }
          }
       ],
@@ -17390,15 +17546,15 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
             "excluded" : false,
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C27054",
+               "label" : "Rectal Hemorrhage"
             }
          }
       ],
@@ -18171,15 +18327,15 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C41132",
-               "label" : "None"
+               "id" : "NCIT:C27054",
+               "label" : "Rectal Hemorrhage"
             }
          }
       ],
@@ -18935,15 +19091,15 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C41132",
-               "label" : "None"
+               "id" : "NCIT:C27054",
+               "label" : "Rectal Hemorrhage"
             }
          }
       ],
@@ -20004,15 +20160,15 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C41132",
-               "label" : "None"
+               "id" : "NCIT:C27054",
+               "label" : "Rectal Hemorrhage"
             }
          }
       ],
@@ -20702,45 +20858,6 @@
          {
             "treatment" : {
                "agent" : {
-                  "id" : "NCIT:C287",
-                  "label" : "Aspirin"
-               },
-               "doseIntervals" : [
-                  {
-                     "interval" : {
-                        "end" : "1900-01-01T00:00:00Z",
-                        "start" : "1900-01-01T00:00:00Z"
-                     },
-                     "quantity" : {
-                        "referenceRange" : {
-                           "high" : -1,
-                           "low" : -1,
-                           "unit" : {
-                              "id" : "NCIT:C126101",
-                              "label" : "Not Available"
-                           }
-                        },
-                        "unit" : {
-                           "id" : "NCIT:C28253",
-                           "label" : "Milligram"
-                        },
-                        "value" : -1
-                     },
-                     "scheduleFrequency" : {
-                        "id" : "NCIT:C126101",
-                        "label" : "Not Available"
-                     }
-                  }
-               ],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
                   "id" : "NCIT:C769",
                   "label" : "Prednisolone"
                },
@@ -20783,15 +20900,15 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C41132",
-               "label" : "None"
+               "id" : "NCIT:C27054",
+               "label" : "Rectal Hemorrhage"
             }
          }
       ],
@@ -21432,45 +21549,6 @@
          {
             "treatment" : {
                "agent" : {
-                  "id" : "NCIT:C287",
-                  "label" : "Aspirin"
-               },
-               "doseIntervals" : [
-                  {
-                     "interval" : {
-                        "end" : "1900-01-01T00:00:00Z",
-                        "start" : "1900-01-01T00:00:00Z"
-                     },
-                     "quantity" : {
-                        "referenceRange" : {
-                           "high" : -1,
-                           "low" : -1,
-                           "unit" : {
-                              "id" : "NCIT:C126101",
-                              "label" : "Not Available"
-                           }
-                        },
-                        "unit" : {
-                           "id" : "NCIT:C28253",
-                           "label" : "Milligram"
-                        },
-                        "value" : -1
-                     },
-                     "scheduleFrequency" : {
-                        "id" : "NCIT:C126101",
-                        "label" : "Not Available"
-                     }
-                  }
-               ],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
                   "id" : "NCIT:C769",
                   "label" : "Prednisolone"
                },
@@ -21513,15 +21591,15 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C41132",
-               "label" : "None"
+               "id" : "NCIT:C27054",
+               "label" : "Rectal Hemorrhage"
             }
          }
       ],
@@ -22339,45 +22417,6 @@
          {
             "treatment" : {
                "agent" : {
-                  "id" : "NCIT:C287",
-                  "label" : "Aspirin"
-               },
-               "doseIntervals" : [
-                  {
-                     "interval" : {
-                        "end" : "1900-01-01T00:00:00Z",
-                        "start" : "1900-01-01T00:00:00Z"
-                     },
-                     "quantity" : {
-                        "referenceRange" : {
-                           "high" : -1,
-                           "low" : -1,
-                           "unit" : {
-                              "id" : "NCIT:C126101",
-                              "label" : "Not Available"
-                           }
-                        },
-                        "unit" : {
-                           "id" : "NCIT:C28253",
-                           "label" : "Milligram"
-                        },
-                        "value" : -1
-                     },
-                     "scheduleFrequency" : {
-                        "id" : "NCIT:C126101",
-                        "label" : "Not Available"
-                     }
-                  }
-               ],
-               "routeOfAdministration" : {
-                  "id" : "NCIT:C38288",
-                  "label" : "Oral Route of Administration"
-               }
-            }
-         },
-         {
-            "treatment" : {
-               "agent" : {
                   "id" : "NCIT:C769",
                   "label" : "Prednisolone"
                },
@@ -22420,15 +22459,15 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C41132",
-               "label" : "None"
+               "id" : "NCIT:C27054",
+               "label" : "Rectal Hemorrhage"
             }
          }
       ],
@@ -23297,15 +23336,15 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
             "excluded" : false,
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C27054",
+               "label" : "Rectal Hemorrhage"
             }
          }
       ],
@@ -24110,15 +24149,15 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C41132",
-               "label" : "None"
+               "id" : "NCIT:C27054",
+               "label" : "Rectal Hemorrhage"
             }
          }
       ],
@@ -24874,15 +24913,15 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
             "excluded" : false,
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C27054",
+               "label" : "Rectal Hemorrhage"
             }
          }
       ],
@@ -25653,15 +25692,15 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C41132",
-               "label" : "None"
+               "id" : "NCIT:C27054",
+               "label" : "Rectal Hemorrhage"
             }
          }
       ],
@@ -26577,15 +26616,15 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C41132",
-               "label" : "None"
+               "id" : "NCIT:C27054",
+               "label" : "Rectal Hemorrhage"
             }
          }
       ],
@@ -27501,106 +27540,106 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3199",
+               "label" : "Chronic Obstructive Pulmonary Disease"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3243",
+               "label" : "Multiple Sclerosis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3201",
+               "label" : "Systemic Lupus Erythematosus"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C2884",
+               "label" : "Rheumatoid Arthritis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3346",
+               "label" : "Psoriasis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C41366",
+               "label" : "Atopy"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C16213",
+               "label" : "Cancer Diagnosis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3390",
+               "label" : "Stroke"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C17649",
+               "label" : "Other"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
             "excluded" : false,
             "type" : {
-               "id" : "NCIT:NA0000",
-               "label" : "NA"
+               "id" : "NCIT:C27054",
+               "label" : "Rectal Hemorrhage"
             }
          }
       ],
@@ -28339,106 +28378,106 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3199",
+               "label" : "Chronic Obstructive Pulmonary Disease"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3243",
+               "label" : "Multiple Sclerosis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3201",
+               "label" : "Systemic Lupus Erythematosus"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C2884",
+               "label" : "Rheumatoid Arthritis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3346",
+               "label" : "Psoriasis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C41366",
+               "label" : "Atopy"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C16213",
+               "label" : "Cancer Diagnosis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3390",
+               "label" : "Stroke"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C17649",
+               "label" : "Other"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C41132",
-               "label" : "None"
+               "id" : "NCIT:C27054",
+               "label" : "Rectal Hemorrhage"
             }
          }
       ],
@@ -29143,99 +29182,99 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3199",
+               "label" : "Chronic Obstructive Pulmonary Disease"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3243",
+               "label" : "Multiple Sclerosis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3201",
+               "label" : "Systemic Lupus Erythematosus"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C2884",
+               "label" : "Rheumatoid Arthritis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3346",
+               "label" : "Psoriasis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C41366",
+               "label" : "Atopy"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C16213",
+               "label" : "Cancer Diagnosis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3390",
+               "label" : "Stroke"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C17649",
+               "label" : "Other"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          }
       ],
@@ -30021,106 +30060,106 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3199",
+               "label" : "Chronic Obstructive Pulmonary Disease"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3243",
+               "label" : "Multiple Sclerosis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3201",
+               "label" : "Systemic Lupus Erythematosus"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C2884",
+               "label" : "Rheumatoid Arthritis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3346",
+               "label" : "Psoriasis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C41366",
+               "label" : "Atopy"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C16213",
+               "label" : "Cancer Diagnosis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3390",
+               "label" : "Stroke"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C17649",
+               "label" : "Other"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C41132",
-               "label" : "None"
+               "id" : "NCIT:C27054",
+               "label" : "Rectal Hemorrhage"
             }
          }
       ],
@@ -31019,106 +31058,106 @@
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3199",
+               "label" : "Chronic Obstructive Pulmonary Disease"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3243",
+               "label" : "Multiple Sclerosis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3201",
+               "label" : "Systemic Lupus Erythematosus"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C2884",
+               "label" : "Rheumatoid Arthritis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3346",
+               "label" : "Psoriasis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C41366",
+               "label" : "Atopy"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C16213",
+               "label" : "Cancer Diagnosis"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3117",
+               "label" : "Hypertension"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C80385",
+               "label" : "Dyslipidemia"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C3390",
+               "label" : "Stroke"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C17649",
+               "label" : "Other"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C126101",
-               "label" : "Not Available"
+               "id" : "NCIT:C152105",
+               "label" : "Primary Immunodeficiency Syndrome"
             }
          },
          {
             "excluded" : true,
             "type" : {
-               "id" : "NCIT:C41132",
-               "label" : "None"
+               "id" : "NCIT:C27054",
+               "label" : "Rectal Hemorrhage"
             }
          }
       ],

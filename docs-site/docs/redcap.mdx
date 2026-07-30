@@ -55,8 +55,9 @@ characters such as `µ`, `≥`, accents, or degree symbols, breaking dictionary
 values and ontology mappings.
 :::
 
-The mapping file defines how project variables become Beacon individuals
-fields. Start with [Working with Mapping Files](mapping-files), then use the complete
+The mapping file defines how project variables become Beacon individuals and,
+when configured, first-class biosamples. Start with
+[Working with Mapping Files](mapping-files), then use the complete
 [Mapping File](tbl/mapping-file) reference for additional keys.
 
 Use [REDCap conversion recipes](conversion-recipes#redcap-input-bff-output) for
@@ -73,9 +74,9 @@ converted identifier, ontology, match status, match source, and effective
 search settings. Review this file when project terms are resolved through the
 bundled SQLite ontology databases.
 
-Mapping-file routes can also emit synthesized Beacon `datasets` and
-`cohorts`. Their metadata can be overridden under the corresponding
-top-level `beacon` sections in the mapping file.
+Mapping-file routes can also emit biosamples defined by
+`beacon.biosamples.mappings` and synthesize Beacon `datasets` and `cohorts`.
+Dataset and cohort metadata can be set under their `defaults` sections.
 
 <details>
 <summary>Longitudinal REDCap data</summary>

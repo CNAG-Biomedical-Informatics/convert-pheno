@@ -5,7 +5,7 @@ use warnings;
 use autodie;
 use feature qw(say);
 use Data::Dumper;
-use Convert::Pheno::REDCap;
+use Convert::Pheno::Tabular::ToBFF qw(map_tabular_individual);
 use Convert::Pheno::Mapping::Shared;
 use Exporter 'import';
 our @EXPORT = qw(do_cdisc2bff cdisc2redcap);
@@ -19,7 +19,7 @@ $Data::Dumper::Sortkeys = 1;
 
 sub do_cdisc2bff {
     my ( $self, $participant ) = @_;
-    return do_redcap2bff( $self, $participant );
+    return map_tabular_individual( $self, $participant );
 }
 
 sub cdisc2redcap {

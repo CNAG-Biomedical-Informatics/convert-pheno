@@ -82,8 +82,8 @@ Output behavior:
   --out-dir <dir>       Output directory (required for entity-aware BFF mode)
   --entities <list>     Beacon entities for BFF output [individuals]
                         Supported: individuals, biosamples, datasets, cohorts
-                        biosamples are emitted from -ipxf when present, or
-                        from -iomop when the SPECIMEN table is provided
+                        biosamples are emitted from -ipxf, OMOP SPECIMEN, or
+                        beacon.biosamples rules in a mapping file
                         datasets and cohorts are synthesized from individuals
                         Use with -obff and --out-dir
   --out-name k=file     Override one multi-file output name; repeat as needed
@@ -91,7 +91,8 @@ Output behavior:
   -O                    Overwrite output file(s)
 
 Mapping and search:
-  --mapping-file <file>           Fields mapping YAML or JSON file
+  --mapping-file <file>           Mapping V2 YAML or JSON file targeting
+                                  Beacon schema 2.0.0
   --redcap-dictionary|-rcd <file> REDCap data dictionary CSV file
   --schema-file <file>            Alternative JSON Schema for mapping files
   --self-validate-schema|-svs     Self-validate the mapping JSON Schema
@@ -149,6 +150,7 @@ Examples:
   convert-pheno -ipxf pxf.json -obff --entities individuals biosamples --out-dir out/ --out-name biosamples=samples.json
   convert-pheno -ipxf pxf.json -obff --entities individuals datasets cohorts --out-dir out/
   convert-pheno -icsv data.csv --mapping-file mapping.yaml -obff --entities individuals datasets cohorts --out-dir out/
+  convert-pheno -iredcap data.csv -rcd dictionary.csv --mapping-file mapping.yaml -obff --entities individuals biosamples --out-dir out/
   convert-pheno -iomop PERSON.csv CONCEPT.csv SPECIMEN.csv -obff --entities biosamples --out-dir out/
   convert-pheno -ibff individuals.json -oomop --out-dir omop_out/
   convert-pheno -ibff individuals.json -oomop --out-dir omop_out/ --out-name PERSON=patients.csv

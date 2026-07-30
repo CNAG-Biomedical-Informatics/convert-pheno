@@ -111,10 +111,10 @@ In other words, `--entities` does not replace `-obff`. It refines which `BFF` en
 - `BFF` entity mode is also explicit: use `-obff --entities ... --out-dir DIR`.
 - When `PXF` input contains `biosamples`, the individuals-only `-obff FILE` path still writes only `individuals`. In that mode, `convert-pheno` warns and preserves the biosamples under `info.phenopacket.biosamples`.
 - `--entities` can be used with `BFF` output. The supported output entities are `individuals`, `biosamples`, `datasets`, and `cohorts`.
-- `biosamples` are currently emitted as first-class output from `-ipxf` input when biosample data is present.
+- `biosamples` are emitted from PXF biosample data, OMOP `SPECIMEN`, or explicit `beacon.biosamples.mappings` rules in CSV, REDCap, and CDISC-ODM mappings.
 - `datasets` and `cohorts` are synthesized from the normalized `individuals` collection.
-- In mapping-file conversions, the top-level `beacon` section can override metadata for synthesized `datasets` and `cohorts`.
-- This mapping-based augmentation is currently available only for `csv2bff`, `redcap2bff`, and `cdisc2bff`, which are the routes that use a mapping file.
+- In mapping-file conversions, `beacon.biosamples` defines first-class biosample rules, while `beacon.datasets.defaults` and `beacon.cohorts.defaults` override synthesized metadata.
+- These mapping features are available only for `csv2bff`, `redcap2bff`, and `cdisc2bff`, which are the routes that read a mapping file.
 - `--entities` narrows `BFF` output. It must be combined with `-obff` and `--out-dir`.
 - `--out-name key=file` lets you override one multi-file output name. Use entity keys for `BFF` entity mode and table keys for `OMOP` output.
 - `--no-source-info` omits raw source provenance copied into `BFF` `info`, such as `OMOP_columns`, `CSV_columns`, and `REDCap_columns`. Mapped fields and `info.convertPheno` are kept.
@@ -125,7 +125,7 @@ In other words, `--entities` does not replace `-obff`. It refines which `BFF` en
 
 ### Mapping-file conversions
 
-- `--mapping-file FILE` supplies the YAML or JSON mapping file used by `csv2bff`, `redcap2bff`, `cdisc2bff`, and related conversions.
+- `--mapping-file FILE` supplies a Mapping V2 YAML or JSON document targeting Beacon schema `2.0.0`, used by `csv2bff`, `redcap2bff`, `cdisc2bff`, and related conversions.
 - `--redcap-dictionary FILE` or `-rcd FILE` supplies the REDCap data dictionary required by REDCap and CDISC input conversions.
 - `--schema-file FILE` lets you validate mapping files against an alternative JSON Schema.
 - `--self-validate-schema` or `-svs` performs a self-validation of the mapping schema itself. This is mainly an author or development check and may require SSL support in the Perl environment.

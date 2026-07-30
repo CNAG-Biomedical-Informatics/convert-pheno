@@ -15,6 +15,7 @@ use Convert::Pheno::ConversionRequest;
 use Convert::Pheno::ExecutionContext;
 use Convert::Pheno::Model::Bundle;
 use Convert::Pheno::Operations qw(conversion_spec);
+use Convert::Pheno::Tabular::ToBFF qw(run_tabular_to_bundle);
 use Exporter 'import';
 
 our @EXPORT_OK = qw(resolve_operation run_operation);
@@ -39,10 +40,7 @@ sub resolve_operation {
         spec => $spec,
         run  => sub {
             my ( $convert, $input, $context ) = @_;
-            return _wrap_individual_in_bundle(
-                $context,
-                Convert::Pheno::do_redcap2bff( $convert, $input )
-            );
+            return run_tabular_to_bundle( $convert, $input, $context );
         },
     ) if $self->{method} eq 'redcap2bff';
 
@@ -50,10 +48,7 @@ sub resolve_operation {
         spec => $spec,
         run  => sub {
             my ( $convert, $input, $context ) = @_;
-            return _wrap_individual_in_bundle(
-                $context,
-                Convert::Pheno::do_cdisc2bff( $convert, $input )
-            );
+            return run_tabular_to_bundle( $convert, $input, $context );
         },
     ) if $self->{method} eq 'cdisc2bff';
 
@@ -61,10 +56,7 @@ sub resolve_operation {
         spec => $spec,
         run  => sub {
             my ( $convert, $input, $context ) = @_;
-            return _wrap_individual_in_bundle(
-                $context,
-                Convert::Pheno::do_csv2bff( $convert, $input )
-            );
+            return run_tabular_to_bundle( $convert, $input, $context );
         },
     ) if $self->{method} eq 'csv2bff';
 
@@ -393,21 +385,6 @@ sub _direct_operation {
         requires_sqlite => $spec->{resources}{sqlite} ? 1 : 0,
         run             => $arg{run},
     };
-}
-
-sub _wrap_individual_in_bundle {
-    my ( $context, $individual ) = @_;
-
-    my $bundle = Convert::Pheno::Model::Bundle->new(
-        {
-            context  => $context,
-            entities => $context->entities,
-        }
-    );
-
-    $bundle->add_entity( individuals => $individual );
-
-    return $bundle;
 }
 
 1;

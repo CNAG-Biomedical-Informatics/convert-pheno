@@ -6,12 +6,12 @@ use lib qw(./lib ../lib t/lib);
 use Test::More;
 use File::Spec;
 use File::Temp qw(tempfile);
+use Convert::Pheno::Mapping::Compiler qw(load_mapping_document);
 use Test::ConvertPheno qw(
   cli_script_path
   ensure_clean_dir
   remove_dir_if_exists
   has_ohdsi_db
-  load_data_file
   load_json_file
   csv_files_match
   test_tmpdir
@@ -125,20 +125,19 @@ is( $cohorts->[0]{cohortType}, 'study-defined', 'cohorts output defaults to stud
 is( $cohorts->[0]{cohortSize}, 1, 'cohorts output records the cohort size' );
 
 {
-    my $entity_mapping = load_data_file('t/csv2bff/in/csv_mapping.yaml');
-    my $mapping = {
-        project => delete $entity_mapping->{project},
-        beacon  => {
-            individuals => $entity_mapping->{beacon}{individuals},
-            datasets    => {
+    my $mapping = load_mapping_document('t/csv2bff/in/csv_mapping.yaml');
+    $mapping->{beacon}{datasets} = {
+        defaults => {
                 id          => 'dataset-from-yaml',
                 name        => 'Dataset From YAML',
                 externalUrl => 'https://example.org/datasets/csv-demo',
                 info        => {
                     projectCode => 'CSV-DEMO',
                 },
-            },
-            cohorts => {
+        },
+    };
+    $mapping->{beacon}{cohorts} = {
+        defaults => {
                 id              => 'cohort-from-yaml',
                 name            => 'Cohort From YAML',
                 cohortType      => 'beacon-defined',
@@ -148,7 +147,6 @@ is( $cohorts->[0]{cohortSize}, 1, 'cohorts output records the cohort size' );
                         label => 'survey data',
                     },
                 ],
-            },
         },
     };
 

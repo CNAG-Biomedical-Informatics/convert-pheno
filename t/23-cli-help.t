@@ -265,8 +265,13 @@ like(
 );
 like(
     $help,
-    qr/biosamples are emitted from -ipxf when present/s,
-    'CLI help documents first-class biosample output from PXF'
+    qr/biosamples are emitted from -ipxf, OMOP SPECIMEN, or\s+beacon\.biosamples rules in a mapping file/s,
+    'CLI help documents all first-class biosample sources'
+);
+like(
+    $help,
+    qr/Mapping V2 YAML or JSON file targeting\s+Beacon schema 2\.0\.0/s,
+    'CLI help documents the mapping and Beacon schema contract'
 );
 like(
     $help,

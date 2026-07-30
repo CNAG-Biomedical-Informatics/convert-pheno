@@ -14,14 +14,17 @@ use IO::Uncompress::Gunzip qw($GunzipError);
 
 use Data::Dumper;
 use Devel::Size qw(total_size);
-use Convert::Pheno::IO::FileIO qw(io_yaml_or_json);
+use Convert::Pheno::Mapping::Compiler qw(
+  assert_mapping_version
+  load_mapping_document
+);
 use Convert::Pheno::Tabular::REDCap::Dictionary;
 use Convert::Pheno::OMOP::Definitions;
 use Convert::Pheno::Utils::Schema;
 use Convert::Pheno::Mapping::Shared;
 use Exporter 'import';
 our @EXPORT =
-  qw(read_csv read_csv_stream read_redcap_dict_file read_mapping_file select_mapping_entity read_sqldump read_sqldump_stream sqldump2csv transpose_omop_data_structure write_csv open_filehandle load_exposures get_headers convert_table_aoh_to_hoh);
+  qw(read_csv read_csv_stream read_redcap_dict_file read_mapping_file read_sqldump read_sqldump_stream sqldump2csv transpose_omop_data_structure write_csv open_filehandle load_exposures get_headers convert_table_aoh_to_hoh);
 
 use constant DEVEL_MODE => 0;
 
@@ -47,8 +50,8 @@ sub read_mapping_file {
     my $arg = shift;
 
     # Read and load mapping file
-    my $data_mapping_file =
-      io_yaml_or_json( { filepath => $arg->{mapping_file}, mode => 'read' } );
+    my $data_mapping_file = load_mapping_document( $arg->{mapping_file} );
+    assert_mapping_version($data_mapping_file);
 
     # Validate mapping file against JSON schema
     my $jv = Convert::Pheno::Utils::Schema->new(
@@ -62,36 +65,6 @@ sub read_mapping_file {
 
     # Return if succesful
     return $data_mapping_file;
-}
-
-sub select_mapping_entity {
-    my ( $mapping_file, $entity ) = @_;
-    $entity ||= 'individuals';
-
-    die "Expected a hash reference for the mapping file"
-      unless ref($mapping_file) eq 'HASH';
-
-    die "The mapping file must contain a top-level <beacon> section.\n"
-      unless exists $mapping_file->{beacon}
-      && ref( $mapping_file->{beacon} ) eq 'HASH';
-
-    die "The mapping file must contain a <beacon.$entity> section.\n"
-      unless exists $mapping_file->{beacon}{$entity}
-      && ref( $mapping_file->{beacon}{$entity} ) eq 'HASH';
-
-    my $selected = $mapping_file->{beacon}{$entity};
-
-    my %entity_mapping = %{$selected};
-    $entity_mapping{project} = $mapping_file->{project}
-      if exists $mapping_file->{project}
-      && ref( $mapping_file->{project} ) eq 'HASH'
-      && !exists $entity_mapping{project};
-
-    # Precompute array-based header rules into hashes for faster lookups in the
-    # tabular mapper, but only on the selected entity mapping.
-    remap_useHeaderAsTermLabel( \%entity_mapping );
-
-    return \%entity_mapping;
 }
 
 sub read_sqldump {
@@ -841,33 +814,6 @@ sub get_headers {
     # Step 3: Sort keys for consistency.
     my @headers = sort keys %all_keys;
     return \@headers;
-}
-
-sub remap_useHeaderAsTermLabel {
-    my $hash = shift;
-    for my $key (%$hash) {
-        if ( exists $hash->{$key}{useHeaderAsTermLabel} ) {
-            $hash->{$key}{useHeaderAsTermLabel_hash} =
-              array_ref_to_hash( $hash->{$key}{useHeaderAsTermLabel} );
-        }
-    }
-    return 1;
-}
-
-sub array_ref_to_hash {
-    my $array_ref = shift;
-
-    # Check if the input is an array reference
-    die "Expected an array reference at <useHeaderAsTermLabel>"
-      unless ref($array_ref) eq 'ARRAY';
-
-    my %hash;
-
-    # Iterate over the elements of the array reference
-    foreach my $element ( @{$array_ref} ) {
-        $hash{$element} = 1;
-    }
-    return \%hash;
 }
 
 sub convert_table_aoh_to_hoh {

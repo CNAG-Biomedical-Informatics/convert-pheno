@@ -32,6 +32,7 @@ WriteMakefile(
     PREREQ_PM => {
         'JSON::XS'                       => '4.03',
         'YAML::XS'                       => '0.88',
+        'YAML::PP'                       => '0.38',
         'Path::Tiny'                     => '0.144',
         'Term::ANSIColor'                => '5.01',
         'Text::CSV_XS'                   => '1.50',
