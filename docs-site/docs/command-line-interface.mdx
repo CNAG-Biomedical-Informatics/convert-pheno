@@ -1,6 +1,8 @@
 ---
+id: use-as-a-command-line-interface
 title: Command-Line Interface
 sidebar_label: Command-Line Interface
+slug: /use-as-a-command-line-interface
 ---
 
 import Link from '@docusaurus/Link';
@@ -11,94 +13,42 @@ The CLI is organized around one input format, one output format, and optional co
 
 <div className="button-row">
   <Link className="button button--primary" to="/conversion-recipes">Choose a conversion</Link>
-  <Link className="button button--secondary" to="/tutorial">Guided examples</Link>
+  <Link className="button button--secondary" to="/mapping-files">Mapping files</Link>
   <Link className="button button--secondary" to="/download-and-installation">Check installation</Link>
 </div>
 
 <div className="convertCommandMap">
-  <a href="#pxf-to-bff-command">
+  <Link to="/conversion-recipes#pxf-input-bff-output">
     <span>-ipxf -obff</span>
     <strong>Phenopackets to BFF</strong>
     <small>Write individuals or selected Beacon entities.</small>
-  </a>
-  <a href="#omop-to-bff-command">
+  </Link>
+  <Link to="/conversion-recipes#omop-cdm-input-bff-output">
     <span>-iomop -obff</span>
     <strong>OMOP to BFF</strong>
     <small>Convert PERSON, CONCEPT, SPECIMEN, and other OMOP tables.</small>
-  </a>
-  <a href="#mapping-file-command">
+  </Link>
+  <Link to="/conversion-recipes#mapping-file-input-examples">
     <span>--mapping-file</span>
     <strong>Mapped tabular data</strong>
     <small>Use CSV, REDCap, or CDISC-ODM with ontology search auditing.</small>
-  </a>
-  <a href="#bff-to-pxf-command">
+  </Link>
+  <Link to="/conversion-recipes#bff-input-pxf-output">
     <span>-ibff -opxf</span>
     <strong>BFF to Phenopackets</strong>
     <small>Generate Phenopackets from Beacon individuals input.</small>
-  </a>
-  <a href="#multi-entity-bff-command">
+  </Link>
+  <Link to="/conversion-recipes#pxf-input-bff-output">
     <span>--entities</span>
     <strong>Multi-entity BFF</strong>
     <small>Write individuals, biosamples, datasets, and cohorts to an output directory.</small>
-  </a>
+  </Link>
   <a href="#detailed-cli-reference">
     <span>--help</span>
     <strong>Option groups</strong>
     <small>Review mapping, OMOP, search, streaming, and output controls.</small>
   </a>
 </div>
-
-## Start with One of These
-
-### PXF to BFF Command
-
-Convert a Phenopacket to BFF `individuals`:
-
-```bash
-convert-pheno -ipxf phenopacket.json -obff individuals.json
-```
-
-### Multi-Entity BFF Command
-
-Convert a Phenopacket to multiple BFF entities:
-
-```bash
-convert-pheno -ipxf phenopacket.json -obff \
-  --entities individuals biosamples datasets cohorts \
-  --out-dir bff_out/
-```
-
-### OMOP to BFF Command
-
-Convert OMOP-CDM CSV tables to BFF:
-
-```bash
-convert-pheno -iomop PERSON.csv CONCEPT.csv CONDITION_OCCURRENCE.csv \
-  -obff individuals.json
-```
-
-### Mapping-File Command
-
-Convert a mapped CSV file and audit ontology searches:
-
-```bash
-convert-pheno -icsv clinical.csv \
-  --mapping-file mapping.yaml \
-  --search-audit-tsv search-audit.tsv \
-  -obff individuals.json
-```
-
-### BFF to PXF Command
-
-Convert BFF `individuals` to Phenopackets:
-
-```bash
-convert-pheno -ibff individuals.json -opxf phenopacket.json
-```
-
-:::tip[Need a command for a specific route?]
-Use [Choose a Conversion](conversion-recipes) for route-specific examples. Use this page when you want to understand the CLI model and option groups.
-:::
 
 ## Command Model
 
@@ -154,86 +104,6 @@ convert-pheno --help
 - Entity-aware output: `-obff --entities ... --out-dir DIR`
 
 In other words, `--entities` does not replace `-obff`. It refines which `BFF` entities are written after you have already selected `BFF` as the output format.
-
-## Common examples
-
-Convert Phenopackets to the `individuals`-only `BFF` output:
-
-```bash
-convert-pheno -ipxf pxf.json -obff individuals.json
-```
-
-The same conversion with the generic form:
-
-```bash
-convert-pheno -i pxf pxf.json -o bff individuals.json
-```
-
-Convert Phenopackets to entity-aware `BFF` output:
-
-```bash
-convert-pheno -ipxf pxf.json -obff --entities individuals biosamples datasets cohorts --out-dir out/
-```
-
-Convert mapping-file input to `individuals`, `datasets`, and `cohorts`:
-
-```bash
-convert-pheno -icsv data.csv --mapping-file mapping.yaml -obff --entities individuals datasets cohorts --out-dir out/
-```
-
-Convert both `individuals` and `biosamples`, while overriding the biosample filename:
-
-```bash
-convert-pheno -ipxf pxf.json -obff --entities individuals biosamples --out-dir out/ --out-name biosamples=samples.json
-```
-
-Convert OMOP `SPECIMEN` rows to Beacon `biosamples`:
-
-```bash
-convert-pheno -iomop PERSON.csv CONCEPT.csv SPECIMEN.csv -obff --entities biosamples --out-dir out/
-```
-
-Create a smaller BFF export without copied raw source payloads:
-
-```bash
-convert-pheno -iomop omop.sql -obff individuals.json --no-source-info
-```
-
-Convert a **large OMOP SQL dump** incrementally:
-
-```bash
-convert-pheno -iomop omop.sql.gz -obff individuals.json.gz --stream --ohdsi-db
-```
-
-Convert an openEHR patient envelope to `BFF`:
-
-```bash
-convert-pheno -i openehr patient-set.json -o bff individual.json
-```
-
-Convert an openEHR patient envelope to `PXF`:
-
-```bash
-convert-pheno -i openehr patient-set.json -o pxf phenopacket.json
-```
-
-Write a TSV audit of ontology lookups during a mapping-file conversion:
-
-```bash
-convert-pheno -icsv data.csv --mapping-file mapping.yaml -obff individuals.json --search-audit-tsv search-audit.tsv
-```
-
-Convert `BFF` `individuals` to Phenopackets:
-
-```bash
-convert-pheno -ibff individuals.json -opxf pxf.json
-```
-
-Convert `BFF` `individuals` to Phenopackets while changing the fallback `subject.vitalStatus` used when no source value is available:
-
-```bash
-convert-pheno -ibff individuals.json -opxf pxf.json --default-vital-status UNKNOWN_STATUS
-```
 
 ## Notes
 
@@ -305,7 +175,7 @@ For the search behavior itself, including examples and threshold tradeoffs, see 
 
 ## More help
 
-- [Common CLI Patterns](usage) for more examples
+- [Choose a Conversion](conversion-recipes) for route commands
 - [Download & Installation](download-and-installation) for setup
 - [Google Colab tutorial](https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6) if you want a disposable environment
 

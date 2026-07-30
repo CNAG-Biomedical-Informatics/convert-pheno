@@ -1,4 +1,5 @@
 ---
+id: use-as-an-api
 title: API
 sidebar_label: API
 slug: /use-as-an-api
@@ -37,6 +38,22 @@ Example payload:
 ```
 
 The response is a JSON envelope with `ok`, `data`, and `meta.conversion`.
+
+The HTTP(s) boundary accepts in-memory payloads, not paths on the API host.
+`input` may contain `data`; `output` may contain `entities` and
+`derived_entity_overrides`. Safe conversion settings belong under `options`.
+File-bearing fields such as `in_file`, `out_file`, `mapping_file`,
+`redcap_dictionary`, and `path_to_ohdsi_db` are rejected.
+
+<details>
+<summary>Accepted option fields</summary>
+
+`default_vital_status`, `levenshtein_weight`, `max_lines_sql`,
+`min_text_similarity_score`, `ohdsi_db`, `omop_tables`,
+`print_hidden_labels`, `search`, `source_info`, `test`,
+`text_similarity_method`, and `username`.
+
+</details>
 
 <details>
 <summary>OpenAPI specification</summary>
@@ -156,11 +173,14 @@ The REST API works best for **self-contained payloads** where the request alread
 | `BFF` | Recommended | Small JSON payloads are natural to send over HTTP(s) |
 | `PXF` | Recommended | Small JSON payloads are natural to send over HTTP(s) |
 | `OMOP-CDM` | Recommended with care | Acceptable when the client transposes query results into the JSON shape expected by the API |
-| `CSV` | Not recommended | Mapping-file-based conversion depends on extra artifacts and file semantics that are awkward to serialize into a clean public API |
-| `REDCap` | Not recommended | Requires both project data and a REDCap dictionary plus mapping-file context |
-| `CDISC-ODM` | Not recommended | Follows the same mapping-file-driven pattern as REDCap |
+| `openEHR` | Available | Canonical JSON/YAML content can be sent directly as `input.data` |
+| `CSV` | CLI/module only | Mapping-file conversion depends on file artifacts that are not accepted by the HTTP boundary |
+| `REDCap` | CLI/module only | Requires project data, a REDCap dictionary, and mapping-file context |
+| `CDISC-ODM` | CLI/module only | Requires XML and the same dictionary/mapping context as REDCap |
 
-For `CSV`, `REDCap`, and `CDISC-ODM`, the **CLI is the preferred interface**. Those routes are better treated as file conversions than as public REST calls.
+For `CSV`, `REDCap`, and `CDISC-ODM`, use the **CLI or module interface**. The
+HTTP wrappers reject those file-based routes rather than accepting server-local
+paths.
 
 ## Available implementations
 

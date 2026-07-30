@@ -178,18 +178,13 @@ const sidebars: SidebarsConfig = {
       items: [
         {
           type: 'doc',
-          id: 'tutorial',
-          label: 'Guided Examples',
+          id: 'mapping-files',
+          label: 'Mapping Files',
         },
         {
           type: 'link',
           href: 'https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6',
           label: 'Google Colab',
-        },
-        {
-          type: 'doc',
-          id: 'usage',
-          label: 'Common CLI Patterns',
         },
         {
           type: 'doc',

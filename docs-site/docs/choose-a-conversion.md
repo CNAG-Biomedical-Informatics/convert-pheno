@@ -1,6 +1,8 @@
 ---
+id: conversion-recipes
 title: Choose a Conversion
 sidebar_label: Choose a Conversion
+slug: /conversion-recipes
 ---
 
 This page is the quickest way to choose a conversion route. Start with your **input format**, then pick the output you need and copy the matching command.
@@ -64,8 +66,8 @@ For a compact list of accepted inputs and outputs, see [Supported Formats](suppo
 
 | Target output | Route | Notes |
 | --- | --- | --- |
-| Beacon v2 / `BFF` | [openEHR format guide](openehr) | Canonical JSON or YAML compositions become Beacon `individuals` |
-| Phenopackets v2 / `PXF` | [openEHR format guide](openehr) | Internally goes through BFF |
+| Beacon v2 / `BFF` | [`openehr2bff`](#openehr-input-bff-output) | Canonical JSON or YAML compositions become Beacon `individuals` |
+| Phenopackets v2 / `PXF` | [`openehr2pxf`](#openehr-input-pxf-output) | Internally goes through BFF |
 
 ## Before You Run
 
@@ -229,7 +231,7 @@ convert-pheno -iredcap redcap.csv \
   -obff individuals.json
 ```
 
-More detail: [REDCap](redcap), [Guided Examples](tutorial).
+More detail: [REDCap](redcap), [Working with Mapping Files](mapping-files).
 
 ### REDCap Input: PXF Output
 
@@ -276,6 +278,24 @@ convert-pheno -icdisc study.xml \
   -oomop --out-dir omop_out/ \
   --ohdsi-db
 ```
+
+## openEHR Input Examples
+
+### openEHR Input: BFF Output
+
+```bash
+convert-pheno -iopenehr patient-set.json -obff individuals.json
+```
+
+### openEHR Input: PXF Output
+
+```bash
+convert-pheno -iopenehr demographics.json ips.json laboratory.json \
+  -opxf phenopackets.json
+```
+
+Multiple files are grouped by resolved patient identity before conversion.
+More detail: [openEHR](openehr), [openEHR to BFF mapping](openehr2bff).
 
 ## Inspection Outputs
 

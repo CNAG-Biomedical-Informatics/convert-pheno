@@ -3,8 +3,6 @@ title: CSV
 sidebar_label: CSV
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
 export const CsvFormatImage = () => (
@@ -16,9 +14,12 @@ export const CsvFormatImage = () => (
 );
 
 :::note[Implementation and validation status]
-CSV conversion to [BFF](bff), [PXF](pxf), and the supported [OMOP-CDM](omop-cdm) tables is implemented and covered by regression tests. Experience with independent real-world datasets is still limited, and results depend on the project mapping file. Review the mapping, optional ontology search audit, and generated output for each dataset.
-
+CSV conversion to [BFF](bff), [PXF](pxf), and the supported
+[OMOP-CDM](omop-cdm) tables is implemented and covered by regression tests.
+Results depend on the project mapping file, so review the mapping, optional
+ontology-search audit, and generated output for each dataset.
 :::
+
 <div className="convertFormatSummary" aria-label="At a glance">
   <div><span>Role</span><strong>Input</strong></div>
   <div><span>Accepted input</span><strong>Delimited clinical text</strong></div>
@@ -31,106 +32,47 @@ CSV conversion to [BFF](bff), [PXF](pxf), and the supported [OMOP-CDM](omop-cdm)
 <figcaption>Tabular fields are mapped through BFF before the requested output is written</figcaption>
 </figure>
 
-## CSV with clinical data as input
+## CSV As Input
 
-:::note[Note]
-This conversion method helps users who don't have the tools or expertise to transform their raw clinical data. It aims to convert **essential fields needed for comparing data across studies**.
+CSV input is intended for project-specific clinical tables that do not already
+follow another supported model. A YAML or JSON mapping file is required to
+connect source columns and values to Beacon individuals fields.
 
-If you use our tool and identify areas for improvement, please contact us or create a GitHub issue. Thank you.
-
+:::warning[CSV separator]
+The default separator is `;`. Use `--sep` when a file uses a comma, tab, or
+another delimiter.
 :::
 
-<Tabs>
-<TabItem value="command-line" label="Command-line">
+Use [CSV conversion recipes](conversion-recipes#csv-input-bff-output) for BFF,
+PXF, OMOP-CDM, and multi-entity BFF commands. Mapping semantics are documented
+under [Mapping File](tbl/mapping-file), with ontology lookup behavior under
+[DB Search](tbl/db-search).
 
+### CSV to OMOP-CDM
 
-When using the `convert-pheno` command-line interface, see [Common CLI Patterns](usage) for reusable command forms.
+The CSV-to-OMOP route is a focused, schema-aware ETL path. Convert-Pheno maps
+each source record to its internal BFF representation and then applies the
+supported [BFF-to-OMOP mapping](bff2omop); users do not create the intermediate
+BFF file.
 
-:::warning[CSV Separator Notice]
+OMOP output requires the Athena-OHDSI database selected by `--ohdsi-db`.
+Generated output is limited to the documented tables and fields and must be
+reviewed before database loading.
 
-Please note that the default separator for CSV files is `;`. If your file uses a different character (e.g., `,` or `:`), please specify it using the `--sep` option.
-
-:::
-```
-    convert-pheno -icsv clinical_data.csv --mapping-file clinical_data_mapping.yaml -obff individuals.json --sep ,
-    ```
-
-### Write OMOP-CDM tables
-
-The same mapping file can drive a focused CSV-to-OMOP ETL route. Convert-Pheno first maps each source record to its internal `BFF` representation and then applies the supported [BFF-to-OMOP mapping](bff2omop). The intermediate `BFF` file is not written or supplied by the user.
-
-```bash
-convert-pheno -icsv clinical_data.csv \
-  --mapping-file clinical_data_mapping.yaml \
-  --sep , \
-  -oomop --out-dir omop_out/ \
-  --ohdsi-db
-```
-
-OMOP output requires the Athena-OHDSI database selected by `--ohdsi-db`; see [OMOP-CDM](omop-cdm) for its installation and location options.
-
-:::info[How this differs from a traditional OMOP ETL workflow]
-This supported route does not require installing White Rabbit, Rabbit-in-a-Hat, or Usagi. Instead, the `Convert-Pheno` mapping file describes how source fields become `BFF` clinical concepts, and the built-in `BFF`-to-OMOP mapping writes the supported OMOP tables.
-
-This is an alternative workflow, not a one-for-one implementation of those tools. Convert-Pheno does not automatically profile an unfamiliar CSV or make terminology-curation decisions. Review the source data, mapping file, optional search audit, and generated OMOP tables before loading them into a database.
+:::info[Scope of the ETL path]
+This route does not automatically profile an unfamiliar CSV or make
+terminology-curation decisions. The mapping file replaces the source-model
+definition step; it is not a one-for-one implementation of White Rabbit,
+Rabbit-in-a-Hat, or Usagi.
 :::
 
-The route is not an unrestricted column-to-table loader. Source content must be expressible through the supported `beacon.individuals` [mapping-file fields](tbl/mapping-file), and OMOP output is limited to the tables and fields documented under [BFF to OMOP](bff2omop).
+### Output Review
 
-By default, the generated `BFF` keeps a copy of the source row under
-`info.CSV_columns` so users can audit mapped values against the original
-input. Use `--no-source-info` to omit that raw source snapshot.
+BFF output preserves each source row under `info.CSV_columns` by default. Use
+`--no-source-info` to omit that copy. Mapping-file routes can also synthesize
+`datasets` and `cohorts`, with metadata overrides under the corresponding
+top-level `beacon` sections. Raw CSV does not currently create first-class
+Beacon `biosamples`.
 
-Please refer to the [Convert-Pheno tutorial](https://cnag-biomedical-informatics.github.io/convert-pheno/tutorial/#how-to-convert) for more information.
-
-:::info[How do I emit more than `individuals`?]
-Mapping-file conversions can also emit synthesized Beacon `datasets` and `cohorts`. Keep `-obff` to select `BFF` output, then add `--entities` and `--out-dir`:
-
-```bash
-        convert-pheno -icsv clinical_data.csv --mapping-file clinical_data_mapping.yaml -obff --entities individuals datasets cohorts --out-dir out/
-        ```
-
-The top-level `beacon` section of the mapping file can override metadata for these synthesized entities. Raw CSV input does not currently generate first-class Beacon `biosamples`.
-
-:::
-See examples:
-
-
-### Input
-
-    * [CSV data](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/t/csv2bff/in/csv_data.csv)
-    * [Mapping file](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/t/csv2bff/in/csv_mapping.yaml)
-
-
-### Output
-
-    * [BFF](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/t/csv2bff/out/individuals.json)
-    * [PXF](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/t/csv2pxf/out/pxf.json)
-    * [OMOP-CDM tables](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/tree/main/t/csv2omop/out)
-
-
-</TabItem>
-<TabItem value="api" label="API">
-
-
-While it is *technically possible* to perform a transformation via the `Convert-Pheno` API, we don't think this is how most people will transform CSV files (due to the need of the mapping file). Therefore, we recommend using the **command-line** version.
-
-If you still want to call the API, the request payload uses explicit `conversion`, `input`, and `options` sections:
-
-```json
-    {
-      "conversion": "csv2bff",
-      "input": {
-        "in_file": "clinical_data.csv",
-        "mapping_file": "clinical_data_mapping.yaml"
-      },
-      "options": {
-        "sep": ","
-      }
-    }
-    ```
-
-For interface-wide guidance, see [Ways to Run Convert-Pheno](choose-an-interface) and [HTTP(s) API](use-as-an-api).
-
-</TabItem>
-</Tabs>
+Tested source, mapping, and reference-output files are indexed in the
+[`t/` fixture guide](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/tree/main/t).

@@ -1,6 +1,8 @@
 ---
+id: use-as-a-module
 title: Module
 sidebar_label: Module
+slug: /use-as-a-module
 ---
 
 import Tabs from '@theme/Tabs';
@@ -42,6 +44,10 @@ my $convert = Convert::Pheno->new(
 
 my $data = $convert->pxf2bff;
 ```
+
+BFF and PXF in-memory input remains owned by the caller. These conversions do
+not empty or rewrite the supplied array or hash, so the same payload can be
+inspected or reused after the call.
 
 This is the native programmatic interface used by the project.
 

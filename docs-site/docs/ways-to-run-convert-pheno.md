@@ -1,6 +1,8 @@
 ---
+id: choose-an-interface
 title: Ways to Run Convert-Pheno
 sidebar_label: Ways to Run It
+slug: /choose-an-interface
 ---
 
 import Link from '@docusaurus/Link';
