@@ -111,7 +111,7 @@ In other words, `--entities` does not replace `-obff`. It refines which `BFF` en
 - `BFF` entity mode is also explicit: use `-obff --entities ... --out-dir DIR`.
 - When `PXF` input contains `biosamples`, the individuals-only `-obff FILE` path still writes only `individuals`. In that mode, `convert-pheno` warns and preserves the biosamples under `info.phenopacket.biosamples`.
 - `--entities` can be used with `BFF` output. The supported output entities are `individuals`, `biosamples`, `datasets`, and `cohorts`.
-- `biosamples` are emitted from PXF biosample data, OMOP `SPECIMEN`, or explicit `beacon.biosamples.mappings` rules in CSV, REDCap, and CDISC-ODM mappings.
+- `biosamples` are emitted from PXF biosample data, OMOP `SPECIMEN`, or explicit `beacon.biosamples.rules` in CSV, REDCap, and CDISC-ODM mappings.
 - `datasets` and `cohorts` are synthesized from the normalized `individuals` collection.
 - In mapping-file conversions, `beacon.biosamples` defines first-class biosample rules, while `beacon.datasets.defaults` and `beacon.cohorts.defaults` override synthesized metadata.
 - These mapping features are available only for `csv2bff`, `redcap2bff`, and `cdisc2bff`, which are the routes that read a mapping file.

@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/CNAG-Biomedical-Informatics/convert-pheno/schema/mapping-v2.json",
   "title": "Convert-Pheno mapping file v2",
-  "description": "Strict source-to-Beacon mapping contract for tabular conversions.",
+  "description": "Concise source-to-Beacon authoring contract for tabular conversions.",
   "type": "object",
   "additionalProperties": false,
   "required": ["mappingVersion", "source", "target", "project", "defaults", "records", "beacon"],
@@ -10,14 +10,13 @@
     "mappingVersion": { "const": 2 },
     "source": {
       "type": "object",
+      "description": "Normalized tabular record profile consumed by this mapping.",
       "additionalProperties": false,
-      "required": ["profiles"],
+      "required": ["profile"],
       "properties": {
-        "profiles": {
-          "type": "array",
-          "minItems": 1,
-          "uniqueItems": true,
-          "items": { "enum": ["csv", "redcap", "cdisc-odm"] }
+        "profile": {
+          "description": "CDISC-ODM and REDCap share the redcap profile because ODM input is normalized to REDCap-shaped records.",
+          "enum": ["csv", "redcap"]
         }
       }
     },
@@ -75,7 +74,7 @@
       "required": ["individuals"],
       "properties": {
         "individuals": { "$ref": "#/$defs/individualsMapping" },
-        "biosamples": { "$ref": "#/$defs/biosamplesMapping" },
+        "biosamples": { "$ref": "#/$defs/biosampleCollection" },
         "datasets": { "$ref": "#/$defs/datasetDefaults" },
         "cohorts": { "$ref": "#/$defs/cohortDefaults" }
       }
@@ -101,20 +100,22 @@
         "label": { "$ref": "#/$defs/nonEmptyString" }
       }
     },
-    "query": {
+    "dynamicQuery": {
       "type": "object",
       "additionalProperties": false,
+      "required": ["from"],
       "properties": {
         "from": { "enum": ["field", "value", "fieldNote"] },
-        "literal": { "$ref": "#/$defs/nonEmptyString" },
         "aliases": {
           "type": "object",
           "additionalProperties": { "$ref": "#/$defs/nonEmptyString" }
         }
-      },
+      }
+    },
+    "query": {
       "oneOf": [
-        { "required": ["from"] },
-        { "required": ["literal"] }
+        { "$ref": "#/$defs/nonEmptyString" },
+        { "$ref": "#/$defs/dynamicQuery" }
       ]
     },
     "termTarget": {
@@ -134,6 +135,12 @@
         { "required": ["term"] }
       ]
     },
+    "nullableTermTarget": {
+      "oneOf": [
+        { "$ref": "#/$defs/termTarget" },
+        { "type": "null" }
+      ]
+    },
     "when": {
       "type": "object",
       "additionalProperties": false,
@@ -141,16 +148,6 @@
         "values": { "type": "array", "items": { "type": ["string", "number", "boolean"] } },
         "notValues": { "type": "array", "items": { "type": ["string", "number", "boolean"] } },
         "nonEmpty": { "type": "boolean" }
-      }
-    },
-    "sourceSelector": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["field"],
-      "properties": {
-        "field": { "$ref": "#/$defs/nonEmptyString" },
-        "optional": { "type": "boolean" },
-        "when": { "$ref": "#/$defs/when" }
       }
     },
     "valueTarget": {
@@ -167,20 +164,19 @@
         { "required": ["literal"] }
       ]
     },
+    "nullableValueTarget": {
+      "oneOf": [
+        { "$ref": "#/$defs/valueTarget" },
+        { "type": "null" }
+      ]
+    },
     "idMapping": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["source"],
+      "required": ["sourceFields", "primaryKey"],
       "properties": {
-        "source": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": ["fields", "primaryKey"],
-          "properties": {
-            "fields": { "$ref": "#/$defs/stringArray" },
-            "primaryKey": { "$ref": "#/$defs/nonEmptyString" }
-          }
-        },
+        "sourceFields": { "$ref": "#/$defs/stringArray" },
+        "primaryKey": { "$ref": "#/$defs/nonEmptyString" },
         "separator": { "type": "string" },
         "missingValue": { "type": "string" }
       }
@@ -188,97 +184,42 @@
     "scalarTermMapping": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["source", "target"],
+      "required": ["sourceField"],
       "properties": {
-        "source": { "$ref": "#/$defs/sourceSelector" },
-        "target": { "$ref": "#/$defs/termTarget" }
-      }
+        "sourceField": { "$ref": "#/$defs/nonEmptyString" },
+        "optional": { "type": "boolean" },
+        "when": { "$ref": "#/$defs/when" },
+        "ontology": { "$ref": "#/$defs/ontology" },
+        "query": { "$ref": "#/$defs/query" },
+        "term": { "$ref": "#/$defs/ontologyTerm" },
+        "terms": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/$defs/ontologyTerm" }
+        }
+      },
+      "oneOf": [
+        { "required": ["query"] },
+        { "required": ["term"] }
+      ]
     },
     "scalarValueMapping": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["source", "target"],
+      "required": ["sourceField", "value"],
       "properties": {
-        "source": { "$ref": "#/$defs/sourceSelector" },
-        "target": { "$ref": "#/$defs/valueTarget" }
+        "sourceField": { "$ref": "#/$defs/nonEmptyString" },
+        "optional": { "type": "boolean" },
+        "when": { "$ref": "#/$defs/when" },
+        "value": { "$ref": "#/$defs/valueTarget" }
       }
     },
     "infoMapping": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["source"],
+      "required": ["sourceFields"],
       "properties": {
-        "source": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": ["fields"],
-          "properties": { "fields": { "$ref": "#/$defs/stringArray" } }
-        },
-        "target": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "ageRange": { "$ref": "#/$defs/valueTarget" }
-          }
-        }
-      }
-    },
-    "diseaseRule": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["source", "target"],
-      "properties": {
-        "source": { "$ref": "#/$defs/sourceSelector" },
-        "target": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": ["diseaseCode"],
-          "properties": {
-            "diseaseCode": { "$ref": "#/$defs/termTarget" },
-            "ageOfOnset": { "$ref": "#/$defs/valueTarget" },
-            "familyHistory": { "$ref": "#/$defs/valueTarget" }
-          }
-        }
-      }
-    },
-    "exposureRule": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["source", "target"],
-      "properties": {
-        "source": { "$ref": "#/$defs/sourceSelector" },
-        "target": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": ["exposureCode", "unit"],
-          "properties": {
-            "exposureCode": { "$ref": "#/$defs/termTarget" },
-            "ageAtExposure": { "$ref": "#/$defs/valueTarget" },
-            "unit": { "$ref": "#/$defs/termTarget" },
-            "value": { "$ref": "#/$defs/valueTarget" },
-            "date": { "$ref": "#/$defs/valueTarget" },
-            "duration": { "$ref": "#/$defs/valueTarget" }
-          }
-        }
-      }
-    },
-    "procedureRule": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["source", "target"],
-      "properties": {
-        "source": { "$ref": "#/$defs/sourceSelector" },
-        "target": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": ["procedureCode"],
-          "properties": {
-            "procedureCode": { "$ref": "#/$defs/termTarget" },
-            "ageAtProcedure": { "$ref": "#/$defs/valueTarget" },
-            "bodySite": { "$ref": "#/$defs/termTarget" },
-            "dateOfProcedure": { "$ref": "#/$defs/valueTarget" }
-          }
-        }
+        "sourceFields": { "$ref": "#/$defs/stringArray" },
+        "ageRange": { "$ref": "#/$defs/valueTarget" }
       }
     },
     "referenceRange": {
@@ -297,78 +238,236 @@
     "quantityMapping": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["unit"],
       "properties": {
-        "value": { "$ref": "#/$defs/valueTarget" },
-        "unit": { "$ref": "#/$defs/termTarget" },
-        "referenceRange": { "$ref": "#/$defs/referenceRange" }
+        "value": { "$ref": "#/$defs/nullableValueTarget" },
+        "unit": { "$ref": "#/$defs/nullableTermTarget" },
+        "referenceRange": {
+          "oneOf": [
+            { "$ref": "#/$defs/referenceRange" },
+            { "type": "null" }
+          ]
+        }
+      }
+    },
+    "measurementValueMapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "quantity": { "$ref": "#/$defs/quantityMapping" }
+      }
+    },
+    "procedureMapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "procedureCode": { "$ref": "#/$defs/nullableTermTarget" }
+      }
+    },
+    "diseaseTarget": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "diseaseCode": { "$ref": "#/$defs/nullableTermTarget" },
+        "ageOfOnset": { "$ref": "#/$defs/nullableValueTarget" },
+        "familyHistory": { "$ref": "#/$defs/nullableValueTarget" }
+      }
+    },
+    "diseaseRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sourceField"],
+      "properties": {
+        "sourceField": { "$ref": "#/$defs/nonEmptyString" },
+        "optional": { "type": "boolean" },
+        "when": { "$ref": "#/$defs/when" },
+        "diseaseCode": { "$ref": "#/$defs/nullableTermTarget" },
+        "ageOfOnset": { "$ref": "#/$defs/nullableValueTarget" },
+        "familyHistory": { "$ref": "#/$defs/nullableValueTarget" }
+      }
+    },
+    "diseaseCollection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rules"],
+      "properties": {
+        "defaults": { "$ref": "#/$defs/diseaseTarget" },
+        "rules": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/diseaseRule" } }
+      }
+    },
+    "exposureTarget": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "exposureCode": { "$ref": "#/$defs/nullableTermTarget" },
+        "ageAtExposure": { "$ref": "#/$defs/nullableValueTarget" },
+        "unit": { "$ref": "#/$defs/nullableTermTarget" },
+        "value": { "$ref": "#/$defs/nullableValueTarget" },
+        "date": { "$ref": "#/$defs/nullableValueTarget" },
+        "duration": { "$ref": "#/$defs/nullableValueTarget" }
+      }
+    },
+    "exposureRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sourceField"],
+      "properties": {
+        "sourceField": { "$ref": "#/$defs/nonEmptyString" },
+        "optional": { "type": "boolean" },
+        "when": { "$ref": "#/$defs/when" },
+        "exposureCode": { "$ref": "#/$defs/nullableTermTarget" },
+        "ageAtExposure": { "$ref": "#/$defs/nullableValueTarget" },
+        "unit": { "$ref": "#/$defs/nullableTermTarget" },
+        "value": { "$ref": "#/$defs/nullableValueTarget" },
+        "date": { "$ref": "#/$defs/nullableValueTarget" },
+        "duration": { "$ref": "#/$defs/nullableValueTarget" }
+      }
+    },
+    "exposureCollection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rules"],
+      "properties": {
+        "defaults": { "$ref": "#/$defs/exposureTarget" },
+        "rules": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/exposureRule" } }
+      }
+    },
+    "procedureTarget": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "procedureCode": { "$ref": "#/$defs/nullableTermTarget" },
+        "ageAtProcedure": { "$ref": "#/$defs/nullableValueTarget" },
+        "bodySite": { "$ref": "#/$defs/nullableTermTarget" },
+        "dateOfProcedure": { "$ref": "#/$defs/nullableValueTarget" }
+      }
+    },
+    "procedureRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sourceField"],
+      "properties": {
+        "sourceField": { "$ref": "#/$defs/nonEmptyString" },
+        "optional": { "type": "boolean" },
+        "when": { "$ref": "#/$defs/when" },
+        "procedureCode": { "$ref": "#/$defs/nullableTermTarget" },
+        "ageAtProcedure": { "$ref": "#/$defs/nullableValueTarget" },
+        "bodySite": { "$ref": "#/$defs/nullableTermTarget" },
+        "dateOfProcedure": { "$ref": "#/$defs/nullableValueTarget" }
+      }
+    },
+    "procedureCollection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rules"],
+      "properties": {
+        "defaults": { "$ref": "#/$defs/procedureTarget" },
+        "rules": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/procedureRule" } }
+      }
+    },
+    "measureTarget": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "assayCode": { "$ref": "#/$defs/nullableTermTarget" },
+        "measurementValue": { "$ref": "#/$defs/measurementValueMapping" },
+        "procedure": { "$ref": "#/$defs/procedureMapping" }
       }
     },
     "measureRule": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["source", "target"],
+      "required": ["sourceField"],
       "properties": {
-        "source": { "$ref": "#/$defs/sourceSelector" },
-        "target": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": ["assayCode", "measurementValue"],
-          "properties": {
-            "assayCode": { "$ref": "#/$defs/termTarget" },
-            "measurementValue": {
-              "type": "object",
-              "additionalProperties": false,
-              "required": ["quantity"],
-              "properties": { "quantity": { "$ref": "#/$defs/quantityMapping" } }
-            },
-            "procedure": {
-              "type": "object",
-              "additionalProperties": false,
-              "required": ["procedureCode"],
-              "properties": { "procedureCode": { "$ref": "#/$defs/termTarget" } }
-            }
-          }
+        "sourceField": { "$ref": "#/$defs/nonEmptyString" },
+        "optional": { "type": "boolean" },
+        "when": { "$ref": "#/$defs/when" },
+        "assayCode": { "$ref": "#/$defs/nullableTermTarget" },
+        "measurementValue": { "$ref": "#/$defs/measurementValueMapping" },
+        "procedure": {
+          "oneOf": [
+            { "$ref": "#/$defs/procedureMapping" },
+            { "type": "null" }
+          ]
         }
+      }
+    },
+    "measureCollection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rules"],
+      "properties": {
+        "defaults": { "$ref": "#/$defs/measureTarget" },
+        "rules": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/measureRule" } }
+      }
+    },
+    "phenotypicFeatureTarget": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "featureType": { "$ref": "#/$defs/nullableTermTarget" }
       }
     },
     "phenotypicFeatureRule": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["source", "target"],
+      "required": ["sourceField"],
       "properties": {
-        "source": { "$ref": "#/$defs/sourceSelector" },
-        "target": {
+        "sourceField": { "$ref": "#/$defs/nonEmptyString" },
+        "optional": { "type": "boolean" },
+        "when": { "$ref": "#/$defs/when" },
+        "featureType": { "$ref": "#/$defs/nullableTermTarget" }
+      }
+    },
+    "phenotypicFeatureCollection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rules"],
+      "properties": {
+        "defaults": { "$ref": "#/$defs/phenotypicFeatureTarget" },
+        "rules": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/phenotypicFeatureRule" } }
+      }
+    },
+    "treatmentTarget": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "treatmentCode": { "$ref": "#/$defs/nullableTermTarget" },
+        "routeOfAdministration": { "$ref": "#/$defs/nullableTermTarget" },
+        "ageAtOnset": { "$ref": "#/$defs/nullableValueTarget" },
+        "cumulativeDose": { "$ref": "#/$defs/quantityMapping" },
+        "doseIntervals": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["featureType"],
-          "properties": { "featureType": { "$ref": "#/$defs/termTarget" } }
+          "properties": { "quantity": { "$ref": "#/$defs/quantityMapping" } }
         }
       }
     },
     "treatmentRule": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["source", "target"],
+      "required": ["sourceField"],
       "properties": {
-        "source": { "$ref": "#/$defs/sourceSelector" },
-        "target": {
+        "sourceField": { "$ref": "#/$defs/nonEmptyString" },
+        "optional": { "type": "boolean" },
+        "when": { "$ref": "#/$defs/when" },
+        "treatmentCode": { "$ref": "#/$defs/nullableTermTarget" },
+        "routeOfAdministration": { "$ref": "#/$defs/nullableTermTarget" },
+        "ageAtOnset": { "$ref": "#/$defs/nullableValueTarget" },
+        "cumulativeDose": { "$ref": "#/$defs/quantityMapping" },
+        "doseIntervals": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["treatmentCode"],
-          "properties": {
-            "treatmentCode": { "$ref": "#/$defs/termTarget" },
-            "routeOfAdministration": { "$ref": "#/$defs/termTarget" },
-            "ageAtOnset": { "$ref": "#/$defs/valueTarget" },
-            "cumulativeDose": { "$ref": "#/$defs/quantityMapping" },
-            "doseIntervals": {
-              "type": "object",
-              "additionalProperties": false,
-              "required": ["quantity"],
-              "properties": { "quantity": { "$ref": "#/$defs/quantityMapping" } }
-            }
-          }
+          "properties": { "quantity": { "$ref": "#/$defs/quantityMapping" } }
         }
+      }
+    },
+    "treatmentCollection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rules"],
+      "properties": {
+        "defaults": { "$ref": "#/$defs/treatmentTarget" },
+        "rules": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/treatmentRule" } }
       }
     },
     "individualsMapping": {
@@ -382,55 +481,82 @@
         "geographicOrigin": { "$ref": "#/$defs/scalarTermMapping" },
         "karyotypicSex": { "$ref": "#/$defs/scalarValueMapping" },
         "info": { "$ref": "#/$defs/infoMapping" },
-        "diseases": { "type": "array", "items": { "$ref": "#/$defs/diseaseRule" } },
-        "exposures": { "type": "array", "items": { "$ref": "#/$defs/exposureRule" } },
-        "interventionsOrProcedures": { "type": "array", "items": { "$ref": "#/$defs/procedureRule" } },
-        "measures": { "type": "array", "items": { "$ref": "#/$defs/measureRule" } },
-        "phenotypicFeatures": { "type": "array", "items": { "$ref": "#/$defs/phenotypicFeatureRule" } },
-        "treatments": { "type": "array", "items": { "$ref": "#/$defs/treatmentRule" } }
+        "diseases": { "$ref": "#/$defs/diseaseCollection" },
+        "exposures": { "$ref": "#/$defs/exposureCollection" },
+        "interventionsOrProcedures": { "$ref": "#/$defs/procedureCollection" },
+        "measures": { "$ref": "#/$defs/measureCollection" },
+        "phenotypicFeatures": { "$ref": "#/$defs/phenotypicFeatureCollection" },
+        "treatments": { "$ref": "#/$defs/treatmentCollection" }
+      }
+    },
+    "biosampleTarget": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/nullableValueTarget" },
+        "individualId": { "$ref": "#/$defs/nullableValueTarget" },
+        "biosampleStatus": { "$ref": "#/$defs/nullableTermTarget" },
+        "sampleOriginType": { "$ref": "#/$defs/nullableTermTarget" },
+        "sampleOriginDetail": { "$ref": "#/$defs/nullableTermTarget" },
+        "collectionDate": { "$ref": "#/$defs/nullableValueTarget" },
+        "notes": { "$ref": "#/$defs/nullableValueTarget" },
+        "obtentionProcedure": { "$ref": "#/$defs/procedureMapping" },
+        "measurements": { "$ref": "#/$defs/measureCollection" },
+        "info": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["sourceFields"],
+          "properties": { "sourceFields": { "$ref": "#/$defs/stringArray" } }
+        }
       }
     },
     "biosampleRule": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["source", "target"],
+      "required": ["sourceField"],
       "properties": {
-        "source": { "$ref": "#/$defs/sourceSelector" },
-        "target": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": ["id", "biosampleStatus", "sampleOriginType"],
-          "properties": {
-            "id": { "$ref": "#/$defs/valueTarget" },
-            "individualId": { "$ref": "#/$defs/valueTarget" },
-            "biosampleStatus": { "$ref": "#/$defs/termTarget" },
-            "sampleOriginType": { "$ref": "#/$defs/termTarget" },
-            "sampleOriginDetail": { "$ref": "#/$defs/termTarget" },
-            "collectionDate": { "$ref": "#/$defs/valueTarget" },
-            "notes": { "$ref": "#/$defs/valueTarget" },
-            "obtentionProcedure": {
-              "type": "object",
-              "additionalProperties": false,
-              "required": ["procedureCode"],
-              "properties": { "procedureCode": { "$ref": "#/$defs/termTarget" } }
-            },
-            "measurements": { "type": "array", "items": { "$ref": "#/$defs/measureRule" } },
-            "info": {
+        "sourceField": { "$ref": "#/$defs/nonEmptyString" },
+        "optional": { "type": "boolean" },
+        "when": { "$ref": "#/$defs/when" },
+        "id": { "$ref": "#/$defs/nullableValueTarget" },
+        "individualId": { "$ref": "#/$defs/nullableValueTarget" },
+        "biosampleStatus": { "$ref": "#/$defs/nullableTermTarget" },
+        "sampleOriginType": { "$ref": "#/$defs/nullableTermTarget" },
+        "sampleOriginDetail": { "$ref": "#/$defs/nullableTermTarget" },
+        "collectionDate": { "$ref": "#/$defs/nullableValueTarget" },
+        "notes": { "$ref": "#/$defs/nullableValueTarget" },
+        "obtentionProcedure": {
+          "oneOf": [
+            { "$ref": "#/$defs/procedureMapping" },
+            { "type": "null" }
+          ]
+        },
+        "measurements": {
+          "oneOf": [
+            { "$ref": "#/$defs/measureCollection" },
+            { "type": "null" }
+          ]
+        },
+        "info": {
+          "oneOf": [
+            {
               "type": "object",
               "additionalProperties": false,
               "required": ["sourceFields"],
               "properties": { "sourceFields": { "$ref": "#/$defs/stringArray" } }
-            }
-          }
+            },
+            { "type": "null" }
+          ]
         }
       }
     },
-    "biosamplesMapping": {
+    "biosampleCollection": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["mappings"],
+      "required": ["rules"],
       "properties": {
-        "mappings": { "type": "array", "items": { "$ref": "#/$defs/biosampleRule" } }
+        "defaults": { "$ref": "#/$defs/biosampleTarget" },
+        "rules": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/biosampleRule" } }
       }
     },
     "datasetDefaults": {

@@ -47,10 +47,12 @@ The conversion requires:
 2. A REDCap-compatible data dictionary in CSV format
 3. A Convert-Pheno mapping file in YAML or JSON
 
-CDISC-ODM follows the same semantic mapping path as REDCap. BFF output
-preserves copied source values in `info` by default; `--no-source-info`
-omits those raw payloads. Mapping rules can also emit first-class biosamples,
-and mapping defaults can augment synthesized Beacon `datasets` and `cohorts`.
+CDISC-ODM follows the same semantic mapping path as REDCap. Its mapping
+therefore declares `source.profile: redcap`; a separate CDISC profile or a
+duplicate mapping is not needed. BFF output preserves copied source values in
+`info` by default; `--no-source-info` omits those raw payloads. Mapping rules
+can also emit first-class biosamples, and mapping defaults can augment
+synthesized Beacon `datasets` and `cohorts`.
 
 Use [CDISC-ODM conversion recipes](conversion-recipes#cdisc-odm-input-bff-output)
 for BFF, PXF, and OMOP-CDM commands. See [Mapping File](tbl/mapping-file) for

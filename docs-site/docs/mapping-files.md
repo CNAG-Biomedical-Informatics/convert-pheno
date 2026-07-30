@@ -51,7 +51,7 @@ from being interpreted with new semantics.
 mappingVersion: 2
 
 source:
-  profiles: [redcap]
+  profile: redcap
 
 target:
   model: beacon
@@ -74,21 +74,18 @@ records:
 beacon:
   individuals:
     id:
-      source:
-        fields: [record_id, redcap_event_name]
-        primaryKey: record_id
+      sourceFields: [record_id, redcap_event_name]
+      primaryKey: record_id
       separator: ':'
 
     sex:
-      source: { field: sex }
-      target:
-        query: { from: value }
+      sourceField: sex
+      query: { from: value }
 
     diseases:
-      - source:
-          field: diagnosis
+      rules:
+        - sourceField: diagnosis
           when: { nonEmpty: true }
-        target:
           diseaseCode:
             query:
               from: value
@@ -98,8 +95,7 @@ beacon:
           ageOfOnset: { sourceField: age_at_diagnosis }
 
     info:
-      source:
-        fields: [record_id, redcap_event_name]
+      sourceFields: [record_id, redcap_event_name]
 ```
 
 </details>
@@ -108,31 +104,34 @@ The top-level sections have distinct responsibilities:
 
 | Section | Purpose |
 | --- | --- |
-| `source` | Declares which input routes may use the mapping |
+| `source` | Declares the normalized tabular profile consumed by the mapping |
 | `target` | Declares the target model and Beacon schema version |
 | `project` | Identifies and versions the project mapping |
 | `defaults` | Sets the default ontology for term lookup |
 | `records` | Defines visit and longitudinal baseline behavior |
 | `beacon` | Contains entity-specific target mappings and defaults |
 
-The route still determines how the source is parsed. For example,
-`source.profiles: [redcap]` does not turn a CSV route into REDCap; it only
-confirms that this mapping is intended for the selected route.
+The route still determines how the input is parsed. `source.profile` describes
+the normalized records consumed by the mapping, not the original file format.
+Use `csv` for CSV records and `redcap` for REDCap records. CDISC-ODM input is
+normalized into REDCap-shaped records, so REDCap and CDISC-ODM deliberately
+share `source.profile: redcap` without duplicating the mapping.
 
 ## Reading A Rule
 
-Each rule separates the source condition from the target property:
+Each repeated section contains ordered rules. A rule keeps its source selector
+and Beacon target properties together:
 
 ```yaml
-- source:
-    field: diagnosis
-    when: { nonEmpty: true }
-  target:
-    diseaseCode:
-      query:
-        from: value
-        aliases:
-          UC: Ulcerative Colitis
+diseases:
+  rules:
+    - sourceField: diagnosis
+      when: { nonEmpty: true }
+      diseaseCode:
+        query:
+          from: value
+          aliases:
+            UC: Ulcerative Colitis
 ```
 
 Here, `diagnosis` is the source column. Empty cells are skipped. The recorded
@@ -145,11 +144,61 @@ Ontology queries can come from different places:
 | `query: { from: value }` | Search using the recorded value |
 | `query: { from: field }` | Search using the source column name |
 | `query: { from: fieldNote }` | Search using the REDCap dictionary field note |
-| `query: { literal: Hemoglobin Measurement }` | Search a fixed label |
+| `query: Hemoglobin Measurement` | Search a fixed label |
 | `term: { id: 'NCIT:C...', label: ... }` | Use a known ontology term without a database search |
+
+The location of `from` changes its meaning. Inside `query`, it selects the text
+used for ontology lookup. A direct value mapping such as
+`id: { from: sourceValue }` copies a scalar value and does not query an
+ontology database.
 
 Use exact terms when the identifier is already curated. Otherwise, use a
 query and review ontology resolution with `--search-audit-tsv`.
+
+## How Defaults Are Reused
+
+`defaults` has a specific scope according to where it appears:
+
+| Location | Applies to |
+| --- | --- |
+| Top-level `defaults.ontology` | Ontology queries that do not select another ontology |
+| `beacon.individuals.<section>.defaults` | Every rule in that repeated individual section only |
+| `beacon.biosamples.defaults` | Every rule under `beacon.biosamples.rules` |
+| `beacon.datasets.defaults` and `beacon.cohorts.defaults` | Metadata for the synthesized entity, not rule inheritance |
+
+A collection default is not an output record. Before conversion,
+Convert-Pheno copies it into each sibling rule and then applies the values
+written on that rule. This lets each rule declare only what differs:
+
+```yaml
+treatments:
+  defaults:
+    routeOfAdministration: { query: Oral Route of Administration }
+    doseIntervals:
+      quantity:
+        unit: { query: Milligram }
+  rules:
+    - sourceField: aspirin_status
+      treatmentCode: { query: aspirin }
+      doseIntervals:
+        quantity:
+          value: { sourceField: aspirin_dose }
+    - sourceField: infliximab_status
+      treatmentCode: { query: infliximab }
+      routeOfAdministration: { query: Intravenous Route of Administration }
+      doseIntervals:
+        quantity:
+          value: { sourceField: infliximab_dose }
+```
+
+Both rules inherit `Milligram`. The aspirin rule also inherits the oral route;
+the infliximab rule replaces only that route with the intravenous route.
+
+The merge is recursive: rule values override matching defaults, while
+unmentioned defaults remain in place. Arrays are replaced rather than joined,
+and setting an optional property to `null` removes its inherited value.
+Defaults apply only to target properties and only within their section;
+`sourceField`, `optional`, and `when` always remain visible on each rule.
 
 ## Longitudinal Values
 
@@ -176,18 +225,16 @@ biosample is emitted when its source condition matches and an ID is available:
 ```yaml
 beacon:
   biosamples:
-    mappings:
-      - source:
-          field: sample_id
-          when: { nonEmpty: true }
-        target:
-          id: { from: sourceValue }
-          individualId: { from: individualId }
-          biosampleStatus:
-            term: { id: 'NCIT:C126101', label: Not Available }
-          sampleOriginType:
-            query: { literal: Whole Blood }
-          collectionDate: { sourceField: collection_date }
+    defaults:
+      id: { from: sourceValue }
+      individualId: { from: individualId }
+      biosampleStatus:
+        term: { id: 'NCIT:C126101', label: Not Available }
+    rules:
+      - sourceField: sample_id
+        when: { nonEmpty: true }
+        sampleOriginType: { query: Whole Blood }
+        collectionDate: { sourceField: collection_date }
 ```
 
 Rules can also populate `sampleOriginDetail`, `obtentionProcedure`, `notes`,

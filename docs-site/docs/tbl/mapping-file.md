@@ -32,7 +32,7 @@ such as `fieldTermLabels`, `valueTermLabels`, `targetFields`, or
 | Section | Required | Contents |
 | --- | --- | --- |
 | `mappingVersion` | Yes | Mapping language version |
-| `source.profiles` | Yes | One or more of `csv`, `redcap`, `cdisc-odm` |
+| `source.profile` | Yes | Normalized record profile: `csv` or `redcap` |
 | `target` | Yes | `model` and `schemaVersion` |
 | `project` | Yes | `id`, `version`, and optional `description` |
 | `defaults` | Yes | Default `ontology` |
@@ -46,21 +46,24 @@ Supported default ontologies are `ncit`, `icd10`, `ohdsi`, `cdisc`, `omim`,
 and `hpo`. A term rule can override the project default with its own
 `ontology`.
 
+`source.profile` describes the records consumed by the mapping. It does not
+select the CLI or API input route. CDISC-ODM records are normalized to the
+REDCap representation before mapping, so both routes use `profile: redcap`.
+
 ## Source Selectors
 
 Entity rules select one source field and can add conditions:
 
 ```yaml
-source:
-  field: smoking
-  optional: true
-  when:
-    notValues: [No, unknown]
+sourceField: smoking
+optional: true
+when:
+  notValues: [No, unknown]
 ```
 
 | Key | Meaning |
 | --- | --- |
-| `field` | Source column evaluated by the rule |
+| `sourceField` | Source column evaluated by the rule |
 | `optional` | Allows the column and other source fields inside that rule to be absent from the input header |
 | `when.nonEmpty` | Requires a non-empty value |
 | `when.values` | Accepts only the listed values |
@@ -69,18 +72,53 @@ source:
 `optional` describes schema variation between compatible exports. It should
 not be used to hide a misspelled required column.
 
+Repeated Beacon sections use an ordered `rules` array:
+
+```yaml
+phenotypicFeatures:
+  rules:
+    - sourceField: symptom
+      when: { nonEmpty: true }
+      featureType:
+        ontology: hpo
+        query: { from: value }
+```
+
+Every rule keeps the source selector and its target Beacon properties in one
+object. This avoids parallel field lists whose entries can silently drift out
+of alignment.
+
+## Shared Defaults
+
+A repeated section can define target `defaults` shared by its rules:
+
+```yaml
+interventionsOrProcedures:
+  defaults:
+    bodySite: { query: Intestine }
+  rules:
+    - sourceField: colectomy
+      procedureCode: { query: Colectomy }
+    - sourceField: ileostomy
+      procedureCode: { query: Ileostomy }
+```
+
+Defaults are recursively merged into each rule. Rule values win, arrays
+replace inherited arrays, and a `null` rule value removes an optional inherited
+property. Source keys such as `sourceField`, `optional`, and `when` cannot be
+placed in `defaults`; conditions remain local and reviewable.
+
 ## Ontology Terms
 
 A target ontology term can be resolved by query or supplied directly.
 
 ```yaml
-target:
-  featureType:
-    ontology: hpo
-    query:
-      from: value
-      aliases:
-        Joint limitation: Limitation of joint mobility
+featureType:
+  ontology: hpo
+  query:
+    from: value
+    aliases:
+      Joint limitation: Limitation of joint mobility
 ```
 
 | Key | Meaning |
@@ -88,7 +126,7 @@ target:
 | `query.from: value` | Uses the normalized source value |
 | `query.from: field` | Uses the source field name |
 | `query.from: fieldNote` | Uses the REDCap dictionary field note |
-| `query.literal` | Uses one fixed query label |
+| `query: Label` | Uses one fixed query label |
 | `query.aliases` | Rewrites known source labels before lookup |
 | `ontology` | Overrides `defaults.ontology` for this term |
 | `term` | Supplies one curated `{id, label}` object and bypasses lookup |
@@ -108,6 +146,10 @@ Non-ontology target values use one of these forms:
 | `{ from: individualId }` | Uses the generated BFF individual ID |
 | `{ sourceField: age }` | Uses another named source field |
 | `{ literal: value }` | Uses a fixed string, number, or boolean |
+
+These forms do not perform ontology lookup. By contrast, `query.from` selects
+the text passed to ontology resolution: `query: { from: value }` searches with
+the current source value, rather than copying that value directly into BFF.
 
 ## Records
 
@@ -134,9 +176,8 @@ source provenance.
 
 ```yaml
 id:
-  source:
-    fields: [record_id, event_name]
-    primaryKey: record_id
+  sourceFields: [record_id, event_name]
+  primaryKey: record_id
   separator: ':'
   missingValue: NA
 ```
@@ -147,22 +188,23 @@ The supported BFF individual sections are:
 | --- | --- | --- |
 | `sex`, `ethnicity`, `geographicOrigin` | One term rule | Corresponding ontology term |
 | `karyotypicSex` | One scalar rule | Corresponding scalar value |
-| `diseases[]` | Repeated rule | `diseaseCode`, `ageOfOnset`, `familyHistory` |
-| `exposures[]` | Repeated rule | `exposureCode`, `ageAtExposure`, `unit`, `value`, `date`, `duration` |
-| `interventionsOrProcedures[]` | Repeated rule | `procedureCode`, `ageAtProcedure`, `bodySite`, `dateOfProcedure` |
-| `measures[]` | Repeated rule | `assayCode`, quantity, reference range, procedure |
-| `phenotypicFeatures[]` | Repeated rule | `featureType` |
-| `treatments[]` | Repeated rule | `treatmentCode`, route, age, cumulative dose, dose interval |
+| `diseases.rules[]` | Repeated rule | `diseaseCode`, `ageOfOnset`, `familyHistory` |
+| `exposures.rules[]` | Repeated rule | `exposureCode`, `ageAtExposure`, `unit`, `value`, `date`, `duration` |
+| `interventionsOrProcedures.rules[]` | Repeated rule | `procedureCode`, `ageAtProcedure`, `bodySite`, `dateOfProcedure` |
+| `measures.rules[]` | Repeated rule | `assayCode`, quantity, reference range, procedure |
+| `phenotypicFeatures.rules[]` | Repeated rule | `featureType` |
+| `treatments.rules[]` | Repeated rule | `treatmentCode`, route, age, cumulative dose, dose interval |
 | `info` | Field list | Selected project fields and optional age range |
 
 Target property names use the camelCase spelling from the Beacon v2 schema.
-Repeated sections use one independent source/target rule per source field,
-which keeps conditions and auxiliary columns local to that rule.
+The authoring form is compiled into a fully explicit internal mapping before
+records are processed.
 
 ## Biosamples
 
-`beacon.biosamples.mappings[]` uses the same source/target structure. Every
-biosample rule declares these target properties:
+`beacon.biosamples.rules[]` uses the same concise rule structure. Required
+properties may be declared on each rule or inherited from
+`beacon.biosamples.defaults`:
 
 | Property | Purpose |
 | --- | --- |
@@ -201,7 +243,7 @@ Before conversion, Convert-Pheno:
 1. Rejects duplicate YAML or JSON mapping keys
 2. Validates the document against `share/schema/mapping.json`
 3. Checks the mapping and Beacon schema versions
-4. Checks that the selected route is listed in `source.profiles`
+4. Checks that the route's normalized record profile matches `source.profile`
 5. Checks referenced source fields against the input header
 
 Generated BFF preserves the unmodified input row under `info.CSV_columns` or

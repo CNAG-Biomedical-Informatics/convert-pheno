@@ -78,14 +78,18 @@ sub compile_mapping {
     my $profile = $arg{source_profile};
     die "A source profile is required to compile the mapping\n"
       unless defined $profile && length $profile;
+    my $record_profile = $profile eq 'cdisc-odm' ? 'redcap' : $profile;
 
     _validate_target($mapping);
-    _validate_source_profile( $mapping, $profile );
+    _validate_source_profile( $mapping, $record_profile );
 
-    my $compiled = dclone($mapping);
+    # Mapping files are intentionally concise. Compile their author-facing
+    # rules into the explicit representation consumed by the mapper so that
+    # execution code never needs to support shorthand or inheritance.
+    my $compiled = _compile_authoring_mapping($mapping);
     $compiled->{_compiled} = {
         sourceProfile => $profile,
-        recordProfile => $profile eq 'cdisc-odm' ? 'redcap' : $profile,
+        recordProfile => $record_profile,
     };
 
     if ( exists $arg{headers} ) {
@@ -93,6 +97,282 @@ sub compile_mapping {
     }
 
     return $compiled;
+}
+
+sub _compile_authoring_mapping {
+    my ($mapping) = @_;
+    my $compiled = dclone($mapping);
+    my $individuals = $compiled->{beacon}{individuals};
+
+    $individuals->{id} = _compile_id_mapping( $individuals->{id} );
+
+    for my $property (qw(sex ethnicity geographicOrigin)) {
+        next unless exists $individuals->{$property};
+        $individuals->{$property} = _compile_scalar_term(
+            $individuals->{$property},
+            "beacon.individuals.$property",
+        );
+    }
+
+    if ( exists $individuals->{karyotypicSex} ) {
+        $individuals->{karyotypicSex} = _compile_scalar_value(
+            $individuals->{karyotypicSex},
+            'beacon.individuals.karyotypicSex',
+        );
+    }
+
+    $individuals->{info} = _compile_info_mapping( $individuals->{info} )
+      if exists $individuals->{info};
+
+    my %collection_kind = (
+        diseases                  => 'disease',
+        exposures                 => 'exposure',
+        interventionsOrProcedures => 'procedure',
+        measures                  => 'measure',
+        phenotypicFeatures        => 'phenotypicFeature',
+        treatments                => 'treatment',
+    );
+    for my $property ( keys %collection_kind ) {
+        next unless exists $individuals->{$property};
+        $individuals->{$property} = _compile_collection(
+            $individuals->{$property},
+            $collection_kind{$property},
+            "beacon.individuals.$property",
+        );
+    }
+
+    if ( exists $compiled->{beacon}{biosamples} ) {
+        $compiled->{beacon}{biosamples} = {
+            mappings => _compile_collection(
+                $compiled->{beacon}{biosamples},
+                'biosample',
+                'beacon.biosamples',
+            ),
+        };
+    }
+
+    return $compiled;
+}
+
+sub _compile_id_mapping {
+    my ($config) = @_;
+    die "<beacon.individuals.id> must be an object\n"
+      unless ref($config) eq 'HASH';
+
+    my $compiled = {
+        source => {
+            fields     => dclone( $config->{sourceFields} ),
+            primaryKey => $config->{primaryKey},
+        },
+    };
+    $compiled->{separator} = $config->{separator}
+      if exists $config->{separator};
+    $compiled->{missingValue} = $config->{missingValue}
+      if exists $config->{missingValue};
+    return $compiled;
+}
+
+sub _compile_scalar_term {
+    my ( $config, $path ) = @_;
+    my ( $source, $target ) = _split_rule( $config, $path );
+    return {
+        source => $source,
+        target => _normalize_term_target($target),
+    };
+}
+
+sub _compile_scalar_value {
+    my ( $config, $path ) = @_;
+    my $source = _source_selector( $config, $path );
+    return {
+        source => $source,
+        target => dclone( $config->{value} ),
+    };
+}
+
+sub _compile_info_mapping {
+    my ($config) = @_;
+    my $compiled = {
+        source => { fields => dclone( $config->{sourceFields} ) },
+    };
+    $compiled->{target}{ageRange} = dclone( $config->{ageRange} )
+      if exists $config->{ageRange};
+    return $compiled;
+}
+
+sub _compile_collection {
+    my ( $config, $kind, $path ) = @_;
+    die "<$path> must be an object with a <rules> array\n"
+      unless ref($config) eq 'HASH' && ref( $config->{rules} ) eq 'ARRAY';
+
+    my $defaults = $config->{defaults} || {};
+    my @compiled;
+    for my $index ( 0 .. $#{ $config->{rules} } ) {
+        my $rule = $config->{rules}[$index];
+        my $rule_path = "$path.rules[$index]";
+        my ( $source, $target ) = _split_rule( $rule, $rule_path );
+        $target = _deep_merge( $defaults, $target );
+        $target = _normalize_target( $target, $kind, $rule_path );
+        push @compiled, { source => $source, target => $target };
+    }
+    return \@compiled;
+}
+
+sub _split_rule {
+    my ( $rule, $path ) = @_;
+    my $source = _source_selector( $rule, $path );
+    my %target = map { $_ => _clone( $rule->{$_} ) }
+      grep { $_ ne 'sourceField' && $_ ne 'optional' && $_ ne 'when' }
+      keys %{$rule};
+    return ( $source, \%target );
+}
+
+sub _source_selector {
+    my ( $rule, $path ) = @_;
+    die "<$path> must be an object\n" unless ref($rule) eq 'HASH';
+    die "<$path.sourceField> is required\n"
+      unless defined $rule->{sourceField} && length $rule->{sourceField};
+
+    my $source = { field => $rule->{sourceField} };
+    $source->{optional} = $rule->{optional} if exists $rule->{optional};
+    $source->{when} = dclone( $rule->{when} ) if exists $rule->{when};
+    return $source;
+}
+
+sub _deep_merge {
+    my ( $defaults, $overrides ) = @_;
+    my $merged = dclone($defaults);
+
+    for my $key ( keys %{$overrides} ) {
+        if ( !defined $overrides->{$key} ) {
+            delete $merged->{$key};
+        }
+        elsif (
+            ref( $merged->{$key} ) eq 'HASH'
+            && ref( $overrides->{$key} ) eq 'HASH'
+          )
+        {
+            $merged->{$key} = _deep_merge(
+                $merged->{$key},
+                $overrides->{$key},
+            );
+        }
+        else {
+            $merged->{$key} = _clone( $overrides->{$key} );
+        }
+    }
+    return $merged;
+}
+
+sub _normalize_target {
+    my ( $target, $kind, $path ) = @_;
+
+    my %term_paths = (
+        disease => [ [qw(diseaseCode)] ],
+        exposure => [ [qw(exposureCode)], [qw(unit)] ],
+        procedure => [ [qw(procedureCode)], [qw(bodySite)] ],
+        measure => [
+            [qw(assayCode)],
+            [qw(measurementValue quantity unit)],
+            [qw(procedure procedureCode)],
+        ],
+        phenotypicFeature => [ [qw(featureType)] ],
+        treatment => [
+            [qw(treatmentCode)],
+            [qw(routeOfAdministration)],
+            [qw(cumulativeDose unit)],
+            [qw(doseIntervals quantity unit)],
+        ],
+        biosample => [
+            [qw(biosampleStatus)],
+            [qw(sampleOriginType)],
+            [qw(sampleOriginDetail)],
+            [qw(obtentionProcedure procedureCode)],
+        ],
+    );
+
+    _normalize_term_at( $target, @{$_} ) for @{ $term_paths{$kind} || [] };
+
+    if ( $kind eq 'biosample' && exists $target->{measurements} ) {
+        $target->{measurements} = _compile_collection(
+            $target->{measurements},
+            'measure',
+            "$path.measurements",
+        );
+    }
+
+    my %required_paths = (
+        disease           => [ [qw(diseaseCode)] ],
+        exposure          => [ [qw(exposureCode)], [qw(unit)] ],
+        procedure         => [ [qw(procedureCode)] ],
+        measure           => [ [qw(assayCode)], [qw(measurementValue quantity unit)] ],
+        phenotypicFeature => [ [qw(featureType)] ],
+        treatment         => [ [qw(treatmentCode)] ],
+        biosample         => [ [qw(id)], [qw(biosampleStatus)], [qw(sampleOriginType)] ],
+    );
+    _require_target_path( $target, $path, @{$_} )
+      for @{ $required_paths{$kind} || [] };
+
+    if ( $kind eq 'measure' && exists $target->{procedure} ) {
+        _require_target_path( $target, $path, qw(procedure procedureCode) );
+    }
+    if ( $kind eq 'treatment' && exists $target->{cumulativeDose} ) {
+        _require_target_path( $target, $path, qw(cumulativeDose unit) );
+    }
+    if ( $kind eq 'treatment' && exists $target->{doseIntervals} ) {
+        _require_target_path(
+            $target,
+            $path,
+            qw(doseIntervals quantity unit),
+        );
+    }
+    if ( $kind eq 'biosample' && exists $target->{obtentionProcedure} ) {
+        _require_target_path(
+            $target,
+            $path,
+            qw(obtentionProcedure procedureCode),
+        );
+    }
+
+    return $target;
+}
+
+sub _normalize_term_at {
+    my ( $target, @path ) = @_;
+    my $key = pop @path;
+    my $node = $target;
+    for my $part (@path) {
+        return unless ref($node) eq 'HASH' && exists $node->{$part};
+        $node = $node->{$part};
+    }
+    return unless ref($node) eq 'HASH' && exists $node->{$key};
+    $node->{$key} = _normalize_term_target( $node->{$key} );
+    return;
+}
+
+sub _normalize_term_target {
+    my ($target) = @_;
+    my $normalized = dclone($target);
+    if ( exists $normalized->{query} && !ref( $normalized->{query} ) ) {
+        $normalized->{query} = { literal => $normalized->{query} };
+    }
+    return $normalized;
+}
+
+sub _require_target_path {
+    my ( $target, $rule_path, @path ) = @_;
+    my $node = $target;
+    for my $part (@path) {
+        die "<$rule_path> must define target <" . join( '.', @path ) . ">\n"
+          unless ref($node) eq 'HASH' && exists $node->{$part};
+        $node = $node->{$part};
+    }
+    return 1;
+}
+
+sub _clone {
+    my ($value) = @_;
+    return ref($value) ? dclone($value) : $value;
 }
 
 sub _validate_target {
@@ -112,15 +392,15 @@ sub _validate_target {
 }
 
 sub _validate_source_profile {
-    my ( $mapping, $profile ) = @_;
-    my $profiles = $mapping->{source}{profiles};
-    die "The mapping must declare at least one <source.profiles> entry.\n"
-      unless ref($profiles) eq 'ARRAY' && @{$profiles};
+    my ( $mapping, $expected_profile ) = @_;
+    my $source = $mapping->{source};
+    my $profile = ref($source) eq 'HASH' ? $source->{profile} : undef;
+    die "The mapping must declare one <source.profile> value.\n"
+      unless defined $profile && !ref($profile) && length $profile;
 
-    return 1 if grep { $_ eq $profile } @{$profiles};
+    return 1 if $profile eq $expected_profile;
 
-    die "Mapping source profile mismatch: route <$profile> is not listed in <source.profiles> ("
-      . join( ', ', @{$profiles} ) . ").\n";
+    die "Mapping source profile mismatch: normalized route profile <$expected_profile> does not match <source.profile: $profile>.\n";
 }
 
 sub _validate_source_fields {

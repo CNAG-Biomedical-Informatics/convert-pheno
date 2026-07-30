@@ -18,7 +18,7 @@ use Test::ConvertPheno qw(write_json_file);
 sub base_mapping {
     return {
         mappingVersion => 2,
-        source         => { profiles => ['csv'] },
+        source         => { profile => 'csv' },
         target         => {
             model         => 'beacon',
             schemaVersion => '2.0.0',
@@ -32,19 +32,12 @@ sub base_mapping {
         beacon   => {
             individuals => {
                 id => {
-                    source => {
-                        fields     => ['PatientId'],
-                        primaryKey => 'PatientId',
-                    },
+                    sourceFields => ['PatientId'],
+                    primaryKey   => 'PatientId',
                 },
                 sex => {
-                    source => { field => 'Sex' },
-                    target => {
-                        term => {
-                            id    => 'NCIT:C28421',
-                            label => 'Sex',
-                        },
-                    },
+                    sourceField => 'Sex',
+                    query       => 'Biological Sex',
                 },
             },
         },
@@ -63,6 +56,11 @@ lives_ok {
 
 is( $compiled->{_compiled}{sourceProfile}, 'csv', 'compiler records the selected source profile' );
 is( $compiled->{target}{schemaVersion}, '2.0.0', 'mapping declares the supported Beacon schema version' );
+is(
+    $compiled->{beacon}{individuals}{sex}{target}{query}{literal},
+    'Biological Sex',
+    'a concise fixed-label query is normalized for execution',
+);
 
 {
     my $mapping = base_mapping();
@@ -90,7 +88,27 @@ is( $compiled->{target}{schemaVersion}, '2.0.0', 'mapping declares the supported
 
 throws_ok { compile_mapping( base_mapping(), source_profile => 'redcap' ) }
 qr/Mapping source profile mismatch/,
-  'the conversion route must match a declared source profile';
+  'the normalized conversion route must match the declared source profile';
+
+{
+    my $mapping = base_mapping();
+    $mapping->{source}{profile} = 'redcap';
+    my $compiled_cdisc = compile_mapping(
+        $mapping,
+        source_profile => 'cdisc-odm',
+        headers        => [qw(PatientId Sex)],
+    );
+    is(
+        $compiled_cdisc->{_compiled}{sourceProfile},
+        'cdisc-odm',
+        'compiler retains the actual CDISC-ODM source route',
+    );
+    is(
+        $compiled_cdisc->{_compiled}{recordProfile},
+        'redcap',
+        'CDISC-ODM shares the normalized REDCap mapping profile',
+    );
+}
 
 throws_ok {
     compile_mapping(
@@ -104,16 +122,28 @@ qr/source columns not present.*<Sex>/s,
 
 {
     my $mapping = base_mapping();
+    $mapping->{beacon}{individuals}{diseases} = {
+        rules => [ { sourceField => 'Diagnosis' } ],
+    };
+    throws_ok {
+        compile_mapping(
+            $mapping,
+            source_profile => 'csv',
+            headers        => [qw(PatientId Sex Diagnosis)],
+        );
+    }
+    qr/beacon\.individuals\.diseases\.rules\[0\].*diseaseCode/s,
+      'compiled rules must provide required targets directly or through defaults';
+}
+
+{
+    my $mapping = base_mapping();
     $mapping->{beacon}{individuals}{ethnicity} = {
-        source => {
-            field    => 'OptionalEthnicity',
-            optional => 1,
-        },
-        target => {
-            term => {
-                id    => 'NCIT:C16564',
-                label => 'Ethnic Group',
-            },
+        sourceField => 'OptionalEthnicity',
+        optional    => 1,
+        term        => {
+            id    => 'NCIT:C16564',
+            label => 'Ethnic Group',
         },
     };
     lives_ok {

@@ -17,7 +17,7 @@ use Test::ConvertPheno qw(write_json_file);
 
 my $mapping = {
     mappingVersion => 2,
-    source         => { profiles => ['csv'] },
+    source         => { profile => 'csv' },
     target         => {
         model         => 'beacon',
         schemaVersion => '2.0.0',
@@ -36,97 +36,108 @@ my $mapping = {
     beacon => {
         individuals => {
             id => {
-                source => {
-                    fields     => [qw(ParticipantId Visit)],
-                    primaryKey => 'ParticipantId',
-                },
+                sourceFields => [qw(ParticipantId Visit)],
+                primaryKey   => 'ParticipantId',
             },
             sex => {
-                source => { field => 'Sex' },
-                target => {
-                    query => { from => 'value' },
-                    terms => {
-                        Female => {
-                            id    => 'NCIT:C16576',
-                            label => 'Female',
-                        },
+                sourceField => 'Sex',
+                query       => { from => 'value' },
+                terms       => {
+                    Female => {
+                        id    => 'NCIT:C16576',
+                        label => 'Female',
                     },
                 },
+            },
+            interventionsOrProcedures => {
+                defaults => {
+                    bodySite => { query => 'Intestine' },
+                },
+                rules => [
+                    {
+                        sourceField  => 'Procedure',
+                        optional     => JSON::PP::true,
+                        procedureCode => { query => 'Procedure' },
+                        bodySite     => undef,
+                    },
+                ],
             },
         },
         biosamples => {
-            mappings => [
-                {
-                    source => {
-                        field => 'SampleId',
-                        when  => { nonEmpty => JSON::PP::true },
+            defaults => {
+                id           => { from => 'sourceValue' },
+                individualId => { from => 'individualId' },
+                biosampleStatus => {
+                    term => {
+                        id    => 'NCIT:C126101',
+                        label => 'Not Available',
                     },
-                    target => {
-                        id              => { from => 'sourceValue' },
-                        individualId    => { from => 'individualId' },
-                        biosampleStatus => {
+                },
+                sampleOriginType => {
+                    term => {
+                        id    => 'NCIT:C17610',
+                        label => 'Blood Sample',
+                    },
+                },
+            },
+            rules => [
+                {
+                    sourceField    => 'SampleId',
+                    when          => { nonEmpty => JSON::PP::true },
+                    collectionDate => { sourceField => 'SampleDate' },
+                    notes          => { sourceField => 'SampleNote' },
+                    obtentionProcedure => {
+                        procedureCode => {
                             term => {
-                                id    => 'NCIT:C126101',
-                                label => 'Not Available',
+                                id    => 'NCIT:C15189',
+                                label => 'Biopsy',
                             },
                         },
-                        sampleOriginType => {
-                            term => {
-                                id    => 'NCIT:C17610',
-                                label => 'Blood Sample',
-                            },
-                        },
-                        collectionDate => { sourceField => 'SampleDate' },
-                        notes          => { sourceField => 'SampleNote' },
-                        obtentionProcedure => {
-                            procedureCode => {
-                                term => {
-                                    id    => 'NCIT:C15189',
-                                    label => 'Biopsy',
-                                },
-                            },
-                        },
-                        measurements => [
-                            {
-                                source => {
-                                    field => 'SampleMass',
-                                    when  => { nonEmpty => JSON::PP::true },
-                                },
-                                target => {
-                                    assayCode => {
+                    },
+                    measurements => {
+                        defaults => {
+                            measurementValue => {
+                                quantity => {
+                                    unit => {
                                         term => {
-                                            id    => 'NCIT:C25208',
-                                            label => 'Weight',
+                                            id    => 'UO:0000021',
+                                            label => 'gram',
                                         },
                                     },
-                                    measurementValue => {
-                                        quantity => {
-                                            value => { from => 'sourceValue' },
-                                            unit  => {
-                                                term => {
-                                                    id    => 'UO:0000021',
-                                                    label => 'gram',
-                                                },
-                                            },
-                                            referenceRange => {
-                                                low  => 0,
-                                                high => 10,
-                                            },
-                                        },
+                                    referenceRange => {
+                                        low  => 0,
+                                        high => 10,
                                     },
-                                    procedure => {
-                                        procedureCode => {
-                                            term => {
-                                                id    => 'NCIT:C68785',
-                                                label => 'Weighing',
-                                            },
-                                        },
+                                },
+                            },
+                            procedure => {
+                                procedureCode => {
+                                    term => {
+                                        id    => 'NCIT:C68785',
+                                        label => 'Weighing',
+                                    },
+                                },
+                            },
+                        },
+                        rules => [
+                            {
+                                sourceField => 'SampleMass',
+                                when        => { nonEmpty => JSON::PP::true },
+                                assayCode   => {
+                                    term => {
+                                        id    => 'NCIT:C25208',
+                                        label => 'Weight',
+                                    },
+                                },
+                                measurementValue => {
+                                    quantity => {
+                                        value => { from => 'sourceValue' },
                                     },
                                 },
                             },
                         ],
-                        info => { sourceFields => ['SampleSource'] },
                     },
+                    info => { sourceFields => ['SampleSource'] },
                 },
             ],
         },
@@ -152,10 +163,32 @@ lives_ok {
 my @headers = qw(
   ParticipantId Visit Sex SampleId SampleDate SampleNote SampleMass SampleSource
 );
+my $mapping_before_compile = dclone($validated_mapping);
 my $compiled = compile_mapping(
     $validated_mapping,
     source_profile => 'csv',
     headers        => \@headers,
+);
+is_deeply(
+    $validated_mapping,
+    $mapping_before_compile,
+    'compilation does not mutate the author-facing mapping',
+);
+is(
+    $compiled->{beacon}{biosamples}{mappings}[0]{source}{field},
+    'SampleId',
+    'compact sourceField is compiled to the execution selector',
+);
+is(
+    $compiled->{beacon}{biosamples}{mappings}[0]{target}{measurements}[0]
+      {target}{measurementValue}{quantity}{unit}{term}{id},
+    'UO:0000021',
+    'nested collection defaults are deep-merged into compiled rules',
+);
+ok(
+    !exists $compiled->{beacon}{individuals}{interventionsOrProcedures}[0]
+      {target}{bodySite},
+    'null removes an optional inherited target property',
 );
 
 my $converter = bless {

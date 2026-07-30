@@ -1,7 +1,7 @@
 mappingVersion: 2
 
 source:
-  profiles: [redcap, cdisc-odm]
+  profile: redcap
 
 target:
   model: beacon
@@ -25,32 +25,26 @@ records:
 beacon:
   individuals:
     id:
-      source:
-        fields: [study_id, redcap_event_name]
-        primaryKey: study_id
+      sourceFields: [study_id, redcap_event_name]
+      primaryKey: study_id
       separator: ':'
       missingValue: NA
 
     sex:
-      source:
-        field: sex
-      target:
-        query: { from: value }
+      sourceField: sex
+      query: { from: value }
 
     ethnicity:
-      source:
-        field: ethnicity
-      target:
-        query:
-          from: value
-          aliases:
-            Caucasian: White
+      sourceField: ethnicity
+      query:
+        from: value
+        aliases:
+          Caucasian: White
 
     diseases:
-      - source:
-          field: diagnosis
+      rules:
+        - sourceField: diagnosis
           when: { nonEmpty: true }
-        target:
           diseaseCode:
             query:
               from: value
@@ -63,12 +57,12 @@ beacon:
             sourceField: family_history
 
     exposures:
-      - source:
-          field: alcohol
+      defaults:
+        unit: { query: { from: value } }
+      rules:
+        - sourceField: alcohol
           when: { notValues: ['No', 'False'] }
-        target:
-          exposureCode:
-            query: { literal: Alcohol }
+          exposureCode: { query: Alcohol }
           unit:
             query:
               from: value
@@ -78,12 +72,9 @@ beacon:
                 occasional drinking: Alcohol Consumption Equal to or Less than 2 Drinks per Day for Men and 1 Drink or Less per Day for Women
                 regular drinking: Alcohol Consumption More than 2 Drinks per Day for Men and More than 1 Drink per Day for Women
                 unknown: Unknown
-      - source:
-          field: smoking
+        - sourceField: smoking
           when: { notValues: ['No', 'False'] }
-        target:
-          exposureCode:
-            query: { literal: Smoking }
+          exposureCode: { query: Smoking }
           unit:
             query:
               from: value
@@ -91,282 +82,150 @@ beacon:
                 Never smoked: Never Smoker
                 Ex-smoker: Former Smoker
                 Current smoker: Current Smoker
-      - source: { field: cigarettes_days }
-        target:
-          exposureCode:
-            query: { literal: Average Number Cigarettes Smoked a Day }
-          unit:
-            query: { from: value }
-      - source: { field: cigarettes_years }
-        target:
-          exposureCode:
-            query: { literal: Total Years Have Smoked Cigarettes }
-          unit:
-            query: { from: value }
-      - source: { field: packyears }
-        target:
-          exposureCode:
-            query: { literal: Pack Year }
-          unit:
-            query: { from: value }
-      - source: { field: smoking_quit }
-        target:
-          exposureCode:
-            query: { literal: Smoking Cessation Year }
-          unit:
-            query: { from: value }
+        - sourceField: cigarettes_days
+          exposureCode: { query: Average Number Cigarettes Smoked a Day }
+        - sourceField: cigarettes_years
+          exposureCode: { query: Total Years Have Smoked Cigarettes }
+        - sourceField: packyears
+          exposureCode: { query: Pack Year }
+        - sourceField: smoking_quit
+          exposureCode: { query: Smoking Cessation Year }
 
     info:
-      source:
-        fields: [study_id, dob, diet, redcap_event_name, age, first_name, last_name, consent, consent_date, consent_noneu, consent_devices, consent_recontact, consent_week2_endo, education, zipcode, consents_and_demographics_complete]
-      target:
-        ageRange:
-          sourceField: age
+      sourceFields: [study_id, dob, diet, redcap_event_name, age, first_name, last_name, consent, consent_date, consent_noneu, consent_devices, consent_recontact, consent_week2_endo, education, zipcode, consents_and_demographics_complete]
+      ageRange: { sourceField: age }
 
     interventionsOrProcedures:
-      - source: { field: surgery_details___1 }
-        target:
-          procedureCode: { query: { literal: Ileocolectomy } }
-          bodySite: { query: { literal: Intestine } }
-      - source: { field: surgery_details___2 }
-        target:
-          procedureCode: { query: { literal: Colostomy } }
-          bodySite: { query: { literal: Intestine } }
-      - source: { field: surgery_details___3 }
-        target:
-          procedureCode: { query: { literal: Ileostomy } }
-          bodySite: { query: { literal: Intestine } }
-      - source: { field: surgery_details___4 }
-        target:
-          procedureCode: { query: { literal: Fistula Repair } }
-          bodySite: { query: { literal: Intestine } }
-      - source: { field: surgery_details___5 }
-        target:
-          procedureCode: { query: { literal: Colectomy } }
-          bodySite: { query: { literal: Intestine } }
-      - source: { field: surgery_details___6 }
-        target:
-          procedureCode: { query: { literal: Hemicolectomy } }
-          bodySite: { query: { literal: Intestine } }
-      - source: { field: surgery_details___7 }
-        target:
-          procedureCode: { query: { literal: Colon Resection } }
-          bodySite: { query: { literal: Intestine } }
-      - source: { field: surgery_details___8 }
-        target:
-          procedureCode: { query: { literal: Strictureplasty } }
-          bodySite: { query: { literal: Intestine } }
-      - source: { field: surgery_details___99 }
-        target:
-          procedureCode: { query: { literal: Other } }
-          bodySite: { query: { literal: Intestine } }
-      - source: { field: endoscopy_performed }
-        target:
-          procedureCode: { query: { literal: Gastrointestinal Endoscopy } }
+      rules:
+        - sourceField: surgery_details___1
+          procedureCode: { query: Ileocolectomy }
+          bodySite: { query: Intestine }
+        - sourceField: surgery_details___2
+          procedureCode: { query: Colostomy }
+          bodySite: { query: Intestine }
+        - sourceField: surgery_details___3
+          procedureCode: { query: Ileostomy }
+          bodySite: { query: Intestine }
+        - sourceField: surgery_details___4
+          procedureCode: { query: Fistula Repair }
+          bodySite: { query: Intestine }
+        - sourceField: surgery_details___5
+          procedureCode: { query: Colectomy }
+          bodySite: { query: Intestine }
+        - sourceField: surgery_details___6
+          procedureCode: { query: Hemicolectomy }
+          bodySite: { query: Intestine }
+        - sourceField: surgery_details___7
+          procedureCode: { query: Colon Resection }
+          bodySite: { query: Intestine }
+        - sourceField: surgery_details___8
+          procedureCode: { query: Strictureplasty }
+          bodySite: { query: Intestine }
+        - sourceField: surgery_details___99
+          procedureCode: { query: Other }
+          bodySite: { query: Intestine }
+        - sourceField: endoscopy_performed
+          procedureCode: { query: Gastrointestinal Endoscopy }
           dateOfProcedure: { sourceField: endoscopy_date }
-      - source: { field: endoscopy_complete }
-        target:
+        - sourceField: endoscopy_complete
           procedureCode: { query: { from: value } }
-      - source: { field: intestinal_surgery }
-        target:
+        - sourceField: intestinal_surgery
           procedureCode: { query: { from: value } }
-      - source: { field: partial_mayo }
-        target:
+        - sourceField: partial_mayo
           procedureCode: { query: { from: value } }
-      - source: { field: complete_mayo }
-        target:
+        - sourceField: complete_mayo
           procedureCode: { query: { from: value } }
-      - source: { field: prev_endosc_dilatation }
-        target:
+        - sourceField: prev_endosc_dilatation
           procedureCode: { query: { from: value } }
 
     measures:
-      - &bloodMeasure
-        source: { field: leucocytes }
-        target:
-          assayCode: { query: { literal: Leukocyte Count } }
-          measurementValue:
-            quantity:
-              unit: &redcapUnit
-                query:
-                  from: fieldNote
-                  aliases: &unitAliases
-                    'xx.xx /10^-9 l': Cells per Microliter
-                    'x.xx /10^-9 l': Cells per Microliter
-                    'xxxx /10^-9 l': Cells per Microliter
-                    'xx.x g/dl': Gram per Deciliter
-                    'xx.x fl': Femtoliter
-                    'xx.x': Picogram
-                    'xx.x pg': Picogram
-                    'xx.x µmol/l': Micromole per Liter
-                    'xxx.x µmol/l': Micromole per Liter
-                    'xxx µmol/l': Micromole per Liter
-                    'ml/min/1.73': Glomerular Filtration Rate Adjusted for BSA
-                    'xxx ml/min/1.73': Glomerular Filtration Rate Adjusted for BSA
-                    'xx.x U/l': International Unit per Liter
-                    'pg/dl': Picogram per Deciliter
-                    'mg/dl': Milligram per Deciliter
-                    'xxx.x mg/l': Milligram per Liter per Milligram
-                    'µg/dl': Microgram per Deciliter
-                    'ng/dl': Nanogram per Deciliter
-                    'xxxx.x ng/l': Nanogram per Liter
-                    'mg/kg stool': Microgram per Kilogram
-                    'xx.x %': Percentage
-              referenceRange: { from: redcapDictionary }
-          procedure: &bloodProcedure
-            procedureCode: { query: { literal: Blood Test Result } }
-      - source: { field: hemoglobin }
-        target:
-          assayCode: { query: { literal: Hemoglobin Measurement } }
-          measurementValue: { quantity: { unit: *redcapUnit, referenceRange: { from: redcapDictionary } } }
-          procedure: *bloodProcedure
-      - source: { field: hematokrit }
-        target:
-          assayCode: { query: { literal: Hematocrit Measurement } }
-          measurementValue: { quantity: { unit: *redcapUnit, referenceRange: { from: redcapDictionary } } }
-          procedure: *bloodProcedure
-      - source: { field: mcv }
-        target:
-          assayCode: { query: { literal: Erythrocyte Mean Corpuscular Volume } }
-          measurementValue: { quantity: { unit: *redcapUnit, referenceRange: { from: redcapDictionary } } }
-          procedure: *bloodProcedure
-      - source: { field: mhc }
-        target:
-          assayCode: { query: { literal: Erythrocyte Mean Corpuscular Hemoglobin } }
-          measurementValue: { quantity: { unit: *redcapUnit, referenceRange: { from: redcapDictionary } } }
-          procedure: *bloodProcedure
-      - source: { field: thrombocytes }
-        target:
-          assayCode: { query: { literal: Platelet Count } }
-          measurementValue: { quantity: { unit: *redcapUnit, referenceRange: { from: redcapDictionary } } }
-          procedure: *bloodProcedure
-      - source: { field: neutrophils }
-        target:
-          assayCode: { query: { literal: Neutrophil Count } }
-          measurementValue: { quantity: { unit: *redcapUnit, referenceRange: { from: redcapDictionary } } }
-          procedure: *bloodProcedure
-      - source: { field: lymphocytes }
-        target:
-          assayCode: { query: { literal: Lymphocyte Count } }
-          measurementValue: { quantity: { unit: *redcapUnit, referenceRange: { from: redcapDictionary } } }
-          procedure: *bloodProcedure
-      - source: { field: eosinophils }
-        target:
-          assayCode: { query: { literal: Eosinophil Count } }
-          measurementValue: { quantity: { unit: *redcapUnit, referenceRange: { from: redcapDictionary } } }
-          procedure: *bloodProcedure
-      - source: { field: creatinine }
-        target:
-          assayCode: { query: { literal: Creatinine Measurement } }
-          measurementValue: { quantity: { unit: *redcapUnit, referenceRange: { from: redcapDictionary } } }
-          procedure: *bloodProcedure
-      - source: { field: gfr }
-        target:
-          assayCode: { query: { literal: Glomerular Filtration Rate } }
-          measurementValue: { quantity: { unit: *redcapUnit, referenceRange: { from: redcapDictionary } } }
-          procedure: *bloodProcedure
-      - source: { field: bilirubin }
-        target:
-          assayCode: { query: { literal: Total Bilirubin Measurement } }
-          measurementValue: { quantity: { unit: *redcapUnit, referenceRange: { from: redcapDictionary } } }
-          procedure: *bloodProcedure
-      - source: { field: gpt }
-        target:
-          assayCode: { query: { literal: 'Serum Glutamic Pyruvic Transaminase, CTCAE' } }
-          measurementValue: { quantity: { unit: *redcapUnit, referenceRange: { from: redcapDictionary } } }
-          procedure: *bloodProcedure
-      - source: { field: ggt }
-        target:
-          assayCode: { query: { literal: Serum Gamma Glutamyl Transpeptidase Measurement } }
-          measurementValue: { quantity: { unit: *redcapUnit, referenceRange: { from: redcapDictionary } } }
-          procedure: *bloodProcedure
-      - source: { field: lipase }
-        target:
-          assayCode: { query: { literal: Lipase Measurement } }
-          measurementValue: { quantity: { unit: *redcapUnit, referenceRange: { from: redcapDictionary } } }
-          procedure: *bloodProcedure
-      - source: { field: crp }
-        target:
-          assayCode: { query: { literal: C-Reactive Protein Measurement } }
-          measurementValue: { quantity: { unit: *redcapUnit, referenceRange: { from: redcapDictionary } } }
-          procedure: *bloodProcedure
-      - source: { field: iron }
-        target:
-          assayCode: { query: { literal: Iron Measurement } }
-          measurementValue: { quantity: { unit: *redcapUnit, referenceRange: { from: redcapDictionary } } }
-          procedure: *bloodProcedure
-      - source: { field: il6 }
-        target:
-          assayCode: { query: { literal: Interleukin-6 } }
-          measurementValue: { quantity: { unit: *redcapUnit, referenceRange: { from: redcapDictionary } } }
-          procedure: *bloodProcedure
-      - source: { field: calprotectin }
-        target:
-          assayCode: { query: { literal: Calprotectin Measurement } }
-          measurementValue: { quantity: { unit: *redcapUnit, referenceRange: { from: redcapDictionary } } }
-          procedure:
-            procedureCode: { query: { literal: Feces } }
-      - source: { field: nancy_index_acute }
-        target:
-          assayCode: { query: { literal: nancy_index_acute } }
-          measurementValue: { quantity: { unit: *redcapUnit, referenceRange: { from: redcapDictionary } } }
-          procedure: &histologyProcedure
-            procedureCode: { query: { literal: Histologic } }
-      - source: { field: nancy_index_chronic }
-        target:
-          assayCode: { query: { literal: nancy_index_chronic } }
-          measurementValue: { quantity: { unit: *redcapUnit, referenceRange: { from: redcapDictionary } } }
-          procedure: *histologyProcedure
-      - source: { field: nancy_index_ulceration }
-        target:
-          assayCode: { query: { literal: nancy_index_ulceration } }
-          measurementValue: { quantity: { unit: *redcapUnit, referenceRange: { from: redcapDictionary } } }
-          procedure: *histologyProcedure
-      - source: { field: endo_mayo }
-        target:
-          assayCode: { query: { literal: endo_mayo } }
-          measurementValue: { quantity: { unit: *redcapUnit, referenceRange: { from: redcapDictionary } } }
-          procedure: *bloodProcedure
+      defaults:
+        measurementValue:
+          quantity:
+            unit:
+              query:
+                from: fieldNote
+                aliases:
+                  'xx.xx /10^-9 l': Cells per Microliter
+                  'x.xx /10^-9 l': Cells per Microliter
+                  'xxxx /10^-9 l': Cells per Microliter
+                  'xx.x g/dl': Gram per Deciliter
+                  'xx.x fl': Femtoliter
+                  'xx.x': Picogram
+                  'xx.x pg': Picogram
+                  'xx.x µmol/l': Micromole per Liter
+                  'xxx.x µmol/l': Micromole per Liter
+                  'xxx µmol/l': Micromole per Liter
+                  'ml/min/1.73': Glomerular Filtration Rate Adjusted for BSA
+                  'xxx ml/min/1.73': Glomerular Filtration Rate Adjusted for BSA
+                  'xx.x U/l': International Unit per Liter
+                  'pg/dl': Picogram per Deciliter
+                  'mg/dl': Milligram per Deciliter
+                  'xxx.x mg/l': Milligram per Liter per Milligram
+                  'µg/dl': Microgram per Deciliter
+                  'ng/dl': Nanogram per Deciliter
+                  'xxxx.x ng/l': Nanogram per Liter
+                  'mg/kg stool': Microgram per Kilogram
+                  'xx.x %': Percentage
+            referenceRange: { from: redcapDictionary }
+        procedure:
+          procedureCode: { query: Blood Test Result }
+      rules:
+        - { sourceField: leucocytes, assayCode: { query: Leukocyte Count } }
+        - { sourceField: hemoglobin, assayCode: { query: Hemoglobin Measurement } }
+        - { sourceField: hematokrit, assayCode: { query: Hematocrit Measurement } }
+        - { sourceField: mcv, assayCode: { query: Erythrocyte Mean Corpuscular Volume } }
+        - { sourceField: mhc, assayCode: { query: Erythrocyte Mean Corpuscular Hemoglobin } }
+        - { sourceField: thrombocytes, assayCode: { query: Platelet Count } }
+        - { sourceField: neutrophils, assayCode: { query: Neutrophil Count } }
+        - { sourceField: lymphocytes, assayCode: { query: Lymphocyte Count } }
+        - { sourceField: eosinophils, assayCode: { query: Eosinophil Count } }
+        - { sourceField: creatinine, assayCode: { query: Creatinine Measurement } }
+        - { sourceField: gfr, assayCode: { query: Glomerular Filtration Rate } }
+        - { sourceField: bilirubin, assayCode: { query: Total Bilirubin Measurement } }
+        - { sourceField: gpt, assayCode: { query: 'Serum Glutamic Pyruvic Transaminase, CTCAE' } }
+        - { sourceField: ggt, assayCode: { query: Serum Gamma Glutamyl Transpeptidase Measurement } }
+        - { sourceField: lipase, assayCode: { query: Lipase Measurement } }
+        - { sourceField: crp, assayCode: { query: C-Reactive Protein Measurement } }
+        - { sourceField: iron, assayCode: { query: Iron Measurement } }
+        - { sourceField: il6, assayCode: { query: Interleukin-6 } }
+        - sourceField: calprotectin
+          assayCode: { query: Calprotectin Measurement }
+          procedure: { procedureCode: { query: Feces } }
+        - sourceField: nancy_index_acute
+          assayCode: { query: nancy_index_acute }
+          procedure: { procedureCode: { query: Histologic } }
+        - sourceField: nancy_index_chronic
+          assayCode: { query: nancy_index_chronic }
+          procedure: { procedureCode: { query: Histologic } }
+        - sourceField: nancy_index_ulceration
+          assayCode: { query: nancy_index_ulceration }
+          procedure: { procedureCode: { query: Histologic } }
+        - { sourceField: endo_mayo, assayCode: { query: endo_mayo } }
 
     phenotypicFeatures:
-      - source: { field: comorb_asthma }
-        target: { featureType: { query: { literal: Asthma } } }
-      - source: { field: comorb_copd }
-        target: { featureType: { query: { literal: Chronic Obstructive Pulmonary Disease } } }
-      - source: { field: comorb_ms }
-        target: { featureType: { query: { literal: Multiple Sclerosis } } }
-      - source: { field: comorb_sle }
-        target: { featureType: { query: { literal: Systemic Lupus Erythematosus } } }
-      - source: { field: comorb_ra }
-        target: { featureType: { query: { literal: Rheumatoid Arthritis } } }
-      - source: { field: comorb_pso }
-        target: { featureType: { query: { literal: Psoriasis } } }
-      - source: { field: comorb_ad }
-        target: { featureType: { query: { literal: Atopy } } }
-      - source: { field: comorb_cancer }
-        target: { featureType: { query: { literal: Cancer Diagnosis } } }
-      - source:
-          field: comorb_cancer_specified
+      rules:
+        - { sourceField: comorb_asthma, featureType: { query: Asthma } }
+        - { sourceField: comorb_copd, featureType: { query: Chronic Obstructive Pulmonary Disease } }
+        - { sourceField: comorb_ms, featureType: { query: Multiple Sclerosis } }
+        - { sourceField: comorb_sle, featureType: { query: Systemic Lupus Erythematosus } }
+        - { sourceField: comorb_ra, featureType: { query: Rheumatoid Arthritis } }
+        - { sourceField: comorb_pso, featureType: { query: Psoriasis } }
+        - { sourceField: comorb_ad, featureType: { query: Atopy } }
+        - { sourceField: comorb_cancer, featureType: { query: Cancer Diagnosis } }
+        - sourceField: comorb_cancer_specified
           when: { nonEmpty: true }
-        target:
           featureType:
             query:
               from: value
               aliases: { cancer: Cancer Patient }
-      - source: { field: comorb_hypertension }
-        target: { featureType: { query: { literal: Hypertension } } }
-      - source: { field: comorb_diabetes }
-        target: { featureType: { query: { literal: Diabetes Mellitus } } }
-      - source: { field: comorb_lipids }
-        target: { featureType: { query: { literal: Dyslipidemia } } }
-      - source: { field: comorb_stroke }
-        target: { featureType: { query: { literal: Stroke } } }
-      - source: { field: comorb_other_ai }
-        target: { featureType: { query: { literal: Other } } }
-      - source:
-          field: comorb_other_ai_specified
+        - { sourceField: comorb_hypertension, featureType: { query: Hypertension } }
+        - { sourceField: comorb_diabetes, featureType: { query: Diabetes Mellitus } }
+        - { sourceField: comorb_lipids, featureType: { query: Dyslipidemia } }
+        - { sourceField: comorb_stroke, featureType: { query: Stroke } }
+        - { sourceField: comorb_other_ai, featureType: { query: Other } }
+        - sourceField: comorb_other_ai_specified
           when: { nonEmpty: true }
-        target:
           featureType:
             query:
               from: value
@@ -375,187 +234,104 @@ beacon:
                 COPD: Chronic Obstructive Pulmonary Disease
                 'demyelating disease/multiple sclerosis': Multiple Sclerosis
                 'Hyper-/dyslipidemia': Dyslipidemia
-      - source: { field: immunodeficiency }
-        target: { featureType: { query: { literal: Primary Immunodeficiency Syndrome } } }
-      - source: { field: rectal_bleeding }
-        target: { featureType: { query: { literal: Rectal Hemorrhage } } }
+        - { sourceField: immunodeficiency, featureType: { query: Primary Immunodeficiency Syndrome } }
+        - { sourceField: rectal_bleeding, featureType: { query: Rectal Hemorrhage } }
 
     treatments:
-      - source: &activeAsa
-          field: asa_oral_status
+      defaults:
+        routeOfAdministration: { query: Oral Route of Administration }
+        cumulativeDose:
+          unit: { query: Week }
+        doseIntervals:
+          quantity:
+            unit: { query: Milligram }
+      rules:
+        - sourceField: asa_oral_status
           when: { values: [former treatment, current treatment] }
-        target:
-          treatmentCode: { query: { literal: aspirin } }
-          routeOfAdministration: &oralRoute
-            query: { literal: Oral Route of Administration }
+          treatmentCode: { query: aspirin }
           cumulativeDose:
             value: { sourceField: asa_oral_duration }
-            unit: &weekUnit
-              query: { literal: Week }
           doseIntervals:
             quantity:
               value: { sourceField: asa_oral_dose }
-              unit: &milligramUnit
-                query: { literal: Milligram }
-      - source:
-          field: aza_status
+        - sourceField: aza_status
           when: { values: [former treatment, current treatment] }
-        target:
-          treatmentCode: { query: { literal: azathioprine } }
-          routeOfAdministration: *oralRoute
-          cumulativeDose: { value: { sourceField: aza_duration }, unit: *weekUnit }
-          doseIntervals: { quantity: { value: { sourceField: aza_dose }, unit: *milligramUnit } }
-      - source:
-          field: mtx_status
+          treatmentCode: { query: azathioprine }
+          cumulativeDose: { value: { sourceField: aza_duration } }
+          doseIntervals: { quantity: { value: { sourceField: aza_dose } } }
+        - sourceField: mtx_status
           when: { values: [former treatment, current treatment] }
-        target:
-          treatmentCode: { query: { literal: methotrexate } }
-          routeOfAdministration: *oralRoute
-          cumulativeDose: { value: { sourceField: mtx_duration }, unit: *weekUnit }
-          doseIntervals: { quantity: { value: { sourceField: mtx_dose }, unit: *milligramUnit } }
-      - source:
-          field: mp_status
+          treatmentCode: { query: methotrexate }
+          cumulativeDose: { value: { sourceField: mtx_duration } }
+          doseIntervals: { quantity: { value: { sourceField: mtx_dose } } }
+        - sourceField: mp_status
           when: { values: [former treatment, current treatment] }
-        target:
-          treatmentCode: { query: { literal: mercaptopurine } }
-          routeOfAdministration: *oralRoute
-          cumulativeDose: { value: { sourceField: mp_duration }, unit: *weekUnit }
-          doseIntervals: { quantity: { value: { sourceField: mp_dose }, unit: *milligramUnit } }
-      - source:
-          field: prednisolone_status
+          treatmentCode: { query: mercaptopurine }
+          cumulativeDose: { value: { sourceField: mp_duration } }
+          doseIntervals: { quantity: { value: { sourceField: mp_dose } } }
+        - sourceField: prednisolone_status
           when: { values: [former treatment, current treatment] }
-        target:
-          treatmentCode: { query: { literal: prednisolone } }
-          routeOfAdministration: *oralRoute
-          cumulativeDose: { value: { sourceField: prednisolone_duration }, unit: *weekUnit }
-          doseIntervals: { quantity: { value: { sourceField: prednisolone_dose }, unit: *milligramUnit } }
+          treatmentCode: { query: prednisolone }
+          cumulativeDose: { value: { sourceField: prednisolone_duration } }
+          doseIntervals: { quantity: { value: { sourceField: prednisolone_dose } } }
 
   biosamples:
-    mappings:
-      - source: { field: id_pbmc, when: { nonEmpty: true } }
-        target:
-          id: { from: sourceValue }
-          individualId: { from: individualId }
-          biosampleStatus: &unknownStatus
-            term: { id: 'NCIT:C126101', label: Not Available }
-          sampleOriginType:
-            query: { literal: Peripheral Blood Mononuclear Cell }
-          collectionDate: { sourceField: study_blood_date }
-          info: { sourceFields: [number_pbmc, study_blood_remarks] }
-      - source: { field: id_heparin, optional: true, when: { nonEmpty: true } }
-        target:
-          id: { from: sourceValue }
-          individualId: { from: individualId }
-          biosampleStatus: *unknownStatus
-          sampleOriginType: &wholeBlood
-            query: { literal: Whole Blood }
-          collectionDate: { sourceField: study_blood_date }
-          info: { sourceFields: [number_heparin, study_blood_remarks] }
-      - source: { field: id_smart, optional: true, when: { nonEmpty: true } }
-        target:
-          id: { from: sourceValue }
-          individualId: { from: individualId }
-          biosampleStatus: *unknownStatus
-          sampleOriginType: *wholeBlood
-          collectionDate: { sourceField: study_blood_date }
-          info: { sourceFields: [number_smart, study_blood_remarks] }
-      - source: { field: id_serum, when: { nonEmpty: true } }
-        target:
-          id: { from: sourceValue }
-          individualId: { from: individualId }
-          biosampleStatus: *unknownStatus
-          sampleOriginType:
-            query: { literal: Serum }
-          collectionDate: { sourceField: study_blood_date }
-          info: { sourceFields: [number_serum, study_blood_remarks] }
-      - source: { field: id_cispt, when: { nonEmpty: true } }
-        target:
-          id: { from: sourceValue }
-          individualId: { from: individualId }
-          biosampleStatus: *unknownStatus
-          sampleOriginType: *wholeBlood
-          collectionDate: { sourceField: study_blood_date }
-          info: { sourceFields: [number_cispt, study_blood_remarks] }
-      - source: { field: id_plasma, when: { nonEmpty: true } }
-        target:
-          id: { from: sourceValue }
-          individualId: { from: individualId }
-          biosampleStatus: *unknownStatus
-          sampleOriginType:
-            query: { literal: Plasma }
-          collectionDate: { sourceField: study_blood_date }
-          info: { sourceFields: [number_plasma, study_blood_remarks] }
-      - source: { field: id_pax, when: { nonEmpty: true } }
-        target:
-          id: { from: sourceValue }
-          individualId: { from: individualId }
-          biosampleStatus: *unknownStatus
-          sampleOriginType: *wholeBlood
-          collectionDate: { sourceField: study_blood_date }
-          info: { sourceFields: [number_pax, study_blood_remarks] }
-      - &nativeBiopsy
-        source: { field: id_least_bio_native, when: { nonEmpty: true } }
-        target:
-          id: { from: sourceValue }
-          individualId: { from: individualId }
-          biosampleStatus: *unknownStatus
-          sampleOriginType: &tissue
-            query: { literal: Tissue }
-          collectionDate: { sourceField: endoscopy_date }
-          info: { sourceFields: [number_least_bio_native, biopsy_remarks] }
-      - source: { field: id_least_bio_native_2, when: { nonEmpty: true } }
-        target:
-          id: { from: sourceValue }
-          individualId: { from: individualId }
-          biosampleStatus: *unknownStatus
-          sampleOriginType: *tissue
-          collectionDate: { sourceField: endoscopy_date }
-          info: { sourceFields: [number_least_bio_native_2, biopsy_remarks] }
-      - source: { field: id_least_bio_freezing, when: { nonEmpty: true } }
-        target:
-          id: { from: sourceValue }
-          individualId: { from: individualId }
-          biosampleStatus: *unknownStatus
-          sampleOriginType: *tissue
-          collectionDate: { sourceField: endoscopy_date }
-          info: { sourceFields: [number_least_bio_freezing, biopsy_remarks] }
-      - source: { field: id_least_bio_freezing_2, when: { nonEmpty: true } }
-        target:
-          id: { from: sourceValue }
-          individualId: { from: individualId }
-          biosampleStatus: *unknownStatus
-          sampleOriginType: *tissue
-          collectionDate: { sourceField: endoscopy_date }
-          info: { sourceFields: [number_least_bio_freezing_2, biopsy_remarks] }
-      - source: { field: id_most_bio_native, when: { nonEmpty: true } }
-        target:
-          id: { from: sourceValue }
-          individualId: { from: individualId }
-          biosampleStatus: *unknownStatus
-          sampleOriginType: *tissue
-          collectionDate: { sourceField: endoscopy_date }
-          info: { sourceFields: [number_most_bio_native, biopsy_remarks] }
-      - source: { field: id_most_bio_native_2, when: { nonEmpty: true } }
-        target:
-          id: { from: sourceValue }
-          individualId: { from: individualId }
-          biosampleStatus: *unknownStatus
-          sampleOriginType: *tissue
-          collectionDate: { sourceField: endoscopy_date }
-          info: { sourceFields: [number_most_bio_native_2, biopsy_remarks] }
-      - source: { field: id_most_bio_freezing, when: { nonEmpty: true } }
-        target:
-          id: { from: sourceValue }
-          individualId: { from: individualId }
-          biosampleStatus: *unknownStatus
-          sampleOriginType: *tissue
-          collectionDate: { sourceField: endoscopy_date }
-          info: { sourceFields: [number_most_bio_freezing, biopsy_remarks] }
-      - source: { field: id_most_bio_freezing_2, when: { nonEmpty: true } }
-        target:
-          id: { from: sourceValue }
-          individualId: { from: individualId }
-          biosampleStatus: *unknownStatus
-          sampleOriginType: *tissue
-          collectionDate: { sourceField: endoscopy_date }
-          info: { sourceFields: [number_most_bio_freezing_2, biopsy_remarks] }
+    defaults:
+      id: { from: sourceValue }
+      individualId: { from: individualId }
+      biosampleStatus:
+        term: { id: 'NCIT:C126101', label: Not Available }
+      sampleOriginType: { query: Whole Blood }
+      collectionDate: { sourceField: study_blood_date }
+    rules:
+      - sourceField: id_pbmc
+        sampleOriginType: { query: Peripheral Blood Mononuclear Cell }
+        info: { sourceFields: [number_pbmc, study_blood_remarks] }
+      - sourceField: id_heparin
+        optional: true
+        info: { sourceFields: [number_heparin, study_blood_remarks] }
+      - sourceField: id_smart
+        optional: true
+        info: { sourceFields: [number_smart, study_blood_remarks] }
+      - sourceField: id_serum
+        sampleOriginType: { query: Serum }
+        info: { sourceFields: [number_serum, study_blood_remarks] }
+      - sourceField: id_cispt
+        info: { sourceFields: [number_cispt, study_blood_remarks] }
+      - sourceField: id_plasma
+        sampleOriginType: { query: Plasma }
+        info: { sourceFields: [number_plasma, study_blood_remarks] }
+      - sourceField: id_pax
+        info: { sourceFields: [number_pax, study_blood_remarks] }
+      - sourceField: id_least_bio_native
+        sampleOriginType: { query: Tissue }
+        collectionDate: { sourceField: endoscopy_date }
+        info: { sourceFields: [number_least_bio_native, biopsy_remarks] }
+      - sourceField: id_least_bio_native_2
+        sampleOriginType: { query: Tissue }
+        collectionDate: { sourceField: endoscopy_date }
+        info: { sourceFields: [number_least_bio_native_2, biopsy_remarks] }
+      - sourceField: id_least_bio_freezing
+        sampleOriginType: { query: Tissue }
+        collectionDate: { sourceField: endoscopy_date }
+        info: { sourceFields: [number_least_bio_freezing, biopsy_remarks] }
+      - sourceField: id_least_bio_freezing_2
+        sampleOriginType: { query: Tissue }
+        collectionDate: { sourceField: endoscopy_date }
+        info: { sourceFields: [number_least_bio_freezing_2, biopsy_remarks] }
+      - sourceField: id_most_bio_native
+        sampleOriginType: { query: Tissue }
+        collectionDate: { sourceField: endoscopy_date }
+        info: { sourceFields: [number_most_bio_native, biopsy_remarks] }
+      - sourceField: id_most_bio_native_2
+        sampleOriginType: { query: Tissue }
+        collectionDate: { sourceField: endoscopy_date }
+        info: { sourceFields: [number_most_bio_native_2, biopsy_remarks] }
+      - sourceField: id_most_bio_freezing
+        sampleOriginType: { query: Tissue }
+        collectionDate: { sourceField: endoscopy_date }
+        info: { sourceFields: [number_most_bio_freezing, biopsy_remarks] }
+      - sourceField: id_most_bio_freezing_2
+        sampleOriginType: { query: Tissue }
+        collectionDate: { sourceField: endoscopy_date }
+        info: { sourceFields: [number_most_bio_freezing_2, biopsy_remarks] }

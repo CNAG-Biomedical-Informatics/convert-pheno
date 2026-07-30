@@ -24,7 +24,7 @@ io_yaml_or_json(
         data     => {
             mappingVersion => 2,
             source => {
-                profiles => ['csv'],
+                profile => 'csv',
             },
             target => {
                 model         => 'beacon',
@@ -41,23 +41,21 @@ io_yaml_or_json(
             beacon => {
                 individuals => {
                     id => {
-                        source => {
-                            fields     => [ 'PatientId', 'EventName' ],
-                            primaryKey => 'PatientId',
-                        },
+                        sourceFields => [ 'PatientId', 'EventName' ],
+                        primaryKey   => 'PatientId',
                     },
                     sex => {
-                        source => { field => 'Sex' },
-                        target => { query => { from => 'value' } },
+                        sourceField => 'Sex',
+                        query       => { from => 'value' },
                     },
                     ethnicity => {
-                        source => { field => 'Ethnicity' },
-                        target => { query => { from => 'value' } },
+                        sourceField => 'Ethnicity',
+                        query       => { from => 'value' },
                     },
-                    diseases => [
-                        {
-                            source => { field => 'Disease_1' },
-                            target => {
+                    diseases => {
+                        rules => [
+                            {
+                                sourceField => 'Disease_1',
                                 diseaseCode => {
                                     query => {
                                         from    => 'value',
@@ -65,8 +63,8 @@ io_yaml_or_json(
                                     },
                                 },
                             },
-                        },
-                    ],
+                        ],
+                    },
                 },
             },
         },
