@@ -46,6 +46,8 @@ graph LR
   D[OMOP-CDM] -->|omop2bff| A
   E[CDISC-ODM] -->|cdiscodm2bff| A
   I[Dataset-JSON] -->|datasetjson2bff| A
+  J[FHIR R4] -->|fhir2bff| A
+  K[openEHR] -->|openehr2bff| A
   G[CSV] -->|csv2bff| A
   end
 
@@ -63,6 +65,8 @@ graph LR
   style G fill: #FFFF00, stroke: #FFFF00
   style H fill: #3CB371, stroke: #3CB371
   style I fill: #F3E7B3, stroke: #A58A28
+  style J fill: #F9D7D9, stroke: #B74A55
+  style K fill: #B8E0D2, stroke: #5B8F7B
 
 ```
 <figcaption>Convert-Pheno internal mapping steps</figcaption>
@@ -357,6 +361,11 @@ mapping-file ontology searches; when a target field requires a term, it emits
 a source-derived `CDISC:` identifier that records the SDTM field and value.
 See [Dataset-JSON to BFF](datasetjson2bff) for the exact mapping and terminology
 boundary.
+
+FHIR preserves codings from recognized systems with prefixes such as `LOINC:`,
+`SNOMEDCT:`, `RxNorm:`, `UCUM:`, and `HP:`. Unknown systems and uncoded text use
+source-derived FHIR identifiers rather than the mapping-file database search.
+See [FHIR to BFF](fhir2bff) for the exact policy.
 
 </details>
 <div className="convertNotePanel">

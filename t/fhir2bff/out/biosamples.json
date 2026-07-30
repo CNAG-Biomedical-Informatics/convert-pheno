@@ -1,0 +1,118 @@
+[
+   {
+      "biosampleStatus" : {
+         "id" : "FHIR:SpecimenStatus.available",
+         "label" : "available"
+      },
+      "collectionDate" : "2020-03-21",
+      "id" : "specimen-blood",
+      "individualId" : "5b24c87b-6223-f5b4-51e9-82051159bd1d",
+      "info" : {
+         "fhir" : {
+            "observations" : [
+               {
+                  "category" : [
+                     {
+                        "coding" : [
+                           {
+                              "code" : "laboratory",
+                              "display" : "Laboratory",
+                              "system" : "http://terminology.hl7.org/CodeSystem/observation-category"
+                           }
+                        ]
+                     }
+                  ],
+                  "code" : {
+                     "coding" : [
+                        {
+                           "code" : "718-7",
+                           "display" : "Hemoglobin [Mass/volume] in Blood",
+                           "system" : "http://loinc.org"
+                        }
+                     ],
+                     "text" : "Hemoglobin [Mass/volume] in Blood"
+                  },
+                  "effectiveDateTime" : "2020-03-21T15:48:03Z",
+                  "id" : "observation-hemoglobin",
+                  "resourceType" : "Observation",
+                  "specimen" : {
+                     "reference" : "Specimen/specimen-blood"
+                  },
+                  "status" : "final",
+                  "subject" : {
+                     "reference" : "Patient/5b24c87b-6223-f5b4-51e9-82051159bd1d"
+                  },
+                  "valueQuantity" : {
+                     "code" : "g/dL",
+                     "system" : "http://unitsofmeasure.org",
+                     "unit" : "g/dL",
+                     "value" : 13.2
+                  }
+               }
+            ],
+            "specimen" : {
+               "collection" : {
+                  "bodySite" : {
+                     "coding" : [
+                        {
+                           "code" : "368209003",
+                           "display" : "Right arm",
+                           "system" : "http://snomed.info/sct"
+                        }
+                     ],
+                     "text" : "Right arm"
+                  },
+                  "collectedDateTime" : "2020-03-21T15:48:03Z",
+                  "collector" : {
+                     "display" : "Synthetic laboratory"
+                  }
+               },
+               "id" : "specimen-blood",
+               "receivedTime" : "2020-03-21T15:55:00Z",
+               "resourceType" : "Specimen",
+               "status" : "available",
+               "subject" : {
+                  "reference" : "urn:uuid:5b24c87b-6223-f5b4-51e9-82051159bd1d"
+               },
+               "type" : {
+                  "coding" : [
+                     {
+                        "code" : "119297000",
+                        "display" : "Blood specimen",
+                        "system" : "http://snomed.info/sct"
+                     }
+                  ],
+                  "text" : "Blood specimen"
+               }
+            },
+            "version" : "R4"
+         }
+      },
+      "measurements" : [
+         {
+            "assayCode" : {
+               "id" : "LOINC:718-7",
+               "label" : "Hemoglobin [Mass/volume] in Blood"
+            },
+            "date" : "2020-03-21",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "UCUM:g/dL",
+                     "label" : "g/dL"
+                  },
+                  "value" : 13.2
+               }
+            }
+         }
+      ],
+      "sampleOriginDetail" : {
+         "id" : "SNOMEDCT:368209003",
+         "label" : "Right arm"
+      },
+      "sampleOriginType" : {
+         "id" : "SNOMEDCT:119297000",
+         "label" : "Blood specimen"
+      }
+   }
+]

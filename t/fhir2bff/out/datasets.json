@@ -1,0 +1,54 @@
+[
+   {
+      "description" : "Synthetic study metadata used to test derived Beacon datasets.",
+      "id" : "research-study-1",
+      "info" : {
+         "biosampleCount" : 1,
+         "fhir" : {
+            "bundles" : [
+               {
+                  "id" : "convert-pheno-fhir-r4-example",
+                  "source" : "t/fhir2bff/in/patient-bundle.json",
+                  "timestamp" : "2026-07-22T16:22:00Z",
+                  "type" : "collection"
+               }
+            ],
+            "researchStudy" : {
+               "description" : "Synthetic study metadata used to test derived Beacon datasets.",
+               "id" : "research-study-1",
+               "resourceType" : "ResearchStudy",
+               "status" : "active",
+               "title" : "Synthetic FHIR phenotype study"
+            },
+            "unassignedResources" : [
+               {
+                  "description" : "Synthetic study metadata used to test derived Beacon datasets.",
+                  "id" : "research-study-1",
+                  "resourceType" : "ResearchStudy",
+                  "status" : "active",
+                  "title" : "Synthetic FHIR phenotype study"
+               },
+               {
+                  "actual" : true,
+                  "id" : "research-cohort-1",
+                  "member" : [
+                     {
+                        "entity" : {
+                           "reference" : "Patient/5b24c87b-6223-f5b4-51e9-82051159bd1d"
+                        }
+                     }
+                  ],
+                  "name" : "Synthetic FHIR study cohort",
+                  "quantity" : 1,
+                  "resourceType" : "Group",
+                  "type" : "person"
+               }
+            ],
+            "version" : "R4"
+         },
+         "individualCount" : 1,
+         "sourceEntity" : "individuals"
+      },
+      "name" : "Synthetic FHIR phenotype study"
+   }
+]

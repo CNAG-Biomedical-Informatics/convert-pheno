@@ -5,32 +5,35 @@ sidebar_label: Future Plans
 
 # Future Plans
 
+We expect to improve these areas as Convert-Pheno is used with more datasets.
+They are directions rather than promises for a particular release. Routes
+described as experimental already work and are tested, but have been used by
+fewer independent groups.
+
 <div className="roadmap-grid">
-  <article className="roadmap-card roadmap-card--done">
-    <span className="roadmap-kicker">2023</span>
-    <h2>Alpha and publication</h2>
-    <p>Initial public development, manuscript preparation, submission, and publication of the Convert-Pheno paper.</p>
-  </article>
-  <article className="roadmap-card roadmap-card--done">
-    <span className="roadmap-kicker">2024</span>
-    <h2>CSV output</h2>
-    <p>Support for CSV output, improving compatibility with lightweight downstream use.</p>
-  </article>
   <article className="roadmap-card roadmap-card--active">
-    <span className="roadmap-kicker">2025-2026</span>
-    <h2>Beta development</h2>
-    <p>Refactoring, improved conversion coverage, OMOP-CDM output, API updates, and documentation modernization.</p>
+    <span className="roadmap-kicker">More datasets</span>
+    <h2>Test newer input formats</h2>
+    <p>Use FHIR R4, CDISC Dataset-JSON, and openEHR data from more sources and incorporate feedback from their users.</p>
   </article>
   <article className="roadmap-card">
-    <span className="roadmap-kicker">Planned</span>
-    <h2>More BFF entities</h2>
-    <p>Continue expanding entity-aware Beacon v2 output beyond individuals, including biosamples, datasets, and cohorts.</p>
+    <span className="roadmap-kicker">Mappings</span>
+    <h2>Review uncommon cases</h2>
+    <p>Work with data owners and domain experts to improve mappings while keeping original source values easy to trace.</p>
   </article>
   <article className="roadmap-card">
-    <span className="roadmap-kicker">Experimental</span>
-    <h2>openEHR input</h2>
-    <p>Improve support for canonical openEHR composition input as the mapping stabilizes.</p>
+    <span className="roadmap-kicker">Large files</span>
+    <h2>Use less memory</h2>
+    <p>Explore ways to process larger FHIR and Dataset-JSON inputs without keeping every record in memory at once.</p>
+  </article>
+  <article className="roadmap-card">
+    <span className="roadmap-kicker">Beacon v2</span>
+    <h2>Add more BFF entities</h2>
+    <p>Add analyses and runs when a source format contains enough information to create useful records.</p>
+  </article>
+  <article className="roadmap-card">
+    <span className="roadmap-kicker">Validation</span>
+    <h2>Keep checks current</h2>
+    <p>Add test datasets and continue checking generated files with the relevant format validators.</p>
   </article>
 </div>
-
-The roadmap is subject to revision and may evolve over time.

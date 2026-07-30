@@ -57,7 +57,7 @@ Usage:
 
 Common input flags:
   -i <type> <file>    Generic input form
-                      (pxf|bff|omop|redcap|cdisc-odm|dataset-json|csv|openehr)
+                      (pxf|bff|omop|redcap|cdisc-odm|dataset-json|fhir|csv|openehr)
   -ibff <file>      Beacon v2 Models ('individuals' JSON|YAML)
   -ipxf <file>      Phenopackets v2 (JSON|YAML)
   -iomop <files...> OMOP-CDM CSV files or PostgreSQL dump
@@ -69,6 +69,8 @@ Common input flags:
                     CDISC-ODM XML
   -idataset-json <files...>
                     Experimental CDISC Dataset-JSON v1.1 SDTM datasets
+                    (input-only; loaded in memory; BFF, PXF, or OMOP output)
+  -ifhir <files...>  Experimental FHIR R4 JSON Bundles
                     (input-only; loaded in memory; BFF, PXF, or OMOP output)
   -icsv <file>      Raw CSV
 
@@ -87,8 +89,8 @@ Output behavior:
   --out-dir <dir>       Output directory (required for entity-aware BFF mode)
   --entities <list>     Beacon entities for BFF output [individuals]
                         Supported: individuals, biosamples, datasets, cohorts
-                        biosamples are emitted from -ipxf, OMOP SPECIMEN, or
-                        beacon.biosamples rules in a mapping file
+                        biosamples are emitted from -ipxf, FHIR Specimen,
+                        OMOP SPECIMEN, or beacon.biosamples mapping rules
                         datasets and cohorts are synthesized from individuals
                         Use with -obff and --out-dir
   --out-name k=file     Override one multi-file output name; repeat as needed
@@ -159,6 +161,9 @@ Examples:
   convert-pheno -idataset-json dm.json mh.json lb.json -obff individuals.json
   convert-pheno -i dataset-json dm.json mh.json lb.json -o pxf phenopackets.json
   convert-pheno -idataset-json dm.json mh.json lb.json -oomop --out-dir omop_out/ --ohdsi-db
+  convert-pheno -ifhir bundle.json -obff individuals.json
+  convert-pheno -ifhir bundle.json -obff --entities individuals biosamples --out-dir out/
+  convert-pheno -i fhir bundle.json -o pxf phenopacket.json
   convert-pheno -iomop PERSON.csv CONCEPT.csv SPECIMEN.csv -obff --entities biosamples --out-dir out/
   convert-pheno -ibff individuals.json -oomop --out-dir omop_out/
   convert-pheno -ibff individuals.json -oomop --out-dir omop_out/ --out-name PERSON=patients.csv
@@ -178,6 +183,7 @@ BFF output modes:
   source vitalStatus or --default-vital-status is available.
   openEHR input support is currently experimental and limited to BFF or PXF output.
   Dataset-JSON input support is experimental, SDTM-oriented, and processed in memory.
+  FHIR input support is experimental, targets R4 JSON Bundles, and is processed in memory.
 
 Docs:
   Site:  https://cnag-biomedical-informatics.github.io/convert-pheno

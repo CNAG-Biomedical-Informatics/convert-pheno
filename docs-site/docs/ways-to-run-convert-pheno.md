@@ -17,7 +17,7 @@ Choose the entry point by the shape of your input data. The command-line interfa
 
 | Entry point | Best for | Avoid when |
 |-----------|----------|------------|
-| [Command-Line Interface](use-as-a-command-line-interface) | Normal use: real files, mapping files, OMOP tables, REDCap exports, CDISC-ODM XML, Dataset-JSON domains, audit logs, multi-entity BFF output | You are building a service that must call Convert-Pheno over HTTP(s) |
+| [Command-Line Interface](use-as-a-command-line-interface) | Normal use: real files, mapping files, OMOP tables, REDCap exports, CDISC-ODM XML, Dataset-JSON domains, FHIR Bundles, audit logs, multi-entity BFF output | You are building a service that must call Convert-Pheno over HTTP(s) |
 | [API](use-as-an-api) | Developer use: self-contained JSON payloads from applications, notebooks, or JavaScript clients | The conversion needs several local files, mapping files, or large OMOP exports |
 | [Module](use-as-a-module) | Developer use: Perl/Python code that runs in the same environment as Convert-Pheno | You need a language-agnostic network contract |
 

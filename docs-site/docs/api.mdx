@@ -173,6 +173,7 @@ The REST API works best for **self-contained payloads** where the request alread
 | `BFF` | Recommended | Small JSON payloads are natural to send over HTTP(s) |
 | `PXF` | Recommended | Small JSON payloads are natural to send over HTTP(s) |
 | `OMOP-CDM` | Recommended with care | Acceptable when the client transposes query results into the JSON shape expected by the API |
+| `FHIR R4` | Available | A self-contained JSON Bundle can be sent directly as `input.data` |
 | `openEHR` | Available | Canonical JSON/YAML content can be sent directly as `input.data` |
 | `CSV` | CLI/module only | Mapping-file conversion depends on file artifacts that are not accepted by the HTTP boundary |
 | `REDCap` | CLI/module only | Requires project data, a REDCap dictionary, and mapping-file context |

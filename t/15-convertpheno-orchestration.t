@@ -23,6 +23,7 @@ local $SIG{__WARN__} = sub {
     local *Convert::Pheno::redcap2bff = sub { return [ { id => 'r1' } ] };
     local *Convert::Pheno::cdiscodm2bff = sub { return [ { id => 'c1' } ] };
     local *Convert::Pheno::datasetjson2bff = sub { return [ { id => 'd1' } ] };
+    local *Convert::Pheno::fhir2bff     = sub { return [ { id => 'f1' } ] };
     local *Convert::Pheno::csv2bff    = sub { return [ { id => 'csv1' } ] };
     local *Convert::Pheno::pxf2bff    = sub { return [ { id => 'p1' } ] };
     local *Convert::Pheno::omop2bff   = sub { return [ { id => 'o1' } ] };
@@ -66,6 +67,16 @@ local $SIG{__WARN__} = sub {
         $datasetjson_omop->{merged}{data}[0]{id},
         'd1',
         'datasetjson2omop merges datasetjson2bff output'
+    );
+
+    my $fhir = Convert::Pheno->new( { method => 'fhir2pxf', in_textfile => 1 } )->fhir2pxf;
+    is( $fhir->{data}[0]{id}, 'f1', 'fhir2pxf forwards fhir2bff output' );
+
+    my $fhir_omop = Convert::Pheno->new( { method => 'fhir2omop', in_textfile => 1 } )->fhir2omop;
+    is(
+        $fhir_omop->{merged}{data}[0]{id},
+        'f1',
+        'fhir2omop merges fhir2bff output'
     );
 
     my $csv = Convert::Pheno->new( { method => 'csv2omop', in_textfile => 1 } )->csv2omop;

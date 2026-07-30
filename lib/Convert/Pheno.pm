@@ -46,6 +46,7 @@ use Convert::Pheno::BFF::ToPXF;
 use Convert::Pheno::BFF::ToOMOP;
 use Convert::Pheno::CDISC::ODM;
 use Convert::Pheno::CDISC::SDTM::ToBFF;
+use Convert::Pheno::FHIR::ToBFF;
 use Convert::Pheno::REDCap;
 
 use Exporter 'import';
@@ -426,6 +427,49 @@ sub datasetjson2omop {
     return run_conversion_pipeline($self);
 }
 
+##############
+##############
+#  FHIR2BFF  #
+##############
+##############
+
+sub fhir2bff {
+    my $self = shift;
+    _prepare_fhir2bff_input($self);
+    $self->{convertPheno} ||= get_info($self);
+    $self->{conversion_context} = Convert::Pheno::Context->from_self(
+        $self,
+        {
+            source_format => 'fhir',
+            target_format => 'beacon',
+            entities      => $self->{entities} || ['individuals'],
+        }
+    );
+    return _run_primary_view($self);
+}
+
+##############
+##############
+#  FHIR2PXF  #
+##############
+##############
+
+sub fhir2pxf {
+    my $self = shift;
+    return run_conversion_pipeline($self);
+}
+
+##############
+##############
+# FHIR2OMOP  #
+##############
+##############
+
+sub fhir2omop {
+    my $self = shift;
+    return run_conversion_pipeline($self);
+}
+
 #############
 #############
 #  PXF2BFF  #
@@ -632,6 +676,8 @@ sub _prepare_bundle_input {
       if $self->{method} eq 'cdiscodm2bff';
     return _prepare_datasetjson2bff_input($self)
       if $self->{method} eq 'datasetjson2bff';
+    return _prepare_fhir2bff_input($self)
+      if $self->{method} eq 'fhir2bff';
     return _prepare_csv2bff_input($self)    if $self->{method} eq 'csv2bff';
     return _prepare_openehr2bff_input($self)
       if $self->{method} eq 'openehr2bff' || $self->{method} eq 'openehr2pxf';
@@ -686,6 +732,32 @@ sub _prepare_datasetjson2bff_input {
       $source->artifact('derived_entity_overrides') || {};
     $self->{convertPheno} ||= get_info($self);
     $self->{dataset_json_input_prepared} = 1;
+
+    return 1;
+}
+
+sub _prepare_fhir2bff_input {
+    my ($self) = @_;
+    return 1 if $self->{fhir_input_prepared} && exists $self->{data};
+
+    # Keep caller-owned Bundles reusable while releasing the normalized,
+    # patient-scoped buffer after conversion.
+    $self->{_fhir_source_data} = $self->{data}
+      if exists $self->{data} && !exists $self->{_fhir_source_data};
+    $self->{data} = $self->{_fhir_source_data}
+      if !exists $self->{data} && exists $self->{_fhir_source_data};
+
+    my $source = source_adapter( $self, 'fhir' )->load;
+    my $patients = $source->data;
+    $self->{data} = $patients;
+    $self->{_owns_prepared_data} = 1 if $source->owned;
+    $self->{fhir_bundle_metadata} = $source->artifact('bundle_metadata');
+    $self->{fhir_unassigned_resources} =
+      $source->artifact('unassigned_resources');
+    $self->{source_derived_entity_overrides} =
+      $source->artifact('derived_entity_overrides') || {};
+    $self->{convertPheno} ||= get_info($self);
+    $self->{fhir_input_prepared} = 1;
 
     return 1;
 }

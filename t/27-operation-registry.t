@@ -54,6 +54,36 @@ is_deeply(
     'registry defines Dataset-JSON to OMOP as a compound conversion'
 );
 
+my $fhir_to_bff = conversion_spec('fhir2bff');
+is_deeply(
+    $fhir_to_bff->{pipeline},
+    ['fhir2bff'],
+    'registry defines FHIR as a direct BFF bundle operation'
+);
+ok(
+    !$fhir_to_bff->{resources}{sqlite},
+    'FHIR to BFF does not open ontology databases'
+);
+is_deeply(
+    $fhir_to_bff->{entities}{supported},
+    [ 'individuals', 'biosamples', 'datasets', 'cohorts' ],
+    'registry exposes the implemented FHIR-derived BFF entities'
+);
+ok(
+    is_http_conversion('fhir2bff'),
+    'registry exposes in-memory FHIR conversion over HTTP'
+);
+is_deeply(
+    conversion_spec('fhir2pxf')->{pipeline},
+    [ 'fhir2bff', 'bff2pxf' ],
+    'registry defines FHIR to PXF as a compound conversion'
+);
+is_deeply(
+    conversion_spec('fhir2omop')->{pipeline},
+    [ 'fhir2bff', 'bff2omop' ],
+    'registry defines FHIR to OMOP as a compound conversion'
+);
+
 my $omop_to_bff = conversion_spec('omop2bff');
 ok( $omop_to_bff->{streaming}, 'registry defines streaming capability' );
 is_deeply(

@@ -6,13 +6,14 @@ sidebar_label: Interface Availability
 Format | CLI | Perl/Python module | HTTP(s) API
 --- | --- | --- | ---
 [Beacon v2 Models](../bff) | Recommended | Supported | Recommended
-[Phenopackets v2](../pxf) | Recommended | Supported | Recommended
+[CDISC Dataset-JSON](../dataset-json) | Supported; experimental profile | Supported; experimental profile | Not available
+[CDISC-ODM](../cdisc-odm) | Recommended | Supported | Not recommended
+[CSV](../csv) | Recommended | Supported | Not recommended
+[FHIR R4](../fhir) | Supported; experimental profile | Supported; experimental profile | Supported for self-contained Bundles
 [OMOP-CDM](../omop-cdm) | Recommended | Supported | Supported with care for self-contained requests
 [openEHR canonical](../openehr) | Supported; experimental profile | Supported; experimental profile | Supported with care for self-contained requests
-[CSV](../csv) | Recommended | Supported | Not recommended
+[Phenopackets v2](../pxf) | Recommended | Supported | Recommended
 [REDCap](../redcap) | Recommended | Supported | Not recommended
-[CDISC-ODM](../cdisc-odm) | Recommended | Supported | Not recommended
-[CDISC Dataset-JSON](../dataset-json) | Supported; experimental profile | Supported; experimental profile | Not available
 
 This table describes **interface suitability**, not conversion coverage. See [Supported Formats](../supported-formats) for the input/output map and [Choose a Conversion](../conversion-recipes) for commands.
 

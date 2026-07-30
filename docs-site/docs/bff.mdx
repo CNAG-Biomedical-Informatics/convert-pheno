@@ -56,10 +56,10 @@ The `individuals` limitation therefore applies to BFF **input**, not BFF
 output.
 
 :::note[Source provenance in `info`]
-By default, BFF generated from OMOP-CDM, CSV, REDCap, CDISC-ODM, or Dataset-JSON preserves
+By default, BFF generated from OMOP-CDM, CSV, REDCap, CDISC-ODM, Dataset-JSON, or FHIR preserves
 raw source values in `info`. This supports mapping review and source-level
 queries. Use `--no-source-info` to omit copied payloads such as
-`OMOP_columns`, `CSV_columns`, `REDCap_columns`, and Dataset-JSON domain rows; mapped fields and
+`OMOP_columns`, `CSV_columns`, `REDCap_columns`, Dataset-JSON domain rows, and FHIR resources; mapped fields and
 `info.convertPheno` remain.
 :::
 
@@ -95,11 +95,11 @@ BFF has two output modes:
 - `-obff --entities ... --out-dir DIR` writes one file per requested entity.
 
 Entity-aware output supports `individuals`, `biosamples`, `datasets`, and
-`cohorts`. Biosamples can be mapped directly from PXF biosamples or OMOP
-`SPECIMEN`; datasets and cohorts are synthesized from normalized individuals
+`cohorts`. Biosamples can be mapped directly from PXF biosamples, FHIR
+`Specimen`, or OMOP `SPECIMEN`; datasets and cohorts are synthesized from normalized individuals
 and can be augmented by mapping-file metadata where that input route supports
 it. Dataset-JSON can instead prepopulate dataset and cohort metadata from
-`studyOID` and the `TS` study title.
+`studyOID` and the `TS` study title; FHIR can use `ResearchStudy` and `Group`.
 
 Use [BFF output recipes](conversion-recipes#pxf-input-bff-output) for the
 individuals-only and entity-aware command forms. Full tested inputs and

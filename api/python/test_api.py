@@ -76,6 +76,41 @@ class PythonApiTests(unittest.TestCase):
             },
         )
 
+    def test_api_accepts_self_contained_fhir_route(self):
+        with tempfile.TemporaryDirectory() as tempdir:
+            script_path = Path(tempdir) / "echo_bridge.pl"
+            script_path.write_text(
+                textwrap.dedent(
+                    """\
+                    use strict;
+                    use warnings;
+                    local $/;
+                    my $raw = <STDIN>;
+                    print $raw;
+                    """
+                ),
+                encoding="utf-8",
+            )
+            os.environ["CONVERT_PHENO_PERL_BRIDGE"] = str(script_path)
+
+            client = TestClient(main.app)
+            response = client.post(
+                "/api",
+                json={
+                    "conversion": "fhir2bff",
+                    "input": {
+                        "data": {
+                            "resourceType": "Bundle",
+                            "type": "collection",
+                            "entry": [],
+                        }
+                    },
+                },
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["data"]["method"], "fhir2bff")
+
     def test_api_returns_structured_error_for_invalid_request(self):
         client = TestClient(main.app)
         response = client.post("/api", json={"conversion": "pxf2bff"})

@@ -1,0 +1,151 @@
+[
+   {
+      "biosamples" : [
+         {
+            "id" : "specimen-blood",
+            "individualId" : "5b24c87b-6223-f5b4-51e9-82051159bd1d",
+            "materialSample" : {
+               "id" : "FHIR:SpecimenStatus.available",
+               "label" : "available"
+            },
+            "measurements" : [
+               {
+                  "assay" : {
+                     "id" : "LOINC:718-7",
+                     "label" : "Hemoglobin [Mass/volume] in Blood"
+                  },
+                  "timeObserved" : {
+                     "timestamp" : "2020-03-21T00:00:00Z"
+                  },
+                  "value" : {
+                     "quantity" : {
+                        "unit" : {
+                           "id" : "UCUM:g/dL",
+                           "label" : "g/dL"
+                        },
+                        "value" : 13.2
+                     }
+                  }
+               }
+            ],
+            "sampleType" : {
+               "id" : "SNOMEDCT:119297000",
+               "label" : "Blood specimen"
+            },
+            "sampledTissue" : {
+               "id" : "SNOMEDCT:368209003",
+               "label" : "Right arm"
+            },
+            "timeOfCollection" : {
+               "timestamp" : "2020-03-21T00:00:00Z"
+            }
+         }
+      ],
+      "diseases" : [
+         {
+            "onset" : {
+               "age" : {
+                  "iso8601duration" : "P15Y"
+               }
+            },
+            "resolution" : {
+               "age" : {
+                  "iso8601duration" : "P15Y"
+               }
+            },
+            "term" : {
+               "id" : "SNOMEDCT:307426000",
+               "label" : "Acute infective cystitis"
+            }
+         }
+      ],
+      "id" : null,
+      "measurements" : [
+         {
+            "assay" : {
+               "id" : "LOINC:5792-7",
+               "label" : "Glucose [Mass/volume] in Urine by Test strip"
+            },
+            "timeObserved" : {
+               "timestamp" : "2016-11-04T00:00:00Z"
+            },
+            "value" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 15,
+                     "low" : 0,
+                     "unit" : {
+                        "id" : "UCUM:mg/dL",
+                        "label" : "mg/dL"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "UCUM:mg/dL",
+                     "label" : "mg/dL"
+                  },
+                  "value" : 7.6858
+               }
+            }
+         },
+         {
+            "assay" : {
+               "id" : "LOINC:2514-8",
+               "label" : "Ketones [Presence] in Urine by Test strip"
+            },
+            "timeObserved" : {
+               "timestamp" : "2016-11-04T00:00:00Z"
+            },
+            "value" : {
+               "ontologyClass" : {
+                  "id" : "SNOMEDCT:167287002",
+                  "label" : "Urine ketones not detected"
+               }
+            }
+         }
+      ],
+      "medicalActions" : [
+         {
+            "procedure" : {
+               "code" : {
+                  "id" : "SNOMEDCT:180256009",
+                  "label" : "Subcutaneous immunotherapy"
+               },
+               "performed" : {
+                  "timestamp" : "2016-08-12T00:00:00Z"
+               }
+            }
+         },
+         {
+            "treatment" : {
+               "agent" : {
+                  "id" : "RxNorm:997488",
+                  "label" : "Fexofenadine hydrochloride 30 MG Oral Tablet"
+               }
+            }
+         }
+      ],
+      "metaData" : null,
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "onset" : {
+               "age" : {
+                  "iso8601duration" : "P17Y"
+               }
+            },
+            "type" : {
+               "id" : "HP:0001250",
+               "label" : "Seizure"
+            }
+         }
+      ],
+      "subject" : {
+         "dateOfBirth" : "2001-01-06T00:00:00Z",
+         "id" : "5b24c87b-6223-f5b4-51e9-82051159bd1d",
+         "sex" : "FEMALE",
+         "vitalStatus" : {
+            "status" : "ALIVE"
+         }
+      }
+   }
+]

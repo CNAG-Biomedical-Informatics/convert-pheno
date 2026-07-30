@@ -57,6 +57,7 @@ Reference output: [`t/omop2bff/out/individuals_csv.json`](omop2bff/out/individua
 | REDCap | [`redcap2bff/in`](redcap2bff/in) | `redcap2bff/out`, `redcap2pxf/out` |
 | CDISC-ODM | [`cdiscodm2bff/in`](cdiscodm2bff/in) | `cdiscodm2bff/out`, `cdiscodm2pxf/out` |
 | CDISC Dataset-JSON | [`datasetjson2bff/in`](datasetjson2bff/in) | `datasetjson2bff/out`, `datasetjson2pxf/out`, `datasetjson2omop/out` |
+| FHIR R4 Bundle | [`fhir2bff/in`](fhir2bff/in) | `fhir2bff/out`, `fhir2pxf/out`, `fhir2omop/out` |
 | openEHR canonical JSON | [`openehr2bff/in`](openehr2bff/in) | `openehr2bff/out`, `openehr2pxf/out` |
 
 Some output routes intentionally reuse the canonical input from another fixture

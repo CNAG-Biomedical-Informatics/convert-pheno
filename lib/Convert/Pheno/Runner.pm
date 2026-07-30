@@ -14,6 +14,7 @@ use Convert::Pheno::Context;
 use Convert::Pheno::ConversionRequest;
 use Convert::Pheno::CDISC::SDTM::ToBFF qw(run_sdtm_to_bundle);
 use Convert::Pheno::ExecutionContext;
+use Convert::Pheno::FHIR::ToBFF qw(run_fhir_to_bundle);
 use Convert::Pheno::Model::Bundle;
 use Convert::Pheno::Operations qw(conversion_spec);
 use Convert::Pheno::Tabular::ToBFF qw(run_tabular_to_bundle);
@@ -60,6 +61,14 @@ sub resolve_operation {
             return run_sdtm_to_bundle( $convert, $input, $context );
         },
     ) if $self->{method} eq 'datasetjson2bff';
+
+    return _bundle_operation(
+        spec => $spec,
+        run  => sub {
+            my ( $convert, $input, $context ) = @_;
+            return run_fhir_to_bundle( $convert, $input, $context );
+        },
+    ) if $self->{method} eq 'fhir2bff';
 
     return _bundle_operation(
         spec => $spec,

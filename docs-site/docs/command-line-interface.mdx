@@ -83,13 +83,14 @@ Both CLI styles are supported:
 
 The compact flags are still the ones most users rely on:
 
-- `-ipxf`, `-ibff`, `-iomop`, `-iopenehr`, `-iredcap`, `-icdisc-odm`, `-idataset-json`, `-icsv`
+- `-ipxf`, `-ibff`, `-iomop`, `-iopenehr`, `-iredcap`, `-icdisc-odm`, `-idataset-json`, `-ifhir`, `-icsv`
 - `-obff`, `-opxf`, `-oomop`, `-ocsv`, `-ojsonf`, `-ojsonld`
 
 :::note[Experimental source profiles]
-`openEHR` canonical input and CDISC Dataset-JSON SDTM input are implemented but
-marked experimental while independent source coverage grows. Dataset-JSON can
-write BFF, PXF, or OMOP-CDM; openEHR currently writes BFF or PXF.
+`openEHR` canonical input, CDISC Dataset-JSON SDTM input, and FHIR R4 Bundle
+input are implemented but marked experimental while independent source coverage
+grows. Dataset-JSON and FHIR can write BFF, PXF, or OMOP-CDM; openEHR currently
+writes BFF or PXF.
 
 :::
 You can always check the current built-in help with:
@@ -113,13 +114,13 @@ In other words, `--entities` does not replace `-obff`. It refines which `BFF` en
 - `BFF` entity mode is also explicit: use `-obff --entities ... --out-dir DIR`.
 - When `PXF` input contains `biosamples`, the individuals-only `-obff FILE` path still writes only `individuals`. In that mode, `convert-pheno` warns and preserves the biosamples under `info.phenopacket.biosamples`.
 - `--entities` can be used with `BFF` output. The supported output entities are `individuals`, `biosamples`, `datasets`, and `cohorts`.
-- `biosamples` are emitted from PXF biosample data, OMOP `SPECIMEN`, or explicit `beacon.biosamples.rules` in CSV, REDCap, and CDISC-ODM mappings.
+- `biosamples` are emitted from PXF biosample data, FHIR `Specimen`, OMOP `SPECIMEN`, or explicit `beacon.biosamples.rules` in CSV, REDCap, and CDISC-ODM mappings.
 - `datasets` and `cohorts` are synthesized from the normalized `individuals` collection.
 - In mapping-file conversions, `beacon.biosamples` defines first-class biosample rules, while `beacon.datasets.defaults` and `beacon.cohorts.defaults` override synthesized metadata.
 - These mapping features are available only for `csv2bff`, `redcap2bff`, and `cdiscodm2bff`, which are the routes that read a mapping file.
 - `--entities` narrows `BFF` output. It must be combined with `-obff` and `--out-dir`.
 - `--out-name key=file` lets you override one multi-file output name. Use entity keys for `BFF` entity mode and table keys for `OMOP` output.
-- `--no-source-info` omits raw source provenance copied into `BFF` `info`, such as `OMOP_columns`, `CSV_columns`, `REDCap_columns`, and `datasetJson.domains`. Mapped fields and `info.convertPheno` are kept.
+- `--no-source-info` omits raw source provenance copied into `BFF` `info`, such as `OMOP_columns`, `CSV_columns`, `REDCap_columns`, `datasetJson.domains`, and `fhir` resources. Mapped fields and `info.convertPheno` are kept.
 - `--search-audit-tsv FILE` writes a tab-separated audit of ontology search results for mapping-file-driven conversions such as `csv2bff`, `redcap2bff`, and `cdiscodm2bff`, including the effective configured search mode, whether each lookup matched the DB or fell back to `NA`, and the per-row lookup resolution (`exact`, `similarity`, or `fallback_na`).
 - `--stream` is mainly relevant for **large OMOP inputs**. Use `--no-stream` to force the default in-memory mode when a wrapper or previous option may have enabled streaming.
 
@@ -167,6 +168,13 @@ For the search behavior itself, including examples and threshold tradeoffs, see 
 - Exactly one `DM` dataset is required. Subject-level domains are grouped by `USUBJID`; a mapping file and REDCap dictionary are not used.
 - `datasetjson2bff`, `datasetjson2pxf`, and `datasetjson2omop` are available. OMOP output also requires `--ohdsi-db` and `--out-dir`.
 - Input is currently processed in memory rather than streamed. See [CDISC Dataset-JSON](dataset-json) for mapped domains and current boundaries.
+
+### FHIR-specific options
+
+- `-ifhir FILE ...` or `-i fhir FILE ...` accepts one or more FHIR R4 Bundle files in `.json` or `.json.gz` form.
+- Each Bundle must contain at least one Patient. Relative, absolute, and `urn:uuid:` resource references are resolved before resources are grouped by Patient.
+- `fhir2bff`, `fhir2pxf`, and `fhir2omop` are available. Entity-aware BFF output can emit Specimen-derived `biosamples`; OMOP output also requires `--ohdsi-db` and `--out-dir`.
+- Input is processed in memory. See [FHIR R4](fhir) for mapped resources and current boundaries.
 
 ### General options
 

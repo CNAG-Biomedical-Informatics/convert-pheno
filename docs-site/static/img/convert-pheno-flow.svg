@@ -73,9 +73,9 @@
   <text class="format-label" x="277.5" y="360" text-anchor="middle">openEHR</text>
   <text class="small-label" x="277.5" y="381" text-anchor="middle">experimental</text>
 
-  <line class="rule" x1="52" y1="428" x2="346" y2="428" />
-  <text class="small-label" x="52" y="458">Mapping files support REDCap,</text>
-  <text class="small-label" x="52" y="480">CDISC-ODM, and generic CSV input.</text>
+  <rect class="format-box" x="130" y="416" width="137" height="66" rx="6" />
+  <text class="format-label" x="198.5" y="442" text-anchor="middle">FHIR R4</text>
+  <text class="small-label" x="198.5" y="463" text-anchor="middle">experimental</text>
 
   <path class="connector" d="M376 303 H418" />
   <path class="connector-head" d="M418 303 L403 294 L403 312 Z" />

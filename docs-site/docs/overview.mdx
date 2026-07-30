@@ -8,10 +8,12 @@ import Link from '@docusaurus/Link';
 <div className="convertDocHero">
   <p className="convertEyebrow">Overview</p>
   <h2>Clinical and phenotypic data conversion across supported exchange models.</h2>
-  <p>
-    `Convert-Pheno` converts between `BFF`, `PXF`, `OMOP-CDM`,
-    `REDCap`, `CDISC-ODM`, CDISC `Dataset-JSON`, mapped `CSV`, and related inspection formats.
-  </p>
+
+  Convert-Pheno supports conversion routes involving [BFF](bff), [PXF](pxf),
+  [OMOP-CDM](omop-cdm), [REDCap](redcap), [CDISC-ODM](cdisc-odm),
+  [CDISC Dataset-JSON](dataset-json), [FHIR R4](fhir), [CSV](csv), and
+  [openEHR](openehr).
+
   <div className="convertHeroActions">
     <Link className="button button--primary" to="/quickstart">Run your first conversion</Link>
     <Link className="button button--secondary" to="/conversion-recipes">Choose a conversion</Link>
@@ -38,6 +40,7 @@ Most users come to `Convert-Pheno` for one of these tasks:
 - convert `OMOP-CDM` exports to `BFF` or `PXF`
 - convert `REDCap` or `CDISC-ODM` data through a **mapping file**
 - convert CDISC Dataset-JSON SDTM domains to `BFF`, `PXF`, or supported `OMOP-CDM` tables
+- convert FHIR R4 Bundles to `BFF`, `PXF`, or supported `OMOP-CDM` tables
 - use mapped raw `CSV` as an ETL source for `BFF`, `PXF`, or supported `OMOP-CDM` tables
 - convert `BFF` to `PXF`, flattened `CSV`, flattened `JSON`, or `JSON-LD`
 
@@ -48,7 +51,7 @@ Most users come to `Convert-Pheno` for one of these tasks:
 - [Choose a Conversion](conversion-recipes) if you want a route finder and copy-paste commands for common conversions
 
 :::note[API vs CLI]
-Use the HTTP(s) API mainly for **self-contained JSON payloads** such as `BFF`, `PXF`, and carefully prepared `OMOP-CDM` requests.
+Use the HTTP(s) API mainly for **self-contained JSON payloads** such as `BFF`, `PXF`, FHIR R4 Bundles, and carefully prepared `OMOP-CDM` requests.
 
 For mapping-file-based conversions such as `CSV`, `REDCap`, and `CDISC-ODM`,
 or multi-file Dataset-JSON input, prefer the CLI.

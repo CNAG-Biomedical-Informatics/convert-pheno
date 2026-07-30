@@ -129,6 +129,36 @@
       "streaming": false,
       "http_enabled": false
     },
+    "fhir2bff": {
+      "source": "fhir",
+      "target": "beacon",
+      "operation": "bundle",
+      "pipeline": ["fhir2bff"],
+      "resources": { "sqlite": false },
+      "entities": { "default": ["individuals"], "supported": ["individuals", "biosamples", "datasets", "cohorts"], "primary": "individuals" },
+      "streaming": false,
+      "http_enabled": true
+    },
+    "fhir2omop": {
+      "source": "fhir",
+      "target": "omop",
+      "operation": "pipeline",
+      "pipeline": ["fhir2bff", "bff2omop"],
+      "resources": { "sqlite": true },
+      "entities": { "default": [], "supported": [], "primary": null },
+      "streaming": false,
+      "http_enabled": true
+    },
+    "fhir2pxf": {
+      "source": "fhir",
+      "target": "pxf",
+      "operation": "pipeline",
+      "pipeline": ["fhir2bff", "bff2pxf"],
+      "resources": { "sqlite": false },
+      "entities": { "default": [], "supported": [], "primary": null },
+      "streaming": false,
+      "http_enabled": true
+    },
     "csv2bff": {
       "source": "csv",
       "target": "beacon",

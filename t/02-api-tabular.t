@@ -55,6 +55,18 @@ my @cases = (
         out_file           => 't/datasetjson2pxf/out/pxf.json',
     },
     {
+        name               => 'fhir2bff',
+        method             => 'fhir2bff',
+        in_files           => ['t/fhir2bff/in/patient-bundle.json'],
+        out_file           => 't/fhir2bff/out/individuals.json',
+    },
+    {
+        name               => 'fhir2pxf',
+        method             => 'fhir2pxf',
+        in_files           => ['t/fhir2bff/in/patient-bundle.json'],
+        out_file           => 't/fhir2pxf/out/pxf.json',
+    },
+    {
         name               => 'csv2bff',
         method             => 'csv2bff',
         in_file            => 't/csv2bff/in/csv_data.csv',

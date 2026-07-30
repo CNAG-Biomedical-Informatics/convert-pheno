@@ -1,0 +1,111 @@
+---
+title: FHIR R4
+sidebar_label: FHIR R4
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+export const FhirFormatImage = () => (
+  <img
+    src={useBaseUrl('/img/fhir-format.svg')}
+    alt="FHIR R4 Bundle resources grouped by Patient before conversion to BFF, PXF, or OMOP-CDM"
+    className="convertFormatDiagram"
+  />
+);
+
+:::note[Implementation status]
+FHIR R4 JSON Bundle input is implemented and covered by regression tests. Its
+experimental status reflects limited independent validation across FHIR
+profiles, implementations, and real-world Bundles.
+:::
+
+<div className="convertFormatSummary" aria-label="At a glance">
+  <div><span>Role</span><strong>Input</strong></div>
+  <div><span>Accepted input</span><strong>FHIR R4 JSON Bundles</strong></div>
+  <div><span>Main output</span><strong>BFF, PXF, OMOP-CDM</strong></div>
+  <div><span>Processing</span><strong>Grouped by Patient in memory</strong></div>
+</div>
+
+<figure className="convertFormatFigure">
+<FhirFormatImage />
+<figcaption>Bundle resources are resolved and grouped into patient-scoped records before target conversion</figcaption>
+</figure>
+
+:::info[What is a FHIR Bundle?]
+A [FHIR R4 Bundle](https://hl7.org/fhir/R4/bundle.html) is a resource that
+packages other FHIR resources in `entry`. References between those resources
+may be relative, absolute, or URN-based. Convert-Pheno resolves those forms and
+groups patient-scoped resources before mapping them.
+:::
+
+## FHIR As Input
+
+Supply one or more JSON or gzip-compressed JSON files. Each document must be a
+FHIR `Bundle` with a standard R4 `Bundle.type`, an `entry` array, and at least
+one `Patient`. Multiple Bundles can contribute resources to the same Patient;
+a repeated Patient id is merged into one output record.
+
+The route accepts relative references such as `Patient/123`, absolute references
+ending in a resource type and id, and `urn:uuid:` references represented by an
+entry's `fullUrl`. It fails on malformed Bundle entries, duplicate non-Patient
+resource references, or input with no resolvable Patient.
+
+Use [FHIR conversion recipes](conversion-recipes#fhir-r4-input-bff-output) for
+BFF, PXF, and OMOP-CDM commands. A mapping file is not used.
+
+## Implemented Resources
+
+| FHIR resource | Main target content |
+| --- | --- |
+| `Patient` | individual id, sex, birth date, vital status, supported ethnicity and birthplace extensions |
+| `Condition` | diseases, onset, resolution, and supported exclusion state |
+| `Observation` | quantitative or categorical measures, HPO phenotypic features, dates, methods, units, and reference ranges |
+| `Procedure` | interventions or procedures, body site, and date |
+| `MedicationRequest`, `MedicationAdministration`, `MedicationStatement` | treatments, route, and treatment timing |
+| `Specimen` | first-class BFF biosamples, collection details, and specimen-linked measurements |
+| `ResearchStudy` | source-derived dataset metadata |
+| `Group` | source-derived cohort metadata |
+
+`ResearchSubject` is used for Patient association but is not emitted as a
+first-class BFF field. Other resources remain available in source provenance
+and are named in `info.fhir.unmappedResourceTypes` when they are patient-scoped.
+
+For field-level behavior, see [FHIR to BFF](fhir2bff).
+
+## Terminology And Provenance
+
+Known coding systems are converted to stable prefixes such as `SNOMEDCT:`,
+`LOINC:`, `RxNorm:`, `UCUM:`, `HP:`, and `NCIT:`. A coding from another system
+keeps its source code under a derived `FHIR-...:` prefix. Text without a coding
+receives a source-derived `FHIR:` identifier. These fallbacks preserve source
+identity; they do not claim external terminology resolution.
+
+By default, the Patient and associated resources are retained under
+`info.fhir`, while each BFF biosample retains its source `Specimen` and linked
+Observations. Use `--no-source-info` to omit those raw copies without removing
+mapped fields or the semantic biosample data needed by `fhir2pxf`.
+
+## BFF Entities And Downstream Output
+
+Entity-aware BFF output can write `individuals` and `biosamples` directly.
+`ResearchStudy` and `Group` prepopulate `datasets` and `cohorts`; normal
+collection-derived defaults remain available when those resources are absent.
+
+PXF and OMOP-CDM routes normalize the Patient records through BFF in the same
+command. The PXF route preserves specimen-level measurements as Phenopacket
+biosamples. OMOP output writes the supported tables under `--out-dir` and uses
+the normal `--ohdsi-db` concept lookup path.
+
+The in-memory FHIR routes are also available through the Perl module, Python
+binding, and HTTP(s) APIs by sending a decoded Bundle as `data` or
+`input.data`.
+
+:::warning[Current boundaries]
+FHIR input is currently non-streaming. All supplied Bundles and normalized
+patient records are held in RAM. This profile does not read FHIR XML, Bulk Data
+NDJSON, or a live FHIR server, and it does not interpret arbitrary
+profile-specific extensions.
+:::
+
+The attributed regression Bundle and reference BFF, PXF, and OMOP outputs are
+indexed in the [`t/` fixture guide](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/tree/main/t).

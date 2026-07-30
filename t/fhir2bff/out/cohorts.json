@@ -1,0 +1,14 @@
+[
+   {
+      "cohortDataTypes" : [
+         {
+            "id" : "OGMS:0000015",
+            "label" : "clinical history"
+         }
+      ],
+      "cohortSize" : 1,
+      "cohortType" : "study-defined",
+      "id" : "research-cohort-1",
+      "name" : "Synthetic FHIR study cohort"
+   }
+]

@@ -43,8 +43,8 @@ Most routes normalize data through `BFF`, which acts as the **internal target mo
 
 For mapping-file conversions such as `CSV`, `REDCap`, and `CDISC-ODM`, the mapping file defines how source columns become Beacon `individuals` fields and first-class `biosamples`, plus optional defaults for synthesized `datasets` and `cohorts`.
 
-For structured standards such as `PXF`, `OMOP-CDM`, CDISC `Dataset-JSON`, and
-openEHR canonical compositions, the converter uses source-specific mapping code
+For structured standards such as `PXF`, `OMOP-CDM`, CDISC `Dataset-JSON`, FHIR
+R4 Bundles, and openEHR canonical compositions, the converter uses source-specific mapping code
 rather than a user mapping file.
 
 ## CSV-based ETL
@@ -55,7 +55,7 @@ The mapping still has to be defined and reviewed before generated output is load
 
 Supported routes are covered by automated regression tests and target-format
 checks where practical. Independent use across diverse real-world datasets
-varies by route. openEHR and Dataset-JSON input remain experimental because
+varies by route. openEHR, Dataset-JSON, and FHIR input remain experimental because
 their implemented source profiles have limited independent dataset coverage.
 
 ## Main Interfaces

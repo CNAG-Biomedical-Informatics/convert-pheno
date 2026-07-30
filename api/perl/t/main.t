@@ -45,6 +45,21 @@ $t->post_ok(
 )->status_is(200)->json_is('/ok', Mojo::JSON->true)->json_is('/meta/conversion', 'pxf2bff')
   ->json_is('/data/id', 'P0007500');
 
+note 'FHIR Bundles should be available through the in-memory HTTP contract';
+my $fhir_bundle = Mojo::JSON::decode_json(
+    path("$Bin/../../../t/fhir2bff/in/patient-bundle.json")->slurp_raw
+);
+$t->post_ok(
+    '/api',
+    json => {
+        conversion => 'fhir2bff',
+        input      => { data => $fhir_bundle },
+        options    => { test => Mojo::JSON->true },
+    }
+)->status_is(200)->json_is('/ok', Mojo::JSON->true)
+  ->json_is('/meta/conversion', 'fhir2bff')
+  ->json_is('/data/0/id', '5b24c87b-6223-f5b4-51e9-82051159bd1d');
+
 note 'OpenAPI should reject invalid input shape';
 $t->post_ok('/api', json => { conversion => 'pxf2bff', input => [] })
   ->status_is(400);

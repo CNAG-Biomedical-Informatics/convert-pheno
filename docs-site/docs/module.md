@@ -100,3 +100,9 @@ documents as `data` and select `datasetjson2bff`, `datasetjson2pxf`, or
 `datasetjson2omop`. The module groups those documents by `USUBJID`; it does not
 expect the already grouped internal participant structure. OMOP output also
 requires access to `ohdsi.db` through the normal module arguments.
+
+For FHIR, pass one decoded R4 Bundle or an array of Bundles as `data` and select
+`fhir2bff`, `fhir2pxf`, or `fhir2omop`. The module resolves Bundle references
+and groups resources by Patient. The caller retains ownership of the supplied
+Bundle data, so it can be inspected or reused after conversion. See the
+[FHIR R4 guide](fhir) for the implemented resource profile.

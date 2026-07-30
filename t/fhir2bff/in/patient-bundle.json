@@ -1,0 +1,380 @@
+{
+  "resourceType": "Bundle",
+  "id": "convert-pheno-fhir-r4-example",
+  "type": "collection",
+  "timestamp": "2026-07-22T16:22:00Z",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:5b24c87b-6223-f5b4-51e9-82051159bd1d",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "5b24c87b-6223-f5b4-51e9-82051159bd1d",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
+            "extension": [
+              {
+                "url": "ombCategory",
+                "valueCoding": {
+                  "system": "urn:oid:2.16.840.1.113883.6.238",
+                  "code": "2186-5",
+                  "display": "Not Hispanic or Latino"
+                }
+              },
+              {
+                "url": "text",
+                "valueString": "Not Hispanic or Latino"
+              }
+            ]
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/patient-birthPlace",
+            "valueAddress": {
+              "city": "Winchester",
+              "state": "Massachusetts",
+              "country": "US"
+            }
+          }
+        ],
+        "identifier": [
+          {
+            "system": "https://github.com/synthetichealth/synthea",
+            "value": "5b24c87b-6223-f5b4-51e9-82051159bd1d"
+          }
+        ],
+        "gender": "female",
+        "birthDate": "2001-01-06"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:condition-cystitis",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "condition-cystitis",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "resolved"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "307426000",
+              "display": "Acute infective cystitis"
+            }
+          ],
+          "text": "Acute infective cystitis"
+        },
+        "subject": {
+          "reference": "urn:uuid:5b24c87b-6223-f5b4-51e9-82051159bd1d"
+        },
+        "onsetDateTime": "2016-11-04T11:59:46Z",
+        "abatementDateTime": "2016-11-05T06:34:13Z"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:observation-glucose",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "observation-glucose",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "5792-7",
+              "display": "Glucose [Mass/volume] in Urine by Test strip"
+            }
+          ],
+          "text": "Glucose [Mass/volume] in Urine by Test strip"
+        },
+        "subject": {
+          "reference": "Patient/5b24c87b-6223-f5b4-51e9-82051159bd1d"
+        },
+        "effectiveDateTime": "2016-11-04T13:24:13Z",
+        "valueQuantity": {
+          "value": 7.6858,
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/dL"
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 0,
+              "unit": "mg/dL",
+              "system": "http://unitsofmeasure.org",
+              "code": "mg/dL"
+            },
+            "high": {
+              "value": 15,
+              "unit": "mg/dL",
+              "system": "http://unitsofmeasure.org",
+              "code": "mg/dL"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:observation-ketones",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "observation-ketones",
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2514-8",
+              "display": "Ketones [Presence] in Urine by Test strip"
+            }
+          ],
+          "text": "Ketones [Presence] in Urine by Test strip"
+        },
+        "subject": {
+          "reference": "Patient/5b24c87b-6223-f5b4-51e9-82051159bd1d"
+        },
+        "effectiveDateTime": "2016-11-04T13:24:13Z",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "167287002",
+              "display": "Urine ketones not detected"
+            }
+          ],
+          "text": "Urine ketones not detected"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:observation-hpo",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "observation-hpo",
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://purl.obolibrary.org/obo/hp.owl",
+              "code": "HP:0001250",
+              "display": "Seizure"
+            }
+          ],
+          "text": "Seizure"
+        },
+        "subject": {
+          "reference": "Patient/5b24c87b-6223-f5b4-51e9-82051159bd1d"
+        },
+        "effectiveDateTime": "2018-02-10T09:30:00Z",
+        "valueBoolean": true
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:procedure-immunotherapy",
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "procedure-immunotherapy",
+        "status": "completed",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "180256009",
+              "display": "Subcutaneous immunotherapy"
+            }
+          ],
+          "text": "Subcutaneous immunotherapy"
+        },
+        "subject": {
+          "reference": "https://example.org/fhir/Patient/5b24c87b-6223-f5b4-51e9-82051159bd1d"
+        },
+        "performedPeriod": {
+          "start": "2016-08-12T16:28:15Z",
+          "end": "2016-08-12T16:52:49Z"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:medication-fexofenadine",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "medication-fexofenadine",
+        "status": "active",
+        "intent": "order",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "997488",
+              "display": "Fexofenadine hydrochloride 30 MG Oral Tablet"
+            }
+          ],
+          "text": "Fexofenadine hydrochloride 30 MG Oral Tablet"
+        },
+        "subject": {
+          "reference": "Patient/5b24c87b-6223-f5b4-51e9-82051159bd1d"
+        },
+        "authoredOn": "2017-09-22T12:26:44Z",
+        "dosageInstruction": [
+          {
+            "sequence": 1,
+            "text": "Take as needed",
+            "asNeededBoolean": true
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:specimen-blood",
+      "resource": {
+        "resourceType": "Specimen",
+        "id": "specimen-blood",
+        "status": "available",
+        "type": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "119297000",
+              "display": "Blood specimen"
+            }
+          ],
+          "text": "Blood specimen"
+        },
+        "subject": {
+          "reference": "urn:uuid:5b24c87b-6223-f5b4-51e9-82051159bd1d"
+        },
+        "receivedTime": "2020-03-21T15:55:00Z",
+        "collection": {
+          "collector": {
+            "display": "Synthetic laboratory"
+          },
+          "collectedDateTime": "2020-03-21T15:48:03Z",
+          "bodySite": {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "368209003",
+                "display": "Right arm"
+              }
+            ],
+            "text": "Right arm"
+          }
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:observation-hemoglobin",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "observation-hemoglobin",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "718-7",
+              "display": "Hemoglobin [Mass/volume] in Blood"
+            }
+          ],
+          "text": "Hemoglobin [Mass/volume] in Blood"
+        },
+        "subject": {
+          "reference": "Patient/5b24c87b-6223-f5b4-51e9-82051159bd1d"
+        },
+        "specimen": {
+          "reference": "Specimen/specimen-blood"
+        },
+        "effectiveDateTime": "2020-03-21T15:48:03Z",
+        "valueQuantity": {
+          "value": 13.2,
+          "unit": "g/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "g/dL"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:research-study-1",
+      "resource": {
+        "resourceType": "ResearchStudy",
+        "id": "research-study-1",
+        "status": "active",
+        "title": "Synthetic FHIR phenotype study",
+        "description": "Synthetic study metadata used to test derived Beacon datasets."
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:research-subject-1",
+      "resource": {
+        "resourceType": "ResearchSubject",
+        "id": "research-subject-1",
+        "status": "on-study",
+        "study": {
+          "reference": "ResearchStudy/research-study-1"
+        },
+        "individual": {
+          "reference": "Patient/5b24c87b-6223-f5b4-51e9-82051159bd1d"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:research-cohort-1",
+      "resource": {
+        "resourceType": "Group",
+        "id": "research-cohort-1",
+        "type": "person",
+        "actual": true,
+        "name": "Synthetic FHIR study cohort",
+        "quantity": 1,
+        "member": [
+          {
+            "entity": {
+              "reference": "Patient/5b24c87b-6223-f5b4-51e9-82051159bd1d"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

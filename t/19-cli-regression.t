@@ -5,6 +5,7 @@ use warnings;
 use lib qw(./lib ../lib t/lib);
 use Config;
 use File::Spec;
+use File::Temp qw(tempdir);
 use Test::More;
 use Test::ConvertPheno qw(
   cli_script_path
@@ -174,6 +175,30 @@ my @cases = (
         compare  => 'structured',
     },
     {
+        name     => 'fhir2bff',
+        cmd      => [ '-ifhir', 't/fhir2bff/in/patient-bundle.json', '-obff', '__OUT__' ],
+        expected => 't/fhir2bff/out/individuals.json',
+        suffix   => '.json',
+        compare  => 'structured',
+    },
+    {
+        name     => 'fhir2bff_generic_io',
+        cmd      => [
+            '-i', 'fhir', 't/fhir2bff/in/patient-bundle.json',
+            '-o', 'bff', '__OUT__',
+        ],
+        expected => 't/fhir2bff/out/individuals.json',
+        suffix   => '.json',
+        compare  => 'structured',
+    },
+    {
+        name     => 'fhir2pxf',
+        cmd      => [ '-ifhir', 't/fhir2bff/in/patient-bundle.json', '-opxf', '__OUT__' ],
+        expected => 't/fhir2pxf/out/pxf.json',
+        suffix   => '.json',
+        compare  => 'structured',
+    },
+    {
         name     => 'bff2csv',
         cmd      => [ '-ibff', 't/bff2pxf/in/individuals.json', '-ocsv', '__OUT__' ],
         expected => 't/bff2csv/out/individuals.csv',
@@ -281,6 +306,42 @@ for my $case (@cases) {
         ok(
             compare_case_output( $case->{compare}, $case->{expected}, $actual_file ),
             "CLI $case->{name} matches reference output",
+        );
+    }
+}
+
+SKIP: {
+    skip q{share/db/ohdsi.db is required for the CLI fhir2omop test}, 7
+      unless has_ohdsi_db();
+
+    my $omop_dir = tempdir( CLEANUP => 1 );
+    my @cmd = (
+        $^X, $cli,
+        '-ifhir', 't/fhir2bff/in/patient-bundle.json',
+        '-oomop',
+        '--out-dir', $omop_dir,
+        '--ohdsi-db',
+        '-O',
+        '--test',
+    );
+    my ( $status, $output ) = run_cli(@cmd);
+    diag($output) if $status != 0 && defined $output && length $output;
+    is( $status, 0, 'CLI fhir2omop exits successfully' );
+
+    for my $table (qw(
+      CONDITION_OCCURRENCE
+      DRUG_EXPOSURE
+      MEASUREMENT
+      OBSERVATION
+      PERSON
+      PROCEDURE_OCCURRENCE
+    )) {
+        ok(
+            csv_files_match(
+                "t/fhir2omop/out/$table.csv",
+                File::Spec->catfile( $omop_dir, "$table.csv" ),
+            ),
+            "CLI fhir2omop $table matches reference output",
         );
     }
 }

@@ -11,7 +11,7 @@ sidebar_label: FAQs
 <summary>What does `Convert-Pheno` do?</summary>
 
 
-`Convert-Pheno` is an open-source toolkit for converting clinical and phenotypic data between supported exchange models such as `BFF`, `PXF`, `OMOP-CDM`, `REDCap`, `CDISC-ODM`, CDISC `Dataset-JSON`, and mapped `CSV`.
+`Convert-Pheno` is an open-source toolkit for converting clinical and phenotypic data between supported exchange models such as `BFF`, `PXF`, `OMOP-CDM`, `REDCap`, `CDISC-ODM`, CDISC `Dataset-JSON`, FHIR R4, and mapped `CSV`.
 
 
 </details>
@@ -296,6 +296,9 @@ For those conversions, `beacon.datasets.defaults` and `beacon.cohorts.defaults` 
 This does not currently apply to `omop2bff` or `pxf2bff`. Dataset-JSON does
 not read a mapping file, but it can prepopulate synthesized dataset and cohort
 metadata from `studyOID` and the `TS` study title.
+
+FHIR also does not read a mapping file. It can prepopulate dataset and cohort
+metadata from `ResearchStudy` and `Group` resources.
 
 </details>
 <details>

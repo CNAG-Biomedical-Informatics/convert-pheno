@@ -42,7 +42,7 @@
 
 `Convert-Pheno` is a toolkit for interconverting standard clinical and phenotypic data models
 
-Supported formats include BFF, PXF, OMOP CDM, REDCap, CDISC-ODM, CDISC Dataset-JSON, CSV, and openEHR canonical input
+Supported formats include BFF, PXF, OMOP CDM, REDCap, CDISC-ODM, CDISC Dataset-JSON, FHIR R4, CSV, and openEHR canonical input
 
 ## Quick Start
 
@@ -54,11 +54,12 @@ convert-pheno -ipxf pxf.json -obff --entities individuals biosamples datasets co
 convert-pheno -ibff individuals.json -opxf phenopackets.json
 convert-pheno -iomop dump.sql.gz -obff individuals.json.gz --stream --ohdsi-db
 convert-pheno -idataset-json dm.json mh.json lb.json -obff individuals.json
+convert-pheno -ifhir bundle.json -obff --entities individuals biosamples --out-dir out/
 ```
 
 For backward compatibility, the `-iomop ... -obff` form still keeps the individuals-only BFF output behavior.
 
-Note: `openEHR` canonical input and CDISC Dataset-JSON SDTM input are currently experimental because independent source coverage remains limited.
+Note: `openEHR` canonical input, CDISC Dataset-JSON SDTM input, and FHIR R4 Bundle input are currently experimental because independent source coverage remains limited.
 See the CLI documentation for their implemented routes and current boundaries.
 
 Internally, most conversions use `BFF` as the target model before continuing to other output formats when needed.
@@ -70,8 +71,8 @@ BFF output can now be entity-aware through `--entities`.
 Current support:
 
 - `individuals` as the default BFF output entity
-- `biosamples` as first-class BFF output for `-ipxf` when the input contains biosample data
-- `datasets` and `cohorts` synthesized from the normalized `individuals` collection
+- `biosamples` as first-class BFF output from PXF biosamples, FHIR Specimen, OMOP SPECIMEN, or mapping-file rules
+- `datasets` and `cohorts` synthesized from normalized `individuals`, with source metadata where supported
 
 Example:
 

@@ -89,33 +89,18 @@ const sidebars: SidebarsConfig = {
           label: 'Beacon v2 Models (BFF)',
         },
         {
-          type: 'doc',
-          id: 'pxf',
-          label: 'Phenopackets v2 (PXF)',
-        },
-        {
-          type: 'doc',
-          id: 'redcap',
-          label: 'REDCap',
-        },
-        {
-          type: 'doc',
-          id: 'omop-cdm',
-          label: 'OMOP-CDM',
-        },
-        {
           type: 'category',
           label: 'CDISC',
           items: [
             {
               type: 'doc',
-              id: 'cdisc-odm',
-              label: 'ODM',
+              id: 'dataset-json',
+              label: 'Dataset-JSON (Experimental)',
             },
             {
               type: 'doc',
-              id: 'dataset-json',
-              label: 'Dataset-JSON (Experimental)',
+              id: 'cdisc-odm',
+              label: 'ODM',
             },
           ],
         },
@@ -126,8 +111,28 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: 'doc',
+          id: 'fhir',
+          label: 'FHIR R4 (Experimental)',
+        },
+        {
+          type: 'doc',
+          id: 'omop-cdm',
+          label: 'OMOP-CDM',
+        },
+        {
+          type: 'doc',
           id: 'openehr',
           label: 'openEHR (Experimental)',
+        },
+        {
+          type: 'doc',
+          id: 'pxf',
+          label: 'Phenopackets v2 (PXF)',
+        },
+        {
+          type: 'doc',
+          id: 'redcap',
+          label: 'REDCap',
         },
       ],
     },
@@ -156,6 +161,26 @@ const sidebars: SidebarsConfig = {
           items: [
             {
               type: 'doc',
+              id: 'bff2omop',
+              label: 'BFF to OMOP',
+            },
+            {
+              type: 'doc',
+              id: 'bff2pxf',
+              label: 'BFF to PXF',
+            },
+            {
+              type: 'doc',
+              id: 'datasetjson2bff',
+              label: 'Dataset-JSON to BFF',
+            },
+            {
+              type: 'doc',
+              id: 'fhir2bff',
+              label: 'FHIR to BFF',
+            },
+            {
+              type: 'doc',
               id: 'omop2bff',
               label: 'OMOP to BFF',
             },
@@ -166,23 +191,8 @@ const sidebars: SidebarsConfig = {
             },
             {
               type: 'doc',
-              id: 'datasetjson2bff',
-              label: 'Dataset-JSON to BFF',
-            },
-            {
-              type: 'doc',
               id: 'pxf2bff',
               label: 'PXF to BFF',
-            },
-            {
-              type: 'doc',
-              id: 'bff2pxf',
-              label: 'BFF to PXF',
-            },
-            {
-              type: 'doc',
-              id: 'bff2omop',
-              label: 'BFF to OMOP',
             },
           ],
         },

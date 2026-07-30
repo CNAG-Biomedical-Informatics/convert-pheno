@@ -1,0 +1,484 @@
+[
+   {
+      "diseases" : [
+         {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P15Y"
+               }
+            },
+            "diseaseCode" : {
+               "id" : "SNOMEDCT:307426000",
+               "label" : "Acute infective cystitis"
+            },
+            "resolution" : {
+               "age" : {
+                  "iso8601duration" : "P15Y"
+               }
+            }
+         }
+      ],
+      "ethnicity" : {
+         "id" : "CDCREC:2186-5",
+         "label" : "Not Hispanic or Latino"
+      },
+      "geographicOrigin" : {
+         "id" : "ISO3166-1:US",
+         "label" : "US"
+      },
+      "id" : "5b24c87b-6223-f5b4-51e9-82051159bd1d",
+      "info" : {
+         "fhir" : {
+            "bundles" : [
+               {
+                  "id" : "convert-pheno-fhir-r4-example",
+                  "source" : "t/fhir2bff/in/patient-bundle.json",
+                  "timestamp" : "2026-07-22T16:22:00Z",
+                  "type" : "collection"
+               }
+            ],
+            "patient" : {
+               "birthDate" : "2001-01-06",
+               "extension" : [
+                  {
+                     "extension" : [
+                        {
+                           "url" : "ombCategory",
+                           "valueCoding" : {
+                              "code" : "2186-5",
+                              "display" : "Not Hispanic or Latino",
+                              "system" : "urn:oid:2.16.840.1.113883.6.238"
+                           }
+                        },
+                        {
+                           "url" : "text",
+                           "valueString" : "Not Hispanic or Latino"
+                        }
+                     ],
+                     "url" : "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity"
+                  },
+                  {
+                     "url" : "http://hl7.org/fhir/StructureDefinition/patient-birthPlace",
+                     "valueAddress" : {
+                        "city" : "Winchester",
+                        "country" : "US",
+                        "state" : "Massachusetts"
+                     }
+                  }
+               ],
+               "gender" : "female",
+               "id" : "5b24c87b-6223-f5b4-51e9-82051159bd1d",
+               "identifier" : [
+                  {
+                     "system" : "https://github.com/synthetichealth/synthea",
+                     "value" : "5b24c87b-6223-f5b4-51e9-82051159bd1d"
+                  }
+               ],
+               "meta" : {
+                  "profile" : [
+                     "http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient"
+                  ]
+               },
+               "resourceType" : "Patient"
+            },
+            "resources" : [
+               {
+                  "abatementDateTime" : "2016-11-05T06:34:13Z",
+                  "clinicalStatus" : {
+                     "coding" : [
+                        {
+                           "code" : "resolved",
+                           "system" : "http://terminology.hl7.org/CodeSystem/condition-clinical"
+                        }
+                     ]
+                  },
+                  "code" : {
+                     "coding" : [
+                        {
+                           "code" : "307426000",
+                           "display" : "Acute infective cystitis",
+                           "system" : "http://snomed.info/sct"
+                        }
+                     ],
+                     "text" : "Acute infective cystitis"
+                  },
+                  "id" : "condition-cystitis",
+                  "onsetDateTime" : "2016-11-04T11:59:46Z",
+                  "resourceType" : "Condition",
+                  "subject" : {
+                     "reference" : "urn:uuid:5b24c87b-6223-f5b4-51e9-82051159bd1d"
+                  },
+                  "verificationStatus" : {
+                     "coding" : [
+                        {
+                           "code" : "confirmed",
+                           "system" : "http://terminology.hl7.org/CodeSystem/condition-ver-status"
+                        }
+                     ]
+                  }
+               },
+               {
+                  "category" : [
+                     {
+                        "coding" : [
+                           {
+                              "code" : "laboratory",
+                              "display" : "Laboratory",
+                              "system" : "http://terminology.hl7.org/CodeSystem/observation-category"
+                           }
+                        ]
+                     }
+                  ],
+                  "code" : {
+                     "coding" : [
+                        {
+                           "code" : "5792-7",
+                           "display" : "Glucose [Mass/volume] in Urine by Test strip",
+                           "system" : "http://loinc.org"
+                        }
+                     ],
+                     "text" : "Glucose [Mass/volume] in Urine by Test strip"
+                  },
+                  "effectiveDateTime" : "2016-11-04T13:24:13Z",
+                  "id" : "observation-glucose",
+                  "referenceRange" : [
+                     {
+                        "high" : {
+                           "code" : "mg/dL",
+                           "system" : "http://unitsofmeasure.org",
+                           "unit" : "mg/dL",
+                           "value" : 15
+                        },
+                        "low" : {
+                           "code" : "mg/dL",
+                           "system" : "http://unitsofmeasure.org",
+                           "unit" : "mg/dL",
+                           "value" : 0
+                        }
+                     }
+                  ],
+                  "resourceType" : "Observation",
+                  "status" : "final",
+                  "subject" : {
+                     "reference" : "Patient/5b24c87b-6223-f5b4-51e9-82051159bd1d"
+                  },
+                  "valueQuantity" : {
+                     "code" : "mg/dL",
+                     "system" : "http://unitsofmeasure.org",
+                     "unit" : "mg/dL",
+                     "value" : 7.6858
+                  }
+               },
+               {
+                  "code" : {
+                     "coding" : [
+                        {
+                           "code" : "2514-8",
+                           "display" : "Ketones [Presence] in Urine by Test strip",
+                           "system" : "http://loinc.org"
+                        }
+                     ],
+                     "text" : "Ketones [Presence] in Urine by Test strip"
+                  },
+                  "effectiveDateTime" : "2016-11-04T13:24:13Z",
+                  "id" : "observation-ketones",
+                  "resourceType" : "Observation",
+                  "status" : "final",
+                  "subject" : {
+                     "reference" : "Patient/5b24c87b-6223-f5b4-51e9-82051159bd1d"
+                  },
+                  "valueCodeableConcept" : {
+                     "coding" : [
+                        {
+                           "code" : "167287002",
+                           "display" : "Urine ketones not detected",
+                           "system" : "http://snomed.info/sct"
+                        }
+                     ],
+                     "text" : "Urine ketones not detected"
+                  }
+               },
+               {
+                  "code" : {
+                     "coding" : [
+                        {
+                           "code" : "HP:0001250",
+                           "display" : "Seizure",
+                           "system" : "http://purl.obolibrary.org/obo/hp.owl"
+                        }
+                     ],
+                     "text" : "Seizure"
+                  },
+                  "effectiveDateTime" : "2018-02-10T09:30:00Z",
+                  "id" : "observation-hpo",
+                  "resourceType" : "Observation",
+                  "status" : "final",
+                  "subject" : {
+                     "reference" : "Patient/5b24c87b-6223-f5b4-51e9-82051159bd1d"
+                  },
+                  "valueBoolean" : true
+               },
+               {
+                  "code" : {
+                     "coding" : [
+                        {
+                           "code" : "180256009",
+                           "display" : "Subcutaneous immunotherapy",
+                           "system" : "http://snomed.info/sct"
+                        }
+                     ],
+                     "text" : "Subcutaneous immunotherapy"
+                  },
+                  "id" : "procedure-immunotherapy",
+                  "performedPeriod" : {
+                     "end" : "2016-08-12T16:52:49Z",
+                     "start" : "2016-08-12T16:28:15Z"
+                  },
+                  "resourceType" : "Procedure",
+                  "status" : "completed",
+                  "subject" : {
+                     "reference" : "https://example.org/fhir/Patient/5b24c87b-6223-f5b4-51e9-82051159bd1d"
+                  }
+               },
+               {
+                  "authoredOn" : "2017-09-22T12:26:44Z",
+                  "dosageInstruction" : [
+                     {
+                        "asNeededBoolean" : true,
+                        "sequence" : 1,
+                        "text" : "Take as needed"
+                     }
+                  ],
+                  "id" : "medication-fexofenadine",
+                  "intent" : "order",
+                  "medicationCodeableConcept" : {
+                     "coding" : [
+                        {
+                           "code" : "997488",
+                           "display" : "Fexofenadine hydrochloride 30 MG Oral Tablet",
+                           "system" : "http://www.nlm.nih.gov/research/umls/rxnorm"
+                        }
+                     ],
+                     "text" : "Fexofenadine hydrochloride 30 MG Oral Tablet"
+                  },
+                  "resourceType" : "MedicationRequest",
+                  "status" : "active",
+                  "subject" : {
+                     "reference" : "Patient/5b24c87b-6223-f5b4-51e9-82051159bd1d"
+                  }
+               },
+               {
+                  "collection" : {
+                     "bodySite" : {
+                        "coding" : [
+                           {
+                              "code" : "368209003",
+                              "display" : "Right arm",
+                              "system" : "http://snomed.info/sct"
+                           }
+                        ],
+                        "text" : "Right arm"
+                     },
+                     "collectedDateTime" : "2020-03-21T15:48:03Z",
+                     "collector" : {
+                        "display" : "Synthetic laboratory"
+                     }
+                  },
+                  "id" : "specimen-blood",
+                  "receivedTime" : "2020-03-21T15:55:00Z",
+                  "resourceType" : "Specimen",
+                  "status" : "available",
+                  "subject" : {
+                     "reference" : "urn:uuid:5b24c87b-6223-f5b4-51e9-82051159bd1d"
+                  },
+                  "type" : {
+                     "coding" : [
+                        {
+                           "code" : "119297000",
+                           "display" : "Blood specimen",
+                           "system" : "http://snomed.info/sct"
+                        }
+                     ],
+                     "text" : "Blood specimen"
+                  }
+               },
+               {
+                  "category" : [
+                     {
+                        "coding" : [
+                           {
+                              "code" : "laboratory",
+                              "display" : "Laboratory",
+                              "system" : "http://terminology.hl7.org/CodeSystem/observation-category"
+                           }
+                        ]
+                     }
+                  ],
+                  "code" : {
+                     "coding" : [
+                        {
+                           "code" : "718-7",
+                           "display" : "Hemoglobin [Mass/volume] in Blood",
+                           "system" : "http://loinc.org"
+                        }
+                     ],
+                     "text" : "Hemoglobin [Mass/volume] in Blood"
+                  },
+                  "effectiveDateTime" : "2020-03-21T15:48:03Z",
+                  "id" : "observation-hemoglobin",
+                  "resourceType" : "Observation",
+                  "specimen" : {
+                     "reference" : "Specimen/specimen-blood"
+                  },
+                  "status" : "final",
+                  "subject" : {
+                     "reference" : "Patient/5b24c87b-6223-f5b4-51e9-82051159bd1d"
+                  },
+                  "valueQuantity" : {
+                     "code" : "g/dL",
+                     "system" : "http://unitsofmeasure.org",
+                     "unit" : "g/dL",
+                     "value" : 13.2
+                  }
+               },
+               {
+                  "id" : "research-subject-1",
+                  "individual" : {
+                     "reference" : "Patient/5b24c87b-6223-f5b4-51e9-82051159bd1d"
+                  },
+                  "resourceType" : "ResearchSubject",
+                  "status" : "on-study",
+                  "study" : {
+                     "reference" : "ResearchStudy/research-study-1"
+                  }
+               }
+            ],
+            "unmappedResourceTypes" : [
+               "ResearchSubject"
+            ],
+            "version" : "R4"
+         },
+         "phenopacket" : {
+            "biosamples" : [
+               {
+                  "id" : "specimen-blood",
+                  "individualId" : "5b24c87b-6223-f5b4-51e9-82051159bd1d",
+                  "materialSample" : {
+                     "id" : "FHIR:SpecimenStatus.available",
+                     "label" : "available"
+                  },
+                  "measurements" : [
+                     {
+                        "assay" : {
+                           "id" : "LOINC:718-7",
+                           "label" : "Hemoglobin [Mass/volume] in Blood"
+                        },
+                        "timeObserved" : {
+                           "timestamp" : "2020-03-21T00:00:00Z"
+                        },
+                        "value" : {
+                           "quantity" : {
+                              "unit" : {
+                                 "id" : "UCUM:g/dL",
+                                 "label" : "g/dL"
+                              },
+                              "value" : 13.2
+                           }
+                        }
+                     }
+                  ],
+                  "sampleType" : {
+                     "id" : "SNOMEDCT:119297000",
+                     "label" : "Blood specimen"
+                  },
+                  "sampledTissue" : {
+                     "id" : "SNOMEDCT:368209003",
+                     "label" : "Right arm"
+                  },
+                  "timeOfCollection" : {
+                     "timestamp" : "2020-03-21T00:00:00Z"
+                  }
+               }
+            ],
+            "dateOfBirth" : "2001-01-06T00:00:00Z"
+         }
+      },
+      "interventionsOrProcedures" : [
+         {
+            "dateOfProcedure" : "2016-08-12",
+            "procedureCode" : {
+               "id" : "SNOMEDCT:180256009",
+               "label" : "Subcutaneous immunotherapy"
+            }
+         }
+      ],
+      "measures" : [
+         {
+            "assayCode" : {
+               "id" : "LOINC:5792-7",
+               "label" : "Glucose [Mass/volume] in Urine by Test strip"
+            },
+            "date" : "2016-11-04",
+            "measurementValue" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 15,
+                     "low" : 0,
+                     "unit" : {
+                        "id" : "UCUM:mg/dL",
+                        "label" : "mg/dL"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "UCUM:mg/dL",
+                     "label" : "mg/dL"
+                  },
+                  "value" : 7.6858
+               }
+            }
+         },
+         {
+            "assayCode" : {
+               "id" : "LOINC:2514-8",
+               "label" : "Ketones [Presence] in Urine by Test strip"
+            },
+            "date" : "2016-11-04",
+            "measurementValue" : {
+               "id" : "SNOMEDCT:167287002",
+               "label" : "Urine ketones not detected"
+            }
+         }
+      ],
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "featureType" : {
+               "id" : "HP:0001250",
+               "label" : "Seizure"
+            },
+            "onset" : {
+               "age" : {
+                  "iso8601duration" : "P17Y"
+               }
+            }
+         }
+      ],
+      "sex" : {
+         "id" : "NCIT:C16576",
+         "label" : "Female"
+      },
+      "treatments" : [
+         {
+            "ageOfOnset" : {
+               "age" : {
+                  "iso8601duration" : "P16Y"
+               }
+            },
+            "treatmentCode" : {
+               "id" : "RxNorm:997488",
+               "label" : "Fexofenadine hydrochloride 30 MG Oral Tablet"
+            }
+         }
+      ]
+   }
+]

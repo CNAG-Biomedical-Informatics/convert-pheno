@@ -8,7 +8,7 @@ use strict;
 use warnings;
 use lib qw(./lib ../lib t/lib);
 
-use Test::More tests => 5;
+use Test::More tests => 6;
 
 my %cases = (
     bff2pxf => {
@@ -25,6 +25,9 @@ my %cases = (
     },
     datasetjson2pxf => {
        out => 't/datasetjson2pxf/out/pxf.json'
+    },
+    fhir2pxf => {
+       out => 't/fhir2pxf/out/pxf.json'
     }
 );
 

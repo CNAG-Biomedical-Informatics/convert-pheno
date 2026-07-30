@@ -70,6 +70,14 @@ For a compact list of accepted inputs and outputs, see [Supported Formats](suppo
 | Phenopackets v2 / `PXF` | [`datasetjson2pxf`](#dataset-json-input-pxf-output) | Internally goes through BFF |
 | OMOP-CDM CSV | [`datasetjson2omop`](#dataset-json-input-omop-cdm-output) | Internally goes through BFF; requires `--ohdsi-db` |
 
+### FHIR R4 Input
+
+| Target output | Route | Notes |
+| --- | --- | --- |
+| Beacon v2 / `BFF` | [`fhir2bff`](#fhir-r4-input-bff-output) | Bundle resources are grouped by Patient; can emit biosamples from Specimen |
+| Phenopackets v2 / `PXF` | [`fhir2pxf`](#fhir-r4-input-pxf-output) | Internally goes through BFF and preserves biosamples |
+| OMOP-CDM CSV | [`fhir2omop`](#fhir-r4-input-omop-cdm-output) | Internally goes through BFF; requires `--ohdsi-db` |
+
 ### openEHR Input
 
 | Target output | Route | Notes |
@@ -331,6 +339,46 @@ convert-pheno -idataset-json dm.json mh.json ae.json lb.json \
 ```
 
 All supplied Dataset-JSON domains are currently loaded and grouped in memory.
+
+## FHIR R4 Input Examples
+
+FHIR input accepts one or more R4 JSON Bundle files and groups associated
+resources by Patient. A mapping file is not required.
+
+### FHIR R4 Input: BFF Output
+
+```bash
+convert-pheno -ifhir bundle.json -obff individuals.json
+```
+
+To write Specimen-derived biosamples and collection metadata as separate BFF
+entities:
+
+```bash
+convert-pheno -ifhir bundle.json \
+  -obff --entities individuals biosamples datasets cohorts \
+  --out-dir bff_out/
+```
+
+More detail: [FHIR R4](fhir), [FHIR to BFF mapping](fhir2bff).
+
+### FHIR R4 Input: PXF Output
+
+```bash
+convert-pheno -ifhir bundle.json -opxf phenopackets.json
+```
+
+### FHIR R4 Input: OMOP-CDM Output
+
+```bash
+convert-pheno -ifhir bundle.json \
+  -oomop --out-dir omop_out/ \
+  --ohdsi-db
+```
+
+Use `--no-source-info` when raw FHIR resources should not be copied into BFF
+provenance. All supplied Bundles and grouped Patient records are currently held
+in memory.
 
 ## openEHR Input Examples
 

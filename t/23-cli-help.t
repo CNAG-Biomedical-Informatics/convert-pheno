@@ -176,6 +176,46 @@ is(
     'CLI parser accepts Dataset-JSON to OMOP output'
 );
 
+$request = build_cli_request(
+    argv => [
+        '-i', 'fhir',
+        't/fhir2bff/in/patient-bundle.json',
+        '-o', 'pxf',
+        'phenopacket.json',
+    ],
+    usage_error => sub { die @_ },
+    schema_file => 'share/schema/mapping.json',
+    out_dir     => $tmpdir,
+    color       => 1,
+);
+
+is( $request->{data}{method}, 'fhir2pxf', 'CLI parser accepts generic FHIR input' );
+is_deeply(
+    $request->{data}{in_files},
+    ['t/fhir2bff/in/patient-bundle.json'],
+    'CLI parser retains FHIR Bundle files'
+);
+
+$request = build_cli_request(
+    argv => [
+        '-ifhir', 't/fhir2bff/in/patient-bundle.json',
+        '-obff',
+        '--entities', 'biosamples',
+        '--out-dir', $tmpdir,
+    ],
+    usage_error => sub { die @_ },
+    schema_file => 'share/schema/mapping.json',
+    out_dir     => '.',
+    color       => 1,
+);
+
+is( $request->{data}{method}, 'fhir2bff', 'CLI parser accepts compact FHIR input' );
+is_deeply(
+    $request->{data}{entities},
+    ['biosamples'],
+    'CLI parser accepts FHIR biosample output'
+);
+
 my $usage_error;
 eval {
     build_cli_request(
@@ -296,6 +336,7 @@ like(
 like( $help, qr/-icdisc-odm <file>/, 'CLI help names CDISC-ODM explicitly' );
 unlike( $help, qr/-icdisc(?:\s|\x20)<file>/, 'CLI help does not advertise the removed -icdisc flag' );
 like( $help, qr/-idataset-json <files\.\.\.>/, 'CLI help documents Dataset-JSON input' );
+like( $help, qr/-ifhir <files\.\.\.>/, 'CLI help documents FHIR Bundle input' );
 like(
     $help,
     qr/\[ALIVE\|DECEASED\|UNKNOWN_STATUS\]/,
@@ -308,7 +349,7 @@ like(
 );
 like(
     $help,
-    qr/biosamples are emitted from -ipxf, OMOP SPECIMEN, or\s+beacon\.biosamples rules in a mapping file/s,
+    qr/biosamples are emitted from -ipxf, FHIR Specimen,\s+OMOP SPECIMEN, or beacon\.biosamples mapping rules/s,
     'CLI help documents all first-class biosample sources'
 );
 like(

@@ -7,6 +7,7 @@ use Exporter 'import';
 
 use Convert::Pheno::Source::CDISC::DatasetJSON;
 use Convert::Pheno::Source::CDISC::ODM;
+use Convert::Pheno::Source::FHIR;
 use Convert::Pheno::Source::OMOP;
 use Convert::Pheno::Source::OpenEHR;
 use Convert::Pheno::Source::Structured;
@@ -27,6 +28,8 @@ sub source_adapter {
       if $format eq 'cdisc-odm';
     return Convert::Pheno::Source::CDISC::DatasetJSON->new($converter)
       if $format eq 'dataset-json';
+    return Convert::Pheno::Source::FHIR->new($converter)
+      if $format eq 'fhir';
     return Convert::Pheno::Source::OpenEHR->new($converter)
       if $format eq 'openehr';
     return Convert::Pheno::Source::OMOP->new($converter)
