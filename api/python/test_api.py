@@ -28,7 +28,7 @@ class PythonApiTests(unittest.TestCase):
         else:
             os.environ["CONVERT_PHENO_PERL_BRIDGE"] = self.original_bridge
 
-    def test_api_preserves_extra_payload_fields(self):
+    def test_api_preserves_allowed_payload_fields(self):
         with tempfile.TemporaryDirectory() as tempdir:
             script_path = Path(tempdir) / "echo_bridge.pl"
             script_path.write_text(
@@ -85,14 +85,29 @@ class PythonApiTests(unittest.TestCase):
         self.assertEqual(body["ok"], False)
         self.assertEqual(body["error"]["code"], "invalid_request")
 
-    def test_api_rejects_duplicate_keys_across_sections(self):
+    def test_api_rejects_filesystem_options(self):
+        client = TestClient(main.app)
+        response = client.post(
+            "/api",
+            json={
+                "conversion": "pxf2bff",
+                "input": {"data": {}},
+                "options": {"out_file": "/tmp/result.json"},
+            },
+        )
+
+        self.assertEqual(response.status_code, 422)
+        body = response.json()
+        self.assertEqual(body["error"]["code"], "invalid_request")
+        self.assertIn("Unsupported key 'out_file'", body["error"]["message"])
+
+    def test_api_rejects_keys_in_the_wrong_section(self):
         client = TestClient(main.app)
         response = client.post(
             "/api",
             json={
                 "conversion": "pxf2bff",
                 "input": {"entities": ["individuals"]},
-                "output": {"entities": ["biosamples"]},
             },
         )
 
@@ -100,7 +115,7 @@ class PythonApiTests(unittest.TestCase):
         body = response.json()
         self.assertEqual(body["ok"], False)
         self.assertEqual(body["error"]["code"], "invalid_request")
-        self.assertIn("Duplicate key 'entities'", body["error"]["message"])
+        self.assertIn("Unsupported key 'entities' in 'input'", body["error"]["message"])
 
     def test_api_rejects_callable_internal_method(self):
         client = TestClient(main.app)
@@ -114,6 +129,18 @@ class PythonApiTests(unittest.TestCase):
         self.assertEqual(body["ok"], False)
         self.assertEqual(body["error"]["code"], "conversion_error")
         self.assertIn("Unsupported conversion <get_info>", body["error"]["message"])
+
+    def test_api_rejects_file_based_conversion_routes(self):
+        client = TestClient(main.app)
+        response = client.post(
+            "/api",
+            json={"conversion": "redcap2bff", "input": {"data": {}}},
+        )
+
+        self.assertEqual(response.status_code, 422)
+        body = response.json()
+        self.assertEqual(body["error"]["code"], "conversion_error")
+        self.assertIn("not available over HTTP", body["error"]["message"])
 
 
 if __name__ == "__main__":

@@ -211,8 +211,10 @@ use Convert::Pheno::PXF::ToBFF qw(do_pxf2bff run_pxf_to_bundle map_pxf_to_indivi
 {
     no warnings 'redefine';
 
+    my $mapped_cohort;
     local *Convert::Pheno::PXF::ToBFF::map_pxf_to_individual = sub {
         my ( $self, $phenopacket, $cohort, $family ) = @_;
+        $mapped_cohort = $cohort;
         return { id => $phenopacket->{subject}{id} };
     };
     local *Convert::Pheno::PXF::ToBFF::validate_format = sub { return 1 };
@@ -254,6 +256,20 @@ use Convert::Pheno::PXF::ToBFF qw(do_pxf2bff run_pxf_to_bundle map_pxf_to_indivi
 
     my $primary = do_pxf2bff( $convert, $pxf );
     is_deeply( $primary, { id => 'pxf-1' }, 'do_pxf2bff unwraps the bundle to the primary result' );
+
+    run_pxf_to_bundle(
+        $convert,
+        {
+            phenopacket => { subject => { id => 'pxf-cohort-1' } },
+            cohort      => { id => 'cohort-1' },
+        },
+        $convert->{conversion_context},
+    );
+    is_deeply(
+        $mapped_cohort,
+        { id => 'cohort-1' },
+        'PXF wrapper passes cohort metadata without requiring a family'
+    );
 }
 
 done_testing();

@@ -7,8 +7,14 @@ This directory contains the Perl REST wrapper around `Convert::Pheno`.
 * The API is built with `Mojolicious`.
 * The public REST contract uses a single `POST /api` endpoint.
 * `/api` receives a JSON object with explicit `conversion`, `input`, `output`, and `options` sections.
-* Incoming request bodies are validated against [OpenAPI schema](./openapi.json), but only at the payload-shape level.
+* Incoming request bodies are validated against the [OpenAPI schema](./openapi.json) and a public field allowlist.
 * The conversion logic still runs in `Convert::Pheno`; this wrapper only exposes it over an HTTP(S) endpoint.
+
+The HTTP API accepts in-memory data under `input.data`. It deliberately rejects
+host filesystem options such as `in_file`, `out_file`, `mapping_file`, and
+`path_to_ohdsi_db`. BFF, PXF, openEHR, and already-transposed OMOP payloads can
+be sent over HTTP; file-based CSV, REDCap, and CDISC-ODM routes should use the
+CLI or module interface.
     
 ## Installation 
 

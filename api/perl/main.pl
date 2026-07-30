@@ -24,8 +24,17 @@ BEGIN {
     lib->import("$API_DIR/../../lib");
 }
 use Convert::Pheno;
-use Convert::Pheno::Operations qw(is_public_conversion);
+use Convert::Pheno::Operations qw(
+  http_request_fields
+  is_http_conversion
+  is_public_conversion
+);
 use Mojo::JSON qw(true false);
+
+my $http_request_fields = http_request_fields();
+my %HTTP_REQUEST_FIELDS = map {
+    $_ => { map { $_ => 1 } @{ $http_request_fields->{$_} } }
+} keys %{$http_request_fields};
 
 sub render_error {
     my ( $c, $status, $code, $message, $conversion ) = @_;
@@ -54,6 +63,8 @@ sub flatten_public_request {
           if exists $section->{method};
 
         for my $key ( keys %{$section} ) {
+            die "Unsupported key '$key' in '$section_name'"
+              unless $HTTP_REQUEST_FIELDS{$section_name}{$key};
             die
 "Duplicate key '$key' appears in more than one of input/output/options"
               if exists $payload{$key};
@@ -83,6 +94,14 @@ post '/api' =>  sub {
         $conversion,
       )
       unless is_public_conversion($conversion);
+    return render_error(
+        $c,
+        422,
+        'conversion_error',
+        "Conversion <$conversion> is not available over HTTP; use the CLI for file-based routes",
+        $conversion,
+      )
+      unless is_http_conversion($conversion);
 
     # Create new object
     my $result = eval {

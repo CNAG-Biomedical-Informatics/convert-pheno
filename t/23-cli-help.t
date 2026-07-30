@@ -181,6 +181,27 @@ like(
     'CLI parser prints a focused error for the removed -oomop PREFIX form'
 );
 
+$usage_error = undef;
+eval {
+    build_cli_request(
+        argv => [
+            '-ibff', 't/bff2pxf/in/individuals.json',
+            '-obff', 'individuals.json',
+        ],
+        usage_error => sub { die @_ },
+        schema_file => 'share/schema/mapping.json',
+        out_dir     => $tmpdir,
+        color       => 1,
+    );
+    1;
+} or $usage_error = $@;
+
+like(
+    $usage_error,
+    qr/Unsupported conversion <bff2bff>/,
+    'CLI parser rejects unsupported same-format routes'
+);
+
 my $cli = cli_script_path();
 plan skip_all => "convert-pheno CLI not found at $cli" unless -f $cli;
 

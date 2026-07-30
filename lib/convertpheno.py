@@ -1,3 +1,4 @@
+import copy
 import json
 import os
 import pathlib
@@ -44,7 +45,7 @@ class PythonBridgeError(RuntimeError):
     pass
 
 
-def _load_public_conversions():
+def _load_conversion_registry():
     registry_path = (
         pathlib.Path(__file__).resolve().parent.parent
         / "share"
@@ -52,25 +53,56 @@ def _load_public_conversions():
         / "public-conversions.json"
     )
     try:
-        conversions = json.loads(registry_path.read_text(encoding="utf-8"))
+        registry = json.loads(registry_path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
         raise RuntimeError(
             f"Could not load public conversion registry: {registry_path}"
         ) from exc
-    if not isinstance(conversions, list) or not all(
-        isinstance(item, str) for item in conversions
-    ):
+    if not isinstance(registry, dict) or registry.get("schema_version") != 1:
         raise RuntimeError(
-            f"Public conversion registry must contain an array of strings: {registry_path}"
+            f"Public conversion registry must contain a version 1 object: {registry_path}"
         )
-    return frozenset(conversions)
+    conversions = registry.get("conversions")
+    request_fields = registry.get("http_request_fields")
+    if not isinstance(conversions, dict) or not isinstance(request_fields, dict):
+        raise RuntimeError(
+            f"Public conversion registry is missing conversions or HTTP fields: {registry_path}"
+        )
+    for section in ("input", "output", "options"):
+        fields = request_fields.get(section)
+        if not isinstance(fields, list) or not all(
+            isinstance(field, str) for field in fields
+        ):
+            raise RuntimeError(
+                f"HTTP request registry section {section!r} must contain strings: {registry_path}"
+            )
+    return registry
 
 
-PUBLIC_CONVERSIONS = _load_public_conversions()
+CONVERSION_REGISTRY = _load_conversion_registry()
+PUBLIC_CONVERSIONS = frozenset(CONVERSION_REGISTRY["conversions"])
+HTTP_REQUEST_FIELDS = {
+    section: frozenset(fields)
+    for section, fields in CONVERSION_REGISTRY["http_request_fields"].items()
+}
 
 
 def is_public_conversion(conversion):
     return isinstance(conversion, str) and conversion in PUBLIC_CONVERSIONS
+
+
+def is_http_conversion(conversion):
+    return is_public_conversion(conversion) and bool(
+        CONVERSION_REGISTRY["conversions"][conversion]["http_enabled"]
+    )
+
+
+def conversion_spec(conversion):
+    if not is_public_conversion(conversion):
+        return None
+    spec = copy.deepcopy(CONVERSION_REGISTRY["conversions"][conversion])
+    spec["name"] = conversion
+    return spec
 
 
 class PythonBinding:

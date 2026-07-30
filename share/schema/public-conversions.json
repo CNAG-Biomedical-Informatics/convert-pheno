@@ -1,25 +1,253 @@
-[
-  "bff2csv",
-  "bff2jsonf",
-  "bff2jsonld",
-  "bff2omop",
-  "bff2pxf",
-  "cdisc2bff",
-  "cdisc2omop",
-  "cdisc2pxf",
-  "csv2bff",
-  "csv2omop",
-  "csv2pxf",
-  "omop2bff",
-  "omop2pxf",
-  "openehr2bff",
-  "openehr2pxf",
-  "pxf2bff",
-  "pxf2csv",
-  "pxf2jsonf",
-  "pxf2jsonld",
-  "pxf2omop",
-  "redcap2bff",
-  "redcap2omop",
-  "redcap2pxf"
-]
+{
+  "schema_version": 1,
+  "http_request_fields": {
+    "input": ["data"],
+    "output": ["derived_entity_overrides", "entities"],
+    "options": [
+      "default_vital_status",
+      "levenshtein_weight",
+      "max_lines_sql",
+      "min_text_similarity_score",
+      "ohdsi_db",
+      "omop_tables",
+      "print_hidden_labels",
+      "search",
+      "source_info",
+      "test",
+      "text_similarity_method",
+      "username"
+    ]
+  },
+  "conversions": {
+    "bff2csv": {
+      "source": "beacon",
+      "target": "csv",
+      "operation": "direct",
+      "pipeline": ["bff2csv"],
+      "resources": { "sqlite": false },
+      "entities": { "default": [], "supported": [], "primary": null },
+      "streaming": false,
+      "http_enabled": true
+    },
+    "bff2jsonf": {
+      "source": "beacon",
+      "target": "jsonf",
+      "operation": "direct",
+      "pipeline": ["bff2jsonf"],
+      "resources": { "sqlite": false },
+      "entities": { "default": [], "supported": [], "primary": null },
+      "streaming": false,
+      "http_enabled": true
+    },
+    "bff2jsonld": {
+      "source": "beacon",
+      "target": "jsonld",
+      "operation": "direct",
+      "pipeline": ["bff2jsonld"],
+      "resources": { "sqlite": false },
+      "entities": { "default": [], "supported": [], "primary": null },
+      "streaming": false,
+      "http_enabled": true
+    },
+    "bff2omop": {
+      "source": "beacon",
+      "target": "omop",
+      "operation": "direct",
+      "pipeline": ["bff2omop"],
+      "resources": { "sqlite": true },
+      "entities": { "default": [], "supported": [], "primary": null },
+      "streaming": false,
+      "http_enabled": true
+    },
+    "bff2pxf": {
+      "source": "beacon",
+      "target": "pxf",
+      "operation": "direct",
+      "pipeline": ["bff2pxf"],
+      "resources": { "sqlite": false },
+      "entities": { "default": [], "supported": [], "primary": null },
+      "streaming": false,
+      "http_enabled": true
+    },
+    "cdisc2bff": {
+      "source": "cdisc",
+      "target": "beacon",
+      "operation": "bundle",
+      "pipeline": ["cdisc2bff"],
+      "resources": { "sqlite": true },
+      "entities": { "default": ["individuals"], "supported": ["individuals", "datasets", "cohorts"], "primary": "individuals" },
+      "streaming": false,
+      "http_enabled": false
+    },
+    "cdisc2omop": {
+      "source": "cdisc",
+      "target": "omop",
+      "operation": "pipeline",
+      "pipeline": ["cdisc2bff", "bff2omop"],
+      "resources": { "sqlite": true },
+      "entities": { "default": [], "supported": [], "primary": null },
+      "streaming": false,
+      "http_enabled": false
+    },
+    "cdisc2pxf": {
+      "source": "cdisc",
+      "target": "pxf",
+      "operation": "pipeline",
+      "pipeline": ["cdisc2bff", "bff2pxf"],
+      "resources": { "sqlite": true },
+      "entities": { "default": [], "supported": [], "primary": null },
+      "streaming": false,
+      "http_enabled": false
+    },
+    "csv2bff": {
+      "source": "csv",
+      "target": "beacon",
+      "operation": "bundle",
+      "pipeline": ["csv2bff"],
+      "resources": { "sqlite": true },
+      "entities": { "default": ["individuals"], "supported": ["individuals", "datasets", "cohorts"], "primary": "individuals" },
+      "streaming": false,
+      "http_enabled": false
+    },
+    "csv2omop": {
+      "source": "csv",
+      "target": "omop",
+      "operation": "pipeline",
+      "pipeline": ["csv2bff", "bff2omop"],
+      "resources": { "sqlite": true },
+      "entities": { "default": [], "supported": [], "primary": null },
+      "streaming": false,
+      "http_enabled": false
+    },
+    "csv2pxf": {
+      "source": "csv",
+      "target": "pxf",
+      "operation": "pipeline",
+      "pipeline": ["csv2bff", "bff2pxf"],
+      "resources": { "sqlite": true },
+      "entities": { "default": [], "supported": [], "primary": null },
+      "streaming": false,
+      "http_enabled": false
+    },
+    "omop2bff": {
+      "source": "omop",
+      "target": "beacon",
+      "operation": "bundle",
+      "pipeline": ["omop2bff"],
+      "resources": { "sqlite": true },
+      "entities": { "default": ["individuals"], "supported": ["individuals", "biosamples", "datasets", "cohorts"], "primary": "individuals" },
+      "streaming": true,
+      "http_enabled": true
+    },
+    "omop2pxf": {
+      "source": "omop",
+      "target": "pxf",
+      "operation": "pipeline",
+      "pipeline": ["omop2bff", "bff2pxf"],
+      "resources": { "sqlite": true },
+      "entities": { "default": [], "supported": [], "primary": null },
+      "streaming": false,
+      "http_enabled": true
+    },
+    "openehr2bff": {
+      "source": "openehr",
+      "target": "beacon",
+      "operation": "bundle",
+      "pipeline": ["openehr2bff"],
+      "resources": { "sqlite": false },
+      "entities": { "default": ["individuals"], "supported": ["individuals", "datasets", "cohorts"], "primary": "individuals" },
+      "streaming": false,
+      "http_enabled": true
+    },
+    "openehr2pxf": {
+      "source": "openehr",
+      "target": "pxf",
+      "operation": "pipeline",
+      "pipeline": ["openehr2bff", "bff2pxf"],
+      "resources": { "sqlite": false },
+      "entities": { "default": [], "supported": [], "primary": null },
+      "streaming": false,
+      "http_enabled": true
+    },
+    "pxf2bff": {
+      "source": "pxf",
+      "target": "beacon",
+      "operation": "bundle",
+      "pipeline": ["pxf2bff"],
+      "resources": { "sqlite": true },
+      "entities": { "default": ["individuals"], "supported": ["individuals", "biosamples", "datasets", "cohorts"], "primary": "individuals" },
+      "streaming": false,
+      "http_enabled": true
+    },
+    "pxf2csv": {
+      "source": "pxf",
+      "target": "csv",
+      "operation": "direct",
+      "pipeline": ["pxf2csv"],
+      "resources": { "sqlite": false },
+      "entities": { "default": [], "supported": [], "primary": null },
+      "streaming": false,
+      "http_enabled": true
+    },
+    "pxf2jsonf": {
+      "source": "pxf",
+      "target": "jsonf",
+      "operation": "direct",
+      "pipeline": ["pxf2jsonf"],
+      "resources": { "sqlite": false },
+      "entities": { "default": [], "supported": [], "primary": null },
+      "streaming": false,
+      "http_enabled": true
+    },
+    "pxf2jsonld": {
+      "source": "pxf",
+      "target": "jsonld",
+      "operation": "direct",
+      "pipeline": ["pxf2jsonld"],
+      "resources": { "sqlite": false },
+      "entities": { "default": [], "supported": [], "primary": null },
+      "streaming": false,
+      "http_enabled": true
+    },
+    "pxf2omop": {
+      "source": "pxf",
+      "target": "omop",
+      "operation": "pipeline",
+      "pipeline": ["pxf2bff", "bff2omop"],
+      "resources": { "sqlite": true },
+      "entities": { "default": [], "supported": [], "primary": null },
+      "streaming": false,
+      "http_enabled": true
+    },
+    "redcap2bff": {
+      "source": "redcap",
+      "target": "beacon",
+      "operation": "bundle",
+      "pipeline": ["redcap2bff"],
+      "resources": { "sqlite": true },
+      "entities": { "default": ["individuals"], "supported": ["individuals", "datasets", "cohorts"], "primary": "individuals" },
+      "streaming": false,
+      "http_enabled": false
+    },
+    "redcap2omop": {
+      "source": "redcap",
+      "target": "omop",
+      "operation": "pipeline",
+      "pipeline": ["redcap2bff", "bff2omop"],
+      "resources": { "sqlite": true },
+      "entities": { "default": [], "supported": [], "primary": null },
+      "streaming": false,
+      "http_enabled": false
+    },
+    "redcap2pxf": {
+      "source": "redcap",
+      "target": "pxf",
+      "operation": "pipeline",
+      "pipeline": ["redcap2bff", "bff2pxf"],
+      "resources": { "sqlite": true },
+      "entities": { "default": [], "supported": [], "primary": null },
+      "streaming": false,
+      "http_enabled": false
+    }
+  }
+}

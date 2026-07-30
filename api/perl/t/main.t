@@ -1,13 +1,28 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
+use Convert::Pheno::Operations qw(http_request_fields);
 use FindBin qw($Bin);
 use Mojo::JSON ();
+use Path::Tiny qw(path);
 use Test::Mojo;
 use Test::More;
 
 require "$Bin/../main.pl";
 my $t = Test::Mojo->new(main::app());
+
+note 'OpenAPI request fields should match the public registry';
+my $openapi = Mojo::JSON::decode_json( path("$Bin/../openapi.json")->slurp_raw );
+my $request_properties =
+  $openapi->{paths}{'/api'}{post}{requestBody}{content}{'application/json'}{schema}{properties};
+my $http_fields = http_request_fields();
+for my $section (qw(input output options)) {
+    is_deeply(
+        [ sort keys %{ $request_properties->{$section}{properties} } ],
+        [ sort @{ $http_fields->{$section} } ],
+        "$section fields match the conversion registry"
+    );
+}
 
 note 'Valid request should return the response envelope';
 $t->post_ok(
@@ -34,6 +49,16 @@ note 'OpenAPI should reject invalid input shape';
 $t->post_ok('/api', json => { conversion => 'pxf2bff', input => [] })
   ->status_is(400);
 
+note 'OpenAPI should reject host filesystem options';
+$t->post_ok(
+    '/api',
+    json => {
+        conversion => 'pxf2bff',
+        input      => { data => {} },
+        options    => { out_file => '/tmp/result.json' },
+    }
+)->status_is(400);
+
 note 'Conversion failures should use the JSON error envelope';
 $t->post_ok('/api', json => { conversion => 'not_a_method', input => { data => {} } })
   ->status_is(422)->json_is('/ok', Mojo::JSON->false)
@@ -47,16 +72,33 @@ $t->post_ok('/api', json => { conversion => 'get_info', input => {} })
   ->json_like('/error/message', qr/Unsupported conversion <get_info>/)
   ->json_hasnt('/data');
 
-note 'Duplicate keys across sections should be rejected';
+note 'File-based conversion routes should remain on the CLI';
 $t->post_ok(
     '/api',
     json => {
-        conversion => 'pxf2bff',
-        input      => { entities => ['individuals'] },
-        output     => { entities => ['biosamples'] },
+        conversion => 'redcap2bff',
+        input      => { data => {} },
     }
 )->status_is(422)->json_is('/ok', Mojo::JSON->false)
-  ->json_is('/error/code', 'invalid_request')
-  ->json_like('/error/message', qr/Duplicate key 'entities'/);
+  ->json_is('/error/code', 'conversion_error')
+  ->json_like('/error/message', qr/not available over HTTP/);
+
+note 'The request flattener should also reject host filesystem options';
+my $flatten_error;
+eval {
+    main::flatten_public_request(
+        {
+            conversion => 'pxf2bff',
+            input      => { data => {} },
+            options    => { mapping_file => '/srv/mapping.yaml' },
+        }
+    );
+    1;
+} or $flatten_error = $@;
+like(
+    $flatten_error,
+    qr/Unsupported key 'mapping_file' in 'options'/,
+    'request flattener rejects host filesystem options'
+);
 
 done_testing;

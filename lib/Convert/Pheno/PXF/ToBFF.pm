@@ -44,7 +44,10 @@ sub run_pxf_to_bundle {
     die "Are you sure that your input is not already a bff?\n"
       unless validate_format( $phenopacket, 'pxf' );
 
-    _normalize_phenopacket_aliases($phenopacket);
+    if ( exists $phenopacket->{medical_actions} || exists $phenopacket->{meta_data} ) {
+        $phenopacket = { %{$phenopacket} };
+        _normalize_phenopacket_aliases($phenopacket);
+    }
 
     my $individual = map_pxf_to_individual( $self, $phenopacket, $cohort, $family );
     $bundle->add_entity( individuals => $individual );
@@ -64,7 +67,7 @@ sub _extract_pxf_payload {
     my $phenopacket =
       exists $data->{phenopacket} ? $data->{phenopacket} : $data;
 
-    my $cohort = exists $data->{family} ? $data->{cohort} : undef;
+    my $cohort = exists $data->{cohort} ? $data->{cohort} : undef;
     my $family = exists $data->{family} ? $data->{family} : undef;
 
     return ( $phenopacket, $cohort, $family );

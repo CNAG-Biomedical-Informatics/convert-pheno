@@ -11,13 +11,15 @@ use Convert::Pheno::BFF::DerivedEntities qw(
   synthesize_bundle_entities
 );
 use Convert::Pheno::Context;
+use Convert::Pheno::ConversionRequest;
+use Convert::Pheno::ExecutionContext;
 use Convert::Pheno::Model::Bundle;
+use Convert::Pheno::Operations qw(conversion_spec);
 use Exporter 'import';
 
 our @EXPORT_OK = qw(resolve_operation run_operation);
 
 my %DIRECT_OPERATIONS = (
-    csv2pxf    => \&Convert::Pheno::do_csv2pxf,
     bff2pxf    => \&Convert::Pheno::do_bff2pxf,
     bff2csv    => \&Convert::Pheno::do_bff2csv,
     bff2jsonf  => \&Convert::Pheno::do_bff2csv,
@@ -30,14 +32,12 @@ my %DIRECT_OPERATIONS = (
 
 sub resolve_operation {
     my ($self) = @_;
+    my $spec = conversion_spec( $self->{method} )
+      or die "Unsupported method <$self->{method}> in runner\n";
 
     return _bundle_operation(
-        name             => 'redcap2bff',
-        source_format    => 'redcap',
-        target_format    => 'beacon',
-        default_entities => ['individuals'],
-        primary_entity   => 'individuals',
-        run              => sub {
+        spec => $spec,
+        run  => sub {
             my ( $convert, $input, $context ) = @_;
             return _wrap_individual_in_bundle(
                 $context,
@@ -47,12 +47,8 @@ sub resolve_operation {
     ) if $self->{method} eq 'redcap2bff';
 
     return _bundle_operation(
-        name             => 'cdisc2bff',
-        source_format    => 'cdisc',
-        target_format    => 'beacon',
-        default_entities => ['individuals'],
-        primary_entity   => 'individuals',
-        run              => sub {
+        spec => $spec,
+        run  => sub {
             my ( $convert, $input, $context ) = @_;
             return _wrap_individual_in_bundle(
                 $context,
@@ -62,12 +58,8 @@ sub resolve_operation {
     ) if $self->{method} eq 'cdisc2bff';
 
     return _bundle_operation(
-        name             => 'csv2bff',
-        source_format    => 'csv',
-        target_format    => 'beacon',
-        default_entities => ['individuals'],
-        primary_entity   => 'individuals',
-        run              => sub {
+        spec => $spec,
+        run  => sub {
             my ( $convert, $input, $context ) = @_;
             return _wrap_individual_in_bundle(
                 $context,
@@ -77,12 +69,8 @@ sub resolve_operation {
     ) if $self->{method} eq 'csv2bff';
 
     return _bundle_operation(
-        name             => 'omop2bff',
-        source_format    => 'omop',
-        target_format    => 'beacon',
-        default_entities => ['individuals'],
-        primary_entity   => 'individuals',
-        run              => sub {
+        spec => $spec,
+        run  => sub {
             my ( $convert, $input, $context ) = @_;
             return Convert::Pheno::OMOP::ToBFF::run_omop_to_bundle(
                 $convert, $input, $context
@@ -91,12 +79,8 @@ sub resolve_operation {
     ) if $self->{method} eq 'omop2bff';
 
     return _bundle_operation(
-        name             => 'pxf2bff',
-        source_format    => 'pxf',
-        target_format    => 'beacon',
-        default_entities => ['individuals'],
-        primary_entity   => 'individuals',
-        run              => sub {
+        spec => $spec,
+        run  => sub {
             my ( $convert, $input, $context ) = @_;
             return Convert::Pheno::PXF::ToBFF::run_pxf_to_bundle(
                 $convert, $input, $context
@@ -105,12 +89,8 @@ sub resolve_operation {
     ) if $self->{method} eq 'pxf2bff';
 
     return _bundle_operation(
-        name             => 'openehr2bff',
-        source_format    => 'openehr',
-        target_format    => 'beacon',
-        default_entities => ['individuals'],
-        primary_entity   => 'individuals',
-        run              => sub {
+        spec => $spec,
+        run  => sub {
             my ( $convert, $input, $context ) = @_;
             return Convert::Pheno::OpenEHR::ToBFF::run_openehr_to_bundle(
                 $convert, $input, $context
@@ -119,7 +99,7 @@ sub resolve_operation {
     ) if $self->{method} eq 'openehr2bff';
 
     return _direct_operation(
-        name => $self->{method},
+        spec => $spec,
         run  => sub {
             my ( $convert, $input ) = @_;
             return $DIRECT_OPERATIONS{ $convert->{method} }->( $convert, $input );
@@ -134,6 +114,19 @@ sub run_operation {
 
     my $operation = $arg{operation} || resolve_operation($self);
     my $view      = $arg{view} || 'primary';
+    my $operation_name = $operation->{name} || $self->{method};
+    my $request = $arg{request}
+      || Convert::Pheno::ConversionRequest->from_converter($self);
+    my $execution = $arg{execution_context}
+      || Convert::Pheno::ExecutionContext->new(
+        {
+            request => $request,
+            stages  => [$operation_name],
+        }
+      );
+    my ($execution_stage) = $execution->begin_next_stage;
+    die "Execution stage <$execution_stage> does not match operation <$operation_name>\n"
+      unless $execution_stage eq $operation_name;
 
     die "Unsupported runner view <$view>\n"
       unless $view eq 'primary' || $view eq 'bundle';
@@ -162,9 +155,10 @@ sub run_operation {
     my ( $ok, $error );
 
     $ok = eval {
-        if ( $self->{method} ne 'bff2pxf' ) {
+        if ( $operation->{requires_sqlite} ) {
             Convert::Pheno::open_connections_SQLite($self);
             $connections_open = 1;
+            $execution->set_resource( sqlite_open => 1 );
         }
 
         $out_data = _process_operation_items(
@@ -176,6 +170,7 @@ sub run_operation {
             $stream,
             $json,
             $out_data,
+            $execution,
         );
         1;
     };
@@ -188,12 +183,14 @@ sub run_operation {
         sub { Convert::Pheno::close_connections_SQLite($self) },
       )
       if $connections_open;
+    $execution->set_resource( sqlite_open => 0 ) if $connections_open;
     _run_cleanup(
         \@cleanup_errors,
         'closing the search audit',
         sub { Convert::Pheno::finalize_search_audit($self) },
     );
     delete $self->{current_row};
+    $execution->clear_current_row;
 
     if ($stream) {
         if ( $ok && !@cleanup_errors ) {
@@ -219,29 +216,31 @@ sub run_operation {
     _throw_run_failure( $error, \@cleanup_errors )
       if !$ok || @cleanup_errors;
 
-    return 1 if $stream;
-    return $out_data;
+    my $result = $stream ? 1 : $out_data;
+    $execution->complete_stage($result);
+    return $result;
 }
 
 sub _process_operation_items {
     my (
         $self,      $input,   $operation, $context,
-        $view,      $stream,  $json,      $out_data,
+        $view,      $stream,  $json,      $out_data, $execution,
     ) = @_;
 
     my $is_array = ref($input) eq 'ARRAY';
-    my @items    = $is_array ? @{$input} : ($input);
+    my $item_count = $is_array ? scalar @{$input} : 1;
 
     if ( $view eq 'primary' && $is_array ) {
         $out_data = [];
     }
 
     my $total = 0;
-    for ( my $i = 0; $i < @items; $i++ ) {
+    for ( my $i = 0; $i < $item_count; $i++ ) {
         my $count = $i + 1;
-        my $item  = $items[$i];
+        my $item  = $is_array ? $input->[$i] : $input;
 
         $self->{current_row} = $count;
+        $execution->set_current_row($count);
 
         my $raw = _execute_operation_raw( $self, $operation, $item, $context );
         next unless defined $raw;
@@ -284,7 +283,6 @@ sub _process_operation_items {
     }
 
     if ($is_array) {
-        @{$input} = ();
         if ( $self->{verbose} && $self->{method} eq 'omop2bff' && $view eq 'primary' ) {
             say "==============\nIndividuals total:     $total\n";
         }
@@ -367,23 +365,33 @@ sub _merge_bundle {
 
 sub _bundle_operation {
     my (%arg) = @_;
+    my $spec = $arg{spec};
+    die "Conversion <$spec->{name}> is not a bundle operation\n"
+      unless $spec->{operation} eq 'bundle';
+
     return {
         type             => 'bundle',
-        name             => $arg{name},
-        source_format    => $arg{source_format},
-        target_format    => $arg{target_format},
-        default_entities => $arg{default_entities},
-        primary_entity   => $arg{primary_entity},
+        name             => $spec->{name},
+        source_format    => $spec->{source},
+        target_format    => $spec->{target},
+        requires_sqlite  => $spec->{resources}{sqlite} ? 1 : 0,
+        default_entities => $spec->{entities}{default},
+        primary_entity   => $spec->{entities}{primary},
         run              => $arg{run},
     };
 }
 
 sub _direct_operation {
     my (%arg) = @_;
+    my $spec = $arg{spec};
+    die "Conversion <$spec->{name}> is not a direct operation\n"
+      unless $spec->{operation} eq 'direct';
+
     return {
-        type => 'direct',
-        name => $arg{name},
-        run  => $arg{run},
+        type            => 'direct',
+        name            => $spec->{name},
+        requires_sqlite => $spec->{resources}{sqlite} ? 1 : 0,
+        run             => $arg{run},
     };
 }
 

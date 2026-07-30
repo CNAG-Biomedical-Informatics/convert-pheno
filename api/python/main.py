@@ -21,11 +21,16 @@ from pydantic import BaseModel, Field, ValidationError, parse_obj_as
 LIB_DIR = Path(__file__).resolve().parents[2] / "lib"
 sys.path.insert(0, str(LIB_DIR))
 
-from convertpheno import PythonBinding, PythonBridgeError, is_public_conversion
+from convertpheno import (
+    HTTP_REQUEST_FIELDS,
+    PythonBinding,
+    PythonBridgeError,
+    is_http_conversion,
+    is_public_conversion,
+)
 
 # Here we start the API
 app = FastAPI()
-
 
 class Data(BaseModel):
     conversion: str = Field(..., title="Conversion")
@@ -73,6 +78,11 @@ def flatten_public_request(payload):
     ):
         if "method" in section:
             raise ValueError(f"Reserved key 'method' is not allowed in '{section_name}'")
+
+        unsupported = set(section).difference(HTTP_REQUEST_FIELDS[section_name])
+        if unsupported:
+            key = sorted(unsupported)[0]
+            raise ValueError(f"Unsupported key '{key}' in '{section_name}'")
 
         overlap = set(convert_payload).intersection(section)
         if overlap:
@@ -123,6 +133,13 @@ async def get_body(request: Request):
             422,
             "conversion_error",
             f"Unsupported conversion <{conversion}>",
+            method=conversion,
+        )
+    if not is_http_conversion(conversion):
+        return api_error(
+            422,
+            "conversion_error",
+            f"Conversion <{conversion}> is not available over HTTP; use the CLI for file-based routes",
             method=conversion,
         )
 

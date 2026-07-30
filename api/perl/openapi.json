@@ -30,17 +30,80 @@
                   "input": {
                     "title": "Input",
                     "type": "object",
-                    "additionalProperties": true
+                    "additionalProperties": false,
+                    "properties": {
+                      "data": {}
+                    }
                   },
                   "output": {
                     "title": "Output",
                     "type": "object",
-                    "additionalProperties": true
+                    "additionalProperties": false,
+                    "properties": {
+                      "entities": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "derived_entity_overrides": {
+                        "type": "object"
+                      }
+                    }
                   },
                   "options": {
                     "title": "Options",
                     "type": "object",
-                    "additionalProperties": true
+                    "additionalProperties": false,
+                    "properties": {
+                      "default_vital_status": {
+                        "type": "string",
+                        "enum": ["ALIVE", "DECEASED", "UNKNOWN_STATUS"]
+                      },
+                      "levenshtein_weight": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "max_lines_sql": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "min_text_similarity_score": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "ohdsi_db": {
+                        "type": "boolean"
+                      },
+                      "omop_tables": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "print_hidden_labels": {
+                        "type": "boolean"
+                      },
+                      "search": {
+                        "type": "string",
+                        "enum": ["exact", "mixed", "fuzzy"]
+                      },
+                      "source_info": {
+                        "type": "boolean"
+                      },
+                      "test": {
+                        "type": "boolean"
+                      },
+                      "text_similarity_method": {
+                        "type": "string",
+                        "enum": ["cosine", "dice"]
+                      },
+                      "username": {
+                        "type": "string"
+                      }
+                    }
                   }
                 }
               }

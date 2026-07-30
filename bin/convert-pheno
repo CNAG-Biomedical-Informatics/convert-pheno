@@ -34,8 +34,7 @@ use Convert::Pheno::IO::Atomic qw(
   discard_staged_path
   write_atomically
 );
-use Convert::Pheno::IO::CSVHandler;
-use Convert::Pheno::OMOP::Definitions;
+use Convert::Pheno::Sink::FileSet qw(resolve_entity_output_file);
 
 $Data::Dumper::Sortkeys = 1;
 
@@ -402,95 +401,23 @@ sub run_conversion_to_atomic_output {
 
 sub write_conversion_result {
     my ( $l_data, $o_file, $data, $bundle ) = @_;
-    my $method = $l_data->{method};
-
-    if ($bundle) {
-        for my $entity ( @{ $l_data->{entities} } ) {
-            my $entity_file = resolve_entity_output_file( $l_data, $entity );
-            say BOLD GREEN "Writing <$entity_file> file\n", RESET if $verbose;
-            write_atomically(
-                $entity_file,
-                sub {
-                    my ($staged) = @_;
-                    io_yaml_or_json(
-                        {
-                            filepath => $staged,
-                            mode     => 'write',
-                            data     => $bundle->entities($entity),
-                        }
-                    );
-                }
-            );
-        }
-        return;
-    }
-
-    return unless $data;
-
-    say BOLD GREEN "Writing <$o_file> file\n", RESET if $verbose;
-
-    if ( $method eq 'bff2csv' || $method eq 'pxf2csv' ) {
-        write_atomically(
-            $o_file,
-            sub {
-                my ($staged) = @_;
-                write_csv(
-                    {
-                        sep      => $l_data->{sep} // ';',
-                        filepath => $staged,
-                        headers  => get_headers($data),
-                        data     => $data,
-                    }
-                );
-            }
-        );
-        return;
-    }
-
-    if ( $method =~ /2omop$/ ) {
-        for my $table ( sort keys %$data ) {
-            my $filepath = resolve_omop_table_output_file( $l_data, $table );
-            ask_overwrite($filepath) unless $overwrite;
-            my @headers  = @{ $omop_headers->{$table} };
-            write_atomically(
-                $filepath,
-                sub {
-                    my ($staged) = @_;
-                    write_csv(
-                        {
-                            sep      => ";",
-                            filepath => $staged,
-                            headers  => \@headers,
-                            data     => $data->{$table},
-                        }
-                    );
-                }
-            );
-        }
-        return;
-    }
-
-    write_atomically(
-        $o_file,
-        sub {
-            my ($staged) = @_;
-            io_yaml_or_json(
-                {
-                    filepath => $staged,
-                    mode     => 'write',
-                    data     => $data,
-                }
-            );
+    my $sink = Convert::Pheno::Sink::FileSet->new(
+        {
+            request  => $l_data,
+            out_file => $o_file,
+            before_write => sub {
+                my ($path) = @_;
+                ask_overwrite($path) unless $overwrite;
+                return 1;
+            },
+            on_write => sub {
+                my ($path) = @_;
+                say BOLD GREEN "Writing <$path> file\n", RESET if $verbose;
+                return 1;
+            },
         }
     );
-}
-
-sub resolve_omop_table_output_file {
-    my ( $l_data, $table ) = @_;
-    return $l_data->{output_name_overrides}{$table}
-      if exists $l_data->{output_name_overrides}
-      && exists $l_data->{output_name_overrides}{$table};
-    return catfile( $l_data->{out_dir}, $table . '.csv' );
+    return $sink->write_result( data => $data, bundle => $bundle );
 }
 
 sub program_header {
@@ -605,12 +532,4 @@ sub ask_overwrite {
         }
         die "Too many invalid attempts. Operation aborted.\n";
     }
-}
-
-sub resolve_entity_output_file {
-    my ( $l_data, $entity ) = @_;
-    return $l_data->{output_name_overrides}{$entity}
-      if exists $l_data->{output_name_overrides}
-      && exists $l_data->{output_name_overrides}{$entity};
-    return catfile( $l_data->{out_dir}, $entity . '.json' );
 }

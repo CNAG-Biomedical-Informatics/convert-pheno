@@ -360,7 +360,7 @@ sub _map_measures {
 
             $measure{assayCode} = $measure{assay};
 
-            map_complexValue( $measure{complexValue} )
+            $measure{complexValue} = map_complexValue( $measure{complexValue} )
               if exists $measure{complexValue};
 
             $measure{measurementValue} =
@@ -460,12 +460,17 @@ sub _map_treatments {
 
 sub map_complexValue {
     my $complexValue = shift;
+    my %mapped = %{$complexValue};
 
-    for ( @{ $complexValue->{typedQuantities} } ) {
-        $_->{quantityType} = delete $_->{type};
-    }
+    $mapped{typedQuantities} = [
+        map {
+            my %quantity = %{$_};
+            $quantity{quantityType} = delete $quantity{type};
+            \%quantity;
+        } @{ $complexValue->{typedQuantities} }
+    ];
 
-    return 1;
+    return \%mapped;
 }
 
 1;

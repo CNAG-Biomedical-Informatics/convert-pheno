@@ -229,6 +229,7 @@ sub _map_measurements {
 
 sub _map_diseases {
     my ( $self, $bff, $pxf ) = @_;
+    my $diseases = $bff->{diseases} || [];
 
     # ========
     # diseases
@@ -256,7 +257,7 @@ sub _map_diseases {
               if exists $disease->{laterality};
 
             \%mapped;
-        } @{ $bff->{diseases} }
+        } @{$diseases}
     ];
 }
 

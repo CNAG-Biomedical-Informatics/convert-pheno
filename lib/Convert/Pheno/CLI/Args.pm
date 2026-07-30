@@ -7,6 +7,7 @@ use Exporter 'import';
 use Getopt::Long qw(GetOptionsFromArray :config no_ignore_case);
 use File::Spec::Functions qw(catfile file_name_is_absolute);
 use Convert::Pheno::OMOP::Definitions qw(@omop_supported_tables);
+use Convert::Pheno::Operations qw(conversion_spec is_public_conversion);
 
 our @EXPORT_OK = qw(build_cli_request);
 
@@ -330,10 +331,6 @@ sub build_cli_request {
     $usage_error->("The flag <--entities> is only valid with BFF output")
       if @entities_args && ( $out_pxf || $out_csv || $out_jsonf || $out_jsonld || $out_omop_selected );
 
-    $usage_error->("The entity <biosamples> is currently only supported with <-ipxf> or <-iomop> together with <-obff>")
-      if grep { $_ eq 'biosamples' } @entity_list
-      && !( $in_pxf || @omop_files );
-
     $usage_error->("The flag <--stream> is only valid with <-iomop> and <-obff>")
       if $stream && !@omop_files;
 
@@ -427,6 +424,22 @@ sub build_cli_request {
       : $out_omop_selected ? 'omop'
       :               'bff';
     my $method = $in_type . '2' . $out_type;
+    $usage_error->("Unsupported conversion <$method>")
+      unless is_public_conversion($method);
+    my $conversion_spec = conversion_spec($method);
+
+    if ($out_bff_selected) {
+        my %supported_for_route =
+          map { $_ => 1 } @{ $conversion_spec->{entities}{supported} };
+        for my $entity (@entity_list) {
+            $usage_error->(
+                "The entity <$entity> is not supported by conversion <$method>"
+            ) unless $supported_for_route{$entity};
+        }
+    }
+
+    $usage_error->("The conversion <$method> does not support --stream")
+      if $stream && !$conversion_spec->{streaming};
 
     my $id = time . substr( "00000$$", -5 );
 
