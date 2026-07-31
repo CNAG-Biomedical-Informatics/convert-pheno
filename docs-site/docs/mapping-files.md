@@ -114,8 +114,10 @@ The top-level sections have distinct responsibilities:
 The route still determines how the input is parsed. `source.profile` describes
 the normalized records consumed by the mapping, not the original file format.
 Use `csv` for CSV records and `redcap` for REDCap records. CDISC-ODM input is
-normalized into REDCap-shaped records, so REDCap and CDISC-ODM deliberately
-share `source.profile: redcap` without duplicating the mapping.
+normalized into REDCap-shaped records, so both routes use
+`source.profile: redcap`. A REDCap ODM export can reuse its corresponding
+REDCap mapping; other ODM v1 exports need rules and a compatible dictionary
+tailored to their item identifiers.
 
 ## Reading A Rule
 

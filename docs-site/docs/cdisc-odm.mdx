@@ -13,10 +13,12 @@ export const CdiscOdmFormatImage = () => (
   />
 );
 
-:::note[Supported scope]
-The documented CDISC ODM-XML v1 path is implemented and covered by regression
-tests. Independent validation across diverse vendor exports remains limited.
-ODM v2 is not currently supported by this route.
+:::note[Supported profile]
+The CDISC ODM-XML v1 parser is covered by regression tests. The reference
+mapping, dictionary, and test data reflect the REDCap export workflow for
+which the route was developed in the 3TR project. Other ODM v1 exports can use
+a mapping tailored to their item identifiers and metadata. ODM v2 is not
+currently supported by this route.
 :::
 
 **CDISC** stands for **C**linical **D**ata **I**nterchange **S**tandards
@@ -24,7 +26,7 @@ ODM v2 is not currently supported by this route.
 
 <div className="convertFormatSummary" aria-label="At a glance">
   <div><span>Role</span><strong>Input</strong></div>
-  <div><span>Accepted input</span><strong>ODM-XML v1, dictionary, mapping file</strong></div>
+  <div><span>Accepted input</span><strong>ODM-XML v1, dictionary, tailored mapping file</strong></div>
   <div><span>Main output</span><strong>BFF, PXF, OMOP-CDM</strong></div>
   <div><span>Notes</span><strong>ODM v2 is not currently supported</strong></div>
 </div>
@@ -47,12 +49,13 @@ The conversion requires:
 2. A REDCap-compatible data dictionary in CSV format
 3. A Convert-Pheno mapping file in YAML or JSON
 
-CDISC-ODM follows the same semantic mapping path as REDCap. Its mapping
-therefore declares `source.profile: redcap`; a separate CDISC profile or a
-duplicate mapping is not needed. BFF output preserves copied source values in
-`info` by default; `--no-source-info` omits those raw payloads. Mapping rules
-can also emit first-class biosamples, and mapping defaults can augment
-synthesized Beacon `datasets` and `cohorts`.
+The supplied mapping connects the source document's item identifiers to BFF
+fields. The reference mapping uses `source.profile: redcap` because it was
+created for a REDCap ODM export; another ODM v1 source can use a mapping and
+compatible dictionary tailored to its own items. BFF output preserves copied
+source values in `info` by default; `--no-source-info` omits those raw payloads.
+Mapping rules can also emit first-class biosamples, and mapping defaults can
+augment synthesized Beacon `datasets` and `cohorts`.
 
 Use [CDISC-ODM conversion recipes](conversion-recipes#cdisc-odm-input-bff-output)
 for BFF, PXF, and OMOP-CDM commands. See [Mapping File](tbl/mapping-file) for

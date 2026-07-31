@@ -203,19 +203,24 @@ const sidebars: SidebarsConfig = {
       label: '❓ Help',
       items: [
         {
-          type: 'doc',
-          id: 'mapping-files',
+          type: 'category',
           label: 'Mapping Files',
+          link: {
+            type: 'doc',
+            id: 'mapping-files',
+          },
+          items: [
+            {
+              type: 'doc',
+              id: 'tbl/mapping-file',
+              label: 'Reference',
+            },
+          ],
         },
         {
           type: 'link',
           href: 'https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6',
           label: 'Google Colab',
-        },
-        {
-          type: 'doc',
-          id: 'analysis',
-          label: 'Analysis',
         },
         {
           type: 'doc',

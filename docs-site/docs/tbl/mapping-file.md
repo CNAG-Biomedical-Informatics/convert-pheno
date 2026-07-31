@@ -49,6 +49,8 @@ and `hpo`. A term rule can override the project default with its own
 `source.profile` describes the records consumed by the mapping. It does not
 select the CLI or API input route. CDISC-ODM records are normalized to the
 REDCap representation before mapping, so both routes use `profile: redcap`.
+The mapping rules remain source-specific: exports with different item
+identifiers require a corresponding dictionary and mapping.
 
 ## Source Selectors
 

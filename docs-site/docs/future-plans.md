@@ -12,9 +12,19 @@ fewer independent groups.
 
 <div className="roadmap-grid">
   <article className="roadmap-card roadmap-card--active">
+    <span className="roadmap-kicker">CDISC ODM</span>
+    <h2>Broaden XML clinical-data input</h2>
+    <p>Add an OpenClinica ODM v1 export profile and ODM v2.0 ClinicalData support, with repeat-aware records and source metadata.</p>
+  </article>
+  <article className="roadmap-card roadmap-card--active">
     <span className="roadmap-kicker">More datasets</span>
     <h2>Test newer input formats</h2>
     <p>Use FHIR R4, CDISC Dataset-JSON, and openEHR data from more sources and incorporate feedback from their users.</p>
+  </article>
+  <article className="roadmap-card">
+    <span className="roadmap-kicker">Candidate inputs</span>
+    <h2>Extend oncology and study exchange</h2>
+    <p>Evaluate cBioPortal clinical study packages, mCODE FHIR oncology profiles, and CDISC Dataset-XML as the next input priorities.</p>
   </article>
   <article className="roadmap-card">
     <span className="roadmap-kicker">Mappings</span>
