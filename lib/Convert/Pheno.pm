@@ -58,7 +58,7 @@ our @EXPORT =
 use constant DEVEL_MODE => 0;
 
 # Global variables:
-our $VERSION   = '0.32_1';
+our $VERSION   = '0.33';
 our $share_dir = dist_dir('Convert-Pheno');
 
 # SQLite database
@@ -1143,53 +1143,91 @@ sub Dumper_concise {
 
 =head1 NAME
 
-Convert::Pheno - A module to interconvert common data models for phenotypic data
+Convert::Pheno - Convert clinical and phenotypic data between supported models
 
 =head1 SYNOPSIS
 
  use Convert::Pheno;
 
- my $my_pxf_json_data = {
+ my $pxf = {
      "phenopacket" => {
          "id"      => "P0007500",
          "subject" => {
              "id"          => "P0007500",
-             "dateOfBirth" => "unknown-01-01T00:00:00Z",
+             "dateOfBirth" => "2000-01-01T00:00:00Z",
              "sex"         => "FEMALE"
          }
      }
  };
 
- # Create object
- my $convert = Convert::Pheno->new(
+ my $converter = Convert::Pheno->new(
      {
-         data   => $my_pxf_json_data,
+         data   => $pxf,
          method => 'pxf2bff'
      }
  );
 
- # Apply a method
- my $data = $convert->pxf2bff;
+ my $individual = $converter->pxf2bff;
 
 =head1 DESCRIPTION
 
-For a better description, please read the following documentation:
+C<Convert::Pheno> is the conversion engine used by the C<convert-pheno>
+command-line program. It converts supported in-memory data structures and
+route-specific file inputs between Beacon v2 Models Format (BFF),
+Phenopackets v2 (PXF), OMOP-CDM, REDCap, CDISC-ODM, CDISC Dataset-JSON,
+FHIR R4, openEHR, and tabular representations.
+
+Conversion availability and required arguments depend on the selected route.
+Mapping-file conversions use the Mapping V2 contract and require
+C<mappingVersion: 2>; pre-V2 mapping files are rejected.
+
+=head1 METHODS
+
+=head2 new
+
+ my $converter = Convert::Pheno->new(\%arguments);
+
+Creates a converter. C<method> identifies the public conversion method.
+In-memory routes receive decoded input under C<data>; file-based routes use
+the arguments documented for that conversion.
+
+=head2 Conversion methods
+
+ my $result = $converter->$method;
+
+In-memory conversions return Perl data structures. Streaming and file-output
+routes write to their configured destinations and may instead return a
+completion status. See the module guide for supported methods, arguments,
+multi-entity results, and Python interoperability.
+
+=head1 DOCUMENTATION
 
 =over
 
-=item General:
+=item Project documentation
 
 L<https://cnag-biomedical-informatics.github.io/convert-pheno>
 
-=item Command-Line Interface:
+=item Module usage
 
-L<https://github.com/CNAG-Biomedical-Informatics/convert-pheno#readme>
+L<https://cnag-biomedical-informatics.github.io/convert-pheno/use-as-a-module>
+
+=item Command-line interface
+
+L<https://cnag-biomedical-informatics.github.io/convert-pheno/use-as-a-command-line-interface>
 
 =back
 
+=head1 ERRORS
+
+Invalid input, unsupported routes, and conversion failures raise exceptions.
+Callers that need recovery should invoke conversion methods inside C<eval> or
+another exception-handling mechanism.
+
 =head1 CITATION
 
-The author requests that any published work that utilizes C<Convert-Pheno> includes a cite to the the following reference:
+Please cite the following reference in published work that uses
+C<Convert-Pheno>:
 
 Rueda, M et al., (2024). Convert-Pheno: A software toolkit for the interconversion of standard data models for phenotypic data. Journal of Biomedical Informatics. L<DOI|https://doi.org/10.1016/j.jbi.2023.104558>
 
@@ -1197,12 +1235,11 @@ Rueda, M et al., (2024). Convert-Pheno: A software toolkit for the interconversi
 
 Written by Manuel Rueda, PhD. Info about CNAG can be found at L<https://www.cnag.eu>.
 
-=head1 METHODS
+=head1 COPYRIGHT AND LICENSE
 
-See L<https://cnag-biomedical-informatics.github.io/convert-pheno/use-as-a-module>.
+Copyright 2022-2026 Manuel Rueda and CNAG.
 
-=head1 COPYRIGHT
-
-This PERL file is copyrighted. See the LICENSE file included in this distribution.
+This software is distributed under the Artistic License 2.0. See the LICENSE
+file included in this distribution.
 
 =cut

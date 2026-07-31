@@ -30,7 +30,7 @@ $t->post_ok('/test', json => undef)->status_is(400)
 
 note 'Invalid JSON should fail';
 $t->post_ok('/test', {'Content-Type' => 'application/json'} => 'invalid_json')->status_is(400)
-  ->json_is('/errors/0/message', 'Expected object - got null.');
+  ->json_like('/errors/0/message', qr/^Expected object - got (?:null|string)\.$/);
 
 done_testing;
 

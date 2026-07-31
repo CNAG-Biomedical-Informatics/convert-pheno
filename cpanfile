@@ -3,7 +3,7 @@
 # bin and lib
 requires 'JSON::XS';
 requires 'YAML::XS';
-requires 'YAML::PP';
+requires 'YAML::PP', 'v0.38.0';
 requires 'Path::Tiny';
 requires 'Term::ANSIColor';
 requires 'Text::CSV_XS';

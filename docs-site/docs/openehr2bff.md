@@ -25,7 +25,7 @@ Uncoded `DV_TEXT` terms are emitted with synthetic `openEHR:` ids so Beacon onto
 * openEHR canonical `COMPOSITION` JSON/YAML input (current implementation target)
 
 :::
-#### Version 0.32
+#### Version 0.33
 
 Starting with **v0.31**, this mapping table may be drafted or refined with
 **LLM assistance** when the openEHR source material is dense or ambiguous. The

@@ -30,7 +30,7 @@ my $my_pxf_json_data = {
         "id"      => "P0007500",
         "subject" => {
             "id"          => "P0007500",
-            "dateOfBirth" => "unknown-01-01T00:00:00Z",
+            "dateOfBirth" => "2000-01-01T00:00:00Z",
             "sex"         => "FEMALE"
         }
     }
