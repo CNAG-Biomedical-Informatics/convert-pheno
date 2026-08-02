@@ -663,29 +663,93 @@ sub _map_biosamples {
 sub _map_term {
     my ( $rule, $source_field, $ctx, %arg ) = @_;
     return unless ref($rule) eq 'HASH';
-    return _clone( $rule->{term} ) if exists $rule->{term};
+    my $source_value = $ctx->{record}->raw_value($source_field);
+    my $source_label = $ctx->{record}->value($source_field);
+    my $ontology = $rule->{ontology} || $ctx->{mapping}{defaults}{ontology};
+    if ( exists $rule->{term} ) {
+        my $term = _clone( $rule->{term} );
+        record_term_audit(
+            {
+                self              => $ctx->{self},
+                source_field      => $source_field,
+                source_value      => $source_value,
+                source_label      => $source_label,
+                ontology          => $ontology,
+                term              => $term,
+                match_status      => 'configured',
+                match_source      => 'mapping',
+                lookup_resolution => 'direct_term',
+                fallback_action   => 'none',
+            }
+        );
+        return $term;
+    }
 
     my $query_rule = $rule->{query};
-    my $query;
-    if ( exists $query_rule->{literal} ) {
-        $query = $query_rule->{literal};
+    my $query = $source_label;
+    if ( ref($query_rule) eq 'HASH' ) {
+        if ( exists $query_rule->{literal} ) {
+            $query = $query_rule->{literal};
+        }
+        elsif ( ( $query_rule->{from} // q{} ) eq 'field' ) {
+            $query = $source_field;
+        }
+        elsif ( ( $query_rule->{from} // q{} ) eq 'fieldNote' ) {
+            $query = exists $arg{field_note}
+              ? $arg{field_note}
+              : $ctx->{record}->field_note($source_field);
+        }
     }
-    elsif ( $query_rule->{from} eq 'field' ) {
-        $query = $source_field;
-    }
-    elsif ( $query_rule->{from} eq 'fieldNote' ) {
-        $query = exists $arg{field_note}
-          ? $arg{field_note}
-          : $ctx->{record}->field_note($source_field);
-    }
-    else {
-        $query = $ctx->{record}->value($source_field);
-    }
-    return _clone( $DEFAULT->{ontology_term} )
-      unless defined $query && !ref $query;
 
-    return _clone( $rule->{terms}{$query} )
-      if exists $rule->{terms} && exists $rule->{terms}{$query};
+    my $direct_key;
+    if ( ref( $rule->{terms} ) eq 'HASH' ) {
+        my %seen;
+        for my $candidate ( $query, $source_label, $source_value ) {
+            next if !defined $candidate || ref($candidate) || $seen{$candidate}++;
+            if ( exists $rule->{terms}{$candidate} ) {
+                $direct_key = $candidate;
+                last;
+            }
+        }
+    }
+    if ( defined $direct_key ) {
+        my $term = _clone( $rule->{terms}{$direct_key} );
+        record_term_audit(
+            {
+                self              => $ctx->{self},
+                source_field      => $source_field,
+                source_value      => $source_value,
+                source_label      => $source_label,
+                ontology          => $ontology,
+                term              => $term,
+                match_status      => 'configured',
+                match_source      => 'mapping',
+                lookup_resolution => 'direct_term',
+                fallback_action   => 'none',
+            }
+        );
+        return $term;
+    }
+
+    unless ( ref($query_rule) eq 'HASH' && defined $query && !ref($query) ) {
+        my $term = _clone( $DEFAULT->{ontology_term} );
+        record_term_audit(
+            {
+                self              => $ctx->{self},
+                source_field      => $source_field,
+                source_value      => $source_value,
+                source_label      => $source_label,
+                ontology          => $ontology,
+                term              => $term,
+                match_status      => 'not_found',
+                match_source      => 'fallback_na',
+                lookup_resolution => 'fallback_na',
+                fallback_action   => 'na',
+            }
+        );
+        return $term;
+    }
+
     $query = $query_rule->{aliases}{$query}
       if exists $query_rule->{aliases}
       && exists $query_rule->{aliases}{$query};
@@ -694,8 +758,11 @@ sub _map_term {
         {
             query    => $query,
             column   => 'label',
-            ontology => $rule->{ontology} || $ctx->{mapping}{defaults}{ontology},
+            ontology => $ontology,
             self     => $ctx->{self},
+            source_field => $source_field,
+            source_value => $source_value,
+            source_label => $source_label,
         }
     );
 }

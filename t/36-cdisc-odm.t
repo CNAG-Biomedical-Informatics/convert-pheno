@@ -40,7 +40,7 @@ sub load_odm_source {
             method       => 'cdiscodm2bff',
             in_file      => $file,
             mapping_file => $mapping_file,
-            schema_file  => 'share/schema/mapping.json',
+            schema_file  => 'share/schema/mapping-v2.json',
             %extra,
         }
     );
@@ -154,7 +154,7 @@ qr/--redcap-dictionary is only valid for REDCap-origin CDISC-ODM/,
             method       => 'cdiscodm2bff',
             in_file      => 't/cdiscodm2bff/in/cdisc_odm_data.xml',
             mapping_file => 't/redcap2bff/in/redcap_mapping.yaml',
-            schema_file  => 'share/schema/mapping.json',
+            schema_file  => 'share/schema/mapping-v2.json',
         }
     );
     throws_ok { source_adapter( $convert, 'cdisc-odm' )->load }

@@ -1,0 +1,37 @@
+mappingVersion: 2
+source:
+  profile: sdtm
+target:
+  model: beacon
+  schemaVersion: 2.0.0
+project:
+  id: STUDY-JSON-01
+  version: '1.0'
+defaults:
+  ontology: ncit
+terminology:
+  AE.AESEV:
+    query:
+      from: value
+      aliases:
+        MILD: Mild
+        MODERATE: Moderate
+  LB.LBTESTCD:
+    query:
+      from: value
+      aliases:
+        ALT: Alanine Aminotransferase
+  LB.LBSTRESC:
+    query:
+      from: value
+      aliases:
+        NEGATIVE: Negative
+  MH.MHDECOD:
+    query:
+      from: value
+      aliases:
+        DIABETES MELLITUS: Diabetes Mellitus
+    terms:
+      Asthma:
+        id: NCIT:C28397
+        label: Asthma

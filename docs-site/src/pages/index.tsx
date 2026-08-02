@@ -5,6 +5,7 @@ import styles from './index.module.css';
 
 export default function Home() {
   const diagramUrl = useBaseUrl('/img/convert-pheno-flow.svg');
+  const diagramMobileUrl = useBaseUrl('/img/convert-pheno-flow-mobile.svg');
   const objectiveUrl = useBaseUrl('/img/convert-pheno-objective.svg');
 
   return (
@@ -22,8 +23,8 @@ export default function Home() {
               </p>
               <p className={styles.lede}>
                 Open-source software for reproducible transformations among Beacon v2
-                Models, Phenopackets v2, OMOP-CDM, and mapping-based clinical data
-                sources. The command-line interface is the primary user interface;
+                Models, Phenopackets v2, OMOP-CDM, and supported clinical source
+                formats. The command-line interface is the primary user interface;
                 Perl, Python, and HTTP(s) interfaces are also available for integration.
               </p>
               <div className={styles.actions}>
@@ -59,14 +60,18 @@ export default function Home() {
           </div>
           <figure className={styles.diagramFrame}>
             <div className={styles.diagramScroller}>
-              <img
-                src={diagramUrl}
-                alt="Supported inputs pass through Convert-Pheno and the Beacon v2 Models BFF target model to supported outputs"
-              />
+              <picture>
+                <source media="(max-width: 640px)" srcSet={diagramMobileUrl} />
+                <img
+                  src={diagramUrl}
+                  alt="Supported source families pass through Convert-Pheno and the Beacon v2 Models BFF target model to supported outputs"
+                />
+              </picture>
             </div>
-            <figcaption>
-              BFF is the internal target model for most conversion routes; final
-              output is not limited to BFF.
+            <figcaption className={styles.diagramCaption}>
+              Source formats are grouped by function for readability. Route availability
+              varies by input; see <Link to="/supported-formats">Supported Formats</Link>{' '}
+              for the complete conversion map.
             </figcaption>
           </figure>
         </section>
@@ -84,13 +89,13 @@ export default function Home() {
           </div>
           <div className={styles.operationGrid}>
             <article className={styles.operation}>
-              <span>Structured models</span>
-              <h3>Convert BFF, PXF, OMOP-CDM, FHIR, and SDTM data</h3>
-              <p>Read supported structured models, including FHIR Bundles and CDISC Dataset-JSON domains.</p>
+              <span>Structured inputs</span>
+              <h3>Convert supported models and exchange formats</h3>
+              <p>Read BFF, PXF, OMOP-CDM, FHIR/mCODE, openEHR, cBioPortal, and CDISC dataset packages.</p>
             </article>
             <article className={styles.operation}>
               <span>Mapped sources</span>
-              <h3>Transform REDCap, CDISC-ODM, and CSV</h3>
+              <h3>Transform REDCap, CDISC-ODM/OpenClinica, and CSV</h3>
               <p>Use project mapping files to relate source fields to the target model.</p>
             </article>
             <article className={styles.operation}>

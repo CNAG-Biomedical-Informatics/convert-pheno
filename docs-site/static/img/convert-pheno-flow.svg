@@ -1,118 +1,243 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" role="img" aria-labelledby="diagram-title diagram-description">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 680" role="img" aria-labelledby="diagram-title diagram-description">
   <title id="diagram-title">Convert-Pheno conversion architecture</title>
   <desc id="diagram-description">
-    Supported clinical and phenotypic input formats enter Convert-Pheno, which uses Beacon v2 Models BFF as the internal target model for most routes and writes Beacon, Phenopackets, OMOP-CDM, or inspection outputs.
+    Five families of supported clinical and phenotypic inputs pass through the Convert-Pheno conversion core and its Beacon Friendly Format pivot before a supported target or inspection output is written.
   </desc>
+  <defs>
+    <filter id="soft-shadow" x="-20%" y="-20%" width="140%" height="155%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#17323d" flood-opacity=".12"/>
+    </filter>
+    <marker id="flow-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#327286"/>
+    </marker>
+  </defs>
   <style>
-    .canvas { fill: #f8fbfa; stroke: #bfd0d3; }
-    .panel { fill: #ffffff; stroke: #9eb8bf; }
-    .target-panel { fill: #edf4f2; stroke: #315f72; }
-    .format-box { fill: #f5f8f7; stroke: #c3d2d5; }
-    .target-box { fill: #ffffff; stroke: #315f72; }
-    .output-box { fill: #ffffff; stroke: #b5c8cc; }
-    .connector { fill: none; stroke: #315f72; stroke-width: 3; }
-    .connector-head { fill: #315f72; }
-    .rule { stroke: #c4d2d5; stroke-width: 1; }
-    .heading { fill: #16323d; font: 700 24px "Noto Sans", "DejaVu Sans", sans-serif; }
-    .section-label { fill: #8f552b; font: 700 15px "Noto Sans", "DejaVu Sans", sans-serif; letter-spacing: 2px; }
-    .format-label { fill: #244b5a; font: 700 17px "Noto Sans", "DejaVu Sans", sans-serif; }
-    .small-label { fill: #59717a; font: 400 14px "Noto Sans", "DejaVu Sans", sans-serif; }
-    .target-label { fill: #8f552b; font: 700 14px "Noto Sans", "DejaVu Sans", sans-serif; letter-spacing: 1.5px; }
-    .target-name { fill: #16323d; font: 700 23px "Noto Sans", "DejaVu Sans", sans-serif; }
-    .caption { fill: #4e6871; font: 400 15px "Noto Sans", "DejaVu Sans", sans-serif; }
+    .background { fill: #f2f6f5; }
+    .card { fill: #ffffff; stroke: #bfd0d3; stroke-width: 1.5; }
+    .core { fill: #17323d; stroke: #315f72; stroke-width: 2; }
+    .pivot { fill: #f7fbfa; stroke: #84a8b2; stroke-width: 1.5; }
+    .icon-surface { fill: #e8f0f0; }
+    .icon-line { fill: none; stroke: #315f72; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .flow { fill: none; stroke: #327286; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+    .flow-muted { fill: none; stroke: #9eb8bf; stroke-width: 1.5; }
+    .junction { fill: #f2f6f5; stroke: #327286; stroke-width: 2; }
+    .rule { stroke: #c2d1d4; stroke-width: 1; }
+    .section { fill: #8f552b; font: 800 13px "Noto Sans", "DejaVu Sans", sans-serif; letter-spacing: 1.8px; }
+    .category { fill: #315f72; font: 800 12px "Noto Sans", "DejaVu Sans", sans-serif; letter-spacing: 1.1px; }
+    .formats { fill: #18343f; font: 700 16px "Noto Sans", "DejaVu Sans", sans-serif; }
+    .core-section { fill: #efb17c; font: 800 12px "Noto Sans", "DejaVu Sans", sans-serif; letter-spacing: 1.6px; }
+    .core-title { fill: #ffffff; font: 800 27px "Noto Sans", "DejaVu Sans", sans-serif; }
+    .core-detail { fill: #c7d9dd; font: 400 13px "Noto Sans", "DejaVu Sans", sans-serif; }
+    .chip { fill: #254955; stroke: #537782; }
+    .chip-text { fill: #dce9eb; font: 700 11px "Noto Sans", "DejaVu Sans", sans-serif; }
+    .pivot-kicker { fill: #8f552b; font: 800 10px "Noto Sans", "DejaVu Sans", sans-serif; letter-spacing: 1.3px; }
+    .pivot-name { fill: #17323d; font: 800 25px "Noto Sans", "DejaVu Sans", sans-serif; }
+    .pivot-detail { fill: #59717a; font: 600 12px "Noto Sans", "DejaVu Sans", sans-serif; }
+    .output-title { fill: #18343f; font: 800 17px "Noto Sans", "DejaVu Sans", sans-serif; }
+    .output-detail { fill: #59717a; font: 400 13px "Noto Sans", "DejaVu Sans", sans-serif; }
+    .step-number { fill: #ffffff; font: 800 13px "Noto Sans", "DejaVu Sans", sans-serif; }
+    .step-title { fill: #244b5a; font: 800 15px "Noto Sans", "DejaVu Sans", sans-serif; }
+    .step-detail { fill: #687d84; font: 400 12px "Noto Sans", "DejaVu Sans", sans-serif; }
+    .accent-blue { fill: #4f89a0; }
+    .accent-teal { fill: #4c9184; }
+    .accent-orange { fill: #c47b46; }
+    .accent-gold { fill: #b49a45; }
+    .accent-slate { fill: #71858c; }
+    .accent-bff { fill: #6495ed; }
+    .accent-pxf { fill: #ff7f50; }
+    .accent-omop { fill: #3cb371; }
+    .accent-inspect { fill: #78909c; }
 
     @media (prefers-color-scheme: dark) {
-      .canvas { fill: #14242b; stroke: #405b64; }
-      .panel { fill: #192d35; stroke: #52717b; }
-      .target-panel { fill: #203840; stroke: #75afc0; }
-      .format-box { fill: #21353d; stroke: #49636c; }
-      .target-box,
-      .output-box { fill: #21353d; stroke: #5f7d86; }
-      .connector { stroke: #75afc0; }
-      .connector-head { fill: #75afc0; }
-      .rule { stroke: #49636c; }
-      .heading,
-      .format-label,
-      .target-name { fill: #edf5f5; }
-      .section-label,
-      .target-label { fill: #e5a36c; }
-      .small-label,
-      .caption { fill: #bfd0d3; }
+      .background { fill: #13242b; }
+      .card { fill: #1c3139; stroke: #48636c; }
+      .pivot { fill: #203841; stroke: #75afc0; }
+      .icon-surface { fill: #29424a; }
+      .icon-line { stroke: #b9d1d6; }
+      .flow { stroke: #75afc0; }
+      .flow-muted { stroke: #4b6871; }
+      .junction { fill: #13242b; stroke: #75afc0; }
+      .rule { stroke: #405b64; }
+      .section { fill: #e5a36c; }
+      .category { fill: #96bfca; }
+      .formats,
+      .output-title,
+      .step-title { fill: #edf5f5; }
+      .output-detail,
+      .step-detail { fill: #b7cbd0; }
+      .pivot-kicker { fill: #e5a36c; }
+      .pivot-name { fill: #edf5f5; }
+      .pivot-detail { fill: #b7cbd0; }
+      .chip { fill: #294b57; stroke: #63838d; }
     }
   </style>
 
-  <rect class="canvas" x="1" y="1" width="1198" height="618" rx="14" />
+  <rect class="background" width="1280" height="680"/>
 
-  <text class="section-label" x="40" y="61">SUPPORTED INPUTS</text>
-  <rect class="panel" x="32" y="82" width="334" height="442" rx="10" />
+  <text class="section" x="32" y="35">SUPPORTED SOURCE FAMILIES</text>
+  <text class="section" x="520" y="35">CONVERSION CORE</text>
+  <text class="section" x="838" y="35">SUPPORTED OUTPUTS</text>
 
-  <rect class="format-box" x="52" y="112" width="137" height="58" rx="6" />
-  <text class="format-label" x="120.5" y="147" text-anchor="middle">BFF</text>
+  <!-- Source family bus -->
+  <path class="flow-muted" d="M480 101V461"/>
+  <path class="flow" d="M462 101H480M462 191H480M462 281H480M462 371H480M462 461H480"/>
+  <circle class="junction" cx="480" cy="101" r="5"/>
+  <circle class="junction" cx="480" cy="191" r="5"/>
+  <circle class="junction" cx="480" cy="281" r="5"/>
+  <circle class="junction" cx="480" cy="371" r="5"/>
+  <circle class="junction" cx="480" cy="461" r="5"/>
+  <path class="flow" d="M480 281H510" marker-end="url(#flow-arrow)"/>
 
-  <rect class="format-box" x="209" y="112" width="137" height="58" rx="6" />
-  <text class="format-label" x="277.5" y="139" text-anchor="middle">Phenopackets</text>
-  <text class="small-label" x="277.5" y="158" text-anchor="middle">v2</text>
+  <!-- Data models -->
+  <g filter="url(#soft-shadow)">
+    <rect class="card" x="32" y="63" width="430" height="76" rx="10"/>
+    <rect class="accent-blue" x="32" y="63" width="6" height="76" rx="3"/>
+  </g>
+  <rect class="icon-surface" x="52" y="77" width="48" height="48" rx="12"/>
+  <g class="icon-line">
+    <circle cx="76" cy="89" r="5"/><circle cx="64" cy="111" r="5"/><circle cx="88" cy="111" r="5"/>
+    <path d="M73 94L67 106M79 94L85 106M69 111H83"/>
+  </g>
+  <text class="category" x="118" y="91">CLINICAL DATA MODELS</text>
+  <text class="formats" x="118" y="117">BFF &#183; Phenopackets v2 &#183; OMOP-CDM</text>
 
-  <rect class="format-box" x="52" y="186" width="137" height="58" rx="6" />
-  <text class="format-label" x="120.5" y="221" text-anchor="middle">OMOP-CDM</text>
+  <!-- EHR interoperability -->
+  <g filter="url(#soft-shadow)">
+    <rect class="card" x="32" y="153" width="430" height="76" rx="10"/>
+    <rect class="accent-teal" x="32" y="153" width="6" height="76" rx="3"/>
+  </g>
+  <rect class="icon-surface" x="52" y="167" width="48" height="48" rx="12"/>
+  <g class="icon-line">
+    <path d="M64 177H82L90 185V205H64Z"/><path d="M82 177V185H90"/>
+    <path d="M72 194H82M77 189V199"/>
+  </g>
+  <text class="category" x="118" y="181">EHR INTEROPERABILITY</text>
+  <text class="formats" x="118" y="207">FHIR R4 / mCODE &#183; openEHR</text>
 
-  <rect class="format-box" x="209" y="186" width="137" height="58" rx="6" />
-  <text class="format-label" x="277.5" y="221" text-anchor="middle">REDCap</text>
+  <!-- EDC and eCRF -->
+  <g filter="url(#soft-shadow)">
+    <rect class="card" x="32" y="243" width="430" height="76" rx="10"/>
+    <rect class="accent-orange" x="32" y="243" width="6" height="76" rx="3"/>
+  </g>
+  <rect class="icon-surface" x="52" y="257" width="48" height="48" rx="12"/>
+  <g class="icon-line">
+    <rect x="63" y="267" width="26" height="28" rx="3"/><path d="M69 274L72 277L77 271M80 275H85M69 284L72 287L77 281M80 285H85"/>
+  </g>
+  <text class="category" x="118" y="271">eCRF AND EDC EXCHANGE</text>
+  <text class="formats" x="118" y="297">REDCap &#183; CDISC-ODM &#183; OpenClinica</text>
 
-  <rect class="format-box" x="52" y="260" width="137" height="58" rx="6" />
-  <text class="format-label" x="120.5" y="295" text-anchor="middle">CDISC-ODM</text>
+  <!-- Trial datasets -->
+  <g filter="url(#soft-shadow)">
+    <rect class="card" x="32" y="333" width="430" height="76" rx="10"/>
+    <rect class="accent-gold" x="32" y="333" width="6" height="76" rx="3"/>
+  </g>
+  <rect class="icon-surface" x="52" y="347" width="48" height="48" rx="12"/>
+  <g class="icon-line">
+    <rect x="62" y="357" width="28" height="28" rx="3"/><path d="M62 365H90M70 365V385M80 365V385M62 375H90"/>
+  </g>
+  <text class="category" x="118" y="361">CLINICAL-TRIAL DATASETS</text>
+  <text class="formats" x="118" y="387">Dataset-JSON &#183; Dataset-XML + Define-XML</text>
 
-  <rect class="format-box" x="209" y="260" width="137" height="58" rx="6" />
-  <text class="format-label" x="277.5" y="295" text-anchor="middle">CSV</text>
+  <!-- Tabular and study packages -->
+  <g filter="url(#soft-shadow)">
+    <rect class="card" x="32" y="423" width="430" height="76" rx="10"/>
+    <rect class="accent-slate" x="32" y="423" width="6" height="76" rx="3"/>
+  </g>
+  <rect class="icon-surface" x="52" y="437" width="48" height="48" rx="12"/>
+  <g class="icon-line">
+    <path d="M62 448H86L91 453V475H62Z"/><path d="M86 448V454H91M68 461H85M68 468H85"/>
+  </g>
+  <text class="category" x="118" y="451">TABULAR AND STUDY PACKAGES</text>
+  <text class="formats" x="118" y="477">CSV &#183; cBioPortal clinical studies</text>
 
-  <rect class="format-box" x="52" y="334" width="137" height="66" rx="6" />
-  <text class="format-label" x="120.5" y="360" text-anchor="middle">Dataset-JSON</text>
-  <text class="small-label" x="120.5" y="381" text-anchor="middle">experimental</text>
+  <!-- Conversion core -->
+  <g filter="url(#soft-shadow)">
+    <rect class="core" x="520" y="63" width="260" height="436" rx="18"/>
+  </g>
+  <rect class="accent-orange" x="520" y="63" width="260" height="6" rx="3"/>
+  <text class="core-section" x="650" y="101" text-anchor="middle">CONVERT-PHENO</text>
+  <text class="core-title" x="650" y="140" text-anchor="middle">Conversion core</text>
+  <text class="core-detail" x="650" y="166" text-anchor="middle">Source-aware parsing, reference</text>
+  <text class="core-detail" x="650" y="185" text-anchor="middle">resolution, grouping, and mapping</text>
 
-  <rect class="format-box" x="209" y="334" width="137" height="66" rx="6" />
-  <text class="format-label" x="277.5" y="360" text-anchor="middle">openEHR</text>
-  <text class="small-label" x="277.5" y="381" text-anchor="middle">experimental</text>
+  <circle cx="650" cy="250" r="55" fill="#254955" stroke="#6f98a3" stroke-width="2"/>
+  <path class="flow" d="M619 248C623 222 646 207 671 216" marker-end="url(#flow-arrow)"/>
+  <path class="flow" d="M681 252C676 278 653 292 628 282" marker-end="url(#flow-arrow)"/>
+  <circle cx="650" cy="250" r="13" fill="#c47b46"/>
+  <circle cx="618" cy="250" r="6" fill="#d9e6e8"/>
+  <circle cx="676" cy="218" r="6" fill="#d9e6e8"/>
+  <circle cx="682" cy="281" r="6" fill="#d9e6e8"/>
 
-  <rect class="format-box" x="130" y="416" width="137" height="66" rx="6" />
-  <text class="format-label" x="198.5" y="442" text-anchor="middle">FHIR R4</text>
-  <text class="small-label" x="198.5" y="463" text-anchor="middle">experimental</text>
+  <rect class="chip" x="548" y="320" width="60" height="27" rx="13"/>
+  <rect class="chip" x="620" y="320" width="60" height="27" rx="13"/>
+  <rect class="chip" x="692" y="320" width="60" height="27" rx="13"/>
+  <text class="chip-text" x="578" y="338" text-anchor="middle">PARSE</text>
+  <text class="chip-text" x="650" y="338" text-anchor="middle">GROUP</text>
+  <text class="chip-text" x="722" y="338" text-anchor="middle">MAP</text>
 
-  <path class="connector" d="M376 303 H418" />
-  <path class="connector-head" d="M418 303 L403 294 L403 312 Z" />
+  <rect class="pivot" x="548" y="369" width="204" height="102" rx="11"/>
+  <text class="pivot-kicker" x="650" y="394" text-anchor="middle">INTERNAL TARGET</text>
+  <text class="pivot-name" x="650" y="427" text-anchor="middle">BFF</text>
+  <text class="pivot-detail" x="650" y="451" text-anchor="middle">Beacon v2 Models &#183; most routes</text>
 
-  <text class="section-label" x="438" y="124">CONVERSION LAYER</text>
-  <rect class="target-panel" x="428" y="145" width="344" height="318" rx="10" />
-  <text class="heading" x="600" y="200" text-anchor="middle">Convert-Pheno</text>
-  <text class="small-label" x="600" y="226" text-anchor="middle">Source-specific mapping and normalization</text>
-  <line class="rule" x1="458" y1="252" x2="742" y2="252" />
-  <text class="target-label" x="600" y="283" text-anchor="middle">TARGET MODEL</text>
-  <rect class="target-box" x="462" y="302" width="276" height="112" rx="7" />
-  <text class="target-name" x="600" y="344" text-anchor="middle">Beacon v2 Models</text>
-  <text class="format-label" x="600" y="375" text-anchor="middle">BFF</text>
-  <text class="small-label" x="600" y="399" text-anchor="middle">Internal target for most routes</text>
+  <path class="flow" d="M790 281H828" marker-end="url(#flow-arrow)"/>
 
-  <path class="connector" d="M782 303 H824" />
-  <path class="connector-head" d="M824 303 L809 294 L809 312 Z" />
+  <!-- Outputs -->
+  <g filter="url(#soft-shadow)">
+    <rect class="card" x="838" y="63" width="410" height="112" rx="10"/>
+    <rect class="accent-bff" x="838" y="63" width="6" height="112" rx="3"/>
+  </g>
+  <rect class="icon-surface" x="858" y="84" width="54" height="54" rx="14"/>
+  <g class="icon-line">
+    <circle cx="885" cy="95" r="4"/><path d="M885 99V108M871 108H899M871 108V115M885 108V115M899 108V115"/>
+    <rect x="866" y="115" width="10" height="8" rx="2"/><rect x="880" y="115" width="10" height="8" rx="2"/><rect x="894" y="115" width="10" height="8" rx="2"/>
+  </g>
+  <text class="output-title" x="932" y="96">Beacon v2 Models (BFF)</text>
+  <text class="output-detail" x="932" y="122">individuals &#183; biosamples &#183; datasets &#183; cohorts</text>
+  <text class="output-detail" x="932" y="145">Single file or entity-aware collections</text>
 
-  <text class="section-label" x="846" y="61">SUPPORTED OUTPUTS</text>
-  <rect class="panel" x="834" y="82" width="334" height="442" rx="10" />
+  <g filter="url(#soft-shadow)">
+    <rect class="card" x="838" y="190" width="410" height="82" rx="10"/>
+    <rect class="accent-pxf" x="838" y="190" width="6" height="82" rx="3"/>
+  </g>
+  <rect class="icon-surface" x="858" y="204" width="54" height="54" rx="14"/>
+  <g class="icon-line"><path d="M878 214C871 214 871 221 871 226S868 231 864 231C868 231 871 236 871 241S871 248 878 248M892 214C899 214 899 221 899 226S902 231 906 231C902 231 899 236 899 241S899 248 892 248"/></g>
+  <text class="output-title" x="932" y="225">Phenopackets v2 (PXF)</text>
+  <text class="output-detail" x="932" y="249">Phenopacket JSON or YAML</text>
 
-  <rect class="output-box" x="856" y="112" width="290" height="112" rx="6" />
-  <text class="format-label" x="1001" y="144" text-anchor="middle">Beacon v2 Models (BFF)</text>
-  <text class="small-label" x="1001" y="174" text-anchor="middle">individuals &#183; biosamples</text>
-  <text class="small-label" x="1001" y="196" text-anchor="middle">datasets &#183; cohorts</text>
+  <g filter="url(#soft-shadow)">
+    <rect class="card" x="838" y="287" width="410" height="82" rx="10"/>
+    <rect class="accent-omop" x="838" y="287" width="6" height="82" rx="3"/>
+  </g>
+  <rect class="icon-surface" x="858" y="301" width="54" height="54" rx="14"/>
+  <g class="icon-line"><ellipse cx="885" cy="313" rx="16" ry="6"/><path d="M869 313V341C869 344 876 347 885 347S901 344 901 341V313M869 326C869 329 876 332 885 332S901 329 901 326"/></g>
+  <text class="output-title" x="932" y="322">OMOP-CDM tables</text>
+  <text class="output-detail" x="932" y="346">Validated CSV tables for database loading</text>
 
-  <rect class="output-box" x="856" y="240" width="290" height="66" rx="6" />
-  <text class="format-label" x="1001" y="280" text-anchor="middle">Phenopackets v2 (PXF)</text>
+  <g filter="url(#soft-shadow)">
+    <rect class="card" x="838" y="384" width="410" height="82" rx="10"/>
+    <rect class="accent-inspect" x="838" y="384" width="6" height="82" rx="3"/>
+  </g>
+  <rect class="icon-surface" x="858" y="398" width="54" height="54" rx="14"/>
+  <g class="icon-line"><circle cx="881" cy="420" r="11"/><path d="M889 428L901 440M876 416H886M876 422H883"/></g>
+  <text class="output-title" x="932" y="419">Inspection outputs</text>
+  <text class="output-detail" x="932" y="443">Flattened JSON, CSV, JSON-LD, or YAML-LD</text>
 
-  <rect class="output-box" x="856" y="322" width="290" height="66" rx="6" />
-  <text class="format-label" x="1001" y="362" text-anchor="middle">OMOP-CDM (CSV)</text>
+  <!-- Three-step reading guide -->
+  <path class="rule" d="M32 551H1248"/>
 
-  <line class="rule" x1="856" y1="417" x2="1146" y2="417" />
-  <text class="small-label" x="856" y="449">Inspection outputs:</text>
-  <text class="small-label" x="856" y="473">flattened JSON or CSV, JSON-LD</text>
+  <circle class="accent-blue" cx="54" cy="601" r="17"/>
+  <text class="step-number" x="54" y="606" text-anchor="middle">1</text>
+  <text class="step-title" x="82" y="596">Resolve source records</text>
+  <text class="step-detail" x="82" y="618">Files, references, metadata, and participants</text>
 
-  <text class="caption" x="600" y="572" text-anchor="middle">
-    BFF is the internal target model for most routes; the selected route determines the final output.
-  </text>
+  <circle class="accent-orange" cx="464" cy="601" r="17"/>
+  <text class="step-number" x="464" y="606" text-anchor="middle">2</text>
+  <text class="step-title" x="492" y="596">Map and normalize</text>
+  <text class="step-detail" x="492" y="618">BFF connects most conversion routes</text>
+
+  <circle class="accent-omop" cx="864" cy="601" r="17"/>
+  <text class="step-number" x="864" y="606" text-anchor="middle">3</text>
+  <text class="step-title" x="892" y="596">Write the selected target</text>
+  <text class="step-detail" x="892" y="618">Route-specific files, tables, and entities</text>
 </svg>

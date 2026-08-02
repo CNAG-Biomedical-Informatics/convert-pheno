@@ -125,7 +125,7 @@ sub write_fixture_zip {
             method       => 'cbioportal2bff',
             in_file      => $fixture_dir,
             mapping_file => 't/cbioportal2bff/in/cbioportal_mapping.yaml',
-            schema_file  => 'share/schema/mapping.json',
+            schema_file  => 'share/schema/mapping-v2.json',
             entities     => [qw(individuals biosamples)],
             test         => 1,
         }

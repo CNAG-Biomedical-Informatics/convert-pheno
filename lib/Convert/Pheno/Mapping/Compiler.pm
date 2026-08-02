@@ -85,19 +85,35 @@ sub compile_mapping {
     _validate_target($mapping);
     _validate_source_profile( $mapping, $record_profile );
 
-    # Mapping files are intentionally concise. Compile their author-facing
-    # rules into the explicit representation consumed by the mapper so that
-    # execution code never needs to support shorthand or inheritance.
-    my $compiled = _compile_authoring_mapping($mapping);
+    # SDTM structure is built in; its compact mapping profile compiles only
+    # terminology selectors. Tabular profiles retain the full entity mapping.
+    my $compiled = $record_profile eq 'sdtm'
+      ? _compile_sdtm_mapping($mapping)
+      : _compile_authoring_mapping($mapping);
     $compiled->{_compiled} = {
         sourceProfile => $profile,
         recordProfile => $record_profile,
     };
 
     if ( exists $arg{headers} ) {
-        _validate_source_fields( $compiled, $arg{headers}, $profile );
+        if ( $record_profile eq 'sdtm' ) {
+            _validate_sdtm_source_fields( $compiled, $arg{headers}, $profile );
+        }
+        else {
+            _validate_source_fields( $compiled, $arg{headers}, $profile );
+        }
     }
 
+    return $compiled;
+}
+
+sub _compile_sdtm_mapping {
+    my ($mapping) = @_;
+    my $compiled = dclone($mapping);
+    for my $field ( keys %{ $compiled->{terminology} || {} } ) {
+        $compiled->{terminology}{$field} =
+          _normalize_term_target( $compiled->{terminology}{$field} );
+    }
     return $compiled;
 }
 
@@ -418,6 +434,20 @@ sub _validate_source_fields {
     return 1 unless @missing;
 
     die "Mapping references source columns not present in the <$profile> input: <"
+      . join( '>, <', @missing ) . ">.\n";
+}
+
+sub _validate_sdtm_source_fields {
+    my ( $mapping, $headers, $profile ) = @_;
+    die "Expected SDTM source fields as an array reference\n"
+      unless ref($headers) eq 'ARRAY';
+
+    my %available = map { $_ => 1 } @{$headers};
+    my @missing = sort grep { !$available{$_} }
+      keys %{ $mapping->{terminology} || {} };
+    return 1 unless @missing;
+
+    die "Mapping references SDTM fields not present in the <$profile> input: <"
       . join( '>, <', @missing ) . ">.\n";
 }
 

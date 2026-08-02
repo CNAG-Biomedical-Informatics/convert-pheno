@@ -28,21 +28,19 @@ corresponding BFF and OMOP validators.
 - Defer mutation, copy-number, expression, fusion, and structural-variant
   files until BFF `genomicVariations`, `analyses`, and `runs` are supported
 
+## mCODE and Dataset-XML follow-up
+
+mCODE 4.0 profile detection and primary cancer stage mapping are implemented
+inside the FHIR R4 route for 0.34. CDISC Dataset-XML v1.0 input with required
+Define-XML v2 metadata is also implemented through the shared SDTM mapper.
+
+- Exercise mCODE with independently generated oncology Bundles and assess
+  additional first-class mappings only where BFF has an appropriate target
+- Exercise Dataset-XML from multiple generators with Define-XML 2.0 and 2.1
+- Evaluate a bounded-memory Dataset-XML reader if multi-million-row studies
+  become a practical use case
+
 ## Candidate inputs after 0.34
-
-### Priority 1: mCODE FHIR oncology profile
-
-Extend the existing `-ifhir` route rather than introducing another input
-format. Add profile-aware mappings for primary cancer conditions, TNM staging,
-treatments, genomics reports, and other mCODE structures while retaining the
-generic FHIR R4 fallback and provenance behavior.
-
-### Priority 2: CDISC Dataset-XML with Define-XML
-
-Add `-idataset-xml` by implementing an XML dataset reader and reusing the
-existing Dataset-JSON SDTM normalization and semantic mappings. Use Define-XML
-metadata when supplied and keep Dataset-XML distinct from operational ODM
-clinical data.
 
 ### Demand-driven candidates
 

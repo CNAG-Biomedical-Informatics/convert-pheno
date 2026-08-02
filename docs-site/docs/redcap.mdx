@@ -13,15 +13,19 @@ export const RedcapFormatImage = () => (
   />
 );
 
+**Category:** Electronic data capture (EDC) platform
+
+[REDCap](https://www.project-redcap.org) stands for **R**esearch **E**lectronic
+**D**ata **Cap**ture. Its projects define their own fields and coded values, so
+Convert-Pheno combines a **REDCap CSV export, data dictionary, and project
+mapping file** before conversion.
+
 :::note[Implementation and validation status]
 REDCap conversion is implemented and covered by regression tests, including
 data-dictionary and mapping-file processing. Because projects are free-form,
-review the project mapping, optional ontology-search audit, and generated
+review the project mapping, optional terminology audit, and generated
 output. Independent validation across diverse REDCap projects remains ongoing.
 :::
-
-**REDCap** stands for **R**esearch **E**lectronic **D**ata **Cap**ture. See the
-REDCap [documentation](https://www.project-redcap.org).
 
 <div className="convertFormatSummary" aria-label="At a glance">
   <div><span>Role</span><strong>Input</strong></div>
@@ -91,9 +95,8 @@ values and ontology mappings.
 :::
 
 The mapping file defines how project variables become Beacon individuals and,
-when configured, first-class biosamples. Start with
-[Working with Mapping Files](mapping-files), then use the complete
-[Mapping File](tbl/mapping-file) reference for additional keys.
+when configured, first-class biosamples. The [Mapping Files](mapping-files)
+guide covers the workflow and complete Mapping V2 contract.
 
 Use [REDCap conversion recipes](conversion-recipes#redcap-input-bff-output) for
 BFF, PXF, and OMOP-CDM commands.
@@ -104,7 +107,7 @@ Generated BFF records preserve the original source row under
 `info.REDCap_columns` by default. Use `--no-source-info` when that copy is not
 needed.
 
-`--search-audit-tsv` records the source row, original and converted labels,
+`--term-audit-tsv` records the source row, original and converted labels,
 converted identifier, ontology, match status, match source, and effective
 search settings. Review this file when project terms are resolved through the
 bundled SQLite ontology databases.

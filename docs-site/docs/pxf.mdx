@@ -19,8 +19,12 @@ export const PxfBiosamplesExampleDownload = () => {
   return <a href={exampleUrl} download>Download the tested PXF biosamples input</a>;
 };
 
-**PXF** stands for **P**henotype e**X**change **F**ormat. See the Phenopackets
-v2 [documentation](https://phenopacket-schema.readthedocs.io/en/latest/basics.html).
+**Category:** Clinical and phenotypic data model
+
+**PXF** stands for **P**henotype e**X**change **F**ormat. Phenopackets v2
+defines a structured exchange model for an individual, phenotypic findings,
+diseases, measurements, treatments, biosamples, and related metadata.
+Convert-Pheno **reads and writes its JSON or YAML representation**.
 
 <div className="convertFormatSummary" aria-label="At a glance">
   <div><span>Role</span><strong>Input and output</strong></div>
@@ -44,7 +48,7 @@ serialized as JSON or YAML.
 
 - As **input**, for routes including `pxf2bff`, `pxf2omop`, and
   inspection-oriented outputs.
-- As **output**, from BFF, OMOP-CDM, REDCap, CSV, CDISC-ODM, Dataset-JSON, FHIR, and openEHR input.
+- As **output**, from BFF, OMOP-CDM, REDCap, CSV, CDISC-ODM, Dataset-JSON, Dataset-XML, FHIR, and openEHR input.
 
 <details>
 <summary>Browsing PXF JSON data</summary>
@@ -81,7 +85,7 @@ covering individuals-only, multi-entity BFF, and OMOP output.
 ## PXF As Output
 
 PXF can be generated from BFF, OMOP-CDM, REDCap, CSV, CDISC-ODM, Dataset-JSON,
-FHIR, and openEHR.
+Dataset-XML, FHIR, and openEHR.
 Routes that do not begin with BFF normalize through the internal BFF
 representation before the Phenopacket is written.
 

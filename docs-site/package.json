@@ -9,6 +9,7 @@
     "start": "docusaurus start",
     "prebuild": "npm run sync-content",
     "build": "docusaurus build",
+    "postbuild": "node scripts/check-published-routes.mjs",
     "clear": "docusaurus clear",
     "preview": "npm run build && docusaurus serve",
     "serve": "docusaurus serve",

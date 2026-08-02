@@ -13,10 +13,18 @@ export const FhirFormatImage = () => (
   />
 );
 
+**Category:** EHR interoperability standard
+
+[FHIR R4](https://hl7.org/fhir/R4/) is HL7's resource-based standard for
+exchanging health information. Convert-Pheno **reads JSON Bundles**, resolves
+references between supported resources, and groups clinical content by Patient
+before conversion.
+
 :::note[Implementation status]
 FHIR R4 JSON Bundle input is implemented and covered by regression tests. Its
 experimental status reflects limited independent validation across FHIR
-profiles, implementations, and real-world Bundles.
+implementations and real-world Bundles. Generic R4 and the mCODE 4.0 oncology
+profile are covered by attributed fixtures.
 :::
 
 <div className="convertFormatSummary" aria-label="At a glance">
@@ -52,6 +60,35 @@ resource references, or input with no resolvable Patient.
 
 Use [FHIR conversion recipes](conversion-recipes#fhir-r4-input-bff-output) for
 BFF, PXF, and OMOP-CDM commands. A mapping file is not used.
+
+:::info[How mCODE relates to FHIR]
+mCODE (minimal Common Oncology Data Elements) is an oncology-specific FHIR R4
+implementation guide, **not a separate input format**. Supply mCODE JSON Bundles
+through the normal **`-ifhir` route**. Convert-Pheno detects supported mCODE 4.0
+profiles from `meta.profile` and adds the documented oncology-aware mapping;
+resources without those profiles continue through the generic FHIR R4 mapper.
+:::
+
+## Supported Profiles
+
+The default mapper handles the implemented R4 resources by their standard
+structure. [mCODE 4.0](https://hl7.org/fhir/us/mcode/) is recognized within the
+same `-ifhir` route from canonical `meta.profile` URLs; no separate input flag
+or template is required.
+
+For an mCODE primary cancer condition, `Condition.stage[].summary` maps to
+`diseases[].stage`. If the summary is absent, a resolvable stage assessment
+Observation can supply the coded value. Cancer medications, procedures,
+performance status, tumor markers, genomic observations, and human specimens
+continue through the implemented generic resource mappings. Detailed TNM and
+genomic observations remain structured measures; resources such as
+`DiagnosticReport` without a first-class target remain in provenance.
+
+Detected mCODE profile names are recorded under
+`info.fhir.profiles.mcode`, together with the supported profile version
+`4.0.0`. Unversioned canonical URLs and URLs with an explicit `|4.0.0` suffix
+are accepted. An explicitly different version continues through the generic
+FHIR mapper rather than being interpreted as mCODE 4.0.
 
 ## Implemented Resources
 
@@ -103,9 +140,10 @@ binding, and HTTP(s) APIs by sending a decoded Bundle as `data` or
 :::warning[Current boundaries]
 FHIR input is currently non-streaming. All supplied Bundles and normalized
 patient records are held in RAM. This profile does not read FHIR XML, Bulk Data
-NDJSON, or a live FHIR server, and it does not interpret arbitrary
-profile-specific extensions.
+NDJSON, or a live FHIR server. Profile-specific behavior is limited to the
+documented mCODE mapping; arbitrary extensions and slices are preserved as
+source provenance rather than interpreted.
 :::
 
-The attributed regression Bundle and reference BFF, PXF, and OMOP outputs are
-indexed in the [`t/` fixture guide](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/tree/main/t).
+The attributed generic and official mCODE regression Bundles are indexed in
+the [`t/` fixture guide](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/tree/main/t).

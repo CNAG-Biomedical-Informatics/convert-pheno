@@ -232,7 +232,7 @@ docker run --rm \
   /usr/share/convert-pheno/bin/convert-pheno \
   -icsv /data/input/clinical.csv \
   --mapping-file /data/mapping/mapping.yaml \
-  --search-audit-tsv /data/output/search-audit.tsv \
+  --term-audit-tsv /data/output/terminology.tsv \
   -obff /data/output/individuals.json
 ```
 

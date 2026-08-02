@@ -13,6 +13,13 @@ export const DatasetJsonFormatImage = () => (
   />
 );
 
+**Category:** Clinical-trial dataset exchange
+
+[CDISC Dataset-JSON](https://www.cdisc.org/standards/data-exchange/dataset-json)
+is a JSON transport for tabular research datasets such as SDTM, ADaM, and
+SEND. Convert-Pheno currently **reads Dataset-JSON v1.1 datasets as SDTM
+domains** and groups their rows into participant records.
+
 :::note[Implementation status]
 CDISC Dataset-JSON v1.1 SDTM input is implemented and covered by regression
 tests. Its experimental status reflects limited independent validation across
@@ -37,7 +44,8 @@ CDISC's JSON exchange format for tabular datasets such as SDTM, ADaM, and
 SEND. In this guide, a **domain** is one SDTM dataset covering a subject area.
 Convert-Pheno expects one Dataset-JSON document per domain and currently
 interprets those domains as SDTM. Unlike [CDISC-ODM](cdisc-odm), this route does
-not require a REDCap dictionary or a Convert-Pheno mapping file.
+not require a REDCap dictionary. Its structural mapping is built in; a compact
+mapping file is optional for reviewed terminology enrichment.
 :::
 
 ## Dataset-JSON As Input
@@ -56,6 +64,39 @@ The order of files is not significant. Subject-independent domains such as
 
 Use [Dataset-JSON conversion recipes](conversion-recipes#dataset-json-input-bff-output)
 for BFF, PXF, and OMOP-CDM commands.
+
+## Optional Terminology Enrichment
+
+Without extra configuration, term-bearing SDTM values use source-derived
+`CDISC:` identifiers. Add a Mapping V2 file with `source.profile: sdtm` to
+supply reviewed aliases, direct terms, or terminology queries:
+
+```yaml
+mappingVersion: 2
+source: { profile: sdtm }
+target: { model: beacon, schemaVersion: '2.0.0' }
+project: { id: study-01, version: '1.0' }
+defaults: { ontology: ncit }
+terminology:
+  AE.AESEV:
+    query:
+      from: value
+      aliases: { MILD: Mild }
+```
+
+```bash
+convert-pheno \
+  -idataset-json dm.json ae.json \
+  --mapping-file sdtm-terminology.yaml \
+  --term-audit-tsv terminology.tsv \
+  -obff individuals.json
+```
+
+Dataset-JSON may also receive `--define-xml define.xml`. Supported
+`nci:ExtCodeID` aliases are then resolved by exact identifier lookup, which
+retrieves the canonical NCIT label. See [Mapping Files](mapping-files) for the
+compact SDTM form and [Terminology Search](tbl/db-search) for precedence and
+audit interpretation.
 
 ## Implemented SDTM Content
 
@@ -79,12 +120,11 @@ omit the raw domain copy while retaining first-class mapped content.
 
 For field-level behavior, see [Dataset-JSON to BFF](datasetjson2bff).
 
-:::important[Source-derived identifiers]
-SDTM values do not necessarily carry resolved ontology identifiers. When a
-Beacon field requires an ontology term, this route emits a valid source-derived
-identifier such as `CDISC:LBTESTCD.ALT`. It records SDTM field/value identity;
-it does not claim that the value was resolved to LOINC, SNOMED CT, or another
-external terminology.
+:::important[Unresolved source values]
+When no direct mapping term, supported Define-XML identifier, or configured
+query resolves a value, the route emits a source-derived identifier such as
+`CDISC:LBTESTCD.ALT`. It records SDTM field/value identity; it does not claim
+resolution to LOINC, SNOMED CT, or another external terminology.
 :::
 
 ## BFF Metadata And Downstream Output

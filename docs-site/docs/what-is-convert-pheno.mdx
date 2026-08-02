@@ -35,7 +35,7 @@ Clinical datasets often arrive in formats that are useful inside one project but
 - generate Phenopackets v2 or OMOP-CDM outputs when supported
 - use mapped `CSV` records as input for ETL into `BFF`, `PXF`, or supported OMOP-CDM tables
 - keep source provenance in `info` for auditability
-- inspect ontology lookup results through optional search audit files
+- inspect terminology decisions through optional audit files
 
 ## How It Works
 
@@ -43,9 +43,10 @@ Most routes normalize data through `BFF`, which acts as the **internal target mo
 
 For mapping-file conversions such as `CSV`, `REDCap`, and `CDISC-ODM`, the mapping file defines how source columns become Beacon `individuals` fields and first-class `biosamples`, plus optional defaults for synthesized `datasets` and `cohorts`. cBioPortal has a built-in clinical package mapping and accepts an optional mapping for additional patient and sample attributes.
 
-For structured standards such as `PXF`, `OMOP-CDM`, cBioPortal, CDISC `Dataset-JSON`, FHIR
-R4 Bundles, and openEHR canonical compositions, the converter uses source-specific mapping code
-rather than a user mapping file.
+For structured standards such as `PXF`, `OMOP-CDM`, cBioPortal, CDISC
+`Dataset-JSON` and `Dataset-XML`, FHIR R4 and mCODE Bundles, and openEHR
+canonical compositions, the converter uses source-specific mapping code rather
+than a user mapping file.
 
 ## CSV-based ETL
 
@@ -55,10 +56,10 @@ The mapping still has to be defined and reviewed before generated output is load
 
 Supported routes are covered by automated regression tests and target-format
 checks where practical. Independent use across diverse real-world datasets
-varies by route. cBioPortal, openEHR, Dataset-JSON, FHIR, and generic CDISC-ODM input
-profiles remain experimental because their implemented source profiles have
-limited independent dataset coverage; the established REDCap ODM profile is
-tracked separately.
+varies by route. cBioPortal, openEHR, Dataset-JSON, Dataset-XML, FHIR/mCODE,
+and generic CDISC-ODM input profiles remain experimental because their
+implemented source profiles have limited independent dataset coverage; the
+established REDCap ODM profile is tracked separately.
 
 ## Main Interfaces
 

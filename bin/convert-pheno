@@ -45,7 +45,7 @@ $SIG{__DIE__}  = sub { die "Error: ", @_ };
 # Defining a few variables
 my $out_dir     = '.';
 my $share_dir   = dist_dir('Convert-Pheno');
-my $schema_file = catfile( $share_dir, 'schema', 'mapping.json' );
+my $schema_file = catfile( $share_dir, 'schema', 'mapping-v2.json' );
 
 sub print_help {
     my $out = shift || *STDOUT;
@@ -57,7 +57,7 @@ Usage:
 
 Common input flags:
   -i <type> <file>    Generic input form
-                      (pxf|bff|cbioportal|omop|redcap|cdisc-odm|dataset-json|fhir|csv|openehr)
+                      (pxf|bff|cbioportal|omop|redcap|cdisc-odm|dataset-json|dataset-xml|fhir|csv|openehr)
   -ibff <file>      Beacon v2 Models ('individuals' JSON|YAML)
   -ipxf <file>      Phenopackets v2 (JSON|YAML)
   -icbioportal <path>
@@ -73,7 +73,10 @@ Common input flags:
   -idataset-json <files...>
                     Experimental CDISC Dataset-JSON v1.1 SDTM datasets
                     (input-only; loaded in memory; BFF, PXF, or OMOP output)
-  -ifhir <files...>  Experimental FHIR R4 JSON Bundles
+  -idataset-xml <files...>
+                    Experimental CDISC Dataset-XML v1.0 SDTM datasets
+                    (requires --define-xml; loaded in memory)
+  -ifhir <files...>  Experimental FHIR R4 JSON Bundles, including mCODE
                     (input-only; loaded in memory; BFF, PXF, or OMOP output)
   -icsv <file>      Raw CSV
 
@@ -104,10 +107,13 @@ Mapping and search:
   --mapping-file <file>           Mapping V2 YAML or JSON file targeting
                                   Beacon schema 2.0.0
                                   Optional for cBioPortal clinical packages
+                                  and CDISC Dataset terminology enrichment
                                   ODM uses source.profile redcap for REDCap
                                   exports, or cdisc-odm for embedded metadata
   --redcap-dictionary|-rcd <file> REDCap data dictionary CSV file; required
                                   for REDCap CSV and REDCap-origin ODM only
+  --define-xml <file>             Define-XML v2.0/v2.1 metadata required by
+                                  Dataset-XML and optional for Dataset-JSON
   --schema-file <file>            Alternative JSON Schema for mapping files
   --self-validate-schema|-svs     Self-validate the mapping JSON Schema
                                   (mainly for author/development checks)
@@ -119,8 +125,7 @@ Mapping and search:
                                   Default: 0.8
   --levenshtein-weight <w>        Levenshtein weight in fuzzy composite score
                                   Default: 0.1, range: 0-1
-  --print-hidden-labels|-phl      Preserve original text labels in output
-  --search-audit-tsv <file>       Write a TSV audit of ontology search results
+  --term-audit-tsv <file>         Write a TSV audit of terminology resolution
   --source-info|--no-source-info  Preserve or omit raw source provenance in BFF
                                   output [source-info]
 
@@ -169,9 +174,11 @@ Examples:
   convert-pheno -iredcap data.csv -rcd dictionary.csv --mapping-file mapping.yaml -obff --entities individuals biosamples --out-dir out/
   convert-pheno -icdisc-odm study.xml --mapping-file odm-mapping.yaml -obff individuals.json
   convert-pheno -icdisc-odm redcap.xml -rcd dictionary.csv --mapping-file redcap-mapping.yaml -obff individuals.json
-  convert-pheno -idataset-json dm.json mh.json lb.json -obff individuals.json
+  convert-pheno -idataset-json dm.json mh.json lb.json --mapping-file sdtm-terms.yaml -obff individuals.json
   convert-pheno -i dataset-json dm.json mh.json lb.json -o pxf phenopackets.json
   convert-pheno -idataset-json dm.json mh.json lb.json -oomop --out-dir omop_out/ --ohdsi-db
+  convert-pheno -idataset-xml dm.xml mh.xml lb.xml --define-xml define.xml -obff individuals.json
+  convert-pheno -i dataset-xml dm.xml mh.xml lb.xml --define-xml define.xml -o pxf phenopackets.json
   convert-pheno -ifhir bundle.json -obff individuals.json
   convert-pheno -ifhir bundle.json -obff --entities individuals biosamples --out-dir out/
   convert-pheno -i fhir bundle.json -o pxf phenopacket.json
@@ -194,7 +201,10 @@ BFF output modes:
   source vitalStatus or --default-vital-status is available.
   openEHR input support is currently experimental and limited to BFF or PXF output.
   Dataset-JSON input support is experimental, SDTM-oriented, and processed in memory.
-  FHIR input support is experimental, targets R4 JSON Bundles, and is processed in memory.
+  Dataset-XML input support is experimental, SDTM-oriented, requires Define-XML,
+  and is processed in memory.
+  FHIR input support is experimental, targets R4 JSON Bundles including mCODE,
+  and is processed in memory.
 
 Docs:
   Site:  https://cnag-biomedical-informatics.github.io/convert-pheno

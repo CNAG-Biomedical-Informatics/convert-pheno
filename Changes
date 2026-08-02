@@ -4,6 +4,10 @@ Revision history for Perl distribution Convert-Pheno
 
  - Added version-aware CDISC-ODM 1.3 and 2.0 Snapshot input with embedded metadata and occurrence-aware repeated records
  - Added experimental cBioPortal clinical study package input with entity-aware BFF, PXF and OMOP-CDM output
+ - Added mCODE 4.0 profile detection and primary cancer stage mapping to FHIR R4 input
+ - Added experimental CDISC Dataset-XML v1.0 input with required Define-XML v2 metadata and BFF, PXF and OMOP-CDM output
+ - Added user-controlled terminology enrichment for CDISC Dataset-JSON and Dataset-XML, including exact NCI identifier resolution from Define-XML
+ - Replaced --search-audit-tsv with --term-audit-tsv and expanded provenance across direct terms, identifier lookups, label searches and fallbacks
 
 0.33 2026-07-31T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 

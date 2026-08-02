@@ -11,7 +11,7 @@ sidebar_label: FAQs
 <summary>What does `Convert-Pheno` do?</summary>
 
 
-`Convert-Pheno` is an open-source toolkit for converting clinical and phenotypic data between supported exchange models such as `BFF`, `PXF`, `OMOP-CDM`, `REDCap`, `CDISC-ODM`, CDISC `Dataset-JSON`, FHIR R4, and mapped `CSV`.
+`Convert-Pheno` is an open-source toolkit for converting clinical and phenotypic data between supported exchange models such as `BFF`, `PXF`, `OMOP-CDM`, `REDCap`, `CDISC-ODM`, CDISC `Dataset-JSON` and `Dataset-XML`, FHIR R4/mCODE, and mapped `CSV`.
 
 
 </details>
@@ -48,6 +48,22 @@ It's **`Convert-Pheno`**, for two reasons:
 <summary>Is `Convert-Pheno` ready for use in production environments?</summary>
 
 The software is fully functional and has been successfully used in several European-funded projects. However, it is still in beta, so ongoing improvements and refinements are to be expected.
+
+
+</details>
+<details>
+<summary>Were any mappings developed with LLM assistance?</summary>
+
+
+Some newer mappings were drafted or refined with large language model (LLM)
+assistance when the source standard was especially dense or ambiguous. LLM
+output is not accepted as mapping evidence on its own: changes require human
+review, regression testing, and relevant target-format validation.
+
+Specific models and reasoning settings are development tools rather than part
+of the public conversion contract. The mapping tables document implemented
+behavior; the code, fixtures, schemas, and validators determine whether that
+behavior is accepted.
 
 
 </details>
@@ -293,9 +309,10 @@ No. Mapping-based augmentation of synthesized `datasets` and `cohorts` is curren
 
 For those conversions, `beacon.datasets.defaults` and `beacon.cohorts.defaults` can override metadata such as `id`, `name`, `description`, `version`, `externalUrl`, `cohortType`, or `cohortDataTypes`.
 
-This does not currently apply to `omop2bff` or `pxf2bff`. Dataset-JSON does
-not read a mapping file, but it can prepopulate synthesized dataset and cohort
-metadata from `studyOID` and the `TS` study title.
+This does not currently apply to `omop2bff` or `pxf2bff`. Dataset-JSON and
+Dataset-XML accept a compact mapping file for **terminology enrichment only**;
+it does not override synthesized entity metadata. Those routes prepopulate
+dataset and cohort metadata from `studyOID` and the `TS` study title.
 
 FHIR also does not read a mapping file. It can prepopulate dataset and cohort
 metadata from `ResearchStudy` and `Group` resources.
@@ -314,7 +331,7 @@ Based on the current I/O code, gzip support is available for these file families
 | SQL dumps | `omop2*` from `.sql` dumps | Yes | N/A | OMOP SQL input accepts `.sql.gz` |
 | Streamed OMOP output | `omop2bff --stream` | N/A | Yes | CLI restricts streamed OMOP output to `json` or `json.gz` |
 | OMOP table output | `*2omop` | N/A | Yes | Use `-oomop --out-dir DIR` to get `TABLE.csv` files. Use `--out-name TABLE=filename.csv.gz` to rename or gzip specific tables |
-| CSV / TSV output | `bff2csv`, `pxf2csv`, search-audit TSV | N/A | Yes | The current writers accept `.csv.gz` and `.tsv.gz` in addition to plain text output |
+| CSV / TSV output | `bff2csv`, `pxf2csv`, terminology-audit TSV | N/A | Yes | The current writers accept `.csv.gz` and `.tsv.gz` in addition to plain text output |
 
 In practice, gzip is supported both for structured JSON/YAML-style outputs and for the main CSV/TSV output paths.
 

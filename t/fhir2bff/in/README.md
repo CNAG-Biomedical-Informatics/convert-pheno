@@ -15,3 +15,17 @@ represent a real person or study.
 
 Synthea is distributed under the
 [Apache License 2.0](https://github.com/synthetichealth/synthea/blob/master/LICENSE).
+
+## mCODE fixture
+
+`mcode-patient-bundle-jenny-m.json` is the complete, unmodified extended
+example Bundle published with the official [mCODE 4.0.0 implementation
+guide](https://hl7.org/fhir/us/mcode/Bundle-mcode-patient-bundle-jenny-m.json).
+It was retrieved on 2026-08-02. The corresponding source release is
+[`4.0.0`](https://github.com/HL7/fhir-mCODE-ig/tree/4.0.0), commit
+`543477b5585f2dcc717820a2bea141ea85f03012`.
+
+The fixture is synthetic and exercises the mCODE Patient Bundle, primary
+cancer condition, TNM stage, treatment, genomic, specimen, performance-status,
+and tumor-marker profiles. The mCODE implementation guide is distributed under
+the [CC0 1.0 license](https://github.com/HL7/fhir-mCODE-ig/blob/4.0.0/LICENSE).

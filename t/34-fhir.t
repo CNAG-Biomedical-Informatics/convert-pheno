@@ -9,12 +9,43 @@ use Test::Exception;
 use Test::More;
 
 use Convert::Pheno;
+use Convert::Pheno::FHIR::Profile::MCode qw(has_profile);
 use Convert::Pheno::Source qw(source_adapter);
 use Test::ConvertPheno qw(load_json_file);
 
 my $fixture_file = 't/fhir2bff/in/patient-bundle.json';
 my $fixture      = load_json_file($fixture_file);
 my $patient_id   = '5b24c87b-6223-f5b4-51e9-82051159bd1d';
+my $mcode_fixture_file =
+  't/fhir2bff/in/mcode-patient-bundle-jenny-m.json';
+
+ok(
+    has_profile(
+        {
+            meta => {
+                profile => [
+                    'http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-primary-cancer-condition|4.0.0'
+                ],
+            },
+        },
+        'mcode-primary-cancer-condition',
+    ),
+    'mCODE detection accepts a versioned canonical profile URL'
+);
+
+ok(
+    !has_profile(
+        {
+            meta => {
+                profile => [
+                    'http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-primary-cancer-condition|3.0.0'
+                ],
+            },
+        },
+        'mcode-primary-cancer-condition',
+    ),
+    'mCODE 4.0 mapping is not applied to an explicitly unsupported profile version'
+);
 
 {
     my $convert = Convert::Pheno->new(
@@ -82,6 +113,66 @@ my $patient_id   = '5b24c87b-6223-f5b4-51e9-82051159bd1d';
         $individuals->[0]{info}{phenopacket}{biosamples}[0]{measurements}[0]{assay}{id},
         'LOINC:718-7',
         'Specimen-linked Observation remains attached to its PXF biosample'
+    );
+    is_deeply(
+        $individuals->[0]{info}{phenopacket}{biosamples}[0]{materialSample},
+        {
+            id    => 'FHIR:SpecimenStatus.available',
+            label => 'Available',
+        },
+        'FHIR Specimen status retains its source code with the canonical display'
+    );
+}
+
+{
+    my $individuals = Convert::Pheno->new(
+        {
+            method   => 'fhir2bff',
+            in_files => [$mcode_fixture_file],
+            test     => 1,
+        }
+    )->fhir2bff;
+    my $individual = $individuals->[0];
+
+    is(
+        $individual->{id},
+        'cancer-patient-jenny-m',
+        'official mCODE Bundle maps its cancer patient'
+    );
+    is(
+        $individual->{diseases}[0]{stage}{id},
+        'SNOMEDCT:1222806003',
+        'mCODE primary cancer Condition maps its summary stage'
+    );
+    is(
+        $individual->{info}{fhir}{profiles}{mcode}{supportedVersion},
+        '4.0.0',
+        'mCODE provenance identifies the supported profile version'
+    );
+    ok(
+        ( scalar grep { $_ eq 'mcode-genomic-variant' }
+              @{ $individual->{info}{fhir}{profiles}{mcode}{detectedProfiles} } ),
+        'mCODE provenance records detected oncology profiles'
+    );
+    ok(
+        ( scalar grep { $_ eq 'mcode-patient-bundle' }
+              @{ $individual->{info}{fhir}{profiles}{mcode}{detectedProfiles} } ),
+        'mCODE provenance records the governing patient Bundle profile'
+    );
+    ok(
+        ( scalar grep { $_->{assayCode}{id} eq 'LOINC:89247-1' }
+              @{ $individual->{measures} } ),
+        'mCODE ECOG performance status remains a structured measure'
+    );
+    ok(
+        ( scalar grep { $_->{treatmentCode}{id} eq 'RxNorm:3002' }
+              @{ $individual->{treatments} } ),
+        'mCODE cancer medication remains a structured treatment'
+    );
+    is(
+        $individual->{info}{phenopacket}{biosamples}[0]{id},
+        'human-specimen-left-breast-jenny-m',
+        'mCODE human specimen maps through the generic FHIR biosample path'
     );
 }
 

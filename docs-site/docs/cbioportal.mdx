@@ -13,6 +13,13 @@ export const CBioPortalFormatImage = () => (
   />
 );
 
+**Category:** Cancer study package
+
+[cBioPortal](https://www.cbioportal.org) is a platform and study format for
+cancer genomics data. Its study packages combine metadata, tabular patient and
+sample data, case lists, and optional molecular files; Convert-Pheno currently
+uses **the clinical and study-structure subset** as input.
+
 :::note[Current input profile]
 Convert-Pheno reads the clinical part of a cBioPortal study package. Patient
 and sample clinical tables, study metadata, and case lists are implemented and
@@ -74,7 +81,7 @@ and sample columns. `beacon.individuals` evaluates patient attributes;
 `SAMPLE_ID` values cannot be rewritten because sample links and case lists
 depend on them.
 
-See [Working with Mapping Files](mapping-files) and the
+See [Mapping Files](mapping-files) and the
 [cBioPortal to BFF mapping](cbioportal2bff). The attributed test package and
 mapping example are under
 [`t/cbioportal2bff/in`](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/tree/main/t/cbioportal2bff/in).

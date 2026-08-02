@@ -19,10 +19,13 @@ export const BffExampleDownload = () => {
   return <a href={exampleUrl} download>Download the tested BFF individuals input</a>;
 };
 
-**BFF** stands for **B**eacon **F**riendly **F**ormat. The
-[BFF](https://github.com/CNAG-Biomedical-Informatics/beacon2-cbi-tools) is a
-data exchange format composed of seven JSON collections corresponding to the
-entities in the [Beacon v2 Models](https://docs.genomebeacons.org/models).
+**Category:** Clinical and phenotypic data model
+
+**BFF** stands for **B**eacon **F**riendly **F**ormat. It is a JSON exchange
+representation composed of seven collections corresponding to entities in the
+[Beacon v2 Models](https://docs.genomebeacons.org/models). Convert-Pheno
+**reads the `individuals` collection** and can write four supported entity
+collections.
 
 <div className="convertFormatSummary" aria-label="At a glance">
   <div><span>Role</span><strong>Input and output</strong></div>
@@ -56,10 +59,10 @@ The `individuals` limitation therefore applies to BFF **input**, not BFF
 output.
 
 :::note[Source provenance in `info`]
-By default, BFF generated from OMOP-CDM, CSV, REDCap, CDISC-ODM, cBioPortal, Dataset-JSON, or FHIR preserves
+By default, BFF generated from OMOP-CDM, CSV, REDCap, CDISC-ODM, cBioPortal, Dataset-JSON, Dataset-XML, or FHIR preserves
 raw source values in `info`. This supports mapping review and source-level
 queries. Use `--no-source-info` to omit copied payloads such as
-`OMOP_columns`, `CSV_columns`, `REDCap_columns`, `CDISC_ODM`, cBioPortal clinical rows, Dataset-JSON domain rows, and FHIR resources; mapped fields and
+`OMOP_columns`, `CSV_columns`, `REDCap_columns`, `CDISC_ODM`, cBioPortal clinical rows, Dataset-JSON/Dataset-XML domain rows, and FHIR resources; mapped fields and
 `info.convertPheno` remain.
 :::
 
@@ -98,8 +101,9 @@ Entity-aware output supports `individuals`, `biosamples`, `datasets`, and
 `cohorts`. Biosamples can be mapped directly from PXF biosamples, FHIR
 `Specimen`, or OMOP `SPECIMEN`; datasets and cohorts are synthesized from normalized individuals
 and can be augmented by mapping-file metadata where that input route supports
-it. Dataset-JSON can instead prepopulate dataset and cohort metadata from
-`studyOID` and the `TS` study title; FHIR can use `ResearchStudy` and `Group`.
+it. Dataset-JSON and Dataset-XML can instead prepopulate dataset and cohort
+metadata from `studyOID` and the `TS` study title; FHIR can use
+`ResearchStudy` and `Group`.
 
 Use [BFF output recipes](conversion-recipes#pxf-input-bff-output) for the
 individuals-only and entity-aware command forms. Full tested inputs and

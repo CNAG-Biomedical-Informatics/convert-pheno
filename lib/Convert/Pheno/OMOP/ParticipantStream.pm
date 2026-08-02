@@ -105,8 +105,8 @@ sub omop_stream_dispatcher {
       if $connections_open;
     _run_cleanup(
         \@cleanup_errors,
-        'closing the search audit',
-        sub { Convert::Pheno::finalize_search_audit($self) },
+        'closing the terminology audit',
+        sub { Convert::Pheno::finalize_term_audit($self) },
     );
 
     if ( !$ok || @cleanup_errors ) {

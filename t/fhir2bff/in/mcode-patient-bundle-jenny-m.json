@@ -1,0 +1,2318 @@
+{
+  "resourceType" : "Bundle",
+  "id" : "mcode-patient-bundle-jenny-m",
+  "meta" : {
+    "profile" : ["http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-patient-bundle"]
+  },
+  "type" : "collection",
+  "entry" : [{
+    "fullUrl" : "http://example.org/fhir/Patient/cancer-patient-jenny-m",
+    "resource" : {
+      "resourceType" : "Patient",
+      "id" : "cancer-patient-jenny-m",
+      "meta" : {
+        "profile" : ["http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-patient"]
+      },
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Patient_cancer-patient-jenny-m\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Patient cancer-patient-jenny-m</b></p><a name=\"cancer-patient-jenny-m\"> </a><a name=\"hccancer-patient-jenny-m\"> </a><a name=\"cancer-patient-jenny-m-en-US\"> </a><p style=\"border: 1px #661aff solid; background-color: #e6e6ff; padding: 10px;\">Jenny M  Female, DoB: 1965-01-01 ( Medical Record Number: MRN1234\u00a0(use:\u00a0usual,\u00a0))</p><hr/><table class=\"grid\"><tr><td style=\"background-color: #f3f5da\" title=\"Ways to contact the Patient\">Contact Detail</td><td colspan=\"3\">123 Main St Anytown 12345 United States </td></tr><tr><td style=\"background-color: #f3f5da\" title=\"Language spoken\">Language:</td><td colspan=\"3\"><span title=\"Codes:{urn:ietf:bcp:47 en-US}\">English</span></td></tr><tr><td style=\"background-color: #f3f5da\" title=\"Patient contact\">Contact:</td><td colspan=\"3\"><ul><li>ph: 555-867-5309(Home)</li><li><a href=\"mailto:example@example.com\">example@example.com</a></li></ul></td></tr><tr><td style=\"background-color: #f3f5da\" title=\"Concepts classifying the person into a named category of humans sharing common history, traits, geographical origin or nationality.  The ethnicity codes used to represent these concepts are based upon the [CDC ethnicity and Ethnicity Code Set Version 1.0](http://www.cdc.gov/phin/resources/vocabulary/index.html) which includes over 900 concepts for representing race and ethnicity of which 43 reference ethnicity.  The ethnicity concepts are grouped by and pre-mapped to the 2 OMB ethnicity categories: - Hispanic or Latino - Not Hispanic or Latino.\">US Core Ethnicity Extension:</td><td colspan=\"3\"><ul><li>ombCategory: <a href=\"http://terminology.hl7.org/5.0.0/CodeSystem-CDCREC.html#CDCREC-2186-5\">CDC Race and Ethnicity 2186-5</a>: Not Hispanic or Latino</li><li>text: Not Hispanic or Latino</li></ul></td></tr><tr><td style=\"background-color: #f3f5da\" title=\"A code classifying the person's sex assigned at birth  as specified by the [Office of the National Coordinator for Health IT (ONC)](https://www.healthit.gov/newsroom/about-onc). This extension aligns with the C-CDA Birth Sex Observation (LOINC 76689-9). After version 6.0.0, this extension is no longer a *USCDI Requirement*.\"><a href=\"http://hl7.org/fhir/us/core/STU6.1/StructureDefinition-us-core-birthsex.html\">US Core Birth Sex Extension</a></td><td colspan=\"3\">F</td></tr><tr><td style=\"background-color: #f3f5da\" title=\"Concepts classifying the person into a named category of humans sharing common history, traits, geographical origin or nationality.  The race codes used to represent these concepts are based upon the [CDC Race and Ethnicity Code Set Version 1.0](http://www.cdc.gov/phin/resources/vocabulary/index.html#3) which includes over 900 concepts for representing race and ethnicity of which 921 reference race.  The race concepts are grouped by and pre-mapped to the 5 OMB race categories:\n\n - American Indian or Alaska Native\n - Asian\n - Black or African American\n - Native Hawaiian or Other Pacific Islander\n - White.\">US Core Race Extension:</td><td colspan=\"3\"><ul><li>ombCategory: <a href=\"http://terminology.hl7.org/5.0.0/CodeSystem-CDCREC.html#CDCREC-2106-3\">CDC Race and Ethnicity 2106-3</a>: White</li><li>text: White</li></ul></td></tr></table></div>"
+      },
+      "extension" : [{
+        "extension" : [{
+          "url" : "ombCategory",
+          "valueCoding" : {
+            "system" : "urn:oid:2.16.840.1.113883.6.238",
+            "code" : "2106-3",
+            "display" : "White"
+          }
+        },
+        {
+          "url" : "text",
+          "valueString" : "White"
+        }],
+        "url" : "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race"
+      },
+      {
+        "extension" : [{
+          "url" : "ombCategory",
+          "valueCoding" : {
+            "system" : "urn:oid:2.16.840.1.113883.6.238",
+            "code" : "2186-5",
+            "display" : "Not Hispanic or Latino"
+          }
+        },
+        {
+          "url" : "text",
+          "valueString" : "Not Hispanic or Latino"
+        }],
+        "url" : "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity"
+      },
+      {
+        "url" : "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
+        "valueCode" : "F"
+      }],
+      "identifier" : [{
+        "use" : "usual",
+        "type" : {
+          "coding" : [{
+            "system" : "http://terminology.hl7.org/CodeSystem/v2-0203",
+            "code" : "MR",
+            "display" : "Medical Record Number"
+          }]
+        },
+        "system" : "http://hospital.example.org",
+        "value" : "MRN1234"
+      }],
+      "name" : [{
+        "family" : "M",
+        "given" : ["Jenny"]
+      }],
+      "gender" : "female",
+      "birthDate" : "1965-01-01",
+      "address" : [{
+        "line" : ["123 Main St"],
+        "city" : "Anytown",
+        "postalCode" : "12345",
+        "country" : "United States"
+      }],
+      "contact" : [{
+        "telecom" : [{
+          "system" : "phone",
+          "value" : "555-867-5309",
+          "use" : "home"
+        },
+        {
+          "system" : "email",
+          "value" : "example@example.com"
+        }]
+      }],
+      "communication" : [{
+        "language" : {
+          "coding" : [{
+            "system" : "urn:ietf:bcp:47",
+            "code" : "en-US"
+          }],
+          "text" : "English"
+        }
+      }]
+    }
+  },
+  {
+    "fullUrl" : "http://example.org/fhir/Condition/primary-cancer-condition-jenny-m",
+    "resource" : {
+      "resourceType" : "Condition",
+      "id" : "primary-cancer-condition-jenny-m",
+      "meta" : {
+        "profile" : ["http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-primary-cancer-condition"]
+      },
+      "text" : {
+        "status" : "extensions",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Condition_primary-cancer-condition-jenny-m\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Condition primary-cancer-condition-jenny-m</b></p><a name=\"primary-cancer-condition-jenny-m\"> </a><a name=\"hcprimary-cancer-condition-jenny-m\"> </a><a name=\"primary-cancer-condition-jenny-m-en-US\"> </a><p><b>Histology-Morphology-Behavior Extension</b>: <span title=\"Codes:{http://snomed.info/sct 82711006}\">Infiltrating duct carcinoma (morphologic abnormality)</span></p><p><b>clinicalStatus</b>: <span title=\"Codes:{http://terminology.hl7.org/CodeSystem/condition-clinical remission}\">Remission</span></p><p><b>verificationStatus</b>: <span title=\"Codes:{http://terminology.hl7.org/CodeSystem/condition-ver-status confirmed}\">Confirmed</span></p><p><b>category</b>: <span title=\"Codes:{http://terminology.hl7.org/CodeSystem/condition-category problem-list-item}\">Problem List Item</span></p><p><b>code</b>: <span title=\"Codes:{http://snomed.info/sct 353431000119107}\">Primary malignant neoplasm of female left breast (disorder)</span></p><p><b>subject</b>: <a href=\"Patient-cancer-patient-jenny-m.html\">Jenny M  Female, DoB: 1965-01-01 ( Medical Record Number: MRN1234\u00a0(use:\u00a0usual,\u00a0))</a></p><p><b>onset</b>: 2018-03-16</p><p><b>asserter</b>: <a href=\"Practitioner-us-core-practitioner-owen-oncologist.html\">Practitioner Owen Oncologist </a></p><h3>Stages</h3><table class=\"grid\"><tr><td style=\"display: none\">-</td><td><b>Summary</b></td><td><b>Assessment</b></td><td><b>Type</b></td></tr><tr><td style=\"display: none\">*</td><td><span title=\"Codes:{http://snomed.info/sct 1222806003}\">American Joint Committee on Cancer stage IIIC (qualifier value)</span></td><td><a href=\"Observation-tnm-clinical-stage-group-jenny-m.html\">Observation Clinical TNM stage grouping</a></td><td><span title=\"Codes:{http://snomed.info/sct 897275008}\">American Joint Commission on Cancer, Cancer Staging Manual, 8th edition neoplasm staging system (tumor staging)</span></td></tr></table></div>"
+      },
+      "extension" : [{
+        "url" : "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-histology-morphology-behavior",
+        "valueCodeableConcept" : {
+          "coding" : [{
+            "system" : "http://snomed.info/sct",
+            "code" : "82711006",
+            "display" : "Infiltrating duct carcinoma (morphologic abnormality)"
+          }]
+        }
+      }],
+      "clinicalStatus" : {
+        "coding" : [{
+          "system" : "http://terminology.hl7.org/CodeSystem/condition-clinical",
+          "code" : "remission"
+        }]
+      },
+      "verificationStatus" : {
+        "coding" : [{
+          "system" : "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+          "code" : "confirmed"
+        }]
+      },
+      "category" : [{
+        "coding" : [{
+          "system" : "http://terminology.hl7.org/CodeSystem/condition-category",
+          "code" : "problem-list-item"
+        }]
+      }],
+      "code" : {
+        "coding" : [{
+          "system" : "http://snomed.info/sct",
+          "code" : "353431000119107",
+          "display" : "Primary malignant neoplasm of female left breast (disorder)"
+        }]
+      },
+      "subject" : {
+        "reference" : "Patient/cancer-patient-jenny-m"
+      },
+      "onsetDateTime" : "2018-03-16",
+      "asserter" : {
+        "reference" : "Practitioner/us-core-practitioner-owen-oncologist"
+      },
+      "stage" : [{
+        "summary" : {
+          "coding" : [{
+            "system" : "http://snomed.info/sct",
+            "code" : "1222806003",
+            "display" : "American Joint Committee on Cancer stage IIIC (qualifier value)"
+          }]
+        },
+        "assessment" : [{
+          "reference" : "Observation/tnm-clinical-stage-group-jenny-m"
+        }],
+        "type" : {
+          "coding" : [{
+            "system" : "http://snomed.info/sct",
+            "code" : "897275008",
+            "display" : "American Joint Commission on Cancer, Cancer Staging Manual, 8th edition neoplasm staging system (tumor staging)"
+          }]
+        }
+      }]
+    }
+  },
+  {
+    "fullUrl" : "http://example.org/fhir/MedicationRequest/cancer-related-medication-request-cyclophosphamide-jenny-m",
+    "resource" : {
+      "resourceType" : "MedicationRequest",
+      "id" : "cancer-related-medication-request-cyclophosphamide-jenny-m",
+      "meta" : {
+        "profile" : ["http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-related-medication-request"]
+      },
+      "text" : {
+        "status" : "extensions",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"MedicationRequest_cancer-related-medication-request-cyclophosphamide-jenny-m\"> </a><p class=\"res-header-id\"><b>Generated Narrative: MedicationRequest cancer-related-medication-request-cyclophosphamide-jenny-m</b></p><a name=\"cancer-related-medication-request-cyclophosphamide-jenny-m\"> </a><a name=\"hccancer-related-medication-request-cyclophosphamide-jenny-m\"> </a><a name=\"cancer-related-medication-request-cyclophosphamide-jenny-m-en-US\"> </a><p><b>Procedure Intent Extension</b>: <span title=\"Codes:{http://snomed.info/sct 373808002}\">Curative - procedure intent (qualifier value)</span></p><p><b>status</b>: Active</p><p><b>intent</b>: Order</p><p><b>category</b>: <span title=\"Codes:{http://terminology.hl7.org/CodeSystem/medicationrequest-category outpatient}\">Outpatient</span></p><p><b>medication</b>: <span title=\"Codes:{http://www.nlm.nih.gov/research/umls/rxnorm 3002}\">cyclophosphamide</span></p><p><b>subject</b>: <a href=\"Patient-cancer-patient-jenny-m.html\">Jenny M  Female, DoB: 1965-01-01 ( Medical Record Number: MRN1234\u00a0(use:\u00a0usual,\u00a0))</a></p><p><b>authoredOn</b>: 2018-04-12</p><p><b>requester</b>: <a href=\"Practitioner-us-core-practitioner-owen-oncologist.html\">Practitioner Owen Oncologist </a></p><p><b>reasonReference</b>: <a href=\"Condition-primary-cancer-condition-jenny-m.html\">Condition Primary malignant neoplasm of female left breast (disorder)</a></p><blockquote><p><b>dosageInstruction</b></p><p><b>text</b>: cyclophosphamide (600 mg/m² IV), 932.59mg</p><p><b>timing</b>: Once</p><p><b>route</b>: <span title=\"Codes:{http://snomed.info/sct 47625008}\">Intravenous route (qualifier value)</span></p><h3>DoseAndRates</h3><table class=\"grid\"><tr><td style=\"display: none\">-</td><td><b>Dose[x]</b></td></tr><tr><td style=\"display: none\">*</td><td>932.59 mg<span style=\"background: LightGoldenRodYellow\"> (Details: UCUM  codemg = 'mg')</span></td></tr></table><p><b>maxDosePerPeriod</b>: 1/3 week<span style=\"background: LightGoldenRodYellow\"> (Details: UCUM  codewk = 'wk')</span></p></blockquote></div>"
+      },
+      "extension" : [{
+        "url" : "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-procedure-intent",
+        "valueCodeableConcept" : {
+          "coding" : [{
+            "system" : "http://snomed.info/sct",
+            "code" : "373808002",
+            "display" : "Curative - procedure intent (qualifier value)"
+          }]
+        }
+      }],
+      "status" : "active",
+      "intent" : "order",
+      "category" : [{
+        "coding" : [{
+          "system" : "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+          "code" : "outpatient"
+        }]
+      }],
+      "medicationCodeableConcept" : {
+        "coding" : [{
+          "system" : "http://www.nlm.nih.gov/research/umls/rxnorm",
+          "code" : "3002",
+          "display" : "cyclophosphamide"
+        }]
+      },
+      "subject" : {
+        "reference" : "Patient/cancer-patient-jenny-m"
+      },
+      "authoredOn" : "2018-04-12",
+      "requester" : {
+        "reference" : "Practitioner/us-core-practitioner-owen-oncologist"
+      },
+      "reasonReference" : [{
+        "reference" : "Condition/primary-cancer-condition-jenny-m"
+      }],
+      "dosageInstruction" : [{
+        "text" : "cyclophosphamide (600 mg/m² IV), 932.59mg",
+        "timing" : {
+          "repeat" : {
+            "boundsPeriod" : {
+              "start" : "2018-04-01"
+            }
+          }
+        },
+        "route" : {
+          "coding" : [{
+            "system" : "http://snomed.info/sct",
+            "code" : "47625008",
+            "display" : "Intravenous route (qualifier value)"
+          }]
+        },
+        "doseAndRate" : [{
+          "doseQuantity" : {
+            "value" : 932.59,
+            "unit" : "mg",
+            "system" : "http://unitsofmeasure.org",
+            "code" : "mg"
+          }
+        }],
+        "maxDosePerPeriod" : {
+          "numerator" : {
+            "value" : 1
+          },
+          "denominator" : {
+            "value" : 3,
+            "unit" : "week",
+            "system" : "http://unitsofmeasure.org",
+            "code" : "wk"
+          }
+        }
+      }]
+    }
+  },
+  {
+    "fullUrl" : "http://example.org/fhir/MedicationRequest/cancer-related-medication-request-doxorubicin-jenny-m",
+    "resource" : {
+      "resourceType" : "MedicationRequest",
+      "id" : "cancer-related-medication-request-doxorubicin-jenny-m",
+      "meta" : {
+        "profile" : ["http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-related-medication-request"]
+      },
+      "text" : {
+        "status" : "extensions",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"MedicationRequest_cancer-related-medication-request-doxorubicin-jenny-m\"> </a><p class=\"res-header-id\"><b>Generated Narrative: MedicationRequest cancer-related-medication-request-doxorubicin-jenny-m</b></p><a name=\"cancer-related-medication-request-doxorubicin-jenny-m\"> </a><a name=\"hccancer-related-medication-request-doxorubicin-jenny-m\"> </a><a name=\"cancer-related-medication-request-doxorubicin-jenny-m-en-US\"> </a><p><b>Procedure Intent Extension</b>: <span title=\"Codes:{http://snomed.info/sct 373808002}\">Curative - procedure intent (qualifier value)</span></p><p><b>status</b>: Active</p><p><b>intent</b>: Order</p><p><b>category</b>: <span title=\"Codes:{http://terminology.hl7.org/CodeSystem/medicationrequest-category outpatient}\">Outpatient</span></p><p><b>medication</b>: <span title=\"Codes:{http://www.nlm.nih.gov/research/umls/rxnorm 3639}\">DOXOrubicin</span></p><p><b>subject</b>: <a href=\"Patient-cancer-patient-jenny-m.html\">Jenny M  Female, DoB: 1965-01-01 ( Medical Record Number: MRN1234\u00a0(use:\u00a0usual,\u00a0))</a></p><p><b>authoredOn</b>: 2018-04-12</p><p><b>requester</b>: <a href=\"Practitioner-us-core-practitioner-owen-oncologist.html\">Practitioner Owen Oncologist </a></p><p><b>reasonReference</b>: <a href=\"Condition-primary-cancer-condition-jenny-m.html\">Condition Primary malignant neoplasm of female left breast (disorder)</a></p><blockquote><p><b>dosageInstruction</b></p><p><b>text</b>: doxorubicin (60 mg/m² IV)</p><p><b>timing</b>: Once</p><p><b>route</b>: <span title=\"Codes:{http://snomed.info/sct 47625008}\">Intravenous route (qualifier value)</span></p><h3>DoseAndRates</h3><table class=\"grid\"><tr><td style=\"display: none\">-</td><td><b>Rate[x]</b></td></tr><tr><td style=\"display: none\">*</td><td>60 mg/m2<span style=\"background: LightGoldenRodYellow\"> (Details: UCUM  codemg/m2 = 'mg/m2')</span></td></tr></table><p><b>maxDosePerPeriod</b>: 1/3 week<span style=\"background: LightGoldenRodYellow\"> (Details: UCUM  codewk = 'wk')</span></p></blockquote></div>"
+      },
+      "extension" : [{
+        "url" : "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-procedure-intent",
+        "valueCodeableConcept" : {
+          "coding" : [{
+            "system" : "http://snomed.info/sct",
+            "code" : "373808002",
+            "display" : "Curative - procedure intent (qualifier value)"
+          }]
+        }
+      }],
+      "status" : "active",
+      "intent" : "order",
+      "category" : [{
+        "coding" : [{
+          "system" : "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+          "code" : "outpatient"
+        }]
+      }],
+      "medicationCodeableConcept" : {
+        "coding" : [{
+          "system" : "http://www.nlm.nih.gov/research/umls/rxnorm",
+          "code" : "3639",
+          "display" : "DOXOrubicin"
+        }]
+      },
+      "subject" : {
+        "reference" : "Patient/cancer-patient-jenny-m"
+      },
+      "authoredOn" : "2018-04-12",
+      "requester" : {
+        "reference" : "Practitioner/us-core-practitioner-owen-oncologist"
+      },
+      "reasonReference" : [{
+        "reference" : "Condition/primary-cancer-condition-jenny-m"
+      }],
+      "dosageInstruction" : [{
+        "text" : "doxorubicin (60 mg/m² IV)",
+        "timing" : {
+          "repeat" : {
+            "boundsPeriod" : {
+              "start" : "2018-04-01"
+            }
+          }
+        },
+        "route" : {
+          "coding" : [{
+            "system" : "http://snomed.info/sct",
+            "code" : "47625008",
+            "display" : "Intravenous route (qualifier value)"
+          }]
+        },
+        "doseAndRate" : [{
+          "rateQuantity" : {
+            "value" : 60,
+            "unit" : "mg/m2",
+            "system" : "http://unitsofmeasure.org",
+            "code" : "mg/m2"
+          }
+        }],
+        "maxDosePerPeriod" : {
+          "numerator" : {
+            "value" : 1
+          },
+          "denominator" : {
+            "value" : 3,
+            "unit" : "week",
+            "system" : "http://unitsofmeasure.org",
+            "code" : "wk"
+          }
+        }
+      }]
+    }
+  },
+  {
+    "fullUrl" : "http://example.org/fhir/MedicationRequest/cancer-related-medication-request-paclitaxel-jenny-m",
+    "resource" : {
+      "resourceType" : "MedicationRequest",
+      "id" : "cancer-related-medication-request-paclitaxel-jenny-m",
+      "meta" : {
+        "profile" : ["http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-related-medication-request"]
+      },
+      "text" : {
+        "status" : "extensions",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"MedicationRequest_cancer-related-medication-request-paclitaxel-jenny-m\"> </a><p class=\"res-header-id\"><b>Generated Narrative: MedicationRequest cancer-related-medication-request-paclitaxel-jenny-m</b></p><a name=\"cancer-related-medication-request-paclitaxel-jenny-m\"> </a><a name=\"hccancer-related-medication-request-paclitaxel-jenny-m\"> </a><a name=\"cancer-related-medication-request-paclitaxel-jenny-m-en-US\"> </a><p><b>Procedure Intent Extension</b>: <span title=\"Codes:{http://snomed.info/sct 373808002}\">Curative - procedure intent (qualifier value)</span></p><p><b>status</b>: Active</p><p><b>intent</b>: Order</p><p><b>category</b>: <span title=\"Codes:{http://terminology.hl7.org/CodeSystem/medicationrequest-category outpatient}\">Outpatient</span></p><p><b>medication</b>: <span title=\"Codes:{http://www.nlm.nih.gov/research/umls/rxnorm 56946}\">PACLitaxel</span></p><p><b>subject</b>: <a href=\"Patient-cancer-patient-jenny-m.html\">Jenny M  Female, DoB: 1965-01-01 ( Medical Record Number: MRN1234\u00a0(use:\u00a0usual,\u00a0))</a></p><p><b>authoredOn</b>: 2018-04-12</p><p><b>requester</b>: <a href=\"Practitioner-us-core-practitioner-owen-oncologist.html\">Practitioner Owen Oncologist </a></p><p><b>reasonReference</b>: <a href=\"Condition-primary-cancer-condition-jenny-m.html\">Condition Primary malignant neoplasm of female left breast (disorder)</a></p><blockquote><p><b>dosageInstruction</b></p><p><b>text</b>: PACLitaxel (175 mg/m² IV), 272.01mg</p><p><b>timing</b>: Once</p><p><b>route</b>: <span title=\"Codes:{http://snomed.info/sct 47625008}\">Intravenous route (qualifier value)</span></p><h3>DoseAndRates</h3><table class=\"grid\"><tr><td style=\"display: none\">-</td><td><b>Dose[x]</b></td></tr><tr><td style=\"display: none\">*</td><td>272.01 mg<span style=\"background: LightGoldenRodYellow\"> (Details: UCUM  codemg = 'mg')</span></td></tr></table><p><b>maxDosePerPeriod</b>: 1/3 week<span style=\"background: LightGoldenRodYellow\"> (Details: UCUM  codewk = 'wk')</span></p></blockquote></div>"
+      },
+      "extension" : [{
+        "url" : "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-procedure-intent",
+        "valueCodeableConcept" : {
+          "coding" : [{
+            "system" : "http://snomed.info/sct",
+            "code" : "373808002",
+            "display" : "Curative - procedure intent (qualifier value)"
+          }]
+        }
+      }],
+      "status" : "active",
+      "intent" : "order",
+      "category" : [{
+        "coding" : [{
+          "system" : "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+          "code" : "outpatient"
+        }]
+      }],
+      "medicationCodeableConcept" : {
+        "coding" : [{
+          "system" : "http://www.nlm.nih.gov/research/umls/rxnorm",
+          "code" : "56946",
+          "display" : "PACLitaxel"
+        }]
+      },
+      "subject" : {
+        "reference" : "Patient/cancer-patient-jenny-m"
+      },
+      "authoredOn" : "2018-04-12",
+      "requester" : {
+        "reference" : "Practitioner/us-core-practitioner-owen-oncologist"
+      },
+      "reasonReference" : [{
+        "reference" : "Condition/primary-cancer-condition-jenny-m"
+      }],
+      "dosageInstruction" : [{
+        "text" : "PACLitaxel (175 mg/m² IV), 272.01mg",
+        "timing" : {
+          "repeat" : {
+            "boundsPeriod" : {
+              "start" : "2018-04-12"
+            }
+          }
+        },
+        "route" : {
+          "coding" : [{
+            "system" : "http://snomed.info/sct",
+            "code" : "47625008",
+            "display" : "Intravenous route (qualifier value)"
+          }]
+        },
+        "doseAndRate" : [{
+          "doseQuantity" : {
+            "value" : 272.01,
+            "unit" : "mg",
+            "system" : "http://unitsofmeasure.org",
+            "code" : "mg"
+          }
+        }],
+        "maxDosePerPeriod" : {
+          "numerator" : {
+            "value" : 1
+          },
+          "denominator" : {
+            "value" : 3,
+            "unit" : "week",
+            "system" : "http://unitsofmeasure.org",
+            "code" : "wk"
+          }
+        }
+      }]
+    }
+  },
+  {
+    "fullUrl" : "http://example.org/fhir/MedicationRequest/cancer-related-medication-request-anastrozole-jenny-m",
+    "resource" : {
+      "resourceType" : "MedicationRequest",
+      "id" : "cancer-related-medication-request-anastrozole-jenny-m",
+      "meta" : {
+        "profile" : ["http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-related-medication-request"]
+      },
+      "text" : {
+        "status" : "extensions",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"MedicationRequest_cancer-related-medication-request-anastrozole-jenny-m\"> </a><p class=\"res-header-id\"><b>Generated Narrative: MedicationRequest cancer-related-medication-request-anastrozole-jenny-m</b></p><a name=\"cancer-related-medication-request-anastrozole-jenny-m\"> </a><a name=\"hccancer-related-medication-request-anastrozole-jenny-m\"> </a><a name=\"cancer-related-medication-request-anastrozole-jenny-m-en-US\"> </a><p><b>Procedure Intent Extension</b>: <span title=\"Codes:{http://snomed.info/sct 373808002}\">Curative - procedure intent (qualifier value)</span></p><p><b>status</b>: Active</p><p><b>intent</b>: Order</p><p><b>category</b>: <span title=\"Codes:{http://terminology.hl7.org/CodeSystem/medicationrequest-category community}\">Community</span></p><p><b>medication</b>: <span title=\"Codes:{http://www.nlm.nih.gov/research/umls/rxnorm 84857}\">anastrozole</span></p><p><b>subject</b>: <a href=\"Patient-cancer-patient-jenny-m.html\">Jenny M  Female, DoB: 1965-01-01 ( Medical Record Number: MRN1234\u00a0(use:\u00a0usual,\u00a0))</a></p><p><b>authoredOn</b>: 2018-09-30</p><p><b>requester</b>: <a href=\"Practitioner-us-core-practitioner-owen-oncologist.html\">Practitioner Owen Oncologist </a></p><p><b>reasonReference</b>: <a href=\"Condition-primary-cancer-condition-jenny-m.html\">Condition Primary malignant neoplasm of female left breast (disorder)</a></p><blockquote><p><b>dosageInstruction</b></p><p><b>text</b>: 1mg orally once daily</p><p><b>timing</b>: Once</p><p><b>route</b>: <span title=\"Codes:{http://snomed.info/sct 26643006}\">Oral route (qualifier value)</span></p><h3>DoseAndRates</h3><table class=\"grid\"><tr><td style=\"display: none\">-</td><td><b>Dose[x]</b></td></tr><tr><td style=\"display: none\">*</td><td>1 mg<span style=\"background: LightGoldenRodYellow\"> (Details: UCUM  codemg = 'mg')</span></td></tr></table><p><b>maxDosePerPeriod</b>: 1/1 day<span style=\"background: LightGoldenRodYellow\"> (Details: UCUM  coded = 'd')</span></p></blockquote></div>"
+      },
+      "extension" : [{
+        "url" : "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-procedure-intent",
+        "valueCodeableConcept" : {
+          "coding" : [{
+            "system" : "http://snomed.info/sct",
+            "code" : "373808002",
+            "display" : "Curative - procedure intent (qualifier value)"
+          }]
+        }
+      }],
+      "status" : "active",
+      "intent" : "order",
+      "category" : [{
+        "coding" : [{
+          "system" : "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+          "code" : "community"
+        }]
+      }],
+      "medicationCodeableConcept" : {
+        "coding" : [{
+          "system" : "http://www.nlm.nih.gov/research/umls/rxnorm",
+          "code" : "84857",
+          "display" : "anastrozole"
+        }]
+      },
+      "subject" : {
+        "reference" : "Patient/cancer-patient-jenny-m"
+      },
+      "authoredOn" : "2018-09-30",
+      "requester" : {
+        "reference" : "Practitioner/us-core-practitioner-owen-oncologist"
+      },
+      "reasonReference" : [{
+        "reference" : "Condition/primary-cancer-condition-jenny-m"
+      }],
+      "dosageInstruction" : [{
+        "text" : "1mg orally once daily",
+        "timing" : {
+          "repeat" : {
+            "boundsPeriod" : {
+              "start" : "2018-09-30"
+            }
+          }
+        },
+        "route" : {
+          "coding" : [{
+            "system" : "http://snomed.info/sct",
+            "code" : "26643006",
+            "display" : "Oral route (qualifier value)"
+          }]
+        },
+        "doseAndRate" : [{
+          "doseQuantity" : {
+            "value" : 1,
+            "unit" : "mg",
+            "system" : "http://unitsofmeasure.org",
+            "code" : "mg"
+          }
+        }],
+        "maxDosePerPeriod" : {
+          "numerator" : {
+            "value" : 1
+          },
+          "denominator" : {
+            "value" : 1,
+            "unit" : "day",
+            "system" : "http://unitsofmeasure.org",
+            "code" : "d"
+          }
+        }
+      }]
+    }
+  },
+  {
+    "fullUrl" : "http://example.org/fhir/Observation/cancer-disease-status-jenny-m",
+    "resource" : {
+      "resourceType" : "Observation",
+      "id" : "cancer-disease-status-jenny-m",
+      "meta" : {
+        "profile" : ["http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-disease-status"]
+      },
+      "text" : {
+        "status" : "extensions",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Observation_cancer-disease-status-jenny-m\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Observation cancer-disease-status-jenny-m</b></p><a name=\"cancer-disease-status-jenny-m\"> </a><a name=\"hccancer-disease-status-jenny-m\"> </a><a name=\"cancer-disease-status-jenny-m-en-US\"> </a><p><b>Cancer Disease Status Evidence Type Extension</b>: <span title=\"Codes:{http://snomed.info/sct 363679005}\">Imaging (procedure)</span></p><p><b>status</b>: Final</p><p><b>code</b>: <span title=\"Codes:{http://loinc.org 97509-4}\">Cancer Disease Progression</span></p><p><b>subject</b>: <a href=\"Patient-cancer-patient-jenny-m.html\">Jenny M  Female, DoB: 1965-01-01 ( Medical Record Number: MRN1234\u00a0(use:\u00a0usual,\u00a0))</a></p><p><b>focus</b>: <a href=\"Condition-primary-cancer-condition-jenny-m.html\">Condition Primary malignant neoplasm of female left breast (disorder)</a></p><p><b>effective</b>: 2018-11-01</p><p><b>performer</b>: <a href=\"Practitioner-us-core-practitioner-owen-oncologist.html\">Practitioner Owen Oncologist </a></p><p><b>value</b>: <span title=\"Codes:{http://snomed.info/sct 268910001}\">Patient's condition improved (finding)</span></p></div>"
+      },
+      "extension" : [{
+        "url" : "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-disease-status-evidence-type",
+        "valueCodeableConcept" : {
+          "coding" : [{
+            "system" : "http://snomed.info/sct",
+            "code" : "363679005",
+            "display" : "Imaging (procedure)"
+          }]
+        }
+      }],
+      "status" : "final",
+      "code" : {
+        "coding" : [{
+          "system" : "http://loinc.org",
+          "code" : "97509-4",
+          "display" : "Cancer Disease Progression"
+        }]
+      },
+      "subject" : {
+        "reference" : "Patient/cancer-patient-jenny-m"
+      },
+      "focus" : [{
+        "reference" : "Condition/primary-cancer-condition-jenny-m"
+      }],
+      "effectiveDateTime" : "2018-11-01",
+      "performer" : [{
+        "reference" : "Practitioner/us-core-practitioner-owen-oncologist"
+      }],
+      "valueCodeableConcept" : {
+        "coding" : [{
+          "system" : "http://snomed.info/sct",
+          "code" : "268910001",
+          "display" : "Patient's condition improved (finding)"
+        }]
+      }
+    }
+  },
+  {
+    "fullUrl" : "http://example.org/fhir/Observation/genomic-variant-jenny-m",
+    "resource" : {
+      "resourceType" : "Observation",
+      "id" : "genomic-variant-jenny-m",
+      "meta" : {
+        "profile" : ["http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-genomic-variant"]
+      },
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Observation_genomic-variant-jenny-m\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Observation genomic-variant-jenny-m</b></p><a name=\"genomic-variant-jenny-m\"> </a><a name=\"hcgenomic-variant-jenny-m\"> </a><a name=\"genomic-variant-jenny-m-en-US\"> </a><p><b>status</b>: Final</p><p><b>category</b>: <span title=\"Codes:{http://terminology.hl7.org/CodeSystem/observation-category laboratory}\">Laboratory</span></p><p><b>code</b>: <span title=\"Codes:{http://loinc.org 69548-6}\">Genetic variant assessment</span></p><p><b>subject</b>: <a href=\"Patient-cancer-patient-jenny-m.html\">Jenny M  Female, DoB: 1965-01-01 ( Medical Record Number: MRN1234\u00a0(use:\u00a0usual,\u00a0))</a></p><p><b>effective</b>: 2018-03-15</p><p><b>performer</b>: <a href=\"Practitioner-us-core-practitioner-owen-oncologist.html\">Practitioner Owen Oncologist </a></p><p><b>value</b>: <span title=\"Codes:{http://loinc.org LA9633-4}\">Present</span></p><p><b>method</b>: <span title=\"Codes:{http://loinc.org LA26398-0}\">Sequencing</span></p><blockquote><p><b>component</b></p><p><b>code</b>: <span title=\"Codes:{http://loinc.org 48018-6}\">Gene studied [ID]</span></p><p><b>value</b>: <span title=\"Codes:{http://www.genenames.org HGNC:26144}\">PALB2</span></p></blockquote><blockquote><p><b>component</b></p><p><b>code</b>: <span title=\"Codes:{http://loinc.org 81252-9}\">Discrete genetic variant</span></p><p><b>value</b>: <span title=\"Codes:{http://www.ncbi.nlm.nih.gov/clinvar 128144}\">NM_024675.3(PALB2):c.3549C&gt;A (p.Tyr1183Ter)</span></p></blockquote><blockquote><p><b>component</b></p><p><b>code</b>: <span title=\"Codes:{http://loinc.org 81290-9}\">Genomic DNA change (gHGVS)</span></p><p><b>value</b>: <span title=\"Codes:{http://varnomen.hgvs.org NC_000016.10:g.23603471G&gt;T}\">NC_000016.10:g.23603471G&gt;T</span></p></blockquote><blockquote><p><b>component</b></p><p><b>code</b>: <span title=\"Codes:{http://loinc.org 48002-0}\">Genomic source class [Type]</span></p><p><b>value</b>: <span title=\"Codes:{http://loinc.org LA6684-0}\">Somatic</span></p></blockquote></div>"
+      },
+      "status" : "final",
+      "category" : [{
+        "coding" : [{
+          "system" : "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code" : "laboratory"
+        }]
+      }],
+      "code" : {
+        "coding" : [{
+          "system" : "http://loinc.org",
+          "code" : "69548-6",
+          "display" : "Genetic variant assessment"
+        }]
+      },
+      "subject" : {
+        "reference" : "Patient/cancer-patient-jenny-m"
+      },
+      "effectiveDateTime" : "2018-03-15",
+      "performer" : [{
+        "reference" : "Practitioner/us-core-practitioner-owen-oncologist"
+      }],
+      "valueCodeableConcept" : {
+        "coding" : [{
+          "system" : "http://loinc.org",
+          "code" : "LA9633-4",
+          "display" : "Present"
+        }]
+      },
+      "method" : {
+        "coding" : [{
+          "system" : "http://loinc.org",
+          "code" : "LA26398-0",
+          "display" : "Sequencing"
+        }]
+      },
+      "component" : [{
+        "code" : {
+          "coding" : [{
+            "system" : "http://loinc.org",
+            "code" : "48018-6"
+          }]
+        },
+        "valueCodeableConcept" : {
+          "coding" : [{
+            "system" : "http://www.genenames.org",
+            "code" : "HGNC:26144",
+            "display" : "PALB2"
+          }]
+        }
+      },
+      {
+        "code" : {
+          "coding" : [{
+            "system" : "http://loinc.org",
+            "code" : "81252-9"
+          }]
+        },
+        "valueCodeableConcept" : {
+          "coding" : [{
+            "system" : "http://www.ncbi.nlm.nih.gov/clinvar",
+            "code" : "128144",
+            "display" : "NM_024675.3(PALB2):c.3549C>A (p.Tyr1183Ter)"
+          }]
+        }
+      },
+      {
+        "code" : {
+          "coding" : [{
+            "system" : "http://loinc.org",
+            "code" : "81290-9"
+          }]
+        },
+        "valueCodeableConcept" : {
+          "coding" : [{
+            "system" : "http://varnomen.hgvs.org",
+            "code" : "NC_000016.10:g.23603471G>T"
+          }]
+        }
+      },
+      {
+        "code" : {
+          "coding" : [{
+            "system" : "http://loinc.org",
+            "code" : "48002-0"
+          }]
+        },
+        "valueCodeableConcept" : {
+          "coding" : [{
+            "system" : "http://loinc.org",
+            "code" : "LA6684-0",
+            "display" : "Somatic"
+          }]
+        }
+      }]
+    }
+  },
+  {
+    "fullUrl" : "http://example.org/fhir/DiagnosticReport/genomics-report-jenny-m",
+    "resource" : {
+      "resourceType" : "DiagnosticReport",
+      "id" : "genomics-report-jenny-m",
+      "meta" : {
+        "profile" : ["http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-genomics-report"]
+      },
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"DiagnosticReport_genomics-report-jenny-m\"> </a><p class=\"res-header-id\"><b>Generated Narrative: DiagnosticReport genomics-report-jenny-m</b></p><a name=\"genomics-report-jenny-m\"> </a><a name=\"hcgenomics-report-jenny-m\"> </a><a name=\"genomics-report-jenny-m-en-US\"> </a><h2><span title=\"Codes:{http://loinc.org 51969-4}\">Genetic analysis report</span> (<span title=\"Codes:{http://terminology.hl7.org/CodeSystem/v2-0074 GE}\">Genetics</span>) </h2><table class=\"grid\"><tr><td>Subject</td><td>Jenny M  Female, DoB: 1965-01-01 ( Medical Record Number: MRN1234\u00a0(use:\u00a0usual,\u00a0))</td></tr><tr><td>When For</td><td>2018-03-15</td></tr><tr><td>Reported</td><td>2020-03-15 00:00:01+0000</td></tr><tr><td>Performer</td><td> <a href=\"Practitioner-us-core-practitioner-owen-oncologist.html\">Practitioner Owen Oncologist </a></td></tr></table><p><b>Report Details</b></p><table class=\"grid\"><tr><td><b>Code</b></td><td><b>Value</b></td><td><b>Flags</b></td><td><b>Reported</b></td></tr><tr><td><a href=\"Observation-genomic-variant-jenny-m.html\"><span title=\"Codes:{http://loinc.org 69548-6}\">Genetic variant assessment</span></a></td><td><span title=\"Codes:{http://loinc.org LA9633-4}\">Present</span></td><td>Final</td><td/></tr><tr><td><a href=\"Observation-genomic-region-studied-jenny-m.html\"><span title=\"Codes:{http://loinc.org 53041-0}\">DNA region of interest panel</span></a></td><td/><td>Final</td><td>2018-03-15 00:00:01+0000</td></tr></table></div>"
+      },
+      "status" : "final",
+      "category" : [{
+        "coding" : [{
+          "system" : "http://terminology.hl7.org/CodeSystem/v2-0074",
+          "code" : "GE"
+        }]
+      }],
+      "code" : {
+        "coding" : [{
+          "system" : "http://loinc.org",
+          "code" : "51969-4",
+          "display" : "Genetic analysis report"
+        }]
+      },
+      "subject" : {
+        "reference" : "Patient/cancer-patient-jenny-m"
+      },
+      "effectiveDateTime" : "2018-03-15",
+      "issued" : "2020-03-15T00:00:01+00:00",
+      "performer" : [{
+        "reference" : "Practitioner/us-core-practitioner-owen-oncologist"
+      }],
+      "specimen" : [{
+        "reference" : "Specimen/human-specimen-left-breast-jenny-m"
+      }],
+      "result" : [{
+        "reference" : "Observation/genomic-variant-jenny-m"
+      },
+      {
+        "reference" : "Observation/genomic-region-studied-jenny-m"
+      }]
+    }
+  },
+  {
+    "fullUrl" : "http://example.org/fhir/Procedure/cancer-related-surgical-procedure-jenny-m",
+    "resource" : {
+      "resourceType" : "Procedure",
+      "id" : "cancer-related-surgical-procedure-jenny-m",
+      "meta" : {
+        "profile" : ["http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-related-surgical-procedure"]
+      },
+      "text" : {
+        "status" : "extensions",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Procedure_cancer-related-surgical-procedure-jenny-m\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Procedure cancer-related-surgical-procedure-jenny-m</b></p><a name=\"cancer-related-surgical-procedure-jenny-m\"> </a><a name=\"hccancer-related-surgical-procedure-jenny-m\"> </a><a name=\"cancer-related-surgical-procedure-jenny-m-en-US\"> </a><p><b>Procedure Intent Extension</b>: <span title=\"Codes:{http://snomed.info/sct 373808002}\">Curative - procedure intent (qualifier value)</span></p><p><b>status</b>: Completed</p><p><b>code</b>: <span title=\"Codes:{http://snomed.info/sct 64368001}\">Excision of part of breast (procedure)</span></p><p><b>subject</b>: <a href=\"Patient-cancer-patient-jenny-m.html\">Jenny M  Female, DoB: 1965-01-01 ( Medical Record Number: MRN1234\u00a0(use:\u00a0usual,\u00a0))</a></p><p><b>performed</b>: 2018-04-01</p><p><b>asserter</b>: <a href=\"Practitioner-us-core-practitioner-owen-oncologist.html\">Practitioner Owen Oncologist </a></p><p><b>reasonReference</b>: <a href=\"Condition-primary-cancer-condition-jenny-m.html\">Condition Primary malignant neoplasm of female left breast (disorder)</a></p><p><b>bodySite</b>: <span title=\"Codes:{http://snomed.info/sct 80248007}\">Left breast structure (body structure)</span></p></div>"
+      },
+      "extension" : [{
+        "url" : "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-procedure-intent",
+        "valueCodeableConcept" : {
+          "coding" : [{
+            "system" : "http://snomed.info/sct",
+            "code" : "373808002",
+            "display" : "Curative - procedure intent (qualifier value)"
+          }]
+        }
+      }],
+      "status" : "completed",
+      "code" : {
+        "coding" : [{
+          "system" : "http://snomed.info/sct",
+          "code" : "64368001",
+          "display" : "Excision of part of breast (procedure)"
+        }]
+      },
+      "subject" : {
+        "reference" : "Patient/cancer-patient-jenny-m"
+      },
+      "performedDateTime" : "2018-04-01",
+      "asserter" : {
+        "reference" : "Practitioner/us-core-practitioner-owen-oncologist"
+      },
+      "reasonReference" : [{
+        "reference" : "Condition/primary-cancer-condition-jenny-m"
+      }],
+      "bodySite" : [{
+        "coding" : [{
+          "system" : "http://snomed.info/sct",
+          "code" : "80248007",
+          "display" : "Left breast structure (body structure)"
+        }]
+      }]
+    }
+  },
+  {
+    "fullUrl" : "http://example.org/fhir/Observation/cancer-related-comorbidities-jenny-m",
+    "resource" : {
+      "resourceType" : "Observation",
+      "id" : "cancer-related-comorbidities-jenny-m",
+      "meta" : {
+        "profile" : ["http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-comorbidities"]
+      },
+      "text" : {
+        "status" : "extensions",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Observation_cancer-related-comorbidities-jenny-m\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Observation cancer-related-comorbidities-jenny-m</b></p><a name=\"cancer-related-comorbidities-jenny-m\"> </a><a name=\"hccancer-related-comorbidities-jenny-m\"> </a><a name=\"cancer-related-comorbidities-jenny-m-en-US\"> </a><p><b>Related Condition Extension</b>: <a href=\"Condition-us-core-condition-depression-jenny-m.html\">Condition Depressive disorder (disorder)</a></p><p><b>Related Condition Extension</b>: <a href=\"Condition-us-core-condition-anxiety-jenny-m.html\">Condition Anxiety (finding)</a></p><p><b>Related Condition Extension</b>: <a href=\"Condition-us-core-condition-hypertension-jenny-m.html\">Condition Benign hypertensive heart disease without congestive heart failure (disorder)</a></p><p><b>Related Condition Absent Extension</b>: <span title=\"Codes:{http://snomed.info/sct 414916001}\">Obesity (disorder)</span></p><p><b>Related Condition Absent Extension</b>: <span title=\"Codes:{http://snomed.info/sct 19829001}\">Disorder of lung (disorder)</span></p><p><b>status</b>: Final</p><p><b>category</b>: <span title=\"Codes:{http://terminology.hl7.org/CodeSystem/observation-category social-history}\">Social History</span></p><p><b>code</b>: <span title=\"Codes:{http://snomed.info/sct 398192003}\">Co-morbid conditions (finding)</span></p><p><b>subject</b>: <a href=\"Patient-cancer-patient-jenny-m.html\">Jenny M  Female, DoB: 1965-01-01 ( Medical Record Number: MRN1234\u00a0(use:\u00a0usual,\u00a0))</a></p><p><b>focus</b>: <a href=\"Condition-primary-cancer-condition-jenny-m.html\">Condition Primary malignant neoplasm of female left breast (disorder)</a></p><p><b>effective</b>: 2018-03-16</p><p><b>performer</b>: <a href=\"Practitioner-us-core-practitioner-owen-oncologist.html\">Practitioner Owen Oncologist </a></p></div>"
+      },
+      "extension" : [{
+        "url" : "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-related-condition",
+        "valueReference" : {
+          "reference" : "Condition/us-core-condition-depression-jenny-m"
+        }
+      },
+      {
+        "url" : "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-related-condition",
+        "valueReference" : {
+          "reference" : "Condition/us-core-condition-anxiety-jenny-m"
+        }
+      },
+      {
+        "url" : "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-related-condition",
+        "valueReference" : {
+          "reference" : "Condition/us-core-condition-hypertension-jenny-m"
+        }
+      },
+      {
+        "url" : "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-related-condition-absent",
+        "valueCodeableConcept" : {
+          "coding" : [{
+            "system" : "http://snomed.info/sct",
+            "code" : "414916001",
+            "display" : "Obesity (disorder)"
+          }]
+        }
+      },
+      {
+        "url" : "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-related-condition-absent",
+        "valueCodeableConcept" : {
+          "coding" : [{
+            "system" : "http://snomed.info/sct",
+            "code" : "19829001",
+            "display" : "Disorder of lung (disorder)"
+          }]
+        }
+      }],
+      "status" : "final",
+      "category" : [{
+        "coding" : [{
+          "system" : "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code" : "social-history",
+          "display" : "Social History"
+        }]
+      }],
+      "code" : {
+        "coding" : [{
+          "system" : "http://snomed.info/sct",
+          "code" : "398192003"
+        }]
+      },
+      "subject" : {
+        "reference" : "Patient/cancer-patient-jenny-m"
+      },
+      "focus" : [{
+        "reference" : "Condition/primary-cancer-condition-jenny-m"
+      }],
+      "effectiveDateTime" : "2018-03-16",
+      "performer" : [{
+        "reference" : "Practitioner/us-core-practitioner-owen-oncologist"
+      }]
+    }
+  },
+  {
+    "fullUrl" : "http://example.org/fhir/Procedure/radiotherapy-treatment-summary-chest-wall-jenny-m",
+    "resource" : {
+      "resourceType" : "Procedure",
+      "id" : "radiotherapy-treatment-summary-chest-wall-jenny-m",
+      "meta" : {
+        "profile" : ["http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-radiotherapy-course-summary"]
+      },
+      "text" : {
+        "status" : "extensions",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Procedure_radiotherapy-treatment-summary-chest-wall-jenny-m\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Procedure radiotherapy-treatment-summary-chest-wall-jenny-m</b></p><a name=\"radiotherapy-treatment-summary-chest-wall-jenny-m\"> </a><a name=\"hcradiotherapy-treatment-summary-chest-wall-jenny-m\"> </a><a name=\"radiotherapy-treatment-summary-chest-wall-jenny-m-en-US\"> </a><p><b>Radiotherapy Number of Sessions Extension</b>: 31</p><p><b>Procedure Intent Extension</b>: <span title=\"Codes:{http://snomed.info/sct 373808002}\">Curative - procedure intent</span></p><blockquote><p><b>Radiotherapy Modality And Technique Extension</b></p><ul><li>http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-radiotherapy-modality: <span title=\"Codes:{http://snomed.info/sct 1156506007}\">External beam radiation therapy using photons (procedure)</span></li><li>http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-radiotherapy-technique: <span title=\"Codes:{http://snomed.info/sct 1156530009}\">Volumetric Modulated Arc Therapy (procedure)</span></li></ul></blockquote><blockquote><p><b>Radiotherapy Modality And Technique Extension</b></p><ul><li>http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-radiotherapy-modality: <span title=\"Codes:{http://snomed.info/sct 45643008}\">Teleradiotherapy using electrons</span></li><li>http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-radiotherapy-technique: <span title=\"Codes:{http://snomed.info/sct 1162782007}\">Three dimensional external beam radiation therapy (procedure)</span></li></ul></blockquote><blockquote><p><b>Radiotherapy Dose Delivered To Volume Extension</b></p><ul><li>volume: <a href=\"BodyStructure-jenny-m-chest-wall-treatment-volume.html\">BodyStructure: identifier = 1.2.246.352…1\u00a0(use:\u00a0usual,\u00a0); location = Chest wall structure (body structure); locationQualifier = Entire (qualifier value); description = Chest Wall</a></li><li>totalDoseDelivered: 6000 cGy<span style=\"background: LightGoldenRodYellow\"> (Details: UCUM  codecGy = 'cGy')</span></li><li>fractionsDelivered: 30</li></ul></blockquote><blockquote><p><b>Radiotherapy Dose Delivered To Volume Extension</b></p><ul><li>volume: <a href=\"BodyStructure-jenny-m-chest-wall-lymph-nodes-treatment-volume.html\">BodyStructure: identifier = 1.2.246.352…2\u00a0(use:\u00a0usual,\u00a0); location = Mediastinal lymph node structure (body structure); locationQualifier = Right and left (qualifier value); description = Chest Wall Lymph Nodes</a></li><li>totalDoseDelivered: 5000 cGy<span style=\"background: LightGoldenRodYellow\"> (Details: UCUM  codecGy = 'cGy')</span></li><li>fractionsDelivered: 25</li></ul></blockquote><p><b>status</b>: Completed</p><p><b>code</b>: <span title=\"Codes:{http://snomed.info/sct 1217123003}\">Radiotherapy course of treatment</span></p><p><b>subject</b>: <a href=\"Patient-cancer-patient-jenny-m.html\">Jenny M  Female, DoB: 1965-01-01 ( Medical Record Number: MRN1234\u00a0(use:\u00a0usual,\u00a0))</a></p><p><b>performed</b>: 2018-08-15 --&gt; 2018-10-25</p><p><b>asserter</b>: <a href=\"Practitioner-us-core-practitioner-kyle-anydoc.html\">Practitioner Kyle Anydoc </a></p><p><b>reasonCode</b>: <span title=\"Codes:{http://hl7.org/fhir/sid/icd-10-cm C50.811}\">Malignant neoplasm of overlapping sites of right female breast</span></p><p><b>bodySite</b>: <span title=\"Codes:{http://snomed.info/sct 78904004}\">Chest Wall Structure (body structure)</span></p></div>"
+      },
+      "extension" : [{
+        "url" : "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-radiotherapy-sessions",
+        "valueUnsignedInt" : 31
+      },
+      {
+        "url" : "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-procedure-intent",
+        "valueCodeableConcept" : {
+          "coding" : [{
+            "system" : "http://snomed.info/sct",
+            "code" : "373808002",
+            "display" : "Curative - procedure intent"
+          }]
+        }
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-radiotherapy-modality",
+          "valueCodeableConcept" : {
+            "coding" : [{
+              "system" : "http://snomed.info/sct",
+              "code" : "1156506007",
+              "display" : "External beam radiation therapy using photons (procedure)"
+            }]
+          }
+        },
+        {
+          "url" : "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-radiotherapy-technique",
+          "valueCodeableConcept" : {
+            "coding" : [{
+              "system" : "http://snomed.info/sct",
+              "code" : "1156530009",
+              "display" : "Volumetric Modulated Arc Therapy (procedure)"
+            }]
+          }
+        }],
+        "url" : "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-radiotherapy-modality-and-technique"
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-radiotherapy-modality",
+          "valueCodeableConcept" : {
+            "coding" : [{
+              "system" : "http://snomed.info/sct",
+              "code" : "45643008",
+              "display" : "Teleradiotherapy using electrons"
+            }]
+          }
+        },
+        {
+          "url" : "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-radiotherapy-technique",
+          "valueCodeableConcept" : {
+            "coding" : [{
+              "system" : "http://snomed.info/sct",
+              "code" : "1162782007",
+              "display" : "Three dimensional external beam radiation therapy (procedure)"
+            }]
+          }
+        }],
+        "url" : "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-radiotherapy-modality-and-technique"
+      },
+      {
+        "extension" : [{
+          "url" : "volume",
+          "valueReference" : {
+            "reference" : "BodyStructure/jenny-m-chest-wall-treatment-volume"
+          }
+        },
+        {
+          "url" : "totalDoseDelivered",
+          "valueQuantity" : {
+            "value" : 6000,
+            "system" : "http://unitsofmeasure.org",
+            "code" : "cGy"
+          }
+        },
+        {
+          "url" : "fractionsDelivered",
+          "valueUnsignedInt" : 30
+        }],
+        "url" : "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-radiotherapy-dose-delivered-to-volume"
+      },
+      {
+        "extension" : [{
+          "url" : "volume",
+          "valueReference" : {
+            "reference" : "BodyStructure/jenny-m-chest-wall-lymph-nodes-treatment-volume"
+          }
+        },
+        {
+          "url" : "totalDoseDelivered",
+          "valueQuantity" : {
+            "value" : 5000,
+            "system" : "http://unitsofmeasure.org",
+            "code" : "cGy"
+          }
+        },
+        {
+          "url" : "fractionsDelivered",
+          "valueUnsignedInt" : 25
+        }],
+        "url" : "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-radiotherapy-dose-delivered-to-volume"
+      }],
+      "status" : "completed",
+      "code" : {
+        "coding" : [{
+          "system" : "http://snomed.info/sct",
+          "code" : "1217123003"
+        }]
+      },
+      "subject" : {
+        "reference" : "Patient/cancer-patient-jenny-m"
+      },
+      "performedPeriod" : {
+        "start" : "2018-08-15",
+        "end" : "2018-10-25"
+      },
+      "asserter" : {
+        "reference" : "Practitioner/us-core-practitioner-kyle-anydoc"
+      },
+      "reasonCode" : [{
+        "coding" : [{
+          "system" : "http://hl7.org/fhir/sid/icd-10-cm",
+          "code" : "C50.811",
+          "display" : "Malignant neoplasm of overlapping sites of right female breast"
+        }]
+      }],
+      "bodySite" : [{
+        "coding" : [{
+          "system" : "http://snomed.info/sct",
+          "code" : "78904004",
+          "display" : "Chest Wall Structure (body structure)"
+        }]
+      }]
+    }
+  },
+  {
+    "fullUrl" : "http://example.org/fhir/Observation/tnm-clinical-stage-group-jenny-m",
+    "resource" : {
+      "resourceType" : "Observation",
+      "id" : "tnm-clinical-stage-group-jenny-m",
+      "meta" : {
+        "profile" : ["http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tnm-stage-group"]
+      },
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Observation_tnm-clinical-stage-group-jenny-m\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Observation tnm-clinical-stage-group-jenny-m</b></p><a name=\"tnm-clinical-stage-group-jenny-m\"> </a><a name=\"hctnm-clinical-stage-group-jenny-m\"> </a><a name=\"tnm-clinical-stage-group-jenny-m-en-US\"> </a><p><b>status</b>: Final</p><p><b>category</b>: <span title=\"Codes:{http://terminology.hl7.org/CodeSystem/observation-category imaging}\">Imaging</span></p><p><b>code</b>: <span title=\"Codes:{http://snomed.info/sct 399537006}\">Clinical TNM stage grouping</span></p><p><b>subject</b>: <a href=\"Patient-cancer-patient-jenny-m.html\">Jenny M  Female, DoB: 1965-01-01 ( Medical Record Number: MRN1234\u00a0(use:\u00a0usual,\u00a0))</a></p><p><b>focus</b>: <a href=\"Condition-primary-cancer-condition-jenny-m.html\">Condition Primary malignant neoplasm of female left breast (disorder)</a></p><p><b>effective</b>: 2018-03-16</p><p><b>performer</b>: <a href=\"Practitioner-us-core-practitioner-owen-oncologist.html\">Practitioner Owen Oncologist </a></p><p><b>value</b>: <span title=\"Codes:{http://snomed.info/sct 1222769001}\">American Joint Committee on Cancer stage IIB (qualifier value)</span></p><p><b>method</b>: <span title=\"Codes:{http://snomed.info/sct 897275008}\">American Joint Commission on Cancer, Cancer Staging Manual, 8th edition neoplasm staging system (tumor staging)</span></p><p><b>hasMember</b>: </p><ul><li><a href=\"Observation-tnm-pathologic-primary-tumor-category-jenny-m.html\">Observation pT category</a></li><li><a href=\"Observation-tnm-pathologic-regional-nodes-category-jenny-m.html\">Observation pN category</a></li><li><a href=\"Observation-tnm-pathologic-distant-metastases-category-jenny-m.html\">Observation pM category</a></li></ul></div>"
+      },
+      "status" : "final",
+      "category" : [{
+        "coding" : [{
+          "system" : "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code" : "imaging",
+          "display" : "Imaging"
+        }]
+      }],
+      "code" : {
+        "coding" : [{
+          "system" : "http://snomed.info/sct",
+          "code" : "399537006",
+          "display" : "Clinical TNM stage grouping"
+        }]
+      },
+      "subject" : {
+        "reference" : "Patient/cancer-patient-jenny-m"
+      },
+      "focus" : [{
+        "reference" : "Condition/primary-cancer-condition-jenny-m"
+      }],
+      "effectiveDateTime" : "2018-03-16",
+      "performer" : [{
+        "reference" : "Practitioner/us-core-practitioner-owen-oncologist"
+      }],
+      "valueCodeableConcept" : {
+        "coding" : [{
+          "system" : "http://snomed.info/sct",
+          "code" : "1222769001",
+          "display" : "American Joint Committee on Cancer stage IIB (qualifier value)"
+        }]
+      },
+      "method" : {
+        "coding" : [{
+          "system" : "http://snomed.info/sct",
+          "code" : "897275008",
+          "display" : "American Joint Commission on Cancer, Cancer Staging Manual, 8th edition neoplasm staging system (tumor staging)"
+        }]
+      },
+      "hasMember" : [{
+        "reference" : "Observation/tnm-pathologic-primary-tumor-category-jenny-m"
+      },
+      {
+        "reference" : "Observation/tnm-pathologic-regional-nodes-category-jenny-m"
+      },
+      {
+        "reference" : "Observation/tnm-pathologic-distant-metastases-category-jenny-m"
+      }]
+    }
+  },
+  {
+    "fullUrl" : "http://example.org/fhir/Observation/tnm-clinical-primary-tumor-category-jenny-m",
+    "resource" : {
+      "resourceType" : "Observation",
+      "id" : "tnm-clinical-primary-tumor-category-jenny-m",
+      "meta" : {
+        "profile" : ["http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tnm-primary-tumor-category"]
+      },
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Observation_tnm-clinical-primary-tumor-category-jenny-m\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Observation tnm-clinical-primary-tumor-category-jenny-m</b></p><a name=\"tnm-clinical-primary-tumor-category-jenny-m\"> </a><a name=\"hctnm-clinical-primary-tumor-category-jenny-m\"> </a><a name=\"tnm-clinical-primary-tumor-category-jenny-m-en-US\"> </a><p><b>status</b>: Final</p><p><b>category</b>: <span title=\"Codes:{http://terminology.hl7.org/CodeSystem/observation-category imaging}\">Imaging</span></p><p><b>code</b>: <span title=\"Codes:{http://snomed.info/sct 399504009}\">cT category</span></p><p><b>subject</b>: <a href=\"Patient-cancer-patient-jenny-m.html\">Jenny M  Female, DoB: 1965-01-01 ( Medical Record Number: MRN1234\u00a0(use:\u00a0usual,\u00a0))</a></p><p><b>effective</b>: 2018-03-16</p><p><b>performer</b>: <a href=\"Practitioner-us-core-practitioner-owen-oncologist.html\">Practitioner Owen Oncologist </a></p><p><b>value</b>: <span title=\"Codes:{http://snomed.info/sct 1228938002}\">American Joint Committee on Cancer cT3 (qualifier value)</span></p><p><b>method</b>: <span title=\"Codes:{http://snomed.info/sct 897275008}\">American Joint Commission on Cancer, Cancer Staging Manual, 8th edition neoplasm staging system (tumor staging)</span></p></div>"
+      },
+      "status" : "final",
+      "category" : [{
+        "coding" : [{
+          "system" : "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code" : "imaging",
+          "display" : "Imaging"
+        }]
+      }],
+      "code" : {
+        "coding" : [{
+          "system" : "http://snomed.info/sct",
+          "code" : "399504009",
+          "display" : "cT category"
+        }]
+      },
+      "subject" : {
+        "reference" : "Patient/cancer-patient-jenny-m"
+      },
+      "effectiveDateTime" : "2018-03-16",
+      "performer" : [{
+        "reference" : "Practitioner/us-core-practitioner-owen-oncologist"
+      }],
+      "valueCodeableConcept" : {
+        "coding" : [{
+          "system" : "http://snomed.info/sct",
+          "code" : "1228938002",
+          "display" : "American Joint Committee on Cancer cT3 (qualifier value)"
+        }]
+      },
+      "method" : {
+        "coding" : [{
+          "system" : "http://snomed.info/sct",
+          "code" : "897275008",
+          "display" : "American Joint Commission on Cancer, Cancer Staging Manual, 8th edition neoplasm staging system (tumor staging)"
+        }]
+      }
+    }
+  },
+  {
+    "fullUrl" : "http://example.org/fhir/Observation/tnm-clinical-regional-nodes-category-jenny-m",
+    "resource" : {
+      "resourceType" : "Observation",
+      "id" : "tnm-clinical-regional-nodes-category-jenny-m",
+      "meta" : {
+        "profile" : ["http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tnm-regional-nodes-category"]
+      },
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Observation_tnm-clinical-regional-nodes-category-jenny-m\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Observation tnm-clinical-regional-nodes-category-jenny-m</b></p><a name=\"tnm-clinical-regional-nodes-category-jenny-m\"> </a><a name=\"hctnm-clinical-regional-nodes-category-jenny-m\"> </a><a name=\"tnm-clinical-regional-nodes-category-jenny-m-en-US\"> </a><p><b>status</b>: Final</p><p><b>category</b>: <span title=\"Codes:{http://terminology.hl7.org/CodeSystem/observation-category imaging}\">Imaging</span></p><p><b>code</b>: <span title=\"Codes:{http://snomed.info/sct 399534004}\">cN category</span></p><p><b>subject</b>: <a href=\"Patient-cancer-patient-jenny-m.html\">Jenny M  Female, DoB: 1965-01-01 ( Medical Record Number: MRN1234\u00a0(use:\u00a0usual,\u00a0))</a></p><p><b>effective</b>: 2018-03-16</p><p><b>performer</b>: <a href=\"Practitioner-us-core-practitioner-owen-oncologist.html\">Practitioner Owen Oncologist </a></p><p><b>value</b>: <span title=\"Codes:{http://snomed.info/sct 1229967007}\">American Joint Committee on Cancer cN0 (qualifier value)</span></p><p><b>method</b>: <span title=\"Codes:{http://snomed.info/sct 897275008}\">American Joint Commission on Cancer, Cancer Staging Manual, 8th edition neoplasm staging system (tumor staging)</span></p></div>"
+      },
+      "status" : "final",
+      "category" : [{
+        "coding" : [{
+          "system" : "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code" : "imaging",
+          "display" : "Imaging"
+        }]
+      }],
+      "code" : {
+        "coding" : [{
+          "system" : "http://snomed.info/sct",
+          "code" : "399534004",
+          "display" : "cN category"
+        }]
+      },
+      "subject" : {
+        "reference" : "Patient/cancer-patient-jenny-m"
+      },
+      "effectiveDateTime" : "2018-03-16",
+      "performer" : [{
+        "reference" : "Practitioner/us-core-practitioner-owen-oncologist"
+      }],
+      "valueCodeableConcept" : {
+        "coding" : [{
+          "system" : "http://snomed.info/sct",
+          "code" : "1229967007",
+          "display" : "American Joint Committee on Cancer cN0 (qualifier value)"
+        }]
+      },
+      "method" : {
+        "coding" : [{
+          "system" : "http://snomed.info/sct",
+          "code" : "897275008",
+          "display" : "American Joint Commission on Cancer, Cancer Staging Manual, 8th edition neoplasm staging system (tumor staging)"
+        }]
+      }
+    }
+  },
+  {
+    "fullUrl" : "http://example.org/fhir/Observation/tnm-clinical-distant-metastases-category-jenny-m",
+    "resource" : {
+      "resourceType" : "Observation",
+      "id" : "tnm-clinical-distant-metastases-category-jenny-m",
+      "meta" : {
+        "profile" : ["http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tnm-distant-metastases-category"]
+      },
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Observation_tnm-clinical-distant-metastases-category-jenny-m\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Observation tnm-clinical-distant-metastases-category-jenny-m</b></p><a name=\"tnm-clinical-distant-metastases-category-jenny-m\"> </a><a name=\"hctnm-clinical-distant-metastases-category-jenny-m\"> </a><a name=\"tnm-clinical-distant-metastases-category-jenny-m-en-US\"> </a><p><b>status</b>: Final</p><p><b>category</b>: <span title=\"Codes:{http://terminology.hl7.org/CodeSystem/observation-category imaging}\">Imaging</span></p><p><b>code</b>: <span title=\"Codes:{http://snomed.info/sct 399387003}\">cM category</span></p><p><b>subject</b>: <a href=\"Patient-cancer-patient-jenny-m.html\">Jenny M  Female, DoB: 1965-01-01 ( Medical Record Number: MRN1234\u00a0(use:\u00a0usual,\u00a0))</a></p><p><b>effective</b>: 2018-03-16</p><p><b>performer</b>: <a href=\"Practitioner-us-core-practitioner-owen-oncologist.html\">Practitioner Owen Oncologist </a></p><p><b>value</b>: <span title=\"Codes:{http://snomed.info/sct 1229901006}\">American Joint Committee on Cancer cM0 (qualifier value)</span></p><p><b>method</b>: <span title=\"Codes:{http://snomed.info/sct 897275008}\">American Joint Commission on Cancer, Cancer Staging Manual, 8th edition neoplasm staging system (tumor staging)</span></p></div>"
+      },
+      "status" : "final",
+      "category" : [{
+        "coding" : [{
+          "system" : "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code" : "imaging",
+          "display" : "Imaging"
+        }]
+      }],
+      "code" : {
+        "coding" : [{
+          "system" : "http://snomed.info/sct",
+          "code" : "399387003",
+          "display" : "cM category"
+        }]
+      },
+      "subject" : {
+        "reference" : "Patient/cancer-patient-jenny-m"
+      },
+      "effectiveDateTime" : "2018-03-16",
+      "performer" : [{
+        "reference" : "Practitioner/us-core-practitioner-owen-oncologist"
+      }],
+      "valueCodeableConcept" : {
+        "coding" : [{
+          "system" : "http://snomed.info/sct",
+          "code" : "1229901006",
+          "display" : "American Joint Committee on Cancer cM0 (qualifier value)"
+        }]
+      },
+      "method" : {
+        "coding" : [{
+          "system" : "http://snomed.info/sct",
+          "code" : "897275008",
+          "display" : "American Joint Commission on Cancer, Cancer Staging Manual, 8th edition neoplasm staging system (tumor staging)"
+        }]
+      }
+    }
+  },
+  {
+    "fullUrl" : "http://example.org/fhir/Specimen/human-specimen-left-breast-jenny-m",
+    "resource" : {
+      "resourceType" : "Specimen",
+      "id" : "human-specimen-left-breast-jenny-m",
+      "meta" : {
+        "profile" : ["http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-human-specimen"]
+      },
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Specimen_human-specimen-left-breast-jenny-m\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Specimen human-specimen-left-breast-jenny-m</b></p><a name=\"human-specimen-left-breast-jenny-m\"> </a><a name=\"hchuman-specimen-left-breast-jenny-m\"> </a><a name=\"human-specimen-left-breast-jenny-m-en-US\"> </a><p><b>status</b>: Available</p><p><b>type</b>: <span title=\"Codes:{http://terminology.hl7.org/CodeSystem/v2-0487 TISS}\">Tissue</span></p><p><b>subject</b>: <a href=\"Patient-cancer-patient-jenny-m.html\">Jenny M  Female, DoB: 1965-01-01 ( Medical Record Number: MRN1234\u00a0(use:\u00a0usual,\u00a0))</a></p><h3>Collections</h3><table class=\"grid\"><tr><td style=\"display: none\">-</td><td><b>Collector</b></td><td><b>BodySite</b></td></tr><tr><td style=\"display: none\">*</td><td><a href=\"Practitioner-us-core-practitioner-owen-oncologist.html\">Practitioner Owen Oncologist </a></td><td><span title=\"Codes:{http://snomed.info/sct 80248007}\">Left breast structure (body structure)</span></td></tr></table><h3>Processings</h3><table class=\"grid\"><tr><td style=\"display: none\">-</td><td><b>Time[x]</b></td></tr><tr><td style=\"display: none\">*</td><td>2018-03-06</td></tr></table></div>"
+      },
+      "status" : "available",
+      "type" : {
+        "coding" : [{
+          "system" : "http://terminology.hl7.org/CodeSystem/v2-0487",
+          "code" : "TISS"
+        }]
+      },
+      "subject" : {
+        "reference" : "Patient/cancer-patient-jenny-m"
+      },
+      "collection" : {
+        "collector" : {
+          "reference" : "Practitioner/us-core-practitioner-owen-oncologist"
+        },
+        "bodySite" : {
+          "coding" : [{
+            "system" : "http://snomed.info/sct",
+            "code" : "80248007",
+            "display" : "Left breast structure (body structure)"
+          }]
+        }
+      },
+      "processing" : [{
+        "timeDateTime" : "2018-03-06"
+      }]
+    }
+  },
+  {
+    "fullUrl" : "http://example.org/fhir/Observation/genomic-region-studied-jenny-m",
+    "resource" : {
+      "resourceType" : "Observation",
+      "id" : "genomic-region-studied-jenny-m",
+      "meta" : {
+        "profile" : ["http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-genomic-region-studied"]
+      },
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Observation_genomic-region-studied-jenny-m\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Observation genomic-region-studied-jenny-m</b></p><a name=\"genomic-region-studied-jenny-m\"> </a><a name=\"hcgenomic-region-studied-jenny-m\"> </a><a name=\"genomic-region-studied-jenny-m-en-US\"> </a><p><b>status</b>: Final</p><p><b>category</b>: <span title=\"Codes:{http://terminology.hl7.org/CodeSystem/observation-category laboratory}\">Laboratory</span></p><p><b>code</b>: <span title=\"Codes:{http://loinc.org 53041-0}\">DNA region of interest panel</span></p><p><b>subject</b>: <a href=\"Patient-cancer-patient-jenny-m.html\">Jenny M  Female, DoB: 1965-01-01 ( Medical Record Number: MRN1234\u00a0(use:\u00a0usual,\u00a0))</a></p><p><b>effective</b>: 2018-03-15</p><p><b>issued</b>: 2018-03-15 00:00:01+0000</p><p><b>performer</b>: <a href=\"Practitioner-us-core-practitioner-owen-oncologist.html\">Practitioner Owen Oncologist </a></p><h3>Components</h3><table class=\"grid\"><tr><td style=\"display: none\">-</td><td><b>Code</b></td><td><b>Value[x]</b></td></tr><tr><td style=\"display: none\">*</td><td><span title=\"Codes:{http://loinc.org 48018-6}\">Gene studied [ID]</span></td><td><span title=\"Codes:{http://www.genenames.org 1100}, {http://www.genenames.org 1101}, {http://www.genenames.org 1748}, {http://www.genenames.org 26144}, {http://www.genenames.org 9588}, {http://www.genenames.org 11389}, {http://www.genenames.org 11998}\">BRCA1</span></td></tr></table></div>"
+      },
+      "status" : "final",
+      "category" : [{
+        "coding" : [{
+          "system" : "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code" : "laboratory"
+        }]
+      }],
+      "code" : {
+        "coding" : [{
+          "system" : "http://loinc.org",
+          "code" : "53041-0",
+          "display" : "DNA region of interest panel"
+        }]
+      },
+      "subject" : {
+        "reference" : "Patient/cancer-patient-jenny-m"
+      },
+      "effectiveDateTime" : "2018-03-15",
+      "issued" : "2018-03-15T00:00:01+00:00",
+      "performer" : [{
+        "reference" : "Practitioner/us-core-practitioner-owen-oncologist"
+      }],
+      "component" : [{
+        "code" : {
+          "coding" : [{
+            "system" : "http://loinc.org",
+            "code" : "48018-6",
+            "display" : "Gene studied [ID]"
+          }]
+        },
+        "valueCodeableConcept" : {
+          "coding" : [{
+            "system" : "http://www.genenames.org",
+            "code" : "1100",
+            "display" : "BRCA1"
+          },
+          {
+            "system" : "http://www.genenames.org",
+            "code" : "1101",
+            "display" : "BRCA2"
+          },
+          {
+            "system" : "http://www.genenames.org",
+            "code" : "1748",
+            "display" : "CDH1"
+          },
+          {
+            "system" : "http://www.genenames.org",
+            "code" : "26144",
+            "display" : "PALB2"
+          },
+          {
+            "system" : "http://www.genenames.org",
+            "code" : "9588",
+            "display" : "PTEN"
+          },
+          {
+            "system" : "http://www.genenames.org",
+            "code" : "11389",
+            "display" : "STK11"
+          },
+          {
+            "system" : "http://www.genenames.org",
+            "code" : "11998",
+            "display" : "TP53"
+          }]
+        }
+      }]
+    }
+  },
+  {
+    "fullUrl" : "http://example.org/fhir/Observation/ecog-performance-status-jenny-m",
+    "resource" : {
+      "resourceType" : "Observation",
+      "id" : "ecog-performance-status-jenny-m",
+      "meta" : {
+        "profile" : ["http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-ecog-performance-status"]
+      },
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Observation_ecog-performance-status-jenny-m\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Observation ecog-performance-status-jenny-m</b></p><a name=\"ecog-performance-status-jenny-m\"> </a><a name=\"hcecog-performance-status-jenny-m\"> </a><a name=\"ecog-performance-status-jenny-m-en-US\"> </a><p><b>status</b>: Final</p><p><b>category</b>: <span title=\"Codes:{http://terminology.hl7.org/CodeSystem/observation-category survey}\">Survey</span></p><p><b>code</b>: <span title=\"Codes:{http://loinc.org 89247-1}\">ECOG Performance Status score</span></p><p><b>subject</b>: <a href=\"Patient-cancer-patient-jenny-m.html\">Jenny M  Female, DoB: 1965-01-01 ( Medical Record Number: MRN1234\u00a0(use:\u00a0usual,\u00a0))</a></p><p><b>effective</b>: 2018-04-12</p><p><b>performer</b>: <a href=\"Practitioner-us-core-practitioner-owen-oncologist.html\">Practitioner Owen Oncologist </a></p><p><b>value</b>: 0</p><p><b>interpretation</b>: <span title=\"Codes:{http://loinc.org LA9622-7}\">Fully active, able to carry on all pre-disease performance without restriction</span></p><p><b>method</b>: <span title=\"Codes:{http://snomed.info/sct 5880005}\">Physical examination procedure (procedure)</span></p></div>"
+      },
+      "status" : "final",
+      "category" : [{
+        "coding" : [{
+          "system" : "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code" : "survey",
+          "display" : "Survey"
+        }]
+      }],
+      "code" : {
+        "coding" : [{
+          "system" : "http://loinc.org",
+          "code" : "89247-1"
+        }]
+      },
+      "subject" : {
+        "reference" : "Patient/cancer-patient-jenny-m"
+      },
+      "effectiveDateTime" : "2018-04-12",
+      "performer" : [{
+        "reference" : "Practitioner/us-core-practitioner-owen-oncologist"
+      }],
+      "valueInteger" : 0,
+      "interpretation" : [{
+        "coding" : [{
+          "system" : "http://loinc.org",
+          "code" : "LA9622-7",
+          "display" : "Fully active, able to carry on all pre-disease performance without restriction"
+        }]
+      }],
+      "method" : {
+        "coding" : [{
+          "system" : "http://snomed.info/sct",
+          "code" : "5880005",
+          "display" : "Physical examination procedure (procedure)"
+        }]
+      }
+    }
+  },
+  {
+    "fullUrl" : "http://example.org/fhir/Observation/tumor-marker-test-er-jenny-m",
+    "resource" : {
+      "resourceType" : "Observation",
+      "id" : "tumor-marker-test-er-jenny-m",
+      "meta" : {
+        "profile" : ["http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tumor-marker-test"]
+      },
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Observation_tumor-marker-test-er-jenny-m\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Observation tumor-marker-test-er-jenny-m</b></p><a name=\"tumor-marker-test-er-jenny-m\"> </a><a name=\"hctumor-marker-test-er-jenny-m\"> </a><a name=\"tumor-marker-test-er-jenny-m-en-US\"> </a><p><b>status</b>: Final</p><p><b>category</b>: <span title=\"Codes:{http://terminology.hl7.org/CodeSystem/observation-category laboratory}\">Laboratory</span></p><p><b>code</b>: <span title=\"Codes:{http://loinc.org 85337-4}\">Estrogen receptor Ag [Presence] in Breast cancer specimen by Immune stain</span></p><p><b>subject</b>: <a href=\"Patient-cancer-patient-jenny-m.html\">Jenny M  Female, DoB: 1965-01-01 ( Medical Record Number: MRN1234\u00a0(use:\u00a0usual,\u00a0))</a></p><p><b>effective</b>: 2018-03-10</p><p><b>performer</b>: <a href=\"Practitioner-us-core-practitioner-owen-oncologist.html\">Practitioner Owen Oncologist </a></p><p><b>value</b>: <span title=\"Codes:{http://loinc.org LA6576-8}\">Positive</span></p></div>"
+      },
+      "status" : "final",
+      "category" : [{
+        "coding" : [{
+          "system" : "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code" : "laboratory"
+        }]
+      }],
+      "code" : {
+        "coding" : [{
+          "system" : "http://loinc.org",
+          "code" : "85337-4",
+          "display" : "Estrogen receptor Ag [Presence] in Breast cancer specimen by Immune stain"
+        }]
+      },
+      "subject" : {
+        "reference" : "Patient/cancer-patient-jenny-m"
+      },
+      "effectiveDateTime" : "2018-03-10",
+      "performer" : [{
+        "reference" : "Practitioner/us-core-practitioner-owen-oncologist"
+      }],
+      "valueCodeableConcept" : {
+        "coding" : [{
+          "system" : "http://loinc.org",
+          "code" : "LA6576-8",
+          "display" : "Positive"
+        }]
+      }
+    }
+  },
+  {
+    "fullUrl" : "http://example.org/fhir/Observation/tumor-marker-test-pr-jenny-m",
+    "resource" : {
+      "resourceType" : "Observation",
+      "id" : "tumor-marker-test-pr-jenny-m",
+      "meta" : {
+        "profile" : ["http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tumor-marker-test"]
+      },
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Observation_tumor-marker-test-pr-jenny-m\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Observation tumor-marker-test-pr-jenny-m</b></p><a name=\"tumor-marker-test-pr-jenny-m\"> </a><a name=\"hctumor-marker-test-pr-jenny-m\"> </a><a name=\"tumor-marker-test-pr-jenny-m-en-US\"> </a><p><b>status</b>: Final</p><p><b>category</b>: <span title=\"Codes:{http://terminology.hl7.org/CodeSystem/observation-category laboratory}\">Laboratory</span></p><p><b>code</b>: <span title=\"Codes:{http://loinc.org 85339-0}\">Progesterone receptor Ag [Presence] in Breast cancer specimen by Immune stain</span></p><p><b>subject</b>: <a href=\"Patient-cancer-patient-jenny-m.html\">Jenny M  Female, DoB: 1965-01-01 ( Medical Record Number: MRN1234\u00a0(use:\u00a0usual,\u00a0))</a></p><p><b>effective</b>: 2018-03-10</p><p><b>performer</b>: <a href=\"Practitioner-us-core-practitioner-owen-oncologist.html\">Practitioner Owen Oncologist </a></p><p><b>value</b>: <span title=\"Codes:{http://loinc.org LA6577-6}\">Negative</span></p></div>"
+      },
+      "status" : "final",
+      "category" : [{
+        "coding" : [{
+          "system" : "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code" : "laboratory"
+        }]
+      }],
+      "code" : {
+        "coding" : [{
+          "system" : "http://loinc.org",
+          "code" : "85339-0",
+          "display" : "Progesterone receptor Ag [Presence] in Breast cancer specimen by Immune stain"
+        }]
+      },
+      "subject" : {
+        "reference" : "Patient/cancer-patient-jenny-m"
+      },
+      "effectiveDateTime" : "2018-03-10",
+      "performer" : [{
+        "reference" : "Practitioner/us-core-practitioner-owen-oncologist"
+      }],
+      "valueCodeableConcept" : {
+        "coding" : [{
+          "system" : "http://loinc.org",
+          "code" : "LA6577-6",
+          "display" : "Negative"
+        }]
+      }
+    }
+  },
+  {
+    "fullUrl" : "http://example.org/fhir/Observation/tumor-marker-test-her2-jenny-m",
+    "resource" : {
+      "resourceType" : "Observation",
+      "id" : "tumor-marker-test-her2-jenny-m",
+      "meta" : {
+        "profile" : ["http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tumor-marker-test"]
+      },
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Observation_tumor-marker-test-her2-jenny-m\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Observation tumor-marker-test-her2-jenny-m</b></p><a name=\"tumor-marker-test-her2-jenny-m\"> </a><a name=\"hctumor-marker-test-her2-jenny-m\"> </a><a name=\"tumor-marker-test-her2-jenny-m-en-US\"> </a><p><b>status</b>: Final</p><p><b>category</b>: <span title=\"Codes:{http://terminology.hl7.org/CodeSystem/observation-category laboratory}\">Laboratory</span></p><p><b>code</b>: <span title=\"Codes:{http://loinc.org 48676-1}\">HER2 [Interpretation] in Tissue</span></p><p><b>subject</b>: <a href=\"Patient-cancer-patient-jenny-m.html\">Jenny M  Female, DoB: 1965-01-01 ( Medical Record Number: MRN1234\u00a0(use:\u00a0usual,\u00a0))</a></p><p><b>effective</b>: 2018-03-10</p><p><b>performer</b>: <a href=\"Practitioner-us-core-practitioner-owen-oncologist.html\">Practitioner Owen Oncologist </a></p><p><b>value</b>: <span title=\"Codes:{http://loinc.org LA6577-6}\">Negative</span></p></div>"
+      },
+      "status" : "final",
+      "category" : [{
+        "coding" : [{
+          "system" : "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code" : "laboratory"
+        }]
+      }],
+      "code" : {
+        "coding" : [{
+          "system" : "http://loinc.org",
+          "code" : "48676-1",
+          "display" : "HER2 [Interpretation] in Tissue"
+        }]
+      },
+      "subject" : {
+        "reference" : "Patient/cancer-patient-jenny-m"
+      },
+      "effectiveDateTime" : "2018-03-10",
+      "performer" : [{
+        "reference" : "Practitioner/us-core-practitioner-owen-oncologist"
+      }],
+      "valueCodeableConcept" : {
+        "coding" : [{
+          "system" : "http://loinc.org",
+          "code" : "LA6577-6",
+          "display" : "Negative"
+        }]
+      }
+    }
+  },
+  {
+    "fullUrl" : "http://example.org/fhir/Observation/tumor-marker-test-oncotype-dx-jenny-m",
+    "resource" : {
+      "resourceType" : "Observation",
+      "id" : "tumor-marker-test-oncotype-dx-jenny-m",
+      "meta" : {
+        "profile" : ["http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tumor-marker-test"]
+      },
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Observation_tumor-marker-test-oncotype-dx-jenny-m\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Observation tumor-marker-test-oncotype-dx-jenny-m</b></p><a name=\"tumor-marker-test-oncotype-dx-jenny-m\"> </a><a name=\"hctumor-marker-test-oncotype-dx-jenny-m\"> </a><a name=\"tumor-marker-test-oncotype-dx-jenny-m-en-US\"> </a><p><b>status</b>: Final</p><p><b>category</b>: <span title=\"Codes:{http://terminology.hl7.org/CodeSystem/observation-category laboratory}\">Laboratory</span></p><p><b>code</b>: <span title=\"Codes:{http://www.ncbi.nlm.nih.gov/gtr 509910}\">Oncotype DX Breast Recurrence Score Assay</span></p><p><b>subject</b>: <a href=\"Patient-cancer-patient-jenny-m.html\">Jenny M  Female, DoB: 1965-01-01 ( Medical Record Number: MRN1234\u00a0(use:\u00a0usual,\u00a0))</a></p><p><b>effective</b>: 2018-04-12</p><p><b>performer</b>: <a href=\"Organization-us-core-organization-bedrock-medicine.html\">Organization Bedrock Medicine</a></p><p><b>value</b>: 47 Recurrence score<span style=\"background: LightGoldenRodYellow\"> (Details: UCUM  code1 = '1')</span></p><p><b>interpretation</b>: <span title=\"Codes:{http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation H}\">High</span></p></div>"
+      },
+      "status" : "final",
+      "category" : [{
+        "coding" : [{
+          "system" : "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code" : "laboratory"
+        }]
+      }],
+      "code" : {
+        "coding" : [{
+          "system" : "http://www.ncbi.nlm.nih.gov/gtr",
+          "code" : "509910",
+          "display" : "Oncotype DX Breast Recurrence Score Assay"
+        }],
+        "text" : "Oncotype DX Breast Recurrence Score Assay"
+      },
+      "subject" : {
+        "reference" : "Patient/cancer-patient-jenny-m"
+      },
+      "effectiveDateTime" : "2018-04-12",
+      "performer" : [{
+        "reference" : "Organization/us-core-organization-bedrock-medicine"
+      }],
+      "valueQuantity" : {
+        "value" : 47,
+        "unit" : "Recurrence score",
+        "system" : "http://unitsofmeasure.org",
+        "code" : "1"
+      },
+      "interpretation" : [{
+        "coding" : [{
+          "system" : "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+          "code" : "H",
+          "display" : "High"
+        }]
+      }]
+    }
+  },
+  {
+    "fullUrl" : "http://example.org/fhir/Observation/tumor-size-jenny-m",
+    "resource" : {
+      "resourceType" : "Observation",
+      "id" : "tumor-size-jenny-m",
+      "meta" : {
+        "profile" : ["http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-tumor-size"]
+      },
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Observation_tumor-size-jenny-m\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Observation tumor-size-jenny-m</b></p><a name=\"tumor-size-jenny-m\"> </a><a name=\"hctumor-size-jenny-m\"> </a><a name=\"tumor-size-jenny-m-en-US\"> </a><p><b>status</b>: Final</p><p><b>category</b>: <span title=\"Codes:{http://terminology.hl7.org/CodeSystem/observation-category laboratory}\">Laboratory</span></p><p><b>code</b>: <span title=\"Codes:{http://loinc.org 21889-1}\">Size Tumor</span></p><p><b>subject</b>: <a href=\"Patient-cancer-patient-jenny-m.html\">Jenny M  Female, DoB: 1965-01-01 ( Medical Record Number: MRN1234\u00a0(use:\u00a0usual,\u00a0))</a></p><p><b>effective</b>: 2018-04-01 00:00:00+0000</p><p><b>performer</b>: <a href=\"Practitioner-us-core-practitioner-owen-oncologist.html\">Practitioner Owen Oncologist </a></p><p><b>method</b>: <span title=\"Codes:{http://snomed.info/sct 787377000}\">Gross examination and sampling of tissue specimen (procedure)</span></p><p><b>specimen</b>: <a href=\"Specimen-tumor-specimen-left-breast-jenny-m.html\">Specimen: identifier = BodyStructure\u00a0(use:\u00a0usual,\u00a0); status = available; type = Tumor; receivedTime = 2018-04-01</a></p><h3>Components</h3><table class=\"grid\"><tr><td style=\"display: none\">-</td><td><b>Code</b></td><td><b>Value[x]</b></td></tr><tr><td style=\"display: none\">*</td><td><span title=\"Codes:{http://loinc.org 33728-7}\">Size.maximum dimension in Tumor</span></td><td>2.5 centimeters<span style=\"background: LightGoldenRodYellow\"> (Details: UCUM  codecm = 'cm')</span></td></tr></table></div>"
+      },
+      "status" : "final",
+      "category" : [{
+        "coding" : [{
+          "system" : "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code" : "laboratory"
+        }]
+      }],
+      "code" : {
+        "coding" : [{
+          "system" : "http://loinc.org",
+          "code" : "21889-1",
+          "display" : "Size Tumor"
+        }]
+      },
+      "subject" : {
+        "reference" : "Patient/cancer-patient-jenny-m"
+      },
+      "effectiveDateTime" : "2018-04-01T00:00:00Z",
+      "performer" : [{
+        "reference" : "Practitioner/us-core-practitioner-owen-oncologist"
+      }],
+      "method" : {
+        "coding" : [{
+          "system" : "http://snomed.info/sct",
+          "code" : "787377000",
+          "display" : "Gross examination and sampling of tissue specimen (procedure)"
+        }]
+      },
+      "specimen" : {
+        "reference" : "Specimen/tumor-specimen-left-breast-jenny-m"
+      },
+      "component" : [{
+        "code" : {
+          "coding" : [{
+            "system" : "http://loinc.org",
+            "code" : "33728-7"
+          }]
+        },
+        "valueQuantity" : {
+          "value" : 2.5,
+          "unit" : "centimeters",
+          "system" : "http://unitsofmeasure.org",
+          "code" : "cm"
+        }
+      }]
+    }
+  },
+  {
+    "fullUrl" : "http://example.org/fhir/Procedure/us-core-procedure-biopsy-jenny-m",
+    "resource" : {
+      "resourceType" : "Procedure",
+      "id" : "us-core-procedure-biopsy-jenny-m",
+      "meta" : {
+        "profile" : ["http://hl7.org/fhir/us/core/StructureDefinition/us-core-procedure"]
+      },
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Procedure_us-core-procedure-biopsy-jenny-m\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Procedure us-core-procedure-biopsy-jenny-m</b></p><a name=\"us-core-procedure-biopsy-jenny-m\"> </a><a name=\"hcus-core-procedure-biopsy-jenny-m\"> </a><a name=\"us-core-procedure-biopsy-jenny-m-en-US\"> </a><p><b>status</b>: Completed</p><p><b>code</b>: <span title=\"Codes:{http://snomed.info/sct 723990008}\">Biopsy of breast using ultrasonographic guidance (procedure)</span></p><p><b>subject</b>: <a href=\"Patient-cancer-patient-jenny-m.html\">Jenny M  Female, DoB: 1965-01-01 ( Medical Record Number: MRN1234\u00a0(use:\u00a0usual,\u00a0))</a></p><p><b>performed</b>: 2018-03-06</p><p><b>asserter</b>: <a href=\"Practitioner-us-core-practitioner-mary-obgyn.html\">Practitioner Mary Obgyn </a></p><h3>Performers</h3><table class=\"grid\"><tr><td style=\"display: none\">-</td><td><b>Actor</b></td></tr><tr><td style=\"display: none\">*</td><td><a href=\"Practitioner-us-core-practitioner-mary-obgyn.html\">Practitioner Mary Obgyn </a></td></tr></table><p><b>reasonReference</b>: <a href=\"Condition-primary-cancer-condition-jenny-m.html\">Condition Primary malignant neoplasm of female left breast (disorder)</a></p><p><b>bodySite</b>: <span title=\"Codes:{http://snomed.info/sct 80248007}\">Left breast structure (body structure)</span></p></div>"
+      },
+      "status" : "completed",
+      "code" : {
+        "coding" : [{
+          "system" : "http://snomed.info/sct",
+          "code" : "723990008",
+          "display" : "Biopsy of breast using ultrasonographic guidance (procedure)"
+        }]
+      },
+      "subject" : {
+        "reference" : "Patient/cancer-patient-jenny-m"
+      },
+      "performedDateTime" : "2018-03-06",
+      "asserter" : {
+        "reference" : "Practitioner/us-core-practitioner-mary-obgyn"
+      },
+      "performer" : [{
+        "actor" : {
+          "reference" : "Practitioner/us-core-practitioner-mary-obgyn"
+        }
+      }],
+      "reasonReference" : [{
+        "reference" : "Condition/primary-cancer-condition-jenny-m"
+      }],
+      "bodySite" : [{
+        "coding" : [{
+          "system" : "http://snomed.info/sct",
+          "code" : "80248007",
+          "display" : "Left breast structure (body structure)"
+        }]
+      }]
+    }
+  },
+  {
+    "fullUrl" : "http://example.org/fhir/Observation/bodyweight-jenny-m-2018-03-16",
+    "resource" : {
+      "resourceType" : "Observation",
+      "id" : "bodyweight-jenny-m-2018-03-16",
+      "meta" : {
+        "profile" : ["http://hl7.org/fhir/StructureDefinition/bodyweight"]
+      },
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Observation_bodyweight-jenny-m-2018-03-16\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Observation bodyweight-jenny-m-2018-03-16</b></p><a name=\"bodyweight-jenny-m-2018-03-16\"> </a><a name=\"hcbodyweight-jenny-m-2018-03-16\"> </a><a name=\"bodyweight-jenny-m-2018-03-16-en-US\"> </a><p><b>status</b>: Final</p><p><b>category</b>: <span title=\"Codes:{http://terminology.hl7.org/CodeSystem/observation-category vital-signs}\">Vital Signs</span></p><p><b>code</b>: <span title=\"Codes:{http://loinc.org 29463-7}\">Body weight</span></p><p><b>subject</b>: <a href=\"Patient-cancer-patient-jenny-m.html\">Jenny M  Female, DoB: 1965-01-01 ( Medical Record Number: MRN1234\u00a0(use:\u00a0usual,\u00a0))</a></p><p><b>effective</b>: 2018-03-06</p><p><b>performer</b>: <a href=\"Practitioner-us-core-practitioner-owen-oncologist.html\">Practitioner Owen Oncologist </a></p><p><b>value</b>: 155 lb<span style=\"background: LightGoldenRodYellow\"> (Details: UCUM  code[lb_av] = '[lb_av]')</span></p></div>"
+      },
+      "status" : "final",
+      "category" : [{
+        "coding" : [{
+          "system" : "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code" : "vital-signs"
+        }]
+      }],
+      "code" : {
+        "coding" : [{
+          "system" : "http://loinc.org",
+          "code" : "29463-7"
+        }]
+      },
+      "subject" : {
+        "reference" : "Patient/cancer-patient-jenny-m"
+      },
+      "effectiveDateTime" : "2018-03-06",
+      "performer" : [{
+        "reference" : "Practitioner/us-core-practitioner-owen-oncologist"
+      }],
+      "valueQuantity" : {
+        "value" : 155,
+        "unit" : "lb",
+        "system" : "http://unitsofmeasure.org",
+        "code" : "[lb_av]"
+      }
+    }
+  },
+  {
+    "fullUrl" : "http://example.org/fhir/Observation/us-core-observation-lab-neutrophils-jenny-m",
+    "resource" : {
+      "resourceType" : "Observation",
+      "id" : "us-core-observation-lab-neutrophils-jenny-m",
+      "meta" : {
+        "profile" : ["http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab"]
+      },
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Observation_us-core-observation-lab-neutrophils-jenny-m\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Observation us-core-observation-lab-neutrophils-jenny-m</b></p><a name=\"us-core-observation-lab-neutrophils-jenny-m\"> </a><a name=\"hcus-core-observation-lab-neutrophils-jenny-m\"> </a><a name=\"us-core-observation-lab-neutrophils-jenny-m-en-US\"> </a><p><b>status</b>: Final</p><p><b>category</b>: <span title=\"Codes:{http://terminology.hl7.org/CodeSystem/observation-category laboratory}\">Laboratory</span></p><p><b>code</b>: <span title=\"Codes:{http://loinc.org 26499-4}\">Neutrophils [#/volume] in Blood</span></p><p><b>subject</b>: <a href=\"Patient-cancer-patient-jenny-m.html\">Jenny M  Female, DoB: 1965-01-01 ( Medical Record Number: MRN1234\u00a0(use:\u00a0usual,\u00a0))</a></p><p><b>effective</b>: 2018-05-20 00:00:00+0000</p><p><b>performer</b>: <a href=\"Practitioner-us-core-practitioner-owen-oncologist.html\">Practitioner Owen Oncologist </a></p><p><b>value</b>: 3000 10*3/uL<span style=\"background: LightGoldenRodYellow\"> (Details: UCUM  code10*3/uL = '10*3/uL')</span></p><h3>ReferenceRanges</h3><table class=\"grid\"><tr><td style=\"display: none\">-</td><td><b>Low</b></td><td><b>High</b></td><td><b>Type</b></td></tr><tr><td style=\"display: none\">*</td><td>2500 10*3/uL<span style=\"background: LightGoldenRodYellow\"> (Details: UCUM  code10*3/uL = '10*3/uL')</span></td><td>5000 10*3/uL<span style=\"background: LightGoldenRodYellow\"> (Details: UCUM  code10*3/uL = '10*3/uL')</span></td><td><span title=\"Codes:{http://terminology.hl7.org/CodeSystem/referencerange-meaning normal}\">Normal Range</span></td></tr></table></div>"
+      },
+      "status" : "final",
+      "category" : [{
+        "coding" : [{
+          "system" : "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code" : "laboratory"
+        }]
+      }],
+      "code" : {
+        "coding" : [{
+          "system" : "http://loinc.org",
+          "code" : "26499-4",
+          "display" : "Neutrophils [#/volume] in Blood"
+        }]
+      },
+      "subject" : {
+        "reference" : "Patient/cancer-patient-jenny-m"
+      },
+      "effectiveDateTime" : "2018-05-20T00:00:00Z",
+      "performer" : [{
+        "reference" : "Practitioner/us-core-practitioner-owen-oncologist"
+      }],
+      "valueQuantity" : {
+        "value" : 3000,
+        "unit" : "10*3/uL",
+        "system" : "http://unitsofmeasure.org",
+        "code" : "10*3/uL"
+      },
+      "referenceRange" : [{
+        "low" : {
+          "value" : 2500,
+          "unit" : "10*3/uL",
+          "system" : "http://unitsofmeasure.org",
+          "code" : "10*3/uL"
+        },
+        "high" : {
+          "value" : 5000,
+          "unit" : "10*3/uL",
+          "system" : "http://unitsofmeasure.org",
+          "code" : "10*3/uL"
+        },
+        "type" : {
+          "coding" : [{
+            "system" : "http://terminology.hl7.org/CodeSystem/referencerange-meaning",
+            "code" : "normal",
+            "display" : "Normal Range"
+          }]
+        }
+      }]
+    }
+  },
+  {
+    "fullUrl" : "http://example.org/fhir/Organization/us-core-organization-physician-services-inc",
+    "resource" : {
+      "resourceType" : "Organization",
+      "id" : "us-core-organization-physician-services-inc",
+      "meta" : {
+        "profile" : ["http://hl7.org/fhir/us/core/StructureDefinition/us-core-organization"]
+      },
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Organization_us-core-organization-physician-services-inc\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Organization us-core-organization-physician-services-inc</b></p><a name=\"us-core-organization-physician-services-inc\"> </a><a name=\"hcus-core-organization-physician-services-inc\"> </a><a name=\"us-core-organization-physician-services-inc-en-US\"> </a><p><b>active</b>: true</p><p><b>type</b>: <span title=\"Codes:{http://terminology.hl7.org/CodeSystem/organization-type prov}\">Healthcare Provider</span></p><p><b>name</b>: Physician Services, Inc.</p><p><b>telecom</b>: ph: 999-999-9999(Work)</p><p><b>address</b>: 123 Corporate Drive Anytown MA 12345 US </p></div>"
+      },
+      "active" : true,
+      "type" : [{
+        "coding" : [{
+          "system" : "http://terminology.hl7.org/CodeSystem/organization-type",
+          "code" : "prov",
+          "display" : "Healthcare Provider"
+        }]
+      }],
+      "name" : "Physician Services, Inc.",
+      "telecom" : [{
+        "system" : "phone",
+        "value" : "999-999-9999",
+        "use" : "work"
+      }],
+      "address" : [{
+        "line" : ["123 Corporate Drive"],
+        "city" : "Anytown",
+        "state" : "MA",
+        "postalCode" : "12345",
+        "country" : "US"
+      }]
+    }
+  },
+  {
+    "fullUrl" : "http://example.org/fhir/Observation/us-core-smokingstatus-jenny-m",
+    "resource" : {
+      "resourceType" : "Observation",
+      "id" : "us-core-smokingstatus-jenny-m",
+      "meta" : {
+        "profile" : ["http://hl7.org/fhir/us/core/StructureDefinition/us-core-smokingstatus"]
+      },
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Observation_us-core-smokingstatus-jenny-m\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Observation us-core-smokingstatus-jenny-m</b></p><a name=\"us-core-smokingstatus-jenny-m\"> </a><a name=\"hcus-core-smokingstatus-jenny-m\"> </a><a name=\"us-core-smokingstatus-jenny-m-en-US\"> </a><p><b>status</b>: Final</p><p><b>category</b>: <span title=\"Codes:{http://terminology.hl7.org/CodeSystem/observation-category social-history}\">Social History</span></p><p><b>code</b>: <span title=\"Codes:{http://loinc.org 72166-2}\">Tobacco smoking status</span></p><p><b>subject</b>: <a href=\"Patient-cancer-patient-jenny-m.html\">Jenny M  Female, DoB: 1965-01-01 ( Medical Record Number: MRN1234\u00a0(use:\u00a0usual,\u00a0))</a></p><p><b>effective</b>: 2018-03-16</p><p><b>issued</b>: 2018-03-16 00:00:00+0000</p><p><b>performer</b>: <a href=\"Practitioner-us-core-practitioner-owen-oncologist.html\">Practitioner Owen Oncologist </a></p><p><b>value</b>: <span title=\"Codes:{http://snomed.info/sct 449868002}\">Smokes tobacco daily (finding)</span></p></div>"
+      },
+      "status" : "final",
+      "category" : [{
+        "coding" : [{
+          "system" : "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code" : "social-history"
+        }]
+      }],
+      "code" : {
+        "coding" : [{
+          "system" : "http://loinc.org",
+          "code" : "72166-2",
+          "display" : "Tobacco smoking status"
+        }]
+      },
+      "subject" : {
+        "reference" : "Patient/cancer-patient-jenny-m"
+      },
+      "effectiveDateTime" : "2018-03-16",
+      "issued" : "2018-03-16T00:00:00Z",
+      "performer" : [{
+        "reference" : "Practitioner/us-core-practitioner-owen-oncologist"
+      }],
+      "valueCodeableConcept" : {
+        "coding" : [{
+          "system" : "http://snomed.info/sct",
+          "code" : "449868002",
+          "display" : "Smokes tobacco daily (finding)"
+        }]
+      }
+    }
+  },
+  {
+    "fullUrl" : "http://example.org/fhir/Procedure/us-core-procedure-mammogram-jenny-m",
+    "resource" : {
+      "resourceType" : "Procedure",
+      "id" : "us-core-procedure-mammogram-jenny-m",
+      "meta" : {
+        "profile" : ["http://hl7.org/fhir/us/core/StructureDefinition/us-core-procedure"]
+      },
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Procedure_us-core-procedure-mammogram-jenny-m\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Procedure us-core-procedure-mammogram-jenny-m</b></p><a name=\"us-core-procedure-mammogram-jenny-m\"> </a><a name=\"hcus-core-procedure-mammogram-jenny-m\"> </a><a name=\"us-core-procedure-mammogram-jenny-m-en-US\"> </a><p><b>status</b>: Completed</p><p><b>code</b>: <span title=\"Codes:{http://snomed.info/sct 71651007}\">Mammography (procedure)</span></p><p><b>subject</b>: <a href=\"Patient-cancer-patient-jenny-m.html\">Jenny M  Female, DoB: 1965-01-01 ( Medical Record Number: MRN1234\u00a0(use:\u00a0usual,\u00a0))</a></p><p><b>performed</b>: 2018-02-01</p><p><b>asserter</b>: <a href=\"Practitioner-us-core-practitioner-mary-obgyn.html\">Practitioner Mary Obgyn </a></p><h3>Performers</h3><table class=\"grid\"><tr><td style=\"display: none\">-</td><td><b>Actor</b></td></tr><tr><td style=\"display: none\">*</td><td><a href=\"Practitioner-us-core-practitioner-jane-radiotech.html\">Practitioner Jane Radiologist </a></td></tr></table><p><b>reasonCode</b>: <span title=\"Codes:{http://snomed.info/sct 360156006}\">Screening - procedure intent (qualifier value)</span></p></div>"
+      },
+      "status" : "completed",
+      "code" : {
+        "coding" : [{
+          "system" : "http://snomed.info/sct",
+          "code" : "71651007",
+          "display" : "Mammography (procedure)"
+        }]
+      },
+      "subject" : {
+        "reference" : "Patient/cancer-patient-jenny-m"
+      },
+      "performedDateTime" : "2018-02-01",
+      "asserter" : {
+        "reference" : "Practitioner/us-core-practitioner-mary-obgyn"
+      },
+      "performer" : [{
+        "actor" : {
+          "reference" : "Practitioner/us-core-practitioner-jane-radiotech"
+        }
+      }],
+      "reasonCode" : [{
+        "coding" : [{
+          "system" : "http://snomed.info/sct",
+          "code" : "360156006",
+          "display" : "Screening - procedure intent (qualifier value)"
+        }]
+      }]
+    }
+  },
+  {
+    "fullUrl" : "http://example.org/fhir/FamilyMemberHistory/family-member-history-aunt-jenny-m",
+    "resource" : {
+      "resourceType" : "FamilyMemberHistory",
+      "id" : "family-member-history-aunt-jenny-m",
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"FamilyMemberHistory_family-member-history-aunt-jenny-m\"> </a><p class=\"res-header-id\"><b>Generated Narrative: FamilyMemberHistory family-member-history-aunt-jenny-m</b></p><a name=\"family-member-history-aunt-jenny-m\"> </a><a name=\"hcfamily-member-history-aunt-jenny-m\"> </a><a name=\"family-member-history-aunt-jenny-m-en-US\"> </a><p><b>status</b>: Completed</p><p><b>patient</b>: <a href=\"Patient-cancer-patient-jenny-m.html\">Jenny M  Female, DoB: 1965-01-01 ( Medical Record Number: MRN1234\u00a0(use:\u00a0usual,\u00a0))</a></p><p><b>relationship</b>: <span title=\"Codes:{http://terminology.hl7.org/CodeSystem/v3-RoleCode MAUNT}\">maternal aunt</span></p><h3>Conditions</h3><table class=\"grid\"><tr><td style=\"display: none\">-</td><td><b>Code</b></td><td><b>Onset[x]</b></td></tr><tr><td style=\"display: none\">*</td><td><span title=\"Codes:{http://snomed.info/sct 363443007}\">Malignant tumor of ovary (disorder)</span></td><td>69 a<span style=\"background: LightGoldenRodYellow\"> (Details: UCUM  codea = 'a')</span></td></tr></table></div>"
+      },
+      "status" : "completed",
+      "patient" : {
+        "reference" : "Patient/cancer-patient-jenny-m"
+      },
+      "relationship" : {
+        "coding" : [{
+          "system" : "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+          "code" : "MAUNT",
+          "display" : "maternal aunt"
+        }]
+      },
+      "condition" : [{
+        "code" : {
+          "coding" : [{
+            "system" : "http://snomed.info/sct",
+            "code" : "363443007",
+            "display" : "Malignant tumor of ovary (disorder)"
+          }]
+        },
+        "onsetAge" : {
+          "value" : 69,
+          "system" : "http://unitsofmeasure.org",
+          "code" : "a"
+        }
+      }]
+    }
+  },
+  {
+    "fullUrl" : "http://example.org/fhir/FamilyMemberHistory/family-member-history-uncle-jenny-m",
+    "resource" : {
+      "resourceType" : "FamilyMemberHistory",
+      "id" : "family-member-history-uncle-jenny-m",
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"FamilyMemberHistory_family-member-history-uncle-jenny-m\"> </a><p class=\"res-header-id\"><b>Generated Narrative: FamilyMemberHistory family-member-history-uncle-jenny-m</b></p><a name=\"family-member-history-uncle-jenny-m\"> </a><a name=\"hcfamily-member-history-uncle-jenny-m\"> </a><a name=\"family-member-history-uncle-jenny-m-en-US\"> </a><p><b>status</b>: Completed</p><p><b>patient</b>: <a href=\"Patient-cancer-patient-jenny-m.html\">Jenny M  Female, DoB: 1965-01-01 ( Medical Record Number: MRN1234\u00a0(use:\u00a0usual,\u00a0))</a></p><p><b>relationship</b>: <span title=\"Codes:{http://terminology.hl7.org/CodeSystem/v3-RoleCode PUNCLE}\">paternal uncle</span></p><p><b>deceased</b>: true</p><h3>Conditions</h3><table class=\"grid\"><tr><td style=\"display: none\">-</td><td><b>Code</b></td><td><b>ContributedToDeath</b></td></tr><tr><td style=\"display: none\">*</td><td><span title=\"Codes:{http://snomed.info/sct 363418001}\">Malignant tumor of pancreas (disorder)</span></td><td>true</td></tr></table></div>"
+      },
+      "status" : "completed",
+      "patient" : {
+        "reference" : "Patient/cancer-patient-jenny-m"
+      },
+      "relationship" : {
+        "coding" : [{
+          "system" : "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+          "code" : "PUNCLE",
+          "display" : "paternal uncle"
+        }]
+      },
+      "deceasedBoolean" : true,
+      "condition" : [{
+        "code" : {
+          "coding" : [{
+            "system" : "http://snomed.info/sct",
+            "code" : "363418001",
+            "display" : "Malignant tumor of pancreas (disorder)"
+          }]
+        },
+        "contributedToDeath" : true
+      }]
+    }
+  },
+  {
+    "fullUrl" : "http://example.org/fhir/DiagnosticReport/us-core-diagnosticreport-lab-jenny-m",
+    "resource" : {
+      "resourceType" : "DiagnosticReport",
+      "id" : "us-core-diagnosticreport-lab-jenny-m",
+      "meta" : {
+        "profile" : ["http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-lab"]
+      },
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"DiagnosticReport_us-core-diagnosticreport-lab-jenny-m\"> </a><p class=\"res-header-id\"><b>Generated Narrative: DiagnosticReport us-core-diagnosticreport-lab-jenny-m</b></p><a name=\"us-core-diagnosticreport-lab-jenny-m\"> </a><a name=\"hcus-core-diagnosticreport-lab-jenny-m\"> </a><a name=\"us-core-diagnosticreport-lab-jenny-m-en-US\"> </a><h2><span title=\"Codes:{http://loinc.org 22637-3}\">Pathology report final diagnosis Narrative</span> (<span title=\"Codes:{http://terminology.hl7.org/CodeSystem/v2-0074 LAB}\">Laboratory</span>) </h2><table class=\"grid\"><tr><td>Subject</td><td>Jenny M  Female, DoB: 1965-01-01 ( Medical Record Number: MRN1234\u00a0(use:\u00a0usual,\u00a0))</td></tr><tr><td>When For</td><td>2018-04-01 00:00:00+0000</td></tr><tr><td>Reported</td><td>2018-04-05 00:00:00+0000</td></tr><tr><td>Performer</td><td> <a href=\"Practitioner-us-core-practitioner-owen-oncologist.html\">Practitioner Owen Oncologist </a></td></tr></table><p><b>Report Details</b></p><table class=\"grid\"><tr><td><b>Code</b></td><td><b>Value</b></td><td><b>Flags</b></td><td><b>When For</b></td></tr><tr><td><a href=\"Observation-us-core-observation-lab-tumor-invasion-jenny-m.html\"><span title=\"Codes:{http://snomed.info/sct 370052007}\">Status of invasion by tumor</span></a></td><td><span title=\"Codes:{http://snomed.info/sct 260385009}\">Negative (qualifier value)</span></td><td>Final</td><td/></tr><tr><td><a href=\"Observation-us-core-observation-lab-tumor-margins-jenny-m.html\"><span title=\"Codes:{http://loinc.org 44669-0}\">Margin involvement in Breast tumor</span></a></td><td><span title=\"Codes:{http://loinc.org LA27151-2}\">Uninvolved by invasive carcinoma</span></td><td>Final</td><td/></tr><tr><td><a href=\"Observation-us-core-observation-lab-sentinel-nodes-jenny-m.html\"><span title=\"Codes:{http://loinc.org 92832-5}\">Sentinel lymph nodes with metastasis [#] in Cancer specimen</span></a></td><td/><td>Final</td><td/></tr><tr><td><a href=\"Observation-tumor-size-jenny-m.html\"><span title=\"Codes:{http://loinc.org 21889-1}\">Size Tumor</span></a></td><td/><td>Final</td><td/></tr><tr><td><a href=\"Observation-us-core-observation-lab-tumor-dcis-jenny-m.html\"><span title=\"Codes:{http://loinc.org 85336-6}\">DCIS intraductal extension in Breast cancer specimen Qualitative by Light microscopy</span></a></td><td><span title=\"Codes:{http://loinc.org LA27261-9}\">DCIS present with extensive intraductal component (EIC)</span></td><td>Final</td><td/></tr><tr><td><a href=\"Observation-tumor-marker-test-her2-jenny-m.html\"><span title=\"Codes:{http://loinc.org 48676-1}\">HER2 [Interpretation] in Tissue</span></a></td><td><span title=\"Codes:{http://loinc.org LA6577-6}\">Negative</span></td><td>Final</td><td>2018-03-10</td></tr><tr><td><a href=\"Observation-tumor-marker-test-er-jenny-m.html\"><span title=\"Codes:{http://loinc.org 85337-4}\">Estrogen receptor Ag [Presence] in Breast cancer specimen by Immune stain</span></a></td><td><span title=\"Codes:{http://loinc.org LA6576-8}\">Positive</span></td><td>Final</td><td>2018-03-10</td></tr><tr><td><a href=\"Observation-tumor-marker-test-pr-jenny-m.html\"><span title=\"Codes:{http://loinc.org 85339-0}\">Progesterone receptor Ag [Presence] in Breast cancer specimen by Immune stain</span></a></td><td><span title=\"Codes:{http://loinc.org LA6577-6}\">Negative</span></td><td>Final</td><td>2018-03-10</td></tr><tr><td><a href=\"Observation-us-core-observation-lab-tumor-grade-jenny-m.html\"><span title=\"Codes:{http://loinc.org 44648-4}\">Histologic grade [Score] in Breast cancer specimen by Nottingham</span></a></td><td><span title=\"Codes:{http://loinc.org LA27824-4}\">Nottingham grade 2</span></td><td>Final</td><td/></tr></table></div>"
+      },
+      "status" : "final",
+      "category" : [{
+        "coding" : [{
+          "system" : "http://terminology.hl7.org/CodeSystem/v2-0074",
+          "code" : "LAB"
+        }]
+      }],
+      "code" : {
+        "coding" : [{
+          "system" : "http://loinc.org",
+          "code" : "22637-3",
+          "display" : "Pathology report final diagnosis Narrative"
+        }]
+      },
+      "subject" : {
+        "reference" : "Patient/cancer-patient-jenny-m"
+      },
+      "effectiveDateTime" : "2018-04-01T00:00:00Z",
+      "issued" : "2018-04-05T00:00:00Z",
+      "performer" : [{
+        "reference" : "Practitioner/us-core-practitioner-owen-oncologist"
+      }],
+      "resultsInterpreter" : [{
+        "reference" : "Practitioner/us-core-practitioner-peter-pathologist"
+      }],
+      "specimen" : [{
+        "reference" : "Specimen/tumor-specimen-left-breast-jenny-m"
+      }],
+      "result" : [{
+        "reference" : "Observation/us-core-observation-lab-tumor-invasion-jenny-m"
+      },
+      {
+        "reference" : "Observation/us-core-observation-lab-tumor-margins-jenny-m"
+      },
+      {
+        "reference" : "Observation/us-core-observation-lab-sentinel-nodes-jenny-m"
+      },
+      {
+        "reference" : "Observation/tumor-size-jenny-m"
+      },
+      {
+        "reference" : "Observation/us-core-observation-lab-tumor-dcis-jenny-m"
+      },
+      {
+        "reference" : "Observation/tumor-marker-test-her2-jenny-m"
+      },
+      {
+        "reference" : "Observation/tumor-marker-test-er-jenny-m"
+      },
+      {
+        "reference" : "Observation/tumor-marker-test-pr-jenny-m"
+      },
+      {
+        "reference" : "Observation/us-core-observation-lab-tumor-grade-jenny-m"
+      }]
+    }
+  },
+  {
+    "fullUrl" : "http://example.org/fhir/Observation/observation-smoking-pack-years-jenny-m",
+    "resource" : {
+      "resourceType" : "Observation",
+      "id" : "observation-smoking-pack-years-jenny-m",
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Observation_observation-smoking-pack-years-jenny-m\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Observation observation-smoking-pack-years-jenny-m</b></p><a name=\"observation-smoking-pack-years-jenny-m\"> </a><a name=\"hcobservation-smoking-pack-years-jenny-m\"> </a><a name=\"observation-smoking-pack-years-jenny-m-en-US\"> </a><p><b>status</b>: Final</p><p><b>category</b>: <span title=\"Codes:{http://terminology.hl7.org/CodeSystem/observation-category social-history}\">Social History</span></p><p><b>code</b>: <span title=\"Codes:{http://snomed.info/sct 401201003}\">Cigarette pack-years (observable entity)</span></p><p><b>subject</b>: <a href=\"Patient-cancer-patient-jenny-m.html\">Jenny M  Female, DoB: 1965-01-01 ( Medical Record Number: MRN1234\u00a0(use:\u00a0usual,\u00a0))</a></p><p><b>effective</b>: 2018-03-16</p><p><b>performer</b>: <a href=\"Practitioner-us-core-practitioner-owen-oncologist.html\">Practitioner Owen Oncologist </a></p><p><b>value</b>: 20 Pack-Years<span style=\"background: LightGoldenRodYellow\"> (Details: UCUM  code1 = '1')</span></p></div>"
+      },
+      "status" : "final",
+      "category" : [{
+        "coding" : [{
+          "system" : "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code" : "social-history",
+          "display" : "Social History"
+        }]
+      }],
+      "code" : {
+        "coding" : [{
+          "system" : "http://snomed.info/sct",
+          "code" : "401201003",
+          "display" : "Cigarette pack-years (observable entity)"
+        }]
+      },
+      "subject" : {
+        "reference" : "Patient/cancer-patient-jenny-m"
+      },
+      "effectiveDateTime" : "2018-03-16",
+      "performer" : [{
+        "reference" : "Practitioner/us-core-practitioner-owen-oncologist"
+      }],
+      "valueQuantity" : {
+        "value" : 20,
+        "unit" : "Pack-Years",
+        "system" : "http://unitsofmeasure.org",
+        "code" : "1"
+      }
+    }
+  },
+  {
+    "fullUrl" : "http://example.org/fhir/Observation/us-core-observation-lab-tumor-invasion-jenny-m",
+    "resource" : {
+      "resourceType" : "Observation",
+      "id" : "us-core-observation-lab-tumor-invasion-jenny-m",
+      "meta" : {
+        "profile" : ["http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab"]
+      },
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Observation_us-core-observation-lab-tumor-invasion-jenny-m\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Observation us-core-observation-lab-tumor-invasion-jenny-m</b></p><a name=\"us-core-observation-lab-tumor-invasion-jenny-m\"> </a><a name=\"hcus-core-observation-lab-tumor-invasion-jenny-m\"> </a><a name=\"us-core-observation-lab-tumor-invasion-jenny-m-en-US\"> </a><p><b>status</b>: Final</p><p><b>category</b>: <span title=\"Codes:{http://terminology.hl7.org/CodeSystem/observation-category laboratory}\">Laboratory</span></p><p><b>code</b>: <span title=\"Codes:{http://snomed.info/sct 370052007}\">Status of invasion by tumor</span></p><p><b>subject</b>: <a href=\"Patient-cancer-patient-jenny-m.html\">Jenny M  Female, DoB: 1965-01-01 ( Medical Record Number: MRN1234\u00a0(use:\u00a0usual,\u00a0))</a></p><p><b>effective</b>: 2018-04-01 00:00:00+0000</p><p><b>performer</b>: <a href=\"Practitioner-us-core-practitioner-owen-oncologist.html\">Practitioner Owen Oncologist </a></p><p><b>value</b>: <span title=\"Codes:{http://snomed.info/sct 260385009}\">Negative (qualifier value)</span></p><p><b>specimen</b>: <a href=\"Specimen-tumor-specimen-left-breast-jenny-m.html\">Specimen: identifier = BodyStructure\u00a0(use:\u00a0usual,\u00a0); status = available; type = Tumor; receivedTime = 2018-04-01</a></p></div>"
+      },
+      "status" : "final",
+      "category" : [{
+        "coding" : [{
+          "system" : "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code" : "laboratory"
+        }]
+      }],
+      "code" : {
+        "coding" : [{
+          "system" : "http://snomed.info/sct",
+          "code" : "370052007",
+          "display" : "Status of invasion by tumor"
+        }]
+      },
+      "subject" : {
+        "reference" : "Patient/cancer-patient-jenny-m"
+      },
+      "effectiveDateTime" : "2018-04-01T00:00:00Z",
+      "performer" : [{
+        "reference" : "Practitioner/us-core-practitioner-owen-oncologist"
+      }],
+      "valueCodeableConcept" : {
+        "coding" : [{
+          "system" : "http://snomed.info/sct",
+          "code" : "260385009",
+          "display" : "Negative (qualifier value)"
+        }]
+      },
+      "specimen" : {
+        "reference" : "Specimen/tumor-specimen-left-breast-jenny-m"
+      }
+    }
+  },
+  {
+    "fullUrl" : "http://example.org/fhir/Observation/us-core-observation-lab-tumor-margins-jenny-m",
+    "resource" : {
+      "resourceType" : "Observation",
+      "id" : "us-core-observation-lab-tumor-margins-jenny-m",
+      "meta" : {
+        "profile" : ["http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab"]
+      },
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Observation_us-core-observation-lab-tumor-margins-jenny-m\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Observation us-core-observation-lab-tumor-margins-jenny-m</b></p><a name=\"us-core-observation-lab-tumor-margins-jenny-m\"> </a><a name=\"hcus-core-observation-lab-tumor-margins-jenny-m\"> </a><a name=\"us-core-observation-lab-tumor-margins-jenny-m-en-US\"> </a><p><b>status</b>: Final</p><p><b>category</b>: <span title=\"Codes:{http://terminology.hl7.org/CodeSystem/observation-category laboratory}\">Laboratory</span></p><p><b>code</b>: <span title=\"Codes:{http://loinc.org 44669-0}\">Margin involvement in Breast tumor</span></p><p><b>subject</b>: <a href=\"Patient-cancer-patient-jenny-m.html\">Jenny M  Female, DoB: 1965-01-01 ( Medical Record Number: MRN1234\u00a0(use:\u00a0usual,\u00a0))</a></p><p><b>effective</b>: 2018-04-01 00:00:00+0000</p><p><b>performer</b>: <a href=\"Practitioner-us-core-practitioner-owen-oncologist.html\">Practitioner Owen Oncologist </a></p><p><b>value</b>: <span title=\"Codes:{http://loinc.org LA27151-2}\">Uninvolved by invasive carcinoma</span></p><p><b>specimen</b>: <a href=\"Specimen-tumor-specimen-left-breast-jenny-m.html\">Specimen: identifier = BodyStructure\u00a0(use:\u00a0usual,\u00a0); status = available; type = Tumor; receivedTime = 2018-04-01</a></p></div>"
+      },
+      "status" : "final",
+      "category" : [{
+        "coding" : [{
+          "system" : "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code" : "laboratory"
+        }]
+      }],
+      "code" : {
+        "coding" : [{
+          "system" : "http://loinc.org",
+          "code" : "44669-0",
+          "display" : "Margin involvement in Breast tumor"
+        }]
+      },
+      "subject" : {
+        "reference" : "Patient/cancer-patient-jenny-m"
+      },
+      "effectiveDateTime" : "2018-04-01T00:00:00Z",
+      "performer" : [{
+        "reference" : "Practitioner/us-core-practitioner-owen-oncologist"
+      }],
+      "valueCodeableConcept" : {
+        "coding" : [{
+          "system" : "http://loinc.org",
+          "code" : "LA27151-2",
+          "display" : "Uninvolved by invasive carcinoma"
+        }]
+      },
+      "specimen" : {
+        "reference" : "Specimen/tumor-specimen-left-breast-jenny-m"
+      }
+    }
+  },
+  {
+    "fullUrl" : "http://example.org/fhir/Observation/us-core-observation-lab-sentinel-nodes-jenny-m",
+    "resource" : {
+      "resourceType" : "Observation",
+      "id" : "us-core-observation-lab-sentinel-nodes-jenny-m",
+      "meta" : {
+        "profile" : ["http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab"]
+      },
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Observation_us-core-observation-lab-sentinel-nodes-jenny-m\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Observation us-core-observation-lab-sentinel-nodes-jenny-m</b></p><a name=\"us-core-observation-lab-sentinel-nodes-jenny-m\"> </a><a name=\"hcus-core-observation-lab-sentinel-nodes-jenny-m\"> </a><a name=\"us-core-observation-lab-sentinel-nodes-jenny-m-en-US\"> </a><p><b>status</b>: Final</p><p><b>category</b>: <span title=\"Codes:{http://terminology.hl7.org/CodeSystem/observation-category laboratory}\">Laboratory</span></p><p><b>code</b>: <span title=\"Codes:{http://loinc.org 92832-5}\">Sentinel lymph nodes with metastasis [#] in Cancer specimen</span></p><p><b>subject</b>: <a href=\"Patient-cancer-patient-jenny-m.html\">Jenny M  Female, DoB: 1965-01-01 ( Medical Record Number: MRN1234\u00a0(use:\u00a0usual,\u00a0))</a></p><p><b>effective</b>: 2018-04-01 00:00:00+0000</p><p><b>performer</b>: <a href=\"Practitioner-us-core-practitioner-owen-oncologist.html\">Practitioner Owen Oncologist </a></p><p><b>specimen</b>: <a href=\"Specimen-tumor-specimen-left-breast-jenny-m.html\">Specimen: identifier = BodyStructure\u00a0(use:\u00a0usual,\u00a0); status = available; type = Tumor; receivedTime = 2018-04-01</a></p><h3>Components</h3><table class=\"grid\"><tr><td style=\"display: none\">-</td><td><b>Code</b></td><td><b>Value[x]</b></td></tr><tr><td style=\"display: none\">*</td><td><span title=\"Codes:{http://loinc.org 92833-3}\">Lymph nodes examined [#] in Cancer specimen by Light microscopy</span></td><td>3 Count<span style=\"background: LightGoldenRodYellow\"> (Details: UCUM  code1 = '1')</span></td></tr></table></div>"
+      },
+      "status" : "final",
+      "category" : [{
+        "coding" : [{
+          "system" : "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code" : "laboratory"
+        }]
+      }],
+      "code" : {
+        "coding" : [{
+          "system" : "http://loinc.org",
+          "code" : "92832-5",
+          "display" : "Sentinel lymph nodes with metastasis [#] in Cancer specimen"
+        }]
+      },
+      "subject" : {
+        "reference" : "Patient/cancer-patient-jenny-m"
+      },
+      "effectiveDateTime" : "2018-04-01T00:00:00Z",
+      "performer" : [{
+        "reference" : "Practitioner/us-core-practitioner-owen-oncologist"
+      }],
+      "specimen" : {
+        "reference" : "Specimen/tumor-specimen-left-breast-jenny-m"
+      },
+      "component" : [{
+        "code" : {
+          "coding" : [{
+            "system" : "http://loinc.org",
+            "code" : "92833-3",
+            "display" : "Lymph nodes examined [#] in Cancer specimen by Light microscopy"
+          }]
+        },
+        "valueQuantity" : {
+          "value" : 3,
+          "unit" : "Count",
+          "system" : "http://unitsofmeasure.org",
+          "code" : "1"
+        }
+      }]
+    }
+  },
+  {
+    "fullUrl" : "http://example.org/fhir/Observation/us-core-observation-lab-tumor-dcis-jenny-m",
+    "resource" : {
+      "resourceType" : "Observation",
+      "id" : "us-core-observation-lab-tumor-dcis-jenny-m",
+      "meta" : {
+        "profile" : ["http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab"]
+      },
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Observation_us-core-observation-lab-tumor-dcis-jenny-m\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Observation us-core-observation-lab-tumor-dcis-jenny-m</b></p><a name=\"us-core-observation-lab-tumor-dcis-jenny-m\"> </a><a name=\"hcus-core-observation-lab-tumor-dcis-jenny-m\"> </a><a name=\"us-core-observation-lab-tumor-dcis-jenny-m-en-US\"> </a><p><b>status</b>: Final</p><p><b>category</b>: <span title=\"Codes:{http://terminology.hl7.org/CodeSystem/observation-category laboratory}\">Laboratory</span></p><p><b>code</b>: <span title=\"Codes:{http://loinc.org 85336-6}\">DCIS intraductal extension in Breast cancer specimen Qualitative by Light microscopy</span></p><p><b>subject</b>: <a href=\"Patient-cancer-patient-jenny-m.html\">Jenny M  Female, DoB: 1965-01-01 ( Medical Record Number: MRN1234\u00a0(use:\u00a0usual,\u00a0))</a></p><p><b>effective</b>: 2018-04-01 00:00:00+0000</p><p><b>performer</b>: <a href=\"Practitioner-us-core-practitioner-owen-oncologist.html\">Practitioner Owen Oncologist </a></p><p><b>value</b>: <span title=\"Codes:{http://loinc.org LA27261-9}\">DCIS present with extensive intraductal component (EIC)</span></p><p><b>specimen</b>: <a href=\"Specimen-tumor-specimen-left-breast-jenny-m.html\">Specimen: identifier = BodyStructure\u00a0(use:\u00a0usual,\u00a0); status = available; type = Tumor; receivedTime = 2018-04-01</a></p></div>"
+      },
+      "status" : "final",
+      "category" : [{
+        "coding" : [{
+          "system" : "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code" : "laboratory"
+        }]
+      }],
+      "code" : {
+        "coding" : [{
+          "system" : "http://loinc.org",
+          "code" : "85336-6",
+          "display" : "DCIS intraductal extension in Breast cancer specimen Qualitative by Light microscopy"
+        }]
+      },
+      "subject" : {
+        "reference" : "Patient/cancer-patient-jenny-m"
+      },
+      "effectiveDateTime" : "2018-04-01T00:00:00Z",
+      "performer" : [{
+        "reference" : "Practitioner/us-core-practitioner-owen-oncologist"
+      }],
+      "valueCodeableConcept" : {
+        "coding" : [{
+          "system" : "http://loinc.org",
+          "code" : "LA27261-9",
+          "display" : "DCIS present with extensive intraductal component (EIC)"
+        }]
+      },
+      "specimen" : {
+        "reference" : "Specimen/tumor-specimen-left-breast-jenny-m"
+      }
+    }
+  },
+  {
+    "fullUrl" : "http://example.org/fhir/Practitioner/us-core-practitioner-owen-oncologist",
+    "resource" : {
+      "resourceType" : "Practitioner",
+      "id" : "us-core-practitioner-owen-oncologist",
+      "meta" : {
+        "profile" : ["http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"]
+      },
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Practitioner_us-core-practitioner-owen-oncologist\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Practitioner us-core-practitioner-owen-oncologist</b></p><a name=\"us-core-practitioner-owen-oncologist\"> </a><a name=\"hcus-core-practitioner-owen-oncologist\"> </a><a name=\"us-core-practitioner-owen-oncologist-en-US\"> </a><p><b>identifier</b>: <a href=\"http://terminology.hl7.org/5.0.0/NamingSystem-npi.html\" title=\"National Provider Identifier\">NPI</a>/9988776651</p><p><b>name</b>: Owen Oncologist </p><p><b>address</b>: 123 Corporate Drive Anytown MA 12345 US (work)</p><p><b>gender</b>: Male</p><h3>Qualifications</h3><table class=\"grid\"><tr><td style=\"display: none\">-</td><td><b>Code</b></td></tr><tr><td style=\"display: none\">*</td><td><span title=\"Codes:{http://terminology.hl7.org/CodeSystem/v2-0360 MD}\">Doctor of Medicine</span></td></tr></table></div>"
+      },
+      "identifier" : [{
+        "system" : "http://hl7.org/fhir/sid/us-npi",
+        "value" : "9988776651"
+      }],
+      "name" : [{
+        "family" : "Oncologist",
+        "given" : ["Owen"],
+        "prefix" : ["Dr."]
+      }],
+      "address" : [{
+        "use" : "work",
+        "line" : ["123 Corporate Drive"],
+        "city" : "Anytown",
+        "state" : "MA",
+        "postalCode" : "12345",
+        "country" : "US"
+      }],
+      "gender" : "male",
+      "qualification" : [{
+        "code" : {
+          "coding" : [{
+            "system" : "http://terminology.hl7.org/CodeSystem/v2-0360",
+            "version" : "2.7",
+            "code" : "MD"
+          }]
+        }
+      }]
+    }
+  },
+  {
+    "fullUrl" : "http://example.org/fhir/Practitioner/us-core-practitioner-peter-pathologist",
+    "resource" : {
+      "resourceType" : "Practitioner",
+      "id" : "us-core-practitioner-peter-pathologist",
+      "meta" : {
+        "profile" : ["http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"]
+      },
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Practitioner_us-core-practitioner-peter-pathologist\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Practitioner us-core-practitioner-peter-pathologist</b></p><a name=\"us-core-practitioner-peter-pathologist\"> </a><a name=\"hcus-core-practitioner-peter-pathologist\"> </a><a name=\"us-core-practitioner-peter-pathologist-en-US\"> </a><p><b>identifier</b>: <a href=\"http://terminology.hl7.org/5.0.0/NamingSystem-npi.html\" title=\"National Provider Identifier\">NPI</a>/1122334455</p><p><b>name</b>: Peter Pathologist </p><p><b>address</b>: 123 Corporate Drive Anytown MA 12345 US (work)</p><p><b>gender</b>: Female</p><h3>Qualifications</h3><table class=\"grid\"><tr><td style=\"display: none\">-</td><td><b>Code</b></td></tr><tr><td style=\"display: none\">*</td><td><span title=\"Codes:{http://terminology.hl7.org/CodeSystem/v2-0360 MD}\">Doctor of Medicine</span></td></tr></table></div>"
+      },
+      "identifier" : [{
+        "system" : "http://hl7.org/fhir/sid/us-npi",
+        "value" : "1122334455"
+      }],
+      "name" : [{
+        "family" : "Pathologist",
+        "given" : ["Peter"],
+        "prefix" : ["Dr."]
+      }],
+      "address" : [{
+        "use" : "work",
+        "line" : ["123 Corporate Drive"],
+        "city" : "Anytown",
+        "state" : "MA",
+        "postalCode" : "12345",
+        "country" : "US"
+      }],
+      "gender" : "female",
+      "qualification" : [{
+        "code" : {
+          "coding" : [{
+            "system" : "http://terminology.hl7.org/CodeSystem/v2-0360",
+            "version" : "2.7",
+            "code" : "MD"
+          }]
+        }
+      }]
+    }
+  }]
+}

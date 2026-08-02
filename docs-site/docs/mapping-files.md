@@ -1,14 +1,15 @@
 ---
 id: mapping-files
-title: Working with Mapping Files
+title: Mapping Files
 sidebar_label: Mapping Files
 slug: /mapping-files
 ---
 
 Mapping files describe how project-specific `CSV`, `REDCap`, or `CDISC-ODM`
 fields become Beacon v2 records. They can also augment the built-in cBioPortal
-clinical mapping. This page follows a REDCap example; the full key reference
-is under [Mapping File](tbl/mapping-file).
+mapping or define reviewed terminology decisions for SDTM Dataset-JSON and
+Dataset-XML. This page explains the Mapping V2 contract through a REDCap
+example and identifies the parts that differ for other source profiles.
 
 :::tip[Google Colab version]
 A runnable notebook is available in [Google Colab](https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6), with a local copy in the [repository](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/nb/convert_pheno_cli_tutorial.ipynb).
@@ -36,6 +37,10 @@ values from metadata embedded in the XML, without a REDCap dictionary.
 cBioPortal uses `source.profile: cbioportal`. Its package metadata already
 defines patients, samples, study identity, and case-list links, so a mapping is
 optional and is used only for additional project-specific clinical columns.
+
+Dataset-JSON and Dataset-XML use `source.profile: sdtm`. Their structural SDTM
+mapping is built in, so the optional mapping contains only terminology rules.
+Dataset-XML still requires Define-XML independently of this optional mapping.
 
 ## Mapping V2 At A Glance
 
@@ -112,14 +117,18 @@ beacon:
 
 The top-level sections have distinct responsibilities:
 
-| Section | Purpose |
-| --- | --- |
-| `source` | Declares the normalized tabular profile consumed by the mapping |
-| `target` | Declares the target model and Beacon schema version |
-| `project` | Identifies and versions the project mapping |
-| `defaults` | Sets the default ontology for term lookup |
-| `records` | Defines visit and longitudinal baseline behavior |
-| `beacon` | Contains entity-specific target mappings and defaults |
+| Section | Required for | Purpose |
+| --- | --- | --- |
+| `source` | All profiles | Declares the normalized source profile |
+| `target` | All profiles | Declares the target model and Beacon schema version |
+| `project` | All profiles | Identifies and versions the project mapping |
+| `defaults` | All profiles | Sets the default ontology for term lookup |
+| `records` | Tabular profiles | Defines visit and longitudinal baseline behavior |
+| `beacon` | Tabular profiles | Contains entity-specific target rules |
+| `terminology` | `sdtm` | Contains `DOMAIN.FIELD` terminology rules |
+
+Supported default ontologies are `ncit`, `icd10`, `ohdsi`, `cdisc`, `omim`,
+and `hpo`. Individual term rules may select another supported ontology.
 
 The route still determines how the input is parsed. `source.profile` describes
 the record and metadata contract consumed by the mapping:
@@ -130,11 +139,41 @@ the record and metadata contract consumed by the mapping:
 | `redcap` | REDCap CSV or a REDCap-origin ODM export with an external dictionary |
 | `cdisc-odm` | Standard or vendor ODM with embedded `MetaDataVersion`, `ItemDef`, and `CodeList` metadata |
 | `cbioportal` | cBioPortal patient and sample clinical tables discovered from a study package |
+| `sdtm` | Dataset-JSON or Dataset-XML terminology enrichment; structural mapping remains built in |
 
 ODM mappings use stable `ItemOID` values as source fields. A REDCap ODM export
 can reuse its corresponding REDCap mapping. Other ODM documents need rules
 tailored to their own item identifiers, but do not need a fabricated REDCap
 dictionary when the required metadata is embedded.
+
+## Compact SDTM Terminology Mapping
+
+For Dataset-JSON and Dataset-XML, omit `records` and `beacon`. Key each
+terminology decision by the SDTM domain and variable:
+
+```yaml
+mappingVersion: 2
+source: { profile: sdtm }
+target: { model: beacon, schemaVersion: '2.0.0' }
+project: { id: my_study, version: '1.0' }
+defaults: { ontology: ncit }
+
+terminology:
+  AE.AESEV:
+    query:
+      from: value
+      aliases:
+        MILD: Mild
+  MH.MHDECOD:
+    terms:
+      Asthma: { id: 'NCIT:C28397', label: Asthma }
+```
+
+The alias key is the source value; its value is the reviewed database label.
+`terms` bypasses lookup for known values. Define-XML
+`nci:ExtCodeID` identifiers take precedence over a label query and are looked
+up exactly to obtain the canonical NCIT display. See
+[Terminology Search](tbl/db-search) for the full precedence and audit fields.
 
 ## Reading A Rule
 
@@ -156,6 +195,20 @@ diseases:
 Here, `diagnosis` is the source column. Empty cells are skipped. The recorded
 value is used as the ontology query, after applying the optional alias.
 
+Source selectors can make that behavior explicit:
+
+| Key | Meaning |
+| --- | --- |
+| `sourceField` | Source column or ODM `ItemOID` evaluated by the rule |
+| `optional` | Allows the field to be absent from compatible exports |
+| `when.nonEmpty` | Requires a non-empty value |
+| `when.values` | Accepts only the listed values |
+| `when.notValues` | Rejects the listed values |
+
+Repeated ODM item groups are evaluated occurrence by occurrence. Companion
+`sourceField` values are taken from the same occurrence; ambiguous repeated
+values in scalar sections are rejected rather than flattened.
+
 Ontology queries can come from different places:
 
 | Form | Use |
@@ -165,6 +218,7 @@ Ontology queries can come from different places:
 | `query: { from: fieldNote }` | Search using the REDCap dictionary field note |
 | `query: Hemoglobin Measurement` | Search a fixed label |
 | `term: { id: 'NCIT:C...', label: ... }` | Use a known ontology term without a database search |
+| `terms` | Select reviewed terms by source value without a database search |
 
 The location of `from` changes its meaning. Inside `query`, it selects the text
 used for ontology lookup. A direct value mapping such as
@@ -172,7 +226,16 @@ used for ontology lookup. A direct value mapping such as
 ontology database.
 
 Use exact terms when the identifier is already curated. Otherwise, use a
-query and review ontology resolution with `--search-audit-tsv`.
+query and review terminology resolution with `--term-audit-tsv`.
+
+Scalar targets do not perform terminology lookup:
+
+| Form | Result |
+| --- | --- |
+| `{ from: sourceValue }` | Uses the current rule value |
+| `{ from: individualId }` | Uses the generated BFF individual ID |
+| `{ sourceField: age }` | Uses another named source field |
+| `{ literal: value }` | Uses a fixed string, number, or boolean |
 
 ## How Defaults Are Reused
 
@@ -239,6 +302,11 @@ continues to reflect the input file. Generic ODM uses the occurrence-aware
 
 ## Other Beacon Entities
 
+The individual mapping supports scalar demographic terms plus repeated
+`diseases`, `exposures`, `interventionsOrProcedures`, `measures`,
+`phenotypicFeatures`, and `treatments` rules. Target property names follow the
+Beacon v2 camelCase schema.
+
 `beacon.biosamples` contains executable mapping rules, not just metadata. A
 biosample is emitted when its source condition matches and an ID is available:
 
@@ -264,6 +332,16 @@ entity-aware BFF output.
 `beacon.datasets.defaults` and `beacon.cohorts.defaults` provide metadata for
 entities synthesized from the converted individuals. These defaults are used
 only by mapping-file routes.
+
+## Validation And Provenance
+
+Before conversion, Convert-Pheno rejects duplicate keys, validates the mapping
+against `share/schema/mapping-v2.json`, checks mapping and Beacon versions, and
+verifies the selected source profile and referenced fields.
+
+Generated BFF retains source content under its format-specific `info` block by
+default. Use `--no-source-info` to omit that copy and `--term-audit-tsv FILE`
+to record direct terms, identifier lookups, label searches, and fallbacks.
 
 ## Run And Review
 
@@ -296,9 +374,9 @@ convert-pheno -icdisc-odm study.xml \
   -obff individuals.json
 ```
 
-For ontology review, add `--search-audit-tsv mapping-audit.tsv`. Exact search
+For terminology review, add `--term-audit-tsv terminology.tsv`. Exact search
 is the default; similarity modes and audit columns are documented under
-[Database Search](tbl/db-search).
+[Terminology Search](tbl/db-search).
 
-Continue with [REDCap](redcap), [CSV](csv), or the complete
-[Mapping File](tbl/mapping-file) reference.
+Continue with [REDCap](redcap), [CSV](csv), [Dataset-JSON](dataset-json), or
+[Dataset-XML](dataset-xml).

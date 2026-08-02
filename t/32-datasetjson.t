@@ -10,7 +10,7 @@ use Test::More;
 
 use Convert::Pheno;
 use Convert::Pheno::Source qw(source_adapter);
-use Test::ConvertPheno qw(load_json_file);
+use Test::ConvertPheno qw(load_json_file slurp_file temp_output_file);
 
 my @files = sort glob 't/datasetjson2bff/in/*.json';
 my @datasets = map { load_json_file($_) } @files;
@@ -42,6 +42,99 @@ my ($mh) = grep { $_->{name} eq 'MH' } @datasets;
     ok(
         exists $source->artifact('subject_independent_domains')->{TS},
         'Dataset-JSON source separates subject-independent trial domains'
+    );
+}
+
+{
+    my $audit_file = temp_output_file( suffix => '.tsv' );
+    my $convert = Convert::Pheno->new(
+        {
+            method          => 'datasetjson2bff',
+            in_files        => \@files,
+            mapping_file    => 't/datasetjson2bff/in/sdtm_terminology.yaml',
+            schema_file     => 'share/schema/mapping-v2.json',
+            term_audit_file => $audit_file,
+            test            => 1,
+        }
+    );
+    my $individuals = $convert->datasetjson2bff;
+
+    is(
+        $individuals->[0]{phenotypicFeatures}[0]{severity}{id},
+        'NCIT:C70666',
+        'Dataset-JSON mapping aliases resolve SDTM severity to NCIT'
+    );
+    is(
+        $individuals->[0]{measures}[0]{assayCode}{label},
+        'Alanine Aminotransferase',
+        'Dataset-JSON mapping searches a reviewed label alias'
+    );
+    is(
+        $individuals->[0]{diseases}[0]{diseaseCode}{id},
+        'NCIT:C2985',
+        'Dataset-JSON mapping resolves a dictionary-derived disease label'
+    );
+    is(
+        $individuals->[1]{diseases}[0]{diseaseCode}{id},
+        'NCIT:C28397',
+        'Dataset-JSON mapping supports curated terms without a DB lookup'
+    );
+
+    my $audit = slurp_file($audit_file);
+    like(
+        $audit,
+        qr/\tAE\.AESEV\tMILD\tMILD\tMild\tlabel\tMild\tNCIT:C70666\t/,
+        'terminology audit distinguishes the source value from its alias query'
+    );
+}
+
+{
+    my $pxf = Convert::Pheno->new(
+        {
+            method       => 'datasetjson2pxf',
+            in_files     => \@files,
+            mapping_file => 't/datasetjson2bff/in/sdtm_terminology.yaml',
+            schema_file  => 'share/schema/mapping-v2.json',
+            test         => 1,
+        }
+    )->datasetjson2pxf;
+    is(
+        $pxf->[0]{phenotypicFeatures}[0]{severity}{id},
+        'NCIT:C70666',
+        'Dataset-JSON terminology enrichment is retained by the PXF pipeline'
+    );
+}
+
+{
+    my $dataset = {
+        datasetJSONCreationDateTime => '2026-08-02T10:00:00Z',
+        datasetJSONVersion          => '1.1.0',
+        studyOID                    => 'SDTM-TERMS',
+        metaDataVersionOID          => 'MDV.SDTM-TERMS',
+        itemGroupOID                => 'IG.DM',
+        name                        => 'DM',
+        label                       => 'Demographics',
+        records                     => 1,
+        columns                     => [
+            { itemOID => 'IT.DM.USUBJID', name => 'USUBJID', label => 'Subject', dataType => 'string' },
+            { itemOID => 'IT.DM.DOMAIN',   name => 'DOMAIN',   label => 'Domain',  dataType => 'string' },
+            { itemOID => 'IT.DM.SEX',      name => 'SEX',      label => 'Sex',     dataType => 'string' },
+            { itemOID => 'IT.DM.ETHNIC',   name => 'ETHNIC',   label => 'Ethnicity', dataType => 'string' },
+        ],
+        rows => [ [ 'P003', 'DM', 'F', 'NOT HISPANIC OR LATINO' ] ],
+    };
+    my $individuals = Convert::Pheno->new(
+        {
+            method     => 'datasetjson2bff',
+            data       => [$dataset],
+            define_xml => 't/datasetxml2bff/in/terminology/define.xml',
+            test       => 1,
+        }
+    )->datasetjson2bff;
+    is_deeply(
+        $individuals->[0]{ethnicity},
+        { id => 'NCIT:C41222', label => 'Not Hispanic or Latino' },
+        'Dataset-JSON can obtain an authoritative NCI term from supplied Define-XML'
     );
 }
 

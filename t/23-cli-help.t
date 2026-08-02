@@ -18,7 +18,7 @@ my $request = build_cli_request(
         '-u',             'alice',
     ],
     usage_error => sub { die @_ },
-    schema_file => 'share/schema/mapping.json',
+    schema_file => 'share/schema/mapping-v2.json',
     out_dir     => $tmpdir,
     color       => 1,
 );
@@ -36,7 +36,7 @@ $request = build_cli_request(
         '--default-vital-status', 'UNKNOWN_STATUS',
     ],
     usage_error => sub { die @_ },
-    schema_file => 'share/schema/mapping.json',
+    schema_file => 'share/schema/mapping-v2.json',
     out_dir     => $tmpdir,
     color       => 1,
 );
@@ -54,7 +54,7 @@ $request = build_cli_request(
         '--no-source-info',
     ],
     usage_error => sub { die @_ },
-    schema_file => 'share/schema/mapping.json',
+    schema_file => 'share/schema/mapping-v2.json',
     out_dir     => $tmpdir,
     color       => 1,
 );
@@ -73,7 +73,7 @@ $request = build_cli_request(
         '--out-dir', $tmpdir,
     ],
     usage_error => sub { die @_ },
-    schema_file => 'share/schema/mapping.json',
+    schema_file => 'share/schema/mapping-v2.json',
     out_dir     => '.',
     color       => 1,
 );
@@ -99,7 +99,7 @@ $request = build_cli_request(
         '--ohdsi-db',
     ],
     usage_error => sub { die @_ },
-    schema_file => 'share/schema/mapping.json',
+    schema_file => 'share/schema/mapping-v2.json',
     out_dir     => '.',
     color       => 1,
 );
@@ -125,7 +125,7 @@ $request = build_cli_request(
         '--ohdsi-db',
     ],
     usage_error => sub { die @_ },
-    schema_file => 'share/schema/mapping.json',
+    schema_file => 'share/schema/mapping-v2.json',
     out_dir     => '.',
     color       => 1,
 );
@@ -141,11 +141,12 @@ $request = build_cli_request(
     argv => [
         '-i', 'dataset-json',
         @datasetjson_files,
+        '--define-xml', 't/datasetxml2bff/in/define.xml',
         '-o', 'pxf',
         'phenopackets.json',
     ],
     usage_error => sub { die @_ },
-    schema_file => 'share/schema/mapping.json',
+    schema_file => 'share/schema/mapping-v2.json',
     out_dir     => $tmpdir,
     color       => 1,
 );
@@ -156,6 +157,11 @@ is_deeply(
     \@datasetjson_files,
     'CLI parser retains every Dataset-JSON domain file'
 );
+is(
+    $request->{data}{define_xml},
+    't/datasetxml2bff/in/define.xml',
+    'CLI parser accepts optional Define-XML metadata with Dataset-JSON'
+);
 
 $request = build_cli_request(
     argv => [
@@ -165,7 +171,7 @@ $request = build_cli_request(
         '--ohdsi-db',
     ],
     usage_error => sub { die @_ },
-    schema_file => 'share/schema/mapping.json',
+    schema_file => 'share/schema/mapping-v2.json',
     out_dir     => '.',
     color       => 1,
 );
@@ -176,6 +182,33 @@ is(
     'CLI parser accepts Dataset-JSON to OMOP output'
 );
 
+my @datasetxml_files = map { "t/datasetxml2bff/in/$_.xml" } qw(dm mh lb ts);
+$request = build_cli_request(
+    argv => [
+        '-i', 'dataset-xml',
+        @datasetxml_files,
+        '--define-xml', 't/datasetxml2bff/in/define.xml',
+        '-o', 'pxf',
+        'phenopackets.json',
+    ],
+    usage_error => sub { die @_ },
+    schema_file => 'share/schema/mapping-v2.json',
+    out_dir     => $tmpdir,
+    color       => 1,
+);
+
+is( $request->{data}{method}, 'datasetxml2pxf', 'CLI parser accepts Dataset-XML input' );
+is_deeply(
+    $request->{data}{in_files},
+    \@datasetxml_files,
+    'CLI parser retains every Dataset-XML domain file'
+);
+is(
+    $request->{data}{define_xml},
+    't/datasetxml2bff/in/define.xml',
+    'CLI parser retains the accompanying Define-XML file'
+);
+
 $request = build_cli_request(
     argv => [
         '-i', 'fhir',
@@ -184,7 +217,7 @@ $request = build_cli_request(
         'phenopacket.json',
     ],
     usage_error => sub { die @_ },
-    schema_file => 'share/schema/mapping.json',
+    schema_file => 'share/schema/mapping-v2.json',
     out_dir     => $tmpdir,
     color       => 1,
 );
@@ -204,7 +237,7 @@ $request = build_cli_request(
         'phenopackets.json',
     ],
     usage_error => sub { die @_ },
-    schema_file => 'share/schema/mapping.json',
+    schema_file => 'share/schema/mapping-v2.json',
     out_dir     => $tmpdir,
     color       => 1,
 );
@@ -224,7 +257,7 @@ $request = build_cli_request(
         '--out-dir', $tmpdir,
     ],
     usage_error => sub { die @_ },
-    schema_file => 'share/schema/mapping.json',
+    schema_file => 'share/schema/mapping-v2.json',
     out_dir     => '.',
     color       => 1,
 );
@@ -245,7 +278,7 @@ eval {
             '--default-vital-status', 'DECEASED',
         ],
         usage_error => sub { die @_ },
-        schema_file => 'share/schema/mapping.json',
+        schema_file => 'share/schema/mapping-v2.json',
         out_dir     => $tmpdir,
         color       => 1,
     );
@@ -268,7 +301,7 @@ eval {
             '--ohdsi-db',
         ],
         usage_error => sub { die @_ },
-        schema_file => 'share/schema/mapping.json',
+        schema_file => 'share/schema/mapping-v2.json',
         out_dir     => '.',
         color       => 1,
     );
@@ -289,7 +322,7 @@ eval {
             '-obff', 'individuals.json',
         ],
         usage_error => sub { die @_ },
-        schema_file => 'share/schema/mapping.json',
+        schema_file => 'share/schema/mapping-v2.json',
         out_dir     => $tmpdir,
         color       => 1,
     );
@@ -310,7 +343,7 @@ eval {
             '-opxf', 'phenopackets.json',
         ],
         usage_error => sub { die @_ },
-        schema_file => 'share/schema/mapping.json',
+        schema_file => 'share/schema/mapping-v2.json',
         out_dir     => $tmpdir,
         color       => 1,
     );
@@ -323,6 +356,27 @@ like(
     'CLI parser reports the cBioPortal package requirement'
 );
 
+$usage_error = undef;
+eval {
+    build_cli_request(
+        argv => [
+            '-idataset-xml', @datasetxml_files,
+            '-obff', 'individuals.json',
+        ],
+        usage_error => sub { die @_ },
+        schema_file => 'share/schema/mapping-v2.json',
+        out_dir     => $tmpdir,
+        color       => 1,
+    );
+    1;
+} or $usage_error = $@;
+
+like(
+    $usage_error,
+    qr/accompanying Define-XML file with --define-xml/,
+    'CLI parser requires Define-XML with Dataset-XML input'
+);
+
 my $cli = cli_script_path();
 plan skip_all => "convert-pheno CLI not found at $cli" unless -f $cli;
 
@@ -333,6 +387,9 @@ my @help_contract = (
     [ like => qr/--min-text-similarity-score <s>/, 'CLI help documents --min-text-similarity-score' ],
     [ like => qr/--text-similarity-method <m>/, 'CLI help documents --text-similarity-method' ],
     [ like => qr/--levenshtein-weight <w>/, 'CLI help documents --levenshtein-weight' ],
+    [ like => qr/--term-audit-tsv <file>/, 'CLI help documents --term-audit-tsv' ],
+    [ unlike => qr/--search-audit-tsv/, 'CLI help omits the replaced --search-audit-tsv option' ],
+    [ unlike => qr/--print-hidden-labels/, 'CLI help omits the removed hidden-label option' ],
     [ like => qr/--username\|-u <name>/, 'CLI help documents the restored username alias' ],
     [ like => qr/--default-vital-status <s>/, 'CLI help documents --default-vital-status' ],
     [ like => qr/--source-info\|--no-source-info/, 'CLI help documents --no-source-info' ],
@@ -343,7 +400,10 @@ my @help_contract = (
     [ like => qr/-icbioportal <path>/, 'CLI help documents cBioPortal study input' ],
     [ unlike => qr/-icdisc(?:\s|\x20)<file>/, 'CLI help does not advertise the removed -icdisc flag' ],
     [ like => qr/-idataset-json <files\.\.\.>/, 'CLI help documents Dataset-JSON input' ],
+    [ like => qr/-idataset-xml <files\.\.\.>/, 'CLI help documents Dataset-XML input' ],
+    [ like => qr/--define-xml <file>/, 'CLI help documents the required Define-XML metadata' ],
     [ like => qr/-ifhir <files\.\.\.>/, 'CLI help documents FHIR Bundle input' ],
+    [ like => qr/FHIR R4 JSON Bundles, including mCODE/, 'CLI help documents mCODE as a FHIR profile' ],
     [ like => qr/\[ALIVE\|DECEASED\|UNKNOWN_STATUS\]/, 'CLI help documents supported vitalStatus fallback values' ],
     [ like => qr/Supported:\s+individuals,\s+biosamples,\s+datasets,\s+cohorts/s, 'CLI help documents the supported BFF entities' ],
     [ like => qr/biosamples are emitted from -ipxf, cBioPortal samples,\s+FHIR Specimen, OMOP SPECIMEN, or mapping rules/s, 'CLI help documents all first-class biosample sources' ],

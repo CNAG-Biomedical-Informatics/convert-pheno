@@ -53,7 +53,7 @@ sub build_convert {
         in_files             => [],
         in_textfile          => 1,
         self_validate_schema => 0,
-        schema_file          => 'share/schema/mapping.json',
+        schema_file          => 'share/schema/mapping-v2.json',
         stream               => 0,
         omop_tables          => [],
         search               => 'exact',

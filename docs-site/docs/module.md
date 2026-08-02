@@ -101,11 +101,35 @@ documents as `data` and select `datasetjson2bff`, `datasetjson2pxf`, or
 expect the already grouped internal participant structure. OMOP output also
 requires access to `ohdsi.db` through the normal module arguments.
 
+For Dataset-XML, pass the Define-XML document and the Dataset-XML domain
+documents together. Each value may be an XML string or an already parsed hash:
+
+```perl
+my $convert = Convert::Pheno->new(
+    {
+        method => 'datasetxml2bff',
+        data   => {
+            define   => $define_xml,
+            datasets => \@dataset_xml_documents,
+        },
+    }
+);
+
+my $individuals = $convert->datasetxml2bff;
+```
+
+Select `datasetxml2pxf` or `datasetxml2omop` for downstream conversion. The
+module resolves domain columns and types from Define-XML before applying the
+same SDTM mapper as Dataset-JSON. See the [Dataset-XML guide](dataset-xml) for
+the supported versions and document constraints.
+
 For FHIR, pass one decoded R4 Bundle or an array of Bundles as `data` and select
 `fhir2bff`, `fhir2pxf`, or `fhir2omop`. The module resolves Bundle references
-and groups resources by Patient. The caller retains ownership of the supplied
-Bundle data, so it can be inspected or reused after conversion. See the
-[FHIR R4 guide](fhir) for the implemented resource profile.
+and groups resources by Patient. mCODE uses these same methods and is detected
+from canonical profile URLs; it does not require a separate module option. The
+caller retains ownership of the supplied Bundle data, so it can be inspected
+or reused after conversion. See the [FHIR R4 guide](fhir) for the implemented
+resource and profile coverage.
 
 For OMOP input, pass a hash keyed by OMOP table name, with each value containing
 an array of row hashes. Include at least `CONCEPT` and `PERSON`, plus the

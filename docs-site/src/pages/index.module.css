@@ -165,6 +165,10 @@
   overflow-x: auto;
 }
 
+.diagramScroller picture {
+  display: block;
+}
+
 .diagramFrame img {
   display: block;
   width: 100%;
@@ -172,14 +176,12 @@
   height: auto;
 }
 
-.diagramFrame figcaption {
-  padding: 0.78rem 1rem;
-  border-top: 1px solid rgba(49, 95, 114, 0.15);
-  background: #ffffff;
+.diagramCaption {
+  padding: 0.8rem 1rem 0.9rem;
+  border-top: 1px solid rgba(49, 95, 114, 0.16);
   color: #59717a;
   font-size: 0.84rem;
   line-height: 1.5;
-  text-align: center;
 }
 
 .scopeSection {
@@ -292,10 +294,9 @@
   background: #14242b;
 }
 
-:global([data-theme='dark']) .diagramFrame figcaption {
-  border-top-color: rgba(117, 175, 192, 0.2);
-  background: #192d35;
-  color: #bfd0d3;
+:global([data-theme='dark']) .diagramCaption {
+  border-top-color: rgba(117, 175, 192, 0.22);
+  color: #b7cbd0;
 }
 
 :global([data-theme='dark']) .scopeSection {
@@ -363,5 +364,13 @@
   .scopeNote {
     grid-template-columns: 1fr;
     gap: 0.45rem;
+  }
+
+  .diagramScroller {
+    overflow-x: visible;
+  }
+
+  .diagramFrame img {
+    min-width: 0;
   }
 }

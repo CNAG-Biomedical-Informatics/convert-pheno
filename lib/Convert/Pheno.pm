@@ -160,7 +160,7 @@ has exposures_file => (
 );
 
 # Miscellanea atributes here
-has [qw /test print_hidden_labels self_validate_schema path_to_ohdsi_db/] =>
+has [qw /test self_validate_schema path_to_ohdsi_db/] =>
   ( default => undef, is => 'ro' );
 
 has [qw /stream ohdsi_db/] => ( default => 0, is => 'ro' );
@@ -175,7 +175,7 @@ has default_vital_status => (
 has [qw /in_files/] => ( default => sub { [] }, is => 'ro' );
 
 has [
-    qw /out_file out_dir in_textfile in_file sep sql2csv redcap_dictionary mapping_file schema_file debug log verbose search_audit_file/
+    qw /out_file out_dir in_textfile in_file sep sql2csv redcap_dictionary mapping_file schema_file define_xml debug log verbose term_audit_file/
 ] => ( is => 'ro' );
 
 has [qw /data method/] => ( is => 'rw' );
@@ -474,6 +474,49 @@ sub datasetjson2omop {
     return run_conversion_pipeline($self);
 }
 
+###################
+###################
+# DATASETXML2BFF   #
+###################
+###################
+
+sub datasetxml2bff {
+    my $self = shift;
+    _prepare_datasetxml2bff_input($self);
+    $self->{convertPheno} ||= get_info($self);
+    $self->{conversion_context} = Convert::Pheno::Context->from_self(
+        $self,
+        {
+            source_format => 'dataset-xml',
+            target_format => 'beacon',
+            entities      => $self->{entities} || ['individuals'],
+        }
+    );
+    return _run_primary_view($self);
+}
+
+###################
+###################
+# DATASETXML2PXF   #
+###################
+###################
+
+sub datasetxml2pxf {
+    my $self = shift;
+    return run_conversion_pipeline($self);
+}
+
+###################
+###################
+# DATASETXML2OMOP  #
+###################
+###################
+
+sub datasetxml2omop {
+    my $self = shift;
+    return run_conversion_pipeline($self);
+}
+
 ##############
 ##############
 #  FHIR2BFF  #
@@ -725,6 +768,8 @@ sub _prepare_bundle_input {
       if $self->{method} eq 'cdiscodm2bff';
     return _prepare_datasetjson2bff_input($self)
       if $self->{method} eq 'datasetjson2bff';
+    return _prepare_datasetxml2bff_input($self)
+      if $self->{method} eq 'datasetxml2bff';
     return _prepare_fhir2bff_input($self)
       if $self->{method} eq 'fhir2bff';
     return _prepare_csv2bff_input($self)    if $self->{method} eq 'csv2bff';
@@ -793,27 +838,45 @@ sub _prepare_cdiscodm2bff_input {
 
 sub _prepare_datasetjson2bff_input {
     my ($self) = @_;
-    return 1
-      if $self->{dataset_json_input_prepared} && exists $self->{data};
+    return _prepare_sdtm_dataset_input( $self, 'dataset-json', 'dataset_json' );
+}
 
-    # Keep the caller's Dataset-JSON documents separate from the normalized
-    # participant buffer. The latter is released after each conversion, while
-    # the former allows a module caller to reuse the same converter safely.
-    $self->{_dataset_json_source_data} = $self->{data}
-      if exists $self->{data} && !exists $self->{_dataset_json_source_data};
-    $self->{data} = $self->{_dataset_json_source_data}
-      if !exists $self->{data} && exists $self->{_dataset_json_source_data};
+sub _prepare_datasetxml2bff_input {
+    my ($self) = @_;
+    return _prepare_sdtm_dataset_input( $self, 'dataset-xml', 'dataset_xml' );
+}
 
-    my $source = source_adapter( $self, 'dataset-json' )->load;
+sub _prepare_sdtm_dataset_input {
+    my ( $self, $source_format, $state_prefix ) = @_;
+    my $prepared_key    = $state_prefix . '_input_prepared';
+    my $source_data_key = '_' . $state_prefix . '_source_data';
+
+    return 1 if $self->{$prepared_key} && exists $self->{data};
+
+    # Keep caller-owned source documents separate from the normalized
+    # participant buffer so a module converter can be reused safely.
+    $self->{$source_data_key} = $self->{data}
+      if exists $self->{data} && !exists $self->{$source_data_key};
+    $self->{data} = $self->{$source_data_key}
+      if !exists $self->{data} && exists $self->{$source_data_key};
+
+    my $source = source_adapter( $self, $source_format )->load;
     $self->{data} = $source->data;
     $self->{_owns_prepared_data} = 1 if $source->owned;
-    $self->{dataset_json_metadata} = $source->artifact('dataset_metadata');
-    $self->{dataset_json_subject_independent_domains} =
+    $self->{ $state_prefix . '_metadata' } =
+      $source->artifact('dataset_metadata');
+    $self->{ $state_prefix . '_subject_independent_domains' } =
       $source->artifact('subject_independent_domains');
     $self->{source_derived_entity_overrides} =
       $source->artifact('derived_entity_overrides') || {};
+    $self->{sdtm_terminology_mapping} =
+      $source->artifact('terminology_mapping') || {};
+    $self->{sdtm_source_terms} =
+      $source->artifact('source_terminology') || {};
+    $self->{terminology_lookup_required} =
+      $source->artifact('terminology_requires_sqlite') ? 1 : 0;
     $self->{convertPheno} ||= get_info($self);
-    $self->{dataset_json_input_prepared} = 1;
+    $self->{$prepared_key} = 1;
 
     return 1;
 }
@@ -1265,7 +1328,7 @@ C<Convert::Pheno> is the conversion engine used by the C<convert-pheno>
 command-line program. It converts supported in-memory data structures and
 route-specific file inputs between Beacon v2 Models Format (BFF),
 Phenopackets v2 (PXF), OMOP-CDM, REDCap, cBioPortal clinical study packages,
-CDISC-ODM, CDISC Dataset-JSON, FHIR R4, openEHR, and tabular
+CDISC-ODM, CDISC Dataset-JSON, CDISC Dataset-XML, FHIR R4, openEHR, and tabular
 representations.
 
 Conversion availability and required arguments depend on the selected route.

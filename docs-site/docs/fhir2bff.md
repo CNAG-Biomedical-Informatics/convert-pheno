@@ -4,14 +4,10 @@ sidebar_label: FHIR to BFF
 ---
 
 :::warning[Mapping status]
-This table documents the experimental FHIR R4 JSON Bundle profile introduced
-in **v0.33**. Its current coverage reflects the resources and fixture described
-below and may be refined as additional FHIR implementations and profiles are
-evaluated.
-
-Parts of the mapping were drafted or refined with LLM assistance using
-**GPT-5.6 Sol** with **ultra reasoning**, followed by human review, regression
-testing, and target-format validation.
+This table documents the experimental FHIR R4 JSON Bundle mapping introduced
+in **v0.33** and the mCODE 4.0 profile-aware mapping added for **v0.34**. Its
+current coverage reflects the attributed generic and official mCODE fixtures
+and may be refined as additional implementations are evaluated.
 :::
 
 The route resolves Bundle references, groups resources by Patient, creates one
@@ -38,6 +34,7 @@ plus source-derived `datasets` and `cohorts`.
 | `Condition.onsetDateTime` | `diseases[].ageOfOnset` | Becomes age when `Patient.birthDate` is available, otherwise a timestamp |
 | `Condition.abatementDateTime` | `diseases[].resolution` | Becomes age when possible, otherwise a timestamp |
 | refuted or entered-in-error `Condition.verificationStatus` | `diseases[].excluded` | Sets `true` |
+| mCODE primary cancer `Condition.stage[].summary` | `diseases[].stage` | Uses the coded summary; a resolvable stage-assessment Observation is the fallback |
 | HPO coding in `Observation.code` or `Observation.valueCodeableConcept` | `phenotypicFeatures[].featureType` | Recognized by the `HP:` CURIE prefix |
 | `Observation.valueBoolean=false` for an HPO feature | `phenotypicFeatures[].excluded` | Sets `true`; other cases set `false` |
 | HPO Observation effective date | `phenotypicFeatures[].onset` | Becomes age when possible, otherwise a timestamp |
@@ -84,6 +81,14 @@ An Observation with `specimen.reference` is not added to the individual's
 | `Specimen.note[].text` | `notes` | Multiple notes are joined with newlines |
 | linked `Observation` resources | `measurements[]` | Uses the same measurement mapping and requires a resolvable `Observation.specimen` reference |
 
+:::note[FHIR specimen status]
+`Specimen.status` comes from the required FHIR R4 `SpecimenStatus` value set.
+Convert-Pheno therefore retains it as a source-derived term, for example
+`FHIR:SpecimenStatus.available` with the canonical display `Available`. It does
+not infer an NCIT or other cross-ontology equivalent that is absent from the
+source record.
+:::
+
 The semantic biosample representation is also retained under
 `individuals[].info.phenopacket.biosamples`. This is deliberate: it allows the
 `fhir2pxf` pipeline to preserve specimen data while the pipeline's primary BFF
@@ -119,12 +124,18 @@ By default, raw Patient and patient-scoped resources are copied under
 `--no-source-info` removes those copies while retaining mapped BFF fields and
 semantic Phenopacket biosample data.
 
+mCODE is detected from canonical `meta.profile` URLs. Detected profile names,
+the mCODE canonical URL, and the supported version `4.0.0` are recorded under
+`info.fhir.profiles.mcode`. This annotation is emitted only when mCODE profiles
+are present.
+
 ## Current Boundaries
 
 The current profile does not read FHIR XML, Bulk Data NDJSON, or live FHIR
 server endpoints. Resources without an implemented first-class mapping remain
-in provenance. Arbitrary extensions, profile-specific slices, encounter-level
-grouping, and terminology-server expansion are outside the current mapper.
+in provenance. Beyond the documented mCODE stage rule, arbitrary extensions,
+profile-specific slices, encounter-level grouping, and terminology-server
+expansion are outside the current mapper.
 
 See the [FHIR R4 guide](fhir) for input constraints, commands, interface
 availability, and memory behavior.

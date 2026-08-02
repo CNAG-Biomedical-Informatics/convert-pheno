@@ -61,6 +61,11 @@ is(
     'build_query omits COLLATE NOCASE for numeric concept_id exact matches'
 );
 is(
+    Convert::Pheno::DB::SQLite::build_query( 'ncit', 'id', 'exact_match' ),
+    'SELECT * FROM NCIT_table WHERE id = ? COLLATE NOCASE',
+    'build_query creates an indexed exact identifier lookup'
+);
+is(
     Convert::Pheno::DB::SQLite::build_query( 'ohdsi', 'concept_id', 'full_text_search' ),
     'SELECT * FROM OHDSI_fts WHERE concept_id MATCH ?',
     'build_query creates full-text SQL'
@@ -339,7 +344,7 @@ warning_like {
 }
 
 SKIP: {
-    skip 'share/db/ncit.db is required for real SQLite search-mode tests', 14
+    skip 'share/db/ncit.db is required for real SQLite search-mode tests', 17
       unless -f 'share/db/ncit.db';
 
     local $Convert::Pheno::share_dir = 'share';
@@ -399,6 +404,31 @@ SKIP: {
     is( $fuzzy_id, 'NCIT:C92957', 'fuzzy search returns the expected NCIT id from the real SQLite db' );
     is( $fuzzy_label, 'Acute Bacterial Prostatitis', 'fuzzy search returns the expected label from the real SQLite db' );
     is( $fuzzy_concept_id, undef, 'fuzzy search leaves concept_id undef for ncit in the real SQLite db' );
+
+    my $id_self = bless(
+        {
+            databases                 => ['ncit'],
+            search                    => 'fuzzy',
+            text_similarity_method    => 'cosine',
+            min_text_similarity_score => 0.1,
+            levenshtein_weight        => 0.1,
+        },
+        'Convert::Pheno'
+    );
+    Convert::Pheno::DB::SQLite::open_connections_SQLite($id_self);
+    my $id_term = map_ontology_term(
+        {
+            ontology        => 'ncit',
+            query           => 'C70666',
+            column          => 'id',
+            self            => $id_self,
+            return_metadata => 1,
+        }
+    );
+    Convert::Pheno::DB::SQLite::close_connections_SQLite($id_self);
+    is( $id_term->{id}, 'NCIT:C70666', 'identifier lookup returns the expected NCIT id' );
+    is( $id_term->{label}, 'Mild', 'identifier lookup obtains the canonical label from SQLite' );
+    is( $id_term->{search_resolution}, 'exact', 'identifier lookup remains exact under global fuzzy search' );
 
     my $profile_self = bless(
         {

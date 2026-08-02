@@ -31,9 +31,9 @@ The CLI is organized around one input format, one output format, and optional co
   <Link to="/conversion-recipes#mapping-file-input-examples">
     <span>--mapping-file</span>
     <strong>Mapped tabular data</strong>
-    <small>Use CSV, REDCap, or CDISC-ODM with ontology search auditing.</small>
+    <small>Use CSV, REDCap, or CDISC-ODM with terminology auditing.</small>
   </Link>
-  <Link to="/conversion-recipes#bff-input-pxf-output">
+  <Link to="/conversion-recipes#bff-input-examples">
     <span>-ibff -opxf</span>
     <strong>BFF to Phenopackets</strong>
     <small>Generate Phenopackets from Beacon individuals input.</small>
@@ -83,16 +83,16 @@ Both CLI styles are supported:
 
 The compact flags are still the ones most users rely on:
 
-- `-ipxf`, `-ibff`, `-icbioportal`, `-iomop`, `-iopenehr`, `-iredcap`, `-icdisc-odm`, `-idataset-json`, `-ifhir`, `-icsv`
+- `-ipxf`, `-ibff`, `-icbioportal`, `-iomop`, `-iopenehr`, `-iredcap`, `-icdisc-odm`, `-idataset-json`, `-idataset-xml`, `-ifhir`, `-icsv`
 - `-obff`, `-opxf`, `-oomop`, `-ocsv`, `-ojsonf`, `-ojsonld`
 
 :::note[Experimental source profiles]
-`cBioPortal` clinical packages, openEHR canonical input, CDISC Dataset-JSON SDTM input, and FHIR R4 Bundle
-input are implemented but marked experimental while independent source coverage
+`cBioPortal` clinical packages, openEHR canonical input, CDISC Dataset-JSON and
+Dataset-XML SDTM input, and FHIR R4 Bundle input are implemented but marked experimental while independent source coverage
 grows. Standard/OpenClinica CDISC-ODM and the bounded ODM 2.0 ClinicalData
 profile are also experimental beyond the established REDCap ODM workflow.
-Dataset-JSON and FHIR can write BFF, PXF, or OMOP-CDM; openEHR currently writes
-BFF or PXF.
+Dataset-JSON, Dataset-XML, and FHIR can write BFF, PXF, or OMOP-CDM; openEHR
+currently writes BFF or PXF.
 
 :::
 You can always check the current built-in help with:
@@ -122,21 +122,19 @@ In other words, `--entities` does not replace `-obff`. It refines which `BFF` en
 - These mapping features are available for `csv2bff`, `redcap2bff`, and `cdiscodm2bff`; cBioPortal accepts the same Mapping V2 structure optionally to augment its built-in patient and sample mapping.
 - `--entities` narrows `BFF` output. It must be combined with `-obff` and `--out-dir`.
 - `--out-name key=file` lets you override one multi-file output name. Use entity keys for `BFF` entity mode and table keys for `OMOP` output.
-- `--no-source-info` omits raw source provenance copied into `BFF` `info`, such as `OMOP_columns`, `CSV_columns`, `REDCap_columns`, `CDISC_ODM`, `cbioportal`, `datasetJson.domains`, and `fhir` resources. Mapped fields and `info.convertPheno` are kept.
-- `--search-audit-tsv FILE` writes a tab-separated audit of ontology search results for mapping-file-driven conversions such as `csv2bff`, `redcap2bff`, and `cdiscodm2bff`, including the effective configured search mode, whether each lookup matched the DB or fell back to `NA`, and the per-row lookup resolution (`exact`, `similarity`, or `fallback_na`).
+- `--no-source-info` omits raw source provenance copied into `BFF` `info`, such as `OMOP_columns`, `CSV_columns`, `REDCap_columns`, `CDISC_ODM`, `cbioportal`, `datasetJson.domains`, `datasetXml.domains`, and `fhir` resources. Mapped fields and `info.convertPheno` are kept.
+- `--term-audit-tsv FILE` writes a tab-separated audit of direct terms, identifier lookups, label searches, and fallbacks, including the effective search mode and provenance of each decision.
 - `--stream` is mainly relevant for **large OMOP inputs**. Use `--no-stream` to force the default in-memory mode when a wrapper or previous option may have enabled streaming.
 
 ## Important options
 
 ### Mapping-file conversions
 
-- `--mapping-file FILE` supplies a Mapping V2 YAML or JSON document targeting Beacon schema `2.0.0`, required by CSV, REDCap, and CDISC-ODM routes and optional for cBioPortal clinical packages.
+- `--mapping-file FILE` supplies a Mapping V2 YAML or JSON document targeting Beacon schema `2.0.0`. It is required by CSV, REDCap, and CDISC-ODM routes; optional for cBioPortal augmentation and Dataset-JSON/Dataset-XML terminology enrichment.
 - `--redcap-dictionary FILE` or `-rcd FILE` supplies the dictionary required by REDCap CSV and REDCap-origin ODM. Standard/OpenClinica ODM uses embedded metadata and rejects this option.
 - `--schema-file FILE` lets you validate mapping files against an alternative JSON Schema.
 - `--self-validate-schema` or `-svs` performs a self-validation of the mapping schema itself. This is mainly an author or development check and may require SSL support in the Perl environment.
-- `--search-audit-tsv FILE` writes a TSV report of ontology lookups performed during mapping-file-driven conversions.
-  The audit includes both row-level results and the effective search settings used for the run.
-- `--print-hidden-labels` or `-phl` preserves original text labels before ontology mapping in `_label` fields.
+- `--term-audit-tsv FILE` writes a TSV report of terminology decisions. The audit includes source values and labels, actual lookup inputs, converted terms, provenance, fallbacks, and effective search settings.
 
 ### CDISC-ODM-specific behavior
 
@@ -161,7 +159,7 @@ In other words, `--entities` does not replace `-obff`. It refines which `BFF` en
 - `--min-text-similarity-score FLOAT` sets the minimum score accepted by `mixed` and `fuzzy`. Default: `0.8`.
 - `--levenshtein-weight FLOAT` sets the normalized Levenshtein weight used by `fuzzy`. Default: `0.1`.
 
-For the search behavior itself, including examples and threshold tradeoffs, see [the DB search explainer](tbl/db-search).
+For resolution precedence, audit columns, and threshold tradeoffs, see [Terminology Search](tbl/db-search).
 
 ### OMOP-specific options
 
@@ -183,14 +181,24 @@ For the search behavior itself, including examples and threshold tradeoffs, see 
 ### Dataset-JSON-specific options
 
 - `-idataset-json FILE ...` or `-i dataset-json FILE ...` accepts one or more CDISC Dataset-JSON v1.1 SDTM domain files in `.json` or `.json.gz` form.
-- Exactly one `DM` dataset is required. Subject-level domains are grouped by `USUBJID`; a mapping file and REDCap dictionary are not used.
+- Exactly one `DM` dataset is required. Subject-level domains are grouped by `USUBJID`; no REDCap dictionary is used. A mapping file with `source.profile: sdtm` is optional for terminology enrichment.
+- `--define-xml FILE` is optional for Dataset-JSON and can supply authoritative `nci:ExtCodeID` identifiers and controlled-term displays.
 - `datasetjson2bff`, `datasetjson2pxf`, and `datasetjson2omop` are available. OMOP output also requires `--ohdsi-db` and `--out-dir`.
 - Input is currently processed in memory rather than streamed. See [CDISC Dataset-JSON](dataset-json) for mapped domains and current boundaries.
+
+### Dataset-XML-specific options
+
+- `-idataset-xml FILE ...` or `-i dataset-xml FILE ...` accepts one or more CDISC Dataset-XML v1.0 SDTM domain files in `.xml` form.
+- `--define-xml FILE` is required and supplies the Define-XML v2.0/v2.1 metadata used to resolve each domain, column, order, label, and data type.
+- Exactly one `DM` dataset is required. Subject-level domains are grouped by `USUBJID`; a mapping file with `source.profile: sdtm` is optional for terminology enrichment.
+- `datasetxml2bff`, `datasetxml2pxf`, and `datasetxml2omop` are available. OMOP output also requires `--ohdsi-db` and `--out-dir`.
+- Input is processed in memory. See [CDISC Dataset-XML](dataset-xml) for cross-file checks and current boundaries.
 
 ### FHIR-specific options
 
 - `-ifhir FILE ...` or `-i fhir FILE ...` accepts one or more FHIR R4 Bundle files in `.json` or `.json.gz` form.
 - Each Bundle must contain at least one Patient. Relative, absolute, and `urn:uuid:` resource references are resolved before resources are grouped by Patient.
+- mCODE 4.0 Bundles use the same input route. Canonical profile URLs are detected automatically; no mCODE-specific flag is required.
 - `fhir2bff`, `fhir2pxf`, and `fhir2omop` are available. Entity-aware BFF output can emit Specimen-derived `biosamples`; OMOP output also requires `--ohdsi-db` and `--out-dir`.
 - Input is processed in memory. See [FHIR R4](fhir) for mapped resources and current boundaries.
 

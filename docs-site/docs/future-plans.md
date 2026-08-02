@@ -19,12 +19,12 @@ fewer independent groups.
   <article className="roadmap-card roadmap-card--active">
     <span className="roadmap-kicker">More datasets</span>
     <h2>Test newer input formats</h2>
-    <p>Use cBioPortal, FHIR R4, CDISC Dataset-JSON, and openEHR data from more independent sources and incorporate feedback from their users.</p>
+    <p>Use cBioPortal, FHIR R4 and mCODE, CDISC Dataset-JSON and Dataset-XML, and openEHR data from more independent sources and incorporate feedback from their users.</p>
   </article>
   <article className="roadmap-card">
-    <span className="roadmap-kicker">Candidate inputs</span>
-    <h2>Extend oncology and study exchange</h2>
-    <p>Evaluate mCODE FHIR oncology profiles and CDISC Dataset-XML as the next input priorities.</p>
+    <span className="roadmap-kicker">Implemented profiles</span>
+    <h2>Broaden mCODE and Dataset-XML evidence</h2>
+    <p>Test the mCODE 4.0 stage mapping and Dataset-XML plus Define-XML parser with independently generated datasets before extending their first-class mappings.</p>
   </article>
   <article className="roadmap-card">
     <span className="roadmap-kicker">Mappings</span>
@@ -34,7 +34,7 @@ fewer independent groups.
   <article className="roadmap-card">
     <span className="roadmap-kicker">Large files</span>
     <h2>Use less memory</h2>
-    <p>Explore ways to process larger FHIR and Dataset-JSON inputs without keeping every record in memory at once.</p>
+    <p>Explore ways to process larger FHIR, Dataset-JSON, and Dataset-XML inputs without keeping every record in memory at once.</p>
   </article>
   <article className="roadmap-card">
     <span className="roadmap-kicker">Beacon v2</span>

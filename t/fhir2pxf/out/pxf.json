@@ -6,7 +6,7 @@
             "individualId" : "5b24c87b-6223-f5b4-51e9-82051159bd1d",
             "materialSample" : {
                "id" : "FHIR:SpecimenStatus.available",
-               "label" : "available"
+               "label" : "Available"
             },
             "measurements" : [
                {

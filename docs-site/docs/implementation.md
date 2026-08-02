@@ -6,7 +6,7 @@ slug: /implementation
 
 ## Components
 
-`Convert-Pheno` is a **toolkit** composed of several interfaces around the same Perl core. At the center is the [Perl module](https://metacpan.org/pod/Convert%3A%3APheno), which is used by the [command-line interface](use-as-a-command-line-interface) and by the [API](use-as-an-api). A Python interoperability layer is also included in the repository, but the conversion logic itself remains in Perl.
+`Convert-Pheno` exposes several interfaces around one conversion implementation. The [CLI](use-as-a-command-line-interface), [Perl module](use-as-a-module), and Perl HTTP(s) API call the core in-process. The Python binding serializes requests through a small JSON subprocess bridge; the Python HTTP(s) API uses that same binding. Mapping and conversion behavior therefore remain in the Perl core rather than being reimplemented by each interface.
 
 ```mermaid
 %%{init: {'theme':'neutral'}}%%
@@ -31,25 +31,37 @@ graph TB
 <figcaption>Diagram showing Convert-Pheno implementation</figcaption>
 
 :::tip[Which one should I use?]
-Most users find the [CLI](use-as-a-command-line-interface) suitable for their needs. Power users may want to check the [module](use-as-a-module) or the [API](use-as-an-api) version. 
+Most users should start with the [CLI](use-as-a-command-line-interface). The [module](use-as-a-module) and [HTTP(s) APIs](use-as-an-api) are intended for developers embedding conversions in other software.
 
 :::
 :::note[API scope]
 The HTTP(s) API is primarily intended for **self-contained JSON conversions** such as `BFF`, `PXF`, FHIR R4 Bundles, and carefully prepared `OMOP-CDM` payloads.
 
-Mapping-file-based routes such as `CSV`, `REDCap`, and `CDISC-ODM` are still better handled through the CLI, because they depend on extra file artifacts rather than on one clean request payload. REDCap and REDCap-origin ODM also use an external dictionary; generic ODM resolves embedded metadata. Multi-file Dataset-JSON input is likewise available through the CLI or local module rather than the HTTP(s) API.
+Mapping-file-based routes such as `CSV`, `REDCap`, and `CDISC-ODM` are still better handled through the CLI, because they depend on extra file artifacts rather than on one clean request payload. REDCap and REDCap-origin ODM also use an external dictionary; generic ODM resolves embedded metadata. Multi-file Dataset-JSON and Dataset-XML plus Define-XML input are likewise available through the CLI or local module rather than the HTTP(s) API.
 
 :::
 ## Software architecture
 
-The [core module](https://metacpan.org/pod/Convert::Pheno) is divided into several sub-modules. The main package, `Convert::Pheno`, handles class initialization and employs the [Moo](https://metacpan.org/pod/Moo) module along with [Types::Standard](https://metacpan.org/pod/Types::Standard) for data validation. In architectural terms, most conversions use `BFF` as the internal target model: source adapters parse and normalize input, route-specific mappers construct Beacon `individuals` and related entities, and target stages can continue to outputs such as `PXF` or `OMOP CDM`. Dataset-JSON validates each domain document and groups subject rows by `USUBJID`; FHIR indexes Bundle references and groups resources by Patient before either source is mapped to BFF.
+All interfaces use the same conversion core. A shared route list keeps the CLI,
+Perl module, Python binding, and HTTP(s) APIs aligned on which conversions are
+available.
 
-Starting with `v0.30`, the implementation also uses an explicit internal conversion context and bundle model for `BFF` output. This matters whenever the input contains information that belongs to more than one Beacon entity. `PXF` biosample data can now be emitted as first-class `biosamples`, while `datasets` and `cohorts` can be synthesized from the normalized `individuals` collection. The `-obff FILE` path is still kept as a backward-compatible individuals-only BFF output mode.
+A conversion follows four main steps:
 
-After validation, the user-selected method (for example `pxf2bff`) is executed, directing the data to the respective [independent modules](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/tree/main/lib/Convert/Pheno), each tailored for converting a specific input format.
+1. **Select the route.** The requested input and output determine which
+   conversion steps are needed.
+2. **Read the source.** Format-specific readers handle files, tables,
+   references, and participant grouping.
+3. **Transform the records.** Most multi-step routes first create BFF and then
+   continue to the requested output, such as PXF or OMOP-CDM. Simpler routes
+   can convert directly.
+4. **Return or write the result.** Module and API calls return data in memory;
+   the CLI writes the selected files.
 
-<details>
-<summary>Why Perl?</summary>
+For BFF output, `-obff FILE` writes one `individuals` collection. Use
+`-obff --entities ... --out-dir ...` when separate `individuals`, `biosamples`,
+`datasets`, or `cohorts` files are needed.
 
-The choice of Perl as a language is due to its inherent **speed in text processing** and its use of **sigils to distinguish data types** within intricate data structures.
-</details>
+File output is staged before replacing an existing destination, reducing the
+risk of leaving a partial file after an error. Large supported OMOP input
+routes can also use streaming to limit memory use.

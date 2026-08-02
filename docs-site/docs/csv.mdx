@@ -13,18 +13,24 @@ export const CsvFormatImage = () => (
   />
 );
 
+**Category:** Tabular source format
+
+CSV is a general delimited-text format rather than a clinical data standard.
+Convert-Pheno interprets project-specific clinical rows through a **required
+mapping file**, then writes BFF, PXF, or the supported OMOP-CDM tables.
+
 :::note[Implementation and validation status]
 CSV conversion to [BFF](bff), [PXF](pxf), and the supported
 [OMOP-CDM](omop-cdm) tables is implemented and covered by regression tests.
 Results depend on the project mapping file, so review the mapping, optional
-ontology-search audit, and generated output for each dataset.
+terminology audit, and generated output for each dataset.
 :::
 
 <div className="convertFormatSummary" aria-label="At a glance">
   <div><span>Role</span><strong>Input</strong></div>
   <div><span>Accepted input</span><strong>Delimited clinical text</strong></div>
   <div><span>Main output</span><strong>BFF, PXF, OMOP-CDM</strong></div>
-  <div><span>Notes</span><strong>`--search-audit-tsv` for ontology lookups</strong></div>
+  <div><span>Notes</span><strong>`--term-audit-tsv` for terminology review</strong></div>
 </div>
 
 <figure className="convertFormatFigure">
@@ -46,8 +52,8 @@ another delimiter.
 
 Use [CSV conversion recipes](conversion-recipes#csv-input-bff-output) for BFF,
 PXF, OMOP-CDM, and multi-entity BFF commands. Mapping semantics are documented
-under [Mapping File](tbl/mapping-file), with ontology lookup behavior under
-[DB Search](tbl/db-search).
+under [Mapping Files](mapping-files), with ontology lookup behavior under
+[Terminology Search](tbl/db-search).
 
 ### CSV to OMOP-CDM
 

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ODM xmlns="http://www.cdisc.org/ns/odm/v1.3"
+     xmlns:def="http://www.cdisc.org/ns/def/v2.0"
+     FileOID="DEFINE.STUDY-XML-01"
+     FileType="Snapshot"
+     ODMVersion="1.3.2"
+     CreationDateTime="2026-08-02T10:00:00Z"
+     Originator="Convert-Pheno">
+  <Study OID="STUDY-XML-01">
+    <GlobalVariables>
+      <StudyName>Dataset-XML example study</StudyName>
+      <StudyDescription>Synthetic SDTM fixture for Convert-Pheno</StudyDescription>
+      <ProtocolName>STUDY-XML-01</ProtocolName>
+    </GlobalVariables>
+    <MetaDataVersion OID="MDV.STUDY-XML-01"
+                     Name="Synthetic SDTM metadata"
+                     def:DefineVersion="2.0.0"
+                     def:StandardName="SDTM-IG"
+                     def:StandardVersion="3.4">
+      <ItemGroupDef OID="IG.DM" Name="DM" Domain="DM" Repeating="No" IsReferenceData="No" Purpose="Tabulation">
+        <Description><TranslatedText xml:lang="en">Demographics</TranslatedText></Description>
+        <ItemRef ItemOID="IT.DM.USUBJID" OrderNumber="1" Mandatory="Yes"/>
+        <ItemRef ItemOID="IT.DM.DOMAIN" OrderNumber="2" Mandatory="Yes"/>
+        <ItemRef ItemOID="IT.DM.BRTHDTC" OrderNumber="3" Mandatory="No"/>
+        <ItemRef ItemOID="IT.DM.SEX" OrderNumber="4" Mandatory="No"/>
+        <ItemRef ItemOID="IT.DM.ETHNIC" OrderNumber="5" Mandatory="No"/>
+        <ItemRef ItemOID="IT.DM.COUNTRY" OrderNumber="6" Mandatory="No"/>
+        <ItemRef ItemOID="IT.DM.DTHFL" OrderNumber="7" Mandatory="No"/>
+      </ItemGroupDef>
+      <ItemGroupDef OID="IG.MH" Name="MH" Domain="MH" Repeating="Yes" IsReferenceData="No" Purpose="Tabulation">
+        <Description><TranslatedText xml:lang="en">Medical History</TranslatedText></Description>
+        <ItemRef ItemOID="IT.MH.USUBJID" OrderNumber="1" Mandatory="Yes"/>
+        <ItemRef ItemOID="IT.MH.DOMAIN" OrderNumber="2" Mandatory="Yes"/>
+        <ItemRef ItemOID="IT.MH.MHSEQ" OrderNumber="3" Mandatory="Yes"/>
+        <ItemRef ItemOID="IT.MH.MHTERM" OrderNumber="4" Mandatory="Yes"/>
+        <ItemRef ItemOID="IT.MH.MHDECOD" OrderNumber="5" Mandatory="No"/>
+      </ItemGroupDef>
+      <ItemGroupDef OID="IG.LB" Name="LB" Domain="LB" Repeating="Yes" IsReferenceData="No" Purpose="Tabulation">
+        <Description><TranslatedText xml:lang="en">Laboratory Test Results</TranslatedText></Description>
+        <ItemRef ItemOID="IT.LB.USUBJID" OrderNumber="1" Mandatory="Yes"/>
+        <ItemRef ItemOID="IT.LB.DOMAIN" OrderNumber="2" Mandatory="Yes"/>
+        <ItemRef ItemOID="IT.LB.LBTESTCD" OrderNumber="3" Mandatory="Yes"/>
+        <ItemRef ItemOID="IT.LB.LBTEST" OrderNumber="4" Mandatory="No"/>
+        <ItemRef ItemOID="IT.LB.LBSTRESC" OrderNumber="5" Mandatory="No"/>
+        <ItemRef ItemOID="IT.LB.LBSTRESN" OrderNumber="6" Mandatory="No"/>
+        <ItemRef ItemOID="IT.LB.LBSTRESU" OrderNumber="7" Mandatory="No"/>
+        <ItemRef ItemOID="IT.LB.LBSTNRLO" OrderNumber="8" Mandatory="No"/>
+        <ItemRef ItemOID="IT.LB.LBSTNRHI" OrderNumber="9" Mandatory="No"/>
+        <ItemRef ItemOID="IT.LB.LBDTC" OrderNumber="10" Mandatory="No"/>
+      </ItemGroupDef>
+      <ItemGroupDef OID="IG.TS" Name="TS" Domain="TS" Repeating="Yes" IsReferenceData="Yes" Purpose="Tabulation">
+        <Description><TranslatedText xml:lang="en">Trial Summary</TranslatedText></Description>
+        <ItemRef ItemOID="IT.TS.STUDYID" OrderNumber="1" Mandatory="Yes"/>
+        <ItemRef ItemOID="IT.TS.DOMAIN" OrderNumber="2" Mandatory="Yes"/>
+        <ItemRef ItemOID="IT.TS.TSPARMCD" OrderNumber="3" Mandatory="Yes"/>
+        <ItemRef ItemOID="IT.TS.TSVAL" OrderNumber="4" Mandatory="Yes"/>
+      </ItemGroupDef>
+
+      <ItemDef OID="IT.DM.USUBJID" Name="USUBJID" DataType="text"><Description><TranslatedText xml:lang="en">Unique Subject Identifier</TranslatedText></Description></ItemDef>
+      <ItemDef OID="IT.DM.DOMAIN" Name="DOMAIN" DataType="text"><Description><TranslatedText xml:lang="en">Domain Abbreviation</TranslatedText></Description></ItemDef>
+      <ItemDef OID="IT.DM.BRTHDTC" Name="BRTHDTC" DataType="date"><Description><TranslatedText xml:lang="en">Date/Time of Birth</TranslatedText></Description></ItemDef>
+      <ItemDef OID="IT.DM.SEX" Name="SEX" DataType="text"><Description><TranslatedText xml:lang="en">Sex</TranslatedText></Description></ItemDef>
+      <ItemDef OID="IT.DM.ETHNIC" Name="ETHNIC" DataType="text"><Description><TranslatedText xml:lang="en">Ethnicity</TranslatedText></Description></ItemDef>
+      <ItemDef OID="IT.DM.COUNTRY" Name="COUNTRY" DataType="text"><Description><TranslatedText xml:lang="en">Country</TranslatedText></Description></ItemDef>
+      <ItemDef OID="IT.DM.DTHFL" Name="DTHFL" DataType="text"><Description><TranslatedText xml:lang="en">Subject Death Flag</TranslatedText></Description></ItemDef>
+
+      <ItemDef OID="IT.MH.USUBJID" Name="USUBJID" DataType="text"><Description><TranslatedText xml:lang="en">Unique Subject Identifier</TranslatedText></Description></ItemDef>
+      <ItemDef OID="IT.MH.DOMAIN" Name="DOMAIN" DataType="text"><Description><TranslatedText xml:lang="en">Domain Abbreviation</TranslatedText></Description></ItemDef>
+      <ItemDef OID="IT.MH.MHSEQ" Name="MHSEQ" DataType="integer"><Description><TranslatedText xml:lang="en">Sequence Number</TranslatedText></Description></ItemDef>
+      <ItemDef OID="IT.MH.MHTERM" Name="MHTERM" DataType="text"><Description><TranslatedText xml:lang="en">Reported Term</TranslatedText></Description></ItemDef>
+      <ItemDef OID="IT.MH.MHDECOD" Name="MHDECOD" DataType="text"><Description><TranslatedText xml:lang="en">Dictionary-Derived Term</TranslatedText></Description></ItemDef>
+
+      <ItemDef OID="IT.LB.USUBJID" Name="USUBJID" DataType="text"><Description><TranslatedText xml:lang="en">Unique Subject Identifier</TranslatedText></Description></ItemDef>
+      <ItemDef OID="IT.LB.DOMAIN" Name="DOMAIN" DataType="text"><Description><TranslatedText xml:lang="en">Domain Abbreviation</TranslatedText></Description></ItemDef>
+      <ItemDef OID="IT.LB.LBTESTCD" Name="LBTESTCD" DataType="text"><Description><TranslatedText xml:lang="en">Lab Test Short Name</TranslatedText></Description></ItemDef>
+      <ItemDef OID="IT.LB.LBTEST" Name="LBTEST" DataType="text"><Description><TranslatedText xml:lang="en">Lab Test Name</TranslatedText></Description></ItemDef>
+      <ItemDef OID="IT.LB.LBSTRESC" Name="LBSTRESC" DataType="text"><Description><TranslatedText xml:lang="en">Result in Standard Format</TranslatedText></Description></ItemDef>
+      <ItemDef OID="IT.LB.LBSTRESN" Name="LBSTRESN" DataType="decimal"><Description><TranslatedText xml:lang="en">Numeric Result in Standard Units</TranslatedText></Description></ItemDef>
+      <ItemDef OID="IT.LB.LBSTRESU" Name="LBSTRESU" DataType="text"><Description><TranslatedText xml:lang="en">Standard Units</TranslatedText></Description></ItemDef>
+      <ItemDef OID="IT.LB.LBSTNRLO" Name="LBSTNRLO" DataType="decimal"><Description><TranslatedText xml:lang="en">Reference Range Lower Limit</TranslatedText></Description></ItemDef>
+      <ItemDef OID="IT.LB.LBSTNRHI" Name="LBSTNRHI" DataType="decimal"><Description><TranslatedText xml:lang="en">Reference Range Upper Limit</TranslatedText></Description></ItemDef>
+      <ItemDef OID="IT.LB.LBDTC" Name="LBDTC" DataType="date"><Description><TranslatedText xml:lang="en">Collection Date/Time</TranslatedText></Description></ItemDef>
+
+      <ItemDef OID="IT.TS.STUDYID" Name="STUDYID" DataType="text"><Description><TranslatedText xml:lang="en">Study Identifier</TranslatedText></Description></ItemDef>
+      <ItemDef OID="IT.TS.DOMAIN" Name="DOMAIN" DataType="text"><Description><TranslatedText xml:lang="en">Domain Abbreviation</TranslatedText></Description></ItemDef>
+      <ItemDef OID="IT.TS.TSPARMCD" Name="TSPARMCD" DataType="text"><Description><TranslatedText xml:lang="en">Trial Summary Parameter Short Name</TranslatedText></Description></ItemDef>
+      <ItemDef OID="IT.TS.TSVAL" Name="TSVAL" DataType="text"><Description><TranslatedText xml:lang="en">Parameter Value</TranslatedText></Description></ItemDef>
+    </MetaDataVersion>
+  </Study>
+</ODM>

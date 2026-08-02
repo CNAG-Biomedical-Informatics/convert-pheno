@@ -9,9 +9,6 @@ introduced in **v0.31**. Its current coverage reflects EHRbase-style
 compositions and the fixtures described below and may be refined as additional
 payloads and archetypes are evaluated.
 
-Parts of the mapping were drafted or refined with LLM assistance, followed by
-human review and regression testing.
-
 The current mapper groups openEHR input by patient identity before mapping.
 Patient identity must be resolvable from the payload or envelope, and multiple compositions for the same patient are aggregated into one Beacon `individual`.
 For raw composition arrays, automatic splitting uses only embedded patient-scoped identifiers such as `ehr_status.subject.external_ref.id.value` or `PARTY_SELF.external_ref.id.value`; composition-level ids are not used as patient keys.
@@ -26,11 +23,6 @@ Uncoded `DV_TEXT` terms are emitted with synthetic `openEHR:` ids so Beacon onto
 
 :::
 #### Version 0.33
-
-Starting with **v0.31**, this mapping table may be drafted or refined with
-**LLM assistance** when the openEHR source material is dense or ambiguous. The
-documented default is **`gpt-5.4`** with **`high`** reasoning, followed by human
-review.
 
 **Output model:** BFF
 

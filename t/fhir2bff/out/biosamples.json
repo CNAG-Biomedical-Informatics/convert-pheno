@@ -2,7 +2,7 @@
    {
       "biosampleStatus" : {
          "id" : "FHIR:SpecimenStatus.available",
-         "label" : "available"
+         "label" : "Available"
       },
       "collectionDate" : "2020-03-21",
       "id" : "specimen-blood",

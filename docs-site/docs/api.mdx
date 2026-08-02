@@ -43,7 +43,7 @@ The HTTP(s) boundary accepts in-memory payloads, not paths on the API host.
 `input` may contain `data`; `output` may contain `entities` and
 `derived_entity_overrides`. Safe conversion settings belong under `options`.
 File-bearing fields such as `in_file`, `out_file`, `mapping_file`,
-`redcap_dictionary`, and `path_to_ohdsi_db` are rejected.
+`redcap_dictionary`, `define_xml`, and `path_to_ohdsi_db` are rejected.
 
 ### OMOP table data
 
@@ -78,8 +78,7 @@ requests are processed in memory.
 
 `default_vital_status`, `levenshtein_weight`, `max_lines_sql`,
 `min_text_similarity_score`, `ohdsi_db`, `omop_tables`,
-`print_hidden_labels`, `search`, `source_info`, `test`,
-`text_similarity_method`, and `username`.
+`search`, `source_info`, `test`, `text_similarity_method`, and `username`.
 
 </details>
 
@@ -201,14 +200,15 @@ The REST API works best for **self-contained payloads** where the request alread
 | `BFF` | Recommended | Small JSON payloads are natural to send over HTTP(s) |
 | `PXF` | Recommended | Small JSON payloads are natural to send over HTTP(s) |
 | `OMOP-CDM` | Recommended with care | Send table rows as JSON; Convert-Pheno groups them by patient in memory |
-| `FHIR R4` | Available | A self-contained JSON Bundle can be sent directly as `input.data` |
+| `FHIR R4 / mCODE 4.0` | Available | A self-contained JSON Bundle can be sent directly as `input.data`; mCODE profiles are detected automatically |
 | `openEHR` | Available | Canonical JSON/YAML content can be sent directly as `input.data` |
 | `CSV` | CLI/module only | Mapping-file conversion depends on file artifacts that are not accepted by the HTTP boundary |
 | `REDCap` | CLI/module only | Requires project data, a REDCap dictionary, and mapping-file context |
 | `CDISC-ODM` | CLI/module only | Requires XML plus a mapping file; only REDCap-origin ODM also uses an external dictionary |
 | `CDISC Dataset-JSON` | CLI/module only | Accepts multiple SDTM domain documents that are grouped before conversion |
+| `CDISC Dataset-XML` | CLI/module only | Requires Dataset-XML documents plus accompanying Define-XML metadata |
 
-For `CSV`, `REDCap`, `CDISC-ODM`, and Dataset-JSON, use the **CLI or module
+For `CSV`, `REDCap`, `CDISC-ODM`, Dataset-JSON, and Dataset-XML, use the **CLI or module
 interface**. The HTTP wrappers reject those file-based routes rather than
 accepting server-local paths.
 

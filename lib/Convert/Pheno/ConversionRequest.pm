@@ -12,6 +12,7 @@ my @ARGUMENT_KEYS = qw(
   data
   debug
   default_vital_status
+  define_xml
   derived_entity_overrides
   entities
   exposures_file
@@ -30,11 +31,10 @@ my @ARGUMENT_KEYS = qw(
   out_file
   output_name_overrides
   path_to_ohdsi_db
-  print_hidden_labels
   redcap_dictionary
   schema_file
   search
-  search_audit_file
+  term_audit_file
   self_validate_schema
   sep
   source_info

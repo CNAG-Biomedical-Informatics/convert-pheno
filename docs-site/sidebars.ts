@@ -104,6 +104,11 @@ const sidebars: SidebarsConfig = {
             },
             {
               type: 'doc',
+              id: 'dataset-xml',
+              label: 'Dataset-XML (Experimental)',
+            },
+            {
+              type: 'doc',
               id: 'cdisc-odm',
               label: 'ODM',
             },
@@ -191,6 +196,11 @@ const sidebars: SidebarsConfig = {
             },
             {
               type: 'doc',
+              id: 'datasetxml2bff',
+              label: 'Dataset-XML to BFF',
+            },
+            {
+              type: 'doc',
               id: 'fhir2bff',
               label: 'FHIR to BFF',
             },
@@ -218,19 +228,14 @@ const sidebars: SidebarsConfig = {
       label: '❓ Help',
       items: [
         {
-          type: 'category',
+          type: 'doc',
+          id: 'mapping-files',
           label: 'Mapping Files',
-          link: {
-            type: 'doc',
-            id: 'mapping-files',
-          },
-          items: [
-            {
-              type: 'doc',
-              id: 'tbl/mapping-file',
-              label: 'Reference',
-            },
-          ],
+        },
+        {
+          type: 'doc',
+          id: 'tbl/db-search',
+          label: 'Terminology Search',
         },
         {
           type: 'link',

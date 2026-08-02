@@ -17,14 +17,14 @@ Choose the entry point by the shape of your input data. The command-line interfa
 
 | Entry point | Best for | Avoid when |
 |-----------|----------|------------|
-| [Command-Line Interface](use-as-a-command-line-interface) | Normal use: real files, mapping files, OMOP tables, REDCap exports, CDISC-ODM XML, Dataset-JSON domains, FHIR Bundles, audit logs, multi-entity BFF output | You are building a service that must call Convert-Pheno over HTTP(s) |
+| [Command-Line Interface](use-as-a-command-line-interface) | Normal use: real files, mapping files, OMOP tables, REDCap exports, CDISC-ODM XML, Dataset-JSON or Dataset-XML domains, FHIR Bundles, audit logs, multi-entity BFF output | You are building a service that must call Convert-Pheno over HTTP(s) |
 | [API](use-as-an-api) | Developer use: self-contained JSON payloads from applications, notebooks, or JavaScript clients | The conversion needs several local files, mapping files, or large OMOP exports |
 | [Module](use-as-a-module) | Developer use: Perl/Python code that runs in the same environment as Convert-Pheno | You need a language-agnostic network contract |
 
 ## Practical Rule
 
 - Use the **CLI** when your input is a file on disk.
-- Use the **CLI** when the conversion needs `--mapping-file`, `--redcap-dictionary`, `--search-audit-tsv`, `--ohdsi-db`, or `--out-dir`.
+- Use the **CLI** when the conversion needs `--mapping-file`, `--redcap-dictionary`, `--term-audit-tsv`, `--ohdsi-db`, or `--out-dir`.
 - Use the **API** only when your input and output can be represented as one JSON request and response.
 - Use the **Module** only when you are embedding Convert-Pheno in local Perl or Python code.
 

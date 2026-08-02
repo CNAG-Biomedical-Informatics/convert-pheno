@@ -27,9 +27,12 @@ export const OmopCsvExampleDownloads = () => {
   );
 };
 
-**OMOP CDM** stands for **O**bservational **M**edical **O**utcomes
-**P**artnership **C**ommon **D**ata **M**odel. See the
-[OMOP CDM documentation](https://www.ohdsi.org/data-standardization/the-common-data-model).
+**Category:** Observational health data model
+
+[OMOP CDM](https://www.ohdsi.org/data-standardization/the-common-data-model)
+is OHDSI's standardized relational model for observational health data.
+Convert-Pheno **reads SQL or table-file exports rather than connecting to a
+live OMOP database**, and it can write the supported OMOP-CDM tables as CSV.
 
 <div className="convertFormatSummary" aria-label="At a glance">
   <div><span>Role</span><strong>Input and output</strong></div>
@@ -42,10 +45,6 @@ export const OmopCsvExampleDownloads = () => {
 <OmopFormatImage />
 <figcaption>Representative OMOP tables joined through person and concept identifiers</figcaption>
 </figure>
-
-OMOP CDM is a relational model that can be implemented in different database
-systems. Convert-Pheno works with file exports rather than connecting directly
-to a live OMOP database.
 
 Supported directions are:
 
@@ -147,9 +146,10 @@ OMOP output consists of table CSV files such as `PERSON.csv`,
 The files are written under `--out-dir`; `--out-name TABLE=FILE` can override
 an individual table filename.
 
-BFF, PXF, CSV, REDCap, CDISC-ODM, Dataset-JSON, and FHIR input can reach this output through the
-supported normalization routes. See [Choose a Conversion](conversion-recipes)
-for commands and [BFF to OMOP](bff2omop) for the field-level mapping.
+BFF, PXF, CSV, REDCap, CDISC-ODM, cBioPortal, Dataset-JSON, Dataset-XML, and
+FHIR/mCODE input can reach this output through the supported normalization
+routes. See [Choose a Conversion](conversion-recipes) for commands and
+[BFF to OMOP](bff2omop) for the field-level mapping.
 
 Developers using in-memory or HTTP(s) interfaces should use the dedicated
 [Module](use-as-a-module) and [API](use-as-an-api) pages rather than format-page

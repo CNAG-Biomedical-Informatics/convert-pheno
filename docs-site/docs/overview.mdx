@@ -11,7 +11,8 @@ import Link from '@docusaurus/Link';
 
   Convert-Pheno supports conversion routes involving [BFF](bff), [PXF](pxf),
   [OMOP-CDM](omop-cdm), [REDCap](redcap), [cBioPortal](cbioportal), [CDISC-ODM](cdisc-odm),
-  [CDISC Dataset-JSON](dataset-json), [FHIR R4](fhir), [CSV](csv), and
+  [CDISC Dataset-JSON](dataset-json), [CDISC Dataset-XML](dataset-xml),
+  [FHIR R4 and mCODE](fhir), [CSV](csv), and
   [openEHR](openehr).
 
   <div className="convertHeroActions">
@@ -40,7 +41,8 @@ Most users come to `Convert-Pheno` for one of these tasks:
 - convert `OMOP-CDM` exports to `BFF` or `PXF`
 - convert `REDCap` or `CDISC-ODM` data through a **mapping file**
 - convert CDISC Dataset-JSON SDTM domains to `BFF`, `PXF`, or supported `OMOP-CDM` tables
-- convert FHIR R4 Bundles to `BFF`, `PXF`, or supported `OMOP-CDM` tables
+- resolve CDISC Dataset-XML SDTM domains with Define-XML and convert them to `BFF`, `PXF`, or supported `OMOP-CDM` tables
+- convert generic FHIR R4 or mCODE 4.0 Bundles to `BFF`, `PXF`, or supported `OMOP-CDM` tables
 - convert cBioPortal clinical study packages to entity-aware `BFF`, `PXF`, or supported `OMOP-CDM` tables
 - use mapped raw `CSV` as an ETL source for `BFF`, `PXF`, or supported `OMOP-CDM` tables
 - convert `BFF` to `PXF`, flattened `CSV`, flattened `JSON`, or `JSON-LD`
@@ -55,13 +57,13 @@ Most users come to `Convert-Pheno` for one of these tasks:
 Use the HTTP(s) API mainly for **self-contained JSON payloads** such as `BFF`, `PXF`, FHIR R4 Bundles, and carefully prepared `OMOP-CDM` requests.
 
 For mapping-file-based conversions such as `CSV`, `REDCap`, and `CDISC-ODM`,
-or multi-file Dataset-JSON input, prefer the CLI.
+or multi-file Dataset-JSON/Dataset-XML input, prefer the CLI.
 
 :::
 ## Documentation map
 
 - [Command-Line Interface](use-as-a-command-line-interface) if you want to **run the tool now**
-- [Working with Mapping Files](mapping-files) for an **end-to-end mapped REDCap workflow**
+- [Mapping Files](mapping-files) for an **end-to-end mapped REDCap workflow**
 - [Use as an API](use-as-an-api) if you want the **HTTP(s) contract, API support matrix, and JavaScript fetch examples**
 - [Troubleshooting](troubleshooting) if something is not behaving as expected
 - [Implementation](implementation) if you want the **architectural view**

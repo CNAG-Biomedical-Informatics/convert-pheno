@@ -83,9 +83,6 @@
                           "type": "string"
                         }
                       },
-                      "print_hidden_labels": {
-                        "type": "boolean"
-                      },
                       "search": {
                         "type": "string",
                         "enum": ["exact", "mixed", "fuzzy"]

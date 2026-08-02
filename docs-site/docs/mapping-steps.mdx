@@ -46,6 +46,7 @@ graph LR
   D[OMOP-CDM] -->|omop2bff| A
   E[CDISC-ODM] -->|cdiscodm2bff| A
   I[Dataset-JSON] -->|datasetjson2bff| A
+  X[Dataset-XML] -->|datasetxml2bff| A
   J[FHIR R4] -->|fhir2bff| A
   K[openEHR] -->|openehr2bff| A
   G[CSV] -->|csv2bff| A
@@ -65,6 +66,7 @@ graph LR
   style G fill: #FFFF00, stroke: #FFFF00
   style H fill: #3CB371, stroke: #3CB371
   style I fill: #F3E7B3, stroke: #A58A28
+  style X fill: #E7D8B6, stroke: #8A7040
   style J fill: #F9D7D9, stroke: #B74A55
   style K fill: #B8E0D2, stroke: #5B8F7B
 
@@ -87,8 +89,6 @@ graph LR
 ### Schema mapping
 
 When starting a new conversion between two data models, the first step is to **map variables** between the two data schemas.
-
-Starting with **version 0.31**, some mapping-table drafts may use LLM assistance when the source model is especially dense or ambiguous. These mappings still require human review before being treated as project documentation.
 
 <details>
 <summary>Mapping strategy: External or hardcoded?</summary>
@@ -345,9 +345,12 @@ If the input files contain ontology terms, the **ontologies will be preserved** 
 | Data mapping   | ✓   | ✓ | ✓ | ✓ | ✓ | ✓ |
 | Add ontologies | ✓   | ✓ | ✓ | `--ohdsi-db` |     |                  |
 
-**Database Search Feature**
+**Terminology search**
    
-For input types that do not contain ontologies, such as `CSV`, _REDCap_, and _CDISC-ODM_, we perform a **database search** to fetch ontologies from a variety of trusted databases. Supported databases include:
+For input types that do not contain ontology identifiers, such as `CSV`,
+_REDCap_, and _CDISC-ODM_, mapping rules can search bundled terminology
+databases. The data owner controls which source fields and labels are queried.
+Supported databases include:
   
 * [Athena-OHDSI](https://athena.ohdsi.org/search-terms/start) standardized vocabulary, which includes multiple terminologies, such as _SNOMED, RxNorm or LOINC_
 * [NCI Thesaurus](https://ncithesaurus.nci.nih.gov/ncitbrowser)
@@ -356,11 +359,12 @@ For input types that do not contain ontologies, such as `CSV`, _REDCap_, and _CD
 * [OMIM](https://www.omim.org/) Online Mendelian Inheritance in Man
 * [HPO](https://hpo.jax.org/app) Human Phenotype Ontology (Note that prefixes are `HP:`, without the `O`)
 
-Dataset-JSON follows a different policy. The current SDTM profile does not run
-mapping-file ontology searches; when a target field requires a term, it emits
-a source-derived `CDISC:` identifier that records the SDTM field and value.
-See [Dataset-JSON to BFF](datasetjson2bff) for the exact mapping and terminology
-boundary.
+Dataset-JSON and Dataset-XML have a built-in structural SDTM mapping. Their
+optional compact mapping file controls terminology only: direct terms,
+reviewed label queries, and aliases. Supported NCI identifiers in Define-XML
+are resolved exactly. Values that remain unresolved use a source-derived
+`CDISC:` identifier. See [Dataset-JSON to BFF](datasetjson2bff) and
+[Dataset-XML to BFF](datasetxml2bff).
 
 FHIR preserves codings from recognized systems with prefixes such as `LOINC:`,
 `SNOMEDCT:`, `RxNorm:`, `UCUM:`, and `HP:`. Unknown systems and uncoded text use
@@ -372,8 +376,8 @@ See [FHIR to BFF](fhir2bff) for the exact policy.
   <p>
     Mapping-file routes can resolve source labels with `--search exact`,
     `--search mixed`, or `--search fuzzy`. The detailed scoring behavior,
-    examples, and threshold guidance are documented separately in
-    <a href="tbl/db-search">DB Search</a>.
+    precedence, audit columns, and threshold guidance are documented in
+    <a href="tbl/db-search">Terminology Search</a>.
   </p>
 </div>
 

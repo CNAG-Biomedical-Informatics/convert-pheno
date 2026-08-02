@@ -1,146 +1,140 @@
 ---
-title: DB Search
-sidebar_label: DB Search
+title: Terminology Search
+sidebar_label: Terminology Search
 ---
 
-<details>
-<summary>About text similarity in database searches</summary>
+Convert-Pheno can resolve source values against the bundled terminology
+databases when a conversion rule requests it. Search is **mapping-controlled**:
+the software does not decide that two clinical terms are equivalent unless the
+source metadata or mapping file supplies the basis for that decision.
 
+## Resolution Order
 
-`Convert-Pheno` comes with several pre-configured ontology/terminology databases. It supports three types of label-based search strategies:
+For SDTM Dataset-JSON and Dataset-XML fields, Convert-Pheno uses this order:
 
----
+1. A curated `term` or matching entry in `terms` from the mapping file
+2. An NCI identifier explicitly supplied by Define-XML
+3. A configured label query, including a reviewed alias
+4. The source-derived `CDISC:` term when none of the above resolves
 
-#### 1. `exact` (default)
+Direct mapping terms bypass SQLite. A Define-XML NCI identifier is searched in
+the `id` column to obtain its canonical NCIT label. Only configured label
+queries use the selected `--search` mode.
 
-Returns only **exact matches** for the given label string. If the label is not found exactly, no results are returned.
+Other mapping-file routes use the same direct-term and label-query behavior,
+without the Define-XML step. FHIR and already coded source formats preserve
+recognized source codings according to their format-specific mapping instead
+of applying this search contract automatically.
 
----
+## Mapping A Label Query
 
-#### 2. `mixed` (use `--search mixed`)
+An alias records a reviewed relationship between a source value and the label
+expected in the selected terminology database:
 
-**Hybrid search**: First tries to find an exact label match. If none is found, it performs a token-based similarity search and returns the closest matching concept based on the **highest similarity score**.
-
----
-
-#### 3. ✨ `fuzzy` (use `--search fuzzy`)
-
-**Hybrid search with fuzzy ranking**:  
-Like `mixed`, it starts with an exact match attempt. If that fails, it performs a **weighted similarity search**, where:
-- **90%** of the score comes from token-based similarity (e.g., cosine or Dice coefficient),
-- **10%** comes from the **normalized Levenshtein similarity**.
-
-The concept with the highest composite score is returned.
-
-**Note:** The normalized Levenshtein similarity is computed on top of the candidate results produced by the full text search. In this approach, an initial full text search (using token-based methods) returns a set of potential matches. The fuzzy search then refines these results by applying the normalized Levenshtein distance to better handle minor typographical differences, ensuring that the final composite score reflects both overall token similarity and fine-grained character-level differences.
-
-
----
-
-#### 🔍 Example Search Behavior
-
-**Query:** `Exercise pain management`  
-- With `--search exact`: ✅ Match found — **Exercise Pain Management**
-
-**Query:** `Brain Hemorrhage`  
-- With `--search mixed`:  
-  - ❌ No exact match  
-  - ✅ Closest match by similarity: **Intraventricular Brain Hemorrhage**
-
----
-
-### 💡 Similarity Threshold
-
-The `--min-text-similarity-score` option sets the minimum threshold for `mixed` and `fuzzy` searches.
-- Default: `0.8` (conservative)  
-- Lowering the threshold may increase recall but may introduce irrelevant matches.
-
----
-
-### ⚠️ Performance Note
-
-Both `mixed` and `fuzzy` modes are more computationally intensive and can produce unexpected or less interpretable matches. Use them with care, especially on large datasets.
-
----
-
-### 🧪 Example Results Table
-
-Below is an example showing how the query `Sudden Death Syndrome` performs using different search modes against the NCIt ontology:
-
-| Query                 | Search | NCIt match (label)                                    | NCIt code    | Cosine | Dice | Levenshtein (Normalized) | Composite |
-|-----------------------|--------|-------------------------------------------------------|--------------|--------|------|--------------------------|-----------|
-| Sudden Death Syndrome | exact  | NA                                                    | NA           | NA     | NA   | NA                       | NA        |
-|                       | mixed  | CDISC SDTM Sudden Death Syndrome Type Terminology     | NCIT:C101852 | 0.65   | 0.60 | NA                       | NA        |
-|                       |        | Family History of Sudden Arrythmia Death Syndrome     | NCIT:C168019 | 0.65   | 0.60 | NA                       | NA        |
-|                       |        | Family History of Sudden Infant Death Syndrome        | NCIT:C168209 | 0.65   | 0.60 | NA                       | NA        |
-|                       |        | Sudden Infant Death Syndrome                          | NCIT:C85173  | 0.86   | 0.86 | NA                       | NA        |
-|                       | ✨ fuzzy  | CDISC SDTM Sudden Death Syndrome Type Terminology     | NCIT:C101852 | 0.65   | 0.60 | 0.43                     | 0.63      |
-|                       |        | Family History of Sudden Arrythmia Death Syndrome     | NCIT:C168019 | 0.65   | 0.60 | 0.43                     | 0.63      |
-|                       |        | Family History of Sudden Infant Death Syndrome        | NCIT:C168209 | 0.65   | 0.60 | 0.46                     | 0.63      |
-|                       |        | Sudden Infant Death Syndrome                          | NCIT:C85173  | 0.86   | 0.86 | 0.75                     | 0.85      |
-
-**Interpretation:**  
-
-- With `exact`, there are no matches.
-
-- With `mixed`, the best match will be `Sudden Infant Death Syndrome`.
-
-- With `fuzzy`, the **composite score** (90% token-based + 10% Levenshtein similarity) is used to rank results.  
-  The highest match is `Sudden Infant Death Syndrome`, with a composite score of **0.85**.
-
----
-
-✨ Now we introduce a typo on the query `Sudden Infant Deth Syndrome`:
-
-
-| Query                 | Mode  | Candidate Label                                       | Code         | Cosine | Dice   |  Levenshtein (Normalized) | Composite |
-|-----------------------|-------|-------------------------------------------------------|-------------|--------|--------|------------|-----------|
-| Sudden Infant Deth Syndrome | fuzzy | CDISC SDTM Sudden Death Syndrome Type Terminology     | NCIT:C101852 | 0.38   | 0.36   | 0.33        | 0.37      |
-|                             |       | Family History of Sudden Arrythmia Death Syndrome     | NCIT:C168019 | 0.38   | 0.36   | 0.43        | 0.38      |
-|                             |       | Family History of Sudden Infant Death Syndrome        | NCIT:C168209 | 0.57   | 0.55   | 0.59        | 0.57      |
-|                             |       | Sudden Infant Death Syndrome                          | NCIT:C85173 | 0.75   | 0.75   | 0.96        | 0.77      
-
-To capture the best match we would need to lower the threshold to  `--min-text-similarity-score 0.75`
-
-It is possible to change the weight of Levenshtein similarity via `--levenshtein-weight <floating 0.0 - 1.0>`.
-
-
-</details>
-<details>
-<summary>Composite Similarity Score</summary>
-
-
-The composite similarity score is computed as a weighted sum of two measures: the token-based similarity and the normalized Levenshtein similarity.
-
-#### 1. Token-Based Similarity
-
-This is calculated using methods like cosine or Dice similarity to measure how similar the tokens (words) of two strings are.
-
-#### 2. Normalized Levenshtein Similarity
-
-The normalized Levenshtein similarity is defined as:
-
-```text
-\text{NormalizedLevenshtein}(s_1, s_2) = 1 - \frac{\text{lev}(s_1, s_2)}{\max(|s_1|, |s_2|)}
+```yaml
+terminology:
+  AE.AESEV:
+    query:
+      from: value
+      aliases:
+        MILD: Mild
 ```
 
-Where:
-- `\text{lev}(s_1, s_2)` is the Levenshtein edit distance—the minimum number of insertions, deletions, or substitutions required to change `s_1` into `s_2`.
-- `|s_1|` and `|s_2|` are the lengths of the strings `s_1` and `s_2`, respectively.
+Here, `MILD` is the value in the SDTM dataset and `Mild` is the database label
+to search. The alias is not an ontology identifier and does not bypass lookup.
 
-This formula produces a score between 0 and 1, with **1.0** meaning identical strings and **0.0** meaning completely different strings.
+When the identifier and display are already curated, use `terms` instead:
 
-#### 3. Composite Score Formula
-
-The final composite similarity score `C` is a weighted combination of the two metrics:
-
-```text
-C(s_1, s_2) = \alpha \cdot \text{TokenSimilarity}(s_1, s_2) + \beta \cdot \text{NormalizedLevenshtein}(s_1, s_2)
+```yaml
+terminology:
+  AE.AESEV:
+    terms:
+      MILD:
+        id: NCIT:C70666
+        label: Mild
 ```
 
-Where:
-- `\alpha` (or `token_weight`) is the weight assigned to the token-based similarity.
-- `\beta` (or `lev_weight`) is the weight assigned to the normalized Levenshtein similarity.
+`term` applies one fixed term to the field. `terms` selects direct terms by
+source value. A rule may combine `terms` with `query`: matching values use the
+curated term, while the remaining values use the query.
 
-A common default is to set `\alpha = 0.9` and `\beta = 0.1`, emphasizing the token-based similarity. However, for short strings (4–5 words), you might consider adjusting the balance (for example, `\alpha = 0.95` and `\beta = 0.05`) if small typographical differences are less critical.
-</details>
+## Identifier Lookup
+
+Identifier lookup and label search are deliberately different:
+
+- `id` and OMOP `concept_id` lookups are always exact
+- the global `--search` setting does not make identifier lookup fuzzy
+- the identifier returned by the database is paired with its canonical label
+- the audit retains the original source value and display separately
+
+For example, a Define-XML `Alias` with `Context="nci:ExtCodeID"` and
+`Name="C41222"` resolves to `NCIT:C41222` and the current NCIT display. Other
+Define-XML alias contexts are not treated as NCI identifiers.
+
+## Label Search Modes
+
+| Mode | Behavior | Suggested use |
+| --- | --- | --- |
+| `exact` | Case-insensitive exact label match | Default and preferred when aliases are reviewed |
+| `mixed` | Exact match, then token-similarity fallback | Controlled review when exact labels are unavailable |
+| `fuzzy` | Exact match, then token and normalized Levenshtein ranking | Misspellings or minor textual variation requiring closer review |
+
+Configure the mode for the run:
+
+```bash
+convert-pheno \
+  -icsv clinical.csv \
+  --mapping-file mapping.yaml \
+  --search mixed \
+  --min-text-similarity-score 0.8 \
+  --term-audit-tsv terminology.tsv \
+  -obff individuals.json
+```
+
+`mixed` and `fuzzy` use `--text-similarity-method cosine|dice` and
+`--min-text-similarity-score` (default `0.8`). `fuzzy` also uses
+`--levenshtein-weight` (default `0.1`). Lower thresholds increase recall but
+also increase the risk of semantically incorrect matches.
+
+:::warning[Review similarity matches]
+Similarity is lexical, not clinical. A high text score does not establish that
+two concepts are semantically equivalent. Prefer reviewed aliases or direct
+terms when the data owner knows the intended concept.
+:::
+
+## Terminology Audit
+
+Add `--term-audit-tsv FILE` to write one row for each terminology decision.
+The report also supports `.tsv.gz` output.
+
+The most useful columns are:
+
+| Column | Meaning |
+| --- | --- |
+| `source_record`, `source_field` | Location of the source value |
+| `source_value` | Raw or normalized value supplied by the source |
+| `source_label` | Source display, including a Define-XML decode when present |
+| `lookup_query`, `lookup_column` | Value and database column actually searched |
+| `converted_term_label`, `converted_term_id` | Term emitted by the conversion |
+| `configured_search_mode` | Global label-search mode for the run |
+| `effective_search_mode` | Actual mode; identifier lookup remains `exact` and direct terms are `not_used` |
+| `match_status`, `match_source` | Whether and where resolution occurred |
+| `lookup_resolution` | Exact, similarity, direct mapping, or source fallback |
+| `fallback_action` | Whether a default or source-derived term was retained |
+
+This distinction makes cases such as the following reviewable:
+
+- source value `MILD`, alias query `Mild`, result `NCIT:C70666`
+- source display `Not Hispanic or Latino`, Define-XML ID `C41222`, canonical NCIT result
+- source value `UNKNOWN`, no supported identifier or query, retained `CDISC:ETHNIC.UNKNOWN`
+
+The audit replaces the former `--search-audit-tsv` option. It covers direct
+terms, identifier resolution, label searches, and fallbacks rather than only
+SQLite search results.
+
+## Performance
+
+Exact label and identifier lookups use indexed SQLite columns. `mixed` and
+`fuzzy` search are slower because they evaluate full-text candidates and
+similarity scores. The audit itself adds only sequential TSV writes and is
+normally small compared with similarity search or conversion work.

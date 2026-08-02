@@ -56,6 +56,27 @@ is_deeply(
     'registry defines Dataset-JSON to OMOP as a compound conversion'
 );
 
+my $datasetxml_to_bff = conversion_spec('datasetxml2bff');
+is_deeply(
+    $datasetxml_to_bff->{pipeline},
+    ['datasetxml2bff'],
+    'registry defines Dataset-XML as a direct BFF bundle operation'
+);
+is_deeply(
+    $datasetxml_to_bff->{entities}{supported},
+    [ 'individuals', 'datasets', 'cohorts' ],
+    'registry limits Dataset-XML BFF output to implemented entities'
+);
+ok(
+    !is_http_conversion('datasetxml2bff'),
+    'registry keeps Dataset-XML plus Define-XML outside HTTP'
+);
+is_deeply(
+    conversion_spec('datasetxml2omop')->{pipeline},
+    [ 'datasetxml2bff', 'bff2omop' ],
+    'registry defines Dataset-XML to OMOP as a compound conversion'
+);
+
 my $cbioportal_to_bff = conversion_spec('cbioportal2bff');
 is_deeply(
     $cbioportal_to_bff->{pipeline},

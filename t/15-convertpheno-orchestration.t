@@ -311,7 +311,7 @@ local $SIG{__WARN__} = sub {
 
     local *Convert::Pheno::open_connections_SQLite = sub { return 1 };
     local *Convert::Pheno::close_connections_SQLite = sub { $closed++; return 1 };
-    local *Convert::Pheno::finalize_search_audit = sub { $audit_finalized++; return 1 };
+    local *Convert::Pheno::finalize_term_audit = sub { $audit_finalized++; return 1 };
     local *Convert::Pheno::omop_streams_multiple_entities_wrapper = sub { return 1 };
     local *Convert::Pheno::omop_stream_targets_open_wrapper = sub { return 1 };
     local *Convert::Pheno::omop_stream_targets_finalize_wrapper = sub {
@@ -335,7 +335,7 @@ local $SIG{__WARN__} = sub {
     );
     is( $stream_commit, 0, 'failed streams discard staged entity outputs' );
     is( $closed, 1, 'stream dispatcher closes SQLite connections after failure' );
-    is( $audit_finalized, 1, 'stream dispatcher finalizes search audits after failure' );
+    is( $audit_finalized, 1, 'stream dispatcher finalizes terminology audits after failure' );
 }
 
 {
@@ -370,7 +370,7 @@ local $SIG{__WARN__} = sub {
 
     local *Convert::Pheno::open_connections_SQLite       = sub { return 1 };
     local *Convert::Pheno::close_connections_SQLite      = sub { return 1 };
-    local *Convert::Pheno::finalize_search_audit         = sub { return 1 };
+    local *Convert::Pheno::finalize_term_audit           = sub { return 1 };
     local *Convert::Pheno::_dispatcher_open_stream_out   = sub { return undef };
 
     my $res = run_operation( $convert, { id => 'bundle-1' }, operation => $op, view => 'primary' );
@@ -407,7 +407,7 @@ local $SIG{__WARN__} = sub {
         $closed++;
         return 1;
     };
-    local *Convert::Pheno::finalize_search_audit = sub {
+    local *Convert::Pheno::finalize_term_audit = sub {
         $finalized++;
         return 1;
     };
@@ -419,7 +419,7 @@ local $SIG{__WARN__} = sub {
         'runner preserves conversion failures'
     );
     is( $closed, 1, 'runner closes SQLite connections after a conversion failure' );
-    is( $finalized, 1, 'runner finalizes search audit output after a conversion failure' );
+    is( $finalized, 1, 'runner finalizes terminology audit output after a conversion failure' );
     ok( !exists $convert->{current_row}, 'runner clears transient row state after a conversion failure' );
 }
 
@@ -435,7 +435,7 @@ local $SIG{__WARN__} = sub {
 
     local *Convert::Pheno::open_connections_SQLite       = sub { return 1 };
     local *Convert::Pheno::close_connections_SQLite      = sub { return 1 };
-    local *Convert::Pheno::finalize_search_audit         = sub { return 1 };
+    local *Convert::Pheno::finalize_term_audit           = sub { return 1 };
     local *Convert::Pheno::_dispatcher_open_stream_out   = sub { return undef };
 
     local *Convert::Pheno::OMOP::ToBFF::run_omop_to_bundle = sub {
@@ -482,7 +482,7 @@ local $SIG{__WARN__} = sub {
 
     local *Convert::Pheno::open_connections_SQLite     = sub { return 1 };
     local *Convert::Pheno::close_connections_SQLite    = sub { return 1 };
-    local *Convert::Pheno::finalize_search_audit       = sub { return 1 };
+    local *Convert::Pheno::finalize_term_audit         = sub { return 1 };
     local *Convert::Pheno::_dispatcher_open_stream_out = sub { return undef };
 
     local *Convert::Pheno::OMOP::ToBFF::run_omop_to_bundle = sub {

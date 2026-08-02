@@ -2,10 +2,10 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/CNAG-Biomedical-Informatics/convert-pheno/schema/mapping-v2.json",
   "title": "Convert-Pheno mapping file v2",
-  "description": "Concise source-to-Beacon authoring contract for tabular conversions.",
+  "description": "Concise source-to-Beacon authoring contract for tabular conversions and SDTM terminology enrichment.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["mappingVersion", "source", "target", "project", "defaults", "records", "beacon"],
+  "required": ["mappingVersion", "source", "target", "project", "defaults"],
   "properties": {
     "mappingVersion": { "const": 2 },
     "source": {
@@ -15,8 +15,8 @@
       "required": ["profile"],
       "properties": {
         "profile": {
-          "description": "Use redcap for REDCap CSV and REDCap-origin ODM; use cdisc-odm for standard or vendor ODM with embedded metadata; use cbioportal for cBioPortal patient and sample clinical tables.",
-          "enum": ["cbioportal", "cdisc-odm", "csv", "redcap"]
+          "description": "Use redcap for REDCap CSV and REDCap-origin ODM; cdisc-odm for standard or vendor ODM with embedded metadata; cbioportal for patient and sample clinical tables; and sdtm for Dataset-JSON or Dataset-XML terminology enrichment.",
+          "enum": ["cbioportal", "cdisc-odm", "csv", "redcap", "sdtm"]
         }
       }
     },
@@ -78,8 +78,40 @@
         "datasets": { "$ref": "#/$defs/datasetDefaults" },
         "cohorts": { "$ref": "#/$defs/cohortDefaults" }
       }
+    },
+    "terminology": {
+      "type": "object",
+      "description": "Ontology resolution rules for term-bearing SDTM fields. Structural SDTM-to-BFF mappings remain built in.",
+      "minProperties": 1,
+      "propertyNames": {
+        "pattern": "^[A-Z][A-Z0-9]{0,7}\\.[A-Z][A-Z0-9_]{0,31}$"
+      },
+      "additionalProperties": { "$ref": "#/$defs/termTarget" }
     }
   },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "source": {
+            "properties": { "profile": { "const": "sdtm" } },
+            "required": ["profile"]
+          }
+        }
+      },
+      "then": {
+        "required": ["terminology"],
+        "properties": {
+          "records": false,
+          "beacon": false
+        }
+      },
+      "else": {
+        "required": ["records", "beacon"],
+        "properties": { "terminology": false }
+      }
+    }
+  ],
   "$defs": {
     "nonEmptyString": { "type": "string", "minLength": 1 },
     "stringArray": {
@@ -127,12 +159,33 @@
         "term": { "$ref": "#/$defs/ontologyTerm" },
         "terms": {
           "type": "object",
+          "minProperties": 1,
           "additionalProperties": { "$ref": "#/$defs/ontologyTerm" }
         }
       },
       "oneOf": [
-        { "required": ["query"] },
-        { "required": ["term"] }
+        {
+          "required": ["term"],
+          "not": {
+            "anyOf": [
+              { "required": ["query"] },
+              { "required": ["terms"] }
+            ]
+          }
+        },
+        {
+          "required": ["terms"],
+          "not": { "required": ["term"] }
+        },
+        {
+          "required": ["query"],
+          "not": {
+            "anyOf": [
+              { "required": ["term"] },
+              { "required": ["terms"] }
+            ]
+          }
+        }
       ]
     },
     "nullableTermTarget": {
@@ -194,12 +247,33 @@
         "term": { "$ref": "#/$defs/ontologyTerm" },
         "terms": {
           "type": "object",
+          "minProperties": 1,
           "additionalProperties": { "$ref": "#/$defs/ontologyTerm" }
         }
       },
       "oneOf": [
-        { "required": ["query"] },
-        { "required": ["term"] }
+        {
+          "required": ["term"],
+          "not": {
+            "anyOf": [
+              { "required": ["query"] },
+              { "required": ["terms"] }
+            ]
+          }
+        },
+        {
+          "required": ["terms"],
+          "not": { "required": ["term"] }
+        },
+        {
+          "required": ["query"],
+          "not": {
+            "anyOf": [
+              { "required": ["term"] },
+              { "required": ["terms"] }
+            ]
+          }
+        }
       ]
     },
     "scalarValueMapping": {

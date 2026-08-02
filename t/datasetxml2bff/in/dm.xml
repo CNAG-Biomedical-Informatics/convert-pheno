@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ODM xmlns="http://www.cdisc.org/ns/odm/v1.3"
+     xmlns:data="http://www.cdisc.org/ns/Dataset-XML/v1.0"
+     FileOID="STUDY-XML-01.DM"
+     PriorFileOID="DEFINE.STUDY-XML-01"
+     FileType="Snapshot"
+     ODMVersion="1.3.2"
+     CreationDateTime="2026-08-02T10:00:00Z"
+     Originator="Convert-Pheno"
+     data:DatasetXMLVersion="1.0.0">
+  <ClinicalData StudyOID="STUDY-XML-01" MetaDataVersionOID="MDV.STUDY-XML-01">
+    <ItemGroupData ItemGroupOID="IG.DM" data:ItemGroupDataSeq="1">
+      <ItemData ItemOID="IT.DM.USUBJID" Value="P001"/>
+      <ItemData ItemOID="IT.DM.DOMAIN" Value="DM"/>
+      <ItemData ItemOID="IT.DM.BRTHDTC" Value="1980-02-03"/>
+      <ItemData ItemOID="IT.DM.SEX" Value="M"/>
+      <ItemData ItemOID="IT.DM.ETHNIC" Value="NOT HISPANIC OR LATINO"/>
+      <ItemData ItemOID="IT.DM.COUNTRY" Value="USA"/>
+    </ItemGroupData>
+    <ItemGroupData ItemGroupOID="IG.DM" data:ItemGroupDataSeq="2">
+      <ItemData ItemOID="IT.DM.USUBJID" Value="P002"/>
+      <ItemData ItemOID="IT.DM.DOMAIN" Value="DM"/>
+      <ItemData ItemOID="IT.DM.BRTHDTC" Value="1975-06-20"/>
+      <ItemData ItemOID="IT.DM.SEX" Value="F"/>
+      <ItemData ItemOID="IT.DM.ETHNIC" Value="HISPANIC OR LATINO"/>
+      <ItemData ItemOID="IT.DM.COUNTRY" Value="ESP"/>
+      <ItemData ItemOID="IT.DM.DTHFL" Value="Y"/>
+    </ItemGroupData>
+  </ClinicalData>
+</ODM>

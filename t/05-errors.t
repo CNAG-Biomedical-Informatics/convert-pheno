@@ -21,7 +21,7 @@ my $base = {
     in_file           => 't/redcap2bff/in/redcap_data.csv',
     redcap_dictionary => 't/redcap2bff/in/redcap_dictionary.csv',
     mapping_file      => 't/redcap2bff/in/redcap_mapping.yaml',
-    schema_file       => 'share/schema/mapping.json',
+    schema_file       => 'share/schema/mapping-v2.json',
     method            => 'redcap2bff',
 };
 

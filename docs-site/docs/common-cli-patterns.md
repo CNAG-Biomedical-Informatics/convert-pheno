@@ -14,7 +14,7 @@ between the CLI reference, tutorial, and format guides.
 | --- | --- |
 | A copy-paste command for a source and target format | [Choose a Conversion](conversion-recipes) |
 | CLI syntax and option groups | [Command-Line Interface](use-as-a-command-line-interface) |
-| A guided REDCap mapping workflow | [Working with Mapping Files](mapping-files) |
+| A guided REDCap mapping workflow | [Mapping Files](mapping-files) |
 | Input requirements and format-specific behavior | [Supported Formats](supported-formats) |
 | Tested inputs and reference outputs | [`t/` fixture guide](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/tree/main/t) |
 

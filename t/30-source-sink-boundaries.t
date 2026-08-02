@@ -76,7 +76,7 @@ use Convert::Pheno::Source qw(source_adapter);
             method       => 'csv2bff',
             in_file      => 't/csv2bff/in/csv_data.csv',
             mapping_file => 't/csv2bff/in/csv_mapping.yaml',
-            schema_file  => 'share/schema/mapping.json',
+            schema_file  => 'share/schema/mapping-v2.json',
             sep          => ',',
         }
     );
@@ -97,7 +97,7 @@ use Convert::Pheno::Source qw(source_adapter);
             in_file            => 't/cdiscodm2bff/in/cdisc_odm_data.xml',
             mapping_file       => 't/redcap2bff/in/redcap_mapping.yaml',
             redcap_dictionary  => 't/redcap2bff/in/redcap_dictionary.csv',
-            schema_file        => 'share/schema/mapping.json',
+            schema_file        => 'share/schema/mapping-v2.json',
         }
     );
     my $source = source_adapter( $convert, 'cdisc-odm' )->load;

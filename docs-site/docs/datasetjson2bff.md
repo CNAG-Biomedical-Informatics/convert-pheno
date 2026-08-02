@@ -8,16 +8,16 @@ This table documents the experimental Dataset-JSON v1.1 SDTM profile introduced
 in **v0.33**. Its current coverage reflects the domains and fixtures described
 below and may be refined as additional study datasets and SDTM profiles are
 evaluated.
-
-Parts of the mapping were drafted or refined with LLM assistance using
-**GPT-5.6 Sol** with **ultra reasoning**, followed by human review, regression
-testing, and schema validation.
 :::
 
 This table records the implemented CDISC Dataset-JSON v1.1 SDTM mapping. The
 route groups domain rows by `USUBJID`, creates one Beacon `individuals` record
 per `DM` participant, and can synthesize `datasets` and `cohorts` from study
 metadata.
+
+The structural targets below are built in. Term-bearing fields can be enriched
+through the optional SDTM terminology mapping described under
+[Terminology And Provenance](#terminology-and-provenance).
 
 ## Demographics
 
@@ -59,10 +59,27 @@ metadata.
 
 ## Terminology And Provenance
 
-SDTM field/value pairs are encoded as source-derived CURIEs, for example
-`CDISC:LBTESTCD.ALT` or `CDISC:LBSTRESC.NEGATIVE`. Whitespace and punctuation
-are normalized for API-safe identifiers. These identifiers preserve source
-identity and are not evidence of external terminology resolution.
+Term-bearing SDTM fields use the following precedence:
+
+1. A curated mapping `term` or matching entry in `terms`
+2. A supported NCI identifier from optional Define-XML metadata
+3. A mapping-file label query, including reviewed aliases
+4. A source-derived CDISC term
+
+The compact mapping uses `source.profile: sdtm` and a top-level `terminology`
+object keyed by `DOMAIN.FIELD`. Structural SDTM-to-BFF fields are not
+redeclared. In an alias such as `MILD: Mild`, the left side is the source value
+and the right side is the database label selected by the data owner.
+
+If no configured or source-authoritative resolution applies, field/value pairs
+are encoded as source-derived CURIEs such as `CDISC:LBTESTCD.ALT` or
+`CDISC:LBSTRESC.NEGATIVE`. Whitespace and punctuation are normalized for
+API-safe identifiers. These fallbacks preserve source identity and are not
+evidence of external terminology resolution.
+
+Use `--term-audit-tsv` to review source values, labels, lookup inputs, emitted
+terms, match provenance, and fallbacks. See [Terminology Search](tbl/db-search)
+for the complete contract.
 
 All supplied subject-level rows are copied under `info.datasetJson.domains` by
 default. Domains without a first-class mapping are also named in

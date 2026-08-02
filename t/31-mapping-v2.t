@@ -41,7 +41,6 @@ my $mapping = {
             },
             sex => {
                 sourceField => 'Sex',
-                query       => { from => 'value' },
                 terms       => {
                     Female => {
                         id    => 'NCIT:C16576',
@@ -153,7 +152,7 @@ lives_ok {
     $validated_mapping = read_mapping_file(
         {
             mapping_file         => $mapping_file,
-            schema_file          => 'share/schema/mapping.json',
+            schema_file          => 'share/schema/mapping-v2.json',
             self_validate_schema => 0,
         }
     );

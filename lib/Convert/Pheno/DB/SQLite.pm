@@ -23,6 +23,13 @@ my %COLUMN_MATCH_CONFIG = (
     vocabulary_id => { exact_collate_nocase => 1 },
 );
 
+sub _ontology_prefix {
+    my ($ontology) = @_;
+    return 'HP'   if $ontology eq 'hpo';
+    return 'NCIT' if $ontology eq 'cdisc';
+    return uc($ontology);
+}
+
 sub _db_profile_enabled {
     my ($self) = @_;
     return $self && defined $self->{debug} && $self->{debug} >= 2;
@@ -283,10 +290,10 @@ sub prepare_query_SQLite {
 
     for my $match (@matches) {
         for my $ontology (@databases) {
-            for my $column ( 'label', 'concept_id' ) {
-
-                # We only need to open 'concept_id' in ohdsi
-                next if ( $column eq 'concept_id' && $ontology ne 'ohdsi' );
+            my @columns = $match eq 'exact_match'
+              ? ( 'label', 'id', $ontology eq 'ohdsi' ? ('concept_id') : () )
+              : ('label');
+            for my $column (@columns) {
 
                 ##############################
                 # Start building the queries #
@@ -312,6 +319,8 @@ sub prepare_query_SQLite {
 
 sub build_query {
     my ( $ontology, $column, $match ) = @_;
+    die "Unsupported SQLite lookup column <$column>\n"
+      unless exists $COLUMN_MATCH_CONFIG{$column};
     my $db     = uc($ontology) . '_table';
     my $db_fts = uc($ontology) . '_fts';
     my $exact_predicate =
@@ -377,7 +386,7 @@ sub get_ontology_terms {
 
     # Default values
     my %default_value = (
-        id    => $ontology eq 'hpo'   ? 'HP:NA0000' : uc($ontology) . ':NA0000',
+        id    => _ontology_prefix($ontology) . ':NA0000',
         label => $ontology eq 'ohdsi' ? 'No matching concept' : 'NA'
     );
     $default_value{concept_id} = 0 if $ontology eq 'ohdsi';
@@ -496,9 +505,6 @@ sub execute_query_SQLite {
     _db_profile_add( $self, time - $execute_started_at, 'sql', 'execute_time' )
       if defined $execute_started_at;
 
-    # HPO to HP
-    chop($ontology) if $ontology eq 'hpo';
-
     # Process results depending on the type of match
     if ( $match_type eq 'exact_match' ) {
         say "MATCH_TYPE: <exact_match>" if DEVEL_MODE;
@@ -506,7 +512,7 @@ sub execute_query_SQLite {
             _db_profile_inc( $self, 'sql', 'rows_fetched' );
             $id =
               $ontology ne 'ohdsi'
-              ? uc($ontology) . ':' . $row->[$id_column]
+              ? _ontology_prefix($ontology) . ':' . $row->[$id_column]
               : $row->[3] . ':' . $row->[$id_column];
             $label      = $row->[$label_column];
             $concept_id = $row->[$concept_id_column];
@@ -639,7 +645,7 @@ sub similarity_match {
             push @results,
               {
                 id => $ontology ne 'ohdsi'
-                ? uc($ontology) . ':' . $row->[$id_column]
+                ? _ontology_prefix($ontology) . ':' . $row->[$id_column]
                 : $row->[3] . ':' . $row->[$id_column],
                 label      => $candidate_label,
                 scores     => \%scores,

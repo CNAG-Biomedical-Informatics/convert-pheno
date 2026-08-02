@@ -8,6 +8,7 @@ use JSON::PP ();
 use Scalar::Util qw(looks_like_number);
 use Storable qw(dclone);
 
+use Convert::Pheno::CDISC::SDTM::Terminology qw(resolve_sdtm_term);
 use Convert::Pheno::Context;
 use Convert::Pheno::Model::Bundle;
 use Convert::Pheno::Utils::Default qw(get_defaults);
@@ -20,20 +21,30 @@ my %MAPPED_DOMAIN = map { $_ => 1 } qw(DM MH AE LB VS CM EX PR);
 sub run_sdtm_to_bundle {
     my ( $self, $subject, $context ) = @_;
 
+    my $source_format = ref($subject) eq 'HASH'
+      ? ( $subject->{sourceFormat} // 'dataset-json' )
+      : 'dataset-json';
+    my $format_label = $source_format eq 'dataset-xml'
+      ? 'Dataset-XML'
+      : 'Dataset-JSON';
+    my $provenance_key = $source_format eq 'dataset-xml'
+      ? 'datasetXml'
+      : 'datasetJson';
+
     $context ||= Convert::Pheno::Context->from_self(
         $self,
         {
-            source_format => 'dataset-json',
+            source_format => $source_format,
             target_format => 'beacon',
             entities      => $self->{entities} || ['individuals'],
         }
     );
 
-    die "Normalized Dataset-JSON subject input must contain an object\n"
+    die "Normalized $format_label subject input must contain an object\n"
       unless ref($subject) eq 'HASH';
-    die "Normalized Dataset-JSON subject input is missing its id\n"
+    die "Normalized $format_label subject input is missing its id\n"
       unless defined $subject->{id} && length $subject->{id};
-    die "Normalized Dataset-JSON subject <$subject->{id}> is missing DM\n"
+    die "Normalized $format_label subject <$subject->{id}> is missing DM\n"
       unless ref( $subject->{domains}{DM} ) eq 'ARRAY'
       && @{ $subject->{domains}{DM} } == 1;
 
@@ -50,22 +61,22 @@ sub run_sdtm_to_bundle {
         sex => _map_sex( $dm->{SEX} ),
     };
 
-    _map_demographics( $dm, $individual );
-    _append_mapped_rows( $subject->{domains}{MH}, $individual, 'diseases',                  \&_map_medical_history );
-    _append_mapped_rows( $subject->{domains}{AE}, $individual, 'phenotypicFeatures',        \&_map_adverse_event );
-    _append_mapped_rows( $subject->{domains}{LB}, $individual, 'measures',                  \&_map_measurement );
-    _append_mapped_rows( $subject->{domains}{VS}, $individual, 'measures',                  \&_map_measurement );
-    _append_mapped_rows( $subject->{domains}{CM}, $individual, 'treatments',                \&_map_treatment );
-    _append_mapped_rows( $subject->{domains}{EX}, $individual, 'treatments',                \&_map_treatment );
-    _append_mapped_rows( $subject->{domains}{PR}, $individual, 'interventionsOrProcedures', \&_map_procedure );
+    _map_demographics( $self, $dm, $individual );
+    _append_mapped_rows( $self, $subject->{domains}{MH}, $individual, 'diseases',                  \&_map_medical_history, 'MH' );
+    _append_mapped_rows( $self, $subject->{domains}{AE}, $individual, 'phenotypicFeatures',        \&_map_adverse_event, 'AE' );
+    _append_mapped_rows( $self, $subject->{domains}{LB}, $individual, 'measures',                  \&_map_measurement, 'LB' );
+    _append_mapped_rows( $self, $subject->{domains}{VS}, $individual, 'measures',                  \&_map_measurement, 'VS' );
+    _append_mapped_rows( $self, $subject->{domains}{CM}, $individual, 'treatments',                \&_map_treatment, 'CM' );
+    _append_mapped_rows( $self, $subject->{domains}{EX}, $individual, 'treatments',                \&_map_treatment, 'EX' );
+    _append_mapped_rows( $self, $subject->{domains}{PR}, $individual, 'interventionsOrProcedures', \&_map_procedure, 'PR' );
 
     if ( $self->{source_info} // 1 ) {
         my @unmapped = sort grep { !$MAPPED_DOMAIN{$_} } keys %{ $subject->{domains} || {} };
-        $individual->{info}{datasetJson} = {
+        $individual->{info}{$provenance_key} = {
             %{ dclone( $subject->{metadata} || {} ) },
             domains => dclone( $subject->{domains} || {} ),
         };
-        $individual->{info}{datasetJson}{unmappedDomains} = \@unmapped
+        $individual->{info}{$provenance_key}{unmappedDomains} = \@unmapped
           if @unmapped;
     }
 
@@ -79,19 +90,32 @@ sub run_sdtm_to_bundle {
 }
 
 sub _map_demographics {
-    my ( $dm, $individual ) = @_;
+    my ( $self, $dm, $individual ) = @_;
 
     my $ethnicity = _first_value( $dm, qw(ETHNIC) );
-    $individual->{ethnicity} = _source_term( 'ETHNIC', $ethnicity, $ethnicity )
+    $individual->{ethnicity} = _resolved_source_term(
+        $self, 'DM', 'ETHNIC', $ethnicity, $ethnicity, 'ETHNIC', 'DM[1]'
+      )
       if defined $ethnicity;
 
     my $country = _first_value( $dm, qw(COUNTRY) );
     if ( defined $country ) {
         my $country_code = uc $country;
-        $individual->{geographicOrigin} =
+        my $fallback =
           $country_code =~ /\A[A-Z]{2,3}\z/
           ? { id => "ISO3166-1:$country_code", label => $country }
           : _source_term( 'COUNTRY', $country, $country );
+        $individual->{geographicOrigin} = resolve_sdtm_term(
+            {
+                self          => $self,
+                domain        => 'DM',
+                field         => 'COUNTRY',
+                value         => $country,
+                label         => $country,
+                source_record => 'DM[1]',
+                fallback      => $fallback,
+            }
+        );
     }
 
     my $birth = _timestamp( _first_value( $dm, qw(BRTHDTC) ) );
@@ -115,29 +139,35 @@ sub _map_demographics {
 }
 
 sub _map_medical_history {
-    my ($row) = @_;
+    my ( $self, $row, $source_record ) = @_;
     my ( $code_field, $code ) = _first_named_value( $row, qw(MHDECOD MHTERM) );
     return unless defined $code;
 
     my $label = _first_value( $row, qw(MHTERM MHDECOD) );
     return {
-        diseaseCode => _source_term( $code_field, $code, $label ),
+        diseaseCode => _resolved_source_term(
+            $self, 'MH', $code_field, $code, $label, $code_field, $source_record
+        ),
     };
 }
 
 sub _map_adverse_event {
-    my ($row) = @_;
+    my ( $self, $row, $source_record ) = @_;
     my ( $code_field, $code ) = _first_named_value( $row, qw(AEDECOD AETERM) );
     return unless defined $code;
 
     my $label = _first_value( $row, qw(AETERM AEDECOD) );
     my $feature = {
-        featureType => _source_term( $code_field, $code, $label ),
+        featureType => _resolved_source_term(
+            $self, 'AE', $code_field, $code, $label, $code_field, $source_record
+        ),
         excluded    => JSON::PP::false(),
     };
 
     my $severity = _first_value( $row, qw(AESEV) );
-    $feature->{severity} = _source_term( 'AESEV', $severity, $severity )
+    $feature->{severity} = _resolved_source_term(
+        $self, 'AE', 'AESEV', $severity, $severity, 'AESEV', $source_record
+      )
       if defined $severity;
 
     my $onset = _timestamp( _first_value( $row, qw(AESTDTC) ) );
@@ -149,7 +179,7 @@ sub _map_adverse_event {
 }
 
 sub _map_measurement {
-    my ($row) = @_;
+    my ( $self, $row, $source_record ) = @_;
     my $domain = uc( _first_value( $row, qw(DOMAIN) ) // q{} );
     return unless $domain eq 'LB' || $domain eq 'VS';
 
@@ -168,14 +198,18 @@ sub _map_measurement {
 
     my $label = _first_value( $row, $test_label_field, $test_code_field );
     my $measure = {
-        assayCode => _source_term( $code_field, $code, $label ),
+        assayCode => _resolved_source_term(
+            $self, $domain, $code_field, $code, $label, $code_field, $source_record
+        ),
     };
 
     my $numeric = _first_value( $row, $result_number_field );
     if ( defined $numeric && looks_like_number($numeric) ) {
         my $unit_label = _first_value( $row, $unit_field );
         my $unit = defined $unit_label
-          ? _source_term( 'UNIT', $unit_label, $unit_label )
+          ? _resolved_source_term(
+              $self, $domain, $unit_field, $unit_label, $unit_label, 'UNIT', $source_record
+            )
           : dclone( $DEFAULT->{ontology_term} );
         my $quantity = {
             value => 0 + $numeric,
@@ -201,8 +235,10 @@ sub _map_measurement {
     else {
         my $text = _first_value( $row, $result_text_field );
         return unless defined $text;
-        $measure->{measurementValue} =
-          _source_term( $result_text_field, $text, $text );
+        $measure->{measurementValue} = _resolved_source_term(
+            $self, $domain, $result_text_field, $text, $text,
+            $result_text_field, $source_record
+        );
     }
 
     my $date = _date( _first_value( $row, $date_field ) );
@@ -212,7 +248,7 @@ sub _map_measurement {
 }
 
 sub _map_treatment {
-    my ($row) = @_;
+    my ( $self, $row, $source_record ) = @_;
     my $domain = uc( _first_value( $row, qw(DOMAIN) ) // q{} );
     return unless $domain eq 'CM' || $domain eq 'EX';
 
@@ -224,50 +260,77 @@ sub _map_treatment {
       ? _first_value( $row, qw(CMTRT CMDECOD) )
       : _first_value( $row, qw(EXTRT) );
     my $treatment = {
-        treatmentCode => _source_term( $code_field, $code, $label ),
+        treatmentCode => _resolved_source_term(
+            $self, $domain, $code_field, $code, $label, $code_field, $source_record
+        ),
     };
 
     my $route_field = $domain . 'ROUTE';
     my $route = _first_value( $row, $route_field );
     $treatment->{routeOfAdministration} =
-      _source_term( $route_field, $route, $route )
+      _resolved_source_term(
+        $self, $domain, $route_field, $route, $route, $route_field, $source_record
+      )
       if defined $route;
 
     return $treatment;
 }
 
 sub _map_procedure {
-    my ($row) = @_;
+    my ( $self, $row, $source_record ) = @_;
     my ( $code_field, $code ) = _first_named_value( $row, qw(PRDECOD PRTRT) );
     return unless defined $code;
 
     my $label = _first_value( $row, qw(PRTRT PRDECOD) );
     my $procedure = {
-        procedureCode => _source_term( $code_field, $code, $label ),
+        procedureCode => _resolved_source_term(
+            $self, 'PR', $code_field, $code, $label, $code_field, $source_record
+        ),
     };
 
     my $date = _date( _first_value( $row, qw(PRSTDTC) ) );
     $procedure->{dateOfProcedure} = $date if defined $date;
 
     my $body_site = _first_value( $row, qw(PRLOC) );
-    $procedure->{bodySite} = _source_term( 'PRLOC', $body_site, $body_site )
+    $procedure->{bodySite} = _resolved_source_term(
+        $self, 'PR', 'PRLOC', $body_site, $body_site, 'PRLOC', $source_record
+      )
       if defined $body_site;
 
     return $procedure;
 }
 
 sub _append_mapped_rows {
-    my ( $rows, $individual, $target, $mapper ) = @_;
+    my ( $self, $rows, $individual, $target, $mapper, $domain ) = @_;
     return 1 unless ref($rows) eq 'ARRAY';
 
-    for my $row ( @{$rows} ) {
-        my $mapped = $mapper->($row);
+    for my $index ( 0 .. $#{$rows} ) {
+        my $mapped = $mapper->(
+            $self,
+            $rows->[$index],
+            $domain . '[' . ( $index + 1 ) . ']',
+        );
         push @{ $individual->{$target} }, $mapped if defined $mapped;
     }
 
     delete $individual->{$target}
       if exists $individual->{$target} && !@{ $individual->{$target} };
     return 1;
+}
+
+sub _resolved_source_term {
+    my ( $self, $domain, $field, $value, $label, $fallback_field, $source_record ) = @_;
+    return resolve_sdtm_term(
+        {
+            self          => $self,
+            domain        => $domain,
+            field         => $field,
+            value         => $value,
+            label         => $label,
+            source_record => $source_record,
+            fallback      => _source_term( $fallback_field, $value, $label ),
+        }
+    );
 }
 
 sub _map_sex {
