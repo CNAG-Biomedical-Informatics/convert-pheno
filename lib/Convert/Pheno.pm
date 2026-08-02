@@ -44,6 +44,7 @@ use Convert::Pheno::PXF::ToBFF;
 use Convert::Pheno::OpenEHR::ToBFF;
 use Convert::Pheno::BFF::ToPXF;
 use Convert::Pheno::BFF::ToOMOP;
+use Convert::Pheno::CBioPortal::ToBFF;
 use Convert::Pheno::CDISC::ODM;
 use Convert::Pheno::CDISC::SDTM::ToBFF;
 use Convert::Pheno::FHIR::ToBFF;
@@ -277,6 +278,48 @@ sub redcap2pxf {
 #################
 
 sub redcap2omop {
+    my $self = shift;
+    return run_conversion_pipeline($self);
+}
+
+###################
+###################
+# CBIOPORTAL2BFF   #
+###################
+###################
+
+sub cbioportal2bff {
+    my $self = shift;
+    _prepare_cbioportal2bff_input($self);
+    $self->{conversion_context} = Convert::Pheno::Context->from_self(
+        $self,
+        {
+            source_format => 'cbioportal',
+            target_format => 'beacon',
+            entities      => $self->{entities} || ['individuals'],
+        }
+    );
+    return _run_primary_view($self);
+}
+
+###################
+###################
+# CBIOPORTAL2PXF   #
+###################
+###################
+
+sub cbioportal2pxf {
+    my $self = shift;
+    return run_conversion_pipeline($self);
+}
+
+###################
+###################
+# CBIOPORTAL2OMOP  #
+###################
+###################
+
+sub cbioportal2omop {
     my $self = shift;
     return run_conversion_pipeline($self);
 }
@@ -676,6 +719,8 @@ sub _prepare_bundle_input {
     my ($self) = @_;
 
     return _prepare_redcap2bff_input($self) if $self->{method} eq 'redcap2bff';
+    return _prepare_cbioportal2bff_input($self)
+      if $self->{method} eq 'cbioportal2bff';
     return _prepare_cdiscodm2bff_input($self)
       if $self->{method} eq 'cdiscodm2bff';
     return _prepare_datasetjson2bff_input($self)
@@ -705,6 +750,39 @@ sub _prepare_redcap2bff_input {
     my ($self) = @_;
     return 1 if exists $self->{data} && exists $self->{data_mapping_file};
     return _prepare_tabular_input( $self, 'redcap' );
+}
+
+sub _prepare_cbioportal2bff_input {
+    my ($self) = @_;
+    return 1 if $self->{cbioportal_input_prepared} && exists $self->{data};
+
+    # Keep a module caller's in-memory package reusable while releasing the
+    # normalized patient-scoped records after each conversion.
+    $self->{_cbioportal_source_data} = $self->{data}
+      if exists $self->{data} && !exists $self->{_cbioportal_source_data};
+    $self->{data} = $self->{_cbioportal_source_data}
+      if !exists $self->{data} && exists $self->{_cbioportal_source_data};
+
+    my $source = source_adapter( $self, 'cbioportal' )->load;
+    $self->{data} = $source->data;
+    $self->{_owns_prepared_data} = 1 if $source->owned;
+    $self->{cbioportal_study} = $source->artifact('study');
+
+    my $compiled_mapping = $source->artifact('entity_mapping');
+    if ( defined $compiled_mapping ) {
+        $self->{data_mapping_file} = $compiled_mapping;
+    }
+    else {
+        delete $self->{data_mapping_file};
+    }
+
+    my $loaded_mapping = $source->artifact('mapping');
+    $self->{mapping_file_derived_entity_overrides} =
+      _mapping_file_derived_entity_overrides($loaded_mapping);
+    $self->{metaData}     = get_metaData($self);
+    $self->{convertPheno} = get_info($self);
+    $self->{cbioportal_input_prepared} = 1;
+    return 1;
 }
 
 sub _prepare_cdiscodm2bff_input {
@@ -1186,8 +1264,9 @@ Convert::Pheno - Convert clinical and phenotypic data between supported models
 C<Convert::Pheno> is the conversion engine used by the C<convert-pheno>
 command-line program. It converts supported in-memory data structures and
 route-specific file inputs between Beacon v2 Models Format (BFF),
-Phenopackets v2 (PXF), OMOP-CDM, REDCap, CDISC-ODM, CDISC Dataset-JSON,
-FHIR R4, openEHR, and tabular representations.
+Phenopackets v2 (PXF), OMOP-CDM, REDCap, cBioPortal clinical study packages,
+CDISC-ODM, CDISC Dataset-JSON, FHIR R4, openEHR, and tabular
+representations.
 
 Conversion availability and required arguments depend on the selected route.
 Mapping-file conversions use the Mapping V2 contract and require

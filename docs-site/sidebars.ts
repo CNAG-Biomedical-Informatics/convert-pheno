@@ -89,6 +89,11 @@ const sidebars: SidebarsConfig = {
           label: 'Beacon v2 Models (BFF)',
         },
         {
+          type: 'doc',
+          id: 'cbioportal',
+          label: 'cBioPortal (Experimental)',
+        },
+        {
           type: 'category',
           label: 'CDISC',
           items: [
@@ -118,6 +123,11 @@ const sidebars: SidebarsConfig = {
           type: 'doc',
           id: 'omop-cdm',
           label: 'OMOP-CDM',
+        },
+        {
+          type: 'doc',
+          id: 'openclinica',
+          label: 'OpenClinica ODM (Experimental)',
         },
         {
           type: 'doc',
@@ -168,6 +178,11 @@ const sidebars: SidebarsConfig = {
               type: 'doc',
               id: 'bff2pxf',
               label: 'BFF to PXF',
+            },
+            {
+              type: 'doc',
+              id: 'cbioportal2bff',
+              label: 'cBioPortal to BFF',
             },
             {
               type: 'doc',

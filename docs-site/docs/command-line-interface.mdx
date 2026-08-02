@@ -83,11 +83,11 @@ Both CLI styles are supported:
 
 The compact flags are still the ones most users rely on:
 
-- `-ipxf`, `-ibff`, `-iomop`, `-iopenehr`, `-iredcap`, `-icdisc-odm`, `-idataset-json`, `-ifhir`, `-icsv`
+- `-ipxf`, `-ibff`, `-icbioportal`, `-iomop`, `-iopenehr`, `-iredcap`, `-icdisc-odm`, `-idataset-json`, `-ifhir`, `-icsv`
 - `-obff`, `-opxf`, `-oomop`, `-ocsv`, `-ojsonf`, `-ojsonld`
 
 :::note[Experimental source profiles]
-`openEHR` canonical input, CDISC Dataset-JSON SDTM input, and FHIR R4 Bundle
+`cBioPortal` clinical packages, openEHR canonical input, CDISC Dataset-JSON SDTM input, and FHIR R4 Bundle
 input are implemented but marked experimental while independent source coverage
 grows. Standard/OpenClinica CDISC-ODM and the bounded ODM 2.0 ClinicalData
 profile are also experimental beyond the established REDCap ODM workflow.
@@ -116,13 +116,13 @@ In other words, `--entities` does not replace `-obff`. It refines which `BFF` en
 - `BFF` entity mode is also explicit: use `-obff --entities ... --out-dir DIR`.
 - When `PXF` input contains `biosamples`, the individuals-only `-obff FILE` path still writes only `individuals`. In that mode, `convert-pheno` warns and preserves the biosamples under `info.phenopacket.biosamples`.
 - `--entities` can be used with `BFF` output. The supported output entities are `individuals`, `biosamples`, `datasets`, and `cohorts`.
-- `biosamples` are emitted from PXF biosample data, FHIR `Specimen`, OMOP `SPECIMEN`, or explicit `beacon.biosamples.rules` in CSV, REDCap, and CDISC-ODM mappings.
+- `biosamples` are emitted from PXF biosample data, cBioPortal sample clinical tables, FHIR `Specimen`, OMOP `SPECIMEN`, or explicit `beacon.biosamples.rules` in mapping-file routes.
 - `datasets` and `cohorts` are synthesized from the normalized `individuals` collection.
 - In mapping-file conversions, `beacon.biosamples` defines first-class biosample rules, while `beacon.datasets.defaults` and `beacon.cohorts.defaults` override synthesized metadata.
-- These mapping features are available only for `csv2bff`, `redcap2bff`, and `cdiscodm2bff`, which are the routes that read a mapping file.
+- These mapping features are available for `csv2bff`, `redcap2bff`, and `cdiscodm2bff`; cBioPortal accepts the same Mapping V2 structure optionally to augment its built-in patient and sample mapping.
 - `--entities` narrows `BFF` output. It must be combined with `-obff` and `--out-dir`.
 - `--out-name key=file` lets you override one multi-file output name. Use entity keys for `BFF` entity mode and table keys for `OMOP` output.
-- `--no-source-info` omits raw source provenance copied into `BFF` `info`, such as `OMOP_columns`, `CSV_columns`, `REDCap_columns`, `CDISC_ODM`, `datasetJson.domains`, and `fhir` resources. Mapped fields and `info.convertPheno` are kept.
+- `--no-source-info` omits raw source provenance copied into `BFF` `info`, such as `OMOP_columns`, `CSV_columns`, `REDCap_columns`, `CDISC_ODM`, `cbioportal`, `datasetJson.domains`, and `fhir` resources. Mapped fields and `info.convertPheno` are kept.
 - `--search-audit-tsv FILE` writes a tab-separated audit of ontology search results for mapping-file-driven conversions such as `csv2bff`, `redcap2bff`, and `cdiscodm2bff`, including the effective configured search mode, whether each lookup matched the DB or fell back to `NA`, and the per-row lookup resolution (`exact`, `similarity`, or `fallback_na`).
 - `--stream` is mainly relevant for **large OMOP inputs**. Use `--no-stream` to force the default in-memory mode when a wrapper or previous option may have enabled streaming.
 
@@ -130,7 +130,7 @@ In other words, `--entities` does not replace `-obff`. It refines which `BFF` en
 
 ### Mapping-file conversions
 
-- `--mapping-file FILE` supplies a Mapping V2 YAML or JSON document targeting Beacon schema `2.0.0`, used by `csv2bff`, `redcap2bff`, `cdiscodm2bff`, and related conversions.
+- `--mapping-file FILE` supplies a Mapping V2 YAML or JSON document targeting Beacon schema `2.0.0`, required by CSV, REDCap, and CDISC-ODM routes and optional for cBioPortal clinical packages.
 - `--redcap-dictionary FILE` or `-rcd FILE` supplies the dictionary required by REDCap CSV and REDCap-origin ODM. Standard/OpenClinica ODM uses embedded metadata and rejects this option.
 - `--schema-file FILE` lets you validate mapping files against an alternative JSON Schema.
 - `--self-validate-schema` or `-svs` performs a self-validation of the mapping schema itself. This is mainly an author or development check and may require SSL support in the Perl environment.
@@ -145,6 +145,14 @@ In other words, `--entities` does not replace `-obff`. It refines which `BFF` en
 - REDCap-origin ODM uses `source.profile: redcap` with `--redcap-dictionary`. Standard or OpenClinica ODM uses `source.profile: cdisc-odm` and embedded `MetaDataVersion`, `ItemDef`, and `CodeList` metadata.
 - Repeated item groups are kept as separate occurrences for repeated BFF sections; ambiguous repeated scalar values stop the conversion instead of overwriting data.
 - The route is available through the CLI and local module interfaces, but not through the HTTP(s) API.
+
+### cBioPortal-specific behavior
+
+- `-icbioportal PATH` or `-i cbioportal PATH` accepts an unpacked cBioPortal study directory or `.zip` archive.
+- Clinical data files are discovered through `meta_*.txt` descriptors. The sample table is required; a missing patient table is derived from sample-to-patient links.
+- Entity-aware BFF output can emit patient-derived `individuals`, sample-derived `biosamples`, a study-derived `dataset`, and case-list-derived `cohorts`.
+- A mapping file using `source.profile: cbioportal` is optional and may augment project-specific patient and sample fields. It cannot rewrite `PATIENT_ID` or `SAMPLE_ID`.
+- Timeline and molecular files are currently outside this clinical package profile. Directory and ZIP input is available through the CLI and local module interfaces, not the HTTP(s) API.
 
 ### Ontology search tuning
 

@@ -4,8 +4,9 @@ sidebar_label: Mapping File
 ---
 
 The mapping file is the typed source-to-Beacon contract used by `csv2*`,
-`redcap2*`, and `cdiscodm2*` routes. YAML and JSON are accepted, including their
-gzip-compressed forms.
+`redcap2*`, and `cdiscodm2*` routes, and optional semantic augmentation for
+`cbioportal2*`. YAML and JSON are accepted, including their gzip-compressed
+forms.
 
 For a guided example, start with [Working with Mapping Files](../mapping-files).
 
@@ -32,7 +33,7 @@ such as `fieldTermLabels`, `valueTermLabels`, `targetFields`, or
 | Section | Required | Contents |
 | --- | --- | --- |
 | `mappingVersion` | Yes | Mapping language version |
-| `source.profile` | Yes | Record profile: `csv`, `redcap`, or `cdisc-odm` |
+| `source.profile` | Yes | Record profile: `cbioportal`, `csv`, `redcap`, or `cdisc-odm` |
 | `target` | Yes | `model` and `schemaVersion` |
 | `project` | Yes | `id`, `version`, and optional `description` |
 | `defaults` | Yes | Default `ontology` |
@@ -52,6 +53,11 @@ REDCap-origin ODM with an external data dictionary. Use `profile: cdisc-odm`
 for standard or vendor ODM whose `ItemDef` and `CodeList` metadata are embedded
 in the XML. Mapping rules remain source-specific because different ODM exports
 can use different `ItemOID` values.
+
+Use `profile: cbioportal` only with cBioPortal clinical study input. Individual
+rules read patient columns and biosample rules read sample columns. The
+package's patient and sample identifiers remain authoritative and cannot be
+rewritten by mapping rules.
 
 ## Source Selectors
 

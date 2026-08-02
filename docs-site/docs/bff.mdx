@@ -56,10 +56,10 @@ The `individuals` limitation therefore applies to BFF **input**, not BFF
 output.
 
 :::note[Source provenance in `info`]
-By default, BFF generated from OMOP-CDM, CSV, REDCap, CDISC-ODM, Dataset-JSON, or FHIR preserves
+By default, BFF generated from OMOP-CDM, CSV, REDCap, CDISC-ODM, cBioPortal, Dataset-JSON, or FHIR preserves
 raw source values in `info`. This supports mapping review and source-level
 queries. Use `--no-source-info` to omit copied payloads such as
-`OMOP_columns`, `CSV_columns`, `REDCap_columns`, `CDISC_ODM`, Dataset-JSON domain rows, and FHIR resources; mapped fields and
+`OMOP_columns`, `CSV_columns`, `REDCap_columns`, `CDISC_ODM`, cBioPortal clinical rows, Dataset-JSON domain rows, and FHIR resources; mapped fields and
 `info.convertPheno` remain.
 :::
 

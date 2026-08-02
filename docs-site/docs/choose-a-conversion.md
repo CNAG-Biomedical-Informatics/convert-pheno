@@ -31,6 +31,14 @@ For a compact list of accepted inputs and outputs, see [Supported Formats](suppo
 | OMOP-CDM CSV | [`bff2omop`](#bff-input-omop-cdm-output) | Writes OMOP tables to `--out-dir` |
 | Inspection output | [Additional outputs](#inspection-outputs) | Flattened JSON, CSV, JSON-LD, YAML-LD |
 
+### cBioPortal Input
+
+| Target output | Route | Notes |
+| --- | --- | --- |
+| Beacon v2 / `BFF` | [`cbioportal2bff`](#cbioportal-input-bff-output) | Clinical package; can emit `individuals`, `biosamples`, `datasets`, and `cohorts` |
+| Phenopackets v2 / `PXF` | [`cbioportal2pxf`](#cbioportal-input-pxf-output) | Carries patient and linked sample data through BFF |
+| OMOP-CDM CSV | [`cbioportal2omop`](#cbioportal-input-omop-cdm-output) | Clinical tables go through BFF; requires `--ohdsi-db` |
+
 ### OMOP-CDM Input
 
 | Target output | Route | Notes |
@@ -61,6 +69,13 @@ For a compact list of accepted inputs and outputs, see [Supported Formats](suppo
 | Beacon v2 / `BFF` | [`cdiscodm2bff`](#cdisc-odm-input-bff-output) | Requires `--mapping-file`; `--redcap-dictionary` only for REDCap-origin ODM |
 | Phenopackets v2 / `PXF` | [`cdiscodm2pxf`](#cdisc-odm-input-pxf-output) | Uses the same detected ODM profile and mapping context |
 | OMOP-CDM CSV | [`cdiscodm2omop`](#cdisc-odm-input-omop-cdm-output) | Goes through BFF; requires `--ohdsi-db` |
+
+### OpenClinica ODM Input
+
+OpenClinica Snapshot ODM uses the same `cdiscodm2*` routes and CLI flag. Its
+embedded metadata replaces the REDCap dictionary. See the dedicated
+[OpenClinica ODM guide](openclinica) and the
+[CDISC-ODM commands](#cdisc-odm-input-bff-output).
 
 ### CDISC Dataset-JSON Input
 
@@ -148,6 +163,38 @@ convert-pheno -ibff individuals.json -oomop --out-dir omop_out/
 ```
 
 More detail: [BFF to OMOP mapping](bff2omop).
+
+## cBioPortal Input Examples
+
+cBioPortal input accepts an unpacked study directory or ZIP archive. Clinical
+files are discovered through their meta descriptors; a mapping file is
+optional.
+
+### cBioPortal Input: BFF Output
+
+```bash
+convert-pheno -icbioportal study/ \
+  -obff --entities individuals biosamples datasets cohorts \
+  --out-dir bff_out/
+```
+
+More detail: [cBioPortal](cbioportal),
+[cBioPortal to BFF mapping](cbioportal2bff).
+
+### cBioPortal Input: PXF Output
+
+```bash
+convert-pheno -i cbioportal study.zip \
+  -o pxf phenopackets.json
+```
+
+### cBioPortal Input: OMOP-CDM Output
+
+```bash
+convert-pheno -icbioportal study/ \
+  -oomop --out-dir omop_out/ \
+  --ohdsi-db
+```
 
 ## OMOP-CDM Input Examples
 

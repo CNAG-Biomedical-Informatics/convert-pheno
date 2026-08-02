@@ -10,7 +10,7 @@ import Link from '@docusaurus/Link';
   <h2>Clinical and phenotypic data conversion across supported exchange models.</h2>
 
   Convert-Pheno supports conversion routes involving [BFF](bff), [PXF](pxf),
-  [OMOP-CDM](omop-cdm), [REDCap](redcap), [CDISC-ODM](cdisc-odm),
+  [OMOP-CDM](omop-cdm), [REDCap](redcap), [cBioPortal](cbioportal), [CDISC-ODM](cdisc-odm),
   [CDISC Dataset-JSON](dataset-json), [FHIR R4](fhir), [CSV](csv), and
   [openEHR](openehr).
 
@@ -41,6 +41,7 @@ Most users come to `Convert-Pheno` for one of these tasks:
 - convert `REDCap` or `CDISC-ODM` data through a **mapping file**
 - convert CDISC Dataset-JSON SDTM domains to `BFF`, `PXF`, or supported `OMOP-CDM` tables
 - convert FHIR R4 Bundles to `BFF`, `PXF`, or supported `OMOP-CDM` tables
+- convert cBioPortal clinical study packages to entity-aware `BFF`, `PXF`, or supported `OMOP-CDM` tables
 - use mapped raw `CSV` as an ETL source for `BFF`, `PXF`, or supported `OMOP-CDM` tables
 - convert `BFF` to `PXF`, flattened `CSV`, flattened `JSON`, or `JSON-LD`
 

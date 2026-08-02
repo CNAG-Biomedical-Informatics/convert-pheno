@@ -57,9 +57,12 @@ Usage:
 
 Common input flags:
   -i <type> <file>    Generic input form
-                      (pxf|bff|omop|redcap|cdisc-odm|dataset-json|fhir|csv|openehr)
+                      (pxf|bff|cbioportal|omop|redcap|cdisc-odm|dataset-json|fhir|csv|openehr)
   -ibff <file>      Beacon v2 Models ('individuals' JSON|YAML)
   -ipxf <file>      Phenopackets v2 (JSON|YAML)
+  -icbioportal <path>
+                    Experimental cBioPortal clinical study directory or ZIP
+                    (input-only; BFF, PXF, or OMOP output)
   -iomop <files...> OMOP-CDM CSV files or PostgreSQL dump
   -iopenehr <files...>
                     Experimental openEHR canonical JSON/YAML compositions
@@ -89,8 +92,8 @@ Output behavior:
   --out-dir <dir>       Output directory (required for entity-aware BFF mode)
   --entities <list>     Beacon entities for BFF output [individuals]
                         Supported: individuals, biosamples, datasets, cohorts
-                        biosamples are emitted from -ipxf, FHIR Specimen,
-                        OMOP SPECIMEN, or beacon.biosamples mapping rules
+                        biosamples are emitted from -ipxf, cBioPortal samples,
+                        FHIR Specimen, OMOP SPECIMEN, or mapping rules
                         datasets and cohorts are synthesized from individuals
                         Use with -obff and --out-dir
   --out-name k=file     Override one multi-file output name; repeat as needed
@@ -100,6 +103,7 @@ Output behavior:
 Mapping and search:
   --mapping-file <file>           Mapping V2 YAML or JSON file targeting
                                   Beacon schema 2.0.0
+                                  Optional for cBioPortal clinical packages
                                   ODM uses source.profile redcap for REDCap
                                   exports, or cdisc-odm for embedded metadata
   --redcap-dictionary|-rcd <file> REDCap data dictionary CSV file; required
@@ -159,6 +163,8 @@ Examples:
   convert-pheno -ipxf pxf.json -obff --entities biosamples --out-dir out/
   convert-pheno -ipxf pxf.json -obff --entities individuals biosamples --out-dir out/ --out-name biosamples=samples.json
   convert-pheno -ipxf pxf.json -obff --entities individuals datasets cohorts --out-dir out/
+  convert-pheno -icbioportal study/ -obff --entities individuals biosamples datasets cohorts --out-dir out/
+  convert-pheno -i cbioportal study.zip -o pxf phenopackets.json
   convert-pheno -icsv data.csv --mapping-file mapping.yaml -obff --entities individuals datasets cohorts --out-dir out/
   convert-pheno -iredcap data.csv -rcd dictionary.csv --mapping-file mapping.yaml -obff --entities individuals biosamples --out-dir out/
   convert-pheno -icdisc-odm study.xml --mapping-file odm-mapping.yaml -obff individuals.json

@@ -51,6 +51,7 @@ Reference output: [`t/omop2bff/out/individuals_csv.json`](omop2bff/out/individua
 | Input format | Input directory | Reference output directories |
 | --- | --- | --- |
 | BFF | [`bff2pxf/in`](bff2pxf/in) | `bff2pxf/out`, `bff2omop/out`, `bff2csv/out`, `bff2jsonf/out` |
+| cBioPortal clinical study | [`cbioportal2bff/in`](cbioportal2bff/in) | Semantic assertions in [`37-cbioportal.t`](37-cbioportal.t) |
 | PXF | [`pxf2bff/in`](pxf2bff/in) | `pxf2bff/out`, `pxf2csv/out`, `pxf2jsonf/out` |
 | OMOP-CDM | [`omop2bff/in`](omop2bff/in) | `omop2bff/out`, `omop2pxf/out` |
 | CSV | [`csv2bff/in`](csv2bff/in) | `csv2bff/out`, `csv2pxf/out`, `csv2omop/out` |

@@ -5,6 +5,7 @@ use warnings;
 
 use Exporter 'import';
 
+use Convert::Pheno::Source::CBioPortal;
 use Convert::Pheno::Source::CDISC::DatasetJSON;
 use Convert::Pheno::Source::CDISC::ODM;
 use Convert::Pheno::Source::FHIR;
@@ -20,6 +21,8 @@ sub source_adapter {
 
     return Convert::Pheno::Source::Structured->new($converter)
       if $format eq 'beacon' || $format eq 'pxf';
+    return Convert::Pheno::Source::CBioPortal->new($converter)
+      if $format eq 'cbioportal';
     return Convert::Pheno::Source::Tabular->new( $converter, kind => 'csv' )
       if $format eq 'csv';
     return Convert::Pheno::Source::Tabular->new( $converter, kind => 'redcap' )

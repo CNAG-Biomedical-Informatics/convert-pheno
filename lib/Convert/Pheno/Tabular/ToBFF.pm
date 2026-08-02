@@ -15,7 +15,11 @@ use Convert::Pheno::Model::Bundle;
 use Convert::Pheno::Tabular::Record;
 use Convert::Pheno::Utils::Default qw(get_defaults);
 
-our @EXPORT_OK = qw(map_tabular_individual run_tabular_to_bundle);
+our @EXPORT_OK = qw(
+  map_tabular_biosamples
+  map_tabular_individual
+  run_tabular_to_bundle
+);
 
 my $DEFAULT = get_defaults();
 my @REDCAP_META_FIELDS = ( 'Field Label', 'Field Note', 'Field Type' );
@@ -61,6 +65,26 @@ sub map_tabular_individual {
     my ( $self, $participant ) = @_;
     my ( $individual ) = _map_individual( $self, $participant, _mapping($self) );
     return $individual;
+}
+
+sub map_tabular_biosamples {
+    my ( $self, $record, $individual_id ) = @_;
+    my $mapping = _mapping($self);
+    my $tabular_record = blessed($record) && $record->can('value')
+      ? $record
+      : Convert::Pheno::Tabular::Record->new(
+        {
+            source => $mapping->{_compiled}{recordProfile},
+            raw    => $record,
+        }
+      );
+
+    return _map_biosamples(
+        $self,
+        $tabular_record,
+        $mapping,
+        $individual_id,
+    );
 }
 
 sub _map_individual {

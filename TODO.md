@@ -13,40 +13,31 @@ experimental label from generic and OpenClinica ODM profiles.
 - Exercise additional independently produced ODM snapshots and document any
   intentionally unsupported extension structures
 
-## Candidate inputs after 0.34
+## cBioPortal follow-up
 
-### Priority 1: cBioPortal clinical study packages
+Clinical cBioPortal study input is implemented for 0.34 with directory and ZIP
+package support, entity-aware BFF output, optional Mapping V2 augmentation,
+and PXF and OMOP-CDM routes. The attributed DataHub fixture passes the official
+cBioPortal validator in no-portal mode, and generated target files pass the
+corresponding BFF and OMOP validators.
 
-Add a dedicated `-icbioportal` input for a cBioPortal study directory or ZIP.
-This is a strong fit for oncology because the study package explicitly links
-patient, sample, study, cohort, timeline, and molecular data. The first scope
-must be described as cBioPortal clinical study input rather than complete
-cBioPortal support.
-
-- Discover data files through their cBioPortal meta files rather than fixed
-  filenames
-- Map study metadata to BFF `datasets`
-- Map patient clinical attributes to `individuals`
-- Map sample clinical attributes and patient/sample links to `biosamples`
-- Resolve case lists to `cohorts`, including sample-to-patient membership
-- Process project-specific patient and sample columns through a mapping file
-- Preserve original values under `info.cbioportal` unless `--no-source-info`
-  is selected
-- Accept timeline data in a later phase after defining mappings for relative
-  dates, treatments, procedures, measurements, and specimen events
+- Exercise independently produced study packages and incorporate differences
+  in project-specific clinical attributes
+- Add timeline data after defining mappings for relative dates, treatments,
+  procedures, measurements, and specimen events
 - Defer mutation, copy-number, expression, fusion, and structural-variant
   files until BFF `genomicVariations`, `analyses`, and `runs` are supported
-- Use an attributed fixture from the official cBioPortal DataHub and validate
-  it with the cBioPortal dataset validator before validating generated outputs
 
-### Priority 2: mCODE FHIR oncology profile
+## Candidate inputs after 0.34
+
+### Priority 1: mCODE FHIR oncology profile
 
 Extend the existing `-ifhir` route rather than introducing another input
 format. Add profile-aware mappings for primary cancer conditions, TNM staging,
 treatments, genomics reports, and other mCODE structures while retaining the
 generic FHIR R4 fallback and provenance behavior.
 
-### Priority 3: CDISC Dataset-XML with Define-XML
+### Priority 2: CDISC Dataset-XML with Define-XML
 
 Add `-idataset-xml` by implementing an XML dataset reader and reusing the
 existing Dataset-JSON SDTM normalization and semantic mappings. Use Define-XML

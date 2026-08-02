@@ -15,8 +15,8 @@
       "required": ["profile"],
       "properties": {
         "profile": {
-          "description": "Use redcap for REDCap CSV and REDCap-origin ODM; use cdisc-odm for standard or vendor ODM with embedded metadata.",
-          "enum": ["cdisc-odm", "csv", "redcap"]
+          "description": "Use redcap for REDCap CSV and REDCap-origin ODM; use cdisc-odm for standard or vendor ODM with embedded metadata; use cbioportal for cBioPortal patient and sample clinical tables.",
+          "enum": ["cbioportal", "cdisc-odm", "csv", "redcap"]
         }
       }
     },

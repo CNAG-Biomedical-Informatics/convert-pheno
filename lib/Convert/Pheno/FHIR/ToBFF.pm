@@ -8,6 +8,7 @@ use JSON::PP ();
 use Scalar::Util qw(looks_like_number refaddr);
 use Storable qw(dclone);
 
+use Convert::Pheno::BFF::Biosample qw(biosample_to_phenopacket);
 use Convert::Pheno::Context;
 use Convert::Pheno::FHIR::Util qw(
   canonical_reference
@@ -132,7 +133,7 @@ sub run_fhir_to_bundle {
     # carried between pipeline stages.
     if (@biosamples) {
         $individual->{info}{phenopacket}{biosamples} = [
-            map { _biosample_to_phenopacket($_) } @biosamples
+            map { biosample_to_phenopacket($_) } @biosamples
         ];
     }
 
@@ -632,41 +633,6 @@ sub _map_specimen {
     }
 
     return $biosample;
-}
-
-sub _biosample_to_phenopacket {
-    my ($biosample) = @_;
-    my $pxf = {
-        id             => $biosample->{id},
-        individualId   => $biosample->{individualId},
-        materialSample => dclone( $biosample->{biosampleStatus} ),
-        sampleType     => dclone( $biosample->{sampleOriginType} ),
-    };
-
-    $pxf->{sampledTissue} = dclone( $biosample->{sampleOriginDetail} )
-      if exists $biosample->{sampleOriginDetail};
-    $pxf->{timeOfCollection} = {
-        timestamp => $biosample->{collectionDate} . 'T00:00:00Z',
-      }
-      if exists $biosample->{collectionDate};
-
-    if ( ref( $biosample->{measurements} ) eq 'ARRAY' ) {
-        $pxf->{measurements} = [
-            map {
-                my $measurement = {
-                    assay => dclone( $_->{assayCode} ),
-                    value => dclone( $_->{measurementValue} ),
-                };
-                $measurement->{timeObserved} = {
-                    timestamp => $_->{date} . 'T00:00:00Z',
-                  }
-                  if exists $_->{date};
-                $measurement;
-            } @{ $biosample->{measurements} }
-        ];
-    }
-
-    return $pxf;
 }
 
 sub _observation_datetime {

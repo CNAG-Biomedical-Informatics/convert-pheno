@@ -10,6 +10,7 @@ use Convert::Pheno::BFF::DerivedEntities qw(
   execution_entities
   synthesize_bundle_entities
 );
+use Convert::Pheno::CBioPortal::ToBFF qw(run_cbioportal_to_bundle);
 use Convert::Pheno::Context;
 use Convert::Pheno::ConversionRequest;
 use Convert::Pheno::CDISC::SDTM::ToBFF qw(run_sdtm_to_bundle);
@@ -37,6 +38,14 @@ sub resolve_operation {
     my ($self) = @_;
     my $spec = conversion_spec( $self->{method} )
       or die "Unsupported method <$self->{method}> in runner\n";
+
+    return _bundle_operation(
+        spec => $spec,
+        run  => sub {
+            my ( $convert, $input, $context ) = @_;
+            return run_cbioportal_to_bundle( $convert, $input, $context );
+        },
+    ) if $self->{method} eq 'cbioportal2bff';
 
     return _bundle_operation(
         spec => $spec,

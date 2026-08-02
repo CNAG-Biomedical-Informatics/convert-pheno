@@ -27,6 +27,7 @@ sub _normalize_cli_type {
         openehr      => 'openehr',
         ehrbase      => 'openehr',
         redcap       => 'redcap',
+        cbioportal   => 'cbioportal',
         cdiscodm     => 'cdiscodm',
         datasetjson  => 'datasetjson',
         fhir         => 'fhir',
@@ -59,7 +60,7 @@ sub build_cli_request {
     my $ohdsi_db       = exists $arg{ohdsi_db}  ? $arg{ohdsi_db}  : 0;
 
     my ( $in_type_arg, $out_type_arg );
-    my ( $in_pxf, $in_bff, $in_redcap, $in_cdiscodm, $in_csv );
+    my ( $in_pxf, $in_bff, $in_cbioportal, $in_redcap, $in_cdiscodm, $in_csv );
     my @datasetjson_files;
     my @fhir_files;
     my @openehr_files;
@@ -84,6 +85,7 @@ sub build_cli_request {
         'o=s'                         => \$out_type_arg,
         'ipxf=s'                      => \$in_pxf,
         'ibff=s'                      => \$in_bff,
+        'icbioportal=s'               => \$in_cbioportal,
         'iredcap=s'                   => \$in_redcap,
         'icdisc-odm=s'                => \$in_cdiscodm,
         'idataset-json=s{1,}'          => \@datasetjson_files,
@@ -161,7 +163,7 @@ sub build_cli_request {
 
     $usage_error->("Please use either the generic <-i/-o> syntax or the compact <-ixxx/-oxxx> flags for each side, not both")
       if ( defined $normalized_in_type
-        && _count_defined( $in_pxf, $in_bff, $in_redcap, $in_cdiscodm, $in_csv, @datasetjson_files ? 1 : undef, @fhir_files ? 1 : undef, @omop_files ? 1 : undef, @openehr_files ? 1 : undef ) )
+        && _count_defined( $in_pxf, $in_bff, $in_cbioportal, $in_redcap, $in_cdiscodm, $in_csv, @datasetjson_files ? 1 : undef, @fhir_files ? 1 : undef, @omop_files ? 1 : undef, @openehr_files ? 1 : undef ) )
       || ( defined $normalized_out_type
         && _count_defined( $out_bff_selected ? 1 : undef, $out_pxf, $out_csv, $out_jsonf, $out_jsonld, $out_omop_selected ? 1 : undef ) );
 
@@ -233,6 +235,7 @@ sub build_cli_request {
             my $generic_infile = shift @{$argv};
             if    ( $normalized_in_type eq 'pxf' )    { $in_pxf    = $generic_infile }
             elsif ( $normalized_in_type eq 'bff' )    { $in_bff    = $generic_infile }
+            elsif ( $normalized_in_type eq 'cbioportal' ) { $in_cbioportal = $generic_infile }
             elsif ( $normalized_in_type eq 'redcap' ) { $in_redcap = $generic_infile }
             elsif ( $normalized_in_type eq 'cdiscodm' ) { $in_cdiscodm = $generic_infile }
             elsif ( $normalized_in_type eq 'csv' )    { $in_csv    = $generic_infile }
@@ -272,6 +275,7 @@ sub build_cli_request {
             condition => sub {
                 !(     ( defined $in_pxf && -f $in_pxf )
                     || ( defined $in_bff    && -f $in_bff )
+                    || defined $in_cbioportal
                     || ( defined $in_redcap && -f $in_redcap )
                     || ( defined $in_cdiscodm && -f $in_cdiscodm )
                     || ( defined $in_csv    && -f $in_csv )
@@ -283,6 +287,14 @@ sub build_cli_request {
             message => "Please specify a valid input [-i input-type] <infile>\n",
         },
         { condition => sub { !-d $out_dir }, message => "Please specify a valid directory for --out-dir\n", },
+        {
+            condition => sub {
+                defined $in_cbioportal
+                  && !-d $in_cbioportal
+                  && !( -f $in_cbioportal && $in_cbioportal =~ /\.zip\z/i );
+            },
+            message => "Please specify a valid cBioPortal study directory or ZIP file\n",
+        },
         {
             condition => sub { $in_redcap && !$redcap_dictionary },
             message   => "Please specify a valid REDCap data dictionary --rcd <file>\n",
@@ -459,6 +471,7 @@ sub build_cli_request {
     my $in_type =
         $in_pxf     ? 'pxf'
       : $in_bff     ? 'bff'
+      : $in_cbioportal ? 'cbioportal'
       : $in_redcap  ? 'redcap'
       : $in_cdiscodm ? 'cdiscodm'
       : @datasetjson_files ? 'datasetjson'
@@ -523,6 +536,7 @@ sub build_cli_request {
     my $resolved_in_file =
         $in_pxf     ? $in_pxf
       : $in_bff     ? $in_bff
+      : $in_cbioportal ? $in_cbioportal
       : $in_redcap  ? $in_redcap
       : $in_cdiscodm ? $in_cdiscodm
       : $in_csv     ? $in_csv

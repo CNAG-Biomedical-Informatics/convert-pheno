@@ -1,0 +1,64 @@
+---
+title: OpenClinica ODM
+sidebar_label: OpenClinica ODM
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+export const OpenClinicaFormatImage = () => (
+  <img
+    src={useBaseUrl('/img/cdisc-odm-format.svg')}
+    alt="OpenClinica ODM clinical data resolved with embedded metadata and a project mapping"
+    className="convertFormatDiagram"
+  />
+);
+
+:::note[Current input profile]
+OpenClinica exports are read through the CDISC-ODM route. The tested profile is
+an ODM 1.3.2 Snapshot carrying the OpenClinica extension namespace and
+embedded study metadata. Independent OpenClinica export coverage is still
+being expanded.
+:::
+
+<div className="convertFormatSummary" aria-label="At a glance">
+  <div><span>Role</span><strong>Input</strong></div>
+  <div><span>Accepted input</span><strong>OpenClinica ODM-XML Snapshot</strong></div>
+  <div><span>Main output</span><strong>BFF, PXF, OMOP-CDM</strong></div>
+  <div><span>Required setup</span><strong>Mapping file using embedded ODM metadata</strong></div>
+</div>
+
+<figure className="convertFormatFigure">
+<OpenClinicaFormatImage />
+<figcaption>OpenClinica ODM is parsed by the version-aware CDISC-ODM input route</figcaption>
+</figure>
+
+## Input Requirements
+
+Use the normal CDISC-ODM input flag. The document must declare a supported ODM
+1.3 namespace and version, use `FileType="Snapshot"`, and provide the
+`Study`, `MetaDataVersion`, `ItemDef`, and `CodeList` metadata referenced by
+its clinical records. The OpenClinica namespace is recognized independently
+of its XML prefix.
+
+The mapping file uses `source.profile: cdisc-odm`. Source fields are stable ODM
+item identifiers. Do not provide a REDCap dictionary: labels, data types, and
+decoded values come from metadata embedded in the XML.
+
+When present, OpenClinica `StudySubjectID` is used as the individual identity;
+the standard ODM `SubjectKey` remains in source provenance.
+
+## Run A Conversion
+
+```bash
+convert-pheno -icdisc-odm openclinica-export.xml \
+  --mapping-file openclinica-mapping.yaml \
+  -obff individuals.json
+```
+
+Replace the BFF output with `-opxf phenopackets.json`, or use
+`-oomop --out-dir omop_out/ --ohdsi-db` for supported OMOP-CDM tables.
+
+The [CDISC-ODM guide](cdisc-odm) documents repeated item groups, provenance,
+supported versions, and the difference from REDCap-origin ODM. The
+[mapping-file reference](tbl/mapping-file) documents the shared authoring
+contract.

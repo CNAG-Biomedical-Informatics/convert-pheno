@@ -6,8 +6,9 @@ slug: /mapping-files
 ---
 
 Mapping files describe how project-specific `CSV`, `REDCap`, or `CDISC-ODM`
-fields become Beacon v2 records. This page follows a REDCap example; the full
-key reference is under [Mapping File](tbl/mapping-file).
+fields become Beacon v2 records. They can also augment the built-in cBioPortal
+clinical mapping. This page follows a REDCap example; the full key reference
+is under [Mapping File](tbl/mapping-file).
 
 :::tip[Google Colab version]
 A runnable notebook is available in [Google Colab](https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6), with a local copy in the [repository](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/nb/convert_pheno_cli_tutorial.ipynb).
@@ -31,6 +32,10 @@ CSV needs only the source file and mapping. REDCap-origin ODM uses the same
 `redcap` mapping profile and dictionary as REDCap CSV. Standard or OpenClinica
 ODM uses `source.profile: cdisc-odm` and resolves labels, data types, and coded
 values from metadata embedded in the XML, without a REDCap dictionary.
+
+cBioPortal uses `source.profile: cbioportal`. Its package metadata already
+defines patients, samples, study identity, and case-list links, so a mapping is
+optional and is used only for additional project-specific clinical columns.
 
 ## Mapping V2 At A Glance
 
@@ -124,6 +129,7 @@ the record and metadata contract consumed by the mapping:
 | `csv` | CSV input |
 | `redcap` | REDCap CSV or a REDCap-origin ODM export with an external dictionary |
 | `cdisc-odm` | Standard or vendor ODM with embedded `MetaDataVersion`, `ItemDef`, and `CodeList` metadata |
+| `cbioportal` | cBioPortal patient and sample clinical tables discovered from a study package |
 
 ODM mappings use stable `ItemOID` values as source fields. A REDCap ODM export
 can reuse its corresponding REDCap mapping. Other ODM documents need rules

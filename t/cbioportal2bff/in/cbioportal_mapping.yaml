@@ -1,0 +1,42 @@
+mappingVersion: 2
+
+source:
+  profile: cbioportal
+
+target:
+  model: beacon
+  schemaVersion: '2.0.0'
+
+project:
+  id: acyc_mgh_2016
+  version: test-1
+  description: Optional semantic augmentation for the cBioPortal fixture
+
+defaults:
+  ontology: ncit
+
+records: {}
+
+beacon:
+  individuals:
+    id:
+      sourceFields: [PATIENT_ID]
+      primaryKey: PATIENT_ID
+    sex:
+      sourceField: STUDY
+      term: { id: 'NCIT:C46109', label: Unknown }
+    info:
+      sourceFields: [STUDY]
+
+  biosamples:
+    defaults:
+      id: { from: sourceValue }
+      individualId: { sourceField: PATIENT_ID }
+      biosampleStatus:
+        term: { id: 'NCIT:C126101', label: Not Available }
+      sampleOriginType:
+        term: { id: 'NCIT:C126101', label: Not Available }
+      info:
+        sourceFields: [PLATFORM, TMB_NONSYNONYMOUS]
+    rules:
+      - sourceField: SAMPLE_ID

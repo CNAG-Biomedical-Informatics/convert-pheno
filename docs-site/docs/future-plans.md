@@ -19,12 +19,12 @@ fewer independent groups.
   <article className="roadmap-card roadmap-card--active">
     <span className="roadmap-kicker">More datasets</span>
     <h2>Test newer input formats</h2>
-    <p>Use FHIR R4, CDISC Dataset-JSON, and openEHR data from more sources and incorporate feedback from their users.</p>
+    <p>Use cBioPortal, FHIR R4, CDISC Dataset-JSON, and openEHR data from more independent sources and incorporate feedback from their users.</p>
   </article>
   <article className="roadmap-card">
     <span className="roadmap-kicker">Candidate inputs</span>
     <h2>Extend oncology and study exchange</h2>
-    <p>Evaluate cBioPortal clinical study packages, mCODE FHIR oncology profiles, and CDISC Dataset-XML as the next input priorities.</p>
+    <p>Evaluate mCODE FHIR oncology profiles and CDISC Dataset-XML as the next input priorities.</p>
   </article>
   <article className="roadmap-card">
     <span className="roadmap-kicker">Mappings</span>

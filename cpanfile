@@ -24,6 +24,7 @@ requires 'Hash::Fold';
 requires 'JSONLD';
 requires 'Devel::Size';
 requires 'DateTime::Format::ISO8601';
+requires 'IO::Uncompress::Unzip';
 
 # t
 requires 'Test::Deep';

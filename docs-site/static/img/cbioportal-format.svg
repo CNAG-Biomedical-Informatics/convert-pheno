@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img" aria-labelledby="title description">
+  <title id="title">cBioPortal clinical study package conversion</title>
+  <desc id="description">Study metadata, patient and sample clinical tables, and case lists are linked and converted to BFF, PXF, or OMOP-CDM.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#60747d"/>
+    </marker>
+  </defs>
+  <rect x="1" y="1" width="718" height="298" rx="8" fill="#ffffff" stroke="#d6e1e5" stroke-width="2"/>
+  <g font-family="Arial, sans-serif">
+    <text x="24" y="28" fill="#49616c" font-size="13" font-weight="700">CLINICAL STUDY PACKAGE</text>
+    <text x="383" y="28" fill="#49616c" font-size="13" font-weight="700" text-anchor="middle">LINK IDENTIFIERS</text>
+    <text x="536" y="28" fill="#49616c" font-size="13" font-weight="700">REQUESTED OUTPUT</text>
+
+    <rect x="24" y="50" width="220" height="213" rx="7" fill="#f3f8fb" stroke="#6d98b4" stroke-width="2"/>
+    <rect x="44" y="70" width="180" height="38" rx="5" fill="#ffffff" stroke="#91adbd"/>
+    <text x="134" y="94" text-anchor="middle" fill="#315f82" font-family="monospace" font-size="12" font-weight="700">meta_study.txt</text>
+    <rect x="44" y="121" width="180" height="38" rx="5" fill="#ffffff" stroke="#91adbd"/>
+    <text x="134" y="145" text-anchor="middle" fill="#315f82" font-family="monospace" font-size="11" font-weight="700">clinical_patient.txt</text>
+    <rect x="44" y="172" width="180" height="38" rx="5" fill="#ffffff" stroke="#91adbd"/>
+    <text x="134" y="196" text-anchor="middle" fill="#315f82" font-family="monospace" font-size="11" font-weight="700">clinical_sample.txt</text>
+    <rect x="44" y="223" width="180" height="26" rx="5" fill="#ffffff" stroke="#91adbd"/>
+    <text x="134" y="241" text-anchor="middle" fill="#315f82" font-family="monospace" font-size="11" font-weight="700">case_lists/</text>
+
+    <path d="M244 156H278" fill="none" stroke="#60747d" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <rect x="286" y="60" width="194" height="193" rx="7" fill="#fff8f0" stroke="#c78345" stroke-width="2"/>
+    <text x="383" y="89" text-anchor="middle" fill="#8b4d17" font-family="monospace" font-size="13" font-weight="700">PATIENT_ID</text>
+    <text x="383" y="107" text-anchor="middle" fill="#8b4d17" font-family="monospace" font-size="13" font-weight="700">SAMPLE_ID</text>
+    <rect x="307" y="126" width="152" height="32" rx="5" fill="#ffffff" stroke="#d6a06f"/>
+    <text x="383" y="147" text-anchor="middle" fill="#6d471f" font-size="11" font-weight="700">Patient → individual</text>
+    <rect x="307" y="169" width="152" height="32" rx="5" fill="#ffffff" stroke="#d6a06f"/>
+    <text x="383" y="190" text-anchor="middle" fill="#6d471f" font-size="11" font-weight="700">Sample → biosample</text>
+    <rect x="307" y="212" width="152" height="27" rx="5" fill="#ffffff" stroke="#d6a06f"/>
+    <text x="383" y="230" text-anchor="middle" fill="#6d471f" font-size="10">Study · dataset · cohort</text>
+
+    <path d="M480 156H528" fill="none" stroke="#60747d" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <rect x="536" y="50" width="160" height="213" rx="7" fill="#eff9f3" stroke="#58a27b" stroke-width="2"/>
+    <rect x="557" y="76" width="118" height="45" rx="6" fill="#ffffff" stroke="#79b194"/>
+    <text x="616" y="104" text-anchor="middle" fill="#276749" font-size="14" font-weight="700">BFF JSON</text>
+    <rect x="557" y="134" width="118" height="45" rx="6" fill="#fff7f2" stroke="#df825f"/>
+    <text x="616" y="162" text-anchor="middle" fill="#a84f30" font-size="14" font-weight="700">PXF JSON</text>
+    <rect x="557" y="192" width="118" height="45" rx="6" fill="#f3f8fb" stroke="#6d98b4"/>
+    <text x="616" y="220" text-anchor="middle" fill="#315f82" font-size="14" font-weight="700">OMOP CSV</text>
+  </g>
+</svg>

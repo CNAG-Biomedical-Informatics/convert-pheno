@@ -48,6 +48,41 @@ project files:
 Export all records and fields. Gzip-compressed CSV inputs are accepted. A
 REDCap CDISC-ODM export follows the separate [CDISC-ODM](cdisc-odm) route.
 
+<details className="convertSetupDetails">
+<summary>REDCap export settings</summary>
+
+1. In REDCap, choose the report or project export containing all required
+   records and fields.
+2. Select **CSV / Microsoft Excel (raw data)**. Raw coded values can be decoded
+   using the REDCap data dictionary; a labels export does not provide the same
+   stable mapping contract.
+
+<figure className="redcapExportFigure redcapExportFigure--narrow">
+  <img
+    src={useBaseUrl('/img/redcap-export.png')}
+    alt="REDCap export dialog with CSV or Microsoft Excel raw data selected"
+  />
+  <figcaption>Select the raw-data CSV export rather than the labels export</figcaption>
+</figure>
+
+3. Leave **Combine checkbox options into a single column** unchecked. Separate
+   checkbox columns preserve the coded field structure expected by the
+   dictionary and mapping file. Removing line breaks from text values is
+   recommended for a reliable CSV export.
+
+<figure className="redcapExportFigure">
+  <img
+    src={useBaseUrl('/img/redcap-checkbox.png')}
+    alt="REDCap additional report options with combine checkbox options left unchecked"
+  />
+  <figcaption>Keep checkbox options in separate columns</figcaption>
+</figure>
+
+4. Download the project's **data dictionary** as CSV. Keep both CSV files as
+   downloaded text files and create the Convert-Pheno mapping separately.
+
+</details>
+
 :::warning[Keep REDCap text exports as UTF-8 text files]
 Do not open and resave REDCap CSV exports or dictionaries with spreadsheet
 software such as Excel before conversion. This can alter UTF-8 text and corrupt

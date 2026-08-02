@@ -198,6 +198,26 @@ is_deeply(
 
 $request = build_cli_request(
     argv => [
+        '-i', 'cbioportal',
+        't/cbioportal2bff/in/acyc_mgh_2016',
+        '-o', 'pxf',
+        'phenopackets.json',
+    ],
+    usage_error => sub { die @_ },
+    schema_file => 'share/schema/mapping.json',
+    out_dir     => $tmpdir,
+    color       => 1,
+);
+
+is( $request->{data}{method}, 'cbioportal2pxf', 'CLI parser accepts generic cBioPortal input' );
+is(
+    $request->{data}{in_file},
+    't/cbioportal2bff/in/acyc_mgh_2016',
+    'CLI parser retains the cBioPortal study path'
+);
+
+$request = build_cli_request(
+    argv => [
         '-ifhir', 't/fhir2bff/in/patient-bundle.json',
         '-obff',
         '--entities', 'biosamples',
@@ -282,6 +302,27 @@ like(
     'CLI parser rejects unsupported same-format routes'
 );
 
+$usage_error = undef;
+eval {
+    build_cli_request(
+        argv => [
+            '-icbioportal', 'missing-study.zip',
+            '-opxf', 'phenopackets.json',
+        ],
+        usage_error => sub { die @_ },
+        schema_file => 'share/schema/mapping.json',
+        out_dir     => $tmpdir,
+        color       => 1,
+    );
+    1;
+} or $usage_error = $@;
+
+like(
+    $usage_error,
+    qr/valid cBioPortal study directory or ZIP file/,
+    'CLI parser reports the cBioPortal package requirement'
+);
+
 my $cli = cli_script_path();
 plan skip_all => "convert-pheno CLI not found at $cli" unless -f $cli;
 
@@ -299,12 +340,13 @@ my @help_contract = (
     [ like => qr/--log \[file\]/, 'CLI help documents --log' ],
     [ like => qr/--color\|--no-color/, 'CLI help documents --no-color' ],
     [ like => qr/-icdisc-odm <file>/, 'CLI help names CDISC-ODM explicitly' ],
+    [ like => qr/-icbioportal <path>/, 'CLI help documents cBioPortal study input' ],
     [ unlike => qr/-icdisc(?:\s|\x20)<file>/, 'CLI help does not advertise the removed -icdisc flag' ],
     [ like => qr/-idataset-json <files\.\.\.>/, 'CLI help documents Dataset-JSON input' ],
     [ like => qr/-ifhir <files\.\.\.>/, 'CLI help documents FHIR Bundle input' ],
     [ like => qr/\[ALIVE\|DECEASED\|UNKNOWN_STATUS\]/, 'CLI help documents supported vitalStatus fallback values' ],
     [ like => qr/Supported:\s+individuals,\s+biosamples,\s+datasets,\s+cohorts/s, 'CLI help documents the supported BFF entities' ],
-    [ like => qr/biosamples are emitted from -ipxf, FHIR Specimen,\s+OMOP SPECIMEN, or beacon\.biosamples mapping rules/s, 'CLI help documents all first-class biosample sources' ],
+    [ like => qr/biosamples are emitted from -ipxf, cBioPortal samples,\s+FHIR Specimen, OMOP SPECIMEN, or mapping rules/s, 'CLI help documents all first-class biosample sources' ],
     [ like => qr/Mapping V2 YAML or JSON file targeting\s+Beacon schema 2\.0\.0/s, 'CLI help documents the mapping and Beacon schema contract' ],
     [ like => qr/datasets and\s+cohorts are synthesized from individuals/s, 'CLI help documents synthesized dataset and cohort entities' ],
     [ like => qr/Use with -obff and --out-dir/s, 'CLI help documents that entity mode keeps -obff explicit' ],
