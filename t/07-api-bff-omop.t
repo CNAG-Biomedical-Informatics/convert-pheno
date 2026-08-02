@@ -4,14 +4,12 @@ use warnings;
 
 use lib qw(./lib ../lib t/lib);
 use Test::More;
-use Test::ConvertPheno qw(build_convert has_ohdsi_db load_csv_table);
-
-plan skip_all => 'share/db/ohdsi.db is required for bff2omop tests'
-  unless has_ohdsi_db();
+use Test::ConvertPheno qw(build_convert load_csv_table test_ohdsi_db_dir);
 
 my $convert = build_convert(
     in_file   => 't/bff2omop/in/individuals.json',
     ohdsi_db  => 1,
+    path_to_ohdsi_db => test_ohdsi_db_dir(),
     method    => 'bff2omop',
 );
 

@@ -7,7 +7,7 @@ Format | CLI | Perl/Python module | HTTP(s) API
 --- | --- | --- | ---
 [Beacon v2 Models](../bff) | Recommended | Supported | Recommended
 [CDISC Dataset-JSON](../dataset-json) | Supported; experimental profile | Supported; experimental profile | Not available
-[CDISC-ODM](../cdisc-odm) | Recommended | Supported | Not recommended
+[CDISC-ODM](../cdisc-odm) | Recommended | Supported | Not available
 [CSV](../csv) | Recommended | Supported | Not recommended
 [FHIR R4](../fhir) | Supported; experimental profile | Supported; experimental profile | Supported for self-contained Bundles
 [OMOP-CDM](../omop-cdm) | Recommended | Supported | Supported with care for self-contained requests

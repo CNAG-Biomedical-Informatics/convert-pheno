@@ -66,7 +66,7 @@ Common input flags:
                     (currently EHRbase-oriented; input-only; BFF/PXF output)
   -iredcap <file>   REDCap export CSV
   -icdisc-odm <file>
-                    CDISC-ODM XML
+                    CDISC-ODM Snapshot XML (1.3.1, 1.3.2, or 2.0)
   -idataset-json <files...>
                     Experimental CDISC Dataset-JSON v1.1 SDTM datasets
                     (input-only; loaded in memory; BFF, PXF, or OMOP output)
@@ -100,7 +100,10 @@ Output behavior:
 Mapping and search:
   --mapping-file <file>           Mapping V2 YAML or JSON file targeting
                                   Beacon schema 2.0.0
-  --redcap-dictionary|-rcd <file> REDCap data dictionary CSV file
+                                  ODM uses source.profile redcap for REDCap
+                                  exports, or cdisc-odm for embedded metadata
+  --redcap-dictionary|-rcd <file> REDCap data dictionary CSV file; required
+                                  for REDCap CSV and REDCap-origin ODM only
   --schema-file <file>            Alternative JSON Schema for mapping files
   --self-validate-schema|-svs     Self-validate the mapping JSON Schema
                                   (mainly for author/development checks)
@@ -158,6 +161,8 @@ Examples:
   convert-pheno -ipxf pxf.json -obff --entities individuals datasets cohorts --out-dir out/
   convert-pheno -icsv data.csv --mapping-file mapping.yaml -obff --entities individuals datasets cohorts --out-dir out/
   convert-pheno -iredcap data.csv -rcd dictionary.csv --mapping-file mapping.yaml -obff --entities individuals biosamples --out-dir out/
+  convert-pheno -icdisc-odm study.xml --mapping-file odm-mapping.yaml -obff individuals.json
+  convert-pheno -icdisc-odm redcap.xml -rcd dictionary.csv --mapping-file redcap-mapping.yaml -obff individuals.json
   convert-pheno -idataset-json dm.json mh.json lb.json -obff individuals.json
   convert-pheno -i dataset-json dm.json mh.json lb.json -o pxf phenopackets.json
   convert-pheno -idataset-json dm.json mh.json lb.json -oomop --out-dir omop_out/ --ohdsi-db

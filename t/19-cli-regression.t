@@ -16,8 +16,7 @@ use Test::ConvertPheno qw(
   slurp_file
   load_json_file
   write_json_file
-  has_ohdsi_db
-  test_tmpdir
+  test_ohdsi_db_dir
   run_command_capture
 );
 
@@ -26,7 +25,8 @@ plan skip_all => "convert-pheno CLI not found at $cli" unless -f $cli;
 plan skip_all => 'Skipping CLI regression tests on ld architectures due to known issues'
   if $Config{archname} =~ /-ld\b/;
 
-my $tmpdir = test_tmpdir();
+my $tmpdir = tempdir( CLEANUP => 1 );
+my $test_ohdsi_db_dir = test_ohdsi_db_dir();
 my @datasetjson_files = sort glob 't/datasetjson2bff/in/*.json';
 
 my @cases = (
@@ -287,33 +287,25 @@ sub run_cli {
 }
 
 for my $case (@cases) {
-  SKIP: {
-        skip q{share/db/ohdsi.db is required for this CLI OMOP test}, 2
-          if $case->{requires_db} && !has_ohdsi_db();
+    my $tmp_file = temp_output_file( suffix => $case->{suffix}, dir => $tmpdir );
+    my @cmd      = map { $_ eq '__OUT__' ? $tmp_file : $_ } @{ $case->{cmd} };
+    unshift @cmd, $^X, $cli;
+    push @cmd, '-O', '--test';
 
-        my $tmp_file = temp_output_file( suffix => $case->{suffix}, dir => $tmpdir );
-        my @cmd      = map { $_ eq '__OUT__' ? $tmp_file : $_ } @{ $case->{cmd} };
-        unshift @cmd, $^X, $cli;
-        push @cmd, '-O', '--test';
+    my $actual_file = $case->{entity_output}
+      ? File::Spec->catfile( $tmpdir, $case->{entity_output} )
+      : $tmp_file;
 
-        my $actual_file = $case->{entity_output}
-          ? File::Spec->catfile( $tmpdir, $case->{entity_output} )
-          : $tmp_file;
-
-        my ( $status, $output ) = run_cli(@cmd);
-        diag($output) if $status != 0 && defined $output && length $output;
-        is( $status, 0, "CLI $case->{name} exits successfully" );
-        ok(
-            compare_case_output( $case->{compare}, $case->{expected}, $actual_file ),
-            "CLI $case->{name} matches reference output",
-        );
-    }
+    my ( $status, $output ) = run_cli(@cmd);
+    diag($output) if $status != 0 && defined $output && length $output;
+    is( $status, 0, "CLI $case->{name} exits successfully" );
+    ok(
+        compare_case_output( $case->{compare}, $case->{expected}, $actual_file ),
+        "CLI $case->{name} matches reference output",
+    );
 }
 
-SKIP: {
-    skip q{share/db/ohdsi.db is required for the CLI fhir2omop test}, 7
-      unless has_ohdsi_db();
-
+{
     my $omop_dir = tempdir( CLEANUP => 1 );
     my @cmd = (
         $^X, $cli,
@@ -321,6 +313,7 @@ SKIP: {
         '-oomop',
         '--out-dir', $omop_dir,
         '--ohdsi-db',
+        '--path-to-ohdsi-db', $test_ohdsi_db_dir,
         '-O',
         '--test',
     );

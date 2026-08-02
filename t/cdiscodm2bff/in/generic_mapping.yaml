@@ -1,0 +1,34 @@
+mappingVersion: 2
+source:
+  profile: cdisc-odm
+target:
+  model: beacon
+  schemaVersion: 2.0.0
+project:
+  id: synthetic_odm
+  version: '1'
+  description: Synthetic CDISC-ODM occurrence mapping
+defaults:
+  ontology: ncit
+records: {}
+beacon:
+  individuals:
+    id:
+      sourceFields: [subjectId]
+      primaryKey: subjectId
+    sex:
+      sourceField: SEX
+      query: { from: value }
+      terms:
+        Female: { id: 'NCIT:C16576', label: Female }
+    diseases:
+      rules:
+        - sourceField: DIAG
+          diseaseCode:
+            query: { from: value }
+            terms:
+              Headache: { id: 'NCIT:C34661', label: Headache }
+              Nasal congestion: { id: 'NCIT:C50312', label: Nasal Congestion }
+          ageOfOnset: { sourceField: AGE }
+    info:
+      sourceFields: [SITE]

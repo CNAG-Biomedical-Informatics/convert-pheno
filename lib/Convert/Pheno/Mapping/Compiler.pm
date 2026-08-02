@@ -78,7 +78,9 @@ sub compile_mapping {
     my $profile = $arg{source_profile};
     die "A source profile is required to compile the mapping\n"
       unless defined $profile && length $profile;
-    my $record_profile = $profile eq 'cdisc-odm' ? 'redcap' : $profile;
+    my $record_profile = $arg{record_profile} // $profile;
+    die "A record profile is required to compile the mapping\n"
+      unless defined $record_profile && length $record_profile;
 
     _validate_target($mapping);
     _validate_source_profile( $mapping, $record_profile );

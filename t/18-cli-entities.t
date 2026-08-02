@@ -5,15 +5,13 @@ use warnings;
 use lib qw(./lib ../lib t/lib);
 use Test::More;
 use File::Spec;
-use File::Temp qw(tempfile);
+use File::Temp qw(tempdir tempfile);
 use Convert::Pheno::Mapping::Compiler qw(load_mapping_document);
 use Test::ConvertPheno qw(
   cli_script_path
-  ensure_clean_dir
-  remove_dir_if_exists
-  has_ohdsi_db
   load_json_file
   csv_files_match
+  test_ohdsi_db_dir
   test_tmpdir
   write_json_file
 );
@@ -21,7 +19,7 @@ use Test::ConvertPheno qw(
 my $cli = cli_script_path();
 plan skip_all => "convert-pheno CLI not found at $cli" unless -f $cli;
 
-my $out_dir = ensure_clean_dir('t/cli-entities-out');
+my $out_dir = tempdir( CLEANUP => 1 );
 my $input_file = File::Spec->catfile( $out_dir, 'pxf-biosamples.json' );
 my $tmpdir = test_tmpdir();
 
@@ -60,7 +58,7 @@ ok( @$biosamples > 0, 'biosamples output is not empty' );
 ok( exists $biosamples->[0]{id}, 'biosamples output keeps biosample ids' );
 is( $biosamples->[0]{individualId}, 'subject-1', 'CLI fills in individualId when missing' );
 
-my $custom_out_dir = ensure_clean_dir('t/cli-entities-custom-out');
+my $custom_out_dir = tempdir( CLEANUP => 1 );
 my @custom_cmd = (
     $^X,
     $cli,
@@ -79,7 +77,7 @@ my $custom_biosamples_file = File::Spec->catfile( $custom_out_dir, 'samples.json
 ok( -f $custom_biosamples_file, 'CLI writes custom biosample filename when requested' );
 ok( !-f File::Spec->catfile( $custom_out_dir, 'biosamples.json' ), 'CLI does not also write the default biosamples filename when overridden' );
 
-my $multi_out_dir = ensure_clean_dir('t/cli-entities-multi-out');
+my $multi_out_dir = tempdir( CLEANUP => 1 );
 my @multi_cmd = (
     $^X,
     $cli,
@@ -96,7 +94,7 @@ is( $multi_status, 0, 'CLI accepts space-separated --entities values' );
 ok( -f File::Spec->catfile( $multi_out_dir, 'individuals.json' ), 'CLI writes individuals.json in multi-entity mode' );
 ok( -f File::Spec->catfile( $multi_out_dir, 'samples.json' ), 'CLI writes custom biosample file in multi-entity mode' );
 
-my $derived_out_dir = ensure_clean_dir('t/cli-entities-derived-out');
+my $derived_out_dir = tempdir( CLEANUP => 1 );
 my @derived_cmd = (
     $^X,
     $cli,
@@ -154,7 +152,7 @@ is( $cohorts->[0]{cohortSize}, 1, 'cohorts output records the cohort size' );
     close $fh;
     write_json_file( $mapping_file, $mapping );
 
-    my $mapping_out_dir = ensure_clean_dir('t/cli-entities-mapping-out');
+    my $mapping_out_dir = tempdir( CLEANUP => 1 );
     my @mapping_cmd = (
         $^X,
         $cli,
@@ -184,11 +182,10 @@ is( $cohorts->[0]{cohortSize}, 1, 'cohorts output records the cohort size' );
     is( $yaml_cohorts->[0]{cohortType}, 'beacon-defined', 'mapping file overrides cohortType' );
     is( $yaml_cohorts->[0]{cohortDataTypes}[0]{id}, 'OMIABIS:0000060', 'mapping file overrides inferred cohort data types' );
 
-    remove_dir_if_exists($mapping_out_dir);
 }
 
 {
-    my $single_file_out_dir = ensure_clean_dir('t/cli-entities-single-file-out');
+    my $single_file_out_dir = tempdir( CLEANUP => 1 );
     my $single_file_out_file = File::Spec->catfile( $single_file_out_dir, 'individuals.json' );
     my ( $fh, $log_file ) =
       tempfile( DIR => $tmpdir, SUFFIX => '.cli.log', UNLINK => 1 );
@@ -228,7 +225,6 @@ is( $cohorts->[0]{cohortSize}, 1, 'cohorts output records the cohort size' );
         'individuals-only pxf2bff output still preserves biosamples under info.phenopacket.biosamples'
     );
 
-    remove_dir_if_exists($single_file_out_dir);
 }
 
 {
@@ -358,11 +354,8 @@ is( $cohorts->[0]{cohortSize}, 1, 'cohorts output records the cohort size' );
     );
 }
 
-SKIP: {
-    skip 'share/db/ohdsi.db is required for bff2omop CLI naming test', 5
-      unless has_ohdsi_db();
-
-    my $omop_out_dir = ensure_clean_dir('t/cli-omop-out');
+{
+    my $omop_out_dir = tempdir( CLEANUP => 1 );
     my @omop_cmd = (
         $^X,
         $cli,
@@ -371,6 +364,7 @@ SKIP: {
         '--out-dir', $omop_out_dir,
         '--out-name', 'PERSON=patients.csv',
         '--ohdsi-db',
+        '--path-to-ohdsi-db', test_ohdsi_db_dir(),
         '--test',
         '-O',
     );
@@ -389,13 +383,6 @@ SKIP: {
         csv_files_match( 't/bff2omop/out/eunomia_PERSON.csv', $renamed_person ),
         'renamed PERSON.csv still matches the reference OMOP content'
     );
-
-    remove_dir_if_exists($omop_out_dir);
 }
-
-remove_dir_if_exists($out_dir);
-remove_dir_if_exists($custom_out_dir);
-remove_dir_if_exists($multi_out_dir);
-remove_dir_if_exists($derived_out_dir);
 
 done_testing();

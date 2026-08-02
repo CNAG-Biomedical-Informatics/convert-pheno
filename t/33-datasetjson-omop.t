@@ -4,15 +4,13 @@ use warnings;
 
 use lib qw(./lib ../lib t/lib);
 use Test::More;
-use Test::ConvertPheno qw(build_convert has_ohdsi_db load_csv_table);
-
-plan skip_all => 'share/db/ohdsi.db is required for datasetjson2omop tests'
-  unless has_ohdsi_db();
+use Test::ConvertPheno qw(build_convert load_csv_table test_ohdsi_db_dir);
 
 my @files = sort glob 't/datasetjson2bff/in/*.json';
 my $convert = build_convert(
     in_files => \@files,
     ohdsi_db => 1,
+    path_to_ohdsi_db => test_ohdsi_db_dir(),
     method   => 'datasetjson2omop',
 );
 

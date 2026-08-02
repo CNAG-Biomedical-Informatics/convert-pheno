@@ -102,7 +102,11 @@ use Convert::Pheno::Source qw(source_adapter);
     );
     my $source = source_adapter( $convert, 'cdisc-odm' )->load;
 
-    ok( @{ $source->data }, 'CDISC-ODM source adapter emits tabular participant rows' );
+    isa_ok(
+        $source->data->[0],
+        'Convert::Pheno::CDISC::ODM::Record',
+        'CDISC-ODM source adapter emits occurrence-aware records',
+    );
     isa_ok(
         $source->artifact('redcap_dictionary'),
         'Convert::Pheno::Tabular::REDCap::Dictionary',

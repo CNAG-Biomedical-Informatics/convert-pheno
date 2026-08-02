@@ -6,12 +6,14 @@ use lib qw(./lib ../lib t/lib);
 use Test::More;
 use Test::Warn;
 use Test::ConvertPheno
-  qw(build_convert temp_output_file has_ohdsi_db structured_files_match load_csv_table
+  qw(build_convert temp_output_file test_ohdsi_db_dir structured_files_match load_csv_table
   csv_headers_from_file write_csv_rows load_json_file);
 use File::Temp qw(tempdir);
 use File::Spec;
 use JSON::XS;
 use Convert::Pheno::Source qw(source_adapter);
+
+my $test_ohdsi_db_dir = test_ohdsi_db_dir();
 
 my @snapshot_cases = (
     {
@@ -83,16 +85,13 @@ for my $case (@snapshot_cases) {
         ],
         out_file => temp_output_file(),
         ohdsi_db => 1,
+        path_to_ohdsi_db => $test_ohdsi_db_dir,
         method   => 'omop2bff',
     );
 
-  SKIP: {
-        skip q{share/db/ohdsi.db is required for OMOP warning test}, 1
-          unless has_ohdsi_db();
-        warning_is { $convert->omop2bff }
-          qq(<DUMMY> is not a valid table in OMOP-CDM\n),
-          'warns on unsupported OMOP table';
-    }
+    warning_is { $convert->omop2bff }
+      qq(<DUMMY> is not a valid table in OMOP-CDM\n),
+      'warns on unsupported OMOP table';
 }
 
 {
@@ -104,17 +103,14 @@ for my $case (@snapshot_cases) {
         ],
         out_file => temp_output_file(),
         ohdsi_db => 1,
+        path_to_ohdsi_db => $test_ohdsi_db_dir,
         method   => 'omop2bff',
     );
 
-  SKIP: {
-        skip q{share/db/ohdsi.db is required for reduced OMOP fixture test}, 1
-          unless has_ohdsi_db();
-        my $tmp_file = $convert->{out_file};
-        $convert->omop2bff;
-        ok( structured_files_match( 't/omop2bff/out/ohdsi.json', $tmp_file ),
-            'omop2bff with OHDSI db matches reduced fixture' );
-    }
+    my $tmp_file = $convert->{out_file};
+    $convert->omop2bff;
+    ok( structured_files_match( 't/omop2bff/out/ohdsi.json', $tmp_file ),
+        'omop2bff with OHDSI db matches reduced fixture' );
 }
 
 {
@@ -148,26 +144,22 @@ for my $case (@snapshot_cases) {
         );
     }
 
-  SKIP: {
-        skip q{share/db/ohdsi.db is required for reduced OMOP concept fallback test}, 1
-          unless has_ohdsi_db();
+    my $tmp_file = temp_output_file();
+    my $convert  = build_convert(
+        in_files  => \@in_files,
+        out_file  => $tmp_file,
+        ohdsi_db  => 1,
+        path_to_ohdsi_db => $test_ohdsi_db_dir,
+        method    => 'omop2bff',
+    );
 
-        my $tmp_file = temp_output_file();
-        my $convert  = build_convert(
-            in_files  => \@in_files,
-            out_file  => $tmp_file,
-            ohdsi_db  => 1,
-            method    => 'omop2bff',
-        );
+    $convert->omop2bff;
+    my $data = load_json_file($tmp_file);
+    my %sex_counts;
+    $sex_counts{ ( $_->{sex} || {} )->{label} }++ for @{$data};
 
-        $convert->omop2bff;
-        my $data = load_json_file($tmp_file);
-        my %sex_counts;
-        $sex_counts{ ( $_->{sex} || {} )->{label} }++ for @{$data};
-
-        is( $sex_counts{'Not Available'} || 0, 0,
-            'omop2bff with --ohdsi-db resolves missing gender concepts instead of degrading to Not Available' );
-    }
+    is( $sex_counts{'Not Available'} || 0, 0,
+        'omop2bff with --ohdsi-db resolves missing gender concepts instead of degrading to Not Available' );
 }
 
 {

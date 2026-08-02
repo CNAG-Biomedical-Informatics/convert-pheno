@@ -205,7 +205,7 @@ The REST API works best for **self-contained payloads** where the request alread
 | `openEHR` | Available | Canonical JSON/YAML content can be sent directly as `input.data` |
 | `CSV` | CLI/module only | Mapping-file conversion depends on file artifacts that are not accepted by the HTTP boundary |
 | `REDCap` | CLI/module only | Requires project data, a REDCap dictionary, and mapping-file context |
-| `CDISC-ODM` | CLI/module only | Requires XML and the same dictionary/mapping context as REDCap |
+| `CDISC-ODM` | CLI/module only | Requires XML plus a mapping file; only REDCap-origin ODM also uses an external dictionary |
 | `CDISC Dataset-JSON` | CLI/module only | Accepts multiple SDTM domain documents that are grouped before conversion |
 
 For `CSV`, `REDCap`, `CDISC-ODM`, and Dataset-JSON, use the **CLI or module

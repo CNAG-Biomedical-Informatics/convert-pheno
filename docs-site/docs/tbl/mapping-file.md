@@ -32,7 +32,7 @@ such as `fieldTermLabels`, `valueTermLabels`, `targetFields`, or
 | Section | Required | Contents |
 | --- | --- | --- |
 | `mappingVersion` | Yes | Mapping language version |
-| `source.profile` | Yes | Normalized record profile: `csv` or `redcap` |
+| `source.profile` | Yes | Record profile: `csv`, `redcap`, or `cdisc-odm` |
 | `target` | Yes | `model` and `schemaVersion` |
 | `project` | Yes | `id`, `version`, and optional `description` |
 | `defaults` | Yes | Default `ontology` |
@@ -46,11 +46,12 @@ Supported default ontologies are `ncit`, `icd10`, `ohdsi`, `cdisc`, `omim`,
 and `hpo`. A term rule can override the project default with its own
 `ontology`.
 
-`source.profile` describes the records consumed by the mapping. It does not
-select the CLI or API input route. CDISC-ODM records are normalized to the
-REDCap representation before mapping, so both routes use `profile: redcap`.
-The mapping rules remain source-specific: exports with different item
-identifiers require a corresponding dictionary and mapping.
+`source.profile` describes the records and metadata consumed by the mapping;
+it does not select the input route. Use `profile: redcap` for REDCap CSV and
+REDCap-origin ODM with an external data dictionary. Use `profile: cdisc-odm`
+for standard or vendor ODM whose `ItemDef` and `CodeList` metadata are embedded
+in the XML. Mapping rules remain source-specific because different ODM exports
+can use different `ItemOID` values.
 
 ## Source Selectors
 
@@ -89,6 +90,13 @@ phenotypicFeatures:
 Every rule keeps the source selector and its target Beacon properties in one
 object. This avoids parallel field lists whose entries can silently drift out
 of alignment.
+
+For ODM input, `sourceField` is an `ItemOID` or one of the normalized context
+fields documented in the [CDISC-ODM guide](../cdisc-odm). Repeated Beacon
+sections evaluate the rule once per matching item-group occurrence. Any
+companion `{ sourceField: ... }` value is resolved from the same occurrence.
+Scalar sections accept repeated identical values, but differing repeated
+values are rejected as ambiguous.
 
 ## Shared Defaults
 
@@ -248,6 +256,7 @@ Before conversion, Convert-Pheno:
 4. Checks that the route's normalized record profile matches `source.profile`
 5. Checks referenced source fields against the input header
 
-Generated BFF preserves the unmodified input row under `info.CSV_columns` or
-`info.REDCap_columns` by default. Use `--no-source-info` to omit this copy.
-Use `--search-audit-tsv FILE` to record ontology queries and their resolution.
+Generated BFF preserves source content under `info.CSV_columns`,
+`info.REDCap_columns`, or the occurrence-aware `info.CDISC_ODM` block by
+default. Use `--no-source-info` to omit this copy. Use
+`--search-audit-tsv FILE` to record ontology queries and their resolution.

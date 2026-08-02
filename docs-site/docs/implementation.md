@@ -37,7 +37,7 @@ Most users find the [CLI](use-as-a-command-line-interface) suitable for their ne
 :::note[API scope]
 The HTTP(s) API is primarily intended for **self-contained JSON conversions** such as `BFF`, `PXF`, FHIR R4 Bundles, and carefully prepared `OMOP-CDM` payloads.
 
-Mapping-file-based routes such as `CSV`, `REDCap`, and `CDISC-ODM` are still better handled through the CLI, because they depend on extra artifacts like mapping files and data dictionaries rather than on one clean request payload. Multi-file Dataset-JSON input is likewise available through the CLI or local module rather than the HTTP(s) API.
+Mapping-file-based routes such as `CSV`, `REDCap`, and `CDISC-ODM` are still better handled through the CLI, because they depend on extra file artifacts rather than on one clean request payload. REDCap and REDCap-origin ODM also use an external dictionary; generic ODM resolves embedded metadata. Multi-file Dataset-JSON input is likewise available through the CLI or local module rather than the HTTP(s) API.
 
 :::
 ## Software architecture

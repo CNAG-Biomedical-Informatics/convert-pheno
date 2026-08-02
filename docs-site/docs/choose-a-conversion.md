@@ -58,8 +58,8 @@ For a compact list of accepted inputs and outputs, see [Supported Formats](suppo
 
 | Target output | Route | Notes |
 | --- | --- | --- |
-| Beacon v2 / `BFF` | [`cdiscodm2bff`](#cdisc-odm-input-bff-output) | Requires a REDCap-compatible dictionary and `--mapping-file` |
-| Phenopackets v2 / `PXF` | [`cdiscodm2pxf`](#cdisc-odm-input-pxf-output) | Uses the same ODM mapping context |
+| Beacon v2 / `BFF` | [`cdiscodm2bff`](#cdisc-odm-input-bff-output) | Requires `--mapping-file`; `--redcap-dictionary` only for REDCap-origin ODM |
+| Phenopackets v2 / `PXF` | [`cdiscodm2pxf`](#cdisc-odm-input-pxf-output) | Uses the same detected ODM profile and mapping context |
 | OMOP-CDM CSV | [`cdiscodm2omop`](#cdisc-odm-input-omop-cdm-output) | Goes through BFF; requires `--ohdsi-db` |
 
 ### CDISC Dataset-JSON Input
@@ -272,19 +272,20 @@ convert-pheno -iredcap redcap.csv \
 
 ```bash
 convert-pheno -icdisc-odm study.xml \
-  --redcap-dictionary dictionary.csv \
-  --mapping-file mapping.yaml \
+  --mapping-file odm-mapping.yaml \
   -obff individuals.json
 ```
 
-More detail: [CDISC-ODM](cdisc-odm).
+This form uses embedded ODM metadata and a mapping declaring
+`source.profile: cdisc-odm`. For a REDCap ODM export, reuse the REDCap mapping
+and add `--redcap-dictionary dictionary.csv`; that mapping declares
+`source.profile: redcap`. More detail: [CDISC-ODM](cdisc-odm).
 
 ### CDISC-ODM Input: PXF Output
 
 ```bash
 convert-pheno -icdisc-odm study.xml \
-  --redcap-dictionary dictionary.csv \
-  --mapping-file mapping.yaml \
+  --mapping-file odm-mapping.yaml \
   -opxf phenopackets.json
 ```
 
@@ -292,8 +293,7 @@ convert-pheno -icdisc-odm study.xml \
 
 ```bash
 convert-pheno -icdisc-odm study.xml \
-  --redcap-dictionary dictionary.csv \
-  --mapping-file mapping.yaml \
+  --mapping-file odm-mapping.yaml \
   -oomop --out-dir omop_out/ \
   --ohdsi-db
 ```

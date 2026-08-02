@@ -287,111 +287,43 @@ plan skip_all => "convert-pheno CLI not found at $cli" unless -f $cli;
 
 my $help = qx{$^X $cli --help 2>&1};
 is( $? >> 8, 0, 'CLI help exits successfully' );
-like( $help, qr/--search <type>/, 'CLI help documents --search' );
-like(
-    $help,
-    qr/--min-text-similarity-score <s>/,
-    'CLI help documents --min-text-similarity-score'
+my @help_contract = (
+    [ like => qr/--search <type>/, 'CLI help documents --search' ],
+    [ like => qr/--min-text-similarity-score <s>/, 'CLI help documents --min-text-similarity-score' ],
+    [ like => qr/--text-similarity-method <m>/, 'CLI help documents --text-similarity-method' ],
+    [ like => qr/--levenshtein-weight <w>/, 'CLI help documents --levenshtein-weight' ],
+    [ like => qr/--username\|-u <name>/, 'CLI help documents the restored username alias' ],
+    [ like => qr/--default-vital-status <s>/, 'CLI help documents --default-vital-status' ],
+    [ like => qr/--source-info\|--no-source-info/, 'CLI help documents --no-source-info' ],
+    [ like => qr/--stream\|--no-stream/, 'CLI help documents --no-stream' ],
+    [ like => qr/--log \[file\]/, 'CLI help documents --log' ],
+    [ like => qr/--color\|--no-color/, 'CLI help documents --no-color' ],
+    [ like => qr/-icdisc-odm <file>/, 'CLI help names CDISC-ODM explicitly' ],
+    [ unlike => qr/-icdisc(?:\s|\x20)<file>/, 'CLI help does not advertise the removed -icdisc flag' ],
+    [ like => qr/-idataset-json <files\.\.\.>/, 'CLI help documents Dataset-JSON input' ],
+    [ like => qr/-ifhir <files\.\.\.>/, 'CLI help documents FHIR Bundle input' ],
+    [ like => qr/\[ALIVE\|DECEASED\|UNKNOWN_STATUS\]/, 'CLI help documents supported vitalStatus fallback values' ],
+    [ like => qr/Supported:\s+individuals,\s+biosamples,\s+datasets,\s+cohorts/s, 'CLI help documents the supported BFF entities' ],
+    [ like => qr/biosamples are emitted from -ipxf, FHIR Specimen,\s+OMOP SPECIMEN, or beacon\.biosamples mapping rules/s, 'CLI help documents all first-class biosample sources' ],
+    [ like => qr/Mapping V2 YAML or JSON file targeting\s+Beacon schema 2\.0\.0/s, 'CLI help documents the mapping and Beacon schema contract' ],
+    [ like => qr/datasets and\s+cohorts are synthesized from individuals/s, 'CLI help documents synthesized dataset and cohort entities' ],
+    [ like => qr/Use with -obff and --out-dir/s, 'CLI help documents that entity mode keeps -obff explicit' ],
+    [ like => qr/-obff FILE keeps the individuals-only BFF behavior\./s, 'CLI help documents the individuals-only BFF behavior' ],
+    [ like => qr/-obff --entities \.\.\. --out-dir DIR writes one file per requested BFF entity\./s, 'CLI help documents the explicit entity-aware BFF form' ],
+    [ like => qr/-oomop --out-dir DIR writes one file per emitted OMOP table\./s, 'CLI help documents the out-dir based OMOP table output mode' ],
+    [ like => qr/-oomop\s+OMOP-CDM CSV table output \(use with --out-dir\)/s, 'CLI help documents OMOP output as out-dir based multi-file output' ],
+    [ like => qr/--out-name k=file\s+Override one multi-file output name/s, 'CLI help documents the shared multi-file rename flag' ],
 );
-like(
-    $help,
-    qr/--text-similarity-method <m>/,
-    'CLI help documents --text-similarity-method'
-);
-like(
-    $help,
-    qr/--levenshtein-weight <w>/,
-    'CLI help documents --levenshtein-weight'
-);
-like(
-    $help,
-    qr/--username\|-u <name>/,
-    'CLI help documents the restored username alias'
-);
-like(
-    $help,
-    qr/--default-vital-status <s>/,
-    'CLI help documents --default-vital-status'
-);
-like(
-    $help,
-    qr/--source-info\|--no-source-info/,
-    'CLI help documents --no-source-info'
-);
-like(
-    $help,
-    qr/--stream\|--no-stream/,
-    'CLI help documents --no-stream'
-);
-like(
-    $help,
-    qr/--log \[file\]/,
-    'CLI help documents --log'
-);
-like(
-    $help,
-    qr/--color\|--no-color/,
-    'CLI help documents --no-color'
-);
-like( $help, qr/-icdisc-odm <file>/, 'CLI help names CDISC-ODM explicitly' );
-unlike( $help, qr/-icdisc(?:\s|\x20)<file>/, 'CLI help does not advertise the removed -icdisc flag' );
-like( $help, qr/-idataset-json <files\.\.\.>/, 'CLI help documents Dataset-JSON input' );
-like( $help, qr/-ifhir <files\.\.\.>/, 'CLI help documents FHIR Bundle input' );
-like(
-    $help,
-    qr/\[ALIVE\|DECEASED\|UNKNOWN_STATUS\]/,
-    'CLI help documents supported vitalStatus fallback values'
-);
-like(
-    $help,
-    qr/Supported:\s+individuals,\s+biosamples,\s+datasets,\s+cohorts/s,
-    'CLI help documents the supported BFF entities'
-);
-like(
-    $help,
-    qr/biosamples are emitted from -ipxf, FHIR Specimen,\s+OMOP SPECIMEN, or beacon\.biosamples mapping rules/s,
-    'CLI help documents all first-class biosample sources'
-);
-like(
-    $help,
-    qr/Mapping V2 YAML or JSON file targeting\s+Beacon schema 2\.0\.0/s,
-    'CLI help documents the mapping and Beacon schema contract'
-);
-like(
-    $help,
-    qr/datasets and\s+cohorts are synthesized from individuals/s,
-    'CLI help documents synthesized dataset and cohort entities'
-);
-like(
-    $help,
-    qr/Use with -obff and --out-dir/s,
-    'CLI help documents that entity mode keeps -obff explicit'
-);
-like(
-    $help,
-    qr/-obff FILE keeps the individuals-only BFF behavior\./s,
-    'CLI help documents the individuals-only BFF behavior'
-);
-like(
-    $help,
-    qr/-obff --entities \.\.\. --out-dir DIR writes one file per requested BFF entity\./s,
-    'CLI help documents the explicit entity-aware BFF form'
-);
-like(
-    $help,
-    qr/-oomop --out-dir DIR writes one file per emitted OMOP table\./s,
-    'CLI help documents the out-dir based OMOP table output mode'
-);
-like(
-    $help,
-    qr/-oomop\s+OMOP-CDM CSV table output \(use with --out-dir\)/s,
-    'CLI help documents OMOP output as out-dir based multi-file output'
-);
-like(
-    $help,
-    qr/--out-name k=file\s+Override one multi-file output name/s,
-    'CLI help documents the shared multi-file rename flag'
-);
+
+for my $check (@help_contract) {
+    my ( $kind, $pattern, $description ) = @{$check};
+    if ( $kind eq 'like' ) {
+        like( $help, $pattern, $description );
+    }
+    else {
+        unlike( $help, $pattern, $description );
+    }
+}
 
 my $usage_error_output =
   qx{$^X $cli -ipxf t/pxf2bff/in/pxf.json --entities biosamples --out-dir $tmpdir 2>&1};

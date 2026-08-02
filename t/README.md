@@ -70,6 +70,18 @@ directory. The exact commands maintained by the test suite are in
 prove -lr t
 ```
 
+The active suite generates a small indexed OHDSI database from
+[`fixtures/ohdsi-concepts.tsv`](fixtures/ohdsi-concepts.tsv). This keeps exact
+ontology lookup and OMOP-output tests deterministic without requiring the
+optional 2.2 GB database. Tests that exercise the complete Athena database
+remain under `xt/`.
+
+For a faster local run on machines with several CPU cores:
+
+```bash
+prove -j4 -lr t
+```
+
 Generated files are written to temporary directories by the tests. Do not
 replace files under `t/*/out/` unless a deliberate conversion change has been
 reviewed and the expected structure has changed.

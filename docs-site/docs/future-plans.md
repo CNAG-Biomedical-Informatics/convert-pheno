@@ -13,8 +13,8 @@ fewer independent groups.
 <div className="roadmap-grid">
   <article className="roadmap-card roadmap-card--active">
     <span className="roadmap-kicker">CDISC ODM</span>
-    <h2>Broaden XML clinical-data input</h2>
-    <p>Add an OpenClinica ODM v1 export profile and ODM v2.0 ClinicalData support, with repeat-aware records and source metadata.</p>
+    <h2>Test more EDC exports</h2>
+    <p>Exercise the version-aware ODM 1.3 and 2.0 ClinicalData input with more independently produced REDCap, OpenClinica, and standard ODM snapshots.</p>
   </article>
   <article className="roadmap-card roadmap-card--active">
     <span className="roadmap-kicker">More datasets</span>

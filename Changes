@@ -1,5 +1,9 @@
 Revision history for Perl distribution Convert-Pheno
 
+0.34 2026-08-XXT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
+
+ - Added version-aware CDISC-ODM 1.3 and 2.0 Snapshot input with embedded metadata and occurrence-aware repeated records
+
 0.33 2026-07-31T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
  - Added native Windows support and CI coverage with Strawberry Perl 5.40 and 5.42

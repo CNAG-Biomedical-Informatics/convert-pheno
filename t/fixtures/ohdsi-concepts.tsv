@@ -1,0 +1,43 @@
+label	id	concept_id	vocabulary_id
+MALE	M	8507	Gender
+FEMALE	F	8532	Gender
+White	LA4457-3	45877987	LOINC
+NA	LA12334-1	36311145	LOINC
+Not Hispanic or Latino	Not Hispanic	38003564	Ethnicity
+Hispanic or Latino	Hispanic	38003563	Ethnicity
+Usa	4004810	42007257	OSM
+US	LA31572-3	1621184	LOINC
+Injury of anterior cruciate ligament	444470001	40479768	SNOMED
+Concussion with no loss of consciousness	850.0	44832796	ICD9CM
+Acute viral pharyngitis	195662009	4112343	SNOMED
+Streptococcal sore throat	034.0	44820546	ICD9CM
+Viral sinusitis	444814009	40481087	SNOMED
+Surgical manipulation of joint of knee	699253003	44783196	SNOMED
+Suture open wound	150348004	40309874	SNOMED
+Radiologic examination of knee	74016001	4252419	SNOMED
+Bone immobilization	150732003	40311526	SNOMED
+Radiography of humerus	1225002	4047491	SNOMED
+Plain chest X-ray	399208008	4163872	SNOMED
+Sputum examination	269911007	4151422	SNOMED
+History of appendectomy	428251008	4323208	SNOMED
+Type 2 diabetes mellitus	E11	1567956	ICD10CM
+Headache	R51	35211388	ICD10CM
+Alanine aminotransferase	LP15333-5	40782579	LOINC
+U/L	258947003	4118000	SNOMED
+Negative	LA6577-6	45878583	LOINC
+Weight	LP18015-5	40786050	LOINC
+kg	258683005	4122383	SNOMED
+metFORMIN	LP33332-5	44787139	LOINC
+Oral	LA9367-9	45878097	LOINC
+Asthma	J45	1569488	ICD10CM
+Nausea	R11.0	45534429	ICD10CM
+Hemoglobin	LP14449-0	40795725	LOINC
+g/dL	258795003	4121395	SNOMED
+Intravenous	LA9437-0	45880861	LOINC
+Acute infective cystitis	307426000	4144035	SNOMED
+Seizure	LA7472-9	45882230	LOINC
+Subcutaneous immunotherapy	180256009	4107731	SNOMED
+Glucose [Mass/volume] in Urine by Test strip	5792-7	3024629	LOINC
+mg/dL	258797006	4121396	SNOMED
+Ketones [Presence] in Urine by Test strip	2514-8	3035350	LOINC
+Fexofenadine hydrochloride 30 MG Oral Tablet	00088500010	44957998	NDC

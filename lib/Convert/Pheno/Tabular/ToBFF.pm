@@ -6,7 +6,7 @@ use autodie;
 
 use Exporter 'import';
 use JSON::XS;
-use Scalar::Util qw(looks_like_number);
+use Scalar::Util qw(blessed looks_like_number);
 use Storable qw(dclone);
 
 use Convert::Pheno::Context;
@@ -66,13 +66,15 @@ sub map_tabular_individual {
 sub _map_individual {
     my ( $self, $participant, $mapping ) = @_;
     my $individual_mapping = $mapping->{beacon}{individuals};
-    my $record = Convert::Pheno::Tabular::Record->new(
+    my $record = blessed($participant) && $participant->can('value')
+      ? $participant
+      : Convert::Pheno::Tabular::Record->new(
         {
             source      => $mapping->{_compiled}{recordProfile},
             raw         => $participant,
             redcap_dict => $self->{data_redcap_dict},
         }
-    );
+      );
 
     _apply_baseline( $self, $record, $mapping );
 
@@ -169,29 +171,36 @@ sub _map_scalar_value {
 sub _map_diseases {
     my ( $individual, $rules, $ctx ) = @_;
     for my $rule ( @{ $rules || [] } ) {
-        next unless _source_matches( $rule->{source}, $ctx->{record} );
-        my $field  = $rule->{source}{field};
-        my $target = $rule->{target};
-        my $code   = _map_term( $target->{diseaseCode}, $field, $ctx );
-        next unless defined $code;
+        for my $item_ctx ( @{ _matching_contexts( $rule->{source}, $ctx ) } ) {
+            my $field  = $rule->{source}{field};
+            my $target = $rule->{target};
+            my $code = _map_term( $target->{diseaseCode}, $field, $item_ctx );
+            next unless defined $code;
 
-        my $disease = {
-            diseaseCode => $code,
-            ageOfOnset  => exists $target->{ageOfOnset}
-            ? _map_age( _resolve_value( $target->{ageOfOnset}, $field, $ctx ) )
-            : _clone( $DEFAULT->{age} ),
-            severity => _clone( $DEFAULT->{ontology_term} ),
-            stage    => _clone( $DEFAULT->{ontology_term} ),
-        };
+            my $disease = {
+                diseaseCode => $code,
+                ageOfOnset  => exists $target->{ageOfOnset}
+                ? _map_age(
+                    _resolve_value( $target->{ageOfOnset}, $field, $item_ctx )
+                  )
+                : _clone( $DEFAULT->{age} ),
+                severity => _clone( $DEFAULT->{ontology_term} ),
+                stage    => _clone( $DEFAULT->{ontology_term} ),
+            };
 
-        if ( exists $target->{familyHistory} ) {
-            my $value = _resolve_value( $target->{familyHistory}, $field, $ctx );
-            $disease->{familyHistory} = convert2boolean($value)
-              if defined $value;
+            if ( exists $target->{familyHistory} ) {
+                my $value = _resolve_value(
+                    $target->{familyHistory},
+                    $field,
+                    $item_ctx,
+                );
+                $disease->{familyHistory} = convert2boolean($value)
+                  if defined $value;
+            }
+
+            _add_visit( $disease, $item_ctx );
+            push @{ $individual->{diseases} }, $disease;
         }
-
-        _add_visit( $disease, $ctx );
-        push @{ $individual->{diseases} }, $disease;
     }
     return 1;
 }
@@ -199,36 +208,42 @@ sub _map_diseases {
 sub _map_exposures {
     my ( $individual, $rules, $ctx ) = @_;
     for my $rule ( @{ $rules || [] } ) {
-        next unless _source_matches( $rule->{source}, $ctx->{record} );
-        my $field  = $rule->{source}{field};
-        my $target = $rule->{target};
-        my $code   = _map_term( $target->{exposureCode}, $field, $ctx );
-        next unless defined $code;
+        for my $item_ctx ( @{ _matching_contexts( $rule->{source}, $ctx ) } ) {
+            my $field  = $rule->{source}{field};
+            my $target = $rule->{target};
+            my $code = _map_term( $target->{exposureCode}, $field, $item_ctx );
+            next unless defined $code;
 
-        my $source_value = $ctx->{record}->value($field);
-        my $value = exists $target->{value}
-          ? _resolve_value( $target->{value}, $field, $ctx )
-          : $source_value;
+            my $source_value = $item_ctx->{record}->value($field);
+            my $value = exists $target->{value}
+              ? _resolve_value( $target->{value}, $field, $item_ctx )
+              : $source_value;
 
-        my $exposure = {
-            exposureCode => $code,
-            ageAtExposure => exists $target->{ageAtExposure}
-            ? _map_age( _resolve_value( $target->{ageAtExposure}, $field, $ctx ) )
-            : _clone( $DEFAULT->{age} ),
-            unit => _map_term( $target->{unit}, $field, $ctx ),
-            value => defined $value && looks_like_number($value)
-            ? dotify_and_coerce_number($value)
-            : -1,
-            date => exists $target->{date}
-            ? _resolve_value( $target->{date}, $field, $ctx )
-            : $DEFAULT->{date},
-            duration => exists $target->{duration}
-            ? _resolve_value( $target->{duration}, $field, $ctx )
-            : $DEFAULT->{duration},
-        };
-        $exposure->{_info} = $field if _source_info_enabled( $ctx->{self} );
-        _add_visit( $exposure, $ctx );
-        push @{ $individual->{exposures} }, $exposure;
+            my $exposure = {
+                exposureCode => $code,
+                ageAtExposure => exists $target->{ageAtExposure}
+                ? _map_age(
+                    _resolve_value(
+                        $target->{ageAtExposure}, $field, $item_ctx
+                    )
+                  )
+                : _clone( $DEFAULT->{age} ),
+                unit => _map_term( $target->{unit}, $field, $item_ctx ),
+                value => defined $value && looks_like_number($value)
+                ? dotify_and_coerce_number($value)
+                : -1,
+                date => exists $target->{date}
+                ? _resolve_value( $target->{date}, $field, $item_ctx )
+                : $DEFAULT->{date},
+                duration => exists $target->{duration}
+                ? _resolve_value( $target->{duration}, $field, $item_ctx )
+                : $DEFAULT->{duration},
+            };
+            $exposure->{_info} = $field
+              if _source_info_enabled( $item_ctx->{self} );
+            _add_visit( $exposure, $item_ctx );
+            push @{ $individual->{exposures} }, $exposure;
+        }
     }
     return 1;
 }
@@ -240,12 +255,20 @@ sub _map_info {
 
     for my $field ( @{ $rule->{source}{fields} || [] } ) {
         next unless defined $ctx->{record}->working_value($field);
-        $individual->{info}{$field} = $ctx->{record}->value($field);
+        my $value = $ctx->{record}->can('info_value')
+          ? $ctx->{record}->info_value($field)
+          : $ctx->{record}->value($field);
+        $individual->{info}{$field} = $value;
 
         my $meta = $ctx->{record}->field_meta($field);
-        if ( ref($meta) eq 'HASH' && exists $meta->{'Field Label'} ) {
+        if (
+            !ref($value)
+            && ref($meta) eq 'HASH'
+            && exists $meta->{'Field Label'}
+          )
+        {
             $individual->{info}{objects}{ $field . '_obj' } = {
-                value => dotify_and_coerce_number( $ctx->{record}->value($field) ),
+                value => dotify_and_coerce_number($value),
                 map { $_ => $meta->{$_} } @REDCAP_META_FIELDS,
             };
         }
@@ -271,12 +294,8 @@ sub _map_info {
     $individual->{info}{project}{description} = $mapping->{project}{description}
       if defined $mapping->{project}{description};
 
-    if ( _source_info_enabled( $ctx->{self} ) ) {
-        my $key = $mapping->{_compiled}{recordProfile} eq 'redcap'
-          ? 'REDCap_columns'
-          : 'CSV_columns';
-        $individual->{info}{$key} = $ctx->{record}->columns_snapshot;
-    }
+    _add_source_provenance( $individual->{info}, $ctx )
+      if _source_info_enabled( $ctx->{self} );
 
     return 1;
 }
@@ -284,27 +303,33 @@ sub _map_info {
 sub _map_procedures {
     my ( $individual, $rules, $ctx ) = @_;
     for my $rule ( @{ $rules || [] } ) {
-        next unless _source_matches( $rule->{source}, $ctx->{record} );
-        my $field  = $rule->{source}{field};
-        my $target = $rule->{target};
-        my $code   = _map_term( $target->{procedureCode}, $field, $ctx );
-        next unless defined $code;
+        for my $item_ctx ( @{ _matching_contexts( $rule->{source}, $ctx ) } ) {
+            my $field  = $rule->{source}{field};
+            my $target = $rule->{target};
+            my $code = _map_term( $target->{procedureCode}, $field, $item_ctx );
+            next unless defined $code;
 
-        my $procedure = {
-            procedureCode => $code,
-            ageAtProcedure => exists $target->{ageAtProcedure}
-            ? _map_age( _resolve_value( $target->{ageAtProcedure}, $field, $ctx ) )
-            : _clone( $DEFAULT->{age} ),
-            bodySite => exists $target->{bodySite}
-            ? _map_term( $target->{bodySite}, $field, $ctx )
-            : _clone( $DEFAULT->{ontology_term} ),
-            dateOfProcedure => _mapped_date(
-                $target->{dateOfProcedure}, $field, $ctx
-            ),
-        };
-        $procedure->{_info} = $field if _source_info_enabled( $ctx->{self} );
-        _add_visit( $procedure, $ctx );
-        push @{ $individual->{interventionsOrProcedures} }, $procedure;
+            my $procedure = {
+                procedureCode => $code,
+                ageAtProcedure => exists $target->{ageAtProcedure}
+                ? _map_age(
+                    _resolve_value(
+                        $target->{ageAtProcedure}, $field, $item_ctx
+                    )
+                  )
+                : _clone( $DEFAULT->{age} ),
+                bodySite => exists $target->{bodySite}
+                ? _map_term( $target->{bodySite}, $field, $item_ctx )
+                : _clone( $DEFAULT->{ontology_term} ),
+                dateOfProcedure => _mapped_date(
+                    $target->{dateOfProcedure}, $field, $item_ctx
+                ),
+            };
+            $procedure->{_info} = $field
+              if _source_info_enabled( $item_ctx->{self} );
+            _add_visit( $procedure, $item_ctx );
+            push @{ $individual->{interventionsOrProcedures} }, $procedure;
+        }
     }
     return 1;
 }
@@ -312,8 +337,10 @@ sub _map_procedures {
 sub _map_measures {
     my ( $individual, $rules, $ctx ) = @_;
     for my $rule ( @{ $rules || [] } ) {
-        my $measure = _map_measure_rule( $rule, $ctx );
-        push @{ $individual->{measures} }, $measure if defined $measure;
+        for my $item_ctx ( @{ _matching_contexts( $rule->{source}, $ctx ) } ) {
+            my $measure = _map_measure_rule( $rule, $item_ctx );
+            push @{ $individual->{measures} }, $measure if defined $measure;
+        }
     }
     return 1;
 }
@@ -400,29 +427,35 @@ sub _reference_range {
 sub _map_phenotypic_features {
     my ( $individual, $rules, $ctx ) = @_;
     for my $rule ( @{ $rules || [] } ) {
-        next unless _source_matches( $rule->{source}, $ctx->{record} );
-        my $field = $rule->{source}{field};
-        my $raw   = $ctx->{record}->working_value($field);
-        next unless defined $raw && $raw ne q{};
+        for my $item_ctx ( @{ _matching_contexts( $rule->{source}, $ctx ) } ) {
+            my $field = $rule->{source}{field};
+            my $raw = $item_ctx->{record}->working_value($field);
+            next unless defined $raw && $raw ne q{};
 
-        my $feature = {
-            excluded_ori => dotify_and_coerce_number($raw),
-            excluded => looks_like_number($raw)
-            ? ( $raw ? JSON::XS::false : JSON::XS::true )
-            : JSON::XS::false,
-            featureType => _map_term( $rule->{target}{featureType}, $field, $ctx ),
-        };
-        next unless defined $feature->{featureType};
+            my $feature = {
+                excluded_ori => dotify_and_coerce_number($raw),
+                excluded => looks_like_number($raw)
+                ? ( $raw ? JSON::XS::false : JSON::XS::true )
+                : JSON::XS::false,
+                featureType => _map_term(
+                    $rule->{target}{featureType},
+                    $field,
+                    $item_ctx,
+                ),
+            };
+            next unless defined $feature->{featureType};
 
-        if ( $ctx->{mapping}{_compiled}{recordProfile} eq 'redcap' ) {
-            ( my $dictionary_field = $field ) =~ s/___\w+\z//;
-            my $meta = $ctx->{record}->field_meta($dictionary_field) || {};
-            $feature->{notes} = join ' /// ', $dictionary_field,
-              map { qq/$_=$meta->{$_}/ } @REDCAP_META_FIELDS;
+            if ( $item_ctx->{mapping}{_compiled}{recordProfile} eq 'redcap' ) {
+                ( my $dictionary_field = $field ) =~ s/___\w+\z//;
+                my $meta =
+                  $item_ctx->{record}->field_meta($dictionary_field) || {};
+                $feature->{notes} = join ' /// ', $dictionary_field,
+                  map { qq/$_=$meta->{$_}/ } @REDCAP_META_FIELDS;
+            }
+
+            _add_visit( $feature, $item_ctx );
+            push @{ $individual->{phenotypicFeatures} }, $feature;
         }
-
-        _add_visit( $feature, $ctx );
-        push @{ $individual->{phenotypicFeatures} }, $feature;
     }
     return 1;
 }
@@ -430,55 +463,58 @@ sub _map_phenotypic_features {
 sub _map_treatments {
     my ( $individual, $rules, $ctx ) = @_;
     for my $rule ( @{ $rules || [] } ) {
-        next unless _source_matches( $rule->{source}, $ctx->{record} );
-        my $field  = $rule->{source}{field};
-        my $target = $rule->{target};
-        my $code   = _map_term( $target->{treatmentCode}, $field, $ctx );
-        next unless defined $code;
+        for my $item_ctx ( @{ _matching_contexts( $rule->{source}, $ctx ) } ) {
+            my $field  = $rule->{source}{field};
+            my $target = $rule->{target};
+            my $code = _map_term( $target->{treatmentCode}, $field, $item_ctx );
+            next unless defined $code;
 
-        my $treatment = {
-            treatmentCode => $code,
-            ageAtOnset => exists $target->{ageAtOnset}
-            ? _map_age( _resolve_value( $target->{ageAtOnset}, $field, $ctx ) )
-            : _clone( $DEFAULT->{age} ),
-        };
-
-        $treatment->{routeOfAdministration} = _map_term(
-            $target->{routeOfAdministration}, $field, $ctx
-          )
-          if exists $target->{routeOfAdministration};
-
-        $treatment->{cumulativeDose} = _map_quantity(
-            $target->{cumulativeDose}, $field, $ctx, 0
-          )
-          if exists $target->{cumulativeDose};
-
-        if ( exists $target->{doseIntervals} ) {
-            my $quantity = _map_quantity(
-                $target->{doseIntervals}{quantity}, $field, $ctx, 1
-            );
-            $treatment->{doseIntervals} = [
-                {
-                    interval          => _clone( $DEFAULT->{interval} ),
-                    quantity          => $quantity,
-                    scheduleFrequency => _clone( $DEFAULT->{ontology_term} ),
-                }
-            ];
-        }
-
-        if ( _source_info_enabled( $ctx->{self} ) ) {
-            $treatment->{_info} = {
-                field     => $field,
-                value     => $ctx->{record}->value($field),
-                drug_name => $code->{label},
-                route => exists $treatment->{routeOfAdministration}
-                ? $treatment->{routeOfAdministration}{label}
-                : undef,
+            my $treatment = {
+                treatmentCode => $code,
+                ageAtOnset => exists $target->{ageAtOnset}
+                ? _map_age(
+                    _resolve_value( $target->{ageAtOnset}, $field, $item_ctx )
+                  )
+                : _clone( $DEFAULT->{age} ),
             };
-        }
 
-        _add_visit( $treatment, $ctx );
-        push @{ $individual->{treatments} }, $treatment;
+            $treatment->{routeOfAdministration} = _map_term(
+                $target->{routeOfAdministration}, $field, $item_ctx
+              )
+              if exists $target->{routeOfAdministration};
+
+            $treatment->{cumulativeDose} = _map_quantity(
+                $target->{cumulativeDose}, $field, $item_ctx, 0
+              )
+              if exists $target->{cumulativeDose};
+
+            if ( exists $target->{doseIntervals} ) {
+                my $quantity = _map_quantity(
+                    $target->{doseIntervals}{quantity}, $field, $item_ctx, 1
+                );
+                $treatment->{doseIntervals} = [
+                    {
+                        interval          => _clone( $DEFAULT->{interval} ),
+                        quantity          => $quantity,
+                        scheduleFrequency => _clone( $DEFAULT->{ontology_term} ),
+                    }
+                ];
+            }
+
+            if ( _source_info_enabled( $item_ctx->{self} ) ) {
+                $treatment->{_info} = {
+                    field => $field,
+                    value => $item_ctx->{record}->value($field),
+                    drug_name => $code->{label},
+                    route => exists $treatment->{routeOfAdministration}
+                    ? $treatment->{routeOfAdministration}{label}
+                    : undef,
+                };
+            }
+
+            _add_visit( $treatment, $item_ctx );
+            push @{ $individual->{treatments} }, $treatment;
+        }
     }
     return 1;
 }
@@ -513,65 +549,88 @@ sub _map_biosamples {
     my @biosamples;
 
     for my $rule ( @{ $config->{mappings} || [] } ) {
-        next unless _source_matches( $rule->{source}, $record );
-        my $field  = $rule->{source}{field};
-        my $target = $rule->{target};
-        my $id = _resolve_value( $target->{id}, $field, $ctx );
-        next unless _has_value($id);
+        for my $item_ctx ( @{ _matching_contexts( $rule->{source}, $ctx ) } ) {
+            my $field  = $rule->{source}{field};
+            my $target = $rule->{target};
+            my $id = _resolve_value( $target->{id}, $field, $item_ctx );
+            next unless _has_value($id);
 
-        my $biosample = {
-            id               => "$id",
-            biosampleStatus  => _map_term( $target->{biosampleStatus}, $field, $ctx ),
-            sampleOriginType => _map_term( $target->{sampleOriginType}, $field, $ctx ),
-        };
-        $biosample->{individualId} = exists $target->{individualId}
-          ? _resolve_value( $target->{individualId}, $field, $ctx )
-          : $individual_id;
-
-        for my $property (qw(collectionDate notes)) {
-            next unless exists $target->{$property};
-            my $value = _resolve_value( $target->{$property}, $field, $ctx );
-            next unless defined $value;
-            $biosample->{$property} = $property eq 'collectionDate'
-              ? convert_date_to_iso8601($value)
-              : $value;
-        }
-
-        for my $property (qw(sampleOriginDetail)) {
-            $biosample->{$property} = _map_term( $target->{$property}, $field, $ctx )
-              if exists $target->{$property};
-        }
-
-        if ( exists $target->{obtentionProcedure} ) {
-            $biosample->{obtentionProcedure} = {
-                procedureCode => _map_term(
-                    $target->{obtentionProcedure}{procedureCode}, $field, $ctx
+            my $biosample = {
+                id              => "$id",
+                biosampleStatus => _map_term(
+                    $target->{biosampleStatus}, $field, $item_ctx
+                ),
+                sampleOriginType => _map_term(
+                    $target->{sampleOriginType}, $field, $item_ctx
                 ),
             };
-        }
+            $biosample->{individualId} = exists $target->{individualId}
+              ? _resolve_value( $target->{individualId}, $field, $item_ctx )
+              : $individual_id;
 
-        for my $measure_rule ( @{ $target->{measurements} || [] } ) {
-            my $measure = _map_measure_rule( $measure_rule, $ctx );
-            push @{ $biosample->{measurements} }, $measure if defined $measure;
-        }
-
-        if ( exists $target->{info} ) {
-            for my $info_field ( @{ $target->{info}{sourceFields} } ) {
-                $biosample->{info}{$info_field} = $record->value($info_field)
-                  if defined $record->raw_value($info_field);
+            for my $property (qw(collectionDate notes)) {
+                next unless exists $target->{$property};
+                my $value = _resolve_value(
+                    $target->{$property},
+                    $field,
+                    $item_ctx,
+                );
+                next unless defined $value;
+                $biosample->{$property} = $property eq 'collectionDate'
+                  ? convert_date_to_iso8601($value)
+                  : $value;
             }
-        }
 
-        if ( _source_info_enabled($self) ) {
-            my $key = $mapping->{_compiled}{recordProfile} eq 'redcap'
-              ? 'REDCap_columns'
-              : 'CSV_columns';
-            $biosample->{info}{$key} = $record->columns_snapshot;
-        }
-        $biosample->{info}{convertPheno} = $self->{convertPheno}
-          if !$self->{test} && defined $self->{convertPheno};
+            for my $property (qw(sampleOriginDetail)) {
+                $biosample->{$property} = _map_term(
+                    $target->{$property}, $field, $item_ctx
+                  )
+                  if exists $target->{$property};
+            }
 
-        push @biosamples, $biosample;
+            if ( exists $target->{obtentionProcedure} ) {
+                $biosample->{obtentionProcedure} = {
+                    procedureCode => _map_term(
+                        $target->{obtentionProcedure}{procedureCode},
+                        $field,
+                        $item_ctx,
+                    ),
+                };
+            }
+
+            for my $measure_rule ( @{ $target->{measurements} || [] } ) {
+                for my $measure_ctx (
+                    @{ _matching_contexts( $measure_rule->{source}, $item_ctx ) }
+                  )
+                {
+                    my $measure = _map_measure_rule(
+                        $measure_rule,
+                        $measure_ctx,
+                    );
+                    push @{ $biosample->{measurements} }, $measure
+                      if defined $measure;
+                }
+            }
+
+            if ( exists $target->{info} ) {
+                for my $info_field ( @{ $target->{info}{sourceFields} } ) {
+                    my $item_record = $item_ctx->{record};
+                    $biosample->{info}{$info_field} = $item_record->can('info_value')
+                      ? $item_record->info_value($info_field)
+                      : $item_record->value($info_field)
+                      if defined $item_record->raw_value($info_field);
+                }
+            }
+
+            if ( _source_info_enabled($self) ) {
+                $biosample->{info} ||= {};
+                _add_source_provenance( $biosample->{info}, $item_ctx );
+            }
+            $biosample->{info}{convertPheno} = $self->{convertPheno}
+              if !$self->{test} && defined $self->{convertPheno};
+
+            push @biosamples, $biosample;
+        }
     }
 
     return \@biosamples;
@@ -644,6 +703,51 @@ sub _source_matches {
     return 0
       if exists $when->{notValues}
       && _value_in( $value, $when->{notValues} );
+    return 1;
+}
+
+sub _matching_contexts {
+    my ( $source, $ctx ) = @_;
+    my $record = $ctx->{record};
+    my $views = blessed($record) && $record->can('views_for')
+      ? $record->views_for( $source->{field} )
+      : [$record];
+
+    my @contexts;
+    for my $view ( @{$views} ) {
+        next unless _source_matches( $source, $view );
+        push @contexts, { %{$ctx}, record => $view };
+    }
+    return \@contexts;
+}
+
+sub _add_source_provenance {
+    my ( $info, $ctx ) = @_;
+    my $mapping = $ctx->{mapping};
+    my $record = $ctx->{record};
+    my $record_profile = $mapping->{_compiled}{recordProfile};
+    my $source_profile = $mapping->{_compiled}{sourceProfile};
+
+    if ( $record_profile eq 'redcap' ) {
+        $info->{REDCap_columns} = $record->columns_snapshot;
+    }
+    elsif ( $source_profile eq 'csv' ) {
+        $info->{CSV_columns} = $record->columns_snapshot;
+    }
+
+    if (
+        $source_profile eq 'cdisc-odm'
+        && blessed($record)
+        && $record->can('odm_provenance')
+        && (
+            $record_profile ne 'redcap'
+            || ( $record->can('has_repeated_fields')
+                && $record->has_repeated_fields )
+        )
+      )
+    {
+        $info->{CDISC_ODM} = $record->odm_provenance;
+    }
     return 1;
 }
 

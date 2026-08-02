@@ -10,13 +10,13 @@
     "mappingVersion": { "const": 2 },
     "source": {
       "type": "object",
-      "description": "Normalized tabular record profile consumed by this mapping.",
+      "description": "Normalized record profile consumed by this mapping.",
       "additionalProperties": false,
       "required": ["profile"],
       "properties": {
         "profile": {
-          "description": "CDISC-ODM and REDCap share the redcap profile because ODM input is normalized to REDCap-shaped records.",
-          "enum": ["csv", "redcap"]
+          "description": "Use redcap for REDCap CSV and REDCap-origin ODM; use cdisc-odm for standard or vendor ODM with embedded metadata.",
+          "enum": ["cdisc-odm", "csv", "redcap"]
         }
       }
     },

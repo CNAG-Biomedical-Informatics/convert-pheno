@@ -1,6 +1,8 @@
 use strict;
 use warnings;
 
+use lib qw(./lib ../lib);
+
 use Test::More;
 
 use Convert::Pheno::Mapping::Shared qw(map_ontology_term);

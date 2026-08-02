@@ -96,6 +96,7 @@ qr/Mapping source profile mismatch/,
     my $compiled_cdisc = compile_mapping(
         $mapping,
         source_profile => 'cdisc-odm',
+        record_profile => 'redcap',
         headers        => [qw(PatientId Sex)],
     );
     is(
@@ -106,7 +107,23 @@ qr/Mapping source profile mismatch/,
     is(
         $compiled_cdisc->{_compiled}{recordProfile},
         'redcap',
-        'CDISC-ODM shares the normalized REDCap mapping profile',
+        'REDCap-origin CDISC-ODM selects the REDCap record profile explicitly',
+    );
+}
+
+{
+    my $mapping = base_mapping();
+    $mapping->{source}{profile} = 'cdisc-odm';
+    my $compiled_cdisc = compile_mapping(
+        $mapping,
+        source_profile => 'cdisc-odm',
+        record_profile => 'cdisc-odm',
+        headers        => [qw(PatientId Sex)],
+    );
+    is(
+        $compiled_cdisc->{_compiled}{recordProfile},
+        'cdisc-odm',
+        'generic CDISC-ODM uses its embedded-metadata record profile',
     );
 }
 

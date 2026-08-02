@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ODM xmlns="http://www.cdisc.org/ns/odm/v2.0"
+     ODMVersion="2.0.0"
+     FileOID="SYNTHETIC.ODM.V2"
+     FileType="Snapshot"
+     CreationDateTime="2026-08-02T00:00:00Z"
+     SourceSystem="Synthetic ODM generator"
+     SourceSystemVersion="1">
+  <Study OID="STUDY.SYNTHETIC">
+    <GlobalVariables>
+      <StudyName>Synthetic occurrence fixture</StudyName>
+      <StudyDescription>Synthetic occurrence fixture</StudyDescription>
+      <ProtocolName>SYNTHETIC</ProtocolName>
+    </GlobalVariables>
+    <MetaDataVersion OID="MDV.SYNTHETIC" Name="Synthetic metadata">
+      <ItemDef OID="SEX" Name="Biological sex" DataType="text">
+        <Question><TranslatedText xml:lang="en">Biological sex</TranslatedText></Question>
+        <CodeListRef CodeListOID="CL.SEX"/>
+      </ItemDef>
+      <ItemDef OID="DIAG" Name="Diagnosis" DataType="text">
+        <Question><TranslatedText xml:lang="en">Diagnosis</TranslatedText></Question>
+        <CodeListRef CodeListOID="CL.DIAG"/>
+      </ItemDef>
+      <ItemDef OID="AGE" Name="Age at diagnosis" DataType="integer">
+        <Question><TranslatedText xml:lang="en">Age at diagnosis</TranslatedText></Question>
+      </ItemDef>
+      <ItemDef OID="SITE" Name="Study site" DataType="text">
+        <Question><TranslatedText xml:lang="en">Study site</TranslatedText></Question>
+      </ItemDef>
+      <CodeList OID="CL.SEX" Name="Sex" DataType="text">
+        <CodeListItem CodedValue="F"><Decode><TranslatedText xml:lang="en">Female</TranslatedText></Decode></CodeListItem>
+      </CodeList>
+      <CodeList OID="CL.DIAG" Name="Diagnosis" DataType="text">
+        <CodeListItem CodedValue="H"><Decode><TranslatedText xml:lang="en">Headache</TranslatedText></Decode></CodeListItem>
+        <CodeListItem CodedValue="C"><Decode><TranslatedText xml:lang="en">Nasal congestion</TranslatedText></Decode></CodeListItem>
+      </CodeList>
+    </MetaDataVersion>
+  </Study>
+  <ClinicalData StudyOID="STUDY.SYNTHETIC" MetaDataVersionOID="MDV.SYNTHETIC">
+    <SubjectData SubjectKey="ODM2-001">
+      <StudyEventData StudyEventOID="SE.BASELINE" StudyEventRepeatKey="1">
+        <ItemGroupData ItemGroupOID="IG.DEMOGRAPHICS" ItemGroupRepeatKey="1" ItemGroupDataSeq="1">
+          <ItemData ItemOID="SEX"><Value>F</Value></ItemData>
+          <ItemData ItemOID="SITE"><Value>Barcelona</Value></ItemData>
+          <ItemGroupData ItemGroupOID="IG.CONTEXT" ItemGroupRepeatKey="1" ItemGroupDataSeq="1">
+            <ItemData ItemOID="SITE"><Value>Barcelona</Value></ItemData>
+          </ItemGroupData>
+        </ItemGroupData>
+        <ItemGroupData ItemGroupOID="IG.DIAGNOSIS" ItemGroupRepeatKey="1" ItemGroupDataSeq="2">
+          <ItemData ItemOID="DIAG"><Value>H</Value></ItemData>
+          <ItemData ItemOID="AGE"><Value>30</Value></ItemData>
+          <ItemData ItemOID="SITE"><Value>Barcelona</Value></ItemData>
+        </ItemGroupData>
+        <ItemGroupData ItemGroupOID="IG.DIAGNOSIS" ItemGroupRepeatKey="2" ItemGroupDataSeq="3">
+          <ItemData ItemOID="DIAG"><Value>C</Value></ItemData>
+          <ItemData ItemOID="AGE"><Value>31</Value></ItemData>
+          <ItemData ItemOID="SITE"><Value>Barcelona</Value></ItemData>
+        </ItemGroupData>
+      </StudyEventData>
+    </SubjectData>
+  </ClinicalData>
+</ODM>

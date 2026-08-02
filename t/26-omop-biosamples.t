@@ -5,7 +5,7 @@ use warnings;
 use lib qw(./lib ../lib t/lib);
 use Test::More;
 use File::Spec;
-use File::Temp qw(tempfile);
+use File::Temp qw(tempdir tempfile);
 use JSON::XS qw(decode_json);
 
 use Convert::Pheno::OMOP::ToBFF::Biosamples
@@ -13,9 +13,7 @@ use Convert::Pheno::OMOP::ToBFF::Biosamples
 use Test::ConvertPheno qw(
   build_convert
   cli_script_path
-  ensure_clean_dir
   load_json_file
-  remove_dir_if_exists
   slurp_file
   structured_files_match
   test_tmpdir
@@ -515,7 +513,7 @@ sub find_biosample_by_id {
 }
 
 {
-    my $dir = ensure_clean_dir('t/omop-biosamples-stream-fixture');
+    my $dir = tempdir( CLEANUP => 1 );
     my %files = mimic_specimen_fixture_files();
 
     my $convert = build_convert(
@@ -537,8 +535,6 @@ sub find_biosample_by_id {
     is( scalar @{$biosamples}, 12, 'stream mode writes one biosample line per MIMIC specimen row' );
     is( $biosamples->[0]{id}, '-5102033398575528989', 'streamed biosamples keep MIMIC specimen ids' );
     is( $biosamples->[0]{individualId}, '4668337230155062633', 'streamed biosamples keep MIMIC participant linkage' );
-
-    remove_dir_if_exists($dir);
 }
 
 {
@@ -547,7 +543,7 @@ SKIP: {
 
         my %files = mimic_specimen_fixture_files();
 
-        my $out_dir = ensure_clean_dir('t/omop-biosamples-cli-out');
+        my $out_dir = tempdir( CLEANUP => 1 );
         my @cmd = (
             $^X,
             $cli,
@@ -573,7 +569,7 @@ SKIP: {
     is( $sample->{collectionMoment}, 'P44Y', 'CLI biosamples output derives collectionMoment from the MIMIC fixture' );
     is( $sample->{obtentionProcedure}{procedureCode}{id}, 'Type_Concept:OMOP4976929', 'CLI biosamples sanitize whitespace in OMOP vocabulary prefixes' );
 
-        my $stream_out_dir = ensure_clean_dir('t/omop-biosamples-cli-stream-out');
+        my $stream_out_dir = tempdir( CLEANUP => 1 );
         my @stream_cmd = (
             $^X,
             $cli,
@@ -595,9 +591,9 @@ SKIP: {
         is( scalar @{$stream_individuals}, 4, 'CLI stream writes MIMIC individuals as line-delimited JSON' );
         is( scalar @{$stream_biosamples}, 12, 'CLI stream writes MIMIC biosamples as line-delimited JSON' );
 
-        my $missing_dir = ensure_clean_dir('t/omop-biosamples-cli-missing-in');
+        my $missing_dir = tempdir( CLEANUP => 1 );
         my %missing_files = write_minimal_omop_inputs( $missing_dir, with_specimen => 0 );
-        my $missing_out_dir = ensure_clean_dir('t/omop-biosamples-cli-missing-out');
+        my $missing_out_dir = tempdir( CLEANUP => 1 );
 
         my ( $fh, $log_file ) =
           tempfile( DIR => $tmpdir, SUFFIX => '.omop-biosamples.log', UNLINK => 1 );
@@ -667,11 +663,6 @@ SKIP: {
             qr/not supported with <--stream>/,
             'CLI prints a focused error for non-streamable entities',
         );
-
-        remove_dir_if_exists($out_dir);
-        remove_dir_if_exists($stream_out_dir);
-        remove_dir_if_exists($missing_dir);
-        remove_dir_if_exists($missing_out_dir);
     }
 }
 

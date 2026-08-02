@@ -8,7 +8,7 @@ use Config;
 use File::Compare qw(compare);
 use File::Path qw(mkpath remove_tree);
 use File::Spec;
-use File::Temp qw(tempfile);
+use File::Temp qw(tempdir tempfile);
 use FindBin qw($Bin);
 use IPC::Open3 qw(open3);
 use IO::Uncompress::Gunzip;
@@ -23,6 +23,7 @@ our @EXPORT_OK = qw(
   is_ld_arch
   is_windows
   has_ohdsi_db
+  test_ohdsi_db_dir
   slurp_file
   load_json_file
   read_first_json_object
@@ -42,6 +43,8 @@ our @EXPORT_OK = qw(
   gunzip_file_content
   run_command_capture
 );
+
+my $TEST_OHDSI_DB_DIR;
 
 sub build_convert {
     my (%args) = @_;
@@ -75,6 +78,72 @@ sub is_windows {
 
 sub has_ohdsi_db {
     return -f 'share/db/ohdsi.db' ? 1 : 0;
+}
+
+sub test_ohdsi_db_dir {
+    return $TEST_OHDSI_DB_DIR if defined $TEST_OHDSI_DB_DIR;
+
+    $TEST_OHDSI_DB_DIR = tempdir(
+        'convert-pheno-ohdsi-XXXXXX',
+        TMPDIR  => 1,
+        CLEANUP => 1,
+    );
+    my $db_file = File::Spec->catfile( $TEST_OHDSI_DB_DIR, 'ohdsi.db' );
+    my $fixture = 't/fixtures/ohdsi-concepts.tsv';
+
+    open my $fh, '<:encoding(UTF-8)', $fixture
+      or die "Could not open test vocabulary '$fixture': $!";
+    my $csv = Text::CSV_XS->new( { binary => 1, sep_char => "\t" } );
+    my $headers = $csv->getline($fh)
+      or die "Test vocabulary '$fixture' has no header";
+    $csv->column_names( @{$headers} );
+
+    require DBI;
+    my $dbh = DBI->connect(
+        "dbi:SQLite:dbname=$db_file",
+        q{},
+        q{},
+        {
+            AutoCommit => 1,
+            PrintError => 0,
+            RaiseError => 1,
+        },
+    );
+    # Active tests exercise indexed exact lookup. A plain compatibility table
+    # is sufficient for preparing the unused FTS statements; real FTS remains
+    # covered by the checked-in ontology database and the extended suite.
+    for my $table (qw(OHDSI_table OHDSI_fts)) {
+        $dbh->do(
+            "CREATE TABLE $table (label TEXT, id TEXT, concept_id INTEGER, vocabulary_id TEXT)"
+        );
+    }
+
+    my $insert_table = $dbh->prepare(
+        'INSERT INTO OHDSI_table (label, id, concept_id, vocabulary_id) VALUES (?, ?, ?, ?)'
+    );
+    my $insert_fts = $dbh->prepare(
+        'INSERT INTO OHDSI_fts (label, id, concept_id, vocabulary_id) VALUES (?, ?, ?, ?)'
+    );
+    while ( my $row = $csv->getline_hr($fh) ) {
+        my @values = @{$row}{qw(label id concept_id vocabulary_id)};
+        $insert_table->execute(@values);
+        $insert_fts->execute(@values);
+    }
+    close $fh;
+
+    $dbh->do(
+        'CREATE INDEX idx_ohdsi_label_nocase ON OHDSI_table(label COLLATE NOCASE)'
+    );
+    $dbh->do(
+        'CREATE INDEX idx_ohdsi_id_nocase ON OHDSI_table(id COLLATE NOCASE)'
+    );
+    $dbh->do('CREATE INDEX idx_ohdsi_concept_id ON OHDSI_table(concept_id)');
+    $dbh->do(
+        'CREATE INDEX idx_ohdsi_vocabulary_nocase ON OHDSI_table(vocabulary_id COLLATE NOCASE)'
+    );
+    $dbh->disconnect;
+
+    return $TEST_OHDSI_DB_DIR;
 }
 
 sub slurp_file {

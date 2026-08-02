@@ -89,8 +89,10 @@ The compact flags are still the ones most users rely on:
 :::note[Experimental source profiles]
 `openEHR` canonical input, CDISC Dataset-JSON SDTM input, and FHIR R4 Bundle
 input are implemented but marked experimental while independent source coverage
-grows. Dataset-JSON and FHIR can write BFF, PXF, or OMOP-CDM; openEHR currently
-writes BFF or PXF.
+grows. Standard/OpenClinica CDISC-ODM and the bounded ODM 2.0 ClinicalData
+profile are also experimental beyond the established REDCap ODM workflow.
+Dataset-JSON and FHIR can write BFF, PXF, or OMOP-CDM; openEHR currently writes
+BFF or PXF.
 
 :::
 You can always check the current built-in help with:
@@ -120,7 +122,7 @@ In other words, `--entities` does not replace `-obff`. It refines which `BFF` en
 - These mapping features are available only for `csv2bff`, `redcap2bff`, and `cdiscodm2bff`, which are the routes that read a mapping file.
 - `--entities` narrows `BFF` output. It must be combined with `-obff` and `--out-dir`.
 - `--out-name key=file` lets you override one multi-file output name. Use entity keys for `BFF` entity mode and table keys for `OMOP` output.
-- `--no-source-info` omits raw source provenance copied into `BFF` `info`, such as `OMOP_columns`, `CSV_columns`, `REDCap_columns`, `datasetJson.domains`, and `fhir` resources. Mapped fields and `info.convertPheno` are kept.
+- `--no-source-info` omits raw source provenance copied into `BFF` `info`, such as `OMOP_columns`, `CSV_columns`, `REDCap_columns`, `CDISC_ODM`, `datasetJson.domains`, and `fhir` resources. Mapped fields and `info.convertPheno` are kept.
 - `--search-audit-tsv FILE` writes a tab-separated audit of ontology search results for mapping-file-driven conversions such as `csv2bff`, `redcap2bff`, and `cdiscodm2bff`, including the effective configured search mode, whether each lookup matched the DB or fell back to `NA`, and the per-row lookup resolution (`exact`, `similarity`, or `fallback_na`).
 - `--stream` is mainly relevant for **large OMOP inputs**. Use `--no-stream` to force the default in-memory mode when a wrapper or previous option may have enabled streaming.
 
@@ -129,12 +131,20 @@ In other words, `--entities` does not replace `-obff`. It refines which `BFF` en
 ### Mapping-file conversions
 
 - `--mapping-file FILE` supplies a Mapping V2 YAML or JSON document targeting Beacon schema `2.0.0`, used by `csv2bff`, `redcap2bff`, `cdiscodm2bff`, and related conversions.
-- `--redcap-dictionary FILE` or `-rcd FILE` supplies the REDCap-compatible data dictionary required by REDCap and CDISC-ODM input conversions.
+- `--redcap-dictionary FILE` or `-rcd FILE` supplies the dictionary required by REDCap CSV and REDCap-origin ODM. Standard/OpenClinica ODM uses embedded metadata and rejects this option.
 - `--schema-file FILE` lets you validate mapping files against an alternative JSON Schema.
 - `--self-validate-schema` or `-svs` performs a self-validation of the mapping schema itself. This is mainly an author or development check and may require SSL support in the Perl environment.
 - `--search-audit-tsv FILE` writes a TSV report of ontology lookups performed during mapping-file-driven conversions.
   The audit includes both row-level results and the effective search settings used for the run.
 - `--print-hidden-labels` or `-phl` preserves original text labels before ontology mapping in `_label` fields.
+
+### CDISC-ODM-specific behavior
+
+- `-icdisc-odm FILE` or `-i cdisc-odm FILE` accepts Snapshot XML using ODM 1.3.1, 1.3.2, or the bounded ODM 2.0 ClinicalData profile.
+- Version and vendor profile are detected from the ODM namespace, `ODMVersion`, source system, and extension namespaces. Version-specific input flags are not used.
+- REDCap-origin ODM uses `source.profile: redcap` with `--redcap-dictionary`. Standard or OpenClinica ODM uses `source.profile: cdisc-odm` and embedded `MetaDataVersion`, `ItemDef`, and `CodeList` metadata.
+- Repeated item groups are kept as separate occurrences for repeated BFF sections; ambiguous repeated scalar values stop the conversion instead of overwriting data.
+- The route is available through the CLI and local module interfaces, but not through the HTTP(s) API.
 
 ### Ontology search tuning
 

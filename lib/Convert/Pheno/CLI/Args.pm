@@ -284,7 +284,7 @@ sub build_cli_request {
         },
         { condition => sub { !-d $out_dir }, message => "Please specify a valid directory for --out-dir\n", },
         {
-            condition => sub { ( $in_redcap || $in_cdiscodm ) && !$redcap_dictionary },
+            condition => sub { $in_redcap && !$redcap_dictionary },
             message   => "Please specify a valid REDCap data dictionary --rcd <file>\n",
         },
         {

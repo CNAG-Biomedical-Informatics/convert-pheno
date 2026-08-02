@@ -5,7 +5,7 @@ use warnings;
 use lib qw(./lib ../lib t/lib);
 use Test::More;
 use IO::Uncompress::Gunzip;
-use Test::ConvertPheno qw(build_convert temp_output_file has_ohdsi_db);
+use Test::ConvertPheno qw(build_convert temp_output_file test_ohdsi_db_dir);
 
 sub gunzip_file_content {
     my ($file) = @_;
@@ -47,22 +47,19 @@ sub gunzip_file_content {
         ],
         out_file      => $tmp_file,
         ohdsi_db      => 1,
+        path_to_ohdsi_db => test_ohdsi_db_dir(),
         stream        => 1,
         max_lines_sql => 2700,
         sep           => "\t",
         method        => 'omop2bff',
     );
 
-  SKIP: {
-        skip q{share/db/ohdsi.db is required for streaming CSV.gz OMOP test}, 1
-          unless has_ohdsi_db();
-        $convert->omop2bff;
-        is(
-            gunzip_file_content('t/omop2bff/out/individuals_csv.json.gz'),
-            gunzip_file_content($tmp_file),
-            'omop2bff stream CSV.gz matches reference output',
-        );
-    }
+    $convert->omop2bff;
+    is(
+        gunzip_file_content('t/omop2bff/out/individuals_csv.json.gz'),
+        gunzip_file_content($tmp_file),
+        'omop2bff stream CSV.gz matches reference output',
+    );
 }
 
 done_testing();

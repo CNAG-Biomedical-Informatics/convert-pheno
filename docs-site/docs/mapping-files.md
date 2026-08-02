@@ -27,6 +27,11 @@ A REDCap conversion normally uses:
 The data dictionary explains REDCap field types, labels, choices, notes, and
 ranges. The mapping file makes the project-specific semantic decisions.
 
+CSV needs only the source file and mapping. REDCap-origin ODM uses the same
+`redcap` mapping profile and dictionary as REDCap CSV. Standard or OpenClinica
+ODM uses `source.profile: cdisc-odm` and resolves labels, data types, and coded
+values from metadata embedded in the XML, without a REDCap dictionary.
+
 ## Mapping V2 At A Glance
 
 Two independent versions are declared at the top of every mapping:
@@ -112,12 +117,18 @@ The top-level sections have distinct responsibilities:
 | `beacon` | Contains entity-specific target mappings and defaults |
 
 The route still determines how the input is parsed. `source.profile` describes
-the normalized records consumed by the mapping, not the original file format.
-Use `csv` for CSV records and `redcap` for REDCap records. CDISC-ODM input is
-normalized into REDCap-shaped records, so both routes use
-`source.profile: redcap`. A REDCap ODM export can reuse its corresponding
-REDCap mapping; other ODM v1 exports need rules and a compatible dictionary
-tailored to their item identifiers.
+the record and metadata contract consumed by the mapping:
+
+| Profile | Use |
+| --- | --- |
+| `csv` | CSV input |
+| `redcap` | REDCap CSV or a REDCap-origin ODM export with an external dictionary |
+| `cdisc-odm` | Standard or vendor ODM with embedded `MetaDataVersion`, `ItemDef`, and `CodeList` metadata |
+
+ODM mappings use stable `ItemOID` values as source fields. A REDCap ODM export
+can reuse its corresponding REDCap mapping. Other ODM documents need rules
+tailored to their own item identifiers, but do not need a fabricated REDCap
+dictionary when the required metadata is embedded.
 
 ## Reading A Rule
 
@@ -217,7 +228,8 @@ records:
 Rows must be ordered so the first non-empty value appears before rows that need
 it. Propagation affects target mapping only. The raw row preserved under
 `info.REDCap_columns` or `info.CSV_columns` remains unchanged, so provenance
-continues to reflect the input file.
+continues to reflect the input file. Generic ODM uses the occurrence-aware
+`info.CDISC_ODM` block instead.
 
 ## Other Beacon Entities
 
@@ -267,6 +279,15 @@ convert-pheno -iredcap redcap.csv \
   -obff \
   --entities individuals biosamples \
   --out-dir bff-output/
+```
+
+For standard or OpenClinica ODM with embedded metadata, select the ODM profile
+and omit the REDCap dictionary:
+
+```bash
+convert-pheno -icdisc-odm study.xml \
+  --mapping-file odm-mapping.yaml \
+  -obff individuals.json
 ```
 
 For ontology review, add `--search-audit-tsv mapping-audit.tsv`. Exact search
