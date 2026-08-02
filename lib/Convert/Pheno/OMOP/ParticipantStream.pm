@@ -11,7 +11,7 @@ use List::Util qw(any);
 use Convert::Pheno::OMOP::Definitions;
 
 our @EXPORT_OK = qw(
-  omop_require_concept
+  omop_require_core_tables
   omop_init_caches_and_metadata
   omop_prepare_data_shape
   omop_stream_dispatcher
@@ -19,10 +19,12 @@ our @EXPORT_OK = qw(
   process_sqldump_stream
 );
 
-sub omop_require_concept {
+sub omop_require_core_tables {
     my ( $self, $data ) = @_;
-    die "The table <CONCEPT> is missing from the input files\n"
-      unless exists $data->{CONCEPT};
+    for my $table (qw(CONCEPT PERSON)) {
+        die "The table <$table> is missing from the input data\n"
+          unless exists $data->{$table};
+    }
     return 1;
 }
 

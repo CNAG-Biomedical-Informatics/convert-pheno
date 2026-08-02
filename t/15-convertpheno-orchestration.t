@@ -18,6 +18,14 @@ local $SIG{__WARN__} = sub {
 };
 
 {
+    my $convert = Convert::Pheno->new( {} );
+    is( $convert->search, 'exact', 'module defaults ontology search to exact' );
+    is( $convert->text_similarity_method, 'cosine', 'module defaults text similarity to cosine' );
+    is( $convert->min_text_similarity_score, 0.8, 'module supplies the documented similarity threshold' );
+    is( $convert->levenshtein_weight, 0.1, 'module supplies the documented Levenshtein weight' );
+}
+
+{
     no warnings 'redefine';
 
     local *Convert::Pheno::redcap2bff = sub { return [ { id => 'r1' } ] };
@@ -258,8 +266,21 @@ local $SIG{__WARN__} = sub {
 
 {
     my $convert = Convert::Pheno->new( {} );
-    dies_ok { Convert::Pheno::_omop_require_concept( $convert, {} ) } '_omop_require_concept dies when CONCEPT is missing';
-    ok( Convert::Pheno::_omop_require_concept( $convert, { CONCEPT => [] } ), '_omop_require_concept passes when CONCEPT exists' );
+    dies_ok {
+        Convert::Pheno::_omop_require_core_tables( $convert, {} )
+    }
+    'OMOP preparation dies when CONCEPT is missing';
+    dies_ok {
+        Convert::Pheno::_omop_require_core_tables( $convert, { CONCEPT => [] } )
+    }
+    'OMOP preparation dies when PERSON is missing';
+    ok(
+        Convert::Pheno::_omop_require_core_tables(
+            $convert,
+            { CONCEPT => [], PERSON => [] },
+        ),
+        'OMOP preparation accepts its core tables',
+    );
 }
 
 {

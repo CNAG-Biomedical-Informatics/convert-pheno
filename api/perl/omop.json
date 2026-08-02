@@ -49,7 +49,7 @@
         "measurement_source_concept_id": 3006322,
         "measurement_source_value": "8331-1",
         "measurement_time": "1998-10-03",
-        "measurement_type_concept_id": 5001,
+        "measurement_type_concept_id": 0,
         "operator_concept_id": 0,
         "person_id": 974,
         "provider_id": 0,

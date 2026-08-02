@@ -10,6 +10,8 @@ use Test::ConvertPheno
   csv_headers_from_file write_csv_rows load_json_file);
 use File::Temp qw(tempdir);
 use File::Spec;
+use JSON::XS;
+use Convert::Pheno::Source qw(source_adapter);
 
 my @snapshot_cases = (
     {
@@ -40,6 +42,35 @@ for my $case (@snapshot_cases) {
     $convert->${ \$case->{method} };
 
     ok( structured_files_match( $case->{out_file}, $tmp_file ), $case->{name} );
+}
+
+{
+    my $loader = build_convert(
+        in_files => ['t/omop2bff/in/omop_cdm_eunomia.sql'],
+        sep      => ',',
+        method   => 'omop2bff',
+    );
+    my $tables = source_adapter( $loader, 'omop' )->load->data;
+    my $before = JSON::XS->new->canonical->encode($tables);
+
+    for my $case (@snapshot_cases) {
+        my $convert = build_convert(
+            data   => $tables,
+            method => $case->{method},
+        );
+        my $result = $convert->${ \$case->{method} };
+
+        is_deeply(
+            $result,
+            load_json_file( $case->{out_file} ),
+            "$case->{name} table-oriented memory input matches the existing fixture",
+        );
+        is(
+            JSON::XS->new->canonical->encode($tables),
+            $before,
+            "$case->{name} leaves caller-owned OMOP tables unchanged",
+        );
+    }
 }
 
 {

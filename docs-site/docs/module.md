@@ -106,3 +106,10 @@ For FHIR, pass one decoded R4 Bundle or an array of Bundles as `data` and select
 and groups resources by Patient. The caller retains ownership of the supplied
 Bundle data, so it can be inspected or reused after conversion. See the
 [FHIR R4 guide](fhir) for the implemented resource profile.
+
+For OMOP input, pass a hash keyed by OMOP table name, with each value containing
+an array of row hashes. Include at least `CONCEPT` and `PERSON`, plus the
+clinical tables needed for the conversion. Use `omop2bff` or `omop2pxf`; the
+module builds its caches and groups rows by `person_id`. Callers should not
+construct the internal participant-grouped representation. The supplied table
+data remains caller-owned and can be inspected or reused after conversion.

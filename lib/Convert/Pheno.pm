@@ -30,7 +30,7 @@ use Convert::Pheno::Emit::OMOP qw(
   omop_streams_multiple_entities
 );
 use Convert::Pheno::OMOP::ParticipantStream qw(
-  omop_require_concept
+  omop_require_core_tables
   omop_init_caches_and_metadata
   omop_prepare_data_shape
 );
@@ -58,7 +58,7 @@ our @EXPORT =
 use constant DEVEL_MODE => 0;
 
 # Global variables:
-our $VERSION   = '0.33';
+our $VERSION   = '0.33_1';
 our $share_dir = dist_dir('Convert-Pheno');
 
 # SQLite database
@@ -76,29 +76,33 @@ my $default_username = sub {
 
 # Complex defaults here
 has search => (
-    is     => 'ro',
-    coerce => sub { $_[0] // 'exact' },
-    isa    => Enum [qw(exact mixed fuzzy)]
+    is      => 'ro',
+    default => sub { 'exact' },
+    coerce  => sub { $_[0] // 'exact' },
+    isa     => Enum [qw(exact mixed fuzzy)]
 );
 
 has text_similarity_method => (
-    is     => 'ro',
-    coerce => sub { $_[0] // 'cosine' },
-    isa    => Enum [qw(cosine dice)]
+    is      => 'ro',
+    default => sub { 'cosine' },
+    coerce  => sub { $_[0] // 'cosine' },
+    isa     => Enum [qw(cosine dice)]
 );
 
 has min_text_similarity_score => (
-    is     => 'ro',
-    coerce => sub { $_[0] // 0.8 },
-    isa    => sub {
+    is      => 'ro',
+    default => sub { 0.8 },
+    coerce  => sub { $_[0] // 0.8 },
+    isa     => sub {
         die "Only values between 0 .. 1 supported!"
           unless ( $_[0] >= 0.0 && $_[0] <= 1.0 );
     }
 );
 has levenshtein_weight => (
-    is     => 'ro',
-    coerce => sub { $_[0] // 0.1 },
-    isa    => sub {
+    is      => 'ro',
+    default => sub { 0.1 },
+    coerce  => sub { $_[0] // 0.1 },
+    isa     => sub {
         die "Only values between 0 .. 1 supported!"
           unless ( $_[0] >= 0.0 && $_[0] <= 1.0 );
     }
@@ -291,8 +295,8 @@ sub _omop_collect_input {
     return source_adapter( $self, 'omop' )->load;
 }
 
-sub _omop_require_concept {
-    return omop_require_concept(@_);
+sub _omop_require_core_tables {
+    return omop_require_core_tables(@_);
 }
 
 sub _omop_init_caches_and_metadata {
@@ -789,7 +793,14 @@ sub _prepare_tabular_input {
 
 sub _prepare_omop2bff_input {
     my ($self) = @_;
-    return 1 if exists $self->{data};
+    return 1 if $self->{omop_input_prepared} && exists $self->{data};
+
+    # Keep caller-owned table data reusable. The OMOP source adapter clones
+    # this input before cache construction and participant grouping consume it.
+    $self->{_omop_source_data} = $self->{data}
+      if exists $self->{data} && !exists $self->{_omop_source_data};
+    $self->{data} = $self->{_omop_source_data}
+      if !exists $self->{data} && exists $self->{_omop_source_data};
 
     $self->{method_ori} =
       exists $self->{method_ori} ? $self->{method_ori} : 'omop2bff';
@@ -799,7 +810,7 @@ sub _prepare_omop2bff_input {
     my $source = _omop_collect_input($self);
     my $data   = $source->data;
 
-    _omop_require_concept( $self, $data );
+    _omop_require_core_tables( $self, $data );
     _require_omop_specimen_for_biosamples(
         $self,
         $data,
@@ -815,6 +826,7 @@ sub _prepare_omop2bff_input {
     $self->{filepath_sql} = $source->artifact('filepath_sql')
       if defined $source->artifact('filepath_sql');
     $self->{filepaths_csv} = $source->artifact('filepaths_csv') || [];
+    $self->{omop_input_prepared} = 1;
 
     return 1;
 }

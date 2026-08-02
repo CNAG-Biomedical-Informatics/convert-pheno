@@ -13,9 +13,14 @@ This directory contains the Python REST wrapper around `Convert::Pheno`.
 
 The HTTP API accepts in-memory data under `input.data`. It deliberately rejects
 host filesystem options such as `in_file`, `out_file`, `mapping_file`, and
-`path_to_ohdsi_db`. BFF, PXF, FHIR R4 Bundles, openEHR, and already-transposed OMOP payloads can
+`path_to_ohdsi_db`. BFF, PXF, FHIR R4 Bundles, openEHR, and table-oriented OMOP payloads can
 be sent over HTTP; file-based CSV, REDCap, CDISC-ODM, and Dataset-JSON routes
 should use the CLI or module interface.
+
+For OMOP input, `input.data` is an object keyed by table name. Each value is an
+array of row objects, as shown in [the shared OMOP request](../perl/omop.json).
+Include `CONCEPT` and `PERSON`; Convert-Pheno groups the rows by `person_id`
+internally.
 
 ## Installation
 

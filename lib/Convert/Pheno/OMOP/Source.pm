@@ -7,6 +7,7 @@ use autodie;
 use Exporter 'import';
 use File::Basename qw(fileparse);
 use List::Util qw(any);
+use Storable qw(dclone);
 
 use Convert::Pheno::IO::CSVHandler qw(read_csv read_sqldump sqldump2csv);
 use Convert::Pheno::OMOP::Definitions;
@@ -19,9 +20,37 @@ sub collect_omop_input {
     # MEMORY input
     if ( exists $self->{data} ) {
         $self->{omop_cli} = 0;
+
+        my $data = $self->{data};
+        die "OMOP in-memory input must be an object keyed by table name\n"
+          unless ref($data) eq 'HASH';
+
+        my %supported = map { $_ => 1 } @omop_supported_tables;
+        my $normalized = {};
+        for my $input_table ( keys %{$data} ) {
+            my $table = uc($input_table);
+            die "<$input_table> is not a valid table in OMOP-CDM\n"
+              unless $supported{$table};
+            die "OMOP input contains table <$table> more than once\n"
+              if exists $normalized->{$table};
+
+            my $rows = $data->{$input_table};
+            die "OMOP table <$table> must contain an array of row objects\n"
+              unless ref($rows) eq 'ARRAY';
+            for my $row ( @{$rows} ) {
+                die "OMOP table <$table> must contain only row objects\n"
+                  unless ref($row) eq 'HASH';
+            }
+
+            # Cache construction and participant grouping intentionally drain
+            # owned arrays, so module and API callers keep their input intact.
+            $normalized->{$table} = dclone($rows);
+        }
+
         return {
             kind          => 'memory',
-            data          => $self->{data},
+            data          => $normalized,
+            owned         => 1,
             filepath_sql  => undef,
             filepaths_csv => [],
         };
@@ -100,6 +129,7 @@ sub collect_omop_input {
     return {
         kind          => ( $filepath_sql ? 'sql' : 'csv' ),
         data          => $data,
+        owned         => 1,
         filepath_sql  => $filepath_sql,
         filepaths_csv => \@filepaths_csv_stream,
     };

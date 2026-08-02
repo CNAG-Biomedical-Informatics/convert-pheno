@@ -60,6 +60,23 @@ $t->post_ok(
   ->json_is('/meta/conversion', 'fhir2bff')
   ->json_is('/data/0/id', '5b24c87b-6223-f5b4-51e9-82051159bd1d');
 
+note 'OMOP tables should be grouped by participant inside the conversion core';
+my $omop_request = Mojo::JSON::decode_json(
+    path("$Bin/../omop.json")->slurp_raw
+);
+$t->post_ok( '/api', json => $omop_request )->status_is(200)
+  ->json_is('/ok', Mojo::JSON->true)
+  ->json_is('/meta/conversion', 'omop2bff')
+  ->json_is('/data/0/id', '974');
+
+my $omop_to_pxf_request = Mojo::JSON::decode_json(
+    path("$Bin/../omop.json")->slurp_raw
+);
+$omop_to_pxf_request->{conversion} = 'omop2pxf';
+$t->post_ok( '/api', json => $omop_to_pxf_request )->status_is(200)
+  ->json_is('/ok', Mojo::JSON->true)
+  ->json_is('/meta/conversion', 'omop2pxf');
+
 note 'OpenAPI should reject invalid input shape';
 $t->post_ok('/api', json => { conversion => 'pxf2bff', input => [] })
   ->status_is(400);

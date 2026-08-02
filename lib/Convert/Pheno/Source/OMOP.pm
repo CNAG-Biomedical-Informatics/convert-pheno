@@ -18,7 +18,7 @@ sub load {
     return Convert::Pheno::Source::Result->new(
         {
             data      => $collected->{data},
-            owned     => $collected->{kind} eq 'memory' ? 0 : 1,
+            owned     => $collected->{owned},
             artifacts => {
                 kind          => $collected->{kind},
                 filepath_sql  => $collected->{filepath_sql},

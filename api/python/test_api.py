@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import json
 import os
 import tempfile
 import textwrap
@@ -110,6 +111,16 @@ class PythonApiTests(unittest.TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()["data"]["method"], "fhir2bff")
+
+    def test_api_accepts_table_oriented_omop_data(self):
+        request_path = Path(__file__).resolve().parents[1] / "perl" / "omop.json"
+        payload = json.loads(request_path.read_text(encoding="utf-8"))
+
+        client = TestClient(main.app)
+        response = client.post("/api", json=payload)
+
+        self.assertEqual(response.status_code, 200, response.text)
+        self.assertEqual(response.json()["data"][0]["id"], "974")
 
     def test_api_returns_structured_error_for_invalid_request(self):
         client = TestClient(main.app)

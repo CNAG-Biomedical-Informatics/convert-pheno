@@ -5,6 +5,7 @@ use warnings;
 use lib qw(./lib ../lib t/lib);
 use File::Spec;
 use File::Temp qw(tempdir);
+use JSON::XS;
 use Test::More;
 
 use Convert::Pheno;
@@ -15,6 +16,31 @@ use Convert::Pheno::Sink::FileSet qw(
   resolve_omop_table_output_file
 );
 use Convert::Pheno::Source qw(source_adapter);
+
+{
+    my $data = {
+        CONCEPT => [ { concept_id => 0, concept_name => 'No matching concept' } ],
+        PERSON  => [ { person_id => 7, gender_concept_id => 0 } ],
+    };
+    my $before = JSON::XS->new->canonical->encode($data);
+    my $convert = Convert::Pheno->new(
+        {
+            method => 'omop2bff',
+            data   => $data,
+        }
+    );
+    my $source = source_adapter( $convert, 'omop' )->load;
+
+    isnt( $source->data, $data, 'OMOP memory source creates an owned table buffer' );
+    ok( $source->owned, 'OMOP memory source marks its table buffer as adapter-owned' );
+    $source->data->{PERSON}[0]{person_id} = 8;
+    is( $data->{PERSON}[0]{person_id}, 7, 'OMOP memory source clones nested row data' );
+    is(
+        JSON::XS->new->canonical->encode($data),
+        $before,
+        'OMOP source preparation does not modify caller-owned tables'
+    );
+}
 
 {
     my $data = { subject => { id => 'caller-1' } };

@@ -45,6 +45,34 @@ The HTTP(s) boundary accepts in-memory payloads, not paths on the API host.
 File-bearing fields such as `in_file`, `out_file`, `mapping_file`,
 `redcap_dictionary`, and `path_to_ohdsi_db` are rejected.
 
+### OMOP table data
+
+For `omop2bff` and `omop2pxf`, send the OMOP rows under `input.data`, keyed by
+table name. Each table contains an array of row objects:
+
+```json
+{
+  "conversion": "omop2bff",
+  "input": {
+    "data": {
+      "CONCEPT": [{
+        "concept_id": 8532,
+        "concept_name": "FEMALE",
+        "concept_code": "F",
+        "vocabulary_id": "Gender"
+      }],
+      "PERSON": [{ "person_id": 974, "gender_concept_id": 8532 }]
+    }
+  }
+}
+```
+
+`CONCEPT` and `PERSON` must be included. The client does not group records by
+patient: Convert-Pheno builds the concept caches and groups rows by `person_id`
+before applying the same mapping used for file-based OMOP input. Large OMOP
+datasets remain better suited to the CLI streaming mode because HTTP(s)
+requests are processed in memory.
+
 <details>
 <summary>Accepted option fields</summary>
 
@@ -172,7 +200,7 @@ The REST API works best for **self-contained payloads** where the request alread
 | --- | --- | --- |
 | `BFF` | Recommended | Small JSON payloads are natural to send over HTTP(s) |
 | `PXF` | Recommended | Small JSON payloads are natural to send over HTTP(s) |
-| `OMOP-CDM` | Recommended with care | Acceptable when the client transposes query results into the JSON shape expected by the API |
+| `OMOP-CDM` | Recommended with care | Send table rows as JSON; Convert-Pheno groups them by patient in memory |
 | `FHIR R4` | Available | A self-contained JSON Bundle can be sent directly as `input.data` |
 | `openEHR` | Available | Canonical JSON/YAML content can be sent directly as `input.data` |
 | `CSV` | CLI/module only | Mapping-file conversion depends on file artifacts that are not accepted by the HTTP boundary |
