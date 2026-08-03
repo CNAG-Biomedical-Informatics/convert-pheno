@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use Convert-Pheno, please cite the software paper below."
 type: software
 title: "Convert-Pheno"
-version: "0.33"
+version: "0.34"
 license: "Artistic-2.0"
 repository-code: "https://github.com/CNAG-Biomedical-Informatics/convert-pheno"
 url: "https://cnag-biomedical-informatics.github.io/convert-pheno/"

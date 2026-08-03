@@ -5,11 +5,12 @@ use warnings;
 use autodie;
 use feature qw(say);
 use DBI;
-use File::Spec::Functions qw(catdir catfile);
+use File::Spec::Functions qw(catfile);
 use Time::HiRes qw(time);
 use Data::Dumper;
 use Text::Similarity::Overlaps;
 use Exporter 'import';
+use Convert::Pheno::DB::Bundle qw(bundled_database_path);
 use Convert::Pheno::DB::Similarity;
 our @EXPORT =
   qw( $VERSION open_connections_SQLite close_connections_SQLite get_ontology_terms);
@@ -315,11 +316,15 @@ sub validate_ohdsi_schema {
 sub get_database_file_path {
     my ( $ontology, $path_to_ohdsi_db ) = @_;
     my $filename = defined $ontology ? "$ontology.db" : '.db';
-    my $path =
-      ( defined $ontology && $ontology eq 'ohdsi' && defined $path_to_ohdsi_db )
-      ? $path_to_ohdsi_db
-      : catdir( $Convert::Pheno::share_dir // q{}, 'db' );
-    return catfile( $path, $filename );
+    return catfile( $path_to_ohdsi_db, $filename )
+      if defined $ontology
+      && $ontology eq 'ohdsi'
+      && defined $path_to_ohdsi_db;
+
+    return bundled_database_path(
+        $Convert::Pheno::share_dir // q{},
+        $ontology
+    );
 }
 
 sub close_db_SQLite {

@@ -8,6 +8,7 @@ test.pl
 TO_DO.md
 SESSION_NOTES.md
 README.source.md
+/README
 cpanfile.windows
 clean.sh
 nytprof.out
@@ -22,5 +23,5 @@ __pycache__/
 bck/
 old/
 _Inline/
-/share/db/ohdsi.db
+/share/db/*/ohdsi.db
 /t/test.json

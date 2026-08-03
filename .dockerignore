@@ -41,6 +41,6 @@ __pycache__
 /*.tar.gz
 
 # Optional local data and credentials
-/share/db/ohdsi.db
+/share/db/*/ohdsi.db
 .env
 .env.*

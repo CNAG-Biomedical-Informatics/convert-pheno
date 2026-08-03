@@ -17,6 +17,7 @@ use JSON::XS qw(decode_json);
 use Text::CSV_XS;
 use lib qw(./lib ../lib);
 use Convert::Pheno;
+use Convert::Pheno::DB::Bundle qw(bundled_database_path);
 use Convert::Pheno::IO::FileIO qw(io_yaml_or_json);
 
 our @EXPORT_OK = qw(
@@ -79,7 +80,9 @@ sub is_windows {
 }
 
 sub has_ohdsi_db {
-    return -f 'share/db/ohdsi.db' ? 1 : 0;
+    return -f bundled_database_path( $Convert::Pheno::share_dir, 'ohdsi' )
+      ? 1
+      : 0;
 }
 
 sub test_ohdsi_db_dir {

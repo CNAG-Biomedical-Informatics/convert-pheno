@@ -22,7 +22,7 @@ Uncoded `DV_TEXT` terms are emitted with synthetic `openEHR:` ids so Beacon onto
 * openEHR canonical `COMPOSITION` JSON/YAML input (current implementation target)
 
 :::
-#### Version 0.33
+#### Version 0.34
 
 **Output model:** BFF
 

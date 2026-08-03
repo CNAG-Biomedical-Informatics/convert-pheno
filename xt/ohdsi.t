@@ -7,7 +7,7 @@ use Test::More;
 use Test::ConvertPheno
   qw(build_convert has_ohdsi_db temp_output_file structured_files_match);
 
-plan skip_all => "share/db/ohdsi.db is required for these tests"
+plan skip_all => "the current share/db bundle must contain ohdsi.db"
   unless has_ohdsi_db();
 
 my $tmp_file = temp_output_file();

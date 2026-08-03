@@ -189,5 +189,7 @@ gdown.download(url, output, quiet=False)
 
 Once downloaded, either:
 
-1. Move `ohdsi.db` into `share/db/`.
-2. Keep it elsewhere and pass `--path-to-ohdsi-db`.
+1. Move `ohdsi.db` into `share/db/v0/`, the bundle currently selected by
+   `share/db/manifest.json`.
+2. Keep it elsewhere and pass its containing directory with
+   `--path-to-ohdsi-db`.

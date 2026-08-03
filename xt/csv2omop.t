@@ -15,7 +15,7 @@ unless ( -x $cli ) {
 }
 
 unless ( has_ohdsi_db() ) {
-    plan skip_all => "share/db/ohdsi.db is required for these tests";
+    plan skip_all => "the current share/db bundle must contain ohdsi.db";
 }
 
 my $infile      = File::Spec->catfile($Bin, '../t/csv2bff', 'in',  'csv_data.csv');

@@ -79,6 +79,9 @@ my $tmpdir = test_tmpdir();
 
 throws_ok(
     sub {
+        local *STDERR;
+        open STDERR, '>', \my $stderr
+          or die "Could not capture STDERR: $!";
         build_cli_request(
             argv => [
                 '-icsv', 't/csv2bff/in/csv_data.csv',
@@ -272,6 +275,9 @@ throws_ok(
 
 throws_ok(
     sub {
+        local *STDERR;
+        open STDERR, '>', \my $stderr
+          or die "Could not capture STDERR: $!";
         build_cli_request(
             argv => [
                 '-icsv', 't/csv2bff/in/csv_data.csv',
@@ -291,6 +297,9 @@ throws_ok(
 
 throws_ok(
     sub {
+        local *STDERR;
+        open STDERR, '>', \my $stderr
+          or die "Could not capture STDERR: $!";
         build_cli_request(
             argv => [
                 '-icsv', 't/csv2bff/in/csv_data.csv',

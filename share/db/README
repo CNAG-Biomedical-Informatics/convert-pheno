@@ -1,9 +1,31 @@
 SQLite terminology databases used by Convert-Pheno.
 
-The descriptive `manifest.json` records the current database bundle contract,
-source snapshots, row counts, and checksums. The smaller databases are bundled
-with the distribution. `ohdsi.db` is distributed separately because of its
-size.
+The databases are organized as a versioned bundle:
+
+```
+share/db/
+  README
+  manifest.json
+  concepts_candidates_2_exposure.csv
+  v0/
+    cdisc.db
+    hpo.db
+    icd10.db
+    ncit.db
+    ohdsi.db
+    omim.db
+```
+
+`manifest.json` records the bundle contract, source snapshots, row counts, and
+checksums. Its `currentBundle` field selects the directory used at runtime. A
+manifest pointer is used instead of a `current` symbolic link so installed CPAN
+distributions behave consistently on Unix and Windows.
+
+The smaller databases are bundled with the distribution. `ohdsi.db` is
+distributed separately because of its size. Download it into the selected
+bundle directory, currently `share/db/v0/`, or keep it elsewhere and pass the
+containing directory with `--path-to-ohdsi-db`. Do not place it directly in
+`share/db/`, because runtime database lookup follows `currentBundle`.
 
 Download sources of raw data.
 
@@ -46,6 +68,5 @@ identifiers, it contains OMOP domain and standard-concept metadata plus active
 `Maps to` and `Maps to value` relationships. These fields are required for
 domain-aware standard concept resolution when OMOP is the output model.
 
-The generated ohdsi.db can be placed in this directory or located with
---path-to-ohdsi-db. Convert-Pheno rejects older four-column copies because they
-cannot safely resolve standard concepts for OMOP output.
+Convert-Pheno rejects older four-column copies because they cannot safely
+resolve standard concepts for OMOP output.

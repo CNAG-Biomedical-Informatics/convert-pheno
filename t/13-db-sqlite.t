@@ -6,10 +6,34 @@ use lib qw(./lib ../lib t/lib);
 use Test::More;
 use Test::Exception;
 use Test::Warn;
+use File::Path qw(make_path);
 use File::Spec::Functions qw(catdir catfile);
 use File::Temp qw(tempdir);
+use JSON::XS qw(encode_json);
 use DBI;
 use Convert::Pheno::Mapping::Shared qw(map_ontology_term);
+
+sub write_test_bundle_manifest {
+    my ( $share_dir, @ontologies ) = @_;
+    my $db_root   = catdir( $share_dir, 'db' );
+    my $bundle_dir = catdir( $db_root, 'v0' );
+    make_path($bundle_dir);
+
+    my %databases = map { $_ => { file => "$_.db" } } @ontologies;
+    open my $fh, '>:raw', catfile( $db_root, 'manifest.json' );
+    print {$fh} encode_json(
+        {
+            format         => 'convert-pheno-sqlite-bundle',
+            formatVersion  => 1,
+            bundleVersion  => 'v0',
+            currentBundle  => 'v0',
+            databases      => \%databases,
+        }
+    );
+    close $fh;
+
+    return $bundle_dir;
+}
 
 {
     package Test::FakeSTH;
@@ -127,11 +151,13 @@ is(
 );
 
 {
-    local $Convert::Pheno::share_dir = '/tmp/convert-pheno-share';
+    my $tmpdir = tempdir( CLEANUP => 1 );
+    write_test_bundle_manifest( $tmpdir, 'ncit' );
+    local $Convert::Pheno::share_dir = $tmpdir;
     is(
         Convert::Pheno::DB::SQLite::get_database_file_path( 'ncit', undef ),
-        catfile( catdir( '/tmp/convert-pheno-share', 'db' ), 'ncit.db' ),
-        'get_database_file_path uses default share dir for regular ontologies'
+        catfile( $tmpdir, 'db', 'v0', 'ncit.db' ),
+        'get_database_file_path follows the manifest-selected bundle'
     );
     is(
         Convert::Pheno::DB::SQLite::get_database_file_path( 'ohdsi', '/custom/ohdsi' ),
@@ -142,8 +168,8 @@ is(
 
 {
     my $tmpdir = tempdir( CLEANUP => 1 );
-    mkdir "$tmpdir/db";
-    my $dbfile = "$tmpdir/db/test.db";
+    my $bundle_dir = write_test_bundle_manifest( $tmpdir, 'test' );
+    my $dbfile = catfile( $bundle_dir, 'test.db' );
     my $dbh = DBI->connect( "dbi:SQLite:dbname=$dbfile", '', '', { RaiseError => 1, AutoCommit => 1 } );
     $dbh->do('CREATE TABLE sample (id INTEGER)');
     $dbh->disconnect;
@@ -481,10 +507,11 @@ warning_like {
 }
 
 SKIP: {
-    skip 'share/db/ncit.db is required for real SQLite search-mode tests', 28
-      unless -f 'share/db/ncit.db';
-
     local $Convert::Pheno::share_dir = 'share';
+    my $ncit_db =
+      Convert::Pheno::DB::SQLite::get_database_file_path( 'ncit', undef );
+    skip 'the current share/db bundle must contain ncit.db', 28
+      unless -f $ncit_db;
 
     my $lookup = sub {
         my (%args) = @_;

@@ -1,6 +1,7 @@
 {
    "bundleVersion" : "v0",
    "created" : "2026-08-03",
+   "currentBundle" : "v0",
    "databases" : {
       "cdisc" : {
          "bundled" : true,

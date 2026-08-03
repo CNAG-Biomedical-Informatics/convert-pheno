@@ -3,7 +3,7 @@ title: BFF to PXF Mapping
 sidebar_label: BFF to PXF Mapping
 ---
 
-#### Version 0.33
+#### Version 0.34
 
 **Output model:** Phenopackets v2
 

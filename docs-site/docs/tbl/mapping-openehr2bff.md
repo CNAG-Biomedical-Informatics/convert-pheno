@@ -3,7 +3,7 @@ title: openEHR to BFF Mapping
 sidebar_label: openEHR to BFF Mapping
 ---
 
-#### Version 0.33
+#### Version 0.34
 
 **Output model:** BFF
 

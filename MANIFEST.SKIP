@@ -17,9 +17,15 @@
 ^makefile\.install$
 ^makefile\.docker$
 ^MYMETA\.
-^README\.md$
 ^\.git/
 ^\.github/
+^\.codex(?:/|$)
+^AGENTS\.md$
+^README$
+^SESSION.*\.md$
+^debug_windows-latest/
+(?:^|/)bck/
+^nytprof(?:\.|$)
 ^docs/
 ^docs-site/
 ^api/perl/bck/
@@ -30,3 +36,4 @@
 ^nb/
 ^docker/
 ^non-containerized/
+^share/db/[^/]+/ohdsi\.db$

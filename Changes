@@ -1,16 +1,14 @@
 Revision history for Perl distribution Convert-Pheno
 
-0.34 2026-08-XXT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
+0.34 2026-08-03T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
- - Added version-aware CDISC-ODM 1.3 and 2.0 Snapshot input with embedded metadata and occurrence-aware repeated records
+ - Expanded CDISC support with version-aware ODM 1.3 and 2.0 Snapshot input plus Dataset-XML v1.0 with Define-XML v2 metadata
  - Added experimental cBioPortal clinical study package input with entity-aware BFF, PXF and OMOP-CDM output
  - Added mCODE 4.0 profile detection and primary cancer stage mapping to FHIR R4 input
- - Added experimental CDISC Dataset-XML v1.0 input with required Define-XML v2 metadata and BFF, PXF and OMOP-CDM output
  - Added user-controlled terminology enrichment for CDISC Dataset-JSON and Dataset-XML, including exact NCI identifier resolution from Define-XML
- - Replaced --search-audit-tsv with --term-audit and expanded provenance across direct terms, identifier lookups, label searches and fallbacks
- - Added focused color-coded XLSX terminology audits with run summaries, explicit review actions and filterable technical evidence
- - Improved mixed and fuzzy terminology search with literal all-word retrieval, bounded typo-tolerant fallback, spelling-aware reranking and auditable candidate decisions
- - Added domain-aware Athena-OHDSI standard concept resolution for OMOP output, including source identifiers and Maps to relationships
+ - Replaced --search-audit-tsv with --term-audit, supporting TSV, compressed TSV and color-coded XLSX reports
+ - Improved mixed and fuzzy terminology search with all-word and typo-tolerant retrieval
+ - Added domain-aware Athena-OHDSI standard concept resolution for OMOP output and versioned SQLite database bundles
 
 0.33 2026-07-31T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 

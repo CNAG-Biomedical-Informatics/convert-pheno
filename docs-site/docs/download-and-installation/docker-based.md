@@ -119,7 +119,7 @@ docker run --rm \
 ## Reproduce Tested Examples
 
 Release images include the regression fixtures under `/usr/share/convert-pheno/t`.
-The following commands read those inputs directly from the published `0.33` image and
+The following commands read those inputs directly from the published `0.34` image and
 write only the converted file to the mounted host directory.
 
 PXF to BFF:
@@ -127,7 +127,7 @@ PXF to BFF:
 ```bash
 docker run --rm \
   --volume "$PWD:/data" \
-  manuelrueda/convert-pheno:0.33 \
+  manuelrueda/convert-pheno:0.34 \
   /usr/share/convert-pheno/bin/convert-pheno \
   -ipxf /usr/share/convert-pheno/t/pxf2bff/in/pxf.json \
   -obff /data/individuals.json \
@@ -139,7 +139,7 @@ BFF to PXF:
 ```bash
 docker run --rm \
   --volume "$PWD:/data" \
-  manuelrueda/convert-pheno:0.33 \
+  manuelrueda/convert-pheno:0.34 \
   /usr/share/convert-pheno/bin/convert-pheno \
   -ibff /usr/share/convert-pheno/t/bff2pxf/in/individuals.json \
   -opxf /data/pxf.json \
@@ -151,7 +151,7 @@ OMOP CSV tables to BFF:
 ```bash
 docker run --rm \
   --volume "$PWD:/data" \
-  manuelrueda/convert-pheno:0.33 \
+  manuelrueda/convert-pheno:0.34 \
   /usr/share/convert-pheno/bin/convert-pheno \
   -iomop \
   /usr/share/convert-pheno/t/omop2bff/in/PERSON.csv \
