@@ -6,9 +6,16 @@ use lib qw(./lib ../lib t/lib);
 use File::Spec;
 use File::Temp qw(tempdir);
 use JSON::XS;
+use Path::Tiny qw(path);
+use Test::Exception;
 use Test::More;
 
 use Convert::Pheno;
+use Convert::Pheno::Emit::OMOP qw(
+  omop_stream_targets_finalize
+  omop_stream_targets_open
+  omop_stream_targets_write
+);
 use Convert::Pheno::IO::FileIO qw(io_yaml_or_json);
 use Convert::Pheno::Model::Bundle;
 use Convert::Pheno::Sink::FileSet qw(
@@ -173,6 +180,73 @@ use Convert::Pheno::Source qw(source_adapter);
         qr/No source adapter is registered for <unsupported-format>/,
         'unknown source formats fail at the adapter boundary'
     );
+}
+
+{
+    my $tmpdir = tempdir( CLEANUP => 1 );
+    my $outfile = File::Spec->catfile( $tmpdir, 'streamed-individuals.jsonl' );
+    my $convert = bless {
+        entities => ['individuals'],
+        out_dir  => $tmpdir,
+        out_file => $outfile,
+    }, 'Convert::Pheno';
+
+    ok( omop_stream_targets_write( $convert, undef ), 'stream sink accepts an empty participant result' );
+    ok( omop_stream_targets_write( $convert, { id => 'person-1' } ), 'stream sink writes an individual' );
+    ok( omop_stream_targets_write( $convert, { id => 'person-1' } ), 'stream sink accepts a duplicate individual' );
+    ok( omop_stream_targets_write( $convert, { id => 'person-2' } ), 'stream sink writes the next individual' );
+    ok( omop_stream_targets_finalize($convert), 'stream sink commits scalar participant output' );
+
+    my @rows = map { JSON::XS->new->decode($_) }
+      grep { length }
+      split /\n/, path($outfile)->slurp_utf8;
+    is_deeply(
+        [ map { $_->{id} } @rows ],
+        [qw(person-1 person-2)],
+        'stream sink suppresses duplicate participant rows',
+    );
+    ok( omop_stream_targets_finalize($convert), 'finalizing an inactive stream is harmless' );
+}
+
+{
+    my $tmpdir = tempdir( CLEANUP => 1 );
+    my $biosamples_file = File::Spec->catfile( $tmpdir, 'samples.jsonl' );
+    my $convert = bless {
+        entities => [qw(individuals biosamples)],
+        out_dir  => $tmpdir,
+        output_name_overrides => { biosamples => $biosamples_file },
+    }, 'Convert::Pheno';
+    my $bundle = Convert::Pheno::Model::Bundle->new(
+        { entities => [qw(individuals biosamples)] }
+    );
+    $bundle->add_entity( individuals => { id => 'person-1' } );
+    $bundle->add_entity( biosamples  => { id => 'sample-1' } );
+
+    ok( omop_stream_targets_write( $convert, $bundle ), 'stream sink writes entity-aware bundles' );
+    ok( omop_stream_targets_finalize( $convert, 0 ), 'stream sink can discard an incomplete entity bundle' );
+    ok( !-e File::Spec->catfile( $tmpdir, 'individuals.json' ), 'discarded stream does not publish individuals' );
+    ok( !-e $biosamples_file, 'discarded stream does not publish an overridden biosample file' );
+}
+
+{
+    my $tmpdir = tempdir( CLEANUP => 1 );
+    my $convert = bless {
+        entities => [qw(individuals biosamples)],
+        out_dir  => $tmpdir,
+        output_name_overrides => {
+            biosamples => File::Spec->catfile( $tmpdir, 'missing', 'biosamples.json' ),
+        },
+    }, 'Convert::Pheno';
+
+    throws_ok(
+        sub { omop_stream_targets_open($convert) },
+        qr/(?:No such file|Error in tempfile)/,
+        'opening multiple stream targets rolls back when a later path is invalid',
+    );
+    opendir( my $dir, $tmpdir );
+    my @staged = grep { /^\.convert-pheno-/ } readdir $dir;
+    closedir($dir);
+    is_deeply( \@staged, [], 'failed stream setup removes earlier staged files' );
 }
 
 {

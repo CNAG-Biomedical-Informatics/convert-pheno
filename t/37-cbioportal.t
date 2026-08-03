@@ -104,6 +104,48 @@ sub write_fixture_zip {
 }
 
 {
+    my $individuals = Convert::Pheno->new(
+        {
+            method   => 'cbioportal2bff',
+            in_file  => $fixture_dir,
+            entities => ['individuals'],
+            test     => 1,
+        }
+    )->cbioportal2bff;
+
+    is( ref($individuals), 'ARRAY', 'public cbioportal2bff returns an individuals collection' );
+    is( scalar @{$individuals}, 10, 'public cbioportal2bff converts every clinical patient' );
+
+    my $phenopackets = Convert::Pheno->new(
+        {
+            method  => 'cbioportal2pxf',
+            in_file => $fixture_dir,
+            test    => 1,
+        }
+    )->cbioportal2pxf;
+
+    is( scalar @{$phenopackets}, 10, 'public cbioportal2pxf converts every clinical patient' );
+    is(
+        $phenopackets->[0]{biosamples}[0]{id},
+        'ACCX12',
+        'public cbioportal2pxf retains sample links',
+    );
+
+    my $omop = Convert::Pheno->new(
+        {
+            method           => 'cbioportal2omop',
+            in_file          => $fixture_dir,
+            ohdsi_db         => 1,
+            path_to_ohdsi_db => test_ohdsi_db_dir(),
+            test             => 1,
+        }
+    )->cbioportal2omop;
+
+    is( scalar @{ $omop->{PERSON} }, 10, 'public cbioportal2omop emits one PERSON row per patient' );
+    ok( @{ $omop->{CONDITION_OCCURRENCE} }, 'public cbioportal2omop emits mapped conditions' );
+}
+
+{
     my $bundle = Convert::Pheno->new(
         {
             method      => 'cbioportal2bff',

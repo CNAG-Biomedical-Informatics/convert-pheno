@@ -62,6 +62,15 @@ local $SIG{__WARN__} = sub {
         'compound conversion does not attach intermediate data to the caller converter'
     );
 
+    my $redcap_omop =
+      Convert::Pheno->new( { method => 'redcap2omop', in_textfile => 1 } )
+      ->redcap2omop;
+    is(
+        $redcap_omop->{merged}{data}[0]{id},
+        'r1',
+        'redcap2omop merges redcap2bff output',
+    );
+
     my $cdisc = Convert::Pheno->new( { method => 'cdiscodm2omop', in_textfile => 1 } )->cdiscodm2omop;
     is( $cdisc->{merged}{data}[0]{id}, 'c1', 'cdiscodm2omop merges cdiscodm2bff output' );
 

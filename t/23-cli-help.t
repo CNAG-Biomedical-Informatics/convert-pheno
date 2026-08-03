@@ -5,10 +5,28 @@ use warnings;
 use lib qw(./lib ../lib t/lib);
 use File::Spec;
 use Test::More;
-use Test::ConvertPheno qw(cli_script_path test_tmpdir);
+use Test::ConvertPheno qw(cli_script_path test_ohdsi_db_dir test_tmpdir);
 use Convert::Pheno::CLI::Args qw(build_cli_request);
 
 my $tmpdir = test_tmpdir();
+
+sub parse_cli_request {
+    my (@argv) = @_;
+    return build_cli_request(
+        argv        => \@argv,
+        usage_error => sub { die @_ },
+        schema_file => 'share/schema/mapping-v2.json',
+        out_dir     => $tmpdir,
+        color       => 1,
+    );
+}
+
+sub parse_cli_error {
+    my (@argv) = @_;
+    my $error;
+    eval { parse_cli_request(@argv); 1 } or $error = $@;
+    return $error;
+}
 
 my $request = build_cli_request(
     argv => [
@@ -269,113 +287,216 @@ is_deeply(
     'CLI parser accepts FHIR biosample output'
 );
 
-my $usage_error;
-eval {
-    build_cli_request(
-        argv => [
-            '-ipxf',                  't/pxf2bff/in/pxf.json',
-            '-obff',                  'individuals.json',
-            '--default-vital-status', 'DECEASED',
-        ],
-        usage_error => sub { die @_ },
-        schema_file => 'share/schema/mapping-v2.json',
-        out_dir     => $tmpdir,
-        color       => 1,
-    );
-    1;
-} or $usage_error = $@;
+is( parse_cli_request('--help')->{action},    'help',    'CLI parser returns the help action' );
+is( parse_cli_request('--man')->{action},     'man',     'CLI parser returns the manual action' );
+is( parse_cli_request('--version')->{action}, 'version', 'CLI parser returns the version action' );
 
-like(
-    $usage_error,
-    qr/--default-vital-status> is only valid with PXF output/,
-    'CLI parser rejects --default-vital-status without PXF output'
+$request = parse_cli_request(
+    '-iredcap',            't/redcap2bff/in/redcap_data.csv',
+    '--redcap-dictionary', 't/redcap2bff/in/redcap_dictionary.csv',
+    '--mapping-file',      't/redcap2bff/in/redcap_mapping.yaml',
+    '-opxf',               'redcap.json',
+    '--separator',         ',',
+    '--self-validate-schema',
+    '--debug',             2,
+    '--verbose',
+    '--no-color',
+    '--log=parser.json',
+    '--term-audit',       'term-audit.xlsx',
+    '--path-to-ohdsi-db', test_ohdsi_db_dir(),
+    '--exposures-file',   'share/db/concepts_candidates_2_exposure.csv',
+    '--test',
+    '-O',
 );
 
-$usage_error = undef;
-eval {
-    build_cli_request(
-        argv => [
-            '-ibff', 't/bff2pxf/in/individuals.json',
-            '-oomop', 'old-prefix',
-            '--out-dir', $tmpdir,
-            '--ohdsi-db',
-        ],
-        usage_error => sub { die @_ },
-        schema_file => 'share/schema/mapping-v2.json',
-        out_dir     => '.',
-        color       => 1,
-    );
-    1;
-} or $usage_error = $@;
+is( $request->{data}{method}, 'redcap2pxf', 'CLI parser builds the REDCap to PXF route' );
+is( $request->{data}{redcap_dictionary}, 't/redcap2bff/in/redcap_dictionary.csv', 'CLI parser retains the REDCap dictionary' );
+is( $request->{data}{sep}, ',', 'CLI parser retains the requested separator' );
+is( $request->{data}{debug}, 2, 'CLI parser retains the debug level' );
+is( $request->{data}{verbose}, 1, 'CLI parser enables verbose mode' );
+is( $request->{data}{self_validate_schema}, 1, 'CLI parser enables mapping-schema self-validation' );
+is( $request->{color}, 0, 'CLI parser accepts --no-color' );
+is( $request->{overwrite}, 1, 'CLI parser accepts overwrite mode' );
+is( $request->{log_file}, File::Spec->catfile( $tmpdir, 'parser.json' ), 'CLI parser resolves the log path' );
+is( $request->{data}{term_audit_file}, File::Spec->catfile( $tmpdir, 'term-audit.xlsx' ), 'CLI parser resolves the terminology audit path' );
 
-like(
-    $usage_error,
-    qr/no longer accepts a prefix/,
-    'CLI parser prints a focused error for the removed -oomop PREFIX form'
+$request = parse_cli_request(
+    '-icdisc-odm',   't/cdiscodm2bff/in/cdisc_odm_data.xml',
+    '--mapping-file', 't/redcap2bff/in/redcap_mapping.yaml',
+    '-obff',          'cdisc.json',
+);
+is( $request->{data}{method}, 'cdiscodm2bff', 'CLI parser builds the CDISC-ODM route' );
+
+$request = parse_cli_request(
+    '-i', 'phenopackets',
+    't/pxf2bff/in/pxf.json',
+    '-o', 'beacon',
+    'individuals.json',
+);
+is( $request->{data}{method}, 'pxf2bff', 'generic CLI syntax accepts model-name aliases' );
+
+$request = parse_cli_request(
+    '-i', 'omop-cdm',
+    't/omop2bff/in/omop_cdm_eunomia.sql',
+    '-o', 'bff',
+    'individuals.json',
+);
+is( $request->{data}{method}, 'omop2bff', 'generic CLI syntax accepts OMOP input' );
+
+$request = parse_cli_request(
+    '-i', 'ehrbase',
+    't/openehr2bff/in/gecco_personendaten_patient.json',
+    '-o', 'bff',
+    'individuals.json',
+);
+is( $request->{data}{method}, 'openehr2bff', 'generic CLI syntax accepts the EHRbase alias' );
+
+$request = parse_cli_request(
+    '-ipxf',      't/pxf2bff/in/pxf.json',
+    '-obff',
+    '--entities', qw(individuals biosamples),
+    '--out-dir',  $tmpdir,
+    '--out-name', 'biosamples=samples.json',
+);
+is(
+    $request->{data}{output_name_overrides}{biosamples},
+    File::Spec->catfile( $tmpdir, 'samples.json' ),
+    'CLI parser resolves entity output-name overrides',
 );
 
-$usage_error = undef;
-eval {
-    build_cli_request(
-        argv => [
-            '-ibff', 't/bff2pxf/in/individuals.json',
-            '-obff', 'individuals.json',
-        ],
-        usage_error => sub { die @_ },
-        schema_file => 'share/schema/mapping-v2.json',
-        out_dir     => $tmpdir,
-        color       => 1,
-    );
-    1;
-} or $usage_error = $@;
-
-like(
-    $usage_error,
-    qr/Unsupported conversion <bff2bff>/,
-    'CLI parser rejects unsupported same-format routes'
+my @generic_route_cases = (
+    [ 'defaults OMOP-CDM input to BFF output', 'omop2bff',
+        [ '-i', 'omop', 't/omop2bff/in/omop_cdm_eunomia.sql' ] ],
+    [ 'defaults FHIR input to BFF output', 'fhir2bff',
+        [ '-i', 'fhir', 't/fhir2bff/in/patient-bundle.json' ] ],
+    [ 'defaults openEHR input to BFF output', 'openehr2bff',
+        [ '-i', 'openehr', 't/openehr2bff/in/gecco_personendaten_patient.json' ] ],
+    [ 'defaults Dataset-JSON input to BFF output', 'datasetjson2bff',
+        [ '-i', 'dataset-json', @datasetjson_files ] ],
+    [ 'defaults Dataset-XML input to BFF output', 'datasetxml2bff',
+        [ '-i', 'dataset-xml', @datasetxml_files,
+            '--define-xml', 't/datasetxml2bff/in/define.xml' ] ],
+    [ 'accepts FHIR to OMOP output', 'fhir2omop',
+        [ '-i', 'fhir', 't/fhir2bff/in/patient-bundle.json',
+            '-o', 'omop', '--ohdsi-db' ] ],
+    [ 'accepts Dataset-JSON to OMOP output', 'datasetjson2omop',
+        [ '-i', 'dataset-json', @datasetjson_files,
+            '-o', 'omop', '--ohdsi-db' ] ],
+    [ 'accepts Dataset-XML to OMOP output', 'datasetxml2omop',
+        [ '-i', 'dataset-xml', @datasetxml_files,
+            '--define-xml', 't/datasetxml2bff/in/define.xml',
+            '-o', 'omop', '--ohdsi-db' ] ],
+    [ 'accepts REDCap tabular input', 'redcap2bff',
+        [ '-i', 'redcap', 't/redcap2bff/in/redcap_data.csv',
+            '-o', 'bff', 'individuals.json',
+            '--redcap-dictionary', 't/redcap2bff/in/redcap_dictionary.csv',
+            '--mapping-file', 't/redcap2bff/in/redcap_mapping.yaml' ] ],
+    [ 'accepts CDISC-ODM tabular input', 'cdiscodm2bff',
+        [ '-i', 'cdisc-odm', 't/cdiscodm2bff/in/cdisc_odm_data.xml',
+            '-o', 'bff', 'individuals.json',
+            '--mapping-file', 't/redcap2bff/in/redcap_mapping.yaml' ] ],
+    [ 'accepts CSV tabular input', 'csv2bff',
+        [ '-i', 'csv', 't/csv2bff/in/csv_data.csv',
+            '-o', 'bff', 'individuals.json',
+            '--mapping-file', 't/csv2bff/in/csv_mapping.yaml' ] ],
 );
 
-$usage_error = undef;
-eval {
-    build_cli_request(
-        argv => [
-            '-icbioportal', 'missing-study.zip',
-            '-opxf', 'phenopackets.json',
-        ],
-        usage_error => sub { die @_ },
-        schema_file => 'share/schema/mapping-v2.json',
-        out_dir     => $tmpdir,
-        color       => 1,
-    );
-    1;
-} or $usage_error = $@;
+for my $case (@generic_route_cases) {
+    my ( $description, $method, $argv ) = @{$case};
+    is( parse_cli_request( @{$argv} )->{data}{method}, $method,
+        "generic CLI syntax $description" );
+}
 
-like(
-    $usage_error,
-    qr/valid cBioPortal study directory or ZIP file/,
-    'CLI parser reports the cBioPortal package requirement'
+for my $output_type (qw(csv jsonf jsonld)) {
+    my $parsed = parse_cli_request(
+        '-i', 'pxf', 't/pxf2bff/in/pxf.json',
+        '-o', $output_type, "output.$output_type",
+    );
+    is(
+        $parsed->{data}{method},
+        "pxf2$output_type",
+        "generic CLI syntax accepts $output_type output",
+    );
+}
+
+my @cli_error_cases = (
+    [ 'rejects --default-vital-status without PXF output',
+        qr/--default-vital-status> is only valid with PXF output/,
+        '-ipxf', 't/pxf2bff/in/pxf.json', '-obff', 'individuals.json',
+        '--default-vital-status', 'DECEASED' ],
+    [ 'reports the removed -oomop PREFIX form', qr/no longer accepts a prefix/,
+        '-ibff', 't/bff2pxf/in/individuals.json', '-oomop', 'old-prefix',
+        '--out-dir', $tmpdir, '--ohdsi-db' ],
+    [ 'rejects unsupported same-format routes', qr/Unsupported conversion <bff2bff>/,
+        '-ibff', 't/bff2pxf/in/individuals.json', '-obff', 'individuals.json' ],
+    [ 'reports the cBioPortal package requirement',
+        qr/valid cBioPortal study directory or ZIP file/,
+        '-icbioportal', 'missing-study.zip', '-opxf', 'phenopackets.json' ],
+    [ 'requires Define-XML with Dataset-XML input',
+        qr/accompanying Define-XML file with --define-xml/,
+        '-idataset-xml', @datasetxml_files, '-obff', 'individuals.json' ],
+    [ 'rejects an unsupported generic input type', qr/Unsupported input type <unknown>/,
+        '-i', 'unknown', 'input.json', '-o', 'bff', 'output.json' ],
+    [ 'rejects an unsupported generic output type', qr/Unsupported output type <unknown>/,
+        '-i', 'pxf', 't/pxf2bff/in/pxf.json', '-o', 'unknown', 'output.json' ],
+    [ 'rejects mixed generic and compact input syntax',
+        qr/either the generic <-i\/-o> syntax or the compact/,
+        '-i', 'pxf', '-ipxf', 't/pxf2bff/in/pxf.json',
+        '-o', 'bff', 't/pxf2bff/in/pxf.json', 'output.json' ],
+    [ 'rejects generic output without generic input', qr/<-o> requires <-i>/,
+        '-o', 'pxf', 'output.json' ],
+    [ 'rejects comma-separated entities', qr/space-separated list/,
+        '-ipxf', 't/pxf2bff/in/pxf.json', '-obff',
+        '--entities', 'individuals,biosamples' ],
+    [ 'rejects unknown BFF entities', qr/Unsupported entity <unknown>/,
+        '-ipxf', 't/pxf2bff/in/pxf.json', '-obff', '--entities', 'unknown' ],
+    [ 'rejects entity selection for non-BFF output',
+        qr/<--entities> is only valid with BFF output/,
+        '-ipxf', 't/pxf2bff/in/pxf.json', '-opxf', 'output.json',
+        '--entities', 'individuals' ],
+    [ 'rejects streaming for non-OMOP input',
+        qr/<--stream> is only valid with <-iomop> and <-obff>/,
+        '-ipxf', 't/pxf2bff/in/pxf.json', '-obff', 'output.json', '--stream' ],
+    [ 'rejects unsupported openEHR to OMOP output',
+        qr/openEHR input path currently supports only BFF or PXF output/,
+        '-i', 'openehr', 't/openehr2bff/in/gecco_personendaten_patient.json',
+        '-o', 'omop', '--ohdsi-db' ],
+    [ 'rejects invalid default vital status values', qr/Unsupported value <MISSING>/,
+        '-ibff', 't/bff2pxf/in/individuals.json', '-opxf', 'output.json',
+        '--default-vital-status', 'MISSING' ],
+    [ 'rejects malformed output-name overrides', qr/Invalid <--out-name> value/,
+        '-ipxf', 't/pxf2bff/in/pxf.json', '-obff', '--entities', 'individuals',
+        '--out-name', 'individuals.json' ],
+    [ 'requires an output-name entity to be requested',
+        qr/entity <biosamples> must also be requested/,
+        '-ipxf', 't/pxf2bff/in/pxf.json', '-obff', '--entities', 'individuals',
+        '--out-name', 'biosamples=samples.json' ],
+    [ 'rejects unsupported terminology audit extensions',
+        qr/\.tsv, \.tsv\.gz, or \.xlsx/,
+        '-icsv', 't/csv2bff/in/csv_data.csv',
+        '--mapping-file', 't/csv2bff/in/csv_mapping.yaml',
+        '-obff', 'output.json', '--term-audit', 'audit.csv' ],
+    [ 'rejects Define-XML outside Dataset input', qr/<--define-xml> is only valid/,
+        '-ipxf', 't/pxf2bff/in/pxf.json', '-obff', 'output.json',
+        '--define-xml', 't/datasetxml2bff/in/define.xml' ],
+    [ 'requires an OHDSI database for OMOP output', qr/Please use --ohdsi-db/,
+        '-ibff', 't/bff2pxf/in/individuals.json', '-oomop' ],
+    [ 'requires the REDCap dictionary', qr/valid REDCap data dictionary/,
+        '-iredcap', 't/redcap2bff/in/redcap_data.csv',
+        '--mapping-file', 't/redcap2bff/in/redcap_mapping.yaml',
+        '-obff', 'output.json' ],
+    [ 'requires a mapping file for CSV input', qr/valid mapping file/,
+        '-icsv', 't/csv2bff/in/csv_data.csv', '-obff', 'output.json' ],
+    [ 'rejects OMOP table selection for other inputs',
+        qr/<--omop-tables> is only valid with <-iomop>/,
+        '-ipxf', 't/pxf2bff/in/pxf.json', '-obff', 'output.json',
+        '--omop-tables', 'PERSON' ],
 );
 
-$usage_error = undef;
-eval {
-    build_cli_request(
-        argv => [
-            '-idataset-xml', @datasetxml_files,
-            '-obff', 'individuals.json',
-        ],
-        usage_error => sub { die @_ },
-        schema_file => 'share/schema/mapping-v2.json',
-        out_dir     => $tmpdir,
-        color       => 1,
-    );
-    1;
-} or $usage_error = $@;
-
-like(
-    $usage_error,
-    qr/accompanying Define-XML file with --define-xml/,
-    'CLI parser requires Define-XML with Dataset-XML input'
-);
+for my $case (@cli_error_cases) {
+    my ( $description, $match, @argv ) = @{$case};
+    like( parse_cli_error(@argv), $match, "CLI parser $description" );
+}
 
 my $cli = cli_script_path();
 plan skip_all => "convert-pheno CLI not found at $cli" unless -f $cli;

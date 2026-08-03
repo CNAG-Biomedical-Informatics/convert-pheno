@@ -53,6 +53,17 @@ sub commit_staged_path {
     die "Staged output file is missing\n"
       unless defined $staged && -f $staged;
 
+    # Some writers replace the staged inode instead of truncating it. Reapply
+    # the destination mode immediately before publication in that case.
+    if ( -e $target ) {
+        my @stat = stat $target;
+        if (@stat) {
+            my $mode = $stat[2] & 07777;
+            chmod $mode, $staged
+              or die "Could not preserve permissions for staged output <$staged>: $!\n";
+        }
+    }
+
     return 1 if rename $staged, $target;
     my $rename_error = $!;
 

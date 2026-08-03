@@ -3,6 +3,7 @@ use strict;
 use warnings;
 
 use lib qw(./lib ../lib t/lib);
+use JSON::XS;
 use Test::More;
 use Convert::Pheno::IO::CSVHandler qw(get_headers);
 use Test::ConvertPheno qw(
@@ -114,6 +115,54 @@ for my $case (@cases) {
     $got->{$_} = undef for qw(id metaData);
 
     is_deeply( $got, $pxf, 'bff2pxf module conversion matches fixture' );
+}
+
+{
+    my $bff_records = load_json_file('t/pxf2bff/out/individuals.json');
+    my $source_pxf  = load_json_file('t/pxf2bff/in/pxf.json');
+    my $before = JSON::XS->new->canonical->encode($bff_records);
+
+    my $roundtrip = build_convert(
+        in_textfile => 0,
+        data        => $bff_records,
+        method      => 'bff2pxf',
+    )->bff2pxf;
+
+    is(
+        scalar @{$roundtrip},
+        scalar @{$source_pxf},
+        'bff2pxf processes every record in the attributed Phenopackets fixture',
+    );
+    is_deeply(
+        $roundtrip->[8]{diseases}[0]{diseaseStage},
+        $source_pxf->[8]{diseases}[0]{diseaseStage},
+        'bff2pxf restores disease stage terms',
+    );
+    is_deeply(
+        $roundtrip->[8]{diseases}[0]{clinicalTnmFinding},
+        $source_pxf->[8]{diseases}[0]{clinicalTnmFinding},
+        'bff2pxf restores clinical TNM findings',
+    );
+    is_deeply(
+        $roundtrip->[8]{diseases}[0]{primarySite},
+        $source_pxf->[8]{diseases}[0]{primarySite},
+        'bff2pxf restores the disease primary site',
+    );
+    is_deeply(
+        $roundtrip->[8]{phenotypicFeatures}[0]{modifiers},
+        $source_pxf->[8]{phenotypicFeatures}[0]{modifiers},
+        'bff2pxf restores phenotypic feature modifiers',
+    );
+    is_deeply(
+        $roundtrip->[11]{phenotypicFeatures}[0]{severity},
+        $source_pxf->[11]{phenotypicFeatures}[0]{severity},
+        'bff2pxf restores phenotypic feature severity',
+    );
+    is(
+        JSON::XS->new->canonical->encode($bff_records),
+        $before,
+        'fixture round-trip leaves caller-owned BFF records unchanged',
+    );
 }
 
 {

@@ -7,6 +7,7 @@ use feature qw(say);
 
 use Exporter 'import';
 use JSON::XS;
+use Scalar::Util qw(blessed);
 use Convert::Pheno::IO::Atomic qw(
   commit_staged_path
   create_staged_path
@@ -127,7 +128,7 @@ sub omop_stream_targets_write {
     my $json    = JSON::XS->new->canonical;
     my $seen    = $self->{_omop_stream_seen} ||= {};
 
-    if ( ref($result) && $result->can('entities') ) {
+    if ( blessed($result) && $result->can('entities') ) {
         for my $entity ( keys %{$targets} ) {
             for my $entry ( @{ $result->entities($entity) } ) {
                 next if _stream_entity_entry_seen( $seen, $entity, $entry );
