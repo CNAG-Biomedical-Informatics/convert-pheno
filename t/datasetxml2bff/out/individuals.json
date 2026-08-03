@@ -1,0 +1,224 @@
+[
+   {
+      "diseases" : [
+         {
+            "diseaseCode" : {
+               "id" : "CDISC:MHDECOD.DIABETES_MELLITUS",
+               "label" : "Type 2 diabetes mellitus"
+            }
+         }
+      ],
+      "ethnicity" : {
+         "id" : "CDISC:ETHNIC.NOT_HISPANIC_OR_LATINO",
+         "label" : "NOT HISPANIC OR LATINO"
+      },
+      "geographicOrigin" : {
+         "id" : "ISO3166-1:USA",
+         "label" : "USA"
+      },
+      "id" : "P001",
+      "info" : {
+         "datasetXml" : {
+            "datasetXMLVersion" : "1.0.0",
+            "defineXMLVersion" : "2.0.0",
+            "domains" : {
+               "DM" : [
+                  {
+                     "BRTHDTC" : "1980-02-03",
+                     "COUNTRY" : "USA",
+                     "DOMAIN" : "DM",
+                     "DTHFL" : null,
+                     "ETHNIC" : "NOT HISPANIC OR LATINO",
+                     "SEX" : "M",
+                     "USUBJID" : "P001"
+                  }
+               ],
+               "LB" : [
+                  {
+                     "DOMAIN" : "LB",
+                     "LBDTC" : "2025-01-02",
+                     "LBSTNRHI" : 56,
+                     "LBSTNRLO" : 7,
+                     "LBSTRESC" : "42",
+                     "LBSTRESN" : 42,
+                     "LBSTRESU" : "U/L",
+                     "LBTEST" : "Alanine Aminotransferase",
+                     "LBTESTCD" : "ALT",
+                     "USUBJID" : "P001"
+                  },
+                  {
+                     "DOMAIN" : "LB",
+                     "LBDTC" : "2025-01-05",
+                     "LBSTNRHI" : null,
+                     "LBSTNRLO" : null,
+                     "LBSTRESC" : "NEGATIVE",
+                     "LBSTRESN" : null,
+                     "LBSTRESU" : null,
+                     "LBTEST" : "SARS-CoV-2 RNA",
+                     "LBTESTCD" : "COV2",
+                     "USUBJID" : "P001"
+                  }
+               ],
+               "MH" : [
+                  {
+                     "DOMAIN" : "MH",
+                     "MHDECOD" : "DIABETES MELLITUS",
+                     "MHSEQ" : 1,
+                     "MHTERM" : "Type 2 diabetes mellitus",
+                     "USUBJID" : "P001"
+                  }
+               ]
+            },
+            "metaDataRef" : "DEFINE.STUDY-XML-01",
+            "metaDataVersionOID" : "MDV.STUDY-XML-01",
+            "originator" : "Convert-Pheno",
+            "studyOID" : "STUDY-XML-01"
+         },
+         "phenopacket" : {
+            "dateOfBirth" : "1980-02-03T00:00:00Z"
+         }
+      },
+      "measures" : [
+         {
+            "assayCode" : {
+               "id" : "CDISC:LBTESTCD.ALT",
+               "label" : "Alanine Aminotransferase"
+            },
+            "date" : "2025-01-02",
+            "measurementValue" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 56,
+                     "low" : 7,
+                     "unit" : {
+                        "id" : "CDISC:UNIT.U_L",
+                        "label" : "U/L"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "CDISC:UNIT.U_L",
+                     "label" : "U/L"
+                  },
+                  "value" : 42
+               }
+            }
+         },
+         {
+            "assayCode" : {
+               "id" : "CDISC:LBTESTCD.COV2",
+               "label" : "SARS-CoV-2 RNA"
+            },
+            "date" : "2025-01-05",
+            "measurementValue" : {
+               "id" : "CDISC:LBSTRESC.NEGATIVE",
+               "label" : "NEGATIVE"
+            }
+         }
+      ],
+      "sex" : {
+         "id" : "NCIT:C20197",
+         "label" : "Male"
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "diseaseCode" : {
+               "id" : "CDISC:MHDECOD.ASTHMA",
+               "label" : "Asthma"
+            }
+         }
+      ],
+      "ethnicity" : {
+         "id" : "CDISC:ETHNIC.HISPANIC_OR_LATINO",
+         "label" : "HISPANIC OR LATINO"
+      },
+      "geographicOrigin" : {
+         "id" : "ISO3166-1:ESP",
+         "label" : "ESP"
+      },
+      "id" : "P002",
+      "info" : {
+         "datasetXml" : {
+            "datasetXMLVersion" : "1.0.0",
+            "defineXMLVersion" : "2.0.0",
+            "domains" : {
+               "DM" : [
+                  {
+                     "BRTHDTC" : "1975-06-20",
+                     "COUNTRY" : "ESP",
+                     "DOMAIN" : "DM",
+                     "DTHFL" : "Y",
+                     "ETHNIC" : "HISPANIC OR LATINO",
+                     "SEX" : "F",
+                     "USUBJID" : "P002"
+                  }
+               ],
+               "LB" : [
+                  {
+                     "DOMAIN" : "LB",
+                     "LBDTC" : "2025-02-09",
+                     "LBSTNRHI" : 16,
+                     "LBSTNRLO" : 12,
+                     "LBSTRESC" : "13.2",
+                     "LBSTRESN" : 13.2,
+                     "LBSTRESU" : "g/dL",
+                     "LBTEST" : "Hemoglobin",
+                     "LBTESTCD" : "HGB",
+                     "USUBJID" : "P002"
+                  }
+               ],
+               "MH" : [
+                  {
+                     "DOMAIN" : "MH",
+                     "MHDECOD" : "ASTHMA",
+                     "MHSEQ" : 1,
+                     "MHTERM" : "Asthma",
+                     "USUBJID" : "P002"
+                  }
+               ]
+            },
+            "metaDataRef" : "DEFINE.STUDY-XML-01",
+            "metaDataVersionOID" : "MDV.STUDY-XML-01",
+            "originator" : "Convert-Pheno",
+            "studyOID" : "STUDY-XML-01"
+         },
+         "phenopacket" : {
+            "dateOfBirth" : "1975-06-20T00:00:00Z",
+            "vitalStatus" : {
+               "status" : "DECEASED"
+            }
+         }
+      },
+      "measures" : [
+         {
+            "assayCode" : {
+               "id" : "CDISC:LBTESTCD.HGB",
+               "label" : "Hemoglobin"
+            },
+            "date" : "2025-02-09",
+            "measurementValue" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 16,
+                     "low" : 12,
+                     "unit" : {
+                        "id" : "CDISC:UNIT.G_DL",
+                        "label" : "g/dL"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "CDISC:UNIT.G_DL",
+                     "label" : "g/dL"
+                  },
+                  "value" : 13.2
+               }
+            }
+         }
+      ],
+      "sex" : {
+         "id" : "NCIT:C16576",
+         "label" : "Female"
+      }
+   }
+]

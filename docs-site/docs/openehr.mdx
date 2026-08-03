@@ -18,12 +18,9 @@ export const OpenEhrFormatImage = () => (
 [openEHR](https://www.openehr.org) defines vendor-neutral clinical information
 models and canonical representations for electronic health records.
 Convert-Pheno reads the **implemented EHRbase-oriented canonical composition
-profile** and groups compositions by patient.
-
-:::note[Implementation status]
-Implemented and regression-tested. Experimental status reflects limited
-independent validation across openEHR templates and deployments.
-:::
+profile** and groups compositions by patient. The route is implemented and
+regression-tested; independent template and deployment coverage is still
+limited.
 
 <div className="convertFormatSummary" aria-label="At a glance">
   <div><span>Role</span><strong>Input</strong></div>
@@ -37,36 +34,38 @@ independent validation across openEHR templates and deployments.
 <figcaption>Canonical compositions are grouped by patient and normalized into clinical arrays</figcaption>
 </figure>
 
-## openEHR As Input
+## What You Need
 
 Convert-Pheno accepts EHRbase-style canonical compositions as JSON or YAML,
 including gzip-compressed files. Input can be a patient envelope containing a
 `compositions` array, one raw composition, or multiple files supplied in one
 request. A mapping file is not required.
 
-Files are grouped by resolved patient identity before conversion. Compositions
-for one patient become one output record; distinct embedded patient identifiers
-can produce multiple records. Conversion fails when a stable patient identifier
-or administrative gender cannot be resolved.
+```bash
+convert-pheno -iopenehr composition.json \
+  -obff individuals.json
+```
 
-Use [openEHR conversion recipes](conversion-recipes#openehr-input-bff-output)
-for BFF and PXF commands.
+Compositions for the same patient become one record. Conversion requires a
+stable patient identifier and administrative gender. See the [openEHR
+recipes](conversion-recipes#openehr-input-bff-output) for PXF output.
 
-## Implemented Clinical Content
+## What Is Converted
 
-The current profile maps:
-
-- administrative gender to `sex`
-- problems and diagnoses to `diseases`
-- laboratory results and body temperature to `measures`
-- symptom screening to `phenotypicFeatures`
-- procedures to `interventionsOrProcedures`
-- medication actions to `treatments`
+| openEHR content | Main BFF target |
+| --- | --- |
+| administrative gender | `sex` |
+| problems and diagnoses | `diseases` |
+| laboratory results and body temperature | `measures` |
+| symptom screening | `phenotypicFeatures` |
+| procedures | `interventionsOrProcedures` |
+| medication actions | `treatments` |
 
 External codes are retained as CURIEs. Uncoded text receives a local
 `openEHR:` identifier when the target term requires both an identifier and a
 label. Source compositions are preserved under `info.openehr.compositions`
-for traceability.
+for traceability. Use `--no-source-info` to omit the compositions and
+item-level source nodes while retaining mapped fields.
 
 ## Current Boundaries
 
@@ -75,6 +74,4 @@ CSV, flattened JSON, or JSON-LD, and it does not yet map first-class Beacon
 `biosamples`. Coverage depends on the archetypes and node names represented in
 the implemented canonical profile.
 
-For field-level behavior and omissions, see the
-[openEHR to BFF mapping](openehr2bff). Regression inputs are indexed in the
-[`t/` fixture guide](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/tree/main/t).
+For field-level behavior and omissions, see [openEHR to BFF](openehr2bff).

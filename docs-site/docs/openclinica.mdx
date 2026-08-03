@@ -18,14 +18,8 @@ export const OpenClinicaFormatImage = () => (
 [OpenClinica](https://www.openclinica.com) is a clinical data-management and
 EDC platform. Convert-Pheno reads OpenClinica study exports **through the
 CDISC-ODM input route**, including the recognized vendor extension namespace
-and metadata embedded in the ODM document.
-
-:::note[Current input profile]
-OpenClinica exports are read through the CDISC-ODM route. The tested profile is
-an ODM 1.3.2 Snapshot carrying the OpenClinica extension namespace and
-embedded study metadata. Independent OpenClinica export coverage is still
-being expanded.
-:::
+and metadata embedded in the ODM document. The tested profile is an ODM 1.3.2
+Snapshot; independent export coverage is still limited.
 
 <div className="convertFormatSummary" aria-label="At a glance">
   <div><span>Role</span><strong>Input</strong></div>
@@ -39,22 +33,15 @@ being expanded.
 <figcaption>OpenClinica ODM is parsed by the version-aware CDISC-ODM input route</figcaption>
 </figure>
 
-## Input Requirements
+## What You Need
 
 Use the normal CDISC-ODM input flag. The document must declare a supported ODM
-1.3 namespace and version, use `FileType="Snapshot"`, and provide the
-`Study`, `MetaDataVersion`, `ItemDef`, and `CodeList` metadata referenced by
-its clinical records. The OpenClinica namespace is recognized independently
-of its XML prefix.
+1.3 namespace and version, use `FileType="Snapshot"`, and include the metadata
+referenced by its clinical records.
 
 The mapping file uses `source.profile: cdisc-odm`. Source fields are stable ODM
 item identifiers. Do not provide a REDCap dictionary: labels, data types, and
 decoded values come from metadata embedded in the XML.
-
-When present, OpenClinica `StudySubjectID` is used as the individual identity;
-the standard ODM `SubjectKey` remains in source provenance.
-
-## Run A Conversion
 
 ```bash
 convert-pheno -icdisc-odm openclinica-export.xml \
@@ -62,9 +49,10 @@ convert-pheno -icdisc-odm openclinica-export.xml \
   -obff individuals.json
 ```
 
-Replace the BFF output with `-opxf phenopackets.json`, or use
-`-oomop --out-dir omop_out/ --ohdsi-db` for supported OMOP-CDM tables.
+When present, OpenClinica `StudySubjectID` becomes the individual identifier;
+the standard ODM `SubjectKey` remains in source provenance. PXF and OMOP-CDM
+output use the same input and mapping.
 
 The [CDISC-ODM guide](cdisc-odm) documents repeated item groups, provenance,
-supported versions, and the difference from REDCap-origin ODM. [Mapping
-Files](mapping-files) documents the shared authoring contract.
+and supported versions. [Mapping Files](mapping-files) documents the authoring
+contract.

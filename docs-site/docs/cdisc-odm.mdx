@@ -18,14 +18,8 @@ export const CdiscOdmFormatImage = () => (
 The [CDISC Operational Data Model (ODM)](https://www.cdisc.org/standards/data-exchange/odm)
 is a vendor-neutral XML standard for exchanging clinical study data and its
 metadata between data-capture and research systems. Convert-Pheno reads
-participant `ClinicalData` from **supported Snapshot documents**.
-
-:::note[Supported input contract]
-Convert-Pheno accepts CDISC ODM-XML **Snapshot** documents using ODM 1.3.1,
-1.3.2, or the bounded ODM 2.0 ClinicalData profile described below. Namespace
-and `ODMVersion` must agree. Transactional ODM and complete ODM 2 study-design,
-workflow, audit, and attachment processing are outside this route.
-:::
+participant `ClinicalData` from **Snapshot documents using ODM 1.3.1, 1.3.2,
+or the supported ODM 2.0 ClinicalData profile**.
 
 <div className="convertFormatSummary" aria-label="At a glance">
   <div><span>Role</span><strong>Input</strong></div>
@@ -39,14 +33,9 @@ workflow, audit, and attachment processing are outside this route.
 <figcaption>ODM items retain their event and item-group occurrence while mapping to BFF</figcaption>
 </figure>
 
-The XML namespace, declared ODM version, and recognized vendor namespace are
-detected automatically; the CLI option remains `-icdisc-odm` for every
-supported version.
+## Choose The Input Profile
 
-## Choose The Source Profile
-
-The mapping always describes the source fields presented to BFF, but the
-metadata source differs by ODM origin:
+The metadata source depends on where the ODM file came from:
 
 | ODM input | Mapping declaration | REDCap dictionary | Metadata used |
 | --- | --- | --- | --- |
@@ -54,18 +43,10 @@ metadata source differs by ODM origin:
 | Standard or OpenClinica ODM | `source.profile: cdisc-odm` | Not used | Embedded `MetaDataVersion`, `ItemDef`, and `CodeList` |
 
 REDCap ODM can therefore reuse the same mapping and dictionary as the
-corresponding REDCap CSV export. For generic ODM, `ClinicalData/@StudyOID` and
-`@MetaDataVersionOID` must resolve to embedded study metadata. OpenClinica's
-extension namespace is recognized independently of its XML prefix, and
-`StudySubjectID` is preferred when present while standard `SubjectKey` remains
-in provenance.
+corresponding REDCap CSV export. Standard and OpenClinica ODM use their embedded
+item definitions and code lists instead.
 
-Generic and OpenClinica ODM support is marked experimental because the parser
-and conversion behavior are regression-tested with synthetic profiles but
-have had less validation across independent EDC exports. The existing REDCap
-ODM profile remains covered by its 3TR regression fixture.
-
-## Run A Conversion
+## Run The Conversion
 
 Standard or OpenClinica ODM with embedded metadata:
 
@@ -84,50 +65,39 @@ convert-pheno -icdisc-odm redcap-export.xml \
   -obff individuals.json
 ```
 
-Replace `-obff individuals.json` with `-opxf phenopackets.json`, or use
-`-oomop --out-dir omop_out/ --ohdsi-db` for supported OMOP-CDM tables. See
-[Choose a Conversion](conversion-recipes#cdisc-odm-input-bff-output) for the
-full routes and [Mapping Files](mapping-files) for the mapping contract.
+PXF and OMOP-CDM output use the same input and mapping. See the [CDISC-ODM
+recipes](conversion-recipes#cdisc-odm-input-bff-output) and [Mapping
+Files](mapping-files).
 
-The route is available through the CLI, Perl module, and Python binding. It is
-not exposed through the HTTP(s) API because that API does not accept
-server-local mapping or dictionary paths.
+## Repeated Records
 
-## Repeated Clinical Data
+Convert-Pheno preserves the study event, form, item group, and repeat context
+needed to distinguish repeated clinical records. ODM 1.x and 2.0 use different
+XML structures, but both are normalized before the project mapping is applied.
 
-ODM 1.x and 2.0 use different XML structures, so Convert-Pheno dispatches them
-to separate parsers:
+Repeated BFF collections such as diseases, measures, and treatments receive
+one result per matching item-group occurrence. Conflicting repeated values for
+a scalar target stop the conversion instead of being combined silently.
 
-- ODM 1.x reads `FormData`, `ItemGroupData`, and attribute-based
-  `ItemData@Value`.
-- ODM 2.0 reads recursively nested `ItemGroupData` and scalar child `Value`
-  elements.
-
-Each normalized input record represents one subject and study-event
-occurrence. Repeated BFF collections such as `diseases`, `measures`, or
-`treatments` produce one result per matching item-group occurrence. Companion
-fields referenced by the same mapping rule are resolved from that occurrence,
-so values from two repeated groups are not mixed.
-
-For scalar BFF properties, repeated identical source values collapse to one
-value. Differing values are ambiguous and stop the conversion with the source
-group and repeat context. Multiple scalar `Value` elements in one ODM 2.0
-`ItemData` are also rejected rather than flattened silently.
-
-## Provenance
+## Source Data
 
 With the default `--source-info`, generic ODM output stores structured source
 context under `info.CDISC_ODM`, including study, subject, event, form or nested
-group path, repeat keys, sequence values, and original item values. A REDCap
-ODM export keeps the established `info.REDCap_columns` representation; the
-structured ODM block is additionally included when repeated fields cannot be
-represented safely as one flat object.
+group path, repeat keys, and original values. REDCap ODM retains its established
+`info.REDCap_columns` representation.
 
 Use `--no-source-info` to omit these source copies. Mapped BFF properties and
 project metadata are retained.
 
 :::warning[Other CDISC exchange standards]
 [Dataset-XML](dataset-xml) and [Dataset-JSON](dataset-json) use separate
-experimental SDTM dataset routes. They do not use this operational ODM mapping
-workflow; Dataset-XML instead requires accompanying Define-XML metadata.
+SDTM dataset routes. They do not use this operational ODM mapping workflow;
+Dataset-XML requires accompanying Define-XML metadata.
+:::
+
+:::warning[Current boundaries]
+The namespace and declared ODM version must agree. Transactional ODM and full
+ODM 2 study-design, workflow, audit, and attachment processing are outside this
+route. Standard and OpenClinica profiles are regression-tested but have less
+independent export coverage than the REDCap ODM profile.
 :::

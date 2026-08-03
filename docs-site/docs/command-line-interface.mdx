@@ -123,7 +123,7 @@ In other words, `--entities` does not replace `-obff`. It refines which `BFF` en
 - `--entities` narrows `BFF` output. It must be combined with `-obff` and `--out-dir`.
 - `--out-name key=file` lets you override one multi-file output name. Use entity keys for `BFF` entity mode and table keys for `OMOP` output.
 - `--no-source-info` omits raw source provenance copied into `BFF` `info`, such as `OMOP_columns`, `CSV_columns`, `REDCap_columns`, `CDISC_ODM`, `cbioportal`, `datasetJson.domains`, `datasetXml.domains`, and `fhir` resources. Mapped fields and `info.convertPheno` are kept.
-- `--term-audit-tsv FILE` writes a tab-separated audit of direct terms, identifier lookups, label searches, and fallbacks, including the effective search mode and provenance of each decision.
+- `--term-audit FILE` writes a TSV, compressed TSV, or color-coded XLSX audit of direct terms, identifier lookups, label searches, and fallbacks, including retrieval paths, decision reasons, candidate scores, score margins, and provenance.
 - `--stream` is mainly relevant for **large OMOP inputs**. Use `--no-stream` to force the default in-memory mode when a wrapper or previous option may have enabled streaming.
 
 ## Important options
@@ -134,7 +134,7 @@ In other words, `--entities` does not replace `-obff`. It refines which `BFF` en
 - `--redcap-dictionary FILE` or `-rcd FILE` supplies the dictionary required by REDCap CSV and REDCap-origin ODM. Standard/OpenClinica ODM uses embedded metadata and rejects this option.
 - `--schema-file FILE` lets you validate mapping files against an alternative JSON Schema.
 - `--self-validate-schema` or `-svs` performs a self-validation of the mapping schema itself. This is mainly an author or development check and may require SSL support in the Perl environment.
-- `--term-audit-tsv FILE` writes a TSV report of terminology decisions. The audit includes source values and labels, actual lookup inputs, converted terms, provenance, fallbacks, and effective search settings.
+- `--term-audit FILE` writes a terminology-decision report selected by the `.tsv`, `.tsv.gz`, or `.xlsx` extension. The audit includes source values and labels, lookup inputs, converted terms, retrieval paths, decision reasons, candidate scores and margins, provenance, fallbacks, and effective search settings.
 
 ### CDISC-ODM-specific behavior
 
@@ -159,11 +159,11 @@ In other words, `--entities` does not replace `-obff`. It refines which `BFF` en
 - `--min-text-similarity-score FLOAT` sets the minimum score accepted by `mixed` and `fuzzy`. Default: `0.8`.
 - `--levenshtein-weight FLOAT` sets the normalized Levenshtein weight used by `fuzzy`. Default: `0.1`.
 
-For resolution precedence, audit columns, and threshold tradeoffs, see [Terminology Search](tbl/db-search).
+For resolution precedence, audit columns, and threshold tradeoffs, see [Terminology Search](terminology-search).
 
 ### OMOP-specific options
 
-- `--ohdsi-db` enables Athena-OHDSI lookup when OMOP data needs concepts not already present in the local export.
+- `--ohdsi-db` enables Athena-OHDSI lookup. It is required for OMOP output and optional for OMOP input when concepts are absent from the supplied `CONCEPT` table.
 - `--path-to-ohdsi-db DIR` points to the directory containing `ohdsi.db`.
 - `--omop-tables TABLE ...` restricts which OMOP-CDM tables are processed, while `CONCEPT` and `PERSON` stay included.
 - `--exposures-file FILE` provides a CSV list of OMOP `concept_id` values to be treated as exposures.

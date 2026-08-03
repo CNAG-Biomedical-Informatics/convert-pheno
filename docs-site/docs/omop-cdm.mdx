@@ -94,8 +94,10 @@ individuals, biosamples, Phenopackets, and streaming commands.
   individuals. Raise it for complete runs.
 - `--omop-tables` limits processing to named clinical tables. `PERSON` and
   `CONCEPT` remain required and do not need to be listed.
-- `--ohdsi-db` checks the Athena-OHDSI lookup database when a concept is not
-  available in the supplied `CONCEPT` table.
+- `--ohdsi-db` checks the Athena-OHDSI lookup database when an OMOP input
+  concept is not available in the supplied `CONCEPT` table. It is required for
+  OMOP output, where it resolves active standard concepts in the expected OMOP
+  domain.
 - Gzip input and output reduce storage but add CPU overhead, which can be
   noticeable during streaming.
 

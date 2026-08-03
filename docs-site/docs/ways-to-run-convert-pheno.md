@@ -24,7 +24,7 @@ Choose the entry point by the shape of your input data. The command-line interfa
 ## Practical Rule
 
 - Use the **CLI** when your input is a file on disk.
-- Use the **CLI** when the conversion needs `--mapping-file`, `--redcap-dictionary`, `--term-audit-tsv`, `--ohdsi-db`, or `--out-dir`.
+- Use the **CLI** when the conversion needs `--mapping-file`, `--redcap-dictionary`, `--term-audit`, `--ohdsi-db`, or `--out-dir`.
 - Use the **API** only when your input and output can be represented as one JSON request and response.
 - Use the **Module** only when you are embedding Convert-Pheno in local Perl or Python code.
 

@@ -163,17 +163,19 @@ terminology:
     query:
       from: value
       aliases:
-        MILD: Mild
+        MILD_GRADE: Mild
   MH.MHDECOD:
     terms:
       Asthma: { id: 'NCIT:C28397', label: Asthma }
 ```
 
 The alias key is the source value; its value is the reviewed database label.
-`terms` bypasses lookup for known values. Define-XML
-`nci:ExtCodeID` identifiers take precedence over a label query and are looked
-up exactly to obtain the canonical NCIT display. See
-[Terminology Search](tbl/db-search) for the full precedence and audit fields.
+Aliases are selective: this example translates `MILD_GRADE`, while an unlisted
+value such as `SEVERE` is queried unchanged. Case-only aliases are unnecessary
+because lookup is case-insensitive. `terms` bypasses lookup for known values.
+Define-XML `nci:ExtCodeID` identifiers take precedence over a label query and
+are looked up exactly to obtain the canonical NCIT display. See
+[Terminology Search](terminology-search) for the full precedence and audit fields.
 
 ## Reading A Rule
 
@@ -226,7 +228,7 @@ used for ontology lookup. A direct value mapping such as
 ontology database.
 
 Use exact terms when the identifier is already curated. Otherwise, use a
-query and review terminology resolution with `--term-audit-tsv`.
+query and review terminology resolution with `--term-audit`.
 
 Scalar targets do not perform terminology lookup:
 
@@ -340,7 +342,7 @@ against `share/schema/mapping-v2.json`, checks mapping and Beacon versions, and
 verifies the selected source profile and referenced fields.
 
 Generated BFF retains source content under its format-specific `info` block by
-default. Use `--no-source-info` to omit that copy and `--term-audit-tsv FILE`
+default. Use `--no-source-info` to omit that copy and `--term-audit FILE`
 to record direct terms, identifier lookups, label searches, and fallbacks.
 
 ## Run And Review
@@ -374,9 +376,9 @@ convert-pheno -icdisc-odm study.xml \
   -obff individuals.json
 ```
 
-For terminology review, add `--term-audit-tsv terminology.tsv`. Exact search
+For terminology review, add `--term-audit terminology.tsv`. Exact search
 is the default; similarity modes and audit columns are documented under
-[Terminology Search](tbl/db-search).
+[Terminology Search](terminology-search).
 
 Continue with [REDCap](redcap), [CSV](csv), [Dataset-JSON](dataset-json), or
 [Dataset-XML](dataset-xml).

@@ -15,3 +15,14 @@ v1.0](https://www.cdisc.org/standards/foundational/dataset-xml/dataset-xml-v10)
 and [Define-XML
 v2.0](https://www.cdisc.org/standards/data-exchange/define-xml/define-xml-v2-0)
 specifications. It contains no real participant or study data.
+
+## Terminology scenarios
+
+The main `define.xml` and domain files emphasize transport resolution, typed
+values, grouping, and safe source-derived `CDISC:` fallbacks. The
+`terminology/` subdirectory provides a focused two-value example: a supported
+`nci:ExtCodeID` is resolved exactly to `NCIT:C41222`, while an `UNKNOWN` value
+without an authoritative identifier remains `CDISC:ETHNIC.UNKNOWN`.
+
+Both results are deliberate and regression-tested. See the paired BFF
+references under [`../out/README.md`](../out/README.md).

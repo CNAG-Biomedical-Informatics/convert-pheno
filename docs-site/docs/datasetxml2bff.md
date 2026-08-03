@@ -59,10 +59,14 @@ other term-bearing fields. When neither source metadata nor the mapping
 resolves a term, source-derived `CDISC:` identifiers preserve SDTM field/value
 identity without claiming an ontology crosswalk.
 
-Use `--term-audit-tsv` to distinguish Define-XML identifiers, direct mapping
+Use `--term-audit` to distinguish Define-XML identifiers, direct mapping
 terms, database matches, and source fallbacks. Use `--no-source-info` to omit
-the raw rows. See [Terminology Search](tbl/db-search) for the complete
+the raw rows. See [Terminology Search](terminology-search) for the complete
 resolution contract.
+
+Paired [baseline](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/t/datasetxml2bff/out/individuals.json)
+and [terminology](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/t/datasetxml2bff/out/terminology/individuals.json)
+references show that these outcomes are separate, tested code paths.
 
 See the [Dataset-XML guide](dataset-xml) for commands, required files, and
 memory behavior.

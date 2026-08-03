@@ -1,21 +1,21 @@
 person_id;gender_concept_id;year_of_birth;month_of_birth;day_of_birth;birth_datetime;race_concept_id;ethnicity_concept_id;location_id;provider_id;care_site_id;person_source_value;gender_source_value;gender_source_concept_id;race_source_value;race_source_concept_id;ethnicity_source_value;ethnicity_source_concept_id
-1;8507;1900;;;1900-01-01T00:00:00Z;45877987;0;;;;P001:Baseline;Male;;White;;;
-2;8507;1900;;;1900-01-01T00:00:00Z;45877987;0;;;;P001:Treatment;Male;;White;;;
-3;8507;1900;;;1900-01-01T00:00:00Z;38003563;0;;;;P002:Baseline;Male;;"Hispanic or Latino";;;
-4;8507;1900;;;1900-01-01T00:00:00Z;38003563;0;;;;P002:Treatment;Male;;"Hispanic or Latino";;;
-5;8507;1900;;;1900-01-01T00:00:00Z;45882995;0;;;;P003:Baseline;Male;;"Native American";;;
-6;8507;1900;;;1900-01-01T00:00:00Z;45882995;0;;;;P003:Treatment;Male;;"Native American";;;
-7;8507;1900;;;1900-01-01T00:00:00Z;45882995;0;;;;P004:Baseline;Male;;"Native American";;;
-8;8507;1900;;;1900-01-01T00:00:00Z;45882995;0;;;;P004:Treatment;Male;;"Native American";;;
-9;8507;1900;;;1900-01-01T00:00:00Z;36033877;0;;;;P005:Baseline;Male;;"African American";;;
-10;8507;1900;;;1900-01-01T00:00:00Z;36033877;0;;;;P005:Treatment;Male;;"African American";;;
-11;8507;1900;;;1900-01-01T00:00:00Z;45879439;0;;;;P006:Baseline;Male;;Asian;;;
-12;8507;1900;;;1900-01-01T00:00:00Z;45879439;0;;;;P006:Treatment;Male;;Asian;;;
-13;8507;1900;;;1900-01-01T00:00:00Z;45879439;0;;;;P007:Baseline;Male;;Asian;;;
-14;8507;1900;;;1900-01-01T00:00:00Z;45879439;0;;;;P007:Treatment;Male;;Asian;;;
-15;8507;1900;;;1900-01-01T00:00:00Z;45879439;0;;;;P008:Baseline;Male;;Asian;;;
-16;8507;1900;;;1900-01-01T00:00:00Z;45879439;0;;;;P008:Treatment;Male;;Asian;;;
-17;8532;1900;;;1900-01-01T00:00:00Z;45882995;0;;;;P009:Baseline;Female;;"Native American";;;
-18;8532;1900;;;1900-01-01T00:00:00Z;45882995;0;;;;P009:Treatment;Female;;"Native American";;;
-19;8507;1900;;;1900-01-01T00:00:00Z;45877987;0;;;;P010:Baseline;Male;;White;;;
-20;8507;1900;;;1900-01-01T00:00:00Z;45877987;0;;;;P010:Treatment;Male;;White;;;
+1;8507;1900;;;1900-01-01T00:00:00Z;8527;0;;;;P001:Baseline;Male;0;White;0;;0
+2;8507;1900;;;1900-01-01T00:00:00Z;8527;0;;;;P001:Treatment;Male;0;White;0;;0
+3;8507;1900;;;1900-01-01T00:00:00Z;0;38003563;;;;P002:Baseline;Male;0;;0;"Hispanic or Latino";0
+4;8507;1900;;;1900-01-01T00:00:00Z;0;38003563;;;;P002:Treatment;Male;0;;0;"Hispanic or Latino";0
+5;8507;1900;;;1900-01-01T00:00:00Z;0;0;;;;P003:Baseline;Male;0;"Native American";0;;0
+6;8507;1900;;;1900-01-01T00:00:00Z;0;0;;;;P003:Treatment;Male;0;"Native American";0;;0
+7;8507;1900;;;1900-01-01T00:00:00Z;0;0;;;;P004:Baseline;Male;0;"Native American";0;;0
+8;8507;1900;;;1900-01-01T00:00:00Z;0;0;;;;P004:Treatment;Male;0;"Native American";0;;0
+9;8507;1900;;;1900-01-01T00:00:00Z;38003599;0;;;;P005:Baseline;Male;0;"African American";0;;0
+10;8507;1900;;;1900-01-01T00:00:00Z;38003599;0;;;;P005:Treatment;Male;0;"African American";0;;0
+11;8507;1900;;;1900-01-01T00:00:00Z;8515;0;;;;P006:Baseline;Male;0;Asian;0;;0
+12;8507;1900;;;1900-01-01T00:00:00Z;8515;0;;;;P006:Treatment;Male;0;Asian;0;;0
+13;8507;1900;;;1900-01-01T00:00:00Z;8515;0;;;;P007:Baseline;Male;0;Asian;0;;0
+14;8507;1900;;;1900-01-01T00:00:00Z;8515;0;;;;P007:Treatment;Male;0;Asian;0;;0
+15;8507;1900;;;1900-01-01T00:00:00Z;8515;0;;;;P008:Baseline;Male;0;Asian;0;;0
+16;8507;1900;;;1900-01-01T00:00:00Z;8515;0;;;;P008:Treatment;Male;0;Asian;0;;0
+17;8532;1900;;;1900-01-01T00:00:00Z;0;0;;;;P009:Baseline;Female;0;"Native American";0;;0
+18;8532;1900;;;1900-01-01T00:00:00Z;0;0;;;;P009:Treatment;Female;0;"Native American";0;;0
+19;8507;1900;;;1900-01-01T00:00:00Z;8527;0;;;;P010:Baseline;Male;0;White;0;;0
+20;8507;1900;;;1900-01-01T00:00:00Z;8527;0;;;;P010:Treatment;Male;0;White;0;;0

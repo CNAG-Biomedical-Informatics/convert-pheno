@@ -8,7 +8,7 @@ use JSON::PP                      ();
 use Scalar::Util                   qw(looks_like_number);
 use Convert::Pheno::Utils::Default qw(get_defaults);
 use Convert::Pheno::Mapping::Shared;
-use Data::Dumper;
+use Convert::Pheno::OMOP::Vocabulary qw(resolve_standard_concept);
 use Exporter 'import';
 
 our @EXPORT = qw(do_bff2omop);
@@ -19,11 +19,26 @@ my $OBSERVATION_ID_COUNT          = 0;
 my $CONDITION_OCCURRENCE_COUNT    = 0;
 my $PROCEDURE_OCCURRENCE_ID_COUNT = 0;
 
-# one-time dispatch table
-my %INVERSE_DISPATCH = map { $_ => \&_map_ohdsi_label } qw(
-  gender race ethnicity disease stage
-  exposure phenotypicFeature procedure
-  measurement treatment unit route
+# OMOP standard concept fields are domain-specific. An exact label in another
+# domain is not interchangeable, even when its text is identical.
+my %INVERSE_CONFIG = (
+    gender             => { domains => ['Gender'] },
+    race               => { domains => ['Race'] },
+    ethnicity          => { domains => ['Ethnicity'] },
+    demographic        => { domains => [ 'Race', 'Ethnicity' ] },
+    disease            => { domains => ['Condition'] },
+    stage              => { domains => ['Condition Status'] },
+    exposure           => { domains => ['Observation'] },
+    phenotypicFeature  => { domains => ['Observation'] },
+    procedure          => { domains => ['Procedure'] },
+    measurement        => { domains => ['Measurement'] },
+    measurementValue   => {
+        domains       => ['Meas Value'],
+        relationships => ['Maps to value'],
+    },
+    treatment => { domains => ['Drug'] },
+    unit      => { domains => ['Unit'] },
+    route     => { domains => ['Route'] },
 );
 
 ###############
@@ -104,18 +119,42 @@ sub _map_person {
     }
 
     # Convert sex: now done via our new generic inverse_map.
-    ( $person->{gender_concept_id}, $person->{gender_source_value} ) =
+    (
+        $person->{gender_concept_id},
+        $person->{gender_source_value},
+        $person->{gender_source_concept_id}
+      ) =
       inverse_map( 'gender', $bff->{sex}, 'label', $self );
 
-    ( $person->{race_concept_id}, $person->{race_source_value} ) =
-      exists $bff->{ethnicity}
-      ? inverse_map( 'race', $bff->{ethnicity}, 'label', $self )
-      : ( $DEFAULT->{concept_id}, '' );
+    ( $person->{race_concept_id}, $person->{race_source_value},
+        $person->{race_source_concept_id} ) =
+      ( $DEFAULT->{concept_id}, '', $DEFAULT->{concept_id} );
+    ( $person->{ethnicity_concept_id}, $person->{ethnicity_source_value},
+        $person->{ethnicity_source_concept_id} ) =
+      ( $DEFAULT->{concept_id}, '', $DEFAULT->{concept_id} );
 
-    ( $person->{ethnicity_concept_id}, $person->{ethnicity_source_value} ) =
-      exists $bff->{geographicOrigin}
-      ? inverse_map( 'ethnicity', $bff->{geographicOrigin}, 'label', $self )
-      : ( $DEFAULT->{concept_id}, '' );
+    if ( exists $bff->{ethnicity} ) {
+        my ( $concept_id, $source_value, $source_concept_id, $resolution ) =
+          inverse_map( 'demographic', $bff->{ethnicity}, 'label', $self );
+        my $target = $resolution->{target_domain} // 'Race';
+        my $prefix = $target eq 'Ethnicity' ? 'ethnicity' : 'race';
+        $person->{ $prefix . '_concept_id' }        = $concept_id;
+        $person->{ $prefix . '_source_value' }      = $source_value;
+        $person->{ $prefix . '_source_concept_id' } = $source_concept_id;
+    }
+
+    # Some synthetic OMOP datasets place country of birth in
+    # ethnicity_source_value. Retain that established fallback only when BFF
+    # did not provide a term that resolves to the OMOP Ethnicity domain.
+    if ( exists $bff->{geographicOrigin}
+        && !$person->{ethnicity_concept_id} )
+    {
+        (
+            $person->{ethnicity_concept_id},
+            $person->{ethnicity_source_value},
+            $person->{ethnicity_source_concept_id}
+          ) = inverse_map( 'ethnicity', $bff->{geographicOrigin}, 'label', $self );
+    }
 
     # Save the PERSON record one person per individual)
     $omop_ref->{PERSON} = $person;
@@ -134,7 +173,11 @@ sub _map_diseases {
         $cond->{condition_occurrence_id} = ++$CONDITION_OCCURRENCE_COUNT;
 
         # We now call our generic inverse_map:
-        ( $cond->{condition_concept_id}, $cond->{condition_source_value} ) =
+        (
+            $cond->{condition_concept_id},
+            $cond->{condition_source_value},
+            $cond->{condition_source_concept_id}
+          ) =
           inverse_map( 'disease', $disease->{diseaseCode}, 'label', $self );
 
         # Convert onset (e.g., an ISO8601 duration) to a date
@@ -176,7 +219,11 @@ sub _map_exposures {
         $obs->{observation_id} = ++$OBSERVATION_ID_COUNT;
 
         # e.g., $exposure->{exposureCode} used in a generic mapping:
-        ( $obs->{observation_concept_id}, $obs->{observation_source_value} ) =
+        (
+            $obs->{observation_concept_id},
+            $obs->{observation_source_value},
+            $obs->{observation_source_concept_id}
+          ) =
           inverse_map( 'exposure', $exposure->{exposureCode}, 'label', $self );
 
         # Date
@@ -220,7 +267,11 @@ sub _map_phenotypicFeatures {
         $obs->{observation_id} = ++$OBSERVATION_ID_COUNT;
 
         # e.g., $feature->{featureType} used in a generic mapping:
-        ( $obs->{observation_concept_id}, $obs->{observation_source_value} ) =
+        (
+            $obs->{observation_concept_id},
+            $obs->{observation_source_value},
+            $obs->{observation_source_concept_id}
+          ) =
           inverse_map( 'phenotypicFeature', $feature->{featureType},
             'label', $self );
 
@@ -280,7 +331,8 @@ sub _map_interventionsOrProcedures {
 
         (
             $procedure->{procedure_concept_id},
-            $procedure->{procedure_source_value}
+            $procedure->{procedure_source_value},
+            $procedure->{procedure_source_concept_id}
           )
           = inverse_map( 'procedure', $proc->{procedureCode}, 'label', $self );
 
@@ -315,7 +367,11 @@ sub _map_measurements {
         my $m;
         $m->{measurement_id} = ++$MEASUREMENT_ID_COUNT;
 
-        ( $m->{measurement_concept_id}, $m->{measurement_source_value} ) =
+        (
+            $m->{measurement_concept_id},
+            $m->{measurement_source_value},
+            $m->{measurement_source_concept_id}
+          ) =
           inverse_map( 'measurement', $measure->{assayCode}, 'label', $self );
         $m->{measurement_date} = $measure->{date};
 
@@ -337,13 +393,17 @@ sub _map_measurements {
                         $m->{range_high} = $quantity->{referenceRange}{high};
                     }
                     if ( ref( $quantity->{unit} ) eq 'HASH' ) {
-                        ( $m->{unit_concept_id}, $m->{unit_source_value} ) =
+                        (
+                            $m->{unit_concept_id},
+                            $m->{unit_source_value},
+                            $m->{unit_source_concept_id}
+                          ) =
                           inverse_map( 'unit', $quantity->{unit}, 'label', $self );
                     }
                 }
                 elsif ( exists $value->{id} ) {
                     ( $m->{value_as_concept_id}, $m->{value_source_value} ) =
-                      inverse_map( 'measurement', $value, 'label', $self );
+                      inverse_map( 'measurementValue', $value, 'label', $self );
                 }
                 else {
                     $m->{value_as_number} = -1;
@@ -360,19 +420,9 @@ sub _map_measurements {
         $m->{value_source_value} = $m->{value_as_number}
           unless exists $m->{value_source_value};
 
-        # Optionally map procedure details from measurement if available.
-        if ( exists $measure->{procedure} ) {
-            (
-                $m->{measurement_type_concept_id},
-                $m->{measurement_type_source_value}
-              )
-              = inverse_map( 'procedure', $measure->{procedure}{procedureCode},
-                'label', $self );
-        }
-        else {
-            $m->{measurement_type_concept_id}   = $DEFAULT->{concept_id};
-            $m->{measurement_type_source_value} = '';
-        }
+        # A BFF measurement procedure describes how the assay was performed;
+        # it is not OMOP provenance and must not populate a Type Concept field.
+        $m->{measurement_type_concept_id} = $DEFAULT->{concept_id};
 
         _attach_common( $self, $m, $measure, $person_id );
 
@@ -394,7 +444,11 @@ sub _map_treatments {
         # TEMPORARY
         $drug->{drug_type_concept_id} = 0;
 
-        ( $drug->{drug_concept_id}, $drug->{drug_source_value} ) =
+        (
+            $drug->{drug_concept_id},
+            $drug->{drug_source_value},
+            $drug->{drug_source_concept_id}
+          ) =
           inverse_map( 'treatment', $treatment->{treatmentCode},
             'label', $self );
 
@@ -464,41 +518,33 @@ sub _map_treatments {
     $omop_ref->{DRUG_EXPOSURE} = \@treatments if @treatments;
 }
 
-###############################################################################
-# Helper sub for repeated call to map_ontology_term with ohdsi label
-###############################################################################
-sub _map_ohdsi_label {
-    my ( $source_value, $self ) = @_;
-
-    my $result = map_ontology_term(
-        {
-            query              => $source_value,
-            column             => 'label',
-            ontology           => 'ohdsi',
-            require_concept_id => 1,
-            self               => $self
-        }
-    );
-
-    return ( $result->{concept_id}, $source_value );
-}
-
-###############################################################################
-# New single generic sub that merges old inverse_map_* logic via a dispatch table
-###############################################################################
 sub inverse_map {
     my ( $mapping_type, $hashref, $key, $self ) = @_;
 
-    # grab the handler from our static table
-    my $handler = $INVERSE_DISPATCH{$mapping_type};
-    unless ($handler) {
+    my $config = $INVERSE_CONFIG{$mapping_type};
+    unless ($config) {
         warn "Unknown mapping type <$mapping_type>; returning (0,'')\n";
-        return ( 0, '' );
+        return ( 0, '', 0 );
     }
 
-    # pull the value and invoke
-    my $value = $hashref->{$key} // '';
-    return $handler->( $value, $self );
+    my $term = ref($hashref) eq 'HASH'
+      ? $hashref
+      : { $key => defined $hashref ? $hashref : q{} };
+    my $result = resolve_standard_concept(
+        {
+            self         => $self,
+            term         => $term,
+            mapping_type => $mapping_type,
+            %{$config},
+        }
+    );
+
+    return (
+        $result->{concept_id},
+        $result->{source_value},
+        $result->{source_concept_id},
+        $result,
+    );
 }
 
 sub _attach_common {

@@ -25,6 +25,7 @@ requires 'JSONLD';
 requires 'Devel::Size';
 requires 'DateTime::Format::ISO8601';
 requires 'IO::Uncompress::Unzip';
+requires 'Excel::Writer::XLSX', '>= 1.12';
 
 # t
 requires 'Test::Deep';

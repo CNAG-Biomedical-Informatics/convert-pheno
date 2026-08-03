@@ -62,7 +62,7 @@ my ($mh) = grep { $_->{name} eq 'MH' } @datasets;
     is(
         $individuals->[0]{phenotypicFeatures}[0]{severity}{id},
         'NCIT:C70666',
-        'Dataset-JSON mapping aliases resolve SDTM severity to NCIT'
+        'Dataset-JSON mapping applies a curated SDTM severity term'
     );
     is(
         $individuals->[0]{measures}[0]{assayCode}{label},
@@ -83,8 +83,8 @@ my ($mh) = grep { $_->{name} eq 'MH' } @datasets;
     my $audit = slurp_file($audit_file);
     like(
         $audit,
-        qr/\tAE\.AESEV\tMILD\tMILD\tMild\tlabel\tMild\tNCIT:C70666\t/,
-        'terminology audit distinguishes the source value from its alias query'
+        qr/\tLB\.LBTESTCD\tALT\t[^\t]*\tAlanine Aminotransferase\tlabel\tAlanine Aminotransferase\tNCIT:C25293\t/,
+        'terminology audit distinguishes an SDTM source code from its reviewed alias query'
     );
 }
 

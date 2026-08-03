@@ -19,9 +19,14 @@ sidebar_label: FAQs
 <summary>Can `Convert-Pheno` be used as an ETL tool for CSV-to-OMOP?</summary>
 
 
-Yes, within its supported mapping scope. A project mapping file describes how CSV columns become `BFF` individuals fields, and Convert-Pheno then applies its built-in BFF-to-OMOP mapping in the same CLI run. Users do not need to create the intermediate BFF file.
+Yes. Convert-Pheno can turn mapped CSV records into supported OMOP CSV tables
+in one command. It uses BFF internally; you do not need to create an
+intermediate BFF file.
 
-This is not an arbitrary OMOP loader: the source data must fit the supported mapping-file concepts, and output is limited to the OMOP tables documented in [BFF to OMOP](bff2omop). The generated CSV tables still require terminology review, validation, and a separate database import step. See the [CSV guide](csv) for the command and workflow boundaries.
+You must provide a mapping file describing the source columns and their
+meaning. Convert-Pheno writes OMOP CSV tables but does not import them into an
+OMOP database. Review and validate the tables before importing them. See the
+[CSV guide](csv) and [BFF to OMOP](bff2omop).
 
 
 </details>
@@ -45,9 +50,13 @@ It's **`Convert-Pheno`**, for two reasons:
 
 </details>
 <details>
-<summary>Is `Convert-Pheno` ready for use in production environments?</summary>
+<summary>How mature are the supported conversions?</summary>
 
-The software is fully functional and has been successfully used in several European-funded projects. However, it is still in beta, so ongoing improvements and refinements are to be expected.
+Convert-Pheno is used in research projects, and its supported routes are
+covered by automated regression tests. Formats marked **experimental** are
+implemented, but have been evaluated with fewer independent datasets or source
+systems. Validate generated outputs against your project's requirements before
+operational use.
 
 
 </details>
@@ -141,150 +150,30 @@ See [Development Validation](development-validation) for details.
 <details>
 <summary>What type of **database search** is carried out?</summary>
 
+Convert-Pheno supports indexed exact lookup, strict token ranking with `mixed`,
+and typo-tolerant candidate retrieval with `fuzzy`. Similarity scores measure
+lexical resemblance rather than clinical equivalence. The formulas, worked
+NCIT example, threshold behavior, and terminology-audit columns are documented
+under [Terminology Search](terminology-search).
 
-    <details>
-    <summary>About text similarity in database searches</summary>
+</details>
+<details>
+<summary>Why do some Dataset-JSON and Dataset-XML examples contain `CDISC:` identifiers?</summary>
 
-    
-    `Convert-Pheno` comes with several pre-configured ontology/terminology databases. It supports three types of label-based search strategies:
-    
-    ---
-    
-    #### 1. `exact` (default)
-    
-    Returns only **exact matches** for the given label string. If the label is not found exactly, no results are returned.
-    
-    ---
-    
-    #### 2. `mixed` (use `--search mixed`)
-    
-    **Hybrid search**: First tries to find an exact label match. If none is found, it performs a token-based similarity search and returns the closest matching concept based on the **highest similarity score**.
-    
-    ---
-    
-    #### 3. ✨ `fuzzy` (use `--search fuzzy`)
-    
-    **Hybrid search with fuzzy ranking**:  
-    Like `mixed`, it starts with an exact match attempt. If that fails, it performs a **weighted similarity search**, where:
-    - **90%** of the score comes from token-based similarity (e.g., cosine or Dice coefficient),
-    - **10%** comes from the **normalized Levenshtein similarity**.
-    
-    The concept with the highest composite score is returned.
-    
-    **Note:** The normalized Levenshtein similarity is computed on top of the candidate results produced by the full text search. In this approach, an initial full text search (using token-based methods) returns a set of potential matches. The fuzzy search then refines these results by applying the normalized Levenshtein distance to better handle minor typographical differences, ensuring that the final composite score reflects both overall token similarity and fine-grained character-level differences.
-    
-    
-    ---
-    
-    #### 🔍 Example Search Behavior
-    
-    **Query:** `Exercise pain management`  
-    - With `--search exact`: ✅ Match found — **Exercise Pain Management**
-    
-    **Query:** `Brain Hemorrhage`  
-    - With `--search mixed`:  
-      - ❌ No exact match  
-      - ✅ Closest match by similarity: **Intraventricular Brain Hemorrhage**
-    
-    ---
-    
-    ### 💡 Similarity Threshold
-    
-    The `--min-text-similarity-score` option sets the minimum threshold for `mixed` and `fuzzy` searches.
-    - Default: `0.8` (conservative)  
-    - Lowering the threshold may increase recall but may introduce irrelevant matches.
-    
-    ---
-    
-    ### ⚠️ Performance Note
-    
-    Both `mixed` and `fuzzy` modes are more computationally intensive and can produce unexpected or less interpretable matches. Use them with care, especially on large datasets.
-    
-    ---
-    
-    ### 🧪 Example Results Table
-    
-    Below is an example showing how the query `Sudden Death Syndrome` performs using different search modes against the NCIt ontology:
-    
-    | Query                 | Search | NCIt match (label)                                    | NCIt code    | Cosine | Dice | Levenshtein (Normalized) | Composite |
-    |-----------------------|--------|-------------------------------------------------------|--------------|--------|------|--------------------------|-----------|
-    | Sudden Death Syndrome | exact  | NA                                                    | NA           | NA     | NA   | NA                       | NA        |
-    |                       | mixed  | CDISC SDTM Sudden Death Syndrome Type Terminology     | NCIT:C101852 | 0.65   | 0.60 | NA                       | NA        |
-    |                       |        | Family History of Sudden Arrythmia Death Syndrome     | NCIT:C168019 | 0.65   | 0.60 | NA                       | NA        |
-    |                       |        | Family History of Sudden Infant Death Syndrome        | NCIT:C168209 | 0.65   | 0.60 | NA                       | NA        |
-    |                       |        | Sudden Infant Death Syndrome                          | NCIT:C85173  | 0.86   | 0.86 | NA                       | NA        |
-    |                       | ✨ fuzzy  | CDISC SDTM Sudden Death Syndrome Type Terminology     | NCIT:C101852 | 0.65   | 0.60 | 0.43                     | 0.63      |
-    |                       |        | Family History of Sudden Arrythmia Death Syndrome     | NCIT:C168019 | 0.65   | 0.60 | 0.43                     | 0.63      |
-    |                       |        | Family History of Sudden Infant Death Syndrome        | NCIT:C168209 | 0.65   | 0.60 | 0.46                     | 0.63      |
-    |                       |        | Sudden Infant Death Syndrome                          | NCIT:C85173  | 0.86   | 0.86 | 0.75                     | 0.85      |
-    
-    **Interpretation:**  
-    
-    - With `exact`, there are no matches.
-    
-    - With `mixed`, the best match will be `Sudden Infant Death Syndrome`.
-    
-    - With `fuzzy`, the **composite score** (90% token-based + 10% Levenshtein similarity) is used to rank results.  
-      The highest match is `Sudden Infant Death Syndrome`, with a composite score of **0.85**.
-    
-    ---
-    
-    ✨ Now we introduce a typo on the query `Sudden Infant Deth Syndrome`:
-    
-    
-    | Query                 | Mode  | Candidate Label                                       | Code         | Cosine | Dice   |  Levenshtein (Normalized) | Composite |
-    |-----------------------|-------|-------------------------------------------------------|-------------|--------|--------|------------|-----------|
-    | Sudden Infant Deth Syndrome | fuzzy | CDISC SDTM Sudden Death Syndrome Type Terminology     | NCIT:C101852 | 0.38   | 0.36   | 0.33        | 0.37      |
-    |                             |       | Family History of Sudden Arrythmia Death Syndrome     | NCIT:C168019 | 0.38   | 0.36   | 0.43        | 0.38      |
-    |                             |       | Family History of Sudden Infant Death Syndrome        | NCIT:C168209 | 0.57   | 0.55   | 0.59        | 0.57      |
-    |                             |       | Sudden Infant Death Syndrome                          | NCIT:C85173 | 0.75   | 0.75   | 0.96        | 0.77      
-    
-    To capture the best match we would need to lower the threshold to  `--min-text-similarity-score 0.75`
-    
-    It is possible to change the weight of Levenshtein similarity via `--levenshtein-weight <floating 0.0 - 1.0>`.
-    
-    
-    </details>
-    <details>
-    <summary>Composite Similarity Score</summary>
+Those identifiers are deliberate source-derived fallbacks, not failed or
+silently skipped searches. Convert-Pheno does not invent an external ontology
+crosswalk when the source supplies no authoritative identifier and the data
+owner has not configured a terminology rule.
 
-    
-    The composite similarity score is computed as a weighted sum of two measures: the token-based similarity and the normalized Levenshtein similarity.
-    
-    #### 1. Token-Based Similarity
-    
-    This is calculated using methods like cosine or Dice similarity to measure how similar the tokens (words) of two strings are.
-    
-    #### 2. Normalized Levenshtein Similarity
-    
-    The normalized Levenshtein similarity is defined as:
-    
-    $$
-    \text{NormalizedLevenshtein}(s_1, s_2) = 1 - \frac{\text{lev}(s_1, s_2)}{\max(|s_1|, |s_2|)}
-    $$
-    
-    Where:
-    - `\text{lev}(s_1, s_2)` is the Levenshtein edit distance—the minimum number of insertions, deletions, or substitutions required to change `s_1` into `s_2`.
-    - `|s_1|` and `|s_2|` are the lengths of the strings `s_1` and `s_2`, respectively.
-    
-    This formula produces a score between 0 and 1, with **1.0** meaning identical strings and **0.0** meaning completely different strings.
-    
-    #### 3. Composite Score Formula
-    
-    The final composite similarity score `C` is a weighted combination of the two metrics:
-    
-    $$
-    C(s_1, s_2) = \alpha \cdot \text{TokenSimilarity}(s_1, s_2) + \beta \cdot \text{NormalizedLevenshtein}(s_1, s_2)
-    $$
-    
-    Where:
-    - `\alpha` (or `token_weight`) is the weight assigned to the token-based similarity.
-    - `\beta` (or `lev_weight`) is the weight assigned to the normalized Levenshtein similarity.
-    
-    A common default is to set `\alpha = 0.9` and `\beta = 0.1`, emphasizing the token-based similarity. However, for short strings (4–5 words), you might consider adjusting the balance (for example, `\alpha = 0.95` and `\beta = 0.05`) if small typographical differences are less critical.
+The repository keeps baseline and terminology-enriched fixtures separately.
+Baseline outputs test structural conversion and preservation of SDTM
+field/value identity. Enriched outputs test reviewed mapping-file queries,
+direct terms, or exact NCI identifier lookup from Define-XML. Use
+`--term-audit` to distinguish each resolution path in your own conversion.
 
+See [Dataset-JSON](dataset-json), [Dataset-XML](dataset-xml), and
+[Terminology Search](terminology-search).
 
-    </details>
 </details>
 <details>
 <summary>Error Handling for `CSV_XS ERROR: 2023 - EIQ - QUO character not allowed @ rec 1 pos 21 field 1`</summary>

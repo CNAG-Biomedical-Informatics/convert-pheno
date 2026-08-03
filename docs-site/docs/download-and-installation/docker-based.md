@@ -232,7 +232,7 @@ docker run --rm \
   /usr/share/convert-pheno/bin/convert-pheno \
   -icsv /data/input/clinical.csv \
   --mapping-file /data/mapping/mapping.yaml \
-  --term-audit-tsv /data/output/terminology.tsv \
+  --term-audit /data/output/terminology.tsv \
   -obff /data/output/individuals.json
 ```
 
@@ -282,9 +282,12 @@ directories.
 
 ## Optional Athena-OHDSI Database
 
-If you need `--ohdsi-db`, download `ohdsi.db` separately and either place it
-under `share/db/` in a local checkout or mount it into the container and point
-to it with `--path-to-ohdsi-db`.
+OMOP output requires the current `ohdsi.db`; OMOP input can also use it for
+concepts absent from the supplied `CONCEPT` table. This approximately 3.2 GB
+database includes concept domains, standard-concept status, and `Maps to`
+relationships. Older four-column copies are not compatible. Download it
+separately, mount it into the container, and point to its directory with
+`--path-to-ohdsi-db`.
 
 You can either download it manually in a browser from this Google Drive
 directory:

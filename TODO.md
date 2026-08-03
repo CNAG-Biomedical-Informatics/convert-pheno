@@ -53,3 +53,8 @@ Define-XML v2 metadata is also implemented through the shared SDTM mapper.
   more geographically concentrated user base
 - HL7 v2, i2b2, and proprietary EDC APIs should require a concrete user,
   stable contract, and representative fixture before implementation
+# MEDIUM PRIORITY
+* Pxf to BFF - genomicVariations
+
+# LOW PRIORITY
+* range_high and range_low OMOP value?

@@ -234,7 +234,7 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: 'doc',
-          id: 'tbl/db-search',
+          id: 'terminology-search',
           label: 'Terminology Search',
         },
         {

@@ -68,8 +68,10 @@ Term-bearing SDTM fields use the following precedence:
 
 The compact mapping uses `source.profile: sdtm` and a top-level `terminology`
 object keyed by `DOMAIN.FIELD`. Structural SDTM-to-BFF fields are not
-redeclared. In an alias such as `MILD: Mild`, the left side is the source value
-and the right side is the database label selected by the data owner.
+redeclared. In an alias such as `MILD_GRADE: Mild`, the left side is a local
+source value and the right side is the database label selected by the data
+owner. Aliases are selective; values that already match a database label do
+not need to be listed.
 
 If no configured or source-authoritative resolution applies, field/value pairs
 are encoded as source-derived CURIEs such as `CDISC:LBTESTCD.ALT` or
@@ -77,9 +79,14 @@ are encoded as source-derived CURIEs such as `CDISC:LBTESTCD.ALT` or
 API-safe identifiers. These fallbacks preserve source identity and are not
 evidence of external terminology resolution.
 
-Use `--term-audit-tsv` to review source values, labels, lookup inputs, emitted
-terms, match provenance, and fallbacks. See [Terminology Search](tbl/db-search)
+Use `--term-audit` to review source values, labels, lookup inputs, emitted
+terms, match provenance, and fallbacks. See [Terminology Search](terminology-search)
 for the complete contract.
+
+The checked-in references deliberately include both the [baseline fallback
+output](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/t/datasetjson2bff/out/individuals.json)
+and an [output using the reviewed terminology
+mapping](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/t/datasetjson2bff/out/terminology/individuals.json).
 
 All supplied subject-level rows are copied under `info.datasetJson.domains` by
 default. Domains without a first-class mapping are also named in

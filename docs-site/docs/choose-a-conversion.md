@@ -119,12 +119,12 @@ same mapped records can be written directly as BFF, PXF, or OMOP-CDM.
 convert-pheno \
   -icsv clinical.csv \
   --mapping-file mapping.yaml \
-  --term-audit-tsv terminology.tsv \
+  --term-audit terminology.tsv \
   -obff individuals.json
 ```
 
 Use `--sep` when the delimiter differs from the configured default. Details:
-[CSV](csv), [Mapping Files](mapping-files), and [Terminology Search](tbl/db-search).
+[CSV](csv), [Mapping Files](mapping-files), and [Terminology Search](terminology-search).
 
 <a id="redcap-input-pxf-output"></a>
 <a id="redcap-input-omop-cdm-output"></a>
@@ -136,7 +136,7 @@ convert-pheno \
   -iredcap redcap.csv \
   --redcap-dictionary redcap-dictionary.csv \
   --mapping-file mapping.yaml \
-  --term-audit-tsv terminology.tsv \
+  --term-audit terminology.tsv \
   -obff individuals.json
 ```
 
@@ -202,7 +202,7 @@ convert-pheno \
 
 Supply one SDTM domain per file; `DM` is required. All supplied domains are
 currently loaded and grouped by `USUBJID` in memory. Add
-`--mapping-file sdtm-terminology.yaml` and `--term-audit-tsv terminology.tsv`
+`--mapping-file sdtm-terminology.yaml` and `--term-audit terminology.tsv`
 when the data owner has reviewed terminology rules. Details:
 [CDISC Dataset-JSON](dataset-json) and
 [Dataset-JSON to BFF mapping](datasetjson2bff).
@@ -262,7 +262,7 @@ by resolved patient identity. Details: [openEHR](openehr) and
 | Need | Option |
 | --- | --- |
 | Stable output for fixture comparison | `--test` |
-| Terminology decision review | `--term-audit-tsv terminology.tsv` |
+| Terminology decision review | `--term-audit terminology.tsv` |
 | Smaller BFF without copied source columns | `--no-source-info` |
 | Separate Beacon entity files | `--entities ... --out-dir bff_out/` |
 | Incremental OMOP SQL processing | `--stream` with `-iomop ... -obff` |
@@ -290,8 +290,8 @@ convert-pheno \
   --mapping-file mapping.yaml \
   --search mixed \
   --min-text-similarity-score 0.8 \
-  --term-audit-tsv terminology.tsv \
+  --term-audit terminology.tsv \
   -obff individuals.json
 ```
 
-See [Terminology Search](tbl/db-search) for resolution precedence, scoring, and audit-column interpretation.
+See [Terminology Search](terminology-search) for resolution precedence, scoring, and audit-column interpretation.

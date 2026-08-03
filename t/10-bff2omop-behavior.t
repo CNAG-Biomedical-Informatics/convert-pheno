@@ -119,7 +119,7 @@ use Convert::Pheno::BFF::ToOMOP qw(do_bff2omop);
     is( $got->{MEASUREMENT}[1]{value_as_number}, 10, 'maps quantity measurement value' );
     is( $got->{MEASUREMENT}[1]{range_low}, 2, 'maps quantity reference low' );
     is( $got->{MEASUREMENT}[1]{range_high}, 20, 'maps quantity reference high' );
-    is( $got->{MEASUREMENT}[1]{measurement_type_concept_id}, 9000, 'maps measurement procedure when present' );
+    is( $got->{MEASUREMENT}[1]{measurement_type_concept_id}, 0, 'does not treat a measurement procedure as OMOP provenance' );
     is( $got->{MEASUREMENT}[2]{value_as_number}, -1, 'defaults missing measurement value to -1' );
     is( $got->{MEASUREMENT}[3]{value_as_concept_id}, 9000, 'maps categorical measurement values to OMOP concepts' );
     is( $got->{MEASUREMENT}[3]{value_source_value}, 'Negative', 'preserves categorical measurement source values' );
@@ -186,7 +186,7 @@ warning_like {
         'label',
         undef,
     );
-    is_deeply( \@result, [ 0, '' ], 'unknown inverse mapping falls back to zeros' );
+    is_deeply( \@result, [ 0, '', 0 ], 'unknown inverse mapping falls back to zeros' );
 } qr/Unknown mapping type <unknown>/, 'inverse_map warns on unknown mapping type';
 
 dies_ok {

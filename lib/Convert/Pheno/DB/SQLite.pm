@@ -8,13 +8,16 @@ use DBI;
 use File::Spec::Functions qw(catdir catfile);
 use Time::HiRes qw(time);
 use Data::Dumper;
+use Text::Similarity::Overlaps;
 use Exporter 'import';
 use Convert::Pheno::DB::Similarity;
 our @EXPORT =
   qw( $VERSION open_connections_SQLite close_connections_SQLite get_ontology_terms);
-my @matches = qw(exact_match full_text_search);    # excluded 'contains'
+my @matches = qw(exact_match full_text_search relaxed_full_text_search);
 
 use constant DEVEL_MODE => 0;
+use constant RELAXED_FTS_CANDIDATE_LIMIT => 200;
+use constant RELAXED_FTS_MAX_TOKENS      => 12;
 
 my %COLUMN_MATCH_CONFIG = (
     label         => { exact_collate_nocase => 1 },
@@ -110,9 +113,10 @@ sub _emit_db_profile_summary {
 
     push @lines,
       sprintf(
-        '  sql exact_match=%d full_text_search=%d rows_fetched=%d candidate_rows=%d shortlisted=%d failures=%d time=%.3fs',
+        '  sql exact_match=%d full_text_search=%d relaxed_full_text_search=%d rows_fetched=%d candidate_rows=%d shortlisted=%d failures=%d time=%.3fs',
         _db_profile_get( $profile, 'sql', 'match_type', 'exact_match',      'executions' ),
         _db_profile_get( $profile, 'sql', 'match_type', 'full_text_search', 'executions' ),
+        _db_profile_get( $profile, 'sql', 'match_type', 'relaxed_full_text_search', 'executions' ),
         _db_profile_get( $profile, 'sql', 'rows_fetched' ),
         _db_profile_get( $profile, 'sql', 'candidate_rows' ),
         _db_profile_get( $profile, 'sql', 'shortlisted_candidates' ),
@@ -247,7 +251,65 @@ sub open_db_SQLite {
     $db_handle->do("PRAGMA synchronous = OFF");
     $db_handle->do("PRAGMA cache_size = 800000");
 
+    if ( defined $ontology && $ontology eq 'ohdsi' ) {
+        my $ok = eval {
+            validate_ohdsi_schema( $db_handle, $dbfile );
+            1;
+        };
+        unless ($ok) {
+            my $error = $@;
+            eval { $db_handle->disconnect() };
+            die $error;
+        }
+    }
+
     return $db_handle;
+}
+
+sub validate_ohdsi_schema {
+    my ( $dbh, $dbfile ) = @_;
+    my @required_concept_columns = qw(
+      label id concept_id vocabulary_id domain_id concept_class_id
+      standard_concept valid_start_date valid_end_date invalid_reason
+    );
+    my @required_mapping_columns = qw(
+      source_concept_id target_concept_id relationship_id
+      valid_start_date valid_end_date invalid_reason
+    );
+    my @required_fts_columns = qw(label id concept_id vocabulary_id);
+
+    my %concept_column = map { $_->[1] => 1 }
+      @{ $dbh->selectall_arrayref('PRAGMA table_info(OHDSI_table)') };
+    my @missing_concept_columns =
+      grep { !$concept_column{$_} } @required_concept_columns;
+
+    my %mapping_column = map { $_->[1] => 1 }
+      @{ $dbh->selectall_arrayref('PRAGMA table_info(OHDSI_maps_to)') };
+    my @missing_mapping_columns =
+      grep { !$mapping_column{$_} } @required_mapping_columns;
+
+    my %fts_column = map { $_->[1] => 1 }
+      @{ $dbh->selectall_arrayref('PRAGMA table_info(OHDSI_fts)') };
+    my @missing_fts_columns = grep { !$fts_column{$_} } @required_fts_columns;
+
+    return 1
+      unless @missing_concept_columns
+      || @missing_mapping_columns
+      || @missing_fts_columns;
+
+    my @details;
+    push @details,
+      'OHDSI_table columns: ' . join( ', ', @missing_concept_columns )
+      if @missing_concept_columns;
+    push @details,
+      'OHDSI_maps_to columns: ' . join( ', ', @missing_mapping_columns )
+      if @missing_mapping_columns;
+    push @details, 'OHDSI_fts columns: ' . join( ', ', @missing_fts_columns )
+      if @missing_fts_columns;
+
+    die "Athena-OHDSI database <$dbfile> uses the pre-bundle schema "
+      . '(' . join( '; ', @details ) . '). '
+      . "Install the current ohdsi.db.\n";
 }
 
 sub get_database_file_path {
@@ -342,18 +404,59 @@ sub build_query {
         # *** IMPORTANT STEP ***
         # **********************
 
-        # Full-text-search queries only on column <label> BUT IT CAN BE DONE ALL COLUMNS!!!!
-        # The speed of the FTS in $column == $db_fts
-        # FTS is 2x faster than 'contains'
-        # NOTE (Jan-2023): We don't check for misspelled words
-        #       --> TO DO - Tricky -->  https://www.sqlite.org/spellfix1.html
+        # Strict FTS supplies candidates containing every query token. Fuzzy
+        # search may retry with an all-but-one-token expression when this set
+        # is empty; BM25 and a hard limit keep that broader pass bounded.
         full_text_search => qq(SELECT * FROM $db_fts WHERE $column MATCH ?),
+        relaxed_full_text_search =>
+          qq(SELECT * FROM $db_fts WHERE $column MATCH ? ORDER BY bm25($db_fts) LIMIT )
+          . RELAXED_FTS_CANDIDATE_LIMIT,
 
         # SOUNDEX using TABLE_fts but only on column <label>
         # soundex     => qq(SELECT * FROM $db_fts WHERE SOUNDEX($column) = SOUNDEX(?)) # NOT USED
 
     );
     return $match_type{$match};
+}
+
+# MATCH parameters are still parsed as FTS syntax even when bound safely.
+# Convert source labels into quoted literal words so operators such as OR,
+# NEAR, quotes, and parentheses cannot change candidate retrieval.
+sub _fts_tokens {
+    my ($query) = @_;
+    $query = prune_problematic_chars( $query, 'full_text_search' );
+
+    my %seen;
+    return grep { !$seen{lc $_}++ } ( $query =~ /([\p{L}\p{N}]+)/gu );
+}
+
+sub _quote_fts_token {
+    my ($token) = @_;
+    $token =~ s/"/""/g;
+    return qq{"$token"};
+}
+
+sub build_strict_fts_query {
+    my @tokens = _fts_tokens(@_);
+    return unless @tokens;
+    return join ' AND ', map { _quote_fts_token($_) } @tokens;
+}
+
+sub build_relaxed_fts_query {
+    my @tokens = _fts_tokens(@_);
+    return unless @tokens >= 2 && @tokens <= RELAXED_FTS_MAX_TOKENS;
+
+    my @quoted = map { _quote_fts_token($_) } @tokens;
+
+    return join ' OR ', map { qq{($_)} } @quoted if @quoted == 2;
+
+    my @clauses;
+    for my $omitted ( 0 .. $#quoted ) {
+        my @required = @quoted;
+        splice @required, $omitted, 1;
+        push @clauses, '(' . join( ' AND ', @required ) . ')';
+    }
+    return join ' OR ', @clauses;
 }
 
 sub get_ontology_terms {
@@ -392,7 +495,8 @@ sub get_ontology_terms {
     $default_value{concept_id} = 0 if $ontology eq 'ohdsi';
 
     # exact_match (always performed)
-    my ( $id, $label, $concept_id, $search_resolution ) = execute_query_SQLite(
+    my ( $id, $label, $concept_id, $search_resolution, $search_evidence ) =
+      execute_query_SQLite(
         {
             sth                       => $sth_column_ref->{exact_match},    # IMPORTANT STEP
             query                     => $query,
@@ -412,20 +516,58 @@ sub get_ontology_terms {
         if ( $search eq 'mixed' || $search eq 'fuzzy' ) {
             print "EXECUTING SEARCH <$search> on QUERY <$query>\n"
               if DEVEL_MODE;
-            ( $id, $label, $concept_id, $search_resolution ) = execute_query_SQLite(
-                {
-                    sth        => $sth_column_ref->{'full_text_search'},    # IMPORTANT STEP
-                    query      => $query,
-                    ontology   => $ontology,
-                    databases  => $databases,
-                    match_type => 'full_text_search',
-                    search     => $search,
-                    text_similarity_method    => $text_similarity_method,
-                    min_text_similarity_score => $min_text_similarity_score,
-                    levenshtein_weight        => $levenshtein_weight,
-                    self                      => $self,
+            my $strict_query = build_strict_fts_query($query);
+            if ( defined $strict_query ) {
+                ( $id, $label, $concept_id, $search_resolution, $search_evidence ) =
+                  execute_query_SQLite(
+                    {
+                        sth => $sth_column_ref->{'full_text_search'},
+                        query                     => $strict_query,
+                        scoring_query             => $query,
+                        query_is_fts_expression   => 1,
+                        ontology                  => $ontology,
+                        databases                 => $databases,
+                        match_type                => 'full_text_search',
+                        search                    => $search,
+                        text_similarity_method    => $text_similarity_method,
+                        min_text_similarity_score => $min_text_similarity_score,
+                        levenshtein_weight        => $levenshtein_weight,
+                        self                      => $self,
+                    }
+                  );
+            }
+
+            # Strict FTS requires every token. If it produces no candidates,
+            # fuzzy search retries with a bounded all-but-one-token query. The
+            # original normalized text remains the input to similarity scoring.
+            if (
+                   $search eq 'fuzzy'
+                && !defined $id
+                && $search_evidence
+                && !( $search_evidence->{candidates_evaluated} // 0 )
+              )
+            {
+                my $relaxed_query = build_relaxed_fts_query($query);
+                if ( defined $relaxed_query ) {
+                    ( $id, $label, $concept_id, $search_resolution, $search_evidence ) =
+                      execute_query_SQLite(
+                        {
+                            sth => $sth_column_ref->{'relaxed_full_text_search'},
+                            query                     => $relaxed_query,
+                            scoring_query             => $query,
+                            query_is_fts_expression   => 1,
+                            ontology                  => $ontology,
+                            databases                 => $databases,
+                            match_type                => 'relaxed_full_text_search',
+                            search                    => $search,
+                            text_similarity_method    => $text_similarity_method,
+                            min_text_similarity_score => $min_text_similarity_score,
+                            levenshtein_weight        => $levenshtein_weight,
+                            self                      => $self,
+                        }
+                      );
                 }
-            );
+            }
         }
     }
 
@@ -443,7 +585,7 @@ sub get_ontology_terms {
     # END QUERY #
     #############
 
-    return ( $id, $label, $concept_id, $search_resolution );
+    return ( $id, $label, $concept_id, $search_resolution, $search_evidence );
 
 }
 
@@ -460,16 +602,20 @@ sub execute_query_SQLite {
     my $levenshtein_weight        = $arg->{levenshtein_weight};
     my $self                      = $arg->{self};
     my $started_at                = _db_profile_enabled($self) ? time : undef;
+    my $scoring_query             = $arg->{scoring_query} // $query;
 
     # Initialize $id and $label to undefined
-    my ( $id, $label, $concept_id, $search_resolution ) =
-      ( undef, undef, undef, undef );
+    my ( $id, $label, $concept_id, $search_resolution, $search_evidence ) =
+      ( undef, undef, undef, undef, undef );
 
     # Premature return if $query is empty
-    return ( $id, $label, $concept_id, $search_resolution ) if $query eq '';
+    return ( $id, $label, $concept_id, $search_resolution, $search_evidence )
+      if $query eq '';
 
     # Preprocess query for execution
-    $query = prune_problematic_chars( $query, $match_type );
+    $query = prune_problematic_chars( $query, $match_type )
+      unless $arg->{query_is_fts_expression};
+    $scoring_query = prune_problematic_chars( $scoring_query, 'full_text_search' );
 
     #  Columns in DBs
     #     *<ncit.db>, <icd10.db> and <cdisc.db> were pre-processed to have "id" and "label" columns only
@@ -500,7 +646,7 @@ sub execute_query_SQLite {
     if ($@) {
         _db_profile_inc( $self, 'sql', 'failures' );
         warn "Query execution failed: $@";
-        return ( $id, $label, $concept_id, $search_resolution );
+        return ( $id, $label, $concept_id, $search_resolution, $search_evidence );
     }
     _db_profile_add( $self, time - $execute_started_at, 'sql', 'execute_time' )
       if defined $execute_started_at;
@@ -508,17 +654,42 @@ sub execute_query_SQLite {
     # Process results depending on the type of match
     if ( $match_type eq 'exact_match' ) {
         say "MATCH_TYPE: <exact_match>" if DEVEL_MODE;
+        my $candidate_rows = 0;
+        my ( $runner_up_id, $runner_up_label );
         while ( my $row = $sth->fetchrow_arrayref ) {
             _db_profile_inc( $self, 'sql', 'rows_fetched' );
-            $id =
-              $ontology ne 'ohdsi'
-              ? _ontology_prefix($ontology) . ':' . $row->[$id_column]
-              : $row->[3] . ':' . $row->[$id_column];
-            $label      = $row->[$label_column];
-            $concept_id = $row->[$concept_id_column];
-            $search_resolution = 'exact';
-            last;    # Only the first match is used
+            $candidate_rows++;
+            if ( !defined $id ) {
+                $id = _candidate_id( $ontology, $row, $id_column );
+                $label             = $row->[$label_column];
+                $concept_id        = $row->[$concept_id_column];
+                $search_resolution = 'exact';
+            }
+            elsif ( !defined $runner_up_id ) {
+                $runner_up_id    = _candidate_id( $ontology, $row, $id_column );
+                $runner_up_label = $row->[$label_column];
+            }
         }
+        $search_evidence = {
+            candidate_strategy => 'exact_index',
+            candidates_evaluated => $candidate_rows,
+            eligible_candidates => $candidate_rows,
+            defined $id
+            ? (
+                best_candidate_label => $label,
+                best_candidate_id    => $id,
+                best_candidate_score => 1,
+              )
+            : (),
+            defined $runner_up_id
+            ? (
+                runner_up_label => $runner_up_label,
+                runner_up_id    => $runner_up_id,
+                runner_up_score => 1,
+                score_margin    => 0,
+              )
+            : (),
+        };
     }
     else {
         say "MATCH_TYPE: <full_text_search>" if DEVEL_MODE;
@@ -530,7 +701,7 @@ sub execute_query_SQLite {
             ( $id, $label, $concept_id, $stats ) = similarity_match(
                 {
                     sth                       => $sth,
-                    query                     => $query,
+                    query                     => $scoring_query,
                     ontology                  => $ontology,
                     id_column                 => $id_column,
                     label_column              => $label_column,
@@ -545,6 +716,12 @@ sub execute_query_SQLite {
             _db_profile_add( $self, $stats->{shortlisted_candidates}, 'sql', 'shortlisted_candidates' );
             _db_profile_add( $self, $stats->{evaluation_time},        'sql', 'similarity_time' );
             $search_resolution = defined $id ? 'similarity' : undef;
+            $search_evidence = _search_evidence(
+                $stats,
+                $match_type eq 'relaxed_full_text_search'
+                ? 'relaxed_fts'
+                : 'strict_fts'
+            );
         }
         else {
 
@@ -553,7 +730,7 @@ sub execute_query_SQLite {
             ( $id, $label, $concept_id, $stats ) = composite_similarity_match(
                 {
                     sth                       => $sth,
-                    query                     => $query,
+                    query                     => $scoring_query,
                     ontology                  => $ontology,
                     id_column                 => $id_column,
                     label_column              => $label_column,
@@ -562,6 +739,8 @@ sub execute_query_SQLite {
                     levenshtein_weight        => $levenshtein_weight,
                     concept_id_column         => $concept_id_column,
                     self                      => $self,
+                    allow_spelling_variant    =>
+                      $match_type eq 'relaxed_full_text_search',
 
                       # Possibly additional parameters, e.g., weighting factors
                 }
@@ -570,6 +749,12 @@ sub execute_query_SQLite {
             _db_profile_add( $self, $stats->{shortlisted_candidates}, 'sql', 'shortlisted_candidates' );
             _db_profile_add( $self, $stats->{evaluation_time},        'sql', 'similarity_time' );
             $search_resolution = defined $id ? 'similarity' : undef;
+            $search_evidence = _search_evidence(
+                $stats,
+                $match_type eq 'relaxed_full_text_search'
+                ? 'relaxed_fts'
+                : 'strict_fts'
+            );
         }
     }
 
@@ -579,7 +764,26 @@ sub execute_query_SQLite {
       if defined $started_at;
 
     # Return the results
-    return ( $id, $label, $concept_id, $search_resolution );
+    return ( $id, $label, $concept_id, $search_resolution, $search_evidence );
+}
+
+sub _candidate_id {
+    my ( $ontology, $row, $id_column ) = @_;
+    return $ontology ne 'ohdsi'
+      ? _ontology_prefix($ontology) . ':' . $row->[$id_column]
+      : $row->[3] . ':' . $row->[$id_column];
+}
+
+sub _search_evidence {
+    my ( $stats, $strategy ) = @_;
+    return {
+        candidate_strategy => $strategy,
+        candidates_evaluated => $stats->{candidate_rows},
+        eligible_candidates => $stats->{shortlisted_candidates},
+        map { $_ => $stats->{$_} }
+          grep { exists $stats->{$_} }
+          qw(best_candidate_label best_candidate_id best_candidate_score token_similarity base_token_similarity normalized_levenshtein spelling_variant spelling_query_token spelling_candidate_token spelling_token_similarity runner_up_label runner_up_id runner_up_score score_margin),
+    };
 }
 
 sub prune_problematic_chars {
@@ -613,6 +817,45 @@ sub prune_problematic_chars {
     return $query;
 }
 
+sub _select_ranked_candidate {
+    my ( $results, $candidate_rows, $min_score, $started_at ) = @_;
+    @{$results} = sort {
+           $b->{match_score} <=> $a->{match_score}
+        || $a->{sequence} <=> $b->{sequence}
+    } @{$results};
+
+    my $winner              = $results->[0];
+    my $runner_up           = $results->[1];
+    my $eligible_candidates = grep { $_->{match_score} >= $min_score } @{$results};
+    my $stats = {
+        candidate_rows         => $candidate_rows,
+        shortlisted_candidates => $eligible_candidates,
+        evaluation_time        => defined $started_at ? time - $started_at : undef,
+        defined $winner
+        ? (
+            best_candidate_label => $winner->{label},
+            best_candidate_id    => $winner->{id},
+            best_candidate_score => $winner->{match_score},
+            map { $_ => $winner->{$_} }
+              grep { exists $winner->{$_} }
+              qw(token_similarity base_token_similarity normalized_levenshtein spelling_variant spelling_query_token spelling_candidate_token spelling_token_similarity),
+          )
+        : (),
+        defined $runner_up
+        ? (
+            runner_up_label => $runner_up->{label},
+            runner_up_id    => $runner_up->{id},
+            runner_up_score => $runner_up->{match_score},
+            score_margin    => $winner->{match_score} - $runner_up->{match_score},
+          )
+        : (),
+    };
+
+    return defined $winner && $winner->{match_score} >= $min_score
+      ? ( $winner->{id}, $winner->{label}, $winner->{concept_id}, $stats )
+      : ( undef, undef, undef, $stats );
+}
+
 sub similarity_match {
     my $arg               = shift;
     my $sth               = $arg->{sth};
@@ -625,6 +868,7 @@ sub similarity_match {
     my $concept_id_column = $arg->{concept_id_column};
     my $started_at        = _db_profile_enabled( $arg->{self} ) ? time : undef;
     my $candidate_rows    = 0;
+    my $sequence          = 0;
 
     # Create a new Text::Similarity object.
     my $ts = Text::Similarity::Overlaps->new();
@@ -636,45 +880,32 @@ sub similarity_match {
         say "--- MIXED: Computing similarity for candidate <$candidate_label>"
           if DEVEL_MODE;
 
-        # Calculate similarity score using Text::Similarity::Overlaps.
-        my ( $score, %scores ) =
-          $ts->getSimilarityStrings( $query, $candidate_label );
+        my $token_similarity =
+          Convert::Pheno::DB::Similarity::compute_token_similarity(
+            $query, $candidate_label, $sim_method, $ts );
 
-        # Only consider candidates above our minimum threshold.
-        if ( $scores{$sim_method} >= $min_score ) {
-            push @results,
-              {
-                id => $ontology ne 'ohdsi'
-                ? _ontology_prefix($ontology) . ':' . $row->[$id_column]
-                : $row->[3] . ':' . $row->[$id_column],
-                label      => $candidate_label,
-                scores     => \%scores,
-                query      => $query,
-                concept_id => $row->[$concept_id_column],
-              };
-        }
+        # Retain scores below the threshold for audit and review.
+        push @results,
+          {
+            id               => _candidate_id( $ontology, $row, $id_column ),
+            label            => $candidate_label,
+            match_score      => $token_similarity,
+            token_similarity => $token_similarity,
+            concept_id       => $row->[$concept_id_column],
+            sequence         => $sequence,
+          };
+        $sequence++;
     }
 
-    # Sort the candidates by the token-based similarity (using the chosen method) in descending order.
-    @results =
-      sort { $b->{scores}->{$sim_method} <=> $a->{scores}->{$sim_method} }
-      @results;
-
+    my @selected = _select_ranked_candidate(
+        \@results, $candidate_rows, $min_score, $started_at
+    );
     print Dumper( \@results ) if DEVEL_MODE;
     if ( @results && DEVEL_MODE ) {
         say "--- WINNER ---";
         print Dumper( $results[0] );
     }
-
-    # Return the top candidate if available, otherwise return undefined values.
-    my $stats = {
-        candidate_rows         => $candidate_rows,
-        shortlisted_candidates => scalar @results,
-        evaluation_time        => defined $started_at ? time - $started_at : undef,
-    };
-    return @results
-      ? ( $results[0]->{id}, $results[0]->{label}, $results[0]->{concept_id}, $stats )
-      : ( undef, undef, undef, $stats );
+    return @selected;
 }
 
 sub composite_similarity_match {
@@ -689,8 +920,11 @@ sub composite_similarity_match {
     my $levenshtein_weight     = $arg->{levenshtein_weight};
     my $token_weight           = 1 - $levenshtein_weight;
     my $concept_id_column      = $arg->{concept_id_column};
+    my $allow_spelling_variant = $arg->{allow_spelling_variant};
     my $started_at             = _db_profile_enabled( $arg->{self} ) ? time : undef;
     my $candidate_rows         = 0;
+    my $sequence               = 0;
+    my $ts                     = Text::Similarity::Overlaps->new();
 
     my @results;
     while ( my $row = $sth->fetchrow_arrayref() ) {
@@ -698,38 +932,53 @@ sub composite_similarity_match {
         my $candidate_label = $row->[$label_column];
         my $token_sim =
           Convert::Pheno::DB::Similarity::compute_token_similarity( $query,
-            $candidate_label, $text_similarity_method );
+            $candidate_label, $text_similarity_method, $ts );
+        my $base_token_sim = $token_sim;
+        my $spelling_variant;
 
-        # Skip candidates below minimum token similarity.
-        next unless $token_sim >= $min_score;
+        # Relaxed FTS retrieves labels through the unaffected words. Restore
+        # partial token overlap only when exactly one remaining token pair is
+        # close in spelling; all other fuzzy candidates retain the base score.
+        if ($allow_spelling_variant) {
+            $spelling_variant =
+              Convert::Pheno::DB::Similarity::compute_single_token_spelling_similarity(
+                $query, $candidate_label, $text_similarity_method );
+            $token_sim = $spelling_variant->{adjusted_similarity}
+              if $spelling_variant
+              && $spelling_variant->{adjusted_similarity} > $token_sim;
+        }
+        my $lev_sim =
+          Convert::Pheno::DB::Similarity::compute_normalized_levenshtein(
+            $query, $candidate_label );
         my $composite =
-          Convert::Pheno::DB::Similarity::composite_similarity( $query,
-            $candidate_label, $token_weight, $levenshtein_weight, $text_similarity_method );
+          Convert::Pheno::DB::Similarity::combine_similarity_scores(
+            $token_sim, $lev_sim, $token_weight, $levenshtein_weight );
+
         push @results,
           {
-            id => $ontology ne 'ohdsi'
-            ? uc($ontology) . ':' . $row->[$id_column]
-            : $row->[3] . ':' . $row->[$id_column],
-            label     => $candidate_label,
-            token_sim => $token_sim,
-            lev_sim   =>
-              Convert::Pheno::DB::Similarity::compute_normalized_levenshtein(
-                $query, $candidate_label
-              ),
-            composite  => $composite,
-            query      => $query,
-            concept_id => $row->[$concept_id_column],
+            id                    => _candidate_id( $ontology, $row, $id_column ),
+            label                 => $candidate_label,
+            token_similarity      => $token_sim,
+            base_token_similarity => $base_token_sim,
+            normalized_levenshtein => $lev_sim,
+            match_score           => $composite,
+            concept_id            => $row->[$concept_id_column],
+            sequence              => $sequence,
+            $spelling_variant
+            ? (
+                spelling_variant          => 1,
+                spelling_query_token      => $spelling_variant->{query_token},
+                spelling_candidate_token  => $spelling_variant->{candidate_token},
+                spelling_token_similarity => $spelling_variant->{spelling_token_similarity},
+              )
+            : (),
           };
+        $sequence++;
     }
-    @results = sort { $b->{composite} <=> $a->{composite} } @results;
+    my @selected = _select_ranked_candidate(
+        \@results, $candidate_rows, $min_score, $started_at
+    );
     print Dumper \@results if DEVEL_MODE;
-    my $stats = {
-        candidate_rows         => $candidate_rows,
-        shortlisted_candidates => scalar @results,
-        evaluation_time        => defined $started_at ? time - $started_at : undef,
-    };
-    return @results
-      ? ( $results[0]->{id}, $results[0]->{label}, $results[0]->{concept_id}, $stats )
-      : ( undef, undef, undef, $stats );
+    return @selected;
 }
 1;

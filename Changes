@@ -7,7 +7,10 @@ Revision history for Perl distribution Convert-Pheno
  - Added mCODE 4.0 profile detection and primary cancer stage mapping to FHIR R4 input
  - Added experimental CDISC Dataset-XML v1.0 input with required Define-XML v2 metadata and BFF, PXF and OMOP-CDM output
  - Added user-controlled terminology enrichment for CDISC Dataset-JSON and Dataset-XML, including exact NCI identifier resolution from Define-XML
- - Replaced --search-audit-tsv with --term-audit-tsv and expanded provenance across direct terms, identifier lookups, label searches and fallbacks
+ - Replaced --search-audit-tsv with --term-audit and expanded provenance across direct terms, identifier lookups, label searches and fallbacks
+ - Added focused color-coded XLSX terminology audits with run summaries, explicit review actions and filterable technical evidence
+ - Improved mixed and fuzzy terminology search with literal all-word retrieval, bounded typo-tolerant fallback, spelling-aware reranking and auditable candidate decisions
+ - Added domain-aware Athena-OHDSI standard concept resolution for OMOP output, including source identifiers and Maps to relationships
 
 0.33 2026-07-31T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 

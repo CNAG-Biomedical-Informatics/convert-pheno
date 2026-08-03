@@ -1,3 +1,10 @@
+SQLite terminology databases used by Convert-Pheno.
+
+The descriptive `manifest.json` records the current database bundle contract,
+source snapshots, row counts, and checksums. The smaller databases are bundled
+with the distribution. `ohdsi.db` is distributed separately because of its
+size.
+
 Download sources of raw data.
 
 # NCIT
@@ -28,3 +35,17 @@ dos2unix full_omim_table.txt
 Downloaded Apr-14-2023
 https://hpo.jax.org/app/data/ontology
 - v2023-04-05
+
+# OHDSI Standardized Vocabularies
+Downloaded from https://athena.ohdsi.org/
+Athena vocabulary release: v5.0 29-AUG-22
+
+The release was obtained from the vocabulary_version entry in VOCABULARY.csv.
+The current database is approximately 3.2 GB. In addition to concept labels and
+identifiers, it contains OMOP domain and standard-concept metadata plus active
+`Maps to` and `Maps to value` relationships. These fields are required for
+domain-aware standard concept resolution when OMOP is the output model.
+
+The generated ohdsi.db can be placed in this directory or located with
+--path-to-ohdsi-db. Convert-Pheno rejects older four-column copies because they
+cannot safely resolve standard concepts for OMOP output.

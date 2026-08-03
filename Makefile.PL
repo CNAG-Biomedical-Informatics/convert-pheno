@@ -55,7 +55,8 @@ WriteMakefile(
         'JSONLD'             => '0.006',
         'Devel::Size'        => '0.84',
         'DateTime::Format::ISO8601' => '0.17',
-        'IO::Uncompress::Unzip'     => '0'
+        'IO::Uncompress::Unzip'     => '0',
+        'Excel::Writer::XLSX'       => '1.12'
 
          #'IO::Socket::SSL'              => '2.083'
          #'Mojolicious::Plugin::OpenAPI' => '5.09'

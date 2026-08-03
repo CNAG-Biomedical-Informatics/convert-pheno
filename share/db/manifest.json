@@ -1,0 +1,70 @@
+{
+   "bundleVersion" : "v0",
+   "created" : "2026-08-03",
+   "databases" : {
+      "cdisc" : {
+         "bundled" : true,
+         "contentVersion" : "snapshot downloaded 2023-01-24",
+         "file" : "cdisc.db",
+         "rowCount" : 38953,
+         "schema" : "label-id",
+         "sha256" : "b2e86db7211337b61b9be4b5e45d3e1596f22a3b4ede209967ebccbbb5f662b2",
+         "source" : "CDISC SDTM Controlled Terminology",
+         "sourceUrl" : "https://www.cdisc.org/standards/terminology/controlled-terminology"
+      },
+      "hpo" : {
+         "bundled" : true,
+         "contentVersion" : "v2023-04-05",
+         "file" : "hpo.db",
+         "rowCount" : 5576,
+         "schema" : "label-id",
+         "sha256" : "51bcdbdcb4e409f80878824d0503789c100f007c8db833003f6046534472c48b",
+         "source" : "Human Phenotype Ontology",
+         "sourceUrl" : "https://hpo.jax.org/app/data/ontology"
+      },
+      "icd10" : {
+         "bundled" : true,
+         "contentVersion" : "ICD-10-CM 2026",
+         "file" : "icd10.db",
+         "rowCount" : 46881,
+         "schema" : "label-id",
+         "sha256" : "8473f79d147b7718bae86991d2c9d8bb38ebd9e85040ad036914c130675f9774",
+         "source" : "CDC ICD-10-CM",
+         "sourceUrl" : "https://ftp.cdc.gov/pub/Health_Statistics/NCHS/Publications/ICD10CM/2026/"
+      },
+      "ncit" : {
+         "bundled" : true,
+         "contentVersion" : "22.06d",
+         "file" : "ncit.db",
+         "rowCount" : 174126,
+         "schema" : "label-id",
+         "sha256" : "02fa13701c5f476f96a60cdeeefc610d92f9ca78a3f310dc106ddd05c14a09fa",
+         "source" : "NCI Thesaurus",
+         "sourceUrl" : "https://bioportal.bioontology.org/ontologies/NCIT"
+      },
+      "ohdsi" : {
+         "bundled" : false,
+         "byteSize" : 3178364928,
+         "contentVersion" : "v5.0 29-AUG-22",
+         "file" : "ohdsi.db",
+         "mappingRelationshipCount" : 4341254,
+         "rowCount" : 5808094,
+         "schema" : "concept-mapping-v0",
+         "sha256" : "84f9dda5a8d79a0cebfbbd245dd1f5aeabc75faa8418a2baa584fbdefc9a38d8",
+         "source" : "OHDSI Standardized Vocabularies",
+         "sourceUrl" : "https://athena.ohdsi.org/"
+      },
+      "omim" : {
+         "bundled" : true,
+         "contentVersion" : "snapshot downloaded 2023-05-22",
+         "file" : "omim.db",
+         "rowCount" : 6489,
+         "schema" : "label-id",
+         "sha256" : "4ea9c064de9eabe9c883b14736e83a6693a6b2b86eb9873dec57201bcf9e5a5c",
+         "source" : "OMIM phenotype table",
+         "sourceUrl" : "https://github.com/macarthur-lab/omim"
+      }
+   },
+   "format" : "convert-pheno-sqlite-bundle",
+   "formatVersion" : 1
+}

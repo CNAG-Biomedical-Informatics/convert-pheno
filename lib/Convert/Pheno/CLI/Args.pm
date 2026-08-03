@@ -74,7 +74,7 @@ sub build_cli_request {
     my @out_name_specs;
     my ( $help, $man, $mapping_file, $define_xml, $max_lines_sql, $search );
     my ( $text_similarity_method, $min_text_similarity_score, $levenshtein_weight );
-    my ( $debug, $verbose, $sep, $exposures_file, $sql2csv, $test, $term_audit_tsv );
+    my ( $debug, $verbose, $sep, $exposures_file, $sql2csv, $test, $term_audit );
     my ( @omop_tables, $redcap_dictionary, $path_to_ohdsi_db );
     my ( $self_validate_schema, $overwrite, $username, $log, $version );
     my $default_vital_status;
@@ -127,7 +127,7 @@ sub build_cli_request {
         'stream!'                     => \$stream,
         'sql2csv'                     => \$sql2csv,
         'test'                        => \$test,
-        'term-audit-tsv=s'            => \$term_audit_tsv,
+        'term-audit=s'                => \$term_audit,
         'source-info!'                => \$source_info,
         'ohdsi-db'                    => \$ohdsi_db,
         'omop-tables=s{1,}'           => \@omop_tables,
@@ -393,6 +393,13 @@ sub build_cli_request {
             message   => "Please specify a valid --exposures-file <file>\n",
         },
         {
+            condition => sub {
+                defined $term_audit
+                  && $term_audit !~ /\.(?:tsv(?:\.gz)?|xlsx)\z/i;
+            },
+            message => "Please use --term-audit with a .tsv, .tsv.gz, or .xlsx output file\n",
+        },
+        {
             condition => sub { ( $out_csv || $out_jsonf || $out_jsonld ) && ( !$in_bff && !$in_pxf ); },
             message   => "Sorry, <--ocsv>, <--ojsonf> and <--ojsonf> are only compatible with <--ibff> or <--ipxf>\n",
         },
@@ -496,8 +503,8 @@ sub build_cli_request {
     my $log_file =
       catfile( $out_dir, ( $log ? $log : 'convert-pheno-log.json' ) );
     my $term_audit_file =
-      defined $term_audit_tsv
-      ? _resolve_output_path( $out_dir, $term_audit_tsv )
+      defined $term_audit
+      ? _resolve_output_path( $out_dir, $term_audit )
       : undef;
 
     my $in_type =

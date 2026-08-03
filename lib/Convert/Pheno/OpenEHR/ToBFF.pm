@@ -48,8 +48,8 @@ sub run_openehr_to_bundle {
     my $compositions = extract_openehr_compositions($data);
     _validate_compositions($compositions);
 
-    my $id  = resolve_openehr_patient_id( $self, $data, $compositions );
-    my $sex = _resolve_sex($compositions);
+    my $id     = resolve_openehr_patient_id( $self, $data, $compositions );
+    my $sex    = _resolve_sex($compositions);
     my $mapped = _map_first_class_arrays($compositions);
 
     die "The input <openEHR> data could not be resolved to a patient id; please provide one composition set with a stable patient identifier in the payload or envelope\n"
@@ -58,14 +58,16 @@ sub run_openehr_to_bundle {
       unless defined $sex;
 
     my $individual = {
-        id   => $id,
-        sex  => $sex,
-        info => {
-            openehr => {
-                compositions => $compositions,
-            },
-        },
+        id  => $id,
+        sex => $sex,
     };
+
+    if ( $self->{source_info} // 1 ) {
+        $individual->{info}{openehr}{compositions} = $compositions;
+    }
+    else {
+        _remove_source_info($mapped);
+    }
 
     for my $field ( qw(diseases measures phenotypicFeatures interventionsOrProcedures treatments) ) {
         next unless exists $mapped->{$field} && @{ $mapped->{$field} };
@@ -79,6 +81,25 @@ sub run_openehr_to_bundle {
 
     $bundle->add_entity( individuals => $individual );
     return $bundle;
+}
+
+sub _remove_source_info {
+    my ($node) = @_;
+    return unless ref($node);
+
+    if ( ref($node) eq 'HASH' ) {
+        if ( ref( $node->{_info} ) eq 'HASH' ) {
+            delete $node->{_info}{openEHR};
+            delete $node->{_info} unless keys %{ $node->{_info} };
+        }
+        _remove_source_info($_) for values %{$node};
+        return;
+    }
+
+    if ( ref($node) eq 'ARRAY' ) {
+        _remove_source_info($_) for @{$node};
+    }
+    return;
 }
 
 sub extract_openehr_compositions {

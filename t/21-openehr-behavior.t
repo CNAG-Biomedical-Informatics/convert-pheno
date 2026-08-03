@@ -129,6 +129,32 @@ subtest 'openehr2bff emits first-class arrays from multiple canonical compositio
     );
 };
 
+subtest 'openehr2bff omits raw provenance when source_info is disabled' => sub {
+    my $convert = build_convert(
+        method      => 'openehr2bff',
+        data        => {
+            patient      => { id => 'openehr-patient-no-source' },
+            compositions => [ $gender, $ips, $lab ],
+        },
+        in_textfile => 0,
+        source_info => 0,
+    );
+
+    my $individual = $convert->openehr2bff;
+
+    ok( !exists $individual->{info}{openehr}, '--no-source-info omits the source compositions' );
+    ok( @{ $individual->{diseases} }, 'mapped diseases remain available' );
+    ok( @{ $individual->{measures} }, 'mapped measures remain available' );
+    my @raw_source_items = grep {
+        ref( $_->{_info} ) eq 'HASH' && exists $_->{_info}{openEHR}
+    } ( @{ $individual->{diseases} }, @{ $individual->{measures} } );
+    is(
+        scalar @raw_source_items,
+        0,
+        '--no-source-info omits item-level source nodes',
+    );
+};
+
 subtest 'openehr2bff accepts openEHR ehr_id and ehr_status patient identifiers' => sub {
     {
         my $convert = build_convert(

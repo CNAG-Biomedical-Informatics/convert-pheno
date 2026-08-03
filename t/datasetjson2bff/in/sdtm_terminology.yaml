@@ -11,11 +11,9 @@ defaults:
   ontology: ncit
 terminology:
   AE.AESEV:
-    query:
-      from: value
-      aliases:
-        MILD: Mild
-        MODERATE: Moderate
+    terms:
+      MILD: { id: NCIT:C70666, label: Mild }
+      MODERATE: { id: NCIT:C61376, label: Moderate }
   LB.LBTESTCD:
     query:
       from: value
@@ -24,8 +22,6 @@ terminology:
   LB.LBSTRESC:
     query:
       from: value
-      aliases:
-        NEGATIVE: Negative
   MH.MHDECOD:
     query:
       from: value

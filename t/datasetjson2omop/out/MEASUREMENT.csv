@@ -1,6 +1,6 @@
 measurement_id;person_id;measurement_concept_id;measurement_date;measurement_datetime;measurement_time;measurement_type_concept_id;operator_concept_id;value_as_number;value_as_concept_id;unit_concept_id;range_low;range_high;provider_id;visit_occurrence_id;visit_detail_id;measurement_source_value;measurement_source_concept_id;unit_source_value;unit_source_concept_id;value_source_value;measurement_event_id;meas_event_field_concept_id
-1;1;40782579;2025-01-02;;;0;;42;;4118000;7;56;;;;"Alanine Aminotransferase";;U/L;;42;;
-2;1;0;2025-01-05;;;0;;;45878583;;;;;;;"SARS-CoV-2 RNA";;;;NEGATIVE;;
-3;1;40786050;2025-01-02;;;0;;81.5;;4122383;;;;;;Weight;;kg;;81.5;;
-4;2;40795725;2025-02-09;;;0;;13.2;;4121395;12;16;;;;Hemoglobin;;g/dL;;13.2;;
-5;2;40786050;2025-02-09;;;0;;62;;4122383;;;;;;Weight;;kg;;62;;
+1;1;0;2025-01-02;;;0;;42;;0;7;56;;;;"Alanine Aminotransferase";0;U/L;0;42;;
+2;1;0;2025-01-05;;;0;;;0;;;;;;;"SARS-CoV-2 RNA";0;;;NEGATIVE;;
+3;1;0;2025-01-02;;;0;;81.5;;0;;;;;;Weight;0;kg;0;81.5;;
+4;2;0;2025-02-09;;;0;;13.2;;0;12;16;;;;Hemoglobin;0;g/dL;0;13.2;;
+5;2;0;2025-02-09;;;0;;62;;0;;;;;;Weight;0;kg;0;62;;

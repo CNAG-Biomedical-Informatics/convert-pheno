@@ -1,43 +1,64 @@
-label	id	concept_id	vocabulary_id
-MALE	M	8507	Gender
-FEMALE	F	8532	Gender
-White	LA4457-3	45877987	LOINC
-NA	LA12334-1	36311145	LOINC
-Not Hispanic or Latino	Not Hispanic	38003564	Ethnicity
-Hispanic or Latino	Hispanic	38003563	Ethnicity
-Usa	4004810	42007257	OSM
-US	LA31572-3	1621184	LOINC
-Injury of anterior cruciate ligament	444470001	40479768	SNOMED
-Concussion with no loss of consciousness	850.0	44832796	ICD9CM
-Acute viral pharyngitis	195662009	4112343	SNOMED
-Streptococcal sore throat	034.0	44820546	ICD9CM
-Viral sinusitis	444814009	40481087	SNOMED
-Surgical manipulation of joint of knee	699253003	44783196	SNOMED
-Suture open wound	150348004	40309874	SNOMED
-Radiologic examination of knee	74016001	4252419	SNOMED
-Bone immobilization	150732003	40311526	SNOMED
-Radiography of humerus	1225002	4047491	SNOMED
-Plain chest X-ray	399208008	4163872	SNOMED
-Sputum examination	269911007	4151422	SNOMED
-History of appendectomy	428251008	4323208	SNOMED
-Type 2 diabetes mellitus	E11	1567956	ICD10CM
-Headache	R51	35211388	ICD10CM
-Alanine aminotransferase	LP15333-5	40782579	LOINC
-U/L	258947003	4118000	SNOMED
-Negative	LA6577-6	45878583	LOINC
-Weight	LP18015-5	40786050	LOINC
-kg	258683005	4122383	SNOMED
-metFORMIN	LP33332-5	44787139	LOINC
-Oral	LA9367-9	45878097	LOINC
-Asthma	J45	1569488	ICD10CM
-Nausea	R11.0	45534429	ICD10CM
-Hemoglobin	LP14449-0	40795725	LOINC
-g/dL	258795003	4121395	SNOMED
-Intravenous	LA9437-0	45880861	LOINC
-Acute infective cystitis	307426000	4144035	SNOMED
-Seizure	LA7472-9	45882230	LOINC
-Subcutaneous immunotherapy	180256009	4107731	SNOMED
-Glucose [Mass/volume] in Urine by Test strip	5792-7	3024629	LOINC
-mg/dL	258797006	4121396	SNOMED
-Ketones [Presence] in Urine by Test strip	2514-8	3035350	LOINC
-Fexofenadine hydrochloride 30 MG Oral Tablet	00088500010	44957998	NDC
+label	id	concept_id	vocabulary_id	domain_id	concept_class_id	standard_concept	valid_start_date	valid_end_date	invalid_reason
+MALE	M	8507	Gender	Gender	Gender	S	19700101	20991231	""
+FEMALE	F	8532	Gender	Gender	Gender	S	19700101	20991231	""
+White	LA4457-3	45877987	LOINC	Meas Value	Answer	S	19700101	20991231	""
+NA	LA12334-1	36311145	LOINC	Meas Value	Answer	S	19700101	20991231	""
+Not Hispanic or Latino	Not Hispanic	38003564	Ethnicity	Ethnicity	Ethnicity	S	19700101	20991231	""
+Hispanic or Latino	Hispanic	38003563	Ethnicity	Ethnicity	Ethnicity	S	19700101	20991231	""
+Usa	4004810	42007257	OSM	Geography	7th level	S	19700101	20991231	""
+US	LA31572-3	1621184	LOINC	Meas Value	Answer	S	19700101	20991231	""
+Injury of anterior cruciate ligament	444470001	40479768	SNOMED	Condition	Clinical Finding	S	20100131	20991231	""
+Concussion with no loss of consciousness	850.0	44832796	ICD9CM	Condition	4-dig billing code		19700101	20991231	""
+Acute viral pharyngitis	195662009	4112343	SNOMED	Condition	Clinical Finding	S	20020131	20991231	""
+Streptococcal sore throat	034.0	44820546	ICD9CM	Condition	4-dig billing code		19700101	20991231	""
+Viral sinusitis	444814009	40481087	SNOMED	Condition	Clinical Finding	S	20100731	20991231	""
+Surgical manipulation of joint of knee	699253003	44783196	SNOMED	Procedure	Procedure	S	20140131	20991231	""
+Suture open wound	150348004	40309874	SNOMED	Procedure	Procedure		19700101	20020131	U
+Radiologic examination of knee	74016001	4252419	SNOMED	Procedure	Procedure	S	20020131	20991231	""
+Bone immobilization	150732003	40311526	SNOMED	Procedure	Procedure		19700101	20020131	U
+Radiography of humerus	1225002	4047491	SNOMED	Procedure	Procedure	S	20020131	20991231	""
+Plain chest X-ray	399208008	4163872	SNOMED	Procedure	Procedure	S	20030731	20991231	""
+Sputum examination	269911007	4151422	SNOMED	Procedure	Procedure	S	20020131	20991231	""
+History of appendectomy	428251008	4323208	SNOMED	Observation	Context-dependent		20080131	20991231	""
+Type 2 diabetes mellitus	E11	1567956	ICD10CM	Condition	3-char nonbill code		20120101	20991231	""
+Headache	R51	35211388	ICD10CM	Condition	3-char nonbill code		20070101	20991231	""
+Alanine aminotransferase	LP15333-5	40782579	LOINC	Observation	LOINC Component		19700101	20991231	""
+U/L	258947003	4118000	SNOMED	Unit	Qualifier Value		20020131	20991231	""
+Negative	LA6577-6	45878583	LOINC	Meas Value	Answer	S	19700101	20991231	""
+Weight	LP18015-5	40786050	LOINC	Observation	LOINC Component		19700101	20991231	""
+kg	258683005	4122383	SNOMED	Unit	Qualifier Value		20020131	20991231	""
+metFORMIN	LP33332-5	44787139	LOINC	Observation	LOINC Component		19700101	20991231	""
+Oral	LA9367-9	45878097	LOINC	Meas Value	Answer	S	19700101	20991231	""
+Asthma	J45	1569488	ICD10CM	Condition	3-char nonbill code		20120101	20991231	""
+Nausea	R11.0	45534429	ICD10CM	Condition	4-char billing code		19700101	20991231	""
+Hemoglobin	LP14449-0	40795725	LOINC	Observation	LOINC Component		19700101	20991231	""
+g/dL	258795003	4121395	SNOMED	Unit	Qualifier Value		20020131	20991231	""
+Intravenous	LA9437-0	45880861	LOINC	Meas Value	Answer	S	19700101	20991231	""
+Acute infective cystitis	307426000	4144035	SNOMED	Condition	Clinical Finding	S	20020131	20991231	""
+Seizure	LA7472-9	45882230	LOINC	Meas Value	Answer	S	19700101	20991231	""
+Subcutaneous immunotherapy	180256009	4107731	SNOMED	Procedure	Procedure	S	20020131	20991231	""
+Glucose [Mass/volume] in Urine by Test strip	5792-7	3024629	LOINC	Measurement	Lab Test	S	19700101	20991231	""
+mg/dL	258797006	4121396	SNOMED	Unit	Qualifier Value		20020131	20991231	""
+Ketones [Presence] in Urine by Test strip	2514-8	3035350	LOINC	Measurement	Lab Test	S	19700101	20991231	""
+Fexofenadine hydrochloride 30 MG Oral Tablet	00088500010	44957998	NDC	Drug	11-digit NDC		20100801	20120601	D
+White	5	8527	Race	Race	Race	S	19700101	20991231	""
+unit per liter	[U]/L	8645	UCUM	Unit	Unit	S	19700101	20991231	""
+gram per deciliter	g/dL	8713	UCUM	Unit	Unit	S	19700101	20991231	""
+milligram per deciliter	mg/dL	8840	UCUM	Unit	Unit	S	19700101	20991231	""
+kilogram	kg	9529	UCUM	Unit	Unit	S	19700101	20991231	""
+Streptococcal sore throat	43878008	28060	SNOMED	Condition	Clinical Finding	S	20020131	20991231	""
+Nausea	422587007	31967	SNOMED	Condition	Clinical Finding	S	20070131	20991231	""
+Type 2 diabetes mellitus	44054006	201826	SNOMED	Condition	Clinical Finding	S	20020131	20991231	""
+Asthma	195967001	317009	SNOMED	Condition	Clinical Finding	S	20020131	20991231	""
+Concussion with no loss of consciousness	62106007	378001	SNOMED	Condition	Clinical Finding	S	20020131	20991231	""
+Headache	25064002	378253	SNOMED	Condition	Clinical Finding	S	20020131	20991231	""
+History of event	OMOP5165859	1340204	OMOP Extension	Observation	Context-dependent	S	20220506	20991231	""
+metformin	6809	1503297	RxNorm	Drug	Ingredient	S	19700101	20991231	""
+Suture open wound	288086009	4125906	SNOMED	Procedure	Procedure	S	20020131	20991231	""
+Bone immobilization	274474001	4170947	SNOMED	Procedure	Procedure	S	20020131	20991231	""
+Appendectomy	80146002	4198190	SNOMED	Procedure	Procedure	S	20020131	20991231	""
+fexofenadine hydrochloride 30 MG Oral Tablet	997488	40223821	RxNorm	Drug	Clinical Drug	S	20100801	20991231	""
+Oral	260548002	4128794	SNOMED	Observation	Qualifier Value	S	20020131	20991231	""
+Oral	738956005	42538090	SNOMED	Observation	Qualifier Value	S	20180131	20991231	""
+Partial thickness burn	403191005	4296205	SNOMED	Condition	Clinical Finding	S	20030731	20991231	""
+Negative	260385009	9189	SNOMED	Meas Value	Qualifier Value	S	20020131	20991231	""

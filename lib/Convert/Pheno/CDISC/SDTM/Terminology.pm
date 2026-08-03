@@ -251,6 +251,7 @@ sub _lookup_or_fallback {
     );
 
     my $match_source = $arg{match_source};
+    my $source_search_evidence = $result->{search_evidence};
     if ( !_not_found($result) && $arg{ontology} eq 'cdisc' ) {
         my $nci_id = $result->{id};
         $nci_id =~ s/^NCIT://;
@@ -264,6 +265,8 @@ sub _lookup_or_fallback {
                 return_metadata => 1,
             }
         );
+        $result->{search_evidence} = $source_search_evidence
+          if defined $source_search_evidence;
         $match_source = 'cdisc_to_ncit';
     }
 
@@ -271,6 +274,10 @@ sub _lookup_or_fallback {
     my $term = $matched
       ? { id => $result->{id}, label => $result->{label} }
       : dclone( $arg{fallback} );
+    my $audit_term = {
+        %{$term},
+        search_evidence => $result->{search_evidence},
+    };
     my $reported_match_source = $match_source;
     if ( $matched
         && $match_source ne 'define_xml'
@@ -290,7 +297,7 @@ sub _lookup_or_fallback {
             ontology              => $matched && $arg{ontology} eq 'cdisc'
               ? 'ncit'
               : $arg{ontology},
-            term                  => $term,
+            term                  => $audit_term,
             effective_search_mode => $arg{column} eq 'id'
               ? 'exact'
               : $arg{self}{search},

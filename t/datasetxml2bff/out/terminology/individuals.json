@@ -1,0 +1,62 @@
+[
+   {
+      "ethnicity" : {
+         "id" : "NCIT:C41222",
+         "label" : "Not Hispanic or Latino"
+      },
+      "id" : "P001",
+      "info" : {
+         "datasetXml" : {
+            "datasetXMLVersion" : "1.0.0",
+            "defineXMLVersion" : "2.0.0",
+            "domains" : {
+               "DM" : [
+                  {
+                     "DOMAIN" : "DM",
+                     "ETHNIC" : "NOT HISPANIC OR LATINO",
+                     "SEX" : "F",
+                     "USUBJID" : "P001"
+                  }
+               ]
+            },
+            "metaDataRef" : "DEFINE.SDTM-TERMS",
+            "metaDataVersionOID" : "MDV.SDTM-TERMS",
+            "studyOID" : "SDTM-TERMS"
+         }
+      },
+      "sex" : {
+         "id" : "NCIT:C16576",
+         "label" : "Female"
+      }
+   },
+   {
+      "ethnicity" : {
+         "id" : "CDISC:ETHNIC.UNKNOWN",
+         "label" : "Unknown"
+      },
+      "id" : "P002",
+      "info" : {
+         "datasetXml" : {
+            "datasetXMLVersion" : "1.0.0",
+            "defineXMLVersion" : "2.0.0",
+            "domains" : {
+               "DM" : [
+                  {
+                     "DOMAIN" : "DM",
+                     "ETHNIC" : "UNKNOWN",
+                     "SEX" : "M",
+                     "USUBJID" : "P002"
+                  }
+               ]
+            },
+            "metaDataRef" : "DEFINE.SDTM-TERMS",
+            "metaDataVersionOID" : "MDV.SDTM-TERMS",
+            "studyOID" : "SDTM-TERMS"
+         }
+      },
+      "sex" : {
+         "id" : "NCIT:C20197",
+         "label" : "Male"
+      }
+   }
+]

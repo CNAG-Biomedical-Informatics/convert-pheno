@@ -5,6 +5,12 @@ outputs used by the automated tests, and they are small examples that can be run
 from a source checkout. The test suite compares generated data structurally, so
 formatting differences alone do not require reference-file changes.
 
+Fixtures are regression contracts, not curated semantic showcase datasets.
+Baseline outputs intentionally exercise safe source-derived fallbacks when the
+input supplies no authoritative identifier and no optional terminology mapping
+is requested. CDISC fixtures provide separate terminology-enriched references
+so both behaviors remain visible and tested.
+
 ## Start with Three Core Routes
 
 Run these commands from the repository root. `--test` removes changing runtime
@@ -58,6 +64,7 @@ Reference output: [`t/omop2bff/out/individuals_csv.json`](omop2bff/out/individua
 | REDCap | [`redcap2bff/in`](redcap2bff/in) | `redcap2bff/out`, `redcap2pxf/out` |
 | CDISC-ODM | [`cdiscodm2bff/in`](cdiscodm2bff/in) | `cdiscodm2bff/out`, `cdiscodm2pxf/out` |
 | CDISC Dataset-JSON | [`datasetjson2bff/in`](datasetjson2bff/in) | `datasetjson2bff/out`, `datasetjson2pxf/out`, `datasetjson2omop/out` |
+| CDISC Dataset-XML | [`datasetxml2bff/in`](datasetxml2bff/in) | `datasetxml2bff/out`; PXF and OMOP behavior in `38-datasetxml.t` |
 | FHIR R4 Bundle | [`fhir2bff/in`](fhir2bff/in) | `fhir2bff/out`, `fhir2pxf/out`, `fhir2omop/out` |
 | openEHR canonical JSON | [`openehr2bff/in`](openehr2bff/in) | `openehr2bff/out`, `openehr2pxf/out` |
 

@@ -1,0 +1,405 @@
+[
+   {
+      "diseases" : [
+         {
+            "diseaseCode" : {
+               "id" : "NCIT:C2985",
+               "label" : "Diabetes Mellitus"
+            }
+         }
+      ],
+      "ethnicity" : {
+         "id" : "CDISC:ETHNIC.NOT_HISPANIC_OR_LATINO",
+         "label" : "NOT HISPANIC OR LATINO"
+      },
+      "geographicOrigin" : {
+         "id" : "ISO3166-1:USA",
+         "label" : "USA"
+      },
+      "id" : "P001",
+      "info" : {
+         "datasetJson" : {
+            "datasetJSONVersion" : "1.1.0",
+            "domains" : {
+               "AE" : [
+                  {
+                     "AEDECOD" : "HEADACHE",
+                     "AEENDTC" : "2025-01-04",
+                     "AESEV" : "MILD",
+                     "AESTDTC" : "2025-01-03",
+                     "AETERM" : "Headache",
+                     "DOMAIN" : "AE",
+                     "USUBJID" : "P001"
+                  }
+               ],
+               "CM" : [
+                  {
+                     "CMDECOD" : "METFORMIN",
+                     "CMROUTE" : "ORAL",
+                     "CMTRT" : "Metformin",
+                     "DOMAIN" : "CM",
+                     "USUBJID" : "P001"
+                  }
+               ],
+               "DM" : [
+                  {
+                     "BRTHDTC" : "1980-02-03",
+                     "COUNTRY" : "USA",
+                     "DOMAIN" : "DM",
+                     "DTHFL" : "",
+                     "ETHNIC" : "NOT HISPANIC OR LATINO",
+                     "SEX" : "M",
+                     "USUBJID" : "P001"
+                  }
+               ],
+               "LB" : [
+                  {
+                     "DOMAIN" : "LB",
+                     "LBDTC" : "2025-01-02",
+                     "LBSTNRHI" : 56,
+                     "LBSTNRLO" : 7,
+                     "LBSTRESC" : "42",
+                     "LBSTRESN" : 42,
+                     "LBSTRESU" : "U/L",
+                     "LBTEST" : "Alanine Aminotransferase",
+                     "LBTESTCD" : "ALT",
+                     "USUBJID" : "P001"
+                  },
+                  {
+                     "DOMAIN" : "LB",
+                     "LBDTC" : "2025-01-05",
+                     "LBSTNRHI" : "",
+                     "LBSTNRLO" : "",
+                     "LBSTRESC" : "NEGATIVE",
+                     "LBSTRESN" : "",
+                     "LBSTRESU" : "",
+                     "LBTEST" : "SARS-CoV-2 RNA",
+                     "LBTESTCD" : "COV2",
+                     "USUBJID" : "P001"
+                  }
+               ],
+               "MH" : [
+                  {
+                     "DOMAIN" : "MH",
+                     "MHDECOD" : "DIABETES MELLITUS",
+                     "MHSEQ" : 1,
+                     "MHTERM" : "Type 2 diabetes mellitus",
+                     "USUBJID" : "P001"
+                  }
+               ],
+               "QS" : [
+                  {
+                     "DOMAIN" : "QS",
+                     "QSSTRESC" : "11111",
+                     "QSTESTCD" : "EQ5D3L",
+                     "USUBJID" : "P001"
+                  }
+               ],
+               "VS" : [
+                  {
+                     "DOMAIN" : "VS",
+                     "USUBJID" : "P001",
+                     "VSDTC" : "2025-01-02",
+                     "VSSTRESN" : 81.5,
+                     "VSSTRESU" : "kg",
+                     "VSTEST" : "Weight",
+                     "VSTESTCD" : "WEIGHT"
+                  }
+               ]
+            },
+            "studyOID" : "STUDY-JSON-01",
+            "unmappedDomains" : [
+               "QS"
+            ]
+         },
+         "phenopacket" : {
+            "dateOfBirth" : "1980-02-03T00:00:00Z"
+         }
+      },
+      "measures" : [
+         {
+            "assayCode" : {
+               "id" : "NCIT:C25293",
+               "label" : "Alanine Aminotransferase"
+            },
+            "date" : "2025-01-02",
+            "measurementValue" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 56,
+                     "low" : 7,
+                     "unit" : {
+                        "id" : "CDISC:UNIT.U_L",
+                        "label" : "U/L"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "CDISC:UNIT.U_L",
+                     "label" : "U/L"
+                  },
+                  "value" : 42
+               }
+            }
+         },
+         {
+            "assayCode" : {
+               "id" : "CDISC:LBTESTCD.COV2",
+               "label" : "SARS-CoV-2 RNA"
+            },
+            "date" : "2025-01-05",
+            "measurementValue" : {
+               "id" : "NCIT:C25247",
+               "label" : "Negative"
+            }
+         },
+         {
+            "assayCode" : {
+               "id" : "CDISC:VSTESTCD.WEIGHT",
+               "label" : "Weight"
+            },
+            "date" : "2025-01-02",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "CDISC:UNIT.KG",
+                     "label" : "kg"
+                  },
+                  "value" : 81.5
+               }
+            }
+         }
+      ],
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "featureType" : {
+               "id" : "CDISC:AEDECOD.HEADACHE",
+               "label" : "Headache"
+            },
+            "onset" : {
+               "timestamp" : "2025-01-03T00:00:00Z"
+            },
+            "resolution" : {
+               "timestamp" : "2025-01-04T00:00:00Z"
+            },
+            "severity" : {
+               "id" : "NCIT:C70666",
+               "label" : "Mild"
+            }
+         }
+      ],
+      "sex" : {
+         "id" : "NCIT:C20197",
+         "label" : "Male"
+      },
+      "treatments" : [
+         {
+            "routeOfAdministration" : {
+               "id" : "CDISC:CMROUTE.ORAL",
+               "label" : "ORAL"
+            },
+            "treatmentCode" : {
+               "id" : "CDISC:CMDECOD.METFORMIN",
+               "label" : "Metformin"
+            }
+         }
+      ]
+   },
+   {
+      "diseases" : [
+         {
+            "diseaseCode" : {
+               "id" : "NCIT:C28397",
+               "label" : "Asthma"
+            }
+         }
+      ],
+      "ethnicity" : {
+         "id" : "CDISC:ETHNIC.HISPANIC_OR_LATINO",
+         "label" : "HISPANIC OR LATINO"
+      },
+      "geographicOrigin" : {
+         "id" : "ISO3166-1:ESP",
+         "label" : "ESP"
+      },
+      "id" : "P002",
+      "info" : {
+         "datasetJson" : {
+            "datasetJSONVersion" : "1.1.0",
+            "domains" : {
+               "AE" : [
+                  {
+                     "AEDECOD" : "NAUSEA",
+                     "AEENDTC" : "2025-02-10T12:00:00Z",
+                     "AESEV" : "MODERATE",
+                     "AESTDTC" : "2025-02-10T09:30:00Z",
+                     "AETERM" : "Nausea",
+                     "DOMAIN" : "AE",
+                     "USUBJID" : "P002"
+                  }
+               ],
+               "DM" : [
+                  {
+                     "BRTHDTC" : "1975-06-20",
+                     "COUNTRY" : "ESP",
+                     "DOMAIN" : "DM",
+                     "DTHFL" : "Y",
+                     "ETHNIC" : "HISPANIC OR LATINO",
+                     "SEX" : "F",
+                     "USUBJID" : "P002"
+                  }
+               ],
+               "EX" : [
+                  {
+                     "DOMAIN" : "EX",
+                     "EXROUTE" : "INTRAVENOUS",
+                     "EXTRT" : "Investigational product",
+                     "USUBJID" : "P002"
+                  }
+               ],
+               "LB" : [
+                  {
+                     "DOMAIN" : "LB",
+                     "LBDTC" : "2025-02-09",
+                     "LBSTNRHI" : 16,
+                     "LBSTNRLO" : 12,
+                     "LBSTRESC" : "13.2",
+                     "LBSTRESN" : 13.2,
+                     "LBSTRESU" : "g/dL",
+                     "LBTEST" : "Hemoglobin",
+                     "LBTESTCD" : "HGB",
+                     "USUBJID" : "P002"
+                  }
+               ],
+               "MH" : [
+                  {
+                     "DOMAIN" : "MH",
+                     "MHDECOD" : "ASTHMA",
+                     "MHSEQ" : 1,
+                     "MHTERM" : "Asthma",
+                     "USUBJID" : "P002"
+                  }
+               ],
+               "PR" : [
+                  {
+                     "DOMAIN" : "PR",
+                     "PRDECOD" : "BIOPSY",
+                     "PRLOC" : "SKIN",
+                     "PRSTDTC" : "2025-02-11",
+                     "PRTRT" : "Skin biopsy",
+                     "USUBJID" : "P002"
+                  }
+               ],
+               "VS" : [
+                  {
+                     "DOMAIN" : "VS",
+                     "USUBJID" : "P002",
+                     "VSDTC" : "2025-02-09",
+                     "VSSTRESN" : 62,
+                     "VSSTRESU" : "kg",
+                     "VSTEST" : "Weight",
+                     "VSTESTCD" : "WEIGHT"
+                  }
+               ]
+            },
+            "studyOID" : "STUDY-JSON-01"
+         },
+         "phenopacket" : {
+            "dateOfBirth" : "1975-06-20T00:00:00Z",
+            "vitalStatus" : {
+               "status" : "DECEASED"
+            }
+         }
+      },
+      "interventionsOrProcedures" : [
+         {
+            "bodySite" : {
+               "id" : "CDISC:PRLOC.SKIN",
+               "label" : "SKIN"
+            },
+            "dateOfProcedure" : "2025-02-11",
+            "procedureCode" : {
+               "id" : "CDISC:PRDECOD.BIOPSY",
+               "label" : "Skin biopsy"
+            }
+         }
+      ],
+      "measures" : [
+         {
+            "assayCode" : {
+               "id" : "NCIT:C16676",
+               "label" : "Hemoglobin"
+            },
+            "date" : "2025-02-09",
+            "measurementValue" : {
+               "quantity" : {
+                  "referenceRange" : {
+                     "high" : 16,
+                     "low" : 12,
+                     "unit" : {
+                        "id" : "CDISC:UNIT.G_DL",
+                        "label" : "g/dL"
+                     }
+                  },
+                  "unit" : {
+                     "id" : "CDISC:UNIT.G_DL",
+                     "label" : "g/dL"
+                  },
+                  "value" : 13.2
+               }
+            }
+         },
+         {
+            "assayCode" : {
+               "id" : "CDISC:VSTESTCD.WEIGHT",
+               "label" : "Weight"
+            },
+            "date" : "2025-02-09",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "CDISC:UNIT.KG",
+                     "label" : "kg"
+                  },
+                  "value" : 62
+               }
+            }
+         }
+      ],
+      "phenotypicFeatures" : [
+         {
+            "excluded" : false,
+            "featureType" : {
+               "id" : "CDISC:AEDECOD.NAUSEA",
+               "label" : "Nausea"
+            },
+            "onset" : {
+               "timestamp" : "2025-02-10T09:30:00Z"
+            },
+            "resolution" : {
+               "timestamp" : "2025-02-10T12:00:00Z"
+            },
+            "severity" : {
+               "id" : "NCIT:C61376",
+               "label" : "Moderate"
+            }
+         }
+      ],
+      "sex" : {
+         "id" : "NCIT:C16576",
+         "label" : "Female"
+      },
+      "treatments" : [
+         {
+            "routeOfAdministration" : {
+               "id" : "CDISC:EXROUTE.INTRAVENOUS",
+               "label" : "INTRAVENOUS"
+            },
+            "treatmentCode" : {
+               "id" : "CDISC:EXTRT.INVESTIGATIONAL_PRODUCT",
+               "label" : "Investigational product"
+            }
+         }
+      ]
+   }
+]

@@ -151,7 +151,11 @@ echo 'eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)' >> ~/.bashrc
 
 ## Athena-OHDSI Database
 
-Some OMOP workflows need `ohdsi.db`.
+OMOP output requires the current `ohdsi.db`; OMOP input can also use it when a
+concept is absent from the supplied `CONCEPT` table. The database is
+approximately 3.2 GB and includes the concept domains, standard-concept status,
+and `Maps to` relationships needed for safe OMOP concept resolution. Older
+four-column copies are not compatible.
 
 You can either download it manually in a browser from this Google Drive
 directory:

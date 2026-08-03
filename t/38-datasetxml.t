@@ -145,12 +145,12 @@ sub build_datasetxml_converter {
     my $audit = slurp_file($audit_file);
     like(
         $audit,
-        qr/\tDM\.ETHNIC\tNOT HISPANIC OR LATINO\tNot Hispanic or Latino\tC41222\tid\tNot Hispanic or Latino\tNCIT:C41222\tncit\t[^\n]*\tmatched\tdefine_xml\texact\tnone(?:\n|\z)/,
+        qr/\tDM\.ETHNIC\tNOT HISPANIC OR LATINO\tNot Hispanic or Latino\tC41222\tid\tNot Hispanic or Latino\tNCIT:C41222\tncit\t[^\n]*\tmatched\texact_match\tkeep\tdefine_xml\texact\tnone\t[^\n]*(?:\n|\z)/,
         'terminology audit attributes an authoritative identifier to Define-XML'
     );
     like(
         $audit,
-        qr/\tDM\.ETHNIC\tUNKNOWN\tUnknown\t\t\tUnknown\tCDISC:ETHNIC\.UNKNOWN\tcdisc\t[^\n]*\tnot_searched\tsource_fallback\tfallback_source\tsource_term(?:\n|\z)/,
+        qr/\tDM\.ETHNIC\tUNKNOWN\tUnknown\t\t\tUnknown\tCDISC:ETHNIC\.UNKNOWN\tcdisc\t[^\n]*\tnot_searched\tnot_searched\treview_source_fallback\tsource_fallback\tfallback_source\tsource_term\t[^\n]*(?:\n|\z)/,
         'terminology audit distinguishes a source-derived fallback'
     );
 }

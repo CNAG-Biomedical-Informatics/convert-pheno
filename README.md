@@ -105,7 +105,7 @@ This makes the mapping structure consistent with multi-entity BFF output while k
 Useful recent options include:
 
 - `--default-vital-status` to control the fallback `subject.vitalStatus.status` in `bff2pxf`
-- `--term-audit-tsv` to write a TSV report of terminology resolution for mapping-file conversions
+- `--term-audit` to write a TSV, compressed TSV, or color-coded XLSX report of terminology resolution
 - generic `-i/-o` syntax in addition to the format-specific shortcuts
 - `--out-name key=file` to customize filenames in multi-file BFF or OMOP output
 
@@ -143,7 +143,7 @@ Useful examples:
 ```bash
 bin/convert-pheno -ipxf t/pxf2bff/in/pxf.json -obff individuals.json
 bin/convert-pheno -ipxf t/pxf2bff/in/pxf_biosamples.json -obff --entities individuals biosamples datasets cohorts --out-dir out/
-bin/convert-pheno -icsv t/csv2bff/in/csv_data.csv --mapping-file t/csv2bff/in/csv_mapping.yaml --term-audit-tsv terminology.tsv -obff individuals.json
+bin/convert-pheno -icsv t/csv2bff/in/csv_data.csv --mapping-file t/csv2bff/in/csv_mapping.yaml --term-audit terminology.tsv -obff individuals.json
 bin/convert-pheno -ibff t/bff2pxf/in/individuals.json -opxf phenopackets.json --default-vital-status UNKNOWN_STATUS
 bin/convert-pheno -iomop t/omop2bff/in/omop_cdm_eunomia.sql -opxf phenopackets.json
 bin/convert-pheno -iomop t/omop2bff/in/gz/omop_cdm_eunomia.sql.gz -obff individuals.json.gz --stream --omop-tables DRUG_EXPOSURE

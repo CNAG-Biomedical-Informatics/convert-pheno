@@ -70,6 +70,45 @@ is(
     'SELECT * FROM OHDSI_fts WHERE concept_id MATCH ?',
     'build_query creates full-text SQL'
 );
+is(
+    Convert::Pheno::DB::SQLite::build_query( 'ncit', 'label', 'relaxed_full_text_search' ),
+    'SELECT * FROM NCIT_fts WHERE label MATCH ? ORDER BY bm25(NCIT_fts) LIMIT 200',
+    'build_query bounds relaxed full-text candidates using BM25'
+);
+is(
+    Convert::Pheno::DB::SQLite::build_strict_fts_query(
+        'Stroke/Myocardial (Infarction)'
+    ),
+    '"Stroke" AND "Myocardial" AND "Infarction"',
+    'build_strict_fts_query requires every literal word'
+);
+is(
+    Convert::Pheno::DB::SQLite::build_strict_fts_query(
+        'Stroke OR Bleeding'
+    ),
+    '"Stroke" AND "OR" AND "Bleeding"',
+    'build_strict_fts_query quotes FTS operators as source words'
+);
+is(
+    Convert::Pheno::DB::SQLite::build_strict_fts_query('---'),
+    undef,
+    'build_strict_fts_query rejects input without searchable words'
+);
+is(
+    Convert::Pheno::DB::SQLite::build_relaxed_fts_query('Sudden Infant Deth Syndrome'),
+    '("Infant" AND "Deth" AND "Syndrome") OR ("Sudden" AND "Deth" AND "Syndrome") OR ("Sudden" AND "Infant" AND "Syndrome") OR ("Sudden" AND "Infant" AND "Deth")',
+    'build_relaxed_fts_query permits one missing token for a multi-token label'
+);
+is(
+    Convert::Pheno::DB::SQLite::build_relaxed_fts_query('Brain Hemorrhage'),
+    '("Brain") OR ("Hemorrhage")',
+    'build_relaxed_fts_query uses a bounded OR fallback for two-token labels'
+);
+is(
+    Convert::Pheno::DB::SQLite::build_relaxed_fts_query('Syndrome'),
+    undef,
+    'build_relaxed_fts_query does not broaden a single-token label'
+);
 
 is(
     Convert::Pheno::DB::SQLite::prune_problematic_chars( 'OPCS(v4-0.0):Cannulation_of-lymphatic/duct', 'full_text_search' ),
@@ -113,6 +152,63 @@ is(
     my $ro = Convert::Pheno::DB::SQLite::open_db_SQLite( 'test', undef );
     isa_ok( $ro, 'DBI::db', 'open_db_SQLite returns a DBI handle' );
     ok( Convert::Pheno::DB::SQLite::close_db_SQLite($ro), 'close_db_SQLite disconnects cleanly' );
+}
+
+{
+    my $tmpdir = tempdir( CLEANUP => 1 );
+    my $dbfile = catfile( $tmpdir, 'ohdsi.db' );
+    my $dbh = DBI->connect(
+        "dbi:SQLite:dbname=$dbfile", '', '',
+        { RaiseError => 1, AutoCommit => 1 }
+    );
+    $dbh->do(
+        'CREATE TABLE OHDSI_table '
+          . '(label TEXT, id TEXT, concept_id INTEGER, vocabulary_id TEXT)'
+    );
+    $dbh->do(
+        'CREATE VIRTUAL TABLE OHDSI_fts '
+          . 'USING fts5(label, id, concept_id, vocabulary_id)'
+    );
+    $dbh->disconnect;
+
+    throws_ok(
+        sub { Convert::Pheno::DB::SQLite::open_db_SQLite( 'ohdsi', $tmpdir ) },
+        qr/Athena-OHDSI database .* uses the pre-bundle schema/,
+        'open_db_SQLite rejects the old four-column OHDSI database'
+    );
+}
+
+{
+    my $tmpdir = tempdir( CLEANUP => 1 );
+    my $dbfile = catfile( $tmpdir, 'ohdsi.db' );
+    my $dbh = DBI->connect(
+        "dbi:SQLite:dbname=$dbfile", '', '',
+        { RaiseError => 1, AutoCommit => 1 }
+    );
+    $dbh->do(
+        'CREATE TABLE OHDSI_table ('
+          . 'label TEXT, id TEXT, concept_id INTEGER, vocabulary_id TEXT, '
+          . 'domain_id TEXT, concept_class_id TEXT, standard_concept TEXT, '
+          . 'valid_start_date TEXT, valid_end_date TEXT, invalid_reason TEXT)'
+    );
+    $dbh->do(
+        'CREATE VIRTUAL TABLE OHDSI_fts '
+          . 'USING fts5(label, id, concept_id, vocabulary_id)'
+    );
+    $dbh->do(
+        'CREATE TABLE OHDSI_maps_to ('
+          . 'source_concept_id INTEGER, target_concept_id INTEGER, '
+          . 'relationship_id TEXT, valid_start_date TEXT, '
+          . 'valid_end_date TEXT, invalid_reason TEXT)'
+    );
+    $dbh->disconnect;
+
+    my $ro = Convert::Pheno::DB::SQLite::open_db_SQLite( 'ohdsi', $tmpdir );
+    isa_ok( $ro, 'DBI::db', 'open_db_SQLite accepts the enriched OHDSI schema' );
+    ok(
+        Convert::Pheno::DB::SQLite::close_db_SQLite($ro),
+        'enriched OHDSI test database disconnects cleanly'
+    );
 }
 
 {
@@ -243,7 +339,7 @@ warning_like {
             levenshtein_weight        => 0.1,
         }
     );
-    is_deeply( \@result, [ undef, undef, undef, undef ], 'execute_query_SQLite returns undefs after execute failure' );
+    is_deeply( \@result, [ undef, undef, undef, undef, undef ], 'execute_query_SQLite returns undefs after execute failure' );
 } qr/Query execution failed: boom/, 'execute_query_SQLite warns on execute failure';
 
 {
@@ -253,7 +349,7 @@ warning_like {
             [ 'Pharyngitis', '123', 321, 'SNOMED' ],
         ],
     );
-    my ( $id, $label, $concept_id ) = Convert::Pheno::DB::SQLite::similarity_match(
+    my ( $id, $label, $concept_id, $stats ) = Convert::Pheno::DB::SQLite::similarity_match(
         {
             sth                       => $sth,
             query                     => 'Acute viral pharyngitis',
@@ -268,6 +364,8 @@ warning_like {
     is( $id, 'SNOMED:195662009', 'similarity_match picks the best candidate' );
     is( $label, 'Acute viral pharyngitis', 'similarity_match returns winning label' );
     is( $concept_id, 4112343, 'similarity_match returns winning concept_id' );
+    is( $stats->{best_candidate_id}, 'SNOMED:195662009', 'similarity_match reports its best candidate' );
+    cmp_ok( $stats->{best_candidate_score}, '>', $stats->{runner_up_score}, 'similarity_match reports an ordered score margin' );
 }
 
 {
@@ -277,7 +375,7 @@ warning_like {
             [ 'Viral pharyngitis', '999', 222, 'SNOMED' ],
         ],
     );
-    my ( $id, $label, $concept_id ) = Convert::Pheno::DB::SQLite::composite_similarity_match(
+    my ( $id, $label, $concept_id, $stats ) = Convert::Pheno::DB::SQLite::composite_similarity_match(
         {
             sth                       => $sth,
             query                     => 'Acute viral pharyngitis',
@@ -293,12 +391,37 @@ warning_like {
     is( $id, 'SNOMED:195662009', 'composite_similarity_match picks the best candidate' );
     is( $label, 'Acute viral pharyngitis', 'composite_similarity_match returns winning label' );
     is( $concept_id, 4112343, 'composite_similarity_match returns winning concept_id' );
+    is( $stats->{best_candidate_id}, 'SNOMED:195662009', 'composite_similarity_match reports its best candidate' );
+    ok( defined $stats->{normalized_levenshtein}, 'composite_similarity_match reports the winning Levenshtein component' );
+}
+
+{
+    my $sth = Test::FakeSTH->new(
+        rows => [ [ 'abce', 'C1', undef ] ],
+    );
+    my ( $id, undef, undef, $stats ) = Convert::Pheno::DB::SQLite::composite_similarity_match(
+        {
+            sth                       => $sth,
+            query                     => 'abcd',
+            ontology                  => 'ncit',
+            id_column                 => 1,
+            label_column              => 0,
+            min_text_similarity_score => 0.7,
+            text_similarity_method    => 'cosine',
+            levenshtein_weight        => 1,
+            concept_id_column         => 2,
+        }
+    );
+    is( $id, 'NCIT:C1', 'fuzzy acceptance uses the reported composite score' );
+    cmp_ok( $stats->{best_candidate_score}, '>=', 0.7, 'reported fuzzy score satisfies the configured threshold' );
 }
 
 {
     no warnings 'redefine';
+    my @calls;
     local *Convert::Pheno::DB::SQLite::execute_query_SQLite = sub {
         my ($arg) = @_;
+        push @calls, { %{$arg} };
         return ( undef, undef, undef ) if $arg->{match_type} eq 'exact_match';
         return ( 'NCIT:C123', 'Fallback term', undef );
     };
@@ -307,7 +430,7 @@ warning_like {
         {
             ontology                  => 'ncit',
             sth_column_ref            => { exact_match => 1, full_text_search => 1 },
-            query                     => 'fallback',
+            query                     => 'Stroke OR Bleeding',
             column                    => 'label',
             databases                 => [ 'ncit' ],
             search                    => 'mixed',
@@ -319,6 +442,20 @@ warning_like {
     is( $id, 'NCIT:C123', 'get_ontology_terms falls back to full text search in mixed mode' );
     is( $label, 'Fallback term', 'get_ontology_terms returns fallback label from mixed mode' );
     is( $concept_id, undef, 'get_ontology_terms leaves concept_id undef for non-ohdsi ontologies' );
+    is(
+        $calls[1]{query},
+        '"Stroke" AND "OR" AND "Bleeding"',
+        'mixed search executes a literal all-token FTS expression'
+    );
+    is(
+        $calls[1]{scoring_query},
+        'Stroke OR Bleeding',
+        'mixed search scores candidates against the original source label'
+    );
+    ok(
+        $calls[1]{query_is_fts_expression},
+        'mixed search does not normalize its generated FTS expression again'
+    );
 }
 
 {
@@ -344,7 +481,7 @@ warning_like {
 }
 
 SKIP: {
-    skip 'share/db/ncit.db is required for real SQLite search-mode tests', 17
+    skip 'share/db/ncit.db is required for real SQLite search-mode tests', 28
       unless -f 'share/db/ncit.db';
 
     local $Convert::Pheno::share_dir = 'share';
@@ -356,7 +493,7 @@ SKIP: {
                 databases                 => ['ncit'],
                 search                    => $args{search},
                 text_similarity_method    => 'cosine',
-                min_text_similarity_score => 0.1,
+                min_text_similarity_score => $args{min_score} // 0.1,
                 levenshtein_weight        => 0.1,
             },
             'Convert::Pheno'
@@ -404,6 +541,29 @@ SKIP: {
     is( $fuzzy_id, 'NCIT:C92957', 'fuzzy search returns the expected NCIT id from the real SQLite db' );
     is( $fuzzy_label, 'Acute Bacterial Prostatitis', 'fuzzy search returns the expected label from the real SQLite db' );
     is( $fuzzy_concept_id, undef, 'fuzzy search leaves concept_id undef for ncit in the real SQLite db' );
+
+    my ( $rejected_id, undef, undef, $rejected_resolution, $rejected_evidence ) = $lookup->(
+        search    => 'fuzzy',
+        query     => 'Sudden Adult Death Syndrome',
+        min_score => 0.8,
+    );
+    is( $rejected_id, 'NCIT:NA0000', 'fuzzy search rejects a semantic token substitution' );
+    is( $rejected_resolution, 'fallback_na', 'rejected semantic substitution retains the fallback resolution' );
+    is( $rejected_evidence->{candidate_strategy}, 'relaxed_fts', 'semantic substitution reports relaxed candidate retrieval' );
+    is( $rejected_evidence->{best_candidate_id}, 'NCIT:C85173', 'rejected semantic substitution still reports its best candidate' );
+    cmp_ok( $rejected_evidence->{best_candidate_score}, '<', 0.8, 'semantic substitution remains below the configured threshold' );
+
+    my ( $spelling_id, $spelling_label, undef, $spelling_resolution, $spelling_evidence ) = $lookup->(
+        search    => 'fuzzy',
+        query     => 'Sudden Infant Deth Syndrome',
+        min_score => 0.8,
+    );
+    is( $spelling_id, 'NCIT:C85173', 'fuzzy search accepts a single near-spelling token at the default threshold' );
+    is( $spelling_label, 'Sudden Infant Death Syndrome', 'spelling-aware fuzzy search returns the canonical label' );
+    is( $spelling_resolution, 'similarity', 'spelling-aware fuzzy search reports similarity resolution' );
+    is( $spelling_evidence->{candidate_strategy}, 'relaxed_fts', 'spelling-aware fuzzy search reports relaxed candidate retrieval' );
+    ok( $spelling_evidence->{spelling_variant}, 'spelling-aware fuzzy search records spelling evidence' );
+    cmp_ok( $spelling_evidence->{best_candidate_score}, '>=', 0.8, 'spelling-aware fuzzy score satisfies the unchanged threshold' );
 
     my $id_self = bless(
         {

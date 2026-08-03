@@ -16,15 +16,10 @@ export const DatasetXmlFormatImage = () => (
 **Category:** Clinical-trial dataset exchange
 
 [CDISC Dataset-XML](https://www.cdisc.org/standards/foundational/dataset-xml/dataset-xml-v10)
-is an XML transport for tabular research datasets. Convert-Pheno combines each
-Dataset-XML domain with its **required Define-XML metadata**, interprets the
-resolved data as SDTM, and groups rows into participant records.
-
-:::note[Implementation status]
-CDISC Dataset-XML v1.0 SDTM input with Define-XML v2.0 or v2.1 metadata is
-implemented and regression-tested. Its experimental status reflects limited
-independent validation across submitted studies and Define-XML generators.
-:::
+is an XML transport for tabular research datasets. Convert-Pheno reads
+**Dataset-XML v1.0 with required Define-XML v2.0 or v2.1 metadata**, then groups
+the resolved SDTM rows by participant. The route is implemented and
+regression-tested; independent study and generator coverage is still limited.
 
 <div className="convertFormatSummary" aria-label="At a glance">
   <div><span>Role</span><strong>Input</strong></div>
@@ -38,18 +33,10 @@ independent validation across submitted studies and Define-XML generators.
 <figcaption>Define-XML supplies domain and column metadata that Dataset-XML deliberately does not repeat</figcaption>
 </figure>
 
-:::info[Dataset-XML and Define-XML]
-[Dataset-XML v1.0](https://www.cdisc.org/standards/foundational/dataset-xml/dataset-xml-v10)
-is CDISC's XML transport for tabular datasets. Each Dataset-XML file carries
-one dataset, while the accompanying [Define-XML](https://www.cdisc.org/standards/data-exchange/define-xml)
-file describes its domains, variables, order, labels, and data types.
-Convert-Pheno currently interprets the resolved datasets as SDTM. This is
-separate from [CDISC-ODM](cdisc-odm), which carries operational clinical data.
-:::
+## What You Need
 
-## Dataset-XML As Input
-
-Supply one `.xml` file per SDTM domain and one Define-XML file:
+Supply one Dataset-XML file per SDTM domain and the Define-XML file describing
+those domains:
 
 ```bash
 convert-pheno \
@@ -58,93 +45,73 @@ convert-pheno \
   -obff individuals.json
 ```
 
-The generic input form is also available:
-
-```bash
-convert-pheno \
-  -i dataset-xml dm.xml mh.xml lb.xml \
-  --define-xml define.xml \
-  -o pxf phenopackets.json
-```
-
 The current route requires:
 
-- Dataset-XML `1.0.0` documents using ODM `1.3.1` or `1.3.2`
-- Define-XML metadata using the v2.0 or v2.1 namespace
-- exactly one non-empty `DM` dataset
-- consistent `StudyOID` and `MetaDataVersionOID` references
-- one `ItemGroupOID` per Dataset-XML file, defined by the supplied metadata
-- unique `ItemGroupDataSeq` values and known `ItemOID` values
-- one non-empty, unique `DM.USUBJID` per participant
+- exactly one `DM` dataset with one unique `USUBJID` per participant
+- matching study and metadata-version references across the files
+- one metadata-defined SDTM domain per Dataset-XML file
+- known and non-duplicated row and item identifiers
 
-`PriorFileOID` is optional in Dataset-XML. When present, it must match the
-`FileOID` of the supplied Define-XML document.
+See the [Dataset-XML recipes](conversion-recipes#dataset-xml-input-bff-output)
+for PXF and OMOP-CDM commands.
 
-Define-XML controls column identity, order, labels, and numeric or boolean
-coercion. Missing values follow Dataset-XML semantics: the corresponding
-`ItemData` element is omitted.
+## How It Is Converted
 
-Use [Dataset-XML conversion recipes](conversion-recipes#dataset-xml-input-bff-output)
-for BFF, PXF, and OMOP-CDM commands.
+Define-XML supplies variable names, order, labels, data types, and controlled
+terminology metadata. After that resolution, Dataset-XML uses the same SDTM
+mapping as Dataset-JSON:
 
-## SDTM Mapping
+| SDTM domain | Main converted content |
+| --- | --- |
+| `DM` | identifier, sex, ethnicity, geographic origin, birth date, and vital status |
+| `MH`, `AE` | diseases and phenotypic features |
+| `LB`, `VS` | measurements, units, ranges, and dates |
+| `CM`, `EX`, `PR` | treatments and procedures |
+| `TS` | dataset and cohort metadata |
 
-After metadata resolution, Dataset-XML and Dataset-JSON use the same SDTM
-normalizer and semantic mapper. The implemented domains are `DM`, `MH`, `AE`,
-`LB`, `VS`, `CM`, `EX`, `PR`, and study-level `TS`. See
-[Dataset-XML to BFF](datasetxml2bff) for the transport-specific mapping and
-[Dataset-JSON to BFF](datasetjson2bff) for the shared field-level SDTM table.
+Other participant-level domains remain available under
+`info.datasetXml.domains`. Use `--no-source-info` to omit that raw copy while
+retaining mapped BFF fields.
 
-Other subject domains are preserved under `info.datasetXml.domains` and listed
-in `info.datasetXml.unmappedDomains`. `--no-source-info` removes those copied
-rows while retaining mapped fields.
+See [Dataset-XML to BFF](datasetxml2bff) for transport details and
+[Dataset-JSON to BFF](datasetjson2bff) for the shared field-level mapping.
 
-## Terminology Resolution
+## Terminology
 
-Define-XML decoded text is retained as the source display. When a code-list
-item has an `Alias` with `Context="nci:ExtCodeID"`, Convert-Pheno performs an
-exact NCIT identifier lookup and emits the canonical NCIT label. Other alias
-contexts are not assumed to be NCI identifiers.
-
-An optional Mapping V2 file with `source.profile: sdtm` can add reviewed direct
-terms, aliases, or label queries for fields without an authoritative
-identifier:
+When Define-XML provides an `nci:ExtCodeID`, Convert-Pheno looks up that NCIT
+identifier exactly and uses its canonical label. An optional Mapping V2 file
+with `source.profile: sdtm` can add reviewed direct terms, aliases, or label
+queries for fields without an authoritative identifier:
 
 ```bash
 convert-pheno \
   -idataset-xml dm.xml ae.xml \
   --define-xml define.xml \
   --mapping-file sdtm-terminology.yaml \
-  --term-audit-tsv terminology.tsv \
+  --term-audit terminology.tsv \
   -obff individuals.json
 ```
 
-The structural SDTM mapping remains built in; the mapping file contains only a
-top-level `terminology` section keyed by `DOMAIN.FIELD`. See
-[Mapping Files](mapping-files) and [Terminology Search](tbl/db-search).
+If neither Define-XML nor the mapping resolves a value, the output uses a
+source-derived `CDISC:` identifier. This preserves SDTM field/value identity
+without claiming an external ontology mapping.
 
-:::important[Unresolved source values]
-If Define-XML has no supported identifier and no configured rule resolves the
-value, the route emits a source-derived identifier such as
-`CDISC:LBTESTCD.ALT`. It preserves field/value identity without claiming an
-external ontology crosswalk.
-:::
+For OMOP output, source-derived `CDISC:` identifiers are not assumed to be
+Athena concept codes. The BFF-to-OMOP stage can still resolve a unique active
+standard concept from a reviewed identifier, an official `Maps to`
+relationship, or a label in the expected OMOP domain. Otherwise it emits
+concept `0`. Use a reviewed terminology mapping when the OMOP concepts carry
+analytical meaning for the study.
 
-## Metadata And Downstream Output
-
-`studyOID` prepopulates synthesized BFF `datasets` and `cohorts`. A `TS` row
-with `TSPARMCD=TITLE` supplies their default name. Individual provenance also
-records `datasetXMLVersion`, `defineXMLVersion`, `MetaDataVersionOID`, and the
-source metadata reference when available.
-
-PXF and OMOP-CDM routes normalize through BFF in the same command. OMOP output
-requires `--ohdsi-db` and writes supported tables under `--out-dir`.
+The [baseline fixture
+output](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/t/datasetxml2bff/out/individuals.json)
+shows fallback behavior. The [terminology fixture
+output](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/t/datasetxml2bff/out/terminology/individuals.json)
+shows both exact NCIT resolution and an intentional fallback. See [Mapping
+Files](mapping-files) and [Terminology Search](terminology-search) before adapting
+the example to study data.
 
 :::warning[Memory use]
-Dataset-XML is non-streaming. The Define-XML catalog, all supplied datasets,
-and grouped participant records are held in RAM. Use it only when that working
-set fits in memory.
+Dataset-XML input is non-streaming. The Define-XML metadata, domain datasets,
+and grouped participant records must fit in memory.
 :::
-
-The project-authored fixture and its provenance are available under
-[`t/datasetxml2bff/in/`](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/tree/main/t/datasetxml2bff/in).

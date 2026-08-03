@@ -16,15 +16,10 @@ export const DatasetJsonFormatImage = () => (
 **Category:** Clinical-trial dataset exchange
 
 [CDISC Dataset-JSON](https://www.cdisc.org/standards/data-exchange/dataset-json)
-is a JSON transport for tabular research datasets such as SDTM, ADaM, and
-SEND. Convert-Pheno currently **reads Dataset-JSON v1.1 datasets as SDTM
-domains** and groups their rows into participant records.
-
-:::note[Implementation status]
-CDISC Dataset-JSON v1.1 SDTM input is implemented and covered by regression
-tests. Its experimental status reflects limited independent validation across
-study datasets and SDTM profiles.
-:::
+is a JSON transport for tabular research datasets. Convert-Pheno reads
+**Dataset-JSON v1.1 SDTM domains** and groups their rows by participant. The
+route is implemented and regression-tested; independent study coverage is
+still limited.
 
 <div className="convertFormatSummary" aria-label="At a glance">
   <div><span>Role</span><strong>Input</strong></div>
@@ -38,112 +33,81 @@ study datasets and SDTM profiles.
 <figcaption>Separate SDTM domain datasets are grouped into participant records before target conversion</figcaption>
 </figure>
 
-:::info[Dataset-JSON in CDISC]
-[Dataset-JSON](https://www.cdisc.org/standards/data-exchange/dataset-json) is
-CDISC's JSON exchange format for tabular datasets such as SDTM, ADaM, and
-SEND. In this guide, a **domain** is one SDTM dataset covering a subject area.
-Convert-Pheno expects one Dataset-JSON document per domain and currently
-interprets those domains as SDTM. Unlike [CDISC-ODM](cdisc-odm), this route does
-not require a REDCap dictionary. Its structural mapping is built in; a compact
-mapping file is optional for reviewed terminology enrichment.
-:::
+## What You Need
 
-## Dataset-JSON As Input
-
-Supply one Dataset-JSON document per domain. JSON and gzip-compressed JSON are
-accepted. The current profile requires:
+Supply one JSON or gzip-compressed JSON document per SDTM domain. The files may
+be given in any order. The essential requirements are:
 
 - exactly one `DM` dataset
-- one non-empty, unique `DM.USUBJID` per participant
-- a consistent `studyOID` across supplied datasets when it is present
-- `USUBJID` in each subject-level domain so rows can be assigned to `DM`
-- row widths, record counts, and scalar values consistent with column metadata
+- one unique `DM.USUBJID` for each participant
+- `USUBJID` in each participant-level domain
+- one consistent `studyOID` when it is present
 
-The order of files is not significant. Subject-independent domains such as
-`TS` are retained as study metadata rather than copied into every participant.
+The structural SDTM mapping is built in. A mapping file is optional and is used
+only when reviewed terminology enrichment is required.
 
-Use [Dataset-JSON conversion recipes](conversion-recipes#dataset-json-input-bff-output)
-for BFF, PXF, and OMOP-CDM commands.
+```bash
+convert-pheno \
+  -idataset-json dm.json ae.json lb.json \
+  -obff individuals.json
+```
 
-## Optional Terminology Enrichment
+The same input can produce PXF or OMOP-CDM. See the
+[Dataset-JSON recipes](conversion-recipes#dataset-json-input-bff-output) for
+those commands.
+
+## Mapped Content
+
+| SDTM domain | Main converted content |
+| --- | --- |
+| `DM` | identifier, sex, ethnicity, geographic origin, birth date, and vital status |
+| `MH`, `AE` | diseases and phenotypic features |
+| `LB`, `VS` | measurements, units, ranges, and dates |
+| `CM`, `EX`, `PR` | treatments and procedures |
+| `TS` | dataset and cohort metadata |
+
+Other participant-level domains remain available under
+`info.datasetJson.domains`. Use `--no-source-info` to omit that raw copy while
+retaining the mapped BFF fields.
+
+For the field-level contract, see [Dataset-JSON to BFF](datasetjson2bff).
+
+## Terminology
 
 Without extra configuration, term-bearing SDTM values use source-derived
-`CDISC:` identifiers. Add a Mapping V2 file with `source.profile: sdtm` to
-supply reviewed aliases, direct terms, or terminology queries:
+`CDISC:` identifiers. These preserve the SDTM field and value; they do not
+claim an NCIT, SNOMED CT, or LOINC mapping.
 
-```yaml
-mappingVersion: 2
-source: { profile: sdtm }
-target: { model: beacon, schemaVersion: '2.0.0' }
-project: { id: study-01, version: '1.0' }
-defaults: { ontology: ncit }
-terminology:
-  AE.AESEV:
-    query:
-      from: value
-      aliases: { MILD: Mild }
-```
+To resolve selected values, provide a Mapping V2 file with
+`source.profile: sdtm`. It may contain reviewed direct terms, aliases, or
+database queries. Optional Define-XML metadata can also supply supported NCI
+identifiers.
+
+For OMOP output, source-derived `CDISC:` identifiers are not assumed to be
+Athena concept codes. The BFF-to-OMOP stage can still resolve a unique active
+standard concept from a reviewed identifier, an official `Maps to`
+relationship, or a label in the expected OMOP domain. Otherwise it emits
+concept `0`. Use a reviewed terminology mapping when the OMOP concepts carry
+analytical meaning for the study.
 
 ```bash
 convert-pheno \
   -idataset-json dm.json ae.json \
   --mapping-file sdtm-terminology.yaml \
-  --term-audit-tsv terminology.tsv \
+  --term-audit terminology.tsv \
   -obff individuals.json
 ```
 
-Dataset-JSON may also receive `--define-xml define.xml`. Supported
-`nci:ExtCodeID` aliases are then resolved by exact identifier lookup, which
-retrieves the canonical NCIT label. See [Mapping Files](mapping-files) for the
-compact SDTM form and [Terminology Search](tbl/db-search) for precedence and
-audit interpretation.
-
-## Implemented SDTM Content
-
-The first profile maps these domains:
-
-| Domain | Meaning | Main target content |
-| --- | --- | --- |
-| `DM` | Demographics | identifier, sex, ethnicity, geographic origin, birth date, death status |
-| `MH` | Medical History | diseases |
-| `AE` | Adverse Events | phenotypic features, severity, onset, and resolution |
-| `LB` | Laboratory Test Results | numeric or categorical measurements, units, ranges, and dates |
-| `VS` | Vital Signs | numeric or categorical measurements, units, ranges, and dates |
-| `CM` | Concomitant Medications | treatments and routes of administration |
-| `EX` | Exposure | treatments and routes of administration |
-| `PR` | Procedures | procedures, body sites, and dates |
-| `TS` | Trial Summary | dataset and cohort metadata, including the study title when available |
-
-Other subject domains remain available under `info.datasetJson.domains` and
-are listed in `info.datasetJson.unmappedDomains`. Use `--no-source-info` to
-omit the raw domain copy while retaining first-class mapped content.
-
-For field-level behavior, see [Dataset-JSON to BFF](datasetjson2bff).
-
-:::important[Unresolved source values]
-When no direct mapping term, supported Define-XML identifier, or configured
-query resolves a value, the route emits a source-derived identifier such as
-`CDISC:LBTESTCD.ALT`. It records SDTM field/value identity; it does not claim
-resolution to LOINC, SNOMED CT, or another external terminology.
-:::
-
-## BFF Metadata And Downstream Output
-
-With entity-aware BFF output, `studyOID` prepopulates synthesized `datasets`
-and `cohorts`; a `TS` row with `TSPARMCD=TITLE` supplies their default name.
-Explicit entity metadata supplied by the caller takes precedence. The current
-Dataset-JSON profile does not emit first-class `biosamples`.
-
-PXF and OMOP-CDM routes normalize the participant records through BFF in the
-same command. OMOP output requires `--ohdsi-db` for concept lookup and writes
-the supported tables under `--out-dir`.
+The [baseline fixture
+output](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/t/datasetjson2bff/out/individuals.json)
+shows source-derived fallbacks. The [terminology-enriched
+output](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/t/datasetjson2bff/out/terminology/individuals.json)
+uses a small reviewed mapping and resolves selected fields to NCIT. Neither is
+intended as a complete SDTM terminology crosswalk. See [Mapping
+Files](mapping-files) and [Terminology Search](terminology-search) before adapting
+the example to study data.
 
 :::warning[Memory use]
-Dataset-JSON input is currently non-streaming. All supplied domain documents
-and grouped participant records are held in RAM, so this route is not yet
-suitable for multi-million-row studies whose full working set does not fit in
-memory.
+Dataset-JSON input is non-streaming. All domain documents and grouped
+participant records must fit in memory.
 :::
-
-Tested domain inputs and reference BFF, PXF, and OMOP outputs are indexed in
-the [`t/` fixture guide](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/tree/main/t).

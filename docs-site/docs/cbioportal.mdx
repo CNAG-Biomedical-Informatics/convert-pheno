@@ -16,15 +16,10 @@ export const CBioPortalFormatImage = () => (
 **Category:** Cancer study package
 
 [cBioPortal](https://www.cbioportal.org) is a platform and study format for
-cancer genomics data. Its study packages combine metadata, tabular patient and
-sample data, case lists, and optional molecular files; Convert-Pheno currently
-uses **the clinical and study-structure subset** as input.
-
-:::note[Current input profile]
-Convert-Pheno reads the clinical part of a cBioPortal study package. Patient
-and sample clinical tables, study metadata, and case lists are implemented and
-tested. Timeline and molecular files are not converted by this profile.
-:::
+cancer genomics data. Convert-Pheno reads **study metadata, patient and sample
+clinical tables, and case lists** from a study package. This profile is
+implemented and regression-tested; timeline and molecular files are not
+converted.
 
 <div className="convertFormatSummary" aria-label="At a glance">
   <div><span>Role</span><strong>Input</strong></div>
@@ -38,57 +33,14 @@ tested. Timeline and molecular files are not converted by this profile.
 <figcaption>Clinical files are discovered through cBioPortal metadata and linked by patient and sample identifiers</figcaption>
 </figure>
 
-## Accepted Study Package
+## What You Need
 
 Supply either an unpacked study directory or a `.zip` archive. The package
-must contain one `meta_study.txt` and one sample-clinical meta file. Its
-`data_filename` identifies the required sample table. A patient-clinical table
-is optional; when absent, patients are derived from the sample table.
+must contain:
 
-Convert-Pheno also reads case lists under `case_lists/`. Patient IDs, sample
-IDs, clinical links, study identifiers, and case-list members are checked
-before mapping. Unknown references and duplicate identifiers stop the
-conversion instead of producing disconnected records.
-
-The package is processed in memory. ZIP files are read directly and are not
-extracted to disk.
-
-## Clinical Mapping
-
-The built-in mapping provides the stable cBioPortal structure:
-
-- study metadata becomes a BFF `dataset`
-- patient rows become BFF `individuals`
-- sample rows and patient links become BFF `biosamples`
-- case lists become BFF `cohorts`
-- `ONCOTREE_CODE` becomes an `OncoTree:` disease and histological-diagnosis term
-
-`SAMPLE_TYPE` values such as `Primary` are cBioPortal source categories, not
-necessarily ontology concepts. Convert-Pheno therefore preserves the exact
-value under `info.cbioportal.sample` but leaves `sampleOriginType` as
-`Not Available` unless an optional mapping supplies a curated ontology term.
-A syntactically valid CURIE is not treated as sufficient evidence of ontology
-meaning.
-
-Use `--no-source-info` to omit the copied patient, sample, and study metadata.
-Structural links and mapped semantics remain.
-
-## Optional Mapping File
-
-A Mapping V2 file with `source.profile: cbioportal` can map additional patient
-and sample columns. `beacon.individuals` evaluates patient attributes;
-`beacon.biosamples` evaluates sample attributes. Source `PATIENT_ID` and
-`SAMPLE_ID` values cannot be rewritten because sample links and case lists
-depend on them.
-
-See [Mapping Files](mapping-files) and the
-[cBioPortal to BFF mapping](cbioportal2bff). The attributed test package and
-mapping example are under
-[`t/cbioportal2bff/in`](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/tree/main/t/cbioportal2bff/in).
-
-## Run A Conversion
-
-Write all implemented BFF entities:
+- `meta_study.txt`
+- one sample-clinical metadata file and its referenced data table
+- optionally, a patient-clinical table and `case_lists/`
 
 ```bash
 convert-pheno -icbioportal study/ \
@@ -96,21 +48,42 @@ convert-pheno -icbioportal study/ \
   --out-dir bff_out/
 ```
 
-Read the same package from ZIP and produce Phenopackets:
+PXF and OMOP-CDM output use the same input. See the
+[cBioPortal recipes](conversion-recipes#cbioportal-input-bff-output).
 
-```bash
-convert-pheno -i cbioportal study.zip \
-  -o pxf phenopackets.json
-```
+## What Is Converted
 
-Write supported OMOP-CDM tables:
+| cBioPortal content | BFF content |
+| --- | --- |
+| study metadata | `datasets` |
+| patient rows | `individuals` |
+| sample rows and patient links | `biosamples` |
+| case lists | `cohorts` |
+| `ONCOTREE_CODE` | `OncoTree:` disease and histological-diagnosis terms |
 
-```bash
-convert-pheno -icbioportal study/ \
-  -oomop --out-dir omop_out/ \
-  --ohdsi-db
-```
+Identifiers and links are checked before mapping. Duplicate identifiers or
+references to unknown patients and samples stop the conversion.
 
-The route is available through the CLI, Perl module, and Python binding. It is
-not exposed through the HTTP(s) API because a cBioPortal input is a filesystem
-package rather than one self-contained JSON document.
+`SAMPLE_TYPE` values such as `Primary` are cBioPortal source categories, not
+necessarily ontology concepts. They remain in source provenance, while
+`sampleOriginType` stays `Not Available` unless a project mapping supplies a
+reviewed ontology term.
+
+Use `--no-source-info` to omit the copied patient, sample, and study metadata.
+Structural links and mapped semantics remain.
+
+## Optional Project Mapping
+
+A Mapping V2 file with `source.profile: cbioportal` can map additional patient
+`beacon.biosamples` evaluates sample attributes. Source `PATIENT_ID` and
+`SAMPLE_ID` values cannot be rewritten because sample links and case lists
+depend on them.
+
+See [Mapping Files](mapping-files) and [cBioPortal to
+BFF](cbioportal2bff) for the detailed contract.
+
+:::warning[Current boundaries]
+The package is processed in memory. ZIP archives are read directly. Timeline
+and molecular files are not converted, and this filesystem-package route is
+not exposed through the HTTP(s) API.
+:::

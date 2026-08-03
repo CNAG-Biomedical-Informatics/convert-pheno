@@ -28,6 +28,7 @@ plan skip_all => 'Skipping CLI regression tests on ld architectures due to known
 my $tmpdir = tempdir( CLEANUP => 1 );
 my $test_ohdsi_db_dir = test_ohdsi_db_dir();
 my @datasetjson_files = sort glob 't/datasetjson2bff/in/*.json';
+my @datasetxml_files = map { "t/datasetxml2bff/in/$_.xml" } qw(dm mh lb ts);
 
 my @cases = (
     {
@@ -164,6 +165,39 @@ my @cases = (
         name     => 'datasetjson2bff_generic_io',
         cmd      => [ '-i', 'dataset-json', @datasetjson_files, '-o', 'bff', '__OUT__' ],
         expected => 't/datasetjson2bff/out/individuals.json',
+        suffix   => '.json',
+        compare  => 'structured',
+    },
+    {
+        name => 'datasetjson2bff_terminology',
+        cmd  => [
+            '-idataset-json', @datasetjson_files,
+            '--mapping-file', 't/datasetjson2bff/in/sdtm_terminology.yaml',
+            '-obff', '__OUT__',
+        ],
+        expected => 't/datasetjson2bff/out/terminology/individuals.json',
+        suffix   => '.json',
+        compare  => 'structured',
+    },
+    {
+        name => 'datasetxml2bff',
+        cmd  => [
+            '-idataset-xml', @datasetxml_files,
+            '--define-xml', 't/datasetxml2bff/in/define.xml',
+            '-obff', '__OUT__',
+        ],
+        expected => 't/datasetxml2bff/out/individuals.json',
+        suffix   => '.json',
+        compare  => 'structured',
+    },
+    {
+        name => 'datasetxml2bff_terminology',
+        cmd  => [
+            '-idataset-xml', 't/datasetxml2bff/in/terminology/dm.xml',
+            '--define-xml', 't/datasetxml2bff/in/terminology/define.xml',
+            '-obff', '__OUT__',
+        ],
+        expected => 't/datasetxml2bff/out/terminology/individuals.json',
         suffix   => '.json',
         compare  => 'structured',
     },
