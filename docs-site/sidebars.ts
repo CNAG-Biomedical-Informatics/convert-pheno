@@ -9,13 +9,8 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: '📘 Start Here',
+      label: '🚀 Get Started',
       items: [
-        {
-          type: 'doc',
-          id: 'what-is-convert-pheno',
-          label: 'What Is Convert-Pheno?',
-        },
         {
           type: 'doc',
           id: 'quickstart',
@@ -25,11 +20,6 @@ const sidebars: SidebarsConfig = {
           type: 'doc',
           id: 'supported-formats',
           label: 'Supported Formats',
-        },
-        {
-          type: 'doc',
-          id: 'choose-an-interface',
-          label: 'Which Interface?',
         },
       ],
     },
@@ -68,14 +58,9 @@ const sidebars: SidebarsConfig = {
           label: 'Command-Line Interface',
         },
         {
-          type: 'doc',
-          id: 'use-as-a-module',
-          label: 'Module',
-        },
-        {
-          type: 'doc',
-          id: 'use-as-an-api',
-          label: 'API',
+          type: 'link',
+          href: 'https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6',
+          label: 'Google Colab',
         },
       ],
     },
@@ -153,79 +138,7 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: '⚙️ Technical Details',
-      items: [
-        {
-          type: 'doc',
-          id: 'implementation',
-          label: 'Implementation',
-        },
-        {
-          type: 'doc',
-          id: 'mapping-steps',
-          label: 'Mapping Steps',
-        },
-        {
-          type: 'doc',
-          id: 'development-validation',
-          label: 'Development Validation',
-        },
-        {
-          type: 'category',
-          label: 'Mapping Tables',
-          items: [
-            {
-              type: 'doc',
-              id: 'bff2omop',
-              label: 'BFF to OMOP',
-            },
-            {
-              type: 'doc',
-              id: 'bff2pxf',
-              label: 'BFF to PXF',
-            },
-            {
-              type: 'doc',
-              id: 'cbioportal2bff',
-              label: 'cBioPortal to BFF',
-            },
-            {
-              type: 'doc',
-              id: 'datasetjson2bff',
-              label: 'Dataset-JSON to BFF',
-            },
-            {
-              type: 'doc',
-              id: 'datasetxml2bff',
-              label: 'Dataset-XML to BFF',
-            },
-            {
-              type: 'doc',
-              id: 'fhir2bff',
-              label: 'FHIR to BFF',
-            },
-            {
-              type: 'doc',
-              id: 'omop2bff',
-              label: 'OMOP to BFF',
-            },
-            {
-              type: 'doc',
-              id: 'openehr2bff',
-              label: 'openEHR to BFF',
-            },
-            {
-              type: 'doc',
-              id: 'pxf2bff',
-              label: 'PXF to BFF',
-            },
-          ],
-        },
-      ],
-    },
-    {
-      type: 'category',
-      label: '❓ Help',
+      label: '🗺️ Mapping & Terminology',
       items: [
         {
           type: 'doc',
@@ -238,10 +151,59 @@ const sidebars: SidebarsConfig = {
           label: 'Terminology Search',
         },
         {
-          type: 'link',
-          href: 'https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6',
-          label: 'Google Colab',
+          type: 'doc',
+          id: 'mapping-steps',
+          label: 'Built-In Mapping Steps',
         },
+      ],
+    },
+    {
+      type: 'category',
+      label: '⚙️ Developer Reference',
+      collapsed: true,
+      items: [
+        {
+          type: 'doc',
+          id: 'use-as-a-module',
+          label: 'Perl & Python Modules',
+        },
+        {
+          type: 'doc',
+          id: 'use-as-an-api',
+          label: 'HTTP(s) API',
+        },
+        {
+          type: 'doc',
+          id: 'implementation',
+          label: 'Implementation',
+        },
+        {
+          type: 'doc',
+          id: 'development-validation',
+          label: 'Development Validation',
+        },
+        {
+          type: 'category',
+          label: 'Mapping Tables',
+          items: [
+            {type: 'doc', id: 'bff2omop', label: 'BFF to OMOP'},
+            {type: 'doc', id: 'bff2pxf', label: 'BFF to PXF'},
+            {type: 'doc', id: 'cbioportal2bff', label: 'cBioPortal to BFF'},
+            {type: 'doc', id: 'datasetjson2bff', label: 'Dataset-JSON to BFF'},
+            {type: 'doc', id: 'datasetxml2bff', label: 'Dataset-XML to BFF'},
+            {type: 'doc', id: 'fhir2bff', label: 'FHIR to BFF'},
+            {type: 'doc', id: 'omop2bff', label: 'OMOP to BFF'},
+            {type: 'doc', id: 'openehr2bff', label: 'openEHR to BFF'},
+            {type: 'doc', id: 'pxf2bff', label: 'PXF to BFF'},
+          ],
+        },
+      ],
+    },
+    {
+      type: 'category',
+      label: '❓ Help',
+      collapsed: true,
+      items: [
         {
           type: 'doc',
           id: 'troubleshooting',
@@ -262,6 +224,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: 'ℹ️ About',
+      collapsed: true,
       items: [
         {
           type: 'doc',

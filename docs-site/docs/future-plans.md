@@ -5,45 +5,45 @@ sidebar_label: Future Plans
 
 # Future Plans
 
-We expect to improve these areas as Convert-Pheno is used with more datasets.
-They are directions rather than promises for a particular release. Routes
-described as experimental already work and are tested, but have been used by
-fewer independent groups.
+Convert-Pheno already supports a broad set of clinical and phenotypic data
+formats. The next steps are mainly about learning from more real datasets and
+improving the parts that users find most useful. These are priorities rather
+than promises for a particular release.
 
 <div className="roadmap-grid">
   <article className="roadmap-card roadmap-card--active">
     <span className="roadmap-kicker">CDISC ODM</span>
-    <h2>Test more EDC exports</h2>
-    <p>Exercise the version-aware ODM 1.3 and 2.0 ClinicalData input with more independently produced REDCap, OpenClinica, and standard ODM snapshots.</p>
+    <h2>Work with more EDC exports</h2>
+    <p>Test files produced by REDCap, OpenClinica, and other ODM-based systems so differences between real exports are handled clearly.</p>
   </article>
   <article className="roadmap-card roadmap-card--active">
-    <span className="roadmap-kicker">More datasets</span>
-    <h2>Test newer input formats</h2>
-    <p>Use cBioPortal, FHIR R4 and mCODE, CDISC Dataset-JSON and Dataset-XML, and openEHR data from more independent sources and incorporate feedback from their users.</p>
-  </article>
-  <article className="roadmap-card">
-    <span className="roadmap-kicker">Implemented profiles</span>
-    <h2>Broaden mCODE and Dataset-XML evidence</h2>
-    <p>Test the mCODE 4.0 stage mapping and Dataset-XML plus Define-XML parser with independently generated datasets before extending their first-class mappings.</p>
+    <span className="roadmap-kicker">Recent inputs</span>
+    <h2>Learn from more datasets</h2>
+    <p>Use cBioPortal, FHIR and mCODE, Dataset-JSON, Dataset-XML, and openEHR data from independent projects and refine the mappings from their feedback.</p>
   </article>
   <article className="roadmap-card">
     <span className="roadmap-kicker">Mappings</span>
-    <h2>Review uncommon cases</h2>
-    <p>Work with data owners and domain experts to improve mappings while keeping original source values easy to trace.</p>
+    <h2>Fill useful gaps</h2>
+    <p>Add fields and records when source datasets contain meaningful information that has a clear place in the target format.</p>
   </article>
   <article className="roadmap-card">
-    <span className="roadmap-kicker">Large files</span>
-    <h2>Use less memory</h2>
-    <p>Explore ways to process larger FHIR, Dataset-JSON, and Dataset-XML inputs without keeping every record in memory at once.</p>
+    <span className="roadmap-kicker">Large studies</span>
+    <h2>Reduce memory use</h2>
+    <p>Improve how large FHIR and CDISC datasets are processed when representative files show where the current in-memory approach becomes limiting.</p>
   </article>
   <article className="roadmap-card">
     <span className="roadmap-kicker">Beacon v2</span>
-    <h2>Add more BFF entities</h2>
-    <p>Add analyses and runs when a source format contains enough information to create useful records.</p>
+    <h2>Support more BFF records</h2>
+    <p>Add entities such as analyses and runs when an input format provides enough information to create useful, valid records.</p>
+  </article>
+  <article className="roadmap-card">
+    <span className="roadmap-kicker">Additional formats</span>
+    <h2>Follow real use cases</h2>
+    <p>Consider formats such as SAS XPORT, C-CDA, and PCORnet when there is a concrete user need and representative data for testing.</p>
   </article>
   <article className="roadmap-card">
     <span className="roadmap-kicker">Validation</span>
-    <h2>Keep checks current</h2>
-    <p>Add test datasets and continue checking generated files with the relevant format validators.</p>
+    <h2>Keep examples and checks current</h2>
+    <p>Add representative datasets and continue checking generated files with the validators available for each target format.</p>
   </article>
 </div>
