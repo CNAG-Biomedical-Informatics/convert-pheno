@@ -42,6 +42,130 @@ Dataset-JSON and Dataset-XML use `source.profile: sdtm`. Their structural SDTM
 mapping is built in, so the optional mapping contains only terminology rules.
 Dataset-XML still requires Define-XML independently of this optional mapping.
 
+## Recipe: CSV To Validated BFF
+
+::::tip[A small end-to-end example]
+Suppose a project gives you this semicolon-delimited `clinical.csv`:
+
+```csv
+participant_id;sex;diagnosis
+P001;Female;ASTHMA_LOCAL
+P002;Male;
+```
+
+The values are deliberately simple, but the important detail is realistic:
+`ASTHMA_LOCAL` is a project label, not an ontology term. A first Mapping V2 file
+can translate that label while asking Convert-Pheno to find the actual NCIT
+concept:
+
+```yaml title="mapping.yaml"
+mappingVersion: 2
+
+source:
+  profile: csv
+
+target:
+  model: beacon
+  schemaVersion: '2.0.0'
+
+project:
+  id: csv-bff-recipe
+  version: '1.0'
+
+defaults:
+  ontology: ncit
+
+records: {}
+
+beacon:
+  individuals:
+    id:
+      sourceFields: [participant_id]
+      primaryKey: participant_id
+      missingValue: NA
+
+    sex:
+      sourceField: sex
+      query: {from: value}
+
+    diseases:
+      rules:
+        - sourceField: diagnosis
+          when: {nonEmpty: true}
+          diseaseCode:
+            query:
+              from: value
+              aliases:
+                ASTHMA_LOCAL: Asthma
+```
+
+Now convert the CSV and ask for a terminology audit in the same run:
+
+```bash
+mkdir -p output
+
+convert-pheno \
+  -icsv clinical.csv \
+  --separator ';' \
+  --mapping-file mapping.yaml \
+  --search exact \
+  --term-audit output/terminology.tsv \
+  -obff output/individuals.json
+```
+
+`individuals.json` is the BFF result. `terminology.tsv` explains how each
+ontology decision was made. In this example, Female, Male, and Asthma should be
+exact database matches. If a term is unresolved, correct the alias or mapping
+and run the command again; do not lower the search threshold merely to obtain a
+result.
+
+A tool-enabled LLM can carry out most of this workflow. Give it access to the
+source schema and distinct values, the Mapping V2 documentation, the ontology
+databases, Convert-Pheno, the terminology audit, and the target validator. It
+can then draft the mapping, run it, inspect the evidence, and revise it instead
+of guessing terms from memory.
+
+For example, when the LLM proposes a direct NCIT term, it can verify the pair
+against the database bundle selected by `share/db/manifest.json`:
+
+```bash
+sqlite3 share/db/v0/ncit.db \
+  "SELECT 'NCIT:' || id, label FROM NCIT_table WHERE id = 'C28397' COLLATE NOCASE;"
+```
+
+Record which ontology release you checked. Its version and checksum are in
+`share/db/manifest.json`.
+
+Then answer two separate questions:
+
+- **Does the code exist, and does its label match?** Check the ontology database.
+- **Does it mean the same thing as the source value?** Check the source
+  documentation and ask a domain expert when the meaning is unclear.
+
+If the audit says `configured` or `direct_mapping`, Convert-Pheno copied a term
+provided by the mapping file. The LLM should perform the database check as a
+separate tool call and record the result.
+
+Finally, validate the generated BFF with
+[`bff-tools`](https://github.com/CNAG-Biomedical-Informatics/beacon2-cbi-tools):
+
+```bash
+bff-tools validate -i output/individuals.json -nc -ne
+```
+
+Review every reported path. With some Beacon v2 schema releases, a disease may
+produce an `ageOfOnset` `oneOf` message because the schema's object alternatives
+overlap. That specific message is a known schema ambiguity, not evidence of an
+incorrect ontology lookup. Retain it in the validation record, but do not use
+it to dismiss any other validation issue.
+
+This inspect, map, convert, audit, validate, and revise cycle can be largely
+automated by an LLM with the right tools. People still decide genuinely
+ambiguous clinical meanings and approve the final mapping. For restricted data,
+run the workflow in an approved environment and expose only the information the
+model needs.
+::::
+
 ## Mapping V2 At A Glance
 
 Two independent versions are declared at the top of every mapping:
