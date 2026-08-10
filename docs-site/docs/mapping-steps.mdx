@@ -215,6 +215,46 @@ Example extracted from `redcap2bff` [conversion](https://github.com/CNAG-Biomedi
         ```
 
 </details>
+
+::::warning[Person records and longitudinal snapshots are not the same]
+
+Beacon v2 `individuals` records describe people, but the model does not provide
+a native Visit or Encounter entity. Longitudinal data therefore requires an
+explicit representation choice.
+
+- **Person representation:** one BFF `individuals` object represents one person.
+  Clinical events from multiple visits are aggregated into arrays within that
+  object. When OMOP visit context is available, Convert-Pheno adds the private
+  `_visit` property to mapped diseases, measurements, treatments, procedures,
+  and phenotypic features so that events from the same encounter can still be
+  associated.
+
+- **Snapshot representation:** one individual-shaped JSON object represents one
+  person at one visit, timepoint, or other observation point. Several objects
+  can therefore refer to the same person. The snapshot identifier and the
+  stable person identifier must be kept separate and documented.
+
+These representations must not be interpreted interchangeably. In particular:
+
+- the number of JSON objects is not necessarily the number of people;
+- participant-level analyses must group snapshots by their stable person
+  identifier;
+- visit-level analyses must not silently merge separate snapshots;
+- conversion between representations must preserve person, visit, timepoint,
+  and source provenance.
+
+`_visit` is a Convert-Pheno extension used to preserve encounter relationships;
+it is not a native Beacon v2 or Phenopackets field. Convert-Pheno removes this
+private helper property when writing standard PXF. Phenopackets v2 can represent
+the timing of individual findings through `TimeElement`, but timing alone does
+not preserve the shared identity of a clinical visit.
+
+Consumers of longitudinal BFF should therefore know, or explicitly declare,
+whether the input uses person or snapshot representation before counting,
+grouping, converting, or analysing its records.
+
+::::
+
 Example of longitudinal data stored under `_visit` in a `omop2bff` [conversion](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/t/omop2bff/out/individuals.json):
 
 <details>

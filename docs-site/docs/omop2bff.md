@@ -21,6 +21,24 @@ sidebar_label: OMOP to BFF
  If `biosamples` are explicitly requested and the OMOP input does not contain the `SPECIMEN` table, the conversion fails with a focused error. If `SPECIMEN` exists but is empty, the conversion succeeds and emits an empty `biosamples` collection.
 
 :::
+
+::::warning[OMOP output uses person representation]
+
+The OMOP-to-BFF route writes one BFF `individuals` object per OMOP person and
+aggregates that person's longitudinal events within it. Where available,
+`VISIT_OCCURRENCE` context is attached to individual events through the private
+`_visit` extension.
+
+This differs from snapshot representation, where one JSON object is written per
+person and visit or timepoint. Do not use the number of BFF objects as a visit
+count, and do not remove `_visit` if encounter-level provenance must be
+preserved.
+
+See [Mapping steps](mapping-steps) for the full distinction between person and
+snapshot representations.
+
+::::
+
 #### Version 0.34
 
 **Output model:** BFF
