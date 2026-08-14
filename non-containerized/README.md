@@ -1,27 +1,12 @@
 # Non-Containerized Installation
 
-Use this path when you want to run `convert-pheno` directly from CPAN, GitHub, or inside your own Perl environment.
+Use this path when you want to run `convert-pheno` directly from CPAN, GitHub,
+or inside your own Perl environment. For most users, installing from CPAN under
+`~/perl5` is the simplest non-containerized method.
 
-:::note[Windows installation]
+## Recommended: Install From CPAN
 
-Native Windows support is tested with Strawberry Perl 5.40 and 5.42. The
-current CPAN release of `Net::IDN::Encode`, an indirect dependency of
-`JSON::Validator`, does not build with these Perl versions. Until a compatible
-release reaches CPAN, install the upstream patch before Convert-Pheno:
-
-```powershell
-$netIdnPatch = 'https://github.com/ernix/Net-IDN-Encode/archive/3ebe6f2e239b470efcb64a044edc8202798188af.tar.gz'
-cpanm --notest $netIdnPatch
-cpanm --notest Convert::Pheno
-convert-pheno --help
-```
-
-This dependency supports internationalized domain-name validation; it is not
-used by the conversion logic itself.
-
-:::
-
-## System Dependencies
+### Install System Dependencies
 
 On Debian-based distributions, install:
 
@@ -40,9 +25,7 @@ In practice, this matters for repository installs such as
 `cpanm --notest --installdeps .` and for dependencies like `JSONLD`,
 `IO::Socket::SSL`, and `Net::SSLeay`.
 
-## Method 1: From CPAN
-
-### Option 1: Install Under `~/perl5`
+### Install Under `~/perl5`
 
 ```bash
 cpanm --local-lib=~/perl5 local::lib && eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
@@ -62,32 +45,49 @@ To update later:
 cpanm Convert::Pheno
 ```
 
-## Method 2: CPAN In A Conda Environment
+## Alternative Installation Paths
 
-This path is useful when you want an isolated environment but still want to run the non-containerized CLI or Perl module.
+<details>
+<summary>Native Windows with Strawberry Perl</summary>
 
-### Step 1: Install Miniconda
+Native Windows support is tested with Strawberry Perl 5.40 and 5.42. The
+current CPAN release of `Net::IDN::Encode`, an indirect dependency of
+`JSON::Validator`, does not build with these Perl versions. Until a compatible
+release reaches CPAN, install the upstream patch before Convert-Pheno:
 
-The following example targets `x86_64` Linux systems:
+```powershell
+$netIdnPatch = 'https://github.com/ernix/Net-IDN-Encode/archive/3ebe6f2e239b470efcb64a044edc8202798188af.tar.gz'
+cpanm --notest $netIdnPatch
+cpanm --notest Convert::Pheno
+convert-pheno --help
+```
+
+This dependency supports internationalized domain-name validation; it is not
+used by the conversion logic itself.
+
+</details>
+
+<details>
+<summary>CPAN inside a Conda environment</summary>
+
+This path is useful when you want an isolated environment but still want to run
+the non-containerized CLI or Perl module.
+
+The following Miniconda example targets `x86_64` Linux systems:
 
 ```bash
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 bash Miniconda3-latest-Linux-x86_64.sh
 ```
 
-Close and reopen the terminal after the installer finishes.
-
-### Step 2: Configure Channels
-
-Set up the channels required by Bioconda:
+Close and reopen the terminal after the installer finishes. Then configure the
+Bioconda channel:
 
 ```bash
 conda config --add channels bioconda
 ```
 
-It is better to install into a fresh environment to avoid dependency conflicts.
-
-### Step 3: Create The Environment And Install
+Install into a fresh environment to reduce dependency conflicts:
 
 ```bash
 conda create -n myenv
@@ -98,25 +98,29 @@ cpanm --notest Convert::Pheno
 convert-pheno --help
 ```
 
-Replace `myenv` with your preferred environment name.
-
-To deactivate the environment:
+Replace `myenv` with your preferred environment name. To deactivate it:
 
 ```bash
 conda deactivate
 ```
 
-## Method 3: From GitHub
+</details>
 
-If you want to install the latest GitHub version without keeping an editable
-checkout, `cpanm` can install directly from the repository URL:
+<details>
+<summary>Install the latest version directly from GitHub</summary>
+
+If you want the latest GitHub version without keeping an editable checkout,
+`cpanm` can install directly from the repository URL:
 
 ```bash
 cpanm --notest https://github.com/CNAG-Biomedical-Informatics/convert-pheno.git
 convert-pheno --help
 ```
 
-### Developer Checkout
+</details>
+
+<details>
+<summary>Developer checkout</summary>
 
 Use a full clone when you want to inspect the source, run tests, or edit the
 code locally:
@@ -149,13 +153,18 @@ Persist the local Perl library:
 echo 'eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)' >> ~/.bashrc
 ```
 
-## Athena-OHDSI Database
+</details>
+
+## Optional Athena-OHDSI Database
 
 OMOP output requires the current `ohdsi.db`; OMOP input can also use it when a
 concept is absent from the supplied `CONCEPT` table. The database is
 approximately 3.2 GB and includes the concept domains, standard-concept status,
 and `Maps to` relationships needed for safe OMOP concept resolution. Older
 four-column copies are not compatible.
+
+<details>
+<summary>Download and configure `ohdsi.db`</summary>
 
 You can either download it manually in a browser from this Google Drive
 directory:
@@ -182,3 +191,5 @@ Once downloaded, either:
    `share/db/manifest.json`.
 2. Keep it elsewhere and pass its containing directory with
    `--path-to-ohdsi-db`.
+
+</details>

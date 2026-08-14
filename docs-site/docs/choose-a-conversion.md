@@ -5,14 +5,9 @@ sidebar_label: Choose a Conversion
 slug: /conversion-recipes
 ---
 
-Choose your **input format** first. Each recipe shows the required source
-options and one complete command. The output can then be changed with the
-shared output forms below.
-
-For accepted files and format-specific behavior, see
-[Supported Formats](supported-formats). For every implemented route, tested
-inputs and reference outputs are available in the repository's
-[`t/` fixture guide](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/tree/main/t).
+Choose your **input format** first. The table identifies the available main
+outputs and any extra files required. Continue to the corresponding command,
+then use the linked format guide for input details and route-specific options.
 
 <a id="choose-by-input-format"></a>
 
@@ -35,8 +30,8 @@ inputs and reference outputs are available in the repository's
 
 ## Select the Output
 
-The recipes use BFF output unless BFF is the input. Replace the final output
-line with the form you need:
+The examples use BFF output unless BFF is the input. Replace the final output
+line when another target is needed:
 
 | Output | Command ending |
 | --- | --- |
@@ -46,16 +41,15 @@ line with the form you need:
 | OMOP-CDM tables | `-oomop --out-dir omop_out/ --ohdsi-db` |
 
 OMOP output requires the Athena-OHDSI database. Multi-entity BFF output writes
-the requested entities for which the source provides or supports data. See
-the [Command-Line Interface](use-as-a-command-line-interface) for naming and
-`--out-dir` behavior.
+the requested entities supported by the source.
 
 <a id="before-you-run"></a>
 
-Before using project data, install the tool through
-[Download & Installation](download-and-installation) and run a small fixture
-for the selected route. The [Command-Line Interface](use-as-a-command-line-interface)
-documents all options.
+:::tip[Before using project data]
+Complete [installation](download-and-installation), run one small example, and
+review the guide for your input format. The [CLI reference](use-as-a-command-line-interface)
+documents shared options and output naming.
+:::
 
 <a id="command-examples"></a>
 
@@ -71,9 +65,8 @@ convert-pheno \
   -obff individuals.json
 ```
 
-Use the multi-entity BFF ending when the Phenopacket contains biosamples that
-should be written as Beacon `biosamples`. Details:
-[Phenopackets v2](pxf) and [PXF to BFF mapping](pxf2bff).
+Use entity-aware BFF output when Phenopacket biosamples should be written as
+Beacon `biosamples`. See [Phenopackets v2](pxf).
 
 <a id="bff-input-pxf-output"></a>
 <a id="bff-input-omop-cdm-output"></a>
@@ -86,9 +79,7 @@ convert-pheno \
   -opxf phenopackets.json
 ```
 
-For OMOP-CDM, use the OMOP output ending above. Details:
-[Beacon v2 Models](bff), [BFF to PXF mapping](bff2pxf), and
-[BFF to OMOP mapping](bff2omop).
+For OMOP-CDM, use the OMOP output ending above. See [Beacon v2 Models](bff).
 
 <a id="omop-cdm-input-pxf-output"></a>
 
@@ -100,15 +91,13 @@ convert-pheno \
   -obff individuals.json
 ```
 
-Include `SPECIMEN.csv` and select `biosamples` for specimen-derived BFF
-output. For large SQL dumps, add `--stream`; add `--ohdsi-db` when concept
-lookup needs the Athena-OHDSI database. Details:
-[OMOP-CDM](omop-cdm) and [OMOP to BFF mapping](omop2bff).
+Add the clinical tables needed by the conversion; include `SPECIMEN.csv` for
+biosamples. See [OMOP-CDM](omop-cdm).
 
 ## Mapping-File Inputs {#mapping-file-input-examples}
 
 These routes use a project mapping to turn source fields into BFF terms. The
-same mapped records can be written directly as BFF, PXF, or OMOP-CDM.
+same records can be written as BFF, PXF, or OMOP-CDM.
 
 <a id="csv-input-pxf-output"></a>
 <a id="csv-input-omop-cdm-output"></a>
@@ -123,8 +112,7 @@ convert-pheno \
   -obff individuals.json
 ```
 
-Use `--sep` when the delimiter differs from the configured default. Details:
-[CSV](csv), [Mapping Files](mapping-files), and [Terminology Search](terminology-search).
+See [CSV](csv) and [Mapping Files](mapping-files).
 
 <a id="redcap-input-pxf-output"></a>
 <a id="redcap-input-omop-cdm-output"></a>
@@ -140,7 +128,7 @@ convert-pheno \
   -obff individuals.json
 ```
 
-Details: [REDCap](redcap) and [Mapping Files](mapping-files).
+See [REDCap](redcap) and [Mapping Files](mapping-files).
 
 <a id="cdisc-odm-input-pxf-output"></a>
 <a id="cdisc-odm-input-omop-cdm-output"></a>
@@ -154,8 +142,7 @@ convert-pheno \
   -obff individuals.json
 ```
 
-For REDCap-origin ODM, reuse the REDCap mapping profile and add
-`--redcap-dictionary dictionary.csv`. Details: [CDISC-ODM](cdisc-odm).
+REDCap-origin ODM also uses its REDCap dictionary. See [CDISC-ODM](cdisc-odm).
 
 ### OpenClinica ODM {#openclinica-odm-input}
 
@@ -166,8 +153,7 @@ convert-pheno \
   -obff individuals.json
 ```
 
-OpenClinica Snapshot ODM uses the CDISC-ODM route, but resolves field metadata
-from the XML rather than a REDCap dictionary. Details:
+OpenClinica Snapshot ODM resolves metadata from the XML. See
 [OpenClinica ODM](openclinica).
 
 ## Structured Clinical Inputs
@@ -184,9 +170,7 @@ convert-pheno \
   --out-dir bff_out/
 ```
 
-Clinical files are discovered through their meta descriptors. A mapping file
-is optional. Details: [cBioPortal](cbioportal) and
-[cBioPortal to BFF mapping](cbioportal2bff).
+See [cBioPortal](cbioportal).
 
 <a id="dataset-json-input-examples"></a>
 <a id="dataset-json-input-pxf-output"></a>
@@ -200,12 +184,7 @@ convert-pheno \
   -obff individuals.json
 ```
 
-Supply one SDTM domain per file; `DM` is required. All supplied domains are
-currently loaded and grouped by `USUBJID` in memory. Add
-`--mapping-file sdtm-terminology.yaml` and `--term-audit terminology.tsv`
-when the data owner has reviewed terminology rules. Details:
-[CDISC Dataset-JSON](dataset-json) and
-[Dataset-JSON to BFF mapping](datasetjson2bff).
+Exactly one `DM` domain is required. See [Dataset-JSON](dataset-json).
 
 <a id="dataset-xml-input-examples"></a>
 <a id="dataset-xml-input-pxf-output"></a>
@@ -220,11 +199,8 @@ convert-pheno \
   -obff individuals.json
 ```
 
-Define-XML resolves domain and column metadata before rows are grouped by
-participant in memory. Supported NCI identifiers in Define-XML are resolved
-automatically; an optional `source.profile: sdtm` mapping can handle additional
-reviewed terms. Details: [CDISC Dataset-XML](dataset-xml) and
-[Dataset-XML to BFF mapping](datasetxml2bff).
+Dataset-XML requires Define-XML and exactly one `DM` domain. See
+[Dataset-XML](dataset-xml).
 
 <a id="fhir-r4-input-examples"></a>
 <a id="fhir-r4-input-pxf-output"></a>
@@ -238,9 +214,8 @@ convert-pheno \
   -obff individuals.json
 ```
 
-Generic R4 and mCODE 4.0 use the same command; profile URLs are detected
-automatically. Select multi-entity output for Specimen-derived `biosamples`.
-Details: [FHIR R4](fhir) and [FHIR to BFF mapping](fhir2bff).
+mCODE uses the same command and is detected from profile URLs. See
+[FHIR R4 and mCODE](fhir).
 
 <a id="openehr-input-examples"></a>
 <a id="openehr-input-pxf-output"></a>
@@ -253,21 +228,20 @@ convert-pheno \
   -obff individuals.json
 ```
 
-Multiple canonical JSON or YAML compositions can be supplied and are grouped
-by resolved patient identity. Details: [openEHR](openehr) and
-[openEHR to BFF mapping](openehr2bff).
+See [openEHR](openehr).
 
-## Useful Additions
+## Useful Options
 
 | Need | Option |
 | --- | --- |
-| Stable output for fixture comparison | `--test` |
 | Terminology decision review | `--term-audit terminology.tsv` |
 | Smaller BFF without copied source columns | `--no-source-info` |
 | Separate Beacon entity files | `--entities ... --out-dir bff_out/` |
-| Incremental OMOP SQL processing | `--stream` with `-iomop ... -obff` |
+| Incremental OMOP processing | `--stream` with `-iomop ... -obff` |
 
 ## Inspection Outputs
+
+<a id="inspection-outputs"></a>
 
 BFF and PXF input can also be flattened for inspection and downstream tools:
 
@@ -277,21 +251,5 @@ convert-pheno -ibff individuals.json -ojsonf individuals.flattened.json
 convert-pheno -ibff individuals.json -ojsonld individuals.jsonld
 ```
 
-These outputs do not replace schema-aware BFF, PXF, or OMOP-CDM output.
-
-## Search Mode for Mapping Files
-
-The default `exact` search is appropriate when source labels match ontology
-database labels. Use `mixed` when they differ:
-
-```bash
-convert-pheno \
-  -icsv clinical.csv \
-  --mapping-file mapping.yaml \
-  --search mixed \
-  --min-text-similarity-score 0.8 \
-  --term-audit terminology.tsv \
-  -obff individuals.json
-```
-
-See [Terminology Search](terminology-search) for resolution precedence, scoring, and audit-column interpretation.
+For terminology search modes and audit interpretation, see
+[Terminology Search](terminology-search).

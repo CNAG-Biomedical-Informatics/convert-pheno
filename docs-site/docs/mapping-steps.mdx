@@ -33,6 +33,14 @@ Most conversions use `BFF` as the internal target model:
 If you only need commands, use [Choose a Conversion](conversion-recipes). Use this page when you want to understand why mappings are structured the way they are.
 :::
 
+:::warning[Check the longitudinal representation]
+A BFF `individuals` object may represent a person with events aggregated across
+visits, or a snapshot of one person at one visit or timepoint. Establish which
+representation the data uses before counting people, grouping records, or
+converting longitudinal data. The full distinction, including Convert-Pheno's
+private `_visit` extension, is explained in the advanced mapping details below.
+:::
+
 ## Step 1: Conversion to the target model
 
 For **most routes**, `Convert-Pheno` first maps the input data to [BFF](bff), the Beacon v2 Models-based format that acts as the **internal target model**. From there, the data can remain as `BFF` or continue to other outputs such as `PXF` or `OMOP CDM`.

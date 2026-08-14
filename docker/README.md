@@ -24,59 +24,16 @@ Input files and generated output remain in the mounted Windows directory.
 
 :::
 
-## Method 1: From Docker Hub
+## Quick Start From Docker Hub
 
-Download the latest image from Docker Hub:
+Download the latest image and give it the shorter name used in the examples:
 
 ```bash
 docker pull manuelrueda/convert-pheno:latest
 docker image tag manuelrueda/convert-pheno:latest cnag/convert-pheno:latest
 ```
 
-## Method 2: Build From Dockerfile
-
-The repository includes a `docker/Dockerfile`.
-
-Build the image locally with:
-
-```bash
-docker buildx build --load \
-  --file docker/Dockerfile \
-  --build-arg BUILD_VERSION="$(cat VERSION)" \
-  --build-arg VCS_REF="$(git rev-parse HEAD)" \
-  --tag cnag/convert-pheno:latest \
-  .
-```
-
-The Dockerfile packages the **current repository checkout**; it does not clone
-the moving `main` branch. Uncommitted files are also part of a local build unless
-they are excluded by `.dockerignore`. Check out a release tag before building if
-you need an image that exactly matches that release.
-
-<details>
-<summary>Maintainer release builds</summary>
-
-After committing the version and changelog, create and push a tag matching the
-value in `VERSION`:
-
-```bash
-VERSION="$(cat VERSION)"
-git tag -a "$VERSION" -m "Tagging version $VERSION"
-git push origin "$VERSION"
-```
-
-Pushing the tag automatically launches the **Docker build (multi-arch)** GitHub
-workflow. The workflow builds the tagged checkout and records its Git SHA and
-Convert-Pheno version in the image labels. It refuses lightweight tags, tags
-that do not point to the checked-out commit, and tags that do not match
-`VERSION`.
-
-</details>
-
-## Run Convert-Pheno
-
-Run each conversion in the foreground and mount the current directory so
-Convert-Pheno can read local inputs and write its results back to the host:
+Run a conversion in the current directory:
 
 ```bash
 docker run --rm \
@@ -92,104 +49,7 @@ container when it finishes. A successful run creates `individuals.json` in the
 current directory. Replace the final line with the Convert-Pheno arguments
 required for your conversion.
 
-The image runs as `root` by default. On Linux, add
-`--user "$(id -u):$(id -g)"` to keep output files owned by your current user:
-
-```bash
-docker run --rm \
-  --user "$(id -u):$(id -g)" \
-  --volume "$PWD:/data" \
-  --workdir /data \
-  cnag/convert-pheno:latest \
-  /usr/share/convert-pheno/bin/convert-pheno \
-  -ipxf pxf.json -obff individuals.json
-```
-
-## Reproduce Tested Examples
-
-Release images include the regression fixtures under `/usr/share/convert-pheno/t`.
-The following commands read those inputs directly from the published `0.34` image and
-write only the converted file to the mounted host directory.
-
-PXF to BFF:
-
-```bash
-docker run --rm \
-  --volume "$PWD:/data" \
-  manuelrueda/convert-pheno:0.34 \
-  /usr/share/convert-pheno/bin/convert-pheno \
-  -ipxf /usr/share/convert-pheno/t/pxf2bff/in/pxf.json \
-  -obff /data/individuals.json \
-  --test -O
-```
-
-BFF to PXF:
-
-```bash
-docker run --rm \
-  --volume "$PWD:/data" \
-  manuelrueda/convert-pheno:0.34 \
-  /usr/share/convert-pheno/bin/convert-pheno \
-  -ibff /usr/share/convert-pheno/t/bff2pxf/in/individuals.json \
-  -opxf /data/pxf.json \
-  --test -O
-```
-
-OMOP CSV tables to BFF:
-
-```bash
-docker run --rm \
-  --volume "$PWD:/data" \
-  manuelrueda/convert-pheno:0.34 \
-  /usr/share/convert-pheno/bin/convert-pheno \
-  -iomop \
-  /usr/share/convert-pheno/t/omop2bff/in/PERSON.csv \
-  /usr/share/convert-pheno/t/omop2bff/in/CONCEPT.csv \
-  /usr/share/convert-pheno/t/omop2bff/in/DRUG_EXPOSURE.csv \
-  -obff /data/individuals-omop.json \
-  --test -O
-```
-
-The corresponding reference outputs and native commands are indexed in the
-repository's [`t/` fixture guide](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/tree/main/t).
-
-## Interactive Container (Optional)
-
-Use a named, detached container when you want to inspect the image or run
-several commands in the same environment:
-
-```bash
-docker run -tid \
-  --volume "$PWD:/data" \
-  --workdir /data \
-  --name convert-pheno \
-  cnag/convert-pheno:latest
-docker exec -ti convert-pheno bash
-```
-
-The command-line executable is available at
-`/usr/share/convert-pheno/bin/convert-pheno`. Images built from the current
-source also add that directory to `PATH`. Remove the named container when it is
-no longer needed:
-
-```bash
-docker rm -f convert-pheno
-```
-
-The image also includes `dockeruser` with `UID=1000`. To use it, add
-`--user 1000:1000` to the initial `docker run` command.
-
-## Use `make`
-
-If you prefer, use the included `makefile.docker`:
-
-```bash
-make -f makefile.docker install
-make -f makefile.docker run
-make -f makefile.docker enter
-```
-
-## Mount Volumes
+## Mount Files And Run
 
 Containers are isolated: files on your computer are not visible inside the
 container unless you mount them. The easiest approach is to put the input files,
@@ -261,6 +121,19 @@ Use read-only mounts (`:ro`) for inputs, mappings, and databases when you do not
 want the container to modify those files. Do not use `:ro` for output
 directories.
 
+The image runs as `root` by default. On Linux, add
+`--user "$(id -u):$(id -g)"` to keep output files owned by your current user:
+
+```bash
+docker run --rm \
+  --user "$(id -u):$(id -g)" \
+  --volume "$PWD:/data" \
+  --workdir /data \
+  cnag/convert-pheno:latest \
+  /usr/share/convert-pheno/bin/convert-pheno \
+  -ipxf pxf.json -obff individuals.json
+```
+
 ## System Requirements
 
 - Supported targets: `linux/amd64` and `linux/arm64`
@@ -295,4 +168,134 @@ import gdown
 url = "https://drive.google.com/uc?export=download&id=1zQ26Q1qsqTBPDGrtZbhDP-85NhaOrfBP"
 output = "./ohdsi.db"
 gdown.download(url, output, quiet=False)
+```
+
+## Advanced Docker Usage
+
+The sections below are useful when you need to build or inspect the image,
+reproduce regression examples, or use the repository's Docker Makefile. They
+are not required for normal conversions with the published image.
+
+### Build From Dockerfile
+
+The repository includes a `docker/Dockerfile`.
+
+Build the image locally with:
+
+```bash
+docker buildx build --load \
+  --file docker/Dockerfile \
+  --build-arg BUILD_VERSION="$(cat VERSION)" \
+  --build-arg VCS_REF="$(git rev-parse HEAD)" \
+  --tag cnag/convert-pheno:latest \
+  .
+```
+
+The Dockerfile packages the **current repository checkout**; it does not clone
+the moving `main` branch. Uncommitted files are also part of a local build unless
+they are excluded by `.dockerignore`. Check out a release tag before building if
+you need an image that exactly matches that release.
+
+<details>
+<summary>Maintainer release builds</summary>
+
+After committing the version and changelog, create and push a tag matching the
+value in `VERSION`:
+
+```bash
+VERSION="$(cat VERSION)"
+git tag -a "$VERSION" -m "Tagging version $VERSION"
+git push origin "$VERSION"
+```
+
+Pushing the tag automatically launches the **Docker build (multi-arch)** GitHub
+workflow. The workflow builds the tagged checkout and records its Git SHA and
+Convert-Pheno version in the image labels. It refuses lightweight tags, tags
+that do not point to the checked-out commit, and tags that do not match
+`VERSION`.
+
+</details>
+
+### Reproduce Tested Examples
+
+Release images include the regression fixtures under `/usr/share/convert-pheno/t`.
+The following commands read those inputs directly from the published `0.34` image and
+write only the converted file to the mounted host directory.
+
+PXF to BFF:
+
+```bash
+docker run --rm \
+  --volume "$PWD:/data" \
+  manuelrueda/convert-pheno:0.34 \
+  /usr/share/convert-pheno/bin/convert-pheno \
+  -ipxf /usr/share/convert-pheno/t/pxf2bff/in/pxf.json \
+  -obff /data/individuals.json \
+  --test -O
+```
+
+BFF to PXF:
+
+```bash
+docker run --rm \
+  --volume "$PWD:/data" \
+  manuelrueda/convert-pheno:0.34 \
+  /usr/share/convert-pheno/bin/convert-pheno \
+  -ibff /usr/share/convert-pheno/t/bff2pxf/in/individuals.json \
+  -opxf /data/pxf.json \
+  --test -O
+```
+
+OMOP CSV tables to BFF:
+
+```bash
+docker run --rm \
+  --volume "$PWD:/data" \
+  manuelrueda/convert-pheno:0.34 \
+  /usr/share/convert-pheno/bin/convert-pheno \
+  -iomop \
+  /usr/share/convert-pheno/t/omop2bff/in/PERSON.csv \
+  /usr/share/convert-pheno/t/omop2bff/in/CONCEPT.csv \
+  /usr/share/convert-pheno/t/omop2bff/in/DRUG_EXPOSURE.csv \
+  -obff /data/individuals-omop.json \
+  --test -O
+```
+
+The corresponding reference outputs and native commands are indexed in the
+repository's [`t/` fixture guide](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/tree/main/t).
+
+### Interactive Container
+
+Use a named, detached container when you want to inspect the image or run
+several commands in the same environment:
+
+```bash
+docker run -tid \
+  --volume "$PWD:/data" \
+  --workdir /data \
+  --name convert-pheno \
+  cnag/convert-pheno:latest
+docker exec -ti convert-pheno bash
+```
+
+The command-line executable is available at
+`/usr/share/convert-pheno/bin/convert-pheno`. Images built from the current
+source also add that directory to `PATH`. Remove the named container when it is
+no longer needed:
+
+```bash
+docker rm -f convert-pheno
+```
+
+The image also includes `dockeruser` with `UID=1000`. To use it, add
+`--user 1000:1000` to the initial `docker run` command.
+
+### Use `make`
+
+If you prefer, use the included `makefile.docker`:
+
+```bash
+make -f makefile.docker install
+make -f makefile.docker run
+make -f makefile.docker enter
 ```

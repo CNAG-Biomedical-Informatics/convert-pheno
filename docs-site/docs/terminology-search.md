@@ -61,6 +61,9 @@ when the source text and intended database label genuinely differ. See
 
 </div>
 
+<details>
+<summary>How mixed and fuzzy search retrieve and score candidates</summary>
+
 For `mixed` and `fuzzy`, candidate retrieval and candidate scoring are separate
 steps. The query is split into distinct literal Unicode words, and strict
 retrieval requires every word in any order. Here, **literal** means that words
@@ -85,6 +88,8 @@ clinical meaning. Convert-Pheno quotes each distinct query word and joins the
 words with `AND`, so FTS retrieves labels containing all of them in any order;
 `mixed` or `fuzzy` then scores those candidates separately.
 :::
+
+</details>
 
 ```bash
 convert-pheno \
@@ -142,6 +147,12 @@ Excel worksheets hold at most 1,048,575 audit decisions plus the header. Use
 
 ## Review the Audit
 
+Start with `review_action`, which gives the suggested next step for each
+decision. Use the candidate score and score gap when a row needs closer review.
+
+<details>
+<summary>Complete audit columns and resolution details</summary>
+
 The audit keeps one row per terminology decision. Its columns are grouped by
 purpose:
 
@@ -185,6 +196,8 @@ result. Empty candidate fields mean that no database candidate was evaluated.
 values are `exact_match`, `similarity_accepted`, `score_below_threshold`,
 `spelling_variant_accepted`, `no_candidate`, `direct_mapping`, and
 `not_searched`.
+
+</details>
 
 `review_action` turns that evidence into one suggested next step:
 

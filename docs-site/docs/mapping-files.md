@@ -119,6 +119,11 @@ exact database matches. If a term is unresolved, correct the alias or mapping
 and run the command again; do not lower the search threshold merely to obtain a
 result.
 
+::::
+
+<details>
+<summary>Advanced: tool-assisted terminology validation</summary>
+
 A tool-enabled LLM can carry out most of this workflow. Give it access to the
 source schema and distinct values, the Mapping V2 documentation, the ontology
 databases, Convert-Pheno, the terminology audit, and the target validator. It
@@ -164,7 +169,8 @@ automated by an LLM with the right tools. People still decide genuinely
 ambiguous clinical meanings and approve the final mapping. For restricted data,
 run the workflow in an approved environment and expose only the information the
 model needs.
-::::
+
+</details>
 
 ## Mapping V2 At A Glance
 
