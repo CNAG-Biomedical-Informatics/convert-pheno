@@ -92,6 +92,11 @@ const config: Config = {
           position: 'left',
         },
         {
+          to: '/graphical-interface',
+          label: 'Workbench',
+          position: 'left',
+        },
+        {
           to: '/use-as-an-api',
           label: 'API',
           position: 'left',

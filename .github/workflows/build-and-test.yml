@@ -25,7 +25,10 @@ jobs:
           perl-version: ${{ matrix.perl }}
       - run: perl -V
       - run: cpanm -n --installdeps .
-      - run: prove -l t
+      - run: prove -j6 -lr t
+      - name: Run extended suite
+        if: ${{ matrix.perl == '5.42' && matrix.os == 'ubuntu-latest' }}
+        run: prove -j6 -lr t xt
       - name: Run tests (with coverage)
         if: ${{ matrix.perl == '5.30' && matrix.os == 'ubuntu-latest' }}
         env:
@@ -34,3 +37,53 @@ jobs:
           perl Makefile.PL
           cpanm -n Devel::Cover::Report::Coveralls
           cover -test -report Coveralls
+
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: |
+            app/package-lock.json
+            docs-site/package-lock.json
+      - name: Install frontend dependencies
+        working-directory: app
+        run: npm ci
+      - name: Typecheck, test, and build frontend
+        working-directory: app
+        run: npm run typecheck && npm test && npm run build
+      - name: Install Playwright Chromium
+        working-directory: app
+        run: npx playwright install --with-deps chromium
+      - name: Run browser integration tests
+        working-directory: app
+        run: npm run test:e2e
+      - name: Install documentation dependencies
+        working-directory: docs-site
+        run: npm ci
+      - name: Build documentation
+        working-directory: docs-site
+        run: npm run build
+
+  container-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Build runtime image
+        run: docker build --file docker/Dockerfile --tag convert-pheno:ci .
+      - name: Smoke test graphical interface and API
+        run: |
+          docker run --detach --name convert-pheno-ci --publish 127.0.0.1:18080:8080 convert-pheno:ci
+          trap 'docker rm --force convert-pheno-ci' EXIT
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:18080/api/health >/dev/null; then
+              break
+            fi
+            sleep 2
+          done
+          curl --fail --silent http://127.0.0.1:18080/ | grep --quiet '<div id="root"></div>'
+          curl --fail --silent http://127.0.0.1:18080/api/health \
+            | python3 -c 'import json, sys; body=json.load(sys.stdin); assert body["ok"] and body["data"]["version"] == "0.34_1"'

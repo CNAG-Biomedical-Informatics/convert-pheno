@@ -6,6 +6,7 @@
 *.pyc
 test.pl
 TO_DO.md
+/TODO.md
 SESSION_NOTES.md
 README.source.md
 /README
@@ -15,6 +16,13 @@ nytprof.out
 /blib/
 __pycache__/
 /cover_db/
+/app/node_modules/
+/app/dist/
+/app/test-results/
+/app/playwright-report/
+/app/*.tsbuildinfo
+/app/vite.config.js
+/app/vite.config.d.ts
 /Makefile
 /MANIFEST
 /META*

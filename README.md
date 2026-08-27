@@ -10,7 +10,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/CNAG-Biomedical-Informatics/convert-pheno/badge.svg?branch=main)](https://coveralls.io/github/CNAG-Biomedical-Informatics/convert-pheno?branch=main)
 [![CPAN Publish](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/cpan-publish.yml/badge.svg)](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/cpan-publish.yml)
 [![Kwalitee Score](https://cpants.cpanauthors.org/dist/Convert-Pheno.svg)](https://cpants.cpanauthors.org/dist/Convert-Pheno)
-![version](https://img.shields.io/badge/version-0.34-blue)
+![version](https://img.shields.io/badge/version-0.34__1-blue)
 [![Docker Build](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/docker-build-multi-arch.yml/badge.svg)](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/docker-build-multi-arch.yml)
 [![Docker Pulls](https://badgen.net/docker/pulls/manuelrueda/convert-pheno?icon=docker&label=pulls)](https://hub.docker.com/r/manuelrueda/convert-pheno/)
 [![Docker Image Size](https://img.shields.io/docker/image-size/manuelrueda/convert-pheno/latest?logo=docker&label=image%20size)](https://hub.docker.com/r/manuelrueda/convert-pheno/)
@@ -45,6 +45,17 @@
 Supported formats include BFF, PXF, OMOP CDM, REDCap, cBioPortal clinical studies, CDISC-ODM, CDISC Dataset-JSON, FHIR R4, CSV, and openEHR canonical input
 
 ## Quick Start
+
+From Convert-Pheno 0.35, the Docker image includes a local graphical workbench
+for JSON and file-based conversions:
+
+```bash
+docker run --rm --publish 127.0.0.1:8080:8080 manuelrueda/convert-pheno:latest
+```
+
+Open <http://127.0.0.1:8080>. Uploads are limited to 100 MiB and the service is
+intentionally bound to the local machine; it has no authentication. Use the CLI
+for streaming and larger datasets.
 
 Typical CLI usage:
 

@@ -31,6 +31,7 @@ SESSION*.md
 /_Inline
 /nytprof*
 node_modules
+app/dist
 __pycache__
 *.pyc
 *.pyo

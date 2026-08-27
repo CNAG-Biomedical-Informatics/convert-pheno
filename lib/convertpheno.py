@@ -165,3 +165,45 @@ class PythonBinding:
             if stderr:
                 detail += f" (stderr: {stderr})"
             raise PythonBridgeError(detail) from exc
+
+
+class ServiceBridge(PythonBinding):
+    """Thin transport to the shared Perl HTTP service.
+
+    Validation, catalog metadata, availability checks, conversion execution,
+    warning capture, and artifact serialization all remain in Perl.
+    """
+
+    def call(self, action, conversion=None, request=None):
+        payload = {"action": action}
+        if conversion is not None:
+            payload["conversion"] = conversion
+        if request is not None:
+            payload["request"] = request
+        self.json = payload
+
+        bridge = self._bridge_path()
+        if not bridge.is_file():
+            raise PythonBridgeError(f"Perl bridge not found: {bridge}")
+        try:
+            completed = subprocess.run(
+                [self._perl_bin(), str(bridge)],
+                capture_output=True,
+                check=False,
+                cwd=self._repo_root(),
+                input=json.dumps(payload),
+                text=True,
+            )
+        except OSError as exc:
+            raise PythonBridgeError(f"Failed to run Perl bridge: {exc}") from exc
+        if completed.returncode != 0:
+            message = completed.stderr.strip() or (
+                f"Perl bridge exited with status {completed.returncode}"
+            )
+            raise PythonBridgeError(message)
+        try:
+            return json.loads(completed.stdout)
+        except json.JSONDecodeError as exc:
+            raise PythonBridgeError(
+                f"Invalid JSON from Perl bridge: {completed.stdout[:200]!r}"
+            ) from exc

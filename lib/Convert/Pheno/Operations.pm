@@ -16,6 +16,7 @@ our @EXPORT_OK = qw(
   is_http_conversion
   is_public_conversion
   public_conversions
+  registry_metadata
 );
 
 my $registry_file =
@@ -96,6 +97,18 @@ sub is_http_conversion {
 
 sub http_request_fields {
     return dclone( $registry->{http_request_fields} );
+}
+
+sub registry_metadata {
+    return dclone(
+        {
+            formats            => $registry->{formats}            || {},
+            input_definitions  => $registry->{input_definitions}  || {},
+            option_definitions => $registry->{option_definitions} || {},
+            resources          => $registry->{resources}          || {},
+            http_profiles      => $registry->{http_profiles}      || {},
+        }
+    );
 }
 
 1;

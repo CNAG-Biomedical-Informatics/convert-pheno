@@ -1,163 +1,110 @@
 #!/usr/bin/env python3
-#
-#   A simple API to interact with Convert::Pheno
-#
-#   This file is part of Convert::Pheno
-#
-#   Last Modified: Dec/27/2022
-#
-#   $VERSION taken from Convert::Pheno
-#
-#   Copyright (C) 2022-2026 Manuel Rueda - CNAG (manuel.rueda@cnag.eu)
-#
-#   License: Artistic License 2.0
 
 from pathlib import Path
 import sys
-from fastapi import Request, FastAPI
+
+from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
-from pydantic import BaseModel, Field, ValidationError, parse_obj_as
 
 LIB_DIR = Path(__file__).resolve().parents[2] / "lib"
 sys.path.insert(0, str(LIB_DIR))
 
 from convertpheno import (
-    HTTP_REQUEST_FIELDS,
-    PythonBinding,
+    CONVERSION_REGISTRY,
     PythonBridgeError,
-    is_http_conversion,
+    ServiceBridge,
+    __version__,
+    conversion_spec,
     is_public_conversion,
 )
 
-# Here we start the API
-app = FastAPI()
+app = FastAPI(
+    title="Convert-Pheno artifact API",
+    version=__version__,
+    description="An HTTP wrapper around the Perl conversion engine.",
+)
 
-class Data(BaseModel):
-    conversion: str = Field(..., title="Conversion")
-    input: dict = Field(..., title="Input")
-    output: dict = Field(default_factory=dict, title="Output")
-    options: dict = Field(default_factory=dict, title="Options")
-
-    class Config:
-        extra = "forbid"
+def bridge_response(result):
+    if result.get("ok") is False:
+        error = result.get("error", {})
+        status = int(error.pop("status", 500))
+        return JSONResponse(status_code=status, content=result)
+    return result
 
 
-def api_error(status_code, code, message, method=None, details=None):
-    content = {
-        "ok": False,
-        "error": {
-            "code": code,
-            "message": message,
+def bridge_failure(exc):
+    return JSONResponse(
+        status_code=500,
+        content={
+            "ok": False,
+            "error": {
+                "code": "infrastructure_error",
+                "message": str(exc),
+            },
         },
-    }
-    if details is not None:
-        content["error"]["details"] = details
-    if method is not None:
-        content["meta"] = {"conversion": method}
-    return JSONResponse(status_code=status_code, content=content)
-
-
-def is_bridge_runtime_error(message):
-    prefixes = (
-        "Perl bridge not found:",
-        "Failed to run Perl bridge:",
-        "Perl bridge returned no JSON output",
-        "Invalid JSON from Perl bridge:",
     )
-    return message.startswith(prefixes)
 
 
-def flatten_public_request(payload):
-    conversion = payload.conversion
-    convert_payload = {}
+@app.get("/api/health")
+def api_health():
+    try:
+        return bridge_response(ServiceBridge({}).call("health"))
+    except PythonBridgeError as exc:
+        return bridge_failure(exc)
 
-    for section_name, section in (
-        ("input", payload.input),
-        ("output", payload.output),
-        ("options", payload.options),
-    ):
-        if "method" in section:
-            raise ValueError(f"Reserved key 'method' is not allowed in '{section_name}'")
 
-        unsupported = set(section).difference(HTTP_REQUEST_FIELDS[section_name])
-        if unsupported:
-            key = sorted(unsupported)[0]
-            raise ValueError(f"Unsupported key '{key}' in '{section_name}'")
+@app.get("/api/conversions")
+def api_conversions():
+    try:
+        result = ServiceBridge({}).call("catalog")
+        result["data"] = [
+            route for route in result.get("data", []) if "json" in route["input"]["transports"]
+        ]
+        result.setdefault("meta", {})["count"] = len(result["data"])
+        return bridge_response(result)
+    except PythonBridgeError as exc:
+        return bridge_failure(exc)
 
-        overlap = set(convert_payload).intersection(section)
-        if overlap:
-            key = sorted(overlap)[0]
-            raise ValueError(
-                f"Duplicate key '{key}' appears in more than one of input/output/options"
+
+@app.post("/api/conversions/{conversion}")
+async def api_conversion(conversion: str, request: Request):
+    if is_public_conversion(conversion):
+        spec = conversion_spec(conversion)
+        source = spec["source"]
+        transports = CONVERSION_REGISTRY.get("input_definitions", {}).get(source, {}).get(
+            "transports", ["json"]
+        )
+        if "json" not in transports:
+            return JSONResponse(
+                status_code=422,
+                content={
+                    "ok": False,
+                    "error": {
+                        "code": "unsupported_transport",
+                        "message": "This reference FastAPI server accepts JSON routes only; use the Mojolicious API or workbench for file uploads",
+                    },
+                    "meta": {"conversion": conversion},
+                },
             )
 
-        convert_payload.update(section)
-
-    convert_payload["method"] = conversion
-    return conversion, convert_payload
-
-
-@app.post(
-    "/api",
-    openapi_extra={
-        "requestBody": {
-            "content": {"application/json": {"schema": Data.schema()}},
-            "required": True,
-        },
-    },
-)
-async def get_body(request: Request):
-
-    # Receive and validate payload JSON
-    raw_payload = await request.json()
     try:
-        if hasattr(Data, "model_validate"):
-            payload = Data.model_validate(raw_payload)
-        else:
-            payload = parse_obj_as(Data, raw_payload)
-    except ValidationError as exc:
-        return api_error(
-            422,
-            "invalid_request",
-            "Request body does not match the API schema",
-            details=exc.errors(),
+        payload = await request.json()
+    except Exception:
+        return JSONResponse(
+            status_code=422,
+            content={
+                "ok": False,
+                "error": {
+                    "code": "invalid_request",
+                    "message": "Request body must contain valid JSON",
+                },
+                "meta": {"conversion": conversion},
+            },
         )
-
     try:
-        conversion, convert_payload = flatten_public_request(payload)
-    except ValueError as exc:
-        return api_error(422, "invalid_request", str(exc))
-
-    if not is_public_conversion(conversion):
-        return api_error(
-            422,
-            "conversion_error",
-            f"Unsupported conversion <{conversion}>",
-            method=conversion,
-        )
-    if not is_http_conversion(conversion):
-        return api_error(
-            422,
-            "conversion_error",
-            f"Conversion <{conversion}> is not available over HTTP; use the CLI for file-based routes",
-            method=conversion,
-        )
-
-    # Creating object for class PythonBinding
-    convert = PythonBinding(convert_payload)
-
-    # Run convert_pheno method
-    try:
-        result = convert.convert_pheno()
+        result = ServiceBridge({}).call("execute", conversion, payload)
+        if result.get("ok") is False:
+            result.setdefault("meta", {"conversion": conversion})
+        return bridge_response(result)
     except PythonBridgeError as exc:
-        status_code = 500 if is_bridge_runtime_error(str(exc)) else 422
-        code = "bridge_error" if status_code == 500 else "conversion_error"
-        return api_error(status_code, code, str(exc), method=conversion)
-
-    return {
-        "ok": True,
-        "data": result,
-        "meta": {
-            "conversion": conversion,
-        },
-    }
+        return bridge_failure(exc)

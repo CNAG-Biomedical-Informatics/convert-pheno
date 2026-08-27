@@ -1,5 +1,0 @@
-# No specific version needed
-
-# api
-requires 'Mojolicious::Plugin::OpenAPI';
-#requires 'Future::AsyncAwait';  # for async/wait     

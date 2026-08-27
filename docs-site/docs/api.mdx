@@ -8,251 +8,167 @@ slug: /use-as-an-api
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-The API is intended for developers who need to call Convert-Pheno from another application. Most users should use the [command-line interface](use-as-a-command-line-interface).
+The Mojolicious artifact API accepts self-contained JSON and registry-defined
+multipart file uploads. The [command-line interface](use-as-a-command-line-interface)
+remains the appropriate interface for streaming and large datasets.
 
-In some cases it is more convenient to send conversion requests over an HTTP(s) endpoint instead of calling the module directly. For that case, `Convert-Pheno` includes a lightweight REST API.
+## Endpoints
 
-## Basic request
+| Method | Path | Purpose |
+| --- | --- | --- |
+| `GET` | `/api/health` | Check the local Perl service |
+| `GET` | `/api/conversions` | Get routes, input shapes, options, entities, maturity, and current resource availability |
+| `POST` | `/api/conversions/{conversion}` | Run one conversion and return serialized artifacts |
 
-Send a `POST` request to `/api` with a JSON body. Local examples below use plain `http://` for simplicity, but the same API can also be exposed over `https://` depending on deployment:
+The catalog is authoritative. Clients should not hard-code route options or
+assume that a listed route is currently available.
 
-```bash
-curl -d "@data.json" -H 'Content-Type: application/json' -X POST http://localhost:3000/api
-```
-
-Example payload:
+## Conversion request
 
 ```json
 {
-  "conversion": "pxf2bff",
   "input": {
-    "data": { "...": "..." }
+    "data": { "phenopacket": { "id": "P0007500" } }
   },
   "output": {
-    "entities": ["individuals"]
+    "entities": ["individuals", "biosamples"]
   },
-  "options": {
-    "ohdsi_db": false
-  }
+  "options": {}
 }
 ```
 
-The response is a JSON envelope with `ok`, `data`, and `meta.conversion`.
+Send it to the route selected from the catalog:
 
-The HTTP(s) boundary accepts in-memory payloads, not paths on the API host.
-`input` may contain `data`; `output` may contain `entities` and
-`derived_entity_overrides`. Safe conversion settings belong under `options`.
-File-bearing fields such as `in_file`, `out_file`, `mapping_file`,
-`redcap_dictionary`, `define_xml`, and `path_to_ohdsi_db` are rejected.
+```bash
+curl --fail-with-body \
+  --header 'Content-Type: application/json' \
+  --data @request.json \
+  http://127.0.0.1:3000/api/conversions/pxf2bff
+```
 
-### OMOP table data
+The HTTP boundary rejects client-supplied filesystem paths. OMOP can be sent as
+an object keyed by table name or uploaded as table files.
 
-For `omop2bff` and `omop2pxf`, send the OMOP rows under `input.data`, keyed by
-table name. Each table contains an array of row objects:
+## Multipart request
+
+For file-based routes, inspect `input.files` in the selected catalog entry. It
+defines the required part names, accepted extensions, and whether a role may be
+repeated. Put `output` and `options` in the JSON-valued `request` part:
+
+```bash
+curl --fail-with-body \
+  --form 'request={"output":{"entities":["individuals"]},"options":{"separator":","}}' \
+  --form source=@records.csv \
+  --form mapping=@mapping.yaml \
+  http://127.0.0.1:3000/api/conversions/csv2bff
+```
+
+Uploads are synchronous, limited to 100 MiB per request, and removed from the
+private temporary workspace when the request finishes.
+
+## Artifact response
 
 ```json
 {
-  "conversion": "omop2bff",
-  "input": {
-    "data": {
-      "CONCEPT": [{
-        "concept_id": 8532,
-        "concept_name": "FEMALE",
-        "concept_code": "F",
-        "vocabulary_id": "Gender"
-      }],
-      "PERSON": [{ "person_id": 974, "gender_concept_id": 8532 }]
-    }
-  }
+  "ok": true,
+  "artifacts": [{
+    "id": "individuals",
+    "filename": "individuals.json",
+    "mediaType": "application/json",
+    "kind": "json",
+    "encoding": "utf-8",
+    "content": "[\n  { ... }\n]\n"
+  }],
+  "warnings": [],
+  "meta": { "conversion": "pxf2bff" }
 }
 ```
 
-`CONCEPT` and `PERSON` must be included. The client does not group records by
-patient: Convert-Pheno builds the concept caches and groups rows by `person_id`
-before applying the same mapping used for file-based OMOP input. Large OMOP
-datasets remain better suited to the CLI streaming mode because HTTP(s)
-requests are processed in memory.
+`content` is already serialized by Perl using the same conventions as the CLI.
+Text artifacts use `encoding: "utf-8"`; XLSX audit artifacts use base64.
+Clients should download it directly rather than rebuilding JSON or CSV. BFF
+outputs contain one artifact per requested entity; OMOP outputs contain one CSV
+artifact per emitted table.
 
-<details>
-<summary>Accepted option fields</summary>
+Warnings are returned without logging phenotype payloads. Error statuses are:
 
-`default_vital_status`, `levenshtein_weight`, `max_lines_sql`,
-`min_text_similarity_score`, `ohdsi_db`, `omop_tables`,
-`search`, `source_info`, `test`, `text_similarity_method`, and `username`.
+- `404`: unknown conversion
+- `413`: multipart request exceeds 100 MiB
+- `422`: invalid request or conversion failure
+- `503`: required local resource unavailable
+- `500`: unexpected service or bridge failure
 
-</details>
+Successful conversion does not imply external schema validation.
 
-<details>
-<summary>OpenAPI specification</summary>
+When a terminology report is requested, `meta.terminologyAudit` contains
+complete counts grouped by `review_action` and at most 100 preview rows per
+action. `reportArtifactId` identifies the complete XLSX or TSV in `artifacts`.
+The preview is intended for interactive review; the artifact remains the full
+audit record.
 
-The source schema for the Perl/Mojolicious wrapper lives in [api/perl/openapi.json](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/api/perl/openapi.json).
-A rendered OpenAPI reference is also available as [Redoc](https://cnag-biomedical-informatics.github.io/convert-pheno/api/redoc-static.html).
-
-</details>
-## JavaScript usage
-
-The REST API is language-agnostic. JavaScript clients can call the same `/api` endpoint with the same JSON request body.
-
-
-<Tabs>
-<TabItem value="browser-fetch" label="Browser fetch">
-
+## JavaScript example
 
 ```javascript
-    async function run() {
-      const payload = {
-        conversion: "pxf2bff",
-        input: {
-          data: {
-            subject: {
-              id: "P0007500",
-              sex: "FEMALE"
-            }
-          }
-        },
-        output: {
-          entities: ["individuals"]
-        },
-        options: {
-          test: true
-        }
-      };
+async function convertPhenopacket(phenopacket) {
+  const catalogResponse = await fetch('/api/conversions');
+  const catalog = await catalogResponse.json();
+  const route = catalog.data.find(({id}) => id === 'pxf2bff');
 
-      const response = await fetch("http://localhost:3000/api", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(payload)
-      });
+  if (!route?.available) {
+    throw new Error(route?.unavailableReason ?? 'Conversion is unavailable');
+  }
 
-      const result = await response.json();
+  const response = await fetch(`/api/conversions/${route.id}`, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      input: {data: phenopacket},
+      output: {entities: ['individuals']},
+      options: {},
+    }),
+  });
+  const result = await response.json();
+  if (!response.ok) throw new Error(result.error.message);
 
-      if (!result.ok) {
-        console.error(result.error);
-      } else {
-        console.log(result.data);
-      }
-    }
-
-    run();
-    ```
-
-This browser example assumes the API is same-origin with the page, or that the deployment enables CORS.
-
-
-</TabItem>
-<TabItem value="node-js-fetch" label="Node.js fetch">
-
-
-```javascript
-    async function run() {
-      const payload = {
-        conversion: "pxf2bff",
-        input: {
-          data: {
-            subject: {
-              id: "P0007500",
-              sex: "FEMALE"
-            }
-          }
-        },
-        output: {
-          entities: ["individuals"]
-        },
-        options: {
-          test: true
-        }
-      };
-
-      const response = await fetch("http://localhost:3000/api", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(payload)
-      });
-
-      const result = await response.json();
-
-      if (!result.ok) {
-        throw new Error(result.error.message);
-      }
-
-      console.log(result.meta.conversion);
-      console.log(result.data);
-    }
-
-    run().catch(console.error);
-    ```
-
-Node.js 21+ includes stable built-in fetch. Older Node.js versions may require a polyfill such as `undici`.
-
-
-</TabItem>
-</Tabs>
-## Recommended API routes
-
-The REST API works best for **self-contained payloads** where the request already carries the data needed for conversion.
-
-| Input family | REST API status | Why |
-| --- | --- | --- |
-| `BFF` | Recommended | Small JSON payloads are natural to send over HTTP(s) |
-| `PXF` | Recommended | Small JSON payloads are natural to send over HTTP(s) |
-| `OMOP-CDM` | Recommended with care | Send table rows as JSON; Convert-Pheno groups them by patient in memory |
-| `FHIR R4 / mCODE 4.0` | Available | A self-contained JSON Bundle can be sent directly as `input.data`; mCODE profiles are detected automatically |
-| `openEHR` | Available | Canonical JSON/YAML content can be sent directly as `input.data` |
-| `CSV` | CLI/module only | Mapping-file conversion depends on file artifacts that are not accepted by the HTTP boundary |
-| `REDCap` | CLI/module only | Requires project data, a REDCap dictionary, and mapping-file context |
-| `CDISC-ODM` | CLI/module only | Requires XML plus a mapping file; only REDCap-origin ODM also uses an external dictionary |
-| `CDISC Dataset-JSON` | CLI/module only | Accepts multiple SDTM domain documents that are grouped before conversion |
-| `CDISC Dataset-XML` | CLI/module only | Requires Dataset-XML documents plus accompanying Define-XML metadata |
-
-For `CSV`, `REDCap`, `CDISC-ODM`, Dataset-JSON, and Dataset-XML, use the **CLI or module
-interface**. The HTTP wrappers reject those file-based routes rather than
-accepting server-local paths.
-
-## Available implementations
-
-Both server implementations expose the same `POST /api` contract. Choose the
-one that fits the surrounding application stack.
-
-<Tabs groupId="api-implementation">
-<TabItem value="perl" label="Perl" default>
-
-The Mojolicious implementation calls `Convert::Pheno` directly and serves on
-port `3000` by default:
-
-```bash
-cd api/perl
-morbo main.pl
+  return result.artifacts; // serialized content is ready to download
+}
 ```
 
-See the [Perl API setup](https://github.com/cnag-biomedical-informatics/convert-pheno/tree/main/api/perl).
+## Server implementations
+
+<Tabs groupId="api-implementation">
+<TabItem value="perl" label="Perl / Mojolicious" default>
+
+The official graphical application uses Mojolicious, supports JSON and
+multipart routes, and calls the shared Perl service directly:
+
+```bash
+morbo -l http://127.0.0.1:3000 api/perl/main.pl
+```
 
 </TabItem>
-<TabItem value="python" label="Python">
+<TabItem value="python" label="Python / FastAPI">
 
-The FastAPI implementation calls the same Perl conversion layer through the
-internal JSON bridge and serves on port `8000` by default:
+FastAPI is a smaller JSON-only reference wrapper over the internal Perl bridge.
+Its catalog excludes multipart-only routes:
 
 ```bash
 cd api/python
-uvicorn main:app --reload
+uvicorn main:app --host 127.0.0.1 --port 8000
 ```
-
-See the [Python API setup](https://github.com/cnag-biomedical-informatics/convert-pheno/tree/main/api/python).
 
 </TabItem>
 </Tabs>
 
-Client applications in JavaScript can consume the same REST API without needing a dedicated JavaScript server wrapper.
+:::caution[Planned Python HTTP API deprecation]
+The Python HTTP API is retained temporarily for compatibility with existing
+JSON integrations and published descriptions. As file uploads, multi-file
+inputs, and downloadable artifacts expand, it will be deprecated in favor of
+the Mojolicious API. New HTTP(s) integrations should use Mojolicious.
 
-## Deployment note
+This does not deprecate the Python module binding.
+:::
 
-This API is intended to run on a machine where `Convert-Pheno` and its dependencies are already installed. In practice, the containerized setup is the easiest way to expose it as a local service. The Perl/Mojolicious wrapper is configured for HTTPS when run with `hypnotoad`, while the Python/FastAPI wrapper is typically served over HTTP(s) in local `uvicorn` examples depending on whether TLS is configured directly or terminated upstream.
-
-See:
-
-- [Download & Installation](download-and-installation)
-- [Docker Installation](download-and-installation/docker-based)
+The source [OpenAPI specification](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/api/perl/openapi.json)
+and published [Redoc reference](https://cnag-biomedical-informatics.github.io/convert-pheno/api/redoc-static.html) describe the
+same contract.

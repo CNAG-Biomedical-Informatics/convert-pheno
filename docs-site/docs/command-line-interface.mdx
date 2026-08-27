@@ -142,7 +142,7 @@ In other words, `--entities` does not replace `-obff`. It refines which `BFF` en
 - Version and vendor profile are detected from the ODM namespace, `ODMVersion`, source system, and extension namespaces. Version-specific input flags are not used.
 - REDCap-origin ODM uses `source.profile: redcap` with `--redcap-dictionary`. Standard or OpenClinica ODM uses `source.profile: cdisc-odm` and embedded `MetaDataVersion`, `ItemDef`, and `CodeList` metadata.
 - Repeated item groups are kept as separate occurrences for repeated BFF sections; ambiguous repeated scalar values stop the conversion instead of overwriting data.
-- The route is available through the CLI and local module interfaces, but not through the HTTP(s) API.
+- The route is also available as a multipart upload through the Mojolicious HTTP(s) API and workbench.
 
 ### cBioPortal-specific behavior
 
@@ -150,7 +150,7 @@ In other words, `--entities` does not replace `-obff`. It refines which `BFF` en
 - Clinical data files are discovered through `meta_*.txt` descriptors. The sample table is required; a missing patient table is derived from sample-to-patient links.
 - Entity-aware BFF output can emit patient-derived `individuals`, sample-derived `biosamples`, a study-derived `dataset`, and case-list-derived `cohorts`.
 - A mapping file using `source.profile: cbioportal` is optional and may augment project-specific patient and sample fields. It cannot rewrite `PATIENT_ID` or `SAMPLE_ID`.
-- Timeline and molecular files are currently outside this clinical package profile. Directory and ZIP input is available through the CLI and local module interfaces, not the HTTP(s) API.
+- Timeline and molecular files are currently outside this clinical package profile. The CLI and module accept directories or ZIP files; the Mojolicious HTTP(s) API accepts ZIP uploads.
 
 ### Ontology search tuning
 

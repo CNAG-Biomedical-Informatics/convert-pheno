@@ -1,5 +1,104 @@
 {
   "schema_version": 1,
+  "formats": {
+    "beacon": { "label": "Beacon v2", "kind": "json", "inputShape": "A Beacon v2 entity object" },
+    "pxf": { "label": "Phenopacket v2", "kind": "json", "inputShape": "A Phenopacket v2 object or phenopacket wrapper" },
+    "fhir": { "label": "FHIR R4", "kind": "json", "inputShape": "A self-contained FHIR R4 Bundle" },
+    "openehr": { "label": "openEHR", "kind": "json", "inputShape": "A canonical openEHR JSON document" },
+    "omop": { "label": "OMOP-CDM", "kind": "tables", "inputShape": "An object keyed by OMOP table name; each value is an array of row objects" },
+    "csv": { "label": "CSV", "kind": "csv" },
+    "jsonf": { "label": "Folded JSON", "kind": "json" },
+    "jsonld": { "label": "JSON-LD", "kind": "jsonld" },
+    "redcap": { "label": "REDCap", "kind": "package" },
+    "cbioportal": { "label": "cBioPortal", "kind": "package" },
+    "cdisc-odm": { "label": "CDISC-ODM", "kind": "package" },
+    "dataset-json": { "label": "Dataset-JSON", "kind": "package" },
+    "dataset-xml": { "label": "Dataset-XML", "kind": "package" }
+  },
+  "input_definitions": {
+    "beacon": { "transports": ["json"], "files": [] },
+    "pxf": { "transports": ["json"], "files": [] },
+    "fhir": { "transports": ["json"], "files": [] },
+    "openehr": { "transports": ["json"], "files": [] },
+    "omop": {
+      "transports": ["multipart", "json"],
+      "files": [
+        { "name": "source", "label": "OMOP table files", "description": "Upload table CSV/TSV files or one PostgreSQL SQL dump.", "required": true, "multiple": true, "maximum": 128, "accept": [".csv", ".csv.gz", ".tsv", ".tsv.gz", ".sql", ".sql.gz"], "argument": "in_files" }
+      ]
+    },
+    "csv": {
+      "transports": ["multipart"],
+      "files": [
+        { "name": "source", "label": "CSV data", "description": "The source record table.", "required": true, "multiple": false, "maximum": 1, "accept": [".csv", ".csv.gz", ".tsv", ".tsv.gz"], "argument": "in_file" },
+        { "name": "mapping", "label": "Mapping file", "description": "Convert-Pheno mapping YAML or JSON.", "required": true, "multiple": false, "maximum": 1, "accept": [".yaml", ".yml", ".json"], "argument": "mapping_file" }
+      ]
+    },
+    "redcap": {
+      "transports": ["multipart"],
+      "files": [
+        { "name": "source", "label": "REDCap data export", "description": "The REDCap records CSV export.", "required": true, "multiple": false, "maximum": 1, "accept": [".csv", ".csv.gz"], "argument": "in_file" },
+        { "name": "dictionary", "label": "REDCap data dictionary", "description": "The REDCap project data dictionary CSV.", "required": true, "multiple": false, "maximum": 1, "accept": [".csv", ".csv.gz"], "argument": "redcap_dictionary" },
+        { "name": "mapping", "label": "Mapping file", "description": "Convert-Pheno mapping YAML or JSON.", "required": true, "multiple": false, "maximum": 1, "accept": [".yaml", ".yml", ".json"], "argument": "mapping_file" }
+      ]
+    },
+    "cdisc-odm": {
+      "transports": ["multipart"],
+      "files": [
+        { "name": "source", "label": "CDISC-ODM document", "description": "A CDISC-ODM v1 or v2 XML document.", "required": true, "multiple": false, "maximum": 1, "accept": [".xml"], "argument": "in_file" },
+        { "name": "mapping", "label": "Mapping file", "description": "Convert-Pheno mapping YAML or JSON.", "required": true, "multiple": false, "maximum": 1, "accept": [".yaml", ".yml", ".json"], "argument": "mapping_file" },
+        { "name": "dictionary", "label": "REDCap data dictionary", "description": "Required only for CDISC-ODM exported by REDCap.", "required": false, "multiple": false, "maximum": 1, "accept": [".csv", ".csv.gz"], "argument": "redcap_dictionary" }
+      ]
+    },
+    "dataset-json": {
+      "transports": ["multipart"],
+      "files": [
+        { "name": "source", "label": "Dataset-JSON domains", "description": "Upload one or more Dataset-JSON domain files.", "required": true, "multiple": true, "maximum": 128, "accept": [".json", ".json.gz"], "argument": "in_files" },
+        { "name": "define", "label": "Define-XML", "description": "Optional metadata enrichment from Define-XML.", "required": false, "multiple": false, "maximum": 1, "accept": [".xml"], "argument": "define_xml" },
+        { "name": "mapping", "label": "Terminology mapping", "description": "Optional reviewed terminology mapping YAML or JSON.", "required": false, "multiple": false, "maximum": 1, "accept": [".yaml", ".yml", ".json"], "argument": "mapping_file" }
+      ]
+    },
+    "dataset-xml": {
+      "transports": ["multipart"],
+      "files": [
+        { "name": "source", "label": "Dataset-XML domains", "description": "Upload one or more Dataset-XML domain files.", "required": true, "multiple": true, "maximum": 128, "accept": [".xml"], "argument": "in_files" },
+        { "name": "define", "label": "Define-XML", "description": "The Define-XML document referenced by the datasets.", "required": true, "multiple": false, "maximum": 1, "accept": [".xml"], "argument": "define_xml" },
+        { "name": "mapping", "label": "Terminology mapping", "description": "Optional reviewed terminology mapping YAML or JSON.", "required": false, "multiple": false, "maximum": 1, "accept": [".yaml", ".yml", ".json"], "argument": "mapping_file" }
+      ]
+    },
+    "cbioportal": {
+      "transports": ["multipart"],
+      "files": [
+        { "name": "source", "label": "cBioPortal study package", "description": "A cBioPortal study directory packaged as ZIP.", "required": true, "multiple": false, "maximum": 1, "accept": [".zip"], "argument": "in_file" },
+        { "name": "mapping", "label": "Mapping file", "description": "Optional Convert-Pheno mapping YAML or JSON.", "required": false, "multiple": false, "maximum": 1, "accept": [".yaml", ".yml", ".json"], "argument": "mapping_file" }
+      ]
+    }
+  },
+  "option_definitions": {
+    "default_vital_status": { "label": "Default vital status", "kind": "select", "values": ["ALIVE", "DECEASED", "UNKNOWN_STATUS"], "default": "ALIVE" },
+    "search": { "label": "Terminology search", "kind": "select", "values": ["exact", "mixed", "fuzzy"], "default": "exact" },
+    "text_similarity_method": { "label": "Text similarity method", "kind": "select", "values": ["cosine", "dice"], "default": "cosine" },
+    "min_text_similarity_score": { "label": "Minimum similarity score", "kind": "number", "minimum": 0, "maximum": 1, "default": 0.8 },
+    "levenshtein_weight": { "label": "Levenshtein weight", "kind": "number", "minimum": 0, "maximum": 1, "default": 0.1 },
+    "max_lines_sql": { "label": "Maximum OMOP participants", "kind": "integer", "minimum": 0, "default": 500 },
+    "source_info": { "label": "Include source provenance", "kind": "boolean", "default": true },
+    "username": { "label": "Provenance username", "kind": "string" },
+    "separator": { "label": "Column separator", "kind": "string", "default": ";" },
+    "term_audit": { "label": "Terminology audit", "kind": "select", "values": ["none", "tsv", "xlsx"], "default": "none" }
+  },
+  "resources": {
+    "ohdsi": { "label": "Athena-OHDSI vocabulary database", "filename": "ohdsi.db", "description": "Install ohdsi.db in the current Convert-Pheno database bundle." }
+  },
+  "http_profiles": {
+    "maturity": "experimental",
+    "common_options": ["source_info", "username"],
+    "terminology_options": ["search", "text_similarity_method", "min_text_similarity_score", "levenshtein_weight"],
+    "omop_input_options": ["max_lines_sql"],
+    "pxf_output_options": ["default_vital_status"],
+    "ohdsi_targets": ["bff2omop", "cbioportal2omop", "cdiscodm2omop", "csv2omop", "datasetjson2omop", "datasetxml2omop", "fhir2omop", "pxf2omop"],
+    "file_sources": ["cbioportal", "cdisc-odm", "csv", "dataset-json", "dataset-xml", "redcap"],
+    "terminology_sources": ["cbioportal", "cdisc-odm", "csv", "dataset-json", "dataset-xml", "redcap"],
+    "separator_sources": ["csv", "redcap"]
+  },
   "http_request_fields": {
     "input": ["data"],
     "output": ["derived_entity_overrides", "entities"],
@@ -76,7 +175,7 @@
       "resources": { "sqlite": true },
       "entities": { "default": ["individuals"], "supported": ["individuals", "biosamples", "datasets", "cohorts"], "primary": "individuals" },
       "streaming": false,
-      "http_enabled": false
+      "http_enabled": true
     },
     "cbioportal2omop": {
       "source": "cbioportal",
@@ -86,7 +185,7 @@
       "resources": { "sqlite": true },
       "entities": { "default": [], "supported": [], "primary": null },
       "streaming": false,
-      "http_enabled": false
+      "http_enabled": true
     },
     "cbioportal2pxf": {
       "source": "cbioportal",
@@ -96,7 +195,7 @@
       "resources": { "sqlite": true },
       "entities": { "default": [], "supported": [], "primary": null },
       "streaming": false,
-      "http_enabled": false
+      "http_enabled": true
     },
     "cdiscodm2bff": {
       "source": "cdisc-odm",
@@ -106,7 +205,7 @@
       "resources": { "sqlite": true },
       "entities": { "default": ["individuals"], "supported": ["individuals", "datasets", "cohorts"], "primary": "individuals" },
       "streaming": false,
-      "http_enabled": false
+      "http_enabled": true
     },
     "cdiscodm2omop": {
       "source": "cdisc-odm",
@@ -116,7 +215,7 @@
       "resources": { "sqlite": true },
       "entities": { "default": [], "supported": [], "primary": null },
       "streaming": false,
-      "http_enabled": false
+      "http_enabled": true
     },
     "cdiscodm2pxf": {
       "source": "cdisc-odm",
@@ -126,7 +225,7 @@
       "resources": { "sqlite": true },
       "entities": { "default": [], "supported": [], "primary": null },
       "streaming": false,
-      "http_enabled": false
+      "http_enabled": true
     },
     "datasetjson2bff": {
       "source": "dataset-json",
@@ -136,7 +235,7 @@
       "resources": { "sqlite": false },
       "entities": { "default": ["individuals"], "supported": ["individuals", "datasets", "cohorts"], "primary": "individuals" },
       "streaming": false,
-      "http_enabled": false
+      "http_enabled": true
     },
     "datasetjson2omop": {
       "source": "dataset-json",
@@ -146,7 +245,7 @@
       "resources": { "sqlite": true },
       "entities": { "default": [], "supported": [], "primary": null },
       "streaming": false,
-      "http_enabled": false
+      "http_enabled": true
     },
     "datasetjson2pxf": {
       "source": "dataset-json",
@@ -156,7 +255,7 @@
       "resources": { "sqlite": false },
       "entities": { "default": [], "supported": [], "primary": null },
       "streaming": false,
-      "http_enabled": false
+      "http_enabled": true
     },
     "datasetxml2bff": {
       "source": "dataset-xml",
@@ -166,7 +265,7 @@
       "resources": { "sqlite": false },
       "entities": { "default": ["individuals"], "supported": ["individuals", "datasets", "cohorts"], "primary": "individuals" },
       "streaming": false,
-      "http_enabled": false
+      "http_enabled": true
     },
     "datasetxml2omop": {
       "source": "dataset-xml",
@@ -176,7 +275,7 @@
       "resources": { "sqlite": true },
       "entities": { "default": [], "supported": [], "primary": null },
       "streaming": false,
-      "http_enabled": false
+      "http_enabled": true
     },
     "datasetxml2pxf": {
       "source": "dataset-xml",
@@ -186,7 +285,7 @@
       "resources": { "sqlite": false },
       "entities": { "default": [], "supported": [], "primary": null },
       "streaming": false,
-      "http_enabled": false
+      "http_enabled": true
     },
     "fhir2bff": {
       "source": "fhir",
@@ -226,7 +325,7 @@
       "resources": { "sqlite": true },
       "entities": { "default": ["individuals"], "supported": ["individuals", "datasets", "cohorts"], "primary": "individuals" },
       "streaming": false,
-      "http_enabled": false
+      "http_enabled": true
     },
     "csv2omop": {
       "source": "csv",
@@ -236,7 +335,7 @@
       "resources": { "sqlite": true },
       "entities": { "default": [], "supported": [], "primary": null },
       "streaming": false,
-      "http_enabled": false
+      "http_enabled": true
     },
     "csv2pxf": {
       "source": "csv",
@@ -246,7 +345,7 @@
       "resources": { "sqlite": true },
       "entities": { "default": [], "supported": [], "primary": null },
       "streaming": false,
-      "http_enabled": false
+      "http_enabled": true
     },
     "omop2bff": {
       "source": "omop",
@@ -346,7 +445,7 @@
       "resources": { "sqlite": true },
       "entities": { "default": ["individuals"], "supported": ["individuals", "datasets", "cohorts"], "primary": "individuals" },
       "streaming": false,
-      "http_enabled": false
+      "http_enabled": true
     },
     "redcap2omop": {
       "source": "redcap",
@@ -356,7 +455,7 @@
       "resources": { "sqlite": true },
       "entities": { "default": [], "supported": [], "primary": null },
       "streaming": false,
-      "http_enabled": false
+      "http_enabled": true
     },
     "redcap2pxf": {
       "source": "redcap",
@@ -366,7 +465,7 @@
       "resources": { "sqlite": true },
       "entities": { "default": [], "supported": [], "primary": null },
       "streaming": false,
-      "http_enabled": false
+      "http_enabled": true
     }
   }
 }

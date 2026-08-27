@@ -58,6 +58,11 @@ const sidebars: SidebarsConfig = {
           label: 'Command-Line Interface',
         },
         {
+          type: 'doc',
+          id: 'graphical-interface',
+          label: 'Workbench',
+        },
+        {
           type: 'link',
           href: 'https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6',
           label: 'Google Colab',

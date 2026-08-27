@@ -23,15 +23,15 @@ import Link from '@docusaurus/Link';
 </div>
 
 :::note[Project status]
-This documentation tracks `Convert-Pheno 0.34`.
+This documentation tracks the development version `Convert-Pheno 0.34_1`.
 
 The software is in active use and still evolving. Some conversion routes are more mature than others, so it is worth checking the format-specific pages before running a new conversion on real data.
 
 :::
-:::tip[Most users should use the CLI]
-The command-line interface is the main entry point for normal use. It supports real files, mapping files, REDCap dictionaries, OMOP tables, audit TSV files, and multi-entity BFF output.
+:::tip[Choose an interface]
+The command-line interface remains the main entry point for normal use. It supports real files, mapping files, REDCap dictionaries, OMOP tables, terminology reports, and multi-entity BFF output.
 
-The API and module interfaces are mainly for developers who need to call Convert-Pheno from another application or script.
+From **Convert-Pheno 0.35**, the local [Workbench](graphical-interface) provides a browser interface for supported JSON and file-based conversions. The API and module interfaces are mainly for developers who need to call Convert-Pheno from another application or script.
 :::
 ## Typical conversions
 
@@ -51,18 +51,19 @@ Most users come to `Convert-Pheno` for one of these tasks:
 
 - [5-Minute Quickstart](quickstart) if you want to complete one small conversion now
 - [Choose a Conversion](conversion-recipes) if you want a route finder and copy-paste commands for common conversions
+- [Workbench](graphical-interface) if you want a local browser interface, available from Convert-Pheno 0.35
 - [Supported Formats](supported-formats) if you need accepted files and format-specific behavior
 
-:::note[API vs CLI]
-Use the HTTP(s) API mainly for **self-contained JSON payloads** such as `BFF`, `PXF`, FHIR R4 Bundles, and carefully prepared `OMOP-CDM` requests.
+:::note[Workbench, API, and CLI]
+Use the **CLI** for automation, streaming, or large datasets. Use the local **Workbench** for interactive conversions and terminology review.
 
-For mapping-file-based conversions such as `CSV`, `REDCap`, and `CDISC-ODM`,
-or multi-file Dataset-JSON/Dataset-XML input, prefer the CLI.
+Use the HTTP(s) API when integrating Convert-Pheno into another application. The Workbench calls this API but presents its inputs and results as a guided workflow.
 
 :::
 ## Documentation map
 
 - [Command-Line Interface](use-as-a-command-line-interface) if you want to **run the tool now**
+- [Workbench](graphical-interface) if you prefer a **local browser interface**
 - [Mapping Files](mapping-files) for an **end-to-end mapped REDCap workflow**
 - [Use as an API](use-as-an-api) if you want the **HTTP(s) contract, API support matrix, and JavaScript fetch examples**
 - [Troubleshooting](troubleshooting) if something is not behaving as expected

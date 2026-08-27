@@ -115,6 +115,18 @@ throws_ok(
     ok( -f $audit_file, 'terminology audit TSV is written when requested' );
 
     my @lines = grep { length } split /\n/, slurp_file($audit_file);
+    my $review = $convert->term_audit_review;
+    is(
+        $review->{total_decisions},
+        scalar(@lines) - 1,
+        'terminology review counts every streamed audit decision'
+    );
+    my $review_count = 0;
+    $review_count += $_ for values %{ $review->{counts} };
+    is( $review_count, $review->{total_decisions},
+        'terminology review action counts cover every decision' );
+    cmp_ok( $review->{preview_rows}, '<=', $review->{total_decisions},
+        'terminology review retains a bounded browser preview' );
     is(
         $lines[0],
         join(
@@ -414,6 +426,42 @@ throws_ok(
     is( $accepted_cols[17], 'review_similarity', 'audit recommends review for an accepted spelling correction' );
     is( $accepted_cols[21], 'one_token_relaxed', 'accepted spelling correction retains its retrieval path' );
     is( $accepted_cols[24], '0.9514', 'audit records the spelling-aware fuzzy score' );
+
+    my $review = $self->term_audit_review;
+    is( $review->{counts}{resolve_or_accept_fallback}, 1,
+        'review summary counts unresolved decisions' );
+    is( $review->{counts}{review_similarity}, 1,
+        'review summary counts similarity decisions' );
+    is_deeply(
+        [ map { $_->{review_action} } @{ $review->{rows} } ],
+        [qw(resolve_or_accept_fallback review_similarity)],
+        'review preview prioritizes actionable decisions'
+    );
+}
+
+{
+    my $audit_file = temp_output_file( suffix => '.tsv', dir => $tmpdir );
+    my $writer = Convert::Pheno::Audit::Terminology->new(
+        path => $audit_file,
+        config => { search => 'exact' },
+    );
+    for my $row ( 1 .. 105 ) {
+        $writer->write_row(
+            {
+                row               => $row,
+                source_value      => "value-$row",
+                match_status      => 'matched',
+                lookup_resolution => 'exact',
+            }
+        );
+    }
+    $writer->close;
+    my $review = $writer->review;
+    is( $review->{total_decisions}, 105,
+        'review summary is complete when its preview is bounded' );
+    is( $review->{preview_rows}, 100,
+        'review preview retains at most 100 rows per action' );
+    ok( $review->{truncated}, 'review reports preview truncation' );
 }
 
 done_testing();

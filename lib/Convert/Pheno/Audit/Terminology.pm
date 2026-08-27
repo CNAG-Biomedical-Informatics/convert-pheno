@@ -43,6 +43,14 @@ my %NUMERIC_COLUMN = map { $_ => 1 } qw(
 );
 
 use constant MAX_XLSX_DATA_ROWS => 1_048_575;
+use constant PREVIEW_ROWS_PER_ACTION => 100;
+
+my @REVIEW_ACTIONS = qw(
+  resolve_or_accept_fallback
+  review_similarity
+  review_source_fallback
+  keep
+);
 
 sub new {
     my ( $class, %arg ) = @_;
@@ -59,7 +67,9 @@ sub new {
             unresolved => 0,
             not_searched => 0,
         },
-        total_rows => 0,
+        action_counts => { map { $_ => 0 } @REVIEW_ACTIONS },
+        preview_rows => { map { $_ => [] } @REVIEW_ACTIONS },
+        total_rows   => 0,
     }, $class;
 
     if ( $path =~ /\.tsv(?:\.gz)?\z/i ) {
@@ -95,9 +105,32 @@ sub write_row {
     }
 
     my $category = _review_category(\%output_row);
+    my $action   = $output_row{review_action};
     $self->{counts}{$category}++;
+    $self->{action_counts}{$action}++;
+    if ( @{ $self->{preview_rows}{$action} } < PREVIEW_ROWS_PER_ACTION ) {
+        push @{ $self->{preview_rows}{$action} },
+          { map { $_ => $output_row{$_} } @COLUMNS };
+    }
     $self->{total_rows}++;
     return 1;
+}
+
+sub review {
+    my ($self) = @_;
+    my @rows = map { @{ $self->{preview_rows}{$_} } } @REVIEW_ACTIONS;
+    my %settings = map { $_ => $self->{config}{$_} }
+      qw(search text_similarity_method min_text_similarity_score levenshtein_weight);
+
+    return {
+        total_decisions          => $self->{total_rows},
+        counts                   => { %{ $self->{action_counts} } },
+        rows                     => \@rows,
+        preview_rows             => scalar @rows,
+        preview_limit_per_action => PREVIEW_ROWS_PER_ACTION,
+        truncated                => $self->{total_rows} > @rows ? 1 : 0,
+        settings                 => \%settings,
+    };
 }
 
 sub close {

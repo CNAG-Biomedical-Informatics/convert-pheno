@@ -1,9 +1,8 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-use Convert::Pheno::Operations qw(http_request_fields);
 use FindBin qw($Bin);
-use Mojo::JSON ();
+use Mojo::JSON qw(encode_json);
 use Path::Tiny qw(path);
 use Test::Mojo;
 use Test::More;
@@ -11,126 +10,110 @@ use Test::More;
 require "$Bin/../main.pl";
 my $t = Test::Mojo->new(main::app());
 
-note 'OpenAPI request fields should match the public registry';
-my $openapi = Mojo::JSON::decode_json( path("$Bin/../openapi.json")->slurp_raw );
-my $request_properties =
-  $openapi->{paths}{'/api'}{post}{requestBody}{content}{'application/json'}{schema}{properties};
-my $http_fields = http_request_fields();
-for my $section (qw(input output options)) {
-    is_deeply(
-        [ sort keys %{ $request_properties->{$section}{properties} } ],
-        [ sort @{ $http_fields->{$section} } ],
-        "$section fields match the conversion registry"
-    );
+$t->get_ok('/api/health')->status_is(200)
+  ->json_is('/ok', Mojo::JSON->true)->json_is('/data/engine', 'perl');
+
+$t->get_ok('/api/conversions')->status_is(200)
+  ->json_is('/ok', Mojo::JSON->true)->json_is('/meta/count', 35)
+  ->json_is('/data/0/id', 'bff2csv');
+
+$t->get_ok('/examples/pxf')->status_is(200)
+  ->json_is('/ok', Mojo::JSON->true)
+  ->json_is('/meta/source', 'pxf')
+  ->json_is('/meta/filename', 'phenopacket-example.json')
+  ->json_is('/data/0/subject/id', '16-year-old boy')
+  ->json_has('/data/0/phenotypicFeatures/0')
+  ->json_has('/data/0/measurements/0');
+
+for my $source (qw(beacon fhir)) {
+    $t->get_ok("/examples/$source")->status_is(200)
+      ->json_is('/ok', Mojo::JSON->true)
+      ->json_is('/meta/source', $source);
 }
 
-note 'Valid request should return the response envelope';
-$t->post_ok(
-    '/api',
-    json => {
-        conversion => 'pxf2bff',
-        input => {
-            data => {
-                phenopacket => {
-                    id      => 'P0007500',
-                    subject => {
-                        id          => 'P0007500',
-                        dateOfBirth => 'unknown-01-01T00:00:00Z',
-                        sex         => 'FEMALE',
-                    },
-                },
-            },
-        },
-    }
-)->status_is(200)->json_is('/ok', Mojo::JSON->true)->json_is('/meta/conversion', 'pxf2bff')
-  ->json_is('/data/id', 'P0007500');
+$t->get_ok('/examples/csv')->status_is(200)
+  ->json_is('/data/transport', 'multipart')
+  ->json_is('/data/options/separator', ',')
+  ->json_is('/data/files/0/role', 'source');
 
-note 'FHIR Bundles should be available through the in-memory HTTP contract';
-my $fhir_bundle = Mojo::JSON::decode_json(
-    path("$Bin/../../../t/fhir2bff/in/patient-bundle.json")->slurp_raw
-);
+for my $source (qw(cbioportal cdisc-odm dataset-json dataset-xml redcap)) {
+    $t->get_ok("/examples/$source")->status_is(200)
+      ->json_is('/data/transport', 'multipart')
+      ->json_is('/data/files/0/role', 'source');
+}
+
+$t->get_ok('/examples/openehr')->status_is(200)
+  ->json_is('/ok', Mojo::JSON->true)
+  ->json_is('/meta/source', 'openehr')
+  ->json_is('/meta/filename', 'openehr-patient-example.json')
+  ->json_is('/data/subject/external_ref/id/value', 'openehr-patient-2');
+my $openehr = $t->tx->res->json->{data};
 $t->post_ok(
-    '/api',
+    '/api/conversions/openehr2bff',
     json => {
-        conversion => 'fhir2bff',
-        input      => { data => $fhir_bundle },
-        options    => { test => Mojo::JSON->true },
+        input   => { data => $openehr },
+        output  => { entities => ['individuals'] },
+        options => { test => Mojo::JSON->true },
     }
 )->status_is(200)->json_is('/ok', Mojo::JSON->true)
-  ->json_is('/meta/conversion', 'fhir2bff')
-  ->json_is('/data/0/id', '5b24c87b-6223-f5b4-51e9-82051159bd1d');
+  ->json_is('/artifacts/0/filename', 'individuals.json');
 
-note 'OMOP tables should be grouped by participant inside the conversion core';
-my $omop_request = Mojo::JSON::decode_json(
-    path("$Bin/../omop.json")->slurp_raw
+$t->get_ok('/examples/omop')->status_is(200)
+  ->json_is('/data/transport', 'multipart')
+  ->json_is('/data/files/0/role', 'source');
+$t->get_ok('/examples/omop?transport=json')->status_is(200)
+  ->json_is('/data/PERSON/0/person_id', 974);
+
+$t->get_ok('/examples/not-a-source')->status_is(404)
+  ->json_is('/error/code', 'unknown_example');
+
+my $pxf = Mojo::JSON::decode_json(
+    path("$Bin/../../../t/pxf2bff/in/pxf.json")->slurp_raw
 );
-$t->post_ok( '/api', json => $omop_request )->status_is(200)
-  ->json_is('/ok', Mojo::JSON->true)
-  ->json_is('/meta/conversion', 'omop2bff')
-  ->json_is('/data/0/id', '974');
-
-my $omop_to_pxf_request = Mojo::JSON::decode_json(
-    path("$Bin/../omop.json")->slurp_raw
-);
-$omop_to_pxf_request->{conversion} = 'omop2pxf';
-$t->post_ok( '/api', json => $omop_to_pxf_request )->status_is(200)
-  ->json_is('/ok', Mojo::JSON->true)
-  ->json_is('/meta/conversion', 'omop2pxf');
-
-note 'OpenAPI should reject invalid input shape';
-$t->post_ok('/api', json => { conversion => 'pxf2bff', input => [] })
-  ->status_is(400);
-
-note 'OpenAPI should reject host filesystem options';
 $t->post_ok(
-    '/api',
+    '/api/conversions/pxf2bff',
     json => {
-        conversion => 'pxf2bff',
-        input      => { data => {} },
-        options    => { out_file => '/tmp/result.json' },
+        input   => { data => $pxf },
+        output  => { entities => [ 'individuals', 'biosamples' ] },
+        options => { test => Mojo::JSON->true },
     }
-)->status_is(400);
+)->status_is(200)->json_is('/ok', Mojo::JSON->true)
+  ->json_is('/meta/conversion', 'pxf2bff')
+  ->json_is('/artifacts/0/filename', 'individuals.json')
+  ->json_is('/artifacts/1/filename', 'biosamples.json');
 
-note 'Conversion failures should use the JSON error envelope';
-$t->post_ok('/api', json => { conversion => 'not_a_method', input => { data => {} } })
-  ->status_is(422)->json_is('/ok', Mojo::JSON->false)
-  ->json_is('/error/code', 'conversion_error')
-  ->json_like('/error/message', qr/not_a_method/);
-
-note 'Callable internal methods should not be API conversions';
-$t->post_ok('/api', json => { conversion => 'get_info', input => {} })
-  ->status_is(422)->json_is('/ok', Mojo::JSON->false)
-  ->json_is('/error/code', 'conversion_error')
-  ->json_like('/error/message', qr/Unsupported conversion <get_info>/)
-  ->json_hasnt('/data');
-
-note 'File-based conversion routes should remain on the CLI';
 $t->post_ok(
-    '/api',
-    json => {
-        conversion => 'redcap2bff',
-        input      => { data => {} },
+    '/api/conversions/csv2bff' => form => {
+        request => encode_json(
+            {
+                output  => { entities => ['individuals'] },
+                options => {
+                    separator  => ',',
+                    term_audit => 'xlsx',
+                    test       => Mojo::JSON->true,
+                },
+            }
+        ),
+        source  => { file => "$Bin/../../../t/csv2bff/in/csv_data.csv" },
+        mapping => { file => "$Bin/../../../t/csv2bff/in/csv_mapping.yaml" },
     }
-)->status_is(422)->json_is('/ok', Mojo::JSON->false)
-  ->json_is('/error/code', 'conversion_error')
-  ->json_like('/error/message', qr/not available over HTTP/);
+)->status_is(200)->json_is('/ok', Mojo::JSON->true)
+  ->json_is('/meta/conversion', 'csv2bff')
+  ->json_has('/meta/terminologyAudit')
+  ->json_is('/meta/terminologyAudit/reportArtifactId', 'term-audit')
+  ->json_is('/artifacts/0/filename', 'individuals.json')
+  ->json_is('/artifacts/1/filename', 'term-audit.xlsx');
 
-note 'The request flattener should also reject host filesystem options';
-my $flatten_error;
-eval {
-    main::flatten_public_request(
-        {
-            conversion => 'pxf2bff',
-            input      => { data => {} },
-            options    => { mapping_file => '/srv/mapping.yaml' },
-        }
-    );
-    1;
-} or $flatten_error = $@;
-like(
-    $flatten_error,
-    qr/Unsupported key 'mapping_file' in 'options'/,
-    'request flattener rejects host filesystem options'
-);
+$t->post_ok('/api/conversions/not-a-route', json => { input => { data => {} } })
+  ->status_is(404)->json_is('/error/code', 'unknown_conversion');
+
+$t->post_ok('/api/conversions/pxf2bff', json => { input => { data => {} }, options => { out_file => '/tmp/result.json' } })
+  ->status_is(422)->json_is('/error/code', 'invalid_request');
+
+$t->post_ok('/api/conversions/pxf2bff', json => { input => { data => '/tmp/input.json' } })
+  ->status_is(422)->json_is('/error/code', 'invalid_request');
+
+$t->post_ok('/api/conversions/pxf2bff', json => { input => [] })
+  ->status_is(422)->json_is('/error/code', 'invalid_request');
 
 done_testing;

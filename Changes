@@ -1,5 +1,11 @@
 Revision history for Perl distribution Convert-Pheno
 
+0.34_1 2026-XX-XXT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
+
+ - Added a local graphical workbench and expanded the Mojolicious API for JSON and file-based conversions
+ - Added in-app terminology review with complete XLSX or TSV reports
+ - Marked the JSON-only Python HTTP API for future deprecation in favor of Mojolicious
+
 0.34 2026-08-03T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
  - Expanded CDISC support with version-aware ODM 1.3 and 2.0 Snapshot input plus Dataset-XML v1.0 with Define-XML v2 metadata

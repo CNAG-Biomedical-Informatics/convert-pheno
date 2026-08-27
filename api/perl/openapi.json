@@ -1,191 +1,178 @@
 {
-  "openapi": "3.0.2",
+  "openapi": "3.0.3",
   "info": {
-    "title": "Convert-Pheno API",
-    "description": "Convert-Pheno API configuration",
-    "version": "0.34"
+    "title": "Convert-Pheno Artifact API",
+    "description": "Local JSON and multipart conversions executed exclusively by the Perl engine.",
+    "version": "0.34_1"
   },
+  "servers": [{ "url": "http://127.0.0.1:3000", "description": "Local Mojolicious development server" }],
   "paths": {
-    "/api": {
-      "post": {
-        "x-mojo-name": "post_data",
-        "summary": "Get Body",
-        "operationId": "get_body_api_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "title": "ConversionRequest",
-                "required": [
-                  "conversion",
-                  "input"
-                ],
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                  "conversion": {
-                    "title": "Conversion",
-                    "type": "string"
-                  },
-                  "input": {
-                    "title": "Input",
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                      "data": {}
-                    }
-                  },
-                  "output": {
-                    "title": "Output",
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                      "entities": {
-                        "type": "array",
-                        "items": {
-                          "type": "string"
-                        }
-                      },
-                      "derived_entity_overrides": {
-                        "type": "object"
-                      }
-                    }
-                  },
-                  "options": {
-                    "title": "Options",
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                      "default_vital_status": {
-                        "type": "string",
-                        "enum": ["ALIVE", "DECEASED", "UNKNOWN_STATUS"]
-                      },
-                      "levenshtein_weight": {
-                        "type": "number",
-                        "minimum": 0,
-                        "maximum": 1
-                      },
-                      "max_lines_sql": {
-                        "type": "integer",
-                        "minimum": 0
-                      },
-                      "min_text_similarity_score": {
-                        "type": "number",
-                        "minimum": 0,
-                        "maximum": 1
-                      },
-                      "ohdsi_db": {
-                        "type": "boolean"
-                      },
-                      "omop_tables": {
-                        "type": "array",
-                        "items": {
-                          "type": "string"
-                        }
-                      },
-                      "search": {
-                        "type": "string",
-                        "enum": ["exact", "mixed", "fuzzy"]
-                      },
-                      "source_info": {
-                        "type": "boolean"
-                      },
-                      "test": {
-                        "type": "boolean"
-                      },
-                      "text_similarity_method": {
-                        "type": "string",
-                        "enum": ["cosine", "dice"]
-                      },
-                      "username": {
-                        "type": "string"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "required": true
-        },
+    "/api/health": {
+      "get": {
+        "summary": "Check service health",
+        "operationId": "getHealth",
         "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ],
-                  "properties": {
-                    "ok": {
-                      "type": "boolean",
-                      "enum": [true]
-                    },
-                    "data": {},
-                    "meta": {
-                      "type": "object",
-                      "properties": {
-                        "conversion": {
-                          "type": "string"
-                        }
-                      },
-                      "required": ["conversion"]
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Request validation or conversion error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": [
-                    "ok",
-                    "error"
-                  ],
-                  "properties": {
-                    "ok": {
-                      "type": "boolean",
-                      "enum": [false]
-                    },
-                    "error": {
-                      "type": "object",
-                      "required": [
-                        "code",
-                        "message"
-                      ],
-                      "properties": {
-                        "code": {
-                          "type": "string"
-                        },
-                        "message": {
-                          "type": "string"
-                        },
-                        "details": {}
-                      }
-                    },
-                    "meta": {
-                      "type": "object",
-                      "properties": {
-                        "conversion": {
-                          "type": "string"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
+          "200": { "description": "Service is healthy", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/HealthResponse" } } } },
+          "500": { "$ref": "#/components/responses/InfrastructureError" }
         }
       }
+    },
+    "/api/conversions": {
+      "get": {
+        "summary": "List conversion routes and current availability",
+        "operationId": "getConversions",
+        "responses": {
+          "200": { "description": "Registry-driven conversion catalog", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CatalogResponse" } } } },
+          "500": { "$ref": "#/components/responses/InfrastructureError" }
+        }
+      }
+    },
+    "/api/conversions/{conversion}": {
+      "post": {
+        "summary": "Run one conversion",
+        "operationId": "runConversion",
+        "parameters": [{ "name": "conversion", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/ConversionRequest" } },
+            "multipart/form-data": { "schema": { "$ref": "#/components/schemas/MultipartConversionRequest" } }
+          }
+        },
+        "responses": {
+          "200": { "description": "Serialized output artifacts", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ConversionResponse" } } } },
+          "404": { "$ref": "#/components/responses/UnknownConversion" },
+          "413": { "$ref": "#/components/responses/RequestTooLarge" },
+          "422": { "$ref": "#/components/responses/InvalidRequest" },
+          "503": { "$ref": "#/components/responses/ResourceUnavailable" },
+          "500": { "$ref": "#/components/responses/InfrastructureError" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "HealthResponse": {
+        "type": "object", "required": ["ok", "data"],
+        "properties": { "ok": { "type": "boolean", "enum": [true] }, "data": { "type": "object", "required": ["status", "engine", "version"], "properties": { "status": { "type": "string" }, "engine": { "type": "string", "enum": ["perl"] }, "version": { "type": "string" } } } }
+      },
+      "CatalogResponse": {
+        "type": "object", "required": ["ok", "data", "meta"],
+        "properties": { "ok": { "type": "boolean", "enum": [true] }, "data": { "type": "array", "items": { "$ref": "#/components/schemas/Conversion" } }, "meta": { "type": "object", "properties": { "count": { "type": "integer" } } } }
+      },
+      "Conversion": {
+        "type": "object", "required": ["id", "label", "source", "target", "maturity", "input", "options", "entities", "resources", "available"],
+        "properties": {
+          "id": { "type": "string" }, "label": { "type": "string" }, "maturity": { "type": "string" }, "available": { "type": "boolean" }, "unavailableReason": { "type": "string" },
+          "source": { "$ref": "#/components/schemas/Format" }, "target": { "$ref": "#/components/schemas/Format" },
+          "input": { "$ref": "#/components/schemas/InputDefinition" },
+          "options": { "type": "array", "items": { "type": "object" } }, "resources": { "type": "array", "items": { "type": "string" } },
+          "entities": { "type": "object", "required": ["default", "supported"], "properties": { "default": { "type": "array", "items": { "type": "string" } }, "supported": { "type": "array", "items": { "type": "string" } } } }
+        }
+      },
+      "Format": {
+        "type": "object", "required": ["id", "label", "kind"],
+        "properties": { "id": { "type": "string" }, "label": { "type": "string" }, "kind": { "type": "string" }, "inputShape": { "type": "string" } }
+      },
+      "InputDefinition": {
+        "type": "object", "required": ["transports", "files"],
+        "properties": {
+          "transports": { "type": "array", "items": { "type": "string", "enum": ["json", "multipart"] } },
+          "files": { "type": "array", "items": { "$ref": "#/components/schemas/FileRole" } }
+        }
+      },
+      "FileRole": {
+        "type": "object", "required": ["name", "label", "required", "multiple"],
+        "properties": {
+          "name": { "type": "string" }, "label": { "type": "string" }, "description": { "type": "string" },
+          "required": { "type": "boolean" }, "multiple": { "type": "boolean" }, "maximum": { "type": "integer" },
+          "accept": { "type": "array", "items": { "type": "string" } }
+        }
+      },
+      "ConversionRequest": {
+        "type": "object", "additionalProperties": false, "required": ["input"],
+        "properties": {
+          "input": { "type": "object", "additionalProperties": false, "required": ["data"], "properties": { "data": {} } },
+          "output": { "type": "object", "additionalProperties": false, "properties": { "entities": { "type": "array", "items": { "type": "string" } }, "derived_entity_overrides": { "type": "object" } } },
+          "options": { "type": "object", "description": "Allowed keys are route-specific; inspect GET /api/conversions." }
+        }
+      },
+      "MultipartConversionRequest": {
+        "type": "object",
+        "description": "Use the file-role names advertised by GET /api/conversions. Repeat a role when multiple files are allowed.",
+        "required": ["request"],
+        "properties": {
+          "request": { "type": "string", "description": "JSON object containing output and options." },
+          "source": { "type": "array", "items": { "type": "string", "format": "binary" } },
+          "mapping": { "type": "string", "format": "binary" },
+          "dictionary": { "type": "string", "format": "binary" },
+          "define": { "type": "string", "format": "binary" }
+        }
+      },
+      "Artifact": {
+        "type": "object", "required": ["id", "filename", "mediaType", "kind", "encoding", "content"],
+        "properties": { "id": { "type": "string" }, "filename": { "type": "string" }, "mediaType": { "type": "string" }, "kind": { "type": "string", "enum": ["json", "jsonld", "csv", "tsv", "xlsx"] }, "encoding": { "type": "string", "enum": ["utf-8", "base64"] }, "content": { "type": "string", "description": "Serialized file content produced by Perl. Binary artifacts use base64." } }
+      },
+      "TerminologyAuditRow": {
+        "type": "object",
+        "required": ["review_action"],
+        "properties": {
+          "row": { "type": "integer", "nullable": true },
+          "source_record": { "type": "string", "nullable": true },
+          "source_field": { "type": "string", "nullable": true },
+          "source_value": { "type": "string", "nullable": true },
+          "source_label": { "type": "string", "nullable": true },
+          "lookup_query": { "type": "string", "nullable": true },
+          "converted_term_label": { "type": "string", "nullable": true },
+          "converted_term_id": { "type": "string", "nullable": true },
+          "ontology": { "type": "string", "nullable": true },
+          "review_action": { "type": "string", "enum": ["keep", "review_similarity", "resolve_or_accept_fallback", "review_source_fallback"] },
+          "decision_reason": { "type": "string", "nullable": true },
+          "best_candidate_label": { "type": "string", "nullable": true },
+          "best_candidate_id": { "type": "string", "nullable": true },
+          "best_candidate_score": { "type": "number", "nullable": true },
+          "score_margin": { "type": "number", "nullable": true }
+        },
+        "additionalProperties": true
+      },
+      "TerminologyAudit": {
+        "type": "object",
+        "required": ["totalDecisions", "counts", "rows", "previewRows", "previewLimitPerAction", "truncated", "reportArtifactId", "settings"],
+        "properties": {
+          "totalDecisions": { "type": "integer" },
+          "counts": {
+            "type": "object",
+            "required": ["keep", "review_similarity", "resolve_or_accept_fallback", "review_source_fallback"],
+            "properties": {
+              "keep": { "type": "integer" },
+              "review_similarity": { "type": "integer" },
+              "resolve_or_accept_fallback": { "type": "integer" },
+              "review_source_fallback": { "type": "integer" }
+            }
+          },
+          "rows": { "type": "array", "items": { "$ref": "#/components/schemas/TerminologyAuditRow" }, "description": "Bounded preview retaining at most 100 rows per review action." },
+          "previewRows": { "type": "integer" },
+          "previewLimitPerAction": { "type": "integer" },
+          "truncated": { "type": "boolean" },
+          "reportArtifactId": { "type": "string" },
+          "settings": { "type": "object", "additionalProperties": true }
+        }
+      },
+      "ConversionResponse": {
+        "type": "object", "required": ["ok", "artifacts", "warnings", "meta"],
+        "properties": { "ok": { "type": "boolean", "enum": [true] }, "artifacts": { "type": "array", "items": { "$ref": "#/components/schemas/Artifact" } }, "warnings": { "type": "array", "items": { "type": "string" } }, "meta": { "type": "object", "properties": { "conversion": { "type": "string" }, "terminologyAudit": { "$ref": "#/components/schemas/TerminologyAudit" } } } }
+      },
+      "ErrorResponse": {
+        "type": "object", "required": ["ok", "error"],
+        "properties": { "ok": { "type": "boolean", "enum": [false] }, "error": { "type": "object", "required": ["code", "message"], "properties": { "code": { "type": "string" }, "message": { "type": "string" } } }, "meta": { "type": "object", "properties": { "conversion": { "type": "string" } } } }
+      }
+    },
+    "responses": {
+      "UnknownConversion": { "description": "Unknown conversion", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+      "InvalidRequest": { "description": "Invalid request or conversion failure", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+      "RequestTooLarge": { "description": "The uploaded files exceed the 100 MiB request limit", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+      "ResourceUnavailable": { "description": "Required local runtime resource is unavailable", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+      "InfrastructureError": { "description": "Unexpected local service failure", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } }
     }
   }
 }

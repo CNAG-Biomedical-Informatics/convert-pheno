@@ -17,7 +17,7 @@ The software `Convert-Pheno` can be installed **locally** on the following opera
 | Windows          | CI-tested with Strawberry Perl 5.40 and 5.42            |
 
 :::
-Choose the setup that matches how you will run the converter. Most command-line users can install locally. Docker is the simplest option on Windows and the recommended route for API usage and reproducible execution environments.
+Choose the setup that matches how you will run the converter. Most command-line users can install locally. Docker is the simplest option for the **Workbench** (available from Convert-Pheno 0.35), for Windows users, and for reproducible API or CLI environments.
 
 <div className="convertInstallGrid">
   <Link className="convertInstallCard" to="/download-and-installation/non-containerized">
@@ -28,7 +28,7 @@ Choose the setup that matches how you will run the converter. Most command-line 
   <Link className="convertInstallCard" to="/download-and-installation/docker-based">
     <span className="convertCardLabel">Container</span>
     <h3>Docker installation</h3>
-    <p>Use a prebuilt environment for the HTTP(s) API, deployments, and reproducible runs.</p>
+    <p>Use the Workbench or a prebuilt environment for the HTTP(s) API and reproducible runs.</p>
   </Link>
 </div>
 
@@ -43,6 +43,7 @@ It depends on which components you want to use and your familiarity with Docker-
 | CLI | Non-containerized (CPAN) |
 | CLI in Conda | Non-containerized (Conda) |
 | CLI on Windows | Docker; native Strawberry Perl is also supported |
+| Workbench | Docker |
 | API | Docker |
 
 </details>
@@ -56,7 +57,7 @@ Detailed instructions:
 
 ## Containerized
 
-Use this path when you want a reproducible environment with the dependencies preinstalled, especially for API usage.
+Use this path when you want the Workbench or a reproducible environment with the dependencies preinstalled.
 
 Detailed instructions:
 

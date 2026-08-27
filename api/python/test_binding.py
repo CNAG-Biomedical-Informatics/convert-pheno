@@ -43,7 +43,7 @@ class PythonBindingTests(unittest.TestCase):
         spec = convertpheno.conversion_spec("csv2omop")
         self.assertEqual(spec["pipeline"], ["csv2bff", "bff2omop"])
         self.assertTrue(spec["resources"]["sqlite"])
-        self.assertFalse(convertpheno.is_http_conversion("csv2omop"))
+        self.assertTrue(convertpheno.is_http_conversion("csv2omop"))
         self.assertIn("data", convertpheno.HTTP_REQUEST_FIELDS["input"])
         self.assertNotIn("in_file", convertpheno.HTTP_REQUEST_FIELDS["input"])
 

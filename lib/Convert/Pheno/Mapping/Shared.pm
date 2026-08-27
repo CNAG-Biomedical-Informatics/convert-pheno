@@ -21,7 +21,7 @@ use Exporter 'import';
 use open qw(:std :encoding(UTF-8));
 
 our @EXPORT =
-  qw(map_ontology_term dotify_and_coerce_number get_current_utc_iso8601_timestamp map_iso8601_date2timestamp map_iso8601_timestamp2date get_date_component map_reference_range map_reference_range_csv map_age_range map2redcap_dict map2ohdsi convert2boolean get_age_from_date_and_birthday get_date_at_age generate_random_alphanumeric_string allocate_surrogate_integer map_operator_concept_id map_info_field map_omop_visit_occurrence convert_date_to_iso8601 validate_format get_metaData get_info merge_omop_tables convert_label_to_days finalize_term_audit record_term_audit);
+  qw(map_ontology_term dotify_and_coerce_number get_current_utc_iso8601_timestamp map_iso8601_date2timestamp map_iso8601_timestamp2date get_date_component map_reference_range map_reference_range_csv map_age_range map2redcap_dict map2ohdsi convert2boolean get_age_from_date_and_birthday get_date_at_age generate_random_alphanumeric_string allocate_surrogate_integer map_operator_concept_id map_info_field map_omop_visit_occurrence convert_date_to_iso8601 validate_format get_metaData get_info merge_omop_tables convert_label_to_days finalize_term_audit record_term_audit term_audit_review);
 
 my $DEFAULT = get_defaults();
 use constant DEVEL_MODE => 0;
@@ -169,7 +169,13 @@ sub finalize_term_audit {
 
     my $writer = delete $self->{_term_audit_writer};
     $writer->close;
+    $self->{_term_audit_review} = $writer->review;
     return 1;
+}
+
+sub term_audit_review {
+    my ($self) = @_;
+    return $self->{_term_audit_review};
 }
 
 #############################
@@ -785,7 +791,7 @@ sub get_info {
         cwd                 => cwd,
         id                  => $self->{id},
         hostname            => hostname,
-        version             => $::VERSION,
+        version             => $Convert::Pheno::VERSION,
         beaconSchemaVersion => '2.0.0',
     };
 }

@@ -6,45 +6,33 @@ slug: /implementation
 
 ## Components
 
-`Convert-Pheno` exposes several interfaces around one conversion implementation. The [CLI](use-as-a-command-line-interface), [Perl module](use-as-a-module), and Perl HTTP(s) API call the core in-process. The Python binding serializes requests through a small JSON subprocess bridge; the Python HTTP(s) API uses that same binding. Mapping and conversion behavior therefore remain in the Perl core rather than being reimplemented by each interface.
+`Convert-Pheno` exposes several interfaces around one conversion implementation. The [CLI](use-as-a-command-line-interface), [Perl module](use-as-a-module), and Mojolicious HTTP(s) API call the Perl core. The [Workbench](graphical-interface), available from Convert-Pheno 0.35, is a browser client of the Mojolicious API. The Python binding reaches the same core through a small JSON subprocess bridge. Mapping and conversion behavior are therefore not reimplemented by each interface.
 
 ```mermaid
 %%{init: {'theme':'neutral'}}%%
-graph TB
-  subgraph "Perl"
-  A[Module]--> B[CLI]
-  A[Module]--> C[API]
-  end
-
-  subgraph "Python"
-  A --> |Python Binding| E[Module]
-  E --> F[API]
-  end
-
-
-  style A fill: #6495ED, stroke: #6495ED
-  style B fill: #6495ED, stroke: #6495ED
-  style C fill: #6495ED, stroke: #6495ED
-  style E fill: #FFFF33, stroke: #FFFF33
-  style F fill: #FFFF33, stroke: #FFFF33
+flowchart LR
+  CLI[CLI] --> Core[Perl conversion core]
+  Module[Perl module] --> Core
+  Python[Python binding] --> Bridge[JSON bridge] --> Core
+  Workbench[Workbench] --> API[Mojolicious API] --> Core
+  Client[HTTP(s) client] --> API
 ```
-<figcaption>Diagram showing Convert-Pheno implementation</figcaption>
+<figcaption>Public interfaces delegate conversion behavior to the same Perl core.</figcaption>
 
 :::tip[Which one should I use?]
-Most users should start with the [CLI](use-as-a-command-line-interface). The [module](use-as-a-module) and [HTTP(s) APIs](use-as-an-api) are intended for developers embedding conversions in other software.
+Most users should start with the [CLI](use-as-a-command-line-interface). From version 0.35, the [Workbench](graphical-interface) provides a local browser interface for interactive conversions. The [module](use-as-a-module) and [HTTP(s) APIs](use-as-an-api) are intended for developers embedding conversions in other software.
 
 :::
 :::note[API scope]
-The HTTP(s) API is primarily intended for **self-contained JSON conversions** such as `BFF`, `PXF`, FHIR R4 Bundles, and carefully prepared `OMOP-CDM` payloads.
-
-Mapping-file-based routes such as `CSV`, `REDCap`, and `CDISC-ODM` are still better handled through the CLI, because they depend on extra file artifacts rather than on one clean request payload. REDCap and REDCap-origin ODM also use an external dictionary; generic ODM resolves embedded metadata. Multi-file Dataset-JSON and Dataset-XML plus Define-XML input are likewise available through the CLI or local module rather than the HTTP(s) API.
+The Mojolicious HTTP(s) API accepts both self-contained JSON and registry-defined multipart uploads and is the supported server for new integrations. The smaller FastAPI reference server intentionally exposes only JSON-capable routes and is retained temporarily before future deprecation. This does not affect the Python module binding. Streaming and large inputs remain CLI or module workflows.
 
 :::
 ## Software architecture
 
-All interfaces use the same conversion core. A shared route list keeps the CLI,
-Perl module, Python binding, and HTTP(s) APIs aligned on which conversions are
-available.
+All interfaces use the same conversion core. A shared route registry keeps the
+CLI, Perl module, Python binding, Mojolicious API, and Workbench aligned on which
+conversions are available. The Workbench reads the public portion of this
+registry instead of maintaining a separate conversion matrix.
 
 A conversion follows four main steps:
 
@@ -55,8 +43,9 @@ A conversion follows four main steps:
 3. **Transform the records.** Most multi-step routes first create BFF and then
    continue to the requested output, such as PXF or OMOP-CDM. Simpler routes
    can convert directly.
-4. **Return or write the result.** Module and API calls return data in memory;
-   the CLI writes the selected files.
+4. **Return or write the result.** The CLI writes the selected files. Module
+   calls return data in memory, while the API and Workbench package generated
+   files for preview or download.
 
 For BFF output, `-obff FILE` writes one `individuals` collection. Use
 `-obff --entities ... --out-dir ...` when separate `individuals`, `biosamples`,

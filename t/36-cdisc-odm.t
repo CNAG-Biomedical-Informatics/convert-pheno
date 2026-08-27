@@ -279,7 +279,7 @@ qr/Duplicate CDISC-ODM ItemOID <DUPLICATE>/,
       'ODM 2.0 rejects multi-valued item occurrences instead of losing data';
 }
 
-ok( !is_http_conversion('cdiscodm2bff'), 'CDISC-ODM remains outside the HTTP API contract' );
+ok( is_http_conversion('cdiscodm2bff'), 'CDISC-ODM is available through multipart HTTP' );
 
 {
     my ( $fh, $outfile ) = tempfile( SUFFIX => '.json', UNLINK => 1 );

@@ -28,7 +28,7 @@ is_deeply(
     'registry defines compound conversion stages'
 );
 ok( $csv_to_omop->{resources}{sqlite}, 'registry defines route resources' );
-ok( !$csv_to_omop->{http_enabled}, 'registry excludes file-based routes from HTTP' );
+ok( $csv_to_omop->{http_enabled}, 'registry exposes file-based routes through multipart HTTP' );
 
 my $datasetjson_to_bff = conversion_spec('datasetjson2bff');
 is_deeply(
@@ -46,8 +46,8 @@ is_deeply(
     'registry limits Dataset-JSON BFF output to implemented entities'
 );
 ok(
-    !is_http_conversion('datasetjson2bff'),
-    'registry keeps multi-file Dataset-JSON conversion outside HTTP'
+    is_http_conversion('datasetjson2bff'),
+    'registry exposes multi-file Dataset-JSON conversion through multipart HTTP'
 );
 
 is_deeply(
@@ -68,8 +68,8 @@ is_deeply(
     'registry limits Dataset-XML BFF output to implemented entities'
 );
 ok(
-    !is_http_conversion('datasetxml2bff'),
-    'registry keeps Dataset-XML plus Define-XML outside HTTP'
+    is_http_conversion('datasetxml2bff'),
+    'registry exposes Dataset-XML plus Define-XML through multipart HTTP'
 );
 is_deeply(
     conversion_spec('datasetxml2omop')->{pipeline},
@@ -89,8 +89,8 @@ is_deeply(
     'registry exposes the implemented cBioPortal-derived BFF entities'
 );
 ok(
-    !is_http_conversion('cbioportal2bff'),
-    'registry keeps filesystem cBioPortal study packages outside HTTP'
+    is_http_conversion('cbioportal2bff'),
+    'registry exposes uploaded cBioPortal ZIP packages through multipart HTTP'
 );
 is_deeply(
     conversion_spec('cbioportal2pxf')->{pipeline},
@@ -136,7 +136,7 @@ is_deeply(
     'registry defines supported Beacon entities'
 );
 ok( is_http_conversion('pxf2bff'), 'registry exposes in-memory PXF conversion over HTTP' );
-ok( !is_http_conversion('redcap2bff'), 'registry keeps file-based REDCap conversion on the CLI' );
+ok( is_http_conversion('redcap2bff'), 'registry exposes file-based REDCap conversion through multipart HTTP' );
 
 my $http_fields = http_request_fields();
 ok(
