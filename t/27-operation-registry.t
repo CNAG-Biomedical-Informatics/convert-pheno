@@ -12,6 +12,7 @@ use Convert::Pheno::Operations qw(
   is_http_conversion
   is_public_conversion
   public_conversions
+  registry_metadata
 );
 
 ok( is_public_conversion('pxf2bff'), 'registry accepts a public conversion' );
@@ -162,6 +163,14 @@ is_deeply(
     $omop_to_bff->{entities}{supported},
     [ 'individuals', 'biosamples', 'datasets', 'cohorts' ],
     'registry defines supported Beacon entities'
+);
+my $registry = registry_metadata();
+ok(
+    scalar(
+        grep { $_ eq '.zip' }
+          @{ $registry->{input_definitions}{omop}{files}[0]{accept} }
+    ),
+    'registry exposes OMOP ZIP packages through multipart HTTP',
 );
 ok( is_http_conversion('pxf2bff'), 'registry exposes in-memory PXF conversion over HTTP' );
 ok( is_http_conversion('redcap2bff'), 'registry exposes file-based REDCap conversion through multipart HTTP' );

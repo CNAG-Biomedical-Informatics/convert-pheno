@@ -32,7 +32,7 @@
     "omop": {
       "transports": ["multipart", "json"],
       "files": [
-        { "name": "source", "label": "OMOP table files", "description": "Upload table CSV/TSV files or one PostgreSQL SQL dump.", "required": true, "multiple": true, "maximum": 128, "accept": [".csv", ".csv.gz", ".tsv", ".tsv.gz", ".sql", ".sql.gz"], "argument": "in_files" }
+        { "name": "source", "label": "OMOP table package", "description": "Upload table CSV/TSV files, one ZIP package, or one PostgreSQL SQL dump.", "required": true, "multiple": true, "maximum": 128, "accept": [".zip", ".csv", ".csv.gz", ".tsv", ".tsv.gz", ".sql", ".sql.gz"], "argument": "in_files" }
       ]
     },
     "pcornet": {

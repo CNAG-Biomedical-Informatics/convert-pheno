@@ -36,7 +36,7 @@ live OMOP database**, and it can write the supported OMOP-CDM tables as CSV.
 
 <div className="convertFormatSummary" aria-label="At a glance">
   <div><span>Role</span><strong>Input and output</strong></div>
-  <div><span>Accepted input</span><strong>SQL, CSV, and gzipped exports</strong></div>
+  <div><span>Accepted input</span><strong>SQL or CSV/TSV table packages</strong></div>
   <div><span>Main output</span><strong>OMOP-CDM CSV tables</strong></div>
   <div><span>Notes</span><strong>`--stream` for large OMOP-to-BFF runs</strong></div>
 </div>
@@ -48,8 +48,8 @@ live OMOP database**, and it can write the supported OMOP-CDM tables as CSV.
 
 Supported directions are:
 
-- **OMOP input:** PostgreSQL-style SQL dumps or one CSV file per table, with
-  optional gzip compression
+- **OMOP input:** PostgreSQL-style SQL dumps or CSV/TSV table exports supplied
+  as files, one directory, or one ZIP package, with optional gzip compression
 - **OMOP output:** CSV tables written from the normalized BFF representation
 
 :::tip[Supported OMOP versions]
@@ -77,12 +77,24 @@ input request.
 Accepted source layouts are:
 
 - one `.sql` or `.sql.gz` database export
-- one or more `.csv` or `.csv.gz` table exports
+- one or more `.csv`, `.tsv`, or individually gzipped table exports
+- one directory containing the table exports
+- one `.zip` package containing the table exports
 
-For split files, the table name is inferred from each filename. A practical
-conversion normally needs `PERSON`, `CONCEPT` or `--ohdsi-db`, and at least
-one clinical table such as `CONDITION_OCCURRENCE`, `DRUG_EXPOSURE`,
-`MEASUREMENT`, `OBSERVATION`, or `SPECIMEN`.
+For table packages, the table name is inferred from each filename. Keep only
+one file per OMOP table in a package. A practical conversion normally needs
+`PERSON`, `CONCEPT` or `--ohdsi-db`, and at least one clinical table such as
+`CONDITION_OCCURRENCE`, `DRUG_EXPOSURE`, `MEASUREMENT`, `OBSERVATION`, or
+`SPECIMEN`.
+
+```bash
+convert-pheno -iomop omop-export/ -obff individuals.json
+convert-pheno -iomop omop-export.zip -obff individuals.json
+```
+
+ZIP entries are extracted into a private temporary directory for the duration
+of the conversion. This lets `--stream` use the same bounded-memory table
+reader as ordinary files.
 
 Use [OMOP input recipes](conversion-recipes#omop-cdm-input-bff-output) for
 individuals, biosamples, Phenopackets, and streaming commands.

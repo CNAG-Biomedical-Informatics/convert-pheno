@@ -79,7 +79,7 @@ failure. The workbench does not use local storage, analytics, arbitrary server
 paths, or payload logging. Changing a route or input clears stale results.
 
 The workbench accepts JSON for Beacon v2, Phenopacket v2, FHIR, openEHR, and
-OMOP, plus role-based uploads for OMOP tables, CSV, REDCap, CDISC-ODM,
+OMOP, plus role-based uploads for OMOP table files or ZIP packages, CSV, REDCap, CDISC-ODM,
 Dataset-JSON, Dataset-XML, cBioPortal study packages, and i2b2, PCORnet, or
 Sentinel table packages. Each source has a
 synthetic example drawn from the regression fixtures. Upload requests are

@@ -4,7 +4,11 @@ use strict;
 use warnings;
 use autodie;
 
-use File::Basename qw(fileparse);
+use File::Basename qw(basename);
+use File::Find qw(find);
+use File::Spec::Functions qw(catfile);
+use File::Temp ();
+use IO::Uncompress::Unzip qw($UnzipError);
 use List::Util qw(any);
 use Storable qw(dclone);
 
@@ -34,6 +38,7 @@ sub load {
                 kind          => $collected->{kind},
                 filepath_sql  => $collected->{filepath_sql},
                 filepaths_csv => $collected->{filepaths_csv},
+                cleanup_guards => $collected->{cleanup_guards},
             },
         }
     );
@@ -76,6 +81,8 @@ sub prepare {
     $converter->{filepath_sql} = $source->artifact('filepath_sql')
       if defined $source->artifact('filepath_sql');
     $converter->{filepaths_csv} = $source->artifact('filepaths_csv') || [];
+    push @{ $converter->{_source_cleanup_guards} },
+      @{ $source->artifact('cleanup_guards') || [] };
     $converter->{omop_input_prepared} = 1;
     return 1;
 }
@@ -168,10 +175,9 @@ sub _collect_omop_input {
     my $data = {};
     my $filepath_sql;
     my @filepaths_csv_stream;
-    my @exts = map { $_, $_ . '.gz' } qw(.csv .tsv .sql);
-
-    for my $file ( @{ $converter->{in_files} } ) {
-        my ( $table_name, undef, $ext ) = fileparse( $file, @exts );
+    my ( $input_files, $cleanup_guards ) = _resolve_file_inputs($converter);
+    for my $file ( @{$input_files} ) {
+        my ( $table_name, $ext ) = _input_file_parts($file);
 
         if ( $ext =~ m/\.sql/i ) {
             print "> Param: --max-lines-sql = $converter->{max_lines_sql}\n"
@@ -234,7 +240,174 @@ sub _collect_omop_input {
         owned         => 1,
         filepath_sql  => $filepath_sql,
         filepaths_csv => \@filepaths_csv_stream,
+        cleanup_guards => $cleanup_guards,
     };
+}
+
+sub _resolve_file_inputs {
+    my ($converter) = @_;
+    my ( @files, @guards );
+    my @inputs = @{ $converter->{in_files} || [] };
+    my @packages = grep {
+        defined $_ && !ref($_) && ( -d $_ || ( -f $_ && /\.zip\z/i ) )
+    } @inputs;
+    die "An OMOP directory or ZIP package must be supplied as the only input path\n"
+      if @packages && @inputs > 1;
+
+    for my $input (@inputs) {
+        die "OMOP input path is missing\n"
+          unless defined $input && !ref($input) && length $input;
+
+        if ( -d $input ) {
+            my @directory_files = _directory_table_files($input);
+            die "OMOP input directory <$input> does not contain CSV or TSV table files\n"
+              unless @directory_files;
+            push @files, @directory_files;
+            next;
+        }
+
+        if ( -f $input && $input =~ /\.zip\z/i ) {
+            my ( $archive_files, $guard ) =
+              _extract_zip_tables( $converter, $input );
+            push @files,  @{$archive_files};
+            push @guards, $guard;
+            next;
+        }
+
+        if ( _is_supported_input_file($input) ) {
+            push @files, $input;
+            next;
+        }
+
+        die "OMOP input <$input> must be a CSV/TSV table, SQL dump, directory, or ZIP package\n";
+    }
+
+    die "OMOP input requires table files, a directory, a ZIP package, or an SQL dump\n"
+      unless @files;
+    _reject_duplicate_tables(\@files);
+    return ( \@files, \@guards );
+}
+
+sub _directory_table_files {
+    my ($directory) = @_;
+    my @files;
+    find(
+        {
+            no_chdir => 1,
+            wanted   => sub {
+                push @files, $File::Find::name
+                  if -f $File::Find::name
+                  && _is_table_file($File::Find::name);
+            },
+        },
+        $directory,
+    );
+    return sort @files;
+}
+
+sub _extract_zip_tables {
+    my ( $converter, $archive ) = @_;
+    my $guard = File::Temp->newdir(
+        'convert-pheno-omop-XXXXXX',
+        TMPDIR  => 1,
+        CLEANUP => 1,
+    );
+    my $directory = "$guard";
+    my $zip = IO::Uncompress::Unzip->new($archive)
+      or die "Cannot open OMOP ZIP package <$archive>: $UnzipError\n";
+
+    my ( @files, %seen_names );
+    my $total_bytes = 0;
+    while (1) {
+        my $header = $zip->getHeaderInfo;
+        my $entry  = $header->{Name};
+
+        if ( defined $entry && $entry !~ m{[\\/]\z} ) {
+            _validate_zip_entry_name( $archive, $entry );
+            if ( _is_table_file($entry) ) {
+                my $name = $entry;
+                $name =~ tr{\\}{/};
+                $name =~ s{.*/}{};
+                my $key = lc $name;
+                die "OMOP ZIP package <$archive> contains duplicate table filename <$name>\n"
+                  if $seen_names{$key}++;
+
+                my $destination = catfile( $directory, $name );
+                open my $fh, '>:raw', $destination
+                  or die "Cannot extract OMOP ZIP entry <$entry>: $!\n";
+                my $buffer;
+                while (1) {
+                    my $read = $zip->read($buffer);
+                    die "Cannot read OMOP ZIP entry <$entry>: $UnzipError\n"
+                      if !defined $read || $read < 0;
+                    last if $read == 0;
+                    $total_bytes += $read;
+                    my $maximum = $converter->{max_archive_uncompressed_bytes} || 0;
+                    die "OMOP ZIP package <$archive> exceeds the allowed uncompressed size\n"
+                      if $maximum && $total_bytes > $maximum;
+                    print {$fh} $buffer;
+                }
+                close $fh;
+                push @files, $destination;
+            }
+        }
+
+        last unless $zip->nextStream;
+    }
+    close $zip;
+
+    die "OMOP ZIP package <$archive> does not contain CSV or TSV table files\n"
+      unless @files;
+    return ( \@files, $guard );
+}
+
+sub _validate_zip_entry_name {
+    my ( $archive, $entry ) = @_;
+    my $normalized = $entry;
+    $normalized =~ tr{\\}{/};
+    die "OMOP ZIP package <$archive> contains an unsafe entry <$entry>\n"
+      if $normalized =~ m{\A/}
+      || $normalized =~ m{\A[A-Za-z]:/}
+      || $normalized =~ m{(?:\A|/)\.\.(?:/|\z)};
+    return 1;
+}
+
+sub _reject_duplicate_tables {
+    my ($files) = @_;
+    my %seen;
+    for my $file ( @{$files} ) {
+        my $table = _table_name($file);
+        next unless defined $table;
+        die "OMOP input contains table <$table> more than once\n"
+          if $seen{$table}++;
+    }
+    return 1;
+}
+
+sub _table_name {
+    my ($file) = @_;
+    my $name = basename($file);
+    return uc($1) if $name =~ /\A(.+)\.(?:csv|tsv)(?:\.gz)?\z/i;
+    return;
+}
+
+sub _input_file_parts {
+    my ($file) = @_;
+    my $name = basename($file);
+    return ( uc($1), lc($2) )
+      if $name =~ /\A(.+?)(\.(?:csv|tsv|sql)(?:\.gz)?)\z/i;
+    return ( uc($name), q{} );
+}
+
+sub _is_table_file {
+    my ($file) = @_;
+    return defined $file && $file =~ /\.(?:csv|tsv)(?:\.gz)?\z/i;
+}
+
+sub _is_supported_input_file {
+    my ($file) = @_;
+    return defined $file
+      && $file =~ /\.(?:csv|tsv|sql)(?:\.gz)?\z/i;
 }
 
 sub _with_temp_field {

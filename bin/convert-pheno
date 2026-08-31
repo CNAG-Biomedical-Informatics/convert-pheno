@@ -63,7 +63,9 @@ Common input flags:
   -icbioportal <path>
                     Experimental cBioPortal clinical study directory or ZIP
                     (input-only; BFF, PXF, or OMOP output)
-  -iomop <files...> OMOP-CDM CSV files or PostgreSQL dump
+  -iomop <inputs...>
+                    OMOP-CDM CSV/TSV files, one directory or ZIP package,
+                    or a PostgreSQL dump
   -iopenehr <files...>
                     Experimental openEHR canonical JSON/YAML compositions
                     (currently EHRbase-oriented; input-only; BFF/PXF output)

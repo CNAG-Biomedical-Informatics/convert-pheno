@@ -120,6 +120,15 @@ has max_lines_sql => (
     isa     => Int
 );
 
+# Internal safety limit used by HTTP uploads. A value of zero leaves local
+# CLI and module conversions unrestricted.
+has max_archive_uncompressed_bytes => (
+    is      => 'ro',
+    default => sub { 0 },
+    coerce  => sub { $_[0] // 0 },
+    isa     => Int,
+);
+
 has 'omop_tables' => (
     default => sub { [@omop_supported_tables] },
     coerce  => sub {
@@ -726,6 +735,7 @@ sub _with_prepared_data_cleanup {
     # Module callers own their references. Only release buffers loaded or
     # derived internally; clearing a caller's array corrupts reusable input.
     delete $self->{data} if $owns_prepared_data;
+    delete $self->{_source_cleanup_guards};
 
     die $error unless $ok;
     return $result;

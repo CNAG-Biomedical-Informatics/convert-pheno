@@ -279,6 +279,10 @@ sub _execute_arguments {
         $arguments->{ohdsi_db} = 1;
         $arguments->{path_to_ohdsi_db} = dirname( $resource_paths->{ohdsi} );
     }
+    if ( $spec->{source} eq 'omop' ) {
+        $arguments->{max_archive_uncompressed_bytes} =
+          $ENV{CONVERT_PHENO_HTTP_MAX_ARCHIVE_BYTES} || 1024 * 1024 * 1024;
+    }
 
     my @warnings;
     my ( $result, $artifacts, $audit_review );

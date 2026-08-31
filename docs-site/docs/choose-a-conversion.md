@@ -23,7 +23,7 @@ then use the linked format guide for input details and route-specific options.
 | [CDISC Dataset-XML](#dataset-xml-input-bff-output) | BFF, PXF, OMOP-CDM | SDTM domain files and Define-XML |
 | [FHIR R4 / mCODE](#fhir-r4-input-bff-output) | BFF, PXF, OMOP-CDM | One or more JSON Bundles |
 | [i2b2](#i2b2-input-bff-output) | BFF, PXF, OMOP-CDM | Exported star-schema tables, directory, or ZIP |
-| [OMOP-CDM](#omop-cdm-input-bff-output) | BFF, PXF | CSV tables or SQL dump |
+| [OMOP-CDM](#omop-cdm-input-bff-output) | BFF, PXF | CSV/TSV files, directory, ZIP, or SQL dump |
 | [OpenClinica ODM](#openclinica-odm-input) | BFF, PXF, OMOP-CDM | Mapping file; metadata embedded in Snapshot ODM |
 | [openEHR](#openehr-input-bff-output) | BFF, PXF | Canonical JSON or YAML compositions |
 | [PCORnet CDM](#pcornet-input-bff-output) | BFF, PXF, OMOP-CDM | Exported tables, directory, or ZIP |
@@ -94,7 +94,8 @@ convert-pheno \
   -obff individuals.json
 ```
 
-Add the clinical tables needed by the conversion; include `SPECIMEN.csv` for
+The same tables can be supplied as one directory or ZIP package. Add the
+clinical tables needed by the conversion; include `SPECIMEN.csv` for
 biosamples. See [OMOP-CDM](omop-cdm).
 
 ## Mapping-File Inputs {#mapping-file-input-examples}

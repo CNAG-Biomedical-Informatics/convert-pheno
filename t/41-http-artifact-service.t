@@ -13,7 +13,7 @@ use Text::CSV_XS;
 
 use Convert::Pheno::HTTP::Service qw(catalog execute execute_files is_service_error);
 use Convert::Pheno::Operations qw(public_conversions);
-use Test::ConvertPheno qw(test_ohdsi_db_dir);
+use Test::ConvertPheno qw(test_ohdsi_db_dir write_zip_from_files);
 
 sub load_json {
     return decode_json( path(shift)->slurp_raw );
@@ -74,6 +74,16 @@ local $ENV{CONVERT_PHENO_OHDSI_DB_DIR} = test_ohdsi_db_dir();
 my $upload_workspace = tempdir( CLEANUP => 1 );
 my $cbio_zip = path($upload_workspace)->child('acyc_mgh_2016.zip')->stringify;
 zip_directory( 't/cbioportal2bff/in/acyc_mgh_2016', $cbio_zip );
+my $omop_zip = path($upload_workspace)->child('omop-tables.zip')->stringify;
+write_zip_from_files(
+    $omop_zip,
+    [ map {
+        +{
+            file => "t/omop2bff/in/$_.csv",
+            name => "tables/$_.csv",
+        }
+    } qw(CONCEPT DRUG_EXPOSURE PERSON) ],
+);
 my @dataset_json = map { uploaded_file($_) }
   sort glob 't/datasetjson2bff/in/*.json';
 my @dataset_xml = map { uploaded_file("t/datasetxml2bff/in/$_.xml") }
@@ -134,8 +144,7 @@ my @file_cases = (
     {
         route => 'omop2bff',
         files => {
-            source => [ map { uploaded_file("t/omop2bff/in/$_.csv") }
-                qw(CONCEPT DRUG_EXPOSURE PERSON) ],
+            source => [ uploaded_file( $omop_zip, 'omop-tables.zip' ) ],
         },
     },
 );

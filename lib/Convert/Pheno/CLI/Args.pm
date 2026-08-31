@@ -56,6 +56,14 @@ sub _valid_table_package_input {
     return $path =~ m/\.(?:zip|csv|tsv|txt)(?:\.gz)?\z/i ? 1 : 0;
 }
 
+sub _valid_omop_input {
+    my ($path) = @_;
+    return 0 unless defined $path;
+    return 1 if -d $path;
+    return 0 unless -f $path;
+    return $path =~ m/\.(?:zip|csv|tsv|sql)(?:\.gz)?\z/i ? 1 : 0;
+}
+
 sub _resolve_output_path {
     my ( $dir, $path ) = @_;
     return undef unless defined $path;
@@ -347,7 +355,7 @@ sub build_cli_request {
                     || ( @i2b2_files        && _valid_table_package_input( $i2b2_files[0] ) )
                     || ( @sentinel_files    && _valid_table_package_input( $sentinel_files[0] ) )
                     || ( @pcornet_files     && _valid_table_package_input( $pcornet_files[0] ) )
-                    || ( @omop_files        && -f $omop_files[0] )
+                    || ( @omop_files        && _valid_omop_input( $omop_files[0] ) )
                     || ( @openehr_files     && -f $openehr_files[0] ) );
             },
             message => "Please specify a valid input [-i input-type] <infile>\n",
@@ -412,8 +420,10 @@ sub build_cli_request {
             message => "Please specify valid clinical CDM table files, a directory, or a ZIP package\n",
         },
         {
-            condition => sub { @omop_files && $omop_files[0] !~ m/\.(csv|sql|tsv)/i },
-            message   => "Please specify a valid OMOP-CDM file(s) (e.g., *csv or .sql)\n",
+            condition => sub {
+                @omop_files && grep { !_valid_omop_input($_) } @omop_files;
+            },
+            message => "Please specify valid OMOP-CDM table files, a directory, a ZIP package, or an SQL dump\n",
         },
         {
             condition => sub { @openehr_files && grep { $_ !~ m/\.(json|ya?ml)(?:\.gz)?$/i } @openehr_files },

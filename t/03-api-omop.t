@@ -7,13 +7,24 @@ use Test::More;
 use Test::Warn;
 use Test::ConvertPheno
   qw(build_convert temp_output_file test_ohdsi_db_dir structured_files_match load_csv_table
-  csv_headers_from_file write_csv_rows load_json_file);
+  csv_headers_from_file write_csv_rows load_json_file write_zip_from_files);
+use File::Copy qw(copy);
 use File::Temp qw(tempdir);
 use File::Spec;
 use JSON::XS;
 use Convert::Pheno::Source qw(source_adapter);
 
 my $test_ohdsi_db_dir = test_ohdsi_db_dir();
+
+sub omop_table_members {
+    my ($prefix) = @_;
+    return [ map {
+        +{
+            file => "t/omop2bff/in/$_.csv",
+            name => defined $prefix ? "$prefix/$_.csv" : "$_.csv",
+        }
+    } qw(CONCEPT DRUG_EXPOSURE PERSON) ];
+}
 
 my @snapshot_cases = (
     {
@@ -44,6 +55,124 @@ for my $case (@snapshot_cases) {
     $convert->${ \$case->{method} };
 
     ok( structured_files_match( $case->{out_file}, $tmp_file ), $case->{name} );
+}
+
+{
+    my $directory = tempdir( CLEANUP => 1 );
+    for my $table (qw(CONCEPT DRUG_EXPOSURE PERSON)) {
+        copy(
+            "t/omop2bff/in/$table.csv",
+            File::Spec->catfile( $directory, "$table.csv" ),
+        ) or die "Cannot prepare OMOP directory fixture: $!";
+    }
+
+    my $output = temp_output_file();
+    my $convert = build_convert(
+        in_files        => [$directory],
+        out_file        => $output,
+        ohdsi_db        => 1,
+        path_to_ohdsi_db => $test_ohdsi_db_dir,
+        method          => 'omop2bff',
+    );
+    $convert->omop2bff;
+    ok(
+        structured_files_match( 't/omop2bff/out/ohdsi.json', $output ),
+        'OMOP directory input preserves existing CSV conversion output',
+    );
+}
+
+{
+    my $directory = tempdir( CLEANUP => 1 );
+    my $archive = File::Spec->catfile( $directory, 'omop-export.zip' );
+    write_zip_from_files( $archive, omop_table_members('tables') );
+
+    my $output = temp_output_file();
+    my $convert = build_convert(
+        in_files        => [$archive],
+        out_file        => $output,
+        ohdsi_db        => 1,
+        path_to_ohdsi_db => $test_ohdsi_db_dir,
+        method          => 'omop2bff',
+    );
+    $convert->omop2bff;
+    ok(
+        structured_files_match( 't/omop2bff/out/ohdsi.json', $output ),
+        'OMOP ZIP input preserves existing CSV conversion output',
+    );
+}
+
+{
+    my $directory = tempdir( CLEANUP => 1 );
+    my $archive = File::Spec->catfile( $directory, 'duplicate.zip' );
+    write_zip_from_files(
+        $archive,
+        [
+            { file => 't/omop2bff/in/PERSON.csv', name => 'a/PERSON.csv' },
+            { file => 't/omop2bff/in/PERSON.csv', name => 'b/PERSON.csv' },
+        ],
+    );
+    my $convert = build_convert(
+        in_files => [$archive],
+        method   => 'omop2bff',
+    );
+    my $error;
+    eval { $convert->omop2bff; 1 } or $error = $@;
+    like(
+        $error,
+        qr/duplicate table filename <PERSON\.csv>/,
+        'OMOP ZIP input rejects duplicate table files',
+    );
+}
+
+{
+    my $directory = tempdir( CLEANUP => 1 );
+    my $archive = File::Spec->catfile( $directory, 'unsafe.zip' );
+    write_zip_from_files(
+        $archive,
+        [ { file => 't/omop2bff/in/PERSON.csv', name => '../PERSON.csv' } ],
+    );
+    my $convert = build_convert(
+        in_files => [$archive],
+        method   => 'omop2bff',
+    );
+    my $error;
+    eval { $convert->omop2bff; 1 } or $error = $@;
+    like(
+        $error,
+        qr/unsafe entry <\.\.\/PERSON\.csv>/,
+        'OMOP ZIP input rejects path traversal entries',
+    );
+}
+
+{
+    my $directory = tempdir( CLEANUP => 1 );
+    my $archive = File::Spec->catfile( $directory, 'limited.zip' );
+    write_zip_from_files( $archive, omop_table_members() );
+
+    my $convert = build_convert(
+        in_files => [$archive],
+        max_archive_uncompressed_bytes => 1,
+        method   => 'omop2bff',
+    );
+    my $error;
+    eval { $convert->omop2bff; 1 } or $error = $@;
+    like(
+        $error,
+        qr/exceeds the allowed uncompressed size/,
+        'OMOP ZIP input enforces its configured extraction limit',
+    );
+
+    $convert = build_convert(
+        in_files => [ $archive, 't/omop2bff/in/PERSON.csv' ],
+        method   => 'omop2bff',
+    );
+    $error = undef;
+    eval { $convert->omop2bff; 1 } or $error = $@;
+    like(
+        $error,
+        qr/must be supplied as the only input path/,
+        'OMOP ZIP packages cannot be mixed with separate table inputs',
+    );
 }
 
 {

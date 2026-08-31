@@ -85,6 +85,22 @@ is(
 
 $request = build_cli_request(
     argv => [
+        '-iomop', 't/omop2bff/in/mimic_specimen',
+        '-obff',  'individuals.json',
+    ],
+    usage_error => sub { die @_ },
+    schema_file => 'share/schema/mapping-v2.json',
+    out_dir     => $tmpdir,
+    color       => 1,
+);
+is_deeply(
+    $request->{data}{in_files},
+    ['t/omop2bff/in/mimic_specimen'],
+    'CLI parser accepts an OMOP table directory',
+);
+
+$request = build_cli_request(
+    argv => [
         '-ipxf',     't/pxf2bff/in/pxf.json',
         '-obff',
         '--entities', 'biosamples',
@@ -559,6 +575,7 @@ my @help_contract = (
     [ like => qr/-ii2b2 <paths\.\.\.>/, 'CLI help documents i2b2 table input' ],
     [ like => qr/-ipcornet <paths\.\.\.>/, 'CLI help documents PCORnet CDM table input' ],
     [ like => qr/-isentinel <paths\.\.\.>/, 'CLI help documents Sentinel CDM table input' ],
+    [ like => qr/OMOP-CDM CSV\/TSV files, one directory or ZIP package/s, 'CLI help documents OMOP table packages' ],
     [ like => qr/exported tables rather than live databases/, 'CLI help states the clinical CDM input boundary' ],
     [ like => qr/\[ALIVE\|DECEASED\|UNKNOWN_STATUS\]/, 'CLI help documents supported vitalStatus fallback values' ],
     [ like => qr/Supported:\s+individuals,\s+biosamples,\s+datasets,\s+cohorts/s, 'CLI help documents the supported BFF entities' ],
