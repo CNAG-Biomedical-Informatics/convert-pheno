@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img" aria-labelledby="title description">
+  <title id="title">PCORnet patient grouping</title>
+  <desc id="description">Exported PCORnet CDM tables are joined by PATID and converted to BFF, PXF, or OMOP-CDM.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#60747d"/>
+    </marker>
+  </defs>
+  <rect x="1" y="1" width="718" height="298" rx="8" fill="#ffffff" stroke="#d6e1e5" stroke-width="2"/>
+  <g font-family="Arial, sans-serif">
+    <text x="24" y="28" fill="#49616c" font-size="13" font-weight="700">EXPORTED PCORnet TABLES</text>
+    <text x="383" y="28" fill="#49616c" font-size="13" font-weight="700" text-anchor="middle">JOIN BY PATID</text>
+    <text x="536" y="28" fill="#49616c" font-size="13" font-weight="700">REQUESTED OUTPUT</text>
+
+    <rect x="24" y="50" width="220" height="213" rx="7" fill="#f4faf8" stroke="#5f9b87" stroke-width="2"/>
+    <g font-family="monospace" font-size="11" font-weight="700">
+      <rect x="42" y="70" width="184" height="34" rx="5" fill="#ffffff" stroke="#82ad9e"/>
+      <text x="134" y="92" text-anchor="middle" fill="#336b59">DEMOGRAPHIC</text>
+      <rect x="42" y="116" width="86" height="34" rx="5" fill="#ffffff" stroke="#82ad9e"/>
+      <text x="85" y="138" text-anchor="middle" fill="#336b59">DIAGNOSIS</text>
+      <rect x="140" y="116" width="86" height="34" rx="5" fill="#ffffff" stroke="#82ad9e"/>
+      <text x="183" y="138" text-anchor="middle" fill="#336b59">PROCEDURES</text>
+      <rect x="42" y="162" width="86" height="34" rx="5" fill="#ffffff" stroke="#82ad9e"/>
+      <text x="85" y="184" text-anchor="middle" fill="#336b59">LAB · VITAL</text>
+      <rect x="140" y="162" width="86" height="34" rx="5" fill="#ffffff" stroke="#82ad9e"/>
+      <text x="183" y="184" text-anchor="middle" fill="#336b59">MEDICATION</text>
+    </g>
+    <text x="134" y="224" text-anchor="middle" fill="#60747d" font-size="11">encounters · observations · death</text>
+    <text x="134" y="241" text-anchor="middle" fill="#60747d" font-size="11">CSV · TSV · ZIP</text>
+
+    <path d="M244 156H278" fill="none" stroke="#60747d" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <rect x="286" y="67" width="194" height="178" rx="7" fill="#f3f8fb" stroke="#6d98b4" stroke-width="2"/>
+    <text x="383" y="96" text-anchor="middle" fill="#315f82" font-family="monospace" font-size="14" font-weight="700">PATID</text>
+    <rect x="307" y="116" width="152" height="42" rx="6" fill="#ffffff" stroke="#91adbd"/>
+    <text x="383" y="136" text-anchor="middle" fill="#315f82" font-size="12" font-weight="700">Person record</text>
+    <text x="383" y="151" text-anchor="middle" fill="#60747d" font-size="10">demographics + vital status</text>
+    <rect x="307" y="172" width="152" height="42" rx="6" fill="#ffffff" stroke="#91adbd"/>
+    <text x="383" y="192" text-anchor="middle" fill="#315f82" font-size="12" font-weight="700">Clinical events</text>
+    <text x="383" y="207" text-anchor="middle" fill="#60747d" font-size="10">linked encounter context</text>
+    <text x="383" y="233" text-anchor="middle" fill="#60747d" font-size="10">one normalized individual per patient</text>
+
+    <path d="M480 156H528" fill="none" stroke="#60747d" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <rect x="536" y="50" width="160" height="213" rx="7" fill="#eff9f3" stroke="#58a27b" stroke-width="2"/>
+    <rect x="557" y="76" width="118" height="45" rx="6" fill="#ffffff" stroke="#79b194"/>
+    <text x="616" y="104" text-anchor="middle" fill="#276749" font-size="14" font-weight="700">BFF JSON</text>
+    <rect x="557" y="134" width="118" height="45" rx="6" fill="#fff7f2" stroke="#df825f"/>
+    <text x="616" y="162" text-anchor="middle" fill="#a84f30" font-size="14" font-weight="700">PXF JSON</text>
+    <rect x="557" y="192" width="118" height="45" rx="6" fill="#f3f8fb" stroke="#6d98b4"/>
+    <text x="616" y="220" text-anchor="middle" fill="#315f82" font-size="14" font-weight="700">OMOP CSV</text>
+  </g>
+</svg>

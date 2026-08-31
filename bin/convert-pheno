@@ -57,7 +57,7 @@ Usage:
 
 Common input flags:
   -i <type> <file>    Generic input form
-                      (pxf|bff|cbioportal|omop|redcap|cdisc-odm|dataset-json|dataset-xml|fhir|csv|openehr)
+                      (pxf|bff|cbioportal|omop|redcap|cdisc-odm|dataset-json|dataset-xml|fhir|i2b2|pcornet|sentinel|csv|openehr)
   -ibff <file>      Beacon v2 Models ('individuals' JSON|YAML)
   -ipxf <file>      Phenopackets v2 (JSON|YAML)
   -icbioportal <path>
@@ -78,6 +78,13 @@ Common input flags:
                     (requires --define-xml; loaded in memory)
   -ifhir <files...>  Experimental FHIR R4 JSON Bundles, including mCODE
                     (input-only; loaded in memory; BFF, PXF, or OMOP output)
+  -ii2b2 <paths...>  Experimental i2b2 table exports
+  -ipcornet <paths...>
+                    Experimental PCORnet CDM table exports
+  -isentinel <paths...>
+                    Experimental Sentinel CDM table exports
+                    Each accepts delimited files, one directory, or one ZIP;
+                    input-only and loaded in memory for BFF, PXF, or OMOP output
   -icsv <file>      Raw CSV
 
 Common output flags:
@@ -183,6 +190,9 @@ Examples:
   convert-pheno -ifhir bundle.json -obff individuals.json
   convert-pheno -ifhir bundle.json -obff --entities individuals biosamples --out-dir out/
   convert-pheno -i fhir bundle.json -o pxf phenopacket.json
+  convert-pheno -ii2b2 i2b2-export/ -obff individuals.json
+  convert-pheno -ipcornet pcornet-tables.zip -opxf phenopackets.json
+  convert-pheno -i sentinel sentinel-export/ -o omop --out-dir omop_out/ --ohdsi-db
   convert-pheno -iomop PERSON.csv CONCEPT.csv SPECIMEN.csv -obff --entities biosamples --out-dir out/
   convert-pheno -ibff individuals.json -oomop --out-dir omop_out/ --ohdsi-db
   convert-pheno -ibff individuals.json -oomop --out-dir omop_out/ --out-name PERSON=patients.csv --ohdsi-db
@@ -206,6 +216,8 @@ BFF output modes:
   and is processed in memory.
   FHIR input support is experimental, targets R4 JSON Bundles including mCODE,
   and is processed in memory.
+  i2b2, PCORnet CDM, and Sentinel CDM input support is experimental, reads
+  exported tables rather than live databases, and is processed in memory.
 
 Docs:
   Site:  https://cnag-biomedical-informatics.github.io/convert-pheno

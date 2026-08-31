@@ -22,11 +22,14 @@ then use the linked format guide for input details and route-specific options.
 | [CDISC Dataset-JSON](#dataset-json-input-bff-output) | BFF, PXF, OMOP-CDM | SDTM domain files including `DM` |
 | [CDISC Dataset-XML](#dataset-xml-input-bff-output) | BFF, PXF, OMOP-CDM | SDTM domain files and Define-XML |
 | [FHIR R4 / mCODE](#fhir-r4-input-bff-output) | BFF, PXF, OMOP-CDM | One or more JSON Bundles |
+| [i2b2](#i2b2-input-bff-output) | BFF, PXF, OMOP-CDM | Exported star-schema tables, directory, or ZIP |
 | [OMOP-CDM](#omop-cdm-input-bff-output) | BFF, PXF | CSV tables or SQL dump |
 | [OpenClinica ODM](#openclinica-odm-input) | BFF, PXF, OMOP-CDM | Mapping file; metadata embedded in Snapshot ODM |
 | [openEHR](#openehr-input-bff-output) | BFF, PXF | Canonical JSON or YAML compositions |
+| [PCORnet CDM](#pcornet-input-bff-output) | BFF, PXF, OMOP-CDM | Exported tables, directory, or ZIP |
 | [Phenopackets v2 / PXF](#pxf-input-bff-output) | BFF, OMOP-CDM | Phenopacket JSON or YAML |
 | [REDCap](#redcap-input-bff-output) | BFF, PXF, OMOP-CDM | Data export, dictionary, and mapping file |
+| [Sentinel CDM](#sentinel-input-bff-output) | BFF, PXF, OMOP-CDM | Exported tables, directory, or ZIP |
 
 ## Select the Output
 
@@ -229,6 +232,36 @@ convert-pheno \
 ```
 
 See [openEHR](openehr).
+
+### i2b2 {#i2b2-input-bff-output}
+
+```bash
+convert-pheno \
+  -ii2b2 i2b2-export/ \
+  -obff individuals.json
+```
+
+See [i2b2](i2b2).
+
+### PCORnet CDM {#pcornet-input-bff-output}
+
+```bash
+convert-pheno \
+  -ipcornet pcornet-tables.zip \
+  -obff individuals.json
+```
+
+See [PCORnet CDM](pcornet).
+
+### Sentinel CDM {#sentinel-input-bff-output}
+
+```bash
+convert-pheno \
+  -isentinel sentinel-export/ \
+  -obff individuals.json
+```
+
+See [Sentinel CDM](sentinel).
 
 ## Useful Options
 

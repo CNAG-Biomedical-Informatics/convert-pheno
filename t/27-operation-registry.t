@@ -128,6 +128,34 @@ is_deeply(
     'registry defines FHIR to OMOP as a compound conversion'
 );
 
+for my $source (qw(i2b2 pcornet sentinel)) {
+    my $to_bff = conversion_spec( $source . '2bff' );
+    is_deeply(
+        $to_bff->{pipeline},
+        [ $source . '2bff' ],
+        "registry defines $source as a direct BFF bundle operation",
+    );
+    is_deeply(
+        $to_bff->{entities}{supported},
+        [ 'individuals', 'datasets', 'cohorts' ],
+        "registry limits $source BFF output to implemented entities",
+    );
+    ok(
+        is_http_conversion( $source . '2bff' ),
+        "registry exposes uploaded $source table packages through HTTP",
+    );
+    is_deeply(
+        conversion_spec( $source . '2pxf' )->{pipeline},
+        [ $source . '2bff', 'bff2pxf' ],
+        "registry defines $source to PXF as a compound conversion",
+    );
+    is_deeply(
+        conversion_spec( $source . '2omop' )->{pipeline},
+        [ $source . '2bff', 'bff2omop' ],
+        "registry defines $source to OMOP as a compound conversion",
+    );
+}
+
 my $omop_to_bff = conversion_spec('omop2bff');
 ok( $omop_to_bff->{streaming}, 'registry defines streaming capability' );
 is_deeply(

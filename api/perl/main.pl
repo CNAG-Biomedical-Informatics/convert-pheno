@@ -85,6 +85,11 @@ my %EXAMPLE_FILE_FIXTURE = (
             { role => 'define', file => catfile( $TEST_DIR, 'datasetxml2bff', 'in', 'define.xml' ) },
         ],
     },
+    i2b2 => {
+        files => [
+            { role => 'source', directory => catdir( $TEST_DIR, 'i2b22bff', 'in' ), filename => 'i2b2-tables.zip' },
+        ],
+    },
     omop => {
         files => [ map { +{ role => 'source', file => catfile( $TEST_DIR, 'omop2bff', 'in', $_ ) } }
             qw(CONCEPT.csv DRUG_EXPOSURE.csv PERSON.csv) ],
@@ -94,6 +99,16 @@ my %EXAMPLE_FILE_FIXTURE = (
             { role => 'source', file => catfile( $TEST_DIR, 'redcap2bff', 'in', 'redcap_data.csv' ) },
             { role => 'dictionary', file => catfile( $TEST_DIR, 'redcap2bff', 'in', 'redcap_dictionary.csv' ) },
             { role => 'mapping', file => catfile( $TEST_DIR, 'redcap2bff', 'in', 'redcap_mapping.yaml' ) },
+        ],
+    },
+    pcornet => {
+        files => [
+            { role => 'source', directory => catdir( $TEST_DIR, 'pcornet2bff', 'in' ), filename => 'pcornet-tables.zip' },
+        ],
+    },
+    sentinel => {
+        files => [
+            { role => 'source', directory => catdir( $TEST_DIR, 'sentinel2bff', 'in' ), filename => 'sentinel-tables.zip' },
         ],
     },
 );

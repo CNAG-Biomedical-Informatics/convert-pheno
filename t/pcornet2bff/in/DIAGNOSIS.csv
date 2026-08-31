@@ -1,0 +1,3 @@
+PATID,ENCOUNTERID,DX,DX_TYPE,DX_NAME
+P001,E001,I10,10,Essential hypertension
+P002,E002,44054006,SM,Type 2 diabetes mellitus

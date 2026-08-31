@@ -19,7 +19,7 @@ than promises for a particular release.
   <article className="roadmap-card roadmap-card--active">
     <span className="roadmap-kicker">Recent inputs</span>
     <h2>Learn from more datasets</h2>
-    <p>Use cBioPortal, FHIR and mCODE, Dataset-JSON, Dataset-XML, and openEHR data from independent projects and refine the mappings from their feedback.</p>
+    <p>Use cBioPortal, FHIR and mCODE, Dataset-JSON, Dataset-XML, openEHR, i2b2, PCORnet, and Sentinel data from independent projects and refine the mappings from their feedback.</p>
   </article>
   <article className="roadmap-card">
     <span className="roadmap-kicker">Mappings</span>
@@ -39,7 +39,7 @@ than promises for a particular release.
   <article className="roadmap-card">
     <span className="roadmap-kicker">Additional formats</span>
     <h2>Follow real use cases</h2>
-    <p>Consider formats such as SAS XPORT, C-CDA, and PCORnet when there is a concrete user need and representative data for testing.</p>
+    <p>Consider formats such as SAS XPORT and C-CDA when there is a concrete user need and representative data for testing.</p>
   </article>
   <article className="roadmap-card">
     <span className="roadmap-kicker">Validation</span>

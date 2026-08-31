@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use Convert::Pheno::IO::FileIO qw(io_yaml_or_json);
+use Convert::Pheno::Mapping::Shared qw(get_info);
 use Convert::Pheno::Source::Result;
 
 sub new {
@@ -34,6 +35,17 @@ sub load {
             owned => 1,
         }
     );
+}
+
+sub prepare {
+    my ( $self, $format ) = @_;
+    my $converter = $self->{converter};
+    my $source = $self->load;
+    $source->apply_to($converter);
+    delete $converter->{mapping_file_derived_entity_overrides};
+    $converter->{convertPheno} ||= get_info($converter)
+      if defined $format && $format eq 'pxf';
+    return 1;
 }
 
 1;

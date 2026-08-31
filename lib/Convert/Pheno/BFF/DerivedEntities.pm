@@ -6,7 +6,44 @@ use autodie;
 
 use Exporter 'import';
 
-our @EXPORT_OK = qw(execution_entities synthesize_bundle_entities);
+our @EXPORT_OK = qw(
+  execution_entities
+  mapping_entity_overrides
+  synthesize_bundle_entities
+);
+
+sub mapping_entity_overrides {
+    my ($mapping) = @_;
+    return {} unless ref($mapping) eq 'HASH';
+    return {} unless ref( $mapping->{project} ) eq 'HASH';
+
+    my $project = $mapping->{project};
+    my %overrides;
+    if ( defined $project->{id} ) {
+        $overrides{datasets}{id}   = $project->{id};
+        $overrides{datasets}{name} = $project->{id};
+        $overrides{cohorts}{id}    = $project->{id} . '-cohort';
+        $overrides{cohorts}{name}  = $project->{id};
+    }
+    $overrides{datasets}{description} = $project->{description}
+      if defined $project->{description};
+    $overrides{datasets}{version} = $project->{version}
+      if defined $project->{version};
+
+    if ( ref( $mapping->{beacon} ) eq 'HASH' ) {
+        for my $entity (qw(datasets cohorts)) {
+            next unless ref( $mapping->{beacon}{$entity} ) eq 'HASH';
+            next unless ref( $mapping->{beacon}{$entity}{defaults} ) eq 'HASH';
+            $overrides{$entity} ||= {};
+            _merge_hash_into(
+                $overrides{$entity},
+                $mapping->{beacon}{$entity}{defaults},
+            );
+        }
+    }
+
+    return \%overrides;
+}
 
 sub execution_entities {
     my ($entities) = @_;

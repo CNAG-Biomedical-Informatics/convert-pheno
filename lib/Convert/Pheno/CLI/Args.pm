@@ -32,6 +32,11 @@ sub _normalize_cli_type {
         datasetjson  => 'datasetjson',
         datasetxml   => 'datasetxml',
         fhir         => 'fhir',
+        i2b2         => 'i2b2',
+        sentinel     => 'sentinel',
+        sentinelcdm  => 'sentinel',
+        pcornet      => 'pcornet',
+        pcornetcdm   => 'pcornet',
         csv          => 'csv',
         jsonf        => 'jsonf',
         jsonld       => 'jsonld',
@@ -41,6 +46,14 @@ sub _normalize_cli_type {
 
 sub _count_defined {
     return scalar grep { defined $_ } @_;
+}
+
+sub _valid_table_package_input {
+    my ($path) = @_;
+    return 0 unless defined $path;
+    return 1 if -d $path;
+    return 0 unless -f $path;
+    return $path =~ m/\.(?:zip|csv|tsv|txt)(?:\.gz)?\z/i ? 1 : 0;
 }
 
 sub _resolve_output_path {
@@ -65,6 +78,9 @@ sub build_cli_request {
     my @datasetjson_files;
     my @datasetxml_files;
     my @fhir_files;
+    my @i2b2_files;
+    my @sentinel_files;
+    my @pcornet_files;
     my @openehr_files;
     my @omop_files;
     my ( $out_bff, $out_pxf, $out_csv, $out_jsonf, $out_jsonld );
@@ -93,6 +109,9 @@ sub build_cli_request {
         'idataset-json=s{1,}'          => \@datasetjson_files,
         'idataset-xml=s{1,}'           => \@datasetxml_files,
         'ifhir=s{1,}'                  => \@fhir_files,
+        'ii2b2=s{1,}'                  => \@i2b2_files,
+        'isentinel=s{1,}'              => \@sentinel_files,
+        'ipcornet=s{1,}'               => \@pcornet_files,
         'iomop=s{1,}'                 => \@omop_files,
         'iopenehr=s{1,}'              => \@openehr_files,
         'icsv=s'                      => \$in_csv,
@@ -166,7 +185,7 @@ sub build_cli_request {
 
     $usage_error->("Please use either the generic <-i/-o> syntax or the compact <-ixxx/-oxxx> flags for each side, not both")
       if ( defined $normalized_in_type
-        && _count_defined( $in_pxf, $in_bff, $in_cbioportal, $in_redcap, $in_cdiscodm, $in_csv, @datasetjson_files ? 1 : undef, @datasetxml_files ? 1 : undef, @fhir_files ? 1 : undef, @omop_files ? 1 : undef, @openehr_files ? 1 : undef ) )
+        && _count_defined( $in_pxf, $in_bff, $in_cbioportal, $in_redcap, $in_cdiscodm, $in_csv, @datasetjson_files ? 1 : undef, @datasetxml_files ? 1 : undef, @fhir_files ? 1 : undef, @i2b2_files ? 1 : undef, @sentinel_files ? 1 : undef, @pcornet_files ? 1 : undef, @omop_files ? 1 : undef, @openehr_files ? 1 : undef ) )
       || ( defined $normalized_out_type
         && _count_defined( $out_bff_selected ? 1 : undef, $out_pxf, $out_csv, $out_jsonf, $out_jsonld, $out_omop_selected ? 1 : undef ) );
 
@@ -175,7 +194,10 @@ sub build_cli_request {
             || $normalized_in_type eq 'openehr'
             || $normalized_in_type eq 'datasetjson'
             || $normalized_in_type eq 'datasetxml'
-            || $normalized_in_type eq 'fhir' )
+            || $normalized_in_type eq 'fhir'
+            || $normalized_in_type eq 'i2b2'
+            || $normalized_in_type eq 'sentinel'
+            || $normalized_in_type eq 'pcornet' )
         {
             $usage_error->("Please provide $in_type_arg input file(s) after <-i $in_type_arg>") unless @{$argv};
             if ( defined $normalized_out_type ) {
@@ -191,6 +213,15 @@ sub build_cli_request {
                     }
                     elsif ( $normalized_in_type eq 'datasetxml' ) {
                         @datasetxml_files = @{$argv};
+                    }
+                    elsif ( $normalized_in_type eq 'i2b2' ) {
+                        @i2b2_files = @{$argv};
+                    }
+                    elsif ( $normalized_in_type eq 'sentinel' ) {
+                        @sentinel_files = @{$argv};
+                    }
+                    elsif ( $normalized_in_type eq 'pcornet' ) {
+                        @pcornet_files = @{$argv};
                     }
                     else {
                         @datasetjson_files = @{$argv};
@@ -211,6 +242,15 @@ sub build_cli_request {
                     }
                     elsif ( $normalized_in_type eq 'datasetxml' ) {
                         @datasetxml_files = @{$argv}[ 0 .. $#{$argv} - 1 ];
+                    }
+                    elsif ( $normalized_in_type eq 'i2b2' ) {
+                        @i2b2_files = @{$argv}[ 0 .. $#{$argv} - 1 ];
+                    }
+                    elsif ( $normalized_in_type eq 'sentinel' ) {
+                        @sentinel_files = @{$argv}[ 0 .. $#{$argv} - 1 ];
+                    }
+                    elsif ( $normalized_in_type eq 'pcornet' ) {
+                        @pcornet_files = @{$argv}[ 0 .. $#{$argv} - 1 ];
                     }
                     else {
                         @datasetjson_files = @{$argv}[ 0 .. $#{$argv} - 1 ];
@@ -235,6 +275,15 @@ sub build_cli_request {
                 }
                 elsif ( $normalized_in_type eq 'datasetxml' ) {
                     @datasetxml_files = @{$argv};
+                }
+                elsif ( $normalized_in_type eq 'i2b2' ) {
+                    @i2b2_files = @{$argv};
+                }
+                elsif ( $normalized_in_type eq 'sentinel' ) {
+                    @sentinel_files = @{$argv};
+                }
+                elsif ( $normalized_in_type eq 'pcornet' ) {
+                    @pcornet_files = @{$argv};
                 }
                 else {
                     @datasetjson_files = @{$argv};
@@ -295,6 +344,9 @@ sub build_cli_request {
                     || ( @datasetjson_files && -f $datasetjson_files[0] )
                     || ( @datasetxml_files  && -f $datasetxml_files[0] )
                     || ( @fhir_files        && -f $fhir_files[0] )
+                    || ( @i2b2_files        && _valid_table_package_input( $i2b2_files[0] ) )
+                    || ( @sentinel_files    && _valid_table_package_input( $sentinel_files[0] ) )
+                    || ( @pcornet_files     && _valid_table_package_input( $pcornet_files[0] ) )
                     || ( @omop_files        && -f $omop_files[0] )
                     || ( @openehr_files     && -f $openehr_files[0] ) );
             },
@@ -350,6 +402,14 @@ sub build_cli_request {
                   @fhir_files;
             },
             message   => "Please specify valid FHIR R4 Bundle file(s) (.json or .json.gz)\n",
+        },
+        {
+            condition => sub {
+                ( @i2b2_files && grep { !_valid_table_package_input($_) } @i2b2_files )
+                  || ( @sentinel_files && grep { !_valid_table_package_input($_) } @sentinel_files )
+                  || ( @pcornet_files && grep { !_valid_table_package_input($_) } @pcornet_files );
+            },
+            message => "Please specify valid clinical CDM table files, a directory, or a ZIP package\n",
         },
         {
             condition => sub { @omop_files && $omop_files[0] !~ m/\.(csv|sql|tsv)/i },
@@ -516,6 +576,9 @@ sub build_cli_request {
       : @datasetjson_files ? 'datasetjson'
       : @datasetxml_files ? 'datasetxml'
       : @fhir_files  ? 'fhir'
+      : @i2b2_files ? 'i2b2'
+      : @sentinel_files ? 'sentinel'
+      : @pcornet_files ? 'pcornet'
       : $in_csv     ? 'csv'
       : @openehr_files ? 'openehr'
       : @omop_files ? 'omop'
@@ -586,6 +649,9 @@ sub build_cli_request {
     $data{in_files}             = \@datasetjson_files if @datasetjson_files;
     $data{in_files}             = \@datasetxml_files  if @datasetxml_files;
     $data{in_files}             = \@fhir_files       if @fhir_files;
+    $data{in_files}             = \@i2b2_files       if @i2b2_files;
+    $data{in_files}             = \@sentinel_files   if @sentinel_files;
+    $data{in_files}             = \@pcornet_files    if @pcornet_files;
     $data{in_files}             = \@omop_files      if @omop_files;
     $data{in_files}             = \@openehr_files   if @openehr_files;
     $data{sep}                  = $sep if defined $sep;

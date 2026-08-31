@@ -72,8 +72,9 @@
   <g filter="url(#soft-shadow)"><rect class="card" x="20" y="48" width="440" height="70" rx="9"/><rect class="accent-blue" x="20" y="48" width="6" height="70" rx="3"/></g>
   <rect class="icon-surface" x="38" y="61" width="44" height="44" rx="11"/>
   <g class="icon-line"><circle cx="60" cy="71" r="4"/><circle cx="50" cy="94" r="4"/><circle cx="70" cy="94" r="4"/><path d="M58 75L52 90M62 75L68 90M54 94H66"/></g>
-  <text class="category" x="96" y="75">CLINICAL DATA MODELS</text>
-  <text class="formats" x="96" y="99">BFF &#183; PXF &#183; OMOP-CDM</text>
+  <text class="category" x="96" y="70">CLINICAL DATA MODELS</text>
+  <text class="formats" x="96" y="91">BFF &#183; PXF &#183; OMOP-CDM</text>
+  <text class="formats" x="96" y="108">i2b2 &#183; PCORnet &#183; Sentinel</text>
 
   <g filter="url(#soft-shadow)"><rect class="card" x="20" y="130" width="440" height="70" rx="9"/><rect class="accent-teal" x="20" y="130" width="6" height="70" rx="3"/></g>
   <rect class="icon-surface" x="38" y="143" width="44" height="44" rx="11"/>

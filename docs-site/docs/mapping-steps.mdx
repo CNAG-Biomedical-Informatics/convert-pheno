@@ -57,6 +57,8 @@ graph LR
   X[Dataset-XML] -->|datasetxml2bff| A
   J[FHIR R4] -->|fhir2bff| A
   K[openEHR] -->|openehr2bff| A
+  Q[cBioPortal] -->|cbioportal2bff| A
+  R["i2b2 · PCORnet · Sentinel"] -->|table adapters| A
   G[CSV] -->|csv2bff| A
   end
 
@@ -77,6 +79,8 @@ graph LR
   style X fill: #E7D8B6, stroke: #8A7040
   style J fill: #F9D7D9, stroke: #B74A55
   style K fill: #B8E0D2, stroke: #5B8F7B
+  style Q fill: #D7E8F2, stroke: #507F9D
+  style R fill: #DCE8E2, stroke: #507865
 
 ```
 <figcaption>Convert-Pheno internal mapping steps</figcaption>

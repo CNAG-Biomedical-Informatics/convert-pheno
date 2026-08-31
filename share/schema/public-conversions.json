@@ -4,8 +4,11 @@
     "beacon": { "label": "Beacon v2", "kind": "json", "inputShape": "A Beacon v2 entity object" },
     "pxf": { "label": "Phenopacket v2", "kind": "json", "inputShape": "A Phenopacket v2 object or phenopacket wrapper" },
     "fhir": { "label": "FHIR R4", "kind": "json", "inputShape": "A self-contained FHIR R4 Bundle" },
+    "i2b2": { "label": "i2b2", "kind": "tables", "inputShape": "An object keyed by i2b2 table name; each value is an array of row objects" },
     "openehr": { "label": "openEHR", "kind": "json", "inputShape": "A canonical openEHR JSON document" },
     "omop": { "label": "OMOP-CDM", "kind": "tables", "inputShape": "An object keyed by OMOP table name; each value is an array of row objects" },
+    "pcornet": { "label": "PCORnet CDM", "kind": "tables", "inputShape": "An object keyed by PCORnet CDM table name; each value is an array of row objects" },
+    "sentinel": { "label": "Sentinel CDM", "kind": "tables", "inputShape": "An object keyed by Sentinel CDM table name; each value is an array of row objects" },
     "csv": { "label": "CSV", "kind": "csv" },
     "jsonf": { "label": "Folded JSON", "kind": "json" },
     "jsonld": { "label": "JSON-LD", "kind": "jsonld" },
@@ -19,11 +22,29 @@
     "beacon": { "transports": ["json"], "files": [] },
     "pxf": { "transports": ["json"], "files": [] },
     "fhir": { "transports": ["json"], "files": [] },
+    "i2b2": {
+      "transports": ["multipart", "json"],
+      "files": [
+        { "name": "source", "label": "i2b2 table package", "description": "Upload exported i2b2 CSV/TSV tables or one ZIP package.", "required": true, "multiple": true, "maximum": 128, "accept": [".zip", ".csv", ".csv.gz", ".tsv", ".tsv.gz", ".txt", ".txt.gz"], "argument": "in_files" }
+      ]
+    },
     "openehr": { "transports": ["json"], "files": [] },
     "omop": {
       "transports": ["multipart", "json"],
       "files": [
         { "name": "source", "label": "OMOP table files", "description": "Upload table CSV/TSV files or one PostgreSQL SQL dump.", "required": true, "multiple": true, "maximum": 128, "accept": [".csv", ".csv.gz", ".tsv", ".tsv.gz", ".sql", ".sql.gz"], "argument": "in_files" }
+      ]
+    },
+    "pcornet": {
+      "transports": ["multipart", "json"],
+      "files": [
+        { "name": "source", "label": "PCORnet CDM table package", "description": "Upload exported PCORnet CDM CSV/TSV tables or one ZIP package.", "required": true, "multiple": true, "maximum": 128, "accept": [".zip", ".csv", ".csv.gz", ".tsv", ".tsv.gz", ".txt", ".txt.gz"], "argument": "in_files" }
+      ]
+    },
+    "sentinel": {
+      "transports": ["multipart", "json"],
+      "files": [
+        { "name": "source", "label": "Sentinel CDM table package", "description": "Upload exported Sentinel CDM CSV/TSV tables or one ZIP package.", "required": true, "multiple": true, "maximum": 128, "accept": [".zip", ".csv", ".csv.gz", ".tsv", ".tsv.gz", ".txt", ".txt.gz"], "argument": "in_files" }
       ]
     },
     "csv": {
@@ -94,8 +115,8 @@
     "terminology_options": ["search", "text_similarity_method", "min_text_similarity_score", "levenshtein_weight"],
     "omop_input_options": ["max_lines_sql"],
     "pxf_output_options": ["default_vital_status"],
-    "ohdsi_targets": ["bff2omop", "cbioportal2omop", "cdiscodm2omop", "csv2omop", "datasetjson2omop", "datasetxml2omop", "fhir2omop", "pxf2omop"],
-    "file_sources": ["cbioportal", "cdisc-odm", "csv", "dataset-json", "dataset-xml", "redcap"],
+    "ohdsi_targets": ["bff2omop", "cbioportal2omop", "cdiscodm2omop", "csv2omop", "datasetjson2omop", "datasetxml2omop", "fhir2omop", "i2b22omop", "pcornet2omop", "pxf2omop", "sentinel2omop"],
+    "file_sources": ["cbioportal", "cdisc-odm", "csv", "dataset-json", "dataset-xml", "i2b2", "pcornet", "redcap", "sentinel"],
     "terminology_sources": ["cbioportal", "cdisc-odm", "csv", "dataset-json", "dataset-xml", "redcap"],
     "separator_sources": ["csv", "redcap"]
   },
@@ -347,6 +368,36 @@
       "streaming": false,
       "http_enabled": true
     },
+    "i2b22bff": {
+      "source": "i2b2",
+      "target": "beacon",
+      "operation": "bundle",
+      "pipeline": ["i2b22bff"],
+      "resources": { "sqlite": false },
+      "entities": { "default": ["individuals"], "supported": ["individuals", "datasets", "cohorts"], "primary": "individuals" },
+      "streaming": false,
+      "http_enabled": true
+    },
+    "i2b22omop": {
+      "source": "i2b2",
+      "target": "omop",
+      "operation": "pipeline",
+      "pipeline": ["i2b22bff", "bff2omop"],
+      "resources": { "sqlite": true },
+      "entities": { "default": [], "supported": [], "primary": null },
+      "streaming": false,
+      "http_enabled": true
+    },
+    "i2b22pxf": {
+      "source": "i2b2",
+      "target": "pxf",
+      "operation": "pipeline",
+      "pipeline": ["i2b22bff", "bff2pxf"],
+      "resources": { "sqlite": false },
+      "entities": { "default": [], "supported": [], "primary": null },
+      "streaming": false,
+      "http_enabled": true
+    },
     "omop2bff": {
       "source": "omop",
       "target": "beacon",
@@ -382,6 +433,36 @@
       "target": "pxf",
       "operation": "pipeline",
       "pipeline": ["openehr2bff", "bff2pxf"],
+      "resources": { "sqlite": false },
+      "entities": { "default": [], "supported": [], "primary": null },
+      "streaming": false,
+      "http_enabled": true
+    },
+    "pcornet2bff": {
+      "source": "pcornet",
+      "target": "beacon",
+      "operation": "bundle",
+      "pipeline": ["pcornet2bff"],
+      "resources": { "sqlite": false },
+      "entities": { "default": ["individuals"], "supported": ["individuals", "datasets", "cohorts"], "primary": "individuals" },
+      "streaming": false,
+      "http_enabled": true
+    },
+    "pcornet2omop": {
+      "source": "pcornet",
+      "target": "omop",
+      "operation": "pipeline",
+      "pipeline": ["pcornet2bff", "bff2omop"],
+      "resources": { "sqlite": true },
+      "entities": { "default": [], "supported": [], "primary": null },
+      "streaming": false,
+      "http_enabled": true
+    },
+    "pcornet2pxf": {
+      "source": "pcornet",
+      "target": "pxf",
+      "operation": "pipeline",
+      "pipeline": ["pcornet2bff", "bff2pxf"],
       "resources": { "sqlite": false },
       "entities": { "default": [], "supported": [], "primary": null },
       "streaming": false,
@@ -463,6 +544,36 @@
       "operation": "pipeline",
       "pipeline": ["redcap2bff", "bff2pxf"],
       "resources": { "sqlite": true },
+      "entities": { "default": [], "supported": [], "primary": null },
+      "streaming": false,
+      "http_enabled": true
+    },
+    "sentinel2bff": {
+      "source": "sentinel",
+      "target": "beacon",
+      "operation": "bundle",
+      "pipeline": ["sentinel2bff"],
+      "resources": { "sqlite": false },
+      "entities": { "default": ["individuals"], "supported": ["individuals", "datasets", "cohorts"], "primary": "individuals" },
+      "streaming": false,
+      "http_enabled": true
+    },
+    "sentinel2omop": {
+      "source": "sentinel",
+      "target": "omop",
+      "operation": "pipeline",
+      "pipeline": ["sentinel2bff", "bff2omop"],
+      "resources": { "sqlite": true },
+      "entities": { "default": [], "supported": [], "primary": null },
+      "streaming": false,
+      "http_enabled": true
+    },
+    "sentinel2pxf": {
+      "source": "sentinel",
+      "target": "pxf",
+      "operation": "pipeline",
+      "pipeline": ["sentinel2bff", "bff2pxf"],
+      "resources": { "sqlite": false },
       "entities": { "default": [], "supported": [], "primary": null },
       "streaming": false,
       "http_enabled": true

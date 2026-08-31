@@ -5,7 +5,7 @@ sidebar_label: Supported Formats
 
 This page is a quick map of the formats that `Convert-Pheno` can read and write. For file requirements and format-specific options, use the **Format Guides** in the sidebar.
 
-- **Inputs:** [BFF](bff), [Phenopackets v2](pxf), [OMOP-CDM](omop-cdm), [REDCap](redcap), [cBioPortal clinical studies](cbioportal), [CDISC-ODM](cdisc-odm), [OpenClinica ODM exports](openclinica), [CDISC Dataset-JSON](dataset-json), [CDISC Dataset-XML](dataset-xml), [FHIR R4 and mCODE Bundles](fhir), [CSV](csv), and [openEHR canonical compositions](openehr)
+- **Inputs:** [BFF](bff), [Phenopackets v2](pxf), [OMOP-CDM](omop-cdm), [REDCap](redcap), [cBioPortal clinical studies](cbioportal), [CDISC-ODM](cdisc-odm), [OpenClinica ODM exports](openclinica), [CDISC Dataset-JSON](dataset-json), [CDISC Dataset-XML](dataset-xml), [FHIR R4 and mCODE Bundles](fhir), [i2b2](i2b2), [PCORnet CDM](pcornet), [Sentinel CDM](sentinel), [CSV](csv), and [openEHR canonical compositions](openehr)
 - **Main outputs:** BFF, Phenopackets v2, and OMOP-CDM CSV tables
 - **[Inspection outputs](conversion-recipes#inspection-outputs):** flattened JSON or YAML, CSV, and JSON-LD or YAML-LD from BFF or PXF input
 
@@ -26,6 +26,7 @@ graph TB
     F[CSV]
     G[openEHR]
     J[FHIR R4]
+    R["i2b2 · PCORnet · Sentinel"]
   end
 
   A["BFF<br/>Beacon v2 Models"]
@@ -38,6 +39,7 @@ graph TB
   F -->|csv2bff| A
   G -->|openehr2bff| A
   J -->|fhir2bff| A
+  R -->|table adapters| A
   B[Phenopackets v2] -->|pxf2bff| A
   A -->|bff2pxf| B
   D[OMOP-CDM] -->|omop2bff| A
@@ -54,6 +56,7 @@ graph TB
   style F fill:#FFFF00,stroke:#FFFF00
   style G fill:#B8E0D2,stroke:#5B8F7B,stroke-width:2px,stroke-dasharray:5 4
   style J fill:#F9D7D9,stroke:#B74A55,stroke-width:2px,stroke-dasharray:5 4
+  style R fill:#DCE8E2,stroke:#507865,stroke-width:2px,stroke-dasharray:5 4
 ```
 
 <figcaption>Direct mapping steps around BFF, which can be the requested output or an internal intermediate. Any connected path through BFF runs as one CLI command: for example, Dataset-JSON to PXF performs Dataset-JSON to BFF and then BFF to PXF in memory. Dashed source borders mark implemented profiles with limited independent dataset coverage.</figcaption>

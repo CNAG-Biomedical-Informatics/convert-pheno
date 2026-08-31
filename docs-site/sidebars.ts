@@ -116,6 +116,11 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: 'doc',
+          id: 'i2b2',
+          label: 'i2b2 (Experimental)',
+        },
+        {
+          type: 'doc',
           id: 'omop-cdm',
           label: 'OMOP-CDM',
         },
@@ -131,6 +136,11 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: 'doc',
+          id: 'pcornet',
+          label: 'PCORnet CDM (Experimental)',
+        },
+        {
+          type: 'doc',
           id: 'pxf',
           label: 'Phenopackets v2 (PXF)',
         },
@@ -138,6 +148,11 @@ const sidebars: SidebarsConfig = {
           type: 'doc',
           id: 'redcap',
           label: 'REDCap',
+        },
+        {
+          type: 'doc',
+          id: 'sentinel',
+          label: 'Sentinel CDM (Experimental)',
         },
       ],
     },
@@ -197,9 +212,12 @@ const sidebars: SidebarsConfig = {
             {type: 'doc', id: 'datasetjson2bff', label: 'Dataset-JSON to BFF'},
             {type: 'doc', id: 'datasetxml2bff', label: 'Dataset-XML to BFF'},
             {type: 'doc', id: 'fhir2bff', label: 'FHIR to BFF'},
+            {type: 'doc', id: 'i2b22bff', label: 'i2b2 to BFF'},
             {type: 'doc', id: 'omop2bff', label: 'OMOP to BFF'},
             {type: 'doc', id: 'openehr2bff', label: 'openEHR to BFF'},
+            {type: 'doc', id: 'pcornet2bff', label: 'PCORnet to BFF'},
             {type: 'doc', id: 'pxf2bff', label: 'PXF to BFF'},
+            {type: 'doc', id: 'sentinel2bff', label: 'Sentinel to BFF'},
           ],
         },
       ],

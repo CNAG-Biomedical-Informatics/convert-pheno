@@ -1,0 +1,6 @@
+CONCEPT_CD,NAME_CHAR
+ICD10CM:E11.9,Type 2 diabetes mellitus without complications
+LOINC:4548-4,Hemoglobin A1c
+CPT4:83036,Glycated hemoglobin assay
+RXNORM:860975,Metformin 500 MG oral tablet
+HP:0001250,Seizure

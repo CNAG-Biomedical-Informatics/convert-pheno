@@ -12,8 +12,10 @@ use Path::Tiny qw(path);
 use Storable qw(dclone);
 use Text::CSV_XS;
 
+use Convert::Pheno::BFF::DerivedEntities qw(mapping_entity_overrides);
 use Convert::Pheno::IO::CSVHandler qw(read_mapping_file);
 use Convert::Pheno::Mapping::Compiler qw(compile_mapping);
+use Convert::Pheno::Mapping::Shared qw(get_info get_metaData);
 use Convert::Pheno::Source::Result;
 
 sub new {
@@ -57,6 +59,39 @@ sub load {
             artifacts => \%artifacts,
         }
     );
+}
+
+sub prepare {
+    my ($self) = @_;
+    my $converter = $self->{converter};
+    return 1 if $converter->{cbioportal_input_prepared}
+      && exists $converter->{data};
+
+    $converter->{_cbioportal_source_data} = $converter->{data}
+      if exists $converter->{data}
+      && !exists $converter->{_cbioportal_source_data};
+    $converter->{data} = $converter->{_cbioportal_source_data}
+      if !exists $converter->{data}
+      && exists $converter->{_cbioportal_source_data};
+
+    my $source = $self->load;
+    $source->apply_to($converter);
+    $converter->{cbioportal_study} = $source->artifact('study');
+
+    my $compiled = $source->artifact('entity_mapping');
+    if ( defined $compiled ) {
+        $converter->{data_mapping_file} = $compiled;
+    }
+    else {
+        delete $converter->{data_mapping_file};
+    }
+
+    $converter->{mapping_file_derived_entity_overrides} =
+      mapping_entity_overrides( $source->artifact('mapping') );
+    $converter->{metaData}     = get_metaData($converter);
+    $converter->{convertPheno} = get_info($converter);
+    $converter->{cbioportal_input_prepared} = 1;
+    return 1;
 }
 
 sub _path_package {

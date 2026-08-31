@@ -1,0 +1,246 @@
+[
+   {
+      "diseases" : [
+         {
+            "_visit" : {
+               "composite" : "101:1001",
+               "concept" : {
+                  "id" : "i2b2:Encounter.O",
+                  "label" : "O"
+               },
+               "end_date" : "2024-02-01T10:00:00Z",
+               "id" : "1001",
+               "occurrence_id" : "1001",
+               "start_date" : "2024-02-01T09:00:00Z"
+            },
+            "diseaseCode" : {
+               "id" : "ICD10CM:E11.9",
+               "label" : "Type 2 diabetes mellitus without complications"
+            }
+         }
+      ],
+      "id" : "101",
+      "info" : {
+         "i2b2" : {
+            "patient" : {
+               "BIRTH_DATE" : "1980-02-03",
+               "DEATH_DATE" : "",
+               "PATIENT_NUM" : "101",
+               "SEX_CD" : "F"
+            },
+            "tables" : {
+               "OBSERVATION_FACT" : [
+                  {
+                     "CONCEPT_CD" : "ICD10CM:E11.9",
+                     "ENCOUNTER_NUM" : "1001",
+                     "MODIFIER_CD" : "@",
+                     "NVAL_NUM" : "",
+                     "PATIENT_NUM" : "101",
+                     "START_DATE" : "2024-02-01",
+                     "TVAL_CHAR" : "",
+                     "UNITS_CD" : "",
+                     "VALTYPE_CD" : "T"
+                  },
+                  {
+                     "CONCEPT_CD" : "LOINC:4548-4",
+                     "ENCOUNTER_NUM" : "1001",
+                     "MODIFIER_CD" : "@",
+                     "NVAL_NUM" : "6.4",
+                     "PATIENT_NUM" : "101",
+                     "START_DATE" : "2024-02-01",
+                     "TVAL_CHAR" : "",
+                     "UNITS_CD" : "%",
+                     "VALTYPE_CD" : "N"
+                  },
+                  {
+                     "CONCEPT_CD" : "CPT4:83036",
+                     "ENCOUNTER_NUM" : "1001",
+                     "MODIFIER_CD" : "@",
+                     "NVAL_NUM" : "",
+                     "PATIENT_NUM" : "101",
+                     "START_DATE" : "2024-02-01",
+                     "TVAL_CHAR" : "",
+                     "UNITS_CD" : "",
+                     "VALTYPE_CD" : "T"
+                  },
+                  {
+                     "CONCEPT_CD" : "RXNORM:860975",
+                     "ENCOUNTER_NUM" : "1001",
+                     "MODIFIER_CD" : "@",
+                     "NVAL_NUM" : "",
+                     "PATIENT_NUM" : "101",
+                     "START_DATE" : "2024-02-01",
+                     "TVAL_CHAR" : "",
+                     "UNITS_CD" : "",
+                     "VALTYPE_CD" : "T"
+                  },
+                  {
+                     "CONCEPT_CD" : "RXNORM:860975",
+                     "ENCOUNTER_NUM" : "1001",
+                     "MODIFIER_CD" : "DOSE",
+                     "NVAL_NUM" : "500",
+                     "PATIENT_NUM" : "101",
+                     "START_DATE" : "2024-02-01",
+                     "TVAL_CHAR" : "",
+                     "UNITS_CD" : "mg",
+                     "VALTYPE_CD" : "N"
+                  }
+               ],
+               "VISIT_DIMENSION" : [
+                  {
+                     "ENCOUNTER_NUM" : "1001",
+                     "END_DATE" : "2024-02-01 10:00:00",
+                     "INOUT_CD" : "O",
+                     "PATIENT_NUM" : "101",
+                     "START_DATE" : "2024-02-01 09:00:00"
+                  }
+               ]
+            }
+         },
+         "phenopacket" : {
+            "dateOfBirth" : "1980-02-03T00:00:00Z"
+         }
+      },
+      "interventionsOrProcedures" : [
+         {
+            "_visit" : {
+               "composite" : "101:1001",
+               "concept" : {
+                  "id" : "i2b2:Encounter.O",
+                  "label" : "O"
+               },
+               "end_date" : "2024-02-01T10:00:00Z",
+               "id" : "1001",
+               "occurrence_id" : "1001",
+               "start_date" : "2024-02-01T09:00:00Z"
+            },
+            "dateOfProcedure" : "2024-02-01",
+            "procedureCode" : {
+               "id" : "CPT4:83036",
+               "label" : "Glycated hemoglobin assay"
+            }
+         }
+      ],
+      "measures" : [
+         {
+            "_visit" : {
+               "composite" : "101:1001",
+               "concept" : {
+                  "id" : "i2b2:Encounter.O",
+                  "label" : "O"
+               },
+               "end_date" : "2024-02-01T10:00:00Z",
+               "id" : "1001",
+               "occurrence_id" : "1001",
+               "start_date" : "2024-02-01T09:00:00Z"
+            },
+            "assayCode" : {
+               "id" : "LOINC:4548-4",
+               "label" : "Hemoglobin A1c"
+            },
+            "date" : "2024-02-01",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "i2b2:Unit.percent",
+                     "label" : "%"
+                  },
+                  "value" : 6.4
+               }
+            }
+         }
+      ],
+      "sex" : {
+         "id" : "NCIT:C16576",
+         "label" : "Female"
+      },
+      "treatments" : [
+         {
+            "_visit" : {
+               "composite" : "101:1001",
+               "concept" : {
+                  "id" : "i2b2:Encounter.O",
+                  "label" : "O"
+               },
+               "end_date" : "2024-02-01T10:00:00Z",
+               "id" : "1001",
+               "occurrence_id" : "1001",
+               "start_date" : "2024-02-01T09:00:00Z"
+            },
+            "treatmentCode" : {
+               "id" : "RxNorm:860975",
+               "label" : "Metformin 500 MG oral tablet"
+            }
+         }
+      ]
+   },
+   {
+      "id" : "102",
+      "info" : {
+         "i2b2" : {
+            "patient" : {
+               "BIRTH_DATE" : "1955-06-07",
+               "DEATH_DATE" : "2024-01-15",
+               "PATIENT_NUM" : "102",
+               "SEX_CD" : "M"
+            },
+            "tables" : {
+               "OBSERVATION_FACT" : [
+                  {
+                     "CONCEPT_CD" : "HP:0001250",
+                     "ENCOUNTER_NUM" : "1002",
+                     "MODIFIER_CD" : "@",
+                     "NVAL_NUM" : "",
+                     "PATIENT_NUM" : "102",
+                     "START_DATE" : "2023-11-03",
+                     "TVAL_CHAR" : "present",
+                     "UNITS_CD" : "",
+                     "VALTYPE_CD" : "T"
+                  }
+               ],
+               "VISIT_DIMENSION" : [
+                  {
+                     "ENCOUNTER_NUM" : "1002",
+                     "END_DATE" : "2023-11-05 14:00:00",
+                     "INOUT_CD" : "I",
+                     "PATIENT_NUM" : "102",
+                     "START_DATE" : "2023-11-03 08:30:00"
+                  }
+               ]
+            }
+         },
+         "phenopacket" : {
+            "dateOfBirth" : "1955-06-07T00:00:00Z",
+            "vitalStatus" : {
+               "status" : "DECEASED",
+               "timeOfDeath" : {
+                  "timestamp" : "2024-01-15T00:00:00Z"
+               }
+            }
+         }
+      },
+      "phenotypicFeatures" : [
+         {
+            "_visit" : {
+               "composite" : "102:1002",
+               "concept" : {
+                  "id" : "i2b2:Encounter.I",
+                  "label" : "I"
+               },
+               "end_date" : "2023-11-05T14:00:00Z",
+               "id" : "1002",
+               "occurrence_id" : "1002",
+               "start_date" : "2023-11-03T08:30:00Z"
+            },
+            "featureType" : {
+               "id" : "HP:0001250",
+               "label" : "Seizure"
+            }
+         }
+      ],
+      "sex" : {
+         "id" : "NCIT:C20197",
+         "label" : "Male"
+      }
+   }
+]

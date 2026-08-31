@@ -56,6 +56,17 @@ To update later:
 cpanm Convert::Pheno
 ```
 
+### Uninstall
+
+Run the following command from the same Perl environment used to install
+Convert-Pheno:
+
+```bash
+cpanm --uninstall Convert::Pheno
+```
+
+This removes Convert-Pheno but leaves shared Perl dependencies installed.
+
 ## Alternative Installation Paths
 
 <details>

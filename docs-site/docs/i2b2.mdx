@@ -1,0 +1,89 @@
+---
+title: i2b2
+sidebar_label: i2b2
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+export const I2b2FormatImage = () => (
+  <img
+    src={useBaseUrl('/img/i2b2-format.svg')}
+    alt="Exported i2b2 star-schema tables grouped by patient before conversion to BFF, PXF, or OMOP-CDM"
+    className="convertFormatDiagram"
+  />
+);
+
+**Category:** Clinical research data warehouse model
+
+[i2b2](https://www.i2b2.org/) organizes clinical research data around patient,
+visit, and observation tables. Convert-Pheno reads **exported i2b2 tables** and
+groups their contents by patient. It does not connect to a live i2b2 database.
+The route is implemented and regression-tested; independent installation and
+local-ontology coverage is still limited.
+
+<div className="convertFormatSummary" aria-label="At a glance">
+  <div><span>Role</span><strong>Input</strong></div>
+  <div><span>Accepted input</span><strong>CSV/TSV tables, directory, or ZIP package</strong></div>
+  <div><span>Main output</span><strong>BFF, PXF, OMOP-CDM</strong></div>
+  <div><span>Processing</span><strong>Grouped by `PATIENT_NUM` in memory</strong></div>
+</div>
+
+<figure className="convertFormatFigure">
+<I2b2FormatImage />
+<figcaption>Star-schema facts and optional visit context are grouped into patient records before target conversion</figcaption>
+</figure>
+
+## What You Need
+
+Provide UTF-8 CSV or TSV table exports, either individually, in a directory, or
+inside one ZIP package. Gzip-compressed table files are also accepted.
+
+| Table | Requirement and use |
+| --- | --- |
+| `PATIENT_DIMENSION` | Required; creates one person record per `PATIENT_NUM` |
+| `OBSERVATION_FACT` | Required; supplies diagnoses, measurements, procedures, medications, and other findings |
+| `VISIT_DIMENSION` | Optional; adds encounter context through `_visit` |
+| `CONCEPT_DIMENSION` | Optional; supplies labels for `CONCEPT_CD` values |
+
+```bash
+convert-pheno \
+  -ii2b2 i2b2-export/ \
+  -obff individuals.json
+```
+
+Use `-opxf phenopackets.json` for PXF, or
+`-oomop --out-dir omop_out/ --ohdsi-db` for OMOP-CDM tables. A mapping file is
+not required.
+
+## What Is Converted
+
+| i2b2 content | Main BFF target |
+| --- | --- |
+| patient identifier, sex, birth date, death date | individual identity, demographics, and vital status |
+| numeric and LOINC observations | `measures` |
+| recognized diagnosis facts | `diseases` |
+| recognized procedure facts | `interventionsOrProcedures` |
+| recognized medication facts | `treatments` |
+| other clinical facts | `phenotypicFeatures` |
+| encounter links | private `_visit` context on mapped events |
+
+Modifier rows remain in source provenance but are not emitted as separate
+clinical events.
+
+## Terminology And Source Data
+
+i2b2 installations often use local ontology prefixes. Convert-Pheno preserves
+those source identifiers rather than guessing a standard crosswalk. When OMOP
+is the target, use `--term-audit terminology.xlsx` to review vocabulary
+resolution and fallbacks.
+
+Raw patient and fact rows are retained under `info.i2b2` by default. Use
+`--no-source-info` to omit them while retaining the converted fields.
+
+## Current Boundaries
+
+Input is non-streaming and must fit in memory. The supported profile covers the
+four tables listed above; additional i2b2 dimensions and installation-specific
+ontology behavior require independent review.
+
+For the field-level contract, see [i2b2 to BFF](i2b22bff).

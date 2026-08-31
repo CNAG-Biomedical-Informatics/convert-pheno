@@ -137,3 +137,11 @@ clinical tables needed for the conversion. Use `omop2bff` or `omop2pxf`; the
 module builds its caches and groups rows by `person_id`. Callers should not
 construct the internal participant-grouped representation. The supplied table
 data remains caller-owned and can be inspected or reused after conversion.
+
+i2b2, PCORnet, and Sentinel input use the same table-object shape: pass a hash
+keyed by source table name, with each value containing an array of row hashes.
+Use `i2b22bff`, `pcornet2bff`, or `sentinel2bff`; replace `bff` with `pxf` or
+`omop` for the compound routes. The module groups rows by the source patient
+identifier without modifying the caller-owned table object. See the
+[i2b2](i2b2), [PCORnet](pcornet), and [Sentinel](sentinel) guides for required
+tables and mapping behavior.

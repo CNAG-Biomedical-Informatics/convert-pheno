@@ -4,6 +4,7 @@ Revision history for Perl distribution Convert-Pheno
 
  - Added a local graphical workbench and expanded the Mojolicious API for JSON and file-based conversions
  - Added in-app terminology review with complete XLSX or TSV reports
+ - Added experimental i2b2, PCORnet CDM and Sentinel CDM table-package input with BFF, PXF and OMOP-CDM output
  - Marked the JSON-only Python HTTP API for future deprecation in favor of Mojolicious
 
 0.34 2026-08-03T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)

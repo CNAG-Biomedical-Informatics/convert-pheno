@@ -20,11 +20,16 @@ sub load_json {
 }
 
 my $catalog = catalog();
-is( $catalog->{meta}{count}, 35, 'catalog exposes every public route' );
+is( $catalog->{meta}{count}, 44, 'catalog exposes every public route' );
 is_deeply(
     [ sort map { $_->{id} } @{ $catalog->{data} } ],
     public_conversions(),
     'catalog route list comes from the public registry'
+);
+my ($i2b2_omop_route) = grep { $_->{id} eq 'i2b22omop' } @{ $catalog->{data} };
+ok(
+    scalar( grep { $_->{name} eq 'term_audit' } @{ $i2b2_omop_route->{options} } ),
+    'OMOP-target table routes expose terminology audit output',
 );
 
 sub uploaded_file {
@@ -115,6 +120,18 @@ my @file_cases = (
         files => { source => [ uploaded_file( $cbio_zip, 'acyc_mgh_2016.zip' ) ] },
     },
     {
+        route => 'i2b22bff',
+        files => { source => [ uploaded_file('t/i2b22bff/in/PATIENT_DIMENSION.csv'), uploaded_file('t/i2b22bff/in/OBSERVATION_FACT.csv') ] },
+    },
+    {
+        route => 'pcornet2bff',
+        files => { source => [ uploaded_file('t/pcornet2bff/in/DEMOGRAPHIC.csv'), uploaded_file('t/pcornet2bff/in/DIAGNOSIS.csv') ] },
+    },
+    {
+        route => 'sentinel2bff',
+        files => { source => [ uploaded_file('t/sentinel2bff/in/DEMOGRAPHIC.csv'), uploaded_file('t/sentinel2bff/in/DIAGNOSIS.csv') ] },
+    },
+    {
         route => 'omop2bff',
         files => {
             source => [ map { uploaded_file("t/omop2bff/in/$_.csv") }
@@ -183,6 +200,26 @@ my %input_for = (
     omop     => $omop,
     openehr  => $openehr,
     pxf      => $pxf,
+);
+
+my $i2b2_json = execute(
+    'i2b22bff',
+    {
+        input => {
+            data => {
+                PATIENT_DIMENSION => [ { PATIENT_NUM => 'HTTP-I2B2-1', SEX_CD => 'F' } ],
+                OBSERVATION_FACT  => [],
+            },
+        },
+        output  => { entities => ['individuals'] },
+        options => { test => JSON::XS::true },
+    }
+);
+ok( $i2b2_json->{ok}, 'i2b2 succeeds through the JSON artifact service' );
+is(
+    decode_json( $i2b2_json->{artifacts}[0]{content} )->[0]{id},
+    'HTTP-I2B2-1',
+    'i2b2 JSON service input retains the patient identifier',
 );
 
 my @routes = qw(

@@ -14,7 +14,7 @@ $t->get_ok('/api/health')->status_is(200)
   ->json_is('/ok', Mojo::JSON->true)->json_is('/data/engine', 'perl');
 
 $t->get_ok('/api/conversions')->status_is(200)
-  ->json_is('/ok', Mojo::JSON->true)->json_is('/meta/count', 35)
+  ->json_is('/ok', Mojo::JSON->true)->json_is('/meta/count', 44)
   ->json_is('/data/0/id', 'bff2csv');
 
 $t->get_ok('/examples/pxf')->status_is(200)
@@ -36,7 +36,7 @@ $t->get_ok('/examples/csv')->status_is(200)
   ->json_is('/data/options/separator', ',')
   ->json_is('/data/files/0/role', 'source');
 
-for my $source (qw(cbioportal cdisc-odm dataset-json dataset-xml redcap)) {
+for my $source (qw(cbioportal cdisc-odm dataset-json dataset-xml i2b2 pcornet redcap sentinel)) {
     $t->get_ok("/examples/$source")->status_is(200)
       ->json_is('/data/transport', 'multipart')
       ->json_is('/data/files/0/role', 'source');

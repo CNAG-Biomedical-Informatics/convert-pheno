@@ -1,0 +1,338 @@
+[
+   {
+      "diseases" : [
+         {
+            "_visit" : {
+               "composite" : "S001:SE001",
+               "concept" : {
+                  "id" : "Sentinel:Encounter.AV",
+                  "label" : "AV"
+               },
+               "end_date" : "2025-03-03T00:00:00Z",
+               "id" : "SE001",
+               "occurrence_id" : "SE001",
+               "start_date" : "2025-03-03T00:00:00Z"
+            },
+            "diseaseCode" : {
+               "id" : "ICD10CM:J45.909",
+               "label" : "Unspecified asthma uncomplicated"
+            }
+         }
+      ],
+      "ethnicity" : {
+         "id" : "Sentinel:Ethnicity.N",
+         "label" : "Not Hispanic or Latino"
+      },
+      "id" : "S001",
+      "info" : {
+         "phenopacket" : {
+            "dateOfBirth" : "1988-03-14T00:00:00Z"
+         },
+         "sentinel" : {
+            "patient" : {
+               "BIRTH_DATE" : "1988-03-14",
+               "HISPANIC" : "N",
+               "PATID" : "S001",
+               "RACE" : "5",
+               "SEX" : "F"
+            },
+            "tables" : {
+               "DIAGNOSIS" : [
+                  {
+                     "DX" : "J45.909",
+                     "DX_NAME" : "Unspecified asthma uncomplicated",
+                     "DX_TYPE" : "10",
+                     "ENCOUNTERID" : "SE001",
+                     "PATID" : "S001"
+                  }
+               ],
+               "ENCOUNTER" : [
+                  {
+                     "ADATE" : "2025-03-03",
+                     "DDATE" : "2025-03-03",
+                     "ENCOUNTERID" : "SE001",
+                     "ENC_TYPE" : "AV",
+                     "PATID" : "S001"
+                  }
+               ],
+               "PRESCRIBING" : [
+                  {
+                     "ENCOUNTERID" : "SE001",
+                     "PATID" : "S001",
+                     "RXCUI" : "435",
+                     "RX_NAME" : "Albuterol",
+                     "RX_ROUTE" : "INHALATION"
+                  }
+               ],
+               "PROCEDURE" : [
+                  {
+                     "ENCOUNTERID" : "SE001",
+                     "PATID" : "S001",
+                     "PX" : "94010",
+                     "PX_DATE" : "2025-03-03",
+                     "PX_NAME" : "Spirometry",
+                     "PX_TYPE" : "CPT4"
+                  }
+               ]
+            }
+         }
+      },
+      "interventionsOrProcedures" : [
+         {
+            "_visit" : {
+               "composite" : "S001:SE001",
+               "concept" : {
+                  "id" : "Sentinel:Encounter.AV",
+                  "label" : "AV"
+               },
+               "end_date" : "2025-03-03T00:00:00Z",
+               "id" : "SE001",
+               "occurrence_id" : "SE001",
+               "start_date" : "2025-03-03T00:00:00Z"
+            },
+            "dateOfProcedure" : "2025-03-03",
+            "procedureCode" : {
+               "id" : "CPT4:94010",
+               "label" : "Spirometry"
+            }
+         }
+      ],
+      "sex" : {
+         "id" : "NCIT:C16576",
+         "label" : "Female"
+      },
+      "treatments" : [
+         {
+            "_visit" : {
+               "composite" : "S001:SE001",
+               "concept" : {
+                  "id" : "Sentinel:Encounter.AV",
+                  "label" : "AV"
+               },
+               "end_date" : "2025-03-03T00:00:00Z",
+               "id" : "SE001",
+               "occurrence_id" : "SE001",
+               "start_date" : "2025-03-03T00:00:00Z"
+            },
+            "routeOfAdministration" : {
+               "id" : "Sentinel:Route.INHALATION",
+               "label" : "INHALATION"
+            },
+            "treatmentCode" : {
+               "id" : "RxNorm:435",
+               "label" : "Albuterol"
+            }
+         }
+      ]
+   },
+   {
+      "ethnicity" : {
+         "id" : "Sentinel:Ethnicity.Y",
+         "label" : "Hispanic or Latino"
+      },
+      "id" : "S002",
+      "info" : {
+         "phenopacket" : {
+            "dateOfBirth" : "1949-12-02T00:00:00Z",
+            "vitalStatus" : {
+               "status" : "DECEASED",
+               "timeOfDeath" : {
+                  "timestamp" : "2025-05-12T00:00:00Z"
+               }
+            }
+         },
+         "sentinel" : {
+            "patient" : {
+               "BIRTH_DATE" : "1949-12-02",
+               "HISPANIC" : "Y",
+               "PATID" : "S002",
+               "RACE" : "3",
+               "SEX" : "M"
+            },
+            "tables" : {
+               "DEATH" : [
+                  {
+                     "DEATH_DATE" : "2025-05-12",
+                     "PATID" : "S002"
+                  }
+               ],
+               "ENCOUNTER" : [
+                  {
+                     "ADATE" : "2025-04-07",
+                     "DDATE" : "2025-04-10",
+                     "ENCOUNTERID" : "SE002",
+                     "ENC_TYPE" : "IP",
+                     "PATID" : "S002"
+                  }
+               ],
+               "LAB_RESULT" : [
+                  {
+                     "ENCOUNTERID" : "SE002",
+                     "LAB_NAME" : "Glucose",
+                     "LOINC" : "2345-7",
+                     "PATID" : "S002",
+                     "RESULT_DATE" : "2025-04-08",
+                     "RESULT_NUM" : "108",
+                     "RESULT_UNIT" : "mg/dL"
+                  }
+               ],
+               "VITAL_SIGNS" : [
+                  {
+                     "BP_UNIT" : "mm[Hg]",
+                     "DBP" : "84",
+                     "ENCOUNTERID" : "SE002",
+                     "HEIGHT" : "178",
+                     "HEIGHT_UNIT" : "cm",
+                     "MEASURE_DATE" : "2025-04-08",
+                     "PATID" : "S002",
+                     "SBP" : "135",
+                     "WEIGHT" : "82",
+                     "WEIGHT_UNIT" : "kg"
+                  }
+               ]
+            }
+         }
+      },
+      "measures" : [
+         {
+            "_visit" : {
+               "composite" : "S002:SE002",
+               "concept" : {
+                  "id" : "Sentinel:Encounter.IP",
+                  "label" : "IP"
+               },
+               "end_date" : "2025-04-10T00:00:00Z",
+               "id" : "SE002",
+               "occurrence_id" : "SE002",
+               "start_date" : "2025-04-07T00:00:00Z"
+            },
+            "assayCode" : {
+               "id" : "LOINC:2345-7",
+               "label" : "Glucose"
+            },
+            "date" : "2025-04-08",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "Sentinel:Unit.mg/dL",
+                     "label" : "mg/dL"
+                  },
+                  "value" : 108
+               }
+            }
+         },
+         {
+            "_visit" : {
+               "composite" : "S002:SE002",
+               "concept" : {
+                  "id" : "Sentinel:Encounter.IP",
+                  "label" : "IP"
+               },
+               "end_date" : "2025-04-10T00:00:00Z",
+               "id" : "SE002",
+               "occurrence_id" : "SE002",
+               "start_date" : "2025-04-07T00:00:00Z"
+            },
+            "assayCode" : {
+               "id" : "LOINC:8302-2",
+               "label" : "Body height"
+            },
+            "date" : "2025-04-08",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "Sentinel:Unit.cm",
+                     "label" : "cm"
+                  },
+                  "value" : 178
+               }
+            }
+         },
+         {
+            "_visit" : {
+               "composite" : "S002:SE002",
+               "concept" : {
+                  "id" : "Sentinel:Encounter.IP",
+                  "label" : "IP"
+               },
+               "end_date" : "2025-04-10T00:00:00Z",
+               "id" : "SE002",
+               "occurrence_id" : "SE002",
+               "start_date" : "2025-04-07T00:00:00Z"
+            },
+            "assayCode" : {
+               "id" : "LOINC:29463-7",
+               "label" : "Body weight"
+            },
+            "date" : "2025-04-08",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "Sentinel:Unit.kg",
+                     "label" : "kg"
+                  },
+                  "value" : 82
+               }
+            }
+         },
+         {
+            "_visit" : {
+               "composite" : "S002:SE002",
+               "concept" : {
+                  "id" : "Sentinel:Encounter.IP",
+                  "label" : "IP"
+               },
+               "end_date" : "2025-04-10T00:00:00Z",
+               "id" : "SE002",
+               "occurrence_id" : "SE002",
+               "start_date" : "2025-04-07T00:00:00Z"
+            },
+            "assayCode" : {
+               "id" : "LOINC:8480-6",
+               "label" : "Systolic blood pressure"
+            },
+            "date" : "2025-04-08",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "Sentinel:Unit.mm_Hg",
+                     "label" : "mm[Hg]"
+                  },
+                  "value" : 135
+               }
+            }
+         },
+         {
+            "_visit" : {
+               "composite" : "S002:SE002",
+               "concept" : {
+                  "id" : "Sentinel:Encounter.IP",
+                  "label" : "IP"
+               },
+               "end_date" : "2025-04-10T00:00:00Z",
+               "id" : "SE002",
+               "occurrence_id" : "SE002",
+               "start_date" : "2025-04-07T00:00:00Z"
+            },
+            "assayCode" : {
+               "id" : "LOINC:8462-4",
+               "label" : "Diastolic blood pressure"
+            },
+            "date" : "2025-04-08",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "Sentinel:Unit.mm_Hg",
+                     "label" : "mm[Hg]"
+                  },
+                  "value" : 84
+               }
+            }
+         }
+      ],
+      "sex" : {
+         "id" : "NCIT:C20197",
+         "label" : "Male"
+      }
+   }
+]

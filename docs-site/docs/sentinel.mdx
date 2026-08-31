@@ -1,0 +1,91 @@
+---
+title: Sentinel CDM
+sidebar_label: Sentinel CDM
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+export const SentinelFormatImage = () => (
+  <img
+    src={useBaseUrl('/img/sentinel-format.svg')}
+    alt="Exported Sentinel CDM tables grouped by patient before conversion to BFF, PXF, or OMOP-CDM"
+    className="convertFormatDiagram"
+  />
+);
+
+**Category:** Distributed health-data network CDM
+
+The [Sentinel Common Data Model](https://www.sentinelinitiative.org/methods-data-tools/sentinel-common-data-model/sentinel-common-data-model)
+standardizes health-data tables across participating data partners.
+Convert-Pheno reads **exported Sentinel CDM tables**; it does not query a live
+partner database. The route is implemented and regression-tested against
+synthetic fixtures; independent data-partner coverage is still limited.
+
+<div className="convertFormatSummary" aria-label="At a glance">
+  <div><span>Role</span><strong>Input</strong></div>
+  <div><span>Accepted input</span><strong>CSV/TSV tables, directory, or ZIP package</strong></div>
+  <div><span>Main output</span><strong>BFF, PXF, OMOP-CDM</strong></div>
+  <div><span>Processing</span><strong>Grouped by `PATID` in memory</strong></div>
+</div>
+
+<figure className="convertFormatFigure">
+<SentinelFormatImage />
+<figcaption>Data-partner tables are joined to DEMOGRAPHIC by PATID before target conversion</figcaption>
+</figure>
+
+## What You Need
+
+Provide UTF-8 CSV or TSV table exports, either individually, in a directory, or
+inside one ZIP package. Gzip-compressed table files are also accepted.
+`DEMOGRAPHIC` is required.
+
+| Table group | Supported tables |
+| --- | --- |
+| person | `DEMOGRAPHIC`, `DEATH` |
+| encounters and diagnoses | `ENCOUNTER`, `DIAGNOSIS` |
+| procedures | `PROCEDURE` |
+| laboratory and vital signs | `LAB_RESULT`, `VITAL_SIGNS` |
+| medications | `PRESCRIBING`, `DISPENSING`, `INPATIENT_PHARMACY` |
+
+```bash
+convert-pheno \
+  -isentinel sentinel-export/ \
+  -obff individuals.json
+```
+
+Use `-opxf phenopackets.json` for PXF, or
+`-oomop --out-dir omop_out/ --ohdsi-db` for OMOP-CDM tables. A mapping file is
+not required.
+
+## What Is Converted
+
+| Sentinel content | Main BFF target |
+| --- | --- |
+| `DEMOGRAPHIC`, `DEATH` | individual identity, demographics, and vital status |
+| `DIAGNOSIS` | `diseases` |
+| `PROCEDURE` | `interventionsOrProcedures` |
+| `LAB_RESULT`, `VITAL_SIGNS` | `measures` |
+| medication tables | `treatments` |
+| encounter links | private `_visit` context on mapped events |
+
+`HISPANIC` or another explicit ethnicity field can populate BFF `ethnicity`.
+`RACE` remains in source provenance because race and ethnicity are not treated
+as interchangeable concepts.
+
+## Terminology And Source Data
+
+Recognized code systems are retained as CURIEs. Source-specific or ambiguous
+codes remain `Sentinel:` terms rather than receiving a guessed crosswalk. For
+OMOP output, use `--term-audit terminology.xlsx` to review OHDSI vocabulary
+resolution.
+
+Raw rows are retained under `info.sentinel` by default. Use `--no-source-info`
+to omit them while retaining the converted fields.
+
+## Current Boundaries
+
+Input is non-streaming and must fit in memory. Support follows the listed
+Sentinel tables and their standard columns; data-partner extensions require
+independent review.
+
+For the field-level contract, see [Sentinel CDM to BFF](sentinel2bff).

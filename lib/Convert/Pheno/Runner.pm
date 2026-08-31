@@ -10,15 +10,19 @@ use Convert::Pheno::BFF::DerivedEntities qw(
   execution_entities
   synthesize_bundle_entities
 );
-use Convert::Pheno::CBioPortal::ToBFF qw(run_cbioportal_to_bundle);
+use Convert::Pheno::CBioPortal::ToBFF ();
 use Convert::Pheno::Context;
 use Convert::Pheno::ConversionRequest;
-use Convert::Pheno::CDISC::SDTM::ToBFF qw(run_sdtm_to_bundle);
+use Convert::Pheno::CDISC::SDTM::ToBFF ();
+use Convert::Pheno::ClinicalCDM::ToBFF ();
 use Convert::Pheno::ExecutionContext;
-use Convert::Pheno::FHIR::ToBFF qw(run_fhir_to_bundle);
+use Convert::Pheno::FHIR::ToBFF ();
 use Convert::Pheno::Model::Bundle;
+use Convert::Pheno::OMOP::ToBFF ();
+use Convert::Pheno::OpenEHR::ToBFF ();
 use Convert::Pheno::Operations qw(conversion_spec);
-use Convert::Pheno::Tabular::ToBFF qw(run_tabular_to_bundle);
+use Convert::Pheno::PXF::ToBFF ();
+use Convert::Pheno::Tabular::ToBFF ();
 use Exporter 'import';
 
 our @EXPORT_OK = qw(resolve_operation run_operation);
@@ -34,89 +38,58 @@ my %DIRECT_OPERATIONS = (
     pxf2jsonld => \&Convert::Pheno::do_pxf2jsonld,
 );
 
+my %BUNDLE_SOURCE_HANDLERS = (
+    cbioportal => sub {
+        return Convert::Pheno::CBioPortal::ToBFF::run_cbioportal_to_bundle(@_);
+    },
+    'cdisc-odm' => sub {
+        return Convert::Pheno::Tabular::ToBFF::run_tabular_to_bundle(@_);
+    },
+    csv => sub {
+        return Convert::Pheno::Tabular::ToBFF::run_tabular_to_bundle(@_);
+    },
+    'dataset-json' => sub {
+        return Convert::Pheno::CDISC::SDTM::ToBFF::run_sdtm_to_bundle(@_);
+    },
+    'dataset-xml' => sub {
+        return Convert::Pheno::CDISC::SDTM::ToBFF::run_sdtm_to_bundle(@_);
+    },
+    fhir => sub {
+        return Convert::Pheno::FHIR::ToBFF::run_fhir_to_bundle(@_);
+    },
+    i2b2 => sub {
+        return Convert::Pheno::ClinicalCDM::ToBFF::run_clinical_cdm_to_bundle(@_);
+    },
+    omop => sub {
+        return Convert::Pheno::OMOP::ToBFF::run_omop_to_bundle(@_);
+    },
+    openehr => sub {
+        return Convert::Pheno::OpenEHR::ToBFF::run_openehr_to_bundle(@_);
+    },
+    pcornet => sub {
+        return Convert::Pheno::ClinicalCDM::ToBFF::run_clinical_cdm_to_bundle(@_);
+    },
+    pxf => sub {
+        return Convert::Pheno::PXF::ToBFF::run_pxf_to_bundle(@_);
+    },
+    redcap => sub {
+        return Convert::Pheno::Tabular::ToBFF::run_tabular_to_bundle(@_);
+    },
+    sentinel => sub {
+        return Convert::Pheno::ClinicalCDM::ToBFF::run_clinical_cdm_to_bundle(@_);
+    },
+);
+
 sub resolve_operation {
     my ($self) = @_;
     my $spec = conversion_spec( $self->{method} )
       or die "Unsupported method <$self->{method}> in runner\n";
 
-    return _bundle_operation(
-        spec => $spec,
-        run  => sub {
-            my ( $convert, $input, $context ) = @_;
-            return run_cbioportal_to_bundle( $convert, $input, $context );
-        },
-    ) if $self->{method} eq 'cbioportal2bff';
-
-    return _bundle_operation(
-        spec => $spec,
-        run  => sub {
-            my ( $convert, $input, $context ) = @_;
-            return run_tabular_to_bundle( $convert, $input, $context );
-        },
-    ) if $self->{method} eq 'redcap2bff';
-
-    return _bundle_operation(
-        spec => $spec,
-        run  => sub {
-            my ( $convert, $input, $context ) = @_;
-            return run_tabular_to_bundle( $convert, $input, $context );
-        },
-    ) if $self->{method} eq 'cdiscodm2bff';
-
-    return _bundle_operation(
-        spec => $spec,
-        run  => sub {
-            my ( $convert, $input, $context ) = @_;
-            return run_sdtm_to_bundle( $convert, $input, $context );
-        },
-    ) if $self->{method} eq 'datasetjson2bff'
-      || $self->{method} eq 'datasetxml2bff';
-
-    return _bundle_operation(
-        spec => $spec,
-        run  => sub {
-            my ( $convert, $input, $context ) = @_;
-            return run_fhir_to_bundle( $convert, $input, $context );
-        },
-    ) if $self->{method} eq 'fhir2bff';
-
-    return _bundle_operation(
-        spec => $spec,
-        run  => sub {
-            my ( $convert, $input, $context ) = @_;
-            return run_tabular_to_bundle( $convert, $input, $context );
-        },
-    ) if $self->{method} eq 'csv2bff';
-
-    return _bundle_operation(
-        spec => $spec,
-        run  => sub {
-            my ( $convert, $input, $context ) = @_;
-            return Convert::Pheno::OMOP::ToBFF::run_omop_to_bundle(
-                $convert, $input, $context
-            );
-        },
-    ) if $self->{method} eq 'omop2bff';
-
-    return _bundle_operation(
-        spec => $spec,
-        run  => sub {
-            my ( $convert, $input, $context ) = @_;
-            return Convert::Pheno::PXF::ToBFF::run_pxf_to_bundle(
-                $convert, $input, $context
-            );
-        },
-    ) if $self->{method} eq 'pxf2bff';
-
-    return _bundle_operation(
-        spec => $spec,
-        run  => sub {
-            my ( $convert, $input, $context ) = @_;
-            return Convert::Pheno::OpenEHR::ToBFF::run_openehr_to_bundle(
-                $convert, $input, $context
-            );
-        },
-    ) if $self->{method} eq 'openehr2bff';
+    if ( $spec->{operation} eq 'bundle' ) {
+        my $handler = $BUNDLE_SOURCE_HANDLERS{ $spec->{source} }
+          or die "No bundle handler is registered for source <$spec->{source}>\n";
+        return _bundle_operation( spec => $spec, run => $handler );
+    }
 
     return _direct_operation(
         spec => $spec,

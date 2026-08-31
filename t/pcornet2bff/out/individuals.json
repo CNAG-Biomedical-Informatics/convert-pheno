@@ -1,0 +1,366 @@
+[
+   {
+      "diseases" : [
+         {
+            "_visit" : {
+               "composite" : "P001:E001",
+               "concept" : {
+                  "id" : "PCORnet:Encounter.AV",
+                  "label" : "AV"
+               },
+               "end_date" : "2025-01-10T00:00:00Z",
+               "id" : "E001",
+               "occurrence_id" : "E001",
+               "start_date" : "2025-01-10T00:00:00Z"
+            },
+            "diseaseCode" : {
+               "id" : "ICD10CM:I10",
+               "label" : "Essential hypertension"
+            }
+         }
+      ],
+      "ethnicity" : {
+         "id" : "PCORnet:Ethnicity.Y",
+         "label" : "Hispanic or Latino"
+      },
+      "id" : "P001",
+      "info" : {
+         "pcornet" : {
+            "patient" : {
+               "BIRTH_DATE" : "1975-04-12",
+               "HISPANIC" : "Y",
+               "PATID" : "P001",
+               "RACE" : "05",
+               "SEX" : "F"
+            },
+            "tables" : {
+               "DIAGNOSIS" : [
+                  {
+                     "DX" : "I10",
+                     "DX_NAME" : "Essential hypertension",
+                     "DX_TYPE" : "10",
+                     "ENCOUNTERID" : "E001",
+                     "PATID" : "P001"
+                  }
+               ],
+               "ENCOUNTER" : [
+                  {
+                     "ADMIT_DATE" : "2025-01-10",
+                     "DISCHARGE_DATE" : "2025-01-10",
+                     "ENCOUNTERID" : "E001",
+                     "ENC_TYPE" : "AV",
+                     "PATID" : "P001"
+                  }
+               ],
+               "LAB_RESULT_CM" : [
+                  {
+                     "ENCOUNTERID" : "E001",
+                     "LAB_LOINC" : "4548-4",
+                     "PATID" : "P001",
+                     "RAW_LAB_NAME" : "Hemoglobin A1c",
+                     "RESULT_DATE" : "2025-01-10",
+                     "RESULT_NUM" : "6.1",
+                     "RESULT_UNIT" : "%"
+                  }
+               ],
+               "PROCEDURES" : [
+                  {
+                     "ENCOUNTERID" : "E001",
+                     "PATID" : "P001",
+                     "PX" : "93000",
+                     "PX_DATE" : "2025-01-10",
+                     "PX_NAME" : "Electrocardiogram",
+                     "PX_TYPE" : "CH"
+                  }
+               ],
+               "VITAL" : [
+                  {
+                     "BP_UNIT" : "mm[Hg]",
+                     "DIASTOLIC" : "78",
+                     "ENCOUNTERID" : "E001",
+                     "HT" : "165",
+                     "HT_UNIT" : "cm",
+                     "MEASURE_DATE" : "2025-01-10",
+                     "PATID" : "P001",
+                     "SYSTOLIC" : "128",
+                     "WT" : "68",
+                     "WT_UNIT" : "kg"
+                  }
+               ]
+            }
+         },
+         "phenopacket" : {
+            "dateOfBirth" : "1975-04-12T00:00:00Z"
+         }
+      },
+      "interventionsOrProcedures" : [
+         {
+            "_visit" : {
+               "composite" : "P001:E001",
+               "concept" : {
+                  "id" : "PCORnet:Encounter.AV",
+                  "label" : "AV"
+               },
+               "end_date" : "2025-01-10T00:00:00Z",
+               "id" : "E001",
+               "occurrence_id" : "E001",
+               "start_date" : "2025-01-10T00:00:00Z"
+            },
+            "dateOfProcedure" : "2025-01-10",
+            "procedureCode" : {
+               "id" : "PCORnet:Procedure.93000",
+               "label" : "Electrocardiogram"
+            }
+         }
+      ],
+      "measures" : [
+         {
+            "_visit" : {
+               "composite" : "P001:E001",
+               "concept" : {
+                  "id" : "PCORnet:Encounter.AV",
+                  "label" : "AV"
+               },
+               "end_date" : "2025-01-10T00:00:00Z",
+               "id" : "E001",
+               "occurrence_id" : "E001",
+               "start_date" : "2025-01-10T00:00:00Z"
+            },
+            "assayCode" : {
+               "id" : "LOINC:4548-4",
+               "label" : "Hemoglobin A1c"
+            },
+            "date" : "2025-01-10",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "PCORnet:Unit.percent",
+                     "label" : "%"
+                  },
+                  "value" : 6.1
+               }
+            }
+         },
+         {
+            "_visit" : {
+               "composite" : "P001:E001",
+               "concept" : {
+                  "id" : "PCORnet:Encounter.AV",
+                  "label" : "AV"
+               },
+               "end_date" : "2025-01-10T00:00:00Z",
+               "id" : "E001",
+               "occurrence_id" : "E001",
+               "start_date" : "2025-01-10T00:00:00Z"
+            },
+            "assayCode" : {
+               "id" : "LOINC:8302-2",
+               "label" : "Body height"
+            },
+            "date" : "2025-01-10",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "PCORnet:Unit.cm",
+                     "label" : "cm"
+                  },
+                  "value" : 165
+               }
+            }
+         },
+         {
+            "_visit" : {
+               "composite" : "P001:E001",
+               "concept" : {
+                  "id" : "PCORnet:Encounter.AV",
+                  "label" : "AV"
+               },
+               "end_date" : "2025-01-10T00:00:00Z",
+               "id" : "E001",
+               "occurrence_id" : "E001",
+               "start_date" : "2025-01-10T00:00:00Z"
+            },
+            "assayCode" : {
+               "id" : "LOINC:29463-7",
+               "label" : "Body weight"
+            },
+            "date" : "2025-01-10",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "PCORnet:Unit.kg",
+                     "label" : "kg"
+                  },
+                  "value" : 68
+               }
+            }
+         },
+         {
+            "_visit" : {
+               "composite" : "P001:E001",
+               "concept" : {
+                  "id" : "PCORnet:Encounter.AV",
+                  "label" : "AV"
+               },
+               "end_date" : "2025-01-10T00:00:00Z",
+               "id" : "E001",
+               "occurrence_id" : "E001",
+               "start_date" : "2025-01-10T00:00:00Z"
+            },
+            "assayCode" : {
+               "id" : "LOINC:8480-6",
+               "label" : "Systolic blood pressure"
+            },
+            "date" : "2025-01-10",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "PCORnet:Unit.mm_Hg",
+                     "label" : "mm[Hg]"
+                  },
+                  "value" : 128
+               }
+            }
+         },
+         {
+            "_visit" : {
+               "composite" : "P001:E001",
+               "concept" : {
+                  "id" : "PCORnet:Encounter.AV",
+                  "label" : "AV"
+               },
+               "end_date" : "2025-01-10T00:00:00Z",
+               "id" : "E001",
+               "occurrence_id" : "E001",
+               "start_date" : "2025-01-10T00:00:00Z"
+            },
+            "assayCode" : {
+               "id" : "LOINC:8462-4",
+               "label" : "Diastolic blood pressure"
+            },
+            "date" : "2025-01-10",
+            "measurementValue" : {
+               "quantity" : {
+                  "unit" : {
+                     "id" : "PCORnet:Unit.mm_Hg",
+                     "label" : "mm[Hg]"
+                  },
+                  "value" : 78
+               }
+            }
+         }
+      ],
+      "sex" : {
+         "id" : "NCIT:C16576",
+         "label" : "Female"
+      }
+   },
+   {
+      "diseases" : [
+         {
+            "_visit" : {
+               "composite" : "P002:E002",
+               "concept" : {
+                  "id" : "PCORnet:Encounter.IP",
+                  "label" : "IP"
+               },
+               "end_date" : "2025-02-06T00:00:00Z",
+               "id" : "E002",
+               "occurrence_id" : "E002",
+               "start_date" : "2025-02-04T00:00:00Z"
+            },
+            "diseaseCode" : {
+               "id" : "SNOMEDCT:44054006",
+               "label" : "Type 2 diabetes mellitus"
+            }
+         }
+      ],
+      "ethnicity" : {
+         "id" : "PCORnet:Ethnicity.N",
+         "label" : "Not Hispanic or Latino"
+      },
+      "id" : "P002",
+      "info" : {
+         "pcornet" : {
+            "patient" : {
+               "BIRTH_DATE" : "1962-09-21",
+               "HISPANIC" : "N",
+               "PATID" : "P002",
+               "RACE" : "03",
+               "SEX" : "M"
+            },
+            "tables" : {
+               "DEATH" : [
+                  {
+                     "DEATH_DATE" : "2025-03-01",
+                     "PATID" : "P002"
+                  }
+               ],
+               "DIAGNOSIS" : [
+                  {
+                     "DX" : "44054006",
+                     "DX_NAME" : "Type 2 diabetes mellitus",
+                     "DX_TYPE" : "SM",
+                     "ENCOUNTERID" : "E002",
+                     "PATID" : "P002"
+                  }
+               ],
+               "ENCOUNTER" : [
+                  {
+                     "ADMIT_DATE" : "2025-02-04",
+                     "DISCHARGE_DATE" : "2025-02-06",
+                     "ENCOUNTERID" : "E002",
+                     "ENC_TYPE" : "IP",
+                     "PATID" : "P002"
+                  }
+               ],
+               "PRESCRIBING" : [
+                  {
+                     "ENCOUNTERID" : "E002",
+                     "PATID" : "P002",
+                     "RAW_RX_MED_NAME" : "Metformin 500 MG oral tablet",
+                     "RXNORM_CUI" : "860975",
+                     "RX_ROUTE" : "ORAL"
+                  }
+               ]
+            }
+         },
+         "phenopacket" : {
+            "dateOfBirth" : "1962-09-21T00:00:00Z",
+            "vitalStatus" : {
+               "status" : "DECEASED",
+               "timeOfDeath" : {
+                  "timestamp" : "2025-03-01T00:00:00Z"
+               }
+            }
+         }
+      },
+      "sex" : {
+         "id" : "NCIT:C20197",
+         "label" : "Male"
+      },
+      "treatments" : [
+         {
+            "_visit" : {
+               "composite" : "P002:E002",
+               "concept" : {
+                  "id" : "PCORnet:Encounter.IP",
+                  "label" : "IP"
+               },
+               "end_date" : "2025-02-06T00:00:00Z",
+               "id" : "E002",
+               "occurrence_id" : "E002",
+               "start_date" : "2025-02-04T00:00:00Z"
+            },
+            "routeOfAdministration" : {
+               "id" : "PCORnet:Route.ORAL",
+               "label" : "ORAL"
+            },
+            "treatmentCode" : {
+               "id" : "RxNorm:860975",
+               "label" : "Metformin 500 MG oral tablet"
+            }
+         }
+      ]
+   }
+]

@@ -91,7 +91,7 @@ export default function Home() {
             <article className={styles.operation}>
               <span>Structured inputs</span>
               <h3>Convert supported models and exchange formats</h3>
-              <p>Read BFF, PXF, OMOP-CDM, FHIR/mCODE, openEHR, cBioPortal, and CDISC dataset packages.</p>
+              <p>Read BFF, PXF, OMOP-CDM, FHIR/mCODE, openEHR, cBioPortal, CDISC datasets, and supported clinical table exports.</p>
             </article>
             <article className={styles.operation}>
               <span>Mapped sources</span>

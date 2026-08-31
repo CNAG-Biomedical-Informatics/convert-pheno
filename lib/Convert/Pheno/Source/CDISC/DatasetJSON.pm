@@ -18,6 +18,7 @@ use Convert::Pheno::CDISC::SDTM::Normalizer qw(
 );
 use Convert::Pheno::CDISC::SDTM::Terminology qw(prepare_sdtm_terminology);
 use Convert::Pheno::IO::FileIO qw(read_json);
+use Convert::Pheno::Mapping::Shared qw(get_info);
 use Convert::Pheno::Source::Result;
 
 my $SCHEMA_FILE =
@@ -106,6 +107,38 @@ sub load {
             },
         }
     );
+}
+
+sub prepare {
+    my ($self) = @_;
+    my $converter = $self->{converter};
+    return 1 if $converter->{dataset_json_input_prepared}
+      && exists $converter->{data};
+
+    $converter->{_dataset_json_source_data} = $converter->{data}
+      if exists $converter->{data}
+      && !exists $converter->{_dataset_json_source_data};
+    $converter->{data} = $converter->{_dataset_json_source_data}
+      if !exists $converter->{data}
+      && exists $converter->{_dataset_json_source_data};
+
+    my $source = $self->load;
+    $source->apply_to($converter);
+    $converter->{dataset_json_metadata} =
+      $source->artifact('dataset_metadata');
+    $converter->{dataset_json_subject_independent_domains} =
+      $source->artifact('subject_independent_domains');
+    $converter->{source_derived_entity_overrides} =
+      $source->artifact('derived_entity_overrides') || {};
+    $converter->{sdtm_terminology_mapping} =
+      $source->artifact('terminology_mapping') || {};
+    $converter->{sdtm_source_terms} =
+      $source->artifact('source_terminology') || {};
+    $converter->{terminology_lookup_required} =
+      $source->artifact('terminology_requires_sqlite') ? 1 : 0;
+    $converter->{convertPheno} ||= get_info($converter);
+    $converter->{dataset_json_input_prepared} = 1;
+    return 1;
 }
 
 1;

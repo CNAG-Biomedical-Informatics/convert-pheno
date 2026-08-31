@@ -5,10 +5,9 @@ use warnings;
 use autodie;
 use feature                        qw(say);
 use JSON::XS;
-use Convert::Pheno::Tabular::ToBFF qw(map_tabular_individual);
 use Hash::Fold fold => { array_delimiter => ':' };
 use Exporter 'import';
-our @EXPORT = qw(do_bff2csv do_pxf2csv do_csv2bff);
+our @EXPORT = qw(do_bff2csv do_pxf2csv);
 
 #$Data::Dumper::Sortkeys = 1;
 
@@ -74,17 +73,6 @@ sub _normalize_folded_csv_values {
     }
 
     return $row;
-}
-
-###############
-###############
-#  CSV2BFF    #
-###############
-###############
-
-sub do_csv2bff {
-    my ( $self, $participant ) = @_;
-    return map_tabular_individual( $self, $participant );
 }
 
 1;

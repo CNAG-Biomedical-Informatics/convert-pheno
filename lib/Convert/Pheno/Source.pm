@@ -9,13 +9,24 @@ use Convert::Pheno::Source::CBioPortal;
 use Convert::Pheno::Source::CDISC::DatasetJSON;
 use Convert::Pheno::Source::CDISC::DatasetXML;
 use Convert::Pheno::Source::CDISC::ODM;
+use Convert::Pheno::Source::ClinicalCDM;
 use Convert::Pheno::Source::FHIR;
 use Convert::Pheno::Source::OMOP;
 use Convert::Pheno::Source::OpenEHR;
 use Convert::Pheno::Source::Structured;
 use Convert::Pheno::Source::Tabular;
 
-our @EXPORT_OK = qw(source_adapter);
+our @EXPORT_OK = qw(prepare_source source_adapter);
+
+sub prepare_source {
+    my ( $converter, $format ) = @_;
+    my $adapter = source_adapter( $converter, $format );
+    return $adapter->prepare($format) if $adapter->can('prepare');
+
+    my $source = $adapter->load;
+    $source->apply_to($converter);
+    return 1;
+}
 
 sub source_adapter {
     my ( $converter, $format ) = @_;
@@ -36,6 +47,11 @@ sub source_adapter {
       if $format eq 'dataset-xml';
     return Convert::Pheno::Source::FHIR->new($converter)
       if $format eq 'fhir';
+    return Convert::Pheno::Source::ClinicalCDM->new(
+        $converter,
+        profile => $format,
+      )
+      if $format eq 'i2b2' || $format eq 'sentinel' || $format eq 'pcornet';
     return Convert::Pheno::Source::OpenEHR->new($converter)
       if $format eq 'openehr';
     return Convert::Pheno::Source::OMOP->new($converter)

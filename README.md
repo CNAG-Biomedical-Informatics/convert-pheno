@@ -9,162 +9,79 @@
 [![Build and Test](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/build-and-test.yml)
 [![Coverage Status](https://coveralls.io/repos/github/CNAG-Biomedical-Informatics/convert-pheno/badge.svg?branch=main)](https://coveralls.io/github/CNAG-Biomedical-Informatics/convert-pheno?branch=main)
 [![CPAN Publish](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/cpan-publish.yml/badge.svg)](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/cpan-publish.yml)
-[![Kwalitee Score](https://cpants.cpanauthors.org/dist/Convert-Pheno.svg)](https://cpants.cpanauthors.org/dist/Convert-Pheno)
-![version](https://img.shields.io/badge/version-0.34__1-blue)
+![version](https://img.shields.io/badge/version-0.34-blue)
 [![Docker Build](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/docker-build-multi-arch.yml/badge.svg)](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/docker-build-multi-arch.yml)
-[![Docker Pulls](https://badgen.net/docker/pulls/manuelrueda/convert-pheno?icon=docker&label=pulls)](https://hub.docker.com/r/manuelrueda/convert-pheno/)
-[![Docker Image Size](https://img.shields.io/docker/image-size/manuelrueda/convert-pheno/latest?logo=docker&label=image%20size)](https://hub.docker.com/r/manuelrueda/convert-pheno/)
 [![Documentation Status](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/documentation.yml/badge.svg)](https://github.com/cnag-biomedical-informatics/convert-pheno/actions/workflows/documentation.yml)
 [![License](https://img.shields.io/badge/License-Artistic%202.0-0298c3.svg)](https://opensource.org/licenses/Artistic-2.0)
-[![Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6?usp=sharing)
 
 ---
 
-**📘 Documentation:** <a href="https://cnag-biomedical-informatics.github.io/convert-pheno" target="_blank">https://cnag-biomedical-informatics.github.io/convert-pheno</a>
-
-**📓 Google Colab tutorial:** <a href="https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6?usp=sharing" target="_blank">https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6?usp=sharing</a>
-
-**📦 CPAN Distribution:** <a href="https://metacpan.org/pod/Convert::Pheno" target="_blank">https://metacpan.org/pod/Convert::Pheno</a>
-
-**🐳 Docker Hub Image:** <a href="https://hub.docker.com/r/manuelrueda/convert-pheno/tags" target="_blank">https://hub.docker.com/r/manuelrueda/convert-pheno/tags</a>
-
-
----
-
-# Table of contents
-- [Description](#description)
-  - [Name](#name)
-  - [Synopsis](#synopsis)
-  - [Summary](#summary)
-- [README](README.source.md)
+[📘 Documentation](https://cnag-biomedical-informatics.github.io/convert-pheno) ·
+[💻 Installation](https://cnag-biomedical-informatics.github.io/convert-pheno/download-and-installation) ·
+[📓 Google Colab](https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6?usp=sharing) ·
+[📦 CPAN](https://metacpan.org/pod/Convert::Pheno) ·
+[🐳 Docker](https://hub.docker.com/r/manuelrueda/convert-pheno/tags)
 
 # Convert-Pheno
 
-`Convert-Pheno` is a toolkit for interconverting standard clinical and phenotypic data models
+`Convert-Pheno` converts clinical and phenotypic records between BFF,
+Phenopackets (PXF), OMOP-CDM, REDCap, CSV, CDISC formats, FHIR R4, openEHR,
+cBioPortal, i2b2, PCORnet CDM, and Sentinel CDM.
 
-Supported formats include BFF, PXF, OMOP CDM, REDCap, cBioPortal clinical studies, CDISC-ODM, CDISC Dataset-JSON, FHIR R4, CSV, and openEHR canonical input
+The command-line interface is the primary interface. The same conversion engine
+is also available through a Perl module, Python binding, HTTP(s) API, and local
+graphical Workbench.
 
 ## Quick Start
 
-From Convert-Pheno 0.35, the Docker image includes a local graphical workbench
-for JSON and file-based conversions:
-
 ```bash
-docker run --rm --publish 127.0.0.1:8080:8080 manuelrueda/convert-pheno:latest
-```
-
-Open <http://127.0.0.1:8080>. Uploads are limited to 100 MiB and the service is
-intentionally bound to the local machine; it has no authentication. Use the CLI
-for streaming and larger datasets.
-
-Typical CLI usage:
-
-```bash
-convert-pheno -ipxf pxf.json -obff individuals.json
-convert-pheno -ipxf pxf.json -obff --entities individuals biosamples datasets cohorts --out-dir out/
+convert-pheno -ipxf phenopacket.json -obff individuals.json
 convert-pheno -ibff individuals.json -opxf phenopackets.json
-convert-pheno -iomop dump.sql.gz -obff individuals.json.gz --stream --ohdsi-db
-convert-pheno -idataset-json dm.json mh.json lb.json -obff individuals.json
-convert-pheno -ifhir bundle.json -obff --entities individuals biosamples --out-dir out/
-convert-pheno -icbioportal study/ -obff --entities individuals biosamples datasets cohorts --out-dir out/
+convert-pheno -iomop omop-export/ -obff individuals.json --ohdsi-db
 ```
 
-For backward compatibility, the `-iomop ... -obff` form still keeps the individuals-only BFF output behavior.
-
-Note: cBioPortal clinical study input, `openEHR` canonical input, CDISC Dataset-JSON SDTM input, and FHIR R4 Bundle input are currently experimental because independent source coverage remains limited.
-See the CLI documentation for their implemented routes and current boundaries.
-
-Internally, most conversions use `BFF` as the target model before continuing to other output formats when needed.
-
-## Multi-Entity Output
-
-BFF output can now be entity-aware through `--entities`.
-
-Current support:
-
-- `individuals` as the default BFF output entity
-- `biosamples` as first-class BFF output from PXF biosamples, cBioPortal sample tables, FHIR Specimen, OMOP SPECIMEN, or mapping-file rules
-- `datasets` and `cohorts` synthesized from normalized `individuals`, with source metadata where supported
-
-Example:
+Entity-aware BFF output can write individuals, biosamples, datasets, and
+cohorts when the selected source route supports them:
 
 ```bash
-convert-pheno -ipxf pxf.json -obff --entities individuals biosamples datasets cohorts --out-dir out/
+convert-pheno -ipxf phenopacket.json \
+  -obff --entities individuals biosamples datasets cohorts \
+  --out-dir bff_out/
 ```
 
-This can write:
-
-- `out/individuals.json`
-- `out/biosamples.json`
-- `out/datasets.json`
-- `out/cohorts.json`
-
-For mapping-file workflows such as `csv2bff`, `redcap2bff`, and `cdiscodm2bff`, synthesized `datasets` and `cohorts` can be customized through the top-level `beacon` section of the mapping file
-
-## Mapping Files
-
-Mapping-file based tabular conversions now use an entity-aware layout
-
-- `project` keeps project-level metadata
-- `beacon.individuals` contains the semantic mapping rules for Beacon `individuals`
-- `beacon.datasets`, `beacon.cohorts`, and `beacon.biosamples` can provide metadata or defaults for emitted Beacon entities
-
-This makes the mapping structure consistent with multi-entity BFF output while keeping `individuals` as the central normalized model
-
-## Selected CLI Features
-
-Useful recent options include:
-
-- `--default-vital-status` to control the fallback `subject.vitalStatus.status` in `bff2pxf`
-- `--term-audit` to write a TSV, compressed TSV, or color-coded XLSX report of terminology resolution
-- generic `-i/-o` syntax in addition to the format-specific shortcuts
-- `--out-name key=file` to customize filenames in multi-file BFF or OMOP output
+See [Choose a Conversion](https://cnag-biomedical-informatics.github.io/convert-pheno/choose-a-conversion)
+for commands by source and target, or run `convert-pheno --help` for the full
+CLI option list.
 
 ## Installation
 
-Detailed installation instructions live in dedicated Markdown docs:
-
 - [Non-containerized installation](non-containerized/README.md)
-- [Containerized installation](docker/README.md)
+- [Docker installation](docker/README.md)
 
-Repository installs that run `cpanm --installdeps .` may also need system
-libraries such as `libssl-dev` for the SSL/JSONLD dependency chain.
+## Local Workbench
 
-Published documentation:
-
-- <https://cnag-biomedical-informatics.github.io/convert-pheno>
-
-## CLI Documentation
-
-The CLI now keeps concise built-in help in `bin/convert-pheno`.
-
-Long-form CLI documentation lives in Markdown:
-
-- [CLI guide](https://cnag-biomedical-informatics.github.io/convert-pheno/use-as-a-command-line-interface)
-- [Download and installation](https://cnag-biomedical-informatics.github.io/convert-pheno/download-and-installation)
-
-## Examples
-
-Repository fixtures under `t/` double as runnable examples. See the
-[`t/` fixture guide](t/README.md) for tested inputs, reference outputs, and
-commands that mirror the regression suite.
-
-Useful examples:
+From Convert-Pheno 0.35, the Docker image includes a local graphical interface
+for supported JSON and file-based routes:
 
 ```bash
-bin/convert-pheno -ipxf t/pxf2bff/in/pxf.json -obff individuals.json
-bin/convert-pheno -ipxf t/pxf2bff/in/pxf_biosamples.json -obff --entities individuals biosamples datasets cohorts --out-dir out/
-bin/convert-pheno -icsv t/csv2bff/in/csv_data.csv --mapping-file t/csv2bff/in/csv_mapping.yaml --term-audit terminology.tsv -obff individuals.json
-bin/convert-pheno -ibff t/bff2pxf/in/individuals.json -opxf phenopackets.json --default-vital-status UNKNOWN_STATUS
-bin/convert-pheno -iomop t/omop2bff/in/omop_cdm_eunomia.sql -opxf phenopackets.json
-bin/convert-pheno -iomop t/omop2bff/in/gz/omop_cdm_eunomia.sql.gz -obff individuals.json.gz --stream --omop-tables DRUG_EXPOSURE
+docker run --rm \
+  --publish 127.0.0.1:8080:8080 \
+  manuelrueda/convert-pheno:latest
 ```
+
+Open <http://127.0.0.1:8080>. The Workbench is intended for local use and has a
+100 MiB request limit. Use the CLI for streaming or larger inputs.
+
+## Tested Examples
+
+Synthetic fixtures under [`t/`](t/README.md) provide tested inputs and reference
+outputs for the supported conversion routes.
 
 ## Citation
 
-If you use `Convert-Pheno` in published work, please cite:
-
-Rueda, M et al. (2024). *Convert-Pheno: A software toolkit for the interconversion of standard data models for phenotypic data*. Journal of Biomedical Informatics. <https://doi.org/10.1016/j.jbi.2023.104558>
+Rueda, M et al. (2024). *Convert-Pheno: A software toolkit for the
+interconversion of standard data models for phenotypic data*. Journal of
+Biomedical Informatics. <https://doi.org/10.1016/j.jbi.2023.104558>
 
 ## Author
 

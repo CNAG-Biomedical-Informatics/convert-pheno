@@ -25,6 +25,7 @@
     .section { fill: #8f552b; font: 800 13px "Noto Sans", "DejaVu Sans", sans-serif; letter-spacing: 1.8px; }
     .category { fill: #315f72; font: 800 12px "Noto Sans", "DejaVu Sans", sans-serif; letter-spacing: 1.1px; }
     .formats { fill: #18343f; font: 700 16px "Noto Sans", "DejaVu Sans", sans-serif; }
+    .formats-small { fill: #18343f; font: 700 14px "Noto Sans", "DejaVu Sans", sans-serif; }
     .core-section { fill: #efb17c; font: 800 12px "Noto Sans", "DejaVu Sans", sans-serif; letter-spacing: 1.6px; }
     .core-title { fill: #ffffff; font: 800 27px "Noto Sans", "DejaVu Sans", sans-serif; }
     .core-detail { fill: #c7d9dd; font: 400 13px "Noto Sans", "DejaVu Sans", sans-serif; }
@@ -61,6 +62,7 @@
       .section { fill: #e5a36c; }
       .category { fill: #96bfca; }
       .formats,
+      .formats-small,
       .output-title,
       .step-title { fill: #edf5f5; }
       .output-detail,
@@ -98,8 +100,9 @@
     <circle cx="76" cy="89" r="5"/><circle cx="64" cy="111" r="5"/><circle cx="88" cy="111" r="5"/>
     <path d="M73 94L67 106M79 94L85 106M69 111H83"/>
   </g>
-  <text class="category" x="118" y="91">CLINICAL DATA MODELS</text>
-  <text class="formats" x="118" y="117">BFF &#183; Phenopackets v2 &#183; OMOP-CDM</text>
+  <text class="category" x="118" y="86">CLINICAL DATA MODELS</text>
+  <text class="formats-small" x="118" y="108">BFF &#183; PXF &#183; OMOP-CDM</text>
+  <text class="formats-small" x="118" y="128">i2b2 &#183; PCORnet &#183; Sentinel</text>
 
   <!-- EHR interoperability -->
   <g filter="url(#soft-shadow)">

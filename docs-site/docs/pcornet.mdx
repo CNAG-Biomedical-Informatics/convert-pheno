@@ -1,0 +1,93 @@
+---
+title: PCORnet CDM
+sidebar_label: PCORnet CDM
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+export const PcornetFormatImage = () => (
+  <img
+    src={useBaseUrl('/img/pcornet-format.svg')}
+    alt="Exported PCORnet CDM tables grouped by patient before conversion to BFF, PXF, or OMOP-CDM"
+    className="convertFormatDiagram"
+  />
+);
+
+**Category:** Distributed clinical research network CDM
+
+The [PCORnet Common Data Model](https://pcornet.org/data/common-data-model/)
+organizes patient, encounter, diagnosis, procedure, laboratory, medication,
+and related data into a shared table structure. Convert-Pheno reads **exported
+PCORnet CDM tables**; it does not connect to a live database. The route is
+implemented and regression-tested against synthetic fixtures; independent
+network coverage is still limited.
+
+<div className="convertFormatSummary" aria-label="At a glance">
+  <div><span>Role</span><strong>Input</strong></div>
+  <div><span>Accepted input</span><strong>CSV/TSV tables, directory, or ZIP package</strong></div>
+  <div><span>Main output</span><strong>BFF, PXF, OMOP-CDM</strong></div>
+  <div><span>Processing</span><strong>Grouped by `PATID` in memory</strong></div>
+</div>
+
+<figure className="convertFormatFigure">
+<PcornetFormatImage />
+<figcaption>Clinical-domain tables are joined to DEMOGRAPHIC by PATID before target conversion</figcaption>
+</figure>
+
+## What You Need
+
+Provide UTF-8 CSV or TSV table exports, either individually, in a directory, or
+inside one ZIP package. Gzip-compressed table files are also accepted.
+`DEMOGRAPHIC` is required.
+
+| Table group | Supported tables |
+| --- | --- |
+| person | `DEMOGRAPHIC`, `DEATH` |
+| encounters and conditions | `ENCOUNTER`, `DIAGNOSIS`, `CONDITION` |
+| procedures and immunization | `PROCEDURES`, `IMMUNIZATION` |
+| observations | `LAB_RESULT_CM`, `VITAL`, `OBS_CLIN`, `OBS_GEN` |
+| medications | `PRESCRIBING`, `DISPENSING`, `MED_ADMIN`, `EXTERNAL_MEDS` |
+
+```bash
+convert-pheno \
+  -ipcornet pcornet-tables.zip \
+  -obff individuals.json
+```
+
+Use `-opxf phenopackets.json` for PXF, or
+`-oomop --out-dir omop_out/ --ohdsi-db` for OMOP-CDM tables. A mapping file is
+not required.
+
+## What Is Converted
+
+| PCORnet content | Main BFF target |
+| --- | --- |
+| `DEMOGRAPHIC`, `DEATH` | individual identity, demographics, and vital status |
+| `DIAGNOSIS`, `CONDITION` | `diseases` |
+| `PROCEDURES`, `IMMUNIZATION` | `interventionsOrProcedures` |
+| `LAB_RESULT_CM`, `VITAL`, `OBS_CLIN` | `measures` |
+| medication tables | `treatments` |
+| `OBS_GEN` | `phenotypicFeatures` |
+| encounter links | private `_visit` context on mapped events |
+
+`HISPANIC` or another explicit ethnicity field can populate BFF `ethnicity`.
+`RACE` remains in source provenance because race and ethnicity are not treated
+as interchangeable concepts.
+
+## Terminology And Source Data
+
+Recognized ICD-10-CM, SNOMED CT, LOINC, RxNorm, NDC, CVX, CPT, and HCPCS codes
+are retained as CURIEs. Ambiguous source categories remain `PCORnet:` terms
+rather than receiving an unverified crosswalk. For OMOP output, use
+`--term-audit terminology.xlsx` to review OHDSI vocabulary resolution.
+
+Raw rows are retained under `info.pcornet` by default. Use `--no-source-info`
+to omit them while retaining the converted fields.
+
+## Current Boundaries
+
+Input is non-streaming and must fit in memory. Support follows the listed
+PCORnet tables and their standard columns; network-specific extensions require
+independent review.
+
+For the field-level contract, see [PCORnet CDM to BFF](pcornet2bff).

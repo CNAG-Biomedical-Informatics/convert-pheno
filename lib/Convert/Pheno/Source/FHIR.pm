@@ -12,6 +12,7 @@ use Convert::Pheno::FHIR::Util qw(
   resolve_reference
 );
 use Convert::Pheno::IO::FileIO qw(read_json);
+use Convert::Pheno::Mapping::Shared qw(get_info);
 use Convert::Pheno::Source::Result;
 
 my %BUNDLE_TYPE = map { $_ => 1 } qw(
@@ -343,6 +344,32 @@ sub _derived_entity_overrides {
     }
 
     return $overrides;
+}
+
+sub prepare {
+    my ($self) = @_;
+    my $converter = $self->{converter};
+    return 1 if $converter->{fhir_input_prepared}
+      && exists $converter->{data};
+
+    $converter->{_fhir_source_data} = $converter->{data}
+      if exists $converter->{data}
+      && !exists $converter->{_fhir_source_data};
+    $converter->{data} = $converter->{_fhir_source_data}
+      if !exists $converter->{data}
+      && exists $converter->{_fhir_source_data};
+
+    my $source = $self->load;
+    $source->apply_to($converter);
+    $converter->{fhir_bundle_metadata} =
+      $source->artifact('bundle_metadata');
+    $converter->{fhir_unassigned_resources} =
+      $source->artifact('unassigned_resources');
+    $converter->{source_derived_entity_overrides} =
+      $source->artifact('derived_entity_overrides') || {};
+    $converter->{convertPheno} ||= get_info($converter);
+    $converter->{fhir_input_prepared} = 1;
+    return 1;
 }
 
 1;

@@ -233,6 +233,27 @@ my @cases = (
         compare  => 'structured',
     },
     {
+        name     => 'i2b22bff',
+        cmd      => [ '-ii2b2', 't/i2b22bff/in', '-obff', '__OUT__' ],
+        expected => 't/i2b22bff/out/individuals.json',
+        suffix   => '.json',
+        compare  => 'structured',
+    },
+    {
+        name     => 'pcornet2bff',
+        cmd      => [ '-ipcornet', 't/pcornet2bff/in', '-obff', '__OUT__' ],
+        expected => 't/pcornet2bff/out/individuals.json',
+        suffix   => '.json',
+        compare  => 'structured',
+    },
+    {
+        name     => 'sentinel2bff',
+        cmd      => [ '-isentinel', 't/sentinel2bff/in', '-obff', '__OUT__' ],
+        expected => 't/sentinel2bff/out/individuals.json',
+        suffix   => '.json',
+        compare  => 'structured',
+    },
+    {
         name     => 'bff2csv',
         cmd      => [ '-ibff', 't/bff2pxf/in/individuals.json', '-ocsv', '__OUT__' ],
         expected => 't/bff2csv/out/individuals.csv',

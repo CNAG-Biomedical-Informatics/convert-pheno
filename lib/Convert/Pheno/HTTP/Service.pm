@@ -481,7 +481,8 @@ sub _applicable_options {
       if $spec->{target} eq 'omop'
       || grep { $_ eq $spec->{source} } @{ $profiles->{terminology_sources} || [] };
     push @names, 'term_audit'
-      if grep { $_ eq $spec->{source} } @{ $profiles->{terminology_sources} || [] };
+      if $spec->{target} eq 'omop'
+      || grep { $_ eq $spec->{source} } @{ $profiles->{terminology_sources} || [] };
     push @names, 'separator'
       if grep { $_ eq $spec->{source} } @{ $profiles->{separator_sources} || [] };
     push @names, @{ $profiles->{omop_input_options} || [] }

@@ -159,7 +159,7 @@ sub process_sqldump_stream {
         next if any { $_ eq $table } @stream_ram_memory_tables;
         say "Processing table <$table> line-by-line..." if $self->{verbose};
 
-        Convert::Pheno::_with_temp_self_field(
+        _with_temp_field(
             $self,
             'omop_tables',
             [$table],
@@ -172,6 +172,26 @@ sub process_sqldump_stream {
         );
     }
     return 1;
+}
+
+sub _with_temp_field {
+    my ( $converter, $field, $value, $code ) = @_;
+    my $had = exists $converter->{$field};
+    my $old = $had ? $converter->{$field} : undef;
+    $converter->{$field} = $value;
+
+    my ( $ok, $result );
+    $ok = eval {
+        $result = $code->();
+        1;
+    };
+    my $error = $@;
+
+    if ($had) { $converter->{$field} = $old }
+    else      { delete $converter->{$field} }
+
+    die $error unless $ok;
+    return $result;
 }
 
 1;

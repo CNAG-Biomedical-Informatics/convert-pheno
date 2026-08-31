@@ -9,6 +9,10 @@ use File::Temp qw(tempfile);
 use Convert::Pheno;
 use Convert::Pheno::ConversionRequest;
 use Convert::Pheno::ExecutionContext;
+use Convert::Pheno::OMOP::ParticipantStream qw(
+  omop_prepare_data_shape
+  omop_require_core_tables
+);
 use Convert::Pheno::Runner qw(resolve_operation run_operation);
 
 my $orig_warn_handler = $SIG{__WARN__};
@@ -239,52 +243,29 @@ local $SIG{__WARN__} = sub {
     my $convert = Convert::Pheno->new( { stream => 1 } );
     local *Convert::Pheno::transpose_omop_data_structure = sub { die 'should not be called' };
     my $data = { CONCEPT => [] };
-    ok( Convert::Pheno::_omop_prepare_data_shape( $convert, $data ), '_omop_prepare_data_shape succeeds in stream mode' );
-    is( $convert->{data}, $data, '_omop_prepare_data_shape keeps data as-is in stream mode' );
+    ok( omop_prepare_data_shape( $convert, $data ), 'OMOP data preparation succeeds in stream mode' );
+    is( $convert->{data}, $data, 'OMOP data preparation keeps stream data as-is' );
 }
 
 {
     my $convert = Convert::Pheno->new( { stream => 0 } );
     local *Convert::Pheno::transpose_omop_data_structure = sub { return [ { PERSON => { person_id => 1 } } ] };
-    ok( Convert::Pheno::_omop_prepare_data_shape( $convert, { CONCEPT => [] } ), '_omop_prepare_data_shape succeeds in non-stream mode' );
-    is_deeply( $convert->{data}, [ { PERSON => { person_id => 1 } } ], '_omop_prepare_data_shape transposes data in non-stream mode' );
-}
-
-{
-    my $convert = Convert::Pheno->new( {} );
-    $convert->{temporary_probe} = 'original';
-
-    throws_ok(
-        sub {
-            Convert::Pheno::_with_temp_self_field(
-                $convert,
-                'temporary_probe',
-                'temporary',
-                sub { die "temporary callback failed\n" },
-            );
-        },
-        qr/temporary callback failed/,
-        '_with_temp_self_field preserves callback failures'
-    );
-    is(
-        $convert->{temporary_probe},
-        'original',
-        '_with_temp_self_field restores object state after failure'
-    );
+    ok( omop_prepare_data_shape( $convert, { CONCEPT => [] } ), 'OMOP data preparation succeeds in non-stream mode' );
+    is_deeply( $convert->{data}, [ { PERSON => { person_id => 1 } } ], 'OMOP data preparation transposes non-stream input' );
 }
 
 {
     my $convert = Convert::Pheno->new( {} );
     dies_ok {
-        Convert::Pheno::_omop_require_core_tables( $convert, {} )
+        omop_require_core_tables( $convert, {} )
     }
     'OMOP preparation dies when CONCEPT is missing';
     dies_ok {
-        Convert::Pheno::_omop_require_core_tables( $convert, { CONCEPT => [] } )
+        omop_require_core_tables( $convert, { CONCEPT => [] } )
     }
     'OMOP preparation dies when PERSON is missing';
     ok(
-        Convert::Pheno::_omop_require_core_tables(
+        omop_require_core_tables(
             $convert,
             { CONCEPT => [], PERSON => [] },
         ),

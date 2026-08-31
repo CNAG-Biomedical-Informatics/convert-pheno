@@ -83,15 +83,16 @@ Both CLI styles are supported:
 
 The compact flags are still the ones most users rely on:
 
-- `-ipxf`, `-ibff`, `-icbioportal`, `-iomop`, `-iopenehr`, `-iredcap`, `-icdisc-odm`, `-idataset-json`, `-idataset-xml`, `-ifhir`, `-icsv`
+- `-ipxf`, `-ibff`, `-icbioportal`, `-iomop`, `-iopenehr`, `-iredcap`, `-icdisc-odm`, `-idataset-json`, `-idataset-xml`, `-ifhir`, `-ii2b2`, `-ipcornet`, `-isentinel`, `-icsv`
 - `-obff`, `-opxf`, `-oomop`, `-ocsv`, `-ojsonf`, `-ojsonld`
 
 :::note[Experimental source profiles]
 `cBioPortal` clinical packages, openEHR canonical input, CDISC Dataset-JSON and
-Dataset-XML SDTM input, and FHIR R4 Bundle input are implemented but marked experimental while independent source coverage
+Dataset-XML SDTM input, FHIR R4 Bundle input, and exported i2b2, PCORnet, and
+Sentinel tables are implemented but marked experimental while independent source coverage
 grows. Standard/OpenClinica CDISC-ODM and the bounded ODM 2.0 ClinicalData
 profile are also experimental beyond the established REDCap ODM workflow.
-Dataset-JSON, Dataset-XML, and FHIR can write BFF, PXF, or OMOP-CDM; openEHR
+Dataset-JSON, Dataset-XML, FHIR, i2b2, PCORnet, and Sentinel can write BFF, PXF, or OMOP-CDM; openEHR
 currently writes BFF or PXF.
 
 :::
@@ -201,6 +202,14 @@ For resolution precedence, audit columns, and threshold tradeoffs, see [Terminol
 - mCODE 4.0 Bundles use the same input route. Canonical profile URLs are detected automatically; no mCODE-specific flag is required.
 - `fhir2bff`, `fhir2pxf`, and `fhir2omop` are available. Entity-aware BFF output can emit Specimen-derived `biosamples`; OMOP output also requires `--ohdsi-db` and `--out-dir`.
 - Input is processed in memory. See [FHIR R4](fhir) for mapped resources and current boundaries.
+
+### Clinical table-package inputs
+
+- `-ii2b2`, `-ipcornet`, and `-isentinel` accept one directory, one ZIP package, or one or more `.csv`, `.tsv`, or `.txt` tables, optionally gzip-compressed.
+- These adapters read exported tables and do not connect to live databases. Rows are grouped by patient in memory.
+- i2b2 requires `PATIENT_DIMENSION` and `OBSERVATION_FACT`; PCORnet and Sentinel require `DEMOGRAPHIC`.
+- Each route can write BFF, PXF, or OMOP-CDM. OMOP output also requires `--ohdsi-db` and `--out-dir`.
+- Raw source rows are preserved in BFF `info` unless `--no-source-info` is used. See [i2b2](i2b2), [PCORnet CDM](pcornet), and [Sentinel CDM](sentinel).
 
 ### General options
 
