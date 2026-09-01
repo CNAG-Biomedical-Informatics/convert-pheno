@@ -2,10 +2,10 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/CNAG-Biomedical-Informatics/convert-pheno/schema/mapping-v2.json",
   "title": "Convert-Pheno mapping file v2",
-  "description": "Concise source-to-Beacon authoring contract for tabular conversions and SDTM terminology enrichment.",
+  "description": "Concise source-to-Beacon contract for tabular authoring, SDTM terminology enrichment, and metadata overlays for built-in conversions.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["mappingVersion", "source", "target", "project", "defaults"],
+  "required": ["mappingVersion", "source", "target", "project"],
   "properties": {
     "mappingVersion": { "const": 2 },
     "source": {
@@ -15,8 +15,8 @@
       "required": ["profile"],
       "properties": {
         "profile": {
-          "description": "Use redcap for REDCap CSV and REDCap-origin ODM; cdisc-odm for standard or vendor ODM with embedded metadata; cbioportal for patient and sample clinical tables; and sdtm for Dataset-JSON or Dataset-XML terminology enrichment.",
-          "enum": ["cbioportal", "cdisc-odm", "csv", "redcap", "sdtm"]
+          "description": "Use redcap for REDCap CSV and REDCap-origin ODM; cdisc-odm for standard or vendor ODM with embedded metadata; cbioportal for patient and sample clinical tables; sdtm for Dataset-JSON or Dataset-XML terminology enrichment; or the matching built-in source profile for a metadata-only overlay.",
+          "enum": ["cbioportal", "cdisc-odm", "csv", "fhir", "i2b2", "omop", "openehr", "pcornet", "pxf", "redcap", "sdtm", "sentinel"]
         }
       }
     },
@@ -71,7 +71,6 @@
     "beacon": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["individuals"],
       "properties": {
         "individuals": { "$ref": "#/$defs/individualsMapping" },
         "biosamples": { "$ref": "#/$defs/biosampleCollection" },
@@ -100,15 +99,45 @@
         }
       },
       "then": {
-        "required": ["terminology"],
+        "required": ["defaults", "terminology"],
         "properties": {
           "records": false,
           "beacon": false
         }
       },
       "else": {
-        "required": ["records", "beacon"],
-        "properties": { "terminology": false }
+        "if": {
+          "properties": {
+            "source": {
+              "properties": {
+                "profile": {
+                  "enum": ["fhir", "i2b2", "omop", "openehr", "pcornet", "pxf", "sentinel"]
+                }
+              },
+              "required": ["profile"]
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "defaults": false,
+            "records": false,
+            "terminology": false,
+            "beacon": {
+              "properties": {
+                "individuals": false,
+                "biosamples": false
+              }
+            }
+          }
+        },
+        "else": {
+          "required": ["defaults", "records", "beacon"],
+          "properties": {
+            "terminology": false,
+            "beacon": { "required": ["individuals"] }
+          }
+        }
       }
     }
   ],
@@ -649,6 +678,7 @@
             "externalUrl": { "type": "string" },
             "createDateTime": { "type": "string" },
             "updateDateTime": { "type": "string" },
+            "dataUseConditions": { "type": "object" },
             "info": { "type": "object" }
           }
         }
@@ -669,6 +699,7 @@
             "cohortSize": { "type": "integer", "minimum": 0 },
             "cohortDataTypes": { "type": "array", "items": { "$ref": "#/$defs/ontologyTerm" } },
             "cohortDesign": { "type": "object" },
+            "collectionEvents": { "type": "array" },
             "inclusionCriteria": { "type": "object" },
             "exclusionCriteria": { "type": "object" }
           }

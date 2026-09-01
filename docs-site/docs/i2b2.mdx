@@ -52,8 +52,10 @@ convert-pheno \
 ```
 
 Use `-opxf phenopackets.json` for PXF, or
-`-oomop --out-dir omop_out/ --ohdsi-db` for OMOP-CDM tables. A mapping file is
-not required.
+`-oomop --out-dir omop_out/ --ohdsi-db` for OMOP-CDM tables. The clinical
+mapping is built in. For entity-aware BFF output, an optional compact
+[Mapping V2 file](mapping-files#compact-dataset-and-cohort-metadata) can name
+the synthesized dataset and cohort.
 
 ## What Is Converted
 

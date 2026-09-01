@@ -51,8 +51,7 @@ sub catalog {
         my @required = _required_resources( $name, $metadata );
         my ( $available, $reason ) = _availability( \@required, $metadata );
         my @option_names = _applicable_options( $name, $spec, $metadata );
-        my $input = $metadata->{input_definitions}{ $spec->{source} }
-          || { transports => ['json'], files => [] };
+        my $input = _conversion_input_definition( $spec, $metadata );
         my @options = map {
             +{ name => $_, %{ $metadata->{option_definitions}{$_} || {} } }
         } @option_names;
@@ -131,7 +130,7 @@ sub execute_files {
     _throw( 422, 'invalid_request', 'Uploaded files must be grouped by role' )
       unless ref($files) eq 'HASH';
 
-    my $definition = $metadata->{input_definitions}{ $spec->{source} } || {};
+    my $definition = _conversion_input_definition( $spec, $metadata );
     _throw( 422, 'invalid_request', "Conversion <$conversion> does not accept file uploads" )
       unless grep { $_ eq 'multipart' } @{ $definition->{transports} || [] };
 
@@ -359,6 +358,35 @@ sub _public_file_definition {
     return { map { $_ => $definition->{$_} }
         grep { exists $definition->{$_} }
         qw(name label description required multiple maximum accept) };
+}
+
+sub _conversion_input_definition {
+    my ( $spec, $metadata ) = @_;
+    my $base = $metadata->{input_definitions}{ $spec->{source} } || {};
+    my @transports = @{ $base->{transports} || ['json'] };
+    my @files = map { +{%{$_}} } @{ $base->{files} || [] };
+
+    if ( $spec->{target} eq 'beacon' && $base->{metadataMapping} ) {
+        push @transports, 'multipart'
+          unless grep { $_ eq 'multipart' } @transports;
+        push @files, { %{ $base->{fileSource} } }
+          if !@files && ref( $base->{fileSource} ) eq 'HASH';
+        push @files, {
+            name        => 'mapping',
+            label       => 'Dataset and cohort metadata',
+            description => 'Optional compact Mapping V2 YAML or JSON metadata file.',
+            required    => JSON::XS::false,
+            multiple    => JSON::XS::false,
+            maximum     => 1,
+            accept      => [qw(.yaml .yml .json)],
+            argument    => 'mapping_file',
+        };
+    }
+
+    return {
+        transports => \@transports,
+        files      => \@files,
+    };
 }
 
 sub _accepted_filename {

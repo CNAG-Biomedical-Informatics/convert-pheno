@@ -31,6 +31,12 @@ for my $source (qw(beacon fhir)) {
       ->json_is('/meta/source', $source);
 }
 
+for my $source (qw(pxf fhir openehr)) {
+    $t->get_ok("/examples/$source?transport=multipart")->status_is(200)
+      ->json_is('/data/transport', 'multipart')
+      ->json_is('/data/files/0/role', 'source');
+}
+
 $t->get_ok('/examples/csv')->status_is(200)
   ->json_is('/data/transport', 'multipart')
   ->json_is('/data/options/separator', ',')

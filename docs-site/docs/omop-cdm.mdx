@@ -92,6 +92,10 @@ convert-pheno -iomop omop-export/ -obff individuals.json
 convert-pheno -iomop omop-export.zip -obff individuals.json
 ```
 
+When producing `datasets` or `cohorts`, an optional compact Mapping V2 file can
+set project and entity metadata without changing the built-in OMOP field
+mapping. See [Compact Dataset And Cohort Metadata](mapping-files#compact-dataset-and-cohort-metadata).
+
 ZIP entries are extracted into a private temporary directory for the duration
 of the conversion. This lets `--stream` use the same bounded-memory table
 reader as ordinary files.
@@ -110,6 +114,8 @@ individuals, biosamples, Phenopackets, and streaming commands.
   concept is not available in the supplied `CONCEPT` table. It is required for
   OMOP output, where it resolves active standard concepts in the expected OMOP
   domain.
+- `--mapping-file` can supply optional dataset and cohort metadata for
+  entity-aware BFF output. It is not required for OMOP conversion.
 - Gzip input and output reduce storage but add CPU overhead, which can be
   noticeable during streaming.
 

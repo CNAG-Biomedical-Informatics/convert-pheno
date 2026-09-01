@@ -71,6 +71,12 @@ my %EXAMPLE_FILE_FIXTURE = (
             { role => 'mapping', file => catfile( $TEST_DIR, 'csv2bff', 'in', 'csv_mapping.yaml' ) },
         ],
     },
+    fhir => {
+        json_default => 1,
+        files => [
+            { role => 'source', file => catfile( $TEST_DIR, 'fhir2bff', 'in', 'patient-bundle.json' ) },
+        ],
+    },
     'dataset-json' => {
         files => [
             ( map { +{ role => 'source', file => $_ } }
@@ -93,6 +99,18 @@ my %EXAMPLE_FILE_FIXTURE = (
     omop => {
         files => [ map { +{ role => 'source', file => catfile( $TEST_DIR, 'omop2bff', 'in', $_ ) } }
             qw(CONCEPT.csv DRUG_EXPOSURE.csv PERSON.csv) ],
+    },
+    openehr => {
+        json_default => 1,
+        files => [
+            { role => 'source', file => catfile( $TEST_DIR, 'openehr2bff', 'in', 'gecco_personendaten_patient.json' ) },
+        ],
+    },
+    pxf => {
+        json_default => 1,
+        files => [
+            { role => 'source', file => catfile( $TEST_DIR, 'pxf2bff', 'in', 'pxf.json' ) },
+        ],
     },
     redcap => {
         files => [
@@ -254,7 +272,10 @@ get '/examples/:source' => sub {
     my $c       = shift;
     my $source  = $c->param('source');
     my $package = $EXAMPLE_FILE_FIXTURE{$source};
-    if ( $package && ( $c->param('transport') || q{} ) ne 'json' ) {
+    my $transport = $c->param('transport');
+    $transport = $package && $package->{json_default} ? 'json' : 'multipart'
+      unless defined $transport && length $transport;
+    if ( $package && $transport eq 'multipart' ) {
         my $files = eval {
             [ map { encoded_example_file($_) } @{ $package->{files} } ];
         };

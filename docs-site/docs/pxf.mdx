@@ -82,6 +82,11 @@ supported status.
 Use [PXF input recipes](conversion-recipes#pxf-input-bff-output) for commands
 covering individuals-only, multi-entity BFF, and OMOP output.
 
+When requesting BFF `datasets` or `cohorts`, an optional compact
+[Mapping V2 file](mapping-files#compact-dataset-and-cohort-metadata) can replace
+the generic synthesized entity metadata. It does not change the PXF-to-BFF
+individual or biosample mapping.
+
 ## PXF As Output
 
 PXF can be generated from BFF, OMOP-CDM, REDCap, CSV, CDISC-ODM, Dataset-JSON,

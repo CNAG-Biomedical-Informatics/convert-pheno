@@ -378,6 +378,10 @@ sub build_cli_request {
             message   => "Please specify a valid mapping file --mapping-file <file>\n",
         },
         {
+            condition => sub { defined $mapping_file && !-f $mapping_file },
+            message   => "Please specify an existing mapping file --mapping-file <file>\n",
+        },
+        {
             condition => sub {
                 @datasetjson_files
                   && grep { !-f $_ || $_ !~ m/\.json(?:\.gz)?$/i }

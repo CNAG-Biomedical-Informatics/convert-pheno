@@ -8,8 +8,9 @@ slug: /mapping-files
 Mapping files describe how project-specific `CSV`, `REDCap`, or `CDISC-ODM`
 fields become Beacon v2 records. They can also augment the built-in cBioPortal
 mapping or define reviewed terminology decisions for SDTM Dataset-JSON and
-Dataset-XML. This page explains the Mapping V2 contract through a REDCap
-example and identifies the parts that differ for other source profiles.
+Dataset-XML. Built-in BFF routes can use a small optional mapping to describe
+their synthesized dataset and cohort. This page explains the Mapping V2
+contract through a REDCap example and identifies the smaller profiles.
 
 :::tip[Google Colab version]
 A runnable notebook is available in [Google Colab](https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6), with a local copy in the [repository](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/nb/convert_pheno_cli_tutorial.ipynb).
@@ -41,6 +42,11 @@ optional and is used only for additional project-specific clinical columns.
 Dataset-JSON and Dataset-XML use `source.profile: sdtm`. Their structural SDTM
 mapping is built in, so the optional mapping contains only terminology rules.
 Dataset-XML still requires Define-XML independently of this optional mapping.
+
+OMOP, PXF, FHIR, openEHR, i2b2, PCORnet, and Sentinel already have structural
+conversion rules in the software. Their optional mapping is a metadata overlay:
+it can name synthesized `datasets` and `cohorts`, but cannot replace individual
+or biosample field mappings.
 
 ## Recipe: CSV To Validated BFF
 
@@ -252,9 +258,9 @@ The top-level sections have distinct responsibilities:
 | `source` | All profiles | Declares the normalized source profile |
 | `target` | All profiles | Declares the target model and Beacon schema version |
 | `project` | All profiles | Identifies and versions the project mapping |
-| `defaults` | All profiles | Sets the default ontology for term lookup |
+| `defaults` | Tabular and `sdtm` profiles | Sets the default ontology for term lookup |
 | `records` | Tabular profiles | Defines visit and longitudinal baseline behavior |
-| `beacon` | Tabular profiles | Contains entity-specific target rules |
+| `beacon` | Tabular or metadata-only profiles | Contains entity rules or dataset/cohort defaults |
 | `terminology` | `sdtm` | Contains `DOMAIN.FIELD` terminology rules |
 
 Supported default ontologies are `ncit`, `icd10`, `ohdsi`, `cdisc`, `omim`,
@@ -270,6 +276,7 @@ the record and metadata contract consumed by the mapping:
 | `cdisc-odm` | Standard or vendor ODM with embedded `MetaDataVersion`, `ItemDef`, and `CodeList` metadata |
 | `cbioportal` | cBioPortal patient and sample clinical tables discovered from a study package |
 | `sdtm` | Dataset-JSON or Dataset-XML terminology enrichment; structural mapping remains built in |
+| `omop`, `pxf`, `fhir`, `openehr`, `i2b2`, `pcornet`, `sentinel` | Optional dataset and cohort metadata for the matching built-in BFF route |
 
 ODM mappings use stable `ItemOID` values as source fields. A REDCap ODM export
 can reuse its corresponding REDCap mapping. Other ODM documents need rules
@@ -306,6 +313,53 @@ because lookup is case-insensitive. `terms` bypasses lookup for known values.
 Define-XML `nci:ExtCodeID` identifiers take precedence over a label query and
 are looked up exactly to obtain the canonical NCIT display. See
 [Terminology Search](terminology-search) for the full precedence and audit fields.
+
+## Compact Dataset And Cohort Metadata
+
+Built-in routes do not need field-level mapping rules. To identify the BFF
+dataset produced from an OMOP export, for example, provide only project and
+entity metadata:
+
+```yaml
+mappingVersion: 2
+source: { profile: omop }
+target: { model: beacon, schemaVersion: '2.0.0' }
+
+project:
+  id: study-123
+  version: '1.0'
+  description: Example study
+
+beacon:
+  datasets:
+    defaults:
+      name: Example dataset
+      externalUrl: https://example.org/studies/study-123
+  cohorts:
+    defaults:
+      name: Main cohort
+      cohortType: study-defined
+```
+
+Use it only when requesting entity-aware BFF output:
+
+```bash
+convert-pheno \
+  -iomop omop-export/ \
+  --mapping-file study-metadata.yaml \
+  -obff --entities individuals datasets cohorts \
+  --out-dir bff-out/
+```
+
+`project.id` becomes `datasets.id` and, unless explicitly overridden,
+`datasets.name`; it also supplies the default cohort ID `<project.id>-cohort`.
+`beacon.datasets.defaults` and `beacon.cohorts.defaults` can override those
+values and add the other properties accepted by the Beacon v2 entities.
+
+The mapping is optional. Without it, source-derived metadata is used where
+available, followed by the existing generic `dataset-1` and `cohort-1`
+defaults. Project metadata is not currently copied into individual or
+biosample records.
 
 ## Reading A Rule
 
@@ -462,8 +516,8 @@ Rules can also populate `sampleOriginDetail`, `obtentionProcedure`, `notes`,
 entity-aware BFF output.
 
 `beacon.datasets.defaults` and `beacon.cohorts.defaults` provide metadata for
-entities synthesized from the converted individuals. These defaults are used
-only by mapping-file routes.
+entities synthesized from the converted individuals. Full authoring mappings
+and compact metadata overlays use the same entity-default contract.
 
 ## Validation And Provenance
 

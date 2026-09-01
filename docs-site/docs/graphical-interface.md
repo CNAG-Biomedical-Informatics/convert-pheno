@@ -81,7 +81,8 @@ paths, or payload logging. Changing a route or input clears stale results.
 The workbench accepts JSON for Beacon v2, Phenopacket v2, FHIR, openEHR, and
 OMOP, plus role-based uploads for OMOP table files or ZIP packages, CSV, REDCap, CDISC-ODM,
 Dataset-JSON, Dataset-XML, cBioPortal study packages, and i2b2, PCORnet, or
-Sentinel table packages. Each source has a
+Sentinel table packages. Entity-aware BFF routes also accept the optional
+compact Mapping V2 metadata file advertised for that route. Each source has a
 synthetic example drawn from the regression fixtures. Upload requests are
 limited to **100 MiB** and run synchronously. Use the [command-line interface](use-as-a-command-line-interface)
 for streaming or larger datasets.

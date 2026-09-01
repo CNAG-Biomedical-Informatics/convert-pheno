@@ -317,7 +317,7 @@ export default function App() {
 
   useEffect(() => {
     if (route) setInputTransport(route.input.transports[0] || 'json')
-  }, [route?.source.id])
+  }, [route?.id])
 
   useEffect(() => {
     if (artifacts.length) resultsRef.current?.scrollIntoView?.({ behavior: 'smooth', block: 'start' })
@@ -359,9 +359,12 @@ export default function App() {
     setExampleLoading(true)
     clearResults()
     try {
+      const defaultTransport = route.input.transports[0]
       const example = await getExample(
         route.source.id,
-        route.input.transports.length > 1 ? inputTransport : undefined,
+        route.input.transports.length > 1 && inputTransport !== defaultTransport
+          ? inputTransport
+          : undefined,
       )
       if (isFileExample(example.data)) {
         const fileExample = example.data
@@ -489,7 +492,7 @@ export default function App() {
               <section className="card input-card">
                 <div className="section-heading"><span>2</span><div><h2>Add your input</h2><p>{usesFiles ? 'Select the source and supporting files required for this route.' : 'Drop one JSON file here or paste its contents below.'}</p></div></div>
                 {route.input.transports.length > 1 && <div className="transport-switch" role="group" aria-label="OMOP input mode">
-                  <button type="button" aria-pressed={usesFiles} onClick={() => { setInputTransport('multipart'); clearResults() }}>Table files</button>
+                  <button type="button" aria-pressed={usesFiles} onClick={() => { setInputTransport('multipart'); clearResults() }}>File upload</button>
                   <button type="button" aria-pressed={!usesFiles} onClick={() => { setInputTransport('json'); clearResults() }}>JSON payload</button>
                 </div>}
                 {usesFiles ? <div className="file-role-list">

@@ -43,6 +43,10 @@ curl --fail-with-body \
   http://127.0.0.1:3000/api/conversions/csv2bff
 ```
 
+For built-in routes such as OMOP-to-BFF, `mapping` is optional and supplies
+only dataset and cohort metadata. The structural source-to-BFF mapping remains
+built in.
+
 ## Request limits
 
 Each request can upload up to 100 MiB. Uploaded files are deleted after the

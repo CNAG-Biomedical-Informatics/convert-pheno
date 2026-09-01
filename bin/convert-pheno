@@ -117,6 +117,8 @@ Mapping and search:
                                   Beacon schema 2.0.0
                                   Optional for cBioPortal clinical packages
                                   and CDISC Dataset terminology enrichment
+                                  Optional compact dataset/cohort metadata for
+                                  built-in BFF input routes
                                   ODM uses source.profile redcap for REDCap
                                   exports, or cdisc-odm for embedded metadata
   --redcap-dictionary|-rcd <file> REDCap data dictionary CSV file; required

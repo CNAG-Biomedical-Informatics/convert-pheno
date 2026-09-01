@@ -13,7 +13,7 @@ use Text::CSV_XS;
 
 use Convert::Pheno::HTTP::Service qw(catalog execute execute_files is_service_error);
 use Convert::Pheno::Operations qw(public_conversions);
-use Test::ConvertPheno qw(test_ohdsi_db_dir write_zip_from_files);
+use Test::ConvertPheno qw(test_ohdsi_db_dir write_json_file write_zip_from_files);
 
 sub load_json {
     return decode_json( path(shift)->slurp_raw );
@@ -30,6 +30,23 @@ my ($i2b2_omop_route) = grep { $_->{id} eq 'i2b22omop' } @{ $catalog->{data} };
 ok(
     scalar( grep { $_->{name} eq 'term_audit' } @{ $i2b2_omop_route->{options} } ),
     'OMOP-target table routes expose terminology audit output',
+);
+my ($omop_bff_route) = grep { $_->{id} eq 'omop2bff' } @{ $catalog->{data} };
+ok(
+    scalar( grep { $_->{name} eq 'mapping' && !$_->{required} }
+          @{ $omop_bff_route->{input}{files} } ),
+    'OMOP-to-BFF advertises an optional metadata mapping',
+);
+my ($omop_pxf_route) = grep { $_->{id} eq 'omop2pxf' } @{ $catalog->{data} };
+ok(
+    !scalar( grep { $_->{name} eq 'mapping' }
+          @{ $omop_pxf_route->{input}{files} } ),
+    'OMOP-to-PXF does not advertise BFF entity metadata',
+);
+my ($pxf_bff_route) = grep { $_->{id} eq 'pxf2bff' } @{ $catalog->{data} };
+ok(
+    scalar( grep { $_ eq 'multipart' } @{ $pxf_bff_route->{input}{transports} }),
+    'PXF-to-BFF offers file upload when a metadata mapping is needed',
 );
 
 sub uploaded_file {
@@ -83,6 +100,21 @@ write_zip_from_files(
             name => "tables/$_.csv",
         }
     } qw(CONCEPT DRUG_EXPOSURE PERSON) ],
+);
+my $omop_metadata_file =
+  path($upload_workspace)->child('omop-metadata.json')->stringify;
+write_json_file(
+    $omop_metadata_file,
+    {
+        mappingVersion => 2,
+        source         => { profile => 'omop' },
+        target         => { model => 'beacon', schemaVersion => '2.0.0' },
+        project        => { id => 'http-omop-study', version => '1' },
+        beacon         => {
+            datasets => { defaults => { name => 'HTTP OMOP dataset' } },
+            cohorts  => { defaults => { name => 'HTTP OMOP cohort' } },
+        },
+    },
 );
 my @dataset_json = map { uploaded_file($_) }
   sort glob 't/datasetjson2bff/in/*.json';
@@ -186,6 +218,29 @@ ok(
           @{ $audit_review->{rows} }
     ),
     'terminology review rows use the authoritative review actions',
+);
+
+my $omop_metadata_response = execute_files(
+    'omop2bff',
+    {
+        output  => { entities => [qw(datasets cohorts)] },
+        options => { test => JSON::XS::true },
+    },
+    {
+        source  => [ uploaded_file( $omop_zip, 'omop-tables.zip' ) ],
+        mapping => [ uploaded_file( $omop_metadata_file, 'omop-metadata.json' ) ],
+    },
+    { workspace => $upload_workspace },
+);
+is(
+    decode_json( $omop_metadata_response->{artifacts}[0]{content} )->[0]{id},
+    'http-omop-study',
+    'multipart OMOP metadata mapping overrides the dataset id',
+);
+is(
+    decode_json( $omop_metadata_response->{artifacts}[1]{content} )->[0]{name},
+    'HTTP OMOP cohort',
+    'multipart OMOP metadata mapping overrides cohort metadata',
 );
 
 my $bff      = load_json('t/bff2omop/in/individuals.json');

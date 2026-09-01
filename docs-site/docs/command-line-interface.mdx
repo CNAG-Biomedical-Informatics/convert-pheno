@@ -120,7 +120,7 @@ In other words, `--entities` does not replace `-obff`. It refines which `BFF` en
 - `biosamples` are emitted from PXF biosample data, cBioPortal sample clinical tables, FHIR `Specimen`, OMOP `SPECIMEN`, or explicit `beacon.biosamples.rules` in mapping-file routes.
 - `datasets` and `cohorts` are synthesized from the normalized `individuals` collection.
 - In mapping-file conversions, `beacon.biosamples` defines first-class biosample rules, while `beacon.datasets.defaults` and `beacon.cohorts.defaults` override synthesized metadata.
-- These mapping features are available for `csv2bff`, `redcap2bff`, and `cdiscodm2bff`; cBioPortal accepts the same Mapping V2 structure optionally to augment its built-in patient and sample mapping.
+- Full field mapping is available for `csv2bff`, `redcap2bff`, and `cdiscodm2bff`; cBioPortal can optionally augment its built-in patient and sample mapping. Built-in OMOP, PXF, FHIR, openEHR, i2b2, PCORnet, and Sentinel BFF routes accept a compact optional mapping containing only project, dataset, and cohort metadata.
 - `--entities` narrows `BFF` output. It must be combined with `-obff` and `--out-dir`.
 - `--out-name key=file` lets you override one multi-file output name. Use entity keys for `BFF` entity mode and table keys for `OMOP` output.
 - `--no-source-info` omits raw source provenance copied into `BFF` `info`, such as `OMOP_columns`, `CSV_columns`, `REDCap_columns`, `CDISC_ODM`, `cbioportal`, `datasetJson.domains`, `datasetXml.domains`, and `fhir` resources. Mapped fields and `info.convertPheno` are kept.
@@ -131,7 +131,7 @@ In other words, `--entities` does not replace `-obff`. It refines which `BFF` en
 
 ### Mapping-file conversions
 
-- `--mapping-file FILE` supplies a Mapping V2 YAML or JSON document targeting Beacon schema `2.0.0`. It is required by CSV, REDCap, and CDISC-ODM routes; optional for cBioPortal augmentation and Dataset-JSON/Dataset-XML terminology enrichment.
+- `--mapping-file FILE` supplies a Mapping V2 YAML or JSON document targeting Beacon schema `2.0.0`. It is required by CSV, REDCap, and CDISC-ODM routes; optional for cBioPortal augmentation, Dataset-JSON/Dataset-XML terminology enrichment, and dataset/cohort metadata on built-in BFF routes.
 - `--redcap-dictionary FILE` or `-rcd FILE` supplies the dictionary required by REDCap CSV and REDCap-origin ODM. Standard/OpenClinica ODM uses embedded metadata and rejects this option.
 - `--schema-file FILE` lets you validate mapping files against an alternative JSON Schema.
 - `--self-validate-schema` or `-svs` performs a self-validation of the mapping schema itself. This is mainly an author or development check and may require SSL support in the Perl environment.

@@ -194,17 +194,19 @@ Prefer **raw data** together with the REDCap dictionary file. If your export use
 <summary>Can I use the mapping file to customize synthesized `datasets` and `cohorts` for any `*2bff` conversion?</summary>
 
 
-No. Mapping-based augmentation of synthesized `datasets` and `cohorts` is currently available only for the routes that use a mapping file: `csv2bff`, `redcap2bff`, and `cdiscodm2bff`.
+Yes, for supported entity-aware BFF routes. Mapping V2 has two relevant forms:
 
-For those conversions, `beacon.datasets.defaults` and `beacon.cohorts.defaults` can override metadata such as `id`, `name`, `description`, `version`, `externalUrl`, `cohortType`, or `cohortDataTypes`.
+- CSV, REDCap, and CDISC-ODM use full mappings because their source fields are project-specific. cBioPortal can optionally augment its built-in clinical mapping.
+- OMOP, PXF, FHIR, openEHR, i2b2, PCORnet, and Sentinel use a compact optional metadata mapping. Their structural conversion remains built in.
 
-This does not currently apply to `omop2bff` or `pxf2bff`. Dataset-JSON and
-Dataset-XML accept a compact mapping file for **terminology enrichment only**;
-it does not override synthesized entity metadata. Those routes prepopulate
-dataset and cohort metadata from `studyOID` and the `TS` study title.
+In both forms, `project.id`, `beacon.datasets.defaults`, and
+`beacon.cohorts.defaults` can identify and describe synthesized entities.
+Dataset-JSON and Dataset-XML instead prepopulate this metadata from `studyOID`
+and the `TS` study title; their optional mapping is for terminology enrichment.
 
-FHIR also does not read a mapping file. It can prepopulate dataset and cohort
-metadata from `ResearchStudy` and `Group` resources.
+FHIR metadata from `ResearchStudy` and `Group` is retained as the source-derived
+baseline and can be overridden by the compact mapping. Project metadata is not
+currently copied into individual or biosample records.
 
 </details>
 <details>

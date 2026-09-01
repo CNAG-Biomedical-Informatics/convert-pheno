@@ -55,6 +55,11 @@ For file-based routes, inspect `input.files` in the selected catalog entry. It
 defines the required part names, accepted extensions, and whether a role may be
 repeated. Put `output` and `options` in the JSON-valued `request` part:
 
+Entity-aware OMOP, PXF, FHIR, openEHR, i2b2, PCORnet, and Sentinel BFF routes
+advertise an optional `mapping` role for compact dataset and cohort metadata.
+Their PXF and OMOP output routes do not advertise this role because those
+outputs do not emit BFF dataset or cohort entities.
+
 ```bash
 curl --fail-with-body \
   --form 'request={"output":{"entities":["individuals"]},"options":{"separator":","}}' \

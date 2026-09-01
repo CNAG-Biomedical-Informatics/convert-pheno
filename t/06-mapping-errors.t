@@ -67,6 +67,36 @@ sub base_sdtm_mapping {
     };
 }
 
+sub base_metadata_mapping {
+    return {
+        mappingVersion => 2,
+        source         => { profile => 'omop' },
+        target         => {
+            model         => 'beacon',
+            schemaVersion => '2.0.0',
+        },
+        project => {
+            id          => 'omop-study',
+            version     => '2026.1',
+            description => 'OMOP metadata overlay test',
+        },
+        beacon => {
+            datasets => {
+                defaults => {
+                    name        => 'OMOP study dataset',
+                    externalUrl => 'https://example.org/datasets/omop-study',
+                },
+            },
+            cohorts => {
+                defaults => {
+                    name       => 'OMOP study cohort',
+                    cohortType => 'study-defined',
+                },
+            },
+        },
+    };
+}
+
 my $compiled;
 lives_ok {
     $compiled = compile_mapping(
@@ -84,6 +114,82 @@ is(
     'Biological Sex',
     'a concise fixed-label query is normalized for execution',
 );
+
+{
+    my ( $fh, $file ) = tempfile( SUFFIX => '.json', UNLINK => 1 );
+    close $fh;
+    write_json_file( $file, base_metadata_mapping() );
+
+    my $validated;
+    lives_ok {
+        $validated = read_mapping_file(
+            {
+                mapping_file         => $file,
+                schema_file          => 'share/schema/mapping-v2.json',
+                self_validate_schema => 0,
+            }
+        );
+    }
+    'a compact OMOP metadata mapping follows the mapping v2 schema';
+
+    my $compiled_metadata;
+    lives_ok {
+        $compiled_metadata = compile_mapping(
+            $validated,
+            source_profile => 'omop',
+        );
+    }
+    'a compact OMOP metadata mapping compiles without source headers';
+    is(
+        $compiled_metadata->{beacon}{datasets}{defaults}{name},
+        'OMOP study dataset',
+        'metadata compilation preserves dataset defaults',
+    );
+}
+
+{
+    my $project_only = base_metadata_mapping();
+    delete $project_only->{beacon};
+
+    my ( $fh, $file ) = tempfile( SUFFIX => '.json', UNLINK => 1 );
+    close $fh;
+    write_json_file( $file, $project_only );
+
+    lives_ok {
+        read_mapping_file(
+            {
+                mapping_file         => $file,
+                schema_file          => 'share/schema/mapping-v2.json',
+                self_validate_schema => 0,
+            }
+        );
+    }
+    'project metadata alone is a valid compact mapping';
+}
+
+{
+    my $mapping = base_metadata_mapping();
+    $mapping->{beacon}{individuals} = {
+        id => {
+            sourceFields => ['person_id'],
+            primaryKey   => 'person_id',
+        },
+    };
+    my ( $fh, $file ) = tempfile( SUFFIX => '.json', UNLINK => 1 );
+    close $fh;
+    write_json_file( $file, $mapping );
+
+    dies_ok {
+        read_mapping_file(
+            {
+                mapping_file         => $file,
+                schema_file          => 'share/schema/mapping-v2.json',
+                self_validate_schema => 0,
+            }
+        );
+    }
+    'metadata-only profiles cannot replace built-in individual mappings';
+}
 
 {
     my ( $fh, $file ) = tempfile( SUFFIX => '.json', UNLINK => 1 );

@@ -39,7 +39,9 @@ limited.
 Convert-Pheno accepts EHRbase-style canonical compositions as JSON or YAML,
 including gzip-compressed files. Input can be a patient envelope containing a
 `compositions` array, one raw composition, or multiple files supplied in one
-request. A mapping file is not required.
+request. The clinical mapping is built in. For entity-aware BFF output, an
+optional compact [Mapping V2 file](mapping-files#compact-dataset-and-cohort-metadata)
+can name the synthesized dataset and cohort.
 
 ```bash
 convert-pheno -iopenehr composition.json \

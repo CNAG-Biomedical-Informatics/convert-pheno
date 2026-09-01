@@ -7,7 +7,10 @@ const routes = [
     id: 'pxf2bff', label: 'Phenopacket v2 to Beacon v2', maturity: 'experimental', available: true,
     source: { id: 'pxf', label: 'Phenopacket v2', kind: 'json', inputShape: 'A Phenopacket object' },
     target: { id: 'beacon', label: 'Beacon v2', kind: 'json' }, resources: [],
-    input: { transports: ['json'], files: [] },
+    input: { transports: ['json', 'multipart'], files: [
+      { name: 'source', label: 'Phenopacket document', required: true, multiple: false, accept: ['.json'] },
+      { name: 'mapping', label: 'Dataset and cohort metadata', required: false, multiple: false, accept: ['.yaml'] },
+    ] },
     entities: { default: ['individuals'], supported: ['individuals', 'biosamples'] }, options: [],
   },
   {
@@ -169,6 +172,25 @@ describe('workbench', () => {
     expect(form.get('source')).toBeInstanceOf(File)
     expect(form.get('mapping')).toBeInstanceOf(File)
     expect(JSON.parse(String(form.get('request')))).toEqual({ output: { entities: ['individuals'] }, options: { separator: ',', term_audit: 'xlsx' } })
+  })
+
+  it('keeps compact dataset metadata optional for built-in routes', async () => {
+    render(<App />)
+    await waitForInitialExample()
+    fireEvent.click(screen.getByRole('button', { name: 'File upload' }))
+    fireEvent.change(screen.getByLabelText('Phenopacket document'), {
+      target: { files: [new File(['{}'], 'phenopacket.json', { type: 'application/json' })] },
+    })
+    vi.mocked(fetch).mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ ok: true, artifacts: [{ id: 'individuals', filename: 'individuals.json', mediaType: 'application/json', kind: 'json', content: '[]' }], warnings: [], meta: { conversion: 'pxf2bff' } }),
+    } as Response)
+    fireEvent.click(screen.getByRole('button', { name: 'Run conversion' }))
+    await screen.findByText('individuals.json')
+    const call = vi.mocked(fetch).mock.calls.find((item) => item[0] === '/api/conversions/pxf2bff')!
+    const form = (call[1] as RequestInit).body as FormData
+    expect(form.get('source')).toBeInstanceOf(File)
+    expect(form.get('mapping')).toBeNull()
   })
 
   it('renders the Perl terminology review contract as an actionable panel', async () => {

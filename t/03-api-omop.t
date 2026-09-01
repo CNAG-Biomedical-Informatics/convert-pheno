@@ -7,9 +7,9 @@ use Test::More;
 use Test::Warn;
 use Test::ConvertPheno
   qw(build_convert temp_output_file test_ohdsi_db_dir structured_files_match load_csv_table
-  csv_headers_from_file write_csv_rows load_json_file write_zip_from_files);
+  csv_headers_from_file write_csv_rows load_json_file write_json_file write_zip_from_files);
 use File::Copy qw(copy);
-use File::Temp qw(tempdir);
+use File::Temp qw(tempdir tempfile);
 use File::Spec;
 use JSON::XS;
 use Convert::Pheno::Source qw(source_adapter);
@@ -55,6 +55,66 @@ for my $case (@snapshot_cases) {
     $convert->${ \$case->{method} };
 
     ok( structured_files_match( $case->{out_file}, $tmp_file ), $case->{name} );
+}
+
+{
+    my $mapping = {
+        mappingVersion => 2,
+        source         => { profile => 'omop' },
+        target         => {
+            model         => 'beacon',
+            schemaVersion => '2.0.0',
+        },
+        project => {
+            id          => 'eunomia-study',
+            version     => '1',
+            description => 'Synthetic OMOP study',
+        },
+        beacon => {
+            datasets => {
+                defaults => {
+                    name        => 'Eunomia dataset',
+                    externalUrl => 'https://example.org/eunomia',
+                },
+            },
+            cohorts => {
+                defaults => {
+                    name       => 'Eunomia cohort',
+                    cohortType => 'study-defined',
+                },
+            },
+        },
+    };
+    my ( $mapping_fh, $mapping_file ) = tempfile( SUFFIX => '.json', UNLINK => 1 );
+    close $mapping_fh;
+    write_json_file( $mapping_file, $mapping );
+
+    my $convert = build_convert(
+        in_files => [
+            't/omop2bff/in/CONCEPT.csv',
+            't/omop2bff/in/DRUG_EXPOSURE.csv',
+            't/omop2bff/in/PERSON.csv',
+        ],
+        mapping_file     => $mapping_file,
+        schema_file      => 'share/schema/mapping-v2.json',
+        entities         => [qw(individuals datasets cohorts)],
+        ohdsi_db         => 1,
+        path_to_ohdsi_db => $test_ohdsi_db_dir,
+        method           => 'omop2bff',
+    );
+    my $bundle  = $convert->_run_bundle_view;
+    my $dataset = $bundle->entities('datasets')->[0];
+    my $cohort  = $bundle->entities('cohorts')->[0];
+
+    is( $dataset->{id}, 'eunomia-study', 'OMOP metadata mapping uses project.id as the dataset id' );
+    is( $dataset->{name}, 'Eunomia dataset', 'OMOP metadata mapping overrides the dataset name' );
+    is( $dataset->{externalUrl}, 'https://example.org/eunomia', 'OMOP metadata mapping adds dataset properties' );
+    is( $cohort->{id}, 'eunomia-study-cohort', 'OMOP metadata mapping derives the cohort id from project.id' );
+    is( $cohort->{name}, 'Eunomia cohort', 'OMOP metadata mapping overrides the cohort name' );
+    ok(
+        !exists $bundle->entities('individuals')->[0]{info}{project},
+        'project metadata is not propagated into OMOP individuals',
+    );
 }
 
 {

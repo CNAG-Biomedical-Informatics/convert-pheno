@@ -32,6 +32,10 @@ use Convert::Pheno::Emit::OMOP qw(
 use Convert::Pheno::OMOP::Definitions;
 use Convert::Pheno::DB::SQLite;
 use Convert::Pheno::Mapping::Shared;
+use Convert::Pheno::Mapping::Metadata qw(
+  apply_metadata_mapping
+  load_metadata_mapping
+);
 use Convert::Pheno::CSV;
 use Convert::Pheno::JSONLD qw(do_bff2jsonld do_pxf2jsonld);
 use Convert::Pheno::OMOP::ToBFF qw(do_omop2bff);
@@ -671,7 +675,9 @@ sub _run_primary_view {
 
 sub _prepare_source_to_bff {
     my ( $self, $format ) = @_;
+    my $metadata_overrides = load_metadata_mapping( $self, $format );
     prepare_source( $self, $format );
+    apply_metadata_mapping( $self, $format, $metadata_overrides );
     $self->{convertPheno} ||= get_info($self);
     return 1;
 }

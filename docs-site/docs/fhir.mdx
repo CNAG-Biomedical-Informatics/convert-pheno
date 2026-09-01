@@ -46,9 +46,10 @@ convert-pheno -ifhir bundle.json \
 ```
 
 Multiple Bundles may contribute resources to the same Patient. Relative,
-absolute, and `urn:uuid:` references are supported. A mapping file is not
-used. See the [FHIR recipes](conversion-recipes#fhir-r4-input-bff-output) for
-PXF and OMOP-CDM output.
+absolute, and `urn:uuid:` references are supported. The clinical mapping is
+built in. An optional compact [Mapping V2 file](mapping-files#compact-dataset-and-cohort-metadata)
+can override source-derived dataset and cohort metadata in entity-aware BFF
+output. See the [FHIR recipes](conversion-recipes#fhir-r4-input-bff-output) for PXF and OMOP-CDM output.
 
 ## What Is Converted
 

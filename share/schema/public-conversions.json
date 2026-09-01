@@ -20,29 +20,48 @@
   },
   "input_definitions": {
     "beacon": { "transports": ["json"], "files": [] },
-    "pxf": { "transports": ["json"], "files": [] },
-    "fhir": { "transports": ["json"], "files": [] },
+    "pxf": {
+      "transports": ["json"],
+      "files": [],
+      "metadataMapping": true,
+      "fileSource": { "name": "source", "label": "Phenopacket document", "description": "Upload a Phenopackets v2 JSON document.", "required": true, "multiple": false, "maximum": 1, "accept": [".json", ".json.gz"], "argument": "in_file" }
+    },
+    "fhir": {
+      "transports": ["json"],
+      "files": [],
+      "metadataMapping": true,
+      "fileSource": { "name": "source", "label": "FHIR R4 Bundle", "description": "Upload one or more FHIR R4 Bundle documents.", "required": true, "multiple": true, "maximum": 128, "accept": [".json", ".json.gz"], "argument": "in_files" }
+    },
     "i2b2": {
       "transports": ["multipart", "json"],
+      "metadataMapping": true,
       "files": [
         { "name": "source", "label": "i2b2 table package", "description": "Upload exported i2b2 CSV/TSV tables or one ZIP package.", "required": true, "multiple": true, "maximum": 128, "accept": [".zip", ".csv", ".csv.gz", ".tsv", ".tsv.gz", ".txt", ".txt.gz"], "argument": "in_files" }
       ]
     },
-    "openehr": { "transports": ["json"], "files": [] },
+    "openehr": {
+      "transports": ["json"],
+      "files": [],
+      "metadataMapping": true,
+      "fileSource": { "name": "source", "label": "openEHR compositions", "description": "Upload one or more canonical openEHR JSON or YAML documents.", "required": true, "multiple": true, "maximum": 128, "accept": [".json", ".json.gz", ".yaml", ".yaml.gz", ".yml", ".yml.gz"], "argument": "in_files" }
+    },
     "omop": {
       "transports": ["multipart", "json"],
+      "metadataMapping": true,
       "files": [
         { "name": "source", "label": "OMOP table package", "description": "Upload table CSV/TSV files, one ZIP package, or one PostgreSQL SQL dump.", "required": true, "multiple": true, "maximum": 128, "accept": [".zip", ".csv", ".csv.gz", ".tsv", ".tsv.gz", ".sql", ".sql.gz"], "argument": "in_files" }
       ]
     },
     "pcornet": {
       "transports": ["multipart", "json"],
+      "metadataMapping": true,
       "files": [
         { "name": "source", "label": "PCORnet CDM table package", "description": "Upload exported PCORnet CDM CSV/TSV tables or one ZIP package.", "required": true, "multiple": true, "maximum": 128, "accept": [".zip", ".csv", ".csv.gz", ".tsv", ".tsv.gz", ".txt", ".txt.gz"], "argument": "in_files" }
       ]
     },
     "sentinel": {
       "transports": ["multipart", "json"],
+      "metadataMapping": true,
       "files": [
         { "name": "source", "label": "Sentinel CDM table package", "description": "Upload exported Sentinel CDM CSV/TSV tables or one ZIP package.", "required": true, "multiple": true, "maximum": 128, "accept": [".zip", ".csv", ".csv.gz", ".tsv", ".tsv.gz", ".txt", ".txt.gz"], "argument": "in_files" }
       ]
