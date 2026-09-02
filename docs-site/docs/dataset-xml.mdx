@@ -18,8 +18,8 @@ export const DatasetXmlFormatImage = () => (
 [CDISC Dataset-XML](https://www.cdisc.org/standards/foundational/dataset-xml/dataset-xml-v10)
 is an XML transport for tabular research datasets. Convert-Pheno reads
 **Dataset-XML v1.0 with required Define-XML v2.0 or v2.1 metadata**, then groups
-the resolved SDTM rows by participant. The route is implemented and
-regression-tested; independent study and generator coverage is still limited.
+the resolved SDTM rows by participant. Tests cover the documented SDTM domains
+and Define-XML versions, but not every Dataset-XML generator.
 
 <div className="convertFormatSummary" aria-label="At a glance">
   <div><span>Role</span><strong>Input</strong></div>
@@ -30,7 +30,7 @@ regression-tested; independent study and generator coverage is still limited.
 
 <figure className="convertFormatFigure">
 <DatasetXmlFormatImage />
-<figcaption>Define-XML supplies domain and column metadata that Dataset-XML deliberately does not repeat</figcaption>
+<figcaption>Define-XML supplies the domain and column metadata referenced by Dataset-XML</figcaption>
 </figure>
 
 ## What You Need

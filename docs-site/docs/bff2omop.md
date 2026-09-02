@@ -8,9 +8,8 @@ sidebar_label: BFF to OMOP
 * [OMOP Common Data Model](https://ohdsi.github.io/CommonDataModel/)
 
 :::
-:::info[Information]
-This table reflects the current `bff2omop` implementation in `convert-pheno`.
-The conversion maps one Beacon `individual` into OMOP `PERSON` and expands
+:::info[Mapping scope]
+`bff2omop` maps one Beacon `individual` into OMOP `PERSON` and expands
 repeated Beacon fields into OMOP row arrays such as `CONDITION_OCCURRENCE`,
 `OBSERVATION`, `PROCEDURE_OCCURRENCE`, `MEASUREMENT`, and `DRUG_EXPOSURE`.
 

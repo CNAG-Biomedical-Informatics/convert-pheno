@@ -4,10 +4,8 @@ sidebar_label: openEHR to BFF
 ---
 
 :::warning[Mapping status]
-This table documents the experimental openEHR canonical JSON/YAML profile
-introduced in **v0.31**. Its current coverage reflects EHRbase-style
-compositions and the fixtures described below and may be refined as additional
-payloads and archetypes are evaluated.
+The openEHR canonical JSON/YAML profile was added in **v0.31**. Current coverage
+is based on EHRbase-style compositions and the fixtures described below.
 
 The current mapper groups openEHR input by patient identity before mapping.
 Patient identity must be resolvable from the payload or envelope, and multiple compositions for the same patient are aggregated into one Beacon `individual`.

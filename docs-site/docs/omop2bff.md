@@ -9,16 +9,23 @@ sidebar_label: OMOP to BFF
 * [Beacon v2 Models - biosamples](https://docs.genomebeacons.org/schemas-md/biosamples_defaultSchema)
 
 :::
-:::info[Information]
- The Beacon v2 schema enforces the presence of specific properties to achieve successful validation. In cases where no suitable match is found, DEFAULT values are employed to guarantee conformity.
+:::info[Required Beacon fields]
+Beacon v2 requires some fields that have no direct OMOP equivalent. The mapping
+tables identify the defaults used in those cases.
 
- OMOP `SPECIMEN` rows can now be emitted as first-class Beacon `biosamples`, but only in entity-aware BFF mode such as `-obff --entities biosamples --out-dir out/` or `-obff --entities individuals biosamples --out-dir out/`.
+OMOP `SPECIMEN` rows can be emitted as first-class Beacon `biosamples` in
+entity-aware BFF mode, for example
+`-obff --entities individuals biosamples --out-dir out/`.
 
- OMOP `SPECIMEN` to Beacon `biosamples` support is implemented and covered by regression tests and schema validation. Review and validation with external collaborators are still pending, so broader real-world validation remains limited.
+The implementation is covered by regression and schema-validation tests. It
+has been evaluated with fewer external datasets than the individuals mapping.
 
- With `--stream`, OMOP BFF output is written as line-delimited JSON suitable for MongoDB-style ingestion. Stream mode supports `individuals`, `biosamples`, or both together, each written to its own file in `--out-dir`. Aggregate entities such as `datasets` and `cohorts` are not available in stream mode.
+With `--stream`, OMOP BFF output is line-delimited JSON. Stream mode supports
+`individuals`, `biosamples`, or both, with one file per entity under
+`--out-dir`. It does not produce `datasets` or `cohorts`.
 
- If `biosamples` are explicitly requested and the OMOP input does not contain the `SPECIMEN` table, the conversion fails with a focused error. If `SPECIMEN` exists but is empty, the conversion succeeds and emits an empty `biosamples` collection.
+Requesting `biosamples` without a `SPECIMEN` table is an error. An empty
+`SPECIMEN` table produces an empty `biosamples` collection.
 
 :::
 

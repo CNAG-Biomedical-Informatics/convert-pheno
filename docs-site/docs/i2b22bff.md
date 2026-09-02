@@ -4,9 +4,8 @@ sidebar_label: i2b2 to BFF
 ---
 
 :::warning[Mapping status]
-This table documents the implemented i2b2 star-schema profile. It is covered by
-synthetic regression fixtures, but i2b2 installations may use different local
-ontologies and dimension conventions.
+Tests cover the i2b2 star-schema profile with synthetic fixtures. Local
+ontologies and dimension conventions may differ between installations.
 :::
 
 The route groups `PATIENT_DIMENSION`, `OBSERVATION_FACT`, and optional context

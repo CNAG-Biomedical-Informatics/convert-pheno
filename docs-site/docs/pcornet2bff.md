@@ -4,9 +4,8 @@ sidebar_label: PCORnet to BFF
 ---
 
 :::warning[Mapping status]
-This table documents the implemented PCORnet CDM table profile. It is covered
-by synthetic regression fixtures; network-specific extensions may require
-additional mapping review.
+Tests cover the PCORnet CDM table profile with synthetic fixtures.
+Network-specific extensions may require additional mapping review.
 :::
 
 The route joins supported clinical tables to `DEMOGRAPHIC` by `PATID` and

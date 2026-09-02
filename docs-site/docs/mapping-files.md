@@ -9,8 +9,8 @@ Mapping files describe how project-specific `CSV`, `REDCap`, or `CDISC-ODM`
 fields become Beacon v2 records. They can also augment the built-in cBioPortal
 mapping or define reviewed terminology decisions for SDTM Dataset-JSON and
 Dataset-XML. Built-in BFF routes can use a small optional mapping to describe
-their synthesized dataset and cohort. This page explains the Mapping V2
-contract through a REDCap example and identifies the smaller profiles.
+their synthesized dataset and cohort. The examples below cover the full
+Mapping V2 contract and its smaller profiles.
 
 :::tip[Google Colab version]
 A runnable notebook is available in [Google Colab](https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6), with a local copy in the [repository](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/nb/convert_pheno_cli_tutorial.ipynb).
@@ -130,11 +130,9 @@ result.
 <details>
 <summary>Advanced: tool-assisted terminology validation</summary>
 
-A tool-enabled LLM can carry out most of this workflow. Give it access to the
-source schema and distinct values, the Mapping V2 documentation, the ontology
-databases, Convert-Pheno, the terminology audit, and the target validator. It
-can then draft the mapping, run it, inspect the evidence, and revise it instead
-of guessing terms from memory.
+An LLM can help draft a mapping if it can query the same source metadata,
+terminology databases, audit report, and target validator used by the person
+reviewing the result. A term proposed from model memory alone is not evidence.
 
 For example, when the LLM proposes a direct NCIT term, it can verify the pair
 against the database bundle selected by `share/db/manifest.json`:
@@ -147,15 +145,15 @@ sqlite3 share/db/v0/ncit.db \
 Record which ontology release you checked. Its version and checksum are in
 `share/db/manifest.json`.
 
-Then answer two separate questions:
+Two checks remain separate:
 
 - **Does the code exist, and does its label match?** Check the ontology database.
 - **Does it mean the same thing as the source value?** Check the source
   documentation and ask a domain expert when the meaning is unclear.
 
-If the audit says `configured` or `direct_mapping`, Convert-Pheno copied a term
-provided by the mapping file. The LLM should perform the database check as a
-separate tool call and record the result.
+If the audit says `configured` or `direct_mapping`, Convert-Pheno copied the
+term from the mapping file. Verify that term separately against the selected
+database and record the result.
 
 Finally, validate the generated BFF with
 [`bff-tools`](https://github.com/CNAG-Biomedical-Informatics/beacon2-cbi-tools):
@@ -170,11 +168,10 @@ overlap. That specific message is a known schema ambiguity, not evidence of an
 incorrect ontology lookup. Retain it in the validation record, but do not use
 it to dismiss any other validation issue.
 
-This inspect, map, convert, audit, validate, and revise cycle can be largely
-automated by an LLM with the right tools. People still decide genuinely
-ambiguous clinical meanings and approve the final mapping. For restricted data,
-run the workflow in an approved environment and expose only the information the
-model needs.
+Tooling can automate repeated conversion and validation runs. A person still
+has to resolve ambiguous clinical meanings and approve the mapping. For
+restricted data, use an approved environment and disclose only the source
+information needed for the task.
 
 </details>
 

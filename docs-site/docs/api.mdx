@@ -8,9 +8,9 @@ slug: /use-as-an-api
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-The Mojolicious artifact API accepts self-contained JSON and registry-defined
-multipart file uploads. The [command-line interface](use-as-a-command-line-interface)
-remains the appropriate interface for streaming and large datasets.
+The Mojolicious API accepts self-contained JSON and registry-defined multipart
+uploads. Use the [command-line interface](use-as-a-command-line-interface) for
+streaming and large datasets.
 
 ## Endpoints
 
@@ -20,8 +20,8 @@ remains the appropriate interface for streaming and large datasets.
 | `GET` | `/api/conversions` | Get routes, input shapes, options, entities, maturity, and current resource availability |
 | `POST` | `/api/conversions/{conversion}` | Run one conversion and return serialized artifacts |
 
-The catalog is authoritative. Clients should not hard-code route options or
-assume that a listed route is currently available.
+Read route options and current resource availability from the catalog instead
+of maintaining a separate conversion list in the client.
 
 ## Conversion request
 

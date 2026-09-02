@@ -4,9 +4,8 @@ sidebar_label: Sentinel to BFF
 ---
 
 :::warning[Mapping status]
-This table documents the implemented Sentinel CDM table profile. It is covered
-by synthetic regression fixtures; data-partner extensions may require
-additional mapping review.
+Tests cover the Sentinel CDM table profile with synthetic fixtures.
+Data-partner extensions may require additional mapping review.
 :::
 
 The route joins supported clinical tables to `DEMOGRAPHIC` by `PATID` and

@@ -3,8 +3,8 @@ title: cBioPortal to BFF
 sidebar_label: cBioPortal to BFF
 ---
 
-This table summarizes the built-in clinical study mapping. Project-specific
-patient and sample columns can be added with an optional Mapping V2 file.
+The built-in clinical study mapping is summarized below. An optional Mapping V2
+file can add project-specific patient and sample columns.
 
 | cBioPortal source | BFF destination | Behavior |
 | --- | --- | --- |

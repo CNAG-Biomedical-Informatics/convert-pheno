@@ -5,9 +5,9 @@ sidebar_label: Choose a Conversion
 slug: /conversion-recipes
 ---
 
-Choose your **input format** first. The table identifies the available main
-outputs and any extra files required. Continue to the corresponding command,
-then use the linked format guide for input details and route-specific options.
+Start with the **input format**. The table lists its main outputs, required
+files, and a link to a working command. Format guides contain the less common
+options and input constraints.
 
 <a id="choose-by-input-format"></a>
 

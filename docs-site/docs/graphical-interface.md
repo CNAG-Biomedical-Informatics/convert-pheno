@@ -5,9 +5,8 @@ slug: /graphical-interface
 ---
 
 The Convert-Pheno workbench is a **local browser application** for interactive
-conversions. It automatically discovers the conversions
-available on your installation and prepares each result as a downloadable
-artifact.
+conversions. It reads the routes available in the local installation and makes
+the generated files available for preview and download.
 
 :::info[Version availability]
 The Workbench is available from **Convert-Pheno 0.35**.
@@ -20,7 +19,7 @@ is a **legacy demonstration** and does not reflect current conversion support.
 
 [![Convert-Pheno conversion workbench](/img/workbench-conversion.png)](/img/workbench-conversion.png)
 
-*The workbench presents route selection, required input, output settings, and conversion as one workflow.*
+*Select a route, add its input files, choose the output, and run the conversion.*
 
 ## Run from Docker
 
@@ -90,17 +89,15 @@ for streaming or larger datasets.
 ## Terminology review
 
 For mapping-based routes, the workbench enables a **color-coded XLSX terminology
-report** by default. After conversion it shows complete counts for terms that can
-be kept, similarity matches requiring review, unresolved terms, and source
-fallbacks. The table starts with actionable decisions and can be filtered by
-text, ontology, or review action.
+report** by default. After conversion it counts exact or configured terms,
+similarity matches, unresolved terms, and source fallbacks. Filter the preview
+by text, ontology, or review action.
 
 [![Convert-Pheno terminology review](/img/workbench-terminology-review.png)](/img/workbench-terminology-review.png)
 
 *Terminology decisions can be filtered in the browser and downloaded as a complete XLSX or TSV report.*
 
-The browser keeps only a bounded preview while the downloadable XLSX or TSV
-retains every decision. Review recommendations come directly from the Perl
-audit writer; the interface does not recalculate terminology decisions. See
-[Terminology Search](terminology-search) for the decision fields and review
-workflow.
+The browser shows a limited preview; the XLSX or TSV download contains every
+decision. Review recommendations come from the Perl audit writer rather than
+being recalculated in the browser. See [Terminology Search](terminology-search)
+for the fields and suggested review order.

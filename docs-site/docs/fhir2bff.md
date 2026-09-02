@@ -4,10 +4,9 @@ sidebar_label: FHIR to BFF
 ---
 
 :::warning[Mapping status]
-This table documents the experimental FHIR R4 JSON Bundle mapping introduced
-in **v0.33** and the mCODE 4.0 profile-aware mapping added for **v0.34**. Its
-current coverage reflects the attributed generic and official mCODE fixtures
-and may be refined as additional implementations are evaluated.
+FHIR R4 Bundle support was added in **v0.33** and mCODE 4.0 handling in
+**v0.34**. Current coverage is based on the attributed generic and official
+mCODE fixtures.
 :::
 
 The route resolves Bundle references, groups resources by Patient, creates one

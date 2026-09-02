@@ -8,8 +8,9 @@ sidebar_label: PXF to BFF
 * [Beacon v2 Models - individuals](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema)
 
 :::
-:::info[Information]
- The Beacon v2 schema enforces the presence of specific properties to achieve successful validation. In cases where no suitable match is found, DEFAULT values are employed to guarantee conformity.
+:::info[Required Beacon fields]
+Beacon v2 requires some fields that may be absent from a Phenopacket. The
+mapping tables identify the documented defaults used in those cases.
 
 :::
 #### Version 0.34
@@ -18,7 +19,7 @@ sidebar_label: PXF to BFF
 
 **Entities:** individuals, biosamples
 
-:::note[Note]
+:::note[Field names]
 Field names in the tables use the canonical `camelCase` JSON form used by Beacon and Phenopackets examples. The parser may still accept some protobuf-style `snake_case` aliases on input for compatibility, but those aliases are not documented as the primary form here.
 
 :::

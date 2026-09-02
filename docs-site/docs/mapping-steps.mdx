@@ -23,14 +23,15 @@ export const SourceHandlingDiagram = () => {
 
 Most conversions use `BFF` as the internal target model:
 
-| Step | What Happens | Why It Matters |
-|------|--------------|----------------|
-| 1 | Source data is normalized into Beacon v2 Models / BFF | This gives the software one consistent target |
-| 2 | BFF is optionally converted into the requested final model | This keeps source-specific parsing separate from final-output serialization |
-| 3 | Unmapped source values are preserved when useful | Users can audit the conversion and query source-specific fields later |
+| Step | Operation | Reason |
+|------|-----------|--------|
+| 1 | Normalize source data as Beacon v2 Models / BFF | Use one internal representation for most routes |
+| 2 | Convert BFF to the requested final model when needed | Keep source parsing separate from output serialization |
+| 3 | Retain source values where the route supports it | Permit auditing and source-field queries |
 
 :::tip[Practical shortcut]
-If you only need commands, use [Choose a Conversion](conversion-recipes). Use this page when you want to understand why mappings are structured the way they are.
+For commands, go directly to [Choose a Conversion](conversion-recipes). The
+sections below document the mapping decisions behind those commands.
 :::
 
 :::warning[Check the longitudinal representation]
@@ -108,30 +109,40 @@ When starting a new conversion between two data models, the first step is to **m
 In the early stages of development, we considered configuration files for schema-to-schema mapping. Deeply nested JSON structures made that impractical for most routes. The exception is mapping-file input such as [REDCap](redcap), [CSV](csv), and [CDISC-ODM](cdisc-odm), where source fields are project-specific and user configuration is necessary.
 
 </details>
-In the **Mapping tables** section (accessible via the 'Technical Details' tab on the left navigation bar), we outline the equivalencies between different schemas. These tables fulfill several purposes:
+The **Mapping tables** under Technical Details record the equivalences used by
+each route. They are intended for three audiences:
 
 1. They summarize the intended mapping without requiring readers to inspect the code first.
 2. Domain experts can review the mapping assumptions and suggest corrections.
 3. Contributors can use them as a starting point for new conversion routes.
 
-:::danger[Notice]
-Accurately mapping between clinical data standards is a substantial task. Some mappings may need revision as new source examples and domain feedback become available.
+:::caution[Mapping review]
+Schema-valid output can still contain a poor semantic mapping. The tables are
+revised when new source examples or domain review identify a better choice.
 
 :::
 <details>
 <summary>Contributing</summary>
 
-While creating the code for a new format can be challenging, modifying properties in an existing one is much easier. Feel free to [reach us](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/issues) should you plan to contribute.
+Open an [issue](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/issues)
+before changing a mapping so the source example and expected target can be
+reviewed together.
 
 
 </details>
 ### From table mappings to code
 
-These tables serve as a **reference** for implementing Convert-Pheno's source code. Each format conversion has a dedicated Perl [submodule](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/tree/main/lib/Convert/Pheno), and during implementation we verify that the converted output conforms to the final target data schema.
+Each format has a dedicated Perl
+[module](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/tree/main/lib/Convert/Pheno).
+The tables describe its intended behavior; fixtures and target validators check
+the implementation.
 
 ### Lossless or lossy conversion?
 
-Source handling is route-specific rather than one global algorithm. A mapped value may populate a first-class target field and retain its source provenance, while unsupported or unconfigured values may be omitted. If required target data cannot be constructed, the route may apply a documented default, omit the affected item, or stop the conversion.
+Source handling depends on the route. A value may populate a target field,
+remain as provenance, do both, or be omitted. If a required target field cannot
+be built, the route may use a documented default, omit the affected item, or
+stop with an error.
 
 <figure className="convertDiagramFrame">
 <div className="convertDiagramScroller">
@@ -140,7 +151,12 @@ Source handling is route-specific rather than one global algorithm. A mapped val
 <figcaption>Possible source-data outcomes during conversion. More than one outcome can apply to the same value.</figcaption>
 </figure>
 
-Converting between data standards can lose information because their schemas do not represent every concept in the same way. Where a route supports it, `Convert-Pheno` reduces that loss by retaining source context as `additionalProperties` allowed by the Beacon v2 Models [schema](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema/). This can keep original variables available for auditing and later queries, including in non-relational databases such as MongoDB. Preservation is not universal, so users should review the relevant mapping table and validate the generated output.
+Clinical data models do not represent every concept in the same way, so some
+conversions are lossy. Several BFF routes retain source context through the
+`additionalProperties` permitted by the Beacon v2 Models
+[schema](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema/).
+This supports auditing and later source-field queries. Check the mapping table
+for the route because provenance retention is not universal.
 
 Two common preservation strategies are shown below:
 
@@ -326,11 +342,15 @@ Example of longitudinal data stored under `_visit` in a `omop2bff` [conversion](
 <TabItem value="match-to-a-different-entity" label="Match to a different entity">
 
 
-When a variable corresponds to a different entity in [Beacon v2 Models](https://github.com/ga4gh-beacon/beacon-v2), `Convert-Pheno` tries to preserve that information without dropping it. In the `individuals`-based output path used **before version 0.30**, this often means storing the data inside the `info` term of the [individuals](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema/) entity. For instance, a `PXF` file may contain the [biosamples](https://phenopacket-schema.readthedocs.io/en/latest/phenopacket.html) property, which does not belong to the Beacon [individuals](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema/) entity but to the Beacon [biosamples](https://docs.genomebeacons.org/schemas-md/biosamples_defaultSchema/) entity. In that path, the data are preserved under `info.phenopacket.biosamples`.
-
-Starting with **version 0.30**, newer internal bundle-based paths can already expose `biosamples` as a **separate output entity** for `PXF`, while keeping the earlier `individuals` behaviour for backward compatibility.
+When source data belongs to another Beacon entity, entity-aware output writes
+it to that entity when the route supports it. For example, a Phenopacket
+`biosamples` array can become a separate Beacon
+[biosamples](https://docs.genomebeacons.org/schemas-md/biosamples_defaultSchema/)
+collection. The original Phenopacket can also remain under `info` when source
+provenance is enabled.
  
-Example extracted from the `pxf2bff` [conversion](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/t/pxf2bff/out/individuals.json), using the `individuals`-based output path kept for backward compatibility:
+Example source provenance from the `pxf2bff`
+[fixture](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/t/pxf2bff/out/individuals.json):
  
 <details>
 <summary>See example</summary>
@@ -381,7 +401,9 @@ Example extracted from the `pxf2bff` [conversion](https://github.com/CNAG-Biomed
 </Tabs>
 ### Preservation and augmentation of ontologies
 
-One of the advantages of **Beacon/Phenopackets v2** is that they **do not prescribe the use of specific ontologies**, thus allowing us to retain the original ontologies, except to fill in missing terms in required fields.
+Beacon v2 Models and Phenopackets v2 accept terms from different ontologies.
+Convert-Pheno therefore keeps source ontology identifiers where a direct
+mapping exists and resolves terms only where the route requires it.
 
 <details>
 <summary>Which ontologies/terminologies are supported?</summary>
@@ -446,7 +468,9 @@ If the output is set to [Phenopackets v2](pxf) then a second step (`bff2pxf`) is
 <details>
 <summary>BFF and PXF community alignment</summary>
 
-At present, we have prioritized mapping the terms that we deem most critical in facilitating **basic semantic interoperability**. We anticipate that Beacon v2 Models will become more aligned with Phenopackets v2, which will simplify the conversion process in future updates. We aim to refine the mappings in future iterations, with the community providing a wider range of case studies.
+The current mapping covers the terms exercised by the available fixtures and
+project datasets. Additional cases can be proposed through the issue tracker
+with a source example and expected Phenopackets representation.
 
 </details>
 ### To OMOP CDM

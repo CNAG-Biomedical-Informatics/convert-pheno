@@ -39,10 +39,10 @@ Yes. See the [license](https://github.com/mrueda/convert-pheno/blob/main/LICENSE
 
 </details>
 <details>
-<summary>Is `Convert-Pheno` or `Pheno-Convert`?</summary>
+<summary>Is the name `Convert-Pheno` or `Pheno-Convert`?</summary>
 
 
-It's **`Convert-Pheno`**, for two reasons:
+The name is **`Convert-Pheno`**. It was chosen for two reasons:
 
 1. The naming is inspired by the `convert` utility from [ImageMagick](https://imagemagick.org).
 2. In related contexts, people refer to *PhenoConvert* as in [PhenoCopy](https://en.wikipedia.org/wiki/Phenocopy) or [PhenoConversion](https://www.universiteitleiden.nl/en/research/research-projects/science/phenoconversion).
@@ -101,10 +101,11 @@ Different standards solve different problems: clinical care, research harmonizat
 
 </details>
 <details>
-<summary>Are you planning in supporting other clinical data formats?</summary>
+<summary>Are other clinical data formats planned?</summary>
 
 
-Afirmative, but it will depend on community adoption. Please check our [roadmap](future-plans) for more information.
+Yes, when there is a concrete use case and representative test data. See
+[Future Plans](future-plans) for the formats currently under consideration.
 
 
 </details>
@@ -112,20 +113,22 @@ Afirmative, but it will depend on community adoption. Please check our [roadmap]
 <summary>Are longitudinal data supported?</summary>
 
 
-Although Beacon v2 and Phenopackets v2 allow for storing time information in some properties, there is currently no way to associate medical visits to properties. To address this:
+Yes, with model-specific limits. OMOP-to-BFF writes one individual per person
+and aggregates longitudinal events into that record. When visit context is
+available, mapped events carry the private `_visit` extension. REDCap event
+context is retained in source provenance.
 
-* `omop2bff` -  we added an _ad hoc_ property (**_visit**) to store medical visit information for longitudinal events in variables that have it (e.g., measures, observations, etc.).
-
-* `redcap2bff` - In REDCap, visit/event information is not stored at the record level. We added this information inside `info` property.
-
-We raised this issue to the respective communities in the hope of a more permanent solution.
+Beacon v2 has no Visit or Encounter entity, so a person record and a
+person-at-timepoint snapshot must not be treated as equivalent.
+[Mapping Steps](mapping-steps) explains the two representations in detail.
 
 
 </details>
 <details>
 <summary>What is an "ontology" in Beacon v2 and Phenopacket v2 context?</summary>
 
-In this context, “ontology” is used broadly for standardized identifiers such as HPO, NCIt, LOINC, or RxNorm terms. In practice, these are the coded terms used in the JSON structures handled by Beacon v2 and Phenopackets.
+Here, “ontology” is shorthand for the standardized coded terms used by Beacon
+v2 and Phenopackets, including HPO, NCIt, LOINC, and RxNorm identifiers.
 
 </details>
 
@@ -150,11 +153,11 @@ See [Development Validation](development-validation) for details.
 <details>
 <summary>What type of **database search** is carried out?</summary>
 
-Convert-Pheno supports indexed exact lookup, strict token ranking with `mixed`,
-and typo-tolerant candidate retrieval with `fuzzy`. Similarity scores measure
-lexical resemblance rather than clinical equivalence. The formulas, worked
-NCIT example, threshold behavior, and terminology-audit columns are documented
-under [Terminology Search](terminology-search).
+`exact` performs indexed label or identifier lookup. `mixed` adds
+order-independent token matching, and `fuzzy` can retrieve candidates with one
+missing or misspelled token. Similarity measures text, not clinical
+equivalence. See [Terminology Search](terminology-search) for scoring,
+thresholds, and audit fields.
 
 </details>
 <details>
@@ -213,7 +216,7 @@ currently copied into individual or biosample records.
 <summary>Which formats accept gzipped (`.gz`) files?</summary>
 
 
-Based on the current I/O code, gzip support is available for these file families:
+Gzip support is available for these file families:
 
 | File family | Typical use | Read `.gz` | Write `.gz` | Notes |
 | --- | --- | --- | --- | --- |
@@ -224,7 +227,8 @@ Based on the current I/O code, gzip support is available for these file families
 | OMOP table output | `*2omop` | N/A | Yes | Use `-oomop --out-dir DIR` to get `TABLE.csv` files. Use `--out-name TABLE=filename.csv.gz` to rename or gzip specific tables |
 | CSV / TSV output | `bff2csv`, `pxf2csv`, terminology-audit TSV | N/A | Yes | The current writers accept `.csv.gz` and `.tsv.gz` in addition to plain text output |
 
-In practice, gzip is supported both for structured JSON/YAML-style outputs and for the main CSV/TSV output paths.
+Structured JSON/YAML and the main CSV/TSV output paths can therefore be written
+directly as gzip files.
 
 
 </details>

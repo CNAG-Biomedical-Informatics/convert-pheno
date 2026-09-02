@@ -18,8 +18,8 @@ export const SentinelFormatImage = () => (
 The [Sentinel Common Data Model](https://www.sentinelinitiative.org/methods-data-tools/sentinel-common-data-model/sentinel-common-data-model)
 standardizes health-data tables across participating data partners.
 Convert-Pheno reads **exported Sentinel CDM tables**; it does not query a live
-partner database. The route is implemented and regression-tested against
-synthetic fixtures; independent data-partner coverage is still limited.
+partner database. The tests use synthetic exports; data-partner conventions
+outside those fixtures may need further mapping work.
 
 <div className="convertFormatSummary" aria-label="At a glance">
   <div><span>Role</span><strong>Input</strong></div>

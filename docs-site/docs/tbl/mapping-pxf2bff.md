@@ -9,7 +9,7 @@ sidebar_label: PXF to BFF Mapping
 
 **Entities:** individuals, biosamples
 
-:::note[Note]
+:::note[Field names]
 Field names in the tables use the canonical `camelCase` JSON form used by Beacon and Phenopackets examples. The parser may still accept some protobuf-style `snake_case` aliases on input for compatibility, but those aliases are not documented as the primary form here.
 
 :::

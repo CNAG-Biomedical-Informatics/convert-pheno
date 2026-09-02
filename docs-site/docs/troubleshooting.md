@@ -5,7 +5,7 @@ sidebar_label: Troubleshooting
 
 # Troubleshooting
 
-This page collects a few issues that users have asked about more than once.
+Common installation and input errors are listed below with their usual fixes.
 
 ## CSV_XS separator error
 

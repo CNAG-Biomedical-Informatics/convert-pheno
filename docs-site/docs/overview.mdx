@@ -26,13 +26,18 @@ import Link from '@docusaurus/Link';
 :::note[Project status]
 This documentation tracks the development version `Convert-Pheno 0.34_1`.
 
-The software is in active use and still evolving. Some conversion routes are more mature than others, so it is worth checking the format-specific pages before running a new conversion on real data.
+The established routes are used in research projects and covered by regression
+tests. Routes marked experimental have been tested with fewer independent
+datasets; their format guides state the current coverage.
 
 :::
 :::tip[Choose an interface]
-The command-line interface remains the main entry point for normal use. It supports real files, mapping files, REDCap dictionaries, OMOP tables, terminology reports, and multi-entity BFF output.
+Start with the command-line interface. It supports files, mapping files, REDCap
+dictionaries, OMOP tables, terminology reports, and multi-entity BFF output.
 
-From **Convert-Pheno 0.35**, the local [Workbench](graphical-interface) provides a browser interface for supported JSON and file-based conversions. The API and module interfaces are mainly for developers who need to call Convert-Pheno from another application or script.
+From **Convert-Pheno 0.35**, the local [Workbench](graphical-interface) provides
+a browser interface for supported JSON and file-based conversions. The API and
+module are intended for integration with other software.
 :::
 ## Typical conversions
 
@@ -49,27 +54,20 @@ Most users come to `Convert-Pheno` for one of these tasks:
 - use mapped raw `CSV` as an ETL source for `BFF`, `PXF`, or supported `OMOP-CDM` tables
 - convert `BFF` to `PXF`, flattened `CSV`, flattened `JSON`, or `JSON-LD`
 
-## Start Here
+## Where to start
 
-- [5-Minute Quickstart](quickstart) if you want to complete one small conversion now
-- [Choose a Conversion](conversion-recipes) if you want a route finder and copy-paste commands for common conversions
-- [Workbench](graphical-interface) if you want a local browser interface, available from Convert-Pheno 0.35
-- [Supported Formats](supported-formats) if you need accepted files and format-specific behavior
+- [5-Minute Quickstart](quickstart) runs one small PXF-to-BFF conversion
+- [Choose a Conversion](conversion-recipes) lists commands by input format
+- [Supported Formats](supported-formats) summarizes accepted files and outputs
+- [Mapping Files](mapping-files) explains project-specific CSV, REDCap, and ODM mappings
+- [Workbench](graphical-interface) covers the local browser interface available from version 0.35
 
-:::note[Workbench, API, and CLI]
-Use the **CLI** for automation, streaming, or large datasets. Use the local **Workbench** for interactive conversions and terminology review.
+## Developer interfaces
 
-Use the HTTP(s) API when integrating Convert-Pheno into another application. The Workbench calls this API but presents its inputs and results as a guided workflow.
-
-:::
-## Documentation map
-
-- [Command-Line Interface](use-as-a-command-line-interface) if you want to **run the tool now**
-- [Workbench](graphical-interface) if you prefer a **local browser interface**
-- [Mapping Files](mapping-files) for an **end-to-end mapped REDCap workflow**
-- [Use as an API](use-as-an-api) if you want the **HTTP(s) contract, API support matrix, and JavaScript fetch examples**
-- [Troubleshooting](troubleshooting) if something is not behaving as expected
-- [Implementation](implementation) if you want the **architectural view**
+- [Module](use-as-a-module) for local Perl or Python code
+- [API](use-as-an-api) for HTTP(s) requests and the OpenAPI contract
+- [Implementation](implementation) for the route registry and execution model
+- [Troubleshooting](troubleshooting) for common installation and input errors
 
 ## External components
 

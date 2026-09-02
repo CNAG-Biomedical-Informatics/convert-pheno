@@ -4,9 +4,9 @@ sidebar_label: Dataset-XML to BFF
 ---
 
 :::warning[Mapping status]
-This table documents the experimental Dataset-XML v1.0 with Define-XML v2.x
-profile introduced for **v0.34**. The parser and mappings are regression-tested;
-independent study and generator coverage remains limited.
+Dataset-XML v1.0 with Define-XML v2.x support was added for **v0.34**. The
+fixtures cover the parser and documented mappings, but not every study or XML
+generator.
 :::
 
 Dataset-XML is first resolved against Define-XML, then passed to the same SDTM

@@ -4,16 +4,13 @@ sidebar_label: Dataset-JSON to BFF
 ---
 
 :::warning[Mapping status]
-This table documents the experimental Dataset-JSON v1.1 SDTM profile introduced
-in **v0.33**. Its current coverage reflects the domains and fixtures described
-below and may be refined as additional study datasets and SDTM profiles are
-evaluated.
+Dataset-JSON v1.1 SDTM support was added in **v0.33**. Current coverage is
+limited to the domains and fixtures described below.
 :::
 
-This table records the implemented CDISC Dataset-JSON v1.1 SDTM mapping. The
-route groups domain rows by `USUBJID`, creates one Beacon `individuals` record
-per `DM` participant, and can synthesize `datasets` and `cohorts` from study
-metadata.
+Domain rows are grouped by `USUBJID`. Each `DM` participant becomes one Beacon
+`individuals` record, with `datasets` and `cohorts` synthesized from study
+metadata when requested.
 
 The structural targets below are built in. Term-bearing fields can be enriched
 through the optional SDTM terminology mapping described under

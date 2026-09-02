@@ -8,8 +8,10 @@ sidebar_label: BFF to PXF
 * [Phenopacket v2 schema](https://phenopacket-schema.readthedocs.io/en/latest/phenopacket.html)
 
 :::
-:::info[Information]
- The Phenopacket v2 schema enforces the presence of specific properties to achieve successful validation. We display in parenthesis the fields that are employed to guarantee conformity.
+:::info[Required Phenopackets fields]
+Phenopackets v2 requires fields that do not always have a direct BFF
+equivalent. Parentheses in the mapping tables mark values added to satisfy
+those requirements.
 
 :::
 #### Version 0.34

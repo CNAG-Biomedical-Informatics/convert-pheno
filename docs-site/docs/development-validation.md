@@ -3,15 +3,19 @@ title: Development Validation
 sidebar_label: Development Validation
 ---
 
-This page records how generated output is checked while conversion mappings are developed and maintained. It is a development methodology, not an extra command that users are expected to run after every conversion.
+Convert-Pheno's reference outputs are checked while mappings are developed and
+when conversion code changes. These are project development checks, not an
+extra command required after every user conversion.
 
-These checks assess structural conformance and known mapping behavior. They do not establish the clinical correctness or completeness of a source dataset, and they do not imply that every vendor or project profile has been independently reviewed.
+They test file structure and known mapping behavior. They cannot establish the
+clinical correctness or completeness of a source dataset, and coverage varies
+between source profiles.
 
 <div className="convertNotePanel">
   <p>
-    Development loop: generate output, validate it, inspect schema or table
-    errors, update mappings/defaults/type coercions in the runtime code, and
-    repeat until the generated files validate for the tested route.
+    During development we generate a reference output, run the relevant
+    validator, inspect any errors, and update the mapping or data handling. The
+    cycle is repeated until the tested fixture passes.
   </p>
 </div>
 
@@ -31,7 +35,10 @@ BFF validators usually infer the entity from the file name. Use standard names s
 
 OMOP-CDM v5.4 is a relational SQL model, while Beacon v2 Models are hierarchical JSON schemas. For example, OMOP stores clinical facts across tables such as `PERSON`, `CONDITION_OCCURRENCE`, `MEASUREMENT`, `OBSERVATION`, `PROCEDURE_OCCURRENCE`, and `SPECIMEN`; Beacon `individuals` and `biosamples` represent related information as nested JSON objects.
 
-The OMOP-to-BFF mappings were developed to bridge that difference while keeping the converted JSON structurally valid against Beacon v2 schemas. During development, generated BFF files were iteratively validated with `bff-tools validate`; schema errors were then addressed in the runtime conversion code by refining mappings, adding required defaults, and correcting data types. This is why some apparently artificial defaults exist: they are there to satisfy required Beacon structure when the source model has no direct equivalent.
+The OMOP-to-BFF mapping bridges those structures. Reference BFF files are
+checked with `bff-tools validate`, and schema errors are corrected in the
+runtime mapping, defaults, or type handling. Some defaults exist because Beacon
+requires a value for which the source OMOP row has no direct equivalent.
 
 Validation was also supported by dataset-specific checks:
 

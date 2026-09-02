@@ -109,19 +109,17 @@ convert-pheno --help
 - `individuals`-only BFF output: `-obff FILE`
 - Entity-aware output: `-obff --entities ... --out-dir DIR`
 
-In other words, `--entities` does not replace `-obff`. It refines which `BFF` entities are written after you have already selected `BFF` as the output format.
+`--entities` modifies BFF output; it does not replace `-obff`.
 
 ## Notes
 
-- `-obff` keeps the **individuals-only `BFF` behavior**.
-- `BFF` entity mode is also explicit: use `-obff --entities ... --out-dir DIR`.
 - When `PXF` input contains `biosamples`, the individuals-only `-obff FILE` path still writes only `individuals`. In that mode, `convert-pheno` warns and preserves the biosamples under `info.phenopacket.biosamples`.
 - `--entities` can be used with `BFF` output. The supported output entities are `individuals`, `biosamples`, `datasets`, and `cohorts`.
 - `biosamples` are emitted from PXF biosample data, cBioPortal sample clinical tables, FHIR `Specimen`, OMOP `SPECIMEN`, or explicit `beacon.biosamples.rules` in mapping-file routes.
 - `datasets` and `cohorts` are synthesized from the normalized `individuals` collection.
 - In mapping-file conversions, `beacon.biosamples` defines first-class biosample rules, while `beacon.datasets.defaults` and `beacon.cohorts.defaults` override synthesized metadata.
 - Full field mapping is available for `csv2bff`, `redcap2bff`, and `cdiscodm2bff`; cBioPortal can optionally augment its built-in patient and sample mapping. Built-in OMOP, PXF, FHIR, openEHR, i2b2, PCORnet, and Sentinel BFF routes accept a compact optional mapping containing only project, dataset, and cohort metadata.
-- `--entities` narrows `BFF` output. It must be combined with `-obff` and `--out-dir`.
+- `--entities` narrows BFF output and requires `-obff` with `--out-dir`.
 - `--out-name key=file` lets you override one multi-file output name. Use entity keys for `BFF` entity mode and table keys for `OMOP` output.
 - `--no-source-info` omits raw source provenance copied into `BFF` `info`, such as `OMOP_columns`, `CSV_columns`, `REDCap_columns`, `CDISC_ODM`, `cbioportal`, `datasetJson.domains`, `datasetXml.domains`, and `fhir` resources. Mapped fields and `info.convertPheno` are kept.
 - `--term-audit FILE` writes a TSV, compressed TSV, or color-coded XLSX audit of direct terms, identifier lookups, label searches, and fallbacks, including retrieval paths, decision reasons, candidate scores, score margins, and provenance.
