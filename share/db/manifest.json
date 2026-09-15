@@ -44,6 +44,7 @@
          "sourceUrl" : "https://bioportal.bioontology.org/ontologies/NCIT"
       },
       "ohdsi" : {
+         "downloadUrl" : "https://drive.usercontent.google.com/download?id=1zQ26Q1qsqTBPDGrtZbhDP-85NhaOrfBP&export=download&confirm=t",
          "bundled" : false,
          "byteSize" : 3178364928,
          "contentVersion" : "v5.0 29-AUG-22",

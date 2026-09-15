@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Papa from 'papaparse'
 import { Table2, Braces, Search, ListTree, Database } from 'lucide-react'
 import type { Preview } from '../types'
+import CopyButton from './CopyButton'
 
 export type Inspection = { name: string; value: unknown; conceptId?: string; source?: string; row?: number }
 export function conceptIdFor(field: string, value: unknown, fields: string[]): string | undefined {
@@ -32,6 +33,7 @@ export default function DataView({ preview, onInspect, conceptFields = [], sourc
       <button aria-pressed={view === 'table' && rows.length > 0} disabled={!rows.length} onClick={() => setView('table')}><Table2 aria-hidden="true" />Table</button>
       <button aria-pressed={view === 'text' || !rows.length} onClick={() => setView('text')}><Braces aria-hidden="true" />Text / JSON</button>
       {view === 'table' && rows.length > 0 && <label className="preview-search"><Search aria-hidden="true" /><input aria-label="Filter preview rows" placeholder="Find in loaded rows" value={query} onChange={(event) => setQuery(event.target.value)} /></label>}
+      {(view === 'text' || !rows.length) && <CopyButton text={preview.text} label={preview.truncated ? 'Copy partial preview text (not the complete file)' : 'Copy text / JSON'} />}
     </div>
     <div className="data-scroll">
       {view === 'table' && rows.length ? <table><thead><tr><th>#</th>{fields.map((field) => <th key={field}>{field}</th>)}</tr></thead>

@@ -2,15 +2,17 @@ import { act, fireEvent, render, screen, waitFor, within } from '@testing-librar
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import App from './App'
 import * as api from './api'
-import { selectPaths, confirmAction, revealRun, installOhdsi } from './desktop'
+import { selectPaths, confirmAction, revealRun, installOhdsi, downloadOhdsi, cancelOhdsiDownload, chooseResourceDirectory } from './desktop'
 import type { Conversion, Job } from './types'
+import { writeText } from '@tauri-apps/plugin-clipboard-manager'
 
 const native = vi.hoisted(() => ({ theme: vi.fn(), listener: undefined as undefined | ((event: { payload: string }) => void) }))
 vi.mock('@tauri-apps/api/core', () => ({ isTauri: () => true }))
+vi.mock('@tauri-apps/plugin-clipboard-manager', () => ({ writeText: vi.fn() }))
 vi.mock('@tauri-apps/api/window', () => ({ getCurrentWindow: () => ({ setTheme: native.theme }) }))
 vi.mock('@tauri-apps/api/event', () => ({ listen: vi.fn(async (_name, callback) => { native.listener = callback; return () => {} }) }))
 vi.mock('./api', () => ({ getConversions: vi.fn(), listJobs: vi.fn(), submitJob: vi.fn(), getExample: vi.fn(), inputPreview: vi.fn(), outputPreview: vi.fn(), cancelJob: vi.fn(), deleteJob: vi.fn(), deleteJobFiles: vi.fn(), deleteAllJobs: vi.fn(), cancelPendingJobs: vi.fn(), getResources: vi.fn(), post: vi.fn(), uploadFiles: vi.fn(), downloadOutput: vi.fn() }))
-vi.mock('./desktop', () => ({ selectPaths: vi.fn(), openExternal: vi.fn(), revealRun: vi.fn(), confirmAction: vi.fn(), saveMappingCopy: vi.fn(), installOhdsi: vi.fn(), connection: vi.fn(async () => ({ outputRoot: '/synthetic/app/runs' })) }))
+vi.mock('./desktop', () => ({ selectPaths: vi.fn(), openExternal: vi.fn(), revealRun: vi.fn(), confirmAction: vi.fn(), saveMappingCopy: vi.fn(), installOhdsi: vi.fn(), downloadOhdsi: vi.fn(), cancelOhdsiDownload: vi.fn(), chooseResourceDirectory: vi.fn(), resourceDirectory: vi.fn(async () => '/synthetic/resources'), connection: vi.fn(async () => ({ outputRoot: '/synthetic/app/runs' })) }))
 
 const pxf: Conversion = {
   id: 'pxf2bff', label: 'Phenopacket v2 to Beacon v2', available: true,
@@ -30,7 +32,7 @@ const example = { phenopacket: { id: 'synthetic-1' } }
 const completed: Job = { id: 'run1', conversion: 'pxf2bff', created: 1, status: 'completed', sources: [], options: {}, output: {},
   result: { artifacts: [{ id: 'individuals', filename: 'individuals.json', kind: 'json', mediaType: 'application/json', bytes: 2 }], warnings: ['Synthetic warning'], meta: {} },
 }
-async function start() { render(<App />); await screen.findByText(pxf.label) }
+async function start() { render(<App />); await screen.findByLabelText('Conversion formats') }
 async function loadExample() { fireEvent.click(screen.getByRole('button', { name: 'Load synthetic example' })); await screen.findByRole('heading', { name: 'Input preview' }) }
 function menu(id: string) { act(() => native.listener?.({ payload: id })) }
 
@@ -39,6 +41,7 @@ describe('native desktop workspace', () => {
     vi.clearAllMocks(); localStorage.clear()
     vi.stubGlobal('matchMedia', vi.fn(() => ({ matches: false, addEventListener: vi.fn(), removeEventListener: vi.fn() })))
     native.theme.mockResolvedValue(undefined)
+    vi.mocked(writeText).mockResolvedValue(undefined)
     vi.mocked(api.getConversions).mockResolvedValue([pxf, csv])
     vi.mocked(api.listJobs).mockResolvedValue([])
     vi.mocked(api.getResources).mockResolvedValue([])
@@ -52,6 +55,19 @@ describe('native desktop workspace', () => {
     await start()
     expect(screen.getByRole('link', { name: 'Documentation' })).toHaveAttribute('href', 'https://cnag-biomedical-informatics.github.io/convert-pheno/')
     expect(screen.getByRole('link', { name: 'GitHub' })).toHaveAttribute('href', 'https://github.com/CNAG-Biomedical-Informatics/convert-pheno')
+  })
+  it('shows the toolbar route once using source and target badges', async () => {
+    await start()
+    const badges = screen.getByLabelText('Conversion formats')
+    expect(within(badges).getByText(pxf.source.label)).toBeInTheDocument()
+    expect(within(badges).getByText(pxf.target.label)).toBeInTheDocument()
+    expect(screen.queryByText(pxf.label)).not.toBeInTheDocument()
+
+    fireEvent.change(screen.getByLabelText('Source format'), { target: { value: 'csv' } })
+    expect(within(badges).getByText(csv.source.label)).toBeInTheDocument()
+    expect(within(badges).getByText(csv.target.label)).toBeInTheDocument()
+    expect(within(badges).queryByText(pxf.source.label)).not.toBeInTheDocument()
+    expect(screen.queryByText(csv.label)).not.toBeInTheDocument()
   })
   it('loads examples only when requested', async () => {
     await start(); expect(api.getExample).not.toHaveBeenCalled()
@@ -77,8 +93,9 @@ describe('native desktop workspace', () => {
   })
   it('submits a job using the catalog output defaults', async () => {
     await start(); await loadExample()
+    fireEvent.click(screen.getByRole('button', { name: 'Back to conversion' }))
     fireEvent.click(screen.getByRole('button', { name: 'Run conversion' }))
-    await screen.findByText('individuals.json')
+    await screen.findByRole('button', { name: /individuals.json/ })
     expect(api.submitJob).toHaveBeenCalledWith({ conversion: 'pxf2bff', input: { data: example }, options: {}, output: { entities: ['individuals'] } })
   })
   it('does not show a blank JSON editor unless explicitly requested', async () => {
@@ -142,7 +159,7 @@ describe('native desktop workspace', () => {
     await start(); await loadExample()
     fireEvent.click(screen.getByRole('button', { name: 'Edit JSON' }))
     fireEvent.change(screen.getByLabelText('JSON input'), { target: { value: '{bad' } })
-    fireEvent.click(screen.getByRole('button', { name: 'Run conversion' }))
+    menu('run')
     await screen.findByRole('alert'); expect(api.submitJob).not.toHaveBeenCalled()
   })
   it('requires the input files declared by the registry', async () => {
@@ -164,8 +181,19 @@ describe('native desktop workspace', () => {
     await waitFor(()=>expect(screen.getByRole('status')).toHaveTextContent('Input data and mapping are both ready; no second load is needed.'))
     expect(screen.getByRole('button',{name:'Mapping'})).toHaveAttribute('aria-current','page')
     expect(api.uploadFiles).toHaveBeenCalledTimes(2)
+    fireEvent.click(screen.getByRole('button', { name: 'Back to conversion' }))
+    expect(screen.getByRole('button', { name: 'Run conversion' })).toBeInTheDocument()
     fireEvent.click(screen.getByRole('button',{name:'Input'}))
     expect(screen.getByText(/Your input files are already loaded/)).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: 'Back to conversion' }))
+    expect(screen.getByRole('button', { name: 'Run conversion' })).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: 'Input' }))
+    vi.mocked(api.inputPreview).mockResolvedValue({text:'id\n1\n',truncated:false})
+    fireEvent.click(within(screen.getByRole('heading', { name: 'Input data' }).closest('section')!).getByRole('button', { name: 'example.csv' }))
+    await screen.findByRole('heading', { name: 'example.csv' })
+    fireEvent.click(screen.getByRole('button', { name: 'Back to conversion' }))
+    expect(screen.getByRole('button', { name: 'Run conversion' })).toBeInTheDocument()
+    expect(api.uploadFiles).toHaveBeenCalledTimes(2)
   })
   it('sends opaque native file handles, not filesystem paths', async () => {
     await start(); fireEvent.change(screen.getByLabelText('Source format'), { target: { value: 'csv' } })
@@ -199,12 +227,53 @@ describe('native desktop workspace', () => {
     menu('run')
     await waitFor(() => expect(api.submitJob).toHaveBeenCalledWith(expect.objectContaining({ conversion: 'omop2bff', options: { separator: '\t' } })))
   })
-  it('fetches output previews on demand and shows warnings separately', async () => {
+  it('opens the first output automatically and shows warnings separately', async () => {
     await start(); await loadExample(); menu('run')
-    fireEvent.click(await screen.findByText('individuals.json'))
     await waitFor(() => expect(api.outputPreview).toHaveBeenCalledWith('run1', 'individuals'))
+    expect(screen.getByLabelText('Output summary')).toHaveTextContent('1 output file')
     fireEvent.click(screen.getByRole('button', { name: 'Warnings (1)' }))
     expect(screen.getByText('Synthetic warning')).toBeInTheDocument()
+  })
+  it('keeps draft and historical run routes distinct and hides irrelevant tabs', async () => {
+    vi.mocked(api.listJobs).mockResolvedValue([completed])
+    await start()
+    const navigation = screen.getByRole('navigation', { name: 'Workspace views' })
+    expect(within(navigation).queryByRole('button', { name: 'Mapping' })).not.toBeInTheDocument()
+    expect(within(navigation).queryByRole('button', { name: 'Terminology Review' })).not.toBeInTheDocument()
+    fireEvent.change(screen.getByLabelText('Source format'), { target: { value: 'csv' } })
+    expect(within(navigation).getByRole('button', { name: 'Mapping' })).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: /^pxf2bff completed/ }))
+    expect(within(screen.getByLabelText('Conversion formats')).getByText('Phenopacket v2')).toBeInTheDocument()
+    expect(screen.getByText(/Run run1/)).toBeInTheDocument()
+    fireEvent.click(within(navigation).getByRole('button', { name: 'Conversion' }))
+    expect(within(screen.getByLabelText('Conversion formats')).getByText('CSV')).toBeInTheDocument()
+    expect(within(screen.getByRole('region', { name: 'Review and convert' })).getByRole('button', { name: 'Run conversion' })).toBeInTheDocument()
+  })
+  it('does not display a late preview from a previously selected run', async () => {
+    const second = { ...completed, id: 'run2', conversion: 'csv2bff', created: 2 }
+    vi.mocked(api.listJobs).mockResolvedValue([completed, second])
+    let finishFirst!: (preview: {text: string; truncated: boolean}) => void
+    vi.mocked(api.outputPreview).mockReturnValueOnce(new Promise((resolve) => { finishFirst = resolve }))
+      .mockResolvedValueOnce({text: '[{"id":"second-output"}]', truncated: false})
+    await start()
+    fireEvent.click(screen.getByRole('button', { name: /^pxf2bff completed/ }))
+    await waitFor(() => expect(api.outputPreview).toHaveBeenCalledWith('run1', 'individuals'))
+    fireEvent.click(screen.getByRole('button', { name: /^csv2bff completed/ }))
+    await screen.findByRole('button', { name: 'second-output' })
+    await act(async () => finishFirst({text: '[{"id":"first-output"}]', truncated: false}))
+    expect(screen.queryByRole('button', { name: 'first-output' })).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'second-output' })).toBeInTheDocument()
+    expect(api.outputPreview).toHaveBeenCalledTimes(2)
+  })
+  it('allows retrying a failed automatic preview without looping requests', async () => {
+    vi.mocked(api.outputPreview).mockRejectedValueOnce(new Error('Output file is unavailable'))
+      .mockResolvedValueOnce({ text: '[{"id":"recovered"}]', truncated: false })
+    await start(); await loadExample(); menu('run')
+    expect(await screen.findByRole('alert')).toHaveTextContent('Output file is unavailable')
+    expect(api.outputPreview).toHaveBeenCalledTimes(1)
+    fireEvent.click(screen.getByRole('button', { name: 'Retry preview' }))
+    await screen.findByRole('button', { name: 'recovered' })
+    expect(api.outputPreview).toHaveBeenCalledTimes(2)
   })
   it('displays an engine error without reporting success', async () => {
     vi.mocked(api.submitJob).mockRejectedValueOnce(new Error('Terminology database unavailable'))
@@ -230,18 +299,101 @@ describe('native desktop workspace', () => {
     await start()
     fireEvent.click(screen.getByRole('button',{name:'Resources'}))
     expect(await screen.findByText('3.0 GiB')).toBeInTheDocument()
-    fireEvent.click(screen.getByRole('button',{name:'Install downloaded database...'}))
-    expect(screen.getByRole('button',{name:'Verifying and installing...'})).toBeDisabled()
-    expect(screen.getByText(/Keep Convert-Pheno open/)).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button',{name:'Install from file...'}))
+    expect(screen.getByRole('button',{name:'Install from file...'})).toBeDisabled()
+    expect(screen.getByText(/Verifying and installing the selected/)).toBeInTheDocument()
     await act(async () => finish('/synthetic/ohdsi.db'))
     expect(await screen.findByText('The verified OHDSI terminology database is installed.')).toBeInTheDocument()
     expect(screen.getByText('Installed')).toBeInTheDocument()
+  })
+  it('shows the selected resource folder and refreshes installed resources', async () => {
+    vi.mocked(chooseResourceDirectory).mockResolvedValue('/external/terminology')
+    await start(); fireEvent.click(screen.getByRole('button',{name:'Resources'}))
+    expect(await screen.findByText('/synthetic/resources')).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button',{name:'Change folder...'}))
+    expect(await screen.findByText('/external/terminology')).toBeInTheDocument()
+    expect(await screen.findByText('Resource folder changed. Existing files were not moved.')).toBeInTheDocument()
+  })
+  it('downloads OHDSI with progress and refreshes availability after installation', async () => {
+    const missing = {id:'ohdsi',installed:false,bundled:false,byteSize:100,contentVersion:'2022'}
+    vi.mocked(api.getResources).mockResolvedValueOnce([missing]).mockResolvedValueOnce([{...missing,installed:true}])
+    let finish!: (path: string) => void
+    vi.mocked(downloadOhdsi).mockImplementation((report) => {
+      report({completedBytes:50,totalBytes:100})
+      return new Promise((resolve) => { finish = resolve })
+    })
+    await start(); fireEvent.click(screen.getByRole('button',{name:'Resources'}))
+    fireEvent.click(await screen.findByRole('button',{name:'Download and install'}))
+    expect(screen.getByRole('progressbar')).toHaveAttribute('value','50')
+    expect(screen.getByRole('button',{name:'Install from file...'})).toBeDisabled()
+    await act(async () => finish('/synthetic/ohdsi.db'))
+    expect(await screen.findByText('The verified OHDSI terminology database is installed.')).toBeInTheDocument()
+    expect(screen.getByRole('button',{name:'Download and reinstall'})).toBeEnabled()
+  })
+  it('cancels a download and allows retry after the native operation stops', async () => {
+    let fail!: (error: Error) => void
+    vi.mocked(downloadOhdsi).mockImplementation(() => new Promise((_, reject) => { fail = reject }))
+    vi.mocked(cancelOhdsiDownload).mockResolvedValue(undefined)
+    await start(); fireEvent.click(screen.getByRole('button',{name:'Resources'}))
+    fireEvent.click(await screen.findByRole('button',{name:'Download and install'}))
+    fireEvent.click(screen.getByRole('button',{name:'Cancel download'}))
+    expect(cancelOhdsiDownload).toHaveBeenCalledOnce()
+    await act(async () => fail(new Error('Download cancelled.')))
+    expect(await screen.findByText('Download cancelled.')).toBeInTheDocument()
+    expect(screen.getByRole('button',{name:'Download and install'})).toBeEnabled()
   })
   it('restores panels through native menu actions', async () => {
     await start(); menu('explorer')
     expect(screen.queryByLabelText('Workspace explorer')).not.toBeInTheDocument()
     menu('explorer'); expect(screen.getByLabelText('Workspace explorer')).toBeInTheDocument()
     menu('inspector'); expect(screen.queryByLabelText('Record inspector')).not.toBeInTheDocument()
+  })
+  it('resizes navigation using keyboard controls and resets without persisting width', async () => {
+    await start()
+    const divider = screen.getByRole('separator', { name: 'Resize left navigation' })
+    fireEvent.keyDown(divider, { key: 'ArrowRight' })
+    expect(screen.getByLabelText('Workspace explorer')).toHaveStyle({ width: '235px', flexBasis: '235px' })
+    fireEvent.keyDown(divider, { key: 'End' })
+    fireEvent.keyDown(divider, { key: 'ArrowRight' })
+    expect(divider).toHaveAttribute('aria-valuenow', '350')
+    fireEvent.keyDown(divider, { key: 'Home' })
+    fireEvent.keyDown(divider, { key: 'ArrowLeft' })
+    expect(divider).toHaveAttribute('aria-valuenow', '170')
+    fireEvent.doubleClick(divider)
+    expect(divider).toHaveAttribute('aria-valuenow', '225')
+    expect(JSON.parse(localStorage.getItem('convert-pheno.desktop.settings')!)).toEqual({ theme: 'system', explorer: true, inspector: true, tasks: true })
+    menu('explorer')
+    expect(screen.queryByRole('separator')).not.toBeInTheDocument()
+  })
+  it('drags navigation within bounds and stops resizing after pointer release', async () => {
+    await start()
+    const divider = screen.getByRole('separator', { name: 'Resize left navigation' })
+    divider.setPointerCapture = vi.fn()
+    divider.hasPointerCapture = vi.fn(() => true)
+    divider.releasePointerCapture = vi.fn()
+    function pointer(type: string, clientX: number) {
+      fireEvent(divider, Object.assign(new Event(type, { bubbles: true }), { pointerId: 1, button: 0, clientX }))
+    }
+    pointer('pointerdown', 225)
+    pointer('pointermove', 305)
+    expect(divider).toHaveAttribute('aria-valuenow', '305')
+    pointer('pointermove', 800)
+    expect(divider).toHaveAttribute('aria-valuenow', '350')
+    pointer('pointerup', 800)
+    pointer('pointermove', 170)
+    expect(divider).toHaveAttribute('aria-valuenow', '350')
+    expect(divider.releasePointerCapture).toHaveBeenCalledWith(1)
+  })
+  it('copies inspected objects as JSON and plain values without added quotes', async () => {
+    vi.mocked(api.getExample).mockResolvedValue([{ id: 'synthetic-1', sex: { id: 'NCIT:C16576', label: 'Female' } }])
+    await start(); await loadExample()
+    fireEvent.click(screen.getByRole('button', { name: 'View details' }))
+    const inspector = screen.getByLabelText('Record inspector')
+    fireEvent.click(within(inspector).getByRole('button', { name: 'Copy inspected value' }))
+    await waitFor(() => expect(writeText).toHaveBeenLastCalledWith(JSON.stringify({ id: 'NCIT:C16576', label: 'Female' }, null, 2)))
+    fireEvent.click(screen.getByRole('button', { name: 'synthetic-1' }))
+    fireEvent.click(within(inspector).getByRole('button', { name: 'Copy inspected value' }))
+    await waitFor(() => expect(writeText).toHaveBeenLastCalledWith('synthetic-1'))
   })
   it('shows the default output location before submission', async () => {
     await start()

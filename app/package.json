@@ -7,7 +7,8 @@
     "node": ">=24"
   },
   "scripts": {
-    "desktop": "tauri dev",
+    "predesktop": "npm run build",
+    "desktop": "cargo run --manifest-path src-tauri/Cargo.toml --features custom-protocol",
     "tauri": "tauri",
     "build": "tsc -b && vite build",
     "typecheck": "tsc -b --pretty false",
@@ -25,6 +26,7 @@
     "@lezer/highlight": "^1.2.3",
     "@tauri-apps/api": "^2.11.1",
     "@tauri-apps/cli": "^2.11.4",
+    "@tauri-apps/plugin-clipboard-manager": "^2",
     "codemirror": "^6.0.2",
     "fflate": "^0.8.2",
     "lucide-react": "^1.46.0",

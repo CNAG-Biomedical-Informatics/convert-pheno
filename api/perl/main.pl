@@ -316,6 +316,20 @@ get '/api/resources' => sub {my $c=shift; job_call($c,sub {
         +{id=>$id,%$entry,installed=>-f $file ? Mojo::JSON->true : false};
     } sort keys %{$manifest->{databases}}];
 })};
+post '/api/resources/local-directory' => sub {
+    my $c=shift;
+    my $local=$ENV{CONVERT_PHENO_LOCAL_TOKEN};
+    return render_error($c,403,'local_access_denied','Native resource selection is not authorized')
+      unless $local && secure_compare($c->req->headers->header('X-Convert-Pheno-Local') || '',$local);
+    job_call($c,sub {
+        die "Wait for active and queued conversions before changing the resource folder\n"
+          if grep {$_->{status} =~ /\A(?:queued|running|cancelling)\z/} @{$jobs->list};
+        my $directory=($c->req->json || {})->{directory};
+        die "Select an existing resource folder\n" unless defined $directory && !ref $directory && -d $directory;
+        $ENV{CONVERT_PHENO_OHDSI_DB_DIR}=abs_path($directory);
+        return {directory=>$ENV{CONVERT_PHENO_OHDSI_DB_DIR}};
+    });
+};
 post '/api/jobs' => sub { my $c=shift; job_call($c,sub {$jobs->submit($c->req->json)},202) };
 get '/api/jobs/:id' => sub { my $c=shift; job_call($c,sub {$jobs->status($c->param('id'))}) };
 post '/api/jobs/:id/cancel' => sub { my $c=shift; job_call($c,sub {$jobs->cancel($c->param('id'))}) };

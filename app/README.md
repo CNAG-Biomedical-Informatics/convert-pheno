@@ -16,6 +16,10 @@ npm run desktop
 
 This builds the interface and opens the native application. After changing
 frontend code, restart this command to rebuild the embedded assets.
+The development command enables Tauri's `custom-protocol` feature so the
+executable contains the interface. Do not use `tauri dev` for this workflow:
+it can compile a temporary development-server address into the executable,
+which then fails to load its interface when launched on its own.
 
 The development application starts the repository's Mojolicious API using the
 installed Perl interpreter. It selects a loopback port and generates credentials
@@ -34,6 +38,13 @@ act on the focused editor. Open/save workspace and run shortcuts use Command on
 macOS and Control on Windows/Linux.
 
 ## Runs And Output Files
+
+Start the conversion from Review and convert, below its configuration summary,
+or use the native Conversion menu. Mapping is shown only for applicable routes;
+Terminology Review appears when the selected run has a report.
+Completed runs show the output file count, total size and warning count, and
+automatically preview the first data file. The toolbar identifies the selected
+run while inspecting results; returning to Conversion restores the draft context.
 
 The Runs sidebar keeps the active job first, followed by queued jobs and history.
 Queued runs display their queue position. Filter by conversion, run ID, status,
@@ -93,6 +104,13 @@ machines, the desktop automatically uses WebKit software compositing. An explici
 
 Use the left-panel button in the toolbar to collapse or reopen Sources and Runs.
 The choice is remembered between launches and also available in View and Settings.
+Drag the divider beside the left navigation to resize it, or use the arrow keys
+when the divider has focus. Double-click to reset its width. Width is not saved
+between launches.
+
+The text/JSON preview and record inspector have copy icons. Objects are copied
+as JSON, while plain values are copied as text. Partial previews copy only the
+displayed content, not the complete file. Clipboard access is write-only.
 
 In OMOP table previews, concept-ID cells have a database icon. Select one to see
 its label and available vocabulary metadata in the right inspector. This uses an
@@ -127,4 +145,11 @@ Windows package is unsigned; public distribution still requires the respective
 Developer ID/notarization and Authenticode release credentials.
 
 `ohdsi.db` remains an optional external download because it is approximately
-3.2 GB. It is not embedded in the application installers.
+3.2 GB. In Resources, Download and install streams it from Google Drive into a
+temporary file, verifies its size and SHA-256, then installs it. Progress and
+cancellation are available during the download. Install from file supports an
+existing local copy. It is not embedded in the application installers.
+Resources shows the destination and offers Change folder. The selected location
+is saved in `resource-settings.json` under the app-data directory and immediately
+applied to the local engine. Existing database files are not moved. Folder changes
+are blocked while an installation or queued/running conversion is in progress.

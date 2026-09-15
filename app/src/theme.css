@@ -90,6 +90,11 @@ button.primary { box-shadow: 0 3px 8px color-mix(in srgb, var(--desk-accent) 15%
 .record-inspector { width: 244px; padding: 22px 16px; font-size: 12px; }
 .record-inspector pre { border: 1px solid var(--desk-line); border-radius: 8px; }
 .record-inspector p { line-height: 1.8; }
+.copy-control { display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap; font-size: 11px; }
+.copy-control button { display: inline-flex; align-items: center; justify-content: center; padding: 6px; }
+.copy-control [role="status"] { color: var(--desk-success); }
+.copy-control [role="alert"] { color: var(--desk-ink); }
+.viewer-toolbar > .copy-control { margin-left: auto; }
 .conversion-editor { max-width: 1160px; margin: 0 auto; padding: 28px; }
 .conversion-heading { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 26px; }
 .conversion-heading h1 { margin: 0 0 8px; font-size: 25px; letter-spacing: -.03em; }
@@ -258,7 +263,11 @@ button.primary { box-shadow: 0 3px 8px color-mix(in srgb, var(--desk-accent) 15%
 .workspace-tree .tree-disclosure { display: flex; align-items: center; gap: 7px; width: 100%; padding: 5px 0; border: 0; background: transparent; color: inherit; text-align: left; font: inherit; }
 .workspace-tree .tree-disclosure:hover { color: var(--desk-accent); }
 .workspace-tree [hidden] { display: none; }
-.route-badges { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.route-badges { display: flex; flex: 1; min-width: 0; align-items: center; gap: 8px; flex-wrap: wrap; }
+.run-context { font-size: 11px; color: var(--desk-muted); margin-left: 8px; }
+.run-conversion { display: inline-flex; align-items: center; gap: 8px; margin-top: 8px; padding: 10px 16px; }
+.result-summary { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin: 0 0 14px; font-size: 12px; }
+.result-summary button { color: var(--desk-warning); }
 .format-label { display: inline-flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 600; border-radius: 5px; padding: 4px 7px; color: var(--desk-accent); background: var(--desk-selected); }
 .format-bff, .format-json { color: var(--desk-success); background: var(--desk-success-bg); }
 .format-omop, .format-csv, .format-tsv { color: var(--desk-warning); background: var(--desk-code); }
@@ -276,3 +285,4 @@ button.primary { box-shadow: 0 3px 8px color-mix(in srgb, var(--desk-accent) 15%
   .audit-toolbar { grid-template-columns: 1fr 1fr; }
   .audit-view-switch { grid-column: 1 / -1; }
 }
+.resource-path { overflow-wrap: anywhere; }

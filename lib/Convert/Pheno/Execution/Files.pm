@@ -18,13 +18,16 @@ sub execute_file_conversion {
     my $bundle_mode = $method =~ /2bff$/
       && (@$entities != 1 || ($entities->[0] || 'individuals') ne 'individuals');
     my ($data, $bundle);
-    if ($request->{stream} && $method eq 'omop2bff' && $bundle_mode) {
+    # OMOP file readers can emit directly. In-memory API inputs return records
+    # instead, and those records must reach the file sink even for OMOP routes.
+    my $file_input = !exists $request->{data};
+    if ($file_input && $request->{stream} && $method eq 'omop2bff' && $bundle_mode) {
         $convert->$method;
     }
     elsif ($bundle_mode) {
         $bundle = $convert->_run_bundle_view;
     }
-    elsif ($request->{stream} || $method eq 'omop2bff' || $method eq 'omop2pxf') {
+    elsif ($file_input && ($request->{stream} || $method eq 'omop2bff' || $method eq 'omop2pxf')) {
         write_atomically($target, sub {
             my ($staged) = @_;
             local $convert->{out_file} = $staged;

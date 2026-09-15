@@ -10,7 +10,7 @@ use std::{
     net::TcpListener,
     path::{Path, PathBuf},
     process::{Child, Command, Stdio},
-    sync::Mutex,
+    sync::{Mutex, atomic::{AtomicBool, Ordering}},
     time::Duration,
 };
 use tauri::{
@@ -32,9 +32,13 @@ struct Engine {
     local_token: String,
     child: Mutex<Child>,
     client: Client,
-    resource_dir: PathBuf,
+    resource_dir: Mutex<PathBuf>,
+    resource_preferences: PathBuf,
     ohdsi_bytes: u64,
     ohdsi_sha256: String,
+    ohdsi_url: String,
+    resource_install: Mutex<()>,
+    cancel_download: AtomicBool,
 }
 impl Engine {
     fn stop(&self) {
@@ -96,9 +100,12 @@ fn start_engine(app: &tauri::App) -> Result<Engine, Box<dyn std::error::Error>> 
     let local_token = uuid::Uuid::new_v4().simple().to_string();
     let app_data = app.path().app_local_data_dir()?;
     let state = app_data.join("runs");
-    let resource_dir = app_data.join("resources");
+    let resource_preferences = app_data.join("resource-settings.json");
+    let resource_dir = read_resource_directory(&resource_preferences, &app_data.join("resources"))?;
     std::fs::create_dir_all(&state)?;
-    std::fs::create_dir_all(&resource_dir)?;
+    // A selected external drive may be disconnected. Keep the app usable so
+    // the user can reconnect it or choose another folder from Resources.
+    if !resource_preferences.exists() { std::fs::create_dir_all(&resource_dir)?; }
     let manifest: Value =
         serde_json::from_slice(&std::fs::read(root.join("share/db/manifest.json"))?)?;
     let ohdsi = &manifest["databases"]["ohdsi"];
@@ -109,10 +116,12 @@ fn start_engine(app: &tauri::App) -> Result<Engine, Box<dyn std::error::Error>> 
         .as_str()
         .ok_or("OHDSI checksum is missing")?
         .to_string();
+    let ohdsi_url = ohdsi["downloadUrl"].as_str()
+        .ok_or("OHDSI download URL is missing")?.to_string();
     let bundled_ohdsi_dir = root
         .join("share/db")
         .join(manifest["currentBundle"].as_str().unwrap_or("v0"));
-    let ohdsi_dir = if cfg!(debug_assertions) && bundled_ohdsi_dir.join("ohdsi.db").is_file() {
+    let ohdsi_dir = if !resource_preferences.exists() && cfg!(debug_assertions) && bundled_ohdsi_dir.join("ohdsi.db").is_file() {
         bundled_ohdsi_dir
     } else {
         resource_dir.clone()
@@ -183,9 +192,13 @@ fn start_engine(app: &tauri::App) -> Result<Engine, Box<dyn std::error::Error>> 
             .no_proxy()
             .timeout(Duration::from_secs(5))
             .build()?,
-        resource_dir,
+        resource_dir: Mutex::new(resource_dir),
+        resource_preferences,
         ohdsi_bytes,
         ohdsi_sha256,
+        ohdsi_url,
+        resource_install: Mutex::new(()),
+        cancel_download: AtomicBool::new(false),
     };
     for _ in 0..100 {
         if engine
@@ -211,6 +224,48 @@ fn start_engine(app: &tauri::App) -> Result<Engine, Box<dyn std::error::Error>> 
     Err("The conversion engine did not become ready".into())
 }
 
+fn read_resource_directory(settings: &Path, default: &Path) -> Result<PathBuf, Box<dyn std::error::Error>> {
+    if !settings.exists() { return Ok(default.to_path_buf()); }
+    let value: Value = serde_json::from_slice(&std::fs::read(settings)?)?;
+    let directory = PathBuf::from(value["directory"].as_str().ok_or("Resource folder setting is missing")?);
+    if !directory.is_absolute() { return Err("Resource folder must be absolute".into()); }
+    Ok(directory)
+}
+
+#[tauri::command]
+fn resource_directory(engine: tauri::State<Engine>) -> Result<String, String> {
+    Ok(engine.resource_dir.lock().map_err(|e| e.to_string())?.to_string_lossy().into_owned())
+}
+
+#[tauri::command]
+async fn choose_resource_directory(app: tauri::AppHandle) -> Result<Option<String>, String> {
+    tauri::async_runtime::spawn_blocking(move || {
+        let engine = app.state::<Engine>();
+        let _guard = engine.resource_install.try_lock()
+            .map_err(|_| "Wait for the database installation to finish")?;
+        let Some(selected) = app.dialog().file().blocking_pick_folder() else { return Ok(None); };
+        let directory = selected.into_path().map_err(|e| e.to_string())?
+            .canonicalize().map_err(|e| e.to_string())?;
+        // Check writability before changing the engine or saving the preference.
+        let probe = tempfile::NamedTempFile::new_in(&directory).map_err(|e| format!("Cannot write to this folder: {e}"))?;
+        drop(probe);
+        let mut settings = tempfile::NamedTempFile::new_in(engine.resource_preferences.parent().ok_or("Invalid settings directory")?)
+            .map_err(|e| e.to_string())?;
+        serde_json::to_writer(&mut settings, &json!({"directory":directory})).map_err(|e| e.to_string())?;
+        settings.as_file().sync_all().map_err(|e| e.to_string())?;
+        let response = engine.client.post(format!("{}/api/resources/local-directory", engine.connection.url))
+            .bearer_auth(&engine.connection.token)
+            .header("X-Convert-Pheno-Local", &engine.local_token)
+            .json(&json!({"directory":directory})).send().map_err(|e| e.to_string())?;
+        engine.json(response)?;
+        // Keep the running app consistent even if saving the preference fails.
+        *engine.resource_dir.lock().map_err(|e| e.to_string())? = directory.clone();
+        settings.persist(&engine.resource_preferences)
+            .map_err(|e| format!("The folder is active, but could not be saved for next launch: {e}"))?;
+        Ok(Some(directory.to_string_lossy().into_owned()))
+    }).await.map_err(|e| e.to_string())?
+}
+
 fn install_checked_file(
     source: &Path,
     target: &Path,
@@ -225,6 +280,18 @@ fn install_checked_file(
         ));
     }
     let mut input = File::open(source).map_err(|e| e.to_string())?;
+    write_checked_resource(&mut input, target, bytes, sha256, |_| Ok(()))
+}
+
+// Hash while streaming to disk: a multi-gigabyte download never lives in RAM
+// and only a complete, verified file replaces the installed resource.
+fn write_checked_resource(
+    input: &mut impl Read,
+    target: &Path,
+    bytes: u64,
+    sha256: &str,
+    mut progress: impl FnMut(u64) -> Result<(), String>,
+) -> Result<(), String> {
     let mut staged =
         tempfile::NamedTempFile::new_in(target.parent().ok_or("Invalid resource directory")?)
             .map_err(|e| e.to_string())?;
@@ -232,9 +299,13 @@ fn install_checked_file(
     let mut buffer = vec![0_u8; 1024 * 1024];
     let mut copied = 0_u64;
     loop {
+        progress(copied)?;
         let count = input.read(&mut buffer).map_err(|e| e.to_string())?;
         if count == 0 {
             break;
+        }
+        if copied + count as u64 > bytes {
+            return Err("The database exceeds its expected size. Installation stopped.".into());
         }
         staged
             .write_all(&buffer[..count])
@@ -250,9 +321,6 @@ fn install_checked_file(
         );
     }
     staged.as_file().sync_all().map_err(|e| e.to_string())?;
-    if target.exists() {
-        std::fs::remove_file(target).map_err(|e| e.to_string())?;
-    }
     staged.persist(target).map_err(|e| e.to_string())?;
     Ok(())
 }
@@ -270,12 +338,73 @@ async fn install_ohdsi(app: tauri::AppHandle) -> Result<Option<String>, String> 
         };
         let source = selected.into_path().map_err(|e| e.to_string())?;
         let engine = app.state::<Engine>();
-        let target = engine.resource_dir.join("ohdsi.db");
+        let _guard = engine.resource_install.try_lock()
+            .map_err(|_| "A database installation is already running")?;
+        let target = engine.resource_dir.lock().map_err(|e| e.to_string())?.join("ohdsi.db");
         install_checked_file(&source, &target, engine.ohdsi_bytes, &engine.ohdsi_sha256)?;
         Ok(Some(target.to_string_lossy().into_owned()))
     })
     .await
     .map_err(|e| e.to_string())?
+}
+
+#[derive(Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+struct DownloadProgress {
+    completed_bytes: u64,
+    total_bytes: u64,
+}
+
+fn ohdsi_response(url: &str, bytes: u64) -> Result<reqwest::blocking::Response, String> {
+    let client = Client::builder().https_only(true)
+        .connect_timeout(Duration::from_secs(30))
+        .timeout(Duration::from_secs(60))
+        .build().map_err(|e| e.to_string())?;
+    let response = client.get(url).send()
+        .and_then(|r| r.error_for_status())
+        .map_err(|e| format!("Could not download OHDSI: {e}. Retry or install from file."))?;
+    if response.headers().get(reqwest::header::CONTENT_TYPE)
+        .and_then(|v| v.to_str().ok()).is_some_and(|v| v.contains("text/html")) {
+        return Err("Google Drive returned a web page instead of the database. Retry later or install from file.".into());
+    }
+    if response.content_length().is_some_and(|size| size != bytes) {
+        return Err("The download size differs from the resource manifest. Installation stopped.".into());
+    }
+    Ok(response)
+}
+
+#[tauri::command]
+async fn download_ohdsi(
+    app: tauri::AppHandle,
+    on_progress: tauri::ipc::Channel<DownloadProgress>,
+) -> Result<String, String> {
+    tauri::async_runtime::spawn_blocking(move || {
+        let engine = app.state::<Engine>();
+        let _guard = engine.resource_install.try_lock()
+            .map_err(|_| "A database installation is already running")?;
+        engine.cancel_download.store(false, Ordering::Relaxed);
+        let mut response = ohdsi_response(&engine.ohdsi_url, engine.ohdsi_bytes)?;
+        let target = engine.resource_dir.lock().map_err(|e| e.to_string())?.join("ohdsi.db");
+        let mut last_report = std::time::Instant::now() - Duration::from_secs(1);
+        write_checked_resource(&mut response, &target, engine.ohdsi_bytes, &engine.ohdsi_sha256, |bytes| {
+            if engine.cancel_download.load(Ordering::Relaxed) {
+                return Err("Download cancelled. The installed database was not changed.".into());
+            }
+            if last_report.elapsed() >= Duration::from_millis(200) || bytes == engine.ohdsi_bytes {
+                let _ = on_progress.send(DownloadProgress {
+                    completed_bytes: bytes, total_bytes: engine.ohdsi_bytes,
+                });
+                last_report = std::time::Instant::now();
+            }
+            Ok(())
+        })?;
+        Ok(target.to_string_lossy().into_owned())
+    }).await.map_err(|e| e.to_string())?
+}
+
+#[tauri::command]
+fn cancel_ohdsi_download(engine: tauri::State<Engine>) {
+    engine.cancel_download.store(true, Ordering::Relaxed);
 }
 
 #[tauri::command]
@@ -496,6 +625,57 @@ fn write_mapping_copy(target: &std::path::Path, text: &str) -> Result<(), String
 
 #[cfg(test)]
 mod mapping_tests {
+    #[test]
+    fn resource_directory_settings_survive_restart_and_missing_drives() {
+        let dir = tempfile::tempdir().unwrap();
+        let config = dir.path().join("settings.json");
+        let default = dir.path().join("default");
+        assert_eq!(super::read_resource_directory(&config, &default).unwrap(), default);
+        let selected = dir.path().join("disconnected-drive");
+        std::fs::write(&config, serde_json::to_vec(&serde_json::json!({"directory":selected})).unwrap()).unwrap();
+        assert_eq!(super::read_resource_directory(&config, &default).unwrap(), selected);
+        std::fs::write(&config, r#"{"directory":"relative"}"#).unwrap();
+        assert!(super::read_resource_directory(&config, &default).is_err());
+    }
+    #[test]
+    fn streamed_resources_preserve_existing_files_on_failure() {
+        let dir = tempfile::tempdir().unwrap();
+        let target = dir.path().join("ohdsi.db");
+        std::fs::write(&target, b"previous").unwrap();
+        let data = b"new database";
+        let hash = format!("{:x}", Sha256::digest(data));
+        for bytes in [data.len() as u64 - 1, data.len() as u64 + 1] {
+            assert!(super::write_checked_resource(&mut &data[..], &target, bytes, &hash, |_| Ok(())).is_err());
+            assert_eq!(std::fs::read(&target).unwrap(), b"previous");
+        }
+        assert!(super::write_checked_resource(&mut &data[..], &target, data.len() as u64, &"0".repeat(64), |_| Ok(())).is_err());
+        assert!(super::write_checked_resource(&mut &data[..], &target, data.len() as u64, &hash, |_| Err("Cancelled".into())).is_err());
+        assert_eq!(std::fs::read(&target).unwrap(), b"previous");
+        assert_eq!(std::fs::read_dir(dir.path()).unwrap().count(), 1);
+        let mut progress = vec![];
+        super::write_checked_resource(&mut &data[..], &target, data.len() as u64, &hash, |bytes| { progress.push(bytes); Ok(()) }).unwrap();
+        assert_eq!(std::fs::read(&target).unwrap(), data);
+        assert_eq!(progress.last(), Some(&(data.len() as u64)));
+    }
+
+    #[test]
+    #[ignore = "Downloads the complete 3.2 GB OHDSI resource from Google Drive"]
+    fn live_ohdsi_download() {
+        let manifest: serde_json::Value = serde_json::from_str(include_str!("../../../share/db/manifest.json")).unwrap();
+        let resource = &manifest["databases"]["ohdsi"];
+        let bytes = resource["byteSize"].as_u64().unwrap();
+        let mut response = super::ohdsi_response(resource["downloadUrl"].as_str().unwrap(), bytes).unwrap();
+        let dir = tempfile::tempdir().unwrap();
+        let target = dir.path().join("ohdsi.db");
+        let mut last = 0;
+        super::write_checked_resource(&mut response, &target, bytes, resource["sha256"].as_str().unwrap(), |received| {
+            let percent = received * 100 / bytes;
+            if percent >= last + 10 { eprintln!("OHDSI download: {percent}%"); last = percent; }
+            Ok(())
+        }).unwrap();
+        assert_eq!(std::fs::metadata(target).unwrap().len(), bytes);
+    }
+
     use super::{install_checked_file, write_mapping_copy};
     use sha2::{Digest, Sha256};
     #[test]
@@ -645,6 +825,7 @@ fn main() {
     }
     let app = tauri::Builder::default()
         .plugin(tauri_plugin_dialog::init())
+        .plugin(tauri_plugin_clipboard_manager::init())
         .setup(|app| {
             app.manage(start_engine(app)?);
             app.set_menu(menus(app)?)?;
@@ -696,7 +877,11 @@ fn main() {
             reveal_run,
             save_output,
             save_mapping_copy,
-            install_ohdsi
+            install_ohdsi,
+            download_ohdsi,
+            cancel_ohdsi_download,
+            resource_directory,
+            choose_resource_directory
         ])
         .build(tauri::generate_context!())
         .expect("Could not start Convert-Pheno desktop");

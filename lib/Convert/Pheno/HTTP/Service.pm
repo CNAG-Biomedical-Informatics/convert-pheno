@@ -359,6 +359,8 @@ sub _execute_arguments {
                 my $name = $file->basename;
                 next unless $name =~ /\.(json|jsonld|csv|tsv|xlsx)\z/;
                 my $kind = $1;
+                die "Conversion produced an empty structured output file <$name>\n"
+                  if ($kind eq 'json' || $kind eq 'jsonld') && !-s $file;
                 (my $id = $name) =~ s/\.[^.]+\z//;
                 push @$artifacts, {
                     id => $id, filename => $name, kind => $kind, bytes => -s $file,
