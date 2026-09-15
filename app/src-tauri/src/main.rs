@@ -125,6 +125,11 @@ fn start_engine(app: &tauri::App) -> Result<Engine, Box<dyn std::error::Error>> 
         .open(&log_path)?;
     let error_log = log.try_clone()?;
     drop(listener);
+    let api_origins = if cfg!(debug_assertions) {
+        "tauri://localhost,http://tauri.localhost,https://tauri.localhost,http://127.0.0.1:1430"
+    } else {
+        "tauri://localhost,http://tauri.localhost,https://tauri.localhost"
+    };
     let mut command = Command::new(perl);
     if !cfg!(debug_assertions) {
         let runtime_bin = root.join("runtime/bin");
@@ -148,10 +153,7 @@ fn start_engine(app: &tauri::App) -> Result<Engine, Box<dyn std::error::Error>> 
         .env("CONVERT_PHENO_SHARE_DIR", root.join("share"))
         .env("CONVERT_PHENO_OHDSI_DB_DIR", ohdsi_dir)
         .env("CONVERT_PHENO_API_HOSTS", "127.0.0.1")
-        .env(
-            "CONVERT_PHENO_API_ORIGINS",
-            "tauri://localhost,http://tauri.localhost,https://tauri.localhost",
-        )
+        .env("CONVERT_PHENO_API_ORIGINS", api_origins)
         .stdin(Stdio::null())
         .stdout(Stdio::from(log))
         .stderr(Stdio::from(error_log));

@@ -38,11 +38,17 @@ hook before_dispatch => sub {
     my ($c) = @_;
     my $host = $c->req->url->to_abs->host || '';
     my %hosts = map { $_ => 1 } split /,/, ($ENV{CONVERT_PHENO_API_HOSTS} || '127.0.0.1,localhost');
-    return $c->render(status=>403,json=>{ok=>false,error=>{message=>'Unrecognized service host'}}) unless $hosts{$host};
+    unless ($hosts{$host}) {
+        $c->app->log->warn("Rejected service host <$host>");
+        return $c->render(status=>403,json=>{ok=>false,error=>{message=>'Unrecognized service host'}});
+    }
     my $origin = $c->req->headers->origin;
     if (defined $origin) {
         my %origins = map { $_ => 1 } split /,/, ($ENV{CONVERT_PHENO_API_ORIGINS} || 'tauri://localhost,http://tauri.localhost,https://tauri.localhost');
-        return $c->render(status=>403,json=>{ok=>false,error=>{message=>'Unrecognized application origin'}}) unless $origins{$origin};
+        unless ($origins{$origin}) {
+            $c->app->log->warn("Rejected application origin <$origin>");
+            return $c->render(status=>403,json=>{ok=>false,error=>{message=>'Unrecognized application origin'}});
+        }
         $c->res->headers->header('Access-Control-Allow-Origin' => $origin);
         $c->res->headers->header('Vary' => 'Origin');
         $c->res->headers->header('Access-Control-Allow-Headers' => 'Authorization, Content-Type');

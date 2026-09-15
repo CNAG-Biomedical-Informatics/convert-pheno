@@ -60,13 +60,13 @@ const sidebars: SidebarsConfig = {
       items: [
         {
           type: 'doc',
-          id: 'conversion-recipes',
-          label: 'Choose a Conversion',
+          id: 'use-as-a-command-line-interface',
+          label: 'Command-Line Interface',
         },
         {
           type: 'doc',
-          id: 'use-as-a-command-line-interface',
-          label: 'Command-Line Interface',
+          id: 'graphical-interface',
+          label: 'Desktop Application',
         },
         {
           type: 'link',

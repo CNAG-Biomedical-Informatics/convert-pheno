@@ -8,6 +8,22 @@ The Convert-Pheno desktop application provides a native interface for local,
 interactive conversions. It uses the same Perl engine and public route registry
 as the command-line interface.
 
+## How it works
+
+1. Choose the source and target formats. The application shows only supported
+   routes and relevant options.
+2. Select source files, mapping files, dictionaries, or table packages as
+   required by that route. Synthetic examples are available for trying the
+   workflow first.
+3. Review the output location and start the conversion. Runs execute in a local
+   queue, so the application remains responsive.
+4. Inspect generated records or tables, review terminology decisions when an
+   audit was requested, and open or export the output files.
+
+The **Sources**, **Runs**, **Outputs**, **Terminology Review**, and **Compare**
+views keep input selection, execution, and result inspection within one local
+workspace. The application does not send participant data to a remote service.
+
 :::info[Version availability]
 The desktop application is available from **Convert-Pheno 0.35** for Linux,
 macOS, and Windows.

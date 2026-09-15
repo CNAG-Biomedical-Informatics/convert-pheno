@@ -1,12 +1,13 @@
 ---
 id: conversion-recipes
-title: Choose a Conversion
-sidebar_label: Choose a Conversion
+title: CLI Conversion Commands
+sidebar_label: CLI Conversion Commands
 slug: /conversion-recipes
 ---
 
+This is the command catalogue for the [command-line interface](use-as-a-command-line-interface).
 Start with the **input format**. The table lists its main outputs, required
-files, and a link to a working command. Format guides contain the less common
+files, and a link to a working command. Format guides contain less common
 options and input constraints.
 
 <a id="choose-by-input-format"></a>

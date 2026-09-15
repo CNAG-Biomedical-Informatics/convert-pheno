@@ -2,7 +2,6 @@
   "bundle": {
     "targets": ["nsis"],
     "windows": {
-      "bundleVCRuntime": true,
       "nsis": {
         "installMode": "currentUser",
         "displayLanguageSelector": false
