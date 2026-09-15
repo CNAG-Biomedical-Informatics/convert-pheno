@@ -1,11 +1,3 @@
-FROM node:24-bookworm-slim AS frontend-build
-
-WORKDIR /frontend
-COPY app/package.json app/package-lock.json ./
-RUN npm ci
-COPY app/ ./
-RUN npm run build
-
 FROM ubuntu:22.04
 
 ARG BUILD_VERSION=dev
@@ -35,7 +27,6 @@ RUN cpanm --notest --configure-timeout 300 --installdeps .
 
 # Build from the caller-supplied checkout so tags and workflow refs are reproducible.
 COPY . .
-COPY --from=frontend-build /frontend/dist ./app/dist
 ENV PATH="/usr/share/convert-pheno/bin:${PATH}"
 
 # Add user "dockeruser"
@@ -50,5 +41,4 @@ RUN groupadd -g "${GID}" dockeruser \
 
 WORKDIR /usr/share/convert-pheno
 
-EXPOSE 8080
-CMD ["hypnotoad", "-f", "api/perl/main.pl"]
+CMD ["convert-pheno", "--help"]

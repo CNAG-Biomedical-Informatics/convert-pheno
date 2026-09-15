@@ -17,6 +17,7 @@
 }
 
 .heroInner,
+.example,
 .workflow,
 .scopeSection {
   width: min(1160px, 100%);
@@ -84,6 +85,29 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.65rem;
+}
+
+.entryLinks {
+  margin: 1rem 0 0;
+  font-size: 0.94rem;
+}
+
+.example {
+  padding: 3rem 1.5rem 0;
+}
+
+.example h2 {
+  color: inherit;
+  font-size: 1.7rem;
+}
+
+.exampleTable {
+  overflow-x: auto;
+}
+
+.exampleTable table {
+  width: 100%;
+  font-size: 0.95rem;
 }
 
 .action {

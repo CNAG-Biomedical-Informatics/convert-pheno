@@ -61,7 +61,7 @@
         "properties": { "ok": { "type": "boolean", "enum": [true] }, "data": { "type": "array", "items": { "$ref": "#/components/schemas/Conversion" } }, "meta": { "type": "object", "properties": { "count": { "type": "integer" } } } }
       },
       "Conversion": {
-        "type": "object", "required": ["id", "label", "source", "target", "maturity", "input", "options", "entities", "resources", "available"],
+        "type": "object", "required": ["id", "label", "source", "target", "input", "options", "entities", "resources", "available"],
         "properties": {
           "id": { "type": "string" }, "label": { "type": "string" }, "maturity": { "type": "string" }, "available": { "type": "boolean" }, "unavailableReason": { "type": "string" },
           "source": { "$ref": "#/components/schemas/Format" }, "target": { "$ref": "#/components/schemas/Format" },

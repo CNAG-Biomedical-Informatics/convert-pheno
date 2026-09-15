@@ -1,576 +1,435 @@
-import { useEffect, useMemo, useRef, useState, type DragEvent } from 'react'
-import Papa from 'papaparse'
-import { getConversions, getExample, runConversion } from './api'
-import { downloadArtifact, downloadZip } from './downloads'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
+import * as api from './api'
+import { openExternal, revealRun, selectPaths, connection, confirmAction, saveMappingCopy, installOhdsi } from './desktop'
+import DataView, { type Inspection } from './components/DataView'
 import TerminologyReview from './components/TerminologyReview'
-import type { Artifact, Conversion, OptionDefinition, TerminologyAudit } from './types'
+import ConceptDetails from './components/ConceptDetails'
+import RunActions from './components/RunActions'
+const MappingEditor = lazy(() => import('./components/MappingEditor'))
+import type { Artifact, Conversion, FileHandle, Job, Preview, Resource } from './types'
+import { readSettings, saveSettings, type ThemeChoice } from './settings'
+import { isTauri } from '@tauri-apps/api/core'
+import { getCurrentWindow } from '@tauri-apps/api/window'
+import { listen } from '@tauri-apps/api/event'
+import { FolderOpen, Folder, FileText, Save, Play, Square, Database, Settings as SettingsIcon, BookOpen, GitFork, ArrowRightLeft, PanelLeftClose, PanelLeftOpen, Trash2, RotateCcw, LoaderCircle, Download } from 'lucide-react'
 
-const EMPTY_JSON = '{\n  \n}'
-
-type FileExample = {
-  transport: 'multipart'
-  files: Array<{ role: string; filename: string; encoding: 'base64'; content: string }>
-  options?: Record<string, unknown>
-}
-
-function isFileExample(data: unknown): data is FileExample {
-  return Boolean(data && typeof data === 'object' && (data as FileExample).transport === 'multipart' && Array.isArray((data as FileExample).files))
-}
-
-function fileFromExample(example: FileExample['files'][number]) {
-  const binary = atob(example.content)
-  const bytes = Uint8Array.from(binary, (character) => character.charCodeAt(0))
-  return new File([bytes], example.filename)
-}
-
-function uniqueById(items: Array<{ id: string; label: string }>) {
-  return Array.from(new Map(items.map((item) => [item.id, item])).values())
-}
-
-function defaultsFor(route: Conversion) {
-  return Object.fromEntries(
-    route.options
-      .filter((option) => option.default !== undefined)
-      .map((option) => [option.name, option.name === 'term_audit' ? 'xlsx' : option.default]),
-  )
-}
-
-function OptionControl({
-  definition,
-  value,
-  onChange,
-}: {
-  definition: OptionDefinition
-  value: unknown
-  onChange: (value: unknown) => void
-}) {
-  if (definition.kind === 'boolean') {
-    return (
-      <label className="check-row">
-        <input type="checkbox" checked={Boolean(value)} onChange={(event) => onChange(event.target.checked)} />
-        <span>{definition.label}</span>
-      </label>
-    )
-  }
-  if (definition.kind === 'select') {
-    return (
-      <label>
-        <span>{definition.label}</span>
-        <select value={String(value ?? '')} onChange={(event) => onChange(event.target.value)}>
-          {definition.values?.map((item) => <option key={item}>{item}</option>)}
-        </select>
-      </label>
-    )
-  }
-  return (
-    <label>
-      <span>{definition.label}</span>
-      <input
-        type={definition.kind === 'string' ? 'text' : 'number'}
-        min={definition.minimum}
-        max={definition.maximum}
-        step={definition.kind === 'integer' ? 1 : 'any'}
-        value={String(value ?? '')}
-        onChange={(event) => {
-          const next = event.target.value
-          onChange(definition.kind === 'string' ? next : next === '' ? undefined : Number(next))
-        }}
-      />
-    </label>
-  )
-}
-
-type TableData = { headers: string[]; rows: unknown[][] }
-type TableColumn = { key: string; label: string; sourceIndex: number }
-
-function tableDataFor(artifact: Artifact): TableData | undefined {
-  if (artifact.kind === 'csv' || artifact.kind === 'tsv') {
-    const parsed = Papa.parse<string[]>(artifact.content, { delimiter: artifact.kind === 'tsv' ? '\t' : ';', skipEmptyLines: true })
-    const rows = parsed.data
-    return rows[0]?.length ? { headers: rows[0], rows: rows.slice(1, 51) } : undefined
-  }
-
-  try {
-    const decoded = JSON.parse(artifact.content)
-    const records = Array.isArray(decoded) ? decoded : []
-    if (!records.length || records.some((record) => !record || typeof record !== 'object' || Array.isArray(record))) return undefined
-    const headers = Array.from(new Set(records.flatMap((record) => Object.keys(record as Record<string, unknown>))))
-    return {
-      headers,
-      rows: records.slice(0, 50).map((record) => headers.map((header) => (record as Record<string, unknown>)[header])),
-    }
-  } catch {
-    return undefined
-  }
-}
-
-function TablePreview({ data, filename }: { data: TableData; filename: string }) {
-  const columns = useMemo<TableColumn[]>(
-    () => data.headers.map((label, sourceIndex) => ({ key: `${sourceIndex}:${label}`, label, sourceIndex })),
-    [data.headers.join('\u0000')],
-  )
-  const [columnOrder, setColumnOrder] = useState<string[]>(columns.map((column) => column.key))
-  const [hiddenColumns, setHiddenColumns] = useState<string[]>([])
-  const [selectedCell, setSelectedCell] = useState<{ column: string; value: unknown }>()
-
-  useEffect(() => {
-    setColumnOrder(columns.map((column) => column.key))
-    setHiddenColumns([])
-    setSelectedCell(undefined)
-  }, [columns])
-
-  const columnByKey = new Map(columns.map((column) => [column.key, column]))
-  const visibleKeys = columnOrder.filter((key) => !hiddenColumns.includes(key))
-  const hiddenKeys = columnOrder.filter((key) => hiddenColumns.includes(key))
-  const draggedColumn = (event: DragEvent) => event.dataTransfer.getData('text/convert-pheno-column')
-  const beginDrag = (event: DragEvent, key: string) => {
-    event.dataTransfer.effectAllowed = 'move'
-    event.dataTransfer.setData('text/convert-pheno-column', key)
-  }
-  const showAtEnd = (key: string) => {
-    if (!columnByKey.has(key)) return
-    setHiddenColumns((current) => current.filter((item) => item !== key))
-    setColumnOrder((current) => [...current.filter((item) => item !== key), key])
-  }
-  const showBefore = (key: string, target: string) => {
-    if (!columnByKey.has(key) || key === target) return
-    setHiddenColumns((current) => current.filter((item) => item !== key))
-    setColumnOrder((current) => {
-      const next = current.filter((item) => item !== key)
-      next.splice(Math.max(0, next.indexOf(target)), 0, key)
-      return next
-    })
-  }
-  const hide = (key: string) => {
-    if (columnByKey.has(key)) setHiddenColumns((current) => current.includes(key) ? current : [...current, key])
-  }
-
-  const columnChip = (key: string, hidden: boolean) => {
-    const column = columnByKey.get(key)
-    if (!column) return null
-    return (
-      <span
-        className="column-chip"
-        draggable
-        key={key}
-        onDragStart={(event) => beginDrag(event, key)}
-        onDragOver={(event) => event.preventDefault()}
-        onDrop={(event) => { event.preventDefault(); event.stopPropagation(); showBefore(draggedColumn(event), key) }}
-      >
-        <i aria-hidden="true">⠿</i><span>{column.label}</span>
-        <button type="button" aria-label={`${hidden ? 'Show' : 'Hide'} ${column.label} column`} onClick={() => hidden ? showAtEnd(key) : hide(key)}>{hidden ? '+' : '×'}</button>
-      </span>
-    )
-  }
-
-  return (
-    <>
-      <details className="column-settings">
-        <summary>Customize columns <span>{visibleKeys.length} of {columns.length} visible</span></summary>
-        <div className="column-lanes">
-          <div className="column-lane visible-lane" onDragOver={(event) => event.preventDefault()} onDrop={(event) => { event.preventDefault(); showAtEnd(draggedColumn(event)) }}>
-            <div><strong>Visible</strong><small>Drag to reorder</small></div>
-            <div className="column-chips">{visibleKeys.map((key) => columnChip(key, false))}</div>
-          </div>
-          <div className="column-lane hidden-lane" onDragOver={(event) => event.preventDefault()} onDrop={(event) => { event.preventDefault(); hide(draggedColumn(event)) }}>
-            <div><strong>Hidden</strong><small>Drop columns here</small></div>
-            <div className="column-chips">{hiddenKeys.length ? hiddenKeys.map((key) => columnChip(key, true)) : <span className="empty-columns">No hidden columns</span>}</div>
-          </div>
-        </div>
-      </details>
-      <div className="table-scroll" role="region" aria-label={`${filename} table preview`} tabIndex={0}>
-        <table>
-          <thead><tr>{visibleKeys.map((key) => <th key={key}>{columnByKey.get(key)?.label}</th>)}</tr></thead>
-          <tbody>
-            {data.rows.map((row, rowIndex) => (
-              <tr key={rowIndex}>{visibleKeys.map((key) => {
-                const column = columnByKey.get(key)!
-                const value = row[column.sourceIndex]
-                const nested = value !== null && typeof value === 'object'
-                return <td key={key}>{nested
-                  ? <button type="button" className="nested-cell" onClick={() => setSelectedCell({ column: column.label, value })}>View details</button>
-                  : String(value ?? '')}</td>
-              })}</tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <p className="preview-limit">Showing the first {data.rows.length.toLocaleString()} row{data.rows.length === 1 ? '' : 's'}.</p>
-      {selectedCell && <div className="cell-detail"><header><div><span>Details</span><strong>{selectedCell.column}</strong></div><button type="button" aria-label="Close details" onClick={() => setSelectedCell(undefined)}>×</button></header><pre>{JSON.stringify(selectedCell.value, null, 2)}</pre></div>}
-    </>
-  )
-}
-
-function ArtifactPreview({ artifact }: { artifact: Artifact }) {
-  if (artifact.kind === 'xlsx') {
-    return <p className="preview-limit">Binary spreadsheet preview is not available. Download the file to inspect the color-coded audit.</p>
-  }
-  const tableData = useMemo(() => tableDataFor(artifact), [artifact.content, artifact.kind])
-  const [view, setView] = useState<'table' | 'raw'>(tableData ? 'table' : 'raw')
-  let formatted = artifact.content
-  if (artifact.kind !== 'csv' && artifact.kind !== 'tsv') {
-    try { formatted = JSON.stringify(JSON.parse(artifact.content), null, 2) } catch { /* show serialized content */ }
-  }
-
-  return (
-    <div className="artifact-preview">
-      <div className="preview-tabs" role="tablist" aria-label={`${artifact.filename} preview mode`}>
-        {tableData && <button type="button" role="tab" aria-selected={view === 'table'} onClick={() => setView('table')}>Table</button>}
-        <button type="button" role="tab" aria-selected={view === 'raw'} onClick={() => setView('raw')}>Raw {artifact.kind === 'csv' ? 'CSV' : artifact.kind === 'tsv' ? 'TSV' : 'JSON'}</button>
-      </div>
-      {view === 'table' && tableData ? <TablePreview data={tableData} filename={artifact.filename} /> : <pre className="preview-code">{formatted}</pre>}
-    </div>
-  )
-}
+type Tab = 'Input' | 'Conversion' | 'Mapping' | 'Outputs' | 'Terminology Review' | 'Warnings' | 'Compare'
+type Draft = { conversion: string; options: Record<string, unknown>; output: { entities?: string[] } }
+const busy = (job: Job) => ['queued', 'running', 'cancelling'].includes(job.status)
+const size = (bytes: number) => bytes >= 1073741824 ? `${(bytes / 1073741824).toFixed(1)} GiB` : bytes > 1048576 ? `${(bytes / 1048576).toFixed(1)} MiB` : `${Math.ceil(bytes / 1024)} KiB`
+const DEFAULT: Draft = { conversion: '', options: {}, output: {} }
 
 export default function App() {
-  const [catalog, setCatalog] = useState<Conversion[]>([])
-  const [conversionId, setConversionId] = useState('')
-  const [inputText, setInputText] = useState(EMPTY_JSON)
-  const [entities, setEntities] = useState<string[]>([])
-  const [options, setOptions] = useState<Record<string, unknown>>({})
-  const [artifacts, setArtifacts] = useState<Artifact[]>([])
-  const [terminologyAudit, setTerminologyAudit] = useState<TerminologyAudit>()
-  const [warnings, setWarnings] = useState<string[]>([])
+  const [routes, setRoutes] = useState<Conversion[]>([])
+  const [jobs, setJobs] = useState<Job[]>([])
+  const [runQuery, setRunQuery] = useState('')
+  const [resources, setResources] = useState<Resource[]>([])
+  const [draft, setDraft] = useState<Draft>(DEFAULT)
+  const [files, setFiles] = useState<Record<string, FileHandle[]>>({})
+  const [collapsedGroups, setCollapsedGroups] = useState<Record<string, boolean>>({})
+  const toggleGroup = (name: string) => setCollapsedGroups((current) => ({ ...current, [name]: !current[name] }))
+  const [destination, setDestination] = useState<FileHandle>()
+  const [outputRoot, setOutputRoot] = useState('')
+  const [pendingAction, setPendingAction] = useState<string>()
+  const [resourceInstalling, setResourceInstalling] = useState(false)
+  const [tab, setTab] = useState<Tab>('Conversion')
+  const [section, setSection] = useState<'workspace' | 'resources' | 'settings'>('workspace')
+  const [sourcePreview, setSourcePreview] = useState<{ file: FileHandle; data?: Preview }>()
+  const [pasteInput, setPasteInput] = useState(false)
+  const [resultPreview, setResultPreview] = useState<{ job: string; id: string; data?: Preview }>()
+  const previewRequest = useRef(0)
+  function resetPreviews() {
+    previewRequest.current += 1
+    setSourcePreview(undefined); setResultPreview(undefined); setInspection(undefined)
+  }
+  function inspect(value: Inspection) { setInspection(value); setSettings((current) => ({ ...current, inspector: true })) }
+  async function inspectSource(file: FileHandle) {
+    const request = ++previewRequest.current
+    setSourcePreview({ file }); setInspection(undefined); setTab('Input'); setSection('workspace')
+    const data = await api.inputPreview(file.id)
+    if (request === previewRequest.current) setSourcePreview({ file, data })
+  }
+  async function inspectOutput(runId: string, id: string) {
+    const selected = jobs.find((item) => item.id === runId)
+    if (['term-audit', 'term-audit-tsv'].includes(id) && selected?.result?.meta.terminologyAudit) {
+      setSelectedJob(runId); setTab('Terminology Review'); setSection('workspace')
+      return
+    }
+    const request = ++previewRequest.current
+    setSelectedOutput(id); setResultPreview({ job: runId, id }); setInspection(undefined)
+    const data = await api.outputPreview(runId, id)
+    if (request === previewRequest.current) setResultPreview({ job: runId, id, data })
+  }
+  async function installOhdsiResource() {
+    setResourceInstalling(true)
+    try {
+      const installed = await installOhdsi()
+      if (!installed) return
+      const [nextResources, nextRoutes] = await Promise.all([api.getResources(), api.getConversions()])
+      setResources(nextResources); setRoutes(nextRoutes)
+      setMessage('The verified OHDSI terminology database is installed.')
+    } finally {
+      setResourceInstalling(false)
+    }
+  }
+  const [inspection, setInspection] = useState<Inspection>()
+  const [selectedJob, setSelectedJob] = useState('')
+  const [selectedOutput, setSelectedOutput] = useState('')
+  const [comparison, setComparison] = useState('')
+  const [mapping, setMapping] = useState('')
+  const [mappingDirty, setMappingDirty] = useState(false)
+  const mappingEpoch = useRef(0)
+  const [jsonInput, setJsonInput] = useState('')
+  const [message, setMessage] = useState('')
   const [error, setError] = useState('')
-  const [loading, setLoading] = useState(true)
-  const [running, setRunning] = useState(false)
-  const [exampleLoading, setExampleLoading] = useState(false)
-  const [fileName, setFileName] = useState('')
-  const [filesByRole, setFilesByRole] = useState<Record<string, File[]>>({})
-  const [dragActive, setDragActive] = useState(false)
-  const [inputTransport, setInputTransport] = useState<'json' | 'multipart'>('json')
-  const resultsRef = useRef<HTMLElement>(null)
-
+  const [submitting, setSubmitting] = useState(false)
+  const [settings, setSettings] = useState(readSettings)
+  const taskPanel = settings.tasks
+  const setTaskPanel = (tasks: boolean) => setSettings((current) => ({ ...current, tasks }))
   useEffect(() => {
-    getConversions()
-      .then(async (routes) => {
-        setCatalog(routes)
-        setConversionId(routes[0]?.id || '')
-        if (routes[0]) {
-          try {
-            const example = await getExample(routes[0].source.id)
-            setInputText(JSON.stringify(example.data, null, 2))
-            setFileName(example.filename)
-          } catch {
-            // A bundled example is a convenience; catalog loading still succeeds without it.
-          }
-        }
-      })
-      .catch((reason: Error) => setError(reason.message))
-      .finally(() => setLoading(false))
+    try { saveSettings(settings) } catch { setError('Could not save application settings.') }
+    const media = window.matchMedia('(prefers-color-scheme: dark)')
+    const apply = () => { document.documentElement.dataset.theme = settings.theme === 'system' ? (media.matches ? 'dark' : 'light') : settings.theme }
+    apply()
+    media.addEventListener('change', apply)
+    if (isTauri()) void getCurrentWindow().setTheme(settings.theme === 'system' ? null : settings.theme).catch((reason: Error) => setError(reason.message))
+    return () => media.removeEventListener('change', apply)
+  }, [settings])
+  const [ready, setReady] = useState(false)
+  const route = routes.find((item) => item.id === draft.conversion)
+  const job = jobs.find((item) => item.id === selectedJob)
+  const jobRoute = routes.find((item) => item.id === job?.conversion)
+  const other = jobs.find((item) => item.id === comparison)
+  const outputs = job?.result?.artifacts || []
+  const active = jobs.filter(busy)
+  const ohdsi = resources.find((item) => item.id === 'ohdsi')
+  const bundledResources = resources.filter((item) => item.id !== 'ohdsi')
+  const hasActiveJobs = active.length > 0
+  const runRank = (item: Job) => ['running', 'cancelling'].includes(item.status) ? 0 : item.status === 'queued' ? 1 : 2
+  const visibleJobs = jobs.filter((item) => `${item.conversion} ${item.id} ${item.status} ${item.sources.join(' ')}`.toLowerCase().includes(runQuery.toLowerCase()))
+    .sort((a, b) => runRank(a) - runRank(b) || (a.status === 'queued' && b.status === 'queued' ? (a.queuePosition ?? Infinity) - (b.queuePosition ?? Infinity) : b.created - a.created))
+  const sources = [...new Map(routes.map((item) => [item.source.id, item.source])).values()]
+  const run = async (action: () => Promise<void>) => { setError(''); setMessage(''); try { await action() } catch (reason) { setError((reason as Error).message) } }
+  function selectRoute(next: Conversion) {
+    setMessage('')
+    mappingEpoch.current++
+    setDraft({ conversion: next.id, output: next.entities.supported.length ? { entities: next.entities.default } : {},
+      options: Object.fromEntries(next.options.filter((item) => item.default !== undefined).map((item) => [item.name, item.default])) })
+    setFiles({}); setJsonInput(''); setPasteInput(false); setMapping(''); setMappingDirty(false); resetPreviews(); setTab('Conversion')
+  }
+  useEffect(() => {
+    let alive = true
+    connection().then((service) => { if (alive) setOutputRoot(service.outputRoot) }).catch((reason: Error) => { if (alive) setError(reason.message) })
+    api.getConversions().then((items) => { if (alive) { setRoutes(items); if (items[0]) selectRoute(items[0]); setReady(true) } }).catch((reason) => { if (alive) setError(reason.message) })
+    void api.listJobs().then((items) => { if (alive) setJobs(items) }).catch((reason) => { if (alive) setError(reason.message) })
+    return () => { alive = false }
   }, [])
 
-  const route = catalog.find((item) => item.id === conversionId)
-  const sources = useMemo(() => uniqueById(catalog.map((item) => item.source)), [catalog])
-  const targets = route ? catalog.filter((item) => item.source.id === route.source.id) : []
-  const availableRoutes = catalog.filter((item) => item.available).length
-  const usesFiles = inputTransport === 'multipart'
-  const inputBytes = usesFiles
-    ? Object.values(filesByRole).flat().reduce((total, file) => total + file.size, 0)
-    : new Blob([inputText]).size
-  const auditOption = route?.options.find((definition) => definition.name === 'term_audit')
-  const advancedOptions = route?.options.filter((definition) => definition.name !== 'term_audit') || []
-  const missingRequiredFiles = route?.input.files
-    .filter((definition) => definition.required && !filesByRole[definition.name]?.length) ?? []
-  const requiredFilesReady = missingRequiredFiles.length === 0
-  let jsonReady = false
-  let jsonError = ''
-  if (!usesFiles) {
+  useEffect(() => {
+    let alive = true
+    const refresh = () => api.listJobs().then((items) => { if (alive) setJobs(items) }).catch((reason) => { if (alive) setError(reason.message) })
+    const timer = window.setInterval(refresh, hasActiveJobs ? 250 : 1500)
+    return () => { alive = false; window.clearInterval(timer) }
+  }, [hasActiveJobs])
+
+  async function choose(role: string, directory = false, multiple = false) {
+    const selected = await selectPaths(directory, multiple)
+    if (!selected.length) return
+    setFiles((current) => ({ ...current, [role]: selected }))
+    if (role === 'source') { setJsonInput(''); setPasteInput(false); resetPreviews() }
+    if (role === 'mapping') {
+      const epoch = ++mappingEpoch.current
+      setMapping(''); setMappingDirty(false)
+      const content = await api.inputPreview(selected[0].id)
+      if (epoch !== mappingEpoch.current) return
+      if (content.truncated) throw new Error('Mapping is too large for the editor; the selected file can still be used for conversion.')
+      setMapping(content.text); setMappingDirty(false); setTab('Mapping')
+    }
+  }
+  async function validateMapping(text: string) {
+    const epoch = mappingEpoch.current
+    const file = await api.post<FileHandle>('/api/mappings', {text})
+    if (epoch !== mappingEpoch.current) throw new Error('The mapping changed while validation was running. Validate the current document again.')
+    setFiles((current) => ({...current, mapping:[file]})); setMappingDirty(false)
+  }
+  async function submit() {
+    if (!route || submitting) return
+    if (mappingDirty) throw new Error('Validate and use the edited mapping before running.')
+    const missing = route.input.files.find((item) => item.required && !files[item.name]?.length)
+    if (!jsonInput.trim() && missing) throw new Error(`Select ${missing.label} before running.`)
+    setSubmitting(true)
     try {
-      JSON.parse(inputText)
-      jsonReady = true
-    } catch (reason) {
-      jsonReady = false
-      jsonError = (reason as Error).message
-    }
+      const input = jsonInput.trim() ? { data: JSON.parse(jsonInput) } : { files: Object.fromEntries(Object.entries(files).map(([key, value]) => [key, value.map((item) => item.id)])) }
+      const created = await api.submitJob({ ...draft, input, ...(destination ? { destination: destination.id } : {}) })
+      setJobs((current) => [created, ...current]); setSelectedJob(created.id); setSelectedOutput(''); setTab('Outputs'); resetPreviews()
+    } finally { setSubmitting(false) }
   }
-  const inputReady = usesFiles ? requiredFilesReady : jsonReady
-  const configurationReady = route?.target.id !== 'beacon' || entities.length > 0
-  const conversionReady = Boolean(route?.available && inputReady && configurationReady)
-  const readinessMessage = !inputReady
-    ? usesFiles
-      ? `Add required input: ${missingRequiredFiles.map((definition) => definition.label).join(', ')}.`
-      : `Provide valid JSON to continue${jsonError ? `: ${jsonError}` : '.'}`
-    : !configurationReady
-      ? 'Select at least one Beacon entity to continue.'
-      : ''
-  const workflowSteps = [
-    { number: 1, label: 'Route', state: route ? 'complete' : 'current' },
-    { number: 2, label: 'Input', state: !inputReady ? 'current' : 'complete' },
-    { number: 3, label: 'Configure', state: inputReady && !configurationReady ? 'current' : inputReady ? 'complete' : 'pending' },
-    { number: 4, label: 'Convert', state: artifacts.length ? 'complete' : inputReady && configurationReady ? 'current' : 'pending' },
-  ]
-
-  useEffect(() => {
+  async function cancelRun(item: Job) {
+    if (pendingAction) return
+    const queued = item.status === 'queued'
+    setPendingAction(item.id)
+    try {
+      if (!await confirmAction(queued ? 'Remove queued run?' : 'Cancel conversion?', `${item.conversion} (${item.id.slice(0, 8)})${queued ? ' will be removed from the queue.' : ' will be stopped. Incomplete outputs are not published.'}`)) return
+      const updated = await api.cancelJob(item.id)
+      setJobs((current) => current.map((entry) => entry.id === updated.id ? updated : entry))
+    } finally { setPendingAction(undefined) }
+  }
+  async function cancelPending() {
+    if (pendingAction) return
+    setPendingAction('pending')
+    try {
+      if (!await confirmAction('Cancel all pending runs?', 'Remove all currently queued runs? The active conversion will continue.')) return
+      await api.cancelPendingJobs()
+      setJobs(await api.listJobs())
+    } finally { setPendingAction(undefined) }
+  }
+  async function deleteRun(item: Job, fromDisk = false) {
+    if (pendingAction) return
+    setPendingAction(item.id)
+    try {
+      if (!await confirmAction(fromDisk ? 'Permanently delete run and output files?' : 'Delete run from history?', fromDisk
+        ? `This permanently deletes this run's saved outputs and internal run files. It cannot be undone. Original source files and copies saved elsewhere are not deleted.\n\nOutput folder: ${item.directory || item.outputDirectory || 'Private run folder'}`
+        : 'This removes the run from the list. Source files and generated output files are kept on disk.')) return
+      if (fromDisk) await api.deleteJobFiles(item.id)
+      else await api.deleteJob(item.id)
+      setJobs((current) => current.filter((entry) => entry.id !== item.id))
+      if (selectedJob === item.id) { setSelectedJob(''); setSelectedOutput(''); resetPreviews(); setTab('Conversion') }
+    } finally { setPendingAction(undefined) }
+  }
+  async function setUpAgain(item: Job) {
+    const next = routes.find((entry) => entry.id === item.conversion)
+    if (!next) throw new Error('This conversion is not available in the current installation.')
+    if (!await confirmAction('Set up this conversion again?', 'Replace the current draft with this run\'s configuration? You will need to reselect the input files and any custom output folder.')) return
+    selectRoute(next)
+    setDraft({ conversion: item.conversion, options: { ...item.options }, output: { ...item.output } })
+    setDestination(undefined); setSection('workspace')
+    setMessage('Configuration restored. Reselect your inputs and check the output folder before running again.')
+  }
+  async function deleteAllRuns(fromDisk: boolean) {
+    if (pendingAction) return
+    setPendingAction('delete-all')
+    try {
+      if (!await confirmAction(fromDisk ? 'Permanently delete all finished run files?' : 'Delete all finished runs from history?', fromDisk
+        ? 'This permanently deletes saved outputs and internal files for all finished runs, including those previously removed from history. Active runs, original source files and copies saved elsewhere are kept. This cannot be undone.'
+        : 'Remove all finished runs from the list? Active runs and all files on disk are kept.')) return
+      const result = await api.deleteAllJobs(fromDisk)
+      setJobs(await api.listJobs())
+      if (result.deleted.includes(selectedJob)) { setSelectedJob(''); setSelectedOutput(''); resetPreviews(); setTab('Conversion') }
+      setMessage(`${result.deleted.length} run${result.deleted.length === 1 ? '' : 's'} deleted${fromDisk ? ' with their output files' : ' from history'}. ${result.skipped.length} active run${result.skipped.length === 1 ? '' : 's'} kept.`)
+      if (result.failed.length) setError(`${result.failed.length} runs could not be deleted: ${result.failed.map((item) => `${item.id.slice(0,8)}: ${item.message}`).join('; ')}`)
+    } finally { setPendingAction(undefined) }
+  }
+  async function example() {
     if (!route) return
-    setEntities(route.entities.default)
-    setOptions((current) => ({
-      ...defaultsFor(route),
-      ...Object.fromEntries(route.options.filter((definition) => definition.name in current).map((definition) => [definition.name, current[definition.name]])),
-    }))
-    setArtifacts([])
-    setTerminologyAudit(undefined)
-    setWarnings([])
-    setError('')
-  }, [route?.id])
-
-  useEffect(() => {
-    if (route) setInputTransport(route.input.transports[0] || 'json')
-  }, [route?.id])
-
-  useEffect(() => {
-    if (artifacts.length) resultsRef.current?.scrollIntoView?.({ behavior: 'smooth', block: 'start' })
-  }, [artifacts.length])
-
-  const clearResults = () => {
-    setArtifacts([])
-    setTerminologyAudit(undefined)
-    setWarnings([])
-    setError('')
+    mappingEpoch.current++
+    setMapping(''); setMappingDirty(false)
+    resetPreviews()
+    const transport = route.input.transports.includes('json') ? 'json' : 'multipart'
+    const data = await api.getExample(route.source.id, transport) as { transport?: string; options?: Record<string, unknown>; files?: Array<{role: string;filename: string;content: string}> }
+    if (data.transport === 'multipart' && data.files) {
+      const selected: Record<string, FileHandle[]> = {}
+      for (const item of data.files) {
+        const bytes = Uint8Array.from(atob(item.content), (c) => c.charCodeAt(0))
+        const handles = await api.uploadFiles([new File([bytes], item.filename)])
+        selected[item.role] = [...(selected[item.role] || []), ...handles]
+        if (item.role === 'mapping') setMapping(new TextDecoder().decode(bytes))
+      }
+      setFiles(selected); setDraft((current) => ({...current,options:{...current.options,...data.options}})); setJsonInput('')
+    } else { setJsonInput(JSON.stringify(data, null, 2)); setFiles({}) }
+    const hasMapping = data.transport === 'multipart' && data.files?.some((file) => file.role === 'mapping')
+    setPasteInput(false); setTab(tab === 'Mapping' && hasMapping ? 'Mapping' : 'Input')
+    setMessage(`${route.source.label} synthetic example loaded.${hasMapping ? ' Input data and mapping are both ready; no second load is needed.' : ''} Your own files have not been changed.`)
   }
-
-  const changeSource = (sourceId: string) => {
-    const next = catalog.find((item) => item.source.id === sourceId)
-    if (next) {
-      setFilesByRole({})
-      changeInput(EMPTY_JSON)
-      setConversionId(next.id)
-    }
+  async function saveWorkspace() {
+    const [directory] = await selectPaths(true)
+    if (!directory) return
+    if (jsonInput.trim()) throw new Error('Save pasted input to a file and select it before saving the workspace.')
+    if (mappingDirty) throw new Error('Validate and use the edited mapping before saving.')
+    await api.post('/api/workspaces/save', { directory: directory.id, draft: { ...draft, files: Object.fromEntries(Object.entries(files).map(([role,items]) => [role,items.map((item) => item.id)])) } })
+    setMessage('Workspace configuration saved. Original source files were not copied.')
   }
-
-  const changeInput = (text: string, selectedFileName = '') => {
-    setInputText(text)
-    setFileName(selectedFileName)
-    clearResults()
-  }
-
-  const loadFile = async (file?: File) => {
+  async function openWorkspace() {
+    const [file] = await selectPaths()
     if (!file) return
-    try {
-      changeInput(await file.text(), file.name)
-    } catch {
-      setError('The selected file could not be read.')
-    }
+    const saved = await api.post<{ settings: Draft; sources: Record<string,string[]> }>('/api/workspaces/open', {file:file.id})
+    if (!routes.some((item) => item.id === saved.settings.conversion)) throw new Error('The saved conversion is not supported by this installation.')
+    setDraft(saved.settings); setFiles({}); setJsonInput(''); resetPreviews(); setTab('Conversion')
+    setMessage('Workspace reopened. Reselect its sources to authorize access: ' + Object.values(saved.sources).flat().join(', '))
   }
-
-  const loadExample = async () => {
-    if (!route) return
-    setExampleLoading(true)
-    clearResults()
-    try {
-      const defaultTransport = route.input.transports[0]
-      const example = await getExample(
-        route.source.id,
-        route.input.transports.length > 1 && inputTransport !== defaultTransport
-          ? inputTransport
-          : undefined,
-      )
-      if (isFileExample(example.data)) {
-        const fileExample = example.data
-        const loaded: Record<string, File[]> = {}
-        for (const item of fileExample.files) {
-          loaded[item.role] ||= []
-          loaded[item.role].push(fileFromExample(item))
-        }
-        setFilesByRole(loaded)
-        setOptions((current) => ({ ...current, ...(fileExample.options || {}) }))
-      } else {
-        changeInput(JSON.stringify(example.data, null, 2), example.filename)
-      }
-    } catch (reason) {
-      setError((reason as Error).message)
-    } finally {
-      setExampleLoading(false)
+  const menuAction = useRef<(id: string) => void>(() => {})
+  menuAction.current = (id) => {
+    const actions: Record<string, () => Promise<void> | void> = {
+      new: () => {
+        if (mappingDirty && !window.confirm('Discard the unused mapping edits and start a new workspace?')) return
+        if (route) selectRoute(route)
+        setDestination(undefined); setSelectedJob(''); setInspection(undefined); setSection('workspace')
+      },
+      open: openWorkspace, save: saveWorkspace, run: submit,
+      add: () => choose('source', false, route?.input.files.find((item) => item.name === 'source')?.multiple),
+      cancel: async () => { const target = active.find((item) => item.status === 'running') || active[0]; if (target) await cancelRun(target) },
+      'cancel-pending': cancelPending,
+      'delete-history': () => deleteAllRuns(false),
+      'delete-files': () => deleteAllRuns(true),
+      settings: () => setSection('settings'),
+      explorer: () => setSettings((value) => ({ ...value, explorer: !value.explorer })),
+      inspector: () => setSettings((value) => ({ ...value, inspector: !value.inspector })),
+      tasks: () => setSettings((value) => ({ ...value, tasks: !value.tasks })),
+      resources: async () => { setResources(await api.getResources()); setSection('resources') },
+      docs: () => openExternal('https://cnag-biomedical-informatics.github.io/convert-pheno/'),
+      github: () => openExternal('https://github.com/CNAG-Biomedical-Informatics/convert-pheno'),
     }
+    if (actions[id]) void run(async () => { await actions[id]() })
   }
-
-  const formatInput = () => {
-    try {
-      changeInput(JSON.stringify(JSON.parse(inputText), null, 2), fileName)
-    } catch (reason) {
-      setError(`Input is not valid JSON: ${(reason as Error).message}`)
+  useEffect(() => {
+    if (!isTauri()) return
+    const subscription = listen<string>('desktop-menu', (event) => menuAction.current(event.payload))
+    return () => { void subscription.then((unlisten) => unlisten()) }
+  }, [])
+  useEffect(() => {
+    if (isTauri()) return // Native accelerators already dispatch these actions.
+    const listener = (event: KeyboardEvent) => {
+      if (!(event.metaKey || event.ctrlKey)) return
+      if (event.key === 'Enter') { event.preventDefault(); void run(submit) }
+      if (event.key.toLowerCase() === 's') { event.preventDefault(); void run(saveWorkspace) }
+      if (event.key.toLowerCase() === 'o') { event.preventDefault(); void run(openWorkspace) }
     }
-  }
+    window.addEventListener('keydown', listener)
+    return () => window.removeEventListener('keydown', listener)
+  })
 
-  const submit = async () => {
-    if (!route) return
-    clearResults()
-    let data: unknown
-    if (usesFiles) {
-      const missing = route.input.files.find((definition) => definition.required && !(filesByRole[definition.name]?.length))
-      if (missing) {
-        setError(`${missing.label} is required.`)
-        return
-      }
-    } else {
-      try {
-        data = JSON.parse(inputText)
-      } catch (reason) {
-        setError(`Input is not valid JSON: ${(reason as Error).message}`)
-        return
-      }
-    }
-    const output = route.target.id === 'beacon' ? { entities } : {}
-    setRunning(true)
-    try {
-      const response = await runConversion(
-        route.id,
-        { ...(usesFiles ? {} : { input: { data } }), output, options },
-        usesFiles ? filesByRole : undefined,
-      )
-      setArtifacts(response.artifacts)
-      setTerminologyAudit(response.meta.terminologyAudit)
-      setWarnings(response.warnings)
-    } catch (reason) {
-      setError((reason as Error).message)
-    } finally {
-      setRunning(false)
-    }
-  }
-
-  return (
-    <div className="page-shell">
-      <header className="masthead">
-        <a className="brand" href="/" aria-label="Convert-Pheno home">
-          <img className="brand-mark" src="/convert-pheno-mark.svg" alt="" />
-          <strong>Convert-Pheno workbench</strong>
-        </a>
-        <div className="masthead-status">
-          <nav className="masthead-links" aria-label="Project links">
-            <a href="https://cnag-biomedical-informatics.github.io/convert-pheno/" target="_blank" rel="noreferrer">Docs <span aria-hidden="true">↗</span></a>
-            <a href="https://github.com/CNAG-Biomedical-Informatics/convert-pheno" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
-          </nav>
-          <span className={`service-status ${!loading && catalog.length === 0 ? 'offline' : ''}`}>
-            <i aria-hidden="true" />{loading ? 'Connecting…' : catalog.length ? 'Local service ready' : 'Service unavailable'}
-          </span>
-        </div>
-      </header>
-
-      <main>
-        <section className="hero">
-          <div className="hero-copy">
-            <h1>Clinical and phenotypic data conversion</h1>
-            <p>Select a supported route, provide its source data, and review the generated files.</p>
-          </div>
-          <div className="hero-context" aria-label="Local service summary">
-            <p className="hero-context-status"><strong>{loading ? 'Reading conversion registry' : 'Available conversions'}</strong></p>
-            {!loading && <p className="registry-summary"><strong>{availableRoutes}</strong> of <strong>{catalog.length}</strong> registered routes across <strong>{sources.length}</strong> source formats are available from this installation.</p>}
-            <p className="privacy-note">Source data are processed by the local service. Temporary request files are removed after conversion.</p>
-          </div>
-        </section>
-
-        {loading && <p className="notice">Loading conversion catalog…</p>}
-        {!loading && catalog.length === 0 && <p className="error" role="alert">{error || 'No conversions are available.'}</p>}
-
-        {route && (
-          <section className="workbench" aria-label="Conversion workbench">
-            <div className="workbench-heading">
-              <h2>Build your conversion</h2>
-              <ol className="workflow-steps" aria-label="Conversion steps">
-                {workflowSteps.map((step) => <li className={step.state} aria-current={step.state === 'current' ? 'step' : undefined} key={step.number}><span>{step.state === 'complete' ? '✓' : step.number}</span>{step.label}</li>)}
-              </ol>
-            </div>
-
-            <div className="workspace">
-              <section className="card setup-card">
-                <div className="section-heading"><span>1</span><div><h2>Choose a route</h2><p>Select the model you have and the output you need.</p></div></div>
-                <div className="route-grid">
-                  <label><span>Source format</span><select aria-label="Source format" value={route.source.id} onChange={(event) => changeSource(event.target.value)}>{sources.map((source) => <option value={source.id} key={source.id}>{source.label}</option>)}</select></label>
-                  <div className="route-arrow" aria-hidden="true"><span>→</span></div>
-                  <label><span>Target format</span><select aria-label="Target format" value={route.id} onChange={(event) => setConversionId(event.target.value)}>{targets.map((item) => <option value={item.id} key={item.id}>{item.target.label}{item.available ? '' : ' — unavailable'}</option>)}</select></label>
-                </div>
-                <div className="route-meta">
-                  <span className={`maturity ${route.maturity}`}>{route.maturity}</span>
-                  <span>{usesFiles ? 'File upload' : route.source.kind === 'tables' ? 'Table-oriented JSON' : 'JSON input'}</span>
-                  {route.resources.map((resource) => <span key={resource}>{resource} required</span>)}
-                </div>
-                {!route.available && <p className="unavailable" role="status"><strong>Unavailable:</strong> {route.unavailableReason}</p>}
-                <p className="shape"><strong>Expected input</strong><span>{route.source.inputShape}</span></p>
-              </section>
-
-              <section className="card input-card">
-                <div className="section-heading"><span>2</span><div><h2>Add your input</h2><p>{usesFiles ? 'Select the source and supporting files required for this route.' : 'Drop one JSON file here or paste its contents below.'}</p></div></div>
-                {route.input.transports.length > 1 && <div className="transport-switch" role="group" aria-label="OMOP input mode">
-                  <button type="button" aria-pressed={usesFiles} onClick={() => { setInputTransport('multipart'); clearResults() }}>File upload</button>
-                  <button type="button" aria-pressed={!usesFiles} onClick={() => { setInputTransport('json'); clearResults() }}>JSON payload</button>
-                </div>}
-                {usesFiles ? <div className="file-role-list">
-                  {route.input.files.map((definition) => {
-                    const selected = filesByRole[definition.name] || []
-                    return <label className="file-role" key={definition.name}>
-                      <span className="file-role-copy"><strong>{definition.label}{definition.required ? ' *' : ''}</strong><small>{definition.description}</small></span>
-                      <input
-                        aria-label={definition.label}
-                        type="file"
-                        multiple={definition.multiple}
-                        accept={definition.accept?.join(',')}
-                        onChange={(event) => {
-                          clearResults()
-                          setFilesByRole((current) => ({ ...current, [definition.name]: Array.from(event.target.files || []) }))
-                        }}
-                      />
-                      <span className="browse-label">{selected.length ? `${selected.length} selected` : 'Browse'}</span>
-                      {selected.length > 0 && <span className="selected-files">{selected.map((file) => file.name).join(', ')}</span>}
-                    </label>
-                  })}
-                  <div className="editor-toolbar"><label>Input files</label><div><span>{inputBytes.toLocaleString()} bytes</span><button type="button" className="text-button example-action" disabled={exampleLoading} onClick={loadExample}>{exampleLoading ? 'Loading…' : 'Load example'}</button><button type="button" className="text-button" onClick={() => { setFilesByRole({}); clearResults() }}>Clear</button></div></div>
-                </div> : <>
-                <label
-                  className={`dropzone ${dragActive ? 'drag-active' : ''}`}
-                  onDragEnter={(event) => { event.preventDefault(); setDragActive(true) }}
-                  onDragOver={(event) => { event.preventDefault(); setDragActive(true) }}
-                  onDragLeave={() => setDragActive(false)}
-                  onDrop={(event) => { event.preventDefault(); setDragActive(false); void loadFile(event.dataTransfer.files?.[0]) }}
-                >
-                  <input aria-label="Choose JSON file" type="file" accept=".json,application/json" onChange={(event) => loadFile(event.target.files?.[0])} />
-                  <span className="drop-icon" aria-hidden="true">↑</span>
-                  <span className="drop-copy"><strong>{fileName || 'Drop a JSON file'}</strong><small>{fileName ? 'Loaded into the editor below' : 'or select one from this device'}</small></span>
-                  <span className="browse-label">Browse</span>
-                </label>
-                <div className="editor-toolbar">
-                  <label htmlFor="json-input">JSON input</label>
-                  <div><span>{new Blob([inputText]).size.toLocaleString()} bytes</span><button type="button" className="text-button example-action" disabled={exampleLoading} onClick={loadExample}>{exampleLoading ? 'Loading…' : 'Load example'}</button><button type="button" className="text-button" onClick={formatInput}>Format</button><button type="button" className="text-button" onClick={() => changeInput(EMPTY_JSON)}>Clear</button></div>
-                </div>
-                <textarea id="json-input" aria-label="JSON input" spellCheck={false} value={inputText} onChange={(event) => changeInput(event.target.value)} />
-                </>}
-              </section>
-
-              <section className="card options-card">
-                <div className="section-heading"><span>3</span><div><h2>Configure output</h2><p>Only settings supported by this route are shown.</p></div></div>
-                {route.entities.supported.length > 0 && <fieldset><legend>Beacon entities</legend><div className="entity-grid">{route.entities.supported.map((entity) => <label className="check-row" key={entity}><input type="checkbox" checked={entities.includes(entity)} onChange={(event) => { clearResults(); setEntities(event.target.checked ? [...entities, entity] : entities.filter((item) => item !== entity)) }} /><span>{entity}</span></label>)}</div></fieldset>}
-                {auditOption && <div className="audit-option">
-                  <label className="audit-option-toggle"><input type="checkbox" checked={options.term_audit !== 'none'} onChange={(event) => { clearResults(); setOptions((current) => ({ ...current, term_audit: event.target.checked ? 'xlsx' : 'none' })) }} /><span><strong>Terminology review</strong><small>Generate a review panel and a complete report of terminology decisions.</small></span></label>
-                  {options.term_audit !== 'none' && <label className="audit-format"><span>Full report</span><select aria-label="Terminology review report" value={String(options.term_audit || 'xlsx')} onChange={(event) => { clearResults(); setOptions((current) => ({ ...current, term_audit: event.target.value })) }}><option value="xlsx">Color-coded XLSX</option><option value="tsv">TSV</option></select></label>}
-                </div>}
-                {advancedOptions.length > 0 && <details><summary>Advanced settings</summary><div className="advanced-grid">{advancedOptions.map((definition) => <OptionControl key={definition.name} definition={definition} value={options[definition.name]} onChange={(value) => { clearResults(); setOptions((current) => ({ ...current, [definition.name]: value })) }} />)}</div></details>}
-                {route.entities.supported.length === 0 && route.options.length === 0 && <p className="defaults-ready"><span aria-hidden="true">✓</span><span><strong>Recommended defaults are ready</strong>No additional output settings are needed for this route.</span></p>}
-              </section>
-
-              <section className="card run-card">
-                <div className="section-heading"><span>4</span><div><h2>Review and convert</h2><p>Check the request before starting the conversion.</p></div></div>
-                <dl className="summary"><div><dt>Route</dt><dd>{route.label}</dd></div><div><dt>Input size</dt><dd>{inputBytes.toLocaleString()} bytes</dd></div><div><dt>Output</dt><dd>{entities.length ? entities.join(', ') : route.target.label}</dd></div></dl>
-                <p className="validation-reminder"><span aria-hidden="true">i</span>Formal schema validation is a separate step.</p>
-                {readinessMessage && <p className="run-readiness" role="status">{readinessMessage}</p>}
-                <button className="primary" disabled={!conversionReady || running} onClick={submit}><span>{running ? 'Converting…' : 'Run conversion'}</span><span aria-hidden="true">{running ? '···' : '→'}</span></button>
-                {running && <p className="run-status" role="status"><i aria-hidden="true" />Running the conversion with the local service.</p>}
-                {error && <p className="error" role="alert">{error}</p>}
-              </section>
-            </div>
-          </section>
-        )}
-
-        {artifacts.length > 0 && route && (
-          <section className="results" aria-live="polite" ref={resultsRef}>
-            <div className="results-heading"><div className="result-title"><span className="success-mark" aria-hidden="true">✓</span><div><p className="eyebrow">Conversion complete</p><h2>{artifacts.length} output file{artifacts.length === 1 ? '' : 's'} ready</h2></div></div>{artifacts.length > 1 && <button className="secondary zip-button" onClick={() => downloadZip(artifacts, route.id)}>Download ZIP</button>}</div>
-            {warnings.length > 0 && <div className="warnings"><strong>Conversion warnings</strong><ul>{warnings.map((warning, index) => <li key={index}>{warning}</li>)}</ul></div>}
-            {terminologyAudit && artifacts.find((artifact) => artifact.id === terminologyAudit.reportArtifactId) && <TerminologyReview audit={terminologyAudit} report={artifacts.find((artifact) => artifact.id === terminologyAudit.reportArtifactId)!} onDownload={downloadArtifact} />}
-            <div className="artifact-list">{artifacts.filter((artifact) => artifact.id !== terminologyAudit?.reportArtifactId).map((artifact) => <article className="artifact" key={artifact.id}><header><div><span className="output-kind">{artifact.kind.toUpperCase()}</span><h3>{artifact.filename}</h3><p>{artifact.mediaType} · {artifact.encoding === 'base64' ? 'binary' : new Blob([artifact.content]).size.toLocaleString() + ' bytes'}</p></div><button className="secondary" onClick={() => downloadArtifact(artifact)}>Download file</button></header><ArtifactPreview artifact={artifact} key={`${artifact.id}-${artifact.content}`} /></article>)}</div>
-          </section>
-        )}
-      </main>
-
-      <footer><span>Convert-Pheno</span><span>Manuel Rueda · CNAG · Artistic License 2.0</span></footer>
+  return <div className="desktop-shell">
+    <header className="desktop-titlebar"><img src="/convert-pheno-mark.svg" alt="" /><strong>Convert-Pheno</strong><span>Clinical data conversion</span></header>
+    <div className="desktop-toolbar">
+      <button aria-label={settings.explorer ? 'Collapse left navigation' : 'Expand left navigation'} title={settings.explorer ? 'Collapse left navigation' : 'Expand left navigation'} aria-expanded={settings.explorer} aria-controls="workspace-navigation" onClick={() => setSettings((value) => ({ ...value, explorer: !value.explorer }))}>{settings.explorer ? <PanelLeftClose aria-hidden="true" /> : <PanelLeftOpen aria-hidden="true" />}</button>
+      <button onClick={() => { setSection('workspace'); setTab('Conversion') }}><ArrowRightLeft aria-hidden="true" />Conversion</button>
+      <RunActions label="Run management" toolbar>
+        <button disabled={Boolean(pendingAction)} onClick={() => void run(() => deleteAllRuns(false))}><Trash2 aria-hidden="true" />Delete all from history</button>
+        <button className="delete-run" disabled={Boolean(pendingAction)} onClick={() => void run(() => deleteAllRuns(true))}><Trash2 aria-hidden="true" />Delete all run files</button>
+      </RunActions>
+      <span className="route-title">{route?.label || 'Connecting to the conversion engine'}</span>
+      {route && <div className="route-badges" aria-label="Conversion formats"><span className={`format-label format-${route.source.id}`}>{route.source.label}</span><span aria-hidden="true">→</span><span className={`format-label format-${route.target.id}`}>{route.target.label}</span></div>}
+      <button className="primary" disabled={!route?.available || submitting || !ready} onClick={() => void run(submit)}><Play aria-hidden="true" />{submitting ? 'Submitting...' : 'Run conversion'}</button>
+      {active.some((item) => item.status === 'running') && <button disabled={Boolean(pendingAction)} onClick={() => void run(() => cancelRun(active.find((item) => item.status === 'running')!))}><Square aria-hidden="true" />Cancel active run</button>}
     </div>
-  )
+    <div className="desktop-body">
+      {settings.explorer && <aside id="workspace-navigation" className="workspace-tree" aria-label="Workspace explorer">
+        <div className="workspace-tree-scroll">
+        <h2>Workspace</h2>
+        <button className="tree-action" onClick={() => { setSection('workspace'); setTab('Conversion') }}>Configure conversion</button>
+        <h3><button className="tree-disclosure" aria-expanded={!collapsedGroups.sources} aria-controls="source-groups" onClick={() => toggleGroup('sources')}><span aria-hidden="true">{collapsedGroups.sources ? '\u25b8' : '\u25be'}</span>Sources</button></h3>
+        <div id="source-groups" hidden={collapsedGroups.sources}>
+        {!Object.keys(files).length && <p className="muted">Select files or load an example.</p>}
+        {Object.entries(files).map(([role, items]) => <div key={role}><button className="tree-label tree-disclosure" aria-expanded={!collapsedGroups[`file:${role}`]} aria-controls={`source-group-${role}`} onClick={() => toggleGroup(`file:${role}`)}><span aria-hidden="true">{collapsedGroups[`file:${role}`] ? '\u25b8' : '\u25be'}</span>{route?.input.files.find((definition) => definition.name === role)?.label || role}</button><div id={`source-group-${role}`} hidden={collapsedGroups[`file:${role}`]}>{items.map((file) =>
+          <button key={file.id} className="tree-file" title={file.filename} onClick={() => void run(() => inspectSource(file))}>{file.directory ? <Folder aria-hidden="true" /> : <FileText aria-hidden="true" />} {file.filename}</button>)}</div></div>)}
+        </div>
+        <h3><button className="tree-disclosure" aria-expanded={!collapsedGroups.runs} aria-controls="run-groups" onClick={() => toggleGroup('runs')}><span aria-hidden="true">{collapsedGroups.runs ? '\u25b8' : '\u25be'}</span>Runs <span>{jobs.length}</span></button></h3>
+        <div id="run-groups" hidden={collapsedGroups.runs}>
+        <div className="run-filter"><input aria-label="Find runs" placeholder="Find a run..." value={runQuery} onChange={(event) => setRunQuery(event.target.value)} /><small>{active.filter((item) => item.status === 'running').length} running · {active.filter((item) => item.status === 'queued').length} queued</small></div>
+        {jobs.some((item) => item.status === 'queued') && <button className="cancel-pending" disabled={Boolean(pendingAction)} onClick={() => void run(cancelPending)}>Cancel all pending</button>}
+        <div className="run-tree">{visibleJobs.map((item) => <div key={item.id} className="run-entry" data-selected={selectedJob === item.id || undefined}>
+          <button aria-pressed={selectedJob === item.id} className="tree-run" onClick={() => {setSelectedJob(item.id);setSelectedOutput('');resetPreviews();setTab('Outputs');setSection('workspace')}}>
+          <strong>{item.conversion}</strong><span className={`run-state ${item.status}`}>{item.status}{item.queuePosition ? ` · #${item.queuePosition}` : ''}</span><small>{new Date(item.created * 1000).toLocaleString()} · {item.id.slice(0, 6)}</small></button>
+          <RunActions label={`Actions for ${item.conversion} ${item.id}`}>
+            {['running', 'queued'].includes(item.status) && <button disabled={Boolean(pendingAction)} onClick={() => void run(() => cancelRun(item))}><Square aria-hidden="true" />{item.status === 'queued' ? 'Remove from queue' : 'Cancel run'}</button>}
+            {item.status === 'cancelling' && <span><LoaderCircle aria-hidden="true" />Stopping...</span>}
+            {item.status === 'completed' && <button onClick={() => void run(() => revealRun(item.id))}><FolderOpen aria-hidden="true" />Open output folder</button>}
+            {['completed', 'failed', 'cancelled', 'interrupted'].includes(item.status) && <button onClick={() => void run(() => setUpAgain(item))}><RotateCcw aria-hidden="true" />Set up again</button>}
+            <button className="delete-run" disabled={busy(item) || Boolean(pendingAction)} title={busy(item) ? 'Cancel the run and wait for it to stop first' : undefined} onClick={() => void run(() => deleteRun(item))}><Trash2 aria-hidden="true" />Delete from history</button>
+            <button className="delete-run" disabled={busy(item) || Boolean(pendingAction)} onClick={() => void run(() => deleteRun(item, true))}><Trash2 aria-hidden="true" />Delete run and output files</button>
+          </RunActions>
+        </div>)}{runQuery && !visibleJobs.length && <p className="muted">No matching runs.</p>}</div>
+        </div>
+        </div>
+        <nav className="workspace-nav" aria-label="Application">
+          <button onClick={() => void run(async () => {setResources(await api.getResources());setSection('resources')})}><Database aria-hidden="true" />Resources</button>
+          <button onClick={() => setSection('settings')}><SettingsIcon aria-hidden="true" />Settings</button>
+          <a href="https://cnag-biomedical-informatics.github.io/convert-pheno/" onClick={(event)=>{event.preventDefault();void openExternal(event.currentTarget.href)}}><BookOpen aria-hidden="true" />Documentation</a>
+          <a href="https://github.com/CNAG-Biomedical-Informatics/convert-pheno" onClick={(event)=>{event.preventDefault();void openExternal(event.currentTarget.href)}}><GitFork aria-hidden="true" />GitHub</a>
+        </nav>
+      </aside>}
+      <main className="desktop-content">
+        {error && <div className="desktop-alert" role="alert">{error}<button aria-label="Dismiss error" onClick={()=>setError('')}>×</button></div>}
+        {message && <div className="desktop-message" role="status">{message}<button aria-label="Dismiss message" onClick={()=>setMessage('')}>×</button></div>}
+        {section === 'resources' ? <section className="settings-pane resources-pane"><h1>Terminology resources</h1><p>Small terminology databases are included with Convert-Pheno. Install OHDSI separately only for routes that use the OMOP vocabulary.</p>
+          <section className="external-resource" aria-labelledby="ohdsi-resource"><div className="resource-heading"><div><span className="eyebrow">Optional database</span><h2 id="ohdsi-resource">Athena OHDSI vocabulary</h2></div><span className={`resource-status ${ohdsi?.installed ? 'installed' : 'missing'}`}>{ohdsi?.installed ? 'Installed' : 'Not installed'}</span></div>
+            <dl><div><dt>Content version</dt><dd>{ohdsi?.contentVersion || 'Current supported bundle'}</dd></div><div><dt>Download size</dt><dd>{ohdsi?.byteSize ? size(ohdsi.byteSize) : 'About 3.2 GB'}</dd></div></dl>
+            <ol className="resource-steps"><li>Download <code>ohdsi.db</code> from the project folder.</li><li>Choose the downloaded file and let Convert-Pheno verify it.</li></ol>
+            <div className="resource-actions"><button disabled={resourceInstalling} onClick={() => void run(() => openExternal('https://drive.google.com/drive/folders/1-5Ywf-hhwb8bX1sRNV2Tf3EjH4TCaC8P?usp=sharing'))}><Download aria-hidden="true" />Download database</button><button className="primary" disabled={resourceInstalling} onClick={() => void run(installOhdsiResource)}>{resourceInstalling ? <LoaderCircle className="resource-spinner" aria-hidden="true" /> : <Database aria-hidden="true" />}{resourceInstalling ? 'Verifying and installing...' : ohdsi?.installed ? 'Replace installed database...' : 'Install downloaded database...'}</button></div>
+            <p className="resource-note" role="status" aria-live="polite">{resourceInstalling ? 'Checking approximately 3.2 GB. Keep Convert-Pheno open until verification finishes.' : 'The file size and SHA-256 checksum are checked before installation. The database is stored outside the application bundle.'}</p>
+          </section>
+          <details className="bundled-resources"><summary>Included terminology databases ({bundledResources.length})</summary><table><thead><tr><th>Resource</th><th>Version</th><th>Status</th></tr></thead><tbody>{bundledResources.map((item)=><tr key={item.id}><td>{item.id.toUpperCase()}</td><td>{item.contentVersion}</td><td><span className={`resource-status ${item.installed ? 'installed' : 'missing'}`}>{item.installed?'Included':'Unavailable'}</span></td></tr>)}</tbody></table></details>
+        </section> : section === 'settings' ? <section className="settings-pane"><h1>Settings</h1>
+          <h2>Appearance</h2><div className="appearance-settings">
+            <label>Theme<select value={settings.theme} onChange={(event) => setSettings({ ...settings, theme: event.target.value as ThemeChoice })}><option value="system">Follow system</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
+            <label><input type="checkbox" checked={settings.explorer} onChange={(event) => setSettings({ ...settings, explorer: event.target.checked })} />Show workspace explorer</label>
+            <label><input type="checkbox" checked={settings.inspector} onChange={(event) => setSettings({ ...settings, inspector: event.target.checked })} />Show record inspector</label>
+            <label><input type="checkbox" checked={taskPanel} onChange={(event)=>setTaskPanel(event.target.checked)} />Show task panel</label>
+          </div><p>Appearance settings are remembered on this device.</p>
+          <p>Inputs remain unchanged. Results are written into a separate run directory.</p></section> : <>
+          <nav className="workspace-tabs" aria-label="Workspace views">{(['Input','Conversion','Mapping','Outputs','Terminology Review','Warnings','Compare'] as Tab[]).map((item)=><button key={item} aria-current={item===tab?'page':undefined} onClick={()=>setTab(item)}>{item}{item==='Warnings'&&job?.result?.warnings.length ? ` (${job.result.warnings.length})`:''}</button>)}</nav>
+          <div className="workspace-view">
+            {tab === 'Conversion' && route && <section className="conversion-editor">
+              <header className="conversion-heading"><div><h1>Build your conversion</h1><p>Choose the source, add your files, and configure the output.</p></div><ArrowRightLeft aria-hidden="true" /></header>
+              <div className="conversion-grid">
+              <section className="conversion-card route-card" aria-labelledby="route-heading">
+              <header className="step-heading"><span aria-hidden="true">1</span><div><h2 id="route-heading">Choose a route</h2><p>Select the data model you have and the output you need.</p></div></header>
+              <div className="route-fields"><label>Source format<select value={route.source.id} onChange={(event)=>{const next=routes.find((item)=>item.source.id===event.target.value);if(next)selectRoute(next)}}>{sources.map((item)=><option value={item.id} key={item.id}>{item.label}</option>)}</select></label>
+                <span aria-hidden="true">→</span><label>Target format<select value={route.id} onChange={(event)=>{const next=routes.find((item)=>item.id===event.target.value);if(next)selectRoute(next)}}>{routes.filter((item)=>item.source.id===route.source.id).map((item)=><option value={item.id} key={item.id}>{item.target.label}</option>)}</select></label></div>
+              {route.maturity && <p className="maturity">Source profile: {route.maturity}</p>}
+              {!route.available && <p className="desktop-alert">{route.unavailableReason}</p>}
+              <p className="source-explanation"><strong>Expected input</strong>{route.source.inputShape}</p>
+              </section>
+              <section className="conversion-card input-card" aria-labelledby="files-heading">
+              <header className="step-heading"><span aria-hidden="true">2</span><div><h2 id="files-heading">Add your input</h2><p>Source files remain unchanged.</p></div></header>
+              {route.input.files.map((definition)=><div className="file-selection" key={definition.name}><div><strong>{definition.label}{definition.required?' *':''}</strong><small>{files[definition.name]?.map((item)=>item.filename).join(', ') || 'No file selected'}</small></div><button onClick={()=>void run(()=>choose(definition.name,false,definition.multiple))}>Browse...</button>
+                {definition.name==='source' && ['omop','i2b2','pcornet','sentinel','cbioportal'].includes(route.source.id) && <button onClick={()=>void run(()=>choose(definition.name,true))}>Folder...</button>}</div>)}
+              <button onClick={()=>void run(example)}>Load synthetic example</button>
+              {jsonInput.trim() && <p className="input-loaded">JSON input loaded. <button onClick={() => { resetPreviews(); setTab('Input') }}>Inspect input</button></p>}
+              </section>
+              <section className="conversion-card output-card" aria-labelledby="output-heading">
+              <header className="step-heading"><span aria-hidden="true">3</span><div><h2 id="output-heading">Configure output</h2><p>Only settings supported by this route are shown.</p></div></header>
+              <div className="file-selection"><div><strong>Output location</strong><small className="output-path">{destination ? destination.displayPath || destination.filename : outputRoot || 'Locating application output folder...'}</small><small>{destination ? 'A new convert-pheno-<run-id> subfolder will be created here.' : 'Each run gets its own <run-id>/outputs subfolder here.'}</small></div><button onClick={()=>void run(async()=>{const [chosen]=await selectPaths(true);if(chosen)setDestination(chosen)})}>Choose folder...</button>{destination && <button onClick={() => setDestination(undefined)}>Use default folder</button>}</div>
+              {route.entities.supported.length>0 && <fieldset><legend>Beacon entities</legend>{route.entities.supported.map((entity)=><label key={entity}><input type="checkbox" checked={draft.output.entities?.includes(entity)||false} onChange={(event)=>setDraft((current)=>({...current,output:{entities:event.target.checked?[...(current.output.entities||[]),entity]:(current.output.entities||[]).filter((item)=>item!==entity)}}))}/>{entity}</label>)}</fieldset>}
+              {route.options.some((option)=>option.name==='term_audit') && <label><input type="checkbox" checked={draft.options.term_audit==='xlsx'} onChange={(event)=>setDraft((current)=>({...current,options:{...current.options,term_audit:event.target.checked?'xlsx':'none'}}))}/>Create terminology audit (adds processing time)</label>}
+              <details><summary>Conversion options</summary><div className="options-grid">{route.options.filter((option)=>option.name!=='term_audit').map((option)=><label key={option.name}>{option.label}{option.name==='separator'?<select value={String(draft.options.separator??'')} onChange={(event)=>setDraft({...draft,options:{...draft.options,separator:event.target.value}})}><option value="">Use file extension</option><option value=";">Semicolon (;)</option><option value=",">Comma (,)</option><option value={'\t'}>Tab</option><option value="|">Pipe (|)</option>{draft.options.separator && ![';',',','\t','|'].includes(String(draft.options.separator)) ? <option value={String(draft.options.separator)}>Custom ({String(draft.options.separator)})</option> : null}</select>:option.kind==='boolean'?<input type="checkbox" checked={Boolean(draft.options[option.name])} onChange={(event)=>setDraft({...draft,options:{...draft.options,[option.name]:event.target.checked}})}/>:option.values?<select value={String(draft.options[option.name]??'')} onChange={(event)=>setDraft({...draft,options:{...draft.options,[option.name]:event.target.value}})}>{option.values.map((value)=><option key={value}>{value}</option>)}</select>:<input type={['integer','number'].includes(option.kind)?'number':'text'} value={String(draft.options[option.name]??'')} onChange={(event)=>setDraft({...draft,options:{...draft.options,[option.name]:['integer','number'].includes(option.kind)?Number(event.target.value):event.target.value}})}/>}</label>)}</div></details>
+              </section>
+              <section className="conversion-card review-card" aria-labelledby="review-heading">
+                <header className="step-heading"><span aria-hidden="true">4</span><div><h2 id="review-heading">Review and convert</h2><p>Run this configuration from the toolbar or Conversion menu.</p></div></header>
+                <dl className="conversion-summary"><div><dt>Source</dt><dd>{route.source.label}</dd></div><div><dt>Output</dt><dd>{route.target.label}</dd></div><div><dt>Input</dt><dd>{jsonInput.trim() ? 'JSON payload' : `${Object.values(files).flat().length} selected files`}</dd></div></dl>
+                <p className="muted">Outputs and any terminology report will appear under Runs.</p>
+              </section>
+              </div>
+            </section>}
+            {tab === 'Input' && <section className="input-pane">{sourcePreview ? <><div className="pane-heading"><FileText aria-hidden="true" /><h1>{sourcePreview.file.filename}</h1><span className="read-only-label">Read-only preview</span></div>{sourcePreview.data ? <DataView key={sourcePreview.file.id} preview={sourcePreview.data} onInspect={inspect} source={sourcePreview.file.filename} conceptFields={route?.source.id === 'omop' ? route.omopConceptFields : []}/> : <p role="status">Loading input preview...</p>}</> : <>
+              {jsonInput && !pasteInput ? <>
+                <div className="pane-heading"><h1>Input preview</h1><span className="read-only-label">Read-only preview</span></div>
+                <p>This is the {route?.source.label} data selected for conversion. You do not need to paste anything.</p>
+                <div className="input-actions"><button onClick={() => setTab('Conversion')}><ArrowRightLeft aria-hidden="true" />Back to conversion</button><button onClick={() => setPasteInput(true)}>Edit JSON</button></div>
+                <DataView preview={{text: jsonInput, truncated: false, kind: 'json'}} onInspect={inspect} />
+              </> : <>
+              <h1>Input data</h1>
+              <p>{Object.values(files).flat().length ? 'Your input files are already loaded. Preview them below or run the conversion from the toolbar. Loading the example again replaces the current selection.' : `Add your ${route?.source.label} files, or load a synthetic example to see the expected structure.`}</p>
+              <div className="input-actions"><button onClick={() => setTab('Conversion')}><FolderOpen aria-hidden="true" />Add files</button><button disabled={!route} onClick={() => void run(example)}><FileText aria-hidden="true" />Load synthetic example</button>
+                {route?.input.transports.includes('json') && !Object.values(files).flat().length && !pasteInput && !jsonInput && <button onClick={() => setPasteInput(true)}>Paste JSON instead</button>}
+              </div>
+              {!!Object.values(files).flat().length && <><h2>Selected files</h2><p>Choose a file to preview it without changing the original.</p><div className="input-files">{Object.values(files).flat().map((file) => <button key={file.id} onClick={() => void run(() => inspectSource(file))}><FileText aria-hidden="true" />{file.filename}</button>)}</div></>}
+              {route?.input.transports.includes('json') && pasteInput && <div className="paste-input"><h2>{route.source.label} JSON</h2><p id="json-input-help">{route.source.inputShape}. Paste the data itself, not an API request or a filename. Load the example above if you are unsure of the structure.</p><textarea className="code-editor" aria-label="JSON input" aria-describedby="json-input-help" placeholder={`Paste your ${route.source.label} JSON here`} value={jsonInput} onChange={(event) => setJsonInput(event.target.value)} spellCheck={false}/><div className="input-actions"><button disabled={!jsonInput.trim()} onClick={() => void run(async () => { JSON.parse(jsonInput); setPasteInput(false) })}>View input</button></div><p className="muted">Pasted data is not saved in workspace configuration files.</p></div>}
+              </>}
+            </>}</section>}
+            {tab === 'Mapping' && <>{!mapping && route?.input.files.some((file)=>file.name==='mapping') && <button onClick={()=>void run(example)}>Load synthetic data and mapping</button>}<Suspense fallback={<p role="status">Loading mapping editor...</p>}><MappingEditor key={route?.id} value={mapping} filename={files.mapping?.[0]?.filename} dirty={mappingDirty} onChange={(text) => { mappingEpoch.current++; setMapping(text); setMappingDirty(true) }} onValidate={validateMapping} onSave={saveMappingCopy}/></Suspense></>}
+            {tab === 'Outputs' && <section className="output-pane">{!job?<div className="empty-state"><h1>Inspect converted data</h1><p>Configure a conversion or select a previous run.</p></div>:<><div className="pane-heading"><h1>{job.conversion}</h1><span className={`run-state ${job.status}`}>{job.status}</span>{job.status==='completed'&&<button onClick={()=>void run(()=>revealRun(job.id))}>Open containing folder</button>}</div>
+              {job.message&&<p role="status">{job.message}</p>}
+              {(job.directory || job.outputDirectory) && <div className="run-output-location"><strong>{job.status === 'completed' ? 'Saved to' : 'Output destination'}</strong><code>{job.directory || job.outputDirectory}</code></div>}
+              <div className="output-workspace"><div className="output-files"><h2>Output files</h2>{outputs.map((file)=><button aria-pressed={selectedOutput===file.id} key={file.id} onClick={()=>void run(()=>inspectOutput(job.id,file.id))}><FileText aria-hidden="true" /><strong>{file.filename}</strong><small><span className={`format-label format-${file.kind}`}>{file.kind.toUpperCase()}</span> {size(file.bytes)}</small></button>)}</div><div className="output-preview">{selectedOutput&&resultPreview?.job===job.id&&resultPreview.id===selectedOutput ? <><div className="output-preview-heading"><strong>{outputs.find((file)=>file.id===selectedOutput)?.filename}</strong><button onClick={()=>void run(()=>api.downloadOutput(job.id,selectedOutput,outputs.find((file)=>file.id===selectedOutput)!.filename))}><Save aria-hidden="true" />Save a copy...</button></div>{resultPreview.data ? <DataView key={`${job.id}:${selectedOutput}`} preview={resultPreview.data} onInspect={inspect} source={outputs.find((file)=>file.id===selectedOutput)?.filename} conceptFields={jobRoute?.target.id === 'omop' ? jobRoute.omopConceptFields : []}/> : <p role="status">Loading output preview...</p>}</>:<div className="empty-state"><FileText aria-hidden="true" /><h2>{busy(job)?'Conversion in progress':'Your converted files'}</h2><p>{busy(job)?'You can continue navigating while the engine works.':'Select a file on the left to inspect its records or save a copy.'}</p></div>}</div></div></>}</section>}
+            {tab === 'Terminology Review' && (job?.result?.meta.terminologyAudit ? <TerminologyReview key={job.id} audit={job.result.meta.terminologyAudit} report={{...outputs.find((file)=>file.id===job.result?.meta.terminologyAudit?.reportArtifactId)!,content:'',encoding:'utf-8'} as Artifact} onHelp={() => void run(() => openExternal('https://cnag-biomedical-informatics.github.io/convert-pheno/terminology-search'))} onDownload={(file)=>void run(()=>api.downloadOutput(job.id,file.id,file.filename))}/>:<div className="empty-state"><h1>Terminology review</h1><p>Enable Create terminology audit before running a supported conversion, then select the completed run here. Auditing is optional because it adds processing time.</p></div>)}
+            {tab === 'Warnings' && <section className="settings-pane"><h1>Conversion warnings</h1>{job?.result?.warnings.length?<ul>{job.result.warnings.map((warning,index)=><li key={index}>{warning}</li>)}</ul>:<p>No warnings are recorded for this selection.</p>}</section>}
+            {tab === 'Compare' && <section className="settings-pane"><h1>Compare runs</h1><p>Compare configuration and terminology review counts. This is not a claim of semantic equivalence.</p><select aria-label="Comparison run" value={comparison} onChange={(event)=>setComparison(event.target.value)}><option value="">Select another run</option>{jobs.filter((item)=>item.id!==selectedJob).map((item)=><option key={item.id} value={item.id}>{item.conversion} · {new Date(item.created*1000).toLocaleString()}</option>)}</select><div className="comparison">{[job,other].map((item,index)=><div key={index}><h2>{item?.conversion || 'Select a run'}</h2>{item&&<pre>{JSON.stringify({options:item.options,entities:item.output,outputs:item.result?.artifacts.map((file)=>file.filename),terminology:item.result?.meta.terminologyAudit?.counts},null,2)}</pre>}</div>)}</div></section>}
+          </div>
+        </>}
+      </main>
+      {settings.inspector && <aside className="record-inspector" aria-label="Record inspector"><div className="pane-heading"><h2>Inspector</h2><button onClick={()=>setInspection(undefined)} aria-label="Clear inspector">×</button></div>{inspection?<><h3>{inspection.name}</h3>{inspection.source && <p className="inspection-source">{inspection.source} · row {inspection.row}</p>}<pre>{JSON.stringify(inspection.value,null,2)}</pre>{inspection.conceptId !== undefined && <ConceptDetails id={inspection.conceptId}/>}</>:<p>Select a cell to inspect its value. OMOP concept cells also offer a vocabulary lookup.</p>}{job&&<details><summary>Run provenance</summary><pre>{JSON.stringify({engine:job.engineVersion,sources:job.fingerprints},null,2)}</pre></details>}</aside>}
+    </div>
+    {taskPanel&&<section className="task-panel" aria-label="Tasks"><strong>Tasks</strong>{active.length?active.map((item)=><span key={item.id}>{item.conversion}: {item.status}</span>):<span>No active conversions</span>}<button onClick={()=>setTaskPanel(false)}>Hide</button></section>}
+    <footer className="desktop-status"><span><i className={ready?'status-ready':''}/>{ready?'Local engine connected':'Connecting to local engine'}</span><span>{mappingDirty?'Mapping has unused edits':'Source files are read-only'} · {routes.length} routes</span></footer>
+  </div>
 }

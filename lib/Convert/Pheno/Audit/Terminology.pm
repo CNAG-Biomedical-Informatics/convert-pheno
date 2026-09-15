@@ -96,7 +96,6 @@ sub write_row {
 
     my %output_row = %{$row};
     $output_row{review_action} //= _review_action(\%output_row);
-
     if ( $self->{format} eq 'xlsx' ) {
         $self->_write_xlsx_row(\%output_row);
     }

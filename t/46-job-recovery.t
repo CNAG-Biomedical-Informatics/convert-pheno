@@ -1,0 +1,41 @@
+use strict;
+use warnings;
+use Test::More;
+use File::Temp qw(tempdir);
+use Cwd qw(abs_path);
+use Path::Tiny qw(path);
+use JSON::XS qw(encode_json);
+use Convert::Pheno::HTTP::Jobs;
+
+my $root = tempdir(CLEANUP => 1);
+my $worker = abs_path('api/perl/worker.pl');
+my $dir = path($root, 'a' x 40);
+$dir->child('staging')->mkpath;
+$dir->child('status.json')->spew_raw(encode_json({id => 'a' x 40, status => 'running', created => 1}));
+$dir->child('request.json')->spew_raw('{}');
+my $jobs = Convert::Pheno::HTTP::Jobs->new(root => $root, worker => $worker);
+is($jobs->status('a' x 40)->{status}, 'interrupted', 'abandoned run is marked interrupted');
+ok($jobs->status('a' x 40)->{finished}, 'recovery records termination time');
+ok(!-e $dir->child('request.json'), 'recovery deletes abandoned request payload');
+ok(!-e $dir->child('staging'), 'recovery removes private incomplete output');
+ok(!eval { Convert::Pheno::HTTP::Jobs->new(root => $root, worker => $worker); 1 }, 'second supervisor is rejected');
+like($@, qr/already in use/, 'storage conflict is actionable');
+
+my $inputs = path(tempdir(CLEANUP => 1));
+for (1..1001) { $inputs->child("file-$_.txt")->touch }
+my $grant = $jobs->register_file("$inputs");
+my $preview = $jobs->input_preview($grant->{id});
+ok($preview->{truncated}, 'large directory preview is bounded');
+is(scalar(split /\n/, $preview->{text}), 1000, 'directory preview limits entries');
+my $big = $inputs->child('large.csv');
+$big->spew_raw("id,value\n" . ("1,synthetic\n" x 30000));
+$grant = $jobs->register_file("$big");
+$preview = $jobs->input_preview($grant->{id});
+ok($preview->{truncated}, 'large file preview reports truncation');
+is(length($preview->{text}), 262144, 'file preview reads at most 256 KiB');
+$jobs->shutdown;
+ok(!eval { $jobs->submit({}); 1 }, 'stopped supervisor cannot accept jobs');
+my $next = Convert::Pheno::HTTP::Jobs->new(root => $root, worker => $worker);
+is(scalar @{$next->list}, 1, 'shutdown releases store lock for restart');
+$next->shutdown;
+done_testing;

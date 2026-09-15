@@ -74,16 +74,22 @@ jobs:
       - uses: actions/checkout@v5
       - name: Build runtime image
         run: docker build --file docker/Dockerfile --tag convert-pheno:ci .
-      - name: Smoke test graphical interface and API
+      - name: Smoke test CLI and API
         run: |
-          docker run --detach --name convert-pheno-ci --publish 127.0.0.1:18080:8080 convert-pheno:ci
+          docker run --rm convert-pheno:ci convert-pheno --version
+          docker run --detach --name convert-pheno-ci --publish 127.0.0.1:18080:8080 \
+            --env CONVERT_PHENO_API_TOKEN=0123456789abcdef0123456789abcdef \
+            convert-pheno:ci hypnotoad -f api/perl/main.pl
           trap 'docker rm --force convert-pheno-ci' EXIT
           for attempt in {1..30}; do
-            if curl --fail --silent http://127.0.0.1:18080/api/health >/dev/null; then
+            if curl --fail --silent \
+              --header 'Authorization: Bearer 0123456789abcdef0123456789abcdef' \
+              http://127.0.0.1:18080/api/health >/dev/null; then
               break
             fi
             sleep 2
           done
-          curl --fail --silent http://127.0.0.1:18080/ | grep --quiet '<div id="root"></div>'
-          curl --fail --silent http://127.0.0.1:18080/api/health \
+          curl --fail --silent \
+            --header 'Authorization: Bearer 0123456789abcdef0123456789abcdef' \
+            http://127.0.0.1:18080/api/health \
             | python3 -c 'import json, sys; body=json.load(sys.stdin); assert body["ok"] and body["data"]["version"] == "0.34_1"'

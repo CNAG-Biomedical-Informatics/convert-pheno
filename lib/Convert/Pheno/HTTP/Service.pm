@@ -10,9 +10,12 @@ use MIME::Base64 qw(encode_base64);
 use Path::Tiny qw(path);
 use Scalar::Util qw(blessed looks_like_number);
 use Text::CSV_XS;
+use DBI;
+use DBD::SQLite::Constants qw(SQLITE_OPEN_READONLY);
 
 use Convert::Pheno;
 use Convert::Pheno::DB::Bundle qw(bundled_database_path);
+use Convert::Pheno::Execution::Files qw(execute_file_conversion);
 use Convert::Pheno::IO::CSVHandler qw(get_headers);
 use Convert::Pheno::OMOP::Definitions qw($omop_headers);
 use Convert::Pheno::Operations qw(
@@ -24,9 +27,39 @@ use Convert::Pheno::Operations qw(
 );
 
 use Exporter 'import';
-our @EXPORT_OK = qw(catalog execute execute_files health is_service_error);
+our @EXPORT_OK = qw(catalog execute execute_files health is_service_error lookup_omop_concept);
 
 my $JSON = JSON::XS->new->canonical->pretty;
+
+sub lookup_omop_concept {
+    my ($id) = @_;
+    _throw(422, 'invalid_concept_id', 'Provide a non-negative OMOP concept ID')
+      unless defined($id) && !ref($id) && $id =~ /\A\d{1,10}\z/ && $id <= 2147483647;
+    return {state => 'not_assigned', message => 'OMOP concept ID 0 means no matching concept was assigned.'} if $id == 0;
+    my ($available, undef, $paths) = _availability(['ohdsi'], {});
+    return {state => 'unavailable', message => 'The OHDSI database is not installed.'} unless $available;
+    my ($dbh, $result);
+    my $ok = eval {
+        # Inspection is an exact, read-only lookup. It must never apply fuzzy
+        # matching, standard-concept remapping, or changes to conversion output.
+        $dbh = DBI->connect("dbi:SQLite:dbname=$paths->{ohdsi}", '', '', {
+            sqlite_open_flags => SQLITE_OPEN_READONLY, RaiseError => 1, PrintError => 0,
+            AutoCommit => 1, sqlite_unicode => 1,
+        });
+        $dbh->sqlite_busy_timeout(1000);
+        my %columns = map { lc($_->{name}) => 1 } @{$dbh->selectall_arrayref('PRAGMA table_info(OHDSI_table)', {Slice => {}})};
+        die 'Missing concept columns' if grep { !$columns{$_} } qw(concept_id label id);
+        my @fields = grep { $columns{$_} } qw(concept_id label id vocabulary_id domain_id concept_class_id standard_concept valid_start_date valid_end_date invalid_reason);
+        my $rows = $dbh->selectall_arrayref('SELECT '.join(', ', @fields).' FROM OHDSI_table WHERE concept_id = ? LIMIT 2', {Slice => {}}, 0+$id);
+        die 'Concept identifier is not unique' if @$rows > 1;
+        $result = @$rows ? {state => 'found', concept => $rows->[0], database => 'ohdsi'}
+          : {state => 'not_found', message => 'No matching concept in the installed OHDSI database.'};
+        1;
+    };
+    $dbh->disconnect if $dbh;
+    return {state => 'unavailable', message => 'The installed OHDSI database could not be queried.'} unless $ok;
+    return $result;
+}
 
 sub health {
     return {
@@ -41,6 +74,8 @@ sub health {
 
 sub catalog {
     my $metadata = registry_metadata();
+    my %concept_fields = map { $_ => 1 }
+      grep { /(?:\A|_)concept_id(?:_[12])?\z/ } map { @$_ } values %$omop_headers;
     my @conversions;
 
     for my $name ( @{ public_conversions() } ) {
@@ -48,6 +83,9 @@ sub catalog {
         my $spec = conversion_spec($name);
         my $source = $metadata->{formats}{ $spec->{source} } || {};
         my $target = $metadata->{formats}{ $spec->{target} } || {};
+        # Source-profile maturity is not the maturity of the HTTP interface.
+        # A route may override its source designation; unmarked routes get no badge.
+        my $maturity = $spec->{maturity} // $source->{maturity};
         my @required = _required_resources( $name, $metadata );
         my ( $available, $reason ) = _availability( \@required, $metadata );
         my @option_names = _applicable_options( $name, $spec, $metadata );
@@ -55,9 +93,14 @@ sub catalog {
         my @options = map {
             +{ name => $_, %{ $metadata->{option_definitions}{$_} || {} } }
         } @option_names;
+        # OMOP preserves extension-based separators unless explicitly overridden.
+        delete $_->{default} for grep { $spec->{source} eq 'omop' && $_->{name} eq 'separator' } @options;
+        push @options, {name=>'stream',label=>'Stream OMOP input',kind=>'boolean',default=>JSON::XS::false}
+          if $spec->{streaming};
 
         push @conversions, {
             id          => $name,
+            omopConceptFields => [sort keys %concept_fields],
             label       => ( $source->{label} || $spec->{source} ) . ' to '
               . ( $target->{label} || $spec->{target} ),
             source      => {
@@ -71,8 +114,9 @@ sub catalog {
                 label => $target->{label} || $spec->{target},
                 kind  => $target->{kind} || 'json',
             },
-            maturity    => $metadata->{http_profiles}{maturity} || 'experimental',
+            ( defined $maturity ? ( maturity => $maturity ) : () ),
             options     => \@options,
+            streaming   => $spec->{streaming} ? JSON::XS::true : JSON::XS::false,
             input       => {
                 transports => [ @{ $input->{transports} || ['json'] } ],
                 files      => [ map { _public_file_definition($_) }
@@ -96,7 +140,7 @@ sub catalog {
 }
 
 sub execute {
-    my ( $conversion, $request ) = @_;
+    my ( $conversion, $request, $delivery ) = @_;
 
     my ( $spec, $metadata, $output, $options ) =
       _validate_request( $conversion, $request, allow_input => 1 );
@@ -117,7 +161,7 @@ sub execute {
     return _execute_arguments(
         $conversion, $spec, $metadata,
         { method => $conversion, data => $input->{data}, %{$output}, %{$options} },
-        {},
+        {}, $delivery,
     );
 }
 
@@ -155,10 +199,12 @@ sub execute_files {
         for my $upload ( @{$uploads} ) {
             _throw( 422, 'invalid_request', "Upload role '$role' contains an invalid file" )
               unless ref($upload) eq 'HASH'
-              && defined $upload->{path} && -f $upload->{path}
+              && defined $upload->{path}
+              && (-f $upload->{path} || ($arg->{native} && -d $upload->{path}
+                  && $role eq 'source' && $spec->{source} =~ /\A(?:omop|i2b2|pcornet|sentinel|cbioportal)\z/))
               && defined $upload->{filename} && !ref( $upload->{filename} );
             _throw( 422, 'invalid_request', "File <$upload->{filename}> is not accepted for upload role '$role'" )
-              unless _accepted_filename( $upload->{filename}, $role_definition->{accept} );
+              unless -d $upload->{path} || _accepted_filename( $upload->{filename}, $role_definition->{accept} );
             $display_paths{ $upload->{path} } = $upload->{filename};
         }
 
@@ -195,7 +241,7 @@ sub execute_files {
             %{$output},
             %normalized_options,
         },
-        \%display_paths,
+        \%display_paths, $arg,
     );
 }
 
@@ -251,6 +297,7 @@ sub _validate_request {
 
     my %allowed_options = map { $_ => 1 }
       _applicable_options( $conversion, $spec, $metadata );
+    $allowed_options{stream}=1 if $spec->{streaming};
     $allowed_options{test} = 1; # deterministic fixture mode; not advertised by the UI catalog
     for my $key ( keys %{$options} ) {
         _throw( 422, 'invalid_request',
@@ -268,7 +315,7 @@ sub _validate_request {
 }
 
 sub _execute_arguments {
-    my ( $conversion, $spec, $metadata, $arguments, $display_paths ) = @_;
+    my ( $conversion, $spec, $metadata, $arguments, $display_paths, $delivery ) = @_;
     my @required = _required_resources( $conversion, $metadata );
     my ( $available, $reason, $resource_paths ) =
       _availability( \@required, $metadata );
@@ -278,7 +325,7 @@ sub _execute_arguments {
         $arguments->{ohdsi_db} = 1;
         $arguments->{path_to_ohdsi_db} = dirname( $resource_paths->{ohdsi} );
     }
-    if ( $spec->{source} eq 'omop' ) {
+    if ( $spec->{source} eq 'omop' && !$delivery->{native} ) {
         $arguments->{max_archive_uncompressed_bytes} =
           $ENV{CONVERT_PHENO_HTTP_MAX_ARCHIVE_BYTES} || 1024 * 1024 * 1024;
     }
@@ -291,8 +338,37 @@ sub _execute_arguments {
             chomp $warning;
             push @warnings, $warning if length $warning;
         };
+        if ($delivery->{directory}) {
+            $arguments->{out_dir} = $delivery->{directory};
+            my $filename = $spec->{target} eq 'beacon' ? 'individuals.json'
+              : $spec->{target} eq 'pxf' ? 'pxf.json'
+              : $spec->{target} eq 'csv' ? 'result.csv'
+              : $spec->{target} eq 'jsonld' ? 'result.jsonld' : 'result.json';
+            $arguments->{out_file} = catfile($delivery->{directory}, $filename);
+            $arguments->{entities} ||= $spec->{entities}{default} if $spec->{target} eq 'beacon';
+            if (my $audit = delete $arguments->{term_audit}) {
+                $arguments->{term_audit_file} = catfile($delivery->{directory}, "term-audit.$audit") unless $audit eq 'none';
+            }
+        }
         my $convert = Convert::Pheno->new($arguments);
-        if ( $spec->{target} eq 'beacon' ) {
+        if ($delivery->{directory}) {
+            execute_file_conversion($convert, $arguments);
+            $artifacts = [];
+            for my $file (sort { "$a" cmp "$b" } path($delivery->{directory})->children) {
+                next unless $file->is_file;
+                my $name = $file->basename;
+                next unless $name =~ /\.(json|jsonld|csv|tsv|xlsx)\z/;
+                my $kind = $1;
+                (my $id = $name) =~ s/\.[^.]+\z//;
+                push @$artifacts, {
+                    id => $id, filename => $name, kind => $kind, bytes => -s $file,
+                    mediaType => $kind eq 'json' ? 'application/json' : $kind eq 'csv' ? 'text/csv'
+                      : $kind eq 'tsv' ? 'text/tab-separated-values' : $kind eq 'jsonld' ? 'application/ld+json'
+                      : 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                };
+            }
+        }
+        elsif ( $spec->{target} eq 'beacon' ) {
             my $entities = $arguments->{entities} || $spec->{entities}{default};
             $arguments->{entities} = $entities;
             $convert = Convert::Pheno->new($arguments);
@@ -316,7 +392,7 @@ sub _execute_arguments {
         _throw( 422, 'conversion_error', $message );
     }
 
-    if ( $arguments->{term_audit_file} && -f $arguments->{term_audit_file} ) {
+    if ( !$delivery->{directory} && $arguments->{term_audit_file} && -f $arguments->{term_audit_file} ) {
         push @{$artifacts}, _audit_artifact( $arguments->{term_audit_file} );
     }
     @warnings = map { _display_message( $_, $display_paths ) } @warnings;
@@ -365,6 +441,12 @@ sub _conversion_input_definition {
     my $base = $metadata->{input_definitions}{ $spec->{source} } || {};
     my @transports = @{ $base->{transports} || ['json'] };
     my @files = map { +{%{$_}} } @{ $base->{files} || [] };
+    if (!@files) {
+        push @transports, 'multipart' unless grep { $_ eq 'multipart' } @transports;
+        push @files, $base->{fileSource} ? {%{$base->{fileSource}}}
+          : { name=>'source',label=>'Source document',required=>JSON::XS::true,
+              multiple=>JSON::XS::false,maximum=>1,argument=>'in_file',accept=>[qw(.json .json.gz .yaml .yml)] };
+    }
 
     if ( $spec->{target} eq 'beacon' && $base->{metadataMapping} ) {
         push @transports, 'multipart'

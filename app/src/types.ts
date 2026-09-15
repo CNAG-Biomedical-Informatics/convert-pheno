@@ -21,8 +21,10 @@ export type FileDefinition = {
 export type Conversion = {
   id: string
   label: string
-  maturity: string
+  maturity?: string
   available: boolean
+  streaming?: boolean
+  omopConceptFields?: string[]
   unavailableReason?: string
   source: { id: string; label: string; kind: string; inputShape: string }
   target: { id: string; label: string; kind: string }
@@ -31,6 +33,20 @@ export type Conversion = {
   resources: string[]
   input: { transports: Array<'json' | 'multipart'>; files: FileDefinition[] }
 }
+
+export type FileHandle = { id: string; filename: string; directory: boolean; bytes: number; displayPath?: string }
+export type OutputFile = Omit<Artifact, 'content' | 'encoding'> & { bytes: number }
+export type Job = {
+  id: string; conversion: string; created: number; finished?: number
+  status: 'queued' | 'running' | 'cancelling' | 'completed' | 'failed' | 'cancelled' | 'interrupted'
+  sources: string[]; options: Record<string, unknown>; output: Record<string, unknown>
+  message?: string; directory?: string; outputDirectory?: string; engineVersion?: string; queuePosition?: number
+  fingerprints?: Array<{ filename: string; role: string; sha256: string }>
+  result?: { artifacts: OutputFile[]; warnings: string[]; meta: { terminologyAudit?: TerminologyAudit } }
+}
+export type Preview = { text: string; data?: unknown; truncated: boolean; kind?: string; previewNote?: string }
+export type Resource = { id: string; installed: boolean; bundled: boolean; contentVersion: string; byteSize?: number }
+export type ConceptLookup = { state: 'found' | 'not_found' | 'not_assigned' | 'unavailable'; message?: string; database?: string; concept?: Record<string, string | number | null> }
 
 export type Artifact = {
   id: string

@@ -1,0 +1,255 @@
+name: Build desktop test installers
+
+# Manually creates an unsigned, short-lived compatibility pre-release only after
+# every requested platform has built and passed its package inspection.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  installer:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-22.04
+            name: Linux x86_64
+            artifact: linux-x86_64
+            bundle: appimage
+          - os: ubuntu-24.04-arm
+            name: Linux ARM64
+            artifact: linux-aarch64
+            bundle: appimage
+          - os: macos-15
+            name: macOS Apple Silicon
+            artifact: macos-apple-silicon
+            bundle: dmg
+          - os: macos-15-intel
+            name: macOS Intel
+            artifact: macos-intel
+            bundle: dmg
+          - os: windows-2022
+            name: Windows x86_64
+            artifact: windows-x86_64
+            bundle: nsis
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: dtolnay/rust-toolchain@1.86.0
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+
+      - name: Install Linux build-host libraries
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            build-essential libbz2-dev libexpat1-dev libssl-dev zlib1g-dev \
+            libgtk-3-dev libwebkit2gtk-4.1-dev librsvg2-dev patchelf libfuse2
+
+      - name: Build relocatable Perl runtime
+        if: runner.os != 'Windows'
+        shell: bash
+        run: |
+          runtime="$RUNNER_TEMP/convert-pheno-perl"
+          bash scripts/build-relocatable-perl.sh "$runtime"
+          echo "$runtime/bin" >> "$GITHUB_PATH"
+          echo "PERL_PREFIX=$runtime" >> "$GITHUB_ENV"
+
+      - name: Configure macOS OpenSSL build
+        if: runner.os == 'macOS'
+        shell: bash
+        run: |
+          brew list --versions openssl@3 >/dev/null || brew install openssl@3
+          echo "OPENSSL_PREFIX=$(brew --prefix openssl@3)" >> "$GITHUB_ENV"
+
+      - name: Set up Strawberry Perl
+        if: runner.os == 'Windows'
+        uses: shogo82148/actions-setup-perl@v1
+        with:
+          perl-version: '5.42'
+          distribution: strawberry
+
+      # Net::IDN::Encode 2.500 uses a Perl C API removed in Perl 5.38.
+      # Remove this step once https://github.com/cfaerber/Net-IDN-Encode/pull/11
+      # is included in a CPAN release.
+      - name: Install Windows Net::IDN::Encode compatibility patch
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: cpanm --verbose --notest https://github.com/ernix/Net-IDN-Encode/archive/3ebe6f2e239b470efcb64a044edc8202798188af.tar.gz
+
+      - name: Install Perl dependencies
+        run: cpanm --notest --configure-timeout 300 --installdeps .
+
+      - name: Test Perl engine
+        if: runner.os != 'Windows'
+        run: prove -j6 -lr t
+
+      - name: Test Perl engine on Windows
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: prove -lr t
+
+      - name: Install frontend dependencies
+        working-directory: app
+        run: npm ci
+
+      - name: Test frontend
+        working-directory: app
+        run: npm test
+
+      - name: Test native layer
+        working-directory: app
+        run: cargo test --manifest-path src-tauri/Cargo.toml --locked
+
+      - name: Stage relocatable engine
+        if: runner.os != 'Windows'
+        shell: bash
+        run: |
+          perl scripts/stage-desktop-engine.pl \
+            --root "$PWD" \
+            --perl-prefix "$PERL_PREFIX" \
+            --destination "$PWD/app/src-tauri/engine"
+          bash scripts/vendor-desktop-libraries.sh "$PWD/app/src-tauri/engine"
+          perl scripts/test-desktop-engine.pl "$PWD/app/src-tauri/engine"
+
+      - name: Stage relocatable engine on Windows
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $prefix = perl -MConfig -e 'print $Config{prefix}'
+          $compilerBin = Split-Path (Get-Command gcc).Source
+          perl scripts/stage-desktop-engine.pl `
+            --root "$PWD" `
+            --perl-prefix "$prefix" `
+            --compiler-bin "$compilerBin" `
+            --destination "$PWD/app/src-tauri/engine"
+          perl scripts/test-desktop-engine.pl "$PWD/app/src-tauri/engine"
+
+      - name: Build installer
+        working-directory: app
+        run: npm run tauri build -- --bundles ${{ matrix.bundle }}
+
+      - name: Inspect Linux package
+        if: runner.os == 'Linux'
+        working-directory: app
+        shell: bash
+        run: |
+          shopt -s nullglob
+          images=(src-tauri/target/release/bundle/appimage/*.AppImage)
+          test "${#images[@]}" -eq 1
+          image="src-tauri/target/release/bundle/appimage/convert-pheno-${{ matrix.artifact }}.AppImage"
+          mv "${images[0]}" "$image"
+          chmod +x "$image"
+          (cd "$RUNNER_TEMP" && "$GITHUB_WORKSPACE/app/$image" --appimage-extract >/dev/null)
+          manifest="$(find "$RUNNER_TEMP/squashfs-root" -name engine-manifest.json -print -quit)"
+          test -n "$manifest"
+          perl "$GITHUB_WORKSPACE/scripts/test-desktop-engine.pl" "$(dirname "$manifest")"
+          sha256sum "$image" > "$image.sha256"
+
+      - name: Inspect macOS package
+        if: runner.os == 'macOS'
+        working-directory: app
+        shell: bash
+        run: |
+          shopt -s nullglob
+          images=(src-tauri/target/release/bundle/dmg/*.dmg)
+          test "${#images[@]}" -eq 1
+          image="src-tauri/target/release/bundle/dmg/convert-pheno-${{ matrix.artifact }}.dmg"
+          mv "${images[0]}" "$image"
+          hdiutil verify "$image"
+          mount_dir="$(mktemp -d)"
+          hdiutil attach "$image" -readonly -nobrowse -mountpoint "$mount_dir"
+          trap 'hdiutil detach "$mount_dir"' EXIT
+          app_bundle="$(find "$mount_dir" -maxdepth 1 -name '*.app' -print -quit)"
+          test -n "$app_bundle"
+          plutil -lint "$app_bundle/Contents/Info.plist"
+          codesign --verify --deep --strict --verbose=2 "$app_bundle"
+          manifest="$(find "$app_bundle/Contents/Resources" -name engine-manifest.json -print -quit)"
+          test -n "$manifest"
+          perl "$GITHUB_WORKSPACE/scripts/test-desktop-engine.pl" "$(dirname "$manifest")"
+          shasum -a 256 "$image" > "$image.sha256"
+
+      - name: Install and inspect Windows package
+        if: runner.os == 'Windows'
+        working-directory: app
+        shell: pwsh
+        run: |
+          $installers = @(Get-ChildItem src-tauri/target/release/bundle/nsis/*-setup.exe)
+          if ($installers.Count -ne 1) { throw 'Expected one Windows installer' }
+          $download = Join-Path $installers[0].DirectoryName 'convert-pheno-windows-x86_64-setup.exe'
+          Move-Item $installers[0].FullName $download
+          $destination = Join-Path $env:LOCALAPPDATA 'Convert-Pheno-install-test'
+          $setup = Start-Process -FilePath $download -ArgumentList @('/S', "/D=$destination") -PassThru
+          if (-not $setup.WaitForExit(180000)) { $setup.Kill(); throw 'Installer timed out' }
+          if ($setup.ExitCode -ne 0) { throw "Installer failed: $($setup.ExitCode)" }
+          $manifest = Get-ChildItem $destination -Filter engine-manifest.json -Recurse | Select-Object -First 1
+          if (-not $manifest) { throw 'Installed engine is missing' }
+          perl "$env:GITHUB_WORKSPACE/scripts/test-desktop-engine.pl" $manifest.DirectoryName
+          $binary = Get-ChildItem $destination -Filter convert-pheno-desktop.exe -Recurse | Select-Object -First 1
+          if (-not $binary) { throw 'Installed application is missing' }
+          $application = Start-Process -FilePath $binary.FullName -PassThru
+          try {
+            $windowFound = $false
+            for ($attempt = 0; $attempt -lt 30; $attempt++) {
+              Start-Sleep -Seconds 1
+              $application.Refresh()
+              if ($application.HasExited) { throw "Installed application exited: $($application.ExitCode)" }
+              if ($application.MainWindowHandle -ne 0) { $windowFound = $true; break }
+            }
+            if (-not $windowFound) { throw 'Installed application did not create a window' }
+          } finally {
+            if (-not $application.HasExited) { Stop-Process -Id $application.Id }
+          }
+          $hash = (Get-FileHash $download -Algorithm SHA256).Hash.ToLowerInvariant()
+          "$hash  $(Split-Path $download -Leaf)" | Set-Content "$download.sha256" -Encoding ascii
+          Get-AuthenticodeSignature $download | Format-List Status, StatusMessage
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: convert-pheno-${{ matrix.artifact }}-test
+          path: |
+            app/src-tauri/target/release/bundle/appimage/convert-pheno-*.AppImage
+            app/src-tauri/target/release/bundle/appimage/*.sha256
+            app/src-tauri/target/release/bundle/dmg/convert-pheno-*.dmg
+            app/src-tauri/target/release/bundle/dmg/*.sha256
+            app/src-tauri/target/release/bundle/nsis/convert-pheno-*-setup.exe
+            app/src-tauri/target/release/bundle/nsis/*.sha256
+          if-no-files-found: error
+          retention-days: 7
+
+  prerelease:
+    name: Publish test pre-release
+    needs: installer
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v5
+        with:
+          pattern: convert-pheno-*-test
+          path: release-assets
+          merge-multiple: true
+
+      - name: Publish inspected installers
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          tag="desktop-v0.35.0-test.${GITHUB_RUN_NUMBER}"
+          mapfile -t assets < <(find release-assets -type f -print | sort)
+          test "${#assets[@]}" -eq 10
+          gh release create "$tag" "${assets[@]}" \
+            --target "$GITHUB_SHA" \
+            --prerelease \
+            --title "Convert-Pheno Desktop 0.35 test build ${GITHUB_RUN_NUMBER}" \
+            --notes "Compatibility test only. These unsigned installers are not a stable Convert-Pheno release. Packages are provided for Linux x86_64 and ARM64, macOS Intel and Apple Silicon, and Windows x86_64. macOS uses an ad-hoc signature; Windows is not Authenticode signed. The optional OHDSI database is downloaded separately."

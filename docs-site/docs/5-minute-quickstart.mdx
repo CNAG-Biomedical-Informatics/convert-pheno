@@ -15,6 +15,8 @@ export const QuickstartInput = () => {
 
 Convert one small Phenopacket into Beacon v2 Models (`BFF`). This route needs no mapping file or external terminology database.
 
+Prefer to try the tool without installing it locally? Use the [Google Colab notebook](https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6).
+
 ## 1. Check the CLI
 
 ```bash
@@ -42,6 +44,31 @@ The command creates `individuals.json` in the current directory. The result cont
 :::
 
 ## 4. Check the Result
+
+These fields appear in the converted record (other fields are omitted here):
+
+```json
+{
+  "id": "patient-1",
+  "phenotypicFeatures": [
+    {
+      "featureType": {
+        "id": "HP:0001250",
+        "label": "Seizure"
+      }
+    }
+  ],
+  "sex": {
+    "id": "NCIT:C16576",
+    "label": "Female"
+  }
+}
+```
+
+The person identifier is retained from `subject.id`. The seizure term keeps its
+ontology identifier, but moves from `phenotypicFeatures[].type` to Beacon's
+`phenotypicFeatures[].featureType`. The source value `FEMALE` becomes an ontology
+term with an identifier and label. The output file wraps the record in an array.
 
 Open `individuals.json`, or inspect its first lines:
 

@@ -24,8 +24,10 @@ export default function Home() {
               <p className={styles.lede}>
                 Open-source software for reproducible transformations among Beacon v2
                 Models, Phenopackets v2, OMOP-CDM, and supported clinical source
-                formats. The command-line interface is the primary user interface;
-                Perl, Python, and HTTP(s) interfaces are also available for integration.
+                formats. Use the command line for scripts and larger workflows, or
+                the local <Link to="/graphical-interface">workbench</Link> for graphical
+                access to the same engine. Perl, Python and HTTP(s) interfaces are
+                also available for integration.
               </p>
               <div className={styles.actions}>
                 <Link className={styles.action} to="/quickstart">
@@ -34,10 +36,14 @@ export default function Home() {
                 <Link className={styles.action} to="/conversion-recipes">
                   Choose a Conversion
                 </Link>
-                <Link className={styles.action} to="/download-and-installation">
-                  Install
+                <Link className={styles.action} href="https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6">
+                  Try in Colab
                 </Link>
               </div>
+              <p className={styles.entryLinks}>
+                <Link to="/download-and-installation">Install locally</Link>
+                {' · '}<a href="https://www.youtube.com/channel/UC1bjHxoYV9uGJaTyd3bZnEA">Video tutorials</a>
+              </p>
             </div>
             <img
               className={styles.objective}
@@ -45,6 +51,26 @@ export default function Home() {
               alt="Supported input data models are converted by Convert-Pheno into a selected output data model"
             />
           </div>
+        </section>
+
+        <section className={styles.example} aria-labelledby="example-heading">
+          <h2 id="example-heading">What changes in a conversion?</h2>
+          <p>
+            In the <Link to="/quickstart">Phenopackets-to-Beacon example</Link>,
+            the person identifier and seizure ontology term are retained, while
+            their fields follow the Beacon structure:
+          </p>
+          <div className={styles.exampleTable}>
+            <table>
+              <thead><tr><th>Source: Phenopacket</th><th>Output: Beacon individual</th></tr></thead>
+              <tbody>
+                <tr><td><code>subject.id: patient-1</code></td><td><code>id: patient-1</code></td></tr>
+                <tr><td><code>type.id: HP:0001250</code></td><td><code>featureType.id: HP:0001250</code></td></tr>
+                <tr><td><code>subject.sex: FEMALE</code></td><td><code>sex.id: NCIT:C16576</code> (Female)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>Selected fields only; <code>type</code> and <code>featureType</code> are nested within <code>phenotypicFeatures</code>. <Link to="/quickstart">Download the input and run the example</Link>.</p>
         </section>
 
         <section className={styles.workflow}>

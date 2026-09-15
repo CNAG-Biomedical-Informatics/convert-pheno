@@ -27,40 +27,6 @@ container when it finishes. A successful run creates `individuals.json` in the
 current directory. Replace the final line with the Convert-Pheno arguments
 required for your conversion.
 
-## Workbench
-
-Start the Workbench:
-
-```bash
-docker run --rm \
-  --publish 127.0.0.1:8080:8080 \
-  manuelrueda/convert-pheno:latest
-```
-
-Open <http://127.0.0.1:8080> in your browser. Keep the terminal running while
-you use the Workbench; press `Ctrl+C` to stop it.
-
-The command makes the Workbench available only from your computer. It has no
-authentication and should not be exposed as a remote multi-user service.
-
-See the [Workbench guide](https://cnag-biomedical-informatics.github.io/convert-pheno/graphical-interface)
-for screenshots, supported input modes, privacy boundaries, and terminology
-review.
-
-OMOP output routes require `ohdsi.db`. Mount it into the current standard
-database bundle location:
-
-```bash
-docker run --rm \
-  --publish 127.0.0.1:8080:8080 \
-  --volume "$PWD/ohdsi.db:/usr/share/convert-pheno/share/db/v0/ohdsi.db:ro" \
-  manuelrueda/convert-pheno:latest
-```
-
-The route catalog still shows OHDSI-dependent conversions when that file is
-absent, but marks them unavailable. The Workbench accepts JSON and file uploads
-up to 100 MiB; use the CLI for streaming and larger inputs.
-
 ## Windows with Docker Desktop
 
 Windows users can run the published Linux image with Docker Desktop configured

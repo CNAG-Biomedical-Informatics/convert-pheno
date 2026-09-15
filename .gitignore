@@ -18,6 +18,10 @@ __pycache__/
 /cover_db/
 /app/node_modules/
 /app/dist/
+/app/src-tauri/target/
+/app/src-tauri/engine/*
+!/app/src-tauri/engine/.gitkeep
+/app/src-tauri/gen/
 /app/test-results/
 /app/playwright-report/
 /app/*.tsbuildinfo

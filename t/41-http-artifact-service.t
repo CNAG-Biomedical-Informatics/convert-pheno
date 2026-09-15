@@ -20,6 +20,13 @@ sub load_json {
 }
 
 my $catalog = catalog();
+my %catalog_by_id = map { $_->{id} => $_ } @{ $catalog->{data} };
+for my $route (qw(pxf2bff bff2pxf omop2bff csv2bff redcap2bff cdiscodm2bff)) {
+    ok( !exists $catalog_by_id{$route}{maturity}, "$route has no blanket experimental designation" );
+}
+for my $route (qw(fhir2bff openehr2bff datasetjson2bff datasetxml2bff i2b22bff pcornet2bff sentinel2bff cbioportal2bff)) {
+    is( $catalog_by_id{$route}{maturity}, 'experimental', "$route retains its documented experimental source profile" );
+}
 is( $catalog->{meta}{count}, 44, 'catalog exposes every public route' );
 is_deeply(
     [ sort map { $_->{id} } @{ $catalog->{data} } ],
@@ -32,6 +39,9 @@ ok(
     'OMOP-target table routes expose terminology audit output',
 );
 my ($omop_bff_route) = grep { $_->{id} eq 'omop2bff' } @{ $catalog->{data} };
+my ($omop_separator) = grep { $_->{name} eq 'separator' } @{$omop_bff_route->{options}};
+ok($omop_separator, 'OMOP file routes advertise a separator override');
+ok(!exists $omop_separator->{default}, 'OMOP keeps extension-based separator defaults');
 ok(
     scalar( grep { $_->{name} eq 'mapping' && !$_->{required} }
           @{ $omop_bff_route->{input}{files} } ),
@@ -122,6 +132,11 @@ my @dataset_xml = map { uploaded_file("t/datasetxml2bff/in/$_.xml") }
   qw(dm mh lb ts);
 
 my @file_cases = (
+    {
+        route => 'omop2bff',
+        files => {source => [map {uploaded_file("t/omop2bff/in/gz/$_.csv.gz")} qw(PERSON CONCEPT)]},
+        options => {separator => "\t"},
+    },
     {
         route => 'csv2bff',
         files => {

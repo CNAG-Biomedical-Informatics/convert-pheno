@@ -51,8 +51,10 @@ our @EXPORT =
 use constant DEVEL_MODE => 0;
 
 # Global variables:
-our $VERSION   = '0.34_1';
-our $share_dir = dist_dir('Convert-Pheno');
+our $VERSION = '0.34_1';
+# Packaged applications provide an explicit share directory so runtime lookup
+# does not depend on development-tree or CPAN installation heuristics.
+our $share_dir = $ENV{CONVERT_PHENO_SHARE_DIR} || dist_dir('Convert-Pheno');
 
 # SQLite database
 my @all_sqlites       = qw(ncit icd10 ohdsi cdisc omim hpo);

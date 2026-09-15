@@ -60,7 +60,7 @@ const sidebars: SidebarsConfig = {
         {
           type: 'doc',
           id: 'graphical-interface',
-          label: 'Workbench',
+          label: 'Desktop Application',
         },
         {
           type: 'link',
@@ -227,6 +227,11 @@ const sidebars: SidebarsConfig = {
       label: '❓ Help',
       collapsed: true,
       items: [
+        {
+          type: 'link',
+          href: 'https://www.youtube.com/channel/UC1bjHxoYV9uGJaTyd3bZnEA',
+          label: 'Video Tutorials',
+        },
         {
           type: 'doc',
           id: 'troubleshooting',

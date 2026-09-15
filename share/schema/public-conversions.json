@@ -3,20 +3,20 @@
   "formats": {
     "beacon": { "label": "Beacon v2", "kind": "json", "inputShape": "A Beacon v2 entity object" },
     "pxf": { "label": "Phenopacket v2", "kind": "json", "inputShape": "A Phenopacket v2 object or phenopacket wrapper" },
-    "fhir": { "label": "FHIR R4", "kind": "json", "inputShape": "A self-contained FHIR R4 Bundle" },
-    "i2b2": { "label": "i2b2", "kind": "tables", "inputShape": "An object keyed by i2b2 table name; each value is an array of row objects" },
-    "openehr": { "label": "openEHR", "kind": "json", "inputShape": "A canonical openEHR JSON document" },
+    "fhir": { "label": "FHIR R4", "kind": "json", "maturity": "experimental", "inputShape": "A self-contained FHIR R4 Bundle" },
+    "i2b2": { "label": "i2b2", "kind": "tables", "maturity": "experimental", "inputShape": "An object keyed by i2b2 table name; each value is an array of row objects" },
+    "openehr": { "label": "openEHR", "kind": "json", "maturity": "experimental", "inputShape": "A canonical openEHR JSON document" },
     "omop": { "label": "OMOP-CDM", "kind": "tables", "inputShape": "An object keyed by OMOP table name; each value is an array of row objects" },
-    "pcornet": { "label": "PCORnet CDM", "kind": "tables", "inputShape": "An object keyed by PCORnet CDM table name; each value is an array of row objects" },
-    "sentinel": { "label": "Sentinel CDM", "kind": "tables", "inputShape": "An object keyed by Sentinel CDM table name; each value is an array of row objects" },
+    "pcornet": { "label": "PCORnet CDM", "kind": "tables", "maturity": "experimental", "inputShape": "An object keyed by PCORnet CDM table name; each value is an array of row objects" },
+    "sentinel": { "label": "Sentinel CDM", "kind": "tables", "maturity": "experimental", "inputShape": "An object keyed by Sentinel CDM table name; each value is an array of row objects" },
     "csv": { "label": "CSV", "kind": "csv" },
     "jsonf": { "label": "Folded JSON", "kind": "json" },
     "jsonld": { "label": "JSON-LD", "kind": "jsonld" },
     "redcap": { "label": "REDCap", "kind": "package" },
-    "cbioportal": { "label": "cBioPortal", "kind": "package" },
+    "cbioportal": { "label": "cBioPortal", "kind": "package", "maturity": "experimental" },
     "cdisc-odm": { "label": "CDISC-ODM", "kind": "package" },
-    "dataset-json": { "label": "Dataset-JSON", "kind": "package" },
-    "dataset-xml": { "label": "Dataset-XML", "kind": "package" }
+    "dataset-json": { "label": "Dataset-JSON", "kind": "package", "maturity": "experimental" },
+    "dataset-xml": { "label": "Dataset-XML", "kind": "package", "maturity": "experimental" }
   },
   "input_definitions": {
     "beacon": { "transports": ["json"], "files": [] },
@@ -129,7 +129,6 @@
     "ohdsi": { "label": "Athena-OHDSI vocabulary database", "filename": "ohdsi.db", "description": "Install ohdsi.db in the current Convert-Pheno database bundle." }
   },
   "http_profiles": {
-    "maturity": "experimental",
     "common_options": ["source_info", "username"],
     "terminology_options": ["search", "text_similarity_method", "min_text_similarity_score", "levenshtein_weight"],
     "omop_input_options": ["max_lines_sql"],
@@ -137,7 +136,7 @@
     "ohdsi_targets": ["bff2omop", "cbioportal2omop", "cdiscodm2omop", "csv2omop", "datasetjson2omop", "datasetxml2omop", "fhir2omop", "i2b22omop", "pcornet2omop", "pxf2omop", "sentinel2omop"],
     "file_sources": ["cbioportal", "cdisc-odm", "csv", "dataset-json", "dataset-xml", "i2b2", "pcornet", "redcap", "sentinel"],
     "terminology_sources": ["cbioportal", "cdisc-odm", "csv", "dataset-json", "dataset-xml", "redcap"],
-    "separator_sources": ["csv", "redcap"]
+    "separator_sources": ["csv", "redcap", "omop"]
   },
   "http_request_fields": {
     "input": ["data"],

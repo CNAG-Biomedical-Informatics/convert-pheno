@@ -1,0 +1,6 @@
+{
+  "identifier": "main-window",
+  "description": "Local desktop window; filesystem access is mediated by native selection",
+  "windows": ["main"],
+  "permissions": ["core:default", "core:window:allow-set-theme"]
+}

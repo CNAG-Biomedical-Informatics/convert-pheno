@@ -28,10 +28,8 @@ use lib "$Bin/../lib";
 use Term::ANSIColor qw(:constants);
 use Convert::Pheno;
 use Convert::Pheno::CLI::Args qw(build_cli_request);
+use Convert::Pheno::Execution::Files qw(execute_file_conversion);
 use Convert::Pheno::IO::Atomic qw(
-  commit_staged_path
-  create_staged_path
-  discard_staged_path
   write_atomically
 );
 use Convert::Pheno::Sink::FileSet qw(resolve_entity_output_file);
@@ -328,8 +326,10 @@ sub convert {
 
     # Creating object
     my $convert = Convert::Pheno->new($l_data);
-    my ( $data, $bundle ) = execute_conversion( $convert, $l_data, $o_file, $entity_mode );
-    write_conversion_result( $l_data, $o_file, $data, $bundle );
+    execute_file_conversion($convert, { %$l_data, out_file => $o_file },
+        before_write => sub { ask_overwrite($_[0]) unless $overwrite; return 1 },
+        on_write => sub { say BOLD GREEN "Writing <$_[0]> file\n", RESET if $verbose; return 1 },
+    );
 
     # Finish
     print BOLD GREEN program_footer(), RESET if $verbose;
@@ -384,95 +384,6 @@ sub prepare_output_targets {
     return if $l_data->{method} =~ /2omop$/;
 
     ask_overwrite($o_file) unless $overwrite;
-}
-
-sub execute_conversion {
-    my ( $convert, $l_data, $o_file, $entity_mode ) = @_;
-    my $method = $l_data->{method};
-
-    if ( $stream && $method eq 'omop2bff' ) {
-        if ($entity_mode) {
-            $convert->$method;
-        }
-        else {
-            run_conversion_to_atomic_output( $convert, $method, $o_file );
-        }
-        return ( undef, undef );
-    }
-
-    if ($entity_mode) {
-        my $bundle = $convert->_run_bundle_view;
-        return ( undef, $bundle );
-    }
-
-    # For omop2bff and omop2pxf we serialize to JSON (not YAML) by individual.
-    if ( $stream || $method eq 'omop2bff' || $method eq 'omop2pxf' ) {
-        say BOLD GREEN "Writing <$o_file> file\n", RESET if $verbose;
-        run_conversion_to_atomic_output( $convert, $method, $o_file );
-        return ( undef, undef );
-    }
-
-    my $data = $convert->$method;
-    return ( $data, undef );
-}
-
-sub run_conversion_to_atomic_output {
-    my ( $convert, $method, $target ) = @_;
-    my $staged = create_staged_path($target);
-    my $had_out_file = exists $convert->{out_file};
-    my $previous_out_file = $convert->{out_file};
-    $convert->{out_file} = $staged;
-
-    my $ok = eval {
-        $convert->$method;
-        1;
-    };
-    my $error = $@;
-
-    if ($had_out_file) {
-        $convert->{out_file} = $previous_out_file;
-    }
-    else {
-        delete $convert->{out_file};
-    }
-
-    unless ($ok) {
-        discard_staged_path($staged);
-        die $error;
-    }
-
-    my $committed = eval {
-        commit_staged_path( $staged, $target );
-        1;
-    };
-    unless ($committed) {
-        my $commit_error = $@;
-        discard_staged_path($staged);
-        die $commit_error;
-    }
-
-    return 1;
-}
-
-sub write_conversion_result {
-    my ( $l_data, $o_file, $data, $bundle ) = @_;
-    my $sink = Convert::Pheno::Sink::FileSet->new(
-        {
-            request  => $l_data,
-            out_file => $o_file,
-            before_write => sub {
-                my ($path) = @_;
-                ask_overwrite($path) unless $overwrite;
-                return 1;
-            },
-            on_write => sub {
-                my ($path) = @_;
-                say BOLD GREEN "Writing <$path> file\n", RESET if $verbose;
-                return 1;
-            },
-        }
-    );
-    return $sink->write_result( data => $data, bundle => $bundle );
 }
 
 sub program_header {

@@ -19,11 +19,39 @@ BEGIN {
     lib->import("$API_DIR/../../lib");
 }
 
-use Convert::Pheno::HTTP::Service qw(catalog execute execute_files health is_service_error);
+use Convert::Pheno::HTTP::Service qw(catalog execute execute_files health is_service_error lookup_omop_concept);
+use Convert::Pheno::HTTP::Jobs;
+use Mojo::Util qw(secure_compare);
 use Mojo::File ();
 use Mojo::JSON qw(decode_json false);
 
 my $MAX_UPLOAD_BYTES = $ENV{CONVERT_PHENO_HTTP_MAX_UPLOAD_BYTES} || 100 * 1024 * 1024;
+my $token = $ENV{CONVERT_PHENO_API_TOKEN} || die "Set CONVERT_PHENO_API_TOKEN before starting the API\n";
+die "API token must contain at least 32 characters\n" if length($token) < 32;
+my $jobs = Convert::Pheno::HTTP::Jobs->new(
+    root => $ENV{CONVERT_PHENO_STATE_DIR} || catdir($ENV{HOME} || $ENV{LOCALAPPDATA} || '.', '.convert-pheno', 'runs'),
+    worker => catfile($API_DIR, 'worker.pl'),
+);
+END { $jobs->shutdown if $jobs }
+
+hook before_dispatch => sub {
+    my ($c) = @_;
+    my $host = $c->req->url->to_abs->host || '';
+    my %hosts = map { $_ => 1 } split /,/, ($ENV{CONVERT_PHENO_API_HOSTS} || '127.0.0.1,localhost');
+    return $c->render(status=>403,json=>{ok=>false,error=>{message=>'Unrecognized service host'}}) unless $hosts{$host};
+    my $origin = $c->req->headers->origin;
+    if (defined $origin) {
+        my %origins = map { $_ => 1 } split /,/, ($ENV{CONVERT_PHENO_API_ORIGINS} || 'tauri://localhost,http://tauri.localhost,https://tauri.localhost');
+        return $c->render(status=>403,json=>{ok=>false,error=>{message=>'Unrecognized application origin'}}) unless $origins{$origin};
+        $c->res->headers->header('Access-Control-Allow-Origin' => $origin);
+        $c->res->headers->header('Vary' => 'Origin');
+        $c->res->headers->header('Access-Control-Allow-Headers' => 'Authorization, Content-Type');
+        $c->res->headers->header('Access-Control-Allow-Methods' => 'GET, POST, OPTIONS');
+        return $c->render(status=>204,text=>'') if $c->req->method eq 'OPTIONS';
+    }
+    return $c->render(status=>401,json=>{ok=>false,error=>{message=>'API authentication required'}})
+      unless secure_compare($c->req->headers->authorization || '', "Bearer $token");
+};
 
 my %EXAMPLE_FIXTURE = (
     beacon => {
@@ -212,59 +240,95 @@ get '/api/conversions' => sub {
     my $c = shift;
     return render_service_call( $c, undef, sub { catalog() } );
 };
-
-post '/api/conversions/:conversion' => sub {
-    my $c          = shift;
-    my $conversion = $c->param('conversion');
-    my $content_type = $c->req->headers->content_type || q{};
-
-    if ( $content_type =~ m{\Amultipart/form-data\b}i ) {
-        my $raw_request = $c->param('request') // '{}';
-        my $request = eval { decode_json($raw_request) };
-        return render_error( $c, 422, 'invalid_request',
-            "Multipart field 'request' must contain valid JSON", $conversion )
-          if $@ || ref($request) ne 'HASH';
-
-        my $workspace = tempdir( 'convert-pheno-http-XXXXXX', TMPDIR => 1, CLEANUP => 1 );
-        my ( %files, $total, $index );
-        for my $upload ( @{ $c->req->uploads || [] } ) {
-            my $role = $upload->name;
-            next if !defined $role || $role eq 'request';
-            my $filename = $upload->filename // 'upload';
-            my $safe = $filename;
-            $safe =~ s{.*[\\/]}{};
-            $safe =~ s{[^A-Za-z0-9._-]}{_}g;
-            $safe = 'upload' unless length $safe;
-            my $size = $upload->size || 0;
-            $total += $size;
-            return render_error( $c, 413, 'request_too_large',
-                'Uploaded files exceed the 100 MiB request limit', $conversion )
-              if $total > $MAX_UPLOAD_BYTES;
-            my $destination = catfile( $workspace, sprintf( '%03d-%s', ++$index, $safe ) );
-            $upload->move_to($destination);
-            push @{ $files{$role} }, {
-                path     => $destination,
-                filename => $filename,
-                size     => $size,
-            };
-        }
-
-        return render_service_call(
-            $c, $conversion,
-            sub {
-                execute_files( $conversion, $request, \%files,
-                    { workspace => $workspace } );
-            }
-        );
-    }
-
-    my $request = $c->req->json;
-    return render_error( $c, 422, 'invalid_request',
-        'Request body must contain valid JSON', $conversion )
-      unless defined $request;
-    return render_service_call( $c, $conversion,
-        sub { execute( $conversion, $request ) } );
+get '/api/ontology/omop/:concept' => sub {
+    my $c = shift;
+    return render_service_call($c, undef, sub {
+        return {ok => Mojo::JSON->true, data => lookup_omop_concept($c->param('concept'))};
+    });
 };
+
+sub job_call {
+    my ($c,$callback,$status)=@_;
+    my $result=eval {$callback->()};
+    if ($@) { my $message="$@"; $message =~ s/\s+at \S+ line \d+.*//s; return render_error($c,422,'invalid_request',$message) }
+    return $c->render(status=>$status || 200,json=>{ok=>Mojo::JSON->true,data=>$result});
+}
+
+post '/api/shutdown' => sub {
+    my $c = shift;
+    my $local = $ENV{CONVERT_PHENO_LOCAL_TOKEN};
+    return render_error($c,403,'local_access_denied','Native shutdown is not authorized')
+      unless $local && secure_compare($c->req->headers->header('X-Convert-Pheno-Local') || '',$local);
+    $jobs->shutdown;
+    $c->render(json => {ok => Mojo::JSON->true});
+    Mojo::IOLoop->timer(0.2 => sub { Mojo::IOLoop->stop });
+};
+
+post '/api/inputs/local' => sub {
+    my $c=shift;
+    my $local=$ENV{CONVERT_PHENO_LOCAL_TOKEN};
+    return render_error($c,403,'local_access_denied','Native file selection is not authorized')
+      unless $local && secure_compare($c->req->headers->header('X-Convert-Pheno-Local') || '',$local);
+    job_call($c,sub {
+        my $body=$c->req->json;
+        die "Provide selected paths\n" unless ref($body) eq 'HASH' && ref($body->{paths}) eq 'ARRAY' && @{$body->{paths}} <=128;
+        return [map {$jobs->register_file($_)} @{$body->{paths}}];
+    },201);
+};
+
+post '/api/inputs' => sub {
+    my $c=shift;
+    job_call($c,sub {
+        my $uploads=$c->req->uploads || [];
+        die "Provide at least one file\n" unless @$uploads && @$uploads<=128;
+        my $total=0; $total+=$_->size for @$uploads;
+        die "Uploaded files exceed the request limit\n" if $total>$MAX_UPLOAD_BYTES;
+        my $folder=tempdir('uploads-XXXXXX',DIR=>$jobs->{root},CLEANUP=>0);
+        my @result;
+        for my $upload (@$uploads) {
+            my $name=$upload->filename || 'input'; $name =~ s{.*[\\/]}{}; $name =~ s{[^A-Za-z0-9._-]}{_}g;
+            $name='input' if $name eq '.' || $name eq '..';
+            my $file=catfile($folder,sprintf('%03d-',scalar @result).$name);
+            $upload->move_to($file);
+            push @result,$jobs->register_file($file);
+        }
+        return \@result;
+    },201);
+};
+
+get '/api/jobs' => sub { my $c=shift; job_call($c,sub {$jobs->list}) };
+post '/api/jobs/cancel-pending' => sub { my $c=shift; job_call($c,sub {$jobs->cancel_pending}) };
+get '/api/inputs/:id/preview' => sub {my $c=shift; job_call($c,sub {$jobs->input_preview($c->param('id'))})};
+post '/api/mappings' => sub {my $c=shift; job_call($c,sub {$jobs->save_mapping(($c->req->json || {})->{text})},201)};
+post '/api/workspaces/save' => sub {my $c=shift; job_call($c,sub {my $body=$c->req->json || {}; $jobs->save_workspace($body->{directory},$body->{draft})})};
+post '/api/workspaces/open' => sub {my $c=shift; job_call($c,sub {$jobs->open_workspace(($c->req->json || {})->{file})})};
+get '/api/resources' => sub {my $c=shift; job_call($c,sub {
+    my $manifest=Convert::Pheno::DB::Bundle::bundle_manifest($Convert::Pheno::share_dir);
+    return [map {my $id=$_; my $entry=$manifest->{databases}{$id};
+        my $file=$id eq 'ohdsi' && $ENV{CONVERT_PHENO_OHDSI_DB_DIR} ? catfile($ENV{CONVERT_PHENO_OHDSI_DB_DIR},'ohdsi.db')
+          : Convert::Pheno::DB::Bundle::bundled_database_path($Convert::Pheno::share_dir,$id);
+        +{id=>$id,%$entry,installed=>-f $file ? Mojo::JSON->true : false};
+    } sort keys %{$manifest->{databases}}];
+})};
+post '/api/jobs' => sub { my $c=shift; job_call($c,sub {$jobs->submit($c->req->json)},202) };
+get '/api/jobs/:id' => sub { my $c=shift; job_call($c,sub {$jobs->status($c->param('id'))}) };
+post '/api/jobs/:id/cancel' => sub { my $c=shift; job_call($c,sub {$jobs->cancel($c->param('id'))}) };
+del '/api/jobs/:id' => sub { my $c=shift; job_call($c,sub {$jobs->delete_history($c->param('id'))}) };
+del '/api/jobs' => sub { my $c=shift; job_call($c,sub {$jobs->delete_all(0)}) };
+post '/api/jobs/delete-all-files' => sub { my $c=shift; job_call($c,sub {$jobs->delete_all(1)}) };
+del '/api/jobs/:id/files' => sub { my $c=shift; job_call($c,sub {$jobs->delete_files($c->param('id'))}) };
+get '/api/jobs/:id/outputs/:artifact/preview' => sub {
+    my $c=shift; job_call($c,sub {$jobs->preview($c->param('id'),$c->param('artifact'))});
+};
+get '/api/jobs/:id/outputs/:artifact/download' => sub {
+    my $c=shift;
+    my ($file,$entry)=eval {$jobs->artifact($c->param('id'),$c->param('artifact'))};
+    return render_error($c,404,'output_unavailable','Output is unavailable') if $@;
+    $c->res->headers->content_type($entry->{mediaType});
+    $c->res->headers->content_disposition('attachment; filename="'.$entry->{filename}.'"');
+    return $c->reply->file("$file");
+};
+
 
 # The workbench can load only these bundled, synthetic examples. The source
 # name is resolved through the allowlist above and is never treated as a path.
@@ -313,26 +377,7 @@ get '/examples/:source' => sub {
     );
 };
 
-# The production React bundle is optional in a source checkout and is copied
-# into app/dist by the frontend build stage in the container image.
-my $app_dist = catdir( $API_DIR, '..', '..', 'app', 'dist' );
-push @{ app->static->paths }, $app_dist if -d $app_dist;
-
-get '/' => sub {
-    my $c = shift;
-    return $c->reply->static('index.html') if -f "$app_dist/index.html";
-    return $c->render(
-        text   => 'Convert-Pheno UI has not been built. Run npm install && npm run build in app/.',
-        status => 503,
-    );
-};
-
-get '/*route_path' => sub {
-    my $c = shift;
-    return $c->reply->static('index.html')
-      if -f "$app_dist/index.html" && $c->param('route_path') !~ m{\Aapi(?:/|\z)};
-    return $c->reply->not_found;
-};
+# The desktop frontend is bundled by Tauri. This process serves the API only.
 
 app->config( hypnotoad => { listen => ['http://*:8080'] } );
 app->max_request_size( $MAX_UPLOAD_BYTES + 1024 * 1024 );
