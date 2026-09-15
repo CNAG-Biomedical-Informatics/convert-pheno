@@ -24,6 +24,11 @@ The **Sources**, **Runs**, **Outputs**, **Terminology Review**, and **Compare**
 views keep input selection, execution, and result inspection within one local
 workspace. The application does not send participant data to a remote service.
 
+![A completed synthetic BFF-to-CSV conversion with the generated table open in the Desktop Application](../static/img/desktop-output-preview.png)
+
+*A completed synthetic BFF-to-CSV conversion. Generated files remain available
+from the run history and can be inspected or saved from the Outputs view.*
+
 :::info[Version availability]
 The desktop application is available from **Convert-Pheno 0.35** for Linux,
 macOS, and Windows.
