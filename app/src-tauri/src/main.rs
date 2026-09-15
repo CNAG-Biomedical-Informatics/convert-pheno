@@ -656,7 +656,23 @@ fn main() {
                         release_check::check(env!("CARGO_PKG_VERSION"))
                             .unwrap_or_else(|error| format!("Could not check for updates. {error}\n\nTry again later or visit the GitHub repository from Help."))
                     } else {
-                        format!("Convert-Pheno\nDesktop version {}\n\nClinical and phenotypic data conversion\nCore conversion engine with a native desktop interface\n\nManuel Rueda\nCNAG\nArtistic License 2.0", env!("CARGO_PKG_VERSION"))
+                        format!(concat!(
+                            "Convert-Pheno\nDesktop version {}\n\n",
+                            "Clinical and phenotypic data conversion\n\n",
+                            "Components\n",
+                            "Tauri (Rust) - native desktop integration\n",
+                            "React - user interface\n",
+                            "Convert-Pheno - core conversion engine\n",
+                            "Mojolicious - local API service\n",
+                            "SQLite - terminology databases\n",
+                            "CodeMirror - mapping editor\n",
+                            "Lucide - interface icons\n",
+                            "Papa Parse - CSV previews\n",
+                            "fflate - ZIP handling\n\n",
+                            "Built with TypeScript and Vite\n\n",
+                            "Manuel Rueda\nCNAG\nArtistic License 2.0\n",
+                            "Third-party components retain their own licenses."
+                        ), env!("CARGO_PKG_VERSION"))
                     };
                     app.dialog().message(message).title(if update { "Convert-Pheno updates" } else { "About Convert-Pheno" }).blocking_show();
                 });

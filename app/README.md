@@ -116,7 +116,10 @@ Unsigned test installers are built manually with the `Build desktop test
 installers` GitHub Actions workflow. It packages a private Perl runtime and the
 engine resources, relocation-tests that runtime, and produces short-lived
 AppImage, DMG, and NSIS artifacts. These pre-release packages do not depend on a
-system Perl and are not published as GitHub releases.
+system Perl. The default `macos-linux` run publishes the inspected installers
+and checksums together as a GitHub prerelease once all four jobs pass. Choose
+`windows` to run Windows packaging diagnostics independently; that run retains
+successful packages as workflow artifacts and does not publish a release.
 
 The workflow builds Linux x86_64 and ARM64, macOS Apple Silicon and Intel, and
 Windows x86_64 packages. The macOS package uses an ad-hoc signature and the

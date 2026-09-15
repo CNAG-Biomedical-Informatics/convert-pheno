@@ -4,6 +4,14 @@ name: Build desktop test installers
 # every requested platform has built and passed its package inspection.
 on:
   workflow_dispatch:
+    inputs:
+      platforms:
+        description: Installer platforms (Windows is diagnostic only until packaging passes)
+        type: choice
+        default: macos-linux
+        options:
+          - macos-linux
+          - windows
 
 permissions:
   contents: read
@@ -16,27 +24,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - os: ubuntu-22.04
-            name: Linux x86_64
-            artifact: linux-x86_64
-            bundle: appimage
-          - os: ubuntu-24.04-arm
-            name: Linux ARM64
-            artifact: linux-aarch64
-            bundle: appimage
-          - os: macos-15
-            name: macOS Apple Silicon
-            artifact: macos-apple-silicon
-            bundle: dmg
-          - os: macos-15-intel
-            name: macOS Intel
-            artifact: macos-intel
-            bundle: dmg
-          - os: windows-2022
-            name: Windows x86_64
-            artifact: windows-x86_64
-            bundle: nsis
+        # Separate runs keep Windows packaging diagnostics from blocking the
+        # inspected macOS/Linux installers. Both use the same build steps.
+        include: ${{ fromJSON(inputs.platforms == 'windows' && '[{"os":"windows-2022","name":"Windows x86_64","artifact":"windows-x86_64","bundle":"nsis"}]' || '[{"os":"ubuntu-22.04","name":"Linux x86_64","artifact":"linux-x86_64","bundle":"appimage"},{"os":"ubuntu-24.04-arm","name":"Linux ARM64","artifact":"linux-aarch64","bundle":"appimage"},{"os":"macos-15","name":"macOS Apple Silicon","artifact":"macos-apple-silicon","bundle":"dmg"},{"os":"macos-15-intel","name":"macOS Intel","artifact":"macos-intel","bundle":"dmg"}]') }}
     steps:
       - uses: actions/checkout@v5
 
@@ -235,6 +225,7 @@ jobs:
 
   prerelease:
     name: Publish test pre-release
+    if: inputs.platforms != 'windows'
     needs: installer
     runs-on: ubuntu-24.04
     permissions:
@@ -253,9 +244,9 @@ jobs:
         run: |
           tag="desktop-v0.35.0-test.${GITHUB_RUN_NUMBER}"
           mapfile -t assets < <(find release-assets -type f -print | sort)
-          test "${#assets[@]}" -eq 10
+          test "${#assets[@]}" -eq 8
           gh release create "$tag" "${assets[@]}" \
             --target "$GITHUB_SHA" \
             --prerelease \
             --title "Convert-Pheno Desktop 0.35 test build ${GITHUB_RUN_NUMBER}" \
-            --notes "Compatibility test only. These unsigned installers are not a stable Convert-Pheno release. Packages are provided for Linux x86_64 and ARM64, macOS Intel and Apple Silicon, and Windows x86_64. macOS uses an ad-hoc signature; Windows is not Authenticode signed. The optional OHDSI database is downloaded separately."
+            --notes "Compatibility test only. These installers are not a stable Convert-Pheno release. Packages are provided for Linux x86_64 and ARM64, macOS Intel and Apple Silicon. macOS uses an ad-hoc signature. Windows packaging is being tested separately and is not included in this prerelease. The optional OHDSI database is downloaded separately."
