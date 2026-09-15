@@ -175,6 +175,25 @@ jobs:
           perl "$GITHUB_WORKSPACE/scripts/test-desktop-engine.pl" "$(dirname "$manifest")"
           shasum -a 256 "$image" > "$image.sha256"
 
+          # Module imports alone missed a macOS startup failure. Exercise the
+          # app's real setup hook, API health check, native menus, and shutdown.
+          CONVERT_PHENO_DESKTOP_SMOKE_TEST=1 python3 - "$app_bundle/Contents/MacOS/convert-pheno-desktop" <<'PY'
+          import os
+          import subprocess
+          import sys
+
+          env = os.environ.copy()
+          for key in ('DYLD_LIBRARY_PATH', 'PERL5LIB', 'PERL5OPT'):
+              env.pop(key, None)
+          result = subprocess.run(
+              [sys.argv[1]], env=env, capture_output=True, text=True, timeout=60
+          )
+          print(result.stdout)
+          print(result.stderr, file=sys.stderr)
+          if result.returncode or 'Desktop startup smoke test passed' not in result.stdout:
+              raise SystemExit('Packaged desktop startup failed')
+          PY
+
       - name: Install and inspect Windows package
         if: runner.os == 'Windows'
         working-directory: app

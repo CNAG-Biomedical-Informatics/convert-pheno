@@ -19,7 +19,8 @@ local %ENV = (
     ),
     CONVERT_PHENO_SHARE_DIR => File::Spec->catdir( $engine, 'share' ),
     ( $^O eq 'linux' ? ( LD_LIBRARY_PATH => File::Spec->catdir( $engine, 'runtime', 'lib' ) ) : () ),
-    ( $^O eq 'darwin' ? ( DYLD_LIBRARY_PATH => File::Spec->catdir( $engine, 'runtime', 'lib' ) ) : () ),
+    # On macOS, test the embedded @rpath library references without overriding
+    # the loader environment, just as the installed desktop application does.
 );
 my @command = (
     $perl,

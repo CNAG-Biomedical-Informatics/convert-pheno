@@ -140,8 +140,11 @@ fn start_engine(app: &tauri::App) -> Result<Engine, Box<dyn std::error::Error>> 
         command.env("PATH", std::env::join_paths(path)?);
         #[cfg(target_os = "linux")]
         command.env("LD_LIBRARY_PATH", root.join("runtime/lib"));
+        // macOS uses the @rpath references embedded during packaging. A global
+        // DYLD_LIBRARY_PATH override can select incompatible libraries and was
+        // observed to cause SIGKILL on macOS even though direct startup worked.
         #[cfg(target_os = "macos")]
-        command.env("DYLD_LIBRARY_PATH", root.join("runtime/lib"));
+        command.env_remove("DYLD_LIBRARY_PATH");
     }
     command
         .arg(root.join("api/perl/main.pl"))
@@ -194,13 +197,13 @@ fn start_engine(app: &tauri::App) -> Result<Engine, Box<dyn std::error::Error>> 
         {
             return Ok(engine);
         }
-        if engine.child.lock().unwrap().try_wait()?.is_some() {
+        if let Some(status) = engine.child.lock().unwrap().try_wait()? {
             let details = std::fs::read_to_string(&log_path).unwrap_or_default();
             let details = details.trim();
             return Err(if details.is_empty() {
-                "The core engine exited during startup without diagnostic output.".into()
+                format!("The core engine exited during startup ({status}) without diagnostic output.").into()
             } else {
-                format!("The core engine exited during startup: {details}").into()
+                format!("The core engine exited during startup ({status}): {details}").into()
             });
         }
         std::thread::sleep(Duration::from_millis(100));
@@ -645,6 +648,11 @@ fn main() {
         .setup(|app| {
             app.manage(start_engine(app)?);
             app.set_menu(menus(app)?)?;
+            // Exercise the packaged application and its real startup hook in CI.
+            if std::env::var_os("CONVERT_PHENO_DESKTOP_SMOKE_TEST").is_some() {
+                println!("Desktop startup smoke test passed");
+                app.handle().exit(0);
+            }
             Ok(())
         })
         .on_menu_event(|app, event| {
