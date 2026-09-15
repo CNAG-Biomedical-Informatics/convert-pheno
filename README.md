@@ -50,7 +50,7 @@ convert-pheno -ipxf phenopacket.json \
   --out-dir bff_out/
 ```
 
-See [Choose a Conversion](https://cnag-biomedical-informatics.github.io/convert-pheno/choose-a-conversion)
+See the [command-line interface guide](https://cnag-biomedical-informatics.github.io/convert-pheno/use-as-a-command-line-interface)
 for commands by source and target, or run `convert-pheno --help` for the full
 CLI option list.
 
