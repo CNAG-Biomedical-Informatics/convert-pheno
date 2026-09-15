@@ -1,6 +1,9 @@
 # Docker
 
-Containerized usage is recommended when you want a reproducible environment with Perl dependencies preinstalled.
+The Docker image provides the **Convert-Pheno command-line interface** and can
+also host the HTTP(s) API. It does not contain the native Desktop Application.
+Use it when you want a reproducible environment with Perl dependencies
+preinstalled.
 
 ## Quick Start From Docker Hub
 

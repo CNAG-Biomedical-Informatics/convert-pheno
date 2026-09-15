@@ -6,9 +6,9 @@ slug: /download-and-installation
 
 import Link from '@docusaurus/Link';
 
-:::info[Compatibility]
+:::info[CLI compatibility]
 
-`Convert-Pheno` can be installed locally on the following operating systems:
+The command-line interface can be installed on the following operating systems:
 
 | Operating System | Supported Versions                                      |
 |------------------|---------------------------------------------------------|
@@ -17,20 +17,21 @@ import Link from '@docusaurus/Link';
 | Windows          | CI-tested with Strawberry Perl 5.40 and 5.42            |
 
 :::
-Most command-line users can install from CPAN. Docker provides a reproducible
-CLI or API environment. From version 0.35, native desktop installers package the
-graphical application and its private Perl runtime.
+Choose the installation for the interface you intend to use. **Non-containerized
+and Docker installations are command-line environments**; Docker can also run
+the HTTP(s) API. The Desktop Application has separate native installers that
+include a private Perl runtime.
 
 <div className="convertInstallGrid">
   <Link className="convertInstallCard" to="/download-and-installation/non-containerized">
-    <span className="convertCardLabel">Local</span>
-    <h3>Non-containerized installation</h3>
+    <span className="convertCardLabel">CLI · Local</span>
+    <h3>Non-containerized CLI</h3>
     <p>Use CPAN, GitHub, Conda, or an existing Perl environment to run `convert-pheno` directly.</p>
   </Link>
   <Link className="convertInstallCard" to="/download-and-installation/docker-based">
-    <span className="convertCardLabel">Container</span>
-    <h3>Docker installation</h3>
-    <p>Use a prebuilt environment for CLI conversions, the HTTP(s) API, and reproducible runs.</p>
+    <span className="convertCardLabel">CLI · Container</span>
+    <h3>Docker CLI</h3>
+    <p>Use a prebuilt command-line environment for reproducible conversions or the HTTP(s) API.</p>
   </Link>
   <Link className="convertInstallCard" to="/graphical-interface">
     <span className="convertCardLabel">Desktop</span>
@@ -45,14 +46,14 @@ graphical application and its private Perl runtime.
 
 | Use case | Recommended path |
 | -- | -- |
-| CLI | Non-containerized (CPAN) |
+| CLI on Linux or macOS | Non-containerized (CPAN) or Docker |
 | CLI in Conda | Non-containerized (Conda) |
 | CLI on Windows | Docker; native Strawberry Perl is also supported |
 | Desktop application | Native installer |
 | API | Docker |
 
 </details>
-## Non-Containerized
+## CLI: Non-Containerized {#non-containerized}
 
 Install locally to run `convert-pheno` directly from CPAN, GitHub, Conda, or an
 existing Perl environment.
@@ -61,10 +62,10 @@ Detailed instructions:
 
 - [Non-Containerized Installation](download-and-installation/non-containerized)
 
-## Containerized
+## CLI: Docker {#containerized}
 
 Use Docker for a prebuilt CLI or API environment with the runtime dependencies
-installed.
+installed. The Docker image does not contain the Desktop Application.
 
 Detailed instructions:
 

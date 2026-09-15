@@ -33,13 +33,24 @@ const sidebars: SidebarsConfig = {
       items: [
         {
           type: 'doc',
-          id: 'download-and-installation/non-containerized',
-          label: 'Non-Containerized',
+          id: 'graphical-interface',
+          label: 'Desktop Application',
         },
         {
-          type: 'doc',
-          id: 'download-and-installation/docker-based',
-          label: 'Docker',
+          type: 'category',
+          label: 'Command-Line Interface',
+          items: [
+            {
+              type: 'doc',
+              id: 'download-and-installation/non-containerized',
+              label: 'Non-Containerized',
+            },
+            {
+              type: 'doc',
+              id: 'download-and-installation/docker-based',
+              label: 'Docker',
+            },
+          ],
         },
       ],
     },
@@ -56,11 +67,6 @@ const sidebars: SidebarsConfig = {
           type: 'doc',
           id: 'use-as-a-command-line-interface',
           label: 'Command-Line Interface',
-        },
-        {
-          type: 'doc',
-          id: 'graphical-interface',
-          label: 'Desktop Application',
         },
         {
           type: 'link',

@@ -1,8 +1,9 @@
 # Non-Containerized Installation
 
-Use this path when you want to run `convert-pheno` directly from CPAN, GitHub,
-or inside your own Perl environment. For most users, installing from CPAN under
-`~/perl5` is the simplest non-containerized method.
+This page installs the **Convert-Pheno command-line interface**, not the Desktop
+Application. Use this path when you want to run `convert-pheno` directly from
+CPAN, GitHub, or inside your own Perl environment. For most users, installing
+from CPAN under `~/perl5` is the simplest non-containerized method.
 
 ## Recommended: Install From CPAN
 
