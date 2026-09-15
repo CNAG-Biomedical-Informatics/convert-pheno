@@ -93,7 +93,7 @@ const config: Config = {
         },
         {
           to: '/graphical-interface',
-          label: 'Workbench',
+          label: 'Desktop',
           position: 'left',
         },
         {

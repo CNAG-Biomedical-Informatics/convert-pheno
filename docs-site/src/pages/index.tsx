@@ -25,9 +25,9 @@ export default function Home() {
                 Open-source software for reproducible transformations among Beacon v2
                 Models, Phenopackets v2, OMOP-CDM, and supported clinical source
                 formats. Use the command line for scripts and larger workflows, or
-                the local <Link to="/graphical-interface">workbench</Link> for graphical
-                access to the same engine. Perl, Python and HTTP(s) interfaces are
-                also available for integration.
+                the native <Link to="/graphical-interface">desktop application</Link> for
+                interactive conversions with the same engine. Perl, Python and HTTP(s)
+                interfaces are also available for integration.
               </p>
               <div className={styles.actions}>
                 <Link className={styles.action} to="/quickstart">

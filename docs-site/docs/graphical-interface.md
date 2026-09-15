@@ -21,9 +21,19 @@ is a **legacy demonstration** and does not reflect current conversion support.
 ## Install
 
 Platform installers are prepared for Linux x86_64 and ARM64, macOS Apple
-Silicon and Intel, and Windows x86_64. Until signed public packages are attached
-to a release, builds from the manual pre-release workflow are intended for
-project testing rather than general distribution.
+Silicon and Intel, and Windows x86_64.
+
+:::warning[Test packages]
+The current GitHub pre-releases are unsigned compatibility builds. They are
+provided to test installation and launch behavior on real computers, not as the
+stable Convert-Pheno release. macOS may require explicit approval in Privacy &
+Security, and Windows may show a SmartScreen warning.
+:::
+
+Open [Convert-Pheno releases](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/releases),
+choose the latest desktop test build, and download the installer matching your
+operating system and processor. The adjacent `.sha256` file records the checksum
+produced after package inspection.
 
 ## Run from a source checkout
 
