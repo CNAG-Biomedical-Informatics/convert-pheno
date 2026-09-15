@@ -32,11 +32,6 @@ const sidebars: SidebarsConfig = {
       },
       items: [
         {
-          type: 'doc',
-          id: 'graphical-interface',
-          label: 'Desktop Application',
-        },
-        {
           type: 'category',
           label: 'Command-Line Interface',
           items: [
@@ -51,6 +46,11 @@ const sidebars: SidebarsConfig = {
               label: 'Docker',
             },
           ],
+        },
+        {
+          type: 'doc',
+          id: 'graphical-interface',
+          label: 'Desktop Application',
         },
       ],
     },

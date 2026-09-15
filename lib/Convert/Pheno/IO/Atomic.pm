@@ -69,7 +69,9 @@ sub commit_staged_path {
 
     # Windows cannot replace an existing path with rename(). Keep a recoverable
     # backup until the fully written staged file has taken its place.
-    if ( $^O eq 'MSWin32' && -e $target ) {
+    # The Windows replacement fallback is valid only for an existing regular
+    # file. Never move a directory or symbolic link out of the way.
+    if ( $^O eq 'MSWin32' && -f $target && !-l $target ) {
         my $backup = create_staged_path($target);
         unlink $backup
           or die "Could not prepare backup path for <$target>: $!\n";

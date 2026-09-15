@@ -28,6 +28,34 @@ sub _write {
 }
 sub _read { return $JSON->decode(path($_[0])->slurp_raw) }
 sub _id { sha1_sum(join ':', $$, rand(), time(), {}) }
+sub _resolved_path {
+    my ($value) = @_;
+    return unless defined $value;
+    $value = "$value";
+    my $resolved = abs_path($value);
+    if (!defined $resolved) {
+        my $candidate = path($value);
+        my $parent = abs_path("@{[$candidate->parent]}");
+        $resolved = defined($parent)
+          ? File::Spec->catfile($parent, $candidate->basename)
+          : File::Spec->rel2abs($value);
+    }
+    return File::Spec->canonpath($resolved);
+}
+sub _path_key {
+    my ($value) = @_;
+    my $key = _resolved_path($value);
+    return unless defined $key;
+    if ($^O eq 'MSWin32') {
+        $key =~ tr{\\}{/};
+        $key = lc $key;
+    }
+    return $key;
+}
+sub _same_path {
+    my ($left, $right) = @_;
+    return defined($left) && defined($right) && _path_key($left) eq _path_key($right);
+}
 sub _worker_lock {
     my ($dir) = @_;
     open my $fh, '>>', path($dir, '.worker.lock') or die "Cannot lock run folder\n";
@@ -41,22 +69,24 @@ sub _recover_publication {
     return $status unless -f $journal;
     my $publication = _read($journal);
     my $final = $status->{outputDirectory};
+    my $default = path($dir, 'outputs');
+    my $is_default = _same_path($final, $default);
     die "Invalid publication record\n" unless defined($final)
-      && $publication->{final} eq $final
-      && (path($final)->basename eq 'convert-pheno-'.$status->{id} || "$final" eq "@{[path($dir,'outputs')]}");
-    my $staging = "$final" eq "@{[path($dir,'outputs')]}" ? path($dir,'staging')
+      && _same_path($publication->{final}, $final)
+      && (path($final)->basename eq 'convert-pheno-'.$status->{id} || $is_default);
+    my $staging = $is_default ? path($dir,'staging')
       : path($final)->parent->child('.convert-pheno-'.$status->{id});
-    die "Invalid export staging record\n" unless $publication->{staging} eq "$staging";
+    die "Invalid export staging record\n" unless _same_path($publication->{staging}, $staging);
     # Ownership markers prevent cleanup from following a replaced directory.
     # A final folder is published atomically only after every output was copied.
     for my $folder ($final, "$staging") {
         next unless -e $folder || -l $folder;
         my $marker = path($folder, '.convert-pheno-owner');
-        next if $folder eq $final && !-e $marker && !-l $marker && !-l $folder
-          && (abs_path($folder) || '') eq $folder && $status->{status} eq 'completed'
-          && ($status->{directory} || '') eq $final;
+        next if _same_path($folder, $final) && !-e $marker && !-l $marker && !-l $folder
+          && _same_path(abs_path($folder), $folder) && $status->{status} eq 'completed'
+          && _same_path($status->{directory}, $final);
         die "Export folder changed; automatic recovery was not performed\n"
-          if -l $folder || (abs_path($folder) || '') ne $folder || !-f $marker || -l $marker
+          if -l $folder || !_same_path(abs_path($folder), $folder) || !-f $marker || -l $marker
           || $marker->slurp_raw ne $publication->{owner};
     }
     if (-d $final) {
@@ -77,7 +107,7 @@ sub new {
     my ($class, %args) = @_;
     die "Job storage and worker executable are required\n" unless $args{root} && $args{worker};
     make_path($args{root}, { mode => 0700 });
-    my $self = bless { %args, root => abs_path($args{root}), queue => [], grants => {} }, $class;
+    my $self = bless { %args, root => _resolved_path($args{root}), queue => [], grants => {} }, $class;
     # Recovery may rewrite run state, so only one supervisor may own this store.
     # Keep the handle open for its lifetime; do not unlink the lock file.
     open my $lock, '>>', path($self->{root}, '.supervisor.lock') or die "Cannot lock job storage\n";
@@ -109,7 +139,7 @@ sub new {
 sub register_file {
     my ($self, $file) = @_;
     die "Select an existing file or directory\n" if !defined($file) || ref($file) || -l $file;
-    my $resolved = abs_path($file);
+    my $resolved = _resolved_path($file);
     die "Selected location is unavailable\n" unless $resolved && (-f $resolved || -d $resolved);
     my $id = _id();
     $self->{grants}{$id} = $resolved;
@@ -124,7 +154,7 @@ sub resolve_grant {
       unless defined($id) && !ref($id) && exists $self->{grants}{$id};
     my $file = $self->{grants}{$id};
     die "Selected location changed or is no longer available\n"
-      unless !-l $file && -e $file && (abs_path($file) || '') eq $file;
+      unless !-l $file && -e $file && _same_path(abs_path($file), $file);
     return $file;
 }
 
@@ -156,8 +186,8 @@ sub submit {
     my $dir = path($self->{root}, $id);
     $dir->mkpath({mode => 0700});
     my $status = { id => $id, conversion => $conversion, status => 'queued', created => time(),
-        outputDirectory => $destination ? File::Spec->catdir($destination, 'convert-pheno-'.$id)
-          : File::Spec->catdir("$dir", 'outputs'),
+        outputDirectory => _resolved_path($destination ? File::Spec->catdir($destination, 'convert-pheno-'.$id)
+          : File::Spec->catdir("$dir", 'outputs')),
         options => $request->{options} || {}, output => $request->{output} || {},
         sources => [map { map { $_->{filename} } @$_ } values %files] };
     _write($dir->child('request.json'), { conversion => $conversion, files => \%files,
@@ -176,7 +206,16 @@ sub _directory {
       && -f path($self->{root}, $id, 'status.json');
     return path($self->{root}, $id);
 }
-sub status { my ($self,$id)=@_; return _read($self->_directory($id)->child('status.json')) }
+sub status {
+    my ($self,$id)=@_;
+    my $dir = $self->_directory($id);
+    my $status = _read($dir->child('status.json'));
+    # A worker records completed state before clearing its crash-recovery
+    # journal. Do not expose that transient state as a finished run.
+    $status = {%$status, status => 'running'}
+      if $status->{status} eq 'completed' && -f $dir->child('publication.json');
+    return $status;
+}
 sub delete_history {
     my ($self, $id) = @_;
     my $status = $self->status($id);
@@ -197,15 +236,15 @@ sub delete_files {
     die "Cancel this run and wait for it to stop before deleting files\n"
       unless $status->{status} =~ /\A(?:completed|failed|cancelled|interrupted)\z/;
     die "Run folder has moved or is a symbolic link\n"
-      if -l $dir || (abs_path($dir) || '') ne "$dir";
+      if -l $dir || !_same_path(abs_path($dir), $dir);
     my $output = $status->{directory} || $status->{outputDirectory};
     my $default = $dir->child('outputs');
     if (defined $output && (-e $output || -l $output)) {
         # Only the published run subfolder is eligible, never its selected parent.
         die "Output folder has moved or is not owned by this run\n"
-          if -l $output || !-d $output || (abs_path($output) || '') ne $output
-          || ($output ne "$default" && path($output)->basename ne "convert-pheno-$id")
-          || $output ne ($status->{outputDirectory} || '');
+          if -l $output || !-d $output || !_same_path(abs_path($output), $output)
+          || (!_same_path($output, $default) && path($output)->basename ne "convert-pheno-$id")
+          || !_same_path($output, $status->{outputDirectory});
         my %expected;
         for my $entry (@{$status->{result}{artifacts} || []}) {
             my $name = $entry->{filename};
@@ -228,8 +267,10 @@ sub delete_files {
         for my $files (values %{$request->{files} || {}}) {
             for my $entry (@$files) {
                 for my $candidate ("$dir", defined($output) ? $output : ()) {
+                    my $entry_key = _path_key($entry->{path});
+                    my $candidate_key = _path_key($candidate);
                     die "Another active run uses these files; wait for it to finish\n"
-                      if $entry->{path} eq $candidate || index($entry->{path}, "$candidate/") == 0;
+                      if $entry_key eq $candidate_key || index($entry_key, "$candidate_key/") == 0;
                 }
             }
         }
@@ -487,12 +528,13 @@ sub perform {
         my $result=exists($job->{request}{input})
           ? execute($job->{conversion},$job->{request},$delivery)
           : execute_files($job->{conversion},$job->{request},$job->{files},$delivery);
-        my $final=$job->{destination} ? path($job->{destination},'convert-pheno-'.$status->{id}) : $dir->child('outputs');
+        my $final=path(_resolved_path($job->{destination}
+          ? path($job->{destination},'convert-pheno-'.$status->{id}) : $dir->child('outputs')));
         die "Output destination already exists\n" if -e $final;
         if ($job->{destination}) {
             # Copy to a private sibling before the final rename so cross-volume
             # exports cannot expose a half-written run directory.
-            my $sibling=path($job->{destination},'.convert-pheno-'.$status->{id});
+            my $sibling=path(_resolved_path(path($job->{destination},'.convert-pheno-'.$status->{id})));
             die "Output staging directory already exists\n" if -e $sibling;
             my $owner = _id();
             my $completed = {%$status, status=>'completed', result=>$result, directory=>"$final",
@@ -523,9 +565,13 @@ sub perform {
         remove_tree($staging);
     }
     $status->{finished}=time();
-    _write($dir->child('status.json'),$status);
-    $status = _recover_publication($dir, $status);
-    unlink $dir->child('request.json');
+    if ($ok) {
+        unlink $dir->child('request.json');
+        $status = _recover_publication($dir, $status);
+    } else {
+        _write($dir->child('status.json'),$status);
+        unlink $dir->child('request.json');
+    }
     return $ok;
 }
 

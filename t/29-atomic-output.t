@@ -62,7 +62,11 @@ write_atomically(
     }
 );
 is( path($target)->slurp_raw, "new output\n", 'successful writes replace existing output' );
-is( ( stat $target )[2] & 07777, 0640, 'successful replacement preserves existing permissions' );
+SKIP: {
+    skip 'Windows does not expose POSIX permission bits consistently', 1
+      if $^O eq 'MSWin32';
+    is( ( stat $target )[2] & 07777, 0640, 'successful replacement preserves existing permissions' );
+}
 
 my $staged = create_staged_path( catfile( $tmpdir, 'blocked.json' ) );
 path($staged)->spew_raw("staged output\n");

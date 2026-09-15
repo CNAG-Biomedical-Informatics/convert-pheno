@@ -105,7 +105,9 @@ jobs:
 
       - name: Test frontend
         working-directory: app
-        run: npm test
+        run: |
+          npm test
+          npm run build
 
       - name: Test native layer
         working-directory: app

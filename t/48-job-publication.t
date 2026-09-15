@@ -2,6 +2,7 @@ use strict;
 use warnings;
 use Test::More;
 use File::Temp qw(tempdir);
+use Cwd qw(abs_path);
 use Path::Tiny qw(path);
 use JSON::XS qw(encode_json);
 use Fcntl qw(LOCK_EX LOCK_NB);
@@ -9,8 +10,8 @@ use Convert::Pheno::HTTP::Jobs;
 
 sub interrupted_export {
     my ($default) = @_;
-    my $root = path(tempdir(CLEANUP=>1));
-    my $external = path(tempdir(CLEANUP=>1));
+    my $root = path(abs_path(tempdir(CLEANUP=>1)));
+    my $external = path(abs_path(tempdir(CLEANUP=>1)));
     my $id = 'a' x 40;
     my $dir = $root->child($id); $dir->mkpath;
     my $staging = $default ? $dir->child('staging') : $external->child(".convert-pheno-$id"); $staging->mkpath;

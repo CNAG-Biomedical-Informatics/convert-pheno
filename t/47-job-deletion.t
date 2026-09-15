@@ -2,12 +2,13 @@ use strict;
 use warnings;
 use Test::More;
 use File::Temp qw(tempdir);
+use Cwd qw(abs_path);
 use Path::Tiny qw(path);
 use JSON::XS qw(encode_json);
 use Convert::Pheno::HTTP::Jobs;
 
-my $root = tempdir(CLEANUP => 1);
-my $external = path(tempdir(CLEANUP => 1));
+my $root = abs_path(tempdir(CLEANUP => 1));
+my $external = path(abs_path(tempdir(CLEANUP => 1)));
 my $jobs = Convert::Pheno::HTTP::Jobs->new(root => $root, worker => 'api/perl/worker.pl');
 sub fixture {
     my ($digit, $custom, $state) = @_;
