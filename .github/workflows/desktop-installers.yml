@@ -90,11 +90,11 @@ jobs:
       - name: Install Perl dependencies
         run: cpanm --notest --configure-timeout 300 --installdeps .
 
-      - name: Test Perl engine
+      - name: Test core engine
         if: runner.os != 'Windows'
         run: prove -j6 -lr t
 
-      - name: Test Perl engine on Windows
+      - name: Test core engine on Windows
         if: runner.os == 'Windows'
         shell: pwsh
         run: prove -lr t
@@ -130,10 +130,12 @@ jobs:
         run: |
           $prefix = perl -MConfig -e 'print $Config{prefix}'
           $compilerBin = Split-Path (Get-Command gcc).Source
+          $localLib = Join-Path $PWD 'local/lib/perl5'
           perl scripts/stage-desktop-engine.pl `
             --root "$PWD" `
             --perl-prefix "$prefix" `
             --compiler-bin "$compilerBin" `
+            --extra-perl-lib "$localLib" `
             --destination "$PWD/app/src-tauri/engine"
           perl scripts/test-desktop-engine.pl "$PWD/app/src-tauri/engine"
 

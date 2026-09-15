@@ -21,7 +21,7 @@ from convertpheno import (
 app = FastAPI(
     title="Convert-Pheno artifact API",
     version=__version__,
-    description="An HTTP wrapper around the Perl conversion engine.",
+    description="An HTTP wrapper around the Convert-Pheno core engine.",
 )
 
 def bridge_response(result):

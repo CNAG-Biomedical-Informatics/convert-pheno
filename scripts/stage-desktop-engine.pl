@@ -2,6 +2,7 @@
 
 use strict;
 use warnings;
+use Config;
 use Cwd qw(abs_path);
 use File::Basename qw(dirname);
 use File::Copy qw(copy);
@@ -11,12 +12,13 @@ use File::Spec;
 use Getopt::Long qw(GetOptions);
 use JSON::PP;
 
-my ( $root, $destination, $perl_prefix, $compiler_bin );
+my ( $root, $destination, $perl_prefix, $compiler_bin, @extra_perl_libs );
 GetOptions(
-    'root=s'         => \$root,
-    'destination=s'  => \$destination,
-    'perl-prefix=s'  => \$perl_prefix,
-    'compiler-bin=s' => \$compiler_bin,
+    'root=s'            => \$root,
+    'destination=s'     => \$destination,
+    'perl-prefix=s'     => \$perl_prefix,
+    'compiler-bin=s'    => \$compiler_bin,
+    'extra-perl-lib=s@' => \@extra_perl_libs,
 ) or die "Invalid arguments\n";
 
 $root = abs_path( $root // '.' ) or die "Cannot resolve repository root\n";
@@ -78,6 +80,36 @@ for my $directory (qw(bin lib)) {
         File::Spec->catdir( $destination, 'runtime', $directory ),
         $all,
     );
+}
+
+# CI environments may install CPAN dependencies outside the Perl prefix. Merge
+# both the portable module tree and its architecture-specific XS contents into
+# runtime/lib, which is already on the relocated interpreter's search path.
+for my $library (@extra_perl_libs) {
+    die "Missing additional Perl library <$library>\n" unless -d $library;
+    my $arch_library = File::Spec->catdir( $library, $Config{archname} );
+    copy_tree(
+        $library,
+        File::Spec->catdir( $destination, 'runtime', 'lib' ),
+        sub {
+            my ($relative) = @_;
+            my @parts = File::Spec->splitdir($relative);
+            return 0 if @parts && $parts[0] eq '.meta';
+            return 0 if -d $arch_library && @parts && $parts[0] eq $Config{archname};
+            return 1;
+        },
+    );
+    if ( -d $arch_library ) {
+        copy_tree(
+            $arch_library,
+            File::Spec->catdir( $destination, 'runtime', 'lib' ),
+            sub {
+                my ($relative) = @_;
+                my @parts = File::Spec->splitdir($relative);
+                return !( @parts && $parts[0] eq '.meta' );
+            },
+        );
+    }
 }
 
 # Strawberry Perl keeps compiler-runtime DLLs beside, rather than inside, its

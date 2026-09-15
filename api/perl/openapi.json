@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "Convert-Pheno Artifact API",
-    "description": "Local JSON and multipart conversions executed exclusively by the Perl engine.",
+    "description": "Local JSON and multipart conversions executed by the Convert-Pheno core engine.",
     "version": "0.34_1"
   },
   "servers": [{ "url": "http://127.0.0.1:3000", "description": "Local Mojolicious development server" }],

@@ -5,7 +5,7 @@ slug: /graphical-interface
 ---
 
 The Convert-Pheno desktop application provides a native interface for local,
-interactive conversions. It uses the same Perl engine and public route registry
+interactive conversions. It uses the same core engine and public route registry
 as the command-line interface.
 
 ## How it works

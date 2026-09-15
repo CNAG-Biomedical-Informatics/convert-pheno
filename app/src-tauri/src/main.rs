@@ -198,9 +198,9 @@ fn start_engine(app: &tauri::App) -> Result<Engine, Box<dyn std::error::Error>> 
             let details = std::fs::read_to_string(&log_path).unwrap_or_default();
             let details = details.trim();
             return Err(if details.is_empty() {
-                "The Perl engine exited during startup without diagnostic output.".into()
+                "The core engine exited during startup without diagnostic output.".into()
             } else {
-                format!("The Perl engine exited during startup: {details}").into()
+                format!("The core engine exited during startup: {details}").into()
             });
         }
         std::thread::sleep(Duration::from_millis(100));
@@ -656,7 +656,7 @@ fn main() {
                         release_check::check(env!("CARGO_PKG_VERSION"))
                             .unwrap_or_else(|error| format!("Could not check for updates. {error}\n\nTry again later or visit the GitHub repository from Help."))
                     } else {
-                        format!("Convert-Pheno\nDesktop version {}\n\nClinical and phenotypic data conversion\nPerl conversion engine with a native desktop interface\n\nManuel Rueda\nCNAG\nArtistic License 2.0", env!("CARGO_PKG_VERSION"))
+                        format!("Convert-Pheno\nDesktop version {}\n\nClinical and phenotypic data conversion\nCore conversion engine with a native desktop interface\n\nManuel Rueda\nCNAG\nArtistic License 2.0", env!("CARGO_PKG_VERSION"))
                     };
                     app.dialog().message(message).title(if update { "Convert-Pheno updates" } else { "About Convert-Pheno" }).blocking_show();
                 });

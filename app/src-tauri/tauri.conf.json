@@ -25,7 +25,7 @@
     ],
     "resources": { "engine": "engine" },
     "shortDescription": "Convert clinical and phenotypic data models",
-    "longDescription": "Desktop software for converting supported clinical and phenotypic data exchange formats through the Convert-Pheno Perl engine.",
+    "longDescription": "Desktop software for converting supported clinical and phenotypic data exchange formats through the Convert-Pheno core engine.",
     "category": "Medical",
     "copyright": "Copyright 2026 Manuel Rueda",
     "license": "Artistic-2.0"
