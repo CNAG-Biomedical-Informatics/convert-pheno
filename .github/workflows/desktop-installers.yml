@@ -179,14 +179,18 @@ jobs:
           # app's real setup hook, API health check, native menus, and shutdown.
           CONVERT_PHENO_DESKTOP_SMOKE_TEST=1 python3 - "$app_bundle/Contents/MacOS/convert-pheno-desktop" <<'PY'
           import os
+          from pathlib import Path
           import subprocess
           import sys
 
           env = os.environ.copy()
           for key in ('DYLD_LIBRARY_PATH', 'PERL5LIB', 'PERL5OPT'):
               env.pop(key, None)
+          # macOS /var is a symlink to /private/var. Tauri deliberately rejects
+          # executable paths containing symlinks, so use the resolved DMG path.
+          binary = str(Path(sys.argv[1]).resolve(strict=True))
           result = subprocess.run(
-              [sys.argv[1]], env=env, capture_output=True, text=True, timeout=60
+              [binary], env=env, capture_output=True, text=True, timeout=60
           )
           print(result.stdout)
           print(result.stderr, file=sys.stderr)
