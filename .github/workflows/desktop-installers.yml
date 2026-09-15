@@ -246,6 +246,7 @@ jobs:
           mapfile -t assets < <(find release-assets -type f -print | sort)
           test "${#assets[@]}" -eq 8
           gh release create "$tag" "${assets[@]}" \
+            --repo "$GITHUB_REPOSITORY" \
             --target "$GITHUB_SHA" \
             --prerelease \
             --title "Convert-Pheno Desktop 0.35 test build ${GITHUB_RUN_NUMBER}" \
