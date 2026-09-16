@@ -62,6 +62,7 @@ export type ReviewAction =
   | 'review_similarity'
   | 'resolve_or_accept_fallback'
   | 'review_source_fallback'
+  | 'preserve_source'
 
 export type TerminologyAuditRow = {
   row?: number | string
@@ -84,7 +85,7 @@ export type TerminologyAuditRow = {
 
 export type TerminologyAudit = {
   totalDecisions: number
-  counts: Record<ReviewAction, number>
+  counts: Partial<Record<ReviewAction, number>>
   rows: TerminologyAuditRow[]
   previewRows: number
   previewLimitPerAction: number

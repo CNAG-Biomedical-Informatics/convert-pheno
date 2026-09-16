@@ -248,6 +248,7 @@ sub bff2jsonld {
 
 sub bff2omop {
     my $self = shift;
+    Convert::Pheno::OMOP::Vocabulary::prepare_terminology_mapping($self);
     return merge_omop_tables( _run_primary_view($self) );
 }
 
@@ -715,6 +716,9 @@ sub _run_bundle_view {
 
 sub _run_view {
     my ( $self, $view ) = @_;
+    die "BFF terminology mapping files are supported only for bff2omop.\n"
+      if $self->{mapping_file} && $self->{method} =~ /^bff2/
+      && $self->{method} ne 'bff2omop';
     my $input = _dispatcher_input_data($self);
 
     return _with_prepared_data_cleanup(

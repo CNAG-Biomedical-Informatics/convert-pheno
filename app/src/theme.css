@@ -55,6 +55,10 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 tbody tr:nth-child(even) { background: var(--desk-stripe); }
 button[aria-pressed=true] { background: var(--desk-selected); border-color: var(--desk-accent); }
 button.primary { background: var(--desk-accent); color: var(--desk-accent-text); }
+.project-modal { width: min(480px, 85vw); padding: 24px; border: 1px solid var(--desk-line); border-radius: 10px; background: var(--desk-panel); color: var(--desk-ink); }
+.project-modal::backdrop { background: rgb(0 0 0 / 40%); }
+.project-modal h2 { margin-top: 0; }
+.project-modal .input-actions { justify-content: flex-end; }
 .run-state { background: var(--desk-code); color: var(--desk-muted); }
 .run-state.completed, .desktop-message { background: var(--desk-success-bg); color: var(--desk-success); }
 .run-state.failed, .run-state.interrupted, .desktop-alert { background: var(--desk-error-bg); color: var(--desk-error); }
@@ -175,7 +179,8 @@ button.primary { box-shadow: 0 3px 8px color-mix(in srgb, var(--desk-accent) 15%
 .terminology-review-heading p { color: var(--desk-muted); font-size: 12px; line-height: 1.7; }
 .eyebrow { color: var(--desk-accent); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; }
 .audit-actions { display: flex; gap: 12px; align-items: center; font-size: 11px; flex-shrink: 0; }
-.audit-summary { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; margin: 0; border-bottom: 1px solid var(--desk-line); }
+.audit-summary { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0; margin: 0; border-bottom: 1px solid var(--desk-line); }
+.audit-preserve_source { --audit-color: var(--desk-accent); }
 .audit-summary-card { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; padding: 16px; text-align: left; border: 0; border-right: 1px solid var(--desk-line); border-radius: 0; background: var(--desk-panel); }
 .audit-summary-card:last-child { border-right: 0; }
 .audit-summary-card:hover, .audit-summary-card[aria-pressed="true"] { background: var(--desk-selected); box-shadow: inset 0 -3px 0 var(--audit-color); }
@@ -194,6 +199,7 @@ button.primary { box-shadow: 0 3px 8px color-mix(in srgb, var(--desk-accent) 15%
 .audit-table td strong, .audit-table td small { display: block; line-height: 1.7; }
 .audit-table td small { font-size: 10px; color: var(--desk-muted); }
 .audit-action { display: inline-block; border-radius: 5px; padding: 3px 6px; font-size: 10px; background: var(--desk-code); }
+.audit-action-preserve_source { background: var(--desk-selected); color: var(--desk-ink); }
 .audit-action-keep { color: var(--desk-success); background: var(--desk-success-bg); }
 .audit-action-review_similarity, .audit-action-review_source_fallback { color: var(--desk-warning); }
 .audit-action-resolve_or_accept_fallback { color: var(--desk-error); background: var(--desk-error-bg); }

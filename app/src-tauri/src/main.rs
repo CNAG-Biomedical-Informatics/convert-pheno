@@ -472,6 +472,44 @@ async fn confirm_action(
     .map_err(|e| e.to_string())
 }
 
+#[tauri::command]
+async fn project_file(app: tauri::AppHandle, operation: String, handle: Option<String>, data: Option<Value>) -> Result<Value, String> {
+    tauri::async_runtime::spawn_blocking(move || {
+        if operation != "save" && operation != "open" { return Err("Unknown project operation".into()); }
+        let mut body = json!({"data": data});
+        if operation == "save" && handle.is_some() {
+            body["handle"] = json!(handle);
+        } else {
+            let dialog = app.dialog().file().add_filter("Convert-Pheno project", &["cpheno"]);
+            let selected = if operation == "save" {
+                dialog.set_file_name("project.cpheno").blocking_save_file()
+            } else { dialog.blocking_pick_file() };
+            let Some(selected) = selected else { return Ok(Value::Null) };
+            let mut path = selected.into_path().map_err(|e| e.to_string())?;
+            if operation == "save" && path.extension().is_none() { path.set_extension("cpheno"); }
+            if operation == "open" && !app.dialog().message("Open this project and authorize access to its referenced input files? Only open projects from a trusted source. Original files will not be modified.").title("Open project").buttons(tauri_plugin_dialog::MessageDialogButtons::OkCancel).blocking_show() {
+                return Ok(Value::Null);
+            }
+            body["path"] = json!(path);
+        }
+        let engine = app.state::<Engine>();
+        let response = engine.client.post(format!("{}/api/projects/local/{}", engine.connection.url, operation))
+            .bearer_auth(&engine.connection.token).header("X-Convert-Pheno-Local", &engine.local_token)
+            // Project-owned example files may be copied to an external drive.
+            .timeout(Duration::from_secs(300))
+            .json(&body).send().map_err(|e| e.to_string())?;
+        engine.json(response)
+    }).await.map_err(|e| e.to_string())?
+}
+
+#[tauri::command]
+fn finish_quit(app: tauri::AppHandle) {
+    app.state::<ExitApproval>().0.store(true, Ordering::SeqCst);
+    app.exit(0);
+}
+
+struct ExitApproval(AtomicBool);
+
 fn open_os(target: &str) -> Result<(), String> {
     #[cfg(target_os = "macos")]
     let result = Command::new("open").arg(target).spawn();
@@ -718,9 +756,11 @@ fn menus(app: &tauri::App) -> tauri::Result<Menu<tauri::Wry>> {
         "File",
         true,
         &[
-            &action("new", "New Workspace", Some("CmdOrCtrl+N"))?,
-            &action("open", "Open Workspace...", Some("CmdOrCtrl+O"))?,
-            &action("save", "Save Workspace...", Some("CmdOrCtrl+S"))?,
+            &action("new", "New Project", Some("CmdOrCtrl+N"))?,
+            &action("open", "Open Project...", Some("CmdOrCtrl+O"))?,
+            &action("save", "Save Project", Some("CmdOrCtrl+S"))?,
+            &action("save-as", "Save Project As...", Some("CmdOrCtrl+Shift+S"))?,
+            &action("close-project", "Close Project", None::<&str>)?,
             &PredefinedMenuItem::separator(app)?,
             &action("add", "Add Input...", Some("CmdOrCtrl+I"))?,
             &PredefinedMenuItem::close_window(app, None)?,
@@ -827,6 +867,7 @@ fn main() {
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_clipboard_manager::init())
         .setup(|app| {
+            app.manage(ExitApproval(AtomicBool::new(false)));
             app.manage(start_engine(app)?);
             app.set_menu(menus(app)?)?;
             // Exercise the packaged application and its real startup hook in CI.
@@ -869,7 +910,17 @@ fn main() {
             }
             let _ = app.emit("desktop-menu", event.id().as_ref());
         })
+        .on_window_event(|window, event| {
+            if let tauri::WindowEvent::CloseRequested { api, .. } = event {
+                if !window.state::<ExitApproval>().0.load(Ordering::SeqCst) {
+                    api.prevent_close();
+                    let _ = window.emit("desktop-menu", "quit");
+                }
+            }
+        })
         .invoke_handler(tauri::generate_handler![
+            project_file,
+            finish_quit,
             confirm_action,
             connection,
             select_paths,
@@ -886,6 +937,12 @@ fn main() {
         .build(tauri::generate_context!())
         .expect("Could not start Convert-Pheno desktop");
     app.run(|app, event| {
+        if let tauri::RunEvent::ExitRequested { api, .. } = &event {
+            if std::env::var_os("CONVERT_PHENO_DESKTOP_SMOKE_TEST").is_none() && !app.state::<ExitApproval>().0.load(Ordering::SeqCst) {
+                api.prevent_exit();
+                let _ = app.emit("desktop-menu", "quit");
+            }
+        }
         if let tauri::RunEvent::Exit = event {
             app.state::<Engine>().stop();
         }

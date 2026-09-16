@@ -8,6 +8,41 @@ use Test::More;
 use Test::Exception;
 use Test::Warn;
 use Convert::Pheno::BFF::ToOMOP qw(do_bff2omop);
+use File::Temp qw(tempdir);
+use Test::ConvertPheno qw(build_convert);
+
+subtest 'geographicOrigin preservation is not an ethnicity lookup failure' => sub {
+    my $tmp = tempdir(CLEANUP => 1);
+    my $convert = build_convert(method => 'bff2omop', term_audit_file => "$tmp/audit.tsv");
+    $convert->{term_audit_file} = "$tmp/audit.tsv"; # Private mapper test bypasses request setup.
+    my @lookups;
+    no warnings 'redefine';
+    local *Convert::Pheno::BFF::ToOMOP::inverse_map = sub {
+        my ($type, $term) = @_;
+        push @lookups, $type;
+        return (0, $term->{label}, 0, {}) if $type eq 'gender';
+        return (38003563, $term->{label}, 38003563, {target_domain => 'Ethnicity'});
+    };
+    my $bff = {sex => {label => 'male'}, geographicOrigin => {id => 'GAZ:00002641', label => 'England'}};
+    my $omop = {};
+    Convert::Pheno::BFF::ToOMOP::_map_person($convert, $bff, $omop, 1);
+    is($omop->{PERSON}{ethnicity_source_value}, 'England', 'preserves geography as source text');
+    is($omop->{PERSON}{ethnicity_concept_id}, 0, 'does not assign an ethnicity concept');
+    is($omop->{PERSON}{ethnicity_source_concept_id}, 0, 'does not assign a source ethnicity concept');
+    is_deeply(\@lookups, ['gender'], 'never searches geography in the ethnicity vocabulary');
+    my $review = $convert->{_term_audit_writer}->review;
+    is($review->{counts}{preserve_source}, 1, 'records the distinct preserved category');
+    is($review->{counts}{resolve_or_accept_fallback}, 0, 'does not count preservation as unresolved');
+    my $row = $review->{rows}[0];
+    is($row->{source_field}, 'geographicOrigin', 'audit identifies the actual source field');
+    is($row->{effective_search_mode}, 'not_used', 'audit records that no search was performed');
+    ok(!defined($row->{converted_term_id}), 'does not invent a placeholder ontology identifier');
+    Convert::Pheno::BFF::ToOMOP::_map_person($convert, {%$bff, ethnicity => {label => 'Hispanic'}}, $omop, 2);
+    is($omop->{PERSON}{ethnicity_concept_id}, 38003563, 'real ethnicity takes priority');
+    is($omop->{PERSON}{ethnicity_source_value}, 'Hispanic', 'does not overwrite a resolved ethnicity');
+    is($convert->{_term_audit_writer}->review->{counts}{preserve_source}, 1, 'does not log unused geography');
+    $convert->finalize_term_audit;
+};
 
 {
     no warnings 'redefine';

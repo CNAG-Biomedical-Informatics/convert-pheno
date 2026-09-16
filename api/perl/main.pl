@@ -306,8 +306,20 @@ get '/api/jobs' => sub { my $c=shift; job_call($c,sub {$jobs->list}) };
 post '/api/jobs/cancel-pending' => sub { my $c=shift; job_call($c,sub {$jobs->cancel_pending}) };
 get '/api/inputs/:id/preview' => sub {my $c=shift; job_call($c,sub {$jobs->input_preview($c->param('id'))})};
 post '/api/mappings' => sub {my $c=shift; job_call($c,sub {$jobs->save_mapping(($c->req->json || {})->{text})},201)};
-post '/api/workspaces/save' => sub {my $c=shift; job_call($c,sub {my $body=$c->req->json || {}; $jobs->save_workspace($body->{directory},$body->{draft})})};
-post '/api/workspaces/open' => sub {my $c=shift; job_call($c,sub {$jobs->open_workspace(($c->req->json || {})->{file})})};
+post '/api/projects/local/:operation' => sub {
+    my $c = shift;
+    my $local = $ENV{CONVERT_PHENO_LOCAL_TOKEN};
+    return render_error($c,403,'local_access_denied','Native project access is not authorized')
+      unless $local && secure_compare($c->req->headers->header('X-Convert-Pheno-Local') || '', $local);
+    job_call($c, sub {
+        require Convert::Pheno::HTTP::Projects;
+        my $body = $c->req->json || {};
+        my $file = $body->{handle} ? $jobs->resolve_grant($body->{handle}) : $body->{path};
+        return Convert::Pheno::HTTP::Projects::save($jobs, $file, $body->{data}) if $c->param('operation') eq 'save';
+        return Convert::Pheno::HTTP::Projects::open($jobs, $file) if $c->param('operation') eq 'open';
+        die "Unknown project operation\n";
+    });
+};
 get '/api/resources' => sub {my $c=shift; job_call($c,sub {
     my $manifest=Convert::Pheno::DB::Bundle::bundle_manifest($Convert::Pheno::share_dir);
     return [map {my $id=$_; my $entry=$manifest->{databases}{$id};
@@ -357,6 +369,10 @@ get '/examples/:source' => sub {
     my $source  = $c->param('source');
     my $package = $EXAMPLE_FILE_FIXTURE{$source};
     my $transport = $c->param('transport');
+    # Accepted input transports do not imply that every transport has a fixture.
+    # Desktop callers ask the engine to choose the available example format.
+    $transport = $EXAMPLE_FIXTURE{$source} ? 'json' : 'multipart'
+      if defined($transport) && $transport eq 'auto';
     $transport = $package && $package->{json_default} ? 'json' : 'multipart'
       unless defined $transport && length $transport;
     if ( $package && $transport eq 'multipart' ) {

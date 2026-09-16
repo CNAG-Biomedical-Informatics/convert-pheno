@@ -10,6 +10,7 @@ const ACTIONS: Array<{
   description: string
 }> = [
   { action: 'keep', label: 'Keep', shortLabel: 'Keep', description: 'Exact, direct, or configured' },
+  { action: 'preserve_source', label: 'Preserved', shortLabel: 'Preserved', description: 'Source text retained; no lookup needed' },
   { action: 'review_similarity', label: 'Review similarity', shortLabel: 'Review', description: 'Confirm lexical matches' },
   { action: 'resolve_or_accept_fallback', label: 'Unresolved', shortLabel: 'Unresolved', description: 'Map or accept fallback' },
   { action: 'review_source_fallback', label: 'Source fallback', shortLabel: 'Fallback', description: 'Inspect source-derived terms' },
@@ -155,7 +156,7 @@ export default function TerminologyReview({
                     <td><strong>{text(row.lookup_query)}</strong><small>{text(row.ontology)}</small></td>
                     <td><strong>{text(row.converted_term_label)}</strong><small>{text(row.converted_term_id)}</small></td>
                     <td><strong>{text(row.best_candidate_label)}</strong><small>Score {score(row.best_candidate_score)} · gap {score(row.score_margin)}</small></td>
-                    <td><span className={`audit-action audit-action-${row.review_action}`}>{metadata.shortLabel}</span><small>{fieldLabel(row.decision_reason || 'not recorded')}</small></td>
+                    <td><span title={row.review_action === 'review_source_fallback' ? 'A source-derived term was retained rather than a database-confirmed ontology match. This does not necessarily mean a search failed.' : metadata.description} className={`audit-action audit-action-${row.review_action}`}>{metadata.shortLabel}</span><small>{fieldLabel(row.decision_reason || 'not recorded')}</small></td>
                     {unique && <td>{members.length.toLocaleString()}</td>}
                     <td><button type="button" className="text-button" aria-expanded={isExpanded} onClick={() => setExpanded(isExpanded ? undefined : index)}>{isExpanded ? 'Close' : 'Evidence'}</button></td>
                   </tr>

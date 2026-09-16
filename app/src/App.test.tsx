@@ -2,7 +2,7 @@ import { act, fireEvent, render, screen, waitFor, within } from '@testing-librar
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import App from './App'
 import * as api from './api'
-import { selectPaths, confirmAction, revealRun, installOhdsi, downloadOhdsi, cancelOhdsiDownload, chooseResourceDirectory } from './desktop'
+import { selectPaths, confirmAction, revealRun, installOhdsi, downloadOhdsi, cancelOhdsiDownload, chooseResourceDirectory, projectFile, finishQuit } from './desktop'
 import type { Conversion, Job } from './types'
 import { writeText } from '@tauri-apps/plugin-clipboard-manager'
 
@@ -12,7 +12,7 @@ vi.mock('@tauri-apps/plugin-clipboard-manager', () => ({ writeText: vi.fn() }))
 vi.mock('@tauri-apps/api/window', () => ({ getCurrentWindow: () => ({ setTheme: native.theme }) }))
 vi.mock('@tauri-apps/api/event', () => ({ listen: vi.fn(async (_name, callback) => { native.listener = callback; return () => {} }) }))
 vi.mock('./api', () => ({ getConversions: vi.fn(), listJobs: vi.fn(), submitJob: vi.fn(), getExample: vi.fn(), inputPreview: vi.fn(), outputPreview: vi.fn(), cancelJob: vi.fn(), deleteJob: vi.fn(), deleteJobFiles: vi.fn(), deleteAllJobs: vi.fn(), cancelPendingJobs: vi.fn(), getResources: vi.fn(), post: vi.fn(), uploadFiles: vi.fn(), downloadOutput: vi.fn() }))
-vi.mock('./desktop', () => ({ selectPaths: vi.fn(), openExternal: vi.fn(), revealRun: vi.fn(), confirmAction: vi.fn(), saveMappingCopy: vi.fn(), installOhdsi: vi.fn(), downloadOhdsi: vi.fn(), cancelOhdsiDownload: vi.fn(), chooseResourceDirectory: vi.fn(), resourceDirectory: vi.fn(async () => '/synthetic/resources'), connection: vi.fn(async () => ({ outputRoot: '/synthetic/app/runs' })) }))
+vi.mock('./desktop', () => ({ projectFile: vi.fn(), finishQuit: vi.fn(), selectPaths: vi.fn(), openExternal: vi.fn(), revealRun: vi.fn(), confirmAction: vi.fn(), saveMappingCopy: vi.fn(), installOhdsi: vi.fn(), downloadOhdsi: vi.fn(), cancelOhdsiDownload: vi.fn(), chooseResourceDirectory: vi.fn(), resourceDirectory: vi.fn(async () => '/synthetic/resources'), connection: vi.fn(async () => ({ outputRoot: '/synthetic/app/runs' })) }))
 
 const pxf: Conversion = {
   id: 'pxf2bff', label: 'Phenopacket v2 to Beacon v2', available: true,
@@ -50,11 +50,82 @@ describe('native desktop workspace', () => {
     vi.mocked(api.outputPreview).mockResolvedValue({ text: '[]', data: [], truncated: false })
     vi.mocked(selectPaths).mockResolvedValue([])
     vi.mocked(confirmAction).mockResolvedValue(true)
+    vi.mocked(projectFile).mockResolvedValue(null)
+    vi.mocked(finishQuit).mockResolvedValue(undefined)
   })
   it('links to documentation and the source repository', async () => {
     await start()
     expect(screen.getByRole('link', { name: 'Documentation' })).toHaveAttribute('href', 'https://cnag-biomedical-informatics.github.io/convert-pheno/')
     expect(screen.getByRole('link', { name: 'GitHub' })).toHaveAttribute('href', 'https://github.com/CNAG-Biomedical-Informatics/convert-pheno')
+  })
+  it.each(['new', 'open', 'close-project', 'quit'])('protects unsaved example data on %s', async (action) => {
+    await start(); await loadExample(); menu(action)
+    const prompt = screen.getByRole('dialog')
+    expect(within(prompt).getByText(/unsaved changes/)).toBeInTheDocument()
+    fireEvent.click(within(prompt).getByRole('button', { name: 'Cancel' }))
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+    expect(projectFile).not.toHaveBeenCalled()
+    expect(finishQuit).not.toHaveBeenCalled()
+    expect(screen.getByRole('heading', { name: 'Input preview' })).toBeInTheDocument()
+  })
+  it('saves pasted data before closing a project and keeps global run history', async () => {
+    vi.mocked(api.listJobs).mockResolvedValue([completed])
+    vi.mocked(projectFile).mockResolvedValue({file: {id:'project1',filename:'example.cpheno'}})
+    await start(); await loadExample(); menu('close-project')
+    fireEvent.click(within(screen.getByRole('dialog')).getByRole('button', {name:'Save'}))
+    await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument())
+    expect(projectFile).toHaveBeenCalledWith('save', expect.objectContaining({jsonInput: JSON.stringify(example, null, 2)}), undefined)
+    expect(screen.getByRole('heading', {name:'Untitled project'})).toBeInTheDocument()
+    expect(screen.getByRole('button', {name:/^pxf2bff completed/})).toBeInTheDocument()
+  })
+  it('keeps the current project when the save dialog is cancelled or saving fails', async () => {
+    await start(); await loadExample(); menu('new')
+    fireEvent.click(within(screen.getByRole('dialog')).getByRole('button', {name:'Save'}))
+    await waitFor(() => expect(projectFile).toHaveBeenCalledTimes(1))
+    expect(screen.getByRole('dialog')).toBeInTheDocument()
+    vi.mocked(projectFile).mockRejectedValueOnce(new Error('Disk full'))
+    fireEvent.click(within(screen.getByRole('dialog')).getByRole('button', {name:'Save'}))
+    expect(await within(screen.getByRole('dialog')).findByRole('alert')).toHaveTextContent('Disk full')
+    fireEvent.click(within(screen.getByRole('dialog')).getByRole('button', {name:'Cancel'}))
+    expect(screen.getByRole('heading', {name:'Input preview'})).toBeInTheDocument()
+  })
+  it('discards edits only after confirmation and completes an approved quit', async () => {
+    await start(); await loadExample(); menu('new')
+    fireEvent.click(within(screen.getByRole('dialog')).getByRole('button', {name:'Discard'}))
+    await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument())
+    expect(projectFile).not.toHaveBeenCalled()
+    expect(screen.getByRole('heading', {name:'Untitled project'})).toBeInTheDocument()
+    menu('quit')
+    await waitFor(() => expect(finishQuit).toHaveBeenCalledOnce())
+  })
+  it('does not stop active runs when opening a project and asks separately before quitting', async () => {
+    vi.mocked(api.listJobs).mockResolvedValue([{...completed,status:'running'}])
+    await start(); menu('new')
+    expect(api.cancelJob).not.toHaveBeenCalled()
+    expect(screen.getByRole('button', {name:/^pxf2bff running/})).toBeInTheDocument()
+    vi.mocked(confirmAction).mockResolvedValueOnce(false)
+    menu('quit')
+    await waitFor(() => expect(confirmAction).toHaveBeenCalledWith('Quit with active conversions?', expect.any(String)))
+    expect(finishQuit).not.toHaveBeenCalled()
+    expect(api.cancelJob).not.toHaveBeenCalled()
+  })
+  it('restores project data, prompts for missing sources and saves to the same project', async () => {
+    vi.mocked(projectFile).mockResolvedValueOnce({file:{id:'project1',filename:'example.cpheno'},
+      settings:{conversion:'csv2bff',options:{separator:';'},output:{entities:['individuals']}}, files:{},
+      mapping:'mappingVersion: 2\n', mappingDirty:true, runs:['older-run'],
+      missing:[{role:'source',path:'missing.csv',directory:false}]})
+    await start(); menu('open')
+    await screen.findByRole('button', {name:'Locate missing file'})
+    expect(screen.getByLabelText('Source format')).toHaveValue('csv')
+    menu('run')
+    expect(await screen.findByRole('alert')).toHaveTextContent('Locate the missing project files')
+    vi.mocked(selectPaths).mockResolvedValueOnce([{id:'found',filename:'missing.csv',bytes:10,directory:false}])
+    fireEvent.click(screen.getByRole('button', {name:'Locate missing file'}))
+    await waitFor(() => expect(screen.queryByRole('button', {name:'Locate missing file'})).not.toBeInTheDocument())
+    vi.mocked(projectFile).mockResolvedValueOnce({file:{id:'project2',filename:'example.cpheno'}})
+    menu('save')
+    await waitFor(() => expect(projectFile).toHaveBeenLastCalledWith('save', expect.objectContaining({mapping:'mappingVersion: 2\n', mappingDirty:true, files:{source:['found']},runs:['older-run']}), 'project1'))
+    await waitFor(() => expect(screen.getByRole('heading', {name:'example.cpheno'})).toBeInTheDocument())
   })
   it('shows the toolbar route once using source and target badges', async () => {
     await start()
@@ -76,6 +147,17 @@ describe('native desktop workspace', () => {
     expect(screen.getByText(/You do not need to paste anything/)).toBeInTheDocument()
     fireEvent.click(screen.getByRole('button', { name: 'Edit JSON' }))
     expect(screen.getByLabelText('JSON input')).toHaveValue(JSON.stringify(example, null, 2))
+  })
+  it.each(['pcornet', 'sentinel', 'i2b2'])('loads a file example for %s even when JSON input is accepted', async (source) => {
+    vi.mocked(api.getConversions).mockResolvedValue([{...pxf, id:`${source}2bff`, source:{...pxf.source,id:source,label:source}}])
+    vi.mocked(api.getExample).mockResolvedValue({transport:'multipart',files:[{role:'source',filename:`${source}.zip`,content:btoa('synthetic package')}]})
+    vi.mocked(api.uploadFiles).mockResolvedValue([{id:'example-file',filename:`${source}.zip`,directory:false,bytes:17}])
+    await start()
+    fireEvent.click(screen.getByRole('button', {name:'Load synthetic example'}))
+    await screen.findByRole('heading', {name:'Input data'})
+    expect(api.getExample).toHaveBeenCalledWith(source)
+    expect(api.uploadFiles).toHaveBeenCalledOnce()
+    expect(screen.getByRole('button', {name:'Back to conversion'})).toBeInTheDocument()
   })
   it('clears stale success banners when loading another example and identifies the loaded format', async () => {
     await start(); await loadExample()
@@ -177,7 +259,7 @@ describe('native desktop workspace', () => {
     await start()
     fireEvent.change(screen.getByLabelText('Source format'),{target:{value:'csv'}})
     fireEvent.click(screen.getByRole('button',{name:'Mapping'}))
-    fireEvent.click(screen.getByRole('button',{name:'Load synthetic data and mapping'}))
+    fireEvent.click(screen.getByRole('button',{name:'Load synthetic example'}))
     await waitFor(()=>expect(screen.getByRole('status')).toHaveTextContent('Input data and mapping are both ready; no second load is needed.'))
     expect(screen.getByRole('button',{name:'Mapping'})).toHaveAttribute('aria-current','page')
     expect(api.uploadFiles).toHaveBeenCalledTimes(2)
@@ -194,6 +276,29 @@ describe('native desktop workspace', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Back to conversion' }))
     expect(screen.getByRole('button', { name: 'Run conversion' })).toBeInTheDocument()
     expect(api.uploadFiles).toHaveBeenCalledTimes(2)
+  })
+  it('submits the optional mapping together with a loaded BFF JSON example', async () => {
+    const route: Conversion = {...pxf, id:'bff2omop', source:{...pxf.source,id:'beacon',label:'Beacon v2'},
+      target:{id:'omop',label:'OMOP-CDM',kind:'table'},
+      input:{transports:['json','multipart'],files:[
+        {name:'source',label:'BFF document',required:true,multiple:false,accept:['.json']},
+        {name:'mapping',label:'Terminology mapping',required:false,multiple:false,accept:['.yaml']},
+      ]}}
+    vi.mocked(api.getConversions).mockResolvedValue([route])
+    vi.mocked(api.getExample).mockResolvedValue([{id:'synthetic-1'}])
+    vi.mocked(api.inputPreview).mockResolvedValue({text:'mappingVersion: 2',truncated:false})
+    vi.mocked(api.uploadFiles).mockResolvedValue([{id:'json-handle',filename:'input.json',directory:false,bytes:20}])
+    await start(); await loadExample()
+    expect(api.getExample).toHaveBeenCalledWith('beacon')
+    fireEvent.click(screen.getByRole('button',{name:'Back to conversion'}))
+    vi.mocked(selectPaths).mockResolvedValueOnce([{id:'map-handle',filename:'terms.yaml',directory:false,bytes:20}])
+    fireEvent.click(screen.getAllByRole('button',{name:'Browse...'})[1])
+    await screen.findByRole('heading',{name:'Mapping file'})
+    fireEvent.click(screen.getByRole('button',{name:'Back to conversion'}))
+    await screen.findByText('terms.yaml',{selector:'small'})
+    fireEvent.click(screen.getByRole('button',{name:'Run conversion'}))
+    await waitFor(()=>expect(api.submitJob).toHaveBeenCalled())
+    expect(vi.mocked(api.submitJob).mock.calls[0][0]).toMatchObject({input:{files:{source:['json-handle'],mapping:['map-handle']}}})
   })
   it('sends opaque native file handles, not filesystem paths', async () => {
     await start(); fireEvent.change(screen.getByLabelText('Source format'), { target: { value: 'csv' } })

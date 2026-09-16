@@ -106,7 +106,8 @@ sub compile_mapping {
     # structural conversion rules. SDTM compiles terminology selectors, while
     # project-specific tabular profiles retain the full authoring mapping.
     my $compiled =
-        $record_profile eq 'sdtm'        ? _compile_sdtm_mapping($mapping)
+        $record_profile eq 'bff'         ? dclone($mapping)
+      : $record_profile eq 'sdtm'        ? _compile_sdtm_mapping($mapping)
       : is_metadata_profile($record_profile) ? dclone($mapping)
       :                                      _compile_authoring_mapping($mapping);
     $compiled->{_compiled} = {
@@ -415,6 +416,13 @@ sub _clone {
 sub _validate_target {
     my ($mapping) = @_;
     my $target = $mapping->{target};
+    if ( ( $mapping->{source}{profile} // q{} ) eq 'bff' ) {
+        die "BFF terminology mappings require <target.model: omop> and <target.schemaVersion: 5.4>.\n"
+          unless ref($target) eq 'HASH'
+          && ( $target->{model} // q{} ) eq 'omop'
+          && ( $target->{schemaVersion} // q{} ) eq '5.4';
+        return 1;
+    }
     die "The mapping must declare <target.model: beacon> and <target.schemaVersion: 2.0.0>.\n"
       unless ref($target) eq 'HASH';
 

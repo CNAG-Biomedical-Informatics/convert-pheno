@@ -93,6 +93,9 @@ sub stage_arguments {
     if ( exists $arg{data} ) {
         $arguments{data}        = $arg{data};
         $arguments{in_textfile} = 0;
+        # The source mapping has already been applied by the first stage.
+        # Do not reinterpret it as a mapping for the intermediate BFF records.
+        delete @arguments{qw(mapping_file schema_file)};
     }
 
     return \%arguments;

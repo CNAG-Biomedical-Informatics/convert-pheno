@@ -9,6 +9,28 @@ use Convert::Pheno::Mapping::Shared qw(record_term_audit);
 
 our @EXPORT_OK = qw(resolve_standard_concept);
 
+sub prepare_terminology_mapping {
+    my ($self) = @_;
+    delete $self->{_omop_terminology};
+    delete $self->{_ohdsi_standard_concept_cache};
+    return unless defined $self->{mapping_file} && length $self->{mapping_file};
+
+    require Convert::Pheno::IO::CSVHandler;
+    require Convert::Pheno::Mapping::Compiler;
+    require File::ShareDir::ProjectDistDir;
+    require File::Spec;
+    my $mapping = Convert::Pheno::IO::CSVHandler::read_mapping_file({
+        mapping_file => $self->{mapping_file},
+        schema_file => $self->{schema_file} // File::Spec->catfile(
+            File::ShareDir::ProjectDistDir::dist_dir('Convert-Pheno'),
+            'schema', 'mapping-v2.json'),
+        self_validate_schema => $self->{self_validate_schema} || 0,
+    });
+    my $compiled = Convert::Pheno::Mapping::Compiler::compile_mapping(
+        $mapping, source_profile => 'bff');
+    $self->{_omop_terminology} = $compiled->{terminology};
+}
+
 my %VOCABULARY_ALIAS = (
     SNOMEDCT       => 'SNOMED',
     RXNORM         => 'RxNorm',
@@ -42,10 +64,28 @@ sub resolve_standard_concept {
     return _empty_result($source_value)
       unless length($source_id) || length($source_label);
 
+    my ($original_id, $original_label) = ($source_id, $source_label);
+    my $rule = $self->{_omop_terminology}{ $arg->{source_field} // q{} };
+    my $mapped = 0;
+    if ($rule) {
+        my $query = $rule->{query};
+        my $key = $query->{from} eq 'id' ? $source_id : $source_label;
+        if (exists $query->{aliases}{$key}) {
+            my $alias = _trim($query->{aliases}{$key});
+            die "Empty OMOP query alias for <$arg->{source_field}>\n" unless length $alias;
+            # A reviewed identifier must resolve as an identifier. Do not rescue
+            # a wrong-domain or missing ID using the source label instead.
+            ($source_id, $source_label) = ($query->{column} // 'label') eq 'id'
+              ? ($alias, q{}) : (q{}, $alias);
+            $mapped = 1;
+        }
+    }
+
     my $search = _setting( $self, 'search', 'exact' );
     my $cache_key = join "\x1e",
       $arg->{mapping_type} // q{}, join( q{|}, @domains ),
-      join( q{|}, @relationships ), $source_id, $source_label, $search;
+      join( q{|}, @relationships ), $source_id, $source_label, $search,
+      $original_id, $original_label, $mapped, $arg->{source_field} // q{};
     my $cache = $self->{_ohdsi_standard_concept_cache} ||= {};
     if ( exists $cache->{$cache_key} ) {
         my $cached = { %{ $cache->{$cache_key} }, match_source => 'cache' };
@@ -191,6 +231,17 @@ sub resolve_standard_concept {
     );
 
     $result->{match_source} = $result->{matched} ? 'db' : 'fallback_na';
+    if ($mapped) {
+        # The query belongs to the mapping, not to the source record. Preserve
+        # the actual BFF provenance in OMOP *_source_* columns and in the audit.
+        my $original = length($original_id) ? _lookup_identifier($self, $original_id) : [];
+        $result->{source_concept_id} = @{$original} == 1 ? 0 + $original->[0]{concept_id} : 0;
+        $result->{source_id} = $original_id;
+        $result->{source_label} = $original_label;
+        $result->{source_value} = $source_value;
+        $result->{decision_reason} = 'mapped_' . $result->{decision_reason};
+        $result->{mapping_applied} = 1;
+    }
     $cache->{$cache_key} = { %{$result} };
     _record_audit( $self, $arg, $result );
     return _public_result($result);
@@ -483,7 +534,8 @@ sub _record_audit {
     record_term_audit(
         {
             self                  => $self,
-            source_field          => $arg->{mapping_type},
+            source_field          => $result->{mapping_applied}
+              ? $arg->{source_field} : $arg->{mapping_type},
             source_value          => $result->{source_id} || $result->{source_value},
             source_label          => $result->{source_label},
             lookup_query          => $result->{lookup_query},

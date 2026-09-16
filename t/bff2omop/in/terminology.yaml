@@ -1,0 +1,17 @@
+mappingVersion: 2
+source: {profile: bff}
+target: {model: omop, schemaVersion: '5.4'}
+project: {id: synthetic-omop-example, version: '1'}
+
+terminology:
+  diseases.diseaseCode:
+    query:
+      from: id
+      column: id
+      aliases:
+        'LOCAL:viral-pharyngitis': 'SNOMED:195662009'
+  interventionsOrProcedures.procedureCode:
+    query:
+      from: value
+      aliases:
+        'Chest X-ray (local label)': 'Plain chest X-ray'

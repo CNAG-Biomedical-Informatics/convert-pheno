@@ -31,7 +31,7 @@ export async function uploadFiles(files: File[]): Promise<FileHandle[]> {
   for (const file of files) body.append('file', file)
   return request<FileHandle[]>('/api/inputs', { method: 'POST', body })
 }
-export async function getExample(source: string, transport: string): Promise<unknown> {
+export async function getExample(source: string, transport = 'auto'): Promise<unknown> {
   return request<unknown>(`/examples/${source}?transport=${transport}`)
 }
 export async function downloadOutput(job: string, id: string, filename: string) {

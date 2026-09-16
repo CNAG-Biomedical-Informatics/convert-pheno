@@ -41,6 +41,15 @@ my %INVERSE_CONFIG = (
     route     => { domains => ['Route'] },
 );
 
+my %SOURCE_FIELDS = (
+    gender => 'sex', demographic => 'ethnicity',
+    disease => 'diseases.diseaseCode', exposure => 'exposures.exposureCode',
+    phenotypicFeature => 'phenotypicFeatures.featureType',
+    procedure => 'interventionsOrProcedures.procedureCode',
+    measurement => 'measures.assayCode', measurementValue => 'measures.measurementValue',
+    treatment => 'treatments.treatmentCode', route => 'treatments.routeOfAdministration',
+);
+
 ###############
 ###############
 #  BFF2OMOP   #
@@ -149,11 +158,24 @@ sub _map_person {
     if ( exists $bff->{geographicOrigin}
         && !$person->{ethnicity_concept_id} )
     {
-        (
-            $person->{ethnicity_concept_id},
-            $person->{ethnicity_source_value},
-            $person->{ethnicity_source_concept_id}
-          ) = inverse_map( 'ethnicity', $bff->{geographicOrigin}, 'label', $self );
+        # This is source-text preservation, not an ethnicity correspondence.
+        # Do not search geography in the Ethnicity domain or report it as a
+        # failed lookup. Both concept identifiers deliberately remain zero.
+        my $origin = $bff->{geographicOrigin};
+        my $id = ref($origin) eq 'HASH' ? ($origin->{id} // '') : '';
+        my $label = ref($origin) eq 'HASH' ? ($origin->{label} // '') : ($origin // '');
+        s/^\s+|\s+$//g for ($id, $label);
+        my $value = length($label) ? $label : $id;
+        $person->{ethnicity_source_value} = $value;
+        $person->{ethnicity_source_concept_id} = $DEFAULT->{concept_id};
+        record_term_audit({
+            self => $self, source_field => 'geographicOrigin',
+            source_value => length($id) ? $id : $value, source_label => $label,
+            term => {label => $value}, ontology => 'ohdsi',
+            match_status => 'preserved', decision_reason => 'source_value_preserved',
+            lookup_resolution => 'source_value_preserved', match_source => 'source',
+            fallback_action => 'concept_0',
+        }) if length($value);
     }
 
     # Save the PERSON record one person per individual)
@@ -181,7 +203,9 @@ sub _map_diseases {
           inverse_map( 'disease', $disease->{diseaseCode}, 'label', $self );
 
         # Convert onset (e.g., an ISO8601 duration) to a date
-        if ( $disease->{ageOfOnset}{age}{iso8601duration} ) {
+        if ( ref($disease->{ageOfOnset}) eq 'HASH'
+            && ref($disease->{ageOfOnset}{age}) eq 'HASH'
+            && $disease->{ageOfOnset}{age}{iso8601duration} ) {
             $cond->{condition_start_date} = get_date_at_age(
                 $disease->{ageOfOnset}{age}{iso8601duration},
                 $omop_ref->{PERSON}{year_of_birth}
@@ -234,7 +258,7 @@ sub _map_exposures {
           defined $exposure->{value} ? $exposure->{value} : -1;
 
         ( $obs->{unit_concept_id}, $obs->{unit_source_value} ) =
-          inverse_map( 'unit', $exposure->{unit}, 'label', $self );
+          inverse_map( 'unit', $exposure->{unit}, 'label', $self, 'exposures.unit' );
 
         # TEMPORARY: BFF only accepts numeric
         $obs->{value_as_concept_id} = '';
@@ -291,7 +315,7 @@ sub _map_phenotypicFeatures {
           defined $feature->{value} ? $feature->{value} : -1;
 
         ( $obs->{unit_concept_id}, $obs->{unit_source_value} ) =
-          inverse_map( 'unit', $feature->{unit}, 'label', $self );
+          inverse_map( 'unit', $feature->{unit}, 'label', $self, 'phenotypicFeatures.unit' );
 
         # TEMPORARY: BFF only accepts numeric
         $obs->{value_as_concept_id} = '';
@@ -398,7 +422,8 @@ sub _map_measurements {
                             $m->{unit_source_value},
                             $m->{unit_source_concept_id}
                           ) =
-                          inverse_map( 'unit', $quantity->{unit}, 'label', $self );
+                          inverse_map( 'unit', $quantity->{unit}, 'label', $self,
+                              'measures.measurementValue.quantity.unit' );
                     }
                 }
                 elsif ( exists $value->{id} ) {
@@ -488,7 +513,9 @@ sub _map_treatments {
             $drug->{drug_exposure_end_date} =
               map_iso8601_timestamp2date($resolved_end);
         }
-        elsif ( $treatment->{ageOfOnset}{age}{iso8601duration} ) {
+        elsif ( ref($treatment->{ageOfOnset}) eq 'HASH'
+            && ref($treatment->{ageOfOnset}{age}) eq 'HASH'
+            && $treatment->{ageOfOnset}{age}{iso8601duration} ) {
             $drug->{drug_exposure_start_date} =
               get_date_at_age( $treatment->{ageOfOnset}{age}{iso8601duration},
                 $omop_ref->{PERSON}{year_of_birth} );
@@ -519,7 +546,9 @@ sub _map_treatments {
 }
 
 sub inverse_map {
-    my ( $mapping_type, $hashref, $key, $self ) = @_;
+    my ( $mapping_type, $hashref, $key, $self, $source_field ) = @_;
+
+    $source_field //= $SOURCE_FIELDS{$mapping_type};
 
     my $config = $INVERSE_CONFIG{$mapping_type};
     unless ($config) {
@@ -535,6 +564,7 @@ sub inverse_map {
             self         => $self,
             term         => $term,
             mapping_type => $mapping_type,
+            source_field => $source_field,
             %{$config},
         }
     );

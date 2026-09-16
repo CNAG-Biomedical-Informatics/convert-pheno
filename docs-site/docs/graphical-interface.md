@@ -140,9 +140,20 @@ or streaming is preferable.
 ## OHDSI terminology database
 
 `ohdsi.db` is not included in the installers because it is approximately 3.2 GB.
-Open **Resources**, download the current file from Google Drive, and select
-**Install downloaded database**. The application verifies its declared size and
-SHA-256 before making OHDSI-dependent routes available.
+Open **Resources** and select **Download and install**. The application downloads
+the database from Google Drive, shows progress, verifies its size and SHA-256,
+and installs it automatically. Keep the app open until it finishes. You can cancel
+the download; incomplete or invalid files do not replace an installed database.
+
+If you already have the database, select **Install from file** instead. Both
+options make OHDSI-dependent routes available after verification.
+
+The **Resource folder** is shown before downloading. Select **Change folder...**
+to use another location, including an external drive. The choice is remembered
+across launches and is used for both installation and conversions. Existing
+files are not moved; select a folder containing `ohdsi.db` or download a copy
+there. Wait for downloads and queued/running conversions to finish before
+changing the folder.
 
 ## Terminology review
 

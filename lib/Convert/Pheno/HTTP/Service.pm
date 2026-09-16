@@ -450,15 +450,18 @@ sub _conversion_input_definition {
               multiple=>JSON::XS::false,maximum=>1,argument=>'in_file',accept=>[qw(.json .json.gz .yaml .yml)] };
     }
 
-    if ( $spec->{target} eq 'beacon' && $base->{metadataMapping} ) {
+    my $omop_mapping = $spec->{source} eq 'beacon' && $spec->{target} eq 'omop';
+    if ( $omop_mapping || ($spec->{target} eq 'beacon' && $base->{metadataMapping}) ) {
         push @transports, 'multipart'
           unless grep { $_ eq 'multipart' } @transports;
         push @files, { %{ $base->{fileSource} } }
           if !@files && ref( $base->{fileSource} ) eq 'HASH';
         push @files, {
             name        => 'mapping',
-            label       => 'Dataset and cohort metadata',
-            description => 'Optional compact Mapping V2 YAML or JSON metadata file.',
+            label       => $omop_mapping ? 'Terminology mapping' : 'Dataset and cohort metadata',
+            description => $omop_mapping
+              ? 'Optional Mapping V2 file with reviewed BFF-to-OMOP terminology queries.'
+              : 'Optional compact Mapping V2 YAML or JSON metadata file.',
             required    => JSON::XS::false,
             multiple    => JSON::XS::false,
             maximum     => 1,

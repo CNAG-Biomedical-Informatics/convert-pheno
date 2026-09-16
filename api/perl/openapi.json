@@ -126,7 +126,7 @@
           "converted_term_label": { "type": "string", "nullable": true },
           "converted_term_id": { "type": "string", "nullable": true },
           "ontology": { "type": "string", "nullable": true },
-          "review_action": { "type": "string", "enum": ["keep", "review_similarity", "resolve_or_accept_fallback", "review_source_fallback"] },
+          "review_action": { "type": "string", "enum": ["keep", "review_similarity", "resolve_or_accept_fallback", "review_source_fallback", "preserve_source"] },
           "decision_reason": { "type": "string", "nullable": true },
           "best_candidate_label": { "type": "string", "nullable": true },
           "best_candidate_id": { "type": "string", "nullable": true },
@@ -147,7 +147,8 @@
               "keep": { "type": "integer" },
               "review_similarity": { "type": "integer" },
               "resolve_or_accept_fallback": { "type": "integer" },
-              "review_source_fallback": { "type": "integer" }
+              "review_source_fallback": { "type": "integer" },
+              "preserve_source": { "type": "integer" }
             }
           },
           "rows": { "type": "array", "items": { "$ref": "#/components/schemas/TerminologyAuditRow" }, "description": "Bounded preview retaining at most 100 rows per review action." },

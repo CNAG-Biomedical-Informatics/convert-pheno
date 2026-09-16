@@ -34,8 +34,30 @@ for the explorer, inspector, and task panel. Preferences persist on this device.
 Open Settings from the application menu on macOS or the Edit menu elsewhere.
 
 File, Edit, View, Conversion, and Help are native menus. Standard editing commands
-act on the focused editor. Open/save workspace and run shortcuts use Command on
+act on the focused editor. Open/save project and run shortcuts use Command on
 macOS and Control on Windows/Linux.
+
+## Projects
+
+File offers New Project, Open Project, Save Project, Save Project As and Close
+Project. A `.cpheno` file records conversion settings, input references, output
+destination and run IDs. A companion `.cpheno.data` folder holds pasted data,
+synthetic example files and mapping edits, including unfinished edits. Keep both
+together. Large external input files are referenced, not copied; their paths are
+relative to the project where possible. This is not a portable dataset archive.
+
+Opening a trusted project authorizes its referenced inputs through the native
+API. Missing files are listed with Locate missing file; missing companion text
+is reported rather than silently dropped. Unvalidated mapping edits still need
+Validate and use copy before conversion. Saving does not validate or run data.
+
+An asterisk marks unsaved changes. New, Open, Close and Quit offer Save, Discard
+or Cancel when needed. Cancelling a save or encountering a save error leaves
+the current project intact. Project changes do not stop jobs or hide global run
+history. Quitting with queued or running jobs requires a separate confirmation.
+Run IDs refer to history on this computer; output files remain in their existing
+locations. Saves use new companion snapshots and atomically replace the project
+manifest, keeping previous snapshots intact.
 
 ## Runs And Output Files
 

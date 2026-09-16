@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import * as api from './api'
-import { openExternal, revealRun, selectPaths, connection, confirmAction, saveMappingCopy, installOhdsi, downloadOhdsi, cancelOhdsiDownload, resourceDirectory, chooseResourceDirectory, type DownloadProgress } from './desktop'
+import { openExternal, revealRun, selectPaths, connection, confirmAction, saveMappingCopy, installOhdsi, downloadOhdsi, cancelOhdsiDownload, resourceDirectory, chooseResourceDirectory, projectFile, finishQuit, type DownloadProgress } from './desktop'
 import DataView, { type Inspection } from './components/DataView'
 import TerminologyReview from './components/TerminologyReview'
 import ConceptDetails from './components/ConceptDetails'
@@ -16,6 +16,8 @@ import { FolderOpen, Folder, FileText, Save, Play, Square, Database, Settings as
 
 type Tab = 'Input' | 'Conversion' | 'Mapping' | 'Outputs' | 'Terminology Review' | 'Warnings' | 'Compare'
 type Draft = { conversion: string; options: Record<string, unknown>; output: { entities?: string[] } }
+type MissingSource = { role: string; path: string; directory: boolean; index?: number }
+type Project = { file: FileHandle; settings: Draft; files: Record<string, FileHandle[]>; jsonInput?: string; mapping?: string; mappingDirty?: boolean; destination?: FileHandle; missing: MissingSource[]; runs: string[] }
 const busy = (job: Job) => ['queued', 'running', 'cancelling'].includes(job.status)
 const size = (bytes: number) => bytes >= 1073741824 ? `${(bytes / 1073741824).toFixed(1)} GiB` : bytes > 1048576 ? `${(bytes / 1048576).toFixed(1)} MiB` : `${Math.ceil(bytes / 1024)} KiB`
 const DEFAULT: Draft = { conversion: '', options: {}, output: {} }
@@ -107,6 +109,17 @@ export default function App() {
   const [mappingDirty, setMappingDirty] = useState(false)
   const mappingEpoch = useRef(0)
   const [jsonInput, setJsonInput] = useState('')
+  const [project, setProject] = useState<FileHandle>()
+  const [projectRuns, setProjectRuns] = useState<string[]>([])
+  const [missingSources, setMissingSources] = useState<MissingSource[]>([])
+  const [savedProject, setSavedProject] = useState<{configuration: string; jsonInput: string; mapping: string} | null>(null)
+  const [projectBusy, setProjectBusy] = useState(false)
+  const projectSaving = useRef(false)
+  const [projectPrompt, setProjectPrompt] = useState<(() => Promise<void>) | null>(null)
+  const projectPromptRef = useRef(false)
+  // Job polling must not repeatedly serialize potentially large pasted inputs.
+  const projectSnapshot = {configuration: JSON.stringify({draft, files, mappingDirty, destination, projectRuns, missingSources}), jsonInput, mapping}
+  const projectDirty = !!savedProject && (savedProject.configuration !== projectSnapshot.configuration || savedProject.jsonInput !== jsonInput || savedProject.mapping !== mapping)
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
   const [submitting, setSubmitting] = useState(false)
@@ -123,6 +136,7 @@ export default function App() {
     return () => media.removeEventListener('change', apply)
   }, [settings])
   const [ready, setReady] = useState(false)
+  useEffect(() => { if (ready && !savedProject) setSavedProject(projectSnapshot) }, [ready, savedProject, projectSnapshot])
   const route = routes.find((item) => item.id === draft.conversion)
   const job = jobs.find((item) => item.id === selectedJob)
   const jobRoute = routes.find((item) => item.id === job?.conversion)
@@ -156,6 +170,7 @@ export default function App() {
   const run = async (action: () => Promise<void>) => { setError(''); setMessage(''); try { await action() } catch (reason) { setError((reason as Error).message) } }
   function selectRoute(next: Conversion) {
     setMessage('')
+    setMissingSources([])
     mappingEpoch.current++
     setDraft({ conversion: next.id, output: next.entities.supported.length ? { entities: next.entities.default } : {},
       options: Object.fromEntries(next.options.filter((item) => item.default !== undefined).map((item) => [item.name, item.default])) })
@@ -181,6 +196,7 @@ export default function App() {
     const selected = await selectPaths(directory, multiple)
     if (!selected.length) return
     setFiles((current) => ({ ...current, [role]: selected }))
+    setMissingSources((current) => current.filter((item) => item.role !== role))
     if (role === 'source') { setJsonInput(''); setPasteInput(false); resetPreviews() }
     if (role === 'mapping') {
       const epoch = ++mappingEpoch.current
@@ -199,13 +215,23 @@ export default function App() {
   }
   async function submit() {
     if (!route || submitting) return
+    if (missingSources.length) throw new Error('Locate the missing project files before running.')
     if (mappingDirty) throw new Error('Validate and use the edited mapping before running.')
     const missing = route.input.files.find((item) => item.required && !files[item.name]?.length)
     if (!jsonInput.trim() && missing) throw new Error(`Select ${missing.label} before running.`)
     setSubmitting(true)
     try {
-      const input = jsonInput.trim() ? { data: JSON.parse(jsonInput) } : { files: Object.fromEntries(Object.entries(files).map(([key, value]) => [key, value.map((item) => item.id)])) }
+      const selected = {...files}
+      const hasAuxiliaryFiles = Object.entries(selected).some(([role, items]) => role !== 'source' && items.length)
+      // JSON plus a mapping uses the same managed-file route as file input.
+      // Otherwise the JSON request would silently omit the selected mapping.
+      if (jsonInput.trim() && hasAuxiliaryFiles) {
+        JSON.parse(jsonInput)
+        selected.source = await api.uploadFiles([new File([jsonInput], 'input.json', {type: 'application/json'})])
+      }
+      const input = jsonInput.trim() && !hasAuxiliaryFiles ? { data: JSON.parse(jsonInput) } : { files: Object.fromEntries(Object.entries(selected).map(([key, value]) => [key, value.map((item) => item.id)])) }
       const created = await api.submitJob({ ...draft, input, ...(destination ? { destination: destination.id } : {}) })
+      setProjectRuns((current) => [...current, created.id])
       setJobs((current) => [created, ...current]); setSelectedJob(created.id); setSelectedOutput(''); setTab('Outputs'); resetPreviews()
     } finally { setSubmitting(false) }
   }
@@ -269,8 +295,7 @@ export default function App() {
     mappingEpoch.current++
     setMapping(''); setMappingDirty(false)
     resetPreviews()
-    const transport = route.input.transports.includes('json') ? 'json' : 'multipart'
-    const data = await api.getExample(route.source.id, transport) as { transport?: string; options?: Record<string, unknown>; files?: Array<{role: string;filename: string;content: string}> }
+    const data = await api.getExample(route.source.id) as { transport?: string; options?: Record<string, unknown>; files?: Array<{role: string;filename: string;content: string}> }
     if (data.transport === 'multipart' && data.files) {
       const selected: Record<string, FileHandle[]> = {}
       for (const item of data.files) {
@@ -285,31 +310,79 @@ export default function App() {
     setPasteInput(false); setTab(tab === 'Mapping' && hasMapping ? 'Mapping' : 'Input')
     setMessage(`${route.source.label} synthetic example loaded.${hasMapping ? ' Input data and mapping are both ready; no second load is needed.' : ''} Your own files have not been changed.`)
   }
-  async function saveWorkspace() {
-    const [directory] = await selectPaths(true)
-    if (!directory) return
-    if (jsonInput.trim()) throw new Error('Save pasted input to a file and select it before saving the workspace.')
-    if (mappingDirty) throw new Error('Validate and use the edited mapping before saving.')
-    await api.post('/api/workspaces/save', { directory: directory.id, draft: { ...draft, files: Object.fromEntries(Object.entries(files).map(([role,items]) => [role,items.map((item) => item.id)])) } })
-    setMessage('Workspace configuration saved. Original source files were not copied.')
+  async function saveProject(as = false): Promise<boolean> {
+    if (projectSaving.current) return false
+    if (missingSources.length) throw new Error('Locate the missing project files before saving. The existing project has not been changed.')
+    projectSaving.current = true
+    setProjectBusy(true)
+    try {
+    const snapshot = projectSnapshot
+    const saved = await projectFile<{file: FileHandle}>('save', { settings: draft,
+      files: Object.fromEntries(Object.entries(files).map(([role, items]) => [role, items.map((item) => item.id)])),
+      jsonInput, mapping, mappingDirty, destination: destination?.id, runs: projectRuns }, as ? undefined : project?.id)
+    if (!saved) return false
+    setProject(saved.file); setSavedProject(snapshot)
+    setMessage('Project saved. Keep the .cpheno file and its .cpheno.data folder together. External input files remain in their original locations.')
+    return true
+    } finally { projectSaving.current = false; setProjectBusy(false) }
   }
-  async function openWorkspace() {
-    const [file] = await selectPaths()
-    if (!file) return
-    const saved = await api.post<{ settings: Draft; sources: Record<string,string[]> }>('/api/workspaces/open', {file:file.id})
+  async function openProject() {
+    const saved = await projectFile<Project>('open')
+    if (!saved) return
     if (!routes.some((item) => item.id === saved.settings.conversion)) throw new Error('The saved conversion is not supported by this installation.')
-    setDraft(saved.settings); setFiles({}); setJsonInput(''); resetPreviews(); setTab('Conversion')
-    setMessage('Workspace reopened. Reselect its sources to authorize access: ' + Object.values(saved.sources).flat().join(', '))
+    mappingEpoch.current++
+    setDraft(saved.settings); setFiles(saved.files); setJsonInput(saved.jsonInput || ''); setMapping(saved.mapping || '')
+    setMappingDirty(!!saved.mappingDirty); setDestination(saved.destination); setProjectRuns(saved.runs)
+    setMissingSources(saved.missing); setProject(saved.file); setSavedProject(null); setPasteInput(false)
+    resetPreviews(); setTab('Conversion'); setSection('workspace'); setSelectedJob('')
+    setMessage(saved.missing.length ? 'Project opened. Locate its missing files before converting.' : 'Project opened. Inputs and conversion settings are restored.')
+  }
+  async function newProject() {
+    if (route) selectRoute(route)
+    setDestination(undefined); setProject(undefined); setProjectRuns([]); setMissingSources([]); setSavedProject(null)
+    setSelectedJob(''); resetPreviews(); setSection('workspace')
+  }
+  async function locateSource(missing: MissingSource) {
+    const [file] = await selectPaths(missing.directory)
+    if (!file) return
+    if (missing.role === 'destination') setDestination(file)
+    else setFiles((current) => {
+      const items = [...(current[missing.role] || [])]
+      const earlierMissing = missingSources.filter((item) => item.role === missing.role && (item.index ?? 0) < (missing.index ?? 0)).length
+      items.splice(Math.max(0, (missing.index ?? items.length) - earlierMissing), 0, file)
+      return {...current, [missing.role]: items}
+    })
+    setMissingSources((current) => current.filter((item) => item !== missing))
+  }
+  async function guardProject(action: () => Promise<void>) {
+    if (projectPromptRef.current) return
+    if (projectDirty) { projectPromptRef.current = true; setProjectPrompt(() => action) }
+    else await action()
+  }
+  async function resolveProjectPrompt(choice: 'save' | 'discard' | 'cancel') {
+    if (projectBusy) return
+    if (choice === 'cancel') { setProjectPrompt(null); projectPromptRef.current = false; return }
+    setProjectBusy(true)
+    try {
+      if (choice === 'save' && !await saveProject()) return
+      const next = projectPrompt
+      setProjectPrompt(null); projectPromptRef.current = false
+      await next?.()
+    } finally { setProjectBusy(false) }
+  }
+  async function quitProject() {
+    if (active.length && !await confirmAction('Quit with active conversions?', 'Active and queued conversions will be stopped when the application exits. Keep the app open to let them finish.')) return
+    await finishQuit()
   }
   const menuAction = useRef<(id: string) => void>(() => {})
   menuAction.current = (id) => {
+    if (projectPromptRef.current || projectBusy || projectSaving.current) return
     const actions: Record<string, () => Promise<void> | void> = {
-      new: () => {
-        if (mappingDirty && !window.confirm('Discard the unused mapping edits and start a new workspace?')) return
-        if (route) selectRoute(route)
-        setDestination(undefined); setSelectedJob(''); setInspection(undefined); setSection('workspace')
-      },
-      open: openWorkspace, save: saveWorkspace, run: submit,
+      new: () => guardProject(newProject),
+      'close-project': () => guardProject(newProject),
+      quit: () => guardProject(quitProject),
+      open: () => guardProject(openProject), save: async () => { await saveProject() },
+      'save-as': async () => { await saveProject(true) }, run: submit,
       add: () => choose('source', false, route?.input.files.find((item) => item.name === 'source')?.multiple),
       cancel: async () => { const target = active.find((item) => item.status === 'running') || active[0]; if (target) await cancelRun(target) },
       'cancel-pending': cancelPending,
@@ -335,14 +408,20 @@ export default function App() {
     const listener = (event: KeyboardEvent) => {
       if (!(event.metaKey || event.ctrlKey)) return
       if (event.key === 'Enter') { event.preventDefault(); void run(submit) }
-      if (event.key.toLowerCase() === 's') { event.preventDefault(); void run(saveWorkspace) }
-      if (event.key.toLowerCase() === 'o') { event.preventDefault(); void run(openWorkspace) }
+      if (event.key.toLowerCase() === 's') { event.preventDefault(); menuAction.current('save') }
+      if (event.key.toLowerCase() === 'o') { event.preventDefault(); menuAction.current('open') }
     }
     window.addEventListener('keydown', listener)
     return () => window.removeEventListener('keydown', listener)
   })
 
   return <div className="desktop-shell">
+    {projectPrompt && <dialog ref={(node) => { if (node && !node.open) { if (node.showModal) node.showModal(); else node.setAttribute('open', '') } }} aria-modal="true" aria-labelledby="project-prompt-title" className="project-modal" onCancel={(event) => { event.preventDefault(); void resolveProjectPrompt('cancel') }}>
+      <h2 id="project-prompt-title">Save changes to {project?.filename || 'Untitled project'}?</h2>
+      <p>Your input selections, pasted data, mapping edits and conversion settings have unsaved changes.</p>
+      {error && <p role="alert">{error}</p>}
+      <div className="input-actions"><button autoFocus disabled={projectBusy} onClick={() => void run(() => resolveProjectPrompt('cancel'))}>Cancel</button><button disabled={projectBusy} onClick={() => void run(() => resolveProjectPrompt('discard'))}>Discard</button><button className="primary" disabled={projectBusy} onClick={() => void run(() => resolveProjectPrompt('save'))}>Save</button></div>
+    </dialog>}
     <header className="desktop-titlebar"><img src="/convert-pheno-mark.svg" alt="" /><strong>Convert-Pheno</strong><span>Clinical data conversion</span></header>
     <div className="desktop-toolbar">
       <button aria-label={settings.explorer ? 'Collapse left navigation' : 'Expand left navigation'} title={settings.explorer ? 'Collapse left navigation' : 'Expand left navigation'} aria-expanded={settings.explorer} aria-controls="workspace-navigation" onClick={() => setSettings((value) => ({ ...value, explorer: !value.explorer }))}>{settings.explorer ? <PanelLeftClose aria-hidden="true" /> : <PanelLeftOpen aria-hidden="true" />}</button>
@@ -358,7 +437,7 @@ export default function App() {
     <div className="desktop-body">
       {settings.explorer && <><aside id="workspace-navigation" className="workspace-tree" aria-label="Workspace explorer" style={{ width: navigationWidth, flexBasis: navigationWidth }}>
         <div className="workspace-tree-scroll">
-        <h2>Workspace</h2>
+        <h2 title={project?.filename || 'Untitled project'}>{project?.filename || 'Untitled project'}{projectDirty ? ' *' : ''}</h2>
         <h3><button className="tree-disclosure" aria-expanded={!collapsedGroups.sources} aria-controls="source-groups" onClick={() => toggleGroup('sources')}><span aria-hidden="true">{collapsedGroups.sources ? '\u25b8' : '\u25be'}</span>Sources</button></h3>
         <div id="source-groups" hidden={collapsedGroups.sources}>
         {!Object.keys(files).length && <p className="muted">Select files or load an example.</p>}
@@ -443,6 +522,7 @@ export default function App() {
           <p>Inputs remain unchanged. Results are written into a separate run directory.</p></section> : <>
           <nav className="workspace-tabs" aria-label="Workspace views">{tabs.map((item)=><button key={item} aria-current={item===tab?'page':undefined} onClick={()=>setTab(item)}>{item}{item==='Warnings'&&job?.result?.warnings.length ? ` (${job.result.warnings.length})`:''}</button>)}</nav>
           <div className="workspace-view">
+            {!!missingSources.length && <section aria-label="Missing project files"><h2>Missing project files</h2>{missingSources.map((item, index) => <p key={index}><code>{item.path}</code> <button onClick={() => void run(() => locateSource(item))}>Locate missing file</button></p>)}</section>}
             {tab === 'Conversion' && route && <section className="conversion-editor">
               <header className="conversion-heading"><div><h1>Build your conversion</h1><p>Choose the source, add your files, and configure the output.</p></div><ArrowRightLeft aria-hidden="true" /></header>
               <div className="conversion-grid">
@@ -476,7 +556,7 @@ export default function App() {
               </section>
               </div>
             </section>}
-            {(tab === 'Input' || tab === 'Mapping') && <div className="input-actions"><button onClick={() => setTab('Conversion')}><ArrowRightLeft aria-hidden="true" />Back to conversion</button></div>}
+            {(tab === 'Input' || tab === 'Mapping') && <div className="input-actions"><button className="primary" onClick={() => setTab('Conversion')}><ArrowRightLeft aria-hidden="true" />Back to conversion</button></div>}
             {tab === 'Input' && <section className="input-pane">{sourcePreview ? <><div className="pane-heading"><FileText aria-hidden="true" /><h1>{sourcePreview.file.filename}</h1><span className="read-only-label">Read-only preview</span></div>{sourcePreview.data ? <DataView key={sourcePreview.file.id} preview={sourcePreview.data} onInspect={inspect} source={sourcePreview.file.filename} conceptFields={route?.source.id === 'omop' ? route.omopConceptFields : []}/> : <p role="status">Loading input preview...</p>}</> : <>
               {jsonInput && !pasteInput ? <>
                 <div className="pane-heading"><h1>Input preview</h1><span className="read-only-label">Read-only preview</span></div>
@@ -490,10 +570,10 @@ export default function App() {
                 {route?.input.transports.includes('json') && !Object.values(files).flat().length && !pasteInput && !jsonInput && <button onClick={() => setPasteInput(true)}>Paste JSON instead</button>}
               </div>
               {!!Object.values(files).flat().length && <><h2>Selected files</h2><p>Choose a file to preview it without changing the original.</p><div className="input-files">{Object.values(files).flat().map((file) => <button key={file.id} onClick={() => void run(() => inspectSource(file))}><FileText aria-hidden="true" />{file.filename}</button>)}</div></>}
-              {route?.input.transports.includes('json') && pasteInput && <div className="paste-input"><h2>{route.source.label} JSON</h2><p id="json-input-help">{route.source.inputShape}. Paste the data itself, not an API request or a filename. Load the example above if you are unsure of the structure.</p><textarea className="code-editor" aria-label="JSON input" aria-describedby="json-input-help" placeholder={`Paste your ${route.source.label} JSON here`} value={jsonInput} onChange={(event) => setJsonInput(event.target.value)} spellCheck={false}/><div className="input-actions"><button disabled={!jsonInput.trim()} onClick={() => void run(async () => { JSON.parse(jsonInput); setPasteInput(false) })}>View input</button></div><p className="muted">Pasted data is not saved in workspace configuration files.</p></div>}
+              {route?.input.transports.includes('json') && pasteInput && <div className="paste-input"><h2>{route.source.label} JSON</h2><p id="json-input-help">{route.source.inputShape}. Paste the data itself, not an API request or a filename. Load the example above if you are unsure of the structure.</p><textarea className="code-editor" aria-label="JSON input" aria-describedby="json-input-help" placeholder={`Paste your ${route.source.label} JSON here`} value={jsonInput} onChange={(event) => setJsonInput(event.target.value)} spellCheck={false}/><div className="input-actions"><button disabled={!jsonInput.trim()} onClick={() => void run(async () => { JSON.parse(jsonInput); setPasteInput(false) })}>View input</button></div><p className="muted">Pasted data is saved in the project's companion data folder.</p></div>}
               </>}
             </>}</section>}
-            {tab === 'Mapping' && <>{!mapping && route?.input.files.some((file)=>file.name==='mapping') && <button onClick={()=>void run(example)}>Load synthetic data and mapping</button>}<Suspense fallback={<p role="status">Loading mapping editor...</p>}><MappingEditor key={route?.id} value={mapping} filename={files.mapping?.[0]?.filename} dirty={mappingDirty} onChange={(text) => { mappingEpoch.current++; setMapping(text); setMappingDirty(true) }} onValidate={validateMapping} onSave={saveMappingCopy}/></Suspense></>}
+            {tab === 'Mapping' && <>{!mapping && route?.input.files.some((file)=>file.name==='mapping') && <button onClick={()=>void run(example)}>Load synthetic example</button>}<Suspense fallback={<p role="status">Loading mapping editor...</p>}><MappingEditor key={route?.id} value={mapping} filename={files.mapping?.[0]?.filename} dirty={mappingDirty} onChange={(text) => { mappingEpoch.current++; setMapping(text); setMappingDirty(true) }} onValidate={validateMapping} onSave={saveMappingCopy}/></Suspense></>}
             {tab === 'Outputs' && <section className="output-pane">{!job?<div className="empty-state"><h1>Inspect converted data</h1><p>Configure a conversion or select a previous run.</p></div>:<><div className="pane-heading"><h1>{job.conversion}</h1><span className={`run-state ${job.status}`}>{job.status}</span>{job.status==='completed'&&<button onClick={()=>void run(()=>revealRun(job.id))}>Open containing folder</button>}</div>
               {job.message&&<p role="status">{job.message}</p>}
               {job.status === 'completed' && <div className="result-summary" aria-label="Output summary"><span><strong>{outputs.length}</strong> output {outputs.length === 1 ? 'file' : 'files'}</span><span>{size(outputs.reduce((total, file) => total + file.bytes, 0))}</span>{job.result?.warnings.length ? <button onClick={() => setTab('Warnings')}>{job.result.warnings.length} {job.result.warnings.length === 1 ? 'warning' : 'warnings'}</button> : <span>No warnings recorded</span>}</div>}

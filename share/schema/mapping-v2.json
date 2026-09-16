@@ -16,7 +16,7 @@
       "properties": {
         "profile": {
           "description": "Use redcap for REDCap CSV and REDCap-origin ODM; cdisc-odm for standard or vendor ODM with embedded metadata; cbioportal for patient and sample clinical tables; sdtm for Dataset-JSON or Dataset-XML terminology enrichment; or the matching built-in source profile for a metadata-only overlay.",
-          "enum": ["cbioportal", "cdisc-odm", "csv", "fhir", "i2b2", "omop", "openehr", "pcornet", "pxf", "redcap", "sdtm", "sentinel"]
+          "enum": ["bff", "cbioportal", "cdisc-odm", "csv", "fhir", "i2b2", "omop", "openehr", "pcornet", "pxf", "redcap", "sdtm", "sentinel"]
         }
       }
     },
@@ -25,8 +25,8 @@
       "additionalProperties": false,
       "required": ["model", "schemaVersion"],
       "properties": {
-        "model": { "const": "beacon" },
-        "schemaVersion": { "const": "2.0.0" }
+        "model": { "enum": ["beacon", "omop"] },
+        "schemaVersion": { "enum": ["2.0.0", "5.4"] }
       }
     },
     "project": {
@@ -80,15 +80,33 @@
     },
     "terminology": {
       "type": "object",
-      "description": "Ontology resolution rules for term-bearing SDTM fields. Structural SDTM-to-BFF mappings remain built in.",
-      "minProperties": 1,
-      "propertyNames": {
-        "pattern": "^[A-Z][A-Z0-9]{0,7}\\.[A-Z][A-Z0-9_]{0,31}$"
-      },
-      "additionalProperties": { "$ref": "#/$defs/termTarget" }
+      "description": "Reviewed terminology queries. Rules depend on the declared source and target.",
+      "minProperties": 1
     }
   },
   "allOf": [
+    {
+      "if": { "properties": { "source": { "properties": { "profile": { "const": "bff" } } } } },
+      "then": {
+        "required": ["terminology"],
+        "properties": {
+          "target": { "properties": { "model": { "const": "omop" }, "schemaVersion": { "const": "5.4" } } },
+          "defaults": false,
+          "records": false,
+          "beacon": false,
+          "terminology": { "$ref": "#/$defs/omopTerminology" }
+        }
+      },
+      "else": {
+        "properties": {
+          "target": { "properties": { "model": { "const": "beacon" }, "schemaVersion": { "const": "2.0.0" } } },
+          "terminology": {
+            "propertyNames": { "pattern": "^[A-Z][A-Z0-9]{0,7}\\.[A-Z][A-Z0-9_]{0,31}$" },
+            "additionalProperties": { "$ref": "#/$defs/termTarget" }
+          }
+        }
+      }
+    },
     {
       "if": {
         "properties": {
@@ -111,7 +129,7 @@
             "source": {
               "properties": {
                 "profile": {
-                  "enum": ["fhir", "i2b2", "omop", "openehr", "pcornet", "pxf", "sentinel"]
+                  "enum": ["bff", "fhir", "i2b2", "omop", "openehr", "pcornet", "pxf", "sentinel"]
                 }
               },
               "required": ["profile"]
@@ -122,14 +140,15 @@
           "properties": {
             "defaults": false,
             "records": false,
-            "terminology": false,
             "beacon": {
               "properties": {
                 "individuals": false,
                 "biosamples": false
               }
             }
-          }
+          },
+          "if": { "properties": { "source": { "properties": { "profile": { "const": "bff" } } } } },
+          "else": { "properties": { "terminology": false } }
         },
         "else": {
           "required": ["defaults", "records", "beacon"],
@@ -142,6 +161,36 @@
     }
   ],
   "$defs": {
+    "omopTerminology": {
+      "type": "object",
+      "propertyNames": {
+        "enum": ["sex", "ethnicity", "diseases.diseaseCode", "exposures.exposureCode", "exposures.unit", "phenotypicFeatures.featureType", "phenotypicFeatures.unit", "interventionsOrProcedures.procedureCode", "measures.assayCode", "measures.measurementValue", "measures.measurementValue.quantity.unit", "treatments.treatmentCode", "treatments.routeOfAdministration"]
+      },
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["query"],
+        "properties": {
+          "query": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["from", "aliases"],
+            "properties": {
+              "from": { "enum": ["value", "id"] },
+              "column": { "enum": ["label", "id"], "default": "label" },
+              "aliases": {
+                "type": "object",
+                "minProperties": 1,
+                "propertyNames": { "$ref": "#/$defs/nonEmptyString" },
+                "additionalProperties": { "$ref": "#/$defs/nonEmptyString" }
+              }
+            },
+            "if": { "properties": { "column": { "const": "id" } }, "required": ["column"] },
+            "then": { "properties": { "aliases": { "additionalProperties": { "type": "string", "pattern": "^[^\\s:]+:[^\\s]+$" } } } }
+          }
+        }
+      }
+    },
     "nonEmptyString": { "type": "string", "minLength": 1 },
     "stringArray": {
       "type": "array",

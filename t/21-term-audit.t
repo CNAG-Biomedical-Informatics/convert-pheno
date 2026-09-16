@@ -464,4 +464,17 @@ throws_ok(
     ok( $review->{truncated}, 'review reports preview truncation' );
 }
 
+{
+    my $file = temp_output_file(suffix => '.xlsx', dir => $tmpdir);
+    my $writer = Convert::Pheno::Audit::Terminology->new(path => $file);
+    $writer->write_row({source_field => 'geographicOrigin', source_label => 'England',
+        converted_term_label => 'England', match_status => 'preserved',
+        decision_reason => 'source_value_preserved', effective_search_mode => 'not_used'});
+    $writer->close;
+    is($writer->review->{counts}{preserve_source}, 1, 'XLSX counts intentional preservation separately');
+    is($writer->review->{counts}{resolve_or_accept_fallback}, 0, 'preserved text is not unresolved');
+    like(slurp_zip_member($file, 'xl/sharedStrings.xml'), qr/Source text deliberately retained/, 'XLSX legend explains preservation');
+    like(slurp_zip_member($file, 'xl/worksheets/sheet2.xml'), qr/<formula>\$P2="preserved"<\/formula>/, 'XLSX has a dedicated preservation color rule');
+}
+
 done_testing();

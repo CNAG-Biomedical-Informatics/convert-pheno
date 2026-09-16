@@ -1,0 +1,12 @@
+[
+  {
+    "id": "synthetic-omop-example",
+    "sex": {"id": "NCIT:C16576", "label": "Female"},
+    "diseases": [
+      {"diseaseCode": {"id": "LOCAL:viral-pharyngitis", "label": "Viral throat infection (local code)"}}
+    ],
+    "interventionsOrProcedures": [
+      {"procedureCode": {"id": "LOCAL:chest-xray", "label": "Chest X-ray (local label)"}}
+    ]
+  }
+]

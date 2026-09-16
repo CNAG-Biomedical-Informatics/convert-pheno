@@ -112,7 +112,8 @@ Output behavior:
 
 Mapping and search:
   --mapping-file <file>           Mapping V2 YAML or JSON file targeting
-                                  Beacon schema 2.0.0
+                                  Beacon schema 2.0.0, or optional terminology
+                                  correspondences for BFF-to-OMOP CDM 5.4
                                   Optional for cBioPortal clinical packages
                                   and CDISC Dataset terminology enrichment
                                   Optional compact dataset/cohort metadata for

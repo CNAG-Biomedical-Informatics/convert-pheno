@@ -49,6 +49,7 @@ my @REVIEW_ACTIONS = qw(
   resolve_or_accept_fallback
   review_similarity
   review_source_fallback
+  preserve_source
   keep
 );
 
@@ -66,6 +67,7 @@ sub new {
             review     => 0,
             unresolved => 0,
             not_searched => 0,
+            preserved => 0,
         },
         action_counts => { map { $_ => 0 } @REVIEW_ACTIONS },
         preview_rows => { map { $_ => [] } @REVIEW_ACTIONS },
@@ -211,8 +213,12 @@ sub _open_xlsx {
         review => $workbook->add_format( bg_color => '#FFF2CC' ),
         unresolved => $workbook->add_format( bg_color => '#FCE4D6' ),
         not_searched => $workbook->add_format( bg_color => '#E7E6E6' ),
+        preserved => $workbook->add_format( bg_color => '#DDEBF7' ),
     );
     my %legend_format = (
+        preserved => $workbook->add_format(
+            bold => 1, color => '#1F4E78', bg_color => '#DDEBF7', border => 1,
+        ),
         resolved => $workbook->add_format(
             bold => 1, color => 'white', bg_color => '#1B5E20', border => 1,
         ),
@@ -325,6 +331,7 @@ sub _close_xlsx {
         [ 'similarity_review',          $counts->{review} ],
         [ 'unresolved',                 $counts->{unresolved} ],
         [ 'not_searched_or_source_fallback', $counts->{not_searched} ],
+        [ 'source_value_preserved',     $counts->{preserved} ],
     );
     for my $index ( 0 .. $#summary_rows ) {
         $summary->write_string(
@@ -349,6 +356,7 @@ sub _close_xlsx {
         [ review       => 'Similarity or spelling result to review' ],
         [ unresolved   => 'No term emitted' ],
         [ not_searched => 'Not searched or source fallback' ],
+        [ preserved => 'Source text deliberately retained; no ontology lookup attempted' ],
     );
     for my $index ( 0 .. $#legend ) {
         my ( $category, $description ) = @{ $legend[$index] };
@@ -389,10 +397,11 @@ sub _close_xlsx {
         my $last_row = $self->{total_rows} + 1;
         my $range = "A2:Z$last_row";
         my @rules = (
+            [ preserved => '=$P2="preserved"' ],
             [ unresolved => '=$P2="not_found"' ],
             [ not_searched => '=OR($P2="not_searched",$Q2="source_fallback")' ],
-            [ review => '=AND($P2<>"not_found",$P2<>"not_searched",$Q2<>"source_fallback",OR($T2="similarity",$V2="one_token_relaxed"))' ],
-            [ resolved => '=AND($P2<>"not_found",$P2<>"not_searched",$Q2<>"source_fallback",$T2<>"similarity",$V2<>"one_token_relaxed")' ],
+            [ review => '=AND($P2<>"preserved",$P2<>"not_found",$P2<>"not_searched",$Q2<>"source_fallback",OR($T2="similarity",$V2="one_token_relaxed"))' ],
+            [ resolved => '=AND($P2<>"preserved",$P2<>"not_found",$P2<>"not_searched",$Q2<>"source_fallback",$T2<>"similarity",$V2<>"one_token_relaxed")' ],
         );
         for my $rule (@rules) {
             $audit->conditional_formatting(
@@ -413,6 +422,7 @@ sub _close_xlsx {
 
 sub _review_category {
     my ($row) = @_;
+    return 'preserved' if ($row->{match_status} // q{}) eq 'preserved';
     return 'unresolved' if ( $row->{match_status} // q{} ) eq 'not_found';
     return 'not_searched'
       if ( $row->{match_status} // q{} ) eq 'not_searched'
@@ -426,6 +436,7 @@ sub _review_category {
 sub _review_action {
     my ($row) = @_;
     my $category = _review_category($row);
+    return 'preserve_source'            if $category eq 'preserved';
     return 'keep'                       if $category eq 'resolved';
     return 'review_similarity'          if $category eq 'review';
     return 'resolve_or_accept_fallback' if $category eq 'unresolved';

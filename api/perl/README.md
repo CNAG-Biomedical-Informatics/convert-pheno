@@ -20,7 +20,7 @@ After `npm run build`, Mojolicious serves the built Workbench at `/`.
 - `GET /api/health`
 - `GET /api/conversions`
 - `POST /api/conversions/{conversion}`
-- `GET /examples/{source}` for the synthetic examples bundled with the Workbench
+- `GET /examples/{source}` for bundled synthetic examples shared by routes with the same source format
 
 Example:
 
@@ -46,6 +46,10 @@ curl --fail-with-body \
 For built-in routes such as OMOP-to-BFF, `mapping` is optional and supplies
 only dataset and cohort metadata. The structural source-to-BFF mapping remains
 built in.
+
+BFF-to-OMOP also accepts an optional `mapping` file, this time for reviewed
+terminology queries rather than dataset metadata. See the
+[terminology mapping example](../../t/bff2omop/in/README.md).
 
 ## Request limits
 

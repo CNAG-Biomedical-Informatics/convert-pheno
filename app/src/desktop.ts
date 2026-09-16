@@ -47,3 +47,9 @@ export async function resourceDirectory(): Promise<string> {
 export async function chooseResourceDirectory(): Promise<string | null> {
   return invoke<string | null>('choose_resource_directory')
 }
+export async function projectFile<T>(operation: 'open' | 'save', data?: unknown, handle?: string): Promise<T | null> {
+  return invoke<T | null>('project_file', { operation, data: data ?? null, handle: handle ?? null })
+}
+export async function finishQuit(): Promise<void> {
+  await invoke('finish_quit')
+}

@@ -463,36 +463,6 @@ sub save_mapping {
     return $self->register_file("$file");
 }
 
-sub save_workspace {
-    my ($self,$handle,$draft)=@_;
-    my $directory=$self->resolve_grant($handle);
-    die "Select a workspace directory\n" unless -d $directory;
-    die "Workspace draft must be an object\n" unless ref($draft) eq 'HASH';
-    my $file=path($directory,'convert-pheno.workspace.json');
-    if (-e $file) {
-        my $old=eval {_read($file)};
-        die "Refusing to overwrite an unrelated file\n" unless $old && ($old->{format}||'') eq 'convert-pheno-workspace';
-    }
-    my %settings=map {exists($draft->{$_}) ? ($_=>$draft->{$_}) : ()} qw(conversion options output);
-    my %sources;
-    for my $role (keys %{$draft->{files} || {}}) {
-        $sources{$role}=[map {$self->resolve_grant($_)} @{$draft->{files}{$role}}];
-    }
-    _write($file,{format=>'convert-pheno-workspace',version=>1,settings=>\%settings,sources=>\%sources});
-    return {filename=>$file->basename};
-}
-
-sub open_workspace {
-    my ($self,$handle)=@_;
-    my $file=$self->resolve_grant($handle);
-    die "Select a workspace manifest smaller than 1 MiB\n" unless -f $file && -s $file<=1048576;
-    my $workspace=_read($file);
-    die "Unsupported workspace\n" unless ($workspace->{format}||'') eq 'convert-pheno-workspace' && ($workspace->{version}||0)==1;
-    # A manifest is not an authority to read arbitrary paths. The user must
-    # reselect sources through the native dialog before running on reopen.
-    return {settings=>$workspace->{settings},sources=>$workspace->{sources},requiresReselection=>JSON::XS::true};
-}
-
 # Worker entry point: request and outputs stay on disk, outside the HTTP event
 # loop. The request is private operational state, never an application log.
 sub perform {

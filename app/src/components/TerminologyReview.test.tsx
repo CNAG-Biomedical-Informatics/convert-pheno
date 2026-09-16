@@ -5,6 +5,16 @@ import type { Artifact, TerminologyAudit } from '../types'
 
 const audit: TerminologyAudit={totalDecisions:1,previewRows:1,previewLimitPerAction:100,truncated:false,reportArtifactId:'term-audit',settings:{},counts:{keep:1,review_similarity:0,resolve_or_accept_fallback:0,review_source_fallback:0},rows:[{row:1,source_field:'Disease',source_value:'Asthma',lookup_query:'Asthma',converted_term_label:'Asthma',converted_term_id:'NCIT:C28397',ontology:'ncit',review_action:'keep',decision_reason:'exact_match'}]}
 const report: Artifact={id:'term-audit',filename:'term-audit.xlsx',kind:'xlsx',mediaType:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',encoding:'base64',content:''}
+it('shows preserved source values separately from failed lookups and needs review', () => {
+  const preserved = {...audit.rows[0], source_field:'geographicOrigin', source_value:'England', converted_term_label:'England', converted_term_id:'', lookup_query:'', review_action:'preserve_source' as const, decision_reason:'source_value_preserved'}
+  const unresolved = {...audit.rows[0], review_action:'resolve_or_accept_fallback' as const, decision_reason:'no_standard_concept'}
+  render(<TerminologyReview audit={{...audit,totalDecisions:2,previewRows:2,counts:{...audit.counts,keep:0,preserve_source:1,resolve_or_accept_fallback:1},rows:[preserved,unresolved]}} report={report} onDownload={vi.fn()} onHelp={vi.fn()}/>)
+  expect(screen.getByRole('button', {name:'Needs review 1'})).toHaveAttribute('aria-pressed','true')
+  expect(within(screen.getByRole('table')).queryByText('England')).not.toBeInTheDocument()
+  fireEvent.click(screen.getByRole('button', {name:/^Preserved/}))
+  expect(within(screen.getByRole('table')).getAllByText('England')).toHaveLength(2)
+  expect(within(screen.getByRole('table')).getByText('Preserved')).toBeInTheDocument()
+})
 it('groups repeated terms by default but retains separate contexts and individual occurrences', () => {
   const repeated: TerminologyAudit = { ...audit, totalDecisions: 4, previewRows: 4, counts: {...audit.counts, keep: 4}, rows: [
     audit.rows[0], {...audit.rows[0], row: 2, source_record: 'person-2'},
