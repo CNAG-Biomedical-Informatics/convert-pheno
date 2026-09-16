@@ -119,15 +119,29 @@ jobs:
         shell: pwsh
         run: |
           $prefix = perl -MConfig -e 'print $Config{prefix}'
+          if ($LASTEXITCODE -ne 0) { throw 'Cannot determine Perl prefix' }
           $compilerBin = Split-Path (Get-Command gcc).Source
-          $localLib = Join-Path $PWD 'local/lib/perl5'
-          perl scripts/stage-desktop-engine.pl `
-            --root "$PWD" `
-            --perl-prefix "$prefix" `
-            --compiler-bin "$compilerBin" `
-            --extra-perl-lib "$localLib" `
-            --destination "$PWD/app/src-tauri/engine"
+          # Strawberry may install dependencies in site/lib instead of the
+          # local::lib path advertised by setup-perl. Package existing trees.
+          $libraries = @(perl -MConfig -e 'print "$_\n" for grep { defined && length } @Config{qw(vendorlib vendorarch sitelib sitearch)}')
+          if ($LASTEXITCODE -ne 0) { throw 'Cannot determine Perl library paths' }
+          $libraries += Join-Path $PWD 'local/lib/perl5'
+          $stageArgs = @(
+            '--root', "$PWD",
+            '--perl-prefix', "$prefix",
+            '--compiler-bin', "$compilerBin",
+            '--destination', "$PWD/app/src-tauri/engine"
+          )
+          foreach ($library in ($libraries | Select-Object -Unique)) {
+            if (Test-Path -LiteralPath $library -PathType Container) {
+              Write-Host "Packaging Perl library: $library"
+              $stageArgs += @('--extra-perl-lib', $library)
+            }
+          }
+          perl scripts/stage-desktop-engine.pl @stageArgs
+          if ($LASTEXITCODE -ne 0) { throw 'Desktop engine staging failed' }
           perl scripts/test-desktop-engine.pl "$PWD/app/src-tauri/engine"
+          if ($LASTEXITCODE -ne 0) { throw 'Relocated desktop engine test failed' }
 
       - name: Build installer
         working-directory: app
