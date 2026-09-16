@@ -14,7 +14,8 @@ die "Staged Perl executable is missing\n" unless -f $perl;
 local %ENV = (
     (
         $^O eq 'MSWin32'
-        ? ( SystemRoot => $ENV{SystemRoot}, WINDIR => $ENV{WINDIR} )
+        ? ( SystemRoot => $ENV{SystemRoot}, WINDIR => $ENV{WINDIR},
+            PATH => File::Spec->catdir( $engine, 'runtime', 'bin' ) )
         : ( HOME       => $ENV{HOME} || '/tmp' )
     ),
     CONVERT_PHENO_SHARE_DIR => File::Spec->catdir( $engine, 'share' ),
@@ -25,11 +26,13 @@ local %ENV = (
 my @command = (
     $perl,
     '-I' . File::Spec->catdir( $engine, 'lib' ),
+    # Load SSL before Mojolicious can catch its first load error. Otherwise
+    # missing runtime dependencies appear only as an unhelpful reload failure.
+    '-MIO::Socket::SSL',
     '-MConvert::Pheno',
     '-MConfig',
     '-MMojolicious::Lite',
     '-MDBD::SQLite',
-    '-MIO::Socket::SSL',
     '-MExcel::Writer::XLSX',
     '-MJSONLD',
     '-MText::Levenshtein::XS',

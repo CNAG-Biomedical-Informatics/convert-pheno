@@ -228,6 +228,7 @@ jobs:
           $manifest = Get-ChildItem $destination -Filter engine-manifest.json -Recurse | Select-Object -First 1
           if (-not $manifest) { throw 'Installed engine is missing' }
           perl "$env:GITHUB_WORKSPACE/scripts/test-desktop-engine.pl" $manifest.DirectoryName
+          if ($LASTEXITCODE -ne 0) { throw 'Installed desktop engine test failed' }
           $binary = Get-ChildItem $destination -Filter convert-pheno-desktop.exe -Recurse | Select-Object -First 1
           if (-not $binary) { throw 'Installed application is missing' }
           $application = Start-Process -FilePath $binary.FullName -PassThru
