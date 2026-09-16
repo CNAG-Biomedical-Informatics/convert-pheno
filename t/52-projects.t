@@ -40,7 +40,7 @@ is_deeply($opened->{runs}, ['run-1'], 'run references survive restart');
 is_deeply($opened->{missing}, [], 'available files do not require reselection');
 is(path($jobs->resolve_grant($opened->{files}{dictionary}[0]{id}))->slurp_utf8, "id\n2\n", 'example survives deletion of temporary source');
 is(path($jobs->resolve_grant($opened->{files}{mapping}[0]{id}))->slurp_utf8, $data->{mapping}, 'mapping input and editor restore the same snapshot');
-is($jobs->resolve_grant($opened->{destination}{id}), abs_path($output), 'output destination is restored');
+is(abs_path($jobs->resolve_grant($opened->{destination}{id})), abs_path($output), 'output destination is restored');
 
 my $copy = $dir->child('copy.cpheno');
 Convert::Pheno::HTTP::Projects::save($jobs, "$copy", {%$data, files => {dictionary => [$opened->{files}{dictionary}[0]{id}]}, destination => $opened->{destination}{id}});
