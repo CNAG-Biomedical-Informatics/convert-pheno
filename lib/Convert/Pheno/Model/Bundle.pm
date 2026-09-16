@@ -29,6 +29,14 @@ sub context {
 sub add_entity {
     my ( $self, $entity_type, $entity ) = @_;
     return unless defined $entity;
+    my $context = $self->{context};
+    if ($context && ($context->target_format || '') eq 'beacon'
+        && ($entity_type eq 'individuals' || $entity_type eq 'biosamples')) {
+        my $id = $context->options->{datasetId};
+        # Some Beacon backends require this non-standard top-level property.
+        # Opt in explicitly; copy the record so caller-owned data stays intact.
+        $entity = { %{$entity}, datasetId => $id } if defined $id;
+    }
     $self->{$entity_type} ||= [];
     push @{ $self->{$entity_type} }, $entity;
     return 1;

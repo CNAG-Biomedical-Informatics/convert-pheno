@@ -51,6 +51,9 @@ h1 { font-size:21px;margin:0 0 22px;font-weight:600;letter-spacing:-.03em; } h2 
 .file-selection>div { flex:1;min-width:0; }.file-selection small { display:block;color:var(--desk-muted);margin-top:5px;overflow-wrap:anywhere; }
 fieldset { display:flex;flex-wrap:wrap;gap:16px;margin:16px 0;padding:12px;border:1px solid var(--desk-line); } fieldset label { display:flex;gap:6px; }
 .options-grid { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;padding:16px 0; }.options-grid label { display:flex;flex-direction:column;gap:6px; }
+.options-grid > div { display:flex;flex-direction:column;gap:6px; }
+.options-grid small { color:var(--desk-muted);line-height:1.5; }
+.options-grid fieldset label { flex-direction:row;align-items:center; }
 summary { cursor:pointer;font-weight:600;padding:10px 0; }
 .maturity { color:#895f2c; }
 .code-editor { display:block;width:100%;height:55vh;resize:vertical;min-height:220px;border:1px solid var(--desk-line);background:#f8faf9;padding:16px;font-family:'DejaVu Sans Mono',monospace;font-size:12px;line-height:1.7; }

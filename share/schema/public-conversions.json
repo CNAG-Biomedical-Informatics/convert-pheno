@@ -49,7 +49,8 @@
       "transports": ["multipart", "json"],
       "metadataMapping": true,
       "files": [
-        { "name": "source", "label": "OMOP table package", "description": "Upload table CSV/TSV files, one ZIP package, or one PostgreSQL SQL dump.", "required": true, "multiple": true, "maximum": 128, "accept": [".zip", ".csv", ".csv.gz", ".tsv", ".tsv.gz", ".sql", ".sql.gz"], "argument": "in_files" }
+        { "name": "source", "label": "OMOP table package", "description": "Upload table CSV/TSV files, one ZIP package, or one PostgreSQL SQL dump.", "required": true, "multiple": true, "maximum": 128, "accept": [".zip", ".csv", ".csv.gz", ".tsv", ".tsv.gz", ".sql", ".sql.gz"], "argument": "in_files" },
+        { "name": "exposures", "label": "Custom exposure concepts", "description": "Optional CSV list of concept_id values to treat as exposures. Leave empty to use the supplied list.", "required": false, "multiple": false, "maximum": 1, "accept": [".csv"], "argument": "exposures_file" }
       ]
     },
     "pcornet": {
@@ -114,14 +115,18 @@
     }
   },
   "option_definitions": {
-    "default_vital_status": { "label": "Default vital status", "kind": "select", "values": ["ALIVE", "DECEASED", "UNKNOWN_STATUS"], "default": "ALIVE" },
+    "include_dataset_id": { "label": "Include datasetId in records", "description": "For backends that require a top-level datasetId on individuals and biosamples. Uses beacon.datasets.defaults.id from your mapping file; this is not a standard Beacon field.", "kind": "boolean", "default": false },
+    "default_vital_status": { "label": "Default vital status", "description": "Used in Phenopackets only when the source has no vital status.", "kind": "select", "values": ["ALIVE", "DECEASED", "UNKNOWN_STATUS"], "default": "ALIVE" },
     "search": { "label": "Terminology search", "kind": "select", "values": ["exact", "mixed", "fuzzy"], "default": "exact" },
-    "text_similarity_method": { "label": "Text similarity method", "kind": "select", "values": ["cosine", "dice"], "default": "cosine" },
-    "min_text_similarity_score": { "label": "Minimum similarity score", "kind": "number", "minimum": 0, "maximum": 1, "default": 0.8 },
-    "levenshtein_weight": { "label": "Levenshtein weight", "kind": "number", "minimum": 0, "maximum": 1, "default": 0.1 },
-    "max_lines_sql": { "label": "Maximum OMOP participants", "kind": "integer", "minimum": 0, "default": 500 },
-    "source_info": { "label": "Include source provenance", "kind": "boolean", "default": true },
-    "username": { "label": "Provenance username", "kind": "string" },
+    "text_similarity_method": { "label": "Text similarity method", "description": "How candidate labels are compared with your query.", "visibleWhen": {"search": ["mixed", "fuzzy"]}, "kind": "select", "values": ["cosine", "dice"], "default": "cosine" },
+    "min_text_similarity_score": { "label": "Minimum similarity score", "description": "Candidates below this score are not accepted. This is not a probability.", "visibleWhen": {"search": ["mixed", "fuzzy"]}, "kind": "number", "minimum": 0, "maximum": 1, "default": 0.8 },
+    "levenshtein_weight": { "label": "Levenshtein weight", "description": "Weight of character-edit similarity in candidate scoring.", "visibleWhen": {"search": ["mixed", "fuzzy"]}, "kind": "number", "minimum": 0, "maximum": 1, "default": 0.1 },
+    "max_lines_sql": { "label": "OMOP processing limit", "description": "Maximum participants in non-streaming processing; SQL imports also limit rows per table. Use 0 for no limit.", "kind": "integer", "minimum": 0, "default": 500 },
+    "omop_tables": { "label": "OMOP input tables", "description": "Leave empty to use all supported tables. PERSON and CONCEPT are always included; biosamples also require SPECIMEN.", "kind": "multiselect", "default": [] },
+    "ohdsi_db": { "label": "Use installed OHDSI vocabulary", "description": "Resolve OMOP concepts using the installed OHDSI database instead of the input CONCEPT table. Install it under Resources first.", "kind": "boolean", "default": false },
+    "stream": { "label": "Stream OMOP input", "description": "Process participants incrementally to reduce memory use. Output is line-delimited JSON; only supported entity combinations can be streamed.", "kind": "boolean", "default": false },
+    "source_info": { "label": "Include source provenance", "description": "Keep original source fields in info alongside mapped fields. Turn off to omit those source copies, not the mapped data.", "kind": "boolean", "default": true },
+    "username": { "label": "Provenance username", "description": "Optional name recorded in conversion metadata.", "kind": "string" },
     "separator": { "label": "Column separator", "kind": "string", "default": ";" },
     "term_audit": { "label": "Terminology audit", "kind": "select", "values": ["none", "tsv", "xlsx"], "default": "none" }
   },
@@ -131,8 +136,9 @@
   "http_profiles": {
     "common_options": ["source_info", "username"],
     "terminology_options": ["search", "text_similarity_method", "min_text_similarity_score", "levenshtein_weight"],
-    "omop_input_options": ["max_lines_sql"],
+    "omop_input_options": ["max_lines_sql", "omop_tables", "ohdsi_db"],
     "pxf_output_options": ["default_vital_status"],
+    "bff_output_options": ["include_dataset_id"],
     "ohdsi_targets": ["bff2omop", "cbioportal2omop", "cdiscodm2omop", "csv2omop", "datasetjson2omop", "datasetxml2omop", "fhir2omop", "i2b22omop", "pcornet2omop", "pxf2omop", "sentinel2omop"],
     "file_sources": ["cbioportal", "cdisc-odm", "csv", "dataset-json", "dataset-xml", "i2b2", "pcornet", "redcap", "sentinel"],
     "terminology_sources": ["cbioportal", "cdisc-odm", "csv", "dataset-json", "dataset-xml", "redcap"],
@@ -143,6 +149,7 @@
     "output": ["derived_entity_overrides", "entities"],
     "options": [
       "default_vital_status",
+      "include_dataset_id",
       "levenshtein_weight",
       "max_lines_sql",
       "min_text_similarity_score",

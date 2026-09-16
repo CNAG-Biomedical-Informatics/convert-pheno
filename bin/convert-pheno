@@ -139,6 +139,9 @@ Mapping and search:
                                   scores [.tsv|.tsv.gz|.xlsx]
   --source-info|--no-source-info  Preserve or omit raw source provenance in BFF
                                   output [source-info]
+  --include-dataset-id            Copy beacon.datasets.defaults.id to top-level
+                                  datasetId in individuals and biosamples
+                                  (backend compatibility extension; off by default)
 
 OMOP:
   --ohdsi-db                      Enable Athena-OHDSI lookup

@@ -5,228 +5,153 @@ sidebar_label: Command-Line Interface
 slug: /use-as-a-command-line-interface
 ---
 
-import Link from '@docusaurus/Link';
+Use `convert-pheno` to convert local files or run conversions in scripts.
+For a graphical workflow, use the [Desktop App](graphical-interface).
 
-`Convert-Pheno` includes a **command-line utility** for file-based conversions. This is the **primary way** most users work with the project. Choose the input format first, then select a supported output and copy the corresponding command.
+## Start with your input
 
-The CLI is organized around one input format, one output format, and optional controls for BFF entities, mapping files, ontology search, streaming, and source provenance.
+**[Find a command for your input format](conversion-recipes)**, then replace
+the example paths with your own. New to the tool? The
+[5-Minute Quickstart](quickstart) includes a downloadable input and expected results.
 
-<div className="button-row">
-  <Link className="button button--primary" to="/conversion-recipes">Commands by input format</Link>
-  <Link className="button button--secondary" to="/mapping-files">Mapping files</Link>
-  <Link className="button button--secondary" to="/download-and-installation">Check installation</Link>
-</div>
-
-<div className="convertCommandMap">
-  <Link to="/conversion-recipes#pxf-input-bff-output">
-    <span>-ipxf -obff</span>
-    <strong>Phenopackets to BFF</strong>
-    <small>Write individuals or selected Beacon entities.</small>
-  </Link>
-  <Link to="/conversion-recipes#omop-cdm-input-bff-output">
-    <span>-iomop -obff</span>
-    <strong>OMOP to BFF</strong>
-    <small>Convert PERSON, CONCEPT, SPECIMEN, and other OMOP tables.</small>
-  </Link>
-  <Link to="/conversion-recipes#mapping-file-input-examples">
-    <span>--mapping-file</span>
-    <strong>Mapped tabular data</strong>
-    <small>Use CSV, REDCap, or CDISC-ODM with terminology auditing.</small>
-  </Link>
-  <Link to="/conversion-recipes#bff-input-examples">
-    <span>-ibff -opxf</span>
-    <strong>BFF to Phenopackets</strong>
-    <small>Generate Phenopackets from Beacon individuals input.</small>
-  </Link>
-  <Link to="/conversion-recipes#pxf-input-bff-output">
-    <span>--entities</span>
-    <strong>Multi-entity BFF</strong>
-    <small>Write individuals, biosamples, datasets, and cohorts to an output directory.</small>
-  </Link>
-  <a href="#detailed-cli-reference">
-    <span>--help</span>
-    <strong>Option groups</strong>
-    <small>Review mapping, OMOP, search, streaming, and output controls.</small>
-  </a>
-</div>
-
-## Command Model
-
-Every command has three parts:
-
-| Part | Meaning | Example |
-|------|---------|---------|
-| Input | What format is being read | `-ipxf phenopacket.json` |
-| Output | What format is being written | `-obff individuals.json` |
-| Options | Extra behavior | `--entities individuals biosamples --out-dir out/` |
-
-The most important distinction is BFF output mode:
-
-- `-obff FILE` writes one `individuals` file.
-- `-obff --entities ... --out-dir DIR` writes one file per requested BFF entity.
-
-<details>
-<summary>Detailed CLI reference</summary>
-
-## Basic pattern
-
-The command is organized around **one input format** and **one output format**:
+Check that the CLI is installed:
 
 ```bash
-convert-pheno -i <input-type> <infile> -o <output-type> <outfile> [options]
+convert-pheno --version
 ```
 
-Both CLI styles are supported:
+If the command is unavailable, see [Installation](download-and-installation).
 
-- **Generic form:** `-i pxf ... -o bff ...`
-- **Compact form:** `-ipxf ... -obff ...`
+## Read a command {#command-model}
 
-The compact flags are still the ones most users rely on:
+```bash
+convert-pheno \
+  -ipxf phenopacket.json \
+  -obff individuals.json
+```
 
-- `-ipxf`, `-ibff`, `-icbioportal`, `-iomop`, `-iopenehr`, `-iredcap`, `-icdisc-odm`, `-idataset-json`, `-idataset-xml`, `-ifhir`, `-ii2b2`, `-ipcornet`, `-isentinel`, `-icsv`
-- `-obff`, `-opxf`, `-oomop`, `-ocsv`, `-ojsonf`, `-ojsonld`
+- `-ipxf phenopacket.json` selects Phenopacket input and its source file.
+- `-obff individuals.json` selects Beacon output and its destination.
+- Add options only when needed, such as `--no-source-info` to omit original source-field copies.
 
-:::note[Experimental source profiles]
-`cBioPortal` clinical packages, openEHR canonical input, CDISC Dataset-JSON and
-Dataset-XML SDTM input, FHIR R4 Bundle input, and exported i2b2, PCORnet, and
-Sentinel tables are implemented but marked experimental while independent source coverage
-grows. Standard/OpenClinica CDISC-ODM and the bounded ODM 2.0 ClinicalData
-profile are also experimental beyond the established REDCap ODM workflow.
-Dataset-JSON, Dataset-XML, FHIR, i2b2, PCORnet, and Sentinel can write BFF, PXF, or OMOP-CDM; openEHR
-currently writes BFF or PXF.
+This command creates `individuals.json` in the current directory. Input files
+are not changed. Use quoted paths when filenames contain spaces.
 
+The compact flags above and the generic form
+`-i pxf phenopacket.json -o bff individuals.json` are equivalent.
+
+## Choose the output {#bff-output-modes}
+
+| What you want | Command ending |
+| --- | --- |
+| Beacon individuals in one file | `-obff individuals.json` |
+| Separate Beacon entity files | `-obff --entities individuals biosamples --out-dir bff-out/` |
+| Phenopackets | `-opxf phenopackets.json` |
+| OMOP CSV tables | `-oomop --out-dir omop-out/ --ohdsi-db` |
+| Flattened CSV from BFF or PXF | `-ocsv records.csv` |
+
+Choose a target supported by your input; see [Supported Formats](supported-formats).
+For directory output, create the destination first, for example `mkdir -p bff-out`.
+
+**`--entities` does not replace `-obff`.** It chooses which BFF collections to
+write. Add `datasets` or `cohorts` when needed; biosamples require sample data in
+the source. Each collection gets its own filename, such as `biosamples.json`.
+
+OMOP output writes named tables such as `PERSON.csv`, not a single JSON file.
+It requires the
+[OHDSI database](download-and-installation/non-containerized#optional-athena-ohdsi-database).
+
+Existing outputs are protected. Add `-O` only when you intend to overwrite them.
+Use `--out-name biosamples=samples.json` to rename an entity output file.
+
+## Do you need a mapping file?
+
+| Input or task | What to provide |
+| --- | --- |
+| CSV, REDCap, CDISC-ODM | A field mapping: `--mapping-file mapping.yaml` |
+| REDCap CSV or REDCap-origin ODM | Also supply `--redcap-dictionary dictionary.csv` |
+| Dataset-XML | Supply `--define-xml define.xml`; optional for Dataset-JSON |
+| BFF to OMOP terminology corrections | An optional terminology mapping |
+| Dataset ID, name, or cohort metadata for OMOP to BFF | A small optional metadata mapping; OMOP field conversion stays built in |
+
+See [Mapping Files](mapping-files) for the appropriate structure. Other built-in
+routes can also accept optional mappings; their format guides explain the purpose.
+
+**Need a dataset ID?** Follow the
+[OMOP metadata example](mapping-files#compact-dataset-and-cohort-metadata).
+Add `--include-dataset-id` only when your backend requires top-level `datasetId`
+on individuals and biosamples. The ID comes from
+`beacon.datasets.defaults.id` in the mapping file, and this also works without
+generating `datasets.json`.
+
+## Settings worth checking {#important-options}
+
+| Need | Option |
+| --- | --- |
+| Your CSV is comma-separated | `--separator ','`; the `.csv` default is `;` |
+| Smaller BFF without original source copies | `--no-source-info`; mapped fields remain |
+| Review terminology matches and unresolved terms | `--term-audit review.xlsx` (also `.tsv` or `.tsv.gz`) |
+| Process all OMOP records rather than the default limit | `--max-lines-sql 0` |
+| Reduce memory use for OMOP-to-BFF | `--stream`; output becomes line-delimited JSON |
+| Set PXF status only when missing from the source | `--default-vital-status UNKNOWN_STATUS` |
+
+:::warning[OMOP input limit]
+The default `--max-lines-sql 500` caps individuals in non-streaming conversions
+and rows per table in SQL imports. Set it deliberately for your dataset.
+CSV/TSV streaming is not capped by this option.
 :::
-You can always check the current built-in help with:
+
+Auditing is optional and adds processing time. Start with `--search exact`
+(the default), then inspect the report before changing aliases or trying
+`mixed` or `fuzzy`. See [Terminology Search](terminology-search) for examples
+and score interpretation.
+
+Streaming is supported for OMOP-to-BFF individuals, biosamples, or both.
+It does not generate datasets or cohorts. See the
+[OMOP input guide](omop-cdm#omop-as-input) for source layouts and requirements.
+
+## More options {#detailed-cli-reference}
+
+The installed version lists its complete options with:
 
 ```bash
 convert-pheno --help
 ```
 
-## BFF output modes
+<details>
+<summary>Terminology and OMOP controls</summary>
 
-`BFF` output has two explicit CLI forms:
+| Option | Purpose |
+| --- | --- |
+| `--text-similarity-method cosine\|dice` | Token similarity for mixed/fuzzy; default `cosine` |
+| `--min-text-similarity-score SCORE` | Minimum mixed/fuzzy score; default `0.8` |
+| `--levenshtein-weight WEIGHT` | Character-edit contribution to fuzzy scoring; default `0.1` |
+| `--path-to-ohdsi-db DIR` | Directory containing `ohdsi.db` |
+| `--ohdsi-db` | Use OHDSI; required for OMOP output, optional for OMOP input |
+| `--omop-tables TABLE ...` | Restrict input tables; PERSON and CONCEPT remain included |
+| `--exposures-file FILE` | Override the list of OMOP concept IDs treated as exposures |
+| `--no-stream` | Explicitly select in-memory processing |
+| `--sql2csv` | Extract SQL tables rather than convert; incompatible with `--stream` |
 
-- `individuals`-only BFF output: `-obff FILE`
-- Entity-aware output: `-obff --entities ... --out-dir DIR`
+</details>
 
-`--entities` modifies BFF output; it does not replace `-obff`.
+<details>
+<summary>Metadata and troubleshooting controls</summary>
 
-## Notes
+| Option | Purpose |
+| --- | --- |
+| `--username NAME` | Name recorded in conversion metadata |
+| `--out-name KEY=FILE` | Override an entity or OMOP table filename; repeat as needed |
+| `--verbose` | Show progress |
+| `--log [FILE]` | Save the resolved request/configuration |
+| `--debug LEVEL` | Print diagnostics; level 2 also summarizes SQLite activity |
+| `--color` / `--no-color` | Enable or disable terminal colors |
+| `--test` | Suppress time-varying metadata for reproducible tests |
+| `--schema-file FILE` | Use an alternative mapping schema |
+| `--self-validate-schema` | Developer check of the mapping schema itself |
 
-- When `PXF` input contains `biosamples`, the individuals-only `-obff FILE` path still writes only `individuals`. In that mode, `convert-pheno` warns and preserves the biosamples under `info.phenopacket.biosamples`.
-- `--entities` can be used with `BFF` output. The supported output entities are `individuals`, `biosamples`, `datasets`, and `cohorts`.
-- `biosamples` are emitted from PXF biosample data, cBioPortal sample clinical tables, FHIR `Specimen`, OMOP `SPECIMEN`, or explicit `beacon.biosamples.rules` in mapping-file routes.
-- `datasets` and `cohorts` are synthesized from the normalized `individuals` collection.
-- In mapping-file conversions, `beacon.biosamples` defines first-class biosample rules, while `beacon.datasets.defaults` and `beacon.cohorts.defaults` override synthesized metadata.
-- Full field mapping is available for `csv2bff`, `redcap2bff`, and `cdiscodm2bff`; cBioPortal can optionally augment its built-in patient and sample mapping. Built-in OMOP, PXF, FHIR, openEHR, i2b2, PCORnet, and Sentinel BFF routes accept a compact optional mapping containing only project, dataset, and cohort metadata.
-- `--entities` narrows BFF output and requires `-obff` with `--out-dir`.
-- `--out-name key=file` lets you override one multi-file output name. Use entity keys for `BFF` entity mode and table keys for `OMOP` output.
-- `--no-source-info` omits raw source provenance copied into `BFF` `info`, such as `OMOP_columns`, `CSV_columns`, `REDCap_columns`, `CDISC_ODM`, `cbioportal`, `datasetJson.domains`, `datasetXml.domains`, and `fhir` resources. Mapped fields and `info.convertPheno` are kept.
-- `--term-audit FILE` writes a TSV, compressed TSV, or color-coded XLSX audit of direct terms, identifier lookups, label searches, and fallbacks, including retrieval paths, decision reasons, candidate scores, score margins, and provenance.
-- `--stream` is mainly relevant for **large OMOP inputs**. Use `--no-stream` to force the default in-memory mode when a wrapper or previous option may have enabled streaming.
-
-## Important options
-
-### Mapping-file conversions
-
-- `--mapping-file FILE` supplies a Mapping V2 YAML or JSON document targeting Beacon schema `2.0.0`. It is required by CSV, REDCap, and CDISC-ODM routes; optional for cBioPortal augmentation, Dataset-JSON/Dataset-XML terminology enrichment, and dataset/cohort metadata on built-in BFF routes.
-- `--redcap-dictionary FILE` or `-rcd FILE` supplies the dictionary required by REDCap CSV and REDCap-origin ODM. Standard/OpenClinica ODM uses embedded metadata and rejects this option.
-- `--schema-file FILE` lets you validate mapping files against an alternative JSON Schema.
-- `--self-validate-schema` or `-svs` performs a self-validation of the mapping schema itself. This is mainly an author or development check and may require SSL support in the Perl environment.
-- `--term-audit FILE` writes a terminology-decision report selected by the `.tsv`, `.tsv.gz`, or `.xlsx` extension. The audit includes source values and labels, lookup inputs, converted terms, retrieval paths, decision reasons, candidate scores and margins, provenance, fallbacks, and effective search settings.
-
-### CDISC-ODM-specific behavior
-
-- `-icdisc-odm FILE` or `-i cdisc-odm FILE` accepts Snapshot XML using ODM 1.3.1, 1.3.2, or the bounded ODM 2.0 ClinicalData profile.
-- Version and vendor profile are detected from the ODM namespace, `ODMVersion`, source system, and extension namespaces. Version-specific input flags are not used.
-- REDCap-origin ODM uses `source.profile: redcap` with `--redcap-dictionary`. Standard or OpenClinica ODM uses `source.profile: cdisc-odm` and embedded `MetaDataVersion`, `ItemDef`, and `CodeList` metadata.
-- Repeated item groups are kept as separate occurrences for repeated BFF sections; ambiguous repeated scalar values stop the conversion instead of overwriting data.
-- The route is also available through the Mojolicious HTTP(s) API and desktop application.
-
-### cBioPortal-specific behavior
-
-- `-icbioportal PATH` or `-i cbioportal PATH` accepts an unpacked cBioPortal study directory or `.zip` archive.
-- Clinical data files are discovered through `meta_*.txt` descriptors. The sample table is required; a missing patient table is derived from sample-to-patient links.
-- Entity-aware BFF output can emit patient-derived `individuals`, sample-derived `biosamples`, a study-derived `dataset`, and case-list-derived `cohorts`.
-- A mapping file using `source.profile: cbioportal` is optional and may augment project-specific patient and sample fields. It cannot rewrite `PATIENT_ID` or `SAMPLE_ID`.
-- Timeline and molecular files are currently outside this clinical package profile. The CLI and module accept directories or ZIP files; the Mojolicious HTTP(s) API accepts ZIP uploads.
-
-### Ontology search tuning
-
-- `--search exact|mixed|fuzzy` selects the ontology lookup strategy. Default: `exact`.
-- `--text-similarity-method cosine|dice` selects the token-similarity method used by `mixed` and `fuzzy`. Default: `cosine`.
-- `--min-text-similarity-score FLOAT` sets the minimum score accepted by `mixed` and `fuzzy`. Default: `0.8`.
-- `--levenshtein-weight FLOAT` sets the normalized Levenshtein weight used by `fuzzy`. Default: `0.1`.
-
-For resolution precedence, audit columns, and threshold tradeoffs, see [Terminology Search](terminology-search).
-
-### OMOP-specific options
-
-- `--ohdsi-db` enables Athena-OHDSI lookup. It is required for OMOP output and optional for OMOP input when concepts are absent from the supplied `CONCEPT` table.
-- `--path-to-ohdsi-db DIR` points to the directory containing `ohdsi.db`.
-- `--omop-tables TABLE ...` restricts which OMOP-CDM tables are processed, while `CONCEPT` and `PERSON` stay included.
-- `--exposures-file FILE` provides a CSV list of OMOP `concept_id` values to be treated as exposures.
-- `--stream` enables incremental OMOP processing for `-iomop ... -obff` output. Use `--no-stream` to explicitly keep the default non-streaming mode.
-- `--sql2csv` prints SQL tables instead of converting them.
-- `--max-lines-sql N` caps rows read per SQL table and individuals emitted by non-streaming OMOP conversions, including CSV/TSV input. CSV/TSV streaming is not capped by this option. Default: `500`.
-
-### openEHR-specific options
-
-- `-iopenehr FILE ...` or `-i openehr FILE ...` accepts openEHR JSON or YAML input as patient-bearing envelopes or composition sets.
-- openEHR input must carry a resolvable patient identifier in the payload or envelope; otherwise the conversion fails.
-- multiple openEHR files are supported when patient identity can be resolved; multi-patient input is grouped automatically before mapping.
-- The current openEHR CLI path is **experimental** and currently supports **BFF** and **PXF** output.
-
-### Dataset-JSON-specific options
-
-- `-idataset-json FILE ...` or `-i dataset-json FILE ...` accepts one or more CDISC Dataset-JSON v1.1 SDTM domain files in `.json` or `.json.gz` form.
-- Exactly one `DM` dataset is required. Subject-level domains are grouped by `USUBJID`; no REDCap dictionary is used. A mapping file with `source.profile: sdtm` is optional for terminology enrichment.
-- `--define-xml FILE` is optional for Dataset-JSON and can supply authoritative `nci:ExtCodeID` identifiers and controlled-term displays.
-- `datasetjson2bff`, `datasetjson2pxf`, and `datasetjson2omop` are available. OMOP output also requires `--ohdsi-db` and `--out-dir`.
-- Input is currently processed in memory rather than streamed. See [CDISC Dataset-JSON](dataset-json) for mapped domains and current boundaries.
-
-### Dataset-XML-specific options
-
-- `-idataset-xml FILE ...` or `-i dataset-xml FILE ...` accepts one or more CDISC Dataset-XML v1.0 SDTM domain files in `.xml` form.
-- `--define-xml FILE` is required and supplies the Define-XML v2.0/v2.1 metadata used to resolve each domain, column, order, label, and data type.
-- Exactly one `DM` dataset is required. Subject-level domains are grouped by `USUBJID`; a mapping file with `source.profile: sdtm` is optional for terminology enrichment.
-- `datasetxml2bff`, `datasetxml2pxf`, and `datasetxml2omop` are available. OMOP output also requires `--ohdsi-db` and `--out-dir`.
-- Input is processed in memory. See [CDISC Dataset-XML](dataset-xml) for cross-file checks and current boundaries.
-
-### FHIR-specific options
-
-- `-ifhir FILE ...` or `-i fhir FILE ...` accepts one or more FHIR R4 Bundle files in `.json` or `.json.gz` form.
-- Each Bundle must contain at least one Patient. Relative, absolute, and `urn:uuid:` resource references are resolved before resources are grouped by Patient.
-- mCODE 4.0 Bundles use the same input route. Canonical profile URLs are detected automatically; no mCODE-specific flag is required.
-- `fhir2bff`, `fhir2pxf`, and `fhir2omop` are available. Entity-aware BFF output can emit Specimen-derived `biosamples`; OMOP output also requires `--ohdsi-db` and `--out-dir`.
-- Input is processed in memory. See [FHIR R4](fhir) for mapped resources and current boundaries.
-
-### Clinical table-package inputs
-
-- `-ii2b2`, `-ipcornet`, and `-isentinel` accept one directory, one ZIP package, or one or more `.csv`, `.tsv`, or `.txt` tables, optionally gzip-compressed.
-- These adapters read exported tables and do not connect to live databases. Rows are grouped by patient in memory.
-- i2b2 requires `PATIENT_DIMENSION` and `OBSERVATION_FACT`; PCORnet and Sentinel require `DEMOGRAPHIC`.
-- Each route can write BFF, PXF, or OMOP-CDM. OMOP output also requires `--ohdsi-db` and `--out-dir`.
-- Raw source rows are preserved in BFF `info` unless `--no-source-info` is used. See [i2b2](i2b2), [PCORnet CDM](pcornet), and [Sentinel CDM](sentinel).
-
-### General options
-
-- `--separator CHAR` or `--sep CHAR` overrides the CSV delimiter. For `.csv` files the default remains `;`.
-- `--username NAME` or `-u NAME` overrides the username stored in conversion metadata.
-- `--default-vital-status ALIVE|DECEASED|UNKNOWN_STATUS` sets the fallback `subject.vitalStatus.status` used for `PXF` output when no source-derived value is available. Default: `ALIVE`.
-- `--source-info` / `--no-source-info` controls whether raw source payloads are preserved in `BFF` `info`. Default: `--source-info`.
-- `--log [FILE]` writes the resolved request/configuration JSON. If no filename is provided, the default is `convert-pheno-log.json` in `--out-dir`.
-- `--color` / `--no-color` controls colored terminal output. Default: `--color`.
-- `--test` suppresses time-varying metadata so generated files are stable for comparisons.
-- `--verbose` or `-v` prints progress information.
-- `--debug LEVEL` prints the resolved internal request and extra debugging output.
-  With `LEVEL >= 2`, it also prints a compact SQLite lookup summary
-  (requests, cache hits, DB lookups, search resolution, and SQL timings).
-
-## More help
-
-- [CLI conversion commands](conversion-recipes) grouped by input format
-- [Download & Installation](download-and-installation) for setup
-- [Google Colab tutorial](https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6) if you want a disposable environment
+If a conversion fails, read the reported error before rerunning. For help,
+include the tool version, conversion command, and error, using synthetic data
+and removing private paths or identifiers. See [Troubleshooting](troubleshooting).
 
 </details>

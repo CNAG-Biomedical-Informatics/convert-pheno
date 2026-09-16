@@ -92,9 +92,11 @@ convert-pheno -iomop omop-export/ -obff individuals.json
 convert-pheno -iomop omop-export.zip -obff individuals.json
 ```
 
-When producing `datasets` or `cohorts`, an optional compact Mapping V2 file can
-set project and entity metadata without changing the built-in OMOP field
-mapping. See [Compact Dataset And Cohort Metadata](mapping-files#compact-dataset-and-cohort-metadata).
+**Set a dataset ID or name:** add an optional `--mapping-file` containing dataset
+metadata, without changing the built-in OMOP field mapping. Follow the
+[YAML and command example](mapping-files#compact-dataset-and-cohort-metadata).
+To also write `datasetId` on individuals and biosamples, enable
+`--include-dataset-id`; this works even without requesting `datasets.json`.
 
 ZIP entries are extracted into a private temporary directory for the duration
 of the conversion. This lets `--stream` use the same bounded-memory table
@@ -142,7 +144,14 @@ underscore. For example, `Type Concept` becomes
 Original rows are retained by default under fields such as
 `info.PERSON.OMOP_columns` and
 `biosamples.info.SPECIMEN.OMOP_columns`. This supports mapping review and
-source-level queries. Use `--no-source-info` to omit these copied rows.
+source-level queries. Use `--no-source-info` to omit these copied rows, or turn
+off **Include source provenance** in Desktop's advanced options.
+
+For backends that require `datasetId` on each individual and biosample, provide
+a [metadata mapping](mapping-files#compact-dataset-and-cohort-metadata) and enable
+`--include-dataset-id` (Desktop: **Include datasetId in records**). The ID comes
+from `beacon.datasets.defaults.id` in that mapping; propagation is off by
+default and also works with streaming.
 
 ### Memory and Streaming
 

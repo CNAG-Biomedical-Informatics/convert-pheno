@@ -1,9 +1,11 @@
 export type OptionDefinition = {
   name: string
   label: string
-  kind: 'boolean' | 'integer' | 'number' | 'select' | 'string'
+  description?: string
+  visibleWhen?: Record<string, string[]>
+  kind: 'boolean' | 'integer' | 'number' | 'select' | 'string' | 'multiselect'
   values?: string[]
-  default?: string | number | boolean
+  default?: string | number | boolean | string[]
   minimum?: number
   maximum?: number
 }

@@ -6,10 +6,10 @@ import { selectPaths, confirmAction, revealRun, installOhdsi, downloadOhdsi, can
 import type { Conversion, Job } from './types'
 import { writeText } from '@tauri-apps/plugin-clipboard-manager'
 
-const native = vi.hoisted(() => ({ theme: vi.fn(), listener: undefined as undefined | ((event: { payload: string }) => void) }))
+const native = vi.hoisted(() => ({ theme: vi.fn(), title: vi.fn(), listener: undefined as undefined | ((event: { payload: string }) => void) }))
 vi.mock('@tauri-apps/api/core', () => ({ isTauri: () => true }))
 vi.mock('@tauri-apps/plugin-clipboard-manager', () => ({ writeText: vi.fn() }))
-vi.mock('@tauri-apps/api/window', () => ({ getCurrentWindow: () => ({ setTheme: native.theme }) }))
+vi.mock('@tauri-apps/api/window', () => ({ getCurrentWindow: () => ({ setTheme: native.theme, setTitle: native.title }) }))
 vi.mock('@tauri-apps/api/event', () => ({ listen: vi.fn(async (_name, callback) => { native.listener = callback; return () => {} }) }))
 vi.mock('./api', () => ({ getConversions: vi.fn(), listJobs: vi.fn(), submitJob: vi.fn(), getExample: vi.fn(), inputPreview: vi.fn(), outputPreview: vi.fn(), cancelJob: vi.fn(), deleteJob: vi.fn(), deleteJobFiles: vi.fn(), deleteAllJobs: vi.fn(), cancelPendingJobs: vi.fn(), getResources: vi.fn(), post: vi.fn(), uploadFiles: vi.fn(), downloadOutput: vi.fn() }))
 vi.mock('./desktop', () => ({ projectFile: vi.fn(), finishQuit: vi.fn(), selectPaths: vi.fn(), openExternal: vi.fn(), revealRun: vi.fn(), confirmAction: vi.fn(), saveMappingCopy: vi.fn(), installOhdsi: vi.fn(), downloadOhdsi: vi.fn(), cancelOhdsiDownload: vi.fn(), chooseResourceDirectory: vi.fn(), resourceDirectory: vi.fn(async () => '/synthetic/resources'), connection: vi.fn(async () => ({ outputRoot: '/synthetic/app/runs' })) }))
@@ -41,6 +41,7 @@ describe('native desktop workspace', () => {
     vi.clearAllMocks(); localStorage.clear()
     vi.stubGlobal('matchMedia', vi.fn(() => ({ matches: false, addEventListener: vi.fn(), removeEventListener: vi.fn() })))
     native.theme.mockResolvedValue(undefined)
+    native.title.mockResolvedValue(undefined)
     vi.mocked(writeText).mockResolvedValue(undefined)
     vi.mocked(api.getConversions).mockResolvedValue([pxf, csv])
     vi.mocked(api.listJobs).mockResolvedValue([])
@@ -57,6 +58,23 @@ describe('native desktop workspace', () => {
     await start()
     expect(screen.getByRole('link', { name: 'Documentation' })).toHaveAttribute('href', 'https://cnag-biomedical-informatics.github.io/convert-pheno/')
     expect(screen.getByRole('link', { name: 'GitHub' })).toHaveAttribute('href', 'https://github.com/CNAG-Biomedical-Informatics/convert-pheno')
+  })
+  it('shows the saved project name and unsaved marker only in the native title', async () => {
+    await start(); await loadExample()
+    expect(native.title).toHaveBeenLastCalledWith('Convert-Pheno')
+    expect(screen.queryByRole('heading', {name:/Untitled project/})).not.toBeInTheDocument()
+    vi.mocked(projectFile).mockResolvedValue({file:{id:'project1',filename:'Study A.cpheno'}})
+    menu('save')
+    await waitFor(()=>expect(native.title).toHaveBeenLastCalledWith('Study A - Convert-Pheno'))
+    expect(within(screen.getByRole('banner')).queryByText(/Study A/)).not.toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button',{name:'Edit JSON'}))
+    fireEvent.change(screen.getByLabelText('JSON input'),{target:{value:'[{"id":"changed"}]'}})
+    await waitFor(()=>expect(native.title).toHaveBeenLastCalledWith('Study A * - Convert-Pheno'))
+    expect(within(screen.getByRole('banner')).queryByText(/Study A/)).not.toBeInTheDocument()
+    expect(within(screen.getByLabelText('Workspace explorer')).queryByText(/Study A/)).not.toBeInTheDocument()
+    menu('save')
+    await waitFor(()=>expect(native.title).toHaveBeenLastCalledWith('Study A - Convert-Pheno'))
+    expect(within(screen.getByRole('banner')).queryByText(/Study A/)).not.toBeInTheDocument()
   })
   it.each(['new', 'open', 'close-project', 'quit'])('protects unsaved example data on %s', async (action) => {
     await start(); await loadExample(); menu(action)
@@ -75,7 +93,7 @@ describe('native desktop workspace', () => {
     fireEvent.click(within(screen.getByRole('dialog')).getByRole('button', {name:'Save'}))
     await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument())
     expect(projectFile).toHaveBeenCalledWith('save', expect.objectContaining({jsonInput: JSON.stringify(example, null, 2)}), undefined)
-    expect(screen.getByRole('heading', {name:'Untitled project'})).toBeInTheDocument()
+    expect(native.title).toHaveBeenLastCalledWith('Convert-Pheno')
     expect(screen.getByRole('button', {name:/^pxf2bff completed/})).toBeInTheDocument()
   })
   it('keeps the current project when the save dialog is cancelled or saving fails', async () => {
@@ -94,7 +112,7 @@ describe('native desktop workspace', () => {
     fireEvent.click(within(screen.getByRole('dialog')).getByRole('button', {name:'Discard'}))
     await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument())
     expect(projectFile).not.toHaveBeenCalled()
-    expect(screen.getByRole('heading', {name:'Untitled project'})).toBeInTheDocument()
+    expect(native.title).toHaveBeenLastCalledWith('Convert-Pheno')
     menu('quit')
     await waitFor(() => expect(finishQuit).toHaveBeenCalledOnce())
   })
@@ -125,7 +143,7 @@ describe('native desktop workspace', () => {
     vi.mocked(projectFile).mockResolvedValueOnce({file:{id:'project2',filename:'example.cpheno'}})
     menu('save')
     await waitFor(() => expect(projectFile).toHaveBeenLastCalledWith('save', expect.objectContaining({mapping:'mappingVersion: 2\n', mappingDirty:true, files:{source:['found']},runs:['older-run']}), 'project1'))
-    await waitFor(() => expect(screen.getByRole('heading', {name:'example.cpheno'})).toBeInTheDocument())
+    await waitFor(() => expect(native.title).toHaveBeenLastCalledWith('example - Convert-Pheno'))
   })
   it('shows the toolbar route once using source and target badges', async () => {
     await start()
@@ -186,6 +204,16 @@ describe('native desktop workspace', () => {
     expect(screen.queryByLabelText('JSON input')).not.toBeInTheDocument()
     fireEvent.click(screen.getByRole('button', { name: 'Paste JSON instead' }))
     expect(screen.getByLabelText('JSON input')).toHaveAccessibleDescription(expect.stringContaining('not an API request'))
+  })
+  it('forwards a disabled provenance option as a boolean', async () => {
+    vi.mocked(api.getConversions).mockResolvedValue([{...pxf, options: [
+      {name: 'source_info', label: 'Include source provenance', kind: 'boolean', default: true},
+    ]}])
+    await start(); await loadExample()
+    fireEvent.click(screen.getByRole('button', {name: 'Back to conversion'}))
+    fireEvent.click(screen.getByLabelText('Include source provenance'))
+    fireEvent.click(screen.getByRole('button', {name: 'Run conversion'}))
+    await waitFor(() => expect(api.submitJob).toHaveBeenCalledWith(expect.objectContaining({options: {source_info: false}})))
   })
   it('keeps auditing optional and disabled until selected', async () => {
     vi.mocked(api.submitJob).mockResolvedValueOnce(completed).mockResolvedValueOnce({...completed,id:'run2'})

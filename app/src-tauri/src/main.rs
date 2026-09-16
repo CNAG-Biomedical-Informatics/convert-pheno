@@ -762,8 +762,7 @@ fn menus(app: &tauri::App) -> tauri::Result<Menu<tauri::Wry>> {
             &action("save-as", "Save Project As...", Some("CmdOrCtrl+Shift+S"))?,
             &action("close-project", "Close Project", None::<&str>)?,
             &PredefinedMenuItem::separator(app)?,
-            &action("add", "Add Input...", Some("CmdOrCtrl+I"))?,
-            &PredefinedMenuItem::close_window(app, None)?,
+            &action("quit", "Exit Convert-Pheno", if cfg!(target_os = "macos") { None } else { Some("Ctrl+Q") })?,
         ],
     )?;
     let edit = Submenu::with_items(
@@ -850,9 +849,26 @@ fn menus(app: &tauri::App) -> tauri::Result<Menu<tauri::Wry>> {
     {
         edit.append(&settings)?;
         help.append(&about)?;
-        file.append(&PredefinedMenuItem::quit(app, None)?)?;
         Menu::with_items(app, &[&file, &edit, &view, &conversion, &runs, &help])
     }
+}
+
+#[cfg(target_os = "linux")]
+fn sync_native_title(window: &tauri::WebviewWindow) -> tauri::Result<()> {
+    use gtk::prelude::*;
+    let native = window.gtk_window()?;
+    // Tao's Wayland decoration keeps its initial title in a separate HeaderBar
+    // inside an EventBox. Bind it to the window title so project names update.
+    // X11 without a custom title bar needs no extra handling.
+    if let Some(widget) = native.titlebar() {
+        let header = widget.clone().downcast::<gtk::HeaderBar>().ok().or_else(|| {
+            widget.downcast::<gtk::Bin>().ok()?.child()?.downcast::<gtk::HeaderBar>().ok()
+        });
+        if let Some(header) = header {
+            native.bind_property("title", &header, "title").sync_create().build();
+        }
+    }
+    Ok(())
 }
 
 fn main() {
@@ -870,6 +886,10 @@ fn main() {
             app.manage(ExitApproval(AtomicBool::new(false)));
             app.manage(start_engine(app)?);
             app.set_menu(menus(app)?)?;
+            #[cfg(target_os = "linux")]
+            if let Some(window) = app.get_webview_window("main") {
+                sync_native_title(&window)?;
+            }
             // Exercise the packaged application and its real startup hook in CI.
             if std::env::var_os("CONVERT_PHENO_DESKTOP_SMOKE_TEST").is_some() {
                 println!("Desktop startup smoke test passed");

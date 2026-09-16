@@ -7,6 +7,7 @@ Revision history for Perl distribution Convert-Pheno
  - Added experimental i2b2, PCORnet CDM and Sentinel CDM table-package input with BFF, PXF and OMOP-CDM output
  - Added directory and ZIP table-package input for OMOP-CDM, including streaming support
  - Added optional Mapping V2 dataset and cohort metadata for built-in multi-entity BFF conversions
+ - Added opt-in datasetId propagation from mapping metadata to BFF individuals and biosamples for backend compatibility
  - Marked the JSON-only Python HTTP API for future deprecation in favor of Mojolicious
 
 0.34 2026-08-03T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)

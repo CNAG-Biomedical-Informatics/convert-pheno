@@ -330,6 +330,7 @@ project:
 beacon:
   datasets:
     defaults:
+      id: study-123
       name: Example dataset
       externalUrl: https://example.org/studies/study-123
   cohorts:
@@ -338,7 +339,7 @@ beacon:
       cohortType: study-defined
 ```
 
-Use it only when requesting entity-aware BFF output:
+Use it with BFF output:
 
 ```bash
 convert-pheno \
@@ -355,8 +356,24 @@ values and add the other properties accepted by the Beacon v2 entities.
 
 The mapping is optional. Without it, source-derived metadata is used where
 available, followed by the existing generic `dataset-1` and `cohort-1`
-defaults. Project metadata is not currently copied into individual or
-biosample records.
+defaults. Dataset IDs are not copied into individual or biosample records
+unless explicitly requested.
+
+:::warning[Optional backend compatibility]
+Some Beacon backends expect a top-level `datasetId` on each individual and
+biosample. Add **`--include-dataset-id`** to enable this extension, or select
+**Include datasetId in records** in Desktop's advanced options.
+
+The ID comes specifically from `beacon.datasets.defaults.id`; `project.id` is
+not used for this extension. A mapping file with that explicit dataset ID is
+required. This also works when you request only individuals or biosamples,
+without `datasets.json`, and with streamed OMOP input. It does not change
+`datasets.name`.
+
+`datasetId` is a backend compatibility extension, not a standard Beacon v2
+individuals or biosamples property. It deliberately has no underscore because
+those backends require this exact name. Leave the option off for normal output.
+:::
 
 ## Reading A Rule
 

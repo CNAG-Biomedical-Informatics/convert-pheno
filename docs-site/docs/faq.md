@@ -208,8 +208,11 @@ Dataset-JSON and Dataset-XML instead prepopulate this metadata from `studyOID`
 and the `TS` study title; their optional mapping is for terminology enrichment.
 
 FHIR metadata from `ResearchStudy` and `Group` is retained as the source-derived
-baseline and can be overridden by the compact mapping. Project metadata is not
-currently copied into individual or biosample records.
+baseline and can be overridden by the compact mapping. To also copy the mapped
+`beacon.datasets.defaults.id` into individuals and biosamples, explicitly enable
+`--include-dataset-id` (or **Include datasetId in records** in Desktop).
+This adds the top-level `datasetId` extension required by some backends; it is
+not a standard Beacon v2 property. Without the option, those records are unchanged.
 
 </details>
 <details>

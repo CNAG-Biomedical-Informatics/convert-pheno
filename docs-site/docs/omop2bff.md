@@ -3,6 +3,11 @@ title: OMOP to BFF
 sidebar_label: OMOP to BFF
 ---
 
+**Need to set a dataset ID?** Use an optional mapping file alongside OMOP input.
+See the [YAML and command example](mapping-files#compact-dataset-and-cohort-metadata).
+Add `--include-dataset-id` only if your backend also needs top-level `datasetId`
+on individuals and biosamples.
+
 :::note[OMOP to BFF - Schemas]
 * [OMOP CDM v5.4 tables](https://ohdsi.github.io/CommonDataModel/cdm54.html)
 * [Beacon v2 Models - individuals](https://docs.genomebeacons.org/schemas-md/individuals_defaultSchema)

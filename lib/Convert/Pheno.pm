@@ -168,6 +168,7 @@ has [qw /test self_validate_schema path_to_ohdsi_db/] =>
 
 has [qw /stream ohdsi_db/] => ( default => 0, is => 'ro' );
 has source_info => ( default => 1, is => 'ro' );
+has include_dataset_id => ( default => 0, is => 'ro' );
 
 has default_vital_status => (
     is     => 'ro',
@@ -192,6 +193,8 @@ has output_name_overrides => ( is => 'ro', default => sub { {} } );
 
 sub BUILD {
     my $self = shift;
+    die "--include-dataset-id is only supported for BFF output\n"
+      if $self->{include_dataset_id} && ($self->{method} || '') !~ /2bff\z/;
     $self->{databases} =
       $self->{ohdsi_db} ? \@all_sqlites : \@non_ohdsi_sqlites;
 }

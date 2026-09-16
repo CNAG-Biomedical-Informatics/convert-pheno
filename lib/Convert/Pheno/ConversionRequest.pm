@@ -20,6 +20,7 @@ my @ARGUMENT_KEYS = qw(
   in_file
   in_files
   in_textfile
+  include_dataset_id
   levenshtein_weight
   log
   mapping_file

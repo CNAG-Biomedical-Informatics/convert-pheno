@@ -5,12 +5,37 @@ use warnings;
 use autodie;
 
 use Exporter 'import';
+use Convert::Pheno::Mapping::Compiler qw(load_mapping_document);
 
 our @EXPORT_OK = qw(
   execution_entities
   mapping_entity_overrides
+  compatibility_dataset_id
   synthesize_bundle_entities
 );
+
+sub compatibility_dataset_id {
+    my ($self) = @_;
+    return unless $self->{include_dataset_id};
+
+    my $error =
+      "--include-dataset-id requires a dataset ID at <beacon.datasets.defaults.id> in the mapping file\n";
+    die $error
+      unless defined $self->{mapping_file} && length $self->{mapping_file};
+    my $mapping = load_mapping_document( $self->{mapping_file} );
+    my $id =
+        ref( $mapping->{beacon} ) eq 'HASH'
+      && ref( $mapping->{beacon}{datasets} ) eq 'HASH'
+      && ref( $mapping->{beacon}{datasets}{defaults} ) eq 'HASH'
+      ? $mapping->{beacon}{datasets}{defaults}{id}
+      : undef;
+    die $error
+      unless defined($id) && !ref($id) && $id =~ /\S/;
+    my $effective = _entity_overrides($self, 'datasets')->{id};
+    die "--include-dataset-id: the dataset ID override conflicts with the mapping file\n"
+      unless defined($effective) && !ref($effective) && "$effective" eq "$id";
+    return "$id";
+}
 
 sub mapping_entity_overrides {
     my ($mapping) = @_;

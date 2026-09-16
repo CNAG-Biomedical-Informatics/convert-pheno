@@ -104,6 +104,7 @@ sub build_cli_request {
     my $default_vital_status;
     my $schema_file = $schema_default;
     my $source_info = 1;
+    my $include_dataset_id = 0;
 
     GetOptionsFromArray(
         $argv,
@@ -156,6 +157,7 @@ sub build_cli_request {
         'test'                        => \$test,
         'term-audit=s'                => \$term_audit,
         'source-info!'                => \$source_info,
+        'include-dataset-id!'         => \$include_dataset_id,
         'ohdsi-db'                    => \$ohdsi_db,
         'omop-tables=s{1,}'           => \@omop_tables,
         'redcap-dictionary|rcd=s'     => \$redcap_dictionary,
@@ -609,6 +611,8 @@ sub build_cli_request {
     $usage_error->("Unsupported conversion <$method>")
       unless is_public_conversion($method);
     my $conversion_spec = conversion_spec($method);
+    $usage_error->("--include-dataset-id is only supported for BFF output")
+      if $include_dataset_id && $conversion_spec->{target} ne 'beacon';
 
     if ($out_bff_selected) {
         my %supported_for_route =
@@ -645,6 +649,7 @@ sub build_cli_request {
         id                        => $id,
         test                      => $test ? 1 : 0,
         source_info               => $source_info ? 1 : 0,
+        include_dataset_id        => $include_dataset_id ? 1 : 0,
         entities                  => \@entity_list,
     );
 

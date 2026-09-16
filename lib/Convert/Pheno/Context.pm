@@ -3,6 +3,7 @@ package Convert::Pheno::Context;
 use strict;
 use warnings;
 use autodie;
+use Convert::Pheno::BFF::DerivedEntities qw(compatibility_dataset_id);
 
 sub new {
     my ( $class, $args ) = @_;
@@ -35,6 +36,7 @@ sub from_self {
                 test       => $self->{test},
                 verbose    => $self->{verbose},
                 debug      => $self->{debug},
+                datasetId  => scalar compatibility_dataset_id($self),
             },
             resources => {
                 metaData        => $self->{metaData},

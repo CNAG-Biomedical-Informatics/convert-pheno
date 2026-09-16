@@ -40,6 +40,20 @@ ok(
 );
 my ($omop_bff_route) = grep { $_->{id} eq 'omop2bff' } @{ $catalog->{data} };
 my ($omop_separator) = grep { $_->{name} eq 'separator' } @{$omop_bff_route->{options}};
+my %omop_options = map { $_->{name} => $_ } @{$omop_bff_route->{options}};
+ok($omop_options{ohdsi_db}, 'OMOP input offers optional installed vocabulary lookup');
+ok(scalar(grep { $_ eq 'SPECIMEN' } @{$omop_options{omop_tables}{values}}), 'OMOP table choices come from core definitions');
+ok($omop_options{source_info}{description}, 'Source provenance has a user-facing explanation');
+ok(scalar(grep { $_->{name} eq 'exposures' && !$_->{required} } @{$omop_bff_route->{input}{files}}), 'Custom exposure list is an optional managed file');
+ok(!scalar(grep { $_->{name} eq 'omop_tables' } @{$catalog_by_id{pxf2bff}{options}}), 'OMOP-only settings are not offered for PXF input');
+for my $invalid (['NOT_A_TABLE'], 'PERSON', [undef]) {
+    eval { execute('omop2bff', {input => {data => {}}, options => {omop_tables => $invalid}}) };
+    my $error = $@;
+    ok(is_service_error($error) && $error->status == 422, 'Invalid OMOP table selection is rejected');
+}
+eval { execute('omop2bff', {input => {data => {}}, options => {stream => 'yes'}}) };
+my $stream_error = $@;
+ok(is_service_error($stream_error) && $stream_error->status == 422, 'Streaming requires a JSON boolean');
 ok($omop_separator, 'OMOP file routes advertise a separator override');
 ok(!exists $omop_separator->{default}, 'OMOP keeps extension-based separator defaults');
 ok(
@@ -94,6 +108,9 @@ sub zip_directory {
       or $error = $@;
     ok( is_service_error($error), 'unavailable conversion returns a service error' );
     is( $error->status, 503, 'unavailable resource uses 503' );
+    eval { execute('omop2bff', {input => {data => {}}, options => {ohdsi_db => JSON::XS::true}}) };
+    $error = $@;
+    ok(is_service_error($error) && $error->status == 503, 'Optional OHDSI lookup checks the installed resource before conversion');
 }
 
 local $ENV{CONVERT_PHENO_OHDSI_DB_DIR} = test_ohdsi_db_dir();
@@ -113,6 +130,23 @@ write_zip_from_files(
 );
 my $omop_metadata_file =
   path($upload_workspace)->child('omop-metadata.json')->stringify;
+{
+    no warnings 'redefine';
+    my $captured;
+    local *Convert::Pheno::HTTP::Service::_execute_arguments = sub { $captured = $_[3]; return {} };
+    execute_files('omop2bff', {options => {
+        source_info => JSON::XS::false, omop_tables => ['DRUG_EXPOSURE'],
+        ohdsi_db => JSON::XS::true, max_lines_sql => 0,
+    }}, {
+        source => [uploaded_file($omop_zip)],
+        exposures => [uploaded_file('share/db/concepts_candidates_2_exposure.csv')],
+    }, {workspace => $upload_workspace});
+    is_deeply($captured->{omop_tables}, ['DRUG_EXPOSURE'], 'Selected tables reach conversion arguments unchanged');
+    ok(!$captured->{source_info}, 'Disabled source provenance reaches conversion arguments');
+    ok($captured->{ohdsi_db}, 'Optional vocabulary lookup reaches conversion arguments');
+    is($captured->{max_lines_sql}, 0, 'An unlimited processing value is preserved');
+    is($captured->{exposures_file}, 'share/db/concepts_candidates_2_exposure.csv', 'Managed exposure input reaches the core file argument');
+}
 write_json_file(
     $omop_metadata_file,
     {

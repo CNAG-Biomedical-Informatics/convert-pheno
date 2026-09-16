@@ -36,12 +36,13 @@ export default function Home() {
                 <Link className={styles.action} to="/use-as-a-command-line-interface">
                   Command-Line Interface
                 </Link>
-                <Link className={styles.action} href="https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6">
-                  Try in Colab
+                <Link className={styles.action} to="/graphical-interface#install">
+                  Desktop App
                 </Link>
               </div>
               <p className={styles.entryLinks}>
                 <Link to="/download-and-installation">Install locally</Link>
+                {' · '}<a href="https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6">Try in Colab</a>
                 {' · '}<a href="https://www.youtube.com/channel/UC1bjHxoYV9uGJaTyd3bZnEA">Video tutorials</a>
               </p>
             </div>

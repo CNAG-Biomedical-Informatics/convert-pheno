@@ -89,6 +89,10 @@ For OMOP-CDM, use the OMOP output ending above. See [Beacon v2 Models](bff).
 
 ### OMOP-CDM {#omop-cdm-input-bff-output}
 
+**Need a dataset ID?** Follow the
+[OMOP metadata mapping example](mapping-files#compact-dataset-and-cohort-metadata).
+It also explains the opt-in `datasetId` field on individuals and biosamples.
+
 ```bash
 convert-pheno \
   -iomop PERSON.csv CONCEPT.csv CONDITION_OCCURRENCE.csv \

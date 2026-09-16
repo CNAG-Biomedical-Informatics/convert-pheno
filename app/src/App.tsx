@@ -6,6 +6,7 @@ import TerminologyReview from './components/TerminologyReview'
 import ConceptDetails from './components/ConceptDetails'
 import RunActions from './components/RunActions'
 import CopyButton from './components/CopyButton'
+import ConversionOptions from './components/ConversionOptions'
 const MappingEditor = lazy(() => import('./components/MappingEditor'))
 import type { Artifact, Conversion, FileHandle, Job, Preview, Resource } from './types'
 import { readSettings, saveSettings, type ThemeChoice } from './settings'
@@ -122,6 +123,12 @@ export default function App() {
   const projectDirty = !!savedProject && (savedProject.configuration !== projectSnapshot.configuration || savedProject.jsonInput !== jsonInput || savedProject.mapping !== mapping)
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
+  const windowTitle = project
+    ? `${project.filename.replace(/\.cpheno$/i, '')}${projectDirty ? ' *' : ''} - Convert-Pheno`
+    : 'Convert-Pheno'
+  useEffect(() => {
+    if (isTauri()) void getCurrentWindow().setTitle(windowTitle).catch((reason: Error) => setError(reason.message))
+  }, [windowTitle])
   const [submitting, setSubmitting] = useState(false)
   const [settings, setSettings] = useState(readSettings)
   const taskPanel = settings.tasks
@@ -383,7 +390,6 @@ export default function App() {
       quit: () => guardProject(quitProject),
       open: () => guardProject(openProject), save: async () => { await saveProject() },
       'save-as': async () => { await saveProject(true) }, run: submit,
-      add: () => choose('source', false, route?.input.files.find((item) => item.name === 'source')?.multiple),
       cancel: async () => { const target = active.find((item) => item.status === 'running') || active[0]; if (target) await cancelRun(target) },
       'cancel-pending': cancelPending,
       'delete-history': () => deleteAllRuns(false),
@@ -437,7 +443,6 @@ export default function App() {
     <div className="desktop-body">
       {settings.explorer && <><aside id="workspace-navigation" className="workspace-tree" aria-label="Workspace explorer" style={{ width: navigationWidth, flexBasis: navigationWidth }}>
         <div className="workspace-tree-scroll">
-        <h2 title={project?.filename || 'Untitled project'}>{project?.filename || 'Untitled project'}{projectDirty ? ' *' : ''}</h2>
         <h3><button className="tree-disclosure" aria-expanded={!collapsedGroups.sources} aria-controls="source-groups" onClick={() => toggleGroup('sources')}><span aria-hidden="true">{collapsedGroups.sources ? '\u25b8' : '\u25be'}</span>Sources</button></h3>
         <div id="source-groups" hidden={collapsedGroups.sources}>
         {!Object.keys(files).length && <p className="muted">Select files or load an example.</p>}
@@ -536,7 +541,7 @@ export default function App() {
               </section>
               <section className="conversion-card input-card" aria-labelledby="files-heading">
               <header className="step-heading"><span aria-hidden="true">2</span><div><h2 id="files-heading">Add your input</h2><p>Source files remain unchanged.</p></div></header>
-              {route.input.files.map((definition)=><div className="file-selection" key={definition.name}><div><strong>{definition.label}{definition.required?' *':''}</strong><small>{files[definition.name]?.map((item)=>item.filename).join(', ') || 'No file selected'}</small></div><button onClick={()=>void run(()=>choose(definition.name,false,definition.multiple))}>Browse...</button>
+              {route.input.files.map((definition)=><div className="file-selection" key={definition.name}><div><strong>{definition.label}{definition.required?' *':''}</strong>{definition.description && <small>{definition.description}</small>}<small>{files[definition.name]?.map((item)=>item.filename).join(', ') || 'No file selected'}</small></div><button onClick={()=>void run(()=>choose(definition.name,false,definition.multiple))}>Browse...</button>
                 {definition.name==='source' && ['omop','i2b2','pcornet','sentinel','cbioportal'].includes(route.source.id) && <button onClick={()=>void run(()=>choose(definition.name,true))}>Folder...</button>}</div>)}
               <button onClick={()=>void run(example)}>Load synthetic example</button>
               {jsonInput.trim() && <p className="input-loaded">JSON input loaded. <button onClick={() => { resetPreviews(); setTab('Input') }}>Inspect input</button></p>}
@@ -546,7 +551,7 @@ export default function App() {
               <div className="file-selection"><div><strong>Output location</strong><small className="output-path">{destination ? destination.displayPath || destination.filename : outputRoot || 'Locating application output folder...'}</small><small>{destination ? 'A new convert-pheno-<run-id> subfolder will be created here.' : 'Each run gets its own <run-id>/outputs subfolder here.'}</small></div><button onClick={()=>void run(async()=>{const [chosen]=await selectPaths(true);if(chosen)setDestination(chosen)})}>Choose folder...</button>{destination && <button onClick={() => setDestination(undefined)}>Use default folder</button>}</div>
               {route.entities.supported.length>0 && <fieldset><legend>Beacon entities</legend>{route.entities.supported.map((entity)=><label key={entity}><input type="checkbox" checked={draft.output.entities?.includes(entity)||false} onChange={(event)=>setDraft((current)=>({...current,output:{entities:event.target.checked?[...(current.output.entities||[]),entity]:(current.output.entities||[]).filter((item)=>item!==entity)}}))}/>{entity}</label>)}</fieldset>}
               {route.options.some((option)=>option.name==='term_audit') && <label><input type="checkbox" checked={draft.options.term_audit==='xlsx'} onChange={(event)=>setDraft((current)=>({...current,options:{...current.options,term_audit:event.target.checked?'xlsx':'none'}}))}/>Create terminology audit (adds processing time)</label>}
-              <details><summary>Conversion options</summary><div className="options-grid">{route.options.filter((option)=>option.name!=='term_audit').map((option)=><label key={option.name}>{option.label}{option.name==='separator'?<select value={String(draft.options.separator??'')} onChange={(event)=>setDraft({...draft,options:{...draft.options,separator:event.target.value}})}><option value="">Use file extension</option><option value=";">Semicolon (;)</option><option value=",">Comma (,)</option><option value={'\t'}>Tab</option><option value="|">Pipe (|)</option>{draft.options.separator && ![';',',','\t','|'].includes(String(draft.options.separator)) ? <option value={String(draft.options.separator)}>Custom ({String(draft.options.separator)})</option> : null}</select>:option.kind==='boolean'?<input type="checkbox" checked={Boolean(draft.options[option.name])} onChange={(event)=>setDraft({...draft,options:{...draft.options,[option.name]:event.target.checked}})}/>:option.values?<select value={String(draft.options[option.name]??'')} onChange={(event)=>setDraft({...draft,options:{...draft.options,[option.name]:event.target.value}})}>{option.values.map((value)=><option key={value}>{value}</option>)}</select>:<input type={['integer','number'].includes(option.kind)?'number':'text'} value={String(draft.options[option.name]??'')} onChange={(event)=>setDraft({...draft,options:{...draft.options,[option.name]:['integer','number'].includes(option.kind)?Number(event.target.value):event.target.value}})}/>}</label>)}</div></details>
+              <ConversionOptions definitions={route.options} values={draft.options} onChange={options => setDraft(current => ({...current, options}))} />
               </section>
               <section className="conversion-card review-card" aria-labelledby="review-heading">
                 <header className="step-heading"><span aria-hidden="true">4</span><div><h2 id="review-heading">Review and convert</h2><p>Check the configuration, then start the conversion.</p></div></header>

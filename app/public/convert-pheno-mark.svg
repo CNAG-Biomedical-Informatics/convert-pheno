@@ -1,18 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
   <title id="title">Convert-Pheno</title>
-  <desc id="desc">Two interlocking paths representing conversion between data structures</desc>
+  <desc id="desc">An overlapping white C and teal lowercase p, recalling the original Convert-Pheno logo</desc>
   <defs>
-    <linearGradient id="tile" x1="0" y1="0" x2="1" y2="1">
-      <stop stop-color="#344a63"/>
-      <stop offset="1" stop-color="#182635"/>
+    <linearGradient id="tile" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#344a63"/>
+      <stop offset="100%" stop-color="#182635"/>
     </linearGradient>
   </defs>
   <rect x="4" y="4" width="120" height="120" rx="28" fill="url(#tile)"/>
   <rect x="4.5" y="4.5" width="119" height="119" rx="27.5" fill="none" stroke="#91aac5" stroke-opacity=".25"/>
-  <path d="M29 69V48a12 12 0 0 1 12-12h44" fill="none" stroke="#f0f5fa" stroke-width="11" stroke-linecap="round"/>
-  <path d="m76 25 12 11-12 11" fill="none" stroke="#f0f5fa" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M99 59v21a12 12 0 0 1-12 12H43" fill="none" stroke="#83c9d1" stroke-width="11" stroke-linecap="round"/>
-  <path d="m52 81-12 11 12 11" fill="none" stroke="#83c9d1" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
-  <rect x="51" y="59" width="10" height="10" rx="2.5" fill="#f0f5fa"/>
-  <rect x="67" y="59" width="10" height="10" rx="2.5" fill="#83c9d1"/>
+  <path d="M66 29C59 24 52 23 46 24C31 26 25 38 25 53C25 70 33 80 47 80C54 80 60 78 66 74"
+        fill="none" stroke="#f0f5fa" stroke-width="11" stroke-linecap="round"/>
+  <path d="M64 105V47M65 51C71 47 77 46 83 47C96 49 102 58 102 70C102 84 94 92 83 92C76 92 70 89 65 86"
+        fill="none" stroke="#83c9d1" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

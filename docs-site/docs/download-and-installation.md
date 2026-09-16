@@ -73,7 +73,6 @@ Detailed instructions:
 
 ## Desktop Application
 
-The native application includes its own Perl runtime and does not require a
-separate CPAN installation. Current installers are unsigned compatibility-test
-pre-releases. See [Desktop Application](graphical-interface) for platform
-coverage, downloads, and testing limitations.
+The native application includes the core engine and its runtime; no separate
+CPAN installation is needed. See [Desktop Application](graphical-interface) for
+downloads, platform requirements, and first-launch instructions.

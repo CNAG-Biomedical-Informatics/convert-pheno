@@ -17,7 +17,7 @@ use Convert::Pheno;
 use Convert::Pheno::DB::Bundle qw(bundled_database_path);
 use Convert::Pheno::Execution::Files qw(execute_file_conversion);
 use Convert::Pheno::IO::CSVHandler qw(get_headers);
-use Convert::Pheno::OMOP::Definitions qw($omop_headers);
+use Convert::Pheno::OMOP::Definitions qw($omop_headers @omop_supported_tables);
 use Convert::Pheno::Operations qw(
   conversion_spec
   is_http_conversion
@@ -95,7 +95,8 @@ sub catalog {
         } @option_names;
         # OMOP preserves extension-based separators unless explicitly overridden.
         delete $_->{default} for grep { $spec->{source} eq 'omop' && $_->{name} eq 'separator' } @options;
-        push @options, {name=>'stream',label=>'Stream OMOP input',kind=>'boolean',default=>JSON::XS::false}
+        $_->{values} = [@omop_supported_tables] for grep { $_->{name} eq 'omop_tables' } @options;
+        push @options, {name=>'stream', %{$metadata->{option_definitions}{stream}}}
           if $spec->{streaming};
 
         push @conversions, {
@@ -307,6 +308,7 @@ sub _validate_request {
     }
 
     my @required = _required_resources( $conversion, $metadata );
+    push @required, 'ohdsi' if $spec->{source} eq 'omop' && $options->{ohdsi_db};
     my ( $available, $reason, $resource_paths ) =
       _availability( \@required, $metadata );
     _throw( 503, 'resource_unavailable', $reason ) unless $available;
@@ -317,6 +319,7 @@ sub _validate_request {
 sub _execute_arguments {
     my ( $conversion, $spec, $metadata, $arguments, $display_paths, $delivery ) = @_;
     my @required = _required_resources( $conversion, $metadata );
+    push @required, 'ohdsi' if $spec->{source} eq 'omop' && $arguments->{ohdsi_db};
     my ( $available, $reason, $resource_paths ) =
       _availability( \@required, $metadata );
     _throw( 503, 'resource_unavailable', $reason ) unless $available;
@@ -594,6 +597,8 @@ sub _applicable_options {
     my ( $name, $spec, $metadata ) = @_;
     my $profiles = $metadata->{http_profiles};
     my @names;
+    push @names, @{ $profiles->{bff_output_options} || [] }
+      if $spec->{target} eq 'beacon';
     push @names, @{ $profiles->{common_options} || [] }
       unless $spec->{operation} eq 'direct';
     push @names, @{ $profiles->{terminology_options} || [] }
@@ -617,6 +622,12 @@ sub _validate_option {
     return if $name eq 'test' && blessed($value) && $value->isa('JSON::PP::Boolean');
     my $definition = $metadata->{option_definitions}{$name} || {};
     my $kind = $definition->{kind} || q{};
+    if ($name eq 'omop_tables') {
+        my %supported = map { $_ => 1 } @omop_supported_tables;
+        _throw(422, 'invalid_request', "Select supported OMOP input tables")
+          unless ref($value) eq 'ARRAY' && !grep { !defined($_) || ref($_) || !$supported{$_} } @$value;
+        return;
+    }
     my $valid =
         $kind eq 'boolean' ? ( blessed($value) && $value->isa('JSON::PP::Boolean') )
       : $kind eq 'number'  ? ( !ref($value) && defined($value) && looks_like_number($value) )
