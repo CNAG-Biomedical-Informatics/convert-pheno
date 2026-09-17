@@ -50,7 +50,7 @@ Do not replace system glibc manually.
 <details>
 <summary>Windows installation</summary>
 
-When included in the release, run `convert-pheno-windows-x86_64-setup.exe`,
+Download and run `convert-pheno-windows-x86_64-setup.exe`,
 then open Convert-Pheno from the Start menu. An unsigned installer may trigger
 SmartScreen; check the download source before selecting **More info > Run anyway**.
 
@@ -133,6 +133,8 @@ In **Resources**, choose the resource folder, then **Download and install**.
 The app downloads, verifies, and installs `ohdsi.db`. Keep it open until finished.
 Already have the file? Use **Install from file**.
 
+![Resources page with the OHDSI download and installation controls](../static/img/desktop-resources.png)
+
 The folder is remembered. Changing it does not move existing files; wait for
 active downloads and conversions to finish first.
 
@@ -142,7 +144,25 @@ Enable **Create terminology audit** before converting. It is **off by default**
 and adds processing time. Open **Terminology Review** on the completed run;
 **Unique terms** groups repeated decisions across individuals.
 
-![Terminology review of a synthetic CSV conversion](../static/img/desktop-terminology-review.png)
+<details>
+<summary>Example: CSV input, Beacon output, and terminology review</summary>
+
+Choose **CSV → Beacon v2** and **Load synthetic example**. The example loads
+both the data and its mapping. Select the CSV under **Sources** to inspect it:
+
+![Synthetic CSV input with participant and visit columns](../static/img/desktop-csv-input.png)
+
+Select **Back to conversion**, enable **Create terminology audit**, then run.
+**Outputs** contains the converted individuals and the Excel report:
+
+![Beacon individuals and audit files produced by the same CSV conversion](../static/img/desktop-csv-output.png)
+
+Open **Terminology Review** to inspect the lookup decisions. **Unique terms**
+groups repeated decisions; the complete report retains all occurrences.
+
+![Terminology decisions from the same synthetic CSV conversion](../static/img/desktop-terminology-review.png)
+
+</details>
 
 The preview is limited. **Save Excel report...** exports the complete report.
 For mapping corrections, edit **Mapping**, select **Validate and use copy**,

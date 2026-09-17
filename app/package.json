@@ -1,7 +1,7 @@
 {
   "name": "convert-pheno-desktop",
   "private": true,
-  "version": "0.35.0-dev",
+  "version": "0.35.0",
   "type": "module",
   "engines": {
     "node": ">=24"

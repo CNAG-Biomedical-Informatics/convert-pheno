@@ -14,7 +14,7 @@ equivalent. Parentheses in the mapping tables mark values added to satisfy
 those requirements.
 
 :::
-#### Version 0.34
+#### Version 0.35
 
 **Output model:** Phenopackets v2
 

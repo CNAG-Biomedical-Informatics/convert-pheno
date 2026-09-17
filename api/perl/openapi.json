@@ -1,19 +1,35 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "Convert-Pheno Artifact API",
-    "description": "Local JSON and multipart conversions executed by the Convert-Pheno core engine.",
-    "version": "0.34_1"
+    "title": "Convert-Pheno Job API",
+    "description": "Authenticated local service used by Convert-Pheno Desktop. Upload files or supply JSON, submit a job, poll its status, then preview or download outputs. Requests run asynchronously; a 202 response is not a completed conversion. Native-only endpoints require an additional local token and must not be exposed to remote clients.",
+    "version": "0.35"
   },
-  "servers": [{ "url": "http://127.0.0.1:3000", "description": "Local Mojolicious development server" }],
+  "servers": [
+    {
+      "url": "http://127.0.0.1:3000",
+      "description": "Local Mojolicious development server"
+    }
+  ],
   "paths": {
     "/api/health": {
       "get": {
         "summary": "Check service health",
         "operationId": "getHealth",
         "responses": {
-          "200": { "description": "Service is healthy", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/HealthResponse" } } } },
-          "500": { "$ref": "#/components/responses/InfrastructureError" }
+          "200": {
+            "description": "Service is healthy",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/InfrastructureError"
+          }
         }
       }
     },
@@ -22,158 +38,1810 @@
         "summary": "List conversion routes and current availability",
         "operationId": "getConversions",
         "responses": {
-          "200": { "description": "Registry-driven conversion catalog", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CatalogResponse" } } } },
-          "500": { "$ref": "#/components/responses/InfrastructureError" }
+          "200": {
+            "description": "Registry-driven conversion catalog",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CatalogResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/InfrastructureError"
+          }
         }
       }
     },
-    "/api/conversions/{conversion}": {
+    "/api/inputs": {
       "post": {
-        "summary": "Run one conversion",
-        "operationId": "runConversion",
-        "parameters": [{ "name": "conversion", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "summary": "Upload files and receive reusable handles",
+        "responses": {
+          "201": {
+            "description": "Upload files and receive reusable handles",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "ok",
+                    "data"
+                  ],
+                  "properties": {
+                    "ok": {
+                      "type": "boolean",
+                      "enum": [
+                        true
+                      ]
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/FileHandle"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or incorrect bearer token"
+          },
+          "403": {
+            "description": "Host, origin, or native access rejected"
+          },
+          "422": {
+            "$ref": "#/components/responses/InvalidRequest"
+          }
+        },
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": { "schema": { "$ref": "#/components/schemas/ConversionRequest" } },
-            "multipart/form-data": { "schema": { "$ref": "#/components/schemas/MultipartConversionRequest" } }
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "files"
+                ],
+                "properties": {
+                  "files": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  }
+                }
+              }
+            }
           }
         },
-        "responses": {
-          "200": { "description": "Serialized output artifacts", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ConversionResponse" } } } },
-          "404": { "$ref": "#/components/responses/UnknownConversion" },
-          "413": { "$ref": "#/components/responses/RequestTooLarge" },
-          "422": { "$ref": "#/components/responses/InvalidRequest" },
-          "503": { "$ref": "#/components/responses/ResourceUnavailable" },
-          "500": { "$ref": "#/components/responses/InfrastructureError" }
+        "description": "Up to 128 files and 100 MiB total per request. Files are retained in the service state directory, not deleted at the end of the request. Map returned handles to input roles when submitting a job."
+      }
+    },
+    "/api/inputs/{id}/preview": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
         }
+      ],
+      "get": {
+        "summary": "Preview an uploaded input",
+        "responses": {
+          "200": {
+            "description": "Preview an uploaded input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "ok",
+                    "data"
+                  ],
+                  "properties": {
+                    "ok": {
+                      "type": "boolean",
+                      "enum": [
+                        true
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Preview"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or incorrect bearer token"
+          },
+          "403": {
+            "description": "Host, origin, or native access rejected"
+          },
+          "422": {
+            "$ref": "#/components/responses/InvalidRequest"
+          }
+        }
+      }
+    },
+    "/api/jobs": {
+      "get": {
+        "summary": "List saved runs",
+        "responses": {
+          "200": {
+            "description": "List saved runs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "ok",
+                    "data"
+                  ],
+                  "properties": {
+                    "ok": {
+                      "type": "boolean",
+                      "enum": [
+                        true
+                      ]
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Job"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or incorrect bearer token"
+          },
+          "403": {
+            "description": "Host, origin, or native access rejected"
+          },
+          "422": {
+            "$ref": "#/components/responses/InvalidRequest"
+          }
+        }
+      },
+      "post": {
+        "summary": "Queue a conversion",
+        "responses": {
+          "202": {
+            "description": "Queue a conversion",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "ok",
+                    "data"
+                  ],
+                  "properties": {
+                    "ok": {
+                      "type": "boolean",
+                      "enum": [
+                        true
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Job"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or incorrect bearer token"
+          },
+          "403": {
+            "description": "Host, origin, or native access rejected"
+          },
+          "422": {
+            "$ref": "#/components/responses/InvalidRequest"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/JobRequest"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Remove finished runs from history, retaining outputs",
+        "responses": {
+          "200": {
+            "description": "Remove finished runs from history, retaining outputs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "ok",
+                    "data"
+                  ],
+                  "properties": {
+                    "ok": {
+                      "type": "boolean",
+                      "enum": [
+                        true
+                      ]
+                    },
+                    "data": {}
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or incorrect bearer token"
+          },
+          "403": {
+            "description": "Host, origin, or native access rejected"
+          },
+          "422": {
+            "$ref": "#/components/responses/InvalidRequest"
+          }
+        }
+      }
+    },
+    "/api/jobs/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Get current job status and completed output descriptors",
+        "responses": {
+          "200": {
+            "description": "Get current job status and completed output descriptors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "ok",
+                    "data"
+                  ],
+                  "properties": {
+                    "ok": {
+                      "type": "boolean",
+                      "enum": [
+                        true
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Job"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or incorrect bearer token"
+          },
+          "403": {
+            "description": "Host, origin, or native access rejected"
+          },
+          "422": {
+            "$ref": "#/components/responses/InvalidRequest"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Remove a finished run from history, retaining outputs",
+        "responses": {
+          "200": {
+            "description": "Remove a finished run from history, retaining outputs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "ok",
+                    "data"
+                  ],
+                  "properties": {
+                    "ok": {
+                      "type": "boolean",
+                      "enum": [
+                        true
+                      ]
+                    },
+                    "data": {}
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or incorrect bearer token"
+          },
+          "403": {
+            "description": "Host, origin, or native access rejected"
+          },
+          "422": {
+            "$ref": "#/components/responses/InvalidRequest"
+          }
+        }
+      }
+    },
+    "/api/jobs/{id}/cancel": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "post": {
+        "summary": "Cancel a queued or active job",
+        "responses": {
+          "200": {
+            "description": "Cancel a queued or active job",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "ok",
+                    "data"
+                  ],
+                  "properties": {
+                    "ok": {
+                      "type": "boolean",
+                      "enum": [
+                        true
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Job"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or incorrect bearer token"
+          },
+          "403": {
+            "description": "Host, origin, or native access rejected"
+          },
+          "422": {
+            "$ref": "#/components/responses/InvalidRequest"
+          }
+        }
+      }
+    },
+    "/api/jobs/cancel-pending": {
+      "post": {
+        "summary": "Cancel all queued jobs",
+        "responses": {
+          "200": {
+            "description": "Cancel all queued jobs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "ok",
+                    "data"
+                  ],
+                  "properties": {
+                    "ok": {
+                      "type": "boolean",
+                      "enum": [
+                        true
+                      ]
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Job"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or incorrect bearer token"
+          },
+          "403": {
+            "description": "Host, origin, or native access rejected"
+          },
+          "422": {
+            "$ref": "#/components/responses/InvalidRequest"
+          }
+        }
+      }
+    },
+    "/api/jobs/{id}/files": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "delete": {
+        "summary": "Delete a finished run and its output files",
+        "responses": {
+          "200": {
+            "description": "Delete a finished run and its output files",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "ok",
+                    "data"
+                  ],
+                  "properties": {
+                    "ok": {
+                      "type": "boolean",
+                      "enum": [
+                        true
+                      ]
+                    },
+                    "data": {}
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or incorrect bearer token"
+          },
+          "403": {
+            "description": "Host, origin, or native access rejected"
+          },
+          "422": {
+            "$ref": "#/components/responses/InvalidRequest"
+          }
+        }
+      }
+    },
+    "/api/jobs/delete-all-files": {
+      "post": {
+        "summary": "Delete all finished runs and their output files",
+        "responses": {
+          "200": {
+            "description": "Delete all finished runs and their output files",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "ok",
+                    "data"
+                  ],
+                  "properties": {
+                    "ok": {
+                      "type": "boolean",
+                      "enum": [
+                        true
+                      ]
+                    },
+                    "data": {}
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or incorrect bearer token"
+          },
+          "403": {
+            "description": "Host, origin, or native access rejected"
+          },
+          "422": {
+            "$ref": "#/components/responses/InvalidRequest"
+          }
+        }
+      }
+    },
+    "/api/jobs/{id}/outputs/{artifact}/preview": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "artifact",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Read a bounded output preview",
+        "responses": {
+          "200": {
+            "description": "Read a bounded output preview",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "ok",
+                    "data"
+                  ],
+                  "properties": {
+                    "ok": {
+                      "type": "boolean",
+                      "enum": [
+                        true
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Preview"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or incorrect bearer token"
+          },
+          "403": {
+            "description": "Host, origin, or native access rejected"
+          },
+          "422": {
+            "$ref": "#/components/responses/InvalidRequest"
+          }
+        }
+      }
+    },
+    "/api/jobs/{id}/outputs/{artifact}/download": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "artifact",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Download a completed output file",
+        "responses": {
+          "200": {
+            "description": "Original output bytes with Content-Type and Content-Disposition headers",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or incorrect bearer token"
+          },
+          "403": {
+            "description": "Host, origin, or native access rejected"
+          },
+          "404": {
+            "description": "Output unavailable"
+          },
+          "422": {
+            "$ref": "#/components/responses/InvalidRequest"
+          }
+        }
+      }
+    },
+    "/api/mappings": {
+      "post": {
+        "summary": "Validate and save an edited mapping; return its handle",
+        "responses": {
+          "201": {
+            "description": "Validate and save an edited mapping; return its handle",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "ok",
+                    "data"
+                  ],
+                  "properties": {
+                    "ok": {
+                      "type": "boolean",
+                      "enum": [
+                        true
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/FileHandle"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or incorrect bearer token"
+          },
+          "403": {
+            "description": "Host, origin, or native access rejected"
+          },
+          "422": {
+            "$ref": "#/components/responses/InvalidRequest"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "text"
+                ],
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/resources": {
+      "get": {
+        "summary": "List terminology resources and installation status",
+        "responses": {
+          "200": {
+            "description": "List terminology resources and installation status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "ok",
+                    "data"
+                  ],
+                  "properties": {
+                    "ok": {
+                      "type": "boolean",
+                      "enum": [
+                        true
+                      ]
+                    },
+                    "data": {}
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or incorrect bearer token"
+          },
+          "403": {
+            "description": "Host, origin, or native access rejected"
+          },
+          "422": {
+            "$ref": "#/components/responses/InvalidRequest"
+          }
+        }
+      }
+    },
+    "/api/ontology/omop/{concept}": {
+      "parameters": [
+        {
+          "name": "concept",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Look up an OMOP concept ID",
+        "responses": {
+          "200": {
+            "description": "Look up an OMOP concept ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "ok",
+                    "data"
+                  ],
+                  "properties": {
+                    "ok": {
+                      "type": "boolean",
+                      "enum": [
+                        true
+                      ]
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "state": {
+                          "type": "string",
+                          "enum": [
+                            "found",
+                            "not_found",
+                            "not_assigned",
+                            "unavailable"
+                          ]
+                        },
+                        "message": {
+                          "type": "string"
+                        },
+                        "database": {
+                          "type": "string"
+                        },
+                        "concept": {
+                          "type": "object"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or incorrect bearer token"
+          },
+          "403": {
+            "description": "Host, origin, or native access rejected"
+          },
+          "422": {
+            "$ref": "#/components/responses/InvalidRequest"
+          }
+        }
+      }
+    },
+    "/examples/{source}": {
+      "parameters": [
+        {
+          "name": "source",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "transport",
+          "in": "query",
+          "schema": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "json",
+              "multipart"
+            ]
+          }
+        }
+      ],
+      "get": {
+        "summary": "Load bundled synthetic example data",
+        "responses": {
+          "200": {
+            "description": "Load bundled synthetic example data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "ok",
+                    "data"
+                  ],
+                  "properties": {
+                    "ok": {
+                      "type": "boolean",
+                      "enum": [
+                        true
+                      ]
+                    },
+                    "data": {}
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or incorrect bearer token"
+          },
+          "403": {
+            "description": "Host, origin, or native access rejected"
+          },
+          "422": {
+            "$ref": "#/components/responses/InvalidRequest"
+          }
+        }
+      }
+    },
+    "/api/inputs/local": {
+      "post": {
+        "summary": "Native only: register selected local files or directories",
+        "responses": {
+          "201": {
+            "description": "Native only: register selected local files or directories",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "ok",
+                    "data"
+                  ],
+                  "properties": {
+                    "ok": {
+                      "type": "boolean",
+                      "enum": [
+                        true
+                      ]
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/FileHandle"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or incorrect bearer token"
+          },
+          "403": {
+            "description": "Host, origin, or native access rejected"
+          },
+          "422": {
+            "$ref": "#/components/responses/InvalidRequest"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": [],
+            "LocalToken": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "paths"
+                ],
+                "properties": {
+                  "paths": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/resources/local-directory": {
+      "post": {
+        "summary": "Native only: change the terminology resource directory",
+        "responses": {
+          "200": {
+            "description": "Native only: change the terminology resource directory",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "ok",
+                    "data"
+                  ],
+                  "properties": {
+                    "ok": {
+                      "type": "boolean",
+                      "enum": [
+                        true
+                      ]
+                    },
+                    "data": {}
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or incorrect bearer token"
+          },
+          "403": {
+            "description": "Host, origin, or native access rejected"
+          },
+          "422": {
+            "$ref": "#/components/responses/InvalidRequest"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": [],
+            "LocalToken": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "directory"
+                ],
+                "properties": {
+                  "directory": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/local/{operation}": {
+      "parameters": [
+        {
+          "name": "operation",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "open",
+              "save"
+            ]
+          }
+        }
+      ],
+      "post": {
+        "summary": "Native only: open or save a project",
+        "responses": {
+          "200": {
+            "description": "Native only: open or save a project",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "ok",
+                    "data"
+                  ],
+                  "properties": {
+                    "ok": {
+                      "type": "boolean",
+                      "enum": [
+                        true
+                      ]
+                    },
+                    "data": {}
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or incorrect bearer token"
+          },
+          "403": {
+            "description": "Host, origin, or native access rejected"
+          },
+          "422": {
+            "$ref": "#/components/responses/InvalidRequest"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": [],
+            "LocalToken": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "type": "string"
+                  },
+                  "handle": {
+                    "type": "string"
+                  },
+                  "data": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/shutdown": {
+      "post": {
+        "summary": "Native only: stop workers and shut down the service",
+        "responses": {
+          "200": {
+            "description": "Native only: stop workers and shut down the service",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or incorrect bearer token"
+          },
+          "403": {
+            "description": "Host, origin, or native access rejected"
+          },
+          "422": {
+            "$ref": "#/components/responses/InvalidRequest"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": [],
+            "LocalToken": []
+          }
+        ]
       }
     }
   },
   "components": {
     "schemas": {
       "HealthResponse": {
-        "type": "object", "required": ["ok", "data"],
-        "properties": { "ok": { "type": "boolean", "enum": [true] }, "data": { "type": "object", "required": ["status", "engine", "version"], "properties": { "status": { "type": "string" }, "engine": { "type": "string", "enum": ["perl"] }, "version": { "type": "string" } } } }
+        "type": "object",
+        "required": [
+          "ok",
+          "data"
+        ],
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "enum": [
+              true
+            ]
+          },
+          "data": {
+            "type": "object",
+            "required": [
+              "status",
+              "engine",
+              "version"
+            ],
+            "properties": {
+              "status": {
+                "type": "string"
+              },
+              "engine": {
+                "type": "string",
+                "enum": [
+                  "perl"
+                ]
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
       },
       "CatalogResponse": {
-        "type": "object", "required": ["ok", "data", "meta"],
-        "properties": { "ok": { "type": "boolean", "enum": [true] }, "data": { "type": "array", "items": { "$ref": "#/components/schemas/Conversion" } }, "meta": { "type": "object", "properties": { "count": { "type": "integer" } } } }
+        "type": "object",
+        "required": [
+          "ok",
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "enum": [
+              true
+            ]
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Conversion"
+            }
+          },
+          "meta": {
+            "type": "object",
+            "properties": {
+              "count": {
+                "type": "integer"
+              }
+            }
+          }
+        }
       },
       "Conversion": {
-        "type": "object", "required": ["id", "label", "source", "target", "input", "options", "entities", "resources", "available"],
+        "type": "object",
+        "required": [
+          "id",
+          "label",
+          "source",
+          "target",
+          "input",
+          "options",
+          "entities",
+          "resources",
+          "available"
+        ],
         "properties": {
-          "id": { "type": "string" }, "label": { "type": "string" }, "maturity": { "type": "string" }, "available": { "type": "boolean" }, "unavailableReason": { "type": "string" },
-          "source": { "$ref": "#/components/schemas/Format" }, "target": { "$ref": "#/components/schemas/Format" },
-          "input": { "$ref": "#/components/schemas/InputDefinition" },
-          "options": { "type": "array", "items": { "type": "object" } }, "resources": { "type": "array", "items": { "type": "string" } },
-          "entities": { "type": "object", "required": ["default", "supported"], "properties": { "default": { "type": "array", "items": { "type": "string" } }, "supported": { "type": "array", "items": { "type": "string" } } } }
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "maturity": {
+            "type": "string"
+          },
+          "available": {
+            "type": "boolean"
+          },
+          "unavailableReason": {
+            "type": "string"
+          },
+          "source": {
+            "$ref": "#/components/schemas/Format"
+          },
+          "target": {
+            "$ref": "#/components/schemas/Format"
+          },
+          "input": {
+            "$ref": "#/components/schemas/InputDefinition"
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "resources": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "entities": {
+            "type": "object",
+            "required": [
+              "default",
+              "supported"
+            ],
+            "properties": {
+              "default": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "supported": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
         }
       },
       "Format": {
-        "type": "object", "required": ["id", "label", "kind"],
-        "properties": { "id": { "type": "string" }, "label": { "type": "string" }, "kind": { "type": "string" }, "inputShape": { "type": "string" } }
+        "type": "object",
+        "required": [
+          "id",
+          "label",
+          "kind"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "inputShape": {
+            "type": "string"
+          }
+        }
       },
       "InputDefinition": {
-        "type": "object", "required": ["transports", "files"],
+        "type": "object",
+        "required": [
+          "transports",
+          "files"
+        ],
         "properties": {
-          "transports": { "type": "array", "items": { "type": "string", "enum": ["json", "multipart"] } },
-          "files": { "type": "array", "items": { "$ref": "#/components/schemas/FileRole" } }
+          "transports": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "json",
+                "multipart"
+              ]
+            }
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FileRole"
+            }
+          }
         }
       },
       "FileRole": {
-        "type": "object", "required": ["name", "label", "required", "multiple"],
-        "properties": {
-          "name": { "type": "string" }, "label": { "type": "string" }, "description": { "type": "string" },
-          "required": { "type": "boolean" }, "multiple": { "type": "boolean" }, "maximum": { "type": "integer" },
-          "accept": { "type": "array", "items": { "type": "string" } }
-        }
-      },
-      "ConversionRequest": {
-        "type": "object", "additionalProperties": false, "required": ["input"],
-        "properties": {
-          "input": { "type": "object", "additionalProperties": false, "required": ["data"], "properties": { "data": {} } },
-          "output": { "type": "object", "additionalProperties": false, "properties": { "entities": { "type": "array", "items": { "type": "string" } }, "derived_entity_overrides": { "type": "object" } } },
-          "options": { "type": "object", "description": "Allowed keys are route-specific; inspect GET /api/conversions." }
-        }
-      },
-      "MultipartConversionRequest": {
         "type": "object",
-        "description": "Use the file-role names advertised by GET /api/conversions. Repeat a role when multiple files are allowed.",
-        "required": ["request"],
+        "required": [
+          "name",
+          "label",
+          "required",
+          "multiple"
+        ],
         "properties": {
-          "request": { "type": "string", "description": "JSON object containing output and options." },
-          "source": { "type": "array", "items": { "type": "string", "format": "binary" } },
-          "mapping": { "type": "string", "format": "binary" },
-          "dictionary": { "type": "string", "format": "binary" },
-          "define": { "type": "string", "format": "binary" }
+          "name": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "multiple": {
+            "type": "boolean"
+          },
+          "maximum": {
+            "type": "integer"
+          },
+          "accept": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
         }
       },
       "Artifact": {
-        "type": "object", "required": ["id", "filename", "mediaType", "kind", "encoding", "content"],
-        "properties": { "id": { "type": "string" }, "filename": { "type": "string" }, "mediaType": { "type": "string" }, "kind": { "type": "string", "enum": ["json", "jsonld", "csv", "tsv", "xlsx"] }, "encoding": { "type": "string", "enum": ["utf-8", "base64"] }, "content": { "type": "string", "description": "Serialized file content produced by Perl. Binary artifacts use base64." } }
+        "type": "object",
+        "required": [
+          "id",
+          "filename",
+          "mediaType",
+          "kind",
+          "bytes"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "filename": {
+            "type": "string"
+          },
+          "mediaType": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "bytes": {
+            "type": "integer"
+          }
+        }
       },
       "TerminologyAuditRow": {
         "type": "object",
-        "required": ["review_action"],
+        "required": [
+          "review_action"
+        ],
         "properties": {
-          "row": { "type": "integer", "nullable": true },
-          "source_record": { "type": "string", "nullable": true },
-          "source_field": { "type": "string", "nullable": true },
-          "source_value": { "type": "string", "nullable": true },
-          "source_label": { "type": "string", "nullable": true },
-          "lookup_query": { "type": "string", "nullable": true },
-          "converted_term_label": { "type": "string", "nullable": true },
-          "converted_term_id": { "type": "string", "nullable": true },
-          "ontology": { "type": "string", "nullable": true },
-          "review_action": { "type": "string", "enum": ["keep", "review_similarity", "resolve_or_accept_fallback", "review_source_fallback", "preserve_source"] },
-          "decision_reason": { "type": "string", "nullable": true },
-          "best_candidate_label": { "type": "string", "nullable": true },
-          "best_candidate_id": { "type": "string", "nullable": true },
-          "best_candidate_score": { "type": "number", "nullable": true },
-          "score_margin": { "type": "number", "nullable": true }
+          "row": {
+            "type": "integer",
+            "nullable": true
+          },
+          "source_record": {
+            "type": "string",
+            "nullable": true
+          },
+          "source_field": {
+            "type": "string",
+            "nullable": true
+          },
+          "source_value": {
+            "type": "string",
+            "nullable": true
+          },
+          "source_label": {
+            "type": "string",
+            "nullable": true
+          },
+          "lookup_query": {
+            "type": "string",
+            "nullable": true
+          },
+          "converted_term_label": {
+            "type": "string",
+            "nullable": true
+          },
+          "converted_term_id": {
+            "type": "string",
+            "nullable": true
+          },
+          "ontology": {
+            "type": "string",
+            "nullable": true
+          },
+          "review_action": {
+            "type": "string",
+            "enum": [
+              "keep",
+              "review_similarity",
+              "resolve_or_accept_fallback",
+              "review_source_fallback",
+              "preserve_source"
+            ]
+          },
+          "decision_reason": {
+            "type": "string",
+            "nullable": true
+          },
+          "best_candidate_label": {
+            "type": "string",
+            "nullable": true
+          },
+          "best_candidate_id": {
+            "type": "string",
+            "nullable": true
+          },
+          "best_candidate_score": {
+            "type": "number",
+            "nullable": true
+          },
+          "score_margin": {
+            "type": "number",
+            "nullable": true
+          }
         },
         "additionalProperties": true
       },
       "TerminologyAudit": {
         "type": "object",
-        "required": ["totalDecisions", "counts", "rows", "previewRows", "previewLimitPerAction", "truncated", "reportArtifactId", "settings"],
+        "required": [
+          "totalDecisions",
+          "counts",
+          "rows",
+          "previewRows",
+          "previewLimitPerAction",
+          "truncated",
+          "reportArtifactId",
+          "settings"
+        ],
         "properties": {
-          "totalDecisions": { "type": "integer" },
+          "totalDecisions": {
+            "type": "integer"
+          },
           "counts": {
             "type": "object",
-            "required": ["keep", "review_similarity", "resolve_or_accept_fallback", "review_source_fallback"],
+            "required": [
+              "keep",
+              "review_similarity",
+              "resolve_or_accept_fallback",
+              "review_source_fallback"
+            ],
             "properties": {
-              "keep": { "type": "integer" },
-              "review_similarity": { "type": "integer" },
-              "resolve_or_accept_fallback": { "type": "integer" },
-              "review_source_fallback": { "type": "integer" },
-              "preserve_source": { "type": "integer" }
+              "keep": {
+                "type": "integer"
+              },
+              "review_similarity": {
+                "type": "integer"
+              },
+              "resolve_or_accept_fallback": {
+                "type": "integer"
+              },
+              "review_source_fallback": {
+                "type": "integer"
+              },
+              "preserve_source": {
+                "type": "integer"
+              }
             }
           },
-          "rows": { "type": "array", "items": { "$ref": "#/components/schemas/TerminologyAuditRow" }, "description": "Bounded preview retaining at most 100 rows per review action." },
-          "previewRows": { "type": "integer" },
-          "previewLimitPerAction": { "type": "integer" },
-          "truncated": { "type": "boolean" },
-          "reportArtifactId": { "type": "string" },
-          "settings": { "type": "object", "additionalProperties": true }
+          "rows": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TerminologyAuditRow"
+            },
+            "description": "Bounded preview retaining at most 100 rows per review action."
+          },
+          "previewRows": {
+            "type": "integer"
+          },
+          "previewLimitPerAction": {
+            "type": "integer"
+          },
+          "truncated": {
+            "type": "boolean"
+          },
+          "reportArtifactId": {
+            "type": "string"
+          },
+          "settings": {
+            "type": "object",
+            "additionalProperties": true
+          }
         }
       },
-      "ConversionResponse": {
-        "type": "object", "required": ["ok", "artifacts", "warnings", "meta"],
-        "properties": { "ok": { "type": "boolean", "enum": [true] }, "artifacts": { "type": "array", "items": { "$ref": "#/components/schemas/Artifact" } }, "warnings": { "type": "array", "items": { "type": "string" } }, "meta": { "type": "object", "properties": { "conversion": { "type": "string" }, "terminologyAudit": { "$ref": "#/components/schemas/TerminologyAudit" } } } }
-      },
       "ErrorResponse": {
-        "type": "object", "required": ["ok", "error"],
-        "properties": { "ok": { "type": "boolean", "enum": [false] }, "error": { "type": "object", "required": ["code", "message"], "properties": { "code": { "type": "string" }, "message": { "type": "string" } } }, "meta": { "type": "object", "properties": { "conversion": { "type": "string" } } } }
+        "type": "object",
+        "required": [
+          "ok",
+          "error"
+        ],
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "enum": [
+              false
+            ]
+          },
+          "error": {
+            "type": "object",
+            "required": [
+              "message"
+            ],
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              }
+            }
+          },
+          "meta": {
+            "type": "object",
+            "properties": {
+              "conversion": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "FileHandle": {
+        "type": "object",
+        "required": [
+          "id",
+          "filename"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "filename": {
+            "type": "string"
+          },
+          "directory": {
+            "type": "boolean"
+          },
+          "bytes": {
+            "type": "integer"
+          },
+          "displayPath": {
+            "type": "string",
+            "description": "Display only; use the ID in requests."
+          }
+        }
+      },
+      "Preview": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string"
+          },
+          "data": {},
+          "truncated": {
+            "type": "boolean"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "previewNote": {
+            "type": "string"
+          }
+        }
+      },
+      "JobRequest": {
+        "type": "object",
+        "required": [
+          "conversion",
+          "input"
+        ],
+        "properties": {
+          "conversion": {
+            "type": "string"
+          },
+          "input": {
+            "oneOf": [
+              {
+                "type": "object",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {}
+                },
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "required": [
+                  "files"
+                ],
+                "properties": {
+                  "files": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "description": "File-role names from the catalog, each mapped to uploaded handle IDs."
+                  }
+                },
+                "additionalProperties": false
+              }
+            ]
+          },
+          "output": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "entities": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "derived_entity_overrides": {
+                "type": "object"
+              }
+            }
+          },
+          "options": {
+            "type": "object",
+            "description": "Allowed keys are route-specific; inspect GET /api/conversions."
+          },
+          "destination": {
+            "type": "string",
+            "description": "Optional directory handle from native file selection, never a filesystem path."
+          }
+        },
+        "additionalProperties": false
+      },
+      "Job": {
+        "type": "object",
+        "required": [
+          "id",
+          "conversion",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "conversion": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "queued",
+              "running",
+              "cancelling",
+              "completed",
+              "failed",
+              "cancelled",
+              "interrupted"
+            ]
+          },
+          "created": {
+            "type": "number"
+          },
+          "finished": {
+            "type": "number"
+          },
+          "message": {
+            "type": "string"
+          },
+          "queuePosition": {
+            "type": "integer"
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "options": {
+            "type": "object"
+          },
+          "output": {
+            "type": "object"
+          },
+          "outputDirectory": {
+            "type": "string"
+          },
+          "directory": {
+            "type": "string"
+          },
+          "engineVersion": {
+            "type": "string"
+          },
+          "result": {
+            "type": "object",
+            "properties": {
+              "artifacts": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Artifact"
+                }
+              },
+              "warnings": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "meta": {
+                "type": "object",
+                "properties": {
+                  "terminologyAudit": {
+                    "$ref": "#/components/schemas/TerminologyAudit"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Resource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "installed": {
+            "type": "boolean"
+          },
+          "bundled": {
+            "type": "boolean"
+          },
+          "contentVersion": {
+            "type": "string"
+          },
+          "byteSize": {
+            "type": "integer"
+          }
+        }
       }
     },
     "responses": {
-      "UnknownConversion": { "description": "Unknown conversion", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
-      "InvalidRequest": { "description": "Invalid request or conversion failure", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
-      "RequestTooLarge": { "description": "The uploaded files exceed the 100 MiB request limit", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
-      "ResourceUnavailable": { "description": "Required local runtime resource is unavailable", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
-      "InfrastructureError": { "description": "Unexpected local service failure", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } }
+      "InvalidRequest": {
+        "description": "Invalid request or conversion failure",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponse"
+            }
+          }
+        }
+      },
+      "InfrastructureError": {
+        "description": "Unexpected local service failure",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      },
+      "LocalToken": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-Convert-Pheno-Local",
+        "description": "Private token managed by the desktop shell for native file access."
+      }
     }
-  }
+  },
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ]
 }

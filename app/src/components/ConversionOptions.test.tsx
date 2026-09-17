@@ -43,7 +43,7 @@ describe('registry-driven conversion settings', () => {
     render(<Form />)
     const option = screen.getByLabelText('Include datasetId in records')
     expect(option).not.toBeChecked()
-    expect(option).toHaveAccessibleDescription(/dataset ID from your mapping file/)
+    expect(option).toHaveAccessibleDescription(/beacon\.datasets\.defaults\.id from your mapping file/)
     fireEvent.click(option)
     expect(JSON.parse(screen.getByTestId('values').textContent!).include_dataset_id).toBe(true)
   })

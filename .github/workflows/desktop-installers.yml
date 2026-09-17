@@ -1,15 +1,19 @@
-name: Build desktop test installers
+name: Build desktop installers
 
-# Manually creates an unsigned, short-lived compatibility pre-release only after
-# every requested platform has built and passed its package inspection.
+# Stable tags build every platform into a draft release. Manual runs retain
+# compatibility testing without publishing a stable release.
 on:
+  push:
+    tags:
+      - "[0-9]*.[0-9]*"
   workflow_dispatch:
     inputs:
       platforms:
-        description: Installer platforms (Windows is diagnostic only until packaging passes)
+        description: Installer platforms for compatibility testing
         type: choice
-        default: macos-linux
+        default: all
         options:
+          - all
           - macos-linux
           - windows
 
@@ -24,11 +28,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # Separate runs keep Windows packaging diagnostics from blocking the
-        # inspected macOS/Linux installers. Both use the same build steps.
-        include: ${{ fromJSON(inputs.platforms == 'windows' && '[{"os":"windows-2022","name":"Windows x86_64","artifact":"windows-x86_64","bundle":"nsis"}]' || '[{"os":"ubuntu-22.04","name":"Linux x86_64","artifact":"linux-x86_64","bundle":"appimage"},{"os":"ubuntu-24.04-arm","name":"Linux ARM64","artifact":"linux-aarch64","bundle":"appimage"},{"os":"macos-15","name":"macOS Apple Silicon","artifact":"macos-apple-silicon","bundle":"dmg"},{"os":"macos-15-intel","name":"macOS Intel","artifact":"macos-intel","bundle":"dmg"}]') }}
+        # Release tags build all platforms; manual runs can isolate one group.
+        include: ${{ fromJSON(inputs.platforms == 'windows' && '[{"os":"windows-2022","name":"Windows x86_64","artifact":"windows-x86_64","bundle":"nsis"}]' || inputs.platforms == 'macos-linux' && '[{"os":"ubuntu-22.04","name":"Linux x86_64","artifact":"linux-x86_64","bundle":"appimage"},{"os":"ubuntu-24.04-arm","name":"Linux ARM64","artifact":"linux-aarch64","bundle":"appimage"},{"os":"macos-15","name":"macOS Apple Silicon","artifact":"macos-apple-silicon","bundle":"dmg"},{"os":"macos-15-intel","name":"macOS Intel","artifact":"macos-intel","bundle":"dmg"}]' || '[{"os":"ubuntu-22.04","name":"Linux x86_64","artifact":"linux-x86_64","bundle":"appimage"},{"os":"ubuntu-24.04-arm","name":"Linux ARM64","artifact":"linux-aarch64","bundle":"appimage"},{"os":"macos-15","name":"macOS Apple Silicon","artifact":"macos-apple-silicon","bundle":"dmg"},{"os":"macos-15-intel","name":"macOS Intel","artifact":"macos-intel","bundle":"dmg"},{"os":"windows-2022","name":"Windows x86_64","artifact":"windows-x86_64","bundle":"nsis"}]') }}
     steps:
       - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
       - uses: dtolnay/rust-toolchain@1.86.0
 
@@ -80,14 +85,28 @@ jobs:
       - name: Install Perl dependencies
         run: cpanm --notest --configure-timeout 300 --installdeps .
 
+      - name: Verify release versions
+        shell: bash
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+          RELEASE_EVENT: ${{ github.event_name }}
+        run: |
+          if [[ "$RELEASE_EVENT" == push ]]; then
+            perl scripts/check-release.pl "$RELEASE_TAG"
+            test "$(git cat-file -t "refs/tags/$RELEASE_TAG")" = tag
+            test "$(git rev-parse "refs/tags/$RELEASE_TAG^{commit}")" = "$(git rev-parse HEAD)"
+          else
+            perl scripts/check-release.pl
+          fi
+
       - name: Test core engine
         if: runner.os != 'Windows'
-        run: prove -j6 -lr t
+        run: prove -j6 -lr t api/perl/t
 
       - name: Test core engine on Windows
         if: runner.os == 'Windows'
         shell: pwsh
-        run: prove -lr t
+        run: prove -lr t api/perl/t
 
       - name: Install frontend dependencies
         working-directory: app
@@ -262,13 +281,13 @@ jobs:
           retention-days: 7
 
   prerelease:
-    name: Publish test pre-release
-    if: inputs.platforms != 'windows'
+    name: Collect inspected installers
     needs: installer
     runs-on: ubuntu-24.04
     permissions:
       contents: write
     steps:
+      - uses: actions/checkout@v5
       - uses: actions/download-artifact@v5
         with:
           pattern: convert-pheno-*-test
@@ -278,14 +297,33 @@ jobs:
       - name: Publish inspected installers
         env:
           GH_TOKEN: ${{ github.token }}
+          RELEASE_EVENT: ${{ github.event_name }}
+          RELEASE_TAG: ${{ github.ref_name }}
+          PLATFORMS: ${{ inputs.platforms }}
         shell: bash
         run: |
-          tag="desktop-v0.35.0-test.${GITHUB_RUN_NUMBER}"
+          version="$(tr -d '\r\n' < VERSION)"
           mapfile -t assets < <(find release-assets -type f -print | sort)
-          test "${#assets[@]}" -eq 8
+          expected=10
+          [[ "$PLATFORMS" != windows ]] || expected=2
+          [[ "$PLATFORMS" != macos-linux ]] || expected=8
+          test "${#assets[@]}" -eq "$expected"
+          if [[ "$RELEASE_EVENT" == push ]]; then
+            if gh release view "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+              test "$(gh release view "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" --json isDraft --jq .isDraft)" = true
+              gh release upload "$RELEASE_TAG" "${assets[@]}" --repo "$GITHUB_REPOSITORY" --clobber
+            else
+              gh release create "$RELEASE_TAG" "${assets[@]}" \
+                --repo "$GITHUB_REPOSITORY" --verify-tag --draft \
+                --title "Convert-Pheno $version" \
+                --notes "Desktop installers and SHA-256 checksums for Convert-Pheno $version. Review platform tests and release notes before publishing."
+            fi
+            exit 0
+          fi
+          tag="desktop-v${version}.0-test.${GITHUB_RUN_NUMBER}"
           gh release create "$tag" "${assets[@]}" \
             --repo "$GITHUB_REPOSITORY" \
             --target "$GITHUB_SHA" \
             --prerelease \
-            --title "Convert-Pheno Desktop 0.35 test build ${GITHUB_RUN_NUMBER}" \
-            --notes "Compatibility test only. These installers are not a stable Convert-Pheno release. Packages are provided for Linux x86_64 and ARM64, macOS Intel and Apple Silicon. macOS uses an ad-hoc signature. Windows packaging is being tested separately and is not included in this prerelease. The optional OHDSI database is downloaded separately."
+            --title "Convert-Pheno Desktop $version test build ${GITHUB_RUN_NUMBER}" \
+            --notes "Compatibility test for selected platforms: $PLATFORMS. These installers are not a stable release. macOS is not Apple-notarized; Windows installers are unsigned. The optional OHDSI database is downloaded separately."

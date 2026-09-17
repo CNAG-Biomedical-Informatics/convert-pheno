@@ -1,81 +1,77 @@
-# Convert-Pheno API (Perl)
+# Convert-Pheno API (Mojolicious)
 
-This Mojolicious server powers the local Convert-Pheno Workbench. It uses the
-same conversion code as the CLI and Perl module. Use this API for new HTTP(s)
-integrations.
+This local service powers Convert-Pheno Desktop and uses the same core engine
+as the CLI. Use it for new HTTP(s) integrations. It does not serve a browser UI.
 
 ## Run locally
 
-From the repository root:
+Desktop starts and authenticates its own service. For a standalone service,
+set a private token of at least 32 characters, then start from the repository root:
 
 ```bash
+export CONVERT_PHENO_API_TOKEN="$(openssl rand -hex 32)"
 morbo -l http://127.0.0.1:3000 api/perl/main.pl
 ```
 
-For frontend development, run `npm run dev` from `app/` in a second terminal.
-After `npm run build`, Mojolicious serves the built Workbench at `/`.
+Send `Authorization: Bearer <token>` with every request. Keep the service on
+loopback; do not publish its token or expose native file-access endpoints.
 
-## Endpoints
+## Conversion workflow
 
-- `GET /api/health`
-- `GET /api/conversions`
-- `POST /api/conversions/{conversion}`
-- `GET /examples/{source}` for bundled synthetic examples shared by routes with the same source format
+1. Read `GET /api/conversions` for supported routes, options, and file roles
+2. Upload files to `POST /api/inputs`, or supply JSON directly
+3. Submit a request to `POST /api/jobs`
+4. Poll `GET /api/jobs/{id}` until the job completes or fails
+5. Preview or download the files listed in `data.result.artifacts`
 
-Example:
-
-```bash
-curl -H 'Content-Type: application/json' \
-  -d '{"input":{"data":{"phenopacket":{"id":"P1"}}},"output":{"entities":["individuals"]},"options":{}}' \
-  http://127.0.0.1:3000/api/conversions/pxf2bff
-```
-
-For conversions that need files, send a `multipart/form-data` request. The
-`request` part holds the output settings and options as JSON. Send each input
-file under the role shown by `GET /api/conversions`, such as `source` or
-`mapping`:
+For example, upload a Phenopacket from the repository:
 
 ```bash
 curl --fail-with-body \
-  --form 'request={"output":{"entities":["individuals"]},"options":{"separator":","}}' \
-  --form source=@records.csv \
-  --form mapping=@mapping.yaml \
-  http://127.0.0.1:3000/api/conversions/csv2bff
+  -H "Authorization: Bearer $CONVERT_PHENO_API_TOKEN" \
+  -F files=@t/pxf2bff/in/pxf.json \
+  http://127.0.0.1:3000/api/inputs
 ```
 
-For built-in routes such as OMOP-to-BFF, `mapping` is optional and supplies
-only dataset and cohort metadata. The structural source-to-BFF mapping remains
-built in.
+Use its returned `data[0].id` as `HANDLE`:
 
-BFF-to-OMOP also accepts an optional `mapping` file, this time for reviewed
-terminology queries rather than dataset metadata. See the
-[terminology mapping example](../../t/bff2omop/in/README.md).
+```bash
+curl --fail-with-body \
+  -H "Authorization: Bearer $CONVERT_PHENO_API_TOKEN" \
+  -H 'Content-Type: application/json' \
+  -d '{"conversion":"pxf2bff","input":{"files":{"source":["HANDLE"]}},"output":{"entities":["individuals"]},"options":{}}' \
+  http://127.0.0.1:3000/api/jobs
+```
 
-## Request limits
+The `202` response means **queued**, not successfully converted. Check
+`data.status`; failures include `data.message`. Once completed, download
+`GET /api/jobs/{id}/outputs/{artifact}/download`. Downloads contain the original
+file bytes, not base64-wrapped JSON.
 
-Each request can upload up to 100 MiB. Uploaded files are deleted after the
-request finishes. The API does not accept paths to files already on the server.
-Use the CLI or module for streaming and larger inputs.
+## Files, reports, and limits
 
-## Terminology reports
+Upload requests accept up to 128 files and 100 MiB total. Returned handles are
+reusable within that service's state directory. Uploaded files are not removed
+when the upload request finishes. Generic clients cannot submit filesystem paths;
+the native app has separately authenticated endpoints for local file selection.
 
-For conversions that search terminology databases, set `term_audit` to `xlsx`
-or `tsv`. The response includes the complete report. It also includes summary
-counts and a short preview in `meta.terminologyAudit`, which the Workbench uses
-for its review screen.
+Map handles to roles such as `source`, `mapping`, or `dictionary` in the job
+request. The catalog describes which roles each conversion accepts. Optional
+metadata mappings and BFF-to-OMOP terminology mappings use that same mechanism.
+
+Set `options.term_audit` to `xlsx` or `tsv` to request a terminology report.
+Completed jobs include the report among their outputs and a bounded preview in
+`data.result.meta.terminologyAudit`.
+
+Runs execute one at a time. Cancel with `POST /api/jobs/{id}/cancel`.
+Deleting history with `DELETE /api/jobs/{id}` keeps outputs; deleting
+`/api/jobs/{id}/files` also removes the run's outputs, never original source files.
 
 ## Responses
 
-Successful responses contain `warnings` and `artifacts`. Each item in
-`artifacts` is one generated output file and includes its filename, file type,
-encoding, and content.
+Responses normally use `{ok, data}` or `{ok: false, error: {message, ...}}`.
+Missing authentication returns `401`; rejected hosts, origins, or native access
+return `403`; rejected job requests return `422`. A conversion that fails after
+submission is reported through its job status, not the submission's HTTP status.
 
-Errors use these HTTP status codes:
-
-- `404`: unknown conversion
-- `422`: invalid request or conversion failure
-- `503`: a required database or other resource is unavailable
-- `500`: the server encountered an unexpected error
-
-Both JSON and multipart requests are supported. See
-[openapi.json](./openapi.json) for the complete request and response contract.
+See [openapi.json](./openapi.json) for endpoints and request schemas.

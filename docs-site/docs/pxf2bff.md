@@ -13,7 +13,7 @@ Beacon v2 requires some fields that may be absent from a Phenopacket. The
 mapping tables identify the documented defaults used in those cases.
 
 :::
-#### Version 0.34
+#### Version 0.35
 
 **Output model:** BFF
 

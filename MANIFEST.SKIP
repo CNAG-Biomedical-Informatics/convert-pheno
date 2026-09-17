@@ -28,6 +28,10 @@
 ^nytprof(?:\.|$)
 ^docs/
 ^docs-site/
+^app/
+^local/
+^scripts/
+^TODO\.md$
 ^api/perl/bck/
 ^api/python/bck/
 ^api/python/__pycache__/

@@ -2,124 +2,76 @@
 use strict;
 use warnings;
 use FindBin qw($Bin);
-use Mojo::JSON qw(encode_json);
+use File::Temp qw(tempdir);
+use Mojo::JSON qw(decode_json true);
 use Path::Tiny qw(path);
 use Test::Mojo;
 use Test::More;
 
+local $ENV{CONVERT_PHENO_API_TOKEN} = 'test-api-token-' x 3;
+local $ENV{CONVERT_PHENO_STATE_DIR} = tempdir(CLEANUP => 1);
 require "$Bin/../main.pl";
 my $t = Test::Mojo->new(main::app());
+my $auth = {Authorization => 'Bearer ' . $ENV{CONVERT_PHENO_API_TOKEN}};
 
-$t->get_ok('/api/health')->status_is(200)
-  ->json_is('/ok', Mojo::JSON->true)->json_is('/data/engine', 'perl');
+$t->get_ok('/api/health')->status_is(401);
+$t->get_ok('/api/health' => $auth)->status_is(200)->json_is('/ok', true);
+$t->get_ok('/api/conversions' => $auth)->status_is(200);
+ok(grep($_->{id} eq 'pxf2bff', @{$t->tx->res->json->{data}}), 'catalog includes fixture route');
 
-$t->get_ok('/api/conversions')->status_is(200)
-  ->json_is('/ok', Mojo::JSON->true)->json_is('/meta/count', 44)
-  ->json_is('/data/0/id', 'bff2csv');
-
-$t->get_ok('/examples/pxf')->status_is(200)
-  ->json_is('/ok', Mojo::JSON->true)
-  ->json_is('/meta/source', 'pxf')
-  ->json_is('/meta/filename', 'phenopacket-example.json')
-  ->json_is('/data/0/subject/id', '16-year-old boy')
-  ->json_has('/data/0/phenotypicFeatures/0')
-  ->json_has('/data/0/measurements/0');
-
-for my $source (qw(beacon fhir)) {
-    $t->get_ok("/examples/$source")->status_is(200)
-      ->json_is('/ok', Mojo::JSON->true)
-      ->json_is('/meta/source', $source);
+sub complete_job {
+    my ($request) = @_;
+    $t->post_ok('/api/jobs' => $auth => json => $request)->status_is(202);
+    my $id = $t->tx->res->json->{data}{id};
+    BAIL_OUT('Submission did not return a job ID') unless $id;
+    my $deadline = time + 30;
+    my $job;
+    while (time < $deadline) {
+        my $response = $t->ua->get("/api/jobs/$id" => $auth)->result;
+        $job = $response->json->{data};
+        last if $job && $job->{status} !~ /\A(?:queued|running)\z/;
+        select undef, undef, undef, .05;
+    }
+    is($job->{status}, 'completed', 'HTTP job completes a real fixture conversion')
+      or diag explain $job;
+    return ($id, $job);
 }
 
-for my $source (qw(pxf fhir openehr)) {
-    $t->get_ok("/examples/$source?transport=multipart")->status_is(200)
-      ->json_is('/data/transport', 'multipart')
-      ->json_is('/data/files/0/role', 'source');
-}
+my $pxf = decode_json(path("$Bin/../../../t/pxf2bff/in/pxf.json")->slurp_raw);
+my ($id, $job) = complete_job({
+    conversion => 'pxf2bff', input => {data => $pxf},
+    output => {entities => ['individuals', 'biosamples']}, options => {test => true},
+});
+is_deeply([sort map {$_->{filename}} @{$job->{result}{artifacts}}],
+    ['biosamples.json', 'individuals.json'], 'both entity outputs are retained');
+$t->get_ok("/api/jobs/$id/outputs/individuals/preview" => $auth)->status_is(200)
+  ->json_has('/data/data');
+$t->get_ok("/api/jobs/$id/outputs/individuals/download" => $auth)->status_is(200);
+my $download = decode_json($t->tx->res->body);
+ok(ref($download) eq 'ARRAY' && @$download, 'download contains converted individuals');
 
-$t->get_ok('/examples/csv')->status_is(200)
-  ->json_is('/data/transport', 'multipart')
-  ->json_is('/data/options/separator', ',')
-  ->json_is('/data/files/0/role', 'source');
+$t->post_ok('/api/inputs' => $auth => form => {
+    source => {file => "$Bin/../../../t/csv2bff/in/csv_data.csv"},
+    mapping => {file => "$Bin/../../../t/csv2bff/in/csv_mapping.yaml"},
+})->status_is(201);
+my %handles = map {$_->{filename} => $_->{id}} @{$t->tx->res->json->{data}};
+my ($source) = map {$handles{$_}} grep {/csv_data\.csv\z/} keys %handles;
+my ($mapping) = map {$handles{$_}} grep {/csv_mapping\.yaml\z/} keys %handles;
+ok($source && $mapping, 'uploads return handles for both input roles');
+my ($csv_id, $csv_job) = complete_job({
+    conversion => 'csv2bff', input => {files => {source => [$source], mapping => [$mapping]}},
+    output => {entities => ['individuals']},
+    options => {separator => ',', term_audit => 'xlsx', test => true},
+});
+ok($csv_job->{result}{meta}{terminologyAudit}, 'audit summary accompanies completed job');
+$t->get_ok("/api/jobs/$csv_id/outputs/term-audit/download" => $auth)->status_is(200);
+is(substr($t->tx->res->body, 0, 2), 'PK', 'Excel audit downloads as a binary workbook');
 
-for my $source (qw(cbioportal cdisc-odm dataset-json dataset-xml i2b2 pcornet redcap sentinel)) {
-    $t->get_ok("/examples/$source")->status_is(200)
-      ->json_is('/data/transport', 'multipart')
-      ->json_is('/data/files/0/role', 'source');
-}
-
-$t->get_ok('/examples/openehr')->status_is(200)
-  ->json_is('/ok', Mojo::JSON->true)
-  ->json_is('/meta/source', 'openehr')
-  ->json_is('/meta/filename', 'openehr-patient-example.json')
-  ->json_is('/data/subject/external_ref/id/value', 'openehr-patient-2');
-my $openehr = $t->tx->res->json->{data};
-$t->post_ok(
-    '/api/conversions/openehr2bff',
-    json => {
-        input   => { data => $openehr },
-        output  => { entities => ['individuals'] },
-        options => { test => Mojo::JSON->true },
-    }
-)->status_is(200)->json_is('/ok', Mojo::JSON->true)
-  ->json_is('/artifacts/0/filename', 'individuals.json');
-
-$t->get_ok('/examples/omop')->status_is(200)
-  ->json_is('/data/transport', 'multipart')
-  ->json_is('/data/files/0/role', 'source');
-$t->get_ok('/examples/omop?transport=json')->status_is(200)
-  ->json_is('/data/PERSON/0/person_id', 974);
-
-$t->get_ok('/examples/not-a-source')->status_is(404)
-  ->json_is('/error/code', 'unknown_example');
-
-my $pxf = Mojo::JSON::decode_json(
-    path("$Bin/../../../t/pxf2bff/in/pxf.json")->slurp_raw
-);
-$t->post_ok(
-    '/api/conversions/pxf2bff',
-    json => {
-        input   => { data => $pxf },
-        output  => { entities => [ 'individuals', 'biosamples' ] },
-        options => { test => Mojo::JSON->true },
-    }
-)->status_is(200)->json_is('/ok', Mojo::JSON->true)
-  ->json_is('/meta/conversion', 'pxf2bff')
-  ->json_is('/artifacts/0/filename', 'individuals.json')
-  ->json_is('/artifacts/1/filename', 'biosamples.json');
-
-$t->post_ok(
-    '/api/conversions/csv2bff' => form => {
-        request => encode_json(
-            {
-                output  => { entities => ['individuals'] },
-                options => {
-                    separator  => ',',
-                    term_audit => 'xlsx',
-                    test       => Mojo::JSON->true,
-                },
-            }
-        ),
-        source  => { file => "$Bin/../../../t/csv2bff/in/csv_data.csv" },
-        mapping => { file => "$Bin/../../../t/csv2bff/in/csv_mapping.yaml" },
-    }
-)->status_is(200)->json_is('/ok', Mojo::JSON->true)
-  ->json_is('/meta/conversion', 'csv2bff')
-  ->json_has('/meta/terminologyAudit')
-  ->json_is('/meta/terminologyAudit/reportArtifactId', 'term-audit')
-  ->json_is('/artifacts/0/filename', 'individuals.json')
-  ->json_is('/artifacts/1/filename', 'term-audit.xlsx');
-
-$t->post_ok('/api/conversions/not-a-route', json => { input => { data => {} } })
-  ->status_is(404)->json_is('/error/code', 'unknown_conversion');
-
-$t->post_ok('/api/conversions/pxf2bff', json => { input => { data => {} }, options => { out_file => '/tmp/result.json' } })
+$t->post_ok('/api/jobs' => $auth => json => {conversion => 'not-a-route', input => {data => {}}})
   ->status_is(422)->json_is('/error/code', 'invalid_request');
-
-$t->post_ok('/api/conversions/pxf2bff', json => { input => { data => '/tmp/input.json' } })
+$t->post_ok('/api/jobs' => $auth => json => {conversion => 'pxf2bff', input => {files => {source => ['/tmp/input.json']}}})
   ->status_is(422)->json_is('/error/code', 'invalid_request');
-
-$t->post_ok('/api/conversions/pxf2bff', json => { input => [] })
-  ->status_is(422)->json_is('/error/code', 'invalid_request');
+$t->post_ok('/api/inputs/local' => $auth => json => {paths => ['/tmp/input.json']})
+  ->status_is(403);
 
 done_testing;

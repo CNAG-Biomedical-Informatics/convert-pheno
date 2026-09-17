@@ -3,7 +3,7 @@ title: PXF to BFF Mapping
 sidebar_label: PXF to BFF Mapping
 ---
 
-#### Version 0.34
+#### Version 0.35
 
 **Output model:** BFF
 

@@ -12,6 +12,9 @@ SESSION*.md
 /README*
 /docs
 /docs-site
+/app
+/scripts
+/TODO.md
 /nb
 /non-containerized
 /docker

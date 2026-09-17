@@ -1,9 +1,15 @@
 name: Publish to CPAN
 
 on:
-  workflow_dispatch
-  #release:
-  #  types: [created]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Annotated release tag (must equal VERSION, e.g. 0.35)
+        required: true
+        type: string
+
+permissions:
+  contents: read
 
 jobs:
   build-and-release:
@@ -11,10 +17,22 @@ jobs:
     name: Build and release Convert::Pheno to CPAN
     steps:
       - uses: actions/checkout@v5
+        with:
+          ref: refs/tags/${{ inputs.tag }}
+          fetch-depth: 0
+      - name: Verify release tag and versions
+        env:
+          RELEASE_TAG: ${{ inputs.tag }}
+        run: |
+          perl scripts/check-release.pl "$RELEASE_TAG"
+          test "$(git cat-file -t "refs/tags/$RELEASE_TAG")" = tag
+          test "$(git rev-parse "refs/tags/$RELEASE_TAG^{commit}")" = "$(git rev-parse HEAD)"
       - name: Install cpanminus
         run: curl -L https://cpanmin.us | perl - --sudo App::cpanminus
       - name: Install dependencies
-        run: cpanm --sudo File::ShareDir::Install
+        run: |
+          cpanm --sudo --notest File::ShareDir::Install
+          cpanm --sudo --notest --installdeps .
       - name: Configure
         run: perl Makefile.PL
       - name: Create MANIFEST
@@ -23,6 +41,8 @@ jobs:
         run: make
       - name: Deliver locally
         run: make dist
+      - name: Test distribution
+        run: make disttest
       - name: Upload to CPAN
         id: upload
         uses: thibaultduponchelle/action-upload-to-cpan@master

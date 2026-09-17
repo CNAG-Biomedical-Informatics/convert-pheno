@@ -32,7 +32,11 @@ my $jobs = Convert::Pheno::HTTP::Jobs->new(
     root => $ENV{CONVERT_PHENO_STATE_DIR} || catdir($ENV{HOME} || $ENV{LOCALAPPDATA} || '.', '.convert-pheno', 'runs'),
     worker => catfile($API_DIR, 'worker.pl'),
 );
-END { $jobs->shutdown if $jobs }
+END {
+    # Reaping workers must not replace the server or test process exit status.
+    local $?;
+    $jobs->shutdown if $jobs;
+}
 
 hook before_dispatch => sub {
     my ($c) = @_;

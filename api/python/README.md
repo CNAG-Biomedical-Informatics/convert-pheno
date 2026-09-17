@@ -7,6 +7,9 @@ Perl implementation rather than implementing the conversions again in Python.
 > integrations should use the Mojolicious API, which supports both JSON and file
 > uploads. The Python module binding will remain available.
 
+This server keeps its synchronous conversion endpoints in 0.35. It does not
+implement the Mojolicious job API used by the desktop application.
+
 ## Run locally
 
 From a Convert-Pheno source checkout:
@@ -31,5 +34,5 @@ curl -H 'Content-Type: application/json' \
 ```
 
 The conversion list includes only routes that accept JSON. This server does not
-accept file uploads. Use the Mojolicious API or Workbench for mapping files and
+accept file uploads. Use the Mojolicious API or Desktop for mapping files and
 multi-file inputs. Use the CLI for streaming or large datasets.

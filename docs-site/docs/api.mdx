@@ -5,179 +5,132 @@ sidebar_label: API
 slug: /use-as-an-api
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+The **Mojolicious API** powers Convert-Pheno Desktop. It runs conversions as
+background jobs using the same core engine as the CLI. New HTTP(s) integrations
+should use this API.
 
-The Mojolicious API accepts self-contained JSON and registry-defined multipart
-uploads. Use the [command-line interface](use-as-a-command-line-interface) for
-streaming and large datasets.
+## Start and authenticate
 
-## Endpoints
+Desktop manages its own local service. To run one separately, start from the
+repository root:
 
-| Method | Path | Purpose |
-| --- | --- | --- |
-| `GET` | `/api/health` | Check the local Perl service |
-| `GET` | `/api/conversions` | Get routes, input shapes, options, entities, maturity, and current resource availability |
-| `POST` | `/api/conversions/{conversion}` | Run one conversion and return serialized artifacts |
+```bash
+export CONVERT_PHENO_API_TOKEN="$(openssl rand -hex 32)"
+morbo -l http://127.0.0.1:3000 api/perl/main.pl
+```
 
-Read route options and current resource availability from the catalog instead
-of maintaining a separate conversion list in the client.
+Include `Authorization: Bearer <token>` in every request. Keep the service on
+**127.0.0.1**. Native-only endpoints use an additional private token for local
+file selection and project management; they are not remote upload endpoints.
 
-`maturity` is optional and describes the conversion's source profile, not the
-HTTP interface. The desktop application shows an Experimental badge only when the catalog
-explicitly supplies that designation.
+## Submit a conversion
 
-## Conversion request
+Read `GET /api/conversions` first. It lists routes, accepted inputs, relevant
+options, supported entities, and required databases.
+
+For JSON input, send a request like this to `POST /api/jobs`:
 
 ```json
 {
+  "conversion": "pxf2bff",
   "input": {
-    "data": { "phenopacket": { "id": "P0007500" } }
+    "data": {
+      "id": "packet-1",
+      "subject": {"id": "person-1", "sex": "FEMALE"}
+    }
   },
-  "output": {
-    "entities": ["individuals", "biosamples"]
-  },
+  "output": {"entities": ["individuals"]},
   "options": {}
 }
 ```
 
-Send it to the route selected from the catalog:
-
 ```bash
 curl --fail-with-body \
-  --header 'Content-Type: application/json' \
+  -H "Authorization: Bearer $CONVERT_PHENO_API_TOKEN" \
+  -H 'Content-Type: application/json' \
   --data @request.json \
-  http://127.0.0.1:3000/api/conversions/pxf2bff
+  http://127.0.0.1:3000/api/jobs
 ```
 
-The HTTP boundary rejects client-supplied filesystem paths. OMOP can be sent as
-an object keyed by table name or uploaded as table files.
+The response contains a job ID. **HTTP 202 means accepted, not completed.**
+Poll `GET /api/jobs/{id}`. When `data.status` becomes `completed`,
+`data.result.artifacts` lists the output files. If it becomes `failed`,
+read `data.message`.
 
-## Multipart request
+## Upload files
 
-For file-based routes, inspect `input.files` in the selected catalog entry. It
-defines the required part names, accepted extensions, and whether a role may be
-repeated. Put `output` and `options` in the JSON-valued `request` part:
-
-Entity-aware OMOP, PXF, FHIR, openEHR, i2b2, PCORnet, and Sentinel BFF routes
-advertise an optional `mapping` role for compact dataset and cohort metadata.
-Their PXF and OMOP output routes do not advertise this role because those
-outputs do not emit BFF dataset or cohort entities.
+Upload first, then assign the returned handles to the roles listed in the
+conversion catalog:
 
 ```bash
 curl --fail-with-body \
-  --form 'request={"output":{"entities":["individuals"]},"options":{"separator":","}}' \
-  --form source=@records.csv \
-  --form mapping=@mapping.yaml \
-  http://127.0.0.1:3000/api/conversions/csv2bff
+  -H "Authorization: Bearer $CONVERT_PHENO_API_TOKEN" \
+  -F files=@records.csv \
+  -F files=@mapping.yaml \
+  http://127.0.0.1:3000/api/inputs
 ```
 
-Uploads are synchronous, limited to 100 MiB per request, and removed from the
-private temporary workspace when the request finishes.
-
-## Artifact response
+Use the returned IDs in the job request:
 
 ```json
 {
-  "ok": true,
-  "artifacts": [{
-    "id": "individuals",
-    "filename": "individuals.json",
-    "mediaType": "application/json",
-    "kind": "json",
-    "encoding": "utf-8",
-    "content": "[\n  { ... }\n]\n"
-  }],
-  "warnings": [],
-  "meta": { "conversion": "pxf2bff" }
+  "conversion": "csv2bff",
+  "input": {
+    "files": {
+      "source": ["CSV_HANDLE"],
+      "mapping": ["MAPPING_HANDLE"]
+    }
+  },
+  "output": {"entities": ["individuals"]},
+  "options": {"separator": ",", "term_audit": "xlsx"}
 }
 ```
 
-`content` is already serialized by Perl using the same conventions as the CLI.
-Text artifacts use `encoding: "utf-8"`; XLSX audit artifacts use base64.
-Clients should download it directly rather than rebuilding JSON or CSV. BFF
-outputs contain one artifact per requested entity; OMOP outputs contain one CSV
-artifact per emitted table.
+The limit is **100 MiB and 128 files per upload request**. Handles are reusable;
+uploaded files remain in the service state directory after the request finishes.
+Generic API clients use handles, not server filesystem paths. Desktop uses
+native file selection for larger local inputs.
 
-Warnings are returned without logging phenotype payloads. Error statuses are:
+OMOP accepts JSON objects keyed by table name or uploaded table files.
+For routes with optional dataset metadata, supply the
+[compact mapping](mapping-files#compact-dataset-and-cohort-metadata) under the
+`mapping` role.
 
-- `404`: unknown conversion
-- `413`: multipart request exceeds 100 MiB
-- `422`: invalid request or conversion failure
-- `503`: required local resource unavailable
-- `500`: unexpected service or bridge failure
+## Inspect and download
 
-Successful conversion does not imply external schema validation.
+| Method | Path | Purpose |
+| --- | --- | --- |
+| `GET` | `/api/jobs/{id}` | Status, warnings, and completed output list |
+| `GET` | `/api/jobs/{id}/outputs/{artifact}/preview` | Bounded table or JSON preview |
+| `GET` | `/api/jobs/{id}/outputs/{artifact}/download` | Original output file |
+| `POST` | `/api/jobs/{id}/cancel` | Cancel a queued or active job |
+| `DELETE` | `/api/jobs/{id}` | Delete history, keep outputs |
+| `DELETE` | `/api/jobs/{id}/files` | Delete history and output files |
 
-When a terminology report is requested, `meta.terminologyAudit` contains
-complete counts grouped by `review_action` and at most 100 preview rows per
-action. `reportArtifactId` identifies the complete XLSX or TSV in `artifacts`.
-The preview is intended for interactive review; the artifact remains the full
-audit record.
+Downloads are file bytes, not JSON-encoded content. BFF outputs have one file
+per requested entity; OMOP outputs have one CSV per emitted table.
 
-## JavaScript example
+With `term_audit` enabled, `data.result.meta.terminologyAudit` contains summary
+counts and a limited preview. Download the XLSX or TSV output for the full report.
 
-```javascript
-async function convertPhenopacket(phenopacket) {
-  const catalogResponse = await fetch('/api/conversions');
-  const catalog = await catalogResponse.json();
-  const route = catalog.data.find(({id}) => id === 'pxf2bff');
+Runs execute one at a time. Request errors return `401` for missing
+authentication, `403` for denied access, or `422` for rejected job requests.
+Failures after submission appear in the job status.
 
-  if (!route?.available) {
-    throw new Error(route?.unavailableReason ?? 'Conversion is unavailable');
-  }
+## Python HTTP server
 
-  const response = await fetch(`/api/conversions/${route.id}`, {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({
-      input: {data: phenopacket},
-      output: {entities: ['individuals']},
-      options: {},
-    }),
-  });
-  const result = await response.json();
-  if (!response.ok) throw new Error(result.error.message);
+:::caution[Planned deprecation]
+The JSON-only FastAPI reference server is retained in 0.35, with deprecation
+planned for a future release. It still uses its synchronous
+`POST /api/conversions/{conversion}` contract, not the Mojolicious job API above.
+Use Mojolicious for new integrations.
 
-  return result.artifacts; // serialized content is ready to download
-}
-```
-
-## Server implementations
-
-<Tabs groupId="api-implementation">
-<TabItem value="perl" label="Perl / Mojolicious" default>
-
-The official graphical application uses Mojolicious, supports JSON and
-multipart routes, and calls the shared Perl service directly:
-
-```bash
-morbo -l http://127.0.0.1:3000 api/perl/main.pl
-```
-
-</TabItem>
-<TabItem value="python" label="Python / FastAPI">
-
-FastAPI is a smaller JSON-only reference wrapper over the internal Perl bridge.
-Its catalog excludes multipart-only routes:
-
-```bash
-cd api/python
-uvicorn main:app --host 127.0.0.1 --port 8000
-```
-
-</TabItem>
-</Tabs>
-
-:::caution[Planned Python HTTP API deprecation]
-The Python HTTP API is retained temporarily for compatibility with existing
-JSON integrations and published descriptions. As file uploads, multi-file
-inputs, and downloadable artifacts expand, it will be deprecated in favor of
-the Mojolicious API. New HTTP(s) integrations should use Mojolicious.
-
-This does not deprecate the Python module binding.
+The **Python module binding remains supported**.
 :::
 
-The source [OpenAPI specification](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/api/perl/openapi.json)
-and published [Redoc reference](https://cnag-biomedical-informatics.github.io/convert-pheno/api/redoc-static.html) describe the
-same contract.
+See the [Python server README](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/api/python/README.md)
+if maintaining an existing integration.
+
+The [OpenAPI specification](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/api/perl/openapi.json)
+and [ReDoc reference](https://cnag-biomedical-informatics.github.io/convert-pheno/api/redoc-static.html)
+describe the Mojolicious job API, including its native-only endpoints.
