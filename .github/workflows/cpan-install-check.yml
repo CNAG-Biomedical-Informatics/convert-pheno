@@ -8,6 +8,10 @@ on:
         required: true
         default: main
         type: string
+      cygwin_dependencies_only:
+        description: Diagnose Cygwin dependencies only (not a release check)
+        default: false
+        type: boolean
 
 permissions:
   contents: read
@@ -38,6 +42,7 @@ jobs:
 
   installation:
     needs: distribution
+    if: ${{ !inputs.cygwin_dependencies_only }}
     strategy:
       fail-fast: false
       matrix:
@@ -134,6 +139,8 @@ jobs:
             zlib-devel
       - name: Install and test the distribution on Cygwin
         shell: C:\cygwin\bin\bash.EXE --noprofile --norc -e -o igncr -o pipefail {0}
+        env:
+          DEPENDENCIES_ONLY: ${{ inputs.cygwin_dependencies_only }}
         run: |
           export PATH=/usr/local/bin:/usr/bin
           export PERL_CPANM_HOME=/tmp/cpanm
@@ -141,6 +148,22 @@ jobs:
           cd "$(cygpath -u "$GITHUB_WORKSPACE")"
           perl -V
           curl --fail --location https://cpanmin.us | perl - App::cpanminus
+          if [[ "$DEPENDENCIES_ONLY" == "true" ]]; then
+            id
+            mount
+            ulimit -a
+            perl -MFile::Temp=tempfile -e 'my ($fh, $path) = tempfile(UNLINK => 1); close $fh; chmod(0200, $path) or die "chmod: $!"; my $readable = open(my $in, "<", $path); printf "Permission probe: uid=%s mode=%04o readable=%s\n", $>, (stat($path))[2] & 07777, $readable ? "yes" : "no"; chmod(0600, $path) or die "restore permissions: $!";'
+            failed=0
+            # Separate invocations expose each failure instead of dependency cascades.
+            for module in Clone Module::Pluggable Test::TCP; do
+              echo "::group::Cygwin dependency: $module"
+              if ! cpanm --verbose --configure-timeout 300 "$module"; then
+                failed=1
+              fi
+              echo "::endgroup::"
+            done
+            exit "$failed"
+          fi
           cpanm --verbose --configure-timeout 300 distribution/Convert-Pheno-*.tar.gz
       - name: Preserve Cygwin dependency and distribution logs
         if: always()
