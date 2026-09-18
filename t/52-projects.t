@@ -85,7 +85,7 @@ subtest 'project paths through a symbolic-link directory' => sub {
     my $stored = JSON::XS::decode_json($project->slurp_raw);
     is($stored->{sources}{source}[0]{path}, 'external.csv', 'source is relative to the physical project directory');
     is($stored->{destination}, 'output', 'destination is relative to the physical project directory');
-    like($stored->{jsonInput}, qr/^review\.cpheno\.data\//, 'owned text stays within the companion folder');
+    like($stored->{jsonInput}, qr{^review\.cpheno\.data[\\/]}, 'owned text stays within the companion folder');
     $managed->remove;
     for my $directory ($real, $link) {
         my $restored = Convert::Pheno::HTTP::Projects::open($service, "@{[$directory->child('review.cpheno')]}");
