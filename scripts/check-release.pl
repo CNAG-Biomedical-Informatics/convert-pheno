@@ -7,7 +7,9 @@ sub read_file {
     my ($file) = @_;
     open my $fh, '<', $file or die "Cannot read $file: $!\n";
     local $/;
-    return <$fh>;
+    my $text = <$fh>;
+    $text =~ s/\r\n/\n/g;
+    return $text;
 }
 my $version = read_file('VERSION');
 $version =~ s/\s+\z//;
