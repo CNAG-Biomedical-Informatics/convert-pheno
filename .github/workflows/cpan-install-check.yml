@@ -61,8 +61,6 @@ jobs:
     name: Install on ${{ matrix.os }} / Perl ${{ matrix.perl }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 60
-    env:
-      PERL_CPANM_HOME: ${{ runner.temp }}/cpanm
     steps:
       - uses: shogo82148/actions-setup-perl@v1
         with:
@@ -76,6 +74,8 @@ jobs:
       # No patched Net::IDN::Encode, compiler overrides, force, or skipped tests.
       - name: Install and test the distribution
         shell: bash
+        env:
+          PERL_CPANM_HOME: ${{ runner.temp }}/cpanm
         run: |
           perl -V
           cpanm --verbose --configure-timeout 300 --local-lib-contained "$RUNNER_TEMP/cpan-clean" distribution/Convert-Pheno-*.tar.gz
