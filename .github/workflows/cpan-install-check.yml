@@ -71,7 +71,19 @@ jobs:
           path: distribution
       # Install the tarball, not a checkout or a hand-maintained dependency list.
       # No patched Net::IDN::Encode, compiler overrides, force, or skipped tests.
-      - name: Install and test the distribution
+      - name: Install and test the distribution on Windows
+        if: runner.os == 'Windows'
+        shell: pwsh
+        env:
+          PERL_CPANM_HOME: ${{ runner.temp }}/cpanm
+        run: |
+          perl -V
+          perl -e 'for my $module (qw(ExtUtils::MakeMaker Pod::Man)) { my $ok = eval "require $module; 1"; print "$module: ", ($ok ? $module->VERSION : "missing ($@)"), "\n" }'
+          $archive = (Get-ChildItem -Path 'distribution/Convert-Pheno-*.tar.gz').FullName
+          cpanm --verbose --configure-timeout 300 $archive
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Install and test the distribution on Unix
+        if: runner.os != 'Windows'
         shell: bash
         env:
           PERL_CPANM_HOME: ${{ runner.temp }}/cpanm
