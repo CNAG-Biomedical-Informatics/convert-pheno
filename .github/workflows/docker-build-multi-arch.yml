@@ -1,6 +1,16 @@
 name: Docker build (multi-arch)
 
 on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing annotated release tag to build (e.g. 0.35)
+        required: true
+        type: string
+      publish:
+        description: Publish the image to Docker Hub
+        type: boolean
+        default: false
   push:
     tags:
       - "[0-9]*.[0-9]*"
@@ -9,7 +19,7 @@ env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 concurrency:
-  group: docker-${{ github.ref }}
+  group: docker-${{ inputs.tag || github.ref_name }}
   cancel-in-progress: false
 
 permissions:
@@ -19,16 +29,23 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      # Keep packaging fixes independent of the immutable application release.
+      - name: Check out packaging recipe
+        uses: actions/checkout@v5
+
       - name: Check out release
         uses: actions/checkout@v5
         with:
+          ref: refs/tags/${{ inputs.tag || github.ref_name }}
+          path: release
           fetch-depth: 0
 
       - name: Read build metadata
         id: build_metadata
         shell: bash
+        working-directory: release
         env:
-          RELEASE_TAG: ${{ github.ref_name }}
+          RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
         run: |
           perl scripts/check-release.pl "$RELEASE_TAG"
           version="$(tr -d '\r\n' < VERSION)"
@@ -58,6 +75,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Log in to Docker Hub
+        if: github.event_name == 'push' || inputs.publish
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -66,9 +84,9 @@ jobs:
       - name: Build and push multi-arch image
         uses: docker/build-push-action@v6
         with:
-          context: .
+          context: ./release
           file: docker/Dockerfile
-          push: true
+          push: ${{ github.event_name == 'push' || inputs.publish }}
           tags: |
             manuelrueda/convert-pheno:${{ steps.build_metadata.outputs.version }}
             manuelrueda/convert-pheno:latest
@@ -82,6 +100,7 @@ jobs:
             org.opencontainers.image.source=https://github.com/CNAG-Biomedical-Informatics/convert-pheno
             org.opencontainers.image.version=${{ steps.build_metadata.outputs.version }}
             org.opencontainers.image.revision=${{ steps.build_metadata.outputs.revision }}
+            org.opencontainers.image.packaging-revision=${{ github.sha }}
             org.opencontainers.image.licenses=Artistic-2.0
           cache-from: type=gha
           cache-to: type=gha,mode=max

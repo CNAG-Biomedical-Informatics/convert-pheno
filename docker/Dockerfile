@@ -21,9 +21,19 @@ RUN apt-get update \
 
 # Install dependencies before copying the source so this layer survives code changes.
 WORKDIR /usr/share/convert-pheno
+# Cpanel::JSON::XS 4.52's ARM NEON code uses mixed declarations, but its
+# Perl 5.34 build flags make these fatal. Keep warnings, relaxing only this
+# diagnostic for this dependency; do not change flags for other modules.
+RUN if [ "$(uname -m)" = aarch64 ]; then \
+      cpanm --notest --configure-timeout 300 \
+        --configure-args='DEFINE="-Wall -Wextra -W -Wno-error=declaration-after-statement"' \
+        R/RU/RURBAN/Cpanel-JSON-XS-4.52.tar.gz \
+        || { status=$?; cat /root/.cpanm/work/*/build.log; exit "$status"; }; \
+    fi
 COPY cpanfile ./
 # ARM emulation can make otherwise valid configure steps exceed cpanm's 60s default.
-RUN cpanm --notest --configure-timeout 300 --installdeps .
+RUN cpanm --notest --configure-timeout 300 --installdeps . \
+    || { status=$?; cat /root/.cpanm/work/*/build.log; exit "$status"; }
 
 # Build from the caller-supplied checkout so tags and workflow refs are reproducible.
 COPY . .
