@@ -118,10 +118,12 @@ jobs:
         with:
           install-dir: C:\cygwin
           add-to-path: false
+          # Cygwin Perl headers include crypt.h when compiling XS modules.
           packages: >-
             curl
             gcc-core
             gcc-g++
+            libcrypt-devel
             libexpat-devel
             libsqlite3-devel
             libssl-devel
