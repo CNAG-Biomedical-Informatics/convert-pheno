@@ -13,6 +13,7 @@ use Test::ConvertPheno qw(
   temp_output_file
   write_json_file
   write_csv_rows
+  csv_files_match
   structured_files_match
 );
 
@@ -94,7 +95,7 @@ for my $case (@cases) {
 
     my $match =
       $case->{writer} eq 'csv'
-      ? Test::ConvertPheno::json_files_match( $case->{out_file}, $tmp_file )
+      ? csv_files_match( $case->{out_file}, $tmp_file )
       : structured_files_match( $case->{out_file}, $tmp_file );
     ok( $match, $case->{name} );
 }

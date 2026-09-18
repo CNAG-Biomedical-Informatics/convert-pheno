@@ -375,7 +375,8 @@ sub load_csv_table {
 
 sub write_csv_rows {
     my ( $file, $headers, $rows ) = @_;
-    open my $fh, '>', $file or die "Could not open file '$file': $!";
+    open my $fh, '>:raw:encoding(UTF-8)', $file
+      or die "Could not open file '$file': $!";
     my $csv = Text::CSV_XS->new( { binary => 1, eol => "\n", sep_char => ';' } );
     $csv->print( $fh, $headers );
     for my $row (@$rows) {

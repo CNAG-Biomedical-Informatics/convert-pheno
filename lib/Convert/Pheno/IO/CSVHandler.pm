@@ -739,7 +739,8 @@ sub open_filehandle {
         binmode( $fh, ":encoding(UTF-8)" );
     }
     else {
-        open $fh, qq($handle:encoding(UTF-8)), $filepath;
+        my $layers = $mode eq 'r' ? ':encoding(UTF-8)' : ':raw:encoding(UTF-8)';
+        open $fh, qq($handle$layers), $filepath;
     }
     return $fh;
 }
