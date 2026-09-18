@@ -78,7 +78,7 @@ jobs:
           PERL_CPANM_HOME: ${{ runner.temp }}/cpanm
         run: |
           perl -V
-          cpanm --verbose --configure-timeout 300 --local-lib-contained "$RUNNER_TEMP/cpan-clean" distribution/Convert-Pheno-*.tar.gz
+          cpanm --verbose --configure-timeout 300 --local-lib "$RUNNER_TEMP/cpan-clean" distribution/Convert-Pheno-*.tar.gz
       - name: Preserve dependency and distribution logs
         if: always()
         uses: actions/upload-artifact@v4
