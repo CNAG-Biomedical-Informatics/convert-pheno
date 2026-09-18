@@ -29,21 +29,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # Keep packaging fixes independent of the immutable application release.
-      - name: Check out packaging recipe
-        uses: actions/checkout@v5
-
       - name: Check out release
         uses: actions/checkout@v5
         with:
           ref: refs/tags/${{ inputs.tag || github.ref_name }}
-          path: release
           fetch-depth: 0
 
       - name: Read build metadata
         id: build_metadata
         shell: bash
-        working-directory: release
         env:
           RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
         run: |
@@ -84,7 +78,7 @@ jobs:
       - name: Build and push multi-arch image
         uses: docker/build-push-action@v6
         with:
-          context: ./release
+          context: .
           file: docker/Dockerfile
           push: ${{ github.event_name == 'push' || inputs.publish }}
           tags: |
@@ -100,7 +94,6 @@ jobs:
             org.opencontainers.image.source=https://github.com/CNAG-Biomedical-Informatics/convert-pheno
             org.opencontainers.image.version=${{ steps.build_metadata.outputs.version }}
             org.opencontainers.image.revision=${{ steps.build_metadata.outputs.revision }}
-            org.opencontainers.image.packaging-revision=${{ github.sha }}
             org.opencontainers.image.licenses=Artistic-2.0
           cache-from: type=gha
           cache-to: type=gha,mode=max
