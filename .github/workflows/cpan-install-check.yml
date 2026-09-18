@@ -98,3 +98,52 @@ jobs:
           name: cpan-logs-${{ matrix.os }}-${{ matrix.perl }}
           path: ${{ runner.temp }}/cpanm/work/**/build.log
           if-no-files-found: warn
+
+  cygwin:
+    needs: distribution
+    name: Install on Cygwin
+    runs-on: windows-latest
+    timeout-minutes: 90
+    env:
+      # Keep native Windows tools and Strawberry Perl out of Cygwin's PATH.
+      CYGWIN_NOWINPATH: 1
+      CHERE_INVOKING: 1
+    steps:
+      - uses: actions/download-artifact@v5
+        with:
+          name: cpan-distribution
+          path: distribution
+      - name: Install Cygwin build environment
+        uses: cygwin/cygwin-install-action@3f0a3f9f988f7e96b8c18098ae05eaec175f5b52 # v6.1
+        with:
+          install-dir: C:\cygwin
+          add-to-path: false
+          packages: >-
+            curl
+            gcc-core
+            gcc-g++
+            libexpat-devel
+            libsqlite3-devel
+            libssl-devel
+            libxml2-devel
+            make
+            perl
+            pkg-config
+            zlib-devel
+      - name: Install and test the distribution on Cygwin
+        shell: C:\cygwin\bin\bash.EXE --noprofile --norc -e -o igncr -o pipefail {0}
+        run: |
+          export PATH=/usr/local/bin:/usr/bin
+          export PERL_CPANM_HOME=/tmp/cpanm
+          unset PERL5LIB PERL_LOCAL_LIB_ROOT PERL_MB_OPT PERL_MM_OPT
+          cd "$(cygpath -u "$GITHUB_WORKSPACE")"
+          perl -V
+          curl --fail --location https://cpanmin.us | perl - App::cpanminus
+          cpanm --verbose --configure-timeout 300 distribution/Convert-Pheno-*.tar.gz
+      - name: Preserve Cygwin dependency and distribution logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cpan-logs-cygwin
+          path: C:\cygwin\tmp\cpanm\work\**\build.log
+          if-no-files-found: warn
