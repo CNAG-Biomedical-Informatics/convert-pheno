@@ -1,0 +1,88 @@
+name: Check CPAN distribution installation
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing release tag to test without publishing
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  distribution:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: refs/tags/${{ inputs.tag }}
+      - uses: shogo82148/actions-setup-perl@v1
+        with:
+          perl-version: '5.40'
+      - name: Build the release archive
+        env:
+          RELEASE_TAG: ${{ inputs.tag }}
+        run: |
+          perl scripts/check-release.pl "$RELEASE_TAG"
+          cpanm --notest File::ShareDir::Install ExtUtils::MakeMaker
+          perl Makefile.PL
+          make manifest
+          make dist
+          sha256sum Convert-Pheno-*.tar.gz
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cpan-distribution
+          path: Convert-Pheno-*.tar.gz
+          if-no-files-found: error
+
+  installation:
+    needs: distribution
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            perl: '5.40'
+            distribution: strawberry
+          - os: windows-latest
+            perl: '5.42'
+            distribution: strawberry
+          - os: macos-15
+            perl: '5.34'
+            distribution: default
+          - os: macos-15
+            perl: '5.42'
+            distribution: default
+          - os: ubuntu-24.04-arm
+            perl: '5.34'
+            distribution: default
+    name: Install on ${{ matrix.os }} / Perl ${{ matrix.perl }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    env:
+      PERL_CPANM_HOME: ${{ runner.temp }}/cpanm
+    steps:
+      - uses: shogo82148/actions-setup-perl@v1
+        with:
+          perl-version: ${{ matrix.perl }}
+          distribution: ${{ matrix.distribution }}
+      - uses: actions/download-artifact@v5
+        with:
+          name: cpan-distribution
+          path: distribution
+      # Install the tarball, not a checkout or a hand-maintained dependency list.
+      # No patched Net::IDN::Encode, compiler overrides, force, or skipped tests.
+      - name: Install and test the distribution
+        shell: bash
+        run: |
+          perl -V
+          cpanm --verbose --configure-timeout 300 --local-lib-contained "$RUNNER_TEMP/cpan-clean" distribution/Convert-Pheno-*.tar.gz
+      - name: Preserve dependency and distribution logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cpan-logs-${{ matrix.os }}-${{ matrix.perl }}
+          path: ${{ runner.temp }}/cpanm/work/**/build.log
+          if-no-files-found: warn
