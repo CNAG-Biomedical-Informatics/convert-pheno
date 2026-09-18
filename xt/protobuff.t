@@ -8,7 +8,20 @@ use strict;
 use warnings;
 use lib qw(./lib ../lib t/lib);
 
-use Test::More tests => 6;
+use Test::More;
+
+# Check optional dependencies before Inline's compile-time import below. Normal
+# installations do not need the Python bridge used by this development test.
+BEGIN {
+    eval { require Inline; require Inline::Python; 1 }
+      or plan skip_all => 'Phenopackets validation requires Inline and Inline::Python';
+    eval {
+        Inline::Python::py_eval('from google.protobuf.json_format import Parse; from phenopackets import Phenopacket');
+        1;
+    } or plan skip_all => 'Phenopackets validation requires the Python protobuf and phenopackets packages';
+}
+
+plan tests => 6;
 
 my %cases = (
     bff2pxf => {
