@@ -7,6 +7,7 @@ import ConceptDetails from './components/ConceptDetails'
 import RunActions from './components/RunActions'
 import CopyButton from './components/CopyButton'
 import ConversionOptions from './components/ConversionOptions'
+import JobSettings from './components/JobSettings'
 const MappingEditor = lazy(() => import('./components/MappingEditor'))
 import type { Artifact, Conversion, FileHandle, Job, Preview, Resource } from './types'
 import { readSettings, saveSettings, type ThemeChoice } from './settings'
@@ -390,7 +391,11 @@ export default function App() {
       quit: () => guardProject(quitProject),
       open: () => guardProject(openProject), save: async () => { await saveProject() },
       'save-as': async () => { await saveProject(true) }, run: submit,
-      cancel: async () => { const target = active.find((item) => item.status === 'running') || active[0]; if (target) await cancelRun(target) },
+      cancel: async () => {
+        const target = active.find((item) => item.id === selectedJob)
+        if (target) await cancelRun(target)
+        else setMessage('Select an active run in Runs to cancel it.')
+      },
       'cancel-pending': cancelPending,
       'delete-history': () => deleteAllRuns(false),
       'delete-files': () => deleteAllRuns(true),
@@ -438,7 +443,7 @@ export default function App() {
       </RunActions>
       {displayedRoute ? <div className="route-badges" aria-label="Conversion formats"><span className={`format-label format-${displayedRoute.source.id}`}>{displayedRoute.source.label}</span><span aria-hidden="true">→</span><span className={`format-label format-${displayedRoute.target.id}`}>{displayedRoute.target.label}</span>{browsingRun && job && <span className="run-context">Run {job.id.slice(0, 6)} · {new Date(job.created * 1000).toLocaleString()}</span>}</div>
         : <span className="route-title">{browsingRun ? job?.conversion : 'Connecting to the conversion engine'}</span>}
-      {active.some((item) => item.status === 'running') && <button disabled={Boolean(pendingAction)} onClick={() => void run(() => cancelRun(active.find((item) => item.status === 'running')!))}><Square aria-hidden="true" />Cancel active run</button>}
+      {job && busy(job) && <button disabled={Boolean(pendingAction)} onClick={() => void run(() => cancelRun(job))}><Square aria-hidden="true" />Cancel selected run</button>}
     </div>
     <div className="desktop-body">
       {settings.explorer && <><aside id="workspace-navigation" className="workspace-tree" aria-label="Workspace explorer" style={{ width: navigationWidth, flexBasis: navigationWidth }}>
@@ -524,6 +529,7 @@ export default function App() {
             <label><input type="checkbox" checked={settings.inspector} onChange={(event) => setSettings({ ...settings, inspector: event.target.checked })} />Show record inspector</label>
             <label><input type="checkbox" checked={taskPanel} onChange={(event)=>setTaskPanel(event.target.checked)} />Show task panel</label>
           </div><p>Appearance settings are remembered on this device.</p>
+          <JobSettings />
           <p>Inputs remain unchanged. Results are written into a separate run directory.</p></section> : <>
           <nav className="workspace-tabs" aria-label="Workspace views">{tabs.map((item)=><button key={item} aria-current={item===tab?'page':undefined} onClick={()=>setTab(item)}>{item}{item==='Warnings'&&job?.result?.warnings.length ? ` (${job.result.warnings.length})`:''}</button>)}</nav>
           <div className="workspace-view">

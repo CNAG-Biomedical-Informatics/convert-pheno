@@ -377,6 +377,14 @@ those backends require this exact name. Leave the option off for normal output.
 
 ## Reading A Rule
 
+:::note[Disease or phenotypic feature?]
+Use `diseases` for diagnoses, including diagnosed comorbidities, and
+`phenotypicFeatures` for findings such as seizures or hearing impairment.
+Choose according to what the source field records, not just the term's name
+or ontology prefix. A comorbidity is not necessarily an undiagnosed finding.
+See the [Phenopackets distinction between disease and phenotype](https://phenopacket-schema.readthedocs.io/en/latest/disease.html).
+:::
+
 Each repeated section contains ordered rules. A rule keeps its source selector
 and Beacon target properties together:
 

@@ -15,6 +15,9 @@ export const post = <T,>(path: string, body: unknown) =>
   request<T>(path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
 export const getConversions = () => request<Conversion[]>('/api/conversions')
 export const listJobs = () => request<Job[]>('/api/jobs')
+export type JobSettings = { maxConcurrentJobs: number; maxAllowedConcurrentJobs: number }
+export const getJobSettings = () => request<JobSettings>('/api/jobs/settings')
+export const updateJobSettings = (maxConcurrentJobs: number) => post<JobSettings>('/api/jobs/settings', { maxConcurrentJobs })
 export const getResources = () => request<Resource[]>('/api/resources')
 export const lookupConcept = (id: string) => request<ConceptLookup>(`/api/ontology/omop/${encodeURIComponent(id)}`)
 export const cancelJob = (id: string) => post<Job>(`/api/jobs/${id}/cancel`, {})

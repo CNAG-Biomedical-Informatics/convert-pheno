@@ -43,7 +43,7 @@ export default function Home() {
               <p className={styles.entryLinks}>
                 <Link to="/download-and-installation">Install locally</Link>
                 {' · '}<a href="https://colab.research.google.com/drive/1T6F3bLwfZyiYKD6fl1CIxs9vG068RHQ6">Try in Colab</a>
-                {' · '}<a href="https://www.youtube.com/channel/UC1bjHxoYV9uGJaTyd3bZnEA">Video tutorials</a>
+                {' · '}<Link to="/video-tutorials">Video tutorials</Link>
               </p>
             </div>
             <img

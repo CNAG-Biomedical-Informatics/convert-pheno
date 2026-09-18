@@ -252,6 +252,24 @@ ok(
     'file service returns the requested terminology audit artifact',
 );
 my $audit_review = $file_response{csv2bff}{meta}{terminologyAudit};
+my $compound_audit = execute_files(
+    'csv2omop',
+    { options => { separator => ',', term_audit => 'tsv', test => JSON::XS::true } },
+    {
+        source => [ uploaded_file('t/csv2bff/in/csv_data.csv') ],
+        mapping => [ uploaded_file('t/csv2bff/in/csv_mapping.yaml') ],
+    },
+    { workspace => $upload_workspace },
+);
+my $compound_review = $compound_audit->{meta}{terminologyAudit};
+ok( $compound_review, 'compound conversion exposes terminology review to Desktop' );
+my ($compound_report) = grep { $_->{filename} eq 'term-audit.tsv' }
+  @{ $compound_audit->{artifacts} };
+my @compound_lines = grep { length } split /\n/, $compound_report->{content};
+is( $compound_review->{totalDecisions}, scalar(@compound_lines) - 1,
+    'compound review describes the final audit report rather than an intermediate stage' );
+ok( $compound_review && !grep({ $_->{ontology} ne 'ohdsi' } @{ $compound_review->{rows} || [] }),
+    'CSV-to-OMOP review exposes the final OMOP vocabulary decisions' );
 ok( $audit_review, 'file service returns structured terminology review metadata' );
 is( $audit_review->{reportArtifactId}, 'term-audit',
     'terminology review identifies its complete downloadable report' );

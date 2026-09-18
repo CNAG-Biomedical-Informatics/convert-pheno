@@ -1,6 +1,6 @@
 Revision history for Perl distribution Convert-Pheno
 
-0.35 2026-XX-XXT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
+0.35 2026-09-18T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
  - Added a native desktop application and expanded the Mojolicious API for JSON and file-based conversions
  - Added experimental i2b2, PCORnet CDM and Sentinel CDM table-package input with BFF, PXF and OMOP-CDM output

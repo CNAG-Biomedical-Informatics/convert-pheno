@@ -7,6 +7,8 @@ slug: /graphical-interface
 Convert files locally with the **same core engine as the CLI**. Available from
 Convert-Pheno 0.35. Participant data stays on your computer.
 
+See [Video Tutorials](video-tutorials) for demonstrations with synthetic data.
+
 ## Install
 
 Download the installer for your operating system and processor from
@@ -110,8 +112,19 @@ for dataset metadata and [Terminology Search](terminology-search) for matching.
 
 ## Output folders and run history
 
-Each run writes to its own folder. Runs execute **one at a time**; you can queue
-more while working. Wait for completion before quitting.
+:::info[Background conversions, including long-running jobs]
+Conversions run **asynchronously**, so you can continue using the app while a
+job processes your data. Follow its status in **Runs**, inspect earlier results,
+or queue another conversion. By default, jobs execute **one at a time**. In
+**Settings → Maximum concurrent jobs**, you can allow more conversions to run
+simultaneously. Each conversion generally uses one CPU core, and running more
+jobs is limited to the detected logical CPU count (up to 16). Running more
+jobs also needs more memory; this setting does not reserve CPU cores.
+Lowering the limit lets active jobs finish before starting more queued work.
+**Keep the app open** until your jobs finish.
+:::
+
+Each run writes to its own folder.
 
 Use a run's three-dot menu to cancel it, **Delete from history** (keep files),
 or **Delete run and output files**. The **Runs** menu offers bulk deletion.

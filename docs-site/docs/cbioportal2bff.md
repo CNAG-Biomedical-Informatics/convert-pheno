@@ -3,23 +3,63 @@ title: cBioPortal to BFF
 sidebar_label: cBioPortal to BFF
 ---
 
-The built-in clinical study mapping is summarized below. An optional Mapping V2
-file can add project-specific patient and sample columns.
+The tables describe the built-in mapping. Target paths are relative to one
+record in the named BFF collection. An optional mapping file can add or replace
+mapped fields as described below.
 
-| cBioPortal source | BFF destination | Behavior |
+## Individuals
+
+One individual is created per `PATIENT_ID`. If the patient table is absent,
+patient identifiers are taken from the sample table.
+
+| Source field | BFF target | Notes |
 | --- | --- | --- |
-| Study identifier | Dataset identifier | Preserved as the stable dataset identity |
-| Study name and description | Dataset name and description | Copied from study metadata |
-| Patient identifier | Individual identifier | Required and not rewritable by the optional mapping |
-| Patient sex or gender | Individual sex | Common male, female, other, and unknown values are normalized |
-| Patient survival status | Phenopackets vital-status provenance | Living/alive and deceased values are recognized when present |
-| OncoTree code and cancer labels | Individual disease | One distinct disease term is emitted per patient |
-| Sample identifier | Biosample identifier | Required and not rewritable by the optional mapping |
-| Sample patient identifier | Biosample individual link | Must resolve to a known patient |
-| OncoTree code and detailed cancer label | Biosample histological diagnosis | Emitted as an `OncoTree:` term |
-| Sample type | Source provenance | Preserved exactly; not assumed to be an ontology concept |
-| Case-list stable identifier and name | Cohort identifier and name | Preserved from each case-list descriptor |
-| Case-list sample members | Cohort membership and size | Samples are resolved to distinct patient identifiers |
+| Patient `PATIENT_ID` | `id` | Required; optional mapping cannot change it |
+| Patient `SEX`, fallback `GENDER` | `sex` | First non-empty value; male, female and other use NCIT defaults, otherwise unknown |
+| Patient `OS_STATUS` | `info.phenopacket.vitalStatus.status` | Values containing `DECEASED` become `DECEASED`; `LIVING` or `ALIVE` become `ALIVE`; otherwise omitted |
+| Linked samples' `ONCOTREE_CODE` | `diseases[].diseaseCode.id` | `OncoTree:` prefix; one entry per distinct code within the patient |
+| Sample `CANCER_TYPE_DETAILED`, fallback `CANCER_TYPE`, then OncoTree code | `diseases[].diseaseCode.label` | Requires a usable `ONCOTREE_CODE`; a cancer label alone does not create a disease |
+| Patient row | `info.cbioportal.patient` | Original columns, unless `--no-source-info` |
+| Linked biosamples | `info.phenopacket.biosamples[]` | Phenopackets representation retained for subsequent PXF conversion |
+
+## Biosamples
+
+| Source field | BFF target | Notes |
+| --- | --- | --- |
+| Sample `SAMPLE_ID` | `id` | Required and unique |
+| Sample `PATIENT_ID` | `individualId` | Links to the corresponding individual |
+| Sample `ONCOTREE_CODE` | `histologicalDiagnosis.id` | `OncoTree:` prefix; omitted when the code is absent or marked unavailable |
+| Sample `CANCER_TYPE_DETAILED`, fallback `CANCER_TYPE`, then OncoTree code | `histologicalDiagnosis.label` | Same label selection as individual diseases |
+| No built-in source mapping | `biosampleStatus`, `sampleOriginType` | Both default to `NCIT:C126101` / `Not Available` |
+| Sample `SAMPLE_TYPE` | `info.cbioportal.sample.SAMPLE_TYPE` | Source value only; not automatically converted into an ontology term |
+| Sample row | `info.cbioportal.sample` | Original columns, unless `--no-source-info` |
+
+## Datasets
+
+One dataset is emitted for the study when `datasets` is requested.
+
+| Source field | BFF target | Notes |
+| --- | --- | --- |
+| Study metadata `cancer_study_identifier` | `id` | Source-derived default |
+| Study metadata `name` | `name` | Required in the study package |
+| Study metadata `description` | `description` | Falls back to “cBioPortal study” followed by the study identifier |
+| Number of patients and samples | `info.individualCount`, `info.biosampleCount` | Counts across the study |
+| Study metadata | `info.cbioportal.study` | Unless `--no-source-info` |
+| Patient and sample column definitions | `info.cbioportal.patientAttributeDefinitions`, `info.cbioportal.sampleAttributeDefinitions` | Unless `--no-source-info` |
+
+## Cohorts
+
+One cohort is emitted per case list when `cohorts` is requested.
+
+| Source field | BFF target | Notes |
+| --- | --- | --- |
+| Case-list `stable_id` | `id` | Preserved |
+| Case-list `case_list_name` | `name` | Preserved |
+| Built-in value | `cohortType` | `study-defined` |
+| Case-list `case_list_ids` | `info.cbioportal.membership.sampleIds` | Sample identifiers; unknown samples cause an error |
+| Patients linked to those samples | `info.cbioportal.membership.individualIds` | Distinct patient identifiers |
+| Number of distinct linked patients | `cohortSize` | Counts people, not samples |
+| Case-list metadata | `info.cbioportal.caseList` | Unless `--no-source-info`; membership is always retained |
 
 ## Required Defaults
 
@@ -48,7 +88,8 @@ is retained because it is part of the converted relationship graph.
 
 Use `source.profile: cbioportal`. Individual rules read patient columns and
 biosample rules read sample columns. Dataset and cohort defaults can augment
-the source-derived collection metadata. The package identifiers remain
-authoritative so references cannot be broken by configuration.
+the source-derived collection metadata. Patient and sample identifiers and their
+links cannot be changed. Dataset defaults can override dataset metadata; cohort
+`id`, `name`, and `cohortSize` remain derived from the case list.
 
 See the [cBioPortal format guide](cbioportal) for commands and input scope.

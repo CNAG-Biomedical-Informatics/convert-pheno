@@ -307,6 +307,8 @@ post '/api/inputs' => sub {
 };
 
 get '/api/jobs' => sub { my $c=shift; job_call($c,sub {$jobs->list}) };
+get '/api/jobs/settings' => sub { my $c=shift; job_call($c,sub {$jobs->settings}) };
+post '/api/jobs/settings' => sub { my $c=shift; job_call($c,sub {$jobs->update_settings($c->req->json)}) };
 post '/api/jobs/cancel-pending' => sub { my $c=shift; job_call($c,sub {$jobs->cancel_pending}) };
 get '/api/inputs/:id/preview' => sub {my $c=shift; job_call($c,sub {$jobs->input_preview($c->param('id'))})};
 post '/api/mappings' => sub {my $c=shift; job_call($c,sub {$jobs->save_mapping(($c->req->json || {})->{text})},201)};

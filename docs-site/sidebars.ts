@@ -234,8 +234,8 @@ const sidebars: SidebarsConfig = {
       collapsed: true,
       items: [
         {
-          type: 'link',
-          href: 'https://www.youtube.com/channel/UC1bjHxoYV9uGJaTyd3bZnEA',
+          type: 'doc',
+          id: 'video-tutorials',
           label: 'Video Tutorials',
         },
         {

@@ -302,6 +302,37 @@
         }
       }
     },
+    "/api/jobs/settings": {
+      "get": {
+        "summary": "Read saved job concurrency settings",
+        "responses": {
+          "200": {
+            "description": "Current scheduler limits",
+            "content": {"application/json": {"schema": {"$ref": "#/components/schemas/JobSettingsResponse"}}}
+          }
+        }
+      },
+      "post": {
+        "summary": "Set maximum concurrent jobs",
+        "description": "Persists across restarts. Increasing the limit starts queued jobs; lowering it lets active jobs finish. Each job runs in a separate process.",
+        "requestBody": {
+          "required": true,
+          "content": {"application/json": {"schema": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["maxConcurrentJobs"],
+            "properties": {"maxConcurrentJobs": {"type": "integer", "minimum": 1, "maximum": 16, "default": 1}}
+          }}}
+        },
+        "responses": {
+          "200": {
+            "description": "Saved scheduler limits",
+            "content": {"application/json": {"schema": {"$ref": "#/components/schemas/JobSettingsResponse"}}}
+          },
+          "422": {"$ref": "#/components/responses/InvalidRequest"}
+        }
+      }
+    },
     "/api/jobs/{id}": {
       "parameters": [
         {
@@ -1157,6 +1188,21 @@
   },
   "components": {
     "schemas": {
+      "JobSettingsResponse": {
+        "type": "object",
+        "required": ["ok", "data"],
+        "properties": {
+          "ok": {"type": "boolean", "enum": [true]},
+          "data": {
+            "type": "object",
+            "required": ["maxConcurrentJobs", "maxAllowedConcurrentJobs"],
+            "properties": {
+              "maxConcurrentJobs": {"type": "integer", "minimum": 1, "maximum": 16},
+              "maxAllowedConcurrentJobs": {"type": "integer", "minimum": 1, "maximum": 16, "description": "Service limit; Desktop uses available logical CPUs, capped at 16. Requests cannot exceed this value."}
+            }
+          }
+        }
+      },
       "HealthResponse": {
         "type": "object",
         "required": [

@@ -162,6 +162,14 @@ fn start_engine(app: &tauri::App) -> Result<Engine, Box<dyn std::error::Error>> 
         .env("CONVERT_PHENO_API_TOKEN", &token)
         .env("CONVERT_PHENO_LOCAL_TOKEN", &local_token)
         .env("CONVERT_PHENO_STATE_DIR", state)
+        // Report available logical CPUs, not physical cores or CPU reservations.
+        .env(
+            "CONVERT_PHENO_JOB_LIMIT",
+            std::thread::available_parallelism()
+                .map(|count| count.get().min(16))
+                .unwrap_or(1)
+                .to_string(),
+        )
         .env("CONVERT_PHENO_SHARE_DIR", root.join("share"))
         .env("CONVERT_PHENO_OHDSI_DB_DIR", ohdsi_dir)
         .env("CONVERT_PHENO_API_HOSTS", "127.0.0.1")
@@ -802,7 +810,7 @@ fn menus(app: &tauri::App) -> tauri::Result<Menu<tauri::Wry>> {
         "Runs",
         true,
         &[
-            &action("cancel", "Cancel Active Run...", None)?,
+            &action("cancel", "Cancel Selected Run...", None)?,
             &action("cancel-pending", "Cancel Pending Runs...", None)?,
             &PredefinedMenuItem::separator(app)?,
             &action(

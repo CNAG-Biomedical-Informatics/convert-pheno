@@ -10,9 +10,22 @@ use Test::More;
 
 local $ENV{CONVERT_PHENO_API_TOKEN} = 'test-api-token-' x 3;
 local $ENV{CONVERT_PHENO_STATE_DIR} = tempdir(CLEANUP => 1);
+local $ENV{CONVERT_PHENO_JOB_LIMIT} = 4;
 require "$Bin/../main.pl";
 my $t = Test::Mojo->new(main::app());
 my $auth = {Authorization => 'Bearer ' . $ENV{CONVERT_PHENO_API_TOKEN}};
+
+$t->get_ok('/api/jobs/settings')->status_is(401);
+$t->get_ok('/api/jobs/settings' => $auth)->status_is(200)
+  ->json_is('/data/maxConcurrentJobs', 1);
+$t->post_ok('/api/jobs/settings' => $auth => json => {maxConcurrentJobs => 4})
+  ->status_is(200)->json_is('/data/maxConcurrentJobs', 4);
+$t->post_ok('/api/jobs/settings' => $auth => json => {maxConcurrentJobs => 0})
+  ->status_is(422);
+$t->get_ok('/api/jobs/settings' => $auth)->status_is(200)
+  ->json_is('/data/maxConcurrentJobs', 4);
+$t->post_ok('/api/jobs/settings' => $auth => json => {maxConcurrentJobs => 1})
+  ->status_is(200);
 
 $t->get_ok('/api/health')->status_is(401);
 $t->get_ok('/api/health' => $auth)->status_is(200)->json_is('/ok', true);

@@ -63,7 +63,15 @@ Set `options.term_audit` to `xlsx` or `tsv` to request a terminology report.
 Completed jobs include the report among their outputs and a bounded preview in
 `data.result.meta.terminologyAudit`.
 
-Runs execute one at a time. Cancel with `POST /api/jobs/{id}/cancel`.
+Runs execute one at a time by default. Read the saved limit with
+`GET /api/jobs/settings`, or change it with `POST /api/jobs/settings` and
+`{"maxConcurrentJobs": 4}`. The maximum is returned as `maxAllowedConcurrentJobs`.
+Desktop detects available logical CPUs, capped at 16. Standalone services default
+to a limit of one; operators can set `CONVERT_PHENO_JOB_LIMIT` (1–16) before
+starting the service. The setting persists across service restarts.
+Lowering it does not interrupt active jobs. Each job has its own worker process
+and output folder; higher limits require more memory.
+Cancel an individual run with `POST /api/jobs/{id}/cancel`.
 Deleting history with `DELETE /api/jobs/{id}` keeps outputs; deleting
 `/api/jobs/{id}/files` also removes the run's outputs, never original source files.
 

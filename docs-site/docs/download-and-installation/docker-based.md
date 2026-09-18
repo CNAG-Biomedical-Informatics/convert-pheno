@@ -184,6 +184,17 @@ gdown.download(url, output, quiet=False)
 
 ## Advanced Docker Usage
 
+### Updating An Image
+
+To update the published image, repeat the `docker pull` and `docker image tag`
+commands above, then start a new container. Existing containers continue to use
+the image from which they were created.
+
+For local builds, source changes invalidate the relevant cached layers
+automatically. To refresh the base image and rerun every build step, add
+`--pull --no-cache` to the build command below. `--no-cache` alone does not
+request an updated base image; a clean rebuild is not needed for every code change.
+
 The sections below are useful when you need to build or inspect the image,
 reproduce regression examples, or use the repository's Docker Makefile. They
 are not required for normal conversions with the published image.

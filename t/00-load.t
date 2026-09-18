@@ -7,6 +7,17 @@ use Test::More;
 
 use_ok('Convert::Pheno');
 
+{
+    local %ENV = %ENV;
+    delete @ENV{qw(LOGNAME USER USERNAME)};
+    is(Convert::Pheno->new()->username, 'dummy-user',
+        'missing username environment variables have a string fallback');
+    is(Convert::Pheno->new(username => undef)->username, 'dummy-user',
+        'explicit undefined username uses the same fallback');
+    is(Convert::Pheno->new(username => 'reviewer')->username, 'reviewer',
+        'explicit username is preserved without environment defaults');
+}
+
 my $signal_check = q{
     use strict;
     use warnings;

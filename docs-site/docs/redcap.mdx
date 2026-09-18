@@ -74,6 +74,10 @@ REDCap CDISC-ODM export follows the separate [CDISC-ODM](cdisc-odm) route.
    dictionary and mapping file. Removing line breaks from text values is
    recommended for a reliable CSV export.
 
+   Combined checkbox exports, where several selections occupy one cell (for
+   example, `1,3`), are not automatically expanded. Use separate columns such
+   as `foo___1` and `foo___3` in the raw-data export.
+
 <figure className="redcapExportFigure">
   <img
     src={useBaseUrl('/img/redcap-checkbox.png')}

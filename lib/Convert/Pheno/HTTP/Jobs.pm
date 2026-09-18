@@ -21,6 +21,16 @@ use Convert::Pheno::HTTP::Service qw(execute execute_files catalog);
 use Convert::Pheno::IO::Atomic qw(write_atomically);
 
 my $JSON = JSON::XS->new->utf8->canonical->pretty;
+my $MAX_CONCURRENT_JOBS = 16;
+
+sub _validate_job_limit {
+    my ($value, $maximum) = @_;
+    $maximum //= $MAX_CONCURRENT_JOBS;
+    die "Maximum concurrent jobs must be an integer from 1 to $maximum\n"
+      unless defined($value) && !ref($value) && "$value" =~ /\A[1-9][0-9]*\z/
+      && $value <= $maximum;
+    return 0 + $value;
+}
 
 sub _write {
     my ($file, $data) = @_;
@@ -107,12 +117,20 @@ sub new {
     my ($class, %args) = @_;
     die "Job storage and worker executable are required\n" unless $args{root} && $args{worker};
     make_path($args{root}, { mode => 0700 });
-    my $self = bless { %args, root => _resolved_path($args{root}), queue => [], grants => {} }, $class;
+    my $self = bless { %args, root => _resolved_path($args{root}), queue => [], grants => {}, active => {} }, $class;
     # Recovery may rewrite run state, so only one supervisor may own this store.
     # Keep the handle open for its lifetime; do not unlink the lock file.
     open my $lock, '>>', path($self->{root}, '.supervisor.lock') or die "Cannot lock job storage\n";
     flock($lock, LOCK_EX | LOCK_NB) or die "This job storage is already in use by another Convert-Pheno service\n";
     $self->{storage_lock} = $lock;
+    # Desktop supplies its platform-detected CPU limit. Standalone services
+    # default to one worker unless the operator explicitly configures a limit.
+    $self->{max_allowed_jobs} = _validate_job_limit($ENV{CONVERT_PHENO_JOB_LIMIT} // 1);
+    my $settings_file = path($self->{root}, 'scheduler-settings.json');
+    my $settings = -f $settings_file ? _read($settings_file) : {maxConcurrentJobs => 1};
+    $self->{max_concurrent_jobs} = _validate_job_limit($settings->{maxConcurrentJobs});
+    $self->{max_concurrent_jobs} = $self->{max_allowed_jobs}
+      if $self->{max_concurrent_jobs} > $self->{max_allowed_jobs};
     my %worker_locks;
     # Preflight all runs before changing any state. A surviving child still owns
     # its run even if its former supervisor's store lock has been released.
@@ -134,6 +152,23 @@ sub new {
         unlink "$dir/request.json";
     }
     return $self;
+}
+
+sub settings {
+    my ($self) = @_;
+    return {maxConcurrentJobs => $self->{max_concurrent_jobs}, maxAllowedConcurrentJobs => $self->{max_allowed_jobs}};
+}
+
+sub update_settings {
+    my ($self, $settings) = @_;
+    die "The job service has stopped\n" if $self->{stopped};
+    die "Provide only maxConcurrentJobs\n" unless ref($settings) eq 'HASH'
+      && keys(%$settings) == 1 && exists $settings->{maxConcurrentJobs};
+    my $limit = _validate_job_limit($settings->{maxConcurrentJobs}, $self->{max_allowed_jobs});
+    _write(path($self->{root}, 'scheduler-settings.json'), {maxConcurrentJobs => $limit});
+    $self->{max_concurrent_jobs} = $limit;
+    $self->_next;
+    return $self->settings;
 }
 
 sub register_file {
@@ -230,7 +265,7 @@ sub delete_history {
 sub delete_files {
     my ($self, $id) = @_;
     die "This run is still finishing; wait before deleting its files\n"
-      if $self->{active} && $self->{active}{id} eq $id;
+      if $self->{active}{$id};
     my $dir = $self->_directory($id);
     my $status = $self->status($id);
     die "Cancel this run and wait for it to stop before deleting files\n"
@@ -310,50 +345,58 @@ sub delete_all {
 
 sub _next {
     my ($self)=@_;
-    return if $self->{active} || !@{$self->{queue}};
-    my $id = shift @{$self->{queue}};
-    my $dir = $self->_directory($id);
-    my $status = $self->status($id);
-    $status->{status} = 'running';
-    _write($dir->child('status.json'), $status);
-    my ($stdin, $stdout, $stderr) = (gensym(), gensym(), gensym());
-    my $pid = eval { open3($stdin, $stdout, $stderr, $^X, $self->{worker}, "$dir") };
-    if (!$pid) {
-        $status->{status} = 'failed'; $status->{message} = 'Could not start the conversion worker';
-        $status->{finished} = time();
+    return if $self->{stopped};
+    # Each independent conversion owns one process and a separate run folder.
+    # Lowering the limit never interrupts existing workers.
+    while (@{$self->{queue}} && keys(%{$self->{active}}) < $self->{max_concurrent_jobs}) {
+        my $id = shift @{$self->{queue}};
+        my $dir = $self->_directory($id);
+        my $status = $self->status($id);
+        $status->{status} = 'running';
         _write($dir->child('status.json'), $status);
-        unlink $dir->child('request.json');
-        return $self->_next;
+        my ($stdin, $stdout, $stderr) = (gensym(), gensym(), gensym());
+        my $pid = eval { open3($stdin, $stdout, $stderr, $^X, $self->{worker}, "$dir") };
+        if (!$pid) {
+            $status->{status} = 'failed'; $status->{message} = 'Could not start the conversion worker';
+            $status->{finished} = time();
+            _write($dir->child('status.json'), $status);
+            unlink $dir->child('request.json');
+            next;
+        }
+        close $stdin;
+        $self->{active}{$id} = { id => $id, pid => $pid, stdout => $stdout, stderr => $stderr };
     }
-    close $stdin;
-    $self->{active} = { id => $id, pid => $pid, stdout => $stdout, stderr => $stderr };
-    $self->{timer} = Mojo::IOLoop->recurring(0.2 => sub { $self->poll });
+    $self->{timer} = Mojo::IOLoop->recurring(0.2 => sub { $self->poll })
+      if keys(%{$self->{active}}) && !defined($self->{timer});
 }
 
 sub poll {
     my ($self)=@_;
-    my $active = $self->{active} or return;
-    return if waitpid($active->{pid}, WNOHANG) == 0;
-    close $active->{stdout}; close $active->{stderr};
-    Mojo::IOLoop->remove(delete $self->{timer});
-    my $dir = $self->_directory($active->{id});
-    my $status = $self->status($active->{id});
-    my $recovered = eval { _recover_publication($dir, $status) };
-    if ($recovered) { $status = $recovered }
-    else {
-        $status->{status} = 'failed';
-        $status->{message} = 'Export recovery could not safely clean the output folder. Files were retained for manual review.';
-        $status->{finished} = time();
-        _write($dir->child('status.json'), $status);
+    for my $id (keys %{$self->{active}}) {
+        my $active = $self->{active}{$id};
+        next if waitpid($active->{pid}, WNOHANG) == 0;
+        close $active->{stdout}; close $active->{stderr};
+        my $dir = $self->_directory($active->{id});
+        my $status = $self->status($active->{id});
+        my $recovered = eval { _recover_publication($dir, $status) };
+        if ($recovered) { $status = $recovered }
+        else {
+            $status->{status} = 'failed';
+            $status->{message} = 'Export recovery could not safely clean the output folder. Files were retained for manual review.';
+            $status->{finished} = time();
+            _write($dir->child('status.json'), $status);
+        }
+        if ($status->{status} =~ /\A(?:running|cancelling)\z/) {
+            $status->{status} = $active->{cancelled} ? 'cancelled' : 'failed';
+            $status->{message} = $active->{cancelled} ? 'Conversion cancelled' : 'Conversion worker stopped unexpectedly';
+            _write($dir->child('status.json'), $status);
+        }
+        remove_tree($dir->child('staging')) if $status->{status} ne 'completed';
+        unlink $dir->child('request.json');
+        delete $self->{active}{$id};
     }
-    if ($status->{status} =~ /\A(?:running|cancelling)\z/) {
-        $status->{status} = $active->{cancelled} ? 'cancelled' : 'failed';
-        $status->{message} = $active->{cancelled} ? 'Conversion cancelled' : 'Conversion worker stopped unexpectedly';
-        _write($dir->child('status.json'), $status);
-    }
-    remove_tree($dir->child('staging')) if $status->{status} ne 'completed';
-    unlink $dir->child('request.json');
-    delete $self->{active};
+    Mojo::IOLoop->remove(delete $self->{timer})
+      if !keys(%{$self->{active}}) && defined($self->{timer});
     $self->_next;
 }
 
@@ -368,10 +411,10 @@ sub cancel {
         unlink $self->_directory($id)->child('request.json');
     } elsif ($status->{status} eq 'running') {
         die "This run does not belong to the active worker\n"
-          unless $self->{active} && $self->{active}{id} eq $id;
+          unless $self->{active}{$id};
         $status->{status} = 'cancelling';
-        $self->{active}{cancelled} = 1;
-        kill 'KILL', $self->{active}{pid};
+        $self->{active}{$id}{cancelled} = 1;
+        kill 'KILL', $self->{active}{$id}{pid};
     }
     _write($self->_directory($id)->child('status.json'),$status);
     return $status;
@@ -389,13 +432,14 @@ sub cancel_pending {
 sub shutdown {
     my ($self)=@_;
     return if $self->{stopped};
-    $self->cancel_pending;
-    if (my $active = $self->{active}) {
-        $self->cancel($active->{id});
-        waitpid($active->{pid},0);
-        $self->poll;
-    }
+    # Prevent polling/cancellation from starting queued work during shutdown.
     $self->{stopped} = 1;
+    $self->cancel_pending;
+    $self->cancel($_) for keys %{$self->{active}};
+    for my $active (values %{$self->{active}}) {
+        waitpid($active->{pid},0);
+    }
+    $self->poll;
     close(delete $self->{storage_lock}) if $self->{storage_lock};
 }
 

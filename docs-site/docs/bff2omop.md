@@ -20,21 +20,6 @@ repeated Beacon fields into OMOP row arrays such as `CONDITION_OCCURRENCE`,
 
 **Entity:** PERSON, CONDITION_OCCURRENCE, OBSERVATION, PROCEDURE_OCCURRENCE, MEASUREMENT, DRUG_EXPOSURE
 
-## OMOP Concept Resolution
-
-For each mapped BFF ontology term, Convert-Pheno checks the identifier before
-the label. An active standard concept in the expected OMOP domain is used
-directly; a non-standard source concept is resolved through its active `Maps
-to` relationship (`Maps to value` for categorical measurement values). Only
-then can the configured exact, mixed, or fuzzy search use the label, and that
-search remains restricted to active standard concepts in the expected domain.
-
-If no unique eligible target exists, the target concept is `0` rather than an
-unrelated same-label concept. Source values are preserved, and source concept
-ids are populated when the BFF identifier exists in Athena. This behavior
-requires the current enriched `ohdsi.db`; see
-[Terminology Search](terminology-search) for the label-search modes and audit output.
-
 ## Terms
 
 ### PERSON
@@ -145,3 +130,16 @@ requires the current enriched `ohdsi.db`; see
 | `treatments[]._visit.occurrence_id` | `DRUG_EXPOSURE.visit_occurrence_id` | Direct when numeric; otherwise a surrogate integer is allocated |
 | `treatments[]._visit.detail_id` | `DRUG_EXPOSURE.visit_detail_id` | Direct |
 | current individual id | `DRUG_EXPOSURE.person_id` | Reuses `PERSON.person_id` |
+
+**Condition status:** OMOP distinguishes admitting, preliminary and final
+diagnoses. BFF-to-OMOP currently leaves `condition_status_concept_id` unset;
+no default diagnostic status is assigned.
+
+## OMOP Concept Resolution
+
+Convert-Pheno searches `ohdsi.db` by identifier first, then by label.
+Matches must resolve to a standard concept in the required OMOP domain.
+Unresolved or ambiguous terms receive `0`; source values are kept.
+
+Search is exact by default. Mapping-file aliases can provide a reviewed label
+or identifier to look up. See [Terminology Search](terminology-search) for other modes and audit reports.

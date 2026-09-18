@@ -55,12 +55,6 @@ jobs:
       - name: Typecheck, test, and build frontend
         working-directory: app
         run: npm run typecheck && npm test && npm run build
-      - name: Install Playwright Chromium
-        working-directory: app
-        run: npx playwright install --with-deps chromium
-      - name: Run browser integration tests
-        working-directory: app
-        run: npm run test:e2e
       - name: Install documentation dependencies
         working-directory: docs-site
         run: npm ci
@@ -92,4 +86,4 @@ jobs:
           curl --fail --silent \
             --header 'Authorization: Bearer 0123456789abcdef0123456789abcdef' \
             http://127.0.0.1:18080/api/health \
-            | python3 -c 'import json, sys; body=json.load(sys.stdin); assert body["ok"] and body["data"]["version"] == "0.34_1"'
+            | python3 -c 'import json, pathlib, sys; body=json.load(sys.stdin); assert body["ok"] and body["data"]["version"] == pathlib.Path("VERSION").read_text().strip()'

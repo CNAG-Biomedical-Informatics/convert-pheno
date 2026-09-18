@@ -23,6 +23,7 @@ sub run_conversion_pipeline {
     my $execution = Convert::Pheno::ExecutionContext->new(
         { request => $request }
     );
+    delete $converter->{_term_audit_review};
 
     # OMOP file input is already emitted one participant at a time. Preserve
     # that bounded-memory path while applying the downstream BFF-to-PXF stage
@@ -32,6 +33,7 @@ sub run_conversion_pipeline {
         my $stage_converter = Convert::Pheno->new($arguments);
         $stage_converter->{method_ori} = $spec->{name};
         my $result = $stage_converter->$stage();
+        $converter->{_term_audit_review} = $stage_converter->term_audit_review;
         return $execution->complete_stage($result);
     }
 
@@ -39,6 +41,11 @@ sub run_conversion_pipeline {
         my ( $stage, $arguments ) = $execution->begin_next_stage;
         my $stage_converter = Convert::Pheno->new($arguments);
         my $result = $stage_converter->$stage();
+        # Stages own their audit writers; callers need the review associated
+        # with the last written report, not an intermediate mapping decision.
+        if (my $review = $stage_converter->term_audit_review) {
+            $converter->{_term_audit_review} = $review;
+        }
         $execution->complete_stage($result);
     }
 

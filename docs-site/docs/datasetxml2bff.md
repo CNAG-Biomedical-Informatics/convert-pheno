@@ -27,23 +27,70 @@ per `DM.USUBJID` and can synthesize `datasets` and `cohorts`.
 | `ItemGroupDataSeq` | source row number | Must be present and unique within the file |
 | `ItemData.ItemOID` and `Value` | row value | Unknown or duplicate item identifiers fail; omitted `ItemData` means missing |
 
-## Shared SDTM Semantics
+## Demographics
 
-The field-level BFF mapping is shared with Dataset-JSON:
+After Define-XML resolves the variable names, the following mappings apply.
+Targets are relative to one BFF individual. Dataset-JSON uses the same mapper.
 
-| SDTM domain | Main BFF target |
-| --- | --- |
-| `DM` | id, sex, ethnicity, geographic origin, birth date, and vital status |
-| `MH` | diseases |
-| `AE` | phenotypic features |
-| `LB`, `VS` | measures |
-| `CM`, `EX` | treatments |
-| `PR` | interventions or procedures |
-| `TS` | synthesized dataset and cohort metadata |
+| SDTM source | BFF target | Notes |
+| --- | --- | --- |
+| `DM.USUBJID` | `id` | Required; one `DM` row per participant |
+| `DM.SEX` | `sex` | Male, female and other use NCIT terms; missing or unrecognized values use unknown |
+| `DM.ETHNIC` | `ethnicity` | Uses terminology resolution described below |
+| `DM.COUNTRY` | `geographicOrigin` | Without a resolved term, two- or three-letter values receive an `ISO3166-1:` prefix; other values use a source-derived term |
+| `DM.BRTHDTC` | `info.phenopacket.dateOfBirth` | Full dates become midnight UTC; supported timestamps are retained |
+| `DM.DTHFL=Y` or a supplied `DM.DTHDTC` | `info.phenopacket.vitalStatus.status` | Sets `DECEASED` |
+| `DM.DTHDTC` | `info.phenopacket.vitalStatus.timeOfDeath.timestamp` | Included when the date or timestamp is supported |
 
-See [Dataset-JSON to BFF](datasetjson2bff) for the detailed SDTM variable table.
-The difference is the transport and provenance boundary, not the semantic
-mapping.
+## Diseases And Phenotypic Features
+
+| SDTM source | BFF target | Notes |
+| --- | --- | --- |
+| `MH.MHDECOD`, fallback `MH.MHTERM` | `diseases[].diseaseCode` | Reported `MHTERM` is preferred for the source label |
+| `AE.AEDECOD`, fallback `AE.AETERM` | `phenotypicFeatures[].featureType` | Reported `AETERM` is preferred for the source label; `excluded` is `false` |
+| `AE.AESEV` | `phenotypicFeatures[].severity` | Included when supplied |
+| `AE.AESTDTC` | `phenotypicFeatures[].onset.timestamp` | Supported date or timestamp |
+| `AE.AEENDTC` | `phenotypicFeatures[].resolution.timestamp` | Supported date or timestamp |
+
+## Measurements
+
+Each usable laboratory or vital-sign row becomes a measure.
+
+| SDTM source | BFF target | Notes |
+| --- | --- | --- |
+| `LB.LBTESTCD`, fallback `LB.LBTEST` | `measures[].assayCode` | `LBTEST` supplies the preferred source label |
+| `VS.VSTESTCD`, fallback `VS.VSTEST` | `measures[].assayCode` | `VSTEST` supplies the preferred source label |
+| `LB.LBSTRESN` or `VS.VSSTRESN` | `measures[].measurementValue.quantity.value` | Used when numeric |
+| `LB.LBSTRESU` or `VS.VSSTRESU` | `measures[].measurementValue.quantity.unit` | Missing units default to `NCIT:C126101` / `Not Available` |
+| `LB.LBSTNRLO/LBSTNRHI` or `VS.VSSTNRLO/VSSTNRHI` | `measures[].measurementValue.quantity.referenceRange` | Both bounds must be numeric; uses the measurement unit |
+| `LB.LBSTRESC` or `VS.VSSTRESC` | `measures[].measurementValue` | Categorical term when no numeric result is available; rows without either result are skipped |
+| `LB.LBDTC` or `VS.VSDTC` | `measures[].date` | Date component only |
+
+## Treatments And Procedures
+
+| SDTM source | BFF target | Notes |
+| --- | --- | --- |
+| `CM.CMDECOD`, fallback `CM.CMTRT` | `treatments[].treatmentCode` | `CMTRT` supplies the preferred source label |
+| `EX.EXTRT` | `treatments[].treatmentCode` | Exposure treatment |
+| `CM.CMROUTE` or `EX.EXROUTE` | `treatments[].routeOfAdministration` | Included when supplied |
+| `PR.PRDECOD`, fallback `PR.PRTRT` | `interventionsOrProcedures[].procedureCode` | `PRTRT` supplies the preferred source label |
+| `PR.PRLOC` | `interventionsOrProcedures[].bodySite` | Included when supplied |
+| `PR.PRSTDTC` | `interventionsOrProcedures[].dateOfProcedure` | Date component only |
+
+Other fields, including treatment doses and medical-history dates, remain in
+source provenance rather than being mapped to dedicated BFF fields.
+
+## Study Metadata
+
+These defaults are used when dataset or cohort output is requested.
+
+| Source | BFF target | Notes |
+| --- | --- | --- |
+| XML `StudyOID` | Dataset `id`; cohort `id` | Cohort identifier adds `-cohort` |
+| `TS.TSVAL` where `TS.TSPARMCD=TITLE` | Dataset and cohort `name` | Falls back to `StudyOID` |
+| `StudyOID` | Dataset `description` | Generated description identifying the Dataset-XML study |
+| Built-in value | Cohort `cohortType` | `study-defined` |
+| XML metadata and subject-independent domains | Dataset `info.datasetXml` | Omitted with `--no-source-info` |
 
 ## Terminology And Provenance
 

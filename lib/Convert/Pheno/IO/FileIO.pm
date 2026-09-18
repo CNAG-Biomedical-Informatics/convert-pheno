@@ -12,7 +12,6 @@ $YAML::XS::Boolean = 'JSON::PP';    # use JSON::PP::Boolean objects
 use JSON::XS;
 use IO::Compress::Gzip     qw($GzipError);
 use IO::Uncompress::Gunzip qw($GunzipError);
-use Sort::Naturally qw(nsort);
 use Data::Leaf::Walker;
 use Exporter 'import';
 our @EXPORT = qw(read_json read_yaml io_yaml_or_json write_json write_yaml);
