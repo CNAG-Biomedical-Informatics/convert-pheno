@@ -3,9 +3,10 @@ name: Check CPAN distribution installation
 on:
   workflow_dispatch:
     inputs:
-      tag:
-        description: Existing release tag to test without publishing
+      source_ref:
+        description: Git ref to package and test without publishing
         required: true
+        default: main
         type: string
 
 permissions:
@@ -17,15 +18,13 @@ jobs:
     steps:
       - uses: actions/checkout@v5
         with:
-          ref: refs/tags/${{ inputs.tag }}
+          ref: ${{ inputs.source_ref }}
       - uses: shogo82148/actions-setup-perl@v1
         with:
           perl-version: '5.40'
       - name: Build the release archive
-        env:
-          RELEASE_TAG: ${{ inputs.tag }}
         run: |
-          perl scripts/check-release.pl "$RELEASE_TAG"
+          perl scripts/check-release.pl
           cpanm --notest File::ShareDir::Install ExtUtils::MakeMaker
           perl Makefile.PL
           make manifest
@@ -78,7 +77,8 @@ jobs:
           PERL_CPANM_HOME: ${{ runner.temp }}/cpanm
         run: |
           perl -V
-          cpanm --verbose --configure-timeout 300 --local-lib "$RUNNER_TEMP/cpan-clean" distribution/Convert-Pheno-*.tar.gz
+          perl -e 'for my $module (qw(ExtUtils::MakeMaker Pod::Man)) { my $ok = eval "require $module; 1"; print "$module: ", ($ok ? $module->VERSION : "missing ($@)"), "\n" }'
+          cpanm --verbose --configure-timeout 300 distribution/Convert-Pheno-*.tar.gz
       - name: Preserve dependency and distribution logs
         if: always()
         uses: actions/upload-artifact@v4
