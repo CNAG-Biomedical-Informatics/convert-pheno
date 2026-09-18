@@ -62,6 +62,39 @@ eval {Convert::Pheno::HTTP::Projects::open($jobs, "$file")};
 like($@, qr/Missing project data/, 'missing pasted data fails clearly instead of discarding it');
 $jobs->shutdown;
 
+subtest 'project paths through a symbolic-link directory' => sub {
+    my $base = path(tempdir(CLEANUP => 1))->realpath;
+    my $real = $base->child('real'); $real->mkpath;
+    my $link = $base->child('alias');
+    plan skip_all => 'Directory symlinks are unavailable' unless eval { symlink "$real", "$link" };
+    my $service = Convert::Pheno::HTTP::Jobs->new(
+        root => "$base/service", worker => abs_path('api/perl/worker.pl'));
+    my $source = $real->child('external.csv'); $source->spew_utf8("id\n1\n");
+    my $destination = $real->child('output'); $destination->mkpath;
+    my $managed = path($service->{root}, 'example.csv'); $managed->spew_utf8("id\n2\n");
+    my $project = $link->child('review.cpheno');
+    Convert::Pheno::HTTP::Projects::save($service, "$project", {
+        settings => $data->{settings},
+        files => {
+            source => [$service->register_file("$source")->{id}],
+            dictionary => [$service->register_file("$managed")->{id}],
+        },
+        destination => $service->register_file("$destination")->{id},
+        jsonInput => '{"id":"synthetic"}', mapping => "mappingVersion: 2\n",
+    });
+    my $stored = JSON::XS::decode_json($project->slurp_raw);
+    is($stored->{sources}{source}[0]{path}, 'external.csv', 'source is relative to the physical project directory');
+    is($stored->{destination}, 'output', 'destination is relative to the physical project directory');
+    like($stored->{jsonInput}, qr/^review\.cpheno\.data\//, 'owned text stays within the companion folder');
+    $managed->remove;
+    for my $directory ($real, $link) {
+        my $restored = Convert::Pheno::HTTP::Projects::open($service, "@{[$directory->child('review.cpheno')]}");
+        is_deeply($restored->{missing}, [], "all files reopen through $directory");
+        is($restored->{jsonInput}, '{"id":"synthetic"}', 'owned text reopens');
+    }
+    $service->shutdown;
+};
+
 require Test::Mojo;
 local $ENV{CONVERT_PHENO_API_TOKEN} = 'a' x 32;
 local $ENV{CONVERT_PHENO_LOCAL_TOKEN} = 'b' x 32;

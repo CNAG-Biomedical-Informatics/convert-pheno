@@ -43,7 +43,10 @@ sub save {
     die "Use a .cpheno project filename\n" unless defined($file) && !ref($file) && $file =~ /\.cpheno\z/i;
     die "Project location is unavailable\n" unless -d path($file)->parent && !-l $file;
     _read($file) if -e $file;
-    my $parent = path($file)->parent->absolute;
+    # Grants use canonical paths. Resolve the project directory too, otherwise
+    # macOS /var -> /private/var (or another directory symlink) breaks references.
+    my $parent = path($file)->parent->realpath;
+    $file = "@{[$parent->child(path($file)->basename)]}";
     my $assets = path("$file.data");
     die "Project data folder must not be a symbolic link\n" if -l $assets;
     # Use a new snapshot so a failed save cannot invalidate the previous manifest.
@@ -93,7 +96,7 @@ sub save {
 sub open {
     my ($jobs, $file) = @_;
     my $saved = _read($file);
-    my $parent = path($file)->parent;
+    my $parent = path($file)->parent->realpath;
     my $resolve = sub {
         my ($value) = @_;
         die "Invalid path in project\n" if !defined($value) || ref($value) || $value =~ /\0/;
