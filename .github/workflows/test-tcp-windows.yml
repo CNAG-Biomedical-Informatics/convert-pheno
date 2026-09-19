@@ -9,7 +9,7 @@ permissions:
 jobs:
   test-tcp:
     runs-on: windows-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: shogo82148/actions-setup-perl@v1
         with:
@@ -18,6 +18,17 @@ jobs:
 
       # Reproduce the upstream release involved in the clean-install hang.
       # This is diagnostic only: no dependency pins or test skips in the package.
+      - name: Install and test dependencies with normal TAP settings
+        shell: pwsh
+        timeout-minutes: 6
+        env:
+          PERL_CPANM_HOME: ${{ runner.temp }}/cpanm
+        run: |
+          perl -V
+          cpanm --verbose --configure-timeout 300 --test-timeout 300 Test::SharedFork
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      # Keep HARNESS_VERBOSE out of SharedFork's nested test harness.
       - name: Install and test Test-TCP 2.22 with verbose TAP
         shell: pwsh
         timeout-minutes: 12
