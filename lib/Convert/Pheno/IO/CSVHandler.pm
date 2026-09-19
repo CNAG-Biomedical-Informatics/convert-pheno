@@ -729,7 +729,8 @@ sub open_filehandle {
     my $fh;
     if ( $filepath =~ /\.gz$/ ) {
         if ( $mode eq 'a' || $mode eq 'w' ) {
-            my %gzip_args;
+            # Gzip ignores binmode, so encode character strings here instead.
+            my %gzip_args = (Encode => 'UTF-8');
             $gzip_args{Append} = 1 if ( $mode eq 'a' && -e $filepath );
             $fh = IO::Compress::Gzip->new( $filepath, %gzip_args );
         }
@@ -739,6 +740,8 @@ sub open_filehandle {
         binmode( $fh, ":encoding(UTF-8)" );
     }
     else {
+        # Generated records use LF on every OS; embedded source newlines must
+        # also pass through unchanged. Input retains its existing read layers.
         my $layers = $mode eq 'r' ? ':encoding(UTF-8)' : ':raw:encoding(UTF-8)';
         open $fh, qq($handle$layers), $filepath;
     }

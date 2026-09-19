@@ -235,6 +235,24 @@ directly as gzip files.
 
 
 </details>
+<details>
+<summary>Can I open the generated CSV files in Excel on Windows? What line endings do they use?</summary>
+
+Yes. Modern Excel on Windows can import CSV files with **LF** (`\n`) line
+endings. Convert-Pheno uses LF for generated CSV files, including OMOP tables,
+on Windows, macOS and Linux. Desktop and CLI use the same conversion writers.
+
+JSON, YAML and terminology-audit TSV output also use LF, including streamed
+OMOP-to-BFF output. Gzipped files contain the same line endings after
+decompression. This keeps generated line endings consistent across platforms.
+XLSX workbooks are not plain text files, so this convention does not apply to them.
+
+You normally do not need to change line endings before importing a file.
+If a particular importer explicitly requires Windows **CRLF** (`\r\n`), convert a copy for that
+importer. Newlines stored inside source field values are separate from the
+line endings used to write records.
+
+</details>
 ## Installation
 
 <details>

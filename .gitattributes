@@ -3,5 +3,8 @@
 *.t linguist-language=Perl
 nb/** linguist-vendored
 
+# CSV fixtures are compared byte-for-byte with deterministic LF output.
+t/**/*.csv text eol=lf
+
 # Docusaurus documentation source should not skew GitHub language statistics.
 docs-site/** linguist-documentation

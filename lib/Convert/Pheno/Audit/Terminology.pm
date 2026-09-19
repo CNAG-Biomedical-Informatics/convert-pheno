@@ -156,13 +156,14 @@ sub _open_tsv {
     my $fh;
 
     if ( $path =~ /\.gz\z/i ) {
-        $fh = IO::Compress::Gzip->new($path)
+        # IO::Compress::Gzip ignores binmode; encode text through its own option.
+        $fh = IO::Compress::Gzip->new($path, Encode => 'UTF-8')
           or die "Cannot gzip <$path>: $GzipError\n";
-        binmode( $fh, ':encoding(UTF-8)' );
         $self->{format} = 'tsv_gzip';
     }
     else {
-        open $fh, '>:encoding(UTF-8)', $path
+        # Match gzip and the other text writers: encode once, preserve LF.
+        open $fh, '>:raw:encoding(UTF-8)', $path
           or die "Cannot write terminology audit <$path>: $!\n";
         $self->{format} = 'tsv';
     }
