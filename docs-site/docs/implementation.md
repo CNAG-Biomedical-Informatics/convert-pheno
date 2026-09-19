@@ -54,3 +54,11 @@ For BFF output, `-obff FILE` writes one `individuals` collection. Use
 File output is staged before replacing an existing destination, reducing the
 risk of leaving a partial file after an error. Large supported OMOP input
 routes can also use streaming to limit memory use.
+
+:::note[Job-status synchronization]
+Even a single desktop conversion uses separate worker and supervisor processes.
+The worker updates job metadata while the supervisor reads it. A shared lock
+file coordinates these operations, preventing reads during file replacement,
+particularly on Windows. This does not prevent different conversion jobs from
+running concurrently.
+:::

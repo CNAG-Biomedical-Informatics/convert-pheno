@@ -16,8 +16,7 @@ my $lockfile = path($root, '.metadata.lock');
 sub probe_lock {
     my ($expected, $message, $shared) = @_;
     my ($exit, $out, $err) = run_command_capture(command => [
-        $^X, '-MFcntl=:flock', '-e',
-        'open my $fh, ">>", $ARGV[0] or die $!; print flock($fh, ($ARGV[1] ? LOCK_SH : LOCK_EX) | LOCK_NB) ? "free" : "held";',
+        $^X, 't/lib/metadata-lock-probe.pl',
         "$lockfile", $shared ? 1 : 0,
     ]);
     is($exit, 0, "$message: probe runs") or diag $err;
