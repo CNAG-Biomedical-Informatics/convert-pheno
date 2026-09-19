@@ -149,6 +149,7 @@ const config: Config = {
       copyright: 'Copyright © 2022-2026 Manuel Rueda, CNAG.',
     },
     prism: {
+      additionalLanguages: ['perl'],
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
     },

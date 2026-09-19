@@ -10,14 +10,24 @@ slug: /implementation
 
 ```mermaid
 %%{init: {'theme':'neutral'}}%%
-flowchart LR
-  CLI[CLI] --> Core[Perl conversion core]
-  Module[Perl module] --> Core
-  Python[Python binding] --> Bridge[JSON bridge] --> Core
-  Desktop[Desktop application] --> API[Mojolicious API] --> Core
-  Client[HTTP(s) client] --> API
+graph TB
+  subgraph "Perl"
+  A[Module]--> B[CLI]
+  A[Module]--> C[API]
+  end
+
+  subgraph "Python"
+  A --> |Python Binding| E[Module]
+  E --> F[API]
+  end
+
+  style A fill: #6495ED, stroke: #6495ED
+  style B fill: #6495ED, stroke: #6495ED
+  style C fill: #6495ED, stroke: #6495ED
+  style E fill: #FFFF33, stroke: #FFFF33
+  style F fill: #FFFF33, stroke: #FFFF33
 ```
-<figcaption>Public interfaces delegate conversion behavior to the same Perl core.</figcaption>
+<figcaption>Diagram showing Convert-Pheno implementation</figcaption>
 
 :::tip[Which one should I use?]
 Most users should start with the [CLI](use-as-a-command-line-interface). From version 0.35, the [desktop application](graphical-interface) provides a native interface for interactive conversions. The [module](use-as-a-module) and [HTTP(s) APIs](use-as-an-api) are intended for developers embedding conversions in other software.
@@ -54,11 +64,3 @@ For BFF output, `-obff FILE` writes one `individuals` collection. Use
 File output is staged before replacing an existing destination, reducing the
 risk of leaving a partial file after an error. Large supported OMOP input
 routes can also use streaming to limit memory use.
-
-:::note[Job-status synchronization]
-Even a single desktop conversion uses separate worker and supervisor processes.
-The worker updates job metadata while the supervisor reads it. A shared lock
-file coordinates these operations, preventing reads during file replacement,
-particularly on Windows. This does not prevent different conversion jobs from
-running concurrently.
-:::

@@ -5,23 +5,32 @@ sidebar_label: API
 slug: /use-as-an-api
 ---
 
-The **Mojolicious API** powers Convert-Pheno Desktop. It runs conversions as
-background jobs using the same core engine as the CLI. New HTTP(s) integrations
-should use this API.
+Use the **HTTP(s) API** to run Convert-Pheno from your own scripts or applications.
+Send input data, start a conversion, then retrieve the output files. Conversions
+use the same core engine as the CLI.
 
-## Start and authenticate
+This page explains how to run the Mojolicious API yourself. **Desktop users do
+not need these steps:** the application starts the API automatically.
 
-Desktop manages its own local service. To run one separately, start from the
-repository root:
+## Start the API
+
+The API requires a **token**, a secret value that your script sends with each
+request (at least 32 characters; the command below generates 64 random hexadecimal
+characters). This prevents clients without the token from using the service, even
+when it runs on your own computer.
+
+From the repository root, generate a token and start the API:
 
 ```bash
 export CONVERT_PHENO_API_TOKEN="$(openssl rand -hex 32)"
 morbo -l http://127.0.0.1:3000 api/perl/main.pl
 ```
 
-Include `Authorization: Bearer <token>` in every request. Keep the service on
-**127.0.0.1**. Native-only endpoints use an additional private token for local
-file selection and project management; they are not remote upload endpoints.
+The address **127.0.0.1** keeps the API accessible only from this computer.
+Keep this terminal running. Your client must send the same token in the
+`Authorization: Bearer <token>` header, as shown in the examples below. If you
+run the examples in another terminal, set `CONVERT_PHENO_API_TOKEN` there to
+the same value; do not generate a second token.
 
 ## Submit a conversion
 
@@ -117,6 +126,73 @@ Runs execute one at a time. Request errors return `401` for missing
 authentication, `403` for denied access, or `422` for rejected job requests.
 Failures after submission appear in the job status.
 
+## JavaScript example
+
+This Node.js example uses built-in `fetch`. Set `CONVERT_PHENO_API_TOKEN` to
+the same value used to start the server. It submits a Phenopacket and checks
+the job once per second, for up to one minute.
+
+<details>
+<summary>Convert a Phenopacket to Beacon v2</summary>
+
+```javascript
+async function convertPhenopacket(phenopacket) {
+  const base = 'http://127.0.0.1:3000';
+  const token = process.env.CONVERT_PHENO_API_TOKEN;
+  if (!token) throw new Error('Set CONVERT_PHENO_API_TOKEN first');
+
+  async function request(path, body) {
+    const response = await fetch(`${base}${path}`, {
+      method: body ? 'POST' : 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: body ? JSON.stringify(body) : undefined,
+      signal: AbortSignal.timeout(10000),
+    });
+    const result = await response.json();
+    if (!response.ok) {
+      throw new Error(result.error?.message ?? `HTTP ${response.status}`);
+    }
+    return result.data;
+  }
+
+  const job = await request('/api/jobs', {
+    conversion: 'pxf2bff',
+    input: {data: phenopacket},
+    output: {entities: ['individuals']},
+    options: {},
+  });
+
+  const deadline = Date.now() + 60000;
+  while (Date.now() < deadline) {
+    const current = await request(`/api/jobs/${job.id}`);
+    if (current.status === 'completed') {
+      return {jobId: job.id, outputs: current.result.artifacts};
+    }
+    if (['failed', 'cancelled', 'interrupted'].includes(current.status)) {
+      throw new Error(current.message ?? `Job ${current.status}`);
+    }
+    await new Promise(resolve => setTimeout(resolve, 1000));
+  }
+  throw new Error(`Stopped waiting for job ${job.id}; it has not been cancelled`);
+}
+
+// In an ES module (.mjs):
+const result = await convertPhenopacket({
+  id: 'packet-1',
+  subject: {id: 'person-1', sex: 'FEMALE'},
+});
+console.log(result);
+```
+
+The returned list describes the output files; it does not contain their contents.
+Use the download endpoint above with the job ID and each output's `id` to retrieve
+them, sending the same authorization header.
+
+</details>
+
 ## Python HTTP server
 
 :::caution[Planned deprecation]
@@ -134,3 +210,12 @@ if maintaining an existing integration.
 The [OpenAPI specification](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/blob/main/api/perl/openapi.json)
 and [ReDoc reference](https://cnag-biomedical-informatics.github.io/convert-pheno/api/redoc-static.html)
 describe the Mojolicious job API, including its native-only endpoints.
+
+<details>
+<summary>Desktop-only endpoints</summary>
+
+Local file selection and project management endpoints require an additional
+private token managed by Desktop. Other API clients should use the upload
+endpoint described above, not these endpoints or paths to files on the server.
+
+</details>
