@@ -9,7 +9,7 @@ use File::Copy qw(copy);
 use File::Find qw(find);
 use File::Path qw(make_path remove_tree);
 use File::Spec;
-use Fcntl qw(LOCK_EX LOCK_NB);
+use Fcntl qw(LOCK_EX LOCK_SH LOCK_NB);
 use IPC::Open3 qw(open3);
 use JSON::XS;
 use Mojo::IOLoop;
@@ -32,11 +32,29 @@ sub _validate_job_limit {
     return 0 + $value;
 }
 
+sub _metadata_lock {
+    my ($file, $mode) = @_;
+    # Lock a stable sibling, not the JSON inode replaced by atomic writes.
+    # Windows readers must not overlap replacement (including its backup gap).
+    # Keep this file in place: unlinking it could create two independent locks.
+    my $lockfile = path($file)->parent->child('.metadata.lock');
+    open my $lock, '>>', $lockfile
+      or die "Cannot open job metadata lock <$lockfile>: $!\n";
+    flock($lock, $mode)
+      or die "Cannot lock job metadata <$lockfile>: $!\n";
+    return $lock;
+}
+
 sub _write {
     my ($file, $data) = @_;
+    my $lock = _metadata_lock($file, LOCK_EX);
     write_atomically($file, sub { path($_[0])->spew_raw($JSON->encode($data)) });
 }
-sub _read { return $JSON->decode(path($_[0])->slurp_raw) }
+sub _read {
+    my ($file) = @_;
+    my $lock = _metadata_lock($file, LOCK_SH);
+    return $JSON->decode(path($file)->slurp_raw);
+}
 sub _id { sha1_sum(join ':', $$, rand(), time(), {}) }
 sub _resolved_path {
     my ($value) = @_;
@@ -237,9 +255,12 @@ sub submit {
 
 sub _directory {
     my ($self, $id) = @_;
-    die "Unknown run\n" unless defined($id) && !ref($id) && $id =~ /\A[a-f0-9]{40}\z/
-      && -f path($self->{root}, $id, 'status.json');
-    return path($self->{root}, $id);
+    die "Unknown run\n" unless defined($id) && !ref($id) && $id =~ /\A[a-f0-9]{40}\z/;
+    my $dir = path($self->{root}, $id);
+    die "Unknown run\n" unless -d $dir;
+    my $lock = _metadata_lock($dir->child('status.json'), LOCK_SH);
+    die "Unknown run\n" unless -f $dir->child('status.json');
+    return $dir;
 }
 sub status {
     my ($self,$id)=@_;
@@ -293,7 +314,7 @@ sub delete_files {
     }
     for my $file ($dir->children) {
         die "Run folder contains unrecognized files; deletion was not performed\n"
-          if -l $file || ($file->basename !~ /\A(?:status\.json|request\.json|\.worker\.lock|mapping-.+|outputs|staging)\z/);
+          if -l $file || ($file->basename !~ /\A(?:status\.json|request\.json|\.worker\.lock|\.metadata\.lock|mapping-.+|outputs|staging)\z/);
     }
     # A previous output can be an input to another queued/running conversion.
     for my $other (@{$self->list}) {
@@ -321,7 +342,13 @@ sub delete_files {
 sub list {
     my ($self, %args)=@_;
     my $runs = [sort { $b->{created} <=> $a->{created} } map { $self->status($_->basename) }
-        grep { $_->basename =~ /\A[a-f0-9]{40}\z/ && -f $_->child('status.json') } path($self->{root})->children];
+        grep {
+            if ($_->basename =~ /\A[a-f0-9]{40}\z/ && -d $_) {
+                my $lock = _metadata_lock($_->child('status.json'), LOCK_SH);
+                -f $_->child('status.json');
+            }
+            else { 0 }
+        } path($self->{root})->children];
     $runs = [grep { !$_->{deletedFromHistory} } @$runs] unless $args{include_deleted};
     my %positions;
     my $position = 0;
