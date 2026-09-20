@@ -40,6 +40,12 @@ are not changed. Use quoted paths when filenames contain spaces.
 The compact flags above and the generic form
 `-i pxf phenopacket.json -o bff individuals.json` are equivalent.
 
+:::note[Default BFF output]
+For inputs that support BFF, omitting the output option defaults to
+`-obff individuals.json`. If you explicitly write `-o bff`, you must also
+provide the filename, for example `-o bff individuals.json`.
+:::
+
 ## Choose the output {#bff-output-modes}
 
 | What you want | Command ending |
