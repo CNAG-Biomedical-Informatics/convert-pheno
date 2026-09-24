@@ -253,7 +253,7 @@ The top-level sections have distinct responsibilities:
 | Section | Required for | Purpose |
 | --- | --- | --- |
 | `source` | All profiles | Declares the normalized source profile |
-| `target` | All profiles | Declares the target model and Beacon schema version |
+| `target` | All profiles | Declares the target model and schema version |
 | `project` | All profiles | Identifies and versions the project mapping |
 | `defaults` | Tabular and `sdtm` profiles | Sets the default ontology for term lookup |
 | `records` | Tabular profiles | Defines visit and longitudinal baseline behavior |
@@ -265,6 +265,18 @@ and `hpo`. Individual term rules may select another supported ontology.
 
 The route still determines how the input is parsed. `source.profile` describes
 the record and metadata contract consumed by the mapping:
+
+:::note[Why profile and model?]
+`source.profile` tells Convert-Pheno what kind of source records the mapping was
+written for. It does not choose the input parser; that comes from the conversion
+selected in the CLI. This is why Dataset-JSON and Dataset-XML both use `sdtm`,
+while REDCap-origin ODM uses `redcap`.
+
+`target.model` identifies the model described by the mapping rules. It is usually
+`beacon` because CSV, REDCap, and similar inputs are mapped to BFF first, even
+when the requested output is PXF or OMOP. A BFF-to-OMOP terminology mapping uses
+`target.model: omop`.
+:::
 
 | Profile | Use |
 | --- | --- |
