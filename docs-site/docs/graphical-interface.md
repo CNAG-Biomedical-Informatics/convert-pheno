@@ -4,6 +4,9 @@ title: Desktop Application
 slug: /graphical-interface
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 Convert files locally with the **same core engine as the CLI**. Available from
 Convert-Pheno 0.35. Participant data stays on your computer.
 
@@ -15,8 +18,10 @@ Download the installer for your operating system and processor from
 [GitHub Releases](https://github.com/CNAG-Biomedical-Informatics/convert-pheno/releases).
 The engine and runtime are included; no separate CPAN or Node.js installation is needed.
 
-<details>
-<summary>macOS installation</summary>
+<Tabs defaultValue="macos">
+<TabItem value="macos" label="macOS">
+
+### macOS
 
 Choose the Apple Silicon or Intel DMG to match **About This Mac**. Drag
 **Convert-Pheno** into **Applications**, then launch it there.
@@ -27,10 +32,19 @@ The macOS build is not Apple-notarized. If macOS blocks its first launch, open
 **Open Anyway** after attempting to open it.
 :::
 
-</details>
+</TabItem>
+<TabItem value="windows" label="Windows">
 
-<details>
-<summary>Linux installation and compatibility</summary>
+### Windows
+
+Download and run `convert-pheno-windows-x86_64-setup.exe`,
+then open Convert-Pheno from the Start menu. An unsigned installer may trigger
+SmartScreen; check the download source before selecting **More info > Run anyway**.
+
+</TabItem>
+<TabItem value="linux" label="Linux">
+
+### Linux
 
 Choose `linux-x86_64` for Intel/AMD or `linux-aarch64` for ARM64. For example:
 
@@ -47,16 +61,22 @@ AppImages still depend on the host's glibc. If an older installation reports
 Do not replace system glibc manually.
 :::
 
-</details>
+</TabItem>
+</Tabs>
 
-<details>
-<summary>Windows installation</summary>
+:::info[Where Desktop stores application data]
+Convert-Pheno Desktop stores run history, generated outputs, its engine log,
+settings, and the default resource folder separately from the application:
 
-Download and run `convert-pheno-windows-x86_64-setup.exe`,
-then open Convert-Pheno from the Start menu. An unsigned installer may trigger
-SmartScreen; check the download source before selecting **More info > Run anyway**.
+- **Linux:** `~/.local/share/org.cnag.convert-pheno/` (or `$XDG_DATA_HOME/org.cnag.convert-pheno/` when configured)
+- **macOS:** `~/Library/Application Support/org.cnag.convert-pheno/`
+- **Windows:** `%LOCALAPPDATA%\org.cnag.convert-pheno\`
 
-</details>
+If you choose another resource folder, `ohdsi.db` is stored there instead.
+Saved `.cpheno` projects and their `.cpheno.data` folders stay in the location
+you choose. Original input files remain external and are not modified. Quit the
+app before manually removing its application-data folder.
+:::
 
 ## First conversion
 
