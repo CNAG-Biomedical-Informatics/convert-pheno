@@ -64,7 +64,9 @@ Do not replace system glibc manually.
 </TabItem>
 </Tabs>
 
-:::info[Where Desktop stores application data]
+<details className="alert alert--info">
+<summary><strong>Where Desktop stores application data</strong></summary>
+
 Convert-Pheno Desktop stores run history, generated outputs, its engine log,
 settings, and the default resource folder separately from the application:
 
@@ -76,7 +78,8 @@ If you choose another resource folder, `ohdsi.db` is stored there instead.
 Saved `.cpheno` projects and their `.cpheno.data` folders stay in the location
 you choose. Original input files remain external and are not modified. Quit the
 app before manually removing its application-data folder.
-:::
+
+</details>
 
 ## First conversion
 
