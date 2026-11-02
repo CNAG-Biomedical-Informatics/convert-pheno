@@ -303,7 +303,7 @@ jobs:
           path: release-assets
           merge-multiple: true
 
-      - name: Publish inspected installers
+      - name: Verify and publish inspected installers
         env:
           GH_TOKEN: ${{ github.token }}
           RELEASE_EVENT: ${{ github.event_name }}
@@ -312,11 +312,32 @@ jobs:
         shell: bash
         run: |
           version="$(tr -d '\r\n' < VERSION)"
-          mapfile -t assets < <(find release-assets -type f -print | sort)
-          expected=10
-          [[ "$PLATFORMS" != windows ]] || expected=2
-          [[ "$PLATFORMS" != macos-linux ]] || expected=8
-          test "${#assets[@]}" -eq "$expected"
+          mapfile -t installers < <(find release-assets -type f \
+            \( -name '*.AppImage' -o -name '*.dmg' -o -name '*-setup.exe' \) \
+            -print | sort)
+          mapfile -t sidecars < <(find release-assets -type f -name '*.sha256' -print | sort)
+          mapfile -t downloaded < <(find release-assets -type f -print | sort)
+          expected=5
+          [[ "$PLATFORMS" != windows ]] || expected=1
+          [[ "$PLATFORMS" != macos-linux ]] || expected=4
+          test "${#installers[@]}" -eq "$expected"
+          test "${#sidecars[@]}" -eq "$expected"
+          test "${#downloaded[@]}" -eq "$((expected * 2))"
+
+          # Platform jobs retain sidecars as an internal transfer check. The
+          # release exposes one checksum manifest generated from final files.
+          checksum_file=release-assets/SHA256SUMS
+          : > "$checksum_file"
+          for installer in "${installers[@]}"; do
+            sidecar="$installer.sha256"
+            test -f "$sidecar"
+            read -r recorded_digest _ < "$sidecar"
+            actual_digest="$(sha256sum "$installer" | awk '{print $1}')"
+            test "${recorded_digest,,}" = "$actual_digest"
+            printf '%s  %s\n' "$actual_digest" "$(basename "$installer")" >> "$checksum_file"
+          done
+          (cd release-assets && sha256sum --check SHA256SUMS)
+          assets=("${installers[@]}" "$checksum_file")
           if [[ "$RELEASE_EVENT" == push ]]; then
             if gh release view "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
               test "$(gh release view "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" --json isDraft --jq .isDraft)" = true
@@ -325,7 +346,7 @@ jobs:
               gh release create "$RELEASE_TAG" "${assets[@]}" \
                 --repo "$GITHUB_REPOSITORY" --verify-tag --draft \
                 --title "Convert-Pheno $version" \
-                --notes "Desktop installers and SHA-256 checksums for Convert-Pheno $version. Review platform tests and release notes before publishing."
+                --notes "Desktop installers and SHA256SUMS for Convert-Pheno $version. Review platform tests and release notes before publishing."
             fi
             exit 0
           fi

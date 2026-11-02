@@ -26,8 +26,8 @@ git push origin 0.35
 ```
 
 This starts the Docker build/push and the five-platform Desktop build.
-Docker publishes `0.35` and `latest`. Desktop attaches installers and individual
-SHA-256 checksum files to a **draft** GitHub release for the existing tag.
+Docker publishes `0.35` and `latest`. Desktop attaches installers and one
+`SHA256SUMS` file to a **draft** GitHub release for the existing tag.
 Desktop test tags do not trigger either stable-release workflow.
 
 Inspect both workflows before publishing the draft. If the Desktop build

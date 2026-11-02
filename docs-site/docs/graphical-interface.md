@@ -64,6 +64,20 @@ Do not replace system glibc manually.
 </TabItem>
 </Tabs>
 
+### Optional checksum verification
+
+Download `SHA256SUMS` from the same release as the installer. Run the command
+for your platform, replacing `FILE` with the installer filename:
+
+| Platform | Command |
+|---|---|
+| Linux | `sha256sum FILE` |
+| macOS | `shasum -a 256 FILE` |
+| Windows PowerShell | `Get-FileHash FILE -Algorithm SHA256` |
+
+Compare the result with the matching filename in `SHA256SUMS`. Checksums detect
+damaged or changed downloads; they do not replace code signing.
+
 <details className="alert alert--info">
 <summary><strong>Where Desktop stores application data</strong></summary>
 
