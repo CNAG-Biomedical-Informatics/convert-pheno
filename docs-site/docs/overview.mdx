@@ -7,18 +7,14 @@ import Link from '@docusaurus/Link';
 
 <div className="convertDocHero">
   <p className="convertEyebrow">Overview</p>
-  <h2>Clinical and phenotypic data conversion across supported exchange models.</h2>
+  <h2>Convert clinical and phenotypic data between formats.</h2>
 
-  Convert-Pheno supports conversion routes involving [BFF](bff), [PXF](pxf),
-  [OMOP-CDM](omop-cdm), [REDCap](redcap), [cBioPortal](cbioportal), [CDISC-ODM](cdisc-odm),
-  [CDISC Dataset-JSON](dataset-json), [CDISC Dataset-XML](dataset-xml),
-  [FHIR R4 and mCODE](fhir), [i2b2](i2b2), [PCORnet CDM](pcornet),
-  [Sentinel CDM](sentinel), [CSV](csv), and
-  [openEHR](openehr).
+  Convert-Pheno reads clinical data exports and writes files in a selected
+  target format. See [Supported Formats](supported-formats) for available
+  inputs and outputs.
 
   <div className="convertHeroActions">
-    <Link className="button button--primary" to="/quickstart">Run your first conversion</Link>
-    <Link className="button button--secondary" to="/use-as-a-command-line-interface">CLI guide</Link>
+    <Link className="button button--primary" to="/quickstart">CLI quickstart</Link>
     <Link className="button button--secondary" to="/graphical-interface">Desktop application</Link>
   </div>
 </div>
@@ -32,43 +28,36 @@ datasets; their format guides state the current coverage.
 
 :::
 :::tip[Choose an interface]
-Start with the command-line interface. It supports files, mapping files, REDCap
-dictionaries, OMOP tables, terminology reports, and multi-entity BFF output.
+The [CLI](use-as-a-command-line-interface) suits terminal users, scripts, and
+automated workflows. [Desktop](graphical-interface) provides a graphical interface
+for local conversions; no command-line knowledge is needed.
 
-From **Convert-Pheno 0.35**, the native [desktop application](graphical-interface) provides
-an interactive interface for supported JSON and file-based conversions. The API and
-module are intended for integration with other software.
+Developers can integrate the same conversion engine through the
+[HTTP(s) API](use-as-an-api) or [Perl/Python interfaces](use-as-a-module).
 :::
 ## Typical conversions
 
-Most users come to `Convert-Pheno` for one of these tasks:
+Examples include:
 
-- convert `PXF` to `BFF` `individuals`, `biosamples`, `datasets`, and `cohorts`
-- convert `OMOP-CDM` exports to `BFF` or `PXF`
-- convert `REDCap` or `CDISC-ODM` data through a **mapping file**
-- convert CDISC Dataset-JSON SDTM domains to `BFF`, `PXF`, or supported `OMOP-CDM` tables
-- resolve CDISC Dataset-XML SDTM domains with Define-XML and convert them to `BFF`, `PXF`, or supported `OMOP-CDM` tables
-- convert generic FHIR R4 or mCODE 4.0 Bundles to `BFF`, `PXF`, or supported `OMOP-CDM` tables
-- convert cBioPortal clinical study packages to entity-aware `BFF`, `PXF`, or supported `OMOP-CDM` tables
-- convert exported i2b2, PCORnet CDM, or Sentinel CDM tables to `BFF`, `PXF`, or supported `OMOP-CDM` tables
-- use mapped raw `CSV` as an ETL source for `BFF`, `PXF`, or supported `OMOP-CDM` tables
-- convert `BFF` to `PXF`, flattened `CSV`, flattened `JSON`, or `JSON-LD`
+- convert [Phenopackets](pxf) to Beacon collections, or Beacon individuals to Phenopackets
+- convert [OMOP-CDM exports](omop2bff) to Beacon
+- map [REDCap](redcap) or [CSV](csv) fields to Beacon or OMOP-CDM using a **mapping file**
+- convert [FHIR](fhir), [CDISC Dataset-JSON](dataset-json), or [Dataset-XML](dataset-xml) to Beacon or Phenopackets
+- export [Beacon individuals](bff) as OMOP-CDM tables, flattened CSV, or JSON-LD
 
 ## Where to start
 
-- [5-Minute Quickstart](quickstart) runs one small PXF-to-BFF conversion
+- [5-Minute Quickstart](quickstart) runs one small PXF-to-BFF conversion using the CLI
 - [Command-Line Interface](use-as-a-command-line-interface) explains the CLI and links to commands grouped by input format
 - [Supported Formats](supported-formats) summarizes accepted files and outputs
 - [Mapping Files](mapping-files) explains project-specific CSV, REDCap, and ODM mappings
 - [Desktop Application](graphical-interface) covers the native interface available from version 0.35
+- [Troubleshooting](troubleshooting) helps with installation and input errors
 
 ## Developer interfaces
 
 - [Module](use-as-a-module) for local Perl or Python code
 - [API](use-as-an-api) for HTTP(s) requests and the OpenAPI contract
 - [Implementation](implementation) for the route registry and execution model
-- [Troubleshooting](troubleshooting) for common installation and input errors
 
-## External components
-
-- [GitHub repository](https://github.com/CNAG-Biomedical-Informatics/convert-pheno)
+Source code: [GitHub repository](https://github.com/CNAG-Biomedical-Informatics/convert-pheno).

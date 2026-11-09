@@ -64,7 +64,8 @@ Do not replace system glibc manually.
 </TabItem>
 </Tabs>
 
-### Optional checksum verification
+<details className="alert alert--info">
+<summary><strong>Optional checksum verification</strong></summary>
 
 Download `SHA256SUMS` from the same release as the installer. Run the command
 for your platform, replacing `FILE` with the installer filename:
@@ -77,6 +78,8 @@ for your platform, replacing `FILE` with the installer filename:
 
 Compare the result with the matching filename in `SHA256SUMS`. Checksums detect
 damaged or changed downloads; they do not replace code signing.
+
+</details>
 
 <details className="alert alert--info">
 <summary><strong>Where Desktop stores application data</strong></summary>
@@ -94,6 +97,31 @@ you choose. Original input files remain external and are not modified. Quit the
 app before manually removing its application-data folder.
 
 </details>
+
+### Update or uninstall Desktop
+
+Quit Convert-Pheno before updating. Replace the app in **Applications** on
+macOS, run the newer setup executable on Windows, or replace the AppImage on
+Linux.
+
+To uninstall, delete the AppImage on Linux, remove Convert-Pheno from
+**Applications** on macOS, or run the Convert-Pheno uninstaller from the Windows
+Start menu or **Settings > Apps > Installed apps**.
+
+On Windows, the uninstaller asks whether to **Delete app data**. Leave this
+unchecked to preserve settings and run history for a later reinstall. Select it
+only when you also want to remove generated outputs and resources in
+`%LOCALAPPDATA%\org.cnag.convert-pheno\`. The separately selected resource
+folder, saved projects, and original inputs are not removed.
+
+On Linux and macOS, uninstalling the application leaves the application-data
+folder listed above in place. Delete it manually only when you also want to
+reset local settings and history.
+
+:::caution[Save before removing application data]
+Deleting application data permanently removes its local run history and
+application-managed outputs. Save projects and copy required outputs first.
+:::
 
 ## First conversion
 
